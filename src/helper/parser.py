@@ -24,7 +24,7 @@ types = [
 
 def _vorl(var):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
-    if len(var) == 1 and type(var) == list:
+    if len(var) is 1 and type(var) is list:
         return var[0]
     else:
         return var
@@ -58,6 +58,13 @@ class Parser:
             if retriever.save_as is not None:
                 self.saves[retriever.save_as] = val
             result.append(val)
+
+        if retriever.on_success is not None:
+            if type(result) is list:
+                for x in range(0, len(result)):
+                    result[x] = retriever.on_success(result[x])
+            else:
+                result = retriever.on_success(result)
 
         return _vorl(result)
 

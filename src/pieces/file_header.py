@@ -4,7 +4,7 @@ from src.helper.datatype import DataType
 
 
 class FileHeaderPiece(ScenarioPiece):
-    data = [
+    retrievers = [
         Retriever("Version (ASCII)", DataType("c4")),
         Retriever("Length of header", DataType("u32")),
         Retriever("Savable", DataType("s32")),
@@ -16,4 +16,4 @@ class FileHeaderPiece(ScenarioPiece):
     ]
 
     def __init__(self):
-        super().__init__("File Header", self.data)
+        super().__init__("File Header", self.retrievers)

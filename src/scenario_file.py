@@ -23,19 +23,19 @@ class AoE2Scenario:
         print(" .. .. .. .. File loaded!")
 
     def _create_file_generator(self, chunk_size):
-        return create_file_generator(self.file, chunk_size)
+        return create_generator(self.file, chunk_size)
 
     def _compute_header_length(self):
         return Parser.calculate_length(
             self._create_file_generator(settings.runtime.get('chunk_size')),
-            FileHeaderPiece.data
+            FileHeaderPiece.retrievers
         )
 
     def create_header_generator(self, chunk_size):
-        return create_file_generator(self.file_header, chunk_size)
+        return create_generator(self.file_header, chunk_size)
 
     def create_data_generator(self, chunk_size):
-        return create_file_generator(self.file_data, chunk_size)
+        return create_generator(self.file_data, chunk_size)
 
     def write_file(self, datatype, write_in_bytes=True):
         file = open("./../results/generated.aoe2scenario", "wb" if write_in_bytes else "w")
