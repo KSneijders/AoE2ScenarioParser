@@ -203,3 +203,7 @@ dmypy.json
 .idea/vcs.xml
 
 .idea/AoE2ScenarioParser.iml
+
+.idea/modules.xml
+
+.idea/inspectionProfiles/profiles_settings.xml
