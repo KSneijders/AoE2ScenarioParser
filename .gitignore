@@ -196,3 +196,10 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python,pycharm
+.idea/AoE2 - Scenarios.iml
+
+.idea/misc.xml
+
+.idea/vcs.xml
+
+.idea/AoE2ScenarioParser.iml
