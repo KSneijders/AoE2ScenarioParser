@@ -1,21 +1,18 @@
 import zlib
 from src.helper.generator import *
-from src.helper.parser import Parser
+import src.helper.parser as parser
 import resources.settings as settings
+from src.pieces.background_image import BackgroundImagePiece
+from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
 from src.pieces.file_header import FileHeaderPiece
-from src.pieces.messagespiece import MessagesPiece
+from src.pieces.messages import MessagesPiece
 
 
 class AoE2Scenario:
     file = b''
     file_header = b''
     file_data = b''
-    file_structure = [
-        FileHeaderPiece,
-        DataHeaderPiece,
-        # MessagesPiece,
-    ]
 
     def __init__(self, filename):
         print("Loading file: '" + filename + "'", end="")
@@ -29,11 +26,15 @@ class AoE2Scenario:
 
         print(" .. .. .. .. File loaded!")
 
-    def _compute_header_length(self):
-        return Parser.calculate_length(
-            self._create_file_generator(settings.runtime.get('chunk_size')),
-            FileHeaderPiece.retrievers
-        )
+        self.parser = parser.Parser()
+        print(self.parser)
+        self.file_structure = [
+            FileHeaderPiece(self.parser),
+            DataHeaderPiece(self.parser),
+            MessagesPiece(self.parser),
+            CinematicsPiece(self.parser),
+            BackgroundImagePiece(self.parser)
+        ]
 
     def _create_file_generator(self, chunk_size):
         return create_generator(self.file, chunk_size)
@@ -44,13 +45,19 @@ class AoE2Scenario:
     def create_data_generator(self, chunk_size):
         return create_generator(self.file_data, chunk_size)
 
+    def _compute_header_length(self):
+        return parser.calculate_length(
+            self._create_file_generator(settings.runtime.get('chunk_size')),
+            FileHeaderPiece(parser.Parser()).retrievers
+        )
+
     def write_data_progress(self):
         progress_length = 0
         generator = self.create_data_generator(settings.runtime.get('chunk_size'))
 
         for i in range(1, len(self.file_structure)):
-            progress_length += Parser.calculate_length(generator, self.file_structure[i].retrievers)
-            print(progress_length)
+            size = parser.calculate_length(generator, self.file_structure[i].retrievers)
+            progress_length += size
 
         file = open("./../results/progress.aoe2scenario", "wb")
         file.write(self.file_data[progress_length:])
@@ -74,4 +81,4 @@ def _create_readable_hex_string(string):
 
 # Credits: gurney alex @ https://stackoverflow.com/a/2657733/7230293
 def insert_char(string, char, every=64):
-    return char.join(string[i:i+every] for i in range(0, len(string), every))
+    return char.join(string[i:i + every] for i in range(0, len(string), every))

@@ -7,7 +7,7 @@ class Retriever:
         self.set_repeat = set_repeat
 
     def _to_string(self):
-        return "[Retriever] " + str(self.datatype)
+        return "[Retriever] " + self.name + ": " + str(self.datatype)
 
     def __str__(self):
         return self._to_string()

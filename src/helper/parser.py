@@ -31,32 +31,32 @@ def _vorl(var):
 
 
 class Parser:
-    saves = dict()
+    _saves = dict()
 
     def retrieve_value(self, generator, retriever):
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = self.parse_repeat_string(retriever.set_repeat)
 
         result = list()
-        var_type, var_len = Parser._datatype_to_type_length(retriever.datatype.var)
+        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
         for i in range(0, retriever.datatype.repeat):
             if var_type == "u" or var_type == "s":
-                val = (bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s")))
+                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
-                val = (bytes_to_float(r_gen(generator, var_len)))
+                val = bytes_to_float(r_gen(generator, var_len))
             elif var_type == "c":
-                val = (bytes_to_str(r_gen(generator, var_len)))
+                val = bytes_to_str(r_gen(generator, var_len))
             elif var_type == "data":
-                val = (r_gen(generator, var_len))
+                val = r_gen(generator, var_len)
             elif var_type == "str":
                 string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                val = (bytes_to_str(r_gen(generator, string_length)))
+                val = bytes_to_str(r_gen(generator, string_length))
             else:
                 break
 
             if retriever.save_as is not None:
-                self.saves[retriever.save_as] = val
+                self.add_to_saves(retriever.save_as, val)
             result.append(val)
 
         if retriever.on_success is not None:
@@ -78,47 +78,64 @@ class Parser:
 
             inclusive = repeat_string[start:end + 1]
             exclusive = repeat_string[start + 1:end]
-            repeat_string = repeat_string.replace(inclusive, str(self.saves[exclusive]))
+            repeat_string = repeat_string.replace(inclusive, str(self._saves[exclusive]))
 
         return eval(repeat_string)
 
-    @staticmethod
-    def calculate_length(generator, retriever_list):
-        length = 0
+    def add_to_saves(self, name, value):
+        self._saves[name] = value
 
-        for retriever in retriever_list:
-            var_type, var_len = Parser._datatype_to_type_length(retriever.datatype.var)
 
-            simple_types = ["u", "s", "f", "c", "data"]
-            for i in range(0, retriever.datatype.repeat):
-                length += var_len
-                if var_type in simple_types:
-                    r_gen(generator, var_len)
-                elif var_type == "str":
-                    string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                    length += string_length
-                else:
-                    break
-        return length
+def calculate_length(generator, retriever_list):
+    parser = Parser()
+    length = 0
 
-    @staticmethod
-    def _datatype_to_type_length(var):
-        var_type = ""
-        var_len = ""
+    for retriever in retriever_list:
+        if retriever.set_repeat is not None:
+            retriever.datatype.repeat = parser.parse_repeat_string(retriever.set_repeat)
 
-        for char in var:
-            if char.isnumeric():
-                var_len += char
+        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+
+        for i in range(0, retriever.datatype.repeat):
+            length += var_len
+            if var_type == "u" or var_type == "s":
+                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
+            elif var_type == "f":
+                val = bytes_to_float(r_gen(generator, var_len))
+            elif var_type == "c":
+                val = bytes_to_str(r_gen(generator, var_len))
+            elif var_type == "data":
+                val = r_gen(generator, var_len)
+            elif var_type == "str":
+                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
+                val = bytes_to_str(r_gen(generator, string_length))
+                length += string_length
             else:
-                var_type += char
+                break
 
-        if var_type == "":
-            var_type = "data"
-        var_len = int(var_len)
+            if retriever.save_as is not None:
+                parser.add_to_saves(retriever.save_as, val)
 
-        assert var_type in types
+    return length
 
-        if var_type != "c" and var_type != "data":
-            var_len = int(var_len / 8)
 
-        return var_type, var_len
+def datatype_to_type_length(var):
+    var_type = ""
+    var_len = ""
+
+    for char in var:
+        if char.isnumeric():
+            var_len += char
+        else:
+            var_type += char
+
+    if var_type == "":
+        var_type = "data"
+    var_len = int(var_len)
+
+    assert var_type in types
+
+    if var_type != "c" and var_type != "data":
+        var_len = int(var_len / 8)
+
+    return var_type, var_len
