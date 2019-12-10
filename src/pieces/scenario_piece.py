@@ -7,18 +7,11 @@ class ScenarioPiece:
         self.retrievers = retrievers
         self.data_list = data_list
 
-        if data_list is not None:
-            self.set_data(data_list)
-
     def set_data(self, data_list):
-        print("set_data", type(self))
-        print(len(data_list), len(self.retrievers))
-        print(data_list)
         if len(data_list) == len(self.retrievers):
             self.data_list = data_list
 
             for i in range(0, len(data_list)):
-                print(self.retrievers[i].on_success)
                 self.retrievers[i].on_success(data_list[i])
         else:
             ValueError("Data list isn't the same size as the DataType list")

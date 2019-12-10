@@ -1,5 +1,5 @@
 import resources.settings as settings
-from src.helper.parser import Parser
+from src.pieces.messagespiece import MessagesPiece
 from src.scenario_file import AoE2Scenario
 from src.pieces.file_header import FileHeaderPiece
 from src.pieces.data_header import DataHeaderPiece
@@ -11,7 +11,6 @@ scenario = AoE2Scenario(settings.file.get("name"))
 header_generator = scenario.create_header_generator(settings.runtime.get("chunk_size"))
 data_generator = scenario.create_data_generator(settings.runtime.get("chunk_size"))
 
-# scenario.write_file("hu", write_in_bytes=False)
 header = FileHeaderPiece()
 header.set_data_from_generator(header_generator)
 print(header)
@@ -19,6 +18,13 @@ print(header)
 data_header = DataHeaderPiece()
 data_header.set_data_from_generator(data_generator)
 print(data_header)
+
+messages = MessagesPiece()
+messages.set_data_from_generator(data_generator)
+print(messages)
+
+scenario.write_data_progress()
+scenario.write_file("d", write_in_bytes=False)
 
 # print("\nFile Data Header:")
 # print("\tNext unit ID to place:", retrieve_value(data_generator, "u32"))
@@ -39,7 +45,7 @@ print(data_header)
 # print("\tBoolean: Human:", retrieve_value(data_generator, "u32"))
 # print("\tCivilization, see IDs at this document:", retrieve_value(data_generator, "u32"))
 # print("\tCTY Mode1:", retrieve_value(data_generator, "u32"))
-#
+
 # print("\nMessages:")
 # print("\tString table, Instructions:", retrieve_value(data_generator, "u32"))
 # print("\tString table, Hints:", retrieve_value(data_generator, "u32"))

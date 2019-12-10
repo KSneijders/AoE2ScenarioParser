@@ -16,6 +16,7 @@ class DataHeaderPiece(ScenarioPiece):
         Retriever("Mission Available", DataType("u16")),
         Retriever("Mission Timeline", DataType("f32")),
         Retriever("Mission Item", DataType("30"), set_repeat="{mic}"),
+        Retriever("Unknown", DataType("64")),
         Retriever("Original Filename at creation", DataType("str16"))
     ]
 

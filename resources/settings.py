@@ -1,5 +1,5 @@
 file = {
-    "name": "resources/maps/abcdef.aoe2scenario",
+    "name": "resources/maps/scenarioTest.aoe2scenario",
 }
 
 runtime = {
