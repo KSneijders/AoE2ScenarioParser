@@ -1,16 +1,5 @@
-import ast
-
 from src.helper.bytes_to_x import *
 from src.helper.generator import repeat_generator as r_gen
-import operator
-
-operators = {
-    "+": operator.add,
-    "-": operator.sub,
-    "*": operator.mul,
-    "/": operator.truediv,
-    "//": operator.floordiv,
-}
 
 types = [
     "s",  # Signed int
@@ -34,13 +23,20 @@ class Parser:
     _saves = dict()
 
     def retrieve_value(self, generator, retriever):
+        result = list()
+
+        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = self.parse_repeat_string(retriever.set_repeat)
 
-        result = list()
-        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
-
         for i in range(0, retriever.datatype.repeat):
+            if retriever.pre_read is not None:
+                val = retriever.pre_read(self)
+                val.set_data_from_generator(generator)
+                result.append(val)
+                continue
+
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
@@ -91,13 +87,19 @@ def calculate_length(generator, retriever_list):
     length = 0
 
     for retriever in retriever_list:
+        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = parser.parse_repeat_string(retriever.set_repeat)
 
-        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
-
         for i in range(0, retriever.datatype.repeat):
             length += var_len
+
+            if retriever.pre_read is not None:
+                val = retriever.pre_read(parser)
+                val.set_data_from_generator(generator)
+                length += val.get_length()
+
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
@@ -131,7 +133,11 @@ def datatype_to_type_length(var):
 
     if var_type == "":
         var_type = "data"
-    var_len = int(var_len)
+
+    if var_len == "":
+        var_len = 0
+    else:
+        var_len = int(var_len)
 
     assert var_type in types
 

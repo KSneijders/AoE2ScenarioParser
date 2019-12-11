@@ -7,6 +7,7 @@ from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
 from src.pieces.file_header import FileHeaderPiece
 from src.pieces.messages import MessagesPiece
+from src.pieces.player_data_two import PlayerDataTwoPiece
 
 
 class AoE2Scenario:
@@ -17,7 +18,7 @@ class AoE2Scenario:
     def __init__(self, filename):
         print("Loading file: '" + filename + "'", end="")
 
-        scenario = open("./../" + filename, "rb")
+        scenario = open(filename, "rb")
         self.file = scenario.read()
         scenario.seek(0)  # Reset file cursor to 0
         self.file_header = scenario.read(self._compute_header_length())
@@ -27,13 +28,13 @@ class AoE2Scenario:
         print(" .. .. .. .. File loaded!")
 
         self.parser = parser.Parser()
-        print(self.parser)
         self.file_structure = [
             FileHeaderPiece(self.parser),
             DataHeaderPiece(self.parser),
             MessagesPiece(self.parser),
             CinematicsPiece(self.parser),
-            BackgroundImagePiece(self.parser)
+            BackgroundImagePiece(self.parser),
+            PlayerDataTwoPiece(self.parser)
         ]
 
     def _create_file_generator(self, chunk_size):
@@ -64,7 +65,7 @@ class AoE2Scenario:
         file.close()
 
     def write_file(self, datatype, write_in_bytes=True):
-        file = open("./../results/generated.aoe2scenario", "wb" if write_in_bytes else "w")
+        file = open("./../results/generated_map_"+datatype+".aoe2scenario", "wb" if write_in_bytes else "w")
         for t in datatype:
             if t == "f":
                 file.write(self.file if write_in_bytes else _create_readable_hex_string(self.file.hex()))

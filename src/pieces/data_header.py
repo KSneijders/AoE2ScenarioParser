@@ -1,7 +1,7 @@
 from src.pieces.scenario_piece import ScenarioPiece
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
-from src.pieces.structs.player_data_one import PlayerDataOne
+from src.pieces.structs.player_data_one import PlayerDataOneStruct
 
 
 class DataHeaderPiece(ScenarioPiece):
@@ -11,7 +11,7 @@ class DataHeaderPiece(ScenarioPiece):
             Retriever("Version", DataType("f32")),
             Retriever("ASCII player names", DataType("c256", repeat=16)),
             Retriever("String table player names", DataType("u32", repeat=16)),
-            Retriever("Player Data#1", DataType("16", repeat=16), on_success=lambda x: PlayerDataOne(parser, x)),
+            Retriever("Player Data#1", DataType("16", repeat=16), on_success=lambda x: PlayerDataOneStruct(parser, x)),
             Retriever("Conquest Mode", DataType("u8")),
             Retriever("Mission Items Counter", DataType("u16"), save_as="mic"),
             Retriever("Mission Available", DataType("u16")),
