@@ -8,7 +8,7 @@ class DiplomacyPiece(ScenarioPiece):
 
     def __init__(self, parser):
         retrievers = [
-            Retriever("Per-player diplomacy", DataType("64", repeat=16), on_success=lambda x: PlayerDiplomacyStruct(parser, x)),
+            Retriever("Per-player diplomacy", DataType(repeat=16), pre_read=PlayerDiplomacyStruct),
             Retriever("Individual Victories", DataType("60", repeat=16*12)),  # 12 Conditions per (16) Player(s).
             Retriever("Separator", DataType("u32")),
             Retriever("Per-player allied victory", DataType("u32", repeat=16)),  # Ignored -> PlayerDataThree

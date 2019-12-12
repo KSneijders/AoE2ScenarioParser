@@ -207,3 +207,7 @@ dmypy.json
 .idea/modules.xml
 
 .idea/inspectionProfiles/profiles_settings.xml
+
+results/generated_map_hd.aoe2scenario
+
+results/progress.aoe2scenario

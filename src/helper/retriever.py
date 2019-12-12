@@ -1,7 +1,10 @@
+from src.helper.datatype import DataType
+
+
 class Retriever:
     def __init__(self,
                  name,  # Name of the item
-                 datatype,  # Datatype Object
+                 datatype=DataType(),  # Datatype Object
                  on_success=None,  # Lambda for what happens with the value once it's retrieved
                  save_as=None,  # Save the value for other usage
                  set_repeat=None,  # Use saved value to set repeat value. Use String and use saved name like {name}

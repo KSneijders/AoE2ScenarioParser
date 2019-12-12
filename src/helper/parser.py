@@ -104,6 +104,8 @@ def calculate_length(generator, retriever_list):
                 val = retriever.pre_read(parser)
                 val.set_data_from_generator(generator)
                 length += val.get_length()
+                result.append(val)
+                continue
 
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))

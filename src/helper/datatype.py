@@ -2,7 +2,7 @@ class DataType:
     var = ""
     repeat = -1
 
-    def __init__(self, var, repeat=1):
+    def __init__(self, var="0", repeat=1):
         self.var = var
         self.repeat = repeat
 
