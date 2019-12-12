@@ -6,8 +6,8 @@ from src.pieces.structs.struct import Struct
 class PlayerDataOneStruct(Struct):
     def __init__(self, parser, data=None):
         retrievers = [
-            Retriever("Active", DataType("u32"), on_success=lambda x: x == 1),
-            Retriever("Human", DataType("u32"), on_success=lambda x: x == 1),
+            Retriever("Active", DataType("u32")),
+            Retriever("Human", DataType("u32")),
             Retriever("Civilization", DataType("u32")),
             Retriever("CTY Mode", DataType("u32"))
         ]

@@ -1,7 +1,10 @@
 import resources.settings as settings
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
+from src.pieces.diplomacy import DiplomacyPiece
+from src.pieces.disables import DisablesPiece
 from src.pieces.global_victory import GlobalVictoryPiece
+from src.pieces.map import MapPiece
 from src.pieces.messages import MessagesPiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
 from src.scenario_file import AoE2Scenario
@@ -44,7 +47,19 @@ globalVictory = GlobalVictoryPiece(parser)
 globalVictory.set_data_from_generator(data_generator)
 print(globalVictory)
 
-scenario.write_data_progress()
+diplomacyPiece = DiplomacyPiece(parser)
+diplomacyPiece.set_data_from_generator(data_generator)
+print(diplomacyPiece)
+
+disablesPiece = DisablesPiece(parser)
+disablesPiece.set_data_from_generator(data_generator)
+print(disablesPiece)
+
+map = MapPiece(parser)
+map.set_data_from_generator(data_generator)
+print(map)
+
+scenario.write_data_progress(write_in_bytes=False)
 scenario.write_file("hd", write_in_bytes=False)
 
 # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760

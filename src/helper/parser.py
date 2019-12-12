@@ -51,8 +51,6 @@ class Parser:
             else:
                 break
 
-            if retriever.save_as is not None:
-                self.add_to_saves(retriever.save_as, val)
             result.append(val)
 
         if retriever.on_success is not None:
@@ -62,9 +60,15 @@ class Parser:
             else:
                 result = retriever.on_success(result)
 
+        if retriever.save_as is not None:
+            self.add_to_saves(retriever.save_as, _vorl(result))
+
+        if retriever.log_value:
+            print(retriever, ">>> Data retrieved:", _vorl(result))
+
         return _vorl(result)
 
-    def parse_repeat_string(self, repeat_string):
+    def parse_repeat_string(self, repeat_string, index=1):
         while True:
             start = repeat_string.find("{")
             end = repeat_string.find("}")
@@ -74,8 +78,8 @@ class Parser:
 
             inclusive = repeat_string[start:end + 1]
             exclusive = repeat_string[start + 1:end]
-            repeat_string = repeat_string.replace(inclusive, str(self._saves[exclusive]))
 
+            repeat_string = repeat_string.replace(inclusive, str(self._saves[exclusive]))
         return eval(repeat_string)
 
     def add_to_saves(self, name, value):
@@ -87,6 +91,7 @@ def calculate_length(generator, retriever_list):
     length = 0
 
     for retriever in retriever_list:
+        result = list()
         var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
         if retriever.set_repeat is not None:
@@ -115,8 +120,10 @@ def calculate_length(generator, retriever_list):
             else:
                 break
 
-            if retriever.save_as is not None:
-                parser.add_to_saves(retriever.save_as, val)
+            result.append(val)
+
+        if retriever.save_as is not None:
+            parser.add_to_saves(retriever.save_as, _vorl(result))
 
     return length
 

@@ -12,3 +12,9 @@ class Struct(ScenarioPiece):
 
     def _entry_to_string(self, name, data, datatype):
         return "\t\t\t" + name + ": " + data + " (" + datatype + ")\n"
+
+    def _to_string(self):
+        if self.piece_type == "Terrain":
+            return "."  # Recommended to keep as '.' due to the amount of tiles. (Tiny map = 14400)
+        else:
+            return super()._to_string()

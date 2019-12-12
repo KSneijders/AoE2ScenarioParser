@@ -5,7 +5,11 @@ import resources.settings as settings
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
+from src.pieces.diplomacy import DiplomacyPiece
+from src.pieces.disables import DisablesPiece
 from src.pieces.file_header import FileHeaderPiece
+from src.pieces.global_victory import GlobalVictoryPiece
+from src.pieces.map import MapPiece
 from src.pieces.messages import MessagesPiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
 
@@ -34,7 +38,11 @@ class AoE2Scenario:
             MessagesPiece(self.parser),
             CinematicsPiece(self.parser),
             BackgroundImagePiece(self.parser),
-            PlayerDataTwoPiece(self.parser)
+            PlayerDataTwoPiece(self.parser),
+            GlobalVictoryPiece(self.parser),
+            DiplomacyPiece(self.parser),
+            DisablesPiece(self.parser),
+            # MapPiece(self.parser),
         ]
 
     def _create_file_generator(self, chunk_size):
@@ -52,7 +60,7 @@ class AoE2Scenario:
             FileHeaderPiece(parser.Parser()).retrievers
         )
 
-    def write_data_progress(self):
+    def write_data_progress(self, write_in_bytes=True):
         progress_length = 0
         generator = self.create_data_generator(settings.runtime.get('chunk_size'))
 
@@ -60,12 +68,15 @@ class AoE2Scenario:
             size = parser.calculate_length(generator, self.file_structure[i].retrievers)
             progress_length += size
 
-        file = open("./../results/progress.aoe2scenario", "wb")
-        file.write(self.file_data[progress_length:])
+        file = open("./../results/progress.aoe2scenario", "wb" if write_in_bytes else "w")
+        file.write(
+            self.file_data[progress_length:] if write_in_bytes
+            else _create_readable_hex_string(self.file_data[progress_length:].hex())
+        )
         file.close()
 
     def write_file(self, datatype, write_in_bytes=True):
-        file = open("./../results/generated_map_"+datatype+".aoe2scenario", "wb" if write_in_bytes else "w")
+        file = open("./../results/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
         for t in datatype:
             if t == "f":
                 file.write(self.file if write_in_bytes else _create_readable_hex_string(self.file.hex()))

@@ -7,6 +7,7 @@ class Retriever:
                  set_repeat=None,  # Use saved value to set repeat value. Use String and use saved name like {name}
                  # All Python functions and math is allowed, example: {length}*{width}+4
                  pre_read=None,
+                 log_value=False
                  ):
         self.name = name
         self.datatype = datatype
@@ -14,6 +15,7 @@ class Retriever:
         self.save_as = save_as
         self.set_repeat = set_repeat
         self.pre_read = pre_read
+        self.log_value = log_value
 
     def _to_string(self):
         return "[Retriever] " + self.name + ": " + str(self.datatype)
