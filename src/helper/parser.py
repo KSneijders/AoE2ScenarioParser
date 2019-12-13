@@ -1,9 +1,6 @@
 from src.helper.bytes_to_x import *
 from src.helper.generator import repeat_generator as r_gen
 import src.pieces.structs.struct as structs
-from src.pieces import scenario_piece
-from src.pieces.map import MapPiece
-from src.pieces.structs.player_data_one import PlayerDataOneStruct
 
 types = [
     "s",  # Signed int
@@ -26,27 +23,23 @@ def _vorl(var):
 class Parser:
     _saves = dict()
 
-    def retrieve_value(self, generator, retriever):
+    def retrieve_value(self, generator, retriever, as_length=False):
+        length = 0
         result = list()
-
-        try:
-            if issubclass(retriever.datatype.var, structs.Struct):
-                var_type = "struct"
-                var_len = 0
-            else:  # Not possible at this time
-                var_type = ""
-                var_len = 0
-        except TypeError:
-            var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = self.parse_repeat_string(retriever.set_repeat)
 
         for i in range(0, retriever.datatype.repeat):
+            length += var_len
+
             if var_type == "struct":
                 val = retriever.datatype.var(self)
                 val.set_data_from_generator(generator)
                 result.append(val)
+
+                length += val.get_length()
                 continue
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
@@ -59,6 +52,7 @@ class Parser:
             elif var_type == "str":
                 string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
                 val = bytes_to_str(r_gen(generator, string_length))
+                length += string_length
             else:
                 break
 
@@ -77,7 +71,7 @@ class Parser:
         if retriever.log_value:
             print(retriever, ">>> Data retrieved:", _vorl(result))
 
-        return _vorl(result)
+        return _vorl(result) if not as_length else length
 
     def parse_repeat_string(self, repeat_string, index=1):
         while True:
@@ -99,57 +93,23 @@ class Parser:
 
 def calculate_length(generator, retriever_list):
     parser = Parser()
-    length = 0
+    total_length = 0
 
     for retriever in retriever_list:
-        result = list()
+        total_length += parser.retrieve_value(generator, retriever, as_length=True)
 
-        try:
-            if issubclass(retriever.datatype.var, structs.Struct):
-                var_type = "struct"
-                var_len = 0
-            else:  # Not possible at this time
-                var_type = ""
-                var_len = 0
-        except TypeError:
-            var_type, var_len = datatype_to_type_length(retriever.datatype.var)
-
-        if retriever.set_repeat is not None:
-            retriever.datatype.repeat = parser.parse_repeat_string(retriever.set_repeat)
-
-        for i in range(0, retriever.datatype.repeat):
-            length += var_len
-
-            if var_type == "struct":
-                val = retriever.datatype.var(parser)
-                val.set_data_from_generator(generator)
-                length += val.get_length()
-                result.append(val)
-                continue
-            if var_type == "u" or var_type == "s":
-                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
-            elif var_type == "f":
-                val = bytes_to_float(r_gen(generator, var_len))
-            elif var_type == "c":
-                val = bytes_to_str(r_gen(generator, var_len))
-            elif var_type == "data":
-                val = r_gen(generator, var_len)
-            elif var_type == "str":
-                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                val = bytes_to_str(r_gen(generator, string_length))
-                length += string_length
-            else:
-                break
-
-            result.append(val)
-
-        if retriever.save_as is not None:
-            parser.add_to_saves(retriever.save_as, _vorl(result))
-
-    return length
+    return total_length
 
 
 def datatype_to_type_length(var):
+    try:
+        if issubclass(var, structs.Struct):
+            return "struct", 0
+        else:  # Not possible at this time
+            return "", 0
+    except TypeError:
+        pass
+
     var_type = ""
     var_len = ""
 
