@@ -1,10 +1,10 @@
-from src.pieces.scenario_piece import ScenarioPiece
+import src.pieces.scenario_piece as scenario_piece
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
 from src.pieces.structs.player_data_one import PlayerDataOneStruct
 
 
-class DataHeaderPiece(ScenarioPiece):
+class DataHeaderPiece(scenario_piece.ScenarioPiece):
     def __init__(self, parser):
         retrievers = [
             Retriever("Next unit ID to Place", DataType("u32")),

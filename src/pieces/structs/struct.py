@@ -1,8 +1,8 @@
 from src.helper.generator import create_generator
-from src.pieces.scenario_piece import ScenarioPiece
+import src.pieces.scenario_piece as scenario_piece
 
 
-class Struct(ScenarioPiece):
+class Struct(scenario_piece.ScenarioPiece):
     def __init__(self, parser, piece_type, retrievers, data=None):
         super().__init__(parser, piece_type, retrievers, data)
 

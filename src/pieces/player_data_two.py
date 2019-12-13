@@ -1,11 +1,11 @@
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
-from src.pieces.scenario_piece import ScenarioPiece
+import src.pieces.scenario_piece as scenario_piece
 from src.pieces.structs.ai import AIStruct
 from src.pieces.structs.resources import ResourcesStruct
 
 
-class PlayerDataTwoPiece(ScenarioPiece):
+class PlayerDataTwoPiece(scenario_piece.ScenarioPiece):
     def __init__(self, parser, data=None):
         retrievers = [
             Retriever("Unknown strings", DataType("str16", repeat=32)),

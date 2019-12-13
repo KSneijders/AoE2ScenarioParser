@@ -1,9 +1,9 @@
-from src.pieces.scenario_piece import *
+import src.pieces.scenario_piece as scenario_piece
 from src.helper.retriever import Retriever
 from src.helper.datatype import DataType
 
 
-class MessagesPiece(ScenarioPiece):
+class MessagesPiece(scenario_piece.ScenarioPiece):
 
     def __init__(self, parser):
         retrievers = [

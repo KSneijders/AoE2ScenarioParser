@@ -1,9 +1,9 @@
-from src.pieces.scenario_piece import ScenarioPiece
+import src.pieces.scenario_piece as scenario_piece
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
 
 
-class GlobalVictoryPiece(ScenarioPiece):
+class GlobalVictoryPiece(scenario_piece.ScenarioPiece):
     def __init__(self, parser):
         retrievers = [
             Retriever("Separator", DataType("u32")),

@@ -1,5 +1,7 @@
 import resources.settings as settings
 from src.scenario_file import AoE2Scenario
+
+from src.pieces.units import UnitsPiece
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.diplomacy import DiplomacyPiece
@@ -58,6 +60,10 @@ print(disablesPiece)
 map = MapPiece(parser)
 map.set_data_from_generator(data_generator)
 print(map)
+
+units = UnitsPiece(parser)
+units.set_data_from_generator(data_generator)
+print(units)
 
 scenario.write_data_progress(write_in_bytes=False)
 scenario.write_file("hd", write_in_bytes=False)

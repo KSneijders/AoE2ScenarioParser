@@ -1,10 +1,10 @@
-from src.pieces.scenario_piece import *
+import src.pieces.scenario_piece as scenario_piece
 from src.helper.retriever import Retriever
 from src.helper.datatype import DataType
 from src.pieces.structs.terrain import TerrainStruct
 
 
-class MapPiece(ScenarioPiece):
+class MapPiece(scenario_piece.ScenarioPiece):
 
     def __init__(self, parser):
         retrievers = [
