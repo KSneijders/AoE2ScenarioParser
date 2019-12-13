@@ -12,7 +12,7 @@ class ResourcesStruct(structs.Struct):
             Retriever("Stone", DataType("u32")),
             Retriever("Ore X (unused)", DataType("u32")),
             Retriever("Trade Goods", DataType("u32")),
-            Retriever("Unknown", DataType("4"))
+            Retriever("Player number 0-7, 2nd 6 = gaia", DataType("u32"))
         ]
 
         super().__init__(parser, "Resources", retrievers, data)

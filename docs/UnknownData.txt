@@ -16,3 +16,10 @@ FileHeader:
 		[36:40]: 0x08000000 >> 8
 		[40:47]: MrKirby
 		[47:52]: 0x0000000000 >> 0?
+
+
+
+Notes: 
+	GAIA Population limit isn't saved
+	Resources final value is player number
+		Except for the fact that GAIA (number 8, 9th) has the number 6 too.
