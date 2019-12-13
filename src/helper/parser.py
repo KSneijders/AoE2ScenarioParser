@@ -1,5 +1,9 @@
 from src.helper.bytes_to_x import *
 from src.helper.generator import repeat_generator as r_gen
+import src.pieces.structs.struct as structs
+from src.pieces import scenario_piece
+from src.pieces.map import MapPiece
+from src.pieces.structs.player_data_one import PlayerDataOneStruct
 
 types = [
     "s",  # Signed int
@@ -25,18 +29,25 @@ class Parser:
     def retrieve_value(self, generator, retriever):
         result = list()
 
-        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+        try:
+            if issubclass(retriever.datatype.var, structs.Struct):
+                var_type = "struct"
+                var_len = 0
+            else:  # Not possible at this time
+                var_type = ""
+                var_len = 0
+        except TypeError:
+            var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = self.parse_repeat_string(retriever.set_repeat)
 
         for i in range(0, retriever.datatype.repeat):
-            if retriever.pre_read is not None:
-                val = retriever.pre_read(self)
+            if var_type == "struct":
+                val = retriever.datatype.var(self)
                 val.set_data_from_generator(generator)
                 result.append(val)
                 continue
-
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
@@ -92,7 +103,16 @@ def calculate_length(generator, retriever_list):
 
     for retriever in retriever_list:
         result = list()
-        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+
+        try:
+            if issubclass(retriever.datatype.var, structs.Struct):
+                var_type = "struct"
+                var_len = 0
+            else:  # Not possible at this time
+                var_type = ""
+                var_len = 0
+        except TypeError:
+            var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = parser.parse_repeat_string(retriever.set_repeat)
@@ -100,13 +120,12 @@ def calculate_length(generator, retriever_list):
         for i in range(0, retriever.datatype.repeat):
             length += var_len
 
-            if retriever.pre_read is not None:
-                val = retriever.pre_read(parser)
+            if var_type == "struct":
+                val = retriever.datatype.var(parser)
                 val.set_data_from_generator(generator)
                 length += val.get_length()
                 result.append(val)
                 continue
-
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":

@@ -11,7 +11,7 @@ class DataHeaderPiece(ScenarioPiece):
             Retriever("Version", DataType("f32")),
             Retriever("ASCII player names", DataType("c256", repeat=16)),
             Retriever("String table player names", DataType("u32", repeat=16)),
-            Retriever("Player Data#1", DataType(repeat=16), pre_read=PlayerDataOneStruct),
+            Retriever("Player Data#1", DataType(PlayerDataOneStruct, repeat=16)),
             Retriever("Conquest Mode", DataType("u8")),
             Retriever("Mission Items Counter", DataType("u16"), save_as="mic"),
             Retriever("Mission Available", DataType("u16")),

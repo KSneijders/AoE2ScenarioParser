@@ -1,5 +1,5 @@
 import zlib
-from src.helper.generator import *
+import src.helper.generator as generator
 import src.helper.parser as parser
 import resources.settings as settings
 from src.pieces.background_image import BackgroundImagePiece
@@ -46,13 +46,13 @@ class AoE2Scenario:
         ]
 
     def _create_file_generator(self, chunk_size):
-        return create_generator(self.file, chunk_size)
+        return generator.create_generator(self.file, chunk_size)
 
     def create_header_generator(self, chunk_size):
-        return create_generator(self.file_header, chunk_size)
+        return generator.create_generator(self.file_header, chunk_size)
 
     def create_data_generator(self, chunk_size):
-        return create_generator(self.file_data, chunk_size)
+        return generator.create_generator(self.file_data, chunk_size)
 
     def _compute_header_length(self):
         return parser.calculate_length(

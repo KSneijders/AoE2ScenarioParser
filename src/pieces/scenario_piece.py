@@ -1,4 +1,4 @@
-from src.helper.parser import datatype_to_type_length
+import src.helper.parser as parser
 
 
 class ScenarioPiece:
@@ -11,7 +11,7 @@ class ScenarioPiece:
     def get_length(self):
         total_length = 0
         for i in range(0, len(self.retrievers)):
-            datatype, length = datatype_to_type_length(self.retrievers[i].datatype.var)
+            datatype, length = parser.datatype_to_type_length(self.retrievers[i].datatype.var)
             total_length += length
             if datatype == "str":
                 total_length += len(self.data[i])

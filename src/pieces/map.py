@@ -14,7 +14,7 @@ class MapPiece(ScenarioPiece):
             Retriever("AI Type", DataType("s32")),
             Retriever("Map Width", DataType("u32"), save_as="map_width"),
             Retriever("Map Height", DataType("u32"), save_as="map_height"),
-            Retriever("Terrain data", set_repeat="{map_width}*{map_height}", pre_read=TerrainStruct),
+            Retriever("Terrain data", DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
         ]
 
         super().__init__(parser, "Map", retrievers)

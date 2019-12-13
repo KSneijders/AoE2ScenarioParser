@@ -1,4 +1,5 @@
 import resources.settings as settings
+from src.scenario_file import AoE2Scenario
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.diplomacy import DiplomacyPiece
@@ -7,7 +8,6 @@ from src.pieces.global_victory import GlobalVictoryPiece
 from src.pieces.map import MapPiece
 from src.pieces.messages import MessagesPiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
-from src.scenario_file import AoE2Scenario
 from src.pieces.file_header import FileHeaderPiece
 from src.pieces.data_header import DataHeaderPiece
 

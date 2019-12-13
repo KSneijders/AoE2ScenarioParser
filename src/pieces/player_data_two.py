@@ -10,10 +10,10 @@ class PlayerDataTwoPiece(ScenarioPiece):
         retrievers = [
             Retriever("Unknown strings", DataType("str16", repeat=32)),
             Retriever("AI names", DataType("str16", repeat=16)),
-            Retriever("AI files", DataType(repeat=16), pre_read=AIStruct),
+            Retriever("AI files", DataType(AIStruct, repeat=16)),
             Retriever("AI type", DataType("u8", repeat=16)),
             Retriever("Separator", DataType("u32")),
-            Retriever("Resources", DataType(repeat=16), pre_read=ResourcesStruct)
+            Retriever("Resources", DataType(ResourcesStruct, repeat=16))
         ]
 
         super().__init__(parser, "Player Data #2", retrievers, data)
