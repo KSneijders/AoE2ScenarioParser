@@ -38,8 +38,9 @@ class Parser:
                 val = retriever.datatype.var(self)
                 val.set_data_from_generator(generator)
                 result.append(val)
+                i = val.get_length()
 
-                length += val.get_length()
+                length += i
                 continue
             if var_type == "u" or var_type == "s":
                 val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))

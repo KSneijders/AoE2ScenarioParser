@@ -1,6 +1,7 @@
 import resources.settings as settings
 from src.scenario_file import AoE2Scenario
 
+from src.pieces.player_data_three import PlayerDataThreePiece
 from src.pieces.units import UnitsPiece
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
@@ -12,6 +13,7 @@ from src.pieces.messages import MessagesPiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
 from src.pieces.file_header import FileHeaderPiece
 from src.pieces.data_header import DataHeaderPiece
+from src.pieces.triggers import TriggerPiece
 
 # (Outdated)? AoE2Scenario explanation: http://dderevjanik.github.io/agescx/formatscx/#about-scenario
 
@@ -65,7 +67,16 @@ units = UnitsPiece(parser)
 units.set_data_from_generator(data_generator)
 print(units)
 
-scenario.write_data_progress(write_in_bytes=False)
+playerDataThree = PlayerDataThreePiece(parser)
+playerDataThree.set_data_from_generator(data_generator)
+print(playerDataThree)
+
+triggers = TriggerPiece(parser)
+triggers.set_data_from_generator(data_generator)
+print(triggers)
+
+# Todo: Fix method
+# scenario.write_data_progress(write_in_bytes=False)
 scenario.write_file("hd", write_in_bytes=False)
 
 # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760

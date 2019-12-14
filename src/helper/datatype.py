@@ -7,7 +7,7 @@ class DataType:
         self.repeat = repeat
 
     def to_simple_string(self):
-        return str(self.repeat) + " * " + self.var
+        return str(self.repeat) + " * " + str(self.var)
 
     def _to_string(self):
         return "[DataType] " + self.to_simple_string()

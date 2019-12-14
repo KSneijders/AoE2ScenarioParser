@@ -12,9 +12,17 @@ class ScenarioPiece:
         total_length = 0
         for i in range(0, len(self.retrievers)):
             datatype, length = parser.datatype_to_type_length(self.retrievers[i].datatype.var)
+
+            if datatype == "struct":
+                if type(self.data[i]) == list:
+                    for continues_struct in self.data[i]:
+                        length += continues_struct.get_length()
+                else:
+                    length = self.data[i].get_length()
+            elif datatype == "str":
+                length = len(self.data[i])
             total_length += length
-            if datatype == "str":
-                total_length += len(self.data[i])
+
         return total_length
 
     def set_data(self, data):
