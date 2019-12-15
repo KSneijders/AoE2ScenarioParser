@@ -1,12 +1,12 @@
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
-import src.pieces.scenario_piece as scenario_piece
+import src.pieces.structs.struct as structs
 
 
-class PlayerDataThreePiece(scenario_piece.ScenarioPiece):
+class PlayerDataThreeStruct(structs.Struct):
     def __init__(self, parser, data=None):
         retrievers = [
-            Retriever("Constant name", DataType("str16")),
+            Retriever("Constant name", DataType("str16"), log_value=True),
             Retriever("Initial Camera, X", DataType("f32")),
             Retriever("Initial Camera, Y", DataType("f32")),
             Retriever("Unknown, similar to camera X", DataType("s16")),
@@ -19,7 +19,7 @@ class PlayerDataThreePiece(scenario_piece.ScenarioPiece):
             Retriever("Victory Version", DataType("f32"), save_as="vic_version"),
             Retriever("Unknown", DataType("u16"), save_as="unknown_DAT"),
             Retriever("Unknown (2)", DataType("u8"), set_repeat="8 if {vic_version} == 2 else 0"),
-            Retriever("Unknown structure, (Grand Theft Empires)", DataType("44")),
+            # Retriever("Unknown structure, (Grand Theft Empires)", DataType("44")),
             Retriever("Unknown (3)", DataType("u8", repeat=7)),
             Retriever("Unknown (4)", DataType("s32")),
         ]

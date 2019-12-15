@@ -67,9 +67,9 @@ units = UnitsPiece(parser)
 units.set_data_from_generator(data_generator)
 print(units)
 
-playerDataThree = PlayerDataThreePiece(parser)
-playerDataThree.set_data_from_generator(data_generator)
-print(playerDataThree)
+# playerDataThree = PlayerDataThreePiece(parser)
+# playerDataThree.set_data_from_generator(data_generator)
+# print(playerDataThree)
 
 triggers = TriggerPiece(parser)
 triggers.set_data_from_generator(data_generator)
