@@ -6,7 +6,7 @@ import src.pieces.structs.struct as structs
 class PlayerDataThreeStruct(structs.Struct):
     def __init__(self, parser, data=None):
         retrievers = [
-            Retriever("Constant name", DataType("str16"), log_value=True),
+            Retriever("Constant name", DataType("str16")),
             Retriever("Initial Camera, X", DataType("f32")),
             Retriever("Initial Camera, Y", DataType("f32")),
             Retriever("Unknown, similar to camera X", DataType("s16")),

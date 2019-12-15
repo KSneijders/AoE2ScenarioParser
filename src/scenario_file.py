@@ -11,8 +11,8 @@ from src.pieces.file_header import FileHeaderPiece
 from src.pieces.global_victory import GlobalVictoryPiece
 from src.pieces.map import MapPiece
 from src.pieces.messages import MessagesPiece
-from src.pieces.player_data_three import PlayerDataThreePiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
+from src.pieces.triggers import TriggerPiece
 from src.pieces.units import UnitsPiece
 
 
@@ -34,41 +34,46 @@ class AoE2Scenario:
         print(" .. .. .. .. File loaded!")
 
         self.parser = parser.Parser()
-        self.file_structure = [
-            DataHeaderPiece,
-            MessagesPiece,
-            CinematicsPiece,
-            BackgroundImagePiece,
-            PlayerDataTwoPiece,
-            GlobalVictoryPiece,
-            DiplomacyPiece,
-            DisablesPiece,
-            MapPiece,
-            UnitsPiece,
-            PlayerDataThreePiece,
-        ]
+        self.parsed_header = {}
+        self.parsed_data = {}
 
-    def create_header_generator(self, chunk_size):
-        return generator.create_generator(self.file_header, chunk_size)
+        self._read_file()
 
-    def create_data_generator(self, chunk_size):
-        return generator.create_generator(self.file_data, chunk_size)
+    def _read_file(self):
+        header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
+        data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
+
+        for _ in header_structure:
+            piece = _(self.parser)
+            print("Reading", piece.piece_type + "...")
+            piece.set_data_from_generator(header_generator)
+            self.parsed_header[type(piece).__name__] = piece
+            print("Reading", piece.piece_type, "done.")
+
+        for _ in file_structure:
+            piece = _(self.parser)
+            print("Reading", piece.piece_type + "...")
+            piece.set_data_from_generator(data_generator)
+            self.parsed_data[type(piece).__name__] = piece
+            print("Reading", piece.piece_type, "done.")
+
+        print("File reading done successfully!")
 
     # Todo: Fix write_data_progress function. Probably needs a rewrite
-    def write_data_progress(self, write_in_bytes=True):
-        gen = self.create_data_generator(settings.runtime.get('chunk_size'))
-
-        progress_length = 0
-        for i in range(1, len(self.file_structure)):
-            size = parser.calculate_length(gen, self.file_structure[i].retrievers)
-            progress_length += size
-
-        file = open("./../results/progress.aoe2scenario", "wb" if write_in_bytes else "w")
-        file.write(
-            self.file_data[progress_length:] if write_in_bytes
-            else _create_readable_hex_string(self.file_data[progress_length:].hex())
-        )
-        file.close()
+    # def write_data_progress(self, write_in_bytes=True):
+    #     gen = self.create_data_generator(settings.runtime.get('chunk_size'))
+    #
+    #     progress_length = 0
+    #     for i in range(1, len(self.file_structure)):
+    #         size = parser.calculate_length(gen, self.file_structure[i].retrievers)
+    #         progress_length += size
+    #
+    #     file = open("./../results/progress.aoe2scenario", "wb" if write_in_bytes else "w")
+    #     file.write(
+    #         self.file_data[progress_length:] if write_in_bytes
+    #         else _create_readable_hex_string(self.file_data[progress_length:].hex())
+    #     )
+    #     file.close()
 
     def write_file(self, datatype, write_in_bytes=True):
         file = open("./../results/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
@@ -81,6 +86,12 @@ class AoE2Scenario:
                 file.write(self.file_data if write_in_bytes else _create_readable_hex_string(self.file_data.hex()))
         file.close()
 
+    def _create_header_generator(self, chunk_size):
+        return generator.create_generator(self.file_header, chunk_size)
+
+    def _create_data_generator(self, chunk_size):
+        return generator.create_generator(self.file_data, chunk_size)
+
     def _create_file_generator(self, chunk_size):
         return generator.create_generator(self.file, chunk_size)
 
@@ -89,6 +100,24 @@ class AoE2Scenario:
             self._create_file_generator(settings.runtime.get('chunk_size')),
             FileHeaderPiece(parser.Parser()).retrievers
         )
+
+
+header_structure = [
+    FileHeaderPiece
+]
+file_structure = [
+    DataHeaderPiece,
+    MessagesPiece,
+    CinematicsPiece,
+    BackgroundImagePiece,
+    PlayerDataTwoPiece,
+    GlobalVictoryPiece,
+    DiplomacyPiece,
+    DisablesPiece,
+    MapPiece,
+    UnitsPiece,
+    TriggerPiece,
+]
 
 
 def _create_readable_hex_string(string):
