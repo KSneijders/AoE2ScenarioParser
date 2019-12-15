@@ -10,4 +10,4 @@ def bytes_to_int(byte_elements, endian="little", signed=False):
 
 
 def bytes_to_float(byte_elements):
-    return struct.unpack('f', byte_elements)[0]
+    return struct.unpack_from('f', byte_elements)[0]
