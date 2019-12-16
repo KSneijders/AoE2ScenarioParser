@@ -6,7 +6,9 @@ class ScenarioPiece:
         self.parser = parser
         self.piece_type = piece_type
         self.retrievers = retrievers
-        self.data = data
+        # self.data = data
+        if data is not None:
+            self.set_data(data)
 
     def get_length(self):
         total_length = 0
@@ -14,30 +16,28 @@ class ScenarioPiece:
             datatype, length = parser.datatype_to_type_length(self.retrievers[i].datatype.var)
 
             if datatype == "struct":
-                if type(self.data[i]) == list:
-                    for continues_struct in self.data[i]:
+                if type(self.retrievers[i].data) == list:
+                    for continues_struct in self.retrievers[i].data:
                         length += continues_struct.get_length()
                 else:
-                    length = self.data[i].get_length()
+                    length = self.retrievers[i].data.get_length()
             elif datatype == "str":
-                length = len(self.data[i])
+                length = len(self.retrievers[i].data)
             total_length += length
 
         return total_length
 
     def set_data(self, data):
         if len(data) == len(self.retrievers):
-            self.data = data
-
             for i in range(0, len(data)):
-                self.retrievers[i].on_success(data[i])
+                self.retrievers[i].set_data(data[i])
         else:
             ValueError("Data list isn't the same size as the DataType list")
 
     def set_data_from_generator(self, generator):
-        self.data = list()
+        # self.retrievers.data = list()
         for i, retriever in enumerate(self.retrievers):
-            self.data.append(self.parser.retrieve_value(generator, retriever))
+            retriever.set_data(self.parser.retrieve_value(generator, retriever))
 
     def _entry_to_string(self, name, data, datatype):
         return "\t" + name + ": " + data + " (" + datatype + ")\n"
@@ -46,16 +46,23 @@ class ScenarioPiece:
         represent = self.piece_type + ": \n"
 
         for i, val in enumerate(self.retrievers):
-            if type(self.data[i]) is list and len(self.data[i]) > 0:
-                if isinstance(self.data[i][0], ScenarioPiece):
+            if type(self.retrievers.data[i]) is list and len(self.retrievers.data[i]) > 0:
+                if isinstance(self.retrievers.data[i][0], ScenarioPiece):
                     represent += "\t" + val.name + ": [\n"
-                    for x in self.data[i]:
+                    for x in self.retrievers.data[i]:
                         represent += "\t\t" + str(x)
                     represent += "\t]\n"
                 else:
-                    represent += self._entry_to_string(val.name, str(self.data[i]), str(val.datatype.to_simple_string()))
+                    represent += self._entry_to_string(
+                        val.name,
+                        str(self.retrievers.data[i]),
+                        str(val.datatype.to_simple_string())
+                    )
             else:
-                data = self.data[i] if self.data and self.data[i] is not None else "<Empty>"
+                if self.retrievers.data and self.retrievers.data[i] is not None:
+                    data = self.retrievers.data[i]
+                else:
+                    data = "<Empty>"
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
 
         return represent

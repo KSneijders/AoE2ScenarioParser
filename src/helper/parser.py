@@ -70,7 +70,7 @@ class Parser:
             self.add_to_saves(retriever.save_as, _vorl(result))
 
         if retriever.log_value:
-            print(retriever, ">>> Data retrieved:", _vorl(result))
+            print(retriever, "retrieved", _vorl(result))
 
         return _vorl(result) if not as_length else length
 

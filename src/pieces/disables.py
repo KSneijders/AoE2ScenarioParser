@@ -21,7 +21,7 @@ class DisablesPiece(scenario_piece.ScenarioPiece):
             Retriever("Naval Mode", DataType("u32")),
             Retriever("All techs", DataType("u32")),
             Retriever("Per player starting age", DataType("u32", repeat=16)),  # 2: Dark 6 = Post | 1-8 players 9 GAIA
-            Retriever("Unknown", DataType("54"))
+            Retriever("Unknown", DataType("36")),
         ]
 
         super().__init__(parser, "Disables", retrievers)

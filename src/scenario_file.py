@@ -37,6 +37,8 @@ class AoE2Scenario:
         self.parsed_header = {}
         self.parsed_data = {}
 
+        self.write_file("hd", write_in_bytes=False)
+
         self._read_file()
 
     def _read_file(self):
