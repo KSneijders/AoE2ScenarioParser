@@ -134,3 +134,30 @@ def datatype_to_type_length(var):
         var_len = int(var_len / 8)
 
     return var_type, var_len
+
+
+def retriever_to_bytes(retriever):
+    var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+
+    return_bytes = b''
+
+    is_list = type(retriever.data) == list
+    for i in range(0, retriever.datatype.repeat):
+        data = retriever.data[i] if is_list else retriever.data
+
+        if var_type == "struct":
+            for struct_retriever in data.retrievers:
+                return_bytes += retriever_to_bytes(struct_retriever)
+        if var_type == "u" or var_type == "s":
+            return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
+        elif var_type == "f":
+            return_bytes += float_to_bytes(data)
+        elif var_type == "c":
+            return_bytes += str_to_bytes(data)
+        elif var_type == "data":
+            return_bytes += data
+        elif var_type == "str":
+            return_bytes += int_to_bytes(len(data), var_len)
+            return_bytes += str_to_bytes(data)
+
+    return return_bytes

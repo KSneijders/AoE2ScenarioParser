@@ -44,21 +44,21 @@ class ScenarioPiece:
         represent = self.piece_type + ": \n"
 
         for i, val in enumerate(self.retrievers):
-            if type(self.retrievers.data[i]) is list and len(self.retrievers.data[i]) > 0:
-                if isinstance(self.retrievers.data[i][0], ScenarioPiece):
+            if type(self.retrievers[i].data) is list and len(self.retrievers[i].data) > 0:
+                if isinstance(self.retrievers[i].data[0], ScenarioPiece):
                     represent += "\t" + val.name + ": [\n"
-                    for x in self.retrievers.data[i]:
+                    for x in self.retrievers[i].data:
                         represent += "\t\t" + str(x)
                     represent += "\t]\n"
                 else:
                     represent += self._entry_to_string(
                         val.name,
-                        str(self.retrievers.data[i]),
+                        str(self.retrievers[i].data),
                         str(val.datatype.to_simple_string())
                     )
             else:
-                if self.retrievers.data and self.retrievers.data[i] is not None:
-                    data = self.retrievers.data[i]
+                if self.retrievers[i].data is not None:
+                    data = self.retrievers[i].data
                 else:
                     data = "<Empty>"
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))

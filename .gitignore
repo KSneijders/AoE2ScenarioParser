@@ -211,3 +211,5 @@ dmypy.json
 results/generated_map_hd.aoe2scenario
 
 results/progress.aoe2scenario
+
+results/generated_from_parsed.aoe2scenario

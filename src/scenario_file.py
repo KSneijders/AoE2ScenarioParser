@@ -17,10 +17,6 @@ from src.pieces.units import UnitsPiece
 
 
 class AoE2Scenario:
-    file = b''
-    file_header = b''
-    file_data = b''
-
     def __init__(self, filename):
         print("Loading file: '" + filename + "'", end="")
 
@@ -34,30 +30,54 @@ class AoE2Scenario:
         print(" .. .. .. .. File loaded!")
 
         self.parser = parser.Parser()
-        self.parsed_header = {}
-        self.parsed_data = {}
 
         self.write_file("hd", write_in_bytes=False)
 
         self._read_file()
 
+        self._write_from_structure(write_in_bytes=False)
+
+    def _write_from_structure(self, write_in_bytes=True):
+        byte_header = b''
+        byte_data = b''
+
+        for key in self.parsed_header:
+            for retriever in self.parsed_header[key].retrievers:
+                byte_header += parser.retriever_to_bytes(retriever)
+
+        for key in self.parsed_data:
+            for retriever in self.parsed_data[key].retrievers:
+                return_bytes = parser.retriever_to_bytes(retriever)
+                byte_data += return_bytes
+
+        # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
+        deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
+        compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
+
+        file = open("./../results/generated_from_parsed.aoe2scenario", "wb" if write_in_bytes else "w")
+        file.write(byte_header if write_in_bytes else _create_readable_hex_string(byte_header.hex()))
+        file.write(byte_data if write_in_bytes else _create_readable_hex_string(byte_data.hex()))
+        file.close()
+
     def _read_file(self):
+        self.parsed_header = {}
+        self.parsed_data = {}
         header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
         data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
 
         for _ in header_structure:
             piece = _(self.parser)
-            print("Reading", piece.piece_type + "...")
+            print("Reading", piece.piece_type + "...", end="")
             piece.set_data_from_generator(header_generator)
             self.parsed_header[type(piece).__name__] = piece
-            print("Reading", piece.piece_type, "done.")
+            print("...Done!")
 
         for _ in file_structure:
             piece = _(self.parser)
-            print("Reading", piece.piece_type + "...")
+            print("Reading", piece.piece_type + "...", end="")
             piece.set_data_from_generator(data_generator)
             self.parsed_data[type(piece).__name__] = piece
-            print("Reading", piece.piece_type, "done.")
+            print("...Done!")
 
         print("File reading done successfully!")
 
