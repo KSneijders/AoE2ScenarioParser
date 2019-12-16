@@ -14,7 +14,9 @@ class FileHeaderPiece(scenario_piece.ScenarioPiece):
             Retriever("Scenario Instructions", DataType("str32")),
             Retriever("Individual Victories Used", DataType("u32")),
             Retriever("Player Count", DataType("u32")),
-            Retriever("Unknown Data", DataType("52"))  # Todo: Explore 52 bytes of data (Steam name is in here)
+            Retriever("Unknown Data", DataType("36"), log_value=True),  # Todo: Explore 52 bytes of data (Steam name is in here)
+            Retriever("Steam name", DataType("str32"), log_value=True),
+            Retriever("Unknown Data", DataType("4"), log_value=True),
         ]
 
         super().__init__(parser, "File Header", retrievers)

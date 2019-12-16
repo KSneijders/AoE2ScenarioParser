@@ -3,6 +3,9 @@ import src.helper.generator as generator
 import src.helper.parser as parser
 import resources.settings as settings
 import collections
+
+from src.helper.datatype import DataType
+from src.helper.retriever import Retriever
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
@@ -50,7 +53,7 @@ class AoE2Scenario:
             piece.set_data_from_generator(header_generator)
             self.parsed_header[type(piece).__name__] = piece
             print("...Done!")
-            print(piece)
+            # print(piece)
 
         for _ in file_structure:
             piece = _(self.parser)
@@ -58,7 +61,17 @@ class AoE2Scenario:
             piece.set_data_from_generator(data_generator)
             self.parsed_data[type(piece).__name__] = piece
             print("...Done!")
-            print(piece)
+            # print(piece)
+
+        suffix = b''
+        try:
+            while True:
+                suffix += self.parser.retrieve_value(data_generator, Retriever("suffix data", DataType("1")))
+        except StopIteration as e:
+            print(e)
+        finally:
+            print("Suffix done", len(suffix))
+            self.suffix = suffix
 
         print("File reading done successfully!")
 
@@ -77,11 +90,11 @@ class AoE2Scenario:
 
         # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-        compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
+        compressed = deflate_obj.compress(byte_data + self.suffix) + deflate_obj.flush()
 
         file = open(settings.file.get("output"), "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else _create_readable_hex_string(byte_header.hex()))
-        file.write(compressed if write_in_bytes else _create_readable_hex_string(byte_data.hex()))
+        file.write(compressed if write_in_bytes else _create_readable_hex_string(compressed.hex()))
         file.close()
 
     # Todo: Fix write_data_progress function. Probably needs a rewrite
