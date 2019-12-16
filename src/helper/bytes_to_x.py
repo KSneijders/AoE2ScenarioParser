@@ -18,8 +18,16 @@ def int_to_bytes(integer, length, endian="little", signed=True):
 
 
 def bytes_to_float(byte_elements):
-    return struct.unpack_from('f', byte_elements)[0]
+    return struct.unpack('f', byte_elements)[0]
 
 
 def float_to_bytes(f):
     return struct.pack('f', f)
+
+
+def bytes_to_double(byte_elements):
+    return struct.unpack('d', byte_elements)[0]
+
+
+def double_to_bytes(d):
+    return struct.pack('d', d)

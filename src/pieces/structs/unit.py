@@ -14,7 +14,7 @@ class UnitStruct(structs.Struct):
             Retriever("Status", DataType("u8")),
             Retriever("Rotation, in radians", DataType("f32")),
             Retriever("Initial animation frame", DataType("u16")),
-            Retriever("Garrisoned in: ID", DataType("u32")),
+            Retriever("Garrisoned in: ID", DataType("s32")),
         ]
 
         super().__init__(parser, "Unit", retrievers, data)

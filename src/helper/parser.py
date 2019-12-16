@@ -43,16 +43,24 @@ class Parser:
                 length += i
                 continue
             if var_type == "u" or var_type == "s":
-                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
+                retr = r_gen(generator, var_len)
+                val = bytes_to_int(retr, signed=(var_type == "s"))
             elif var_type == "f":
-                val = bytes_to_float(r_gen(generator, var_len))
+                retr = r_gen(generator, var_len)
+                if var_len == 4:
+                    val = bytes_to_float(retr)
+                else:  # Always 4 except for trigger version
+                    val = bytes_to_double(retr)
             elif var_type == "c":
-                val = bytes_to_str(r_gen(generator, var_len))
+                retr = r_gen(generator, var_len)
+                val = bytes_to_str(retr)
             elif var_type == "data":
-                val = r_gen(generator, var_len)
+                retr = r_gen(generator, var_len)
+                val = retr
             elif var_type == "str":
-                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                val = bytes_to_str(r_gen(generator, string_length))
+                retr = r_gen(generator, var_len)
+                string_length = bytes_to_int(retr, endian="little", signed=True)
+                val = bytes_to_str(retr)
                 length += string_length
             else:
                 break
@@ -157,7 +165,7 @@ def retriever_to_bytes(retriever):
         elif var_type == "data":
             return_bytes += data
         elif var_type == "str":
-            return_bytes += int_to_bytes(len(data), var_len)
+            return_bytes += int_to_bytes(len(data), var_len, endian="little", signed=True)
             return_bytes += str_to_bytes(data)
 
     return return_bytes

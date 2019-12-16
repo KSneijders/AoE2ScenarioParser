@@ -35,7 +35,7 @@ class AoE2Scenario:
 
         self._read_file()
 
-        self._write_from_structure(write_in_bytes=False)
+        self._write_from_structure()
 
     def _write_from_structure(self, write_in_bytes=True):
         byte_header = b''
@@ -54,9 +54,9 @@ class AoE2Scenario:
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
         compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
 
-        file = open("./../results/generated_from_parsed.aoe2scenario", "wb" if write_in_bytes else "w")
+        file = open(settings.file.get("output"), "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else _create_readable_hex_string(byte_header.hex()))
-        file.write(byte_data if write_in_bytes else _create_readable_hex_string(byte_data.hex()))
+        file.write(compressed if write_in_bytes else _create_readable_hex_string(byte_data.hex()))
         file.close()
 
     def _read_file(self):
@@ -71,6 +71,7 @@ class AoE2Scenario:
             piece.set_data_from_generator(header_generator)
             self.parsed_header[type(piece).__name__] = piece
             print("...Done!")
+            print(piece)
 
         for _ in file_structure:
             piece = _(self.parser)
@@ -78,6 +79,7 @@ class AoE2Scenario:
             piece.set_data_from_generator(data_generator)
             self.parsed_data[type(piece).__name__] = piece
             print("...Done!")
+            print(piece)
 
         print("File reading done successfully!")
 
