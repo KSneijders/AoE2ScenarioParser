@@ -7,10 +7,12 @@ from src.pieces.structs.trigger import TriggerStruct
 class TriggerPiece(scenario_piece.ScenarioPiece):
     def __init__(self, parser):
         retrievers = [
+            Retriever("Trigger Version", DataType("f64")),
             Retriever("Trigger instructions start", DataType("s8")),
             Retriever("Number of triggers", DataType("s32"), save_as="number_of_triggers"),
             Retriever("Trigger data", DataType(TriggerStruct), set_repeat="{number_of_triggers}"),
             Retriever("Trigger display order array", DataType("u32"), set_repeat="{number_of_triggers}"),
+            Retriever("Unknown", DataType("1040")),
         ]
 
         super().__init__(parser, "Triggers", retrievers)

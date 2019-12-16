@@ -2,6 +2,7 @@ import zlib
 import src.helper.generator as generator
 import src.helper.parser as parser
 import resources.settings as settings
+import collections
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
@@ -37,6 +38,30 @@ class AoE2Scenario:
 
         self._write_from_structure()
 
+    def _read_file(self):
+        self.parsed_header = collections.OrderedDict()
+        self.parsed_data = collections.OrderedDict()
+        header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
+        data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
+
+        for _ in header_structure:
+            piece = _(self.parser)
+            print("Reading", piece.piece_type + "...", end="")
+            piece.set_data_from_generator(header_generator)
+            self.parsed_header[type(piece).__name__] = piece
+            print("...Done!")
+            print(piece)
+
+        for _ in file_structure:
+            piece = _(self.parser)
+            print("Reading", piece.piece_type + "...", end="")
+            piece.set_data_from_generator(data_generator)
+            self.parsed_data[type(piece).__name__] = piece
+            print("...Done!")
+            print(piece)
+
+        print("File reading done successfully!")
+
     def _write_from_structure(self, write_in_bytes=True):
         byte_header = b''
         byte_data = b''
@@ -58,30 +83,6 @@ class AoE2Scenario:
         file.write(byte_header if write_in_bytes else _create_readable_hex_string(byte_header.hex()))
         file.write(compressed if write_in_bytes else _create_readable_hex_string(byte_data.hex()))
         file.close()
-
-    def _read_file(self):
-        self.parsed_header = {}
-        self.parsed_data = {}
-        header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
-        data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
-
-        for _ in header_structure:
-            piece = _(self.parser)
-            print("Reading", piece.piece_type + "...", end="")
-            piece.set_data_from_generator(header_generator)
-            self.parsed_header[type(piece).__name__] = piece
-            print("...Done!")
-            print(piece)
-
-        for _ in file_structure:
-            piece = _(self.parser)
-            print("Reading", piece.piece_type + "...", end="")
-            piece.set_data_from_generator(data_generator)
-            self.parsed_data[type(piece).__name__] = piece
-            print("...Done!")
-            print(piece)
-
-        print("File reading done successfully!")
 
     # Todo: Fix write_data_progress function. Probably needs a rewrite
     # def write_data_progress(self, write_in_bytes=True):

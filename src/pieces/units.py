@@ -16,7 +16,6 @@ class UnitsPiece(scenario_piece.ScenarioPiece):
             # Retriever("Unknown (2)", DataType("115", repeat=8)),
             Retriever("Player data #3?", DataType(PlayerDataThreeStruct, repeat=8)),
             Retriever("Player Units", DataType(PlayerUnitsStruct), set_repeat="{unit_sections}"),
-            Retriever("Trigger Version", DataType("f64")),
         ]
 
         super().__init__(parser, "Units", retrievers)
