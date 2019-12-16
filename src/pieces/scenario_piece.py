@@ -6,7 +6,6 @@ class ScenarioPiece:
         self.parser = parser
         self.piece_type = piece_type
         self.retrievers = retrievers
-        # self.data = data
         if data is not None:
             self.set_data(data)
 
@@ -35,7 +34,6 @@ class ScenarioPiece:
             ValueError("Data list isn't the same size as the DataType list")
 
     def set_data_from_generator(self, generator):
-        # self.retrievers.data = list()
         for i, retriever in enumerate(self.retrievers):
             retriever.set_data(self.parser.retrieve_value(generator, retriever))
 
