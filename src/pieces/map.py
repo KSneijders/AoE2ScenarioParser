@@ -6,7 +6,7 @@ from src.pieces.structs.terrain import TerrainStruct
 
 class MapPiece(scenario_piece.ScenarioPiece):
 
-    def __init__(self, parser):
+    def __init__(self, parser_obj):
         retrievers = [
             Retriever("Separator??", DataType("2")),
             Retriever("Unknown String", DataType("str16")),
@@ -24,4 +24,4 @@ class MapPiece(scenario_piece.ScenarioPiece):
             Retriever("Terrain data", DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
         ]
 
-        super().__init__(parser, "Map", retrievers)
+        super().__init__(parser_obj, "Map", retrievers)

@@ -4,7 +4,7 @@ import src.pieces.structs.struct as structs
 
 
 class ConditionStruct(structs.Struct):
-    def __init__(self, parser, data=None):
+    def __init__(self, parser_obj, data=None):
         retrievers = [
             Retriever("Condition Type", DataType("s32")),
             Retriever("Amount of condition attributes? Always 0x15", DataType("s32")),  # Was always: 0x10
@@ -31,4 +31,4 @@ class ConditionStruct(structs.Struct):
             Retriever("Target player (diplo state)", DataType("s32")),
         ]
 
-        super().__init__(parser, "Condition", retrievers, data)
+        super().__init__(parser_obj, "Condition", retrievers, data)

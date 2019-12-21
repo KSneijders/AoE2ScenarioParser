@@ -2,8 +2,8 @@ import src.helper.parser as parser
 
 
 class ScenarioPiece:
-    def __init__(self, parser, piece_type, retrievers, data=None):
-        self.parser = parser
+    def __init__(self, parser_obj, piece_type, retrievers, data=None):
+        self.parser = parser_obj
         self.piece_type = piece_type
         self.retrievers = retrievers
         if data is not None:

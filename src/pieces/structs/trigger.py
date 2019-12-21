@@ -6,7 +6,7 @@ from src.pieces.structs.effect import EffectStruct
 
 
 class TriggerStruct(structs.Struct):
-    def __init__(self, parser, data=None):
+    def __init__(self, parser_obj, data=None):
         retrievers = [
             Retriever("Enabled", DataType("u32")),
             Retriever("Looping", DataType("s8")),
@@ -30,4 +30,4 @@ class TriggerStruct(structs.Struct):
             Retriever("Condition display order array", DataType("s32"), set_repeat="{number_of_conditions}"),
         ]
 
-        super().__init__(parser, "Trigger", retrievers, data)
+        super().__init__(parser_obj, "Trigger", retrievers, data)

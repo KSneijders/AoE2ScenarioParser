@@ -3,8 +3,8 @@ import src.pieces.scenario_piece as scenario_piece
 
 
 class Struct(scenario_piece.ScenarioPiece):
-    def __init__(self, parser, piece_type, retrievers, data=None):
-        super().__init__(parser, piece_type, retrievers, data)
+    def __init__(self, parser_obj, piece_type, retrievers, data=None):
+        super().__init__(parser_obj, piece_type, retrievers, data)
 
         if data is not None:
             gen = create_generator(data, 1)

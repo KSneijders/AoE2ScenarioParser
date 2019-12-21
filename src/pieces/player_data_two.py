@@ -6,7 +6,7 @@ from src.pieces.structs.resources import ResourcesStruct
 
 
 class PlayerDataTwoPiece(scenario_piece.ScenarioPiece):
-    def __init__(self, parser, data=None):
+    def __init__(self, parser_obj, data=None):
         retrievers = [
             Retriever("Unknown strings", DataType("str16", repeat=32)),
             Retriever("AI names", DataType("str16", repeat=16)),
@@ -16,4 +16,4 @@ class PlayerDataTwoPiece(scenario_piece.ScenarioPiece):
             Retriever("Resources", DataType(ResourcesStruct, repeat=16))
         ]
 
-        super().__init__(parser, "Player Data #2", retrievers, data)
+        super().__init__(parser_obj, "Player Data #2", retrievers, data)

@@ -7,7 +7,7 @@ from src.pieces.structs.player_units import PlayerUnitsStruct
 
 
 class UnitsPiece(scenario_piece.ScenarioPiece):
-    def __init__(self, parser):
+    def __init__(self, parser_obj):
         retrievers = [
             Retriever("Number of unit sections", DataType("u32"), save_as="unit_sections"),
             Retriever("Player Data 4", DataType(PlayerDataFourStruct, repeat=8)),
@@ -18,4 +18,4 @@ class UnitsPiece(scenario_piece.ScenarioPiece):
             Retriever("Player Units", DataType(PlayerUnitsStruct), set_repeat="{unit_sections}"),
         ]
 
-        super().__init__(parser, "Units", retrievers)
+        super().__init__(parser_obj, "Units", retrievers)

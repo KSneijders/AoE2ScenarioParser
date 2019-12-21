@@ -43,23 +43,18 @@ class Parser:
                 length += i
                 continue
             if var_type == "u" or var_type == "s":
-                retr = r_gen(generator, var_len)
-                val = bytes_to_int(retr, signed=(var_type == "s"))
+                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
-                retr = r_gen(generator, var_len)
                 if var_len == 4:
-                    val = bytes_to_float(retr)
+                    val = bytes_to_float(r_gen(generator, var_len))
                 else:  # Always 4 except for trigger version
-                    val = bytes_to_double(retr)
+                    val = bytes_to_double(r_gen(generator, var_len))
             elif var_type == "c":
-                retr = r_gen(generator, var_len)
-                val = bytes_to_str(retr)
+                val = bytes_to_str(r_gen(generator, var_len))
             elif var_type == "data":
-                retr = r_gen(generator, var_len)
-                val = retr
+                val = r_gen(generator, var_len)
             elif var_type == "str":
-                retr = r_gen(generator, var_len)
-                string_length = bytes_to_int(retr, endian="little", signed=True)
+                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
                 val = bytes_to_str(r_gen(generator, string_length))
                 length += string_length
             else:
@@ -82,7 +77,7 @@ class Parser:
 
         return _vorl(result) if not as_length else length
 
-    def parse_repeat_string(self, repeat_string, index=1):
+    def parse_repeat_string(self, repeat_string):
         while True:
             start = repeat_string.find("{")
             end = repeat_string.find("}")

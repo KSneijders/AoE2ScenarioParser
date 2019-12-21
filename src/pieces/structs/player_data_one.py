@@ -4,7 +4,7 @@ import src.pieces.structs.struct as structs
 
 
 class PlayerDataOneStruct(structs.Struct):
-    def __init__(self, parser, data=None):
+    def __init__(self, parser_obj, data=None):
         retrievers = [
             Retriever("Active", DataType("u32")),
             Retriever("Human", DataType("u32")),
@@ -12,4 +12,4 @@ class PlayerDataOneStruct(structs.Struct):
             Retriever("CTY Mode", DataType("u32"))
         ]
 
-        super().__init__(parser, "Player Data #1", retrievers, data)
+        super().__init__(parser_obj, "Player Data #1", retrievers, data)

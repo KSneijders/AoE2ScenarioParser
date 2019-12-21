@@ -97,22 +97,6 @@ class AoE2Scenario:
         file.write(compressed if write_in_bytes else _create_readable_hex_string(compressed.hex()))
         file.close()
 
-    # Todo: Fix write_data_progress function. Probably needs a rewrite
-    # def write_data_progress(self, write_in_bytes=True):
-    #     gen = self.create_data_generator(settings.runtime.get('chunk_size'))
-    #
-    #     progress_length = 0
-    #     for i in range(1, len(self.file_structure)):
-    #         size = parser.calculate_length(gen, self.file_structure[i].retrievers)
-    #         progress_length += size
-    #
-    #     file = open("./../results/progress.aoe2scenario", "wb" if write_in_bytes else "w")
-    #     file.write(
-    #         self.file_data[progress_length:] if write_in_bytes
-    #         else _create_readable_hex_string(self.file_data[progress_length:].hex())
-    #     )
-    #     file.close()
-
     def write_file(self, datatype, write_in_bytes=True):
         file = open("./../results/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
         for t in datatype:

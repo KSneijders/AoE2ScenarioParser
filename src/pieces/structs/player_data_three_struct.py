@@ -4,7 +4,7 @@ import src.pieces.structs.struct as structs
 
 
 class PlayerDataThreeStruct(structs.Struct):
-    def __init__(self, parser, data=None):
+    def __init__(self, parser_obj, data=None):
         retrievers = [
             Retriever("Constant name", DataType("str16")),
             Retriever("Initial Camera, X", DataType("f32")),
@@ -24,4 +24,4 @@ class PlayerDataThreeStruct(structs.Struct):
             Retriever("Unknown (4)", DataType("s32")),
         ]
 
-        super().__init__(parser, "Player Data #3", retrievers, data)
+        super().__init__(parser_obj, "Player Data #3", retrievers, data)

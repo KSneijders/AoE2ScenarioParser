@@ -5,7 +5,7 @@ from src.helper.datatype import DataType
 
 class DisablesPiece(scenario_piece.ScenarioPiece):
 
-    def __init__(self, parser):
+    def __init__(self, parser_obj):
         retrievers = [
             Retriever("Per player number of disabled techs", DataType("u32", repeat=16), save_as="disabled_techs"),
             Retriever("Disabled technology IDs in player order", DataType("u32"), set_repeat="sum({disabled_techs})"),
@@ -24,4 +24,4 @@ class DisablesPiece(scenario_piece.ScenarioPiece):
             Retriever("Unknown", DataType("36")),
         ]
 
-        super().__init__(parser, "Disables", retrievers)
+        super().__init__(parser_obj, "Disables", retrievers)

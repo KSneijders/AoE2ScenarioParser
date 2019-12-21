@@ -5,7 +5,7 @@ from src.helper.datatype import DataType
 
 class CinematicsPiece(scenario_piece.ScenarioPiece):
 
-    def __init__(self, parser):
+    def __init__(self, parser_obj):
         retrievers = [
             Retriever("ASCII, Pregame cinematic filename", DataType("str16")),
             Retriever("ASCII, Victory cinematic filename", DataType("str16")),
@@ -13,4 +13,4 @@ class CinematicsPiece(scenario_piece.ScenarioPiece):
             # Retriever("Separator (! in some version)", DataType("1")),
         ]
 
-        super().__init__(parser, "Cinematics", retrievers)
+        super().__init__(parser_obj, "Cinematics", retrievers)
