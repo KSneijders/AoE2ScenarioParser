@@ -28,7 +28,7 @@ class ConditionStruct(structs.Struct):
             Retriever("Unknown (3)", DataType("s32")),
             Retriever("Variable", DataType("s32")),  # Number == VariableX
             Retriever("Comparison", DataType("s32")),  # 0: ==, 1: <, 2: >, 3: <=, 4 >=
-            Retriever("Target player (diplo state)", DataType("s32")),
+            Retriever("Target player", DataType("s32")),
         ]
 
         super().__init__(parser_obj, "Condition", retrievers, data)

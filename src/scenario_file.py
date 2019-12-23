@@ -53,7 +53,7 @@ class AoE2Scenario:
             piece.set_data_from_generator(header_generator)
             self.parsed_header[type(piece).__name__] = piece
             print("...Done!")
-            # print(piece)
+            print(piece)
 
         for _ in file_structure:
             piece = _(self.parser)
@@ -61,7 +61,7 @@ class AoE2Scenario:
             piece.set_data_from_generator(data_generator)
             self.parsed_data[type(piece).__name__] = piece
             print("...Done!")
-            # print(piece)
+            print(piece)
 
         suffix = b''
         try:

@@ -19,7 +19,7 @@ class PlayerDataThreeStruct(structs.Struct):
             Retriever("Victory Version", DataType("f32"), save_as="vic_version"),
             Retriever("Unknown", DataType("u16"), save_as="unknown_DAT"),
             Retriever("Unknown (2)", DataType("u8"), set_repeat="8 if {vic_version} == 2 else 0"),
-            # Retriever("Unknown structure, (Grand Theft Empires)", DataType("44")),
+            Retriever("Unknown structure, (Grand Theft Empires)", DataType("44"), set_repeat="{unknown_DAT}"),
             Retriever("Unknown (3)", DataType("u8", repeat=7)),
             Retriever("Unknown (4)", DataType("s32")),
         ]

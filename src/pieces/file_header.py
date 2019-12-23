@@ -7,8 +7,8 @@ class FileHeaderPiece(scenario_piece.ScenarioPiece):
 
     def __init__(self, parser_obj):
         retrievers = [
-            Retriever("Version (ASCII)", DataType("c4")),
-            Retriever("Length of header", DataType("u32")),
+            Retriever("Version", DataType("c4")),
+            Retriever("Header length", DataType("u32")),
             Retriever("Savable", DataType("s32")),
             Retriever("Timestamp of Last Save", DataType("u32")),
             Retriever("Scenario Instructions", DataType("str32")),
