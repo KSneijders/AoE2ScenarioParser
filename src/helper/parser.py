@@ -1,6 +1,6 @@
 from src.helper.bytes_to_x import *
 from src.helper.generator import repeat_generator as r_gen
-import src.pieces.structs.struct as structs
+import src.pieces.structs.aoe2_struct as structs
 
 types = [
     "s",  # Signed int

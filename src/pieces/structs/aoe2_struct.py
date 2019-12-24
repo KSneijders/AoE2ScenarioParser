@@ -1,5 +1,5 @@
 from src.helper.generator import create_generator
-import src.pieces.scenario_piece as scenario_piece
+import src.pieces.aoe2_piece as scenario_piece
 
 
 class Struct(scenario_piece.ScenarioPiece):

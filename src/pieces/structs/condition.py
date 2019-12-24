@@ -1,6 +1,6 @@
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
-import src.pieces.structs.struct as structs
+import src.pieces.structs.aoe2_struct as structs
 
 
 class ConditionStruct(structs.Struct):

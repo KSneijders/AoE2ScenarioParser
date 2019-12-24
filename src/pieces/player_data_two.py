@@ -1,6 +1,6 @@
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
-import src.pieces.scenario_piece as scenario_piece
+import src.pieces.aoe2_piece as scenario_piece
 from src.pieces.structs.ai import AIStruct
 from src.pieces.structs.resources import ResourcesStruct
 

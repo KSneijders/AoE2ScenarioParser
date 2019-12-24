@@ -1,5 +1,5 @@
 import resources.settings as settings
-from src.scenario_file import AoE2Scenario
+from src.aoe2_scenario import AoE2Scenario
 
 # (Outdated)? AoE2Scenario explanation: http://dderevjanik.github.io/agescx/formatscx/#about-scenario
 

@@ -1,4 +1,4 @@
-import src.pieces.scenario_piece as scenario_piece
+import src.pieces.aoe2_piece as scenario_piece
 from src.helper.retriever import Retriever
 from src.helper.datatype import DataType
 
@@ -14,7 +14,7 @@ class FileHeaderPiece(scenario_piece.ScenarioPiece):
             Retriever("Scenario Instructions", DataType("str32")),
             Retriever("Individual Victories Used", DataType("u32")),
             Retriever("Player Count", DataType("u32")),
-            Retriever("Unknown Data", DataType("36"), log_value=True),  # Todo: Explore 36
+            Retriever("Unknown Data", DataType("36"), log_value=True),
             Retriever("Steam name", DataType("str32"), log_value=True),
             Retriever("Unknown Data", DataType("4"), log_value=True),
         ]

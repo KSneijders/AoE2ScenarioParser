@@ -1,4 +1,4 @@
-import src.pieces.scenario_piece as scenario_piece
+import src.pieces.aoe2_piece as scenario_piece
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
 

@@ -1,4 +1,5 @@
 import src.helper.parser as parser
+from src.helper.retriever import find_retriever
 
 
 class ScenarioPiece:
@@ -8,6 +9,9 @@ class ScenarioPiece:
         self.retrievers = retrievers
         if data is not None:
             self.set_data(data)
+
+    def get_value(self, retriever_key):
+        return find_retriever(self.retrievers, retriever_key).data
 
     def get_length(self):
         total_length = 0
