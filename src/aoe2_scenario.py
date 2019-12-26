@@ -6,6 +6,7 @@ import collections
 
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
+from src.objects.file_header_obj import FileHeaderObject
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
@@ -39,7 +40,7 @@ class AoE2Scenario:
 
         self._read_file()
 
-        self._write_from_structure()
+        # self._write_from_structure()
 
     def _read_file(self):
         self.parsed_header = collections.OrderedDict()
@@ -74,6 +75,10 @@ class AoE2Scenario:
             self.suffix = suffix
 
         print("File reading done successfully!")
+
+        fho = FileHeaderObject()
+        fho.set_from_pieces(self.parsed_header['FileHeaderPiece'])
+        print(fho)
 
     def _write_from_structure(self, write_in_bytes=True):
         byte_header = b''

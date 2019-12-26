@@ -10,13 +10,13 @@ class FileHeaderPiece(scenario_piece.ScenarioPiece):
             Retriever("Version", DataType("c4")),
             Retriever("Header length", DataType("u32")),
             Retriever("Savable", DataType("s32")),
-            Retriever("Timestamp of Last Save", DataType("u32")),
-            Retriever("Scenario Instructions", DataType("str32")),
-            Retriever("Individual Victories Used", DataType("u32")),
-            Retriever("Player Count", DataType("u32")),
-            Retriever("Unknown Data", DataType("36"), log_value=True),
-            Retriever("Steam name", DataType("str32"), log_value=True),
-            Retriever("Unknown Data", DataType("4"), log_value=True),
+            Retriever("Timestamp of last save", DataType("u32")),
+            Retriever("Scenario instructions", DataType("str32")),
+            Retriever("Individual victories used", DataType("u32")),
+            Retriever("Player count", DataType("u32")),
+            Retriever("Data", DataType("36"), log_value=True),
+            Retriever("Creator steam name", DataType("str32"), log_value=True),
+            Retriever("Data", DataType("4"), log_value=True),
         ]
 
         super().__init__(parser_obj, "File Header", retrievers)

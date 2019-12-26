@@ -9,7 +9,7 @@ class PlayerDataOneStruct(structs.Struct):
             Retriever("Active", DataType("u32")),
             Retriever("Human", DataType("u32")),
             Retriever("Civilization", DataType("u32")),
-            Retriever("CTY Mode", DataType("u32"))
+            Retriever("CTY mode", DataType("u32"))
         ]
 
         super().__init__(parser_obj, "Player Data #1", retrievers, data)

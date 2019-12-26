@@ -210,19 +210,19 @@
 				<tr>
 					<td>str32</td>
 					<td>1x</td>
-					<td>Scenario Instructions</td>
+					<td>Scenario instructions</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>Individual Victories used<uk title="What are individual victories?"></uk></td>
+					<td>Individual victories used<uk title="What are individual victories?"></uk></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>Player Count</td>
+					<td>Player count</td>
 					<td>Amount of players</td>
 				</tr>
 				<tr>
@@ -258,7 +258,7 @@
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>Next unit ID to Place</td>
+					<td>Next unit ID to place</td>
 					<td></td>
 				</tr>
 				<tr>
@@ -274,39 +274,45 @@
 					<td>Names in ASCII</td>
 				</tr>
 				<tr>
+					<td>u32</td>
+					<td>16xx</td>
+					<td>String table player names</td>
+					<td></td>
+				</tr>
+				<tr>
 					<td><a href="#player-data-one-struct">PlayerDataOneStruct</a></td>
 					<td>16x</td>
-					<td>Player Data#1</td>
+					<td>Player data#1</td>
 					<td>First part of player data</td>
 				</tr>
 				<tr>
 					<td>u8</td>
 					<td>1x</td>
-					<td>Conquest Mode<uk title="Doesn't change if victory is set to conqest?"></uk></td>
+					<td>Conquest mode<uk title="Doesn't change if victory is set to conqest?"></uk></td>
 					<td><code>boolean</code></td>
 				</tr>
 				<tr>
 					<td>u16</td>
 					<td>1x</td>
-					<td>Mission Items Counter<uk title="What are missions?"></uk></td>
+					<td>Mission items counter<uk title="What are missions?"></uk></td>
 					<td>Save as <code>MIC</code></td>
 				</tr>
 				<tr>
 					<td>u16</td>
 					<td>1x</td>
-					<td>Mission Available<uk title="What are missions?"></uk></td>
+					<td>Mission available<uk title="What are missions?"></uk></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>f32</td>
 					<td>1x</td>
-					<td>Mission Timeline<uk title="What are missions?"></uk></td>
+					<td>Mission timeline<uk title="What are missions?"></uk></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>30</td>
 					<td><code>MIC</code></td>
-					<td>Mission Item<uk title="What are missions?"></uk></td>
+					<td>Mission item<uk title="What are missions?"></uk></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -318,8 +324,8 @@
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>Original Filename at creation</td>
-					<td></td>
+					<td>Filename</td>
+					<td>Only named at creation</td>
 				</tr>
 			</table>
 		</div>
@@ -354,7 +360,7 @@
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>CTY Mode<uk title="What even is CTY mode?"></uk></td>
+					<td>CTY mode<uk title="What even is CTY mode?"></uk></td>
 					<td></td>
 				</tr>
 			</table>

@@ -8,7 +8,7 @@ from src.pieces.structs.resources import ResourcesStruct
 class PlayerDataTwoPiece(scenario_piece.ScenarioPiece):
     def __init__(self, parser_obj, data=None):
         retrievers = [
-            Retriever("Unknown strings", DataType("str16", repeat=32)),
+            Retriever("Strings", DataType("str16", repeat=32)),
             Retriever("AI names", DataType("str16", repeat=16)),
             Retriever("AI files", DataType(AIStruct, repeat=16)),
             Retriever("AI type", DataType("u8", repeat=16)),
