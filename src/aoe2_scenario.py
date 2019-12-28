@@ -4,6 +4,7 @@ import src.helper.parser as parser
 import resources.settings as settings
 import collections
 
+from src.aoe2_object_manager import AoE2ObjectManager
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
 from src.objects.file_header_obj import FileHeaderObject
@@ -76,9 +77,14 @@ class AoE2Scenario:
 
         print("File reading done successfully!")
 
-        fho = FileHeaderObject()
-        fho.set_from_pieces(self.parsed_header['FileHeaderPiece'])
-        print(fho)
+        print(self.parsed_header.keys())
+        print(self.parsed_data.keys())
+
+        om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
+
+        # fho = FileHeaderObject()
+        # fho.set_from_pieces(self.parsed_header['FileHeaderPiece'])
+        # print(fho)
 
     def _write_from_structure(self, write_in_bytes=True):
         byte_header = b''

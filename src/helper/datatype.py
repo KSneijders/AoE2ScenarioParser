@@ -7,7 +7,7 @@ class DataType:
                 u: Unsigned integer     All integers (signed and unsigned) are parsed as little endian
                 f: float
                 c: Character string of fixed length
-                (Empty): Is interpreted as regular byte data. In this project the '' is converted to data
+                (Empty): Is interpreted as regular byte data. In this project the '' is converted to 'data'
                 str: Character string of variable length.
                     This type will read the number in bits given and parse it as an int. The number retrieved from it
                     will be the amount of bytes read as a character string.
@@ -20,7 +20,7 @@ class DataType:
             - To define a length to your data type, write the datatype with the length behind it (no whitespaces)
                 Example 1:  s16             > A signed integer of 16 bits.
                 Example 2:  f32             > A 32 bit floating point number.
-                Example 3:  c4              > A 32 bit (4 byte) character string.
+                Example 3:  c4              > A 32 bit (4 bytes) character string.
                 Example 4:  str16           > A 16 bit integer will be parsed (n). Now n bytes will be read as character
                                             string.
                 Example 5:  TerrainStruct   > The TerrainStruct will be instantiated and DataTypes from that struct will

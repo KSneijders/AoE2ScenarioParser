@@ -85,7 +85,7 @@
 				<td>Start of compressed section</td>
 			</tr>
 			<tr>
-				<td>&emsp;<a href="#player-data-one-struct">Player Data One</a></td>
+				<td>&emsp;<a href="#player-data-one-struct">Player data one</a></td>
 				<td>First part of <code>player data</code></td>
 			</tr>
 			<tr>
@@ -101,7 +101,7 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><a href="#player-data-two">Player Data Two</a></td>
+				<td><a href="#player-data-two">Player data two</a></td>
 				<td>Second part of <code>player data</code></td>
 			</tr>
 			<tr>
@@ -275,7 +275,7 @@
 				</tr>
 				<tr>
 					<td>u32</td>
-					<td>16xx</td>
+					<td>16x</td>
 					<td>String table player names</td>
 					<td></td>
 				</tr>
@@ -414,38 +414,38 @@
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>Instructions</td>
-					<td>Text in ASCII</td>
+					<td>ASCII Instructions</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>Hints</td>
-					<td>Text in ASCII</td>
+					<td>ASCII Hints</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>Victory</td>
-					<td>Text in ASCII</td>
+					<td>ASCII Victory</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>Loss</td>
-					<td>Text in ASCII</td>
+					<td>ASCII Loss</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>History</td>
-					<td>Text in ASCII</td>
+					<td>ASCII History</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>str16</td>
 					<td>1x</td>
-					<td>Scouts</td>
-					<td>Text in ASCII</td>
+					<td>ASCII Scouts</td>
+					<td></td>
 				</tr>
 			</table>
 		</div>
@@ -654,8 +654,8 @@
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>Player number</td>
-					<td>Player numbers 0-7. Gaia (9th) is also 6... <i>Why???</i></td>
+					<td>Player color</td>
+					<td>0: <code>blue</code>, ..., 7: <code>orange</code></td>
 				</tr>
 			</table>
 		</div>
@@ -769,7 +769,7 @@
 					<td>u32</td>
 					<td>16x</td>
 					<td>Per-player allied victory</td>
-					<td><code>boolean</code> - ignored. Saved in <a href="#player-data-three-struct">Player Data Three</td>
+					<td><code>boolean</code> - ignored. Saved in <a href="#player-data-three-struct">Player data three</td>
 				</tr>
 				<tr>
 					<td>4</td>
@@ -1008,7 +1008,7 @@
 				<tr>
 					<td><a href="#player-data-four-struct">PlayerDataFourStruct</a></td>
 					<td>8x</td>
-					<td>Player Data#4</td>
+					<td>Player data#4</td>
 					<td>Fourth part of player data</td>
 				</tr>
 				<tr>
@@ -1020,7 +1020,7 @@
 				<tr>
 					<td><a href="#player-data-three-struct">PlayerDataThreeStruct</a></td>
 					<td>8x</td>
-					<td>Player Data#3</td>
+					<td>Player data#3</td>
 					<td>Thrird part of player data</td>
 				</tr>
 				<tr>
@@ -1129,7 +1129,7 @@
 					<td>u8</td>
 					<td>1x</td>
 					<td>Allied Victory</td>
-					<td>[AOK]<uk title="Unused?"></uk></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>u16</td>
@@ -1153,9 +1153,9 @@
 					<td>u32</td>
 					<td>1x</td>
 					<td>Color</td>
-					<td></td>
-				</tr>
-				<tr>
+					<td>Duplicate<uk title="Unsure which is leading, this, or ResourcesStruct"></uk></td>
+				</tr
+>				<tr>
 					<td>f32</td>
 					<td>1x</td>
 					<td>Victory Version</td>
@@ -1170,7 +1170,7 @@
 				<tr>
 					<td>u8</td>
 					<td><code>8</code> or <code>0</code></td>
-					<td>Unknown</td>
+					<td>Unknown<tbd></tbd></td>
 					<td>Repeat is <code>8</code> if <code>vic_version</code> == 2 else <code>0</code></td>
 				</tr>
 				<tr>
@@ -1182,13 +1182,13 @@
 				<tr>
 					<td>u8</td>
 					<td>7x</td>
-					<td>Unknown</td>
+					<td>Unknown<tbd></tbd></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>s32</td>
 					<td>1x</td>
-					<td>Unknown</td>
+					<td>Unknown<tbd></tbd></td>
 					<td></td>
 				</tr>
 			</table>

@@ -15,7 +15,7 @@ class FileHeaderPiece(scenario_piece.ScenarioPiece):
             Retriever("Individual victories used", DataType("u32")),
             Retriever("Player count", DataType("u32")),
             Retriever("Data", DataType("36"), log_value=True),
-            Retriever("Creator steam name", DataType("str32"), log_value=True),
+            Retriever("Creator name", DataType("str32"), log_value=True),
             Retriever("Data", DataType("4"), log_value=True),
         ]
 

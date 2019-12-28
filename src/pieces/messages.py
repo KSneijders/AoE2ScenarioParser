@@ -7,12 +7,12 @@ class MessagesPiece(scenario_piece.ScenarioPiece):
 
     def __init__(self, parser_obj):
         retrievers = [
-            Retriever("Instructions, String table", DataType("u32")),
-            Retriever("Hints, String table", DataType("u32")),
-            Retriever("Victory, String table", DataType("u32")),
-            Retriever("Loss, String table", DataType("u32")),
-            Retriever("History, String table", DataType("u32")),
-            Retriever("Scouts, String table", DataType("u32")),
+            Retriever("Instructions", DataType("u32")),
+            Retriever("Hints", DataType("u32")),
+            Retriever("Victory", DataType("u32")),
+            Retriever("Loss", DataType("u32")),
+            Retriever("History", DataType("u32")),
+            Retriever("Scouts", DataType("u32")),
             Retriever("ASCII Instructions", DataType("str16")),
             Retriever("ASCII Hints", DataType("str16")),
             Retriever("ASCII Victory", DataType("str16")),
