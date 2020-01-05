@@ -3,7 +3,7 @@ from src.helper.retriever import Retriever
 from src.helper.datatype import DataType
 
 
-class DisablesPiece(scenario_piece.ScenarioPiece):
+class OptionsPiece(scenario_piece.ScenarioPiece):
 
     def __init__(self, parser_obj):
         retrievers = [
@@ -24,4 +24,4 @@ class DisablesPiece(scenario_piece.ScenarioPiece):
             Retriever("Unknown", DataType("36")),
         ]
 
-        super().__init__(parser_obj, "Disables", retrievers)
+        super().__init__(parser_obj, "Options", retrievers)

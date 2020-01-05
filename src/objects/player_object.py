@@ -12,6 +12,7 @@ class PlayerObject(AoE2Object):
                  food,
                  stone,
                  color,
+                 starting_age,
                  pop_limit
                  ):
 

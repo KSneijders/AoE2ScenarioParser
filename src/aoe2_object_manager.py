@@ -3,7 +3,9 @@ from src.objects.data_header_obj import DataHeaderObject
 from src.objects.diplomacy_obj import DiplomacyObject
 from src.objects.file_header_obj import FileHeaderObject
 from src.objects.messages_obj import MessagesObject
+from src.objects.options_obj import OptionsObject
 from src.objects.player_object import PlayerObject
+import src.helper.generator as generator
 
 
 class AoE2ObjectManager:
@@ -18,7 +20,47 @@ class AoE2ObjectManager:
         self.objects["PlayerObject"] = self._parse_player_object()
         self.objects["MessagesObject"] = self._parse_messages_object()
         self.objects["DiplomacyObject"] = self._parse_diplomacy_object()
+        self.objects["OptionsObject"] = self._parse_options_object()
         print("\n"*16, self.objects)
+
+    def _parse_options_object(self):
+        object_piece = self.parsed_data['OptionsPiece']
+        # ppnd: Per Player Number of Disabled
+        ppnd_techs = find_retriever(object_piece.retrievers, "Per player number of disabled techs").data
+        ppnd_units = find_retriever(object_piece.retrievers, "Per player number of disabled units").data
+        ppnd_buildings = find_retriever(object_piece.retrievers, "Per player number of disabled buildings").data
+        disabled_techs = generator.create_generator(
+            find_retriever(object_piece.retrievers, "Disabled technology IDs in player order").data, 1
+        )
+        disabled_units = generator.create_generator(
+            find_retriever(object_piece.retrievers, "Disabled unit IDs in player order").data, 1
+        )
+        disabled_buildings = generator.create_generator(
+            find_retriever(object_piece.retrievers, "Disabled building IDs in player order").data, 1
+        )
+
+        disables = list()
+        for player_id in range(0, 8):  # 0-7 Players
+            nd_techs = ppnd_techs[player_id]
+            nd_units = ppnd_units[player_id]
+            nd_buildings = ppnd_buildings[player_id]
+            player_disabled_techs = generator.repeat_generator(
+                disabled_techs, nd_techs, return_bytes=False)
+            player_disabled_units = generator.repeat_generator(
+                disabled_units, nd_units, return_bytes=False)
+            player_disabled_buildings = generator.repeat_generator(
+                disabled_buildings, nd_buildings, return_bytes=False)
+
+            disables.append({
+                'techs': player_disabled_techs,
+                'units': player_disabled_units,
+                'buildings': player_disabled_buildings,
+            })
+
+        return OptionsObject(
+            disables,
+            find_retriever(object_piece.retrievers, "All techs").data
+        )
 
     def _parse_diplomacy_object(self):
         diplomacies = []
@@ -28,6 +70,7 @@ class AoE2ObjectManager:
 
         for player_id in range(0, 8):  # 0-7 Players
             diplomacies.append(DiplomacyObject(
+                player_number=player_id,
                 stance_per_player=find_retriever(diplomacy[player_id].retrievers, "Stance with each player").data
             ))
 
@@ -58,6 +101,8 @@ class AoE2ObjectManager:
 
         data_header_piece = self.parsed_data['DataHeaderPiece']
         unit_piece = self.parsed_data['UnitsPiece']
+        options_piece = self.parsed_data['OptionsPiece']
+        starting_ages = find_retriever(options_piece.retrievers, "Per player starting age").data
 
         # Player Data
         player_data_one = find_retriever(data_header_piece.retrievers, "Player data#1").data  # 0-7 Players & 8 Gaia
@@ -82,6 +127,7 @@ class AoE2ObjectManager:
                 food=find_retriever(resources[player_id].retrievers, "Food").data,
                 stone=find_retriever(resources[player_id].retrievers, "Stone").data,
                 color=find_retriever(resources[player_id].retrievers, "Player color").data,
+                starting_age=starting_ages[player_id],
                 pop_limit=pop_limit
             ))
 
