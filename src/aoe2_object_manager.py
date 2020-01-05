@@ -8,6 +8,7 @@ from src.objects.options_obj import OptionsObject
 from src.objects.player_object import PlayerObject
 import src.helper.generator as generator
 from src.objects.terrain_obj import TerrainObject
+from src.objects.unit_obj import UnitObject
 
 
 class AoE2ObjectManager:
@@ -29,15 +30,28 @@ class AoE2ObjectManager:
 
     def _parse_unit_object(self):
         object_piece = self.parsed_data['UnitsPiece']
-        diplomacy = find_retriever(object_piece.retrievers, "Per-player diplomacy").data
+        units_per_player = find_retriever(object_piece.retrievers, "Player Units").data
 
-        diplomacies = []
-        for player_id in range(0, 8):  # 0-7 Players
-            diplomacies.append(find_retriever(diplomacy[player_id].retrievers, "Stance with each player").data)
+        player_units = []
 
-        return DiplomacyObject(
-            player_stances=diplomacies
-        )
+        for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
+            player_units.append([])
+            units = find_retriever(units_per_player[player_id].retrievers, "Units").data
+
+            for unit in units:
+                player_units[player_id].append(UnitObject(
+                    x=find_retriever(unit.retrievers, "X position").data,
+                    y=find_retriever(unit.retrievers, "Y position").data,
+                    z=find_retriever(unit.retrievers, "Z position").data,
+                    id_on_map=find_retriever(unit.retrievers, "ID").data,
+                    unit_id=find_retriever(unit.retrievers, "Unit 'constant'").data,
+                    status=find_retriever(unit.retrievers, "Status").data,
+                    rotation=find_retriever(unit.retrievers, "Rotation, in radians").data,
+                    animation_frame=find_retriever(unit.retrievers, "Initial animation frame").data,
+                    garrisoned_in_id=find_retriever(unit.retrievers, "Garrisoned in: ID").data,
+                ))
+
+        return player_units
 
     def _parse_map_object(self):
         object_piece = self.parsed_data['MapPiece']
