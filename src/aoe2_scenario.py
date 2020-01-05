@@ -12,7 +12,7 @@ from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
 from src.pieces.diplomacy import DiplomacyPiece
-from src.pieces.disables import DisablesPiece
+from src.pieces.options import OptionsPiece
 from src.pieces.file_header import FileHeaderPiece
 from src.pieces.global_victory import GlobalVictoryPiece
 from src.pieces.map import MapPiece
@@ -78,7 +78,10 @@ class AoE2Scenario:
         print("File reading done successfully!")
 
         print(self.parsed_header.keys())
-        print(self.parsed_data.keys())
+        print("odict_keys([")
+        for x in self.parsed_data.keys():
+            print("\t'" + x + "'")
+        print("])")
 
         om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
 
@@ -146,7 +149,7 @@ file_structure = [
     PlayerDataTwoPiece,
     GlobalVictoryPiece,
     DiplomacyPiece,
-    DisablesPiece,
+    OptionsPiece,
     MapPiece,
     UnitsPiece,
     TriggerPiece,
