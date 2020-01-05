@@ -2,10 +2,12 @@ from src.helper.retriever import find_retriever
 from src.objects.data_header_obj import DataHeaderObject
 from src.objects.diplomacy_obj import DiplomacyObject
 from src.objects.file_header_obj import FileHeaderObject
+from src.objects.map_obj import MapObject
 from src.objects.messages_obj import MessagesObject
 from src.objects.options_obj import OptionsObject
 from src.objects.player_object import PlayerObject
 import src.helper.generator as generator
+from src.objects.terrain_obj import TerrainObject
 
 
 class AoE2ObjectManager:
@@ -14,14 +16,57 @@ class AoE2ObjectManager:
         self.parsed_data = parsed_data
         self.objects = {}
 
-        print("\n"*16)
+        print("\n"*8)
         self.objects["FileHeaderObject"] = self._parse_file_header_object()
         self.objects["DataHeaderObject"] = self._parse_data_header_object()
         self.objects["PlayerObject"] = self._parse_player_object()
         self.objects["MessagesObject"] = self._parse_messages_object()
         self.objects["DiplomacyObject"] = self._parse_diplomacy_object()
         self.objects["OptionsObject"] = self._parse_options_object()
-        print("\n"*16, self.objects)
+        self.objects["MapObject"] = self._parse_map_object()
+        self.objects["UnitObject"] = self._parse_unit_object()
+        print("\n"*4, self.objects)
+
+    def _parse_unit_object(self):
+        object_piece = self.parsed_data['UnitsPiece']
+        diplomacy = find_retriever(object_piece.retrievers, "Per-player diplomacy").data
+
+        diplomacies = []
+        for player_id in range(0, 8):  # 0-7 Players
+            diplomacies.append(find_retriever(diplomacy[player_id].retrievers, "Stance with each player").data)
+
+        return DiplomacyObject(
+            player_stances=diplomacies
+        )
+
+    def _parse_map_object(self):
+        object_piece = self.parsed_data['MapPiece']
+        map_width = find_retriever(object_piece.retrievers, "Map Width").data
+        map_height = find_retriever(object_piece.retrievers, "Map Height").data
+        terrain_list = find_retriever(object_piece.retrievers, "Terrain data").data
+        # AoE2 in Game map: Left to top = X. Left to bottom = Y. Tiny map top = [X:199,Y:0]
+        terrain_2d = []
+
+        for i in range(0, map_width*map_height):
+            to = TerrainObject(
+                terrain_id=find_retriever(terrain_list[i].retrievers, "Terrain ID").data,
+                elevation=find_retriever(terrain_list[i].retrievers, "Elevation").data
+            )
+            map_x = i % map_width
+            try:
+                terrain_2d[map_x].append(to)
+            except IndexError:
+                if len(terrain_2d) <= map_x:
+                    terrain_2d.append(list())
+                terrain_2d[map_x].append(to)
+
+        return MapObject(
+            map_color_mood=find_retriever(object_piece.retrievers, "Map color mood").data,
+            collide_and_correct=find_retriever(object_piece.retrievers, "Collide and Correcting").data,
+            map_width=map_width,
+            map_height=map_height,
+            terrain=terrain_2d,
+        )
 
     def _parse_options_object(self):
         object_piece = self.parsed_data['OptionsPiece']
@@ -63,24 +108,22 @@ class AoE2ObjectManager:
         )
 
     def _parse_diplomacy_object(self):
-        diplomacies = []
-
         object_piece = self.parsed_data['DiplomacyPiece']
         diplomacy = find_retriever(object_piece.retrievers, "Per-player diplomacy").data
 
+        diplomacies = []
         for player_id in range(0, 8):  # 0-7 Players
-            diplomacies.append(DiplomacyObject(
-                player_number=player_id,
-                stance_per_player=find_retriever(diplomacy[player_id].retrievers, "Stance with each player").data
-            ))
+            diplomacies.append(find_retriever(diplomacy[player_id].retrievers, "Stance with each player").data)
 
-        return diplomacies
+        return DiplomacyObject(
+            player_stances=diplomacies
+        )
 
     def _parse_messages_object(self):
         object_piece = self.parsed_data['MessagesPiece']
         retrievers = object_piece.retrievers
 
-        new_object = MessagesObject(
+        return MessagesObject(
             instructions=find_retriever(retrievers, "Instructions").data,
             hints=find_retriever(retrievers, "Hints").data,
             victory=find_retriever(retrievers, "Victory").data,
@@ -94,7 +137,6 @@ class AoE2ObjectManager:
             ascii_history=find_retriever(retrievers, "ASCII History").data,
             ascii_scouts=find_retriever(retrievers, "ASCII Scouts").data,
         )
-        return new_object
 
     def _parse_player_object(self):
         players = []
@@ -108,7 +150,7 @@ class AoE2ObjectManager:
         player_data_one = find_retriever(data_header_piece.retrievers, "Player data#1").data  # 0-7 Players & 8 Gaia
         player_data_two = self.parsed_data['PlayerDataTwoPiece']  # 0-7 Players & 8 Gaia
         resources = find_retriever(player_data_two.retrievers, "Resources").data
-        player_data_three = find_retriever(unit_piece.retrievers, "Player data #3").data  # 0-7 Players
+        # player_data_three = find_retriever(unit_piece.retrievers, "Player data #3").data  # 0-7 Players
         player_data_four = find_retriever(unit_piece.retrievers, "Player data #4").data  # 0-7 Players
 
         for player_id in range(0, 9):  # 0-7 Players & 8 Gaia:
@@ -137,21 +179,19 @@ class AoE2ObjectManager:
         object_piece = self.parsed_data['DataHeaderPiece']
         retrievers = object_piece.retrievers
 
-        new_object = DataHeaderObject(
+        return DataHeaderObject(
             version=find_retriever(retrievers, "Version").data,
             filename=find_retriever(retrievers, "Filename").data
         )
-        return new_object
 
     def _parse_file_header_object(self):
         object_piece = self.parser_header['FileHeaderPiece']
         retrievers = object_piece.retrievers
 
-        new_object = FileHeaderObject(
+        return FileHeaderObject(
             version=find_retriever(retrievers, "Version").data,
             timestamp=find_retriever(retrievers, "Timestamp of last save").data,
             instructions=find_retriever(retrievers, "Scenario instructions").data,
             player_count=find_retriever(retrievers, "Player count").data,
             creator_name=find_retriever(retrievers, "Creator name").data,
         )
-        return new_object

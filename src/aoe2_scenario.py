@@ -7,7 +7,6 @@ import collections
 from src.aoe2_object_manager import AoE2ObjectManager
 from src.helper.datatype import DataType
 from src.helper.retriever import Retriever
-from src.objects.file_header_obj import FileHeaderObject
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
@@ -107,19 +106,19 @@ class AoE2Scenario:
         compressed = deflate_obj.compress(byte_data + self.suffix) + deflate_obj.flush()
 
         file = open(settings.file.get("output"), "wb" if write_in_bytes else "w")
-        file.write(byte_header if write_in_bytes else _create_readable_hex_string(byte_header.hex()))
-        file.write(compressed if write_in_bytes else _create_readable_hex_string(compressed.hex()))
+        file.write(byte_header if write_in_bytes else create_readable_hex_string(byte_header.hex()))
+        file.write(compressed if write_in_bytes else create_readable_hex_string(compressed.hex()))
         file.close()
 
     def write_file(self, datatype, write_in_bytes=True):
         file = open("./../results/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
         for t in datatype:
             if t == "f":
-                file.write(self.file if write_in_bytes else _create_readable_hex_string(self.file.hex()))
+                file.write(self.file if write_in_bytes else create_readable_hex_string(self.file.hex()))
             elif t == "h":
-                file.write(self.file_header if write_in_bytes else _create_readable_hex_string(self.file_header.hex()))
+                file.write(self.file_header if write_in_bytes else create_readable_hex_string(self.file_header.hex()))
             elif t == "d":
-                file.write(self.file_data if write_in_bytes else _create_readable_hex_string(self.file_data.hex()))
+                file.write(self.file_data if write_in_bytes else create_readable_hex_string(self.file_data.hex()))
         file.close()
 
     def _create_header_generator(self, chunk_size):
@@ -156,7 +155,7 @@ file_structure = [
 ]
 
 
-def _create_readable_hex_string(string):
+def create_readable_hex_string(string):
     return insert_char(insert_char(string, " ", 2), "\n", 48)
 
 

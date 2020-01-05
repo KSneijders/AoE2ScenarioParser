@@ -3,9 +3,10 @@ class AoE2Object:
         del data_dict['self']
         del data_dict['__class__']
 
-        print(data_dict)
-
         self.data_dict = data_dict
+
+        if 'terrain_id' not in self.__str__():
+            print(data_dict)
 
     def _to_string(self):
         return str(self.data_dict)
