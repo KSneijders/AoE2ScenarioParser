@@ -5,7 +5,7 @@ class AoE2Object:
 
         self.data_dict = data_dict
 
-        if 'terrain_id' not in self.__str__():
+        if 'terrain_id' not in self.__str__() and 'id_on_map' not in self.__str__():
             print(data_dict)
 
     def _to_string(self):

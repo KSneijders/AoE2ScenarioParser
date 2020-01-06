@@ -14,9 +14,9 @@ class FileHeaderPiece(scenario_piece.ScenarioPiece):
             Retriever("Scenario instructions", DataType("str32")),
             Retriever("Individual victories used", DataType("u32")),
             Retriever("Player count", DataType("u32")),
-            Retriever("Data", DataType("36"), log_value=True),
-            Retriever("Creator name", DataType("str32"), log_value=True),
-            Retriever("Data", DataType("4"), log_value=True),
+            Retriever("Data", DataType("36")),
+            Retriever("Creator name", DataType("str32")),
+            Retriever("Data", DataType("4")),
         ]
 
         super().__init__(parser_obj, "File Header", retrievers)

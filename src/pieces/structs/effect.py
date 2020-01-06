@@ -46,9 +46,9 @@ class EffectStruct(structs.Struct):
             Retriever("Flash Object", DataType("s32")),                                                     # CONFIRMED
             Retriever("Force Research Technology", DataType("s32")),                                        # CONFIRMED
             Retriever("Visibility State", DataType("s32")),                                                 # CONFIRMED
-            Retriever("Unknown (8)", DataType("s32")),                                                      # ?
-            # Stores "Operation" in effect "Modify attribute and Modify resource (by var..)" (Possible bug) # #########
             Retriever("Scroll (Set view)", DataType("s32")),                                                # CONFIRMED
+            # Stores "Operation" in effect "Modify attribute and Modify resource (by var..)" (Possible bug) # #########
+            Retriever("Operation 2?", DataType("s32")),                                                     # CONFIRMED
             # Stores "Target Object list ID" in effect "Create garrisoned/Replace Object" (Possible bug)    # #########
             Retriever("Operation", DataType("s32")),                                                        # CONFIRMED
             Retriever("Target Object list ID", DataType("s32")),                                            # CONFIRMED

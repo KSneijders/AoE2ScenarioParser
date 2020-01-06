@@ -1,12 +1,12 @@
 import zlib
-import src.helper.generator as generator
-import src.helper.parser as parser
-import resources.settings as settings
 import collections
 
+import resources.settings as settings
+import src.helper.generator as generator
+import src.helper.parser as parser
 from src.aoe2_object_manager import AoE2ObjectManager
 from src.helper.datatype import DataType
-from src.helper.retriever import Retriever
+from src.helper.retriever import Retriever, find_retriever
 from src.pieces.background_image import BackgroundImagePiece
 from src.pieces.cinematics import CinematicsPiece
 from src.pieces.data_header import DataHeaderPiece
@@ -23,7 +23,7 @@ from src.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     def __init__(self, filename):
-        print("Loading file: '" + filename + "'", end="")
+        print("Loading file: '" + filename + "'...")
 
         scenario = open(filename, "rb")
         self.file = scenario.read()
@@ -32,17 +32,18 @@ class AoE2Scenario:
         self.file_data = zlib.decompress(scenario.read(), -zlib.MAX_WBITS)
         scenario.close()
 
-        print(" .. .. .. .. File loaded!")
+        print("File loaded.")
 
         self.parser = parser.Parser()
 
-        self.write_file("hd", write_in_bytes=False)
-
         self._read_file()
+
+        # self.write_file("hd", write_in_bytes=False)
 
         # self._write_from_structure()
 
     def _read_file(self):
+        print("File reading started...")
         self.parsed_header = collections.OrderedDict()
         self.parsed_data = collections.OrderedDict()
         header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
@@ -50,43 +51,34 @@ class AoE2Scenario:
 
         for _ in header_structure:
             piece = _(self.parser)
-            print("Reading", piece.piece_type + "...", end="")
+            # print("Reading", piece.piece_type + "...", end="")
             piece.set_data_from_generator(header_generator)
             self.parsed_header[type(piece).__name__] = piece
-            print("...Done!")
-            print(piece)
+            # print("...Done!")
+            # print(piece)
 
         for _ in file_structure:
             piece = _(self.parser)
-            print("Reading", piece.piece_type + "...", end="")
+            # print("Reading", piece.piece_type + "...", end="")
             piece.set_data_from_generator(data_generator)
             self.parsed_data[type(piece).__name__] = piece
-            print("...Done!")
-            print(piece)
+            # print("...Done!")
+            # print(piece)
 
         suffix = b''
         try:
             while True:
                 suffix += self.parser.retrieve_value(data_generator, Retriever("suffix data", DataType("1")))
         except StopIteration as e:
-            print(e)
+            # print(e)
+            pass
         finally:
-            print("Suffix done", len(suffix))
+            # print("Suffix done", len(suffix))
             self.suffix = suffix
 
-        print("File reading done successfully!")
+        print("File reading done successfully.")
 
-        print(self.parsed_header.keys())
-        print("odict_keys([")
-        for x in self.parsed_data.keys():
-            print("\t'" + x + "'")
-        print("])")
-
-        om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
-
-        # fho = FileHeaderObject()
-        # fho.set_from_pieces(self.parsed_header['FileHeaderPiece'])
-        # print(fho)
+        # om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
 
     def _write_from_structure(self, write_in_bytes=True):
         byte_header = b''
@@ -98,8 +90,7 @@ class AoE2Scenario:
 
         for key in self.parsed_data:
             for retriever in self.parsed_data[key].retrievers:
-                return_bytes = parser.retriever_to_bytes(retriever)
-                byte_data += return_bytes
+                byte_data += parser.retriever_to_bytes(retriever)
 
         # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
@@ -135,6 +126,33 @@ class AoE2Scenario:
             self._create_file_generator(settings.runtime.get('chunk_size')),
             FileHeaderPiece(parser.Parser()).retrievers
         )
+
+    def _log_all_data_keys(self):
+        """ Used for debugging. """
+        print("FileHeader:")
+        print(self.parsed_header.keys())
+        print("DataHeader:")
+        print("odict_keys([")
+        for x in self.parsed_data.keys():
+            print("\t'" + x + "'")
+        print("])")
+
+    def _log_effect_data(self):
+        """ Used for debugging - Only reads One Trigger. """
+        trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        effects = find_retriever(trigger_data.retrievers, "Effect data").data
+        if type(effects) is not list:
+            effects = [effects]
+
+        for effect in effects:
+            for retriever in effect.retrievers:
+                if retriever.data != -1 and \
+                        retriever.data != [] and \
+                        retriever.data != "" and \
+                        retriever.data != " " and \
+                        retriever.name != "Check, (46)":
+                    print(("\t" if retriever.name != "Effect type" else "\n") + retriever.name, "(" + retriever.datatype.var + "): ")
+                    print(("\t\t" if retriever.name != "Effect type" else "\t") + str(retriever.data))
 
 
 header_structure = [

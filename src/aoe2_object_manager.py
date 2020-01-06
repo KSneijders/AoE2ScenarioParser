@@ -8,6 +8,7 @@ from src.objects.options_obj import OptionsObject
 from src.objects.player_object import PlayerObject
 import src.helper.generator as generator
 from src.objects.terrain_obj import TerrainObject
+from src.objects.trigger_obj import TriggerObject
 from src.objects.unit_obj import UnitObject
 
 
@@ -25,8 +26,37 @@ class AoE2ObjectManager:
         self.objects["DiplomacyObject"] = self._parse_diplomacy_object()
         self.objects["OptionsObject"] = self._parse_options_object()
         self.objects["MapObject"] = self._parse_map_object()
-        self.objects["UnitObject"] = self._parse_unit_object()
+        self.objects["TriggerObject"] = self._parse_trigger_object()
         print("\n"*4, self.objects)
+
+    def _parse_trigger_object(self):
+        object_piece = self.parsed_data['TriggerPiece']
+        trigger_data = find_retriever(object_piece.retrievers, "Trigger data").data
+        if type(trigger_data) is not list:
+            trigger_data = [trigger_data]
+        triggers = []
+
+        for trigger in trigger_data:
+            triggers.append(TriggerObject(
+                name=find_retriever(trigger.retrievers, "Trigger name").data,
+                description=find_retriever(trigger.retrievers, "Trigger description").data,
+                description_stid=find_retriever(trigger.retrievers, "Description string Table ID").data,
+                display_as_objective=find_retriever(trigger.retrievers, "Act as objective").data,
+                short_description=find_retriever(trigger.retrievers, "Short description").data,
+                short_description_stid=find_retriever(trigger.retrievers, "Short description string Table ID").data,
+                display_on_screen=find_retriever(trigger.retrievers, "Display on screen").data,
+                description_order=find_retriever(trigger.retrievers, "Description order (in objectives)").data,
+                enabled=find_retriever(trigger.retrievers, "Enabled").data,
+                looping=find_retriever(trigger.retrievers, "Looping").data,
+                header=find_retriever(trigger.retrievers, "Make header").data,
+                mute_objectives=find_retriever(trigger.retrievers, "Mute objectives").data,
+                conditions=find_retriever(trigger.retrievers, "Condition data").data,
+                condition_order=find_retriever(trigger.retrievers, "Condition display order array").data,
+                effects=find_retriever(trigger.retrievers, "Effect data").data,
+                effect_order=find_retriever(trigger.retrievers, "Effect display order array").data,
+            ))
+
+        return 1
 
     def _parse_unit_object(self):
         object_piece = self.parsed_data['UnitsPiece']
