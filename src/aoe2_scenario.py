@@ -76,6 +76,8 @@ class AoE2Scenario:
             # print("Suffix done", len(suffix))
             self.suffix = suffix
 
+        self._log_effect_dataset()
+
         print("File reading done successfully.")
 
         # om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
@@ -137,7 +139,7 @@ class AoE2Scenario:
             print("\t'" + x + "'")
         print("])")
 
-    def _log_effect_data(self):
+    def _log_effect_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
         trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
         effects = find_retriever(trigger_data.retrievers, "Effect data").data
@@ -151,8 +153,11 @@ class AoE2Scenario:
                         retriever.data != "" and \
                         retriever.data != " " and \
                         retriever.name != "Check, (46)":
-                    print(("\t" if retriever.name != "Effect type" else "\n") + retriever.name, "(" + retriever.datatype.var + "): ")
-                    print(("\t\t" if retriever.name != "Effect type" else "\t") + str(retriever.data))
+                    if retriever.name == "Effect type":
+                        print("],\n" + str(retriever.data) + ": [")
+                    else:
+                        print("\t\"" + str(retriever.name) + "\",")
+        print("]\n")
 
 
 header_structure = [
