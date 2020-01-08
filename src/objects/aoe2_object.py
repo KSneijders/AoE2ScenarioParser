@@ -5,7 +5,10 @@ class AoE2Object:
 
         self.data_dict = data_dict
 
-        if 'terrain_id' not in self.__str__() and 'id_on_map' not in self.__str__():
+        # Block terrain, units and effects from logging (respectively)
+        if 'terrain_id' not in self.__str__() and \
+                'id_on_map' not in self.__str__() and \
+                'Effect type' not in self.__str__():
             print(data_dict)
 
     def _to_string(self):
