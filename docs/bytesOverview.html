@@ -58,6 +58,93 @@
 		</code>
 		<p>Once decompressed you can start reading the actual file data. Below is the overview of the entire file. This parsing is based on an older version, which you can find <a href="http://dderevjanik.github.io/agescx/formatscx/">here</a>.</p>
 
+		<p>Every entry has a <code>type</code>, <code>repeat</code>, <code>name</code> and <code>description</code> column. The <code>name</code> and <code>description</code> are mainly used to describe the entry. The <code>type</code> and <code>repeat</code> are a little more technical. <code>type</code> is the datatype describes how and how many bytes need to be read in a certain way. The structure works as follows: <br/>
+		There are multiple datatypes: </p>
+		<table>
+			<tr>
+				<th style="width: 100px">Datatype</th>
+				<th style="width: 100px">Notation</th>
+				<th style="width: 320px">Description</th>
+				<th>Remarks</th>
+			</tr>
+			<tr>
+				<td>s</td>
+				<td>bit</td>
+				<td>Signed integer</td>
+				<td>All integers (signed and unsigned) are parsed as little endian</td>
+			</tr>
+			<tr>
+				<td>u</td>
+				<td>bit</td>
+				<td>Unsigned integer</td>
+				<td>All integers (signed and unsigned) are parsed as little endian</td>
+			</tr>
+			<tr>
+				<td>f</td>
+				<td>bit</td>
+				<td>Floating point number</td>
+			</tr>
+			<tr>
+				<td>c</td>
+				<td>Byte</td>
+				<td>Character string of fixed length</td>
+			</tr>
+			<tr>
+				<td>str</td>
+				<td>bit</td>
+				<td>Character string of variable length</td>
+				<td>This type will read the number in bits given and parse it as an int. The number retrieved from it
+                    will be the amount of bytes read as a character string.</td>
+			</tr>
+			<tr>
+				<td>(Empty)</td>
+				<td>Byte</td>
+				<td>Plain byte data</td>
+			</tr>
+			<tr>
+				<td>Struct</td>
+				<td>-</td>
+				<td>A repeating set of any of the above types</td>
+				<td>Not a Python struct</td>
+			</tr>
+		</table>
+
+		<p>Per data type you can save how large the value is bit/byte wise. While this may be confusing not all values are in bit format. Some are in byte format. <br/>
+		Formats that use bit notation: <code>[s, u, f, str]</code> <br/>
+		Formats that use Byte notation: <code>[c, data]</code> <br/>
+        Some examples: </p>
+		<table>
+			<tr>
+				<th style="width: 100px">Datatype</th>
+				<th>Result</th>
+			</tr>
+			<tr>
+				<td>s16</td>
+				<td>A little endian signed integer of 16 bits.</td>
+			</tr>
+			<tr>
+				<td>f32</td>
+				<td>A 32 bit floating point number.</td>
+			</tr>
+			<tr>
+				<td>c4</td>
+				<td>A 32 bit (4 bytes) ASCII character string.</td>
+			</tr>
+			<tr>
+				<td>str16</td>
+				<td>A 16 bit integer will be parsed (n). Now n bytes will be read as character string.</td>
+			</tr>
+			<tr>
+				<td>s16</td>
+				<td>A signed integer of 16 bits.</td>
+			</tr>
+			<tr>
+				<td>TerrainStruct</td>
+				<td>The TerrainStruct will be instantiated and DataTypes from that struct will
+                                            be loaded in it's place.</td>
+			</tr>
+		</table>
+
 		<p>There are multiple tags used in this document. They are used as follows:</p>
 		<ul>
 			<li><uk></uk> - Used when the older document had a name for some bytes but their usage might have changed or I've no clue what the name means. </li>
@@ -1462,7 +1549,323 @@
 					<th>Description</th>
 				</tr>
 				<tr>
-					<td colspan="4" style="color: red; text-align: center;">Completely Outdated --- Needs update.</td>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Effect type</td>
+					<td>Save as <code>effect_type</code></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Check</td>
+					<td>Always <code>0x2e (46)</code></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>AI script goal</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td>1x</td>
+					<td>Quantity</td>
+					<td>Use if <code>effect_type</code> equals 28 or 31</td>
+				</tr>
+				<tr>
+					<td>s24</td>
+					<td>1x</td>
+					<td>Armor/Attack Type</td>
+					<td>Use if <code>effect_type</code> equals 28 or 31</td>
+				</tr>
+
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Quantity</td>
+					<td>Use if <code>effect_type</code> does not equal 28 or 31</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Tribute List</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Diplomacy</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Number of units selected</td>
+					<td>Save as <code>number_of_units_selected</code></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>1x</td>
+					<td>Data<tbd></tbd></td>
+					<td>Not used by any effect.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Object list unit ID</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Player Source</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Player Target</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Technology</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>String ID</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>1x</td>
+					<td>Data<tbd></tbd></td>
+					<td>Not used by any effect.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Display Time</td>
+					<td>For displaying Instructions</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Trigger ID</td>
+					<td>For Activate and Deactivate</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Condition</td>
+					<td>Location X</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Location Y</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Area X1</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Area Y1</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Area X2</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Area Y2</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Object Group</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Object Type</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Instruction Panel Position</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Attack Stance</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Time unit</td>
+					<td>Seconds, Minutes, Years</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Enabled/Victory</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Food</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Wood</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Stone</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Gold</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Item ID</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Flash Object</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Force Research Technology</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Visibility State</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Scroll</td>
+					<td>Used in Set View</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Operation</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Object list unit ID 2</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Button Location</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>AI signal Value</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>1x</td>
+					<td>Data<tbd></tbd></td>
+					<td>Not used by any effect.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Object attributes</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>From Variable</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Variable/Timer</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Facet</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>1x</td>
+					<td>Data<tbd></tbd></td>
+					<td>Not used by any effect.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>1x</td>
+					<td>Play Sound</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>str32</td>
+					<td>1x</td>
+					<td>Message</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>str32</td>
+					<td>1x</td>
+					<td>Sound (event) name</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td><code>number_of_units_selected</code></td>
+					<td>Selected Object(s) ID</td>
+					<td></td>
 				</tr>
 			</table>
 		</div>

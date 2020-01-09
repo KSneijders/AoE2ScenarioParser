@@ -9,12 +9,12 @@ class EffectStruct(structs.Struct):
             Retriever("Effect type", DataType("s32"), save_as="effect_type"),                               # CONFIRMED
             Retriever("Check, (46)", DataType("s32")),  # always 0x17, now 0x2e (46)?                       # CONFIRMED
             Retriever("AI script goal", DataType("s32")),                                                   # CONFIRMED
-            Retriever("Quantity", DataType("u8"),
+            Retriever("AA Quantity", DataType("u8"),
                       set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),                 # CONFIRMED
             Retriever("AA Armor/Attack Type", DataType("s24"),
                       set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),                 # CONFIRMED
-            Retriever("AA Quantity", DataType("s32"),
-                      set_repeat="0 if {effect_type} == 31 or {effect_type} == 28 else 1"),                 # CONFIRMED
+            Retriever("Quantity", DataType("s32"),
+                      set_repeat="1 if {effect_type} != 31 and {effect_type} != 28 else 0"),                 # CONFIRMED
             # Retriever("Armor/Attack Type", DataType("s24")),                                              # CONFIRMED
             Retriever("Tribute List", DataType("s32")),                                                     # CONFIRMED
             Retriever("Diplomacy", DataType("s32")),                                                        # CONFIRMED
