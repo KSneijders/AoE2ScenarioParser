@@ -1,42 +1,160 @@
+import copy
+
+import src.datasets.condition as condition
+import src.datasets.effect as effect
+import src.helper.generator as generator
 from src.helper.retriever import find_retriever
+from src.objects.condition_obj import ConditionObject
 from src.objects.data_header_obj import DataHeaderObject
 from src.objects.diplomacy_obj import DiplomacyObject
+from src.objects.effect_obj import EffectObject
 from src.objects.file_header_obj import FileHeaderObject
 from src.objects.map_obj import MapObject
 from src.objects.messages_obj import MessagesObject
 from src.objects.options_obj import OptionsObject
 from src.objects.player_object import PlayerObject
-import src.helper.generator as generator
 from src.objects.terrain_obj import TerrainObject
 from src.objects.trigger_obj import TriggerObject
 from src.objects.unit_obj import UnitObject
+from src.pieces.structs.condition import ConditionStruct
+from src.pieces.structs.effect import EffectStruct
+from src.pieces.structs.trigger import TriggerStruct
 
 
 class AoE2ObjectManager:
     def __init__(self, parser_header, parsed_data):
         self.parser_header = parser_header
         self.parsed_data = parsed_data
-        self.objects = {}
+        self.objects = {
+            "FileHeaderObject": self._parse_file_header_object(),
+            "DataHeaderObject": self._parse_data_header_object(),
+            "PlayerObject": self._parse_player_object(),
+            "MessagesObject": self._parse_messages_object(),
+            "DiplomacyObject": self._parse_diplomacy_object(),
+            "OptionsObject": self._parse_options_object(),
+            "MapObject": self._parse_map_object(),
+            "TriggerObject": self._parse_trigger_object()
+        }
 
-        print("\n"*8)
-        self.objects["FileHeaderObject"] = self._parse_file_header_object()
-        self.objects["DataHeaderObject"] = self._parse_data_header_object()
-        self.objects["PlayerObject"] = self._parse_player_object()
-        self.objects["MessagesObject"] = self._parse_messages_object()
-        self.objects["DiplomacyObject"] = self._parse_diplomacy_object()
-        self.objects["OptionsObject"] = self._parse_options_object()
-        self.objects["MapObject"] = self._parse_map_object()
-        self.objects["TriggerObject"] = self._parse_trigger_object()
-        print("\n"*4, self.objects)
+        to = TriggerObject(
+            name="TEST\x00",
+            description="DESCRIPTION\x00",
+            description_stid=-1,
+            display_as_objective=0,
+            short_description="\x00",
+            short_description_stid=2,
+            display_on_screen=1,
+            description_order=0,
+            enabled=1,
+            looping=1,
+            header=1,
+            mute_objectives=0,
+            conditions=[],
+            condition_order=[],
+            effects=[],
+            effect_order=[],
+        )
+        self.objects["TriggerObject"].append(to)
+
+        find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data = [0, 1]
+        find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger display order array").datatype.repeat = 2
+        find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").datatype.repeat = 2
+
+        # print(self.parsed_data['TriggerPiece'])
+
+    def reconstruct(self):
+        self._reconstruct_trigger_piece()
+
+    def _reconstruct_trigger_piece(self):
+        number_of_triggers_retriever = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Number of triggers")
+        trigger_data_retriever = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data")
+
+        number_of_triggers_retriever.data = len(self.objects["TriggerObject"])
+        trigger_data_retriever.data = []
+
+        for trigger in self.objects["TriggerObject"]:
+            effects = []
+            for effect_obj in trigger.data_dict['effects']:
+                data_list = list(effect_obj.data_dict.values())
+                data_list.insert(1, 46)  # Check, (46)
+                data_list.insert(9, 0)  # Unknown
+                data_list.insert(15, 0)  # Unknown2
+                data_list.insert(43, 0)  # Unknown3
+                data_list.insert(48, 0)  # Unknown4
+
+                effects.append(EffectStruct(data=data_list))
+
+            conditions = []
+            for condition_obj in trigger.data_dict['conditions']:
+                data_list = list(condition_obj.data_dict.values())
+                data_list.insert(1, 21)  # Check, (21)
+                data_list.insert(10, 0)  # Unknown
+                data_list.insert(19, 0)  # Unknown (3)
+                conditions.append(ConditionStruct(data=data_list))
+
+            trigger_data_retriever.data.append(TriggerStruct(data=[
+                trigger.data_dict['enabled'],
+                trigger.data_dict['looping'],
+                trigger.data_dict['description_stid'],
+                trigger.data_dict['display_as_objective'],
+                trigger.data_dict['description_order'],
+                trigger.data_dict['header'],
+                trigger.data_dict['short_description_stid'],
+                trigger.data_dict['display_on_screen'],
+                b'\x00\x00\x00\x00\x00',  # Unknown
+                trigger.data_dict['mute_objectives'],
+                trigger.data_dict['description'],
+                trigger.data_dict['name'],
+                trigger.data_dict['short_description'],
+                len(trigger.data_dict['effects']),
+                effects,
+                trigger.data_dict['effect_order'],
+                len(trigger.data_dict['conditions']),
+                conditions,
+                trigger.data_dict['condition_order'],
+            ]))
 
     def _parse_trigger_object(self):
-        object_piece = self.parsed_data['TriggerPiece']
-        trigger_data = find_retriever(object_piece.retrievers, "Trigger data").data
+        trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
         if type(trigger_data) is not list:
             trigger_data = [trigger_data]
-        triggers = []
 
+        triggers = []
         for trigger in trigger_data:
+            effects = []
+            effect_structs = find_retriever(trigger.retrievers, "Effect data").data
+            if type(effect_structs) is not list:
+                effect_structs = [effect_structs]
+            for effect_struct in effect_structs:
+                effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
+                parameters = effect.parameters.get(effect_type)
+
+                parameter_dict = copy.copy(effect.empty_parameters)
+                for param in parameters:
+                    inverted_name = effect.naming_conversion.get(param)
+                    parameter_dict[inverted_name] = find_retriever(effect_struct.retrievers, param).data
+
+                effects.append(EffectObject(
+                    **parameter_dict
+                ))
+
+            conditions = []
+            condition_structs = find_retriever(trigger.retrievers, "Condition data").data
+            if type(condition_structs) is not list:
+                condition_structs = [condition_structs]
+            for condition_struct in condition_structs:
+                condition_type = find_retriever(condition_struct.retrievers, "Condition type").data
+                parameters = condition.parameters.get(condition_type)
+
+                parameter_dict = copy.copy(condition.empty_parameters)
+                for param in parameters:
+                    inverted_name = condition.naming_conversion.get(param)
+                    parameter_dict[inverted_name] = find_retriever(condition_struct.retrievers, param).data
+
+                conditions.append(ConditionObject(
+                    **parameter_dict
+                ))
+
             triggers.append(TriggerObject(
                 name=find_retriever(trigger.retrievers, "Trigger name").data,
                 description=find_retriever(trigger.retrievers, "Trigger description").data,
@@ -50,13 +168,13 @@ class AoE2ObjectManager:
                 looping=find_retriever(trigger.retrievers, "Looping").data,
                 header=find_retriever(trigger.retrievers, "Make header").data,
                 mute_objectives=find_retriever(trigger.retrievers, "Mute objectives").data,
-                conditions=find_retriever(trigger.retrievers, "Condition data").data,
+                conditions=conditions,
                 condition_order=find_retriever(trigger.retrievers, "Condition display order array").data,
-                effects=find_retriever(trigger.retrievers, "Effect data").data,
+                effects=effects,
                 effect_order=find_retriever(trigger.retrievers, "Effect display order array").data,
             ))
 
-        return 1
+        return triggers
 
     def _parse_unit_object(self):
         object_piece = self.parsed_data['UnitsPiece']
@@ -91,7 +209,7 @@ class AoE2ObjectManager:
         # AoE2 in Game map: Left to top = X. Left to bottom = Y. Tiny map top = [X:199,Y:0]
         terrain_2d = []
 
-        for i in range(0, map_width*map_height):
+        for i in range(0, map_width * map_height):
             to = TerrainObject(
                 terrain_id=find_retriever(terrain_list[i].retrievers, "Terrain ID").data,
                 elevation=find_retriever(terrain_list[i].retrievers, "Elevation").data

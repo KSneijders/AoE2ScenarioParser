@@ -12,7 +12,7 @@ types = [
 ]
 
 
-def _vorl(var):
+def vorl(var):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
     if len(var) is 1 and type(var) is list:
         return var[0]
@@ -29,8 +29,8 @@ class Parser:
         var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
         if retriever.set_repeat is not None:
-            retriever.datatype.repeat = self.parse_repeat_string(retriever.set_repeat)
-
+            retriever.datatype.repeat = parse_repeat_string(self._saves, retriever.set_repeat)
+        # try:
         for i in range(0, retriever.datatype.repeat):
             length += var_len
 
@@ -55,12 +55,22 @@ class Parser:
                 val = r_gen(generator, var_len)
             elif var_type == "str":
                 string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                val = bytes_to_str(r_gen(generator, string_length))
-                length += string_length
+                try:
+                    val = bytes_to_str(r_gen(generator, string_length))
+                    length += string_length
+                except StopIteration as e:
+                    print("string_length: ", string_length)
+                    raise StopIteration(e)
             else:
                 break
 
             result.append(val)
+        # except StopIteration as e:
+        #     print(repr(retriever) + "\n" +
+        #           "var_type: " + var_type + "\n" +
+        #           "var_len: " + str(var_len))
+        #     print(e)
+        #     exit()
 
         if retriever.on_success is not None:
             if type(result) is list:
@@ -70,29 +80,30 @@ class Parser:
                 result = retriever.on_success(result)
 
         if retriever.save_as is not None:
-            self.add_to_saves(retriever.save_as, _vorl(result))
+            self.add_to_saves(retriever.save_as, vorl(result))
 
         if retriever.log_value:
-            print(retriever, "retrieved", _vorl(result))
+            print(retriever, "retrieved:", vorl(result))
 
-        return _vorl(result) if not as_length else length
-
-    def parse_repeat_string(self, repeat_string):
-        while True:
-            start = repeat_string.find("{")
-            end = repeat_string.find("}")
-
-            if start is -1 and end is -1:
-                break
-
-            inclusive = repeat_string[start:end + 1]
-            exclusive = repeat_string[start + 1:end]
-
-            repeat_string = repeat_string.replace(inclusive, str(self._saves[exclusive]))
-        return eval(repeat_string)
+        return vorl(result) if not as_length else length
 
     def add_to_saves(self, name, value):
         self._saves[name] = value
+
+
+def parse_repeat_string(saves, repeat_string):
+    while True:
+        start = repeat_string.find("{")
+        end = repeat_string.find("}")
+
+        if start is -1 and end is -1:
+            break
+
+        inclusive = repeat_string[start:end + 1]
+        exclusive = repeat_string[start + 1:end]
+
+        repeat_string = repeat_string.replace(inclusive, str(saves[exclusive]))
+    return eval(repeat_string)
 
 
 def calculate_length(generator, retriever_list):
@@ -152,7 +163,11 @@ def retriever_to_bytes(retriever):
             for struct_retriever in data.retrievers:
                 return_bytes += retriever_to_bytes(struct_retriever)
         if var_type == "u" or var_type == "s":
-            return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
+            try:
+                return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
+            except OverflowError:
+                print(retriever)
+                exit()
         elif var_type == "f":
             if var_len == 4:
                 return_bytes += float_to_bytes(data)

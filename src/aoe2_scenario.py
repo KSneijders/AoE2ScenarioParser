@@ -156,8 +156,26 @@ class AoE2Scenario:
                         retriever.name != "Check, (46)":
                     if retriever.name == "Effect type":
                         print("],\n" + str(retriever.data) + ": [")
-                    else:
-                        print("\t\"" + str(retriever.name) + "\",")
+                    print("\t\"" + str(retriever.name) + "\",")
+        print("]\n")
+
+    def _log_condition_dataset(self):
+        """ Used for debugging - Only reads One Trigger. """
+        trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        conditions = find_retriever(trigger_data.retrievers, "Condition data").data
+        if type(conditions) is not list:
+            conditions = [conditions]
+
+        for condition in conditions:
+            for retriever in condition.retrievers:
+                if retriever.data != -1 and \
+                        retriever.data != [] and \
+                        retriever.data != "" and \
+                        retriever.data != " " and \
+                        retriever.name != "Check, (21)":
+                    if retriever.name == "Condition Type":
+                        print("],\n" + str(retriever.data) + ": [")
+                    print("\t\"" + str(retriever.name) + "\",")
         print("]\n")
 
 

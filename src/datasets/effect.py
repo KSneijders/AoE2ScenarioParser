@@ -108,18 +108,73 @@ naming_conversion = {
 
 # Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
 naming_conversion.update(dict(map(reversed, naming_conversion.items())))
-print(naming_conversion)
+
+empty_parameters = {
+    "effect_type": -1,
+    "ai_script_goal": -1,
+    "aa_quantity": -1,
+    "aa_armor_or_attack_type": -1,
+    "quantity": -1,
+    "tribute_list": -1,
+    "diplomacy": -1,
+    "number_of_units_selected": -1,
+    "object_list_unit_id": -1,
+    "player_source": -1,
+    "player_target": -1,
+    "technology": -1,
+    "string_id": -1,
+    "display_time": -1,
+    "trigger_id": -1,
+    "location_x": -1,
+    "location_y": -1,
+    "area_1_x": -1,
+    "area_1_y": -1,
+    "area_2_x": -1,
+    "area_2_y": -1,
+    "object_group": -1,
+    "object_type": -1,
+    "instruction_panel_position": -1,
+    "attack_stance": -1,
+    "time_unit": -1,
+    "enabled_or_victory": -1,
+    "food": -1,
+    "wood": -1,
+    "stone": -1,
+    "gold": -1,
+    "item_id": -1,
+    "flash_object": -1,
+    "force_research_technology": -1,
+    "visibility_state": -1,
+    "scroll": -1,
+    "operation": -1,
+    "object_list_unit_id_2": -1,
+    "button_location": -1,
+    "ai_signal_value": -1,
+    "object_attributes": -1,
+    "from_variable": -1,
+    "variable_or_timer": -1,
+    "facet": -1,
+    "play_sound": -1,
+    "message": '',
+    "sound_name": '',
+    "selected_object_id": -1,
+}
 
 # The parameters per trigger (trigger ID as dict key) identified by the retriever key
 parameters = {
-    0: [],
+    0: [
+        "Effect type",
+    ],
     50: [
+        "Effect type",
         "AI signal Value",
     ],
     8: [
+        "Effect type",
         "Trigger ID (activate/deactivate)",
     ],
     30: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -134,16 +189,19 @@ parameters = {
         "Selected Object(s) ID",
     ],
     48: [
+        "Effect type",
         "Player Source",
         "String ID",
         "Message",
     ],
     1: [
+        "Effect type",
         "Diplomacy",
         "Player Source",
         "Player Target",
     ],
     31: [
+        "Effect type",
         "AA Quantity",
         "AA Armor/Attack Type",
         "Number of units selected",
@@ -159,6 +217,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     28: [
+        "Effect type",
         "AA Quantity",
         "AA Armor/Attack Type",
         "Number of units selected",
@@ -174,6 +233,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     40: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "Food",
@@ -182,12 +242,14 @@ parameters = {
         "Gold",
     ],
     44: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "String ID",
         "Message",
     ],
     27: [
+        "Effect type",
         "Quantity",
         "Number of units selected",
         "Object list unit ID",
@@ -202,6 +264,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     42: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -215,6 +278,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     26: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -227,6 +291,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     32: [
+        "Effect type",
         "Quantity",
         "Number of units selected",
         "Object list unit ID",
@@ -241,6 +306,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     33: [
+        "Effect type",
         "Quantity",
         "Number of units selected",
         "Object list unit ID",
@@ -254,6 +320,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     36: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -267,6 +334,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     18: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -281,41 +349,49 @@ parameters = {
         "Selected Object(s) ID",
     ],
     45: [
+        "Effect type",
         "Player Source",
         "String ID",
         "Message",
     ],
     47: [
+        "Effect type",
         "Player Source",
         "Technology",
         "Object list unit ID 2",
         "Button Location",
     ],
     46: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "Object list unit ID 2",
         "Button Location",
     ],
     56: [
+        "Effect type",
         "Quantity",
         "Operation",
         "From Variable",
         "Message",
     ],
     16: [
+        "Effect type",
         "Player Source",
         "Location X",
         "Location Y",
         "Scroll (Set view)",
     ],
     21: [
+        "Effect type",
         "Instruction Panel Position",
     ],
     57: [
+        "Effect type",
         "Variable/Timer",
     ],
     49: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -327,6 +403,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     11: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "Location X",
@@ -335,6 +412,7 @@ parameters = {
         "Facet",
     ],
     24: [
+        "Effect type",
         "Quantity",
         "Number of units selected",
         "Object list unit ID",
@@ -348,13 +426,16 @@ parameters = {
         "Selected Object(s) ID",
     ],
     9: [
+        "Effect type",
         "Trigger ID (activate/deactivate)",
     ],
     13: [
+        "Effect type",
         "Player Source",
         "Enabled/Victory",
     ],
     20: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "String ID",
@@ -365,6 +446,7 @@ parameters = {
         "Sound (event) name",
     ],
     37: [
+        "Effect type",
         "String ID",
         "Display Time (display instructions)",
         "Time unit (second, minutes, years)",
@@ -372,18 +454,21 @@ parameters = {
         "Message",
     ],
     38: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "Enabled/Victory",
         "Item ID",
     ],
     39: [
+        "Effect type",
         "Player Source",
         "Technology",
         "Enabled/Victory",
         "Item ID",
     ],
     22: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -396,6 +481,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     34: [
+        "Effect type",
         "Quantity",
         "Number of units selected",
         "Object list unit ID",
@@ -409,6 +495,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     14: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -421,10 +508,12 @@ parameters = {
         "Selected Object(s) ID",
     ],
     7: [
+        "Effect type",
         "Number of units selected",
         "Selected Object(s) ID",
     ],
     51: [
+        "Effect type",
         "Quantity",
         "Object list unit ID",
         "Player Source",
@@ -433,6 +522,7 @@ parameters = {
         "Object attributes",
     ],
     52: [
+        "Effect type",
         "Quantity",
         "Tribute List",
         "Player Source",
@@ -440,6 +530,7 @@ parameters = {
         "Operation",
     ],
     53: [
+        "Effect type",
         "Tribute List",
         "Player Source",
         "Item ID",
@@ -447,6 +538,7 @@ parameters = {
         "From Variable",
     ],
     19: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -461,18 +553,21 @@ parameters = {
         "Selected Object(s) ID",
     ],
     25: [
+        "Effect type",
         "Object list unit ID",
         "Player Source",
         "Location X",
         "Location Y",
     ],
     4: [
+        "Effect type",
         "Player Source",
         "Location X",
         "Location Y",
         "Sound (event) name",
     ],
     15: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -485,6 +580,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     43: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -499,22 +595,26 @@ parameters = {
         "Selected Object(s) ID",
     ],
     2: [
+        "Effect type",
         "Player Source",
         "Technology",
         "Force Research Technology",
     ],
     3: [
+        "Effect type",
         "Player Source",
         "String ID",
         "Message",
         "Sound (event) name",
     ],
     41: [
+        "Effect type",
         "Player Source",
         "Player Target",
         "Visibility State",
     ],
     29: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -527,6 +627,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     12: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -541,6 +642,7 @@ parameters = {
         "Selected Object(s) ID",
     ],
     35: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -555,12 +657,14 @@ parameters = {
         "Selected Object(s) ID",
     ],
     5: [
+        "Effect type",
         "Quantity",
         "Tribute List",
         "Player Source",
         "Player Target",
     ],
     17: [
+        "Effect type",
         "Number of units selected",
         "Object list unit ID",
         "Player Source",
@@ -575,9 +679,11 @@ parameters = {
         "Selected Object(s) ID",
     ],
     6: [
+        "Effect type",
         "Number of units selected",
         "Selected Object(s) ID",
     ],
     23: [
+        "Effect type",
     ]
 }

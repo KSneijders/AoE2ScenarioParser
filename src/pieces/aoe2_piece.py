@@ -3,43 +3,60 @@ from src.helper.retriever import find_retriever
 
 
 class ScenarioPiece:
-    def __init__(self, parser_obj, piece_type, retrievers, data=None):
-        self.parser = parser_obj
+    def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
         self.piece_type = piece_type
         self.retrievers = retrievers
+        self.parser = parser_obj
         if data is not None:
             self.set_data(data)
+
+    def set_data(self, data):
+        saves = {}
+        if len(data) == len(self.retrievers):
+            for i in range(0, len(data)):
+                if self.retrievers[i].set_repeat is not None:
+                    self.retrievers[i].datatype.repeat = parser.parse_repeat_string(
+                        saves,
+                        self.retrievers[i].set_repeat
+                    )
+
+                if self.retrievers[i].log_value:
+                    print(self.retrievers[i], "was set to:", parser.vorl(data[i]))
+                self.retrievers[i].set_data(data[i])
+
+                if self.retrievers[i].save_as is not None:
+                    if type(data[i]) is not list:
+                        data[i] = [data[i]]
+                    saves[self.retrievers[i].save_as] = parser.vorl(data[i])
+        else:
+            ValueError("Data list isn't the same size as the DataType list")
 
     def get_value(self, retriever_key):
         return find_retriever(self.retrievers, retriever_key).data
 
     def get_length(self):
         total_length = 0
-        for i in range(0, len(self.retrievers)):
-            datatype, length = parser.datatype_to_type_length(self.retrievers[i].datatype.var)
+        try:
+            for i in range(0, len(self.retrievers)):
+                datatype, length = parser.datatype_to_type_length(self.retrievers[i].datatype.var)
 
-            if datatype == "struct":
-                if type(self.retrievers[i].data) == list:
-                    for continues_struct in self.retrievers[i].data:
-                        length += continues_struct.get_length()
-                else:
-                    length = self.retrievers[i].data.get_length()
-            elif datatype == "str":
-                length = len(self.retrievers[i].data)
-            total_length += length
-
+                if datatype == "struct":
+                    if type(self.retrievers[i].data) == list:
+                        for continues_struct in self.retrievers[i].data:
+                            length += continues_struct.get_length()
+                    else:
+                        length = self.retrievers[i].data.get_length()
+                elif datatype == "str":
+                    length = len(self.retrievers[i].data)
+                total_length += length
+        except TypeError:
+            print(self.retrievers)
         return total_length
 
-    def set_data(self, data):
-        if len(data) == len(self.retrievers):
-            for i in range(0, len(data)):
-                self.retrievers[i].set_data(data[i])
-        else:
-            ValueError("Data list isn't the same size as the DataType list")
-
     def set_data_from_generator(self, generator):
-        for i, retriever in enumerate(self.retrievers):
-            retriever.set_data(self.parser.retrieve_value(generator, retriever))
+        if self.parser:
+            for i, retriever in enumerate(self.retrievers):
+                retriever.set_data(self.parser.retrieve_value(generator, retriever))
 
     def _entry_to_string(self, name, data, datatype):
         return "\t" + name + ": " + data + " (" + datatype + ")\n"
