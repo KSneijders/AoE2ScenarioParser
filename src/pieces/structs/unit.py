@@ -4,7 +4,7 @@ import src.pieces.structs.aoe2_struct as structs
 
 
 class UnitStruct(structs.Struct):
-    def __init__(self, parser_obj, data=None):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("X position", DataType("f32")),
             Retriever("Y position", DataType("f32")),
@@ -17,4 +17,4 @@ class UnitStruct(structs.Struct):
             Retriever("Garrisoned in: ID", DataType("s32")),
         ]
 
-        super().__init__(parser_obj, "Unit", retrievers, data)
+        super().__init__("Unit", retrievers, parser_obj, data)

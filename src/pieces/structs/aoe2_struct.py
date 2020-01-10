@@ -3,10 +3,10 @@ import src.pieces.aoe2_piece as scenario_piece
 
 
 class Struct(scenario_piece.ScenarioPiece):
-    def __init__(self, parser_obj, piece_type, retrievers, data=None):
-        super().__init__(parser_obj, piece_type, retrievers, data)
+    def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
+        super().__init__(piece_type, retrievers, parser_obj, data)
 
-        if data is not None:
+        if data is not None and parser_obj is not None:
             gen = create_generator(data, 1)
             super().set_data_from_generator(gen)
 

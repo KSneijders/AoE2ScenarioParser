@@ -4,7 +4,7 @@ from src.helper.datatype import DataType
 
 
 class BackgroundImagePiece(scenario_piece.ScenarioPiece):
-    def __init__(self, parser_obj):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("ASCII, Background filename", DataType("str16")),
             Retriever("Picture Version", DataType("u32")),
@@ -14,4 +14,4 @@ class BackgroundImagePiece(scenario_piece.ScenarioPiece):
             # Retriever("	BITMAPINFOHEADER", DataType("u32")),
         ]
 
-        super().__init__(parser_obj, "Background Image", retrievers)
+        super().__init__("Background Image", retrievers, parser_obj)

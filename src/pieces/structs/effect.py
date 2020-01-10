@@ -4,7 +4,7 @@ import src.pieces.structs.aoe2_struct as structs
 
 
 class EffectStruct(structs.Struct):
-    def __init__(self, parser_obj, data=None):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Effect type", DataType("s32"), save_as="effect_type"),                               # CONFIRMED
             Retriever("Check, (46)", DataType("s32")),  # always 0x17, now 0x2e (46)?                       # CONFIRMED
@@ -14,8 +14,7 @@ class EffectStruct(structs.Struct):
             Retriever("AA Armor/Attack Type", DataType("s24"),
                       set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),                 # CONFIRMED
             Retriever("Quantity", DataType("s32"),
-                      set_repeat="1 if {effect_type} != 31 and {effect_type} != 28 else 0"),                 # CONFIRMED
-            # Retriever("Armor/Attack Type", DataType("s24")),                                              # CONFIRMED
+                      set_repeat="1 if {effect_type} != 31 and {effect_type} != 28 else 0"),                # CONFIRMED
             Retriever("Tribute List", DataType("s32")),                                                     # CONFIRMED
             Retriever("Diplomacy", DataType("s32")),                                                        # CONFIRMED
             Retriever("Number of units selected", DataType("s32"), save_as="number_of_units_selected"),     # CONFIRMED
@@ -65,4 +64,4 @@ class EffectStruct(structs.Struct):
             Retriever("Selected Object(s) ID", DataType("s32"), set_repeat="{number_of_units_selected}"),   # CONFIRMED
         ]
 
-        super().__init__(parser_obj, "Effect", retrievers, data)
+        super().__init__("Effect", retrievers, parser_obj, data)

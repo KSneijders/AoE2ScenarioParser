@@ -4,7 +4,7 @@ from src.helper.retriever import Retriever
 
 
 class GlobalVictoryPiece(scenario_piece.ScenarioPiece):
-    def __init__(self, parser_obj):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Separator", DataType("u32")),
             Retriever("Conquest required", DataType("u32")),
@@ -19,4 +19,4 @@ class GlobalVictoryPiece(scenario_piece.ScenarioPiece):
             Retriever("Time for timed game, in 10ths of a year", DataType("u32")),
         ]
 
-        super().__init__(parser_obj, "Global Victory", retrievers)
+        super().__init__("Global Victory", retrievers, parser_obj)

@@ -4,7 +4,7 @@ import src.pieces.structs.aoe2_struct as structs
 
 
 class ResourcesStruct(structs.Struct):
-    def __init__(self, parser_obj, data=None):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Gold", DataType("u32")),
             Retriever("Wood", DataType("u32")),
@@ -15,4 +15,4 @@ class ResourcesStruct(structs.Struct):
             Retriever("Player color", DataType("u32"))
         ]
 
-        super().__init__(parser_obj, "Resources", retrievers, data)
+        super().__init__("Resources", retrievers, parser_obj, data)

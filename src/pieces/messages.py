@@ -4,8 +4,7 @@ from src.helper.datatype import DataType
 
 
 class MessagesPiece(scenario_piece.ScenarioPiece):
-
-    def __init__(self, parser_obj):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Instructions", DataType("u32")),
             Retriever("Hints", DataType("u32")),
@@ -21,4 +20,4 @@ class MessagesPiece(scenario_piece.ScenarioPiece):
             Retriever("ASCII Scouts", DataType("str16")),
         ]
 
-        super().__init__(parser_obj, "Messages", retrievers)
+        super().__init__("Messages", retrievers, parser_obj)

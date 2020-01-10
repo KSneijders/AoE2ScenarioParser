@@ -5,8 +5,7 @@ from src.pieces.structs.player_diplomacy import PlayerDiplomacyStruct
 
 
 class DiplomacyPiece(scenario_piece.ScenarioPiece):
-
-    def __init__(self, parser_obj):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Per-player diplomacy", DataType(PlayerDiplomacyStruct, repeat=16)),
             Retriever("Individual Victories", DataType("60", repeat=16*12)),  # 12 Conditions per (16) Player(s).
@@ -15,4 +14,4 @@ class DiplomacyPiece(scenario_piece.ScenarioPiece):
             Retriever("Unknown", DataType("4")),
         ]
 
-        super().__init__(parser_obj, "Diplomacy", retrievers)
+        super().__init__("Diplomacy", retrievers, parser_obj)

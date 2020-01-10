@@ -5,7 +5,7 @@ from src.pieces.structs.player_data_one import PlayerDataOneStruct
 
 
 class DataHeaderPiece(scenario_piece.ScenarioPiece):
-    def __init__(self, parser_obj):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Next unit ID to place", DataType("u32")),
             Retriever("Version", DataType("f32")),
@@ -21,4 +21,4 @@ class DataHeaderPiece(scenario_piece.ScenarioPiece):
             Retriever("Filename", DataType("str16"))
         ]
 
-        super().__init__(parser_obj, "Data Header", retrievers)
+        super().__init__("Data Header", retrievers, parser_obj)

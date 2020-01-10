@@ -4,10 +4,10 @@ import src.pieces.structs.aoe2_struct as structs
 
 
 class ConditionStruct(structs.Struct):
-    def __init__(self, parser_obj, data=None):
+    def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("Condition Type", DataType("s32")),
-            Retriever("Amount of condition attributes? Always 0x15", DataType("s32")),  # Was always: 0x10
+            Retriever("Condition type", DataType("s32")),
+            Retriever("Check, (21)", DataType("s32")),  # Was always: 0x10
             Retriever("Amount (Quantity)", DataType("s32")),  # Also technology state, also Difficulty
             Retriever("Resource Type/Tribute list", DataType("s32")),
             Retriever("Unit object", DataType("s32")),
@@ -31,4 +31,4 @@ class ConditionStruct(structs.Struct):
             Retriever("Target player", DataType("s32")),
         ]
 
-        super().__init__(parser_obj, "Condition", retrievers, data)
+        super().__init__("Condition", retrievers, parser_obj, data)
