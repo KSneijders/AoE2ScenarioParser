@@ -76,11 +76,12 @@ class AoE2Scenario:
             # print("Suffix done", len(suffix))
             self.suffix = suffix
 
-        self._log_effect_dataset()
-
         print("File reading done successfully.")
 
-        # om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
+        om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
+        om.reconstruct()
+
+        self._write_from_structure()
 
     def _write_from_structure(self, write_in_bytes=True):
         byte_header = b''
