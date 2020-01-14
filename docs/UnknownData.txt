@@ -21,5 +21,3 @@ FileHeader:
 
 Notes: 
 	GAIA Population limit isn't saved
-	Resources final value is player number
-		Except for the fact that GAIA (number 8, 9th) has the number 6 too.
