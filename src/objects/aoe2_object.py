@@ -1,3 +1,6 @@
+import abc
+
+
 class AoE2Object:
     def __init__(self, data_dict):
         del data_dict['self']
@@ -10,6 +13,16 @@ class AoE2Object:
         #         'id_on_map' not in self.__str__() and \
         #         'Effect type' not in self.__str__():
         #     print(data_dict)
+
+    @staticmethod
+    @abc.abstractmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass
 
     def _to_string(self):
         return str(self.data_dict)

@@ -6,7 +6,7 @@ class Struct(scenario_piece.ScenarioPiece):
     def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
         super().__init__(piece_type, retrievers, parser_obj, data)
 
-        if data is not None and parser_obj is not None:
+        if data and parser_obj:
             gen = create_generator(data, 1)
             super().set_data_from_generator(gen)
 

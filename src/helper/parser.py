@@ -20,6 +20,14 @@ def vorl(var):
         return var
 
 
+def listify(var):
+    """Always return item as list"""
+    if type(var) is list:
+        return var
+    else:
+        return [var]
+
+
 class Parser:
     _saves = dict()
 
@@ -156,6 +164,9 @@ def retriever_to_bytes(retriever):
     return_bytes = b''
 
     is_list = type(retriever.data) == list
+    if is_list:
+        retriever.datatype.repeat = len(retriever.data)
+
     for i in range(0, retriever.datatype.repeat):
         data = retriever.data[i] if is_list else retriever.data
 
@@ -163,11 +174,7 @@ def retriever_to_bytes(retriever):
             for struct_retriever in data.retrievers:
                 return_bytes += retriever_to_bytes(struct_retriever)
         if var_type == "u" or var_type == "s":
-            try:
-                return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
-            except OverflowError:
-                print(retriever)
-                exit()
+            return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
         elif var_type == "f":
             if var_len == 4:
                 return_bytes += float_to_bytes(data)

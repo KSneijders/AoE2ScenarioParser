@@ -7,14 +7,14 @@ class ScenarioPiece:
         self.piece_type = piece_type
         self.retrievers = retrievers
         self.parser = parser_obj
-        if data is not None:
+        if data:
             self.set_data(data)
 
     def set_data(self, data):
         saves = {}
         if len(data) == len(self.retrievers):
             for i in range(0, len(data)):
-                if self.retrievers[i].set_repeat is not None:
+                if self.retrievers[i].set_repeat:
                     self.retrievers[i].datatype.repeat = parser.parse_repeat_string(
                         saves,
                         self.retrievers[i].set_repeat
