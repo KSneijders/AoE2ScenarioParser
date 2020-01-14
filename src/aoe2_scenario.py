@@ -49,21 +49,18 @@ class AoE2Scenario:
         header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
         data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
 
-        for _ in header_structure:
-            piece = _(self.parser)
+        for piece_object in header_structure:
+            piece = piece_object(self.parser)
             # print("Reading", piece.piece_type + "...", end="")
             piece.set_data_from_generator(header_generator)
             self.parsed_header[type(piece).__name__] = piece
             # print("...Done!")
             # print(piece)
 
-        for _ in file_structure:
-            piece = _(self.parser)
-            # print("Reading", piece.piece_type + "...", end="")
+        for piece_object in file_structure:
+            piece = piece_object(self.parser)
             piece.set_data_from_generator(data_generator)
             self.parsed_data[type(piece).__name__] = piece
-            # print("...Done!")
-            # print(piece)
 
         suffix = b''
         try:
@@ -76,7 +73,7 @@ class AoE2Scenario:
             # print("Suffix done", len(suffix))
             self.suffix = suffix
 
-        print("File reading done successfully.")
+        print("File reading finished successfully.")
 
         om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
         om.reconstruct()
@@ -84,6 +81,7 @@ class AoE2Scenario:
         self._write_from_structure()
 
     def _write_from_structure(self, write_in_bytes=True):
+        print("File writing from structure started...")
         byte_header = b''
         byte_data = b''
 
@@ -93,7 +91,10 @@ class AoE2Scenario:
 
         for key in self.parsed_data:
             for retriever in self.parsed_data[key].retrievers:
-                byte_data += parser.retriever_to_bytes(retriever)
+                try:
+                    byte_data += parser.retriever_to_bytes(retriever)
+                except AttributeError:
+                    print(key, retriever)
 
         # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
@@ -103,8 +104,10 @@ class AoE2Scenario:
         file.write(byte_header if write_in_bytes else create_readable_hex_string(byte_header.hex()))
         file.write(compressed if write_in_bytes else create_readable_hex_string(compressed.hex()))
         file.close()
+        print("File writing finished successfully.")
 
     def write_file(self, datatype, write_in_bytes=True):
+        print("File writing from source started with attributes " + datatype + "...")
         file = open("./../results/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
         for t in datatype:
             if t == "f":
@@ -114,6 +117,7 @@ class AoE2Scenario:
             elif t == "d":
                 file.write(self.file_data if write_in_bytes else create_readable_hex_string(self.file_data.hex()))
         file.close()
+        print("File writing finished successfully.")
 
     def _create_header_generator(self, chunk_size):
         return generator.create_generator(self.file_header, chunk_size)
@@ -143,9 +147,7 @@ class AoE2Scenario:
     def _log_effect_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
         trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        effects = find_retriever(trigger_data.retrievers, "Effect data").data
-        if type(effects) is not list:
-            effects = [effects]
+        effects = parser.listify(find_retriever(trigger_data.retrievers, "Effect data").data)
 
         for effect in effects:
             for retriever in effect.retrievers:
@@ -162,9 +164,7 @@ class AoE2Scenario:
     def _log_condition_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
         trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        conditions = find_retriever(trigger_data.retrievers, "Condition data").data
-        if type(conditions) is not list:
-            conditions = [conditions]
+        conditions = parser.listify(find_retriever(trigger_data.retrievers, "Condition data").data)
 
         for condition in conditions:
             for retriever in condition.retrievers:
