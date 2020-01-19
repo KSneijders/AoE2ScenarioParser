@@ -103,6 +103,8 @@ class TriggerObject(AoE2Object):
 
             effects.append(EffectStruct(data=data_list))
 
+        helper.update_order_array(trigger.data_dict['effect_order'], len(trigger.data_dict['effects']))
+
         conditions = []
         for condition_obj in trigger.data_dict['conditions']:
             data_list = list(condition_obj.data_dict.values())
@@ -110,6 +112,8 @@ class TriggerObject(AoE2Object):
             data_list.insert(10, 0)  # Unknown
             data_list.insert(19, 0)  # Unknown (3)
             conditions.append(ConditionStruct(data=data_list))
+
+        helper.update_order_array(trigger.data_dict['condition_order'], len(trigger.data_dict['conditions']))
 
         trigger_data_retriever.data.append(TriggerStruct(data=[
             trigger.data_dict['enabled'],
