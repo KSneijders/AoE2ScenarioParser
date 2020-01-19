@@ -49,10 +49,14 @@ class TriggerObject(AoE2Object):
     #     return new_trigger
 
     def add_effect(self, effect_type):
-        pass
+        new_effect = EffectObject(effect_type)
+        self.data_dict['effects'].append(new_effect)
+        return new_effect
 
     def add_condition(self, condition_type):
-        pass
+        new_cond = ConditionObject(condition_type)
+        self.data_dict['conditions'].append(new_cond)
+        return new_cond
 
     @staticmethod
     def parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct}
@@ -94,6 +98,7 @@ class TriggerObject(AoE2Object):
 
         effects = []
         for effect_obj in trigger.data_dict['effects']:
+            print(effect_obj.data_dict)
             data_list = list(effect_obj.data_dict.values())
             data_list.insert(1, 46)  # Check, (46)
             data_list.insert(9, 0)   # Unknown
