@@ -1,3 +1,7 @@
+import copy
+
+from src.datasets import effect
+from src.helper.retriever import find_retriever
 from src.objects.aoe2_object import AoE2Object
 
 
@@ -53,3 +57,25 @@ class EffectObject(AoE2Object):
                  selected_object_id,
                  ):
         super().__init__(locals())
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):  # Expected: {effect=EffectStruct}
+        effect_struct = kwargs['effect']
+
+        effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
+        parameters = effect.parameters.get(effect_type)
+
+        parameter_dict = copy.copy(effect.empty_parameters)
+        for param in parameters:
+            inverted_name = effect.naming_conversion.get(param)
+            parameter_dict[inverted_name] = find_retriever(effect_struct.retrievers, param).data
+
+        return EffectObject(
+            **parameter_dict
+        )
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass
+
+
