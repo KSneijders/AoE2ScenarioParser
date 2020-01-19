@@ -23,7 +23,7 @@ from src.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     def __init__(self, filename):
-        print("Loading file: '" + filename + "'...")
+        print("\nLoading file: '" + filename + "'...")
 
         scenario = open(filename, "rb")
         self.file = scenario.read()
@@ -43,24 +43,23 @@ class AoE2Scenario:
         # self._write_from_structure()
 
     def _read_file(self):
-        print("File reading started...")
+        print("\nFile reading started...")
         self.parsed_header = collections.OrderedDict()
         self.parsed_data = collections.OrderedDict()
         header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
         data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
 
-        for piece_object in header_structure:
-            piece = piece_object(self.parser)
-            # print("Reading", piece.piece_type + "...", end="")
-            piece.set_data_from_generator(header_generator)
-            self.parsed_header[type(piece).__name__] = piece
-            # print("...Done!")
-            # print(piece)
+        structures = [header_structure, file_structure]
+        structure_generators = [header_generator, data_generator]
+        structure_parsed = [self.parsed_header, self.parsed_data]
 
-        for piece_object in file_structure:
-            piece = piece_object(self.parser)
-            piece.set_data_from_generator(data_generator)
-            self.parsed_data[type(piece).__name__] = piece
+        for index, structure in enumerate(structures):
+            for piece_object in structure:
+                piece = piece_object(self.parser)
+                print("Reading", piece.piece_type + "...", end="")
+                piece.set_data_from_generator(structure_generators[index])
+                structure_parsed[index][type(piece).__name__] = piece
+                print("...Done!")
 
         suffix = b''
         try:
@@ -75,13 +74,13 @@ class AoE2Scenario:
 
         print("File reading finished successfully.")
 
-        om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
-        om.reconstruct()
+        self.object_manager = AoE2ObjectManager(self.parsed_header, self.parsed_data)
 
-        self._write_from_structure()
+    def write_to_file(self, filename):
+        self._write_from_structure(filename)
 
-    def _write_from_structure(self, write_in_bytes=True):
-        print("File writing from structure started...")
+    def _write_from_structure(self, filename, write_in_bytes=True):
+        print("\nFile writing from structure started...")
         byte_header = b''
         byte_data = b''
 
@@ -100,7 +99,7 @@ class AoE2Scenario:
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
         compressed = deflate_obj.compress(byte_data + self.suffix) + deflate_obj.flush()
 
-        file = open(settings.file.get("output"), "wb" if write_in_bytes else "w")
+        file = open(filename, "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else create_readable_hex_string(byte_header.hex()))
         file.write(compressed if write_in_bytes else create_readable_hex_string(compressed.hex()))
         file.close()
