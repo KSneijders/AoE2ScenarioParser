@@ -168,7 +168,9 @@ freeze_object = 22
 - object_type
 - selected_object_id"""
 use_advanced_buttons = 23
-"""Parameters for the **use_advanced_buttons** effect are: \n"""
+"""Parameters for the **use_advanced_buttons** effect are: \n
+None. \n
+Please don't use this effect. Please."""
 damage_object = 24
 """Parameters for the **damage_object** effect are: \n
 - quantity
