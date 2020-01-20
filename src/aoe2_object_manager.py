@@ -14,6 +14,7 @@ from src.objects.units_obj import UnitsObject
 
 class AoE2ObjectManager:
     def __init__(self, parser_header, parsed_data):
+        print("\nParsing pieces and structs to objects...")
         self.parser_header = parser_header
         self.parsed_data = parsed_data
         self.objects = {
@@ -30,6 +31,8 @@ class AoE2ObjectManager:
 
         # for key in self.objects.keys():
         #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
+
+        print("Parsing finished successfully.")
 
     def get_file_header(self):
         return self.objects['FileHeaderObject']
