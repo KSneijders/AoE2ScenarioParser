@@ -20,6 +20,7 @@ from src.pieces.player_data_two import PlayerDataTwoPiece
 from src.pieces.triggers import TriggerPiece
 from src.pieces.units import UnitsPiece
 from src.datasets import effect as effect_dataset
+from src.datasets import condition as condition_dataset
 
 
 class AoE2Scenario:
@@ -38,7 +39,8 @@ class AoE2Scenario:
         self.parser = parser.Parser()
 
         self._read_file()
-        # self._log_effect_dataset()
+        # self._log_condition_dataset()
+        # exit()
 
         # self.write_file("hd", write_in_bytes=False)
 
@@ -58,11 +60,10 @@ class AoE2Scenario:
         for index, structure in enumerate(structures):
             for piece_object in structure:
                 piece = piece_object(self.parser)
-                print("Reading", piece.piece_type + "...", end="")
+                print("Reading", piece.piece_type + "...")
                 piece.set_data_from_generator(structure_generators[index])
                 structure_parsed[index][type(piece).__name__] = piece
-                print("...Done!")
-
+                print("Reading", piece.piece_type, "finished successfully.")
 
         suffix = b''
         try:
@@ -160,7 +161,7 @@ class AoE2Scenario:
                         retriever.name != "Check, (46)":
                     if retriever.name == "Effect type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print(retriever)
+                    # print(retriever)
                     print("\t\"" + str(effect_dataset.naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
@@ -176,9 +177,10 @@ class AoE2Scenario:
                         retriever.data != "" and \
                         retriever.data != " " and \
                         retriever.name != "Check, (21)":
-                    if retriever.name == "Condition Type":
+                    # print(retriever)
+                    if retriever.name == "Condition type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + str(retriever.name) + "\",")
+                    print("\t\"" + str(condition_dataset.naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
 

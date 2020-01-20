@@ -68,8 +68,7 @@ class EffectObject(AoE2Object):
 
         parameter_dict = copy.copy(effect.empty_parameters)
         for param in parameters:
-            inverted_name = effect.naming_conversion.get(param)
-            parameter_dict[inverted_name] = find_retriever(effect_struct.retrievers, param).data
+            parameter_dict[param] = find_retriever(effect_struct.retrievers, effect.naming_conversion[param]).data
 
         return EffectObject(
             **parameter_dict
