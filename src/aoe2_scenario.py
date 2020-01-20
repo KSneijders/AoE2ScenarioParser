@@ -19,6 +19,7 @@ from src.pieces.messages import MessagesPiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
 from src.pieces.triggers import TriggerPiece
 from src.pieces.units import UnitsPiece
+from src.datasets import effect as effect_dataset
 
 
 class AoE2Scenario:
@@ -37,6 +38,7 @@ class AoE2Scenario:
         self.parser = parser.Parser()
 
         self._read_file()
+        # self._log_effect_dataset()
 
         # self.write_file("hd", write_in_bytes=False)
 
@@ -158,7 +160,8 @@ class AoE2Scenario:
                         retriever.name != "Check, (46)":
                     if retriever.name == "Effect type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + str(retriever.name) + "\",")
+                    print(retriever)
+                    print("\t\"" + str(effect_dataset.naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
     def _log_condition_dataset(self):
