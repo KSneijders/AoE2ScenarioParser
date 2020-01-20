@@ -13,6 +13,11 @@ class TriggersObject(AoE2Object):
 
         super().__init__(locals())
 
+    def add_trigger(self, name):
+        new_trigger = TriggerObject(name=name)
+        self.data_dict['trigger_data'].append(new_trigger)
+        return new_trigger
+
     @staticmethod
     def parse_object(parsed_data, **kwargs):  # Expected {}
         display_order = parser.listify(

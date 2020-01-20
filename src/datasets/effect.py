@@ -1,59 +1,474 @@
 # All effects and their IDs
 none = 0
+"""Parameters for the **none** effect are: \n
+... none... Just like Conditions... People these days... """
 change_diplomacy = 1
+"""Parameters for the **change_diplomacy** effect are: \n
+- diplomacy
+- player_source
+- player_target"""
 research_technology = 2
+"""Parameters for the **research_technology** effect are: \n
+- player_source
+- technology
+- force_research_technology"""
 send_chat = 3
+"""Parameters for the **send_chat** effect are: \n
+- player_source
+- string_id
+- message
+- sound_name"""
 play_sound = 4
+"""Parameters for the **play_sound** effect are: \n
+- player_source
+- location_x
+- location_y
+- sound_name"""
 tribute = 5
+"""Parameters for the **tribute** effect are: \n
+- quantity
+- tribute_list
+- player_source
+- player_target"""
 unlock_gate = 6
+"""Parameters for the **unlock_gate** effect are: \n
+- number_of_units_selected
+- selected_object_id"""
 lock_gate = 7
+"""Parameters for the **lock_gate** effect are: \n
+- number_of_units_selected
+- selected_object_id"""
 activate_trigger = 8
+"""Parameters for the **activate_trigger** effect are: \n
+- trigger_id"""
 deactivate_trigger = 9
+"""Parameters for the **deactivate_trigger** effect are: \n
+- trigger_id"""
 create_object = 11
+"""Parameters for the **create_object** effect are: \n
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- item_id
+- facet"""
 task_object = 12
+"""Parameters for the **task_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 declare_victory = 13
+"""Parameters for the **declare_victory** effect are: \n
+- player_source
+- enabled_or_victory"""
 kill_object = 14
+"""Parameters for the **kill_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 remove_object = 15
+"""Parameters for the **remove_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_view = 16
+"""Parameters for the **change_view** effect are: \n
+- player_source
+- location_x
+- location_y
+- scroll"""
 unload = 17
+"""Parameters for the **unload** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_ownership = 18
+"""Parameters for the **change_ownership** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- player_target
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- flash_object
+- selected_object_id"""
 patrol = 19
+"""Parameters for the **patrol** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 display_instructions = 20
+"""Parameters for the **display_instructions** effect are: \n
+- object_list_unit_id
+- player_source
+- string_id
+- display_time
+- instruction_panel_position
+- play_sound
+- message
+- sound_name"""
 clear_instructions = 21
+"""Parameters for the **clear_instructions** effect are: \n
+- instruction_panel_position"""
 freeze_object = 22
+"""Parameters for the **freeze_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 use_advanced_buttons = 23
-damage_object = 24
+"""Parameters for the **use_advanced_
+damage_object = 24buttons** effect are: \n"""
+"""Parameters for the **damage_object** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 place_foundation = 25
+"""Parameters for the **place_foundation** effect are: \n
+- object_list_unit_id
+- player_source
+- location_x
+- location_y"""
 change_object_name = 26
+"""Parameters for the **change_object_name** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- string_id
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- message
+- selected_object_id"""
 change_object_hp = 27
+"""Parameters for the **change_object_hp** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 change_object_attack = 28
+"""Parameters for the **change_object_attack** effect are: \n
+- aa_quantity
+- aa_armor_or_attack_type
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 stop_object = 29
+"""Parameters for the **stop_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 attack_move = 30
+"""Parameters for the **attack_move** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_object_armor = 31
+"""Parameters for the **change_object_armor** effect are: \n
+- aa_quantity
+- aa_armor_or_attack_type
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 change_object_range = 32
+"""Parameters for the **change_object_range** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 change_object_speed = 33
+"""Parameters for the **change_object_speed** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 heal_object = 34
+"""Parameters for the **heal_object** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 teleport_object = 35
+"""Parameters for the **teleport_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_object_stance = 36
+"""Parameters for the **change_object_stance** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- attack_stance
+- selected_object_id"""
 display_timer = 37
+"""Parameters for the **display_timer** effect are: \n
+- string_id
+- display_time
+- time_unit
+- variable_or_timer
+- message"""
 enable_disable_object = 38
+"""Parameters for the **enable_disable_object** effect are: \n
+- object_list_unit_id
+- player_source
+- enabled_or_victory
+- item_id"""
 enable_disable_technology = 39
+"""Parameters for the **enable_disable_technology** effect are: \n
+- player_source
+- technology
+- enabled_or_victory
+- item_id"""
 change_object_cost = 40
+"""Parameters for the **change_object_cost** effect are: \n
+- object_list_unit_id
+- player_source
+- food
+- wood
+- stone
+- gold"""
 set_player_visibility = 41
+"""Parameters for the **set_player_visibility** effect are: \n
+- player_source
+- player_target
+- visibility_state"""
 change_object_icon = 42
+"""Parameters for the **change_object_icon** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- object_list_unit_id_2
+- selected_object_id"""
 replace_object = 43
+"""Parameters for the **replace_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- player_target
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- object_list_unit_id_2
+- selected_object_id"""
 change_object_description = 44
+"""Parameters for the **change_object_description** effect are: \n
+- object_list_unit_id
+- player_source
+- string_id
+- message"""
 change_player_name = 45
+"""Parameters for the **change_player_name** effect are: \n
+- player_source
+- string_id
+- message"""
 change_train_location = 46
+"""Parameters for the **change_train_location** effect are: \n
+- object_list_unit_id
+- player_source
+- object_list_unit_id_2
+- button_location"""
 change_research_location = 47
+"""Parameters for the **change_research_location** effect are: \n
+- player_source
+- technology
+- object_list_unit_id_2
+- button_location"""
 change_civilization_name = 48
+"""Parameters for the **change_civilization_name** effect are: \n
+- player_source
+- string_id
+- message"""
 create_garrisoned_object = 49
+"""Parameters for the **create_garrisoned_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_list_unit_id_2
+- selected_object_id"""
 acknowledge_ai_signal = 50
+"""Parameters for the **acknowledge_ai_signal** effect are: \n
+- ai_signal_value"""
 modify_attribute = 51
+"""Parameters for the **modify_attribute** effect are: \n
+- quantity
+- object_list_unit_id
+- player_source
+- item_id
+- operation
+- object_attributes"""
 modify_resource = 52
+"""Parameters for the **modify_resource** effect are: \n
+- quantity
+- tribute_list
+- player_source
+- item_id
+- operation"""
 modify_resource_by_variable = 53
+"""Parameters for the **modify_resource_by_variable** effect are: \n
+- tribute_list
+- player_source
+- item_id
+- operation
+- from_variable"""
 change_variable = 56
+"""Parameters for the **change_variable** effect are: \n
+- quantity
+- operation
+- from_variable
+- message"""
 clear_timer = 57
+"""Parameters for the **clear_timer** effect are: \n
+- variable_or_timer"""
 
 naming_conversion = {
     "effect_type": "Effect type",
@@ -163,527 +578,538 @@ empty_parameters = {
 # The parameters per trigger (trigger ID as dict key) identified by the retriever key
 parameters = {
     0: [
-        "Effect type",
+        "effect_type",
     ],
     50: [
-        "Effect type",
-        "AI signal Value",
+        "effect_type",
+        "ai_signal_value",
     ],
     8: [
-        "Effect type",
-        "Trigger ID (activate/deactivate)",
+        "effect_type",
+        "trigger_id",
     ],
     30: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     48: [
-        "Effect type",
-        "Player Source",
-        "String ID",
-        "Message",
+        "effect_type",
+        "player_source",
+        "string_id",
+        "message",
     ],
     1: [
-        "Effect type",
-        "Diplomacy",
-        "Player Source",
-        "Player Target",
+        "effect_type",
+        "diplomacy",
+        "player_source",
+        "player_target",
     ],
     31: [
-        "Effect type",
-        "AA Quantity",
-        "AA Armor/Attack Type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Operation",
-        "Selected Object(s) ID",
+        "effect_type",
+        "aa_quantity",
+        "aa_armor_or_attack_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "operation",
+        "selected_object_id",
     ],
     28: [
-        "Effect type",
-        "AA Quantity",
-        "AA Armor/Attack Type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Operation",
-        "Selected Object(s) ID",
+        "effect_type",
+        "aa_quantity",
+        "aa_armor_or_attack_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "operation",
+        "selected_object_id",
     ],
     40: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "Food",
-        "Wood",
-        "Stone",
-        "Gold",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "food",
+        "wood",
+        "stone",
+        "gold",
     ],
     44: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "String ID",
-        "Message",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "string_id",
+        "message",
     ],
     27: [
-        "Effect type",
-        "Quantity",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Operation",
-        "Selected Object(s) ID",
+        "effect_type",
+        "quantity",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "operation",
+        "selected_object_id",
     ],
     42: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Object list unit ID 2",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "object_list_unit_id_2",
+        "selected_object_id",
     ],
     26: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "String ID",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Message",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "string_id",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "message",
+        "selected_object_id",
     ],
     32: [
-        "Effect type",
-        "Quantity",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Operation",
-        "Selected Object(s) ID",
+        "effect_type",
+        "quantity",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "operation",
+        "selected_object_id",
     ],
     33: [
-        "Effect type",
-        "Quantity",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "quantity",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     36: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Attack Stance",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "attack_stance",
+        "selected_object_id",
     ],
     18: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Player Target",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Flash Object",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "player_target",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "flash_object",
+        "selected_object_id",
     ],
     45: [
-        "Effect type",
-        "Player Source",
-        "String ID",
-        "Message",
+        "effect_type",
+        "player_source",
+        "string_id",
+        "message",
     ],
     47: [
-        "Effect type",
-        "Player Source",
-        "Technology",
-        "Object list unit ID 2",
-        "Button Location",
+        "effect_type",
+        "player_source",
+        "technology",
+        "object_list_unit_id_2",
+        "button_location",
     ],
     46: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "Object list unit ID 2",
-        "Button Location",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "object_list_unit_id_2",
+        "button_location",
     ],
     56: [
-        "Effect type",
-        "Quantity",
-        "Operation",
-        "From Variable",
-        "Message",
+        "effect_type",
+        "quantity",
+        "operation",
+        "from_variable",
+        "message",
     ],
     16: [
-        "Effect type",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Scroll (Set view)",
+        "effect_type",
+        "player_source",
+        "location_x",
+        "location_y",
+        "scroll",
     ],
     21: [
-        "Effect type",
-        "Instruction Panel Position",
+        "effect_type",
+        "instruction_panel_position",
     ],
     57: [
-        "Effect type",
-        "Variable/Timer",
+        "effect_type",
+        "variable_or_timer",
     ],
     49: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object list unit ID 2",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_list_unit_id_2",
+        "selected_object_id",
     ],
     11: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Item ID",
-        "Facet",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
+        "item_id",
+        "facet",
     ],
     24: [
-        "Effect type",
-        "Quantity",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "quantity",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     9: [
-        "Effect type",
-        "Trigger ID (activate/deactivate)",
+        "effect_type",
+        "trigger_id",
     ],
     13: [
-        "Effect type",
-        "Player Source",
-        "Enabled/Victory",
+        "effect_type",
+        "player_source",
+        "enabled_or_victory",
     ],
     20: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "String ID",
-        "Display Time (display instructions)",
-        "Instruction Panel Position",
-        "Play Sound",
-        "Message",
-        "Sound (event) name",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "string_id",
+        "display_time",
+        "instruction_panel_position",
+        "play_sound",
+        "message",
+        "sound_name",
     ],
     37: [
-        "Effect type",
-        "String ID",
-        "Display Time (display instructions)",
-        "Time unit (second, minutes, years)",
-        "Variable/Timer",
-        "Message",
+        "effect_type",
+        "string_id",
+        "display_time",
+        "time_unit",
+        "variable_or_timer",
+        "message",
     ],
     38: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "Enabled/Victory",
-        "Item ID",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "enabled_or_victory",
+        "item_id",
     ],
     39: [
-        "Effect type",
-        "Player Source",
-        "Technology",
-        "Enabled/Victory",
-        "Item ID",
+        "effect_type",
+        "player_source",
+        "technology",
+        "enabled_or_victory",
+        "item_id",
     ],
     22: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     34: [
-        "Effect type",
-        "Quantity",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "quantity",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     14: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     7: [
-        "Effect type",
-        "Number of units selected",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "selected_object_id",
     ],
     51: [
-        "Effect type",
-        "Quantity",
-        "Object list unit ID",
-        "Player Source",
-        "Item ID",
-        "Operation",
-        "Object attributes",
+        "effect_type",
+        "quantity",
+        "object_list_unit_id",
+        "player_source",
+        "item_id",
+        "operation",
+        "object_attributes",
     ],
     52: [
-        "Effect type",
-        "Quantity",
-        "Tribute List",
-        "Player Source",
-        "Item ID",
-        "Operation",
+        "effect_type",
+        "quantity",
+        "tribute_list",
+        "player_source",
+        "item_id",
+        "operation",
     ],
     53: [
-        "Effect type",
-        "Tribute List",
-        "Player Source",
-        "Item ID",
-        "Operation",
-        "From Variable",
+        "effect_type",
+        "tribute_list",
+        "player_source",
+        "item_id",
+        "operation",
+        "from_variable",
     ],
     19: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     25: [
-        "Effect type",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
+        "effect_type",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
     ],
     4: [
-        "Effect type",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Sound (event) name",
+        "effect_type",
+        "player_source",
+        "location_x",
+        "location_y",
+        "sound_name",
     ],
     15: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     43: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Player Target",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Object list unit ID 2",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "player_target",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "object_list_unit_id_2",
+        "selected_object_id",
     ],
     2: [
-        "Effect type",
-        "Player Source",
-        "Technology",
-        "Force Research Technology",
+        "effect_type",
+        "player_source",
+        "technology",
+        "force_research_technology",
     ],
     3: [
-        "Effect type",
-        "Player Source",
-        "String ID",
-        "Message",
-        "Sound (event) name",
+        "effect_type",
+        "player_source",
+        "string_id",
+        "message",
+        "sound_name",
     ],
     41: [
-        "Effect type",
-        "Player Source",
-        "Player Target",
-        "Visibility State",
+        "effect_type",
+        "player_source",
+        "player_target",
+        "visibility_state",
     ],
     29: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     12: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     35: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     5: [
-        "Effect type",
-        "Quantity",
-        "Tribute List",
-        "Player Source",
-        "Player Target",
+        "effect_type",
+        "quantity",
+        "tribute_list",
+        "player_source",
+        "player_target",
     ],
     17: [
-        "Effect type",
-        "Number of units selected",
-        "Object list unit ID",
-        "Player Source",
-        "Location X",
-        "Location Y",
-        "Area 1 X",
-        "Area 1 Y",
-        "Area 2 X",
-        "Area 2 Y",
-        "Object Group",
-        "Object Type",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "object_list_unit_id",
+        "player_source",
+        "location_x",
+        "location_y",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "object_group",
+        "object_type",
+        "selected_object_id",
     ],
     6: [
-        "Effect type",
-        "Number of units selected",
-        "Selected Object(s) ID",
+        "effect_type",
+        "number_of_units_selected",
+        "selected_object_id",
     ],
     23: [
-        "Effect type",
+        "effect_type",
     ]
 }
+
+# for effect_id in range(0, 58):
+#     try:
+#         params = parameters[effect_id]
+#         print("\"\"\"Parameters for the **xxxxx** effect are: \\n", end="")
+#         for parameter in params:
+#             if parameter is not "effect_type":
+#                 print("\n-", parameter, end="")
+#     except KeyError:
+#         continue
+#     print("\"\"\"")

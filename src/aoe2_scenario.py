@@ -19,11 +19,13 @@ from src.pieces.messages import MessagesPiece
 from src.pieces.player_data_two import PlayerDataTwoPiece
 from src.pieces.triggers import TriggerPiece
 from src.pieces.units import UnitsPiece
+from src.datasets import effect as effect_dataset
+from src.datasets import condition as condition_dataset
 
 
 class AoE2Scenario:
     def __init__(self, filename):
-        print("Loading file: '" + filename + "'...")
+        print("\nLoading file: '" + filename + "'...")
 
         scenario = open(filename, "rb")
         self.file = scenario.read()
@@ -37,30 +39,31 @@ class AoE2Scenario:
         self.parser = parser.Parser()
 
         self._read_file()
+        # self._log_condition_dataset()
+        # exit()
 
         # self.write_file("hd", write_in_bytes=False)
 
         # self._write_from_structure()
 
     def _read_file(self):
-        print("File reading started...")
+        print("\nFile reading started...")
         self.parsed_header = collections.OrderedDict()
         self.parsed_data = collections.OrderedDict()
         header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
         data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
 
-        for piece_object in header_structure:
-            piece = piece_object(self.parser)
-            # print("Reading", piece.piece_type + "...", end="")
-            piece.set_data_from_generator(header_generator)
-            self.parsed_header[type(piece).__name__] = piece
-            # print("...Done!")
-            # print(piece)
+        structures = [header_structure, file_structure]
+        structure_generators = [header_generator, data_generator]
+        structure_parsed = [self.parsed_header, self.parsed_data]
 
-        for piece_object in file_structure:
-            piece = piece_object(self.parser)
-            piece.set_data_from_generator(data_generator)
-            self.parsed_data[type(piece).__name__] = piece
+        for index, structure in enumerate(structures):
+            for piece_object in structure:
+                piece = piece_object(self.parser)
+                print("Reading", piece.piece_type + "...")
+                piece.set_data_from_generator(structure_generators[index])
+                structure_parsed[index][type(piece).__name__] = piece
+                print("Reading", piece.piece_type, "finished successfully.")
 
         suffix = b''
         try:
@@ -75,13 +78,13 @@ class AoE2Scenario:
 
         print("File reading finished successfully.")
 
-        om = AoE2ObjectManager(self.parsed_header, self.parsed_data)
-        om.reconstruct()
+        self.object_manager = AoE2ObjectManager(self.parsed_header, self.parsed_data)
 
-        self._write_from_structure()
+    def write_to_file(self, filename):
+        self._write_from_structure(filename)
 
-    def _write_from_structure(self, write_in_bytes=True):
-        print("File writing from structure started...")
+    def _write_from_structure(self, filename, write_in_bytes=True):
+        print("\nFile writing from structure started...")
         byte_header = b''
         byte_data = b''
 
@@ -100,7 +103,7 @@ class AoE2Scenario:
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
         compressed = deflate_obj.compress(byte_data + self.suffix) + deflate_obj.flush()
 
-        file = open(settings.file.get("output"), "wb" if write_in_bytes else "w")
+        file = open(filename, "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else create_readable_hex_string(byte_header.hex()))
         file.write(compressed if write_in_bytes else create_readable_hex_string(compressed.hex()))
         file.close()
@@ -158,7 +161,8 @@ class AoE2Scenario:
                         retriever.name != "Check, (46)":
                     if retriever.name == "Effect type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + str(retriever.name) + "\",")
+                    # print(retriever)
+                    print("\t\"" + str(effect_dataset.naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
     def _log_condition_dataset(self):
@@ -173,9 +177,10 @@ class AoE2Scenario:
                         retriever.data != "" and \
                         retriever.data != " " and \
                         retriever.name != "Check, (21)":
-                    if retriever.name == "Condition Type":
+                    # print(retriever)
+                    if retriever.name == "Condition type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + str(retriever.name) + "\",")
+                    print("\t\"" + str(condition_dataset.naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
 

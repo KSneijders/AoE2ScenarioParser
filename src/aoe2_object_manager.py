@@ -31,8 +31,41 @@ class AoE2ObjectManager:
         # for key in self.objects.keys():
         #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
 
+    def get_file_header(self):
+        return self.objects['FileHeaderObject']
+
+    def get_data_header(self):
+        return self.objects['DataHeaderObject']
+
+    def get_players(self):
+        return self.objects['PlayerObject']
+
+    def get_messages(self):
+        return self.objects['MessagesObject']
+
+    def get_diplomacy(self):
+        return self.objects['DiplomacyObject']
+
+    def get_options(self):
+        return self.objects['OptionsObject']
+
+    def get_map(self):
+        return self.objects['MapObject']
+
+    def get_units(self):
+        return self.objects['UnitsObject']
+
+    def get_triggers(self):
+        return self.objects['TriggersObject']
+
     def reconstruct(self):
+        print("\nReconstructing pieces and structs based on objects...")
         TriggersObject.reconstruct_object(self.parsed_data, self.objects)
+        print("Reconstruction finished successfully.")
+
+    # ################################################################################################ #
+    #                           Todo: Move these functions to their objects.
+    # ################################################################################################ #
 
     def _parse_map_object(self):
         object_piece = self.parsed_data['MapPiece']
@@ -190,3 +223,4 @@ class AoE2ObjectManager:
             player_count=find_retriever(retrievers, "Player count").data,
             creator_name=find_retriever(retrievers, "Creator name").data,
         )
+
