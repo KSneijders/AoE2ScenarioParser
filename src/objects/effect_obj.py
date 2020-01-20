@@ -3,6 +3,7 @@ import copy
 from src.datasets import effect
 from src.helper.retriever import find_retriever
 from src.objects.aoe2_object import AoE2Object
+from src.pieces.structs.effect import EffectStruct
 
 
 class EffectObject(AoE2Object):
@@ -59,7 +60,7 @@ class EffectObject(AoE2Object):
         super().__init__(locals())
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected: {effect=EffectStruct}
+    def parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
         effect_struct = kwargs['effect']
 
         effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
@@ -75,7 +76,15 @@ class EffectObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):
-        pass
+    def reconstruct_object(parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
+        effect_obj = kwargs['effect']
+        effects = kwargs['effects']
 
+        data_list = list(effect_obj.data_dict.values())
+        data_list.insert(1, 46)  # Check, (46)
+        data_list.insert(9, 0)   # Unknown
+        data_list.insert(15, 0)  # Unknown2
+        data_list.insert(43, 0)  # Unknown3
+        data_list.insert(48, 0)  # Unknown4
 
+        effects.append(EffectStruct(data=data_list))

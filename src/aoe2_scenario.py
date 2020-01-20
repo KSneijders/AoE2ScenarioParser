@@ -61,6 +61,7 @@ class AoE2Scenario:
                 structure_parsed[index][type(piece).__name__] = piece
                 print("...Done!")
 
+
         suffix = b''
         try:
             while True:

@@ -32,11 +32,11 @@ class ConditionObject(AoE2Object):
         super().__init__(locals())
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected: {condition=ConditionStruct}
+    def parse_object(parsed_data, **kwargs):  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
-        condition_type = find_retriever(condition_struct.retrievers, "Condition type").data
-        parameters = condition.parameters.get(condition_type)
+        effect_type = find_retriever(condition_struct.retrievers, "Condition type").data
+        parameters = condition.parameters.get(effect_type)
 
         parameter_dict = copy.copy(condition.empty_parameters)
         for param in parameters:
@@ -50,5 +50,3 @@ class ConditionObject(AoE2Object):
     @staticmethod
     def reconstruct_object(parsed_data, objects, **kwargs):
         pass
-
-
