@@ -1,10 +1,7 @@
-import copy
 from src.objects.aoe2_object import AoE2Object
 from src.helper.retriever import find_retriever
 from src.helper import parser
 from src.helper import helper
-from src.datasets import effect
-from src.datasets import condition
 from src.objects.condition_obj import ConditionObject
 from src.objects.effect_obj import EffectObject
 from src.pieces.structs.condition import ConditionStruct
@@ -101,10 +98,10 @@ class TriggerObject(AoE2Object):
             print(effect_obj.data_dict)
             data_list = list(effect_obj.data_dict.values())
             data_list.insert(1, 46)  # Check, (46)
-            data_list.insert(9, 0)   # Unknown
-            data_list.insert(15, 0)  # Unknown2
-            data_list.insert(43, 0)  # Unknown3
-            data_list.insert(48, 0)  # Unknown4
+            data_list.insert(9, -1)   # Unknown
+            data_list.insert(15, -1)  # Unknown2
+            data_list.insert(43, -1)  # Unknown3
+            data_list.insert(48, -1)  # Unknown4
 
             effects.append(EffectStruct(data=data_list))
 
@@ -114,8 +111,8 @@ class TriggerObject(AoE2Object):
         for condition_obj in trigger.data_dict['conditions']:
             data_list = list(condition_obj.data_dict.values())
             data_list.insert(1, 21)  # Check, (21)
-            data_list.insert(10, 0)  # Unknown
-            data_list.insert(19, 0)  # Unknown (3)
+            data_list.insert(10, -1)  # Unknown
+            data_list.insert(19, -1)  # Unknown (3)
             conditions.append(ConditionStruct(data=data_list))
 
         helper.update_order_array(trigger.data_dict['condition_order'], len(trigger.data_dict['conditions']))
