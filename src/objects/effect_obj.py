@@ -68,8 +68,7 @@ class EffectObject(AoE2Object):
 
         parameter_dict = copy.copy(effect.empty_parameters)
         for param in parameters:
-            inverted_name = effect.naming_conversion.get(param)
-            parameter_dict[inverted_name] = find_retriever(effect_struct.retrievers, param).data
+            parameter_dict[param] = find_retriever(effect_struct.retrievers, effect.naming_conversion[param]).data
 
         return EffectObject(
             **parameter_dict
@@ -82,9 +81,9 @@ class EffectObject(AoE2Object):
 
         data_list = list(effect_obj.data_dict.values())
         data_list.insert(1, 46)  # Check, (46)
-        data_list.insert(9, 0)   # Unknown
-        data_list.insert(15, 0)  # Unknown2
-        data_list.insert(43, 0)  # Unknown3
-        data_list.insert(48, 0)  # Unknown4
+        data_list.insert(9, -1)   # Unknown
+        data_list.insert(15, -1)  # Unknown2
+        data_list.insert(43, -1)  # Unknown3
+        data_list.insert(48, -1)  # Unknown4
 
         effects.append(EffectStruct(data=data_list))

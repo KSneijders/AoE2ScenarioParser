@@ -40,8 +40,7 @@ class ConditionObject(AoE2Object):
 
         parameter_dict = copy.copy(condition.empty_parameters)
         for param in parameters:
-            inverted_name = condition.naming_conversion.get(param)
-            parameter_dict[inverted_name] = find_retriever(condition_struct.retrievers, param).data
+            parameter_dict[param] = find_retriever(condition_struct.retrievers, condition.naming_conversion[param]).data
 
         return ConditionObject(
             **parameter_dict
@@ -49,4 +48,12 @@ class ConditionObject(AoE2Object):
 
     @staticmethod
     def reconstruct_object(parsed_data, objects, **kwargs):
-        pass
+        # Expected {condition=condition_obj, conditions=conditionsList}
+        condition_obj = kwargs['condition']
+        conditions = kwargs['conditions']
+
+        data_list = list(condition_obj.data_dict.values())
+        data_list.insert(1, 21)  # Check, (21)
+        data_list.insert(10, -1)  # Unknown
+        data_list.insert(19, -1)  # Unknown (3)
+        conditions.append(ConditionStruct(data=data_list))

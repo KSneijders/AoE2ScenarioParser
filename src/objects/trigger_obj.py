@@ -40,11 +40,6 @@ class TriggerObject(AoE2Object):
 
         super().__init__(locals())
 
-    # def add_trigger(self, name):
-    #     new_trigger = TriggerObject(name=name)
-    #     self.data_dict['trigger_data'].append(new_trigger)
-    #     return new_trigger
-
     def add_effect(self, effect_type):
         new_effect = EffectObject(effect_type)
         self.data_dict['effects'].append(new_effect)
@@ -98,9 +93,7 @@ class TriggerObject(AoE2Object):
             EffectObject.reconstruct_object(parsed_data, objects, effect=effect_obj, effects=effects)
 
         helper.update_order_array(
-            parser.listify(trigger.data_dict['effect_order']),
-            len(trigger.data_dict['effects'])
-        )
+            parser.listify(trigger.data_dict['effect_order']), len(trigger.data_dict['effects']))
 
         conditions = []
         for condition_obj in trigger.data_dict['conditions']:
@@ -111,9 +104,7 @@ class TriggerObject(AoE2Object):
             conditions.append(ConditionStruct(data=data_list))
 
         helper.update_order_array(
-            parser.listify(trigger.data_dict['condition_order']),
-            len(trigger.data_dict['conditions'])
-        )
+            parser.listify(trigger.data_dict['condition_order']), len(trigger.data_dict['conditions']))
 
         trigger_data_retriever.data.append(TriggerStruct(data=[
             trigger.data_dict['enabled'],

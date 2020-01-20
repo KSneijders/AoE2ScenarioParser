@@ -14,8 +14,11 @@ types = [
 
 def vorl(var):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
-    if len(var) is 1 and type(var) is list:
-        return var[0]
+    if type(var) is list:
+        if len(var) is 1:
+            return var[0]
+        else:
+            return var
     else:
         return var
 
