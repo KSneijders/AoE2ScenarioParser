@@ -84,6 +84,7 @@ class AoE2Scenario:
         self._write_from_structure(filename)
 
     def _write_from_structure(self, filename, write_in_bytes=True):
+        self.object_manager.reconstruct()
         print("\nFile writing from structure started...")
         byte_header = b''
         byte_data = b''

@@ -17,5 +17,4 @@ effect.set_player_source(1)
 effect.set_display_time(11)
 effect.set_message("This message was set using python parsing!")
 
-scenario.object_manager.reconstruct()
 scenario.write_to_file(settings.file.get("output"))
