@@ -59,7 +59,9 @@ class AoE2ObjectManager:
         return self.objects['TriggersObject']
 
     def reconstruct(self):
+        print("\nReconstructing pieces and structs based on objects...")
         TriggersObject.reconstruct_object(self.parsed_data, self.objects)
+        print("Reconstruction finished successfully.")
 
     # ################################################################################################ #
     #                           Todo: Move these functions to their objects.

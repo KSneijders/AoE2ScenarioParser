@@ -1,59 +1,474 @@
 # All effects and their IDs
 none = 0
+"""Parameters for the **none** effect are: \n
+... none... Just like Conditions... People these days... """
 change_diplomacy = 1
+"""Parameters for the **change_diplomacy** effect are: \n
+- diplomacy
+- player_source
+- player_target"""
 research_technology = 2
+"""Parameters for the **research_technology** effect are: \n
+- player_source
+- technology
+- force_research_technology"""
 send_chat = 3
+"""Parameters for the **send_chat** effect are: \n
+- player_source
+- string_id
+- message
+- sound_name"""
 play_sound = 4
+"""Parameters for the **play_sound** effect are: \n
+- player_source
+- location_x
+- location_y
+- sound_name"""
 tribute = 5
+"""Parameters for the **tribute** effect are: \n
+- quantity
+- tribute_list
+- player_source
+- player_target"""
 unlock_gate = 6
+"""Parameters for the **unlock_gate** effect are: \n
+- number_of_units_selected
+- selected_object_id"""
 lock_gate = 7
+"""Parameters for the **lock_gate** effect are: \n
+- number_of_units_selected
+- selected_object_id"""
 activate_trigger = 8
+"""Parameters for the **activate_trigger** effect are: \n
+- trigger_id"""
 deactivate_trigger = 9
+"""Parameters for the **deactivate_trigger** effect are: \n
+- trigger_id"""
 create_object = 11
+"""Parameters for the **create_object** effect are: \n
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- item_id
+- facet"""
 task_object = 12
+"""Parameters for the **task_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 declare_victory = 13
+"""Parameters for the **declare_victory** effect are: \n
+- player_source
+- enabled_or_victory"""
 kill_object = 14
+"""Parameters for the **kill_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 remove_object = 15
+"""Parameters for the **remove_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_view = 16
+"""Parameters for the **change_view** effect are: \n
+- player_source
+- location_x
+- location_y
+- scroll"""
 unload = 17
+"""Parameters for the **unload** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_ownership = 18
+"""Parameters for the **change_ownership** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- player_target
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- flash_object
+- selected_object_id"""
 patrol = 19
+"""Parameters for the **patrol** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 display_instructions = 20
+"""Parameters for the **display_instructions** effect are: \n
+- object_list_unit_id
+- player_source
+- string_id
+- display_time
+- instruction_panel_position
+- play_sound
+- message
+- sound_name"""
 clear_instructions = 21
+"""Parameters for the **clear_instructions** effect are: \n
+- instruction_panel_position"""
 freeze_object = 22
+"""Parameters for the **freeze_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 use_advanced_buttons = 23
-damage_object = 24
+"""Parameters for the **use_advanced_
+damage_object = 24buttons** effect are: \n"""
+"""Parameters for the **damage_object** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 place_foundation = 25
+"""Parameters for the **place_foundation** effect are: \n
+- object_list_unit_id
+- player_source
+- location_x
+- location_y"""
 change_object_name = 26
+"""Parameters for the **change_object_name** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- string_id
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- message
+- selected_object_id"""
 change_object_hp = 27
+"""Parameters for the **change_object_hp** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 change_object_attack = 28
+"""Parameters for the **change_object_attack** effect are: \n
+- aa_quantity
+- aa_armor_or_attack_type
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 stop_object = 29
+"""Parameters for the **stop_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 attack_move = 30
+"""Parameters for the **attack_move** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_object_armor = 31
+"""Parameters for the **change_object_armor** effect are: \n
+- aa_quantity
+- aa_armor_or_attack_type
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 change_object_range = 32
+"""Parameters for the **change_object_range** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- operation
+- selected_object_id"""
 change_object_speed = 33
+"""Parameters for the **change_object_speed** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 heal_object = 34
+"""Parameters for the **heal_object** effect are: \n
+- quantity
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 teleport_object = 35
+"""Parameters for the **teleport_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- location_x
+- location_y
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- selected_object_id"""
 change_object_stance = 36
+"""Parameters for the **change_object_stance** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- attack_stance
+- selected_object_id"""
 display_timer = 37
+"""Parameters for the **display_timer** effect are: \n
+- string_id
+- display_time
+- time_unit
+- variable_or_timer
+- message"""
 enable_disable_object = 38
+"""Parameters for the **enable_disable_object** effect are: \n
+- object_list_unit_id
+- player_source
+- enabled_or_victory
+- item_id"""
 enable_disable_technology = 39
+"""Parameters for the **enable_disable_technology** effect are: \n
+- player_source
+- technology
+- enabled_or_victory
+- item_id"""
 change_object_cost = 40
+"""Parameters for the **change_object_cost** effect are: \n
+- object_list_unit_id
+- player_source
+- food
+- wood
+- stone
+- gold"""
 set_player_visibility = 41
+"""Parameters for the **set_player_visibility** effect are: \n
+- player_source
+- player_target
+- visibility_state"""
 change_object_icon = 42
+"""Parameters for the **change_object_icon** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- object_list_unit_id_2
+- selected_object_id"""
 replace_object = 43
+"""Parameters for the **replace_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- player_target
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_group
+- object_type
+- object_list_unit_id_2
+- selected_object_id"""
 change_object_description = 44
+"""Parameters for the **change_object_description** effect are: \n
+- object_list_unit_id
+- player_source
+- string_id
+- message"""
 change_player_name = 45
+"""Parameters for the **change_player_name** effect are: \n
+- player_source
+- string_id
+- message"""
 change_train_location = 46
+"""Parameters for the **change_train_location** effect are: \n
+- object_list_unit_id
+- player_source
+- object_list_unit_id_2
+- button_location"""
 change_research_location = 47
+"""Parameters for the **change_research_location** effect are: \n
+- player_source
+- technology
+- object_list_unit_id_2
+- button_location"""
 change_civilization_name = 48
+"""Parameters for the **change_civilization_name** effect are: \n
+- player_source
+- string_id
+- message"""
 create_garrisoned_object = 49
+"""Parameters for the **create_garrisoned_object** effect are: \n
+- number_of_units_selected
+- object_list_unit_id
+- player_source
+- area_1_x
+- area_1_y
+- area_2_x
+- area_2_y
+- object_list_unit_id_2
+- selected_object_id"""
 acknowledge_ai_signal = 50
+"""Parameters for the **acknowledge_ai_signal** effect are: \n
+- ai_signal_value"""
 modify_attribute = 51
+"""Parameters for the **modify_attribute** effect are: \n
+- quantity
+- object_list_unit_id
+- player_source
+- item_id
+- operation
+- object_attributes"""
 modify_resource = 52
+"""Parameters for the **modify_resource** effect are: \n
+- quantity
+- tribute_list
+- player_source
+- item_id
+- operation"""
 modify_resource_by_variable = 53
+"""Parameters for the **modify_resource_by_variable** effect are: \n
+- tribute_list
+- player_source
+- item_id
+- operation
+- from_variable"""
 change_variable = 56
+"""Parameters for the **change_variable** effect are: \n
+- quantity
+- operation
+- from_variable
+- message"""
 clear_timer = 57
+"""Parameters for the **clear_timer** effect are: \n
+- variable_or_timer"""
 
 naming_conversion = {
     "effect_type": "Effect type",

@@ -29,6 +29,9 @@ class TriggerObject(AoE2Object):
                  effect_order=None,
                  ):
 
+        # Adding expected (by DE) ending character
+        name += "\x00"
+
         if conditions is None:
             conditions = []
         if condition_order is None:
@@ -129,10 +132,10 @@ class TriggerObject(AoE2Object):
         ]))
 
     def set_name(self, val):
-        self.data_dict['name'] = val
+        self.data_dict['name'] = val + "\x00"
 
     def set_description(self, val):
-        self.data_dict['description'] = val
+        self.data_dict['description'] = val + "\x00"
 
     def set_description_stid(self, val):
         self.data_dict['description_stid'] = val
@@ -141,7 +144,7 @@ class TriggerObject(AoE2Object):
         self.data_dict['display_as_objective'] = val
 
     def set_short_description(self, val):
-        self.data_dict['short_description'] = val
+        self.data_dict['short_description'] = val + "\x00"
 
     def set_short_description_stid(self, val):
         self.data_dict['short_description_stid'] = val

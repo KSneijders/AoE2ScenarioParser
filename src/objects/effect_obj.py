@@ -87,3 +87,147 @@ class EffectObject(AoE2Object):
         data_list.insert(48, -1)  # Unknown4
 
         effects.append(EffectStruct(data=data_list))
+
+    def set_effect_type(self, val):
+        self.data_dict['effect_type'] = val
+
+    def set_ai_script_goal(self, val):
+        self.data_dict['ai_script_goal'] = val
+
+    def set_aa_quantity(self, val):
+        self.data_dict['aa_quantity'] = val
+
+    def set_aa_armor_or_attack_type(self, val):
+        self.data_dict['aa_armor_or_attack_type'] = val
+
+    def set_quantity(self, val):
+        self.data_dict['quantity'] = val
+
+    def set_tribute_list(self, val):
+        self.data_dict['tribute_list'] = val
+
+    def set_diplomacy(self, val):
+        self.data_dict['diplomacy'] = val
+
+    def set_number_of_units_selected(self, val):
+        self.data_dict['number_of_units_selected'] = val
+
+    def set_object_list_unit_id(self, val):
+        self.data_dict['object_list_unit_id'] = val
+
+    def set_player_source(self, val):
+        self.data_dict['player_source'] = val
+
+    def set_player_target(self, val):
+        self.data_dict['player_target'] = val
+
+    def set_technology(self, val):
+        self.data_dict['technology'] = val
+
+    def set_string_id(self, val):
+        self.data_dict['string_id'] = val
+
+    def set_display_time(self, val):
+        self.data_dict['display_time'] = val
+
+    def set_trigger_id(self, val):
+        self.data_dict['trigger_id'] = val
+
+    def set_location_x(self, val):
+        self.data_dict['location_x'] = val
+
+    def set_location_y(self, val):
+        self.data_dict['location_y'] = val
+
+    def set_area_1_x(self, val):
+        self.data_dict['area_1_x'] = val
+
+    def set_area_1_y(self, val):
+        self.data_dict['area_1_y'] = val
+
+    def set_area_2_x(self, val):
+        self.data_dict['area_2_x'] = val
+
+    def set_area_2_y(self, val):
+        self.data_dict['area_2_y'] = val
+
+    def set_object_group(self, val):
+        self.data_dict['object_group'] = val
+
+    def set_object_type(self, val):
+        self.data_dict['object_type'] = val
+
+    def set_instruction_panel_position(self, val):
+        self.data_dict['instruction_panel_position'] = val
+
+    def set_attack_stance(self, val):
+        self.data_dict['attack_stance'] = val
+
+    def set_time_unit(self, val):
+        self.data_dict['time_unit'] = val
+
+    def set_enabled_or_victory(self, val):
+        self.data_dict['enabled_or_victory'] = val
+
+    def set_food(self, val):
+        self.data_dict['food'] = val
+
+    def set_wood(self, val):
+        self.data_dict['wood'] = val
+
+    def set_stone(self, val):
+        self.data_dict['stone'] = val
+
+    def set_gold(self, val):
+        self.data_dict['gold'] = val
+
+    def set_item_id(self, val):
+        self.data_dict['item_id'] = val
+
+    def set_flash_object(self, val):
+        self.data_dict['flash_object'] = val
+
+    def set_force_research_technology(self, val):
+        self.data_dict['force_research_technology'] = val
+
+    def set_visibility_state(self, val):
+        self.data_dict['visibility_state'] = val
+
+    def set_scroll(self, val):
+        self.data_dict['scroll'] = val
+
+    def set_operation(self, val):
+        self.data_dict['operation'] = val
+
+    def set_object_list_unit_id_2(self, val):
+        self.data_dict['object_list_unit_id_2'] = val
+
+    def set_button_location(self, val):
+        self.data_dict['button_location'] = val
+
+    def set_ai_signal_value(self, val):
+        self.data_dict['ai_signal_value'] = val
+
+    def set_object_attributes(self, val):
+        self.data_dict['object_attributes'] = val
+
+    def set_from_variable(self, val):
+        self.data_dict['from_variable'] = val
+
+    def set_variable_or_timer(self, val):
+        self.data_dict['variable_or_timer'] = val
+
+    def set_facet(self, val):
+        self.data_dict['facet'] = val
+
+    def set_play_sound(self, val):
+        self.data_dict['play_sound'] = val
+
+    def set_message(self, val):
+        self.data_dict['message'] = val
+
+    def set_sound_name(self, val):
+        self.data_dict['sound_name'] = val
+
+    def set_selected_object_id(self, val):
+        self.data_dict['selected_object_id'] = val
