@@ -11,7 +11,3 @@ file = {
 #   AllConditions
 # Output:
 #   generated_from_parsed
-
-runtime = {
-    "chunk_size": 1,
-}

@@ -50,8 +50,8 @@ class AoE2Scenario:
         print("\nFile reading started...")
         self.parsed_header = collections.OrderedDict()
         self.parsed_data = collections.OrderedDict()
-        header_generator = self._create_header_generator(settings.runtime.get("chunk_size"))
-        data_generator = self._create_data_generator(settings.runtime.get("chunk_size"))
+        header_generator = self._create_header_generator(1)
+        data_generator = self._create_data_generator(1)
 
         structures = [header_structure, file_structure]
         structure_generators = [header_generator, data_generator]
@@ -134,7 +134,7 @@ class AoE2Scenario:
 
     def _compute_header_length(self):
         return parser.calculate_length(
-            self._create_file_generator(settings.runtime.get('chunk_size')),
+            self._create_file_generator(1),
             FileHeaderPiece(parser.Parser()).retrievers
         )
 
