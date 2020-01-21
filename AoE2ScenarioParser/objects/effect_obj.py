@@ -1,6 +1,6 @@
 import copy
 
-from AoE2ScenarioParser.datasets import effect
+from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
@@ -64,11 +64,11 @@ class EffectObject(AoE2Object):
         effect_struct = kwargs['effect']
 
         effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
-        parameters = effect.parameters.get(effect_type)
+        parameters = effects.parameters.get(effect_type)
 
-        parameter_dict = copy.copy(effect.empty_parameters)
+        parameter_dict = copy.copy(effects.empty_parameters)
         for param in parameters:
-            parameter_dict[param] = find_retriever(effect_struct.retrievers, effect.naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(effect_struct.retrievers, effects.naming_conversion[param]).data
 
         return EffectObject(
             **parameter_dict

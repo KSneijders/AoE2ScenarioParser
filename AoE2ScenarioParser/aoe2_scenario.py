@@ -19,8 +19,8 @@ from AoE2ScenarioParser.pieces.messages import MessagesPiece
 from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
-from AoE2ScenarioParser.datasets import effect as effect_dataset
-from AoE2ScenarioParser.datasets import condition as condition_dataset
+from AoE2ScenarioParser.datasets import effects as effect_dataset
+from AoE2ScenarioParser.datasets import conditions as condition_dataset
 
 
 class AoE2Scenario:
