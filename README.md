@@ -9,7 +9,7 @@ Current up-to-date progress can be found on the [Trello](https://trello.com/b/7S
 ### Features:
 - Reading any `aoe2scenario` file from AoE2:DE.
 - Writing said file back to an `aoe2scenario` file.
-- Add Triggers, Conditions and effects to any `aoe2scenario` file.
+- Add Triggers, Conditions and effects to any `aoe2scenario` file (Instructions below).
 
 ### Bugs:
 - None
@@ -22,6 +22,10 @@ Run the following pip command for installation:
     pip install AoE2ScenarioParser
 
 # Usage
+## DISCLAIMER: NO SYNTAX OR STRUCTURE IS SET IN STONE AND COULD CHANGE AT ANY TIME
+
+## Adding Triggers, Condtions and Effects
+
 To start, import the main `AoE2Scnerio` class from the module:
 
 ```python
