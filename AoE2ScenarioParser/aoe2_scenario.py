@@ -3,7 +3,7 @@ import collections
 
 import AoE2ScenarioParser.helper.generator as generator
 import AoE2ScenarioParser.helper.parser as parser
-from AoE2ScenarioParser.aoe2_object_manager import AoE2ObjectManager
+from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.helper import create_readable_hex_string
 from AoE2ScenarioParser.helper.retriever import Retriever, find_retriever

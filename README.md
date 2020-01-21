@@ -17,7 +17,9 @@ Current up-to-date progress can be found on the [Trello](https://trello.com/b/7S
 Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
 
 # Installation
-~~Run the following pip command for installation:~~ 
+Run the following pip command for installation:
+
+    pip install AoE2ScenarioParser
 
 # Usage
 To start, import the main `AoE2Scnerio` class from the module:
