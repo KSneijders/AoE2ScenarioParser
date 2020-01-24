@@ -24,8 +24,5 @@ class AoE2Object:
     def reconstruct_object(parsed_data, objects, **kwargs):
         pass
 
-    def _to_string(self):
-        return str(self.data_dict)
-
     def __str__(self):
-        return self._to_string()
+        return str(self.data_dict)

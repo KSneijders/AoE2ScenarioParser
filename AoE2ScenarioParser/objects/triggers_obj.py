@@ -1,3 +1,4 @@
+from AoE2ScenarioParser.datasets.conditions import condition_identifier_conversion
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -53,6 +54,35 @@ class TriggersObject(AoE2Object):
         # display_order_retriever.datatype.repeat = trigger_count
         display_order_retriever.data = parser.listify(display_order_retriever.data)
         helper.update_order_array(display_order_retriever.data, trigger_count)
+
+    def get_content_as_string(self):
+        return_string = "Triggers:\n"
+
+        triggers = parser.listify(self.data_dict['trigger_data'])
+        display_order = parser.listify(self.data_dict['trigger_display_order'])
+
+        if len(triggers) == 0:
+            return_string += "No triggers"
+            return return_string
+
+        for display_order, trigger_id in enumerate(display_order):
+            return_string += self.get_trigger_as_string(trigger_id) + "\n"
+
+        return return_string
+
+    def get_trigger_as_string(self, trigger_id):
+        trigger = parser.listify(self.data_dict['trigger_data'])[trigger_id]
+        display = parser.listify(self.data_dict['trigger_display_order']).index(trigger_id)
+        trigger_data = trigger.data_dict
+
+        return_string = ""
+
+        return_string += "\t'" + helper.del_str_trail(trigger_data['name']) + "'"
+        return_string += " [Index: " + str(trigger_id) + ", Display: " + str(display) + "]" + ":\n"
+
+        return_string += trigger.get_content_as_string()
+
+        return return_string
 
 
 """

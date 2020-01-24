@@ -1,11 +1,12 @@
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.helper import parser
+from AoE2ScenarioParser.datasets.conditions import condition_identifier_conversion
+from AoE2ScenarioParser.datasets.effects import effect_identifier_conversion
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper import parser
+from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.condition_obj import ConditionObject
 from AoE2ScenarioParser.objects.effect_obj import EffectObject
 from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
-from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 
 
@@ -42,6 +43,53 @@ class TriggerObject(AoE2Object):
             effect_order = []
 
         super().__init__(locals())
+
+    def get_content_as_string(self):
+        return_string = ""
+        data_tba = [
+            ('enabled', self.data_dict['enabled'] != 0),
+            ('looping', self.data_dict['looping'] != 0)
+        ]
+
+        if helper.del_str_trail(self.data_dict['description']) != "":
+            data_tba.append(('description', helper.del_str_trail(self.data_dict['description'])))
+        if self.data_dict['description_stid'] != 0:
+            data_tba.append(('description_stid', self.data_dict['description_stid']))
+        if helper.del_str_trail(self.data_dict['short_description']) != "":
+            data_tba.append(('short_description', helper.del_str_trail(self.data_dict['short_description'])))
+        if self.data_dict['short_description_stid'] != 0:
+            data_tba.append(('short_description_stid', self.data_dict['short_description_stid']))
+        if self.data_dict['display_as_objective'] != 0:
+            data_tba.append(('display_as_objective', self.data_dict['display_as_objective'] != 0))
+        if self.data_dict['display_on_screen'] != 0:
+            data_tba.append(('display_on_screen', self.data_dict['display_on_screen'] != 0))
+        if self.data_dict['description_order'] != 0:
+            data_tba.append(('description_order', self.data_dict['description_order']))
+        if self.data_dict['header'] != 0:
+            data_tba.append(('header', self.data_dict['header'] != 0))
+        if self.data_dict['mute_objectives'] != 0:
+            data_tba.append(('mute_objectives', self.data_dict['mute_objectives'] != 0))
+
+        for data in data_tba:
+            return_string += "\t\t" + data[0] + ": " + str(data[1]) + "\n"
+
+        if len(self.data_dict['condition_order']) > 0:
+            return_string += "\t\tconditions:\n"
+            for c_display_order, condition_id in enumerate(self.data_dict['condition_order']):
+                condition = self.data_dict['conditions'][condition_id]
+
+                return_string += "\t\t\t" + condition_identifier_conversion[condition.data_dict['condition_type']] + ":\n"
+                return_string += condition.get_content_as_string()
+
+        if len(self.data_dict['effect_order']) > 0:
+            return_string += "\t\teffects:\n"
+            for e_display_order, effect_id in enumerate(self.data_dict['effect_order']):
+                effect = self.data_dict['effects'][effect_id]
+
+                return_string += "\t\t\t" + effect_identifier_conversion[effect.data_dict['effect_type']] + ":\n"
+                return_string += effect.get_content_as_string()
+
+        return return_string
 
     def add_effect(self, effect_type):
         new_effect = EffectObject(effect_type)
@@ -81,9 +129,9 @@ class TriggerObject(AoE2Object):
             header=find_retriever(trigger.retrievers, "Make header").data,
             mute_objectives=find_retriever(trigger.retrievers, "Mute objectives").data,
             conditions=conditions,
-            condition_order=find_retriever(trigger.retrievers, "Condition display order array").data,
+            condition_order=parser.listify(find_retriever(trigger.retrievers, "Condition display order array").data),
             effects=effects,
-            effect_order=find_retriever(trigger.retrievers, "Effect display order array").data,
+            effect_order=parser.listify(find_retriever(trigger.retrievers, "Effect display order array").data),
         )
 
     @staticmethod

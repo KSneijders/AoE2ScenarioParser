@@ -32,6 +32,17 @@ class ConditionObject(AoE2Object):
 
         super().__init__(locals())
 
+    def get_content_as_string(self):
+        return_string = ""
+
+        for attribute in conditions.attributes[self.data_dict['condition_type']]:
+            if attribute == "condition_type" or self.data_dict[attribute] == [] or self.data_dict[attribute] == "" or \
+                    self.data_dict[attribute] == " " or self.data_dict[attribute] == -1:
+                continue
+            return_string += "\t\t\t\t" + attribute + ": " + str(self.data_dict[attribute]) + "\n"
+
+        return return_string
+
     @staticmethod
     def parse_object(parsed_data, **kwargs):  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
@@ -41,7 +52,8 @@ class ConditionObject(AoE2Object):
 
         parameter_dict = copy.copy(conditions.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(condition_struct.retrievers, conditions.attribute_naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(condition_struct.retrievers,
+                                                   conditions.attribute_naming_conversion[param]).data
 
         return ConditionObject(
             **parameter_dict
