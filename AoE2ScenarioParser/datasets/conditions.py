@@ -167,6 +167,7 @@ condition_identifier_conversion = {
     8: "accumulate_attribute",
     9: "research_technology",
     10: "timer",
+    11: "object_selected",
     12: "ai_signal",
     13: "player_defeated",
     14: "object_has_target",
