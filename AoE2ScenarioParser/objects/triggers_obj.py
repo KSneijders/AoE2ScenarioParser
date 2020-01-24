@@ -16,6 +16,7 @@ class TriggersObject(AoE2Object):
     def add_trigger(self, name):
         new_trigger = TriggerObject(name=name)
         self.data_dict['trigger_data'].append(new_trigger)
+        helper.update_order_array(self.data_dict['trigger_display_order'], len(self.data_dict['trigger_data']))
         return new_trigger
 
     @staticmethod
