@@ -11,3 +11,8 @@ def create_readable_hex_string(string):
 # Credits: gurney alex @ https://stackoverflow.com/a/2657733/7230293
 def insert_char(string, char, every=64):
     return char.join(string[i:i + every] for i in range(0, len(string), every))
+
+
+def del_str_trail(string):
+    return string.replace('\x00', "")
+
