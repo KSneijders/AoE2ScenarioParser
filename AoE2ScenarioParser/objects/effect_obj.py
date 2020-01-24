@@ -64,11 +64,11 @@ class EffectObject(AoE2Object):
         effect_struct = kwargs['effect']
 
         effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
-        parameters = effects.parameters.get(effect_type)
+        parameters = effects.attributes.get(effect_type)
 
-        parameter_dict = copy.copy(effects.empty_parameters)
+        parameter_dict = copy.copy(effects.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(effect_struct.retrievers, effects.naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(effect_struct.retrievers, effects.attribute_naming_conversion[param]).data
 
         return EffectObject(
             **parameter_dict

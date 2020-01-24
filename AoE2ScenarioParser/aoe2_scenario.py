@@ -156,7 +156,7 @@ class AoE2Scenario:
                     if retriever.name == "Effect type":
                         print("],\n" + str(retriever.data) + ": [")
                     # print(retriever)
-                    print("\t\"" + str(effect_dataset.naming_conversion[retriever.name]) + "\",")
+                    print("\t\"" + str(effect_dataset.attribute_naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
     def _log_condition_dataset(self):
@@ -174,7 +174,7 @@ class AoE2Scenario:
                     # print(retriever)
                     if retriever.name == "Condition type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + str(condition_dataset.naming_conversion[retriever.name]) + "\",")
+                    print("\t\"" + str(condition_dataset.attribute_naming_conversion[retriever.name]) + "\",")
         print("]\n")
 
 

@@ -37,11 +37,11 @@ class ConditionObject(AoE2Object):
         condition_struct = kwargs['condition']
 
         effect_type = find_retriever(condition_struct.retrievers, "Condition type").data
-        parameters = conditions.parameters.get(effect_type)
+        parameters = conditions.attributes.get(effect_type)
 
-        parameter_dict = copy.copy(conditions.empty_parameters)
+        parameter_dict = copy.copy(conditions.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(condition_struct.retrievers, conditions.naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(condition_struct.retrievers, conditions.attribute_naming_conversion[param]).data
 
         return ConditionObject(
             **parameter_dict
