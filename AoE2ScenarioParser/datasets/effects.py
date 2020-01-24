@@ -1,51 +1,51 @@
 # All effects and their IDs
 none = 0
-"""Parameters for the **none** effect are: \n
+"""Attributes for the **none** effect are: \n
 ... none... Just like Conditions... People these days... """
 change_diplomacy = 1
-"""Parameters for the **change_diplomacy** effect are: \n
+"""Attributes for the **change_diplomacy** effect are: \n
 - diplomacy
 - player_source
 - player_target"""
 research_technology = 2
-"""Parameters for the **research_technology** effect are: \n
+"""Attributes for the **research_technology** effect are: \n
 - player_source
 - technology
 - force_research_technology"""
 send_chat = 3
-"""Parameters for the **send_chat** effect are: \n
+"""Attributes for the **send_chat** effect are: \n
 - player_source
 - string_id
 - message
 - sound_name"""
 play_sound = 4
-"""Parameters for the **play_sound** effect are: \n
+"""Attributes for the **play_sound** effect are: \n
 - player_source
 - location_x
 - location_y
 - sound_name"""
 tribute = 5
-"""Parameters for the **tribute** effect are: \n
+"""Attributes for the **tribute** effect are: \n
 - quantity
 - tribute_list
 - player_source
 - player_target"""
 unlock_gate = 6
-"""Parameters for the **unlock_gate** effect are: \n
+"""Attributes for the **unlock_gate** effect are: \n
 - number_of_units_selected
 - selected_object_id"""
 lock_gate = 7
-"""Parameters for the **lock_gate** effect are: \n
+"""Attributes for the **lock_gate** effect are: \n
 - number_of_units_selected
 - selected_object_id"""
 activate_trigger = 8
-"""Parameters for the **activate_trigger** effect are: \n
+"""Attributes for the **activate_trigger** effect are: \n
 - trigger_id"""
 deactivate_trigger = 9
-"""Parameters for the **deactivate_trigger** effect are: \n
+"""Attributes for the **deactivate_trigger** effect are: \n
 - trigger_id"""
 create_object = 11
-"""Parameters for the **create_object** effect are: \n
+"""Attributes for the **create_object** effect are: \n
 - object_list_unit_id
 - player_source
 - location_x
@@ -53,7 +53,7 @@ create_object = 11
 - item_id
 - facet"""
 task_object = 12
-"""Parameters for the **task_object** effect are: \n
+"""Attributes for the **task_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -67,11 +67,11 @@ task_object = 12
 - object_type
 - selected_object_id"""
 declare_victory = 13
-"""Parameters for the **declare_victory** effect are: \n
+"""Attributes for the **declare_victory** effect are: \n
 - player_source
 - enabled_or_victory"""
 kill_object = 14
-"""Parameters for the **kill_object** effect are: \n
+"""Attributes for the **kill_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -83,7 +83,7 @@ kill_object = 14
 - object_type
 - selected_object_id"""
 remove_object = 15
-"""Parameters for the **remove_object** effect are: \n
+"""Attributes for the **remove_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -95,13 +95,13 @@ remove_object = 15
 - object_type
 - selected_object_id"""
 change_view = 16
-"""Parameters for the **change_view** effect are: \n
+"""Attributes for the **change_view** effect are: \n
 - player_source
 - location_x
 - location_y
 - scroll"""
 unload = 17
-"""Parameters for the **unload** effect are: \n
+"""Attributes for the **unload** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -115,7 +115,7 @@ unload = 17
 - object_type
 - selected_object_id"""
 change_ownership = 18
-"""Parameters for the **change_ownership** effect are: \n
+"""Attributes for the **change_ownership** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -129,7 +129,7 @@ change_ownership = 18
 - flash_object
 - selected_object_id"""
 patrol = 19
-"""Parameters for the **patrol** effect are: \n
+"""Attributes for the **patrol** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -143,7 +143,7 @@ patrol = 19
 - object_type
 - selected_object_id"""
 display_instructions = 20
-"""Parameters for the **display_instructions** effect are: \n
+"""Attributes for the **display_instructions** effect are: \n
 - object_list_unit_id
 - player_source
 - string_id
@@ -153,10 +153,10 @@ display_instructions = 20
 - message
 - sound_name"""
 clear_instructions = 21
-"""Parameters for the **clear_instructions** effect are: \n
+"""Attributes for the **clear_instructions** effect are: \n
 - instruction_panel_position"""
 freeze_object = 22
-"""Parameters for the **freeze_object** effect are: \n
+"""Attributes for the **freeze_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -168,11 +168,11 @@ freeze_object = 22
 - object_type
 - selected_object_id"""
 use_advanced_buttons = 23
-"""Parameters for the **use_advanced_buttons** effect are: \n
+"""Attributes for the **use_advanced_buttons** effect are: \n
 None. \n
 Please don't use this effect. Please."""
 damage_object = 24
-"""Parameters for the **damage_object** effect are: \n
+"""Attributes for the **damage_object** effect are: \n
 - quantity
 - number_of_units_selected
 - object_list_unit_id
@@ -185,13 +185,13 @@ damage_object = 24
 - object_type
 - selected_object_id"""
 place_foundation = 25
-"""Parameters for the **place_foundation** effect are: \n
+"""Attributes for the **place_foundation** effect are: \n
 - object_list_unit_id
 - player_source
 - location_x
 - location_y"""
 change_object_name = 26
-"""Parameters for the **change_object_name** effect are: \n
+"""Attributes for the **change_object_name** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -203,7 +203,7 @@ change_object_name = 26
 - message
 - selected_object_id"""
 change_object_hp = 27
-"""Parameters for the **change_object_hp** effect are: \n
+"""Attributes for the **change_object_hp** effect are: \n
 - quantity
 - number_of_units_selected
 - object_list_unit_id
@@ -217,7 +217,7 @@ change_object_hp = 27
 - operation
 - selected_object_id"""
 change_object_attack = 28
-"""Parameters for the **change_object_attack** effect are: \n
+"""Attributes for the **change_object_attack** effect are: \n
 - aa_quantity
 - aa_armor_or_attack_type
 - number_of_units_selected
@@ -232,7 +232,7 @@ change_object_attack = 28
 - operation
 - selected_object_id"""
 stop_object = 29
-"""Parameters for the **stop_object** effect are: \n
+"""Attributes for the **stop_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -244,7 +244,7 @@ stop_object = 29
 - object_type
 - selected_object_id"""
 attack_move = 30
-"""Parameters for the **attack_move** effect are: \n
+"""Attributes for the **attack_move** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -258,7 +258,7 @@ attack_move = 30
 - object_type
 - selected_object_id"""
 change_object_armor = 31
-"""Parameters for the **change_object_armor** effect are: \n
+"""Attributes for the **change_object_armor** effect are: \n
 - aa_quantity
 - aa_armor_or_attack_type
 - number_of_units_selected
@@ -273,7 +273,7 @@ change_object_armor = 31
 - operation
 - selected_object_id"""
 change_object_range = 32
-"""Parameters for the **change_object_range** effect are: \n
+"""Attributes for the **change_object_range** effect are: \n
 - quantity
 - number_of_units_selected
 - object_list_unit_id
@@ -287,7 +287,7 @@ change_object_range = 32
 - operation
 - selected_object_id"""
 change_object_speed = 33
-"""Parameters for the **change_object_speed** effect are: \n
+"""Attributes for the **change_object_speed** effect are: \n
 - quantity
 - number_of_units_selected
 - object_list_unit_id
@@ -300,7 +300,7 @@ change_object_speed = 33
 - object_type
 - selected_object_id"""
 heal_object = 34
-"""Parameters for the **heal_object** effect are: \n
+"""Attributes for the **heal_object** effect are: \n
 - quantity
 - number_of_units_selected
 - object_list_unit_id
@@ -313,7 +313,7 @@ heal_object = 34
 - object_type
 - selected_object_id"""
 teleport_object = 35
-"""Parameters for the **teleport_object** effect are: \n
+"""Attributes for the **teleport_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -327,7 +327,7 @@ teleport_object = 35
 - object_type
 - selected_object_id"""
 change_object_stance = 36
-"""Parameters for the **change_object_stance** effect are: \n
+"""Attributes for the **change_object_stance** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -340,26 +340,26 @@ change_object_stance = 36
 - attack_stance
 - selected_object_id"""
 display_timer = 37
-"""Parameters for the **display_timer** effect are: \n
+"""Attributes for the **display_timer** effect are: \n
 - string_id
 - display_time
 - time_unit
 - variable_or_timer
 - message"""
 enable_disable_object = 38
-"""Parameters for the **enable_disable_object** effect are: \n
+"""Attributes for the **enable_disable_object** effect are: \n
 - object_list_unit_id
 - player_source
 - enabled_or_victory
 - item_id"""
 enable_disable_technology = 39
-"""Parameters for the **enable_disable_technology** effect are: \n
+"""Attributes for the **enable_disable_technology** effect are: \n
 - player_source
 - technology
 - enabled_or_victory
 - item_id"""
 change_object_cost = 40
-"""Parameters for the **change_object_cost** effect are: \n
+"""Attributes for the **change_object_cost** effect are: \n
 - object_list_unit_id
 - player_source
 - food
@@ -367,12 +367,12 @@ change_object_cost = 40
 - stone
 - gold"""
 set_player_visibility = 41
-"""Parameters for the **set_player_visibility** effect are: \n
+"""Attributes for the **set_player_visibility** effect are: \n
 - player_source
 - player_target
 - visibility_state"""
 change_object_icon = 42
-"""Parameters for the **change_object_icon** effect are: \n
+"""Attributes for the **change_object_icon** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -385,7 +385,7 @@ change_object_icon = 42
 - object_list_unit_id_2
 - selected_object_id"""
 replace_object = 43
-"""Parameters for the **replace_object** effect are: \n
+"""Attributes for the **replace_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -399,35 +399,35 @@ replace_object = 43
 - object_list_unit_id_2
 - selected_object_id"""
 change_object_description = 44
-"""Parameters for the **change_object_description** effect are: \n
+"""Attributes for the **change_object_description** effect are: \n
 - object_list_unit_id
 - player_source
 - string_id
 - message"""
 change_player_name = 45
-"""Parameters for the **change_player_name** effect are: \n
+"""Attributes for the **change_player_name** effect are: \n
 - player_source
 - string_id
 - message"""
 change_train_location = 46
-"""Parameters for the **change_train_location** effect are: \n
+"""Attributes for the **change_train_location** effect are: \n
 - object_list_unit_id
 - player_source
 - object_list_unit_id_2
 - button_location"""
 change_research_location = 47
-"""Parameters for the **change_research_location** effect are: \n
+"""Attributes for the **change_research_location** effect are: \n
 - player_source
 - technology
 - object_list_unit_id_2
 - button_location"""
 change_civilization_name = 48
-"""Parameters for the **change_civilization_name** effect are: \n
+"""Attributes for the **change_civilization_name** effect are: \n
 - player_source
 - string_id
 - message"""
 create_garrisoned_object = 49
-"""Parameters for the **create_garrisoned_object** effect are: \n
+"""Attributes for the **create_garrisoned_object** effect are: \n
 - number_of_units_selected
 - object_list_unit_id
 - player_source
@@ -438,10 +438,10 @@ create_garrisoned_object = 49
 - object_list_unit_id_2
 - selected_object_id"""
 acknowledge_ai_signal = 50
-"""Parameters for the **acknowledge_ai_signal** effect are: \n
+"""Attributes for the **acknowledge_ai_signal** effect are: \n
 - ai_signal_value"""
 modify_attribute = 51
-"""Parameters for the **modify_attribute** effect are: \n
+"""Attributes for the **modify_attribute** effect are: \n
 - quantity
 - object_list_unit_id
 - player_source
@@ -449,30 +449,30 @@ modify_attribute = 51
 - operation
 - object_attributes"""
 modify_resource = 52
-"""Parameters for the **modify_resource** effect are: \n
+"""Attributes for the **modify_resource** effect are: \n
 - quantity
 - tribute_list
 - player_source
 - item_id
 - operation"""
 modify_resource_by_variable = 53
-"""Parameters for the **modify_resource_by_variable** effect are: \n
+"""Attributes for the **modify_resource_by_variable** effect are: \n
 - tribute_list
 - player_source
 - item_id
 - operation
 - from_variable"""
 change_variable = 56
-"""Parameters for the **change_variable** effect are: \n
+"""Attributes for the **change_variable** effect are: \n
 - quantity
 - operation
 - from_variable
 - message"""
 clear_timer = 57
-"""Parameters for the **clear_timer** effect are: \n
+"""Attributes for the **clear_timer** effect are: \n
 - variable_or_timer"""
 
-naming_conversion = {
+attribute_naming_conversion = {
     "effect_type": "Effect type",
     "ai_script_goal": "AI script goal",
     "quantity": "Quantity",
@@ -523,10 +523,70 @@ naming_conversion = {
     "selected_object_id": "Selected Object(s) ID",
 }
 
-# Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
-naming_conversion.update(dict(map(reversed, naming_conversion.items())))
+effect_identifier_conversion = {
+    0: "none",
+    1: "change_diplomacy",
+    2: "research_technology",
+    3: "send_chat",
+    4: "play_sound",
+    5: "tribute",
+    6: "unlock_gate",
+    7: "lock_gate",
+    8: "activate_trigger",
+    9: "deactivate_trigger",
+    11: "create_object",
+    12: "task_object",
+    13: "declare_victory",
+    14: "kill_object",
+    15: "remove_object",
+    16: "change_view",
+    17: "unload",
+    18: "change_ownership",
+    19: "patrol",
+    20: "display_instructions",
+    21: "clear_instructions",
+    22: "freeze_object",
+    23: "use_advanced_buttons",
+    24: "damage_object",
+    25: "place_foundation",
+    26: "change_object_name",
+    27: "change_object_hp",
+    28: "change_object_attack",
+    29: "stop_object",
+    30: "attack_move",
+    31: "change_object_armor",
+    32: "change_object_range",
+    33: "change_object_speed",
+    34: "heal_object",
+    35: "teleport_object",
+    36: "change_object_stance",
+    37: "display_timer",
+    38: "enable/disable_object",
+    39: "enable/disable_technology",
+    40: "change_object_cost",
+    41: "set_player_visibility",
+    42: "change_object_icon",
+    43: "replace_object",
+    44: "change_object_description",
+    45: "change_player_name",
+    46: "change_train_location",
+    47: "change_research_location",
+    48: "change_civilization_name",
+    49: "create_garrisoned_object",
+    50: "acknowledge_ai_signal",
+    51: "modify_attribute",
+    52: "modify_resource",
+    53: "modify_resource_by_variable",
+    56: "change_variable",
+    57: "clear_timer",
+}
 
-empty_parameters = {
+# Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
+attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
+effect_identifier_conversion.update(dict(map(reversed, effect_identifier_conversion.items())))
+
+
+empty_attributes = {
     "effect_type": -1,
     "ai_script_goal": -1,
     "aa_quantity": -1,
@@ -577,8 +637,7 @@ empty_parameters = {
     "selected_object_id": -1,
 }
 
-# The parameters per trigger (trigger ID as dict key) identified by the retriever key
-parameters = {
+attributes = {
     0: [
         "effect_type",
     ],
@@ -1108,7 +1167,7 @@ parameters = {
 # for effect_id in range(0, 58):
 #     try:
 #         params = parameters[effect_id]
-#         print("\"\"\"Parameters for the **xxxxx** effect are: \\n", end="")
+#         print("\"\"\"Attributes for the **xxxxx** effect are: \\n", end="")
 #         for parameter in params:
 #             if parameter is not "effect_type":
 #                 print("\n-", parameter, end="")
