@@ -121,6 +121,20 @@ class TriggersObject(AoE2Object):
         trigger_id = self.data_dict['trigger_display_order'][display_index]
         return parser.listify(self.data_dict['trigger_data'])[trigger_id]
 
+    def delete_trigger(self, trigger_id):
+        del self.data_dict['trigger_data'][trigger_id]
+        helper.update_order_array(self.data_dict['trigger_display_order'], len(self.data_dict['trigger_data']))
+        del self.data_dict['trigger_display_order'][self.data_dict['trigger_display_order'].index(trigger_id)]
+        self.data_dict['trigger_display_order'] = \
+            [x - 1 if x > trigger_id else 0 for x in self.data_dict['trigger_display_order']]
+
+    def delete_trigger_by_display_index(self, display_index):
+        trigger_id = self.data_dict['trigger_display_order'][display_index]
+        del self.data_dict['trigger_data'][trigger_id]
+        del self.data_dict['trigger_display_order'][display_index]
+        self.data_dict['trigger_display_order'] = \
+            [x - 1 if x > trigger_id else 0 for x in self.data_dict['trigger_display_order']]
+
 """
 to = TriggerObject(
     name="TEST\x00",
