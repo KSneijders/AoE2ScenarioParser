@@ -55,6 +55,32 @@ class TriggersObject(AoE2Object):
         display_order_retriever.data = parser.listify(display_order_retriever.data)
         helper.update_order_array(display_order_retriever.data, trigger_count)
 
+    def get_trigger_overview_as_string(self):
+        return_string = "Trigger Overview:\n"
+
+        triggers = parser.listify(self.data_dict['trigger_data'])
+        display_order = parser.listify(self.data_dict['trigger_display_order'])
+
+        longest_trigger_name = -1
+        for trigger_id in display_order:
+            trigger_name = helper.del_str_trail(triggers[trigger_id].data_dict['name'])
+            longest_trigger_name = max(longest_trigger_name, len(trigger_name))
+
+        longest_trigger_name += 3
+        for display, trigger_id in enumerate(display_order):
+            trigger = triggers[trigger_id]
+            trigger_data = trigger.data_dict
+            trigger_name = helper.del_str_trail(trigger_data['name'])
+
+            buffer = longest_trigger_name - len(trigger_name)
+            return_string += "\t" + trigger_name + (" " * buffer)
+            return_string += " [Index: " + str(trigger_id) + ", Display: " + str(display) + "]"
+
+            return_string += "\t(conditions: " + str(len(parser.listify(trigger_data['conditions']))) + ", "
+            return_string += " effects: " + str(len(parser.listify(trigger_data['effects']))) + ")\n"
+
+        return return_string
+
     def get_content_as_string(self):
         return_string = "Triggers:\n"
 
@@ -65,7 +91,7 @@ class TriggersObject(AoE2Object):
             return_string += "No triggers"
             return return_string
 
-        for display_order, trigger_id in enumerate(display_order):
+        for trigger_id in display_order:
             return_string += self.get_trigger_as_string(trigger_id) + "\n"
 
         return return_string
@@ -84,6 +110,16 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
+    def get_trigger_as_string_by_display_index(self, display_index):
+        trigger_id = self.data_dict['trigger_display_order'][display_index]
+        return self.get_trigger_as_string(trigger_id)
+
+    def get_trigger(self, trigger_id):
+        return parser.listify(self.data_dict['trigger_data'])[trigger_id]
+
+    def get_trigger_by_display_index(self, display_index):
+        trigger_id = self.data_dict['trigger_display_order'][display_index]
+        return parser.listify(self.data_dict['trigger_data'])[trigger_id]
 
 """
 to = TriggerObject(
