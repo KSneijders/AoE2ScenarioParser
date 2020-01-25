@@ -59,16 +59,27 @@ class EffectObject(AoE2Object):
                  ):
         super().__init__(locals())
 
+    def get_content_as_string(self):
+        return_string = ""
+
+        for attribute in effects.attributes[self.data_dict['effect_type']]:
+            if attribute == "effect_type" or self.data_dict[attribute] == [] or self.data_dict[attribute] == "" or \
+                    self.data_dict[attribute] == " " or self.data_dict[attribute] == -1:
+                continue
+            return_string += "\t\t\t\t" + attribute + ": " + str(self.data_dict[attribute]) + "\n"
+
+        return return_string
+
     @staticmethod
     def parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
         effect_struct = kwargs['effect']
 
         effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
-        parameters = effects.parameters.get(effect_type)
+        parameters = effects.attributes.get(effect_type)
 
-        parameter_dict = copy.copy(effects.empty_parameters)
+        parameter_dict = copy.copy(effects.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(effect_struct.retrievers, effects.naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(effect_struct.retrievers, effects.attribute_naming_conversion[param]).data
 
         return EffectObject(
             **parameter_dict
