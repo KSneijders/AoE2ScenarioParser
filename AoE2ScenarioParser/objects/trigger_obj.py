@@ -52,11 +52,11 @@ class TriggerObject(AoE2Object):
         ]
 
         if helper.del_str_trail(self.data_dict['description']) != "":
-            data_tba.append(('description', helper.del_str_trail(self.data_dict['description'])))
+            data_tba.append(('description', "'" + helper.del_str_trail(self.data_dict['description']) + "'"))
         if self.data_dict['description_stid'] != 0:
             data_tba.append(('description_stid', self.data_dict['description_stid']))
         if helper.del_str_trail(self.data_dict['short_description']) != "":
-            data_tba.append(('short_description', helper.del_str_trail(self.data_dict['short_description'])))
+            data_tba.append(('short_description', "'" + helper.del_str_trail(self.data_dict['short_description']) + "'"))
         if self.data_dict['short_description_stid'] != 0:
             data_tba.append(('short_description_stid', self.data_dict['short_description_stid']))
         if self.data_dict['display_as_objective'] != 0:
