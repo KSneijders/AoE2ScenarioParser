@@ -134,25 +134,3 @@ class TriggersObject(AoE2Object):
         del self.data_dict['trigger_display_order'][display_index]
         self.data_dict['trigger_display_order'] = \
             [x - 1 if x > trigger_id else 0 for x in self.data_dict['trigger_display_order']]
-
-"""
-to = TriggerObject(
-    name="TEST\x00",
-    description="TEST DESCRIPTION\x00",
-    description_stid=4,
-    display_as_objective=0,
-    short_description="TEST SHORT DESCRIPTION\x00",
-    short_description_stid=2,
-    display_on_screen=1,
-    description_order=0,
-    enabled=1,
-    looping=1,
-    header=1,
-    mute_objectives=0,
-    conditions=[],
-    condition_order=[],
-    effects=[],
-    effect_order=[],
-)
-objects["TriggersObject"].data_dict['trigger_data'].append(to)
-"""
