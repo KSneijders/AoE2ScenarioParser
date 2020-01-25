@@ -1,5 +1,6 @@
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
 
 
@@ -19,7 +20,7 @@ class UnitsObject(AoE2Object):
 
         for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
             player_units.append([])
-            units = find_retriever(units_per_player[player_id].retrievers, "Units").data
+            units = parser.listify(find_retriever(units_per_player[player_id].retrievers, "Units").data)
 
             for unit in units:
                 player_units[player_id].append(
