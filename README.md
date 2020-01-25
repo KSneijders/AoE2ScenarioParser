@@ -169,10 +169,8 @@ When you are done, you can write all your progress to a file like so:
 ```python
 scenario.write_to_file(output_path)
 ```
-Please remember to use a different path than your input file. This way you have a backup file incase you encounter a bug or made a mistake. An easy way to do such a thing is by writing something like:
-```python
-scenario.write_to_file("new_" + input_path)
-```
+Please remember to use a different path than your input file. This way you have a backup file incase you encounter a bug or made a mistake.
+
 
 ---
 &nbsp;  
