@@ -7,12 +7,17 @@ Definitive Edition** outside of the in-game editor.
 Current up-to-date progress can be found on the [Trello](https://trello.com/b/7SNm3gXj/aoe2-de-parser) board. 
 
 ### Features:
-- Reading any `aoe2scenario` file from AoE2:DE.
-- Writing said file back to an `aoe2scenario` file.
-- Add Triggers, Conditions and effects to any `aoe2scenario` file.
+- `aoe2scenario` files
+    - Reading `aoe2scenario` files from AoE2:DE.
+    - Writing to a new `aoe2scenario` file with edited contents.
+- Triggers
+    - View (Specific or all) Triggers, Conditions and Effects.
+    - Adding Triggers, Conditions and Effects.
+    - Editing Triggers. (Only **adding** Conditions and Effects is currently supported)
+    - Deleting Triggers.
 
 ### Bugs:
-- None
+- None that I know of
 
 Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
 
