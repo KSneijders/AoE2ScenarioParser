@@ -155,7 +155,7 @@ trigger.set_description("Awesome New Description!")
 
 For removing it basically works the same:
 ```python
-# Once again remember to not save to a different file. Especially when removing (important) triggers.
+# Once again remember to save to a different file. Especially when removing (important) triggers.
 trigger_object.delete_trigger(0)
 trigger_object.delete_trigger_by_display_index(0)
 ```
