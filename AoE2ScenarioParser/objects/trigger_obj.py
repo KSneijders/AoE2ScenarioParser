@@ -28,7 +28,12 @@ class TriggerObject(AoE2Object):
                  condition_order=None,
                  effects=None,
                  effect_order=None,
+                 trigger_id=-1,
                  ):
+
+        self.trigger_id = trigger_id
+        del trigger_id
+        print("Creating TriggerObject with id:", self.trigger_id)
 
         # Adding expected (by DE) ending character
         name += "\x00"
@@ -104,7 +109,7 @@ class TriggerObject(AoE2Object):
         return new_cond
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct}
+    def parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct, trigger_id=id}
         trigger = kwargs['trigger']
 
         effects = []
@@ -134,6 +139,7 @@ class TriggerObject(AoE2Object):
             condition_order=parser.listify(find_retriever(trigger.retrievers, "Condition display order array").data),
             effects=effects,
             effect_order=parser.listify(find_retriever(trigger.retrievers, "Effect display order array").data),
+            trigger_id=kwargs['trigger_id'],
         )
 
     @staticmethod

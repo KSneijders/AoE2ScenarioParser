@@ -208,19 +208,10 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/python,pycharm,visualstudiocode
 .idea/AoE2 - Scenarios.iml
-
 .idea/misc.xml
-
 .idea/vcs.xml
-
 .idea/AoE2ScenarioParser.iml
-
 .idea/modules.xml
-
 .idea/inspectionProfiles/profiles_settings.xml
 
-results/generated_map_hd.aoe2scenario
-
-results/progress.aoe2scenario
-
-results/generated_from_parsed.aoe2scenario
+resources/maps/

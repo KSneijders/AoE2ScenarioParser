@@ -1,4 +1,3 @@
-from AoE2ScenarioParser.datasets.conditions import condition_identifier_conversion
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -15,7 +14,7 @@ class TriggersObject(AoE2Object):
         super().__init__(locals())
 
     def add_trigger(self, name):
-        new_trigger = TriggerObject(name=name)
+        new_trigger = TriggerObject(name=name, trigger_id=len(self.data_dict['trigger_data']))
         self.data_dict['trigger_data'].append(new_trigger)
         helper.update_order_array(self.data_dict['trigger_display_order'], len(self.data_dict['trigger_data']))
         return new_trigger
@@ -28,8 +27,8 @@ class TriggersObject(AoE2Object):
             find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data)
 
         triggers = []
-        for trigger in trigger_data:
-            triggers.append(TriggerObject.parse_object(parsed_data, trigger=trigger))
+        for index, trigger in enumerate(trigger_data):
+            triggers.append(TriggerObject.parse_object(parsed_data, trigger=trigger, trigger_id=index))
 
         return TriggersObject(
             trigger_data=triggers,

@@ -19,4 +19,4 @@ trigger_object = scenario.object_manager.get_triggers()
 
 print(trigger_object.get_trigger_overview_as_string())
 
-scenario.write_to_file("new_" + input_path)
+scenario.write_to_file(output_path)
