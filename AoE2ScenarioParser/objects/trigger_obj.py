@@ -33,7 +33,6 @@ class TriggerObject(AoE2Object):
 
         self.trigger_id = trigger_id
         del trigger_id
-        print("Creating TriggerObject with id:", self.trigger_id)
 
         # Adding expected (by DE) ending character
         name += "\x00"

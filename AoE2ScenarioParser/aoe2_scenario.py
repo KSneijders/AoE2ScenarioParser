@@ -83,8 +83,10 @@ class AoE2Scenario:
         byte_data = b''
 
         for key in self.parsed_header:
+            print("Reading", key + "...")
             for retriever in self.parsed_header[key].retrievers:
                 byte_header += parser.retriever_to_bytes(retriever)
+            print("Reading", key + " finished successfully.")
 
         for key in self.parsed_data:
             for retriever in self.parsed_data[key].retrievers:
