@@ -93,7 +93,8 @@ class AoE2Scenario:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
                 except AttributeError:
-                    print(key, retriever)
+                    print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
+                    exit("\n\n\nAn error occurred. Writing failed.")
 
         # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
         deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)

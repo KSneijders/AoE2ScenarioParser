@@ -16,3 +16,10 @@ def insert_char(string, char, every=64):
 def del_str_trail(string):
     return string.replace('\x00', "")
 
+
+def pretty_print_list(plist):
+    return_string = "[\n"
+    for x in plist:
+        return_string += "\t" + str(x)
+    return return_string + "]\n"
+

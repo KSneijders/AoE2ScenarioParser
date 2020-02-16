@@ -1,3 +1,4 @@
+from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.datatype import DataType
 
 
@@ -28,18 +29,12 @@ class Retriever:
         if self.on_success is not None:
             self.on_success(data)
 
-    def _to_string(self):
+    def __str__(self):
         if self.data is not None:
-            data = " >>> " + str(self.data)
+            data = " >>> " + str(helper.pretty_print_list(self.data))
         else:
             data = ""
-        return "[Retriever] " + self.name + ": " + str(self.datatype) + data
-
-    def __str__(self):
-        return self._to_string()
-
-    def __repr__(self):
-        return self._to_string()
+        return "[Retriever] " + self.name + ": " + str(self.datatype) + str(data)
 
 
 def find_retriever(retriever_list, name):

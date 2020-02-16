@@ -61,7 +61,7 @@ class ScenarioPiece:
     def _entry_to_string(self, name, data, datatype):
         return "\t" + name + ": " + data + " (" + datatype + ")\n"
 
-    def _to_string(self):
+    def __str__(self):
         represent = self.piece_type + ": \n"
 
         for i, val in enumerate(self.retrievers):
@@ -85,9 +85,3 @@ class ScenarioPiece:
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
 
         return represent
-
-    def __repr__(self):
-        return self._to_string()
-
-    def __str__(self):
-        return self._to_string()
