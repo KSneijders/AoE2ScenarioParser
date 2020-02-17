@@ -9,11 +9,11 @@ scenario = AoE2Scenario(input_path)
 trigger_object = scenario.object_manager.get_triggers()
 
 add_after = 38
-move_all_from_x_to_end = 57
+move_all_after = 57
 
 tdo = trigger_object.data_dict['trigger_display_order']
-added_len = len(tdo[tdo.index(move_all_from_x_to_end):])
-tdo[tdo.index(add_after)+1:tdo.index(add_after)+1] = tdo[move_all_from_x_to_end:]
+added_len = len(tdo[tdo.index(move_all_after):])
+tdo[tdo.index(add_after)+1:tdo.index(add_after)+1] = tdo[move_all_after:]
 trigger_object.data_dict['trigger_display_order'] = tdo[0:-added_len]
 
 scenario.write_to_file(output_path)

@@ -22,7 +22,7 @@ Current up-to-date progress can be found on the [Trello](https://trello.com/b/7S
 Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
 
 # Installation
-Run the following pip command for installation:
+Run the following pip command for installation:v
 
     pip install AoE2ScenarioParser
 
@@ -114,8 +114,9 @@ If you want to know all specifics about a trigger you can use the functions belo
 
 ```python
 trigger_object.get_trigger_as_string(0)
-# Or:
 trigger_object.get_trigger_as_string_by_display_index(0)
+# Or if you have a trigger as object:
+trigger_object.get_trigger_as_string(trigger.trigger_id)
 
 # These functions return the following (As String):
 'Init Trigger' [Index: 0, Display: 0]:
@@ -135,7 +136,7 @@ trigger_object.get_trigger_as_string_by_display_index(0)
         activate_trigger:
             trigger_id: 1
 
-# You can also use the function below to generate the same as above but then for all the triggers.
+# You can also use the function below to generate the same as above but for all the triggers.
 trigger_object.get_content_as_string()
 ```
 

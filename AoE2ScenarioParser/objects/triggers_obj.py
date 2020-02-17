@@ -87,8 +87,7 @@ class TriggersObject(AoE2Object):
         display_order = parser.listify(self.data_dict['trigger_display_order'])
 
         if len(triggers) == 0:
-            return_string += "No triggers"
-            return return_string
+            return return_string + "\t<<No triggers>>"
 
         for trigger_id in display_order:
             return_string += self.get_trigger_as_string(trigger_id) + "\n"
