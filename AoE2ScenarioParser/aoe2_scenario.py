@@ -38,6 +38,7 @@ class AoE2Scenario:
 
         self.parser = parser.Parser()
         self._read_file()
+        self.object_manager = AoE2ObjectManager(self.parsed_header, self.parsed_data)
 
     def _read_file(self):
         print("\nFile reading started...")
@@ -62,16 +63,14 @@ class AoE2Scenario:
         try:
             while True:
                 suffix += self.parser.retrieve_value(data_generator, Retriever("suffix data", DataType("1")))
-        except StopIteration as e:
-            # print(e)
+        except StopIteration:
+            # Reached the end of the file
             pass
         finally:
             # print("Suffix done", len(suffix))
             self.suffix = suffix
 
         print("File reading finished successfully.")
-
-        self.object_manager = AoE2ObjectManager(self.parsed_header, self.parsed_data)
 
     def write_to_file(self, filename):
         self._write_from_structure(filename)
@@ -108,7 +107,7 @@ class AoE2Scenario:
 
     def write_file(self, datatype, write_in_bytes=True):
         print("File writing from source started with attributes " + datatype + "...")
-        file = open("./../results/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
+        file = open("./../debug/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
         for t in datatype:
             if t == "f":
                 file.write(self.file if write_in_bytes else create_readable_hex_string(self.file.hex()))
