@@ -1,4 +1,4 @@
-import AoE2ScenarioParser.pieces.aoe2_piece as scenario_piece
+from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.pieces.structs.player_data_four import PlayerDataFourStruct
@@ -6,7 +6,7 @@ from AoE2ScenarioParser.pieces.structs.player_data_three_struct import PlayerDat
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 
 
-class UnitsPiece(scenario_piece.ScenarioPiece):
+class UnitsPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Number of unit sections", DataType("u32"), save_as="unit_sections"),

@@ -1,9 +1,9 @@
-import AoE2ScenarioParser.pieces.aoe2_piece as scenario_piece
+from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
 
 
-class BackgroundImagePiece(scenario_piece.ScenarioPiece):
+class BackgroundImagePiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("ASCII, Background filename", DataType("str16")),

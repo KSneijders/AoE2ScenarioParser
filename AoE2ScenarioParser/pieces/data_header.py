@@ -1,10 +1,10 @@
-import AoE2ScenarioParser.pieces.aoe2_piece as scenario_piece
+from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.pieces.structs.player_data_one import PlayerDataOneStruct
 
 
-class DataHeaderPiece(scenario_piece.ScenarioPiece):
+class DataHeaderPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Next unit ID to place", DataType("u32")),

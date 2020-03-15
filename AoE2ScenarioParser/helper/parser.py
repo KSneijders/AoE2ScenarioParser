@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
-import AoE2ScenarioParser.pieces.structs.aoe2_struct as structs
+from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 types = [
     "s",  # Signed int
@@ -129,7 +129,7 @@ def calculate_length(generator, retriever_list):
 
 def datatype_to_type_length(var):
     try:
-        if issubclass(var, structs.Struct):
+        if issubclass(var, AoE2Struct):
             return "struct", 0
         else:  # Not possible at this time
             return "", 0

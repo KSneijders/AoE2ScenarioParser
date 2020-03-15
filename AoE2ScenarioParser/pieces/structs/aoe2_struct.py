@@ -1,8 +1,8 @@
 from AoE2ScenarioParser.helper.generator import create_generator
-import AoE2ScenarioParser.pieces.aoe2_piece as scenario_piece
+from AoE2ScenarioParser.pieces import aoe2_piece
 
 
-class Struct(scenario_piece.ScenarioPiece):
+class AoE2Struct(aoe2_piece.AoE2Piece):
     def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
         super().__init__(piece_type, retrievers, parser_obj, data)
 

@@ -2,7 +2,7 @@ import AoE2ScenarioParser.helper.parser as parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
 
 
-class ScenarioPiece:
+class AoE2Piece:
     def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
         self.piece_type = piece_type
         self.retrievers = retrievers
@@ -66,7 +66,7 @@ class ScenarioPiece:
 
         for i, val in enumerate(self.retrievers):
             if type(self.retrievers[i].data) is list and len(self.retrievers[i].data) > 0:
-                if isinstance(self.retrievers[i].data[0], ScenarioPiece):
+                if isinstance(self.retrievers[i].data[0], AoE2Piece):
                     represent += "\t" + val.name + ": [\n"
                     for x in self.retrievers[i].data:
                         represent += "\t\t" + str(x)

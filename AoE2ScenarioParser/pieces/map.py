@@ -1,10 +1,10 @@
-import AoE2ScenarioParser.pieces.aoe2_piece as scenario_piece
+from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.pieces.structs.terrain import TerrainStruct
 
 
-class MapPiece(scenario_piece.ScenarioPiece):
+class MapPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Separator??", DataType("2")),

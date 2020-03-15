@@ -1,9 +1,9 @@
-import AoE2ScenarioParser.pieces.aoe2_piece as scenario_piece
+from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
 
 
-class OptionsPiece(scenario_piece.ScenarioPiece):
+class OptionsPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
             Retriever("Per player number of disabled techs", DataType("u32", repeat=16), save_as="disabled_techs"),
