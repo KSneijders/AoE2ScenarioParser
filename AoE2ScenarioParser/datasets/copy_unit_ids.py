@@ -8,6 +8,8 @@ sleep(5)
 # Change to 'tabbing mode'
 pyautogui.press('tab')
 
+last_obj_id = ""
+
 while True:
     sleep(0.2)
     # Move to dropdown
@@ -29,5 +31,10 @@ while True:
     sleep(0.2)
     # Copy
     pyautogui.hotkey('ctrl', 'c')
-    print(r.selection_get(selection="CLIPBOARD"))
+    obj_id = r.selection_get(selection="CLIPBOARD")
 
+    if obj_id == last_obj_id:
+        exit("Same ID twice. End reached")
+    else:
+        last_obj_id = obj_id
+    print(obj_id)
