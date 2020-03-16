@@ -6,7 +6,7 @@ from AoE2ScenarioParser.helper.datatype import DataType
 class FileHeaderPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("Version", DataType("c4")),
+            Retriever("Version", DataType("c4"), save_as="scenario_version"),
             Retriever("Header length", DataType("u32")),
             Retriever("Savable", DataType("s32")),
             Retriever("Timestamp of last save", DataType("u32")),

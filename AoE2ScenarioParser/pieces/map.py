@@ -12,6 +12,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever("Separator?? (2)", DataType("2")),
             Retriever("Map color mood", DataType("str16")),
             Retriever("Collide and Correcting", DataType("u8")),
+            Retriever("Villager Force Drop", DataType("u8"), set_repeat="1 if '{scenario_version}' == '1.37' else 0"),  # [VERSION CHANGE] ADDED in 1.36 > 1.37
             Retriever("Player 1 camera, Y", DataType("s32")),
             Retriever("Player 1 camera, X", DataType("s32")),
             Retriever("AI Type", DataType("s8")),
