@@ -5,7 +5,7 @@ import AoE2ScenarioParser.helper.generator as generator
 import AoE2ScenarioParser.helper.parser as parser
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.helper.datatype import DataType
-from AoE2ScenarioParser.helper.helper import create_readable_hex_string
+from AoE2ScenarioParser.helper.helper import create_textual_hex
 from AoE2ScenarioParser.helper.retriever import Retriever, find_retriever
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
@@ -55,7 +55,14 @@ class AoE2Scenario:
             for piece_object in structure:
                 piece = piece_object(self.parser)
                 print("Reading", piece.piece_type + "...")
-                piece.set_data_from_generator(structure_generators[index])
+
+                try:
+                    piece.set_data_from_generator(structure_generators[index])
+                except StopIteration:
+                    print("ERROR: StopIteration")
+                    print(piece.get_byte_structure_as_string(["Terrain data"]))
+                    exit()
+
                 structure_parsed[index][type(piece).__name__] = piece
                 print("Reading", piece.piece_type, "finished successfully.")
 
@@ -72,8 +79,12 @@ class AoE2Scenario:
 
         print("File reading finished successfully.")
 
+    def write_byte_structure_to_file(self, filename):
+        for key in self.parsed_header:
+            pass
+
     def write_to_file(self, filename):
-        self._write_from_structure(filename)
+        self._write_from_structure(filename, write_in_bytes=True)
 
     def _write_from_structure(self, filename, write_in_bytes=True):
         self.object_manager.reconstruct()
@@ -100,21 +111,8 @@ class AoE2Scenario:
         compressed = deflate_obj.compress(byte_data + self.suffix) + deflate_obj.flush()
 
         file = open(filename, "wb" if write_in_bytes else "w")
-        file.write(byte_header if write_in_bytes else create_readable_hex_string(byte_header.hex()))
-        file.write(compressed if write_in_bytes else create_readable_hex_string(compressed.hex()))
-        file.close()
-        print("File writing finished successfully.")
-
-    def write_file(self, datatype, write_in_bytes=True):
-        print("File writing from source started with attributes " + datatype + "...")
-        file = open("./../debug/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
-        for t in datatype:
-            if t == "f":
-                file.write(self.file if write_in_bytes else create_readable_hex_string(self.file.hex()))
-            elif t == "h":
-                file.write(self.file_header if write_in_bytes else create_readable_hex_string(self.file_header.hex()))
-            elif t == "d":
-                file.write(self.file_data if write_in_bytes else create_readable_hex_string(self.file_data.hex()))
+        file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
+        file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
         file.close()
         print("File writing finished successfully.")
 
@@ -178,6 +176,20 @@ class AoE2Scenario:
                         print("],\n" + str(retriever.data) + ": [")
                     print("\t\"" + str(condition_dataset.attribute_naming_conversion[retriever.name]) + "\",")
         print("]\n")
+
+    # def write_from_source(self, datatype, write_in_bytes=True):
+    #     """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
+    #     print("File writing from source started with attributes " + datatype + "...")
+    #     file = open("./../debug/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
+    #     for t in datatype:
+    #         if t == "f":
+    #             file.write(self.file if write_in_bytes else create_readable_hex_string(self.file.hex()))
+    #         elif t == "h":
+    #             file.write(self.file_header if write_in_bytes else create_readable_hex_string(self.file_header.hex()))
+    #         elif t == "d":
+    #             file.write(self.file_data if write_in_bytes else create_readable_hex_string(self.file_data.hex()))
+    #     file.close()
+    #     print("File writing finished successfully.")
 
 
 _header_structure = [

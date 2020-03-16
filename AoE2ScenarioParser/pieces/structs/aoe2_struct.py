@@ -13,6 +13,9 @@ class AoE2Struct(aoe2_piece.AoE2Piece):
     def _entry_to_string(self, name, data, datatype):
         return "\t\t\t" + name + ": " + data + " (" + datatype + ")\n"
 
+    def get_header_string(self):
+        return "############ " + self.piece_type + " ############"
+
     def __str__(self):
         if self.piece_type in ("Terrain", "Unit"):
             return "."  # Recommended to keep as '.' due to the amount of tiles. (Tiny map = 14400)

@@ -29,6 +29,13 @@ class Retriever:
         if self.on_success is not None:
             self.on_success(data)
 
+    def get_short_str(self):
+        if self.data is not None:
+            if type(self.data) is str:
+                return self.name + " (" + self.datatype.to_simple_string() + "): '" + str(self.data) + "'"
+            else:
+                return self.name + " (" + self.datatype.to_simple_string() + "): " + str(self.data) + ""
+
     def __str__(self):
         if self.data is not None:
             if type(self.data) is list:
