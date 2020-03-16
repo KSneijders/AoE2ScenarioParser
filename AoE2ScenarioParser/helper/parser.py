@@ -174,6 +174,9 @@ def retriever_to_bytes(retriever):
         for i in range(0, retriever.datatype.repeat):
             data = retriever.data[i] if is_list else retriever.data
 
+            if data is None:
+                return None
+
             if var_type == "struct":
                 for struct_retriever in data.retrievers:
                     return_bytes += retriever_to_bytes(struct_retriever)
