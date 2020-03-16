@@ -6,7 +6,7 @@ Definitive Edition** outside of the in-game editor.
 # Progress
 Current up-to-date progress can be found on the [Trello](https://trello.com/b/7SNm3gXj/aoe2-de-parser) board. 
 
-### Features:
+## Features:
 - `aoe2scenario` files
     - Reading `aoe2scenario` files from AoE2:DE.
     - Writing to a new `aoe2scenario` file with edited contents.
@@ -16,10 +16,13 @@ Current up-to-date progress can be found on the [Trello](https://trello.com/b/7S
     - Editing Triggers. (Only **adding** Conditions and Effects is currently supported)
     - Deleting Triggers.
 
-### Bugs:
-- None that I know of
+## Bugs:
+- None that I know of. Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
 
-Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
+## Support:
+This repository supports the `DE` scenario version:
+- 1.36
+- 1.37 (Game update: [35584](https://www.ageofempires.com/news/aoe2de-update-35584/))
 
 # Installation
 Run the following pip command for installation:v
