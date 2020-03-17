@@ -66,7 +66,6 @@ trigger_object = scenario.object_manager.get_triggers()
 
 ---
 &nbsp;  
-&nbsp;  
 
 ## Adding triggers
 Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using functions (type "trigger.set_" and the autocomplete will show you a list of options.).  Eventually there will be a API docs. 
@@ -92,7 +91,6 @@ effect.set_message("This message was set using AoE2ScenarioParser!")
 
 
 ---
-&nbsp;  
 &nbsp;  
 
 ## Viewing triggers
@@ -145,7 +143,6 @@ trigger_object.get_content_as_string()
 
 ---
 &nbsp;  
-&nbsp;  
 
 ## Editing or removing triggers
 When opening a file that already contains triggers you might want to edit or even remove said triggers. *Please note that it's not possible to remove specific conditions or effects (yet).*
@@ -170,6 +167,52 @@ trigger_object.delete_trigger_by_display_index(0)
 
 ---
 &nbsp;  
+
+## Datasets (Buildings, Units and Techs)
+The project currently contains 3 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
+- buildings
+- units
+- technologies (techs)
+
+*Please note*: There are also datasets for `effects` and `conditions` but those are already explained in this document.
+
+You can use them like so:
+```python
+from AoE2ScenarioParser.datasets import techs, units, buildings
+
+# Techs
+techs.loom  # 22
+techs.imperial_age  # 103
+# Units
+units.archer  # 4
+units.man_at_arms  # 75
+units.cannon_galleon  # 420
+# Buildings
+buildings.krepost  # 1251
+buildings.wonder  # 276
+```
+You can also use strings to get the IDs
+```python
+techs.get_tech_id_by_string("loom")  # 22
+units.get_unit_id_by_string("man_at_arms")  # 75
+buildings.get_building_id_by_string("farm")  # 50
+```
+Security note:
+---
+These functions are implented for ease of use. Not security. They use `eval()` and should not be used in any server environment where others have access to the input of these functions. For more information please check out [this Stack Overflow answer](https://stackoverflow.com/a/661128/7230293).
+
+Of course, you can combine that with `triggers` like so:
+```python
+trigger = triggers.add_trigger("Create Man@Arms")
+
+effect = trigger.add_effect(effects.create_object)  # effects dataset
+effect.set_object_list_unit_id(units.man_at_arms)  # units dataset
+effect.set_player_source(1)
+effect.set_location_x(0)
+effect.set_location_y(0)
+```
+
+---
 &nbsp;  
 
 ## Saving
@@ -182,7 +225,6 @@ Please remember to use a different path than your input file. This way you have 
 
 
 ---
-&nbsp;  
 &nbsp;  
 
 # Authors
