@@ -218,7 +218,7 @@ horse_e = 1606
 
 def get_unit_id_by_string(tech):
     """
-    Returns the ID of the given tech. None otherwise.
+    Returns the ID of the given unit. None otherwise.
     """
     try:
         return eval(tech)

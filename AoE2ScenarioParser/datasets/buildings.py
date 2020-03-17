@@ -152,7 +152,7 @@ yurt_h = 719
 
 def get_building_id_by_string(tech):
     """
-    Returns the ID of the given tech. None otherwise.
+    Returns the ID of the given building. None otherwise.
     """
     try:
         return eval(tech)
