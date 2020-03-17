@@ -7,17 +7,26 @@ Definitive Edition** outside of the in-game editor.
 Current up-to-date progress can be found on the [Trello](https://trello.com/b/7SNm3gXj/aoe2-de-parser) board. 
 
 ### Features:
-- Reading any `aoe2scenario` file from AoE2:DE.
+- Reading `aoe2scenario` files from AoE2:DE (Check supported versions below).
 - Writing said file back to an `aoe2scenario` file.
-- Add Triggers, Conditions and effects to any `aoe2scenario` file (Instructions below).
+- Triggers
+  - View (Specific or all) Triggers, Conditions and Effects.
+  - Adding Triggers, Conditions and Effects.
+  - Editing Triggers. (Only **adding** Conditions and Effects is currently supported)
+  - Deleting Triggers.
 
-### Bugs:
-- None
+## Bugs:
+- None...? Surely not!?. 
 
 Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
 
+## Support:
+This repository supports the `DE` scenario versions:
+- 1.36
+- 1.37 (Game update: [35584](https://www.ageofempires.com/news/aoe2de-update-35584/))
+
 # Installation
-Run the following pip command for installation:
+Run the following pip command for installation:v
 
     pip install AoE2ScenarioParser
 
@@ -59,7 +68,6 @@ trigger_object = scenario.object_manager.get_triggers()
 
 ---
 &nbsp;  
-&nbsp;  
 
 ## Adding triggers
 Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using functions (type "trigger.set_" and the autocomplete will show you a list of options.).  Eventually there will be a API docs. 
@@ -86,7 +94,6 @@ effect.set_message("This message was set using AoE2ScenarioParser!")
 
 ---
 &nbsp;  
-&nbsp;  
 
 ## Viewing triggers
 
@@ -110,8 +117,9 @@ If you want to know all specifics about a trigger you can use the functions belo
 
 ```python
 trigger_object.get_trigger_as_string(0)
-# Or:
 trigger_object.get_trigger_as_string_by_display_index(0)
+# Or if you have a trigger as object:
+trigger_object.get_trigger_as_string(trigger.trigger_id)
 
 # These functions return the following (As String):
 'Init Trigger' [Index: 0, Display: 0]:
@@ -131,12 +139,11 @@ trigger_object.get_trigger_as_string_by_display_index(0)
         activate_trigger:
             trigger_id: 1
 
-# You can also use the function below to generate the same as above but then for all the triggers.
+# You can also use the function below to generate the same as above but for all the triggers.
 trigger_object.get_content_as_string()
 ```
 
 ---
-&nbsp;  
 &nbsp;  
 
 ## Editing or removing triggers
@@ -162,6 +169,52 @@ trigger_object.delete_trigger_by_display_index(0)
 
 ---
 &nbsp;  
+
+## Datasets (Buildings, Units and Techs)
+The project currently contains 3 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
+- buildings
+- units
+- technologies (techs)
+
+*Please note*: There are also datasets for `effects` and `conditions` but those are already explained in this document.
+
+You can use them like so:
+```python
+from AoE2ScenarioParser.datasets import techs, units, buildings
+
+# Techs
+techs.loom  # 22
+techs.imperial_age  # 103
+# Units
+units.archer  # 4
+units.man_at_arms  # 75
+units.cannon_galleon  # 420
+# Buildings
+buildings.krepost  # 1251
+buildings.wonder  # 276
+```
+You can also use strings to get the IDs
+```python
+techs.get_tech_id_by_string("loom")  # 22
+units.get_unit_id_by_string("man_at_arms")  # 75
+buildings.get_building_id_by_string("farm")  # 50
+```
+Security note:
+---
+These functions are implented for ease of use. Not security. They use `eval()` and should not be used in any server environment where others have access to the input of these functions. For more information please check out [this Stack Overflow answer](https://stackoverflow.com/a/661128/7230293).
+
+Of course, you can combine that with `triggers` like so:
+```python
+trigger = triggers.add_trigger("Create Man@Arms")
+
+effect = trigger.add_effect(effects.create_object)  # effects dataset
+effect.set_object_list_unit_id(units.man_at_arms)  # units dataset
+effect.set_player_source(1)
+effect.set_location_x(0)
+effect.set_location_y(0)
+```
+
+---
 &nbsp;  
 
 ## Saving
@@ -170,13 +223,10 @@ When you are done, you can write all your progress to a file like so:
 ```python
 scenario.write_to_file(output_path)
 ```
-Please remember to use a different path than your input file. This way you have a backup file incase you encounter a bug or made a mistake. An easy way to do such a thing is by writing something like:
-```python
-scenario.write_to_file("new_" + input_path)
-```
+Please remember to use a different path than your input file. This way you have a backup file incase you encounter a bug or made a mistake.
+
 
 ---
-&nbsp;  
 &nbsp;  
 
 # Authors

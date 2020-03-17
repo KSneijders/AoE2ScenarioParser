@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
-import AoE2ScenarioParser.pieces.structs.aoe2_struct as structs
+from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 types = [
     "s",  # Signed int
@@ -129,7 +129,7 @@ def calculate_length(generator, retriever_list):
 
 def datatype_to_type_length(var):
     try:
-        if issubclass(var, structs.Struct):
+        if issubclass(var, AoE2Struct):
             return "struct", 0
         else:  # Not possible at this time
             return "", 0
@@ -170,26 +170,34 @@ def retriever_to_bytes(retriever):
     if is_list:
         retriever.datatype.repeat = len(retriever.data)
 
-    for i in range(0, retriever.datatype.repeat):
-        data = retriever.data[i] if is_list else retriever.data
+    try:
+        for i in range(0, retriever.datatype.repeat):
+            data = retriever.data[i] if is_list else retriever.data
 
-        if var_type == "struct":
-            for struct_retriever in data.retrievers:
-                return_bytes += retriever_to_bytes(struct_retriever)
-        if var_type == "u" or var_type == "s":
-            return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
-        elif var_type == "f":
-            if var_len == 4:
-                return_bytes += float_to_bytes(data)
-            else:  # Always 4 except for trigger version
-                return_bytes += double_to_bytes(data)
-        elif var_type == "c":
-            return_bytes += str_to_bytes(data)
-        elif var_type == "data":
-            return_bytes += data
-        elif var_type == "str":
-            return_bytes += int_to_bytes(len(data), var_len, endian="little", signed=True)
-            return_bytes += str_to_bytes(data)
+            if data is None:
+                return None
+
+            if var_type == "struct":
+                for struct_retriever in data.retrievers:
+                    return_bytes += retriever_to_bytes(struct_retriever)
+            if var_type == "u" or var_type == "s":
+                return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
+            elif var_type == "f":
+                if var_len == 4:
+                    return_bytes += float_to_bytes(data)
+                else:  # Always 4 (float) except for trigger version (8: double)
+                    return_bytes += double_to_bytes(data)
+            elif var_type == "c":
+                return_bytes += str_to_bytes(data)
+            elif var_type == "data":
+                return_bytes += data
+            elif var_type == "str":
+                return_bytes += int_to_bytes(len(data), var_len, endian="little", signed=True)
+                return_bytes += str_to_bytes(data)
+    except AttributeError as e:
+        print("AttributeError occurred in: " + retriever.name +
+              "\n\tData: " + repr(retriever.data) + "\n\tDatatype: " + str(retriever.datatype))
+        raise AttributeError(e)
 
     if retriever.log_value:
         print(retriever, "returned", return_bytes)
