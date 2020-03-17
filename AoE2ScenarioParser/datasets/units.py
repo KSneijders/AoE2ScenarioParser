@@ -214,3 +214,13 @@ cow_d = 1600
 horse_c = 1602
 horse_d = 1604
 horse_e = 1606
+
+
+def get_unit_id_by_string(tech):
+    """
+    Returns the ID of the given tech. None otherwise.
+    """
+    try:
+        return eval(tech)
+    except NameError:
+        return None

@@ -148,3 +148,13 @@ yurt_e = 716
 yurt_f = 717
 yurt_g = 718
 yurt_h = 719
+
+
+def get_building_id_by_string(tech):
+    """
+    Returns the ID of the given tech. None otherwise.
+    """
+    try:
+        return eval(tech)
+    except NameError:
+        return None

@@ -269,3 +269,13 @@ wheelbarrow = 213
 yasama = 484
 yeomen = 3
 zealotry = 9
+
+
+def get_tech_id_by_string(tech):
+    """
+    Returns the ID of the given tech. None otherwise.
+    """
+    try:
+        return eval(tech)
+    except NameError:
+        return None
