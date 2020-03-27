@@ -102,7 +102,7 @@ There's multiple ways to check out triggers and their contents. When editing or 
 You can use the following function to generate a simple overview of the triggers.
 
 ```python
-trigger_object.get_trigger_overview_as_string()
+trigger_object.get_summary_as_string()
 
 # This returns the following (As String):
 Trigger Overview:

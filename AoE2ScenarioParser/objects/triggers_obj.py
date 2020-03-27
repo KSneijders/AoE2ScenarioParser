@@ -59,8 +59,8 @@ class TriggersObject(AoE2Object):
         display_order_retriever.data = parser.listify(display_order_retriever.data)
         helper.update_order_array(display_order_retriever.data, trigger_count)
 
-    def get_trigger_overview_as_string(self):
-        return_string = "Trigger Overview:\n"
+    def get_summary_as_string(self):
+        return_string = "Trigger Summary:\n"
 
         triggers = parser.listify(self.data_dict['trigger_data'])
         display_order = parser.listify(self.data_dict['trigger_display_order'])
@@ -99,7 +99,12 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_id):
+    def get_trigger_as_string(self, trigger_id=None, display_index=None):
+        _assert_index_params(trigger_id, display_index)
+
+        if trigger_id is None:
+            trigger_id = self._get_trigger_id_by_display_index(display_index)
+
         trigger = parser.listify(self.data_dict['trigger_data'])[trigger_id]
         display = parser.listify(self.data_dict['trigger_display_order']).index(trigger_id)
         trigger_data = trigger.data_dict
@@ -113,22 +118,19 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string_by_display_index(self, display_index):
-        trigger_id = self.data_dict['trigger_display_order'][display_index]
-        return self.get_trigger_as_string(trigger_id)
+    def get_trigger(self, trigger_id=None, display_index=None):
+        _assert_index_params(trigger_id, display_index)
 
-    def get_trigger(self, trigger_id):
-        return parser.listify(self.data_dict['trigger_data'])[trigger_id]
+        if trigger_id is None:
+            trigger_id = self._get_trigger_id_by_display_index(display_index)
 
-    def get_trigger_by_display_index(self, display_index):
-        trigger_id = self.data_dict['trigger_display_order'][display_index]
         return parser.listify(self.data_dict['trigger_data'])[trigger_id]
 
     def delete_trigger(self, trigger_id=None, display_index=None):
         _assert_index_params(trigger_id, display_index)
 
         if trigger_id is None:
-            trigger_id = self.data_dict['trigger_display_order'][display_index]
+            trigger_id = self._get_trigger_id_by_display_index(display_index)
         else:
             display_index = self.data_dict['trigger_display_order'].index(trigger_id)
 
@@ -138,3 +140,5 @@ class TriggersObject(AoE2Object):
         self.data_dict['trigger_display_order'] = \
             [x - 1 if x > trigger_id else x for x in self.data_dict['trigger_display_order']]
 
+    def _get_trigger_id_by_display_index(self, display_index):
+        return self.data_dict['trigger_display_order'][display_index]
