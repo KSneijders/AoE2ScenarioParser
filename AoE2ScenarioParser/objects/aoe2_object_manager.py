@@ -25,8 +25,8 @@ class AoE2ObjectManager:
             "DiplomacyObject": self._parse_diplomacy_object(),
             "OptionsObject": self._parse_options_object(),
             "MapObject": self._parse_map_object(),
-            "UnitsObject": UnitsObject.parse_object(self.parsed_data),
-            "TriggersObject": TriggersObject.parse_object(self.parsed_data)
+            "UnitsObject": UnitsObject._parse_object(self.parsed_data),
+            "TriggersObject": TriggersObject._parse_object(self.parsed_data)
         }
 
         # for key in self.objects.keys():
@@ -63,7 +63,7 @@ class AoE2ObjectManager:
 
     def reconstruct(self):
         print("\nReconstructing pieces and structs based on objects...")
-        TriggersObject.reconstruct_object(self.parsed_data, self.objects)
+        TriggersObject._reconstruct_object(self.parsed_data, self.objects)
         print("Reconstruction finished successfully.")
 
     # ################################################################################################ #

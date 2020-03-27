@@ -25,7 +25,7 @@ class TriggersObject(AoE2Object):
         return new_trigger
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {}
+    def _parse_object(parsed_data, **kwargs):  # Expected {}
         display_order = parser.listify(
             find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data)
         trigger_data = parser.listify(
@@ -33,7 +33,7 @@ class TriggersObject(AoE2Object):
 
         triggers = []
         for index, trigger in enumerate(trigger_data):
-            triggers.append(TriggerObject.parse_object(parsed_data, trigger=trigger, trigger_id=index))
+            triggers.append(TriggerObject._parse_object(parsed_data, trigger=trigger, trigger_id=index))
 
         return TriggersObject(
             trigger_data=triggers,
@@ -41,14 +41,14 @@ class TriggersObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):  # Expected {}
+    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {}
         number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
 
         trigger_data_retriever.data = []
         for trigger in objects["TriggersObject"].data_dict['trigger_data']:
-            TriggerObject.reconstruct_object(parsed_data, objects, trigger=trigger)
+            TriggerObject._reconstruct_object(parsed_data, objects, trigger=trigger)
 
         assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].data_dict['trigger_data'])
         trigger_count = len(trigger_data_retriever.data)
