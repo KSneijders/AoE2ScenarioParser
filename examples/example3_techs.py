@@ -5,7 +5,7 @@ input_path = "..."
 output_path = "..."
 
 scenario = AoE2Scenario(input_path)
-trigger_object = scenario.object_manager.get_triggers()
+trigger_object = scenario.object_manager.get_trigger_object()
 castle_age_trigger = trigger_object.get_trigger(37)
 
 new_techs = [

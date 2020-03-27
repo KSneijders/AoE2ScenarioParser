@@ -61,7 +61,7 @@ scenario = AoE2Scenario(input_path)
 You can retrieve access to the triggers using the object_manager. 
 
 ```python
-trigger_object = scenario.object_manager.get_triggers()
+trigger_object = scenario.object_manager.get_trigger_object()
 ```
 
 ---

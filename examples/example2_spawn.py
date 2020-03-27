@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.datasets import conditions, effects
+from AoE2ScenarioParser.datasets import conditions, effects, units, buildings, techs
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 
 """Reordering Display Order"""
@@ -6,7 +6,7 @@ input_path = "..."
 output_path = "..."
 
 scenario = AoE2Scenario(input_path)
-trigger_object = scenario.object_manager.get_triggers()
+trigger_object = scenario.object_manager.get_trigger_object()
 
 add_after = 38
 move_all_after = 57
@@ -24,7 +24,7 @@ input_path = "..."
 output_path = "..."
 
 scenario = AoE2Scenario(input_path)
-trigger_object = scenario.object_manager.get_triggers()
+trigger_object = scenario.object_manager.get_trigger_object()
 
 # Disable all current spawn triggers
 to_be_disabled = [25, 30, 31, 21, 16, 26, 27]

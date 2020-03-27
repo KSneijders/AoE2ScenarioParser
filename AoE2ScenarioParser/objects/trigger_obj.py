@@ -48,6 +48,18 @@ class TriggerObject(AoE2Object):
 
         super().__init__(locals())
 
+    def add_effect(self, effect_type):
+        new_effect = EffectObject(effect_type)
+        self.data_dict['effects'].append(new_effect)
+        helper.update_order_array(self.data_dict['effect_order'], len(self.data_dict['effects']))
+        return new_effect
+
+    def add_condition(self, condition_type):
+        new_cond = ConditionObject(condition_type)
+        self.data_dict['conditions'].append(new_cond)
+        helper.update_order_array(self.data_dict['condition_order'], len(self.data_dict['conditions']))
+        return new_cond
+
     def get_content_as_string(self):
         return_string = ""
         data_tba = [
@@ -94,18 +106,6 @@ class TriggerObject(AoE2Object):
                 return_string += effect.get_content_as_string()
 
         return return_string
-
-    def add_effect(self, effect_type):
-        new_effect = EffectObject(effect_type)
-        self.data_dict['effects'].append(new_effect)
-        helper.update_order_array(self.data_dict['effect_order'], len(self.data_dict['effects']))
-        return new_effect
-
-    def add_condition(self, condition_type):
-        new_cond = ConditionObject(condition_type)
-        self.data_dict['conditions'].append(new_cond)
-        helper.update_order_array(self.data_dict['condition_order'], len(self.data_dict['conditions']))
-        return new_cond
 
     @staticmethod
     def parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct, trigger_id=id}

@@ -5,7 +5,7 @@ input_path = "..."
 output_path = "..."
 
 scenario = AoE2Scenario(input_path)
-trigger_object = scenario.object_manager.get_triggers()
+trigger_object = scenario.object_manager.get_trigger_object()
 
 trigger = trigger_object.add_trigger("Attack move 10x10 grid")
 trigger.set_looping(1)
