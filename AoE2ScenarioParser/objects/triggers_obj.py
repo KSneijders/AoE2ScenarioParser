@@ -5,6 +5,11 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 
 
+def _assert_index_params(trigger_id, display_index):
+    assert trigger_id is None or display_index is None
+    assert trigger_id is not None or display_index is not None
+
+
 class TriggersObject(AoE2Object):
     def __init__(self,
                  trigger_data,
@@ -119,16 +124,17 @@ class TriggersObject(AoE2Object):
         trigger_id = self.data_dict['trigger_display_order'][display_index]
         return parser.listify(self.data_dict['trigger_data'])[trigger_id]
 
-    def delete_trigger(self, trigger_id):
-        del self.data_dict['trigger_data'][trigger_id]
-        helper.update_order_array(self.data_dict['trigger_display_order'], len(self.data_dict['trigger_data']))
-        del self.data_dict['trigger_display_order'][self.data_dict['trigger_display_order'].index(trigger_id)]
-        self.data_dict['trigger_display_order'] = \
-            [x - 1 if x > trigger_id else 0 for x in self.data_dict['trigger_display_order']]
+    def delete_trigger(self, trigger_id=None, display_index=None):
+        _assert_index_params(trigger_id, display_index)
 
-    def delete_trigger_by_display_index(self, display_index):
-        trigger_id = self.data_dict['trigger_display_order'][display_index]
+        if trigger_id is None:
+            trigger_id = self.data_dict['trigger_display_order'][display_index]
+        else:
+            display_index = self.data_dict['trigger_display_order'].index(trigger_id)
+
         del self.data_dict['trigger_data'][trigger_id]
         del self.data_dict['trigger_display_order'][display_index]
+
         self.data_dict['trigger_display_order'] = \
-            [x - 1 if x > trigger_id else 0 for x in self.data_dict['trigger_display_order']]
+            [x - 1 if x > trigger_id else x for x in self.data_dict['trigger_display_order']]
+
