@@ -14,10 +14,10 @@ class TriggerObject(AoE2Object):
     def __init__(self,
                  name,
                  description="",
-                 description_stid=0,
+                 description_stid=-1,
                  display_as_objective=0,
                  short_description="",
-                 short_description_stid=0,
+                 short_description_stid=-1,
                  display_on_screen=0,
                  description_order=0,
                  enabled=1,
@@ -35,7 +35,7 @@ class TriggerObject(AoE2Object):
         del trigger_id
 
         # Adding expected (by DE) ending character
-        name += "\x00"
+        name += "\x00" if name[-1] != "\x00" else ""
 
         if conditions is None:
             conditions = []
@@ -69,11 +69,11 @@ class TriggerObject(AoE2Object):
 
         if helper.del_str_trail(self.data_dict['description']) != "":
             data_tba.append(('description', "'" + helper.del_str_trail(self.data_dict['description']) + "'"))
-        if self.data_dict['description_stid'] != 0:
+        if self.data_dict['description_stid'] != -1:
             data_tba.append(('description_stid', self.data_dict['description_stid']))
         if helper.del_str_trail(self.data_dict['short_description']) != "":
             data_tba.append(('short_description', "'" + helper.del_str_trail(self.data_dict['short_description']) + "'"))
-        if self.data_dict['short_description_stid'] != 0:
+        if self.data_dict['short_description_stid'] != -1:
             data_tba.append(('short_description_stid', self.data_dict['short_description_stid']))
         if self.data_dict['display_as_objective'] != 0:
             data_tba.append(('display_as_objective', self.data_dict['display_as_objective'] != 0))
