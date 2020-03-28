@@ -155,7 +155,7 @@ attribute_naming_conversion = {
     "target_player": "Target player",
 }
 
-condition_identifier_conversion = {
+identifier_conversion = {
     0: "none",
     1: "bring_object_to_area",
     2: "bring_object_to_object",
@@ -184,7 +184,7 @@ condition_identifier_conversion = {
 
 # Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
 attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
-condition_identifier_conversion.update(dict(map(reversed, condition_identifier_conversion.items())))
+identifier_conversion.update(dict(map(reversed, identifier_conversion.items())))
 
 empty_attributes = {
     "condition_type": -1,
