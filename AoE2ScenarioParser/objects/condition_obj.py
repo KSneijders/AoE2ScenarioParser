@@ -71,6 +71,66 @@ class ConditionObject(AoE2Object):
         data_list.insert(19, -1)  # Unknown (3)
         conditions.append(ConditionStruct(data=data_list))
 
+    def get_condition_type(self):
+        return self.data_dict['condition_type']
+
+    def get_amount_or_quantity(self):
+        return self.data_dict['amount_or_quantity']
+
+    def get_resource_type_or_tribute_list(self):
+        return self.data_dict['resource_type_or_tribute_list']
+
+    def get_unit_object(self):
+        return self.data_dict['unit_object']
+
+    def get_next_object(self):
+        return self.data_dict['next_object']
+
+    def get_object_list(self):
+        return self.data_dict['object_list']
+
+    def get_player(self):
+        return self.data_dict['player']
+
+    def get_technology(self):
+        return self.data_dict['technology']
+
+    def get_timer(self):
+        return self.data_dict['timer']
+
+    def get_area_1_x(self):
+        return self.data_dict['area_1_x']
+
+    def get_area_1_y(self):
+        return self.data_dict['area_1_y']
+
+    def get_area_2_x(self):
+        return self.data_dict['area_2_x']
+
+    def get_area_2_y(self):
+        return self.data_dict['area_2_y']
+
+    def get_object_group(self):
+        return self.data_dict['object_group']
+
+    def get_object_type(self):
+        return self.data_dict['object_type']
+
+    def get_ai_signal(self):
+        return self.data_dict['ai_signal']
+
+    def get_inverted(self):
+        return self.data_dict['inverted']
+
+    def get_variable(self):
+        return self.data_dict['variable']
+
+    def get_comparison(self):
+        return self.data_dict['comparison']
+
+    def get_target_player(self):
+        return self.data_dict['target_player']
+
     def set_condition_type(self, val):
         self.data_dict['condition_type'] = val
 

@@ -1,3 +1,5 @@
+from typing import List
+
 from AoE2ScenarioParser.datasets.conditions import condition_identifier_conversion
 from AoE2ScenarioParser.datasets.effects import effect_identifier_conversion
 from AoE2ScenarioParser.helper import helper
@@ -185,6 +187,54 @@ class TriggerObject(AoE2Object):
             conditions,
             trigger.data_dict['condition_order'],
         ]))
+
+    def get_name(self):
+        return self.data_dict['name']
+
+    def get_description(self):
+        return self.data_dict['description']
+
+    def get_description_stid(self):
+        return self.data_dict['description_stid']
+
+    def get_display_as_objective(self):
+        return self.data_dict['display_as_objective']
+
+    def get_short_description(self):
+        return self.data_dict['short_description']
+
+    def get_short_description_stid(self):
+        return self.data_dict['short_description_stid']
+
+    def get_display_on_screen(self):
+        return self.data_dict['display_on_screen']
+
+    def get_description_order(self):
+        return self.data_dict['description_order']
+
+    def get_enabled(self):
+        return self.data_dict['enabled']
+
+    def get_looping(self):
+        return self.data_dict['looping']
+
+    def get_header(self):
+        return self.data_dict['header']
+
+    def get_mute_objectives(self):
+        return self.data_dict['mute_objectives']
+
+    def get_conditions(self) -> List[ConditionObject]:
+        return self.data_dict['conditions']
+
+    def get_condition_order(self):
+        return self.data_dict['condition_order']
+
+    def get_effects(self) -> List[EffectObject]:
+        return self.data_dict['effects']
+
+    def get_effect_order(self):
+        return self.data_dict['effect_order']
 
     def set_name(self, val):
         self.data_dict['name'] = val + "\x00"

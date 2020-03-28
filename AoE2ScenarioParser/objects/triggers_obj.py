@@ -1,3 +1,5 @@
+from typing import List
+
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -5,9 +7,11 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 
 
-def _assert_index_params(trigger_id, display_index):
-    assert trigger_id is None or display_index is None
-    assert trigger_id is not None or display_index is not None
+def _evaluate_index_params(trigger_id, display_index):
+    if trigger_id is None and display_index is None:
+        raise ValueError("Please choose 'trigger_id' or 'display_index' as identification for the wanted trigger")
+    if trigger_id is not None and display_index is not None:
+        raise ValueError("Please identify a trigger using 'trigger_id' or 'display_index' but not both")
 
 
 class TriggersObject(AoE2Object):
@@ -100,7 +104,7 @@ class TriggersObject(AoE2Object):
         return return_string
 
     def get_trigger_as_string(self, trigger_id=None, display_index=None):
-        _assert_index_params(trigger_id, display_index)
+        _evaluate_index_params(trigger_id, display_index)
 
         if trigger_id is None:
             trigger_id = self._get_trigger_id_by_display_index(display_index)
@@ -119,15 +123,18 @@ class TriggersObject(AoE2Object):
         return return_string
 
     def get_trigger(self, trigger_id=None, display_index=None):
-        _assert_index_params(trigger_id, display_index)
+        _evaluate_index_params(trigger_id, display_index)
 
         if trigger_id is None:
             trigger_id = self._get_trigger_id_by_display_index(display_index)
 
         return parser.listify(self.data_dict['trigger_data'])[trigger_id]
 
+    def get_triggers(self) -> List[TriggerObject]:
+        return parser.listify(self.data_dict['trigger_data'])
+
     def delete_trigger(self, trigger_id=None, display_index=None):
-        _assert_index_params(trigger_id, display_index)
+        _evaluate_index_params(trigger_id, display_index)
 
         if trigger_id is None:
             trigger_id = self._get_trigger_id_by_display_index(display_index)

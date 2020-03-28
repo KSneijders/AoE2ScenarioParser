@@ -99,6 +99,150 @@ class EffectObject(AoE2Object):
 
         effects.append(EffectStruct(data=data_list))
 
+    def get_effect_type(self):
+        return self.data_dict['effect_type']
+
+    def get_ai_script_goal(self):
+        return self.data_dict['ai_script_goal']
+
+    def get_aa_quantity(self):
+        return self.data_dict['aa_quantity']
+
+    def get_aa_armor_or_attack_type(self):
+        return self.data_dict['aa_armor_or_attack_type']
+
+    def get_quantity(self):
+        return self.data_dict['quantity']
+
+    def get_tribute_list(self):
+        return self.data_dict['tribute_list']
+
+    def get_diplomacy(self):
+        return self.data_dict['diplomacy']
+
+    def get_number_of_units_selected(self):
+        return self.data_dict['number_of_units_selected']
+
+    def get_object_list_unit_id(self):
+        return self.data_dict['object_list_unit_id']
+
+    def get_player_source(self):
+        return self.data_dict['player_source']
+
+    def get_player_target(self):
+        return self.data_dict['player_target']
+
+    def get_technology(self):
+        return self.data_dict['technology']
+
+    def get_string_id(self):
+        return self.data_dict['string_id']
+
+    def get_display_time(self):
+        return self.data_dict['display_time']
+
+    def get_trigger_id(self):
+        return self.data_dict['trigger_id']
+
+    def get_location_x(self):
+        return self.data_dict['location_x']
+
+    def get_location_y(self):
+        return self.data_dict['location_y']
+
+    def get_area_1_x(self):
+        return self.data_dict['area_1_x']
+
+    def get_area_1_y(self):
+        return self.data_dict['area_1_y']
+
+    def get_area_2_x(self):
+        return self.data_dict['area_2_x']
+
+    def get_area_2_y(self):
+        return self.data_dict['area_2_y']
+
+    def get_object_group(self):
+        return self.data_dict['object_group']
+
+    def get_object_type(self):
+        return self.data_dict['object_type']
+
+    def get_instruction_panel_position(self):
+        return self.data_dict['instruction_panel_position']
+
+    def get_attack_stance(self):
+        return self.data_dict['attack_stance']
+
+    def get_time_unit(self):
+        return self.data_dict['time_unit']
+
+    def get_enabled_or_victory(self):
+        return self.data_dict['enabled_or_victory']
+
+    def get_food(self):
+        return self.data_dict['food']
+
+    def get_wood(self):
+        return self.data_dict['wood']
+
+    def get_stone(self):
+        return self.data_dict['stone']
+
+    def get_gold(self):
+        return self.data_dict['gold']
+
+    def get_item_id(self):
+        return self.data_dict['item_id']
+
+    def get_flash_object(self):
+        return self.data_dict['flash_object']
+
+    def get_force_research_technology(self):
+        return self.data_dict['force_research_technology']
+
+    def get_visibility_state(self):
+        return self.data_dict['visibility_state']
+
+    def get_scroll(self):
+        return self.data_dict['scroll']
+
+    def get_operation(self):
+        return self.data_dict['operation']
+
+    def get_object_list_unit_id_2(self):
+        return self.data_dict['object_list_unit_id_2']
+
+    def get_button_location(self):
+        return self.data_dict['button_location']
+
+    def get_ai_signal_value(self):
+        return self.data_dict['ai_signal_value']
+
+    def get_object_attributes(self):
+        return self.data_dict['object_attributes']
+
+    def get_from_variable(self):
+        return self.data_dict['from_variable']
+
+    def get_variable_or_timer(self):
+        return self.data_dict['variable_or_timer']
+
+    def get_facet(self):
+        return self.data_dict['facet']
+
+    def get_play_sound(self):
+        return self.data_dict['play_sound']
+
+    def get_message(self):
+        return self.data_dict['message']
+
+    def get_sound_name(self):
+        return self.data_dict['sound_name']
+
+    def get_selected_object_id(self):
+        return self.data_dict['selected_object_id']
+
     def set_effect_type(self, val):
         self.data_dict['effect_type'] = val
 
