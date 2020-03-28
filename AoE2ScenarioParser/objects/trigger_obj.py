@@ -1,7 +1,6 @@
 from typing import List
 
-from AoE2ScenarioParser.datasets.conditions import identifier_conversion
-from AoE2ScenarioParser.datasets.effects import identifier_conversion
+from AoE2ScenarioParser.datasets import effects, conditions
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -96,7 +95,7 @@ class TriggerObject(AoE2Object):
             for c_display_order, condition_id in enumerate(self.data_dict['condition_order']):
                 condition = self.data_dict['conditions'][condition_id]
 
-                return_string += "\t\t\t" + identifier_conversion[condition.data_dict['condition_type']] + ":\n"
+                return_string += "\t\t\t" + conditions.identifier_conversion[condition.data_dict['condition_type']] + ":\n"
                 return_string += condition.get_content_as_string()
 
         if len(self.data_dict['effect_order']) > 0:
@@ -104,7 +103,7 @@ class TriggerObject(AoE2Object):
             for e_display_order, effect_id in enumerate(self.data_dict['effect_order']):
                 effect = self.data_dict['effects'][effect_id]
 
-                return_string += "\t\t\t" + identifier_conversion[effect.data_dict['effect_type']] + ":\n"
+                return_string += "\t\t\t" + effects.identifier_conversion[effect.data_dict['effect_type']] + ":\n"
                 return_string += effect.get_content_as_string()
 
         return return_string
