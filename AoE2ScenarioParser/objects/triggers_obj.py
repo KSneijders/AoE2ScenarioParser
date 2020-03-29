@@ -122,7 +122,7 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger(self, trigger_id=None, display_index=None):
+    def get_trigger(self, trigger_id=None, display_index=None) -> TriggerObject:
         _evaluate_index_params(trigger_id, display_index)
 
         if trigger_id is None:
