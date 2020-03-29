@@ -1,6 +1,11 @@
 from AoE2ScenarioParser.datasets import conditions, effects, units, buildings, techs
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 
+"""
+These examples are just for show and quickly made because I needed them myself. Eventually there will be proper 
+examples. Don't expect a lot.
+"""
+
 """Reordering Display Order"""
 input_path = "..."
 output_path = "..."

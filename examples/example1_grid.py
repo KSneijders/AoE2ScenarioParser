@@ -1,6 +1,11 @@
 from AoE2ScenarioParser.datasets import conditions, effects
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 
+"""
+These examples are just for show and quickly made because I needed them myself. Eventually there will be proper 
+examples. Don't expect a lot.
+"""
+
 input_path = "..."
 output_path = "..."
 
@@ -19,23 +24,13 @@ step = int(map_width/10)
 
 for x in range(0, map_width, step):
     for y in range(0, map_height, step):
-        target = (-1, -1)
-        if abs(x - middle) >= abs(y - middle):
-            additionX = (step if x < middle else -step) + (step-1 if x < middle else 0)
-            additionY = (step-1 if y < middle else 0)
-            target = (x + additionX, y + additionY)
-        if abs(x - middle) <= abs(y - middle):
-            additionX = (step-1 if x < middle else 0)
-            additionY = (step if y < middle else -step) + (step-1 if y < middle else 0)
-            target = (x + additionX, y + additionY)
-
         effect = trigger.add_effect(effects.attack_move)
         effect.set_player_source(8)
         effect.set_area_1_x(x)
         effect.set_area_1_y(y)
         effect.set_area_2_x(x + step - 1)
         effect.set_area_2_y(y + step - 1)
-        effect.set_location_x(target[0])
-        effect.set_location_y(target[1])
+        effect.set_location_x(middle)
+        effect.set_location_y(middle)
 
 scenario.write_to_file(output_path)
