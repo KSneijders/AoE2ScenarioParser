@@ -9,10 +9,12 @@ class UnitsObject(AoE2Object):
                  units
                  ):
 
-        super().__init__(locals())
+        self.units = units
+
+        super().__init__()
 
     @staticmethod
-    def _parse_object(parsed_data, **kwargs):
+    def parse_object(parsed_data, **kwargs):
         object_piece = parsed_data['UnitsPiece']
         units_per_player = find_retriever(object_piece.retrievers, "Player Units").data
 
@@ -24,7 +26,7 @@ class UnitsObject(AoE2Object):
 
             for unit in units:
                 player_units[player_id].append(
-                    UnitObject._parse_object(parsed_data, unit=unit)
+                    UnitObject.parse_object(parsed_data, unit=unit)
                 )
 
         return UnitsObject(
@@ -32,5 +34,5 @@ class UnitsObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):
+    def reconstruct_object(parsed_data, objects, **kwargs):
         pass

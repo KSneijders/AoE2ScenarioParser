@@ -17,4 +17,25 @@ class MessagesObject(AoE2Object):
                  ascii_scouts,
                  ):
 
-        super().__init__(locals())
+        self.instructions = instructions
+        self.hints = hints
+        self.victory = victory
+        self.loss = loss
+        self.history = history
+        self.scouts = scouts
+        self.ascii_instructions = ascii_instructions
+        self.ascii_hints = ascii_hints
+        self.ascii_victory = ascii_victory
+        self.ascii_loss = ascii_loss
+        self.ascii_history = ascii_history
+        self.ascii_scouts = ascii_scouts
+
+        super().__init__()
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass

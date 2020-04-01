@@ -57,21 +57,71 @@ class EffectObject(AoE2Object):
                  sound_name="",
                  selected_object_id=-1,
                  ):
-        super().__init__(locals())
+
+        self.effect_type = effect_type
+        self.ai_script_goal = ai_script_goal
+        self.aa_quantity = aa_quantity
+        self.aa_armor_or_attack_type = aa_armor_or_attack_type
+        self.quantity = quantity
+        self.tribute_list = tribute_list
+        self.diplomacy = diplomacy
+        self.number_of_units_selected = number_of_units_selected
+        self.object_list_unit_id = object_list_unit_id
+        self.player_source = player_source
+        self.player_target = player_target
+        self.technology = technology
+        self.string_id = string_id
+        self.display_time = display_time
+        self.trigger_id = trigger_id
+        self.location_x = location_x
+        self.location_y = location_y
+        self.area_1_x = area_1_x
+        self.area_1_y = area_1_y
+        self.area_2_x = area_2_x
+        self.area_2_y = area_2_y
+        self.object_group = object_group
+        self.object_type = object_type
+        self.instruction_panel_position = instruction_panel_position
+        self.attack_stance = attack_stance
+        self.time_unit = time_unit
+        self.enabled_or_victory = enabled_or_victory
+        self.food = food
+        self.wood = wood
+        self.stone = stone
+        self.gold = gold
+        self.item_id = item_id
+        self.flash_object = flash_object
+        self.force_research_technology = force_research_technology
+        self.visibility_state = visibility_state
+        self.scroll = scroll
+        self.operation = operation
+        self.object_list_unit_id_2 = object_list_unit_id_2
+        self.button_location = button_location
+        self.ai_signal_value = ai_signal_value
+        self.object_attributes = object_attributes
+        self.from_variable = from_variable
+        self.variable_or_timer = variable_or_timer
+        self.facet = facet
+        self.play_sound = play_sound
+        self.message = message
+        self.sound_name = sound_name
+        self.selected_object_id = selected_object_id
+
+        super().__init__()
 
     def get_content_as_string(self):
         return_string = ""
 
-        for attribute in effects.attributes[self.data_dict['effect_type']]:
-            if attribute == "effect_type" or self.data_dict[attribute] == [] or self.data_dict[attribute] == "" or \
-                    self.data_dict[attribute] == " " or self.data_dict[attribute] == -1:
+        for attribute in effects.attributes[self.effect_type]:
+            attr = getattr(self, attribute)
+            if attribute == "effect_type" or attr == [] or attr == "" or attr == " " or attr == -1:
                 continue
-            return_string += "\t\t\t\t" + attribute + ": " + str(self.data_dict[attribute]) + "\n"
+            return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 
         return return_string
 
     @staticmethod
-    def _parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
+    def parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
         effect_struct = kwargs['effect']
 
         effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
@@ -79,310 +129,24 @@ class EffectObject(AoE2Object):
 
         parameter_dict = copy.copy(effects.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(effect_struct.retrievers, effects.attribute_naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(
+                effect_struct.retrievers, effects.attribute_naming_conversion[param]
+            ).data
 
         return EffectObject(
             **parameter_dict
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
+    def reconstruct_object(parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
         effect_obj = kwargs['effect']
-        effects = kwargs['effects']
+        effects_list = kwargs['effects']
 
-        data_list = list(effect_obj.data_dict.values())
+        data_list = [value for key, value in vars(effect_obj).items()]
         data_list.insert(1, 46)  # Check, (46)
         data_list.insert(9, -1)   # Unknown
         data_list.insert(15, -1)  # Unknown2
         data_list.insert(43, -1)  # Unknown3
         data_list.insert(48, -1)  # Unknown4
 
-        effects.append(EffectStruct(data=data_list))
-
-    def get_effect_type(self):
-        return self.data_dict['effect_type']
-
-    def get_ai_script_goal(self):
-        return self.data_dict['ai_script_goal']
-
-    def get_aa_quantity(self):
-        return self.data_dict['aa_quantity']
-
-    def get_aa_armor_or_attack_type(self):
-        return self.data_dict['aa_armor_or_attack_type']
-
-    def get_quantity(self):
-        return self.data_dict['quantity']
-
-    def get_tribute_list(self):
-        return self.data_dict['tribute_list']
-
-    def get_diplomacy(self):
-        return self.data_dict['diplomacy']
-
-    def get_number_of_units_selected(self):
-        return self.data_dict['number_of_units_selected']
-
-    def get_object_list_unit_id(self):
-        return self.data_dict['object_list_unit_id']
-
-    def get_player_source(self):
-        return self.data_dict['player_source']
-
-    def get_player_target(self):
-        return self.data_dict['player_target']
-
-    def get_technology(self):
-        return self.data_dict['technology']
-
-    def get_string_id(self):
-        return self.data_dict['string_id']
-
-    def get_display_time(self):
-        return self.data_dict['display_time']
-
-    def get_trigger_id(self):
-        return self.data_dict['trigger_id']
-
-    def get_location_x(self):
-        return self.data_dict['location_x']
-
-    def get_location_y(self):
-        return self.data_dict['location_y']
-
-    def get_area_1_x(self):
-        return self.data_dict['area_1_x']
-
-    def get_area_1_y(self):
-        return self.data_dict['area_1_y']
-
-    def get_area_2_x(self):
-        return self.data_dict['area_2_x']
-
-    def get_area_2_y(self):
-        return self.data_dict['area_2_y']
-
-    def get_object_group(self):
-        return self.data_dict['object_group']
-
-    def get_object_type(self):
-        return self.data_dict['object_type']
-
-    def get_instruction_panel_position(self):
-        return self.data_dict['instruction_panel_position']
-
-    def get_attack_stance(self):
-        return self.data_dict['attack_stance']
-
-    def get_time_unit(self):
-        return self.data_dict['time_unit']
-
-    def get_enabled_or_victory(self):
-        return self.data_dict['enabled_or_victory']
-
-    def get_food(self):
-        return self.data_dict['food']
-
-    def get_wood(self):
-        return self.data_dict['wood']
-
-    def get_stone(self):
-        return self.data_dict['stone']
-
-    def get_gold(self):
-        return self.data_dict['gold']
-
-    def get_item_id(self):
-        return self.data_dict['item_id']
-
-    def get_flash_object(self):
-        return self.data_dict['flash_object']
-
-    def get_force_research_technology(self):
-        return self.data_dict['force_research_technology']
-
-    def get_visibility_state(self):
-        return self.data_dict['visibility_state']
-
-    def get_scroll(self):
-        return self.data_dict['scroll']
-
-    def get_operation(self):
-        return self.data_dict['operation']
-
-    def get_object_list_unit_id_2(self):
-        return self.data_dict['object_list_unit_id_2']
-
-    def get_button_location(self):
-        return self.data_dict['button_location']
-
-    def get_ai_signal_value(self):
-        return self.data_dict['ai_signal_value']
-
-    def get_object_attributes(self):
-        return self.data_dict['object_attributes']
-
-    def get_from_variable(self):
-        return self.data_dict['from_variable']
-
-    def get_variable_or_timer(self):
-        return self.data_dict['variable_or_timer']
-
-    def get_facet(self):
-        return self.data_dict['facet']
-
-    def get_play_sound(self):
-        return self.data_dict['play_sound']
-
-    def get_message(self):
-        return self.data_dict['message']
-
-    def get_sound_name(self):
-        return self.data_dict['sound_name']
-
-    def get_selected_object_id(self):
-        return self.data_dict['selected_object_id']
-
-    def set_effect_type(self, val):
-        self.data_dict['effect_type'] = val
-
-    def set_ai_script_goal(self, val):
-        self.data_dict['ai_script_goal'] = val
-
-    def set_aa_quantity(self, val):
-        self.data_dict['aa_quantity'] = val
-
-    def set_aa_armor_or_attack_type(self, val):
-        self.data_dict['aa_armor_or_attack_type'] = val
-
-    def set_quantity(self, val):
-        self.data_dict['quantity'] = val
-
-    def set_tribute_list(self, val):
-        self.data_dict['tribute_list'] = val
-
-    def set_diplomacy(self, val):
-        self.data_dict['diplomacy'] = val
-
-    def set_number_of_units_selected(self, val):
-        self.data_dict['number_of_units_selected'] = val
-
-    def set_object_list_unit_id(self, val):
-        self.data_dict['object_list_unit_id'] = val
-
-    def set_player_source(self, val):
-        self.data_dict['player_source'] = val
-
-    def set_player_target(self, val):
-        self.data_dict['player_target'] = val
-
-    def set_technology(self, val):
-        self.data_dict['technology'] = val
-
-    def set_string_id(self, val):
-        self.data_dict['string_id'] = val
-
-    def set_display_time(self, val):
-        self.data_dict['display_time'] = val
-
-    def set_trigger_id(self, val):
-        self.data_dict['trigger_id'] = val
-
-    def set_location_x(self, val):
-        self.data_dict['location_x'] = val
-
-    def set_location_y(self, val):
-        self.data_dict['location_y'] = val
-
-    def set_area_1_x(self, val):
-        self.data_dict['area_1_x'] = val
-
-    def set_area_1_y(self, val):
-        self.data_dict['area_1_y'] = val
-
-    def set_area_2_x(self, val):
-        self.data_dict['area_2_x'] = val
-
-    def set_area_2_y(self, val):
-        self.data_dict['area_2_y'] = val
-
-    def set_object_group(self, val):
-        self.data_dict['object_group'] = val
-
-    def set_object_type(self, val):
-        self.data_dict['object_type'] = val
-
-    def set_instruction_panel_position(self, val):
-        self.data_dict['instruction_panel_position'] = val
-
-    def set_attack_stance(self, val):
-        self.data_dict['attack_stance'] = val
-
-    def set_time_unit(self, val):
-        self.data_dict['time_unit'] = val
-
-    def set_enabled_or_victory(self, val):
-        self.data_dict['enabled_or_victory'] = val
-
-    def set_food(self, val):
-        self.data_dict['food'] = val
-
-    def set_wood(self, val):
-        self.data_dict['wood'] = val
-
-    def set_stone(self, val):
-        self.data_dict['stone'] = val
-
-    def set_gold(self, val):
-        self.data_dict['gold'] = val
-
-    def set_item_id(self, val):
-        self.data_dict['item_id'] = val
-
-    def set_flash_object(self, val):
-        self.data_dict['flash_object'] = val
-
-    def set_force_research_technology(self, val):
-        self.data_dict['force_research_technology'] = val
-
-    def set_visibility_state(self, val):
-        self.data_dict['visibility_state'] = val
-
-    def set_scroll(self, val):
-        self.data_dict['scroll'] = val
-
-    def set_operation(self, val):
-        self.data_dict['operation'] = val
-
-    def set_object_list_unit_id_2(self, val):
-        self.data_dict['object_list_unit_id_2'] = val
-
-    def set_button_location(self, val):
-        self.data_dict['button_location'] = val
-
-    def set_ai_signal_value(self, val):
-        self.data_dict['ai_signal_value'] = val
-
-    def set_object_attributes(self, val):
-        self.data_dict['object_attributes'] = val
-
-    def set_from_variable(self, val):
-        self.data_dict['from_variable'] = val
-
-    def set_variable_or_timer(self, val):
-        self.data_dict['variable_or_timer'] = val
-
-    def set_facet(self, val):
-        self.data_dict['facet'] = val
-
-    def set_play_sound(self, val):
-        self.data_dict['play_sound'] = val
-
-    def set_message(self, val):
-        self.data_dict['message'] = val
-
-    def set_sound_name(self, val):
-        self.data_dict['sound_name'] = val
-
-    def set_selected_object_id(self, val):
-        self.data_dict['selected_object_id'] = val
+        effects_list.append(EffectStruct(data=data_list))

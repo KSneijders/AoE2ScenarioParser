@@ -15,10 +15,20 @@ class UnitObject(AoE2Object):
                  garrisoned_in_id
                  ):
 
-        super().__init__(locals())
+        self.x = x
+        self.y = y
+        self.z = z
+        self.id_on_map = id_on_map
+        self.unit_id = unit_id
+        self.status = status
+        self.rotation = rotation
+        self.animation_frame = animation_frame
+        self.garrisoned_in_id = garrisoned_in_id
+
+        super().__init__()
 
     @staticmethod
-    def _parse_object(parsed_data, **kwargs):  # Expected {unit=unitStruct}
+    def parse_object(parsed_data, **kwargs):  # Expected {unit=unitStruct}
         unit = kwargs['unit']
 
         return UnitObject(
@@ -34,5 +44,5 @@ class UnitObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):
+    def reconstruct_object(parsed_data, objects, **kwargs):
         pass

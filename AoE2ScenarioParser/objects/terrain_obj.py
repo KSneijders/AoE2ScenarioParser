@@ -6,13 +6,15 @@ class TerrainObject(AoE2Object):
                  terrain_id,
                  elevation
                  ):
+        self.terrain_id = terrain_id
+        self.elevation = elevation
 
-        super().__init__(locals())
+        super().__init__()
 
     @staticmethod
-    def _parse_object(parsed_data, **kwargs):
+    def parse_object(parsed_data, **kwargs):
         pass
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):
+    def reconstruct_object(parsed_data, objects, **kwargs):
         pass

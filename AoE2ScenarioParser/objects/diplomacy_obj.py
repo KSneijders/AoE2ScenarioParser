@@ -6,5 +6,14 @@ class DiplomacyObject(AoE2Object):
                  player_stances
                  ):
 
-        super().__init__(locals())
+        self.player_stances = player_stances
 
+        super().__init__()
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass
