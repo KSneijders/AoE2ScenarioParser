@@ -72,7 +72,7 @@ Now the best part, adding triggers! You can add triggers easily. You can change 
 
 ```python
 trigger = trigger_manager.add_trigger("Trigger :)")
-trigger.set_description("This is a great description!")
+trigger.description = "This is a great description!"
 ```
 
 To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the dataset to figure give the function the right ID. If you're unsure about what parameters are available in every trigger, check the docs of the condition. Click on `conditions.chance` and show the docs (CTRL + Q in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the function `set_amount_or_quantity` to apply the right value.
@@ -81,12 +81,12 @@ The example shows: A trigger with 25% chance of showing a message.
 
 ```python
 condition = trigger.add_condition(conditions.chance)
-condition.set_amount_or_quantity(25)
+condition.amount_or_quantity = 25
 
 effect = trigger.add_effect(effects.display_instructions)
-effect.set_player_source(1)
-effect.set_display_time(11)
-effect.set_message("This message was set using AoE2ScenarioParser!")
+effect.player_source = 1
+effect.display_time = 11
+effect.message = "This message was set using AoE2ScenarioParser!"
 ```
 
 
@@ -156,8 +156,8 @@ trigger = trigger_manager.get_trigger(trigger_id=0)
 trigger = trigger_manager.get_trigger(display_index=0)
 
 # These functions are the same when adding new triggers.
-trigger.set_name("New Trigger Name")
-trigger.set_description("Awesome New Description!")
+trigger.name = "New Trigger Name"
+trigger.description = "Awesome New Description!"
 ```
 
 For removing it basically works the same:
@@ -209,10 +209,10 @@ Of course, you can combine that with `triggers` like so:
 trigger = triggers.add_trigger("Create Man@Arms")
 
 effect = trigger.add_effect(effects.create_object)  # effects dataset
-effect.set_object_list_unit_id(units.man_at_arms)  # units dataset
-effect.set_player_source(1)
-effect.set_location_x(0)
-effect.set_location_y(0)
+effect.object_list_unit_id = units.man_at_arms  # units dataset
+effect.player_source = 1
+effect.location_x = 0
+effect.location_y = 0
 ```
 
 ---
