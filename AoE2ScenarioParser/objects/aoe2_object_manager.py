@@ -1,4 +1,4 @@
-import AoE2ScenarioParser.helper.generator as generator
+from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.data_header_obj import DataHeaderObject
 from AoE2ScenarioParser.objects.diplomacy_obj import DiplomacyObject

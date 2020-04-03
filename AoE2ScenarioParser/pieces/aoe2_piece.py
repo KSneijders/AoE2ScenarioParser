@@ -1,4 +1,4 @@
-import AoE2ScenarioParser.helper.parser as parser
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever import find_retriever
 
