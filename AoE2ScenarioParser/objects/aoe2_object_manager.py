@@ -40,25 +40,25 @@ class AoE2ObjectManager:
     def get_data_header(self):
         return self.objects['DataHeaderObject']
 
-    def get_players(self):
+    def get_player_object(self):
         return self.objects['PlayerObject']
 
-    def get_messages(self):
+    def get_message_object(self):
         return self.objects['MessagesObject']
 
-    def get_diplomacy(self):
+    def get_diplomacy_object(self):
         return self.objects['DiplomacyObject']
 
-    def get_options(self):
+    def get_option_object(self):
         return self.objects['OptionsObject']
 
-    def get_map(self):
+    def get_map_object(self):
         return self.objects['MapObject']
 
-    def get_units(self):
+    def get_unit_object(self):
         return self.objects['UnitsObject']
 
-    def get_triggers(self):
+    def get_trigger_object(self):
         return self.objects['TriggersObject']
 
     def reconstruct(self):

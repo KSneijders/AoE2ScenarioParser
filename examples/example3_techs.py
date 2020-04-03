@@ -1,11 +1,16 @@
 from AoE2ScenarioParser.datasets import conditions, effects
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 
+"""
+These examples are just for show and quickly made because I needed them myself. Eventually there will be proper 
+examples. Don't expect a lot.
+"""
+
 input_path = "..."
 output_path = "..."
 
 scenario = AoE2Scenario(input_path)
-trigger_object = scenario.object_manager.get_triggers()
+trigger_object = scenario.object_manager.get_trigger_object()
 castle_age_trigger = trigger_object.get_trigger(37)
 
 new_techs = [
@@ -35,13 +40,13 @@ for new_trigger in new_techs:
     delay_text = str(int(new_trigger[1] // 1)) + ":" + (seconds if len(seconds) == 2 else "0" + seconds)
 
     trigger = trigger_object.add_trigger(delay_text + " > " + trigger_name)
-    trigger.set_enabled(0)
+    trigger.enabled = 0
 
     condition = trigger.add_condition(conditions.timer)
-    condition.set_timer(delay)
+    condition.timer = delay
 
     effect = trigger.add_effect(effects.research_technology)
-    effect.set_player_source(8)
+    effect.player_source = 8
 
     effect = castle_age_trigger.add_effect(effects.activate_trigger)
-    effect.set_trigger_id(len(trigger_object.data_dict['trigger_data']) - 1)
+    effect.trigger_id = len(trigger_object.data_dict['trigger_data']) - 1

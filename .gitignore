@@ -215,3 +215,5 @@ dmypy.json
 .idea/inspectionProfiles/profiles_settings.xml
 
 resources/maps/
+
+.idea/inspectionProfiles/Project_Default.xml

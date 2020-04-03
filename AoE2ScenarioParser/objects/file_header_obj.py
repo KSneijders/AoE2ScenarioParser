@@ -7,12 +7,25 @@ class FileHeaderObject(AoE2Object):
                  timestamp,
                  instructions,
                  player_count,
-                 # Unknown data 36 bytes
                  creator_name,
-                 # Unknown data 4 bytes
                  ):
 
-        super().__init__(locals())
+        self.version = version
+        self.timestamp = timestamp
+        self.instructions = instructions
+        self.player_count = player_count
+        self.creator_name = creator_name
+
+        super().__init__()
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass
+
 
 # For when turning it back into bytes:
 # import time

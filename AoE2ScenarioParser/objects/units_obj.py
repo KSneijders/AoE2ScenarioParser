@@ -9,7 +9,9 @@ class UnitsObject(AoE2Object):
                  units
                  ):
 
-        super().__init__(locals())
+        self.units = units
+
+        super().__init__()
 
     @staticmethod
     def parse_object(parsed_data, **kwargs):

@@ -7,4 +7,15 @@ class OptionsObject(AoE2Object):
                  all_techs
                  ):
 
-        super().__init__(locals())
+        self.disables = disables
+        self.all_techs = all_techs
+
+        super().__init__()
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass

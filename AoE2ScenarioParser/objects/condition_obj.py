@@ -30,16 +30,37 @@ class ConditionObject(AoE2Object):
                  target_player=-1
                  ):
 
-        super().__init__(locals())
+        self.condition_type = condition_type
+        self.amount_or_quantity = amount_or_quantity
+        self.resource_type_or_tribute_list = resource_type_or_tribute_list
+        self.unit_object = unit_object
+        self.next_object = next_object
+        self.object_list = object_list
+        self.player = player
+        self.technology = technology
+        self.timer = timer
+        self.area_1_x = area_1_x
+        self.area_1_y = area_1_y
+        self.area_2_x = area_2_x
+        self.area_2_y = area_2_y
+        self.object_group = object_group
+        self.object_type = object_type
+        self.ai_signal = ai_signal
+        self.inverted = inverted
+        self.variable = variable
+        self.comparison = comparison
+        self.target_player = target_player
+
+        super().__init__()
 
     def get_content_as_string(self):
         return_string = ""
 
-        for attribute in conditions.attributes[self.data_dict['condition_type']]:
-            if attribute == "condition_type" or self.data_dict[attribute] == [] or self.data_dict[attribute] == "" or \
-                    self.data_dict[attribute] == " " or self.data_dict[attribute] == -1:
+        for attribute in conditions.attributes[self.condition_type]:
+            attr = getattr(self, attribute)
+            if attribute == "condition_type" or attr == [] or attr == "" or attr == " " or attr == -1:
                 continue
-            return_string += "\t\t\t\t" + attribute + ": " + str(self.data_dict[attribute]) + "\n"
+            return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 
         return return_string
 
@@ -63,70 +84,10 @@ class ConditionObject(AoE2Object):
     def reconstruct_object(parsed_data, objects, **kwargs):
         # Expected {condition=condition_obj, conditions=conditionsList}
         condition_obj = kwargs['condition']
-        conditions = kwargs['conditions']
+        conditions_list = kwargs['conditions']
 
-        data_list = list(condition_obj.data_dict.values())
+        data_list = [value for key, value in vars(condition_obj).items()]
         data_list.insert(1, 21)  # Check, (21)
         data_list.insert(10, -1)  # Unknown
         data_list.insert(19, -1)  # Unknown (3)
-        conditions.append(ConditionStruct(data=data_list))
-
-    def set_condition_type(self, val):
-        self.data_dict['condition_type'] = val
-
-    def set_amount_or_quantity(self, val):
-        self.data_dict['amount_or_quantity'] = val
-
-    def set_resource_type_or_tribute_list(self, val):
-        self.data_dict['resource_type_or_tribute_list'] = val
-
-    def set_unit_object(self, val):
-        self.data_dict['unit_object'] = val
-
-    def set_next_object(self, val):
-        self.data_dict['next_object'] = val
-
-    def set_object_list(self, val):
-        self.data_dict['object_list'] = val
-
-    def set_player(self, val):
-        self.data_dict['player'] = val
-
-    def set_technology(self, val):
-        self.data_dict['technology'] = val
-
-    def set_timer(self, val):
-        self.data_dict['timer'] = val
-
-    def set_area_1_x(self, val):
-        self.data_dict['area_1_x'] = val
-
-    def set_area_1_y(self, val):
-        self.data_dict['area_1_y'] = val
-
-    def set_area_2_x(self, val):
-        self.data_dict['area_2_x'] = val
-
-    def set_area_2_y(self, val):
-        self.data_dict['area_2_y'] = val
-
-    def set_object_group(self, val):
-        self.data_dict['object_group'] = val
-
-    def set_object_type(self, val):
-        self.data_dict['object_type'] = val
-
-    def set_ai_signal(self, val):
-        self.data_dict['ai_signal'] = val
-
-    def set_inverted(self, val):
-        self.data_dict['inverted'] = val
-
-    def set_variable(self, val):
-        self.data_dict['variable'] = val
-
-    def set_comparison(self, val):
-        self.data_dict['comparison'] = val
-
-    def set_target_player(self, val):
-        self.data_dict['target_player'] = val
+        conditions_list.append(ConditionStruct(data=data_list))

@@ -63,7 +63,7 @@ scenario = AoE2Scenario(input_path)
 You can retrieve access to the triggers using the object_manager. 
 
 ```python
-trigger_object = scenario.object_manager.get_triggers()
+trigger_manager = scenario.object_manager.get_trigger_manager()
 ```
 
 ---
@@ -73,8 +73,8 @@ trigger_object = scenario.object_manager.get_triggers()
 Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using functions (type "trigger.set_" and the autocomplete will show you a list of options.).  Eventually there will be a API docs. 
 
 ```python
-trigger = trigger_object.add_trigger("Trigger :)")
-trigger.set_description("This is a great description!")
+trigger = trigger_manager.add_trigger("Trigger :)")
+trigger.description = "This is a great description!"
 ```
 
 To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the dataset to figure give the function the right ID. If you're unsure about what parameters are available in every trigger, check the docs of the condition. Click on `conditions.chance` and show the docs (CTRL + Q in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the function `set_amount_or_quantity` to apply the right value.
@@ -83,12 +83,12 @@ The example shows: A trigger with 25% chance of showing a message.
 
 ```python
 condition = trigger.add_condition(conditions.chance)
-condition.set_amount_or_quantity(25)
+condition.amount_or_quantity = 25
 
 effect = trigger.add_effect(effects.display_instructions)
-effect.set_player_source(1)
-effect.set_display_time(11)
-effect.set_message("This message was set using AoE2ScenarioParser!")
+effect.player_source = 1
+effect.display_time = 11
+effect.message = "This message was set using AoE2ScenarioParser!"
 ```
 
 
@@ -104,10 +104,10 @@ There's multiple ways to check out triggers and their contents. When editing or 
 You can use the following function to generate a simple overview of the triggers.
 
 ```python
-trigger_object.get_trigger_overview_as_string()
+trigger_manager.get_summary_as_string()
 
 # This returns the following (As String):
-Trigger Overview:
+Trigger Summary:
 	Init Trigger    [Index: 0, Display: 0]	(conditions: 2,  effects: 1)
 	Spawn Wave 1    [Index: 1, Display: 1]	(conditions: 2,  effects: 7)
 	Spawn Wave 2    [Index: 2, Display: 2]	(conditions: 1,  effects: 7)
@@ -116,10 +116,10 @@ Trigger Overview:
 If you want to know all specifics about a trigger you can use the functions below. 
 
 ```python
-trigger_object.get_trigger_as_string(0)
-trigger_object.get_trigger_as_string_by_display_index(0)
-# Or if you have a trigger as object:
-trigger_object.get_trigger_as_string(trigger.trigger_id)
+trigger_manager.get_trigger_as_string(trigger_id=0)
+trigger_manager.get_trigger_as_string(display_index=0)
+# You can also request the id from a trigger object:
+trigger_manager.get_trigger_as_string(trigger_id=trigger.trigger_id)
 
 # These functions return the following (As String):
 'Init Trigger' [Index: 0, Display: 0]:
@@ -138,9 +138,10 @@ trigger_object.get_trigger_as_string(trigger.trigger_id)
     effects:
         activate_trigger:
             trigger_id: 1
-
-# You can also use the function below to generate the same as above but for all the triggers.
-trigger_object.get_content_as_string()
+```
+You can also use this function to generate the above string but for all triggers at once.
+```python
+trigger_manager.get_content_as_string()
 ```
 
 ---
@@ -151,30 +152,32 @@ When opening a file that already contains triggers you might want to edit or eve
 
 You can edit a trigger like so:
 ```python
-trigger = trigger_object.get_trigger(0)
-# Or:
-trigger = trigger_object.get_trigger_by_display_index(0)
+# Using it's ID
+trigger = trigger_manager.get_trigger(trigger_id=0)
+# Or display index (not both)
+trigger = trigger_manager.get_trigger(display_index=0)
 
 # These functions are the same when adding new triggers.
-trigger.set_name("New Trigger Name")
-trigger.set_description("Awesome New Description!")
+trigger.name = "New Trigger Name"
+trigger.description = "Awesome New Description!"
 ```
 
 For removing it basically works the same:
 ```python
-# Once again remember to save to a different file. Especially when removing (important) triggers.
-trigger_object.delete_trigger(0)
-trigger_object.delete_trigger_by_display_index(0)
+# Once again remember to not save to a different file. Especially when removing (important) triggers.
+trigger_manager.delete_trigger(0)
+trigger_manager.delete_trigger_by_display_index(0)
 ```
 
 ---
 &nbsp;  
 
 ## Datasets (Buildings, Units and Techs)
-The project currently contains 3 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
+The project currently contains 4 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
 - buildings
 - units
 - technologies (techs)
+- terrains (Not very usefull atm)
 
 *Please note*: There are also datasets for `effects` and `conditions` but those are already explained in this document.
 
@@ -208,10 +211,10 @@ Of course, you can combine that with `triggers` like so:
 trigger = triggers.add_trigger("Create Man@Arms")
 
 effect = trigger.add_effect(effects.create_object)  # effects dataset
-effect.set_object_list_unit_id(units.man_at_arms)  # units dataset
-effect.set_player_source(1)
-effect.set_location_x(0)
-effect.set_location_y(0)
+effect.object_list_unit_id = units.man_at_arms  # units dataset
+effect.player_source = 1
+effect.location_x = 0
+effect.location_y = 0
 ```
 
 ---
@@ -223,7 +226,7 @@ When you are done, you can write all your progress to a file like so:
 ```python
 scenario.write_to_file(output_path)
 ```
-Please remember to use a different path than your input file. This way you have a backup file incase you encounter a bug or made a mistake.
+Please remember to use a different path (filename) than your input file. This way you have a backup file incase you encounter a bug.
 
 
 ---

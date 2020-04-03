@@ -16,4 +16,24 @@ class PlayerObject(AoE2Object):
                  pop_limit
                  ):
 
-        super().__init__(locals())
+        self.player_number = player_number
+        self.active = active
+        self.human = human
+        self.civilization = civilization
+        self.gold = gold
+        self.wood = wood
+        self.food = food
+        self.stone = stone
+        self.color = color
+        self.starting_age = starting_age
+        self.pop_limit = pop_limit
+
+        super().__init__()
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass

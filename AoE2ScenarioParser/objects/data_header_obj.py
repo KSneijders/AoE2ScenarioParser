@@ -6,8 +6,10 @@ class DataHeaderObject(AoE2Object):
                  version,
                  filename,
                  ):
+        self.version = version
+        self.filename = filename
 
-        super().__init__(locals())
+        super().__init__()
 
     @staticmethod
     def parse_object(parsed_data, **kwargs):

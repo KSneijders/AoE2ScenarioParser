@@ -523,7 +523,7 @@ attribute_naming_conversion = {
     "selected_object_id": "Selected Object(s) ID",
 }
 
-effect_identifier_conversion = {
+identifier_conversion = {
     0: "none",
     1: "change_diplomacy",
     2: "research_technology",
@@ -580,10 +580,11 @@ effect_identifier_conversion = {
     56: "change_variable",
     57: "clear_timer",
 }
+"""Use this Map to convert the ID of an effect to the corresponding string and the other way around"""
 
 # Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
 attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
-effect_identifier_conversion.update(dict(map(reversed, effect_identifier_conversion.items())))
+identifier_conversion.update(dict(map(reversed, identifier_conversion.items())))
 
 
 empty_attributes = {

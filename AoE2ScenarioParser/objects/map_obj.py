@@ -10,4 +10,19 @@ class MapObject(AoE2Object):
                  terrain
                  ):
 
-        super().__init__(locals())
+        self.map_color_mood = map_color_mood
+        self.collide_and_correct = collide_and_correct
+        self.map_width = map_width
+        self.map_height = map_height
+        self.terrain = terrain
+
+        super().__init__()
+
+    @staticmethod
+    def parse_object(parsed_data, **kwargs):
+        pass
+
+    @staticmethod
+    def reconstruct_object(parsed_data, objects, **kwargs):
+        pass
+

@@ -7,7 +7,7 @@ class UnitObject(AoE2Object):
                  x,
                  y,
                  z,
-                 id_on_map,
+                 reference_id,
                  unit_id,
                  status,
                  rotation,
@@ -15,7 +15,17 @@ class UnitObject(AoE2Object):
                  garrisoned_in_id
                  ):
 
-        super().__init__(locals())
+        self.x = x
+        self.y = y
+        self.z = z
+        self.reference_id = reference_id
+        self.unit_id = unit_id
+        self.status = status
+        self.rotation = rotation
+        self.animation_frame = animation_frame
+        self.garrisoned_in_id = garrisoned_in_id
+
+        super().__init__()
 
     @staticmethod
     def parse_object(parsed_data, **kwargs):  # Expected {unit=unitStruct}
@@ -25,7 +35,7 @@ class UnitObject(AoE2Object):
             x=find_retriever(unit.retrievers, "X position").data,
             y=find_retriever(unit.retrievers, "Y position").data,
             z=find_retriever(unit.retrievers, "Z position").data,
-            id_on_map=find_retriever(unit.retrievers, "ID").data,
+            reference_id=find_retriever(unit.retrievers, "ID").data,
             unit_id=find_retriever(unit.retrievers, "Unit 'constant'").data,
             status=find_retriever(unit.retrievers, "Status").data,
             rotation=find_retriever(unit.retrievers, "Rotation, in radians").data,
