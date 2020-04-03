@@ -217,3 +217,5 @@ dmypy.json
 resources/maps/
 
 .idea/inspectionProfiles/Project_Default.xml
+
+setup.py
