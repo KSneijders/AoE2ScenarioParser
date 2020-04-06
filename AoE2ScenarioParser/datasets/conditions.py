@@ -132,28 +132,28 @@ diplomacy_state = 24
 - inverted
 - target_player"""
 
-attribute_naming_conversion = {
-    "condition_type": "Condition type",
-    "amount_or_quantity": "Amount (Quantity)",
-    "resource_type_or_tribute_list": "Resource Type/Tribute list",
-    "unit_object": "Unit object",
-    "next_object": "Next object",
-    "object_list": "Object list",
-    "player": "Player",
-    "technology": "Technology",
-    "timer": "Timer",
-    "area_1_x": "Area 1 X",
-    "area_1_y": "Area 1 Y",
-    "area_2_x": "Area 2 X",
-    "area_2_y": "Area 2 Y",
-    "object_group": "Object Group",
-    "object_type": "Object Type",
-    "ai_signal": "AI Signal",
-    "inverted": "Inverted",
-    "variable": "Variable",
-    "comparison": "Comparison",
-    "target_player": "Target player",
-}
+# attribute_naming_conversion = {
+#     "condition_type": "Condition type",
+#     "amount_or_quantity": "Amount (Quantity)",
+#     "resource_type_or_tribute_list": "Resource Type/Tribute list",
+#     "unit_object": "Unit object",
+#     "next_object": "Next object",
+#     "object_list": "Object list",
+#     "player": "Player",
+#     "technology": "Technology",
+#     "timer": "Timer",
+#     "area_1_x": "Area 1 X",
+#     "area_1_y": "Area 1 Y",
+#     "area_2_x": "Area 2 X",
+#     "area_2_y": "Area 2 Y",
+#     "object_group": "Object Group",
+#     "object_type": "Object Type",
+#     "ai_signal": "AI Signal",
+#     "inverted": "Inverted",
+#     "variable": "Variable",
+#     "comparison": "Comparison",
+#     "target_player": "Target player",
+# }
 
 identifier_conversion = {
     0: "none",
@@ -183,7 +183,7 @@ identifier_conversion = {
 }
 
 # Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
-attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
+# attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
 identifier_conversion.update(dict(map(reversed, identifier_conversion.items())))
 
 empty_attributes = {

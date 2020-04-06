@@ -68,13 +68,12 @@ class ConditionObject(AoE2Object):
     def parse_object(parsed_data, **kwargs):  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
-        effect_type = find_retriever(condition_struct.retrievers, "Condition type").data
+        effect_type = find_retriever(condition_struct.retrievers, "condition_type").data
         parameters = conditions.attributes.get(effect_type)
 
         parameter_dict = copy.copy(conditions.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(condition_struct.retrievers,
-                                                   conditions.attribute_naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(condition_struct.retrievers, param).data
 
         return ConditionObject(
             **parameter_dict
@@ -87,7 +86,7 @@ class ConditionObject(AoE2Object):
         conditions_list = kwargs['conditions']
 
         data_list = [value for key, value in vars(condition_obj).items()]
-        data_list.insert(1, 21)  # Check, (21)
-        data_list.insert(10, -1)  # Unknown
-        data_list.insert(19, -1)  # Unknown (3)
+        data_list.insert(1, 21)  # static_value_21
+        data_list.insert(10, -1)  # unknown
+        data_list.insert(19, -1)  # unknown_2
         conditions_list.append(ConditionStruct(data=data_list))

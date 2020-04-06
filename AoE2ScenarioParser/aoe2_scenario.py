@@ -152,7 +152,7 @@ class AoE2Scenario:
                         retriever.data != [] and \
                         retriever.data != "" and \
                         retriever.data != " " and \
-                        retriever.name != "Check, (46)":
+                        retriever.name != "static_value_46":
                     if retriever.name == "effect_type":
                         print("],\n" + str(retriever.data) + ": [")
                     # print(retriever)
@@ -170,9 +170,9 @@ class AoE2Scenario:
                         retriever.data != [] and \
                         retriever.data != "" and \
                         retriever.data != " " and \
-                        retriever.name != "Check, (21)":
+                        retriever.name != "static_value_21":
                     # print(retriever)
-                    if retriever.name == "Condition type":
+                    if retriever.name == "condition_type":
                         print("],\n" + str(retriever.data) + ": [")
                     print("\t\"" + str(condition_dataset.attribute_naming_conversion[retriever.name]) + "\",")
         print("]\n")
