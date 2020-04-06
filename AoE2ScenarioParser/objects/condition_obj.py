@@ -71,7 +71,7 @@ class ConditionObject(AoE2Object):
         effect_type = find_retriever(condition_struct.retrievers, "condition_type").data
         parameters = conditions.attributes.get(effect_type)
 
-        parameter_dict = copy.copy(conditions.empty_attributes)
+        parameter_dict = conditions.empty_attributes.copy()
         for param in parameters:
             parameter_dict[param] = find_retriever(condition_struct.retrievers, param).data
 

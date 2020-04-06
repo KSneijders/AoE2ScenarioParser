@@ -23,7 +23,7 @@ class EffectStruct(AoE2Struct):
             Retriever("player_source", DataType("s32")),
             Retriever("player_target", DataType("s32")),
             Retriever("technology", DataType("s32")),
-            Retriever("string_id ID", DataType("s32")),
+            Retriever("string_id", DataType("s32")),
             Retriever("unknown_2", DataType("s32")),
             Retriever("display_time", DataType("s32")),
             Retriever("trigger_id", DataType("s32")),

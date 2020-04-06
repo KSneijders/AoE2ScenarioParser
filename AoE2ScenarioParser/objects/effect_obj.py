@@ -127,7 +127,7 @@ class EffectObject(AoE2Object):
         effect_type = find_retriever(effect_struct.retrievers, "effect_type").data
         parameters = effects.attributes.get(effect_type)
 
-        parameter_dict = copy.copy(effects.empty_attributes)
+        parameter_dict = effects.empty_attributes.copy()
         for param in parameters:
             parameter_dict[param] = find_retriever(effect_struct.retrievers, param).data
 
@@ -141,10 +141,10 @@ class EffectObject(AoE2Object):
         effects_list = kwargs['effects']
 
         data_list = [value for key, value in vars(effect_obj).items()]
-        data_list.insert(1, 46)  # Check, (46)
-        data_list.insert(9, -1)   # Unknown
-        data_list.insert(15, -1)  # Unknown2
-        data_list.insert(43, -1)  # Unknown3
-        data_list.insert(48, -1)  # Unknown4
+        data_list.insert(1, 46)  # static_value_46
+        data_list.insert(9, -1)   # unknown
+        data_list.insert(15, -1)  # unknown_2
+        data_list.insert(43, -1)  # unknown_3
+        data_list.insert(48, -1)  # unknown_4
 
         effects_list.append(EffectStruct(data=data_list))
