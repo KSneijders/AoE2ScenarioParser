@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -108,13 +110,17 @@ class EffectObject(AoE2Object):
         super().__init__()
 
     def get_content_as_string(self):
-        return_string = ""
+        attributes_list = effects.attributes[self.effect_type]
 
-        for attribute in effects.attributes[self.effect_type]:
+        return_string = ""
+        for attribute in attributes_list:
             attr = getattr(self, attribute)
             if attribute == "effect_type" or attr == [] or attr == "" or attr == " " or attr == -1:
                 continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
+
+        if return_string == "":
+            return "\t\t\t\t< no attributes >\n"
 
         return return_string
 

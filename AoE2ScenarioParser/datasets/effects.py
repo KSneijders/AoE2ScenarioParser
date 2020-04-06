@@ -1,4 +1,5 @@
-# All effects and their IDs
+from bidict import bidict
+
 none = 0
 """Attributes for the **none** effect are: \n
 ... none... Just like Conditions... People these days... """
@@ -472,7 +473,7 @@ clear_timer = 57
 """Attributes for the **clear_timer** effect are: \n
 - variable_or_timer"""
 
-identifier_conversion = {
+effect_names = bidict({
     0: "none",
     1: "change_diplomacy",
     2: "research_technology",
@@ -528,13 +529,7 @@ identifier_conversion = {
     53: "modify_resource_by_variable",
     56: "change_variable",
     57: "clear_timer",
-}
-"""Use this Map to convert the ID of an effect to the corresponding string and the other way around"""
-
-# Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
-# attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
-identifier_conversion.update(dict(map(reversed, identifier_conversion.items())))
-
+})
 
 empty_attributes = {
     "effect_type": -1,

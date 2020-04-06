@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -52,9 +54,10 @@ class ConditionObject(AoE2Object):
         super().__init__()
 
     def get_content_as_string(self):
-        return_string = ""
+        attributes_list = conditions.attributes[self.condition_type]
 
-        for attribute in conditions.attributes[self.condition_type]:
+        return_string = ""
+        for attribute in attributes_list:
             attr = getattr(self, attribute)
             if attribute == "condition_type" or attr == [] or attr == "" or attr == " " or attr == -1:
                 continue
@@ -63,7 +66,7 @@ class ConditionObject(AoE2Object):
         return return_string
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {condition=conditionStruct}
+    def parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
         effect_type = find_retriever(condition_struct.retrievers, "condition_type").data

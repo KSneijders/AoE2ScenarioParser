@@ -1,3 +1,5 @@
+from bidict import bidict
+
 none = 0
 """Attributes for the **none**  condition are:\n
 ... It's called none... What parameters do **you** think it has?! ❤ """
@@ -155,7 +157,7 @@ diplomacy_state = 24
 #     "target_player": "Target player",
 # }
 
-identifier_conversion = {
+condition_names = bidict({
     0: "none",
     1: "bring_object_to_area",
     2: "bring_object_to_object",
@@ -180,11 +182,7 @@ identifier_conversion = {
     22: "variable_value",
     23: "object_hp",
     24: "diplomacy_state",
-}
-
-# Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
-# attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
-identifier_conversion.update(dict(map(reversed, identifier_conversion.items())))
+})
 
 empty_attributes = {
     "condition_type": -1,
