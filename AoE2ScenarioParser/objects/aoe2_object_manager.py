@@ -28,6 +28,7 @@ class AoE2ObjectManager:
             "UnitsObject": UnitsObject.parse_object(self.parsed_data),
             "TriggersObject": TriggersObject.parse_object(self.parsed_data)
         }
+        print("Parsing pieces and structs to objects finished successfully.")
 
         # for key in self.objects.keys():
         #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
