@@ -1,5 +1,3 @@
-import copy
-
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
