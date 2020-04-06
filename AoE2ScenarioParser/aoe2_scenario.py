@@ -153,10 +153,10 @@ class AoE2Scenario:
                         retriever.data != "" and \
                         retriever.data != " " and \
                         retriever.name != "Check, (46)":
-                    if retriever.name == "Effect type":
+                    if retriever.name == "effect_type":
                         print("],\n" + str(retriever.data) + ": [")
                     # print(retriever)
-                    print("\t\"" + str(effect_dataset.attribute_naming_conversion[retriever.name]) + "\",")
+                    print("\t\"" + retriever.name + "\",")
         print("]\n")
 
     def _log_condition_dataset(self):

@@ -124,14 +124,12 @@ class EffectObject(AoE2Object):
     def parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
         effect_struct = kwargs['effect']
 
-        effect_type = find_retriever(effect_struct.retrievers, "Effect type").data
+        effect_type = find_retriever(effect_struct.retrievers, "effect_type").data
         parameters = effects.attributes.get(effect_type)
 
         parameter_dict = copy.copy(effects.empty_attributes)
         for param in parameters:
-            parameter_dict[param] = find_retriever(
-                effect_struct.retrievers, effects.attribute_naming_conversion[param]
-            ).data
+            parameter_dict[param] = find_retriever(effect_struct.retrievers, param).data
 
         return EffectObject(
             **parameter_dict

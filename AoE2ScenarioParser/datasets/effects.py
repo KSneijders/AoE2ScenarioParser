@@ -472,57 +472,6 @@ clear_timer = 57
 """Attributes for the **clear_timer** effect are: \n
 - variable_or_timer"""
 
-attribute_naming_conversion = {
-    "effect_type": "Effect type",
-    "ai_script_goal": "AI script goal",
-    "quantity": "Quantity",
-    "aa_armor_or_attack_type": "AA Armor/Attack Type",
-    "aa_quantity": "AA Quantity",
-    "tribute_list": "Tribute List",
-    "diplomacy": "Diplomacy",
-    "number_of_units_selected": "Number of units selected",
-    "object_list_unit_id": "Object list unit ID",
-    "player_source": "Player Source",
-    "player_target": "Player Target",
-    "technology": "Technology",
-    "string_id": "String ID",
-    "display_time": "Display Time (display instructions)",
-    "trigger_id": "Trigger ID (activate/deactivate)",
-    "location_x": "Location X",
-    "location_y": "Location Y",
-    "area_1_x": "Area 1 X",
-    "area_1_y": "Area 1 Y",
-    "area_2_x": "Area 2 X",
-    "area_2_y": "Area 2 Y",
-    "object_group": "Object Group",
-    "object_type": "Object Type",
-    "instruction_panel_position": "Instruction Panel Position",
-    "attack_stance": "Attack Stance",
-    "time_unit": "Time unit (second, minutes, years)",
-    "enabled_or_victory": "Enabled/Victory",
-    "food": "Food",
-    "wood": "Wood",
-    "stone": "Stone",
-    "gold": "Gold",
-    "item_id": "Item ID",
-    "flash_object": "Flash Object",
-    "force_research_technology": "Force Research Technology",
-    "visibility_state": "Visibility State",
-    "scroll": "Scroll (Set view)",
-    "operation": "Operation",
-    "object_list_unit_id_2": "Object list unit ID 2",
-    "button_location": "Button Location",
-    "ai_signal_value": "AI signal Value",
-    "object_attributes": "Object attributes",
-    "from_variable": "From Variable",
-    "variable_or_timer": "Variable/Timer",
-    "facet": "Facet",
-    "play_sound": "Play Sound",
-    "message": "Message",
-    "sound_name": "Sound (event) name",
-    "selected_object_id": "Selected Object(s) ID",
-}
-
 identifier_conversion = {
     0: "none",
     1: "change_diplomacy",
@@ -583,7 +532,7 @@ identifier_conversion = {
 """Use this Map to convert the ID of an effect to the corresponding string and the other way around"""
 
 # Credits: Eti JS @ https://stackoverflow.com/a/58746861/7230293
-attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
+# attribute_naming_conversion.update(dict(map(reversed, attribute_naming_conversion.items())))
 identifier_conversion.update(dict(map(reversed, identifier_conversion.items())))
 
 

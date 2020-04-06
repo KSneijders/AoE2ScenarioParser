@@ -6,62 +6,62 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 class EffectStruct(AoE2Struct):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("Effect type", DataType("s32"), save_as="effect_type"),                               # CONFIRMED
-            Retriever("Check, (46)", DataType("s32")),  # always 0x17, now 0x2e (46)?                       # CONFIRMED
-            Retriever("AI script goal", DataType("s32")),                                                   # CONFIRMED
-            Retriever("AA Quantity", DataType("u8"),
-                      set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),                 # CONFIRMED
-            Retriever("AA Armor/Attack Type", DataType("s24"),
-                      set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),                 # CONFIRMED
-            Retriever("Quantity", DataType("s32"),
-                      set_repeat="1 if {effect_type} != 31 and {effect_type} != 28 else 0"),                # CONFIRMED
-            Retriever("Tribute List", DataType("s32")),                                                     # CONFIRMED
-            Retriever("Diplomacy", DataType("s32")),                                                        # CONFIRMED
-            Retriever("Number of units selected", DataType("s32"), save_as="number_of_units_selected"),     # CONFIRMED
-            Retriever("Unknown", DataType("s32")),                                                          # UNUSED
-            Retriever("Object list unit ID", DataType("s32")),                                              # CONFIRMED
-            Retriever("Player Source", DataType("s32")),                                                    # CONFIRMED
-            Retriever("Player Target", DataType("s32")),                                                    # CONFIRMED
-            Retriever("Technology", DataType("s32")),                                                       # CONFIRMED
-            Retriever("String ID", DataType("s32")),                                                        # CONFIRMED
-            Retriever("Unknown2", DataType("s32")),                                                         # UNUSED
-            Retriever("Display Time (display instructions)", DataType("s32")),                              # CONFIRMED
-            Retriever("Trigger ID (activate/deactivate)", DataType("s32")),                                 # CONFIRMED
-            Retriever("Location X", DataType("s32")),                                                       # CONFIRMED
-            Retriever("Location Y", DataType("s32")),                                                       # CONFIRMED
-            Retriever("Area 1 X", DataType("s32")),                                                         # CONFIRMED
-            Retriever("Area 1 Y", DataType("s32")),                                                         # CONFIRMED
-            Retriever("Area 2 X", DataType("s32")),                                                         # CONFIRMED
-            Retriever("Area 2 Y", DataType("s32")),                                                         # CONFIRMED
-            Retriever("Object Group", DataType("s32")),                                                     # CONFIRMED
-            Retriever("Object Type", DataType("s32")),                                                      # CONFIRMED
-            Retriever("Instruction Panel Position", DataType("s32")),                                       # CONFIRMED
-            Retriever("Attack Stance", DataType("s32")),                                                    # CONFIRMED
-            Retriever("Time unit (second, minutes, years)", DataType("s32")),                               # CONFIRMED
-            Retriever("Enabled/Victory", DataType("s32")),                                                  # CONFIRMED
-            Retriever("Food", DataType("s32")),                                                             # CONFIRMED
-            Retriever("Wood", DataType("s32")),                                                             # CONFIRMED
-            Retriever("Stone", DataType("s32")),                                                            # CONFIRMED
-            Retriever("Gold", DataType("s32")),                                                             # CONFIRMED
-            Retriever("Item ID", DataType("s32")),                                                          # CONFIRMED
-            Retriever("Flash Object", DataType("s32")),                                                     # CONFIRMED
-            Retriever("Force Research Technology", DataType("s32")),                                        # CONFIRMED
-            Retriever("Visibility State", DataType("s32")),                                                 # CONFIRMED
-            Retriever("Scroll (Set view)", DataType("s32")),                                                # CONFIRMED
-            Retriever("Operation", DataType("s32")),                                                        # CONFIRMED
-            Retriever("Object list unit ID 2", DataType("s32")),                                            # CONFIRMED
-            Retriever("Button Location", DataType("s32")),                                                  # CONFIRMED
-            Retriever("AI signal Value", DataType("s32")),                                                  # CONFIRMED
-            Retriever("Unknown3", DataType("s32")),                                                         # UNUSED
-            Retriever("Object attributes", DataType("s32")),                                                # CONFIRMED
-            Retriever("From Variable", DataType("s32")),                                                    # CONFIRMED
-            Retriever("Variable/Timer", DataType("s32")),                                                   # CONFIRMED
-            Retriever("Facet", DataType("s32")),                                                            # CONFIRMED
-            Retriever("Unknown4", DataType("s32")),                                                         # UNUSED
-            Retriever("Play Sound", DataType("s32")),                                                       # CONFIRMED
-            Retriever("Message", DataType("str32")),                                                        # CONFIRMED
-            Retriever("Sound (event) name", DataType("str32")),                                             # CONFIRMED
-            Retriever("Selected Object(s) ID", DataType("s32"), set_repeat="{number_of_units_selected}"),   # CONFIRMED
+            Retriever("effect_type", DataType("s32"), save_as="effect_type"),
+            Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x2e (46)?
+            Retriever("ai_script_goal", DataType("s32")),
+            Retriever("aa_quantity", DataType("u8"),
+                      set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),
+            Retriever("aa_armor_or_attack_type", DataType("s24"),
+                      set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),
+            Retriever("quantity", DataType("s32"),
+                      set_repeat="1 if {effect_type} != 31 and {effect_type} != 28 else 0"),
+            Retriever("tribute_list", DataType("s32")),
+            Retriever("diplomacy", DataType("s32")),
+            Retriever("number_of_units_selected", DataType("s32"), save_as="number_of_units_selected"),
+            Retriever("unknown", DataType("s32")),
+            Retriever("object_list_unit_id", DataType("s32")),
+            Retriever("player_source", DataType("s32")),
+            Retriever("player_target", DataType("s32")),
+            Retriever("technology", DataType("s32")),
+            Retriever("string_id ID", DataType("s32")),
+            Retriever("unknown_2", DataType("s32")),
+            Retriever("display_time", DataType("s32")),
+            Retriever("trigger_id", DataType("s32")),
+            Retriever("location_x", DataType("s32")),
+            Retriever("location_y", DataType("s32")),
+            Retriever("area_1_x", DataType("s32")),
+            Retriever("area_1_y", DataType("s32")),
+            Retriever("area_2_x", DataType("s32")),
+            Retriever("area_2_y", DataType("s32")),
+            Retriever("object_group", DataType("s32")),
+            Retriever("object_type", DataType("s32")),
+            Retriever("instruction_panel_position", DataType("s32")),
+            Retriever("attack_stance", DataType("s32")),
+            Retriever("time_unit", DataType("s32")),
+            Retriever("enabled_or_victory", DataType("s32")),
+            Retriever("food", DataType("s32")),
+            Retriever("wood", DataType("s32")),
+            Retriever("stone", DataType("s32")),
+            Retriever("gold", DataType("s32")),
+            Retriever("item_id", DataType("s32")),
+            Retriever("flash_object", DataType("s32")),
+            Retriever("force_research_technology", DataType("s32")),
+            Retriever("visibility_state", DataType("s32")),
+            Retriever("scroll", DataType("s32")),
+            Retriever("operation", DataType("s32")),
+            Retriever("object_list_unit_id_2", DataType("s32")),
+            Retriever("button_location", DataType("s32")),
+            Retriever("ai_signal_value", DataType("s32")),
+            Retriever("unknown_3", DataType("s32")),
+            Retriever("object_attributes", DataType("s32")),
+            Retriever("from_variable", DataType("s32")),
+            Retriever("variable_or_timer", DataType("s32")),
+            Retriever("facet", DataType("s32")),
+            Retriever("unknown_4", DataType("s32")),
+            Retriever("play_sound", DataType("s32")),
+            Retriever("message", DataType("str32")),
+            Retriever("sound_name", DataType("str32")),
+            Retriever("selected_object_id", DataType("s32"), set_repeat="{number_of_units_selected}"),
         ]
 
         super().__init__("Effect", retrievers, parser_obj, data)
