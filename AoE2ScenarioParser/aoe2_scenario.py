@@ -80,8 +80,21 @@ class AoE2Scenario:
         print("File reading finished successfully.")
 
     def write_byte_structure_to_file(self, filename):
-        for key in self.parsed_header:
-            pass
+        print("\nWriting structure to file...")
+        with open(filename, 'w') as output_file:
+            result = ""
+            for key in self.parsed_header:
+                print("Writing", key + "...")
+                result += self.parsed_header[key].get_byte_structure_as_string()
+                print("Writing", key, "finished successfully.")
+            for key in self.parsed_data:
+                print("Writing", key + "...")
+                result += self.parsed_data[key].get_byte_structure_as_string()
+                print("Writing", key, "finished successfully.")
+
+            output_file.write(result)
+            output_file.close()
+        print("Writing structure to file finished successfully.")
 
     def write_to_file(self, filename):
         self._write_from_structure(filename, write_in_bytes=True)
