@@ -31,12 +31,12 @@ Run the following pip command for installation:v
 
 # Usage
 ## Getting Started
-To start, import the main `AoE2Scnerio` class from the module:
+To start, import the main `AoE2Scenario` class from the module:
 
 ```python
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 ```
-Also import the two datasets for ease of use:
+You can also import datasets for ease of use (more below):
 
 ```python
 from AoE2ScenarioParser.datasets import effects
@@ -44,7 +44,7 @@ from AoE2ScenarioParser.datasets import conditions
 ```
 
 Define the file you will be reading and the path you will be writing to.  
-Note: *Creating folders isn't supported at this time. Please use an excisting folder.*  
+Note: *Creating folders isn't supported at this time. Please use an existing folder.*  
 
 ```python
 # It is recommended to not overwrite your file. This way you can keep a backup!
@@ -68,14 +68,14 @@ trigger_manager = scenario.object_manager.get_trigger_manager()
 &nbsp;  
 
 ## Adding triggers
-Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using functions (type "trigger.set_" and the autocomplete will show you a list of options.).  Eventually there will be a API docs. 
+Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using functions (type "trigger." and the autocomplete will show you a list of options.).  **Eventually**, there will be a API docs. 
 
 ```python
 trigger = trigger_manager.add_trigger("Trigger :)")
 trigger.description = "This is a great description!"
 ```
 
-To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the dataset to figure give the function the right ID. If you're unsure about what parameters are available in every trigger, check the docs of the condition. Click on `conditions.chance` and show the docs (CTRL + Q in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the function `set_amount_or_quantity` to apply the right value.
+To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the dataset to figure give the function the right ID. If you're unsure about what parameters are available in every trigger, check the docs of the condition. Click on `conditions.chance` and show the docs (CTRL + Q in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the attribute `amount_or_quantity` to apply the right value.
 
 The example shows: A trigger with 25% chance of showing a message. 
 
@@ -95,7 +95,7 @@ effect.message = "This message was set using AoE2ScenarioParser!"
 
 ## Viewing triggers
 
-**Tip:** As you know you can change the order of triggers in the in-game editor *(Not possible with this package (yet))*. When using the *view, edit and delete* functionality you can choose to select a trigger by `index` or by `display_index`. `display_index` is the index in which the triggers are shown in the in-game editor. The `index` is the index in which they were created. Both start from 0.
+**Tip:** As you know you can change the order of triggers in the in-game editor *(Not officially supported with this package (yet))*. When using the *view, edit and delete* functionality you can choose to select a trigger by `index` or by `display_index`. `display_index` is the index in which the triggers are shown in the in-game editor. The `index` is the index in which they were created. Both start from 0.
 
 There's multiple ways to check out triggers and their contents. When editing or deleting a trigger you'll need an index. This can be the actual index or the display index.
 
@@ -150,34 +150,31 @@ When opening a file that already contains triggers you might want to edit or eve
 
 You can edit a trigger like so:
 ```python
-# Using it's ID
 trigger = trigger_manager.get_trigger(trigger_id=0)
-# Or display index (not both)
 trigger = trigger_manager.get_trigger(display_index=0)
 
-# These functions are the same when adding new triggers.
 trigger.name = "New Trigger Name"
 trigger.description = "Awesome New Description!"
 ```
 
 For removing it basically works the same:
 ```python
-# Once again remember to not save to a different file. Especially when removing (important) triggers.
-trigger_manager.delete_trigger(0)
-trigger_manager.delete_trigger_by_display_index(0)
+# Remember to save to a different file. Especially when removing triggers.
+trigger_manager.delete_trigger(trigger_id=0)
+trigger_manager.delete_trigger(display_index=0)
 ```
 
 ---
 &nbsp;  
 
-## Datasets (Buildings, Units and Techs)
-The project currently contains 4 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
+## Datasets (Buildings, Units and Techs... etc.)
+The project currently contains 6 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
+- conditions
+- effects
 - buildings
 - units
-- technologies (techs)
+- techs (technologies)
 - terrains (Not very usefull atm)
-
-*Please note*: There are also datasets for `effects` and `conditions` but those are already explained in this document.
 
 You can use them like so:
 ```python
@@ -211,8 +208,8 @@ trigger = triggers.add_trigger("Create Man@Arms")
 effect = trigger.add_effect(effects.create_object)  # effects dataset
 effect.object_list_unit_id = units.man_at_arms  # units dataset
 effect.player_source = 1
-effect.location_x = 0
-effect.location_y = 0
+effect.location_x = 6
+effect.location_y = 9
 ```
 
 ---
