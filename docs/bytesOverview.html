@@ -1382,7 +1382,7 @@
 			<table class="table-striped">
 				<tr>
 					<th style="width: 75px">Type</th>
-					<th style="width: 150px">Repeat</th>
+					<th style="width: 180px">Repeat</th>
 					<th style="width: 300px">Name</th>
 					<th>Description</th>
 				</tr>
@@ -1390,7 +1390,7 @@
 					<td>f64</td>
 					<td>1x</td>
 					<td>Trigger Version</td>
-					<td><code>f64</code> is the same as a Java <code>double</code></td>
+					<td><code>f64</code> == <code>Java double</code></td>
 				</tr>
 				<tr>
 					<td>s8</td>
@@ -1413,6 +1413,24 @@
 				<tr>
 					<td>u32</td>
 					<td><code>number_of_triggers</code></td>
+					<td>Trigger display order</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>1028</td>
+					<td>1x</td>
+					<td>Unknown<tbd></tbd></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>u32</td>
+					<td>1x</td>
+					<td>Number of Changed Variables</td>
+					<td>Save as <code>number_of_changed_vars</code></td>
+				</tr>
+				<tr>
+					<td><a href="#variable-change-struct">VariableChangeStruct</a></td>
+					<td><code>number_of_changed_vars</code></td>
 					<td>Trigger display order</td>
 					<td></td>
 				</tr>
@@ -2021,6 +2039,30 @@
 					<td>s32</td>
 					<td>1x</td>
 					<td>Target player</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="byte-obj struct1" id="variable-change-struct">
+			<h4>VariableChangeStruct</h4>
+			<table class="table-striped">
+				<tr>
+					<th style="width: 75px">Type</th>
+					<th style="width: 175px">Repeat</th>
+					<th style="width: 300px">Name</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>u32</td>
+					<td>1x</td>
+					<td>Variable Identifier</td>
+					<td><code>0</code> to <code>255</code></td>
+				</tr>
+				<tr>
+					<td>str32</td>
+					<td>1x</td>
+					<td>New Variable Name</td>
 					<td></td>
 				</tr>
 			</table>
