@@ -55,14 +55,7 @@ class AoE2Scenario:
             for piece_object in structure:
                 piece = piece_object(self.parser)
                 print("Reading", piece.piece_type + "...")
-
-                try:
-                    piece.set_data_from_generator(structure_generators[index])
-                except StopIteration:
-                    print("ERROR: StopIteration")
-                    print(piece.get_byte_structure_as_string(["Terrain data"]))
-                    exit()
-
+                piece.set_data_from_generator(structure_generators[index])
                 structure_parsed[index][type(piece).__name__] = piece
                 print("Reading", piece.piece_type, "finished successfully.")
 
@@ -188,17 +181,18 @@ class AoE2Scenario:
                     print("\t\"" + retriever.name + "\",")
         print("]\n")
 
-    # def write_from_source(self, datatype, write_in_bytes=True):
+    # def write_from_source(self, filename, datatype, write_in_bytes=True):
     #     """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
-    #     print("File writing from source started with attributes " + datatype + "...")
-    #     file = open("./../debug/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
+    #
+    #     print("\nFile writing from source started with attributes '" + datatype + "'...")
+    #     file = open(filename, "wb" if write_in_bytes else "w")
     #     for t in datatype:
     #         if t == "f":
-    #             file.write(self.file if write_in_bytes else create_readable_hex_string(self.file.hex()))
+    #             file.write(self.file if write_in_bytes else create_textual_hex(self.file.hex()))
     #         elif t == "h":
-    #             file.write(self.file_header if write_in_bytes else create_readable_hex_string(self.file_header.hex()))
+    #             file.write(self.file_header if write_in_bytes else create_textual_hex(self.file_header.hex()))
     #         elif t == "d":
-    #             file.write(self.file_data if write_in_bytes else create_readable_hex_string(self.file_data.hex()))
+    #             file.write(self.file_data if write_in_bytes else create_textual_hex(self.file_data.hex()))
     #     file.close()
     #     print("File writing finished successfully.")
 
