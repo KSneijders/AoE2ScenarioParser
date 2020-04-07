@@ -33,8 +33,6 @@ class AoE2ObjectManager:
         # for key in self.objects.keys():
         #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
 
-        print("Parsing finished successfully.")
-
     def get_file_header(self):
         return self.objects['FileHeaderObject']
 
