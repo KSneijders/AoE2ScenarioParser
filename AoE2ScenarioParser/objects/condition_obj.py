@@ -1,4 +1,4 @@
-import copy
+from __future__ import annotations
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -54,9 +54,10 @@ class ConditionObject(AoE2Object):
         super().__init__()
 
     def get_content_as_string(self):
-        return_string = ""
+        attributes_list = conditions.attributes[self.condition_type]
 
-        for attribute in conditions.attributes[self.condition_type]:
+        return_string = ""
+        for attribute in attributes_list:
             attr = getattr(self, attribute)
             if attribute == "condition_type" or attr == [] or attr == "" or attr == " " or attr == -1:
                 continue
@@ -65,16 +66,15 @@ class ConditionObject(AoE2Object):
         return return_string
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {condition=conditionStruct}
+    def parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
-        effect_type = find_retriever(condition_struct.retrievers, "Condition type").data
+        effect_type = find_retriever(condition_struct.retrievers, "condition_type").data
         parameters = conditions.attributes.get(effect_type)
 
-        parameter_dict = copy.copy(conditions.empty_attributes)
+        parameter_dict = conditions.empty_attributes.copy()
         for param in parameters:
-            parameter_dict[param] = find_retriever(condition_struct.retrievers,
-                                                   conditions.attribute_naming_conversion[param]).data
+            parameter_dict[param] = find_retriever(condition_struct.retrievers, param).data
 
         return ConditionObject(
             **parameter_dict
@@ -87,7 +87,7 @@ class ConditionObject(AoE2Object):
         conditions_list = kwargs['conditions']
 
         data_list = [value for key, value in vars(condition_obj).items()]
-        data_list.insert(1, 21)  # Check, (21)
-        data_list.insert(10, -1)  # Unknown
-        data_list.insert(19, -1)  # Unknown (3)
+        data_list.insert(1, 21)  # static_value_21
+        data_list.insert(10, -1)  # unknown
+        data_list.insert(19, -1)  # unknown_2
         conditions_list.append(ConditionStruct(data=data_list))

@@ -1,4 +1,4 @@
-import AoE2ScenarioParser.helper.generator as generator
+from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.data_header_obj import DataHeaderObject
 from AoE2ScenarioParser.objects.diplomacy_obj import DiplomacyObject
@@ -28,11 +28,10 @@ class AoE2ObjectManager:
             "UnitsObject": UnitsObject.parse_object(self.parsed_data),
             "TriggersObject": TriggersObject.parse_object(self.parsed_data)
         }
+        print("Parsing pieces and structs to objects finished successfully.")
 
         # for key in self.objects.keys():
         #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
-
-        print("Parsing finished successfully.")
 
     def get_file_header(self):
         return self.objects['FileHeaderObject']

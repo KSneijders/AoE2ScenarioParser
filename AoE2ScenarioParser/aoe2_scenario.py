@@ -1,9 +1,9 @@
 import zlib
 import collections
 
-import AoE2ScenarioParser.helper.generator as generator
-import AoE2ScenarioParser.helper.parser as parser
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
+from AoE2ScenarioParser.helper import generator
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.helper import create_textual_hex
 from AoE2ScenarioParser.helper.retriever import Retriever, find_retriever
@@ -55,14 +55,7 @@ class AoE2Scenario:
             for piece_object in structure:
                 piece = piece_object(self.parser)
                 print("Reading", piece.piece_type + "...")
-
-                try:
-                    piece.set_data_from_generator(structure_generators[index])
-                except StopIteration:
-                    print("ERROR: StopIteration")
-                    print(piece.get_byte_structure_as_string(["Terrain data"]))
-                    exit()
-
+                piece.set_data_from_generator(structure_generators[index])
                 structure_parsed[index][type(piece).__name__] = piece
                 print("Reading", piece.piece_type, "finished successfully.")
 
@@ -80,8 +73,21 @@ class AoE2Scenario:
         print("File reading finished successfully.")
 
     def write_byte_structure_to_file(self, filename):
-        for key in self.parsed_header:
-            pass
+        print("\nWriting structure to file...")
+        with open(filename, 'w') as output_file:
+            result = ""
+            for key in self.parsed_header:
+                print("Writing", key + "...")
+                result += self.parsed_header[key].get_byte_structure_as_string()
+                print("Writing", key, "finished successfully.")
+            for key in self.parsed_data:
+                print("Writing", key + "...")
+                result += self.parsed_data[key].get_byte_structure_as_string()
+                print("Writing", key, "finished successfully.")
+
+            output_file.write(result)
+            output_file.close()
+        print("Writing structure to file finished successfully.")
 
     def write_to_file(self, filename):
         self._write_from_structure(filename, write_in_bytes=True)
@@ -152,11 +158,10 @@ class AoE2Scenario:
                         retriever.data != [] and \
                         retriever.data != "" and \
                         retriever.data != " " and \
-                        retriever.name != "Check, (46)":
-                    if retriever.name == "Effect type":
+                        retriever.name != "static_value_46":
+                    if retriever.name == "effect_type":
                         print("],\n" + str(retriever.data) + ": [")
-                    # print(retriever)
-                    print("\t\"" + str(effect_dataset.attribute_naming_conversion[retriever.name]) + "\",")
+                    print("\t\"" + retriever.name + "\",")
         print("]\n")
 
     def _log_condition_dataset(self):
@@ -170,24 +175,24 @@ class AoE2Scenario:
                         retriever.data != [] and \
                         retriever.data != "" and \
                         retriever.data != " " and \
-                        retriever.name != "Check, (21)":
-                    # print(retriever)
-                    if retriever.name == "Condition type":
+                        retriever.name != "static_value_21":
+                    if retriever.name == "condition_type":
                         print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + str(condition_dataset.attribute_naming_conversion[retriever.name]) + "\",")
+                    print("\t\"" + retriever.name + "\",")
         print("]\n")
 
-    # def write_from_source(self, datatype, write_in_bytes=True):
+    # def write_from_source(self, filename, datatype, write_in_bytes=True):
     #     """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
-    #     print("File writing from source started with attributes " + datatype + "...")
-    #     file = open("./../debug/generated_map_" + datatype + ".aoe2scenario", "wb" if write_in_bytes else "w")
+    #
+    #     print("\nFile writing from source started with attributes '" + datatype + "'...")
+    #     file = open(filename, "wb" if write_in_bytes else "w")
     #     for t in datatype:
     #         if t == "f":
-    #             file.write(self.file if write_in_bytes else create_readable_hex_string(self.file.hex()))
+    #             file.write(self.file if write_in_bytes else create_textual_hex(self.file.hex()))
     #         elif t == "h":
-    #             file.write(self.file_header if write_in_bytes else create_readable_hex_string(self.file_header.hex()))
+    #             file.write(self.file_header if write_in_bytes else create_textual_hex(self.file_header.hex()))
     #         elif t == "d":
-    #             file.write(self.file_data if write_in_bytes else create_readable_hex_string(self.file_data.hex()))
+    #             file.write(self.file_data if write_in_bytes else create_textual_hex(self.file_data.hex()))
     #     file.close()
     #     print("File writing finished successfully.")
 
