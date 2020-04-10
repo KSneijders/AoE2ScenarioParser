@@ -1,5 +1,3 @@
-from typing import List
-
 from AoE2ScenarioParser.datasets import effects, conditions
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
@@ -7,7 +5,6 @@ from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.condition_obj import ConditionObject
 from AoE2ScenarioParser.objects.effect_obj import EffectObject
-from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 
 
@@ -201,24 +198,26 @@ class TriggerObject(AoE2Object):
         helper.update_order_array(
             parser.listify(trigger.condition_order), len(trigger.conditions))
 
-        trigger_data_retriever.data.append(TriggerStruct(data=[
-            trigger.enabled,
-            trigger.looping,
-            trigger.description_stid,
-            trigger.display_as_objective,
-            trigger.description_order,
-            trigger.header,
-            trigger.short_description_stid,
-            trigger.display_on_screen,
-            b'\x00\x00\x00\x00\x00',  # Unknown
-            trigger.mute_objectives,
-            trigger.description,
-            trigger.name,
-            trigger.short_description,
-            len(trigger.effects),
-            effects_list,
-            trigger.effect_order,
-            len(trigger.conditions),
-            conditions_list,
-            trigger.condition_order,
-        ]))
+        trigger_data_retriever.data.append(
+            TriggerStruct(data=[
+                trigger.enabled,
+                trigger.looping,
+                trigger.description_stid,
+                trigger.display_as_objective,
+                trigger.description_order,
+                trigger.header,
+                trigger.short_description_stid,
+                trigger.display_on_screen,
+                b'\x00\x00\x00\x00\x00',  # Unknown
+                trigger.mute_objectives,
+                trigger.description,
+                trigger.name,
+                trigger.short_description,
+                len(trigger.effects),
+                effects_list,
+                trigger.effect_order,
+                len(trigger.conditions),
+                conditions_list,
+                trigger.condition_order,
+            ])
+        )
