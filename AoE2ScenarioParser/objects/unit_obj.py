@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 
 class UnitObject(AoE2Object):
@@ -28,7 +31,7 @@ class UnitObject(AoE2Object):
         super().__init__()
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {unit=unitStruct}
+    def parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct}
         unit = kwargs['unit']
 
         return UnitObject(
