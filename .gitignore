@@ -219,3 +219,5 @@ resources/maps/
 .idea/inspectionProfiles/Project_Default.xml
 
 setup.py
+
+AoE2ScenarioParser/app.py
