@@ -47,5 +47,9 @@ class UnitObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):
-        pass
+    def reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {unit=unit_obj, units=units_list}
+        unit_obj = kwargs['unit']
+        units_list = kwargs['units']
+
+        data_list = [value for key, value in vars(unit_obj).items()]
+        units_list.append(UnitStruct(data=data_list))

@@ -63,6 +63,7 @@ class AoE2ObjectManager:
     def reconstruct(self):
         print("\nReconstructing pieces and structs from objects...")
         TriggersObject.reconstruct_object(self.parsed_data, self.objects)
+        UnitsObject.reconstruct_object(self.parsed_data, self.objects)
         print("Reconstruction finished successfully.")
 
     # ################################################################################################ #
