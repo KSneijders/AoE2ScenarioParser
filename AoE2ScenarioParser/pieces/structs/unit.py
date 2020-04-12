@@ -11,7 +11,7 @@ class UnitStruct(AoE2Struct):
             Retriever("Z position", DataType("f32")),
             Retriever("ID", DataType("u32")),
             Retriever("Unit 'constant'", DataType("u16")),
-            Retriever("Status", DataType("u8"), log_value=True),
+            Retriever("Status", DataType("u8")),
             Retriever("Rotation, in radians", DataType("f32")),
             Retriever("Initial animation frame", DataType("u16")),
             Retriever("Garrisoned in: ID", DataType("s32")),
