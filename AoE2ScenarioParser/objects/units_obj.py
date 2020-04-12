@@ -25,7 +25,7 @@ class UnitsObject(AoE2Object):
         return highest_id
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs) -> UnitsObject:
+    def _parse_object(parsed_data, **kwargs) -> UnitsObject:
         object_piece = parsed_data['UnitsPiece']
         units_per_player = find_retriever(object_piece.retrievers, "Player Units").data
 
@@ -36,7 +36,7 @@ class UnitsObject(AoE2Object):
 
             for unit in units:
                 player_units[player_id].append(
-                    UnitObject.parse_object(parsed_data, unit=unit)
+                    UnitObject._parse_object(parsed_data, unit=unit)
                 )
 
         units_object = UnitsObject(
@@ -46,7 +46,7 @@ class UnitsObject(AoE2Object):
         return units_object
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
+    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
         player_units_retriever = find_retriever(parsed_data['UnitsPiece'].retrievers, "Player Units")
 
         player_units_retriever.data = []
@@ -54,7 +54,7 @@ class UnitsObject(AoE2Object):
 
             units_list = []
             for unit in player_units:
-                UnitObject.reconstruct_object(parsed_data, objects, unit=unit, units=units_list)
+                UnitObject._reconstruct_object(parsed_data, objects, unit=unit, units=units_list)
 
             player_units_retriever.data.append(
                 PlayerUnitsStruct(data=[len(units_list), units_list])

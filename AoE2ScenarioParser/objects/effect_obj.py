@@ -125,7 +125,7 @@ class EffectObject(AoE2Object):
         return return_string
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
+    def _parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
         effect_struct = kwargs['effect']
 
         effect_type = find_retriever(effect_struct.retrievers, "effect_type").data
@@ -140,7 +140,7 @@ class EffectObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
+    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
         effect_obj = kwargs['effect']
         effects_list = kwargs['effects']
 

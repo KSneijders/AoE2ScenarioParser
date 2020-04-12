@@ -7,12 +7,12 @@ class AoE2Object:
 
     @staticmethod
     @abc.abstractmethod
-    def parse_object(parsed_data, **kwargs):
+    def _parse_object(parsed_data, **kwargs):
         pass
 
     @staticmethod
     @abc.abstractmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):
+    def _reconstruct_object(parsed_data, objects, **kwargs):
         pass
 
     def __str__(self):

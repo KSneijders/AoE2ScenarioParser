@@ -31,7 +31,7 @@ class UnitObject(AoE2Object):
         super().__init__()
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct}
+    def _parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct}
         unit = kwargs['unit']
 
         return UnitObject(
@@ -47,7 +47,7 @@ class UnitObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {unit=unit_obj, units=units_list}
+    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {unit=unit_obj, units=units_list}
         unit_obj = kwargs['unit']
         units_list = kwargs['units']
 

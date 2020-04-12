@@ -24,10 +24,10 @@ class AoE2ObjectManager:
         self.parser_header = parser_header
         self.parsed_data = parsed_data
         self._objects = {}
-        self._finished_new_structure = [
-            "UnitsObject",
-            "TriggersObject",
-        ]
+        self._finished_new_structure = {
+            "UnitsObject": UnitsObject,
+            "TriggersObject": TriggersObject,
+        }
         # self._objects = {
         #     # "FileHeaderObject": self._parse_file_header_object(),
         #     # "DataHeaderObject": self._parse_data_header_object(),
@@ -41,9 +41,9 @@ class AoE2ObjectManager:
         # }
         lgr.print("Parsing pieces and structs to objects finished successfully.")
 
-        for key in self._finished_new_structure:
+        for key in self._finished_new_structure.keys():
             lgr.print("\tParsing " + key + "...")
-            self._objects[key] = self._objects[key].parse_object(self.parsed_data)
+            self._objects[key] = self._finished_new_structure[key]._parse_object(self.parsed_data)
             lgr.print("\tParsing " + key + " finished successfully.")
 
     @property
@@ -58,9 +58,9 @@ class AoE2ObjectManager:
         lgr = SimpleLogger(should_log=log_reconstructing)
         lgr.print("\nReconstructing pieces and structs from objects...")
 
-        for key in self._finished_new_structure:
+        for key in self._finished_new_structure.keys():
             lgr.print("\tReconstructing " + key + "...")
-            self._objects[key].reconstruct_object(self.parsed_data, self._objects)
+            self._objects[key]._reconstruct_object(self.parsed_data, self._objects)
             lgr.print("\tReconstructing " + key + " finished successfully.")
 
         lgr.print("Reconstruction finished successfully.")
