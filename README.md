@@ -4,30 +4,43 @@ Definitive Edition** outside of the in-game editor.
 
 
 # Progress
-Current up-to-date progress can be found on the [Trello](https://trello.com/b/7SNm3gXj/aoe2-de-parser) board. 
+Current up-to-date progress can be found on the [Trello] board. 
+
+[Trello]: https://trello.com/b/7SNm3gXj/aoe2-de-parser
 
 ## Features:
-- `aoe2scenario` files
-    - Reading `aoe2scenario` files from AoE2:DE.
-    - Writing to a new `aoe2scenario` file with edited contents.
-- Triggers
-    - View (Specific or all) Triggers, Conditions and Effects.
-    - Adding Triggers, Conditions and Effects.
-    - Editing Triggers. (Only **adding** Conditions and Effects is currently supported)
-    - Deleting Triggers.
+
+|            | View | Add | Edit | Remove |
+|------------|------|-----|------|--------|
+| Triggers   | ✔️   | ✔️ | ✔️   | ✔️    |
+| Conditions | ✔️   | ✔️ | ✔️   |        |
+| Effects    | ✔️   | ✔️ | ✔️   |        |
 
 ## Bugs:
-- None that I know of. Please report any bugs you find to the [github issue board](https://github.com/KSneijders/AoE2ScenarioParser/issues).
+- None that I know of. Please report any bugs you find to the [github issue board].
+
+[github issue board]: https://github.com/KSneijders/AoE2ScenarioParser/issues
 
 ## Support:
-This repository supports the `DE` scenario version:
-- 1.36
-- 1.37 (Game update: [35584](https://www.ageofempires.com/news/aoe2de-update-35584/))
+
+| ScenarioFiles | Read | Write | Reference            |
+|---------------|------|-------|----------------------|
+| 1.36          | ✔️   | ✔️   | -
+| 1.37          | ✔️   | ✔️   | Game update: [35584]
+
+[35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 
 # Installation
-Run the following pip command for installation:v
+Run the following pip command for installation:
 
     pip install AoE2ScenarioParser
+
+
+## Dependencies:
+The project uses [bidict] for bidirectional  mapping.  
+Note: *All these dependencies should install automatically when using the above command.*
+
+[bidict]: https://pypi.org/project/bidict/
 
 # Usage
 ## Getting Started
@@ -199,7 +212,7 @@ buildings.get_building_id_by_string("farm")  # 50
 ```
 Security note:
 ---
-These functions are implented for ease of use. Not security. They use `eval()` and should not be used in any server environment where others have access to the input of these functions. For more information please check out [this Stack Overflow answer](https://stackoverflow.com/a/661128/7230293).
+These functions are implented for ease of use. Not security. They use `eval()` and should not be used in any server environment where others have access to the input of these functions. For more information please check out [this Stack Overflow answer].
 
 Of course, you can combine that with `triggers` like so:
 ```python
@@ -211,6 +224,8 @@ effect.player_source = 1
 effect.location_x = 6
 effect.location_y = 9
 ```
+
+[this Stack Overflow answer]: https://stackoverflow.com/a/661128/7230293
 
 ---
 &nbsp;  
@@ -232,4 +247,6 @@ Please remember to use a different path (filename) than your input file. This wa
 
 # License
 ## Code
-GNU General Public License v3.0: Please see [the LICENSE file](https://github.com/KSneijders/AoE2ScenarioParser/blob/dev/LICENSE).
+GNU General Public License v3.0: Please see the [LICENSE file].
+
+[LICENSE file]: https://github.com/KSneijders/AoE2ScenarioParser/blob/dev/LICENSE
