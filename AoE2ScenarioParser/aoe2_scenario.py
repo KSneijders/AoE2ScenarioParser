@@ -3,7 +3,7 @@ import zlib
 
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.helper import create_textual_hex
+from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
@@ -21,7 +21,7 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 
 class AoE2Scenario:
-    def __init__(self, filename):
+    def __init__(self, filename, log_reading=True, log_parsing=False):
         print("\nLoading file: '" + filename + "'...")
 
         scenario = open(filename, "rb")
@@ -36,11 +36,13 @@ class AoE2Scenario:
         print("File loaded.")
 
         self.parser = parser.Parser()
-        self._read_file()
-        self.object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data)
+        self._read_file(log_progress=log_reading)
+        self.object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
-    def _read_file(self):
-        print("\nFile reading started...")
+    def _read_file(self, log_progress):
+        lgr = SimpleLogger(should_log=log_progress)
+        lgr.print("\nFile reading started...")
+
         self._parsed_header = collections.OrderedDict()
         self._parsed_data = collections.OrderedDict()
         header_generator = self._create_header_generator(1)
@@ -50,19 +52,19 @@ class AoE2Scenario:
             piece = piece_object(self.parser)
             piece_name = type(piece).__name__
 
-            print("\tReading", piece_name + "...")
+            lgr.print("\tReading " + piece_name + "...")
             piece.set_data_from_generator(header_generator)
             self._parsed_header[piece_name] = piece
-            print("\tReading", piece_name, "finished successfully.")
+            lgr.print("\tReading " + piece_name + " finished successfully.")
 
         for piece_object in _file_structure:
             piece = piece_object(self.parser)
             piece_name = type(piece).__name__
 
-            print("\tReading", piece_name + "...")
+            lgr.print("\tReading " + piece_name + "...")
             piece.set_data_from_generator(data_generator)
             self._parsed_data[piece_name] = piece
-            print("\tReading", piece_name, "finished successfully.")
+            lgr.print("\tReading " + piece_name + " finished successfully.")
 
         suffix = b''
         try:
@@ -77,32 +79,35 @@ class AoE2Scenario:
                 pass
             self._suffix = suffix
 
-        print("File reading finished successfully.")
+        lgr.print("File reading finished successfully.")
 
-    def write_to_file(self, filename):
-        self._write_from_structure(filename)
+    def write_to_file(self, filename, log_writing=True, log_reconstructing=False):
+        self._write_from_structure(filename, log_writing=log_writing, log_reconstructing=log_reconstructing)
 
-    def _write_from_structure(self, filename, write_in_bytes=True, compress=True):
-        self.object_manager.reconstruct()
-        print("\nFile writing from structure started...")
+    def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
+                              log_writing=True, log_reconstructing=False):
+        self.object_manager.reconstruct(log_reconstructing=log_reconstructing)
+        lgr = SimpleLogger(should_log=log_writing)
+        lgr.print("\nFile writing from structure started...")
+
         byte_header = b''
         byte_data = b''
 
         for key in self._parsed_header:
-            print("\tReading", key + "...")
+            lgr.print("\tReading " + key + "...")
             for retriever in self._parsed_header[key].retrievers:
                 byte_header += parser.retriever_to_bytes(retriever)
-            print("\tReading", key + " finished successfully.")
+            lgr.print("\tReading " + key + " finished successfully.")
 
         for key in self._parsed_data:
-            print("\tReading", key + "...")
+            lgr.print("\tReading " + key + "...")
             for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
                 except AttributeError:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     exit("\n\n\nAn error occurred. Writing failed.")
-            print("\tReading", key + " finished successfully.")
+            lgr.print("\tReading " + key + " finished successfully.")
 
         file = open(filename, "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
@@ -116,7 +121,7 @@ class AoE2Scenario:
             file.write(byte_data if write_in_bytes else create_textual_hex(byte_data.hex()))
 
         file.close()
-        print("File writing finished successfully.")
+        lgr.print("File writing finished successfully.")
 
     def _create_header_generator(self, chunk_size):
         return generator.create_generator(self._file_header, chunk_size)
