@@ -52,7 +52,7 @@ class AoE2ObjectManager:
 
     @property
     def unit_manager(self) -> UnitsObject:
-        return self._objects['TriggersObject']
+        return self._objects['UnitsObject']
 
     def reconstruct(self, log_reconstructing=False):
         lgr = SimpleLogger(should_log=log_reconstructing)
