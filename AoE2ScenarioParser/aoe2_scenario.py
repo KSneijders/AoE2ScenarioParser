@@ -94,20 +94,20 @@ class AoE2Scenario:
         byte_data = b''
 
         for key in self._parsed_header:
-            lgr.print("\tReading " + key + "...")
+            lgr.print("\twriting " + key + "...")
             for retriever in self._parsed_header[key].retrievers:
                 byte_header += parser.retriever_to_bytes(retriever)
-            lgr.print("\tReading " + key + " finished successfully.")
+            lgr.print("\twriting " + key + " finished successfully.")
 
         for key in self._parsed_data:
-            lgr.print("\tReading " + key + "...")
+            lgr.print("\twriting " + key + "...")
             for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
                 except AttributeError:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     exit("\n\n\nAn error occurred. Writing failed.")
-            lgr.print("\tReading " + key + " finished successfully.")
+            lgr.print("\twriting " + key + " finished successfully.")
 
         file = open(filename, "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
