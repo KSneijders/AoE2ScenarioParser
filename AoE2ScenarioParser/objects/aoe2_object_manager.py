@@ -17,7 +17,7 @@ class AoE2ObjectManager:
         print("\nParsing pieces and structs to objects...")
         self.parser_header = parser_header
         self.parsed_data = parsed_data
-        self.objects = {
+        self._objects = {
             "FileHeaderObject": self._parse_file_header_object(),
             "DataHeaderObject": self._parse_data_header_object(),
             "PlayerObject": self._parse_player_object(),
@@ -33,37 +33,18 @@ class AoE2ObjectManager:
         # for key in self.objects.keys():
         #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
 
-    def get_file_header(self) -> FileHeaderObject:
-        return self.objects['FileHeaderObject']
+    @property
+    def trigger_manager(self) -> TriggersObject:
+        return self._objects['TriggersObject']
 
-    def get_data_header(self) -> DataHeaderObject:
-        return self.objects['DataHeaderObject']
-
-    def get_player_object(self) -> PlayerObject:
-        return self.objects['PlayerObject']
-
-    def get_message_object(self) -> MessagesObject:
-        return self.objects['MessagesObject']
-
-    def get_diplomacy_object(self) -> DiplomacyObject:
-        return self.objects['DiplomacyObject']
-
-    def get_option_object(self) -> OptionsObject:
-        return self.objects['OptionsObject']
-
-    def get_map_object(self) -> MapObject:
-        return self.objects['MapObject']
-
-    def get_unit_object(self) -> UnitsObject:
-        return self.objects['UnitsObject']
-
-    def get_trigger_object(self) -> TriggersObject:
-        return self.objects['TriggersObject']
+    @property
+    def unit_manager(self) -> UnitsObject:
+        return self._objects['TriggersObject']
 
     def reconstruct(self):
         print("\nReconstructing pieces and structs from objects...")
-        TriggersObject.reconstruct_object(self.parsed_data, self.objects)
-        UnitsObject.reconstruct_object(self.parsed_data, self.objects)
+        TriggersObject.reconstruct_object(self.parsed_data, self._objects)
+        UnitsObject.reconstruct_object(self.parsed_data, self._objects)
         print("Reconstruction finished successfully.")
 
     # ################################################################################################ #
