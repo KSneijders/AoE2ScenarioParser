@@ -38,3 +38,12 @@ def add_suffix_chars(string, char, length):
         return string
     else:
         return string + char * (length - len(string))
+
+
+class SimpleLogger:
+    def __init__(self, should_log):
+        self.should_log = should_log
+
+    def print(self, string):
+        if self.should_log:
+            print(string)
