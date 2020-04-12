@@ -23,24 +23,24 @@ class AoE2ObjectManager:
         lgr.print("\nParsing pieces and structs to objects...")
         self.parser_header = parser_header
         self.parsed_data = parsed_data
+        self._objects = {}
         self._finished_new_structure = [
             "UnitsObject",
             "TriggersObject",
         ]
-        self._objects = {
-            # "FileHeaderObject": self._parse_file_header_object(),
-            # "DataHeaderObject": self._parse_data_header_object(),
-            # "PlayerObject": self._parse_player_object(),
-            # "MessagesObject": self._parse_messages_object(),
-            # "DiplomacyObject": self._parse_diplomacy_object(),
-            # "OptionsObject": self._parse_options_object(),
-            # "MapObject": self._parse_map_object(),
-            "UnitsObject": UnitsObject.parse_object(self.parsed_data),
-            "TriggersObject": TriggersObject.parse_object(self.parsed_data)
-        }
+        # self._objects = {
+        #     # "FileHeaderObject": self._parse_file_header_object(),
+        #     # "DataHeaderObject": self._parse_data_header_object(),
+        #     # "PlayerObject": self._parse_player_object(),
+        #     # "MessagesObject": self._parse_messages_object(),
+        #     # "DiplomacyObject": self._parse_diplomacy_object(),
+        #     # "OptionsObject": self._parse_options_object(),
+        #     # "MapObject": self._parse_map_object(),
+        #     "UnitsObject": UnitsObject.parse_object(self.parsed_data),
+        #     "TriggersObject": TriggersObject.parse_object(self.parsed_data)
+        # }
         lgr.print("Parsing pieces and structs to objects finished successfully.")
 
-        # for key in self._objects.keys():
         for key in self._finished_new_structure:
             lgr.print("\tParsing " + key + "...")
             self._objects[key] = self._objects[key].parse_object(self.parsed_data)
@@ -58,7 +58,6 @@ class AoE2ObjectManager:
         lgr = SimpleLogger(should_log=log_reconstructing)
         lgr.print("\nReconstructing pieces and structs from objects...")
 
-        # for key in self._objects.keys():
         for key in self._finished_new_structure:
             lgr.print("\tReconstructing " + key + "...")
             self._objects[key].reconstruct_object(self.parsed_data, self._objects)
