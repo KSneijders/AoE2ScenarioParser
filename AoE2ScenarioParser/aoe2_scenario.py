@@ -25,11 +25,11 @@ class AoE2Scenario:
         print("\nLoading file: '" + filename + "'...")
 
         scenario = open(filename, "rb")
-        self.file = scenario.read()
+        self._file = scenario.read()
         scenario.seek(0)  # Reset file cursor to 0
 
-        self.file_header = scenario.read(self._compute_header_length())
-        self.file_data = zlib.decompress(scenario.read(), -zlib.MAX_WBITS)
+        self._file_header = scenario.read(self._compute_header_length())
+        self._file_data = zlib.decompress(scenario.read(), -zlib.MAX_WBITS)
 
         scenario.close()
 
@@ -37,12 +37,12 @@ class AoE2Scenario:
 
         self.parser = parser.Parser()
         self._read_file()
-        self.object_manager = AoE2ObjectManager(self.parsed_header, self.parsed_data)
+        self.object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data)
 
     def _read_file(self):
         print("\nFile reading started...")
-        self.parsed_header = collections.OrderedDict()
-        self.parsed_data = collections.OrderedDict()
+        self._parsed_header = collections.OrderedDict()
+        self._parsed_data = collections.OrderedDict()
         header_generator = self._create_header_generator(1)
         data_generator = self._create_data_generator(1)
 
@@ -52,7 +52,7 @@ class AoE2Scenario:
 
             print("\tReading", piece_name + "...")
             piece.set_data_from_generator(header_generator)
-            self.parsed_header[piece_name] = piece
+            self._parsed_header[piece_name] = piece
             print("\tReading", piece_name, "finished successfully.")
 
         for piece_object in _file_structure:
@@ -61,7 +61,7 @@ class AoE2Scenario:
 
             print("\tReading", piece_name + "...")
             piece.set_data_from_generator(data_generator)
-            self.parsed_data[piece_name] = piece
+            self._parsed_data[piece_name] = piece
             print("\tReading", piece_name, "finished successfully.")
 
         suffix = b''
@@ -75,7 +75,7 @@ class AoE2Scenario:
             if len(suffix) > 0:
                 # print("Found file suffix! Length: " + str(len(suffix)) + ". Suffix content: '" + str(suffix) + "'.")
                 pass
-            self.suffix = suffix
+            self._suffix = suffix
 
         print("File reading finished successfully.")
 
@@ -88,15 +88,15 @@ class AoE2Scenario:
         byte_header = b''
         byte_data = b''
 
-        for key in self.parsed_header:
+        for key in self._parsed_header:
             print("\tReading", key + "...")
-            for retriever in self.parsed_header[key].retrievers:
+            for retriever in self._parsed_header[key].retrievers:
                 byte_header += parser.retriever_to_bytes(retriever)
             print("\tReading", key + " finished successfully.")
 
-        for key in self.parsed_data:
+        for key in self._parsed_data:
             print("\tReading", key + "...")
-            for retriever in self.parsed_data[key].retrievers:
+            for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
                 except AttributeError:
@@ -110,7 +110,7 @@ class AoE2Scenario:
         if compress:
             # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
             deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-            compressed = deflate_obj.compress(byte_data + self.suffix) + deflate_obj.flush()
+            compressed = deflate_obj.compress(byte_data + self._suffix) + deflate_obj.flush()
             file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
         else:
             file.write(byte_data if write_in_bytes else create_textual_hex(byte_data.hex()))
@@ -119,13 +119,13 @@ class AoE2Scenario:
         print("File writing finished successfully.")
 
     def _create_header_generator(self, chunk_size):
-        return generator.create_generator(self.file_header, chunk_size)
+        return generator.create_generator(self._file_header, chunk_size)
 
     def _create_data_generator(self, chunk_size):
-        return generator.create_generator(self.file_data, chunk_size)
+        return generator.create_generator(self._file_data, chunk_size)
 
     def _create_file_generator(self, chunk_size):
-        return generator.create_generator(self.file, chunk_size)
+        return generator.create_generator(self._file, chunk_size)
 
     def _compute_header_length(self):
         return parser.calculate_length(
@@ -140,16 +140,16 @@ class AoE2Scenario:
     def _debug_log_all_data_keys(self):
         """ Used for debugging. """
         print("FileHeader:")
-        print(self.parsed_header.keys())
+        print(self._parsed_header.keys())
         print("DataHeader:")
         print("odict_keys([")
-        for x in self.parsed_data.keys():
+        for x in self._parsed_data.keys():
             print("\t'" + x + "'")
         print("])")
 
     def _debug_log_effect_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
-        trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
         effects = parser.listify(find_retriever(trigger_data.retrievers, "Effect data").data)
 
         for effect in effects:
@@ -166,7 +166,7 @@ class AoE2Scenario:
 
     def _debug_log_condition_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
-        trigger_data = find_retriever(self.parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
         conditions = parser.listify(find_retriever(trigger_data.retrievers, "Condition data").data)
 
         for condition in conditions:
@@ -187,13 +187,13 @@ class AoE2Scenario:
         print("\nWriting structure to file...")
         with open(filename, 'w') as output_file:
             result = ""
-            for key in self.parsed_header:
+            for key in self._parsed_header:
                 print("Writing", key + "...")
-                result += self.parsed_header[key].get_byte_structure_as_string()
+                result += self._parsed_header[key].get_byte_structure_as_string()
                 print("Writing", key, "finished successfully.")
-            for key in self.parsed_data:
+            for key in self._parsed_data:
                 print("Writing", key + "...")
-                result += self.parsed_data[key].get_byte_structure_as_string()
+                result += self._parsed_data[key].get_byte_structure_as_string()
                 print("Writing", key, "finished successfully.")
 
             output_file.write(result)
