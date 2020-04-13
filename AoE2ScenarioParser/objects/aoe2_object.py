@@ -16,4 +16,4 @@ class AoE2Object:
         pass
 
     def __str__(self):
-        return str(self.__class__.__name__) + ": " + str(locals())
+        return str(self.__class__.__name__) + ": " + str(self.__dict__)
