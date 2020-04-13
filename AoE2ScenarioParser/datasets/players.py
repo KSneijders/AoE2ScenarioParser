@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 
 
@@ -11,13 +13,3 @@ class Player(Enum):
     SIX = 6
     SEVEN = 7
     EIGHT = 8
-
-    BLUE = 1
-    RED = 2
-    GREEN = 3
-    YELLOW = 4
-    VIPER = 4
-    CYAN = 5
-    PURPLE = 6
-    GRAY = 7
-    ORANGE = 8
