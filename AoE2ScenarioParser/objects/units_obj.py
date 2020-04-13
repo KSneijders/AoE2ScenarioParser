@@ -34,7 +34,7 @@ class UnitsObject(AoE2Object):
             rotation: The rotation of the unit.
             garrisoned_in_id: The reference_id of another unit this unit is garrisoned in.
             animation_frame: The animation frame of the unit.
-            status: Unknown (ALWAYS: 2) -> Please let me know if you know what this does
+            status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
         Returns:
