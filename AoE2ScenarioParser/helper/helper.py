@@ -47,3 +47,15 @@ class SimpleLogger:
     def print(self, string):
         if self.should_log:
             print(string)
+
+    def __repr__(self):
+        return f"SimpleLogger[should_log: {self.should_log}]"
+
+
+class Tile:
+    def __init__(self, x: float, y: float):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f"Tile[x: {self.x}, y: {self.y}]"

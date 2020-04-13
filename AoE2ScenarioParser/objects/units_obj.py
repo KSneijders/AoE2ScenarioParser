@@ -4,6 +4,7 @@ from typing import List
 
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import parser
+from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
@@ -58,11 +59,74 @@ class UnitsObject(AoE2Object):
         self.units[player.value].append(unit)
         return unit
 
-    def remove_eye_candy(self):
+    def get_player_units(self, player: Player) -> List[UnitObject]:
+        """
+        Returns a list of UnitObjects for the given player.
+
+        Raises:
+            ValueError: If player is not between 0 (GAIA) and 8 (EIGHT, ORANGE)
+        """
+        if not 0 <= player.value <= 8:
+            raise ValueError("Player must have a value between 0 and 8")
+        return self.units[player.value]
+
+    def get_units_in_tile_area(self, tile1: Tile, tile2: Tile, unit_list: List[UnitObject] = None,
+                               players: List[Player] = None, ignore_players: List[Player] = None):
+        """
+        Returns all units in the square with left corner tile1 and right corner tile2. Both corners inclusive.
+
+        Args:
+            tile1: The X, Y location (as Tile) of the left corner
+            tile2: The X, Y location (as Tile) of the right corner
+            unit_list: (Optional) A list of units (Defaults to all units in the map, including GAIA (Trees etc.)
+            players: (Optional) A list of Players which units need to be selected from the selected area
+            ignore_players: (Optional) A list of Players which units need to be ignored from the selected area
+        """
+        return self.get_units_in_area(tile1.x, tile1.y, tile2.x + 1, tile2.y + 1, unit_list, players,
+                                      ignore_players)
+
+    def get_units_in_area(self, x1: float, y1: float, x2: float, y2: float, unit_list: List[UnitObject] = None,
+                          players: List[Player] = None, ignore_players: List[Player] = None):
+        """
+        Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
+
+        Args:
+            x1: The X location of the left corner
+            y1: The Y location of the left corner
+            x2: The X location of the right corner
+            y2: The Y location of the right corner
+            unit_list: (Optional) A list of units (Defaults to all units in the map, including GAIA (Trees etc.)
+            players: (Optional) A list of Players which units need to be selected from the selected area
+            ignore_players: (Optional) A list of Players which units need to be ignored from the selected area
+
+        :Authors:
+            KSneijders (https://github.com/KSneijders/)
+            T-West (https://github.com/twestura/)
+        """
+        if players is not None and ignore_players is not None:
+            raise ValueError("Cannot use both whitelist and blacklist at the same time")
+
+        if unit_list is None:
+            unit_list = []
+            if players is not None:
+                players = players
+            elif ignore_players is not None:
+                players = [p for p in Player if p not in ignore_players]
+            else:
+                players = [p for p in Player]
+
+            for player in players:
+                unit_list += self.get_player_units(player)
+
+        return [unit for unit in unit_list
+                if x1 <= unit.x <= x2 and y1 <= unit.y <= y2]
+
+    def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
 
-    def change_ownership(self, unit: UnitObject, to_player: int, from_player: int = None, skip_gaia: int = False):
+    def change_ownership(self, unit: UnitObject, to_player: int, from_player: int = None,
+                         skip_gaia: int = False) -> None:
         """
         Changes a unit's ownership to the given player.
 
