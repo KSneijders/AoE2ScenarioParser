@@ -436,12 +436,3 @@ unit_names = bidict({
     1604: "horse_d",
     1606: "horse_e",
 })
-
-def get_unit_id_by_string(tech):
-    """
-    Returns the ID of the given unit. None otherwise.
-    """
-    try:
-        return eval(tech)
-    except NameError:
-        return None
