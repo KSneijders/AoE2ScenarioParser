@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -33,6 +35,7 @@ class UnitObject(AoE2Object):
         self.unit_id = unit_id
         self.status = status
         self.rotation = rotation
+        """Rotation in radians"""
         self.animation_frame = animation_frame
         self.garrisoned_in_id = garrisoned_in_id
 
@@ -41,6 +44,16 @@ class UnitObject(AoE2Object):
     @property
     def player(self):
         return self._player
+
+    @property
+    def rotation(self):
+        return self._rotation
+
+    @rotation.setter
+    def rotation(self, rotation):
+        if not 0.0 <= rotation < math.tau:
+            raise ValueError(f'The Rotation value must be between 0 and tau (excl).')
+        self._rotation = rotation
 
     @property
     def tile(self):
