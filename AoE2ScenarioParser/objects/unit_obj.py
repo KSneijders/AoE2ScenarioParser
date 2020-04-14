@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
@@ -40,6 +41,15 @@ class UnitObject(AoE2Object):
     @property
     def player(self):
         return self._player
+
+    @property
+    def tile(self):
+        return Tile(int(self.x), int(self.y))
+
+    @tile.setter
+    def tile(self, tile: Tile):
+        self.x = tile.x + .5
+        self.y = tile.y + .5
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct, player=Player}
