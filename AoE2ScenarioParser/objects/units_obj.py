@@ -71,6 +71,12 @@ class UnitsObject(AoE2Object):
             raise ValueError("Player must have a value between 0 and 8")
         return self.units[player.value]
 
+    def get_all_units(self) -> List[UnitObject]:
+        units = []
+        for player_units in self.units:
+            units += player_units
+        return units
+
     def get_units_in_tile_area(self, tile1: Tile, tile2: Tile, unit_list: List[UnitObject] = None,
                                players: List[Player] = None, ignore_players: List[Player] = None):
         """
