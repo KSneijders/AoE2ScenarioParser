@@ -37,14 +37,11 @@ class Retriever:
                 return self.name + " (" + self.datatype.to_simple_string() + "): " + str(self.data) + ""
 
     def __str__(self):
-        if self.data is not None:
-            if type(self.data) is list:
-                data = " >>> " + str(helper.pretty_print_list(self.data))
-            else:
-                data = " >>> " + str(self.data)
+        if type(self.data) is list:
+            data = str(helper.pretty_print_list(self.data))
         else:
-            data = ""
-        return "[Retriever] " + self.name + ": " + str(self.datatype) + str(data)
+            data = str(self.data)
+        return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + str(data)
 
 
 def find_retriever(retriever_list, name):
