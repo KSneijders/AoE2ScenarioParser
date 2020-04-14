@@ -45,6 +45,7 @@ class UnitsObject(AoE2Object):
             reference_id = self.get_new_reference_id()
 
         unit = UnitObject(
+            player=player,
             x=x,
             y=y,
             z=z,
@@ -125,7 +126,7 @@ class UnitsObject(AoE2Object):
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
 
-    def change_ownership(self, unit: UnitObject, to_player: int, from_player: int = None,
+    def change_ownership(self, unit: UnitObject, to_player: Player, from_player: Player = None,
                          skip_gaia: int = False) -> None:
         """
         Changes a unit's ownership to the given player.
@@ -145,7 +146,7 @@ class UnitsObject(AoE2Object):
         end = 9
         if from_player is not None:
             start = from_player
-            end = from_player + 1
+            end = from_player.value + 1
         elif skip_gaia:
             start = 1
 
@@ -153,8 +154,9 @@ class UnitsObject(AoE2Object):
             for i, player_unit in enumerate(self.units[player]):
                 if player_unit == unit:
                     del self.units[player][i]
-                    self.units[to_player].append(unit)
-                    break
+                    self.units[to_player.value].append(unit)
+                    unit._player = Player(to_player)
+                    return
 
     def get_new_reference_id(self) -> int:
         highest_id = 0  # If no units, default to 0
@@ -176,7 +178,7 @@ class UnitsObject(AoE2Object):
 
             for unit in units:
                 player_units[player_id].append(
-                    UnitObject._parse_object(parsed_data, unit=unit)
+                    UnitObject._parse_object(parsed_data, unit=unit, player=Player(player_id))
                 )
 
         return UnitsObject(

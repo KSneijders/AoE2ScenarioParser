@@ -7,6 +7,7 @@ from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 class UnitObject(AoE2Object):
     def __init__(self,
+                 player,
                  x,
                  y,
                  z,
@@ -18,6 +19,12 @@ class UnitObject(AoE2Object):
                  garrisoned_in_id
                  ):
 
+        self._player = player
+        """
+        PLEASE NOTE: This is an internal (read-only) value for ease of access. It DOES NOT represent the actual player 
+        controlling the unit. To change which player controls this unit, use:
+            unit_manager.change_ownership(UnitObject, to_player[, from_player, skip_gaia])
+        """
         self.x = x
         self.y = y
         self.z = z
@@ -30,11 +37,16 @@ class UnitObject(AoE2Object):
 
         super().__init__()
 
+    @property
+    def player(self):
+        return self._player
+
     @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct}
+    def _parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct, player=Player}
         unit = kwargs['unit']
 
         return UnitObject(
+            player=kwargs['player'],
             x=find_retriever(unit.retrievers, "X position").data,
             y=find_retriever(unit.retrievers, "Y position").data,
             z=find_retriever(unit.retrievers, "Z position").data,
@@ -52,4 +64,6 @@ class UnitObject(AoE2Object):
         units_list = kwargs['units']
 
         data_list = [value for key, value in vars(unit_obj).items()]
+        del data_list[0]  # Remove player attribute
+
         units_list.append(UnitStruct(data=data_list))
