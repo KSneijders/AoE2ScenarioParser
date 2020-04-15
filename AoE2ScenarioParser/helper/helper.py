@@ -40,6 +40,19 @@ def add_suffix_chars(string, char, length):
         return string + char * (length - len(string))
 
 
+def pretty_print_name(name: str) -> str:
+    """
+    Returns a pretty-printed version of the name string.
+    Replaces all underscores with spaces and capitalizes the first letter
+    of each word.
+    For example, elite_chu_ko_nu -> Elite Chu Ko Nu.
+
+    :Author:
+        T-West (https://github.com/twestura/)
+    """
+    return ' '.join(s[0].upper() + s[1:] for s in name.split('_'))
+
+
 class SimpleLogger:
     def __init__(self, should_log):
         self.should_log = should_log
