@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import math
 
+from AoE2ScenarioParser.datasets import units, buildings
+from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -24,8 +26,10 @@ class UnitObject(AoE2Object):
 
         self._player = player
         """
-        PLEASE NOTE: This is an internal (read-only) value for ease of access. It DOES NOT represent the actual player 
-        controlling the unit. To change which player controls this unit, use:
+        PLEASE NOTE: This is an internal (read-only) value for ease of access. It accurately represent the actual 
+        player controlling the unit but is not directly connected to it. Changing this value will have no impact to your
+        scenario.
+        To change which player controls this unit, use:
             unit_manager.change_ownership(UnitObject, to_player[, from_player, skip_gaia])
         """
         self.x = x
@@ -34,8 +38,8 @@ class UnitObject(AoE2Object):
         self.reference_id = reference_id
         self.unit_id = unit_id
         self.status = status
-        self.rotation = rotation
-        """Rotation in radians"""
+        self.rotation = rotation % math.tau
+        # Mods by tau because the scenario editor seems to place units at radian angles not strictly less than tau.
         self.animation_frame = animation_frame
         self.garrisoned_in_id = garrisoned_in_id
 
@@ -43,6 +47,13 @@ class UnitObject(AoE2Object):
 
     @property
     def player(self):
+        """
+        PLEASE NOTE: This is an internal (read-only) value for ease of access. It DOES accurately represent the actual
+        player controlling the unit BUT IT IS NOT directly connected to it. Changing this value will have no impact to
+        your scenario.
+        To change which player controls this unit, use:
+            unit_manager.change_ownership(UnitObject, to_player[, from_player, skip_gaia])
+        """
         return self._player
 
     @property
@@ -50,8 +61,9 @@ class UnitObject(AoE2Object):
         return self._rotation
 
     @rotation.setter
-    def rotation(self, rotation):
-        if not 0.0 <= rotation < math.tau:
+    def rotation(self, rotation: float) -> None:
+        """Rotation in radians"""
+        if not 0.0 <= rotation <= math.tau:
             raise ValueError(f'The Rotation value must be between 0 and tau (excl).')
         self._rotation = rotation
 
@@ -60,9 +72,16 @@ class UnitObject(AoE2Object):
         return Tile(int(self.x), int(self.y))
 
     @tile.setter
-    def tile(self, tile: Tile):
+    def tile(self, tile: Tile) -> None:
         self.x = tile.x + .5
         self.y = tile.y + .5
+
+    @property
+    def name(self):
+        try:
+            return helper.pretty_print_name(units.unit_names[self.unit_id])
+        except KeyError:  # Object wasn't a unit
+            return helper.pretty_print_name(buildings.building_names[self.unit_id])
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct, player=Player}
