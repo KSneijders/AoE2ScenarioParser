@@ -66,9 +66,9 @@ class SimpleLogger:
 
 
 class Tile:
-    def __init__(self, x: float, y: float):
-        self.x = x
-        self.y = y
+    def __init__(self, x: int, y: int):
+        self.x: float = int(x) + .5
+        self.y: float = int(y) + .5
 
     def __repr__(self):
         return f"Tile[x: {self.x}, y: {self.y}]"

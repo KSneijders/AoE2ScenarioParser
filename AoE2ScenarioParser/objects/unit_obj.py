@@ -69,12 +69,13 @@ class UnitObject(AoE2Object):
 
     @property
     def tile(self):
-        return Tile(int(self.x), int(self.y))
+        return Tile(math.floor(self.x), math.floor(self.y))
+        # Floor x and y as location (0.9, 0.9) is still Tile[x=0, y=0]
 
     @tile.setter
     def tile(self, tile: Tile) -> None:
-        self.x = tile.x + .5
-        self.y = tile.y + .5
+        self.x = tile.x
+        self.y = tile.y
 
     @property
     def name(self):
