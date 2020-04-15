@@ -36,11 +36,11 @@ class AoE2Scenario:
         print("File loaded.")
 
         self.parser = parser.Parser()
-        self._read_file(log_progress=log_reading)
+        self._read_file(log_reading=log_reading)
         self.object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
-    def _read_file(self, log_progress):
-        lgr = SimpleLogger(should_log=log_progress)
+    def _read_file(self, log_reading):
+        lgr = SimpleLogger(should_log=log_reading)
         lgr.print("\nFile reading started...")
 
         self._parsed_header = collections.OrderedDict()

@@ -39,12 +39,13 @@ class AoE2ObjectManager:
         #     "UnitsObject": UnitsObject.parse_object(self.parsed_data),
         #     "TriggersObject": TriggersObject.parse_object(self.parsed_data)
         # }
-        lgr.print("Parsing pieces and structs to objects finished successfully.")
 
         for key in self._finished_new_structure.keys():
             lgr.print("\tParsing " + key + "...")
             self._objects[key] = self._finished_new_structure[key]._parse_object(self.parsed_data)
             lgr.print("\tParsing " + key + " finished successfully.")
+
+        lgr.print("Parsing pieces and structs to objects finished successfully.")
 
     @property
     def trigger_manager(self) -> TriggersObject:
