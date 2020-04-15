@@ -132,37 +132,20 @@ class UnitsObject(AoE2Object):
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
 
-    def change_ownership(self, unit: UnitObject, to_player: Player, from_player: Player = None,
-                         skip_gaia: int = False) -> None:
+    def change_ownership(self, unit: UnitObject, to_player: Player) -> None:
         """
         Changes a unit's ownership to the given player.
 
         Args:
             unit: The unit object which ownership will be changed
-            to_player: The player that'll get ownership over the unit (0: Gaia, 1: P1, ... 8: P8)
-            from_player: (Optional) [Performance Increasement] The player that currently has ownership over the unit.
-                Cannot be used together with skip_gaia.
-            skip_gaia: (Optional) [Performance Increasement] Skip player gaia when searching for the unit. Cannot be
-                used together with from_player.
+            to_player: The player that'll get ownership over the unit (using Player enum)
         """
-        if from_player is not None and skip_gaia:
-            raise ValueError("Can't use from_player and skip_gaia. Use one or the other.")
-
-        start = 0
-        end = 9
-        if from_player is not None:
-            start = from_player
-            end = from_player.value + 1
-        elif skip_gaia:
-            start = 1
-
-        for player in range(start, end):
-            for i, player_unit in enumerate(self.units[player]):
-                if player_unit == unit:
-                    del self.units[player][i]
-                    self.units[to_player.value].append(unit)
-                    unit._player = Player(to_player)
-                    return
+        for i, player_unit in enumerate(self.units[unit.player.value]):
+            if player_unit == unit:
+                del self.units[unit.player.value][i]
+                self.units[to_player.value].append(unit)
+                unit._player = Player(to_player)
+                return
 
     def get_new_reference_id(self) -> int:
         highest_id = 0  # If no units, default to 0
