@@ -37,6 +37,8 @@ Run the following pip command for installation:
 
 
 ## Dependencies:
+This project is made in Python but does not support any versions below **Python 3.6**.
+
 The project uses [bidict] for bidirectional  mapping.  
 Note: *All these dependencies should install automatically when using the above command.*
 
