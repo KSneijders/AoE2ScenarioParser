@@ -77,22 +77,8 @@ class UnitsObject(AoE2Object):
             units += player_units
         return units
 
-    def get_units_in_tile_area(self, tile1: Tile, tile2: Tile, unit_list: List[UnitObject] = None,
-                               players: List[Player] = None, ignore_players: List[Player] = None):
-        """
-        Returns all units in the square with left corner tile1 and right corner tile2. Both corners inclusive.
-
-        Args:
-            tile1: The X, Y location (as Tile) of the left corner
-            tile2: The X, Y location (as Tile) of the right corner
-            unit_list: (Optional) A list of units (Defaults to all units in the map, including GAIA (Trees etc.)
-            players: (Optional) A list of Players which units need to be selected from the selected area
-            ignore_players: (Optional) A list of Players which units need to be ignored from the selected area
-        """
-        return self.get_units_in_area(tile1.x, tile1.y, tile2.x + 1, tile2.y + 1, unit_list, players,
-                                      ignore_players)
-
-    def get_units_in_area(self, x1: float, y1: float, x2: float, y2: float, unit_list: List[UnitObject] = None,
+    def get_units_in_area(self, x1: float = None, y1: float = None, x2: float = None, y2: float = None,
+                          tile1: Tile = None, tile2: Tile = None, unit_list: List[UnitObject] = None,
                           players: List[Player] = None, ignore_players: List[Player] = None):
         """
         Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
@@ -102,14 +88,28 @@ class UnitsObject(AoE2Object):
             y1: The Y location of the left corner
             x2: The X location of the right corner
             y2: The Y location of the right corner
+            tile1: The x,y location of the 1st corner as Tile Object
+            tile2: The x,y location of the 2nd corner as Tile Object
             unit_list: (Optional) A list of units (Defaults to all units in the map, including GAIA (Trees etc.)
             players: (Optional) A list of Players which units need to be selected from the selected area
             ignore_players: (Optional) A list of Players which units need to be ignored from the selected area
+
+        Raises:
+            ValueError: if not all 4 (x1, y1, x2 and y2) are used simultaneously.
+                Or if both (tile1 and tile2) are not used simultaneously.
+                Or if any of the 4 (x1, y1, x2, y2) is used together with any of (tile1, tile2). Use one or the other.
+                Or if players and ignore_players are used simultaneously.
 
         :Authors:
             KSneijders (https://github.com/KSneijders/)
             T-West (https://github.com/twestura/)
         """
+        if not all([x1, y1, x2, y2]) and any([x1, y1, x2, y2]):
+            raise ValueError("Cannot use some but not all from x1,y1,x2,y2.")
+        if not all([tile1, tile2]) and any([tile1, tile2]):
+            raise ValueError("Cannot use one from tile1, tile2. Use both.")
+        if any([x1, y1, x2, y2]) and any([tile1, tile2]):
+            raise ValueError("Cannot use both x1,y1,x2,y2 notation and tile1,tile2 notation at the same time")
         if players is not None and ignore_players is not None:
             raise ValueError("Cannot use both whitelist and blacklist at the same time")
 
