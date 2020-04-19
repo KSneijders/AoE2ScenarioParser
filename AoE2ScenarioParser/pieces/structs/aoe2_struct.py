@@ -17,7 +17,10 @@ class AoE2Struct(aoe2_piece.AoE2Piece):
         return "############ " + self.piece_type + " ############"
 
     def __str__(self):
-        if self.piece_type in ("Terrain", "Unit"):
-            return "."  # Recommended to keep as '.' due to the amount of tiles. (Tiny map = 14400)
-        else:
-            return super().__str__()
+        """ Remove Terrain and EyeCandy Units from the __str__ representation. As it'd mostly be considered spam. """
+        if self.piece_type in ["Terrain"]:
+            return "."  # Recommended to keep as '.' due to the amount of tiles in a map (Tiny map = 14400) or units.
+        elif self.piece_type in ["Unit"]:
+            if self.retrievers[4].data == 1358:  # Eye Candy (eg. Fake plants)
+                return "."
+        return super().__str__()

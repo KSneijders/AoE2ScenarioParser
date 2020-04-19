@@ -175,6 +175,7 @@ def retriever_to_bytes(retriever):
             data = retriever.data[i] if is_list else retriever.data
 
             if data is None:
+                print("No data found in retriever: " + str(retriever))
                 return None
 
             if var_type == "struct":
@@ -194,10 +195,10 @@ def retriever_to_bytes(retriever):
             elif var_type == "str":
                 return_bytes += int_to_bytes(len(data), var_len, endian="little", signed=True)
                 return_bytes += str_to_bytes(data)
-    except AttributeError as e:
-        print("AttributeError occurred in: " + retriever.name +
+    except (AttributeError, TypeError) as e:
+        print("\n" + type(e).__name__ + " occurred in: " + retriever.name +
               "\n\tData: " + repr(retriever.data) + "\n\tDatatype: " + str(retriever.datatype))
-        raise AttributeError(e)
+        raise e
 
     if retriever.log_value:
         print(retriever, "returned", return_bytes)

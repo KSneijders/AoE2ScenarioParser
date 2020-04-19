@@ -66,7 +66,7 @@ class ConditionObject(AoE2Object):
         return return_string
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
+    def _parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
         effect_type = find_retriever(condition_struct.retrievers, "condition_type").data
@@ -81,7 +81,7 @@ class ConditionObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):
+    def _reconstruct_object(parsed_data, objects, **kwargs):
         # Expected {condition=condition_obj, conditions=conditionsList}
         condition_obj = kwargs['condition']
         conditions_list = kwargs['conditions']

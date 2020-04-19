@@ -38,3 +38,69 @@ def add_suffix_chars(string, char, length):
         return string
     else:
         return string + char * (length - len(string))
+
+
+def pretty_print_name(name: str) -> str:
+    """
+    Returns a pretty-printed version of the name string.
+    Replaces all underscores with spaces and capitalizes the first letter
+    of each word.
+    For example, elite_chu_ko_nu -> Elite Chu Ko Nu.
+
+    :Author:
+        T-West (https://github.com/twestura/)
+    """
+    return ' '.join(s[0].upper() + s[1:] for s in name.split('_'))
+
+
+class SimpleLogger:
+    def __init__(self, should_log):
+        self.should_log = should_log
+
+    def print(self, string):
+        if self.should_log:
+            print(string)
+
+    def __repr__(self):
+        return f"SimpleLogger[should_log: {self.should_log}]"
+
+
+class Tile:
+    def __init__(self, x: int, y: int):
+        self.x: float = x
+        self.y: float = y
+
+    def __repr__(self):
+        return f"Tile[x: {self.x}, y: {self.y}]"
+
+    @property
+    def x(self) -> float:
+        return self._x
+
+    @x.setter
+    def x(self, val: int):
+        self._x = int(val) + .5
+
+    @property
+    def y(self) -> float:
+        return self._y
+
+    @y.setter
+    def y(self, val: int):
+        self._y = int(val) + .5
+
+    @property
+    def x1(self) -> int:
+        return int(self.x - .5)
+
+    @property
+    def y1(self) -> int:
+        return int(self.y - .5)
+
+    @property
+    def x2(self) -> int:
+        return int(self.x + .5)
+
+    @property
+    def y2(self) -> int:
+        return int(self.y + .5)

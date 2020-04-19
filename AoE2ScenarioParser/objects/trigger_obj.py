@@ -1,5 +1,3 @@
-from typing import List
-
 from AoE2ScenarioParser.datasets import effects, conditions
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
@@ -7,7 +5,6 @@ from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.condition_obj import ConditionObject
 from AoE2ScenarioParser.objects.effect_obj import EffectObject
-from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 
 
@@ -147,18 +144,18 @@ class TriggerObject(AoE2Object):
         return return_string
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct, trigger_id=id}
+    def _parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct, trigger_id=id}
         trigger = kwargs['trigger']
 
         effects_list = []
         effect_structs = parser.listify(find_retriever(trigger.retrievers, "Effect data").data)
         for effect_struct in effect_structs:
-            effects_list.append(EffectObject.parse_object(parsed_data, effect=effect_struct))
+            effects_list.append(EffectObject._parse_object(parsed_data, effect=effect_struct))
 
         conditions_list = []
         condition_structs = parser.listify(find_retriever(trigger.retrievers, "Condition data").data)
         for condition_struct in condition_structs:
-            conditions_list.append(ConditionObject.parse_object(parsed_data, condition=condition_struct))
+            conditions_list.append(ConditionObject._parse_object(parsed_data, condition=condition_struct))
 
         return TriggerObject(
             name=find_retriever(trigger.retrievers, "Trigger name").data,
@@ -181,44 +178,46 @@ class TriggerObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
+    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         trigger = kwargs['trigger']
 
         effects_list = []
         for effect_obj in trigger.effects:
-            EffectObject.reconstruct_object(parsed_data, objects, effect=effect_obj, effects=effects_list)
+            EffectObject._reconstruct_object(parsed_data, objects, effect=effect_obj, effects=effects_list)
 
         helper.update_order_array(
             parser.listify(trigger.effect_order), len(trigger.effects))
 
         conditions_list = []
         for condition_obj in trigger.conditions:
-            ConditionObject.reconstruct_object(parsed_data, objects,
-                                               condition=condition_obj,
-                                               conditions=conditions_list)
+            ConditionObject._reconstruct_object(parsed_data, objects,
+                                                condition=condition_obj,
+                                                conditions=conditions_list)
 
         helper.update_order_array(
             parser.listify(trigger.condition_order), len(trigger.conditions))
 
-        trigger_data_retriever.data.append(TriggerStruct(data=[
-            trigger.enabled,
-            trigger.looping,
-            trigger.description_stid,
-            trigger.display_as_objective,
-            trigger.description_order,
-            trigger.header,
-            trigger.short_description_stid,
-            trigger.display_on_screen,
-            b'\x00\x00\x00\x00\x00',  # Unknown
-            trigger.mute_objectives,
-            trigger.description,
-            trigger.name,
-            trigger.short_description,
-            len(trigger.effects),
-            effects_list,
-            trigger.effect_order,
-            len(trigger.conditions),
-            conditions_list,
-            trigger.condition_order,
-        ]))
+        trigger_data_retriever.data.append(
+            TriggerStruct(data=[
+                trigger.enabled,
+                trigger.looping,
+                trigger.description_stid,
+                trigger.display_as_objective,
+                trigger.description_order,
+                trigger.header,
+                trigger.short_description_stid,
+                trigger.display_on_screen,
+                b'\x00\x00\x00\x00\x00',  # Unknown
+                trigger.mute_objectives,
+                trigger.description,
+                trigger.name,
+                trigger.short_description,
+                len(trigger.effects),
+                effects_list,
+                trigger.effect_order,
+                len(trigger.conditions),
+                conditions_list,
+                trigger.condition_order,
+            ])
+        )

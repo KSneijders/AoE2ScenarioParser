@@ -12,9 +12,9 @@ class DataHeaderObject(AoE2Object):
         super().__init__()
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):
+    def _parse_object(parsed_data, **kwargs):
         pass
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):
+    def _reconstruct_object(parsed_data, objects, **kwargs):
         pass

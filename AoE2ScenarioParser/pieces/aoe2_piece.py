@@ -145,3 +145,6 @@ class AoE2Piece:
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
 
         return represent
+
+    def __repr__(self):
+        return type(self).__name__

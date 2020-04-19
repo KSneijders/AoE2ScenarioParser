@@ -1,5 +1,6 @@
-from typing import List
+from __future__ import annotations
 
+from typing import List
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -25,14 +26,14 @@ class TriggersObject(AoE2Object):
 
         super().__init__()
 
-    def add_trigger(self, name):
+    def add_trigger(self, name) -> TriggerObject:
         new_trigger = TriggerObject(name=name, trigger_id=len(self.trigger_data))
         self.trigger_data.append(new_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.trigger_data))
         return new_trigger
 
     @staticmethod
-    def parse_object(parsed_data, **kwargs):  # Expected {}
+    def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
         display_order = parser.listify(
             find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data)
         trigger_data = parser.listify(
@@ -40,7 +41,7 @@ class TriggersObject(AoE2Object):
 
         triggers = []
         for index, trigger in enumerate(trigger_data):
-            triggers.append(TriggerObject.parse_object(parsed_data, trigger=trigger, trigger_id=index))
+            triggers.append(TriggerObject._parse_object(parsed_data, trigger=trigger, trigger_id=index))
 
         return TriggersObject(
             trigger_data=triggers,
@@ -48,25 +49,24 @@ class TriggersObject(AoE2Object):
         )
 
     @staticmethod
-    def reconstruct_object(parsed_data, objects, **kwargs):  # Expected {}
+    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
         number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
 
         trigger_data_retriever.data = []
         for trigger in objects["TriggersObject"].trigger_data:
-            TriggerObject.reconstruct_object(parsed_data, objects, trigger=trigger)
+            TriggerObject._reconstruct_object(parsed_data, objects, trigger=trigger)
 
         assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].trigger_data)
         trigger_count = len(trigger_data_retriever.data)
         number_of_triggers_retriever.data = trigger_count
-        # Currently not necessary due to the parser setting repeated equal to list length
+        # Currently not necessary due to the parser changing the 'repeated' value equal to the len(list)
         # trigger_data_retriever.datatype.repeat = trigger_count
         # display_order_retriever.datatype.repeat = trigger_count
-        display_order_retriever.data = parser.listify(display_order_retriever.data)
-        helper.update_order_array(display_order_retriever.data, trigger_count)
+        helper.update_order_array(parser.listify(display_order_retriever.data), trigger_count)
 
-    def get_summary_as_string(self):
+    def get_summary_as_string(self) -> str:
         return_string = "Trigger Summary:\n"
 
         triggers = parser.listify(self.trigger_data)
@@ -91,7 +91,7 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_content_as_string(self):
+    def get_content_as_string(self) -> str:
         return_string = "Triggers:\n"
 
         triggers = parser.listify(self.trigger_data)
@@ -105,7 +105,7 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_id=None, display_index=None):
+    def get_trigger_as_string(self, trigger_id=None, display_index=None) -> str:
         _evaluate_index_params(trigger_id, display_index)
 
         if trigger_id is None:
@@ -134,7 +134,7 @@ class TriggersObject(AoE2Object):
     def get_triggers(self) -> List[TriggerObject]:
         return parser.listify(self.trigger_data)
 
-    def delete_trigger(self, trigger_id=None, display_index=None):
+    def delete_trigger(self, trigger_id=None, display_index=None) -> None:
         _evaluate_index_params(trigger_id, display_index)
 
         if trigger_id is None:
@@ -148,5 +148,5 @@ class TriggersObject(AoE2Object):
         self.trigger_display_order = \
             [x - 1 if x > trigger_id else x for x in self.trigger_display_order]
 
-    def _get_trigger_id_by_display_index(self, display_index):
+    def _get_trigger_id_by_display_index(self, display_index) -> int:
         return self.trigger_display_order[display_index]

@@ -1,4 +1,9 @@
+from __future__ import annotations
+
+from typing import List
+
 from AoE2ScenarioParser.helper import generator
+from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.data_header_obj import DataHeaderObject
 from AoE2ScenarioParser.objects.diplomacy_obj import DiplomacyObject
@@ -13,57 +18,53 @@ from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
 
 class AoE2ObjectManager:
-    def __init__(self, parser_header, parsed_data):
-        print("\nParsing pieces and structs to objects...")
+    def __init__(self, parser_header, parsed_data, log_parsing=True):
+        lgr = SimpleLogger(should_log=log_parsing)
+        lgr.print("\nParsing pieces and structs to objects...")
         self.parser_header = parser_header
         self.parsed_data = parsed_data
-        self.objects = {
-            "FileHeaderObject": self._parse_file_header_object(),
-            "DataHeaderObject": self._parse_data_header_object(),
-            "PlayerObject": self._parse_player_object(),
-            "MessagesObject": self._parse_messages_object(),
-            "DiplomacyObject": self._parse_diplomacy_object(),
-            "OptionsObject": self._parse_options_object(),
-            "MapObject": self._parse_map_object(),
-            "UnitsObject": UnitsObject.parse_object(self.parsed_data),
-            "TriggersObject": TriggersObject.parse_object(self.parsed_data)
+        self._objects = {}
+        self._finished_new_structure = {
+            "UnitsObject": UnitsObject,
+            "TriggersObject": TriggersObject,
         }
-        print("Parsing pieces and structs to objects finished successfully.")
+        # self._objects = {
+        #     # "FileHeaderObject": self._parse_file_header_object(),
+        #     # "DataHeaderObject": self._parse_data_header_object(),
+        #     # "PlayerObject": self._parse_player_object(),
+        #     # "MessagesObject": self._parse_messages_object(),
+        #     # "DiplomacyObject": self._parse_diplomacy_object(),
+        #     # "OptionsObject": self._parse_options_object(),
+        #     # "MapObject": self._parse_map_object(),
+        #     "UnitsObject": UnitsObject.parse_object(self.parsed_data),
+        #     "TriggersObject": TriggersObject.parse_object(self.parsed_data)
+        # }
 
-        # for key in self.objects.keys():
-        #     self.objects[key] = self.objects[key].parse_object(self.parsed_data)
+        for key in self._finished_new_structure.keys():
+            lgr.print("\tParsing " + key + "...")
+            self._objects[key] = self._finished_new_structure[key]._parse_object(self.parsed_data)
+            lgr.print("\tParsing " + key + " finished successfully.")
 
-    def get_file_header(self):
-        return self.objects['FileHeaderObject']
+        lgr.print("Parsing pieces and structs to objects finished successfully.")
 
-    def get_data_header(self):
-        return self.objects['DataHeaderObject']
+    @property
+    def trigger_manager(self) -> TriggersObject:
+        return self._objects['TriggersObject']
 
-    def get_player_object(self):
-        return self.objects['PlayerObject']
+    @property
+    def unit_manager(self) -> UnitsObject:
+        return self._objects['UnitsObject']
 
-    def get_message_object(self):
-        return self.objects['MessagesObject']
+    def reconstruct(self, log_reconstructing=False):
+        lgr = SimpleLogger(should_log=log_reconstructing)
+        lgr.print("\nReconstructing pieces and structs from objects...")
 
-    def get_diplomacy_object(self):
-        return self.objects['DiplomacyObject']
+        for key in self._finished_new_structure.keys():
+            lgr.print("\tReconstructing " + key + "...")
+            self._objects[key]._reconstruct_object(self.parsed_data, self._objects)
+            lgr.print("\tReconstructing " + key + " finished successfully.")
 
-    def get_option_object(self):
-        return self.objects['OptionsObject']
-
-    def get_map_object(self):
-        return self.objects['MapObject']
-
-    def get_unit_object(self):
-        return self.objects['UnitsObject']
-
-    def get_trigger_object(self):
-        return self.objects['TriggersObject']
-
-    def reconstruct(self):
-        print("\nReconstructing pieces and structs based on objects...")
-        TriggersObject.reconstruct_object(self.parsed_data, self.objects)
-        print("Reconstruction finished successfully.")
+        lgr.print("Reconstruction finished successfully.")
 
     # ################################################################################################ #
     #                           Todo: Move these functions to their objects.
@@ -76,6 +77,10 @@ class AoE2ObjectManager:
         terrain_list = find_retriever(object_piece.retrievers, "Terrain data").data
         # AoE2 in Game map: Left to top = X. Left to bottom = Y. Tiny map top = [X:199,Y:0]
         terrain_2d = []
+        """
+        Debating to support only Py3.6+. Until then, this'll be a comment.
+        >> terrain_2d: List[List[TerrainObject]] = []
+        """
 
         for i in range(0, map_width * map_height):
             to = TerrainObject(
@@ -186,7 +191,7 @@ class AoE2ObjectManager:
         for player_id in range(0, 9):  # 0-7 Players & 8 Gaia:
             try:  # If gaia isn't saved. (PlayerDataThree and PlayerDataFour)
                 pop_limit = find_retriever(player_data_four[player_id].retrievers, "Population limit").data
-            except IndexError as e:
+            except IndexError:
                 pop_limit = -1
 
             players.append(PlayerObject(
@@ -225,4 +230,3 @@ class AoE2ObjectManager:
             player_count=find_retriever(retrievers, "Player count").data,
             creator_name=find_retriever(retrievers, "Creator name").data,
         )
-

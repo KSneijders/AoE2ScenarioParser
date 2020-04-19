@@ -12,6 +12,7 @@ class UnitStruct(AoE2Struct):
             Retriever("ID", DataType("u32")),
             Retriever("Unit 'constant'", DataType("u16")),
             Retriever("Status", DataType("u8")),
+            # Status, Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             Retriever("Rotation, in radians", DataType("f32")),
             Retriever("Initial animation frame", DataType("u16")),
             Retriever("Garrisoned in: ID", DataType("s32")),
