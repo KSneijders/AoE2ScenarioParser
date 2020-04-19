@@ -20,7 +20,7 @@ class UnitsObject(AoE2Object):
 
         super().__init__()
 
-    def add_unit(self, player: Player, unit_id: int, x: int, y: int, z: int = 0, rotation: int = 0,
+    def add_unit(self, player: Player, unit_id: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
                  reference_id: int = None, ) -> UnitObject:
         """
