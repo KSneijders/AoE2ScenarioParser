@@ -35,7 +35,6 @@ Run the following pip command for installation:
 
     pip install AoE2ScenarioParser
 
-
 ## Dependencies:
 This project is made in Python but does not support any versions below **Python 3.6**.
 
@@ -51,12 +50,6 @@ To start, import the main `AoE2Scenario` class from the module:
 ```python
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 ```
-You can also import datasets for ease of use (more below):
-
-```python
-from AoE2ScenarioParser.datasets import effects
-from AoE2ScenarioParser.datasets import conditions
-```
 
 Define the file you will be reading and the path you will be writing to.  
 Note: *Creating folders isn't supported at this time. Please use an existing folder.*  
@@ -67,172 +60,23 @@ input_path = "File/Path/To/Your/Input/File"
 output_path = "File/Path/To/Your/Output/File"
 ```
 
-Now create the object with the filename as parameter. 
-
+Now create the `Scenario` object with the filename as parameter. 
 ```python
 scenario = AoE2Scenario(input_path)
 ```
 
-You can retrieve access to the triggers using the object_manager. 
+## Editing a Scenario
+You can edit your scenario in many ways. Not every part of the scenario can be edited with this project yet (without diving into the source code). Below you can find cheatsheets of the parts that are supported. If you'd like to see a 
 
-```python
-trigger_manager = scenario.object_manager.trigger_manager
-```
+- [Triggers cheatsheet](cheatsheets/TRIGGERS.md)
+- [Units cheatsheet](cheatsheets/UNITS.md)
 
----
-&nbsp;  
+Please use the links for a cheatsheet of those parts.  
+As we all now, `AoE2` has a lot of data involved. From `Terrain types` and `Units` to `Effects` and `Conditions`. All this data is impossible to remember. For that reason there are a number of datasets to help you out. You can find the cheatsheet here:
 
-## Adding triggers
-Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using functions (type "trigger." and the autocomplete will show you a list of options.).  **Eventually**, there will be a API docs. 
+- [Datasets cheatsheet](cheatsheets/DATASETS.md)
 
-```python
-trigger = trigger_manager.add_trigger("Trigger :)")
-trigger.description = "This is a great description!"
-```
-
-To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the dataset to figure give the function the right ID. If you're unsure about what parameters are available in every trigger, check the docs of the condition. Click on `conditions.chance` and show the docs (CTRL + Q in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the attribute `amount_or_quantity` to apply the right value.
-
-The example shows: A trigger with 25% chance of showing a message. 
-
-```python
-condition = trigger.add_condition(conditions.chance)
-condition.amount_or_quantity = 25
-
-effect = trigger.add_effect(effects.display_instructions)
-effect.player_source = 1
-effect.display_time = 11
-effect.message = "This message was set using AoE2ScenarioParser!"
-```
-
-
----
-&nbsp;  
-
-## Viewing triggers
-
-**Tip:** As you know you can change the order of triggers in the in-game editor *(Not officially supported with this package (yet))*. When using the *view, edit and delete* functionality you can choose to select a trigger by `index` or by `display_index`. `display_index` is the index in which the triggers are shown in the in-game editor. The `index` is the index in which they were created. Both start from 0.
-
-There's multiple ways to check out triggers and their contents. When editing or deleting a trigger you'll need an index. This can be the actual index or the display index.
-
-You can use the following function to generate a simple overview of the triggers.
-
-```python
-trigger_manager.get_summary_as_string()
-
-# This returns the following (As String):
-Trigger Summary:
-	Init Trigger    [Index: 0, Display: 0]	(conditions: 2,  effects: 1)
-	Spawn Wave 1    [Index: 1, Display: 1]	(conditions: 2,  effects: 7)
-	Spawn Wave 2    [Index: 2, Display: 2]	(conditions: 1,  effects: 7)
-```
-
-If you want to know all specifics about a trigger you can use the functions below. 
-
-```python
-trigger_manager.get_trigger_as_string(trigger_id=0)
-trigger_manager.get_trigger_as_string(display_index=0)
-# You can also request the id from a trigger object:
-trigger_manager.get_trigger_as_string(trigger_id=trigger.trigger_id)
-
-# These functions return the following (As String):
-'Init Trigger' [Index: 0, Display: 0]:
-    enabled: True
-    looping: False
-    description: 'This is the initialisation trigger. '
-    conditions:
-        timer:
-            timer: 5
-            inverted: 0
-        variable_value:
-            amount_or_quantity: 1
-            inverted: 0
-            variable: 0
-            comparison: 0
-    effects:
-        activate_trigger:
-            trigger_id: 1
-```
-You can also use this function to generate the above string but for all triggers at once.
-```python
-trigger_manager.get_content_as_string()
-```
-
----
-&nbsp;  
-
-## Editing or removing triggers
-When opening a file that already contains triggers you might want to edit or even remove said triggers. *Please note that it's not possible to remove specific conditions or effects (yet).*
-
-You can edit a trigger like so:
-```python
-trigger = trigger_manager.get_trigger(trigger_id=0)
-trigger = trigger_manager.get_trigger(display_index=0)
-
-trigger.name = "New Trigger Name"
-trigger.description = "Awesome New Description!"
-```
-
-For removing it basically works the same:
-```python
-# Remember to save to a different file. Especially when removing triggers.
-trigger_manager.delete_trigger(trigger_id=0)
-trigger_manager.delete_trigger(display_index=0)
-```
-
----
-&nbsp;  
-
-## Datasets (Buildings, Units and Techs... etc.)
-The project currently contains 6 datasets. These are currently pretty basic and only contain the in-editor options. The following datasets are included in the project:
-- conditions
-- effects
-- buildings
-- units
-- techs (technologies)
-- terrains (Not very usefull atm)
-
-You can use them like so:
-```python
-from AoE2ScenarioParser.datasets import techs, units, buildings
-
-# Techs
-techs.loom  # 22
-techs.imperial_age  # 103
-# Units
-units.archer  # 4
-units.man_at_arms  # 75
-units.cannon_galleon  # 420
-# Buildings
-buildings.krepost  # 1251
-buildings.wonder  # 276
-```
-You can also use strings to get the IDs
-```python
-techs.get_tech_id_by_string("loom")  # 22
-units.get_unit_id_by_string("man_at_arms")  # 75
-buildings.get_building_id_by_string("farm")  # 50
-```
-Security note:
----
-These functions are implented for ease of use. Not security. They use `eval()` and should not be used in any server environment where others have access to the input of these functions. For more information please check out [this Stack Overflow answer].
-
-Of course, you can combine that with `triggers` like so:
-```python
-trigger = triggers.add_trigger("Create Man@Arms")
-
-effect = trigger.add_effect(effects.create_object)  # effects dataset
-effect.object_list_unit_id = units.man_at_arms  # units dataset
-effect.player_source = 1
-effect.location_x = 6
-effect.location_y = 9
-```
-
-[this Stack Overflow answer]: https://stackoverflow.com/a/661128/7230293
-
----
-&nbsp;  
-
-## Saving
+## Saving the Edited Scenario
 When you are done, you can write all your progress to a file like so:
 
 ```python
