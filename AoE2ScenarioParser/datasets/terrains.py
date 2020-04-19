@@ -86,13 +86,3 @@ water_deep_ocean = 57
 water_green = 95
 water_medium = 23
 water_shallow = 1
-
-
-def get_terrain_id_by_string(terrain):
-    """
-    Returns the ID of the given terrain. None otherwise.
-    """
-    try:
-        return eval(terrain)
-    except NameError:
-        return None
