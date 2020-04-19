@@ -47,21 +47,21 @@ Note: *All these dependencies should install automatically when using the above 
 ## Getting Started
 To start, import the main `AoE2Scenario` class from the module:
 
-```python
+```py
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 ```
 
 Define the file you will be reading and the path you will be writing to.  
 Note: *Creating folders isn't supported at this time. Please use an existing folder.*  
 
-```python
+```py
 # It is recommended to not overwrite your file. This way you can keep a backup!
 input_path = "File/Path/To/Your/Input/File"
 output_path = "File/Path/To/Your/Output/File"
 ```
 
 Now create the `Scenario` object with the filename as parameter. 
-```python
+```py
 scenario = AoE2Scenario(input_path)
 ```
 
@@ -79,7 +79,7 @@ As we all now, `AoE2` has a lot of data involved. From `Terrain types` and `Unit
 ## Saving the Edited Scenario
 When you are done, you can write all your progress to a file like so:
 
-```python
+```py
 scenario.write_to_file(output_path)
 ```
 Please remember to use a different path (filename) than your input file. This way you have a backup file incase you encounter a bug.

@@ -2,16 +2,16 @@
 
 You can retrieve access to the triggers using the object_manager. 
 
-```python
+```py
 trigger_manager = scenario.object_manager.trigger_manager
 ```
 
 ---
 
 ## Adding triggers
-Now the best part, adding triggers! You can add triggers easily. You can change all parts of the trigger using attributes (type "trigger." and the autocomplete will show you a list of options.).  **Eventually**, there will be an API documentation. 
+You can add triggers easily. You can change all parts of the trigger using attributes (type "trigger." and the autocomplete will show you a list of options.).  **Eventually**, there will be an API documentation. 
 
-```python
+```py
 trigger = trigger_manager.add_trigger("Trigger :)")
 trigger.description = "This is a great description!"
 ```
@@ -20,7 +20,7 @@ To add conditions or effects, just call the method `add_condition` and `add_effe
 
 The example shows: A trigger with 25% chance of showing a message. 
 
-```python
+```py
 condition = trigger.add_condition(conditions.chance)  # From conditions dataset
 condition.amount_or_quantity = 25
 
@@ -41,7 +41,7 @@ There's multiple ways to check out triggers and their contents. When editing or 
 
 You can use the following function to generate a simple overview of the triggers.
 
-```python
+```py
 trigger_manager.get_summary_as_string()
 
 # This returns the following (As String):
@@ -53,7 +53,7 @@ Trigger Summary:
 
 If you want to know all specifics about a trigger you can use the functions below. 
 
-```python
+```py
 trigger_manager.get_trigger_as_string(trigger_id=0)
 trigger_manager.get_trigger_as_string(display_index=0)
 # You can also request the id from a trigger object:
@@ -78,7 +78,7 @@ trigger_manager.get_trigger_as_string(trigger_id=trigger.trigger_id)
             trigger_id: 1
 ```
 You can also use this function to generate the above string but for all triggers at once.
-```python
+```py
 trigger_manager.get_content_as_string()
 ```
 
@@ -89,7 +89,7 @@ trigger_manager.get_content_as_string()
 When opening a file that already contains triggers you might want to edit or even remove said triggers. *Please note that it's not possible to remove specific conditions or effects (yet).*
 
 You can edit a trigger like so:
-```python
+```py
 trigger = trigger_manager.get_trigger(trigger_id=0)
 trigger = trigger_manager.get_trigger(display_index=0)
 
@@ -98,7 +98,7 @@ trigger.description = "Awesome New Description!"
 ```
 
 For removing it basically works the same:
-```python
+```py
 # Remember to save to a different file. Especially when removing triggers.
 trigger_manager.delete_trigger(trigger_id=0)
 trigger_manager.delete_trigger(display_index=0)
