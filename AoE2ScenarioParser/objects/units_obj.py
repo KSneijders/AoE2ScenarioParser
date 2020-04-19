@@ -65,7 +65,7 @@ class UnitsObject(AoE2Object):
         Returns a list of UnitObjects for the given player.
 
         Raises:
-            ValueError: If player is not between 0 (GAIA) and 8 (EIGHT, ORANGE)
+            ValueError: If player is not between 0 (GAIA) and 8 (EIGHT)
         """
         if not 0 <= player.value <= 8:
             raise ValueError("Player must have a value between 0 and 8")
@@ -104,29 +104,34 @@ class UnitsObject(AoE2Object):
             KSneijders (https://github.com/KSneijders/)
             T-West (https://github.com/twestura/)
         """
-        if not all([x1, y1, x2, y2]) and any([x1, y1, x2, y2]):
-            raise ValueError("Cannot use some but not all from x1,y1,x2,y2.")
-        if not all([tile1, tile2]) and any([tile1, tile2]):
-            raise ValueError("Cannot use one from tile1, tile2. Use both.")
-        if any([x1, y1, x2, y2]) and any([tile1, tile2]):
+        if (x1 is not None or y1 is not None or x2 is not None or y2 is not None) and any([tile1, tile2]):
             raise ValueError("Cannot use both x1,y1,x2,y2 notation and tile1,tile2 notation at the same time")
+        if (x1 is not None or y1 is not None or x2 is not None or y2 is not None) and \
+                (x1 is None or y1 is None or x2 is None or y2 is None):
+            raise ValueError("Cannot use some but not all from x1,y1,x2,y2.")
+        if (not all([tile1, tile2])) and any([tile1, tile2]):
+            raise ValueError("Cannot use one from tile1, tile2. Use both.")
         if players is not None and ignore_players is not None:
             raise ValueError("Cannot use both whitelist and blacklist at the same time")
 
-        if unit_list is None:
-            unit_list = []
-            if players is not None:
-                players = players
-            elif ignore_players is not None:
-                players = [p for p in Player if p not in ignore_players]
-            else:
-                players = [p for p in Player]
+        if tile1:
+            x1 = tile1.x1
+            y1 = tile1.y1
+            x2 = tile2.x2
+            y2 = tile2.y2
 
-            for player in players:
-                unit_list += self.get_player_units(player)
+        if players is not None:
+            players = players
+        elif ignore_players is not None:
+            players = [p for p in Player if p not in ignore_players]
+        else:
+            players = [p for p in Player]
+
+        if unit_list is None:
+            unit_list = self.get_all_units()
 
         return [unit for unit in unit_list
-                if x1 <= unit.x <= x2 and y1 <= unit.y <= y2]
+                if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
