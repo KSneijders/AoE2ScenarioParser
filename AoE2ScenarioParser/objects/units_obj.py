@@ -50,7 +50,7 @@ class UnitsObject(AoE2Object):
             y=y,
             z=z,
             reference_id=reference_id,
-            unit_id=unit_id,
+            unit_const=unit_id,
             status=status,
             rotation=rotation,
             animation_frame=animation_frame,
