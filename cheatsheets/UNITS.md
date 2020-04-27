@@ -73,7 +73,7 @@ unit = unit_manager.add_unit(player=Player.ONE, unit_id=units.conquistador, x=5,
 unit2 = unit_manager.add_unit(player=Player.TWO, unit_id=units.conquistador, x=1, y=5)
 
 unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[Player.ONE])
-# Selects any unit from the given list that belong to Player 1.
+# Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
 ```
 
 ---
@@ -98,7 +98,7 @@ unit.unit_id = units.man_at_arms    # Units dataset
 ```
 *Note: Do not confuse this with `reference_id` because that's the unique identifier of that specific unit and you can't have duplicates in the reference_id table.*
 
-You also might want to change the ownership of a unit. This might seem easy as there is a `player` attribute within the unit. Unfortunately that value is read-only and only there so you can easily identify the player. To change a units ownership you need the `units_manager`.
+You also might want to change the ownership of a unit. This might seem easy as there is a `player` attribute within the unit. Unfortunately that value is read-only and only there so you can easily identify the player. To change a units ownership you need the `unit_manager`.
 ```py
 unit_manager.change_ownership(unit, Player.THREE)
 ```

@@ -28,6 +28,7 @@ class AoE2ObjectManager:
             "UnitsObject": UnitsObject,
             "TriggersObject": TriggersObject,
         }
+
         # self._objects = {
         #     # "FileHeaderObject": self._parse_file_header_object(),
         #     # "DataHeaderObject": self._parse_data_header_object(),
