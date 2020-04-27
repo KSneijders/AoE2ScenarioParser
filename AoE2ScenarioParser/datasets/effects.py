@@ -45,6 +45,9 @@ activate_trigger = 8
 deactivate_trigger = 9
 """Attributes for the **deactivate_trigger** effect are: \n
 - trigger_id"""
+ai_script_goal = 10
+"""Attributes for the **deactivate_trigger** effect are: \n
+- ai_script_goal"""
 create_object = 11
 """Attributes for the **create_object** effect are: \n
 - object_list_unit_id
@@ -484,6 +487,7 @@ effect_names = bidict({
     7: "lock_gate",
     8: "activate_trigger",
     9: "deactivate_trigger",
+    10: "ai_script_goal",
     11: "create_object",
     12: "task_object",
     13: "declare_victory",
@@ -593,6 +597,10 @@ attributes = {
     8: [
         "effect_type",
         "trigger_id",
+    ],
+    10: [
+        "effect_type",
+        "ai_script_goal",
     ],
     30: [
         "effect_type",

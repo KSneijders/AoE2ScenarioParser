@@ -9,7 +9,7 @@ ID,Effect name (in game),Effect name as var,Condition name (in game),Condition n
 7,Lock Gate,lock_gate,Capture Object,capture_object,,,
 8,Activate Trigger,activate_trigger,Accumulate Attribute,accumulate_attribute,,,
 9,Deactivate Trigger,deactivate_trigger,Research Technology,research_technology,,,
-10,,,Timer,timer,,,
+10,AI Script Goal,ai_script_goal,Timer,timer,,,
 11,Create Object,create_object,Object Selected,object_selected,,,
 12,Task Object,task_object,AI Signal,ai_signal,,,
 13,Declare Victory,declare_victory,Player Defeated,player_defeated,,,
