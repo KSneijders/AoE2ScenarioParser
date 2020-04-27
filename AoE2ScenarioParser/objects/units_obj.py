@@ -158,7 +158,7 @@ class UnitsObject(AoE2Object):
             for unit in self.units[player]:
                 if highest_id < unit.reference_id:
                     highest_id = unit.reference_id
-        return highest_id
+        return highest_id + 1
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitsObject:
