@@ -3,6 +3,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog]
 
+## 0.0.7
+### Added
+
+- The `ai_script_goal` effect
+- The `new_unit_id_to_place` is updated in the reconstructing phase
+
+### Changed
+
+- UnitObject attribute `unit_id` to `unit_const`
+
+### Updated
+
+- `Snow`, `Ice, Navigable`, `Beach, Ice` in Terrain dataset. (Fixed in game)
+
+### Fixed
+
+- `get_new_reference_id()` returns `highest_id + 1` instead of `highest_id`
+
 ## 0.0.6
 ### Added
 
