@@ -183,6 +183,10 @@ class UnitsObject(AoE2Object):
     def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
         player_units_retriever = find_retriever(parsed_data['UnitsPiece'].retrievers, "Player Units")
 
+        # Todo: Move this to DataHeader
+        new_unit_id_retriever = find_retriever(parsed_data['DataHeaderPiece'].retrievers, "Next unit ID to place")
+        new_unit_id_retriever.data = objects['UnitsObject'].get_new_reference_id()
+
         player_units_retriever.data = []
         for player_units in objects['UnitsObject'].units:
 
