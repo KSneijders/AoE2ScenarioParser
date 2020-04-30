@@ -66,7 +66,7 @@ class TriggerObject(AoE2Object):
 
     @name.setter
     def name(self, val):
-        self.__name = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
+        self.__name = (val + ("\x00" if val[-1] != "\x00" else "")) if len(val) > 0 else val
 
     @property
     def description(self):
