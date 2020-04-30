@@ -13,3 +13,14 @@ class Player(Enum):
     SIX = 6
     SEVEN = 7
     EIGHT = 8
+
+
+class PlayerColor(Enum):
+    BLUE = 1
+    RED = 2
+    GREEN = 3
+    YELLOW = 4
+    AQUA = 5
+    PURPLE = 6
+    GREY = 7
+    ORANGE = 8
