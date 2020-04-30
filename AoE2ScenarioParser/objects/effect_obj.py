@@ -109,6 +109,22 @@ class EffectObject(AoE2Object):
 
         super().__init__()
 
+    @property
+    def message(self):
+        return self._message
+
+    @message.setter
+    def message(self, val):
+        self._message = (val + ("\x00" if val[-1] != "\x00" else "")) if len(val) > 0 else val
+
+    @property
+    def sound_name(self):
+        return self._sound_name
+
+    @sound_name.setter
+    def sound_name(self, val):
+        self._sound_name = (val + ("\x00" if val[-1] != "\x00" else "")) if len(val) > 0 else val
+
     def get_content_as_string(self):
         attributes_list = effects.attributes[self.effect_type]
 
