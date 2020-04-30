@@ -85,7 +85,7 @@ class TriggerObject(AoE2Object):
         self.__short_description = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
 
     def add_effect(self, effect_type):
-        new_effect = EffectObject(effect_type)
+        new_effect = EffectObject(**effects.default_attributes[effect_type])
         self.effects.append(new_effect)
         helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
