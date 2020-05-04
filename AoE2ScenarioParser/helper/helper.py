@@ -15,6 +15,10 @@ def insert_char(string, char, every=64):
     return char.join(string[i:i + every] for i in range(0, len(string), every))
 
 
+def add_str_trail(string):
+    return (string + ("\x00" if string[-1] != "\x00" else "")) if len(string) > 0 else string
+
+
 def del_str_trail(string):
     return string.replace('\x00', "")
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
@@ -115,7 +116,7 @@ class EffectObject(AoE2Object):
 
     @message.setter
     def message(self, val):
-        self._message = (val + ("\x00" if val[-1] != "\x00" else "")) if len(val) > 0 else val
+        self._message = helper.add_str_trail(val)
 
     @property
     def sound_name(self):
@@ -123,7 +124,7 @@ class EffectObject(AoE2Object):
 
     @sound_name.setter
     def sound_name(self, val):
-        self._sound_name = (val + ("\x00" if val[-1] != "\x00" else "")) if len(val) > 0 else val
+        self._sound_name = helper.add_str_trail(val)
 
     def get_content_as_string(self):
         attributes_list = effects.attributes[self.effect_type]

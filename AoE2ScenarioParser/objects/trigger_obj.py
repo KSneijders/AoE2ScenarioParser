@@ -66,7 +66,7 @@ class TriggerObject(AoE2Object):
 
     @name.setter
     def name(self, val):
-        self._name = (val + ("\x00" if val[-1] != "\x00" else "")) if len(val) > 0 else val
+        self._name = helper.add_str_trail(val)
 
     @property
     def description(self):
@@ -74,7 +74,7 @@ class TriggerObject(AoE2Object):
 
     @description.setter
     def description(self, val):
-        self.__description = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
+        self.__description = helper.add_str_trail(val)
 
     @property
     def short_description(self):
@@ -82,7 +82,7 @@ class TriggerObject(AoE2Object):
 
     @short_description.setter
     def short_description(self, val):
-        self.__short_description = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
+        self.__short_description = helper.add_str_trail(val)
 
     def add_effect(self, effect_type):
         new_effect = EffectObject(**effects.default_attributes[effect_type])
