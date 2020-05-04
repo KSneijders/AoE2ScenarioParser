@@ -1,12 +1,12 @@
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
-from AoE2ScenarioParser.datasets import effects, conditions, buildings
+from AoE2ScenarioParser.datasets import effects, conditions, buildings, units
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player, PlayerColor
 
 # File & Folder setup
 scenario_folder = "C:/Users/<USER>/Games/Age of Empires 2 DE/<STEAM_ID>/resources/_common/scenario/"
-read_file = scenario_folder + "mapName.aoe2scenario"
-write_to_file = "mapName_KOTH.aoe2scenario"
+read_file = scenario_folder + "KOTH_1.aoe2scenario"
+write_to_file = scenario_folder + "KOTH_1_.aoe2scenario"
 
 # Reading the scenario & Getting trigger manager
 scenario = AoE2Scenario(read_file, log_parsing=True)
@@ -94,6 +94,7 @@ for player in range(1, 9):
     effect.variable_or_timer = 1
     effect.message = f"<{PlayerColor(player).name}>Monument owned by {PlayerColor(player).name}"
 
+for player in range(1, 9):
     """
     Trigger per player for capturing the monument and update the variables etc. after the 100 year mark for resetting
     the timer
@@ -130,6 +131,7 @@ for player in range(1, 9):
     effect.from_variable = 2
     effect.message = "PlayerCaptured"
 
+for player in range(1, 9):
     """Trigger per player for capturing the monument for the first time. (Fix for Year<100 first time bug)"""
     trigger = trigger_manager.add_trigger("PlayerCapturedFirstTime" + str(player))
 
@@ -144,6 +146,7 @@ for player in range(1, 9):
     effect.from_variable = 2
     effect.message = "PlayerCaptured"
 
+for player in range(1, 9):
     """Trigger per player for Victory Condition"""
     trigger = trigger_manager.add_trigger("VictoryPlayer" + str(player))
 
@@ -162,5 +165,18 @@ for player in range(1, 9):
     effect = trigger.add_effect(Effect.DECLARE_VICTORY)
     effect.player_source = player
 
+for player in range(1, 9):
+    """Trigger per player for defeat when king is killed"""
+    trigger = trigger_manager.add_trigger("DefeatPlayer" + str(player))
+
+    condition = trigger.add_condition(conditions.owh_fewer_objects)
+    condition.amount_or_quantity = 0
+    condition.object_list = units.king
+    condition.player = player
+
+    effect = trigger.add_effect(Effect.DECLARE_VICTORY)
+    effect.player_source = player
+    effect.enabled_or_victory = 0
+
 # Write scenario
-scenario.write_to_file(scenario_folder + write_to_file, log_reconstructing=True)
+scenario.write_to_file(write_to_file, log_reconstructing=True)
