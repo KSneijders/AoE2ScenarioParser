@@ -1,480 +1,484 @@
+from enum import Enum
+
 from bidict import bidict
 
-none = 0
-"""Attributes for the **none** effect are: \n
-... none... Just like Conditions... People these days... """
-change_diplomacy = 1
-"""Attributes for the **change_diplomacy** effect are: \n
-- diplomacy
-- player_source
-- player_target"""
-research_technology = 2
-"""Attributes for the **research_technology** effect are: \n
-- player_source
-- technology
-- force_research_technology"""
-send_chat = 3
-"""Attributes for the **send_chat** effect are: \n
-- player_source
-- string_id
-- message
-- sound_name"""
-play_sound = 4
-"""Attributes for the **play_sound** effect are: \n
-- player_source
-- location_x
-- location_y
-- sound_name"""
-tribute = 5
-"""Attributes for the **tribute** effect are: \n
-- quantity
-- tribute_list
-- player_source
-- player_target"""
-unlock_gate = 6
-"""Attributes for the **unlock_gate** effect are: \n
-- number_of_units_selected
-- selected_object_id"""
-lock_gate = 7
-"""Attributes for the **lock_gate** effect are: \n
-- number_of_units_selected
-- selected_object_id"""
-activate_trigger = 8
-"""Attributes for the **activate_trigger** effect are: \n
-- trigger_id"""
-deactivate_trigger = 9
-"""Attributes for the **deactivate_trigger** effect are: \n
-- trigger_id"""
-ai_script_goal = 10
-"""Attributes for the **deactivate_trigger** effect are: \n
-- ai_script_goal"""
-create_object = 11
-"""Attributes for the **create_object** effect are: \n
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- item_id
-- facet"""
-task_object = 12
-"""Attributes for the **task_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-declare_victory = 13
-"""Attributes for the **declare_victory** effect are: \n
-- player_source
-- enabled_or_victory"""
-kill_object = 14
-"""Attributes for the **kill_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-remove_object = 15
-"""Attributes for the **remove_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_view = 16
-"""Attributes for the **change_view** effect are: \n
-- player_source
-- location_x
-- location_y
-- scroll"""
-unload = 17
-"""Attributes for the **unload** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_ownership = 18
-"""Attributes for the **change_ownership** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- player_target
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- flash_object
-- selected_object_id"""
-patrol = 19
-"""Attributes for the **patrol** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-display_instructions = 20
-"""Attributes for the **display_instructions** effect are: \n
-- object_list_unit_id
-- player_source
-- string_id
-- display_time
-- instruction_panel_position
-- play_sound
-- message
-- sound_name"""
-clear_instructions = 21
-"""Attributes for the **clear_instructions** effect are: \n
-- instruction_panel_position"""
-freeze_object = 22
-"""Attributes for the **freeze_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-use_advanced_buttons = 23
-"""Attributes for the **use_advanced_buttons** effect are: \n
-None. \n
-Please don't use this effect. Please."""
-damage_object = 24
-"""Attributes for the **damage_object** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-place_foundation = 25
-"""Attributes for the **place_foundation** effect are: \n
-- object_list_unit_id
-- player_source
-- location_x
-- location_y"""
-change_object_name = 26
-"""Attributes for the **change_object_name** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- string_id
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- message
-- selected_object_id"""
-change_object_hp = 27
-"""Attributes for the **change_object_hp** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-change_object_attack = 28
-"""Attributes for the **change_object_attack** effect are: \n
-- aa_quantity
-- aa_armor_or_attack_type
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-stop_object = 29
-"""Attributes for the **stop_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-attack_move = 30
-"""Attributes for the **attack_move** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_object_armor = 31
-"""Attributes for the **change_object_armor** effect are: \n
-- aa_quantity
-- aa_armor_or_attack_type
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-change_object_range = 32
-"""Attributes for the **change_object_range** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-change_object_speed = 33
-"""Attributes for the **change_object_speed** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-heal_object = 34
-"""Attributes for the **heal_object** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-teleport_object = 35
-"""Attributes for the **teleport_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_object_stance = 36
-"""Attributes for the **change_object_stance** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- attack_stance
-- selected_object_id"""
-display_timer = 37
-"""Attributes for the **display_timer** effect are: \n
-- string_id
-- display_time
-- time_unit
-- variable_or_timer
-- message"""
-enable_disable_object = 38
-"""Attributes for the **enable_disable_object** effect are: \n
-- object_list_unit_id
-- player_source
-- enabled_or_victory
-- item_id"""
-enable_disable_technology = 39
-"""Attributes for the **enable_disable_technology** effect are: \n
-- player_source
-- technology
-- enabled_or_victory
-- item_id"""
-change_object_cost = 40
-"""Attributes for the **change_object_cost** effect are: \n
-- object_list_unit_id
-- player_source
-- food
-- wood
-- stone
-- gold"""
-set_player_visibility = 41
-"""Attributes for the **set_player_visibility** effect are: \n
-- player_source
-- player_target
-- visibility_state"""
-change_object_icon = 42
-"""Attributes for the **change_object_icon** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- object_list_unit_id_2
-- selected_object_id"""
-replace_object = 43
-"""Attributes for the **replace_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- player_target
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- object_list_unit_id_2
-- selected_object_id"""
-change_object_description = 44
-"""Attributes for the **change_object_description** effect are: \n
-- object_list_unit_id
-- player_source
-- string_id
-- message"""
-change_player_name = 45
-"""Attributes for the **change_player_name** effect are: \n
-- player_source
-- string_id
-- message"""
-change_train_location = 46
-"""Attributes for the **change_train_location** effect are: \n
-- object_list_unit_id
-- player_source
-- object_list_unit_id_2
-- button_location"""
-change_research_location = 47
-"""Attributes for the **change_research_location** effect are: \n
-- player_source
-- technology
-- object_list_unit_id_2
-- button_location"""
-change_civilization_name = 48
-"""Attributes for the **change_civilization_name** effect are: \n
-- player_source
-- string_id
-- message"""
-create_garrisoned_object = 49
-"""Attributes for the **create_garrisoned_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_list_unit_id_2
-- selected_object_id"""
-acknowledge_ai_signal = 50
-"""Attributes for the **acknowledge_ai_signal** effect are: \n
-- ai_signal_value"""
-modify_attribute = 51
-"""Attributes for the **modify_attribute** effect are: \n
-- quantity
-- object_list_unit_id
-- player_source
-- item_id
-- operation
-- object_attributes"""
-modify_resource = 52
-"""Attributes for the **modify_resource** effect are: \n
-- quantity
-- tribute_list
-- player_source
-- item_id
-- operation"""
-modify_resource_by_variable = 53
-"""Attributes for the **modify_resource_by_variable** effect are: \n
-- tribute_list
-- player_source
-- item_id
-- operation
-- from_variable"""
-change_variable = 56
-"""Attributes for the **change_variable** effect are: \n
-- quantity
-- operation
-- from_variable
-- message"""
-clear_timer = 57
-"""Attributes for the **clear_timer** effect are: \n
-- variable_or_timer"""
+
+class Effect(Enum):
+    NONE = 0
+    """Attributes for the **none** effect are: \n
+    ... none... Just like Conditions... People these days... """
+    CHANGE_DIPLOMACY = 1
+    """Attributes for the **change_diplomacy** effect are: \n
+    - diplomacy
+    - player_source
+    - player_target"""
+    RESEARCH_TECHNOLOGY = 2
+    """Attributes for the **research_technology** effect are: \n
+    - player_source
+    - technology
+    - force_research_technology"""
+    SEND_CHAT = 3
+    """Attributes for the **send_chat** effect are: \n
+    - player_source
+    - string_id
+    - message
+    - sound_name"""
+    PLAY_SOUND = 4
+    """Attributes for the **play_sound** effect are: \n
+    - player_source
+    - location_x
+    - location_y
+    - sound_name"""
+    TRIBUTE = 5
+    """Attributes for the **tribute** effect are: \n
+    - quantity
+    - tribute_list
+    - player_source
+    - player_target"""
+    UNLOCK_GATE = 6
+    """Attributes for the **unlock_gate** effect are: \n
+    - number_of_units_selected
+    - selected_object_id"""
+    LOCK_GATE = 7
+    """Attributes for the **lock_gate** effect are: \n
+    - number_of_units_selected
+    - selected_object_id"""
+    ACTIVATE_TRIGGER = 8
+    """Attributes for the **activate_trigger** effect are: \n
+    - trigger_id"""
+    DEACTIVATE_TRIGGER = 9
+    """Attributes for the **deactivate_trigger** effect are: \n
+    - trigger_id"""
+    AI_SCRIPT_GOAL = 10
+    """Attributes for the **deactivate_trigger** effect are: \n
+    - ai_script_goal"""
+    CREATE_OBJECT = 11
+    """Attributes for the **create_object** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - item_id
+    - facet"""
+    TASK_OBJECT = 12
+    """Attributes for the **task_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    DECLARE_VICTORY = 13
+    """Attributes for the **declare_victory** effect are: \n
+    - player_source
+    - enabled_or_victory"""
+    KILL_OBJECT = 14
+    """Attributes for the **kill_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    REMOVE_OBJECT = 15
+    """Attributes for the **remove_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_VIEW = 16
+    """Attributes for the **change_view** effect are: \n
+    - player_source
+    - location_x
+    - location_y
+    - scroll"""
+    UNLOAD = 17
+    """Attributes for the **unload** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_OWNERSHIP = 18
+    """Attributes for the **change_ownership** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - player_target
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - flash_object
+    - selected_object_id"""
+    PATROL = 19
+    """Attributes for the **patrol** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    DISPLAY_INSTRUCTIONS = 20
+    """Attributes for the **display_instructions** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - string_id
+    - display_time
+    - instruction_panel_position
+    - play_sound
+    - message
+    - sound_name"""
+    CLEAR_INSTRUCTIONS = 21
+    """Attributes for the **clear_instructions** effect are: \n
+    - instruction_panel_position"""
+    FREEZE_OBJECT = 22
+    """Attributes for the **freeze_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    USE_ADVANCED_BUTTONS = 23
+    """Attributes for the **use_advanced_buttons** effect are: \n
+    None. \n
+    Please don't use this effect. Please."""
+    DAMAGE_OBJECT = 24
+    """Attributes for the **damage_object** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    PLACE_FOUNDATION = 25
+    """Attributes for the **place_foundation** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y"""
+    CHANGE_OBJECT_NAME = 26
+    """Attributes for the **change_object_name** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - string_id
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - message
+    - selected_object_id"""
+    CHANGE_OBJECT_HP = 27
+    """Attributes for the **change_object_hp** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    CHANGE_OBJECT_ATTACK = 28
+    """Attributes for the **change_object_attack** effect are: \n
+    - aa_quantity
+    - aa_armor_or_attack_type
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    STOP_OBJECT = 29
+    """Attributes for the **stop_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    ATTACK_MOVE = 30
+    """Attributes for the **attack_move** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_OBJECT_ARMOR = 31
+    """Attributes for the **change_object_armor** effect are: \n
+    - aa_quantity
+    - aa_armor_or_attack_type
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    CHANGE_OBJECT_RANGE = 32
+    """Attributes for the **change_object_range** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    CHANGE_OBJECT_SPEED = 33
+    """Attributes for the **change_object_speed** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    HEAL_OBJECT = 34
+    """Attributes for the **heal_object** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    TELEPORT_OBJECT = 35
+    """Attributes for the **teleport_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_OBJECT_STANCE = 36
+    """Attributes for the **change_object_stance** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - attack_stance
+    - selected_object_id"""
+    DISPLAY_TIMER = 37
+    """Attributes for the **display_timer** effect are: \n
+    - string_id
+    - display_time
+    - time_unit
+    - variable_or_timer
+    - message"""
+    ENABLE_DISABLE_OBJECT = 38
+    """Attributes for the **enable_disable_object** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - enabled_or_victory
+    - item_id"""
+    ENABLE_DISABLE_TECHNOLOGY = 39
+    """Attributes for the **enable_disable_technology** effect are: \n
+    - player_source
+    - technology
+    - enabled_or_victory
+    - item_id"""
+    CHANGE_OBJECT_COST = 40
+    """Attributes for the **change_object_cost** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - food
+    - wood
+    - stone
+    - gold"""
+    SET_PLAYER_VISIBILITY = 41
+    """Attributes for the **set_player_visibility** effect are: \n
+    - player_source
+    - player_target
+    - visibility_state"""
+    CHANGE_OBJECT_ICON = 42
+    """Attributes for the **change_object_icon** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - object_list_unit_id_2
+    - selected_object_id"""
+    REPLACE_OBJECT = 43
+    """Attributes for the **replace_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - player_target
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - object_list_unit_id_2
+    - selected_object_id"""
+    CHANGE_OBJECT_DESCRIPTION = 44
+    """Attributes for the **change_object_description** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - string_id
+    - message"""
+    CHANGE_PLAYER_NAME = 45
+    """Attributes for the **change_player_name** effect are: \n
+    - player_source
+    - string_id
+    - message"""
+    CHANGE_TRAIN_LOCATION = 46
+    """Attributes for the **change_train_location** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - object_list_unit_id_2
+    - button_location"""
+    CHANGE_RESEARCH_LOCATION = 47
+    """Attributes for the **change_research_location** effect are: \n
+    - player_source
+    - technology
+    - object_list_unit_id_2
+    - button_location"""
+    CHANGE_CIVILIZATION_NAME = 48
+    """Attributes for the **change_civilization_name** effect are: \n
+    - player_source
+    - string_id
+    - message"""
+    CREATE_GARRISONED_OBJECT = 49
+    """Attributes for the **create_garrisoned_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_list_unit_id_2
+    - selected_object_id"""
+    ACKNOWLEDGE_AI_SIGNAL = 50
+    """Attributes for the **acknowledge_ai_signal** effect are: \n
+    - ai_signal_value"""
+    MODIFY_ATTRIBUTE = 51
+    """Attributes for the **modify_attribute** effect are: \n
+    - quantity
+    - object_list_unit_id
+    - player_source
+    - item_id
+    - operation
+    - object_attributes"""
+    MODIFY_RESOURCE = 52
+    """Attributes for the **modify_resource** effect are: \n
+    - quantity
+    - tribute_list
+    - player_source
+    - item_id
+    - operation"""
+    MODIFY_RESOURCE_BY_VARIABLE = 53
+    """Attributes for the **modify_resource_by_variable** effect are: \n
+    - tribute_list
+    - player_source
+    - item_id
+    - operation
+    - from_variable"""
+    CHANGE_VARIABLE = 56
+    """Attributes for the **change_variable** effect are: \n
+    - quantity
+    - operation
+    - from_variable
+    - message"""
+    CLEAR_TIMER = 57
+    """Attributes for the **clear_timer** effect are: \n
+    - variable_or_timer"""
 
 effect_names = bidict({
     0: "none",

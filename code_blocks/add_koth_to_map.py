@@ -1,5 +1,6 @@
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets import effects, conditions, buildings
+from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player, PlayerColor
 
 # File & Folder setup
@@ -19,13 +20,13 @@ condition.amount_or_quantity = 0
 condition.object_list = buildings.monument
 condition.player = Player.GAIA.value
 
-effect = StartYearCountdown.add_effect(effects.change_variable)
+effect = StartYearCountdown.add_effect(Effect.CHANGE_VARIABLE)
 effect.quantity = 550
 effect.operation = 1
 effect.from_variable = 1
 effect.message = "Years"
 
-effect = StartYearCountdown.add_effect(effects.change_variable)
+effect = StartYearCountdown.add_effect(Effect.CHANGE_VARIABLE)
 effect.quantity = 0
 effect.operation = 1
 effect.from_variable = 2
@@ -44,7 +45,7 @@ condition.inverted = 0
 condition.variable = 1
 condition.comparison = 2
 
-effect = LowerYears.add_effect(effects.change_variable)
+effect = LowerYears.add_effect(Effect.CHANGE_VARIABLE)
 effect.quantity = 1
 effect.operation = 3
 effect.from_variable = 1
@@ -61,10 +62,10 @@ for year in range(550, -1, -1):
     condition.variable = 1
     condition.comparison = 0
 
-    effect = trigger.add_effect(effects.clear_timer)
+    effect = trigger.add_effect(Effect.CLEAR_TIMER)
     effect.variable_or_timer = 0
 
-    effect = trigger.add_effect(effects.display_timer)
+    effect = trigger.add_effect(Effect.DISPLAY_TIMER)
     effect.display_time = 1
     effect.time_unit = 2
     effect.variable_or_timer = 0
@@ -84,10 +85,10 @@ for player in range(1, 9):
     condition.amount_or_quantity = 1
     condition.player = player
 
-    effect = trigger.add_effect(effects.clear_timer)
+    effect = trigger.add_effect(Effect.CLEAR_TIMER)
     effect.variable_or_timer = 1
 
-    effect = trigger.add_effect(effects.display_timer)
+    effect = trigger.add_effect(Effect.DISPLAY_TIMER)
     effect.display_time = 1
     effect.time_unit = 0
     effect.variable_or_timer = 1
@@ -117,13 +118,13 @@ for player in range(1, 9):
     condition.variable = 2
     condition.inverted = 1
 
-    effect = trigger.add_effect(effects.change_variable)
+    effect = trigger.add_effect(Effect.CHANGE_VARIABLE)
     effect.quantity = 100
     effect.operation = 1
     effect.from_variable = 1
     effect.message = "Years"
 
-    effect = trigger.add_effect(effects.change_variable)
+    effect = trigger.add_effect(Effect.CHANGE_VARIABLE)
     effect.quantity = player
     effect.operation = 1
     effect.from_variable = 2
@@ -137,7 +138,7 @@ for player in range(1, 9):
     condition.amount_or_quantity = 1
     condition.player = player
 
-    effect = trigger.add_effect(effects.change_variable)
+    effect = trigger.add_effect(Effect.CHANGE_VARIABLE)
     effect.quantity = player
     effect.operation = 1
     effect.from_variable = 2
@@ -158,7 +159,7 @@ for player in range(1, 9):
     condition.variable = 2
     condition.inverted = 0
 
-    effect = trigger.add_effect(effects.declare_victory)
+    effect = trigger.add_effect(Effect.DECLARE_VICTORY)
     effect.player_source = player
 
 # Write scenario
