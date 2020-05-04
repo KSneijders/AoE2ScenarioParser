@@ -1,4 +1,5 @@
 from AoE2ScenarioParser.datasets import effects, conditions
+from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -84,8 +85,8 @@ class TriggerObject(AoE2Object):
     def short_description(self, val):
         self.__short_description = helper.add_str_trail(val)
 
-    def add_effect(self, effect_type):
-        new_effect = EffectObject(**effects.default_attributes[effect_type])
+    def add_effect(self, effect_type: Effect):
+        new_effect = EffectObject(**effects.default_attributes[effect_type.value])
         self.effects.append(new_effect)
         helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
