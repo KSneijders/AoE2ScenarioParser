@@ -159,15 +159,18 @@ class AoE2Scenario:
 
         for effect in effects:
             for retriever in effect.retrievers:
-                if retriever.data != -1 and \
-                        retriever.data != [] and \
-                        retriever.data != "" and \
-                        retriever.data != " " and \
-                        retriever.name != "static_value_46":
+                # if retriever.data != -1 and \
+                #         retriever.data != [] and \
+                #         retriever.data != "" and \
+                #         retriever.data != " " and \
+                #         retriever.name != "static_value_46":
+                if retriever.name != "static_value_46":
                     if retriever.name == "effect_type":
-                        print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + retriever.name + "\",")
-        print("]\n")
+                        print("},\n" + str(retriever.data) + ": {")
+                    print("\t\"" + retriever.name + "\": " +
+                          (str(retriever.data) if type(retriever.data) is not str else "\"" + retriever.data + "\"")
+                          + ",")
+        print("}\n")
 
     def _debug_log_condition_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
