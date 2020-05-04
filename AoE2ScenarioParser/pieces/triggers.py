@@ -18,4 +18,4 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("variable_names", DataType(ChangedVariableStruct), set_repeat="{number_of_changed_vars}")
         ]
 
-        super().__init__("Triggers", retrievers, parser_obj)
+        super().__init__("Triggers", retrievers, parser_obj, data=data)

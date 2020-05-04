@@ -23,4 +23,4 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
             Retriever("Unknown", DataType("36")),
         ]
 
-        super().__init__("Options", retrievers, parser_obj)
+        super().__init__("Options", retrievers, parser_obj, data=data)

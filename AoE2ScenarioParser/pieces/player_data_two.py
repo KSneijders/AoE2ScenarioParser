@@ -16,4 +16,4 @@ class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
             Retriever("Resources", DataType(ResourcesStruct, repeat=16))
         ]
 
-        super().__init__("Player Data #2", retrievers, parser_obj)
+        super().__init__("Player Data #2", retrievers, parser_obj, data=data)

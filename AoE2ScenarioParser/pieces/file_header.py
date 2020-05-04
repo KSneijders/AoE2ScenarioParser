@@ -18,4 +18,4 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("Data (2)", DataType("4")),
         ]
 
-        super().__init__("File Header", retrievers, parser_obj)
+        super().__init__("File Header", retrievers, parser_obj, data=data)
