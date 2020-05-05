@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+from enum import Enum
+from typing import List
+
 from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.datasets.techs import Tech
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -10,54 +14,57 @@ from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 class EffectObject(AoE2Object):
     def __init__(self,
                  effect_type,
-                 ai_script_goal=-1,
-                 aa_quantity=-1,
-                 aa_armor_or_attack_type=-1,
-                 quantity=-1,
-                 tribute_list=-1,
-                 diplomacy=-1,
-                 number_of_units_selected=-1,
-                 object_list_unit_id=-1,
-                 player_source=-1,
-                 player_target=-1,
-                 technology=-1,
-                 string_id=-1,
-                 display_time=-1,
-                 trigger_id=-1,
-                 location_x=-1,
-                 location_y=-1,
-                 area_1_x=-1,
-                 area_1_y=-1,
-                 area_2_x=-1,
-                 area_2_y=-1,
-                 object_group=-1,
-                 object_type=-1,
-                 instruction_panel_position=-1,
-                 attack_stance=-1,
-                 time_unit=-1,
-                 enabled_or_victory=-1,
-                 food=-1,
-                 wood=-1,
-                 stone=-1,
-                 gold=-1,
-                 item_id=-1,
-                 flash_object=-1,
-                 force_research_technology=-1,
-                 visibility_state=-1,
-                 scroll=-1,
-                 operation=-1,
-                 object_list_unit_id_2=-1,
-                 button_location=-1,
-                 ai_signal_value=-1,
-                 object_attributes=-1,
-                 from_variable=-1,
-                 variable_or_timer=-1,
-                 facet=-1,
-                 play_sound=-1,
+                 ai_script_goal: int = -1,
+                 aa_quantity: int = -1,
+                 aa_armor_or_attack_type: int = -1,
+                 quantity: int = -1,
+                 tribute_list: int = -1,
+                 diplomacy: int = -1,
+                 number_of_units_selected: int = -1,
+                 object_list_unit_id: int = -1,
+                 player_source: int = -1,
+                 player_target: int = -1,
+                 technology: int = -1,
+                 string_id: int = -1,
+                 display_time: int = -1,
+                 trigger_id: int = -1,
+                 location_x: int = -1,
+                 location_y: int = -1,
+                 area_1_x: int = -1,
+                 area_1_y: int = -1,
+                 area_2_x: int = -1,
+                 area_2_y: int = -1,
+                 object_group: int = -1,
+                 object_type: int = -1,
+                 instruction_panel_position: int = -1,
+                 attack_stance: int = -1,
+                 time_unit: int = -1,
+                 enabled_or_victory: int = -1,
+                 food: int = -1,
+                 wood: int = -1,
+                 stone: int = -1,
+                 gold: int = -1,
+                 item_id: int = -1,
+                 flash_object: int = -1,
+                 force_research_technology: int = -1,
+                 visibility_state: int = -1,
+                 scroll: int = -1,
+                 operation: int = -1,
+                 object_list_unit_id_2: int = -1,
+                 button_location: int = -1,
+                 ai_signal_value: int = -1,
+                 object_attributes: int = -1,
+                 from_variable: int = -1,
+                 variable_or_timer: int = -1,
+                 facet: int = -1,
+                 play_sound: int = -1,
                  message="",
                  sound_name="",
-                 selected_object_id=-1,
+                 selected_object_id: List = None,
                  ):
+
+        if selected_object_id is None:
+            selected_object_id = []
 
         self.effect_type = effect_type
         self.ai_script_goal = ai_script_goal
@@ -126,6 +133,54 @@ class EffectObject(AoE2Object):
     def sound_name(self, val):
         self._sound_name = helper.add_str_trail(val)
 
+    @property
+    def object_list_unit_id(self) -> Enum:
+        return self._object_list_unit_id
+
+    @object_list_unit_id.setter
+    def object_list_unit_id(self, val: Enum):
+        self._object_list_unit_id = val.value
+
+    @property
+    def object_list_unit_id_2(self) -> Enum:
+        return self._object_list_unit_id_2
+
+    @object_list_unit_id_2.setter
+    def object_list_unit_id_2(self, val: Enum):
+        self._object_list_unit_id_2 = val.value
+
+    @property
+    def technology(self) -> Tech:
+        return self._technology
+
+    @technology.setter
+    def technology(self, val: Tech):
+        self._technology = val.value
+
+    @property
+    def player_source(self) -> Enum:
+        return self._player_source
+
+    @player_source.setter
+    def player_source(self, val: Enum):
+        self._player_source = val.value
+
+    @property
+    def player_target(self) -> Enum:
+        return self._player_target
+
+    @player_target.setter
+    def player_target(self, val: Enum):
+        self._player_target = val.value
+
+    @property
+    def selected_object_id(self) -> List:
+        return self._selected_object_id
+
+    @selected_object_id.setter
+    def selected_object_id(self, val: List):
+        self._selected_object_id = val
+
     def get_content_as_string(self):
         attributes_list = effects.attributes[self.effect_type]
 
@@ -163,7 +218,7 @@ class EffectObject(AoE2Object):
 
         data_list = [value for key, value in vars(effect_obj).items()]
         data_list.insert(1, 46)  # static_value_46
-        data_list.insert(9, -1)   # unknown
+        data_list.insert(9, -1)  # unknown
         data_list.insert(15, -1)  # unknown_2
         data_list.insert(43, -1)  # unknown_3
         data_list.insert(48, -1)  # unknown_4
