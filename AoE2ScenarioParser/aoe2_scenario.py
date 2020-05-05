@@ -179,15 +179,18 @@ class AoE2Scenario:
 
         for condition in conditions:
             for retriever in condition.retrievers:
-                if retriever.data != -1 and \
-                        retriever.data != [] and \
-                        retriever.data != "" and \
-                        retriever.data != " " and \
-                        retriever.name != "static_value_21":
+                # if retriever.data != -1 and \
+                #         retriever.data != [] and \
+                #         retriever.data != "" and \
+                #         retriever.data != " " and \
+                #         retriever.name != "static_value_21":
+                if retriever.name != "static_value_21":
                     if retriever.name == "condition_type":
-                        print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + retriever.name + "\",")
-        print("]\n")
+                        print("},\n" + str(retriever.data) + ": {")
+                    print("\t\"" + retriever.name + "\": " +
+                          (str(retriever.data) if type(retriever.data) is not str else "\"" + retriever.data + "\"")
+                          + ",")
+        print("}\n")
 
     def _debug_byte_structure_to_file(self, filename):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
