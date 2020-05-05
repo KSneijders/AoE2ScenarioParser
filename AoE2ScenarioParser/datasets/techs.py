@@ -3,7 +3,7 @@ from enum import Enum
 from bidict import bidict
 
 
-class Techs(Enum):
+class Tech(Enum):
     ANARCHY = 16
     ANDEAN_SLING = 516
     ARBALESTER = 237
