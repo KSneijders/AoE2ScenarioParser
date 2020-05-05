@@ -3,15 +3,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog]
 
+---
+
 ## 0.0.7
 ### Added
 
 - The `ai_script_goal` effect
-- The `new_unit_id_to_place` is updated in the reconstructing phase
+- The `difficulty_level` condition
+- The `new_unit_id_to_place` field in the `DataHeader` is updated in the reconstructing phase
+- Defaults to all `effects` & `conditions`. (Editor defaults)
+- PlayerColor Enum
+- **Code Block** - Added code block for adding KOTH + Regicide to any map with (exactly) one monument - Using triggers. This code block adds close to 600 triggers for displaying all years, displaying players holding the monument and victory & defeat conditions.
 
 ### Changed
 
-- UnitObject attribute `unit_id` to `unit_const`
+- UnitObject attribute `unit_id` renamed to `unit_const` (Credit: [T-West])
+- Effects and Condition constants are now `Enum`s (ie. `Effect.CREATE_OBJECT`)
 
 ### Updated
 
@@ -20,6 +27,9 @@ The format is based on [Keep a Changelog]
 ### Fixed
 
 - `get_new_reference_id()` returns `highest_id + 1` instead of `highest_id`
+- Bug removing all `Trigger` names.
+
+---
 
 ## 0.0.6
 ### Added
