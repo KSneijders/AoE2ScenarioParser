@@ -3,17 +3,17 @@ The project currently contains multiple datasets. These are currently pretty bas
 
 ```py
 # Information about the conditions & effects and their attributes
-from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.datasets.conditions import Condition
+from AoE2ScenarioParser.datasets.effects import Effect
 
 # Information of unit/tech/terrain name and their ID
-from AoE2ScenarioParser.datasets import techs
-from AoE2ScenarioParser.datasets import units
-from AoE2ScenarioParser.datasets import buildings
-from AoE2ScenarioParser.datasets import terrains
+from AoE2ScenarioParser.datasets.buildings import Building
+from AoE2ScenarioParser.datasets.techs import Tech
+from AoE2ScenarioParser.datasets.terrains import Terrain
+from AoE2ScenarioParser.datasets.units import Unit
 
 # Enum of players
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import Player, PlayerColor
 ```
 
 Current datasets are:
@@ -23,7 +23,7 @@ Current datasets are:
 - buildings
 - units
 - techs
-- players
+- players (& player colors)
 - terrains
 
 ---
@@ -33,16 +33,16 @@ Current datasets are:
 The conditions and effects datasets are very usefull when creating triggers. You can use them to get the ID of an effect or condition using it's name.
 
 ```py
-conditions.object_in_area   # 5
-effects.patrol              # 19
+Condition.OBJECT_IN_AREA    # 5
+Effect.PATROL               # 19
 ```
 
 When you created a condition or effect inside of a trigger you can check what needs to be added to the effect to actually function. This is different in every editor (`CTRL + Q` for PyCharm) but you can also just check the github page. 
 ```py
 trigger = trigger_manager.add_trigger("Trigger0")
-effect = trigger.add_effect(effects.change_diplomacy)
+effect = trigger.add_effect(Effect.CHANGE_DIPLOMACY)
 
-# Checking the docs for effects.change_diplomacy will show:
+# Checking the docs for Effect.CHANGE_DIPLOMACY will show:
 """
 Attributes for the **change_diplomacy** effect are:
 - diplomacy
@@ -82,25 +82,25 @@ The Units and Buildings datasets are very usefull when adding units. They're als
 
 For adding units it'll look something like the following:
 ```py
-unit_manager.add_unit(Player.ONE, units.conquistador, x=10, y=20)
-unit_manager.add_unit(Player.TWO, units.paladin, x=20, y=20)
-unit_manager.add_unit(Player.GAIA, buildings.feitoria, x=21, y=63)
+unit_manager.add_unit(Player.ONE, Unit.CONQUISTADOR, x=10, y=20)
+unit_manager.add_unit(Player.TWO, Unit.PALADIN, x=20, y=20)
+unit_manager.add_unit(Player.GAIA, Building.FEITORIA, x=30, y=20)
 ```
 
 With the triggers you can do similiar stuff like:
 ```py
 ...
 effect = trigger.add_effect(effects.create_object)
-effect.object_list_unit_id = units.man_at_arms      # <-- Can use either units  
-effect.object_list_unit_id = buildings.blacksmith   # <-- or buildings
+effect.object_list_unit_id = Unit.MAN_AT_ARMS      # <-- Can use either units  
+effect.object_list_unit_id = Building.BLACKSMITH   # <-- or buildings
 ...
 ```
 or:
 ```py
 ...
-effect = trigger.add_effect(effects.research_technology)
+effect = trigger.add_effect(Effect.RESEARCH_TECHNOLOGY)
 effect.player_source = Player.THREE.value
-effect.technology = techs.bloodlines  # <--
+effect.technology = Tech.BLOODLINES  # <--
 ...
 ```
 Just like effects and conditions there is a `Bidict` within the dataset which you can use to translate the `ID -> Name` or `(inverse) Name -> ID`.
@@ -122,9 +122,9 @@ techs.tech_names.inverse['guard_tower']     # 140
 The Terrain dataset has been added __but it's currently not very usefull__ as it's not supported to interact with terrain. It does exist and works as follows:
 
 ```py
-terrains.beach              # 2
-terrains.forest_oak         # 10
-terrains.underbush_leaves   # 71
+Terrain.BEACH               # 2
+Terrain.FOREST_OAK          # 10
+Terrain.UNDERBUSH_LEAVES    # 71
 ```
 
 ---
@@ -143,10 +143,20 @@ class Player(Enum):
     SIX = 6
     SEVEN = 7
     EIGHT = 8
+    
+class PlayerColor(Enum):
+    BLUE = 1
+    RED = 2
+    GREEN = 3
+    YELLOW = 4
+    AQUA = 5
+    PURPLE = 6
+    GREY = 7
+    ORANGE = 8
 ```
 For now some places (like effect attributes (as seen above)) do not support these Enum values. That said, it's still recommended to use them for consistency. You can do this by adding `.value` behind the Enum as: 
 ```py
-Player.GAIA.value == 0  # True
+Player.GAIA.value  # 0
 ```
 
 ---

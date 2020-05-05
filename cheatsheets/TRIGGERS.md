@@ -21,10 +21,10 @@ To add conditions or effects, just call the method `add_condition` and `add_effe
 The example shows: A trigger with 25% chance of showing a message. 
 
 ```py
-condition = trigger.add_condition(conditions.chance)  # From conditions dataset
+condition = trigger.add_condition(Condition.CHANCE)  # From conditions dataset
 condition.amount_or_quantity = 25
 
-effect = trigger.add_effect(effects.display_instructions)  # From effects dataset
+effect = trigger.add_effect(Effect.DISPLAY_INSTRUCTIONS)  # From effects dataset
 effect.player_source = 1
 effect.display_time = 11
 effect.message = "This message was set using AoE2ScenarioParser!"

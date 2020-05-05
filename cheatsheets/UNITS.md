@@ -15,7 +15,7 @@ You can add units using the `unit_manager`.
 ```py
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_id=units.conquistador,    # Units dataset
+    unit_id=Unit.CONQUISTADOR,    # Units dataset
     x=0,
     y=0
 )
@@ -24,7 +24,7 @@ This will add a conquistador for player 1 at 0, 0 (West corner of the map). Besi
 ```py
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_id=units.conquistador,
+    unit_id=Unit.CONQUISTADOR,
     x=0,
     y=0,
     z=0,                    # The 'height' of the unit. 
@@ -94,7 +94,7 @@ unit.y = 0.5
 
 Besides it's location you can also change the type of unit:
 ```py
-unit.unit_id = units.man_at_arms    # Units dataset
+unit.unit_id = Unit.MAN_AT_ARMS    # Units dataset
 ```
 *Note: Do not confuse this with `reference_id` because that's the unique identifier of that specific unit and you can't have duplicates in the reference_id table.*
 
