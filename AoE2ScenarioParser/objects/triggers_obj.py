@@ -72,6 +72,9 @@ class TriggersObject(AoE2Object):
         triggers = parser.listify(self.trigger_data)
         display_order = parser.listify(self.trigger_display_order)
 
+        if len(display_order) == 0:
+            return return_string + "\t<< No Triggers >>"
+
         longest_trigger_name = -1
         for trigger_id in display_order:
             trigger_name = helper.del_str_trail(triggers[trigger_id].name)
