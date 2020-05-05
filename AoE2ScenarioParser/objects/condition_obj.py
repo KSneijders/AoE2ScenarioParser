@@ -69,8 +69,8 @@ class ConditionObject(AoE2Object):
     def _parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
-        effect_type = find_retriever(condition_struct.retrievers, "condition_type").data
-        parameters = conditions.attributes.get(effect_type)
+        condition_type = find_retriever(condition_struct.retrievers, "condition_type").data
+        parameters = conditions.attributes.get(condition_type)
 
         parameter_dict = conditions.empty_attributes.copy()
         for param in parameters:
