@@ -36,7 +36,7 @@ class Retriever:
             else:
                 return self.name + " (" + self.datatype.to_simple_string() + "): " + str(self.data) + ""
 
-    def __str__(self):
+    def __repr__(self):
         if type(self.data) is list:
             data = str(helper.pretty_print_list(self.data))
         else:
