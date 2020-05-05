@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog]
 
 - `get_new_reference_id()` returns `highest_id + 1` instead of `highest_id`
 - Bug removing all `Trigger` names.
+- Bug causing `Trigger display order` to be incorrect. Wasn't breaking scenarios as the in-game editor was able to handle it properly and fixed it when saving from there. Only caused the Parser from being able to read the file.
 
 ---
 

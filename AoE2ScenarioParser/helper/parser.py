@@ -32,7 +32,8 @@ def listify(var):
 
 
 class Parser:
-    _saves = dict()
+    def __init__(self):
+        self._saves = dict()
 
     def retrieve_value(self, generator, retriever, as_length=False):
         length = 0

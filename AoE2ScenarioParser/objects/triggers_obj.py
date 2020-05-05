@@ -22,7 +22,7 @@ class TriggersObject(AoE2Object):
                  ):
 
         self.trigger_data = trigger_data
-        self.trigger_display_order = trigger_display_order
+        self.trigger_display_order = parser.listify(trigger_display_order)
 
         super().__init__()
 
@@ -53,6 +53,7 @@ class TriggersObject(AoE2Object):
         number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
+        display_order_retriever.data = parser.listify(display_order_retriever.data)
 
         trigger_data_retriever.data = []
         for trigger in objects["TriggersObject"].trigger_data:
@@ -64,7 +65,7 @@ class TriggersObject(AoE2Object):
         # Currently not necessary due to the parser changing the 'repeated' value equal to the len(list)
         # trigger_data_retriever.datatype.repeat = trigger_count
         # display_order_retriever.datatype.repeat = trigger_count
-        helper.update_order_array(parser.listify(display_order_retriever.data), trigger_count)
+        helper.update_order_array(display_order_retriever.data, trigger_count)
 
     def get_summary_as_string(self) -> str:
         return_string = "Trigger Summary:\n"
