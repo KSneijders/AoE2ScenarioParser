@@ -1,4 +1,5 @@
 from AoE2ScenarioParser.datasets import effects, conditions
+from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
@@ -91,8 +92,8 @@ class TriggerObject(AoE2Object):
         helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
 
-    def add_condition(self, condition_type):
-        new_cond = ConditionObject(condition_type)
+    def add_condition(self, condition_type: Condition):
+        new_cond = ConditionObject(**conditions.default_attributes[condition_type.value])
         self.conditions.append(new_cond)
         helper.update_order_array(self.condition_order, len(self.conditions))
         return new_cond
