@@ -104,9 +104,10 @@ class AoE2Scenario:
             for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
-                except AttributeError:
+                except AttributeError as e:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
-                    exit("\n\n\nAn error occurred. Writing failed.")
+                    print("\n\n\nAn error occurred. Writing failed.")
+                    raise e
             lgr.print("\twriting " + key + " finished successfully.")
 
         file = open(filename, "wb" if write_in_bytes else "w")

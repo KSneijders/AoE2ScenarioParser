@@ -133,53 +133,53 @@ class EffectObject(AoE2Object):
     def sound_name(self, val):
         self._sound_name = helper.add_str_trail(val)
 
-    @property
-    def object_list_unit_id(self) -> Enum:
-        return self._object_list_unit_id
-
-    @object_list_unit_id.setter
-    def object_list_unit_id(self, val: Enum):
-        self._object_list_unit_id = val.value
-
-    @property
-    def object_list_unit_id_2(self) -> Enum:
-        return self._object_list_unit_id_2
-
-    @object_list_unit_id_2.setter
-    def object_list_unit_id_2(self, val: Enum):
-        self._object_list_unit_id_2 = val.value
-
-    @property
-    def technology(self) -> Tech:
-        return self._technology
-
-    @technology.setter
-    def technology(self, val: Tech):
-        self._technology = val.value
-
-    @property
-    def player_source(self) -> Enum:
-        return self._player_source
-
-    @player_source.setter
-    def player_source(self, val: Enum):
-        self._player_source = val.value
-
-    @property
-    def player_target(self) -> Enum:
-        return self._player_target
-
-    @player_target.setter
-    def player_target(self, val: Enum):
-        self._player_target = val.value
-
-    @property
-    def selected_object_id(self) -> List:
-        return self._selected_object_id
-
-    @selected_object_id.setter
-    def selected_object_id(self, val: List):
-        self._selected_object_id = val
+    # @property
+    # def object_list_unit_id(self) -> Enum:
+    #     return self._object_list_unit_id
+    #
+    # @object_list_unit_id.setter
+    # def object_list_unit_id(self, val: Enum):
+    #     self._object_list_unit_id = val.value
+    #
+    # @property
+    # def object_list_unit_id_2(self) -> Enum:
+    #     return self._object_list_unit_id_2
+    #
+    # @object_list_unit_id_2.setter
+    # def object_list_unit_id_2(self, val: Enum):
+    #     self._object_list_unit_id_2 = val.value
+    #
+    # @property
+    # def technology(self) -> Tech:
+    #     return self._technology
+    #
+    # @technology.setter
+    # def technology(self, val: Tech):
+    #     self._technology = val.value
+    #
+    # @property
+    # def player_source(self) -> Enum:
+    #     return Player(self._player_source)
+    #
+    # @player_source.setter
+    # def player_source(self, val: Enum):
+    #     self._player_source = val.value
+    #
+    # @property
+    # def player_target(self) -> Enum:
+    #     return Player(self._player_target)
+    #
+    # @player_target.setter
+    # def player_target(self, val: Enum):
+    #     self._player_target = val.value
+    #
+    # @property
+    # def selected_object_id(self) -> List:
+    #     return self._selected_object_id
+    #
+    # @selected_object_id.setter
+    # def selected_object_id(self, val: List):
+    #     self._selected_object_id = val
 
     def get_content_as_string(self):
         attributes_list = effects.attributes[self.effect_type]

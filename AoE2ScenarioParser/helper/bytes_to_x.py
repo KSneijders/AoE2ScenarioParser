@@ -14,7 +14,10 @@ def bytes_to_int(byte_elements, endian="little", signed=False):
 
 
 def int_to_bytes(integer, length, endian="little", signed=True):
-    return integer.to_bytes(length, byteorder=endian, signed=signed)
+    try:
+        return integer.to_bytes(length, byteorder=endian, signed=signed)
+    except AttributeError:
+        return integer.value.to_bytes(length, byteorder=endian, signed=signed)
 
 
 def bytes_to_float(byte_elements):
