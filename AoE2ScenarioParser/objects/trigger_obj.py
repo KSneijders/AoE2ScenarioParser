@@ -183,22 +183,21 @@ class TriggerObject(AoE2Object):
     def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         trigger = kwargs['trigger']
+        trigger.effect_order = parser.listify(trigger.effect_order)
+        trigger.condition_order = parser.listify(trigger.condition_order)
 
         effects_list = []
         for effect_obj in trigger.effects:
             EffectObject._reconstruct_object(parsed_data, objects, effect=effect_obj, effects=effects_list)
 
-        helper.update_order_array(
-            parser.listify(trigger.effect_order), len(trigger.effects))
+        helper.update_order_array(trigger.effect_order, len(trigger.effects))
 
         conditions_list = []
         for condition_obj in trigger.conditions:
-            ConditionObject._reconstruct_object(parsed_data, objects,
-                                                condition=condition_obj,
+            ConditionObject._reconstruct_object(parsed_data, objects, condition=condition_obj,
                                                 conditions=conditions_list)
 
-        helper.update_order_array(
-            parser.listify(trigger.condition_order), len(trigger.conditions))
+        helper.update_order_array(trigger.condition_order, len(trigger.conditions))
 
         trigger_data_retriever.data.append(
             TriggerStruct(data=[

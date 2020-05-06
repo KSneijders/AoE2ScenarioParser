@@ -81,7 +81,7 @@ class ConditionObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):
+    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:
         # Expected {condition=condition_obj, conditions=conditionsList}
         condition_obj = kwargs['condition']
         conditions_list = kwargs['conditions']
