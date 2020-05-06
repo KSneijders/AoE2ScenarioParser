@@ -160,6 +160,20 @@ class UnitsObject(AoE2Object):
                     highest_id = unit.reference_id
         return highest_id + 1
 
+    def remove_unit(self, reference_id: int = None, unit: UnitObject = None):
+        if reference_id is not None and unit is not None:
+            raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
+        if reference_id is None and unit is None:
+            raise ValueError("Both unit_ref_id and unit arguments were unused. Use one.")
+
+        if reference_id is not None:
+            for player in range(0, 9):
+                for i, unit in enumerate(self.units[player]):
+                    if unit.reference_id == reference_id:
+                        del self.units[player][i]
+        elif unit is not None:
+            self.units[unit.player.value].remove(unit)
+
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitsObject:
         object_piece = parsed_data['UnitsPiece']

@@ -94,13 +94,22 @@ unit.y = 0.5
 
 Besides it's location you can also change the type of unit:
 ```py
-unit.unit_id = Unit.MAN_AT_ARMS    # Units dataset
+unit.unit_const = Unit.MAN_AT_ARMS    # Units dataset
 ```
-*Note: Do not confuse this with `reference_id` because that's the unique identifier of that specific unit and you can't have duplicates in the reference_id table.*
 
 You also might want to change the ownership of a unit. This might seem easy as there is a `player` attribute within the unit. Unfortunately that value is read-only and only there so you can easily identify the player. To change a units ownership you need the `unit_manager`.
 ```py
 unit_manager.change_ownership(unit, Player.THREE)
+```
+
+---
+&nbsp;  
+
+## Removing units
+```py
+# Two ways to delete a unit:
+unit_manager.remove_unit(unit=UnitOBject)
+unit_manager.remove_unit(reference_id=UnitOBject.reference_id)
 ```
 
 ---

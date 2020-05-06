@@ -12,7 +12,8 @@ The format is based on [Keep a Changelog]
 - The `difficulty_level` condition
 - The `new_unit_id_to_place` field in the `DataHeader` is updated in the reconstructing phase
 - Defaults to all `effects` & `conditions`. (Editor defaults)
-- PlayerColor Enum
+- PlayerColor Enum > `PlayerColor.PURPLE`
+- The ability to remove units > `unit_mamager.remove_unit(unit=... or reference_id=...)`
 - **Code Block** - Added code block for adding KOTH + Regicide to any map with (exactly) one monument - Using triggers. This code block adds close to 600 triggers for displaying all years, displaying players holding the monument and victory & defeat conditions.
 
 ### Changed
