@@ -200,13 +200,13 @@ class AoE2Scenario:
         with open(filename, 'w') as output_file:
             result = ""
             for key in self._parsed_header:
-                print("Writing", key + "...")
+                print("\tWriting", key + "...")
                 result += self._parsed_header[key].get_byte_structure_as_string()
-                print("Writing", key, "finished successfully.")
+                print("\tWriting", key, "finished successfully.")
             for key in self._parsed_data:
-                print("Writing", key + "...")
+                print("\tWriting", key + "...")
                 result += self._parsed_data[key].get_byte_structure_as_string()
-                print("Writing", key, "finished successfully.")
+                print("\tWriting", key, "finished successfully.")
 
             output_file.write(result)
             output_file.close()
