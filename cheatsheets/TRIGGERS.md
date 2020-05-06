@@ -100,8 +100,8 @@ trigger.description = "Awesome New Description!"
 For removing it basically works the same:
 ```py
 # Remember to save to a different file. Especially when removing triggers.
-trigger_manager.delete_trigger(trigger_id=0)
-trigger_manager.delete_trigger(display_index=0)
+trigger_manager.remove_trigger(trigger_id=0)
+trigger_manager.remove_trigger(display_index=0)
 ```
 
 ---

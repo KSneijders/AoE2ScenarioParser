@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog]
 - UnitObject attribute `unit_id` renamed to `unit_const` (Credit: [T-West])
 - Effects and Condition constants are now `Enum`s (ie. `Effect.CREATE_OBJECT`)
 - Units, Buildings, Techs and Terrains are now `Enum`s (ie. `Unit.MAN_AT_ARMS`)
+- Renamed `delete_trigger` function to `remove_trigger`
 
 ### Updated
 
