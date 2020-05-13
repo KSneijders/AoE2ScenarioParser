@@ -134,6 +134,16 @@ class TriggersObject(AoE2Object):
 
         return parser.listify(self.triggers)[trigger_id]
 
+    def get_variable(self, variable_id: int = None, variable_name: str = None) -> VariableObject:
+        if variable_id is None and variable_name is None:
+            raise ValueError("Select a variable using the variable_id or variable_name parameters")
+        if variable_id is not None and variable_name is not None:
+            raise ValueError("Select a variable using either the variable_id or variable_name parameters, not both.")
+
+        for variable in self.variables:
+            if variable.variable_id == variable_id or variable.name == variable_name:
+                return variable
+
     def remove_trigger(self, trigger_id: int = None, display_index: int = None, trigger: TriggerObject = None) -> None:
         if trigger is None:
             _evaluate_index_params(trigger_id, display_index)
