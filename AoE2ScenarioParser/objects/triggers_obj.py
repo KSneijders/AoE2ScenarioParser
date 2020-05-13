@@ -19,7 +19,7 @@ def _evaluate_index_params(trigger_id, display_index):
 
 class TriggersObject(AoE2Object):
     def __init__(self,
-                 trigger_data,
+                 triggers,
                  trigger_display_order,
                  variables
                  ):
@@ -31,15 +31,15 @@ class TriggersObject(AoE2Object):
         super().__init__()
 
     def add_trigger(self, name) -> TriggerObject:
-        new_trigger = TriggerObject(name=name, trigger_id=len(self.trigger_data))
-        self.trigger_data.append(new_trigger)
-        helper.update_order_array(self.trigger_display_order, len(self.trigger_data))
+        new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
+        self.triggers.append(new_trigger)
+        helper.update_order_array(self.trigger_display_order, len(self.triggers))
         return new_trigger
 
     def get_summary_as_string(self) -> str:
         return_string = "Trigger Summary:\n"
 
-        triggers = parser.listify(self.trigger_data)
+        triggers = parser.listify(self.triggers)
         display_order = parser.listify(self.trigger_display_order)
 
         if len(display_order) == 0:
@@ -67,7 +67,7 @@ class TriggersObject(AoE2Object):
     def get_content_as_string(self) -> str:
         return_string = "Triggers:\n"
 
-        triggers = parser.listify(self.trigger_data)
+        triggers = parser.listify(self.triggers)
         display_order = parser.listify(self.trigger_display_order)
 
         if len(triggers) == 0:
@@ -84,7 +84,7 @@ class TriggersObject(AoE2Object):
         if trigger_id is None:
             trigger_id = self._get_trigger_id_by_display_index(display_index)
 
-        trigger = parser.listify(self.trigger_data)[trigger_id]
+        trigger: TriggerObject = parser.listify(self.triggers)[trigger_id]
         display = parser.listify(self.trigger_display_order).index(trigger_id)
 
         return_string = ""
@@ -102,7 +102,7 @@ class TriggersObject(AoE2Object):
         if trigger_id is None:
             trigger_id = self._get_trigger_id_by_display_index(display_index)
 
-        return parser.listify(self.trigger_data)[trigger_id]
+        return parser.listify(self.triggers)[trigger_id]
 
     def get_triggers(self) -> List[TriggerObject]:
         return parser.listify(self.trigger_data)
@@ -115,7 +115,7 @@ class TriggersObject(AoE2Object):
         else:
             display_index = self.trigger_display_order.index(trigger_id)
 
-        del self.trigger_data[trigger_id]
+        del self.triggers[trigger_id]
         del self.trigger_display_order[display_index]
 
         self.trigger_display_order = \
@@ -142,7 +142,7 @@ class TriggersObject(AoE2Object):
             variables.append(VariableObject._parse_object(parsed_data, variable=var))
 
         return TriggersObject(
-            trigger_data=triggers,
+            triggers=triggers,
             trigger_display_order=display_order,
             variables=variables
         )
