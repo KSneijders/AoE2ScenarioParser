@@ -1,4 +1,5 @@
 import struct
+from enum import Enum, IntEnum
 
 
 def bytes_to_str(byte_elements, codec="ascii"):
@@ -13,11 +14,10 @@ def bytes_to_int(byte_elements, endian="little", signed=False):
     return int.from_bytes(byte_elements, endian, signed=signed)
 
 
-def int_to_bytes(integer, length, endian="little", signed=True):
-    try:
-        return integer.to_bytes(length, byteorder=endian, signed=signed)
-    except AttributeError:
-        return integer.value.to_bytes(length, byteorder=endian, signed=signed)
+def int_to_bytes(integer: IntEnum, length, endian="little", signed=True):
+    if isinstance(integer, IntEnum):
+        integer = integer.value
+    return integer.to_bytes(length, byteorder=endian, signed=signed)
 
 
 def bytes_to_float(byte_elements):
