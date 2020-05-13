@@ -6,8 +6,8 @@ from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.variable_obj import VariableObject
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
+from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 
 def _evaluate_index_params(trigger_id, display_index):
@@ -36,6 +36,14 @@ class TriggersObject(AoE2Object):
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
         return new_trigger
 
+    def add_variable(self, variable_id, name) -> VariableObject:
+        if not (0 <= variable_id <= 255):
+            raise ValueError("Variable ID has to fall between 0 and 255 (incl).")
+
+        new_variable = VariableObject(variable_id=variable_id, name=name)
+        self.variables.append(new_variable)
+        return new_variable
+
     def get_summary_as_string(self) -> str:
         return_string = "Trigger Summary:\n"
 
@@ -43,7 +51,7 @@ class TriggersObject(AoE2Object):
         display_order = parser.listify(self.trigger_display_order)
 
         if len(display_order) == 0:
-            return return_string + "\t<< No Triggers >>"
+            return_string += "\t<< No Triggers >>"
 
         longest_trigger_name = -1
         for trigger_id in display_order:
@@ -62,6 +70,22 @@ class TriggersObject(AoE2Object):
             return_string += "\t(conditions: " + str(len(parser.listify(trigger.conditions))) + ", "
             return_string += " effects: " + str(len(parser.listify(trigger.effects))) + ")\n"
 
+        variables = parser.listify(self.variables)
+
+        return_string += "\nVariables Summary:\n"
+        if len(variables) == 0:
+            return_string += "<< No Variables >>"
+
+        longest_variable_name = -1
+        for variable in variables:
+            longest_variable_name = max(longest_variable_name, len(variable.name))
+
+        longest_variable_name += 3
+        for index, variable in enumerate(variables):
+            var_name = variable.name
+            buffer = " " * (longest_variable_name - len(var_name))
+            return_string += f"\t{var_name}{buffer}[Index: {variable.variable_id}]\n"
+
         return return_string
 
     def get_content_as_string(self) -> str:
@@ -71,10 +95,18 @@ class TriggersObject(AoE2Object):
         display_order = parser.listify(self.trigger_display_order)
 
         if len(triggers) == 0:
-            return return_string + "\t<<No triggers>>"
+            return_string += "\t<<No triggers>>"
 
         for trigger_id in display_order:
             return_string += self.get_trigger_as_string(trigger_id) + "\n"
+
+        return_string += "Variables:\n"
+
+        if len(triggers) == 0:
+            return_string += "\t<<No Variables>>"
+
+        for variable in parser.listify(self.variables):
+            return_string += f"\t'{variable.name}' [Index: {variable.variable_id}]\n"
 
         return return_string
 
@@ -87,9 +119,7 @@ class TriggersObject(AoE2Object):
         trigger: TriggerObject = parser.listify(self.triggers)[trigger_id]
         display = parser.listify(self.trigger_display_order).index(trigger_id)
 
-        return_string = ""
-
-        return_string += "\t'" + helper.del_str_trail(trigger.name) + "'"
+        return_string = "\t'" + helper.del_str_trail(trigger.name) + "'"
         return_string += " [Index: " + str(trigger_id) + ", Display: " + str(display) + "]" + ":\n"
 
         return_string += trigger.get_content_as_string()
