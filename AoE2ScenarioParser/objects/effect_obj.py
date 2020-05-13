@@ -14,50 +14,50 @@ from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 class EffectObject(AoE2Object):
     def __init__(self,
                  effect_type,
-                 ai_script_goal: int = -1,
-                 aa_quantity: int = -1,
-                 aa_armor_or_attack_type: int = -1,
-                 quantity: int = -1,
-                 tribute_list: int = -1,
-                 diplomacy: int = -1,
-                 number_of_units_selected: int = -1,
-                 object_list_unit_id: int = -1,
-                 player_source: int = -1,
-                 player_target: int = -1,
-                 technology: int = -1,
-                 string_id: int = -1,
-                 display_time: int = -1,
-                 trigger_id: int = -1,
-                 location_x: int = -1,
-                 location_y: int = -1,
-                 area_1_x: int = -1,
-                 area_1_y: int = -1,
-                 area_2_x: int = -1,
-                 area_2_y: int = -1,
-                 object_group: int = -1,
-                 object_type: int = -1,
-                 instruction_panel_position: int = -1,
-                 attack_stance: int = -1,
-                 time_unit: int = -1,
-                 enabled_or_victory: int = -1,
-                 food: int = -1,
-                 wood: int = -1,
-                 stone: int = -1,
-                 gold: int = -1,
-                 item_id: int = -1,
-                 flash_object: int = -1,
-                 force_research_technology: int = -1,
-                 visibility_state: int = -1,
-                 scroll: int = -1,
-                 operation: int = -1,
-                 object_list_unit_id_2: int = -1,
-                 button_location: int = -1,
-                 ai_signal_value: int = -1,
-                 object_attributes: int = -1,
-                 from_variable: int = -1,
-                 variable_or_timer: int = -1,
-                 facet: int = -1,
-                 play_sound: int = -1,
+                 ai_script_goal,
+                 aa_quantity,
+                 aa_armor_or_attack_type,
+                 quantity,
+                 tribute_list,
+                 diplomacy,
+                 number_of_units_selected,
+                 object_list_unit_id,
+                 player_source,
+                 player_target,
+                 technology,
+                 string_id,
+                 display_time,
+                 trigger_id,
+                 location_x,
+                 location_y,
+                 area_1_x,
+                 area_1_y,
+                 area_2_x,
+                 area_2_y,
+                 object_group,
+                 object_type,
+                 instruction_panel_position,
+                 attack_stance,
+                 time_unit,
+                 enabled_or_victory,
+                 food,
+                 wood,
+                 stone,
+                 gold,
+                 item_id,
+                 flash_object,
+                 force_research_technology,
+                 visibility_state,
+                 scroll,
+                 operation,
+                 object_list_unit_id_2,
+                 button_location,
+                 ai_signal_value,
+                 object_attributes,
+                 from_variable,
+                 variable_or_timer,
+                 facet,
+                 play_sound,
                  message="",
                  sound_name="",
                  selected_object_id: List = None,
@@ -132,54 +132,6 @@ class EffectObject(AoE2Object):
     @sound_name.setter
     def sound_name(self, val):
         self._sound_name = helper.add_str_trail(val)
-
-    # @property
-    # def object_list_unit_id(self) -> Enum:
-    #     return self._object_list_unit_id
-    #
-    # @object_list_unit_id.setter
-    # def object_list_unit_id(self, val: Enum):
-    #     self._object_list_unit_id = val.value
-    #
-    # @property
-    # def object_list_unit_id_2(self) -> Enum:
-    #     return self._object_list_unit_id_2
-    #
-    # @object_list_unit_id_2.setter
-    # def object_list_unit_id_2(self, val: Enum):
-    #     self._object_list_unit_id_2 = val.value
-    #
-    # @property
-    # def technology(self) -> Tech:
-    #     return self._technology
-    #
-    # @technology.setter
-    # def technology(self, val: Tech):
-    #     self._technology = val.value
-    #
-    # @property
-    # def player_source(self) -> Enum:
-    #     return Player(self._player_source)
-    #
-    # @player_source.setter
-    # def player_source(self, val: Enum):
-    #     self._player_source = val.value
-    #
-    # @property
-    # def player_target(self) -> Enum:
-    #     return Player(self._player_target)
-    #
-    # @player_target.setter
-    # def player_target(self, val: Enum):
-    #     self._player_target = val.value
-    #
-    # @property
-    # def selected_object_id(self) -> List:
-    #     return self._selected_object_id
-    #
-    # @selected_object_id.setter
-    # def selected_object_id(self, val: List):
-    #     self._selected_object_id = val
 
     def get_content_as_string(self):
         attributes_list = effects.attributes[self.effect_type]
