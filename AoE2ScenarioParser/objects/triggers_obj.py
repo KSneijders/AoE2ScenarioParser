@@ -24,9 +24,9 @@ class TriggersObject(AoE2Object):
                  variables
                  ):
 
-        self.trigger_data = trigger_data
-        self.trigger_display_order = parser.listify(trigger_display_order)
-        self.variables = variables
+        self.triggers: List[TriggerObject] = parser.listify(triggers)
+        self.trigger_display_order: List[int] = parser.listify(trigger_display_order)
+        self.variables: List[VariableObject] = parser.listify(variables)
 
         super().__init__()
 

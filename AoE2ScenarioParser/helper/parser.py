@@ -1,3 +1,5 @@
+from typing import List, T
+
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
@@ -23,7 +25,7 @@ def vorl(var):
         return var
 
 
-def listify(var):
+def listify(var: T) -> List[T]:
     """Always return item as list"""
     if type(var) is list:
         return var
