@@ -189,7 +189,7 @@ class TriggersObject(AoE2Object):
         variable_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables")
 
         trigger_data_retriever.data = []
-        for trigger in objects["TriggersObject"].trigger_data:
+        for trigger in objects["TriggersObject"].triggers:
             TriggerObject._reconstruct_object(parsed_data, objects, trigger=trigger)
 
         variable_data_retriever.data = []
@@ -197,7 +197,7 @@ class TriggersObject(AoE2Object):
             VariableObject._reconstruct_object(parsed_data, objects, variable=variable,
                                                variables=variable_data_retriever.data)
 
-        assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].trigger_data)
+        assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].triggers)
         trigger_count = len(trigger_data_retriever.data)
         number_of_triggers_retriever.data = trigger_count
         number_of_variable_retriever.data = len(variable_data_retriever.data)
