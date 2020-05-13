@@ -134,11 +134,11 @@ class TriggersObject(AoE2Object):
 
         return parser.listify(self.triggers)[trigger_id]
 
-    def get_triggers(self) -> List[TriggerObject]:
-        return parser.listify(self.trigger_data)
-
-    def remove_trigger(self, trigger_id=None, display_index=None, trigger=None) -> None:
-        _evaluate_index_params(trigger_id, display_index)
+    def remove_trigger(self, trigger_id: int = None, display_index: int = None, trigger: TriggerObject = None) -> None:
+        if trigger is None:
+            _evaluate_index_params(trigger_id, display_index)
+        else:
+            trigger_id = trigger.trigger_id
 
         if trigger_id is None:
             trigger_id = self._get_trigger_id_by_display_index(display_index)
