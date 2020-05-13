@@ -11,7 +11,9 @@ The format is based on [Keep a Changelog]
 - The `ai_script_goal` effect.
 - The `difficulty_level` condition.
 - The `new_unit_id_to_place` field in the `DataHeader` is updated in the reconstructing phase.
-- VariableObject: `{id: ..., name: ...}`
+- VariableObject: `{id: ..., name: ...}`.
+- Variable info to `get_content_as_string` and `get_summary_as_string` functions from the trigger_manager.
+- `get_variable(id or name)` function to the trigger_manager.
 - Defaults to all `effects` & `conditions`. (Editor defaults)
 - PlayerColor Enum > `PlayerColor.PURPLE`.
 - The ability to remove units > `unit_mamager.remove_unit(unit=... or reference_id=...)`.
@@ -24,6 +26,7 @@ The format is based on [Keep a Changelog]
 - Effects and Condition constants are now `IntEnum`s. (ie. `Effect.CREATE_OBJECT`)
 - Units, Buildings, Techs and Terrains are now `IntEnum`s. (ie. `Unit.MAN_AT_ARMS`)
 - Renamed `delete_trigger` function to `remove_trigger`.
+- Renamed `trigger_data` attribute to `triggers`
 
 ### Updated
 
@@ -38,6 +41,9 @@ The format is based on [Keep a Changelog]
 ### Removed
 
 - The default attributes in `Condition` and `Effect` constructors.
+- The `get_triggers` function. It was redundant as it's equal to the following:
+  - 0.0.6: `trigger_manager.trigger_data`
+  - 0.0.7: `trigger_manager.triggers`
 
 ---
 
