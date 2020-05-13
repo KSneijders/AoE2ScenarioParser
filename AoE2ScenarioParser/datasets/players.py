@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from enum import Enum
+from enum import IntEnum
 
 
-class Player(Enum):
+class Player(IntEnum):
     GAIA = 0
     ONE = 1
     TWO = 2
@@ -15,7 +15,7 @@ class Player(Enum):
     EIGHT = 8
 
 
-class PlayerColor(Enum):
+class PlayerColor(IntEnum):
     BLUE = 1
     RED = 2
     GREEN = 3

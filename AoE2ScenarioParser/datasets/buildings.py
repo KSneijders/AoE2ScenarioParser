@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import IntEnum
 
 from bidict import bidict
 
 
-class Building(Enum):
+class Building(IntEnum):
     AACHEN_CATHEDRAL = 1622
     AMPHITHEATRE = 251
     AQUEDUCT = 231

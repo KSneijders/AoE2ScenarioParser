@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import IntEnum
 
 
-class Terrain(Enum):
+class Terrain(IntEnum):
     BEACH = 2
     BEACH_NON_NAVIGABLE = 79
     BEACH_NON_NAVIGABLE_WET_GRAVEL = 81
@@ -92,4 +92,3 @@ class Terrain(Enum):
     WATER_GREEN = 95
     WATER_MEDIUM = 23
     WATER_SHALLOW = 1
-

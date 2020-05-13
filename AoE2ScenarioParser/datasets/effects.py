@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import IntEnum
 
 from bidict import bidict
 
 
-class Effect(Enum):
+class Effect(IntEnum):
     NONE = 0
     """Attributes for the **none** effect are: \n
     ... none... Just like Conditions... People these days... """
@@ -479,6 +479,7 @@ class Effect(Enum):
     CLEAR_TIMER = 57
     """Attributes for the **clear_timer** effect are: \n
     - variable_or_timer"""
+
 
 effect_names = bidict({
     0: "none",

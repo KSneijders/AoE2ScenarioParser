@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import IntEnum
 
 from bidict import bidict
 
 
-class Unit(Enum):
+class Unit(IntEnum):
     MOVEABLE_MAP_REVEALER = 0
     ALFRED_THE_ALPACA = 1300
     AMAZON_ARCHER = 850

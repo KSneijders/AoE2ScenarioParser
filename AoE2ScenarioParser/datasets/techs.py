@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import IntEnum
 
 from bidict import bidict
 
 
-class Tech(Enum):
+class Tech(IntEnum):
     ANARCHY = 16
     ANDEAN_SLING = 516
     ARBALESTER = 237
