@@ -14,8 +14,8 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("Trigger data", DataType(TriggerStruct), set_repeat="{number_of_triggers}"),
             Retriever("Trigger display order array", DataType("u32"), set_repeat="{number_of_triggers}"),
             Retriever("Unknown Data", DataType("1028")),
-            Retriever("Changed Variables", DataType("u32"), save_as="number_of_changed_vars"),
-            Retriever("variable_names", DataType(ChangedVariableStruct), set_repeat="{number_of_changed_vars}")
+            Retriever("Number of changed variables", DataType("u32"), save_as="number_of_changed_vars"),
+            Retriever("Changed variables", DataType(ChangedVariableStruct), set_repeat="{number_of_changed_vars}")
         ]
 
         super().__init__("Triggers", retrievers, parser_obj, data=data)
