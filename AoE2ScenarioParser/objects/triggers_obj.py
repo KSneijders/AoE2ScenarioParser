@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from typing import List
+
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.variable_obj import VariableObject
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 
 
@@ -18,11 +20,13 @@ def _evaluate_index_params(trigger_id, display_index):
 class TriggersObject(AoE2Object):
     def __init__(self,
                  trigger_data,
-                 trigger_display_order
+                 trigger_display_order,
+                 variables
                  ):
 
         self.trigger_data = trigger_data
         self.trigger_display_order = parser.listify(trigger_display_order)
+        self.variables = variables
 
         super().__init__()
 
@@ -31,41 +35,6 @@ class TriggersObject(AoE2Object):
         self.trigger_data.append(new_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.trigger_data))
         return new_trigger
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
-        display_order = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data)
-        trigger_data = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data)
-
-        triggers = []
-        for index, trigger in enumerate(trigger_data):
-            triggers.append(TriggerObject._parse_object(parsed_data, trigger=trigger, trigger_id=index))
-
-        return TriggersObject(
-            trigger_data=triggers,
-            trigger_display_order=display_order
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
-        number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
-        trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
-        display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
-        display_order_retriever.data = parser.listify(display_order_retriever.data)
-
-        trigger_data_retriever.data = []
-        for trigger in objects["TriggersObject"].trigger_data:
-            TriggerObject._reconstruct_object(parsed_data, objects, trigger=trigger)
-
-        assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].trigger_data)
-        trigger_count = len(trigger_data_retriever.data)
-        number_of_triggers_retriever.data = trigger_count
-        # Currently not necessary due to the parser changing the 'repeated' value equal to the len(list)
-        # trigger_data_retriever.datatype.repeat = trigger_count
-        # display_order_retriever.datatype.repeat = trigger_count
-        helper.update_order_array(display_order_retriever.data, trigger_count)
 
     def get_summary_as_string(self) -> str:
         return_string = "Trigger Summary:\n"
@@ -154,3 +123,55 @@ class TriggersObject(AoE2Object):
 
     def _get_trigger_id_by_display_index(self, display_index) -> int:
         return self.trigger_display_order[display_index]
+
+    @staticmethod
+    def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
+        display_order = parser.listify(
+            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data)
+        trigger_data = parser.listify(
+            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data)
+        var_data = parser.listify(
+            find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables").data)
+
+        triggers = []
+        for index, trigger in enumerate(trigger_data):
+            triggers.append(TriggerObject._parse_object(parsed_data, trigger=trigger, trigger_id=index))
+
+        variables = []
+        for var in var_data:
+            variables.append(VariableObject._parse_object(parsed_data, variable=var))
+
+        return TriggersObject(
+            trigger_data=triggers,
+            trigger_display_order=display_order,
+            variables=variables
+        )
+
+    @staticmethod
+    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
+        number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
+        trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
+        display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
+        display_order_retriever.data = parser.listify(display_order_retriever.data)
+
+        number_of_variable_retriever = find_retriever(
+            parsed_data['TriggerPiece'].retrievers, "Number of variables")
+        variable_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables")
+
+        trigger_data_retriever.data = []
+        for trigger in objects["TriggersObject"].trigger_data:
+            TriggerObject._reconstruct_object(parsed_data, objects, trigger=trigger)
+
+        variable_data_retriever.data = []
+        for variable in objects["TriggersObject"].variables:
+            VariableObject._reconstruct_object(parsed_data, objects, variable=variable,
+                                               variables=variable_data_retriever.data)
+
+        assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].trigger_data)
+        trigger_count = len(trigger_data_retriever.data)
+        number_of_triggers_retriever.data = trigger_count
+        number_of_variable_retriever.data = len(variable_data_retriever.data)
+        # Currently not necessary due to the parser changing the 'repeated' value equal to the len(list)
+        # trigger_data_retriever.datatype.repeat = trigger_count
+        # display_order_retriever.datatype.repeat = trigger_count
+        helper.update_order_array(display_order_retriever.data, trigger_count)
