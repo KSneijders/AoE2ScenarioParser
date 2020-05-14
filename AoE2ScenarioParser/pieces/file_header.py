@@ -15,7 +15,7 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("Player count", DataType("u32")),
             Retriever("Data", DataType("36")),
             Retriever("Creator name", DataType("str32")),
-            Retriever("Data (2)", DataType("4")),
+            Retriever("Trigger count", DataType("u32")),
         ]
 
         super().__init__("File Header", retrievers, parser_obj, data=data)
