@@ -194,7 +194,7 @@ class UnitsObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
         player_units_retriever = find_retriever(parsed_data['UnitsPiece'].retrievers, "Player Units")
 
         # Todo: Move this to DataHeader
@@ -206,7 +206,7 @@ class UnitsObject(AoE2Object):
 
             units_list = []
             for unit in player_units:
-                UnitObject._reconstruct_object(parsed_data, objects, unit=unit, units=units_list)
+                UnitObject._reconstruct_object(parsed_header, parsed_data, objects, unit=unit, units=units_list)
 
             player_units_retriever.data.append(
                 PlayerUnitsStruct(data=[len(units_list), units_list])

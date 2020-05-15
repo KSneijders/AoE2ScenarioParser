@@ -62,7 +62,7 @@ class AoE2ObjectManager:
 
         for key in self._finished_new_structure.keys():
             lgr.print("\tReconstructing " + key + "...")
-            self._objects[key]._reconstruct_object(self.parsed_data, self._objects)
+            self._objects[key]._reconstruct_object(self.parser_header, self.parsed_data, self._objects)
             lgr.print("\tReconstructing " + key + " finished successfully.")
 
         lgr.print("Reconstruction finished successfully.")

@@ -180,7 +180,7 @@ class TriggerObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         trigger = kwargs['trigger']
         trigger.effect_order = parser.listify(trigger.effect_order)
@@ -188,13 +188,14 @@ class TriggerObject(AoE2Object):
 
         effects_list = []
         for effect_obj in trigger.effects:
-            EffectObject._reconstruct_object(parsed_data, objects, effect=effect_obj, effects=effects_list)
+            EffectObject._reconstruct_object(parsed_header, parsed_data, objects, effect=effect_obj,
+                                             effects=effects_list)
 
         helper.update_order_array(trigger.effect_order, len(trigger.effects))
 
         conditions_list = []
         for condition_obj in trigger.conditions:
-            ConditionObject._reconstruct_object(parsed_data, objects, condition=condition_obj,
+            ConditionObject._reconstruct_object(parsed_header, parsed_data, objects, condition=condition_obj,
                                                 conditions=conditions_list)
 
         helper.update_order_array(trigger.condition_order, len(trigger.conditions))

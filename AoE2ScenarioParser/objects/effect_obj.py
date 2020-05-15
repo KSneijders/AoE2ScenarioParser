@@ -164,7 +164,7 @@ class EffectObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
         effect_obj = kwargs['effect']
         effects_list = kwargs['effects']
 

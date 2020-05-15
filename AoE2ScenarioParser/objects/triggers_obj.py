@@ -188,11 +188,13 @@ class TriggersObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
         number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
         display_order_retriever.data = parser.listify(display_order_retriever.data)
+        file_header_trigger_count_retriever = find_retriever(parsed_header['FileHeaderPiece'].retrievers,
+                                                             "Trigger count")
 
         number_of_variable_retriever = find_retriever(
             parsed_data['TriggerPiece'].retrievers, "Number of variables")
@@ -200,16 +202,17 @@ class TriggersObject(AoE2Object):
 
         trigger_data_retriever.data = []
         for trigger in objects["TriggersObject"].triggers:
-            TriggerObject._reconstruct_object(parsed_data, objects, trigger=trigger)
+            TriggerObject._reconstruct_object(parsed_header, parsed_data, objects, trigger=trigger)
 
         variable_data_retriever.data = []
         for variable in objects["TriggersObject"].variables:
-            VariableObject._reconstruct_object(parsed_data, objects, variable=variable,
+            VariableObject._reconstruct_object(parsed_header, parsed_data, objects, variable=variable,
                                                variables=variable_data_retriever.data)
 
         assert len(trigger_data_retriever.data) == len(objects["TriggersObject"].triggers)
         trigger_count = len(trigger_data_retriever.data)
         number_of_triggers_retriever.data = trigger_count
+        file_header_trigger_count_retriever.data = trigger_count
         number_of_variable_retriever.data = len(variable_data_retriever.data)
         # Currently not necessary due to the parser changing the 'repeated' value equal to the len(list)
         # trigger_data_retriever.datatype.repeat = trigger_count

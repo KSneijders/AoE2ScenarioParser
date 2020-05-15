@@ -26,7 +26,7 @@ class VariableObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:
         # Expected {variable=VariableObject, variables=variables_list}
         variable_obj = kwargs['variable']
         variables_list = kwargs['variables']
