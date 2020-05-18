@@ -2,11 +2,11 @@ import struct
 from enum import Enum, IntEnum
 
 
-def bytes_to_str(byte_elements, codec="ascii"):
+def bytes_to_str(byte_elements, codec="utf-8"):
     return byte_elements.decode(codec)
 
 
-def str_to_bytes(string, codec="ascii"):
+def str_to_bytes(string, codec="utf-8"):
     return string.encode(codec)
 
 
