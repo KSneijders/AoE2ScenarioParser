@@ -15,6 +15,7 @@ Current up-to-date progress can be found on the [Trello] board.
 | Triggers   | ✔️   | ✔️ | ✔️   | ✔️    |
 | Conditions | ✔️   | ✔️ | ✔️   |        |
 | Effects    | ✔️   | ✔️ | ✔️   |        |
+| Units      |      | ✔️ | ✔️   | ✔️    |
 
 ## Bugs:
 - None that I know of. Please report any bugs you find to the [github issue board].
@@ -26,7 +27,7 @@ Current up-to-date progress can be found on the [Trello] board.
 | ScenarioFiles | Read | Write | Reference            |
 |---------------|------|-------|----------------------|
 | 1.36          | ✔️   | ✔️   | -
-| 1.37          | ✔️   | ✔️   | Game update: [35584]
+| 1.37          | ✔️   | ✔️   | From game update: [35584]
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 
@@ -66,12 +67,11 @@ scenario = AoE2Scenario(input_path)
 ```
 
 ## Editing a Scenario
-You can edit your scenario in many ways. Not every part of the scenario can be edited with this project yet (without diving into the source code). Below you can find cheatsheets of the parts that are supported. If you'd like to see a 
+You can edit your scenario in many ways. Not every part of the scenario can be edited with this project yet (without diving into the source code). Below you can find cheatsheets of the parts that are supported.
 
 - [Triggers cheatsheet](cheatsheets/TRIGGERS.md)
 - [Units cheatsheet](cheatsheets/UNITS.md)
 
-Please use the links for a cheatsheet of those parts.  
 As we all now, `AoE2` has a lot of data involved. From `Terrain types` and `Units` to `Effects` and `Conditions`. All this data is impossible to remember. For that reason there are a number of datasets to help you out. You can find the cheatsheet here:
 
 - [Datasets cheatsheet](cheatsheets/DATASETS.md)

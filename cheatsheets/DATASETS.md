@@ -7,10 +7,11 @@ from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
 
 # Information of unit/tech/terrain name and their ID
-from AoE2ScenarioParser.datasets.buildings import Building
+from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.techs import Tech
+from AoE2ScenarioParser.datasets.heroes import Hero
 from AoE2ScenarioParser.datasets.terrains import Terrain
-from AoE2ScenarioParser.datasets.units import Unit
+from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
 
 # Enum of players
 from AoE2ScenarioParser.datasets.players import Player, PlayerColor
@@ -20,8 +21,9 @@ Current datasets are:
 
 - conditions
 - effects
-- buildings
-- units
+- (GAIA) buildings
+- (GAIA) units
+- heroes
 - techs
 - players (& player colors)
 - terrains
@@ -58,8 +60,8 @@ effect.player_target = Player.TWO.value
 ```
 If you want to find the `ID` using the String name or the other way around of the condition or effect you can use the `Bidict` like so:
 ```py
-effects.effect_names(0)     # none
-effects.effect_names(11)    # create_object
+effects.effect_names(0)         # none
+effects.effect_names(11)        # create_object
 effects.effect_names.inverse("create_object")           # 11
 effects.effect_names.inverse("acknowledge_ai_signal")   # 50
 
@@ -76,15 +78,16 @@ helper.pretty_print_name(conditions.condition_names[11])  # Object Selected
 
 ---
 &nbsp;
-## Units, Buildings and Techs
+## (GAIA) Units, (GAIA) Buildings, Heroes and Techs
 
 The Units and Buildings datasets are very usefull when adding units. They're also, together with the the Techs dataset, very usefull when adding or editing triggers.
 
 For adding units it'll look something like the following:
 ```py
-unit_manager.add_unit(Player.ONE, Unit.CONQUISTADOR, x=10, y=20)
-unit_manager.add_unit(Player.TWO, Unit.PALADIN, x=20, y=20)
-unit_manager.add_unit(Player.GAIA, Building.FEITORIA, x=30, y=20)
+unit_manager.add_unit(Player.ONE,   Unit.CONQUISTADOR,      x=10,   y=20)
+unit_manager.add_unit(Player.TWO,   Unit.PALADIN,           x=20,   y=20)
+unit_manager.add_unit(Player.GAIA,  Building.FEITORIA,      x=30,   y=20)
+unit_manager.add_unit(Player.GAIA,  Hero.WILLIAM_WALLACE,   x=40,   y=20)
 ```
 
 With the triggers you can do similiar stuff like:
@@ -100,7 +103,7 @@ or:
 ...
 effect = trigger.add_effect(Effect.RESEARCH_TECHNOLOGY)
 effect.player_source = Player.THREE.value
-effect.technology = Tech.BLOODLINES  # <--
+effect.technology = Tech.BLOODLINES  # <-- or Techs
 ...
 ```
 Just like effects and conditions there is a `Bidict` within the dataset which you can use to translate the `ID -> Name` or `(inverse) Name -> ID`.
@@ -114,6 +117,16 @@ units.unit_names.inverse['galleon']         # 442
 buildings.building_names.inverse['stable']  # 101
 techs.tech_names.inverse['guard_tower']     # 140
 ```
+Some units and buildings are GAIA only. That's what the `GaiaBuilding` and `GaiaUnit` dataset are for. Both of the datasets are a copy of the Non-GAIA version but with the GAIA only units included.
+```py
+# So you can still do this:
+GaiaUnit.ARCHER         # 4
+GaiaBuilding.CASTLE     # 82
+# But you can now also do:
+GaiaUnit.WOLF           # 126 Woo, Woo, Woo!
+GaiaBuilding.RUINS      # 345
+```
+*Note: These datasets might make the non-GAIA versions seem redundant. But these datasets are added so you you are less likely to try and give a Player a wolf unit and then have to go and figure out yourself that the game does not support it (Unfortunately). It's just a simple way of showing which units can be added for Players and which units can't. You can, of course, still test it by adding a `GaiaUnit.WOLF` to `Player.ONE`.* 
 
 ---
 &nbsp;
