@@ -26,6 +26,7 @@ buildings_ids = [
     788, 1264, 49, 101, 117, 1081, 637, 1097, 1098, 1099, 1100, 1101, 1368, 109, 444, 110, 209, 79, 276, 1311,
     1310, 1309, 1314, 1313, 1312, 712, 713, 714, 715, 716, 717, 718, 719
 ]
+gaia_buildings_ids = [1398, 1396, 1399, 1397, 345]
 techs_ids = [
     16, 516, 237, 51, 573, 608, 602, 10, 21, 460, 319, 543, 686, 93, 17, 83, 583, 49, 75, 230, 435, 200, 188, 64, 203,
     201, 529, 673, 652, 535, 37, 96, 48, 374, 572, 19, 102, 209, 541, 82, 76, 264, 628, 47, 534, 493, 23, 315, 514, 517,
@@ -162,6 +163,12 @@ buildings_name_correction = {
     1087: "Hut F",  # Hut
     1088: "Hut G",  # Hut
 }
+gaia_buildings_name_correction = {
+    1398: "Chain West to East Diagonal",
+    1396: "Chain Left to Right",
+    1399: "Chain North to South Diagonal",
+    1397: "Chain Top to bottom",
+}
 techs_name_correction = {
     557: "Enable Cows",
     556: "Enable llamas",
@@ -228,11 +235,11 @@ with open('units_buildings_techs.json', 'r') as f:
     # for obj_id in units_ids:
     # for obj_id in buildings_ids:
     # for obj_id in techs_ids:
-    for obj_id in gaia_units_ids:
+    for obj_id in gaia_buildings_ids:
         obj = d['units_buildings' if units_buildings else 'techs'][str(obj_id)]
 
-        if obj_id in gaia_units_name_correction.keys():
-            localized_name = gaia_units_name_correction[obj_id]
+        if obj_id in gaia_buildings_name_correction.keys():  # <-- Replace TWICE!
+            localized_name = gaia_buildings_name_correction[obj_id]  # <-- Replace TWICE!
         else:
             localized_name = obj['localised_name']
 

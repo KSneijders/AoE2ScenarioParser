@@ -1,9 +1,8 @@
 from enum import IntEnum
 
-from AoE2ScenarioParser.datasets.buildings import Building
+from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
-from AoE2ScenarioParser.datasets.units import Unit
-
+from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
 
 """ =============================================================
 ========================= HEX FUNCTIONS =========================
@@ -85,12 +84,22 @@ def pretty_print_name(name: str) -> str:
 
 
 def get_enum_from_unit_const(const: int) -> IntEnum:
+    """
+    Returns an Enum corresponding with the given Const.
+
+    Arguments:
+        const: The constant representing a unit
+    """
     if any(item == const for item in Unit):
         return Unit(const)
     if any(item.value == const for item in Building):
         return Building(const)
     if any(item.value == const for item in Hero):
         return Hero(const)
+    if any(item == const for item in GaiaUnit):
+        return GaiaUnit(const)
+    if any(item == const for item in GaiaBuilding):
+        return GaiaBuilding(const)
 
 
 class SimpleLogger:
