@@ -45,7 +45,7 @@ class TriggersObject(AoE2Object):
         return new_variable
 
     def get_summary_as_string(self) -> str:
-        return_string = "Trigger Summary:\n"
+        return_string = "\nTrigger Summary:\n"
 
         triggers = parser.listify(self.triggers)
         display_order = parser.listify(self.trigger_display_order)

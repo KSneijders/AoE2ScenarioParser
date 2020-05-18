@@ -1,8 +1,6 @@
-from typing import List
-
+import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
-import AoE2ScenarioParser.pieces.structs.aoe2_struct
 
 types = [
     "s",  # Signed int
@@ -70,10 +68,13 @@ class Parser:
             elif var_type == "str":
                 string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
                 try:
-                    val = bytes_to_str(r_gen(generator, string_length))
+                    data = r_gen(generator, string_length)
+                    val = bytes_to_str(data)
                     length += string_length
                 except StopIteration as e:
-                    print("string_length: ", string_length)
+                    print(f"\n[StopIteration] Parser.retrieve_value: \n"
+                          f"\tRetriever: {retriever}\n"
+                          f"\tString length: {string_length}\n")
                     raise StopIteration(e)
             else:
                 break
@@ -196,7 +197,7 @@ def retriever_to_bytes(retriever):
             elif var_type == "data":
                 return_bytes += data
             elif var_type == "str":
-                return_bytes += int_to_bytes(len(data), var_len, endian="little", signed=True)
+                return_bytes += int_to_bytes(len(data.encode('utf-8')), var_len, endian="little", signed=True)
                 return_bytes += str_to_bytes(data)
     except (AttributeError, TypeError) as e:
         print("\n" + type(e).__name__ + " occurred in: " + retriever.name +
