@@ -12,6 +12,10 @@ units_ids = [
     1234, 1236, 1237, 1243, 1245, 1252, 1253, 1258, 1263, 1271, 1273, 1275, 1291, 1292, 1300, 1302, 1304, 1338, 1356,
     1370, 1372, 1374, 1377, 1400, 1570, 1572, 1577, 1596, 1598, 1600, 1602, 1604, 1606,
 ]
+gaia_units_ids = [
+    486, 1608, 1610, 1609, 1031, 65, 89, 1301, 1056, 96, 76, 1239, 810, 812, 822, 1135, 1029,
+    816, 1026, 202, 1139, 303, 1241, 1028, 862, 1137, 1305, 1247, 48, 884, 835, 126, 1019
+]
 buildings_ids = [
     1622, 251, 231, 899, 87, 1196, 1197, 1198, 1199, 1200, 12, 103, 236, 607, 740, 739, 738, 606, 605, 610,
     743, 742, 741, 609, 608, 1206, 1212, 1211, 1210, 1205, 1204, 1209, 1215, 1214, 1213, 1208, 1207, 1552,
@@ -76,6 +80,19 @@ units_name_correction = {
     1253: "Elite Konnik (Dismounted)",  # Elite Konnik
     1291: "Invisible Object",  # Test String
     753: "Eagle Warrior"  # <Empty String>
+}
+gaia_units_name_correction = {
+    1056: "Falcon",
+    1028: "Stork",
+    1247: "Wild Bactrian Camel",
+    884: "Wild Camel",
+    835: "Wild Horse",
+    1305: "Vulture",
+    1301: "Elephant",
+    1610: "BUTTERFL3",
+    1609: "BUTTERFL2",
+    1608: "BUTTERFL1",
+    486: "BEAR",
 }
 buildings_name_correction = {
     1622: "Aachen Cathedral",  # Wonder
@@ -198,7 +215,7 @@ techs_name_correction = {
     396: "Chinese 50 percent HP Demos"
 }
 
-units_buildings = False
+units_buildings = True
 with open('units_buildings_techs.json', 'r') as f:
     d = json.load(f)
     result = {}
@@ -210,11 +227,12 @@ with open('units_buildings_techs.json', 'r') as f:
 
     # for obj_id in units_ids:
     # for obj_id in buildings_ids:
-    for obj_id in techs_ids:
+    # for obj_id in techs_ids:
+    for obj_id in gaia_units_ids:
         obj = d['units_buildings' if units_buildings else 'techs'][str(obj_id)]
 
-        if obj_id in techs_name_correction.keys():
-            localized_name = techs_name_correction[obj_id]
+        if obj_id in gaia_units_name_correction.keys():
+            localized_name = gaia_units_name_correction[obj_id]
         else:
             localized_name = obj['localised_name']
 
