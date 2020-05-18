@@ -74,7 +74,7 @@ class TriggersObject(AoE2Object):
 
         return_string += "\nVariables Summary:\n"
         if len(variables) == 0:
-            return_string += "<< No Variables >>"
+            return_string += "\t<< No Variables >>"
 
         longest_variable_name = -1
         for variable in variables:
