@@ -152,6 +152,10 @@ class Building(IntEnum):
 
 
 class GaiaBuilding(IntEnum):
+    # Gaia Buildings
+    RUINS = 345
+
+    # Normal Buildings
     AACHEN_CATHEDRAL = 1622
     AMPHITHEATRE = 251
     AQUEDUCT = 231
@@ -297,9 +301,6 @@ class GaiaBuilding(IntEnum):
     YURT_F = 717
     YURT_G = 718
     YURT_H = 719
-
-    # Gaia Buildings
-    RUINS = 345
 
 
 building_names = bidict({
