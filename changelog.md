@@ -18,8 +18,9 @@ The format is based on [Keep a Changelog]
 - PlayerColor Enum > `PlayerColor.PURPLE`.
 - The ability to remove units using `unit_mamager.remove_unit(unit=... or reference_id=...)`.
 - The abiltiy to remove a trigger using an object reference: `trigger_manager.remove_trigger(trigger=...)`.
-- Hero dataset (Credits to [T-West] for the hero name list)
+- `Hero` dataset (Credits to [T-West] for the hero name list)
 - `get_enum_from_unit_const` function
+- `GaiaBuilding` and `GaiaUnit` dataset (Like normal Building and Unit dataset but also includes Gaia only buildings & units)
 - **Code Block** - Added code block for adding KOTH + Regicide to any map with (exactly) one monument - Using triggers. This code block adds close to 600 triggers for displaying all years, displaying players holding the monument and victory & defeat conditions.
 
 ### Changed
