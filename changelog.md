@@ -18,6 +18,8 @@ The format is based on [Keep a Changelog]
 - PlayerColor Enum > `PlayerColor.PURPLE`.
 - The ability to remove units using `unit_mamager.remove_unit(unit=... or reference_id=...)`.
 - The abiltiy to remove a trigger using an object reference: `trigger_manager.remove_trigger(trigger=...)`.
+- Hero dataset (Credits to [T-West] for the hero name list)
+- `get_enum_from_unit_const` function
 - **Code Block** - Added code block for adding KOTH + Regicide to any map with (exactly) one monument - Using triggers. This code block adds close to 600 triggers for displaying all years, displaying players holding the monument and victory & defeat conditions.
 
 ### Changed
@@ -28,6 +30,7 @@ The format is based on [Keep a Changelog]
 - Units, Buildings, Techs and Terrains are now `IntEnum`s. (ie. `Unit.MAN_AT_ARMS`)
 - Renamed `delete_trigger` function to `remove_trigger`.
 - Renamed `trigger_data` attribute to `triggers`
+- Reading and Writing UTF-8 instead of ASCII characters. (The game might not support all characters everywhere)
 
 ### Updated
 
