@@ -30,7 +30,7 @@ def check_if_duplicate(new, last):
 
 
 for x in range(5, 0, -1):
-    print(x, end="")
+    print(x, end=" ")
     sleep(1)
 print("\n")
 
