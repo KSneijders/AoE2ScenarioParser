@@ -5,6 +5,8 @@ The project currently contains multiple datasets. These are currently pretty bas
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operator, ButtonLocation, PanelLocation, \
+    TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
 
 # Information of unit/tech/terrain name and their ID
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
@@ -21,6 +23,7 @@ Current datasets are:
 
 - conditions
 - effects
+- condition and effect dropdown lists
 - (GAIA) buildings
 - (GAIA) units
 - heroes
@@ -54,7 +57,7 @@ Attributes for the **change_diplomacy** effect are:
 ```
 You can use this information to edit this effect:
 ```py
-effect.diplomacy = 0  # Ally (1 = Neutral, 3 = Enemy) <- Datasets for this will be added
+effect.diplomacy = DiplomacyState.ALLY  # <-- New dropdown lists datasets!
 effect.player_source = Player.ONE.value
 effect.player_target = Player.TWO.value
 ```
@@ -76,6 +79,39 @@ from AoE2ScenarioParser.helper import helper
 helper.pretty_print_name(conditions.condition_names[11])  # Object Selected
 ```
 
+---
+&nbsp;
+## Conditions & Effects dropdown lists
+Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to remember. That's why these datasets have been added:
+
+Names           | Explanation                                                                   | Example
+----------------|-------------------------------------------------------------------------------|----------------------------------------------
+DiplomacyState  | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.    | `DiplomacyState.ALLY` ( Value: 0 )
+Operator        | Used in many effects. Generally related to variables.                         | `Operator.MULTIPLY` ( Value: 4 )
+ButtonLocation  | Used in the `Change Research Location` and `Change Train Location` effects.   | `ButtonLocation.LOCATION_2_0` ( Value: 3 )
+PanelLocation   | Used in the `Display Instructions` effect.                                    | `PanelLocation.CENTER` ( Value: 2 )
+TimeUnit        | Used in the `Display Timer` effect.                                           | `TimeUnit.YEARS` ( Value: 2 )
+VisibilityState | Used in the `Set Player Visibility` effect.                                   | `VisibilityState.EXPLORED` ( Value: 1 )
+DifficultyLevel | Used in the `Difficulty Level` condition.                                     | `DifficultyLevel.HARDEST` ( Value: 0 )
+TechnologyState | Used in the `Technology State` condition.                                     | `TechnologyState.RESEARCHING` ( Value: 1 )
+Comparison      | Used in many effects and conditions. Generally related to variables.          | `Comparison.EQUAL` ( Value: 0 )
+ObjectAttribute | Used in the `Modify Attribute` effect.                                        | `ObjectAttribute.CARRY_CAPACITY` ( Value: 14 )
+Attribute       | Used in the `Accumulate Attribute` efect.                                     | `Attribute.ALL_TECHS_ACHIEVED` ( Value: 39 )
+
+Exmaple of some usages:
+```py
+trigger = trigger_manager.add_trigger("Inform Betrayal!")
+condition = trigger.add_condition(Condition.DIPLOMACY_STATE)
+condition.amount_or_quantity = DiplomacyState.ALLY                  # <-- DiplomacyState dataset
+condition.player = Player.TWO
+condition.target_player = Player.THREE
+
+effect = trigger.add_effect(Effect.DISPLAY_INSTRUCTIONS)
+effect.player_source = Player.ONE
+effect.message = "Spy: Your ally has betrayed you! He allied the enemy!"
+effect.instruction_panel_position = PanelLocation.CENTER            # <-- PanelLocation dataset
+effect.display_time = 10
+```
 ---
 &nbsp;
 ## (GAIA) Units, (GAIA) Buildings, Heroes and Techs
@@ -166,10 +202,6 @@ class PlayerColor(Enum):
     PURPLE = 6
     GREY = 7
     ORANGE = 8
-```
-For now some places (like effect attributes (as seen above)) do not support these Enum values. That said, it's still recommended to use them for consistency. You can do this by adding `.value` behind the Enum as: 
-```py
-Player.GAIA.value  # 0
 ```
 
 ---
