@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.0.7
+## [Unreleased]
+
+- 
+
+## 0.0.7 - 2019-May-23 
 ### Added
 
 - The `ai_script_goal` effect.
@@ -64,7 +68,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.0.6
+## 0.0.6 - 2019-April-20  
 ### Added
 
 - UnitsObject and UnitObject reconstruct support (AKA: Made Usable).
