@@ -1,4 +1,5 @@
 import collections
+import time
 import zlib
 
 from AoE2ScenarioParser.helper import generator
@@ -22,7 +23,7 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     def __init__(self, filename, log_reading=True, log_parsing=False):
-        print("\nLoading file: '" + filename + "'...")
+        print("\nPreparing & Loading file: '" + filename + "'...")
 
         scenario = open(filename, "rb")
         self._file = scenario.read()
@@ -32,8 +33,10 @@ class AoE2Scenario:
         self._file_data = zlib.decompress(scenario.read(), -zlib.MAX_WBITS)
 
         scenario.close()
+        # self._debug_write_from_source("../PreParseErrorFile", "hd", write_in_bytes=False)
+        # exit()
 
-        print("File loaded.")
+        print("File prepared and loaded.")
 
         self.parser = parser.Parser()
         self._read_file(log_reading=log_reading)
@@ -48,23 +51,35 @@ class AoE2Scenario:
         header_generator = self._create_header_generator(1)
         data_generator = self._create_data_generator(1)
 
-        for piece_object in _header_structure:
-            piece = piece_object(self.parser)
-            piece_name = type(piece).__name__
+        current_piece = ""
+        try:
+            for piece_object in _header_structure:
+                piece = piece_object(self.parser)
+                piece_name = type(piece).__name__
+                self._parsed_header[piece_name] = piece
+                current_piece = piece_name
 
-            lgr.print("\tReading " + piece_name + "...")
-            piece.set_data_from_generator(header_generator)
-            self._parsed_header[piece_name] = piece
-            lgr.print("\tReading " + piece_name + " finished successfully.")
+                lgr.print("\tReading " + piece_name + "...")
+                piece.set_data_from_generator(header_generator)
+                lgr.print("\tReading " + piece_name + " finished successfully.")
 
-        for piece_object in _file_structure:
-            piece = piece_object(self.parser)
-            piece_name = type(piece).__name__
+            for piece_object in _file_structure:
+                piece = piece_object(self.parser)
+                piece_name = type(piece).__name__
+                self._parsed_data[piece_name] = piece
+                current_piece = piece_name
 
-            lgr.print("\tReading " + piece_name + "...")
-            piece.set_data_from_generator(data_generator)
-            self._parsed_data[piece_name] = piece
-            lgr.print("\tReading " + piece_name + " finished successfully.")
+                lgr.print("\tReading " + piece_name + "...")
+                piece.set_data_from_generator(data_generator)
+                lgr.print("\tReading " + piece_name + " finished successfully.")
+        except StopIteration as e:
+            print(f"\n[StopIteration] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
+            print("Writing ErrorFile...")
+            self._debug_byte_structure_to_file("../ErrorFile", log_debug_write=False)
+            time.sleep(1)
+            print("ErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
+            time.sleep(1)
+            raise StopIteration(e)
 
         suffix = b''
         try:
@@ -86,7 +101,8 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
-        self.object_manager.reconstruct(log_reconstructing=log_reconstructing)
+        if hasattr(self, 'object_manager'):
+            self.object_manager.reconstruct(log_reconstructing=log_reconstructing)
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
 
@@ -104,9 +120,10 @@ class AoE2Scenario:
             for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
-                except AttributeError:
+                except AttributeError as e:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
-                    exit("\n\n\nAn error occurred. Writing failed.")
+                    print("\n\n\nAn error occurred. Writing failed.")
+                    raise e
             lgr.print("\twriting " + key + " finished successfully.")
 
         file = open(filename, "wb" if write_in_bytes else "w")
@@ -159,15 +176,18 @@ class AoE2Scenario:
 
         for effect in effects:
             for retriever in effect.retrievers:
-                if retriever.data != -1 and \
-                        retriever.data != [] and \
-                        retriever.data != "" and \
-                        retriever.data != " " and \
-                        retriever.name != "static_value_46":
+                # if retriever.data != -1 and \
+                #         retriever.data != [] and \
+                #         retriever.data != "" and \
+                #         retriever.data != " " and \
+                #         retriever.name != "static_value_46":
+                if retriever.name != "static_value_46":
                     if retriever.name == "effect_type":
-                        print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + retriever.name + "\",")
-        print("]\n")
+                        print("},\n" + str(retriever.data) + ": {")
+                    print("\t\"" + retriever.name + "\": " +
+                          (str(retriever.data) if type(retriever.data) is not str else "\"" + retriever.data + "\"")
+                          + ",")
+        print("}\n")
 
     def _debug_log_condition_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
@@ -176,34 +196,52 @@ class AoE2Scenario:
 
         for condition in conditions:
             for retriever in condition.retrievers:
-                if retriever.data != -1 and \
-                        retriever.data != [] and \
-                        retriever.data != "" and \
-                        retriever.data != " " and \
-                        retriever.name != "static_value_21":
+                # if retriever.data != -1 and \
+                #         retriever.data != [] and \
+                #         retriever.data != "" and \
+                #         retriever.data != " " and \
+                #         retriever.name != "static_value_21":
+                if retriever.name != "static_value_21":
                     if retriever.name == "condition_type":
-                        print("],\n" + str(retriever.data) + ": [")
-                    print("\t\"" + retriever.name + "\",")
-        print("]\n")
+                        print("},\n" + str(retriever.data) + ": {")
+                    print("\t\"" + retriever.name + "\": " +
+                          (str(retriever.data) if type(retriever.data) is not str else "\"" + retriever.data + "\"")
+                          + ",")
+        print("}\n")
 
-    def _debug_byte_structure_to_file(self, filename):
+    def _debug_write_from_source(self, filename, datatype, write_in_bytes=True):
+        """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
+        print("File writing from source started with attributes " + datatype + "...")
+        file = open(filename, "wb" if write_in_bytes else "w")
+        for t in datatype:
+            if t == "f":
+                file.write(self._file if write_in_bytes else create_textual_hex(self._file.hex()))
+            elif t == "h":
+                file.write(self._file_header if write_in_bytes else create_textual_hex(self._file_header.hex()))
+            elif t == "d":
+                file.write(self._file_data if write_in_bytes else create_textual_hex(self._file_data.hex()))
+        file.close()
+        print("File writing finished successfully.")
+
+    def _debug_byte_structure_to_file(self, filename, log_debug_write=True):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
+        lgr = SimpleLogger(should_log=log_debug_write)
 
-        print("\nWriting structure to file...")
+        lgr.print("\nWriting structure to file...")
         with open(filename, 'w') as output_file:
             result = ""
             for key in self._parsed_header:
-                print("Writing", key + "...")
+                lgr.print("\tWriting " + key + "...")
                 result += self._parsed_header[key].get_byte_structure_as_string()
-                print("Writing", key, "finished successfully.")
+                lgr.print("\tWriting " + key + " finished successfully.")
             for key in self._parsed_data:
-                print("Writing", key + "...")
+                lgr.print("\tWriting " + key + "...")
                 result += self._parsed_data[key].get_byte_structure_as_string()
-                print("Writing", key, "finished successfully.")
+                lgr.print("\tWriting " + key + " finished successfully.")
 
             output_file.write(result)
             output_file.close()
-        print("Writing structure to file finished successfully.")
+        lgr.print("Writing structure to file finished successfully.")
 
 
 _header_structure = [

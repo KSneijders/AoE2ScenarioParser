@@ -1,131 +1,96 @@
-﻿2,Beach,1,,2,Beach,,
-79,Beach (Non-Navigable),0,,79,Beach (Non-Navigable),,
-81,"Beach (Non-Navigable), Wet Gravel",0,,81,"Beach (Non-Navigable), Wet Gravel",,
-82,"Beach (Non-Navigable), Wet Rock",0,,82,"Beach (Non-Navigable), Wet Rock",,
-80,"Beach (Non-Navigable), Wet Sand",0,,80,"Beach (Non-Navigable), Wet Sand",,
-37,"Beach, Ice",0,,37,"Beach, Ice",,
-52,"Beach, Vegetation",0,,52,"Beach, Vegetation",,
-107,"Beach, Wet",0,,107,"Beach, Wet",,
-108,"Beach, Wet Gravel",0,,108,"Beach, Wet Gravel",,
-109,"Beach, Wet Rock",0,,109,"Beach, Wet Rock",,
-53,"Beach, White",0,,53,"Beach, White",,
-51,"Beach, White, Vegetation",0,,51,"Beach, White, Vegetation",,
-47,Black,0,,47,Black,,
-45,"Desert, Cracked",0,,45,"Desert, Cracked",,
-46,"Desert, Quicksand",0,,46,"Desert, Quicksand",,
-14,"Desert, Sand",0,,14,"Desert, Sand",,
-6,Dirt 1,0,,6,Dirt 1,,
-11,Dirt 2,0,,11,Dirt 2,,
-3,Dirt 3,0,,3,Dirt 3,,
-42,Dirt 4,0,,42,Dirt 4,,
-76,"Dirt, Mud",0,,76,"Dirt, Mud",,
-41,"Dirt, Savannah",0,,41,"Dirt, Savannah",,
-7,Farm,0,,7,Farm,,
-29,"Farm, 0%",0,,29,"Farm, 0%",,
-30,"Farm, 33%",0,,30,"Farm, 33%",,
-31,"Farm, 67%",0,,31,"Farm, 67%",,
-8,"Farm, Dead",0,,8,"Farm, Dead",,
-50,"Forest, Acacia",0,,50,"Forest, Acacia",,
-104,"Forest, Autumn",0,,104,"Forest, Autumn",,
-105,"Forest, Autumn Snow",0,,105,"Forest, Autumn Snow",,
-18,"Forest, Bamboo",0,,18,"Forest, Bamboo",,
-49,"Forest, Baobab",0,,49,"Forest, Baobab",,
-89,"Forest, Bush",0,,89,"Forest, Bush",,
-106,"Forest, Dead",0,,106,"Forest, Dead",,
-48,"Forest, Dragon Tree",0,,48,"Forest, Dragon Tree",,
-17,"Forest, Jungle",0,,17,"Forest, Jungle",,
-2,,1,,55,"Forest, Magrove",,
-55,"Forest, Magrove",0,,88,"Forest, Mediterranean",,
-2,,2,,10,"Forest, Oak",,
-88,"Forest, Mediterranean",0,,20,"Forest, Oak Bush",,
-10,"Forest, Oak",0,,13,"Forest, Palm Desert",,
-20,"Forest, Oak Bush",0,,19,"Forest, Pine",,
-13,"Forest, Palm Desert",0,,21,"Forest, Pine Snow",,
-19,"Forest, Pine",0,,56,"Forest, Rainforest",,
-21,"Forest, Pine Snow",0,,92,"Forest, Reeds",,
-56,"Forest, Rainforest",0,,91,"Forest, Reeds (Beach)",,
-92,"Forest, Reeds",0,,90,"Forest, Reeds (Shallows)",,
-91,"Forest, Reeds (Beach)",0,,0,Grass 1,,
-90,"Forest, Reeds (Shallows)",0,,12,Grass 2,,
-2,,3,,9,Grass 3,,
-12,Grass 2,0,,100,"Grass, Dry",,
-9,Grass 3,0,,27,"Grass, Foundation",,
-100,"Grass, Dry",0,,60,"Grass, Jungle",,
-27,"Grass, Foundation",0,,83,"Grass, Jungle (Rainforest)",,
-60,"Grass, Jungle",0,,16,"Grass, Other",,
-83,"Grass, Jungle (Rainforest)",0,,70,"Gravel, Default",,
-16,"Grass, Other",0,,102,"Gravel, Desert",,
-70,"Gravel, Default",0,,35,Ice,,
-102,"Gravel, Desert",0,,37,"Ice, Navigable",,
-35,Ice,0,,63,Rice Farm,,
-37,"Ice, Navigable",1,,65,"Rice Farm, 0%",,
-63,Rice Farm,0,,66,"Rice Farm, 33%",,
-65,"Rice Farm, 0%",0,,67,"Rice Farm, 67%",,
-66,"Rice Farm, 33%",0,,64,"Rice Farm, Dead",,
-67,"Rice Farm, 67%",0,,24,Road,,
-64,"Rice Farm, Dead",0,,25,"Road, Broken",,
-2,,4,,75,"Road, Fungus",,
-24,Road,0,,78,"Road, Gravel",,
-25,"Road, Broken",0,,40,Rock 1,,
-75,"Road, Fungus",0,,4,Shallows,,
-78,"Road, Gravel",0,,59,"Shallows, Azure",,
-40,Rock 1,0,,54,"Shallows, Mangrove",,
-2,,5,,37,Snow,,
-4,Shallows,0,,36,"Snow, Foundation",,
-59,"Shallows, Azure",0,,73,"Snow, Light",,
-59,,1,,74,"Snow, Strong",,
-54,"Shallows, Mangrove",0,,101,"Swamp, Bogland",,
-37,Snow,2,,5,Underbush,,
-36,"Snow, Foundation",0,,77,"Underbush, Jungle",,
-73,"Snow, Light",0,,71,"Underbush, Leaves",,
-74,"Snow, Strong",0,,72,"Underbush, Snow",,
-101,"Swamp, Bogland",0,,28,"Water 2D, Bridge",,
-5,Underbush,0,,15,"Water 2D, Shoreless",,
-77,"Underbush, Jungle",0,,58,"Water, Azure",,
-71,"Underbush, Leaves",0,,96,"Water, Brown",,
-72,"Underbush, Snow",0,,22,"Water, Deep",,
-28,"Water 2D, Bridge",0,,57,"Water, Deep Ocean",,
-15,"Water 2D, Shoreless",0,,95,"Water, Green",,
-58,"Water, Azure",0,,23,"Water, Medium",,
-96,"Water, Brown",0,,1,"Water, Shallow",,
-22,"Water, Deep",0,,,,,
-57,"Water, Deep Ocean",0,,,,,
-95,"Water, Green",0,,,,,
-23,"Water, Medium",0,,,,,
-1,"Water, Shallow",0,,,,,
-0,Grass 1,0,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
+﻿0,Grass 1,0,,2,Beach
+1,"Water, Shallow",0,,79,Beach (Non-Navigable)
+2,Beach,1,,81,"Beach (Non-Navigable), Wet Gravel"
+2,,1,,82,"Beach (Non-Navigable), Wet Rock"
+2,,2,,80,"Beach (Non-Navigable), Wet Sand"
+2,,3,,37,"Beach, Ice"
+2,,4,,52,"Beach, Vegetation"
+2,,5,,107,"Beach, Wet"
+3,Dirt 3,0,,108,"Beach, Wet Gravel"
+4,Shallows,0,,109,"Beach, Wet Rock"
+5,Underbush,0,,53,"Beach, White"
+6,Dirt 1,0,,51,"Beach, White, Vegetation"
+7,Farm,0,,47,Black
+8,"Farm, Dead",0,,45,"Desert, Cracked"
+9,Grass 3,0,,46,"Desert, Quicksand"
+10,"Forest, Oak",0,,14,"Desert, Sand"
+11,Dirt 2,0,,6,Dirt 1
+12,Grass 2,0,,11,Dirt 2
+13,"Forest, Palm Desert",0,,3,Dirt 3
+14,"Desert, Sand",0,,42,Dirt 4
+15,"Water 2D, Shoreless",0,,76,"Dirt, Mud"
+16,"Grass, Other",0,,41,"Dirt, Savannah"
+17,"Forest, Jungle",0,,7,Farm
+18,"Forest, Bamboo",0,,29,"Farm, 0%"
+19,"Forest, Pine",0,,30,"Farm, 33%"
+20,"Forest, Oak Bush",0,,31,"Farm, 67%"
+21,"Forest, Pine Snow",0,,8,"Farm, Dead"
+22,"Water, Deep",0,,50,"Forest, Acacia"
+23,"Water, Medium",0,,104,"Forest, Autumn"
+24,Road,0,,105,"Forest, Autumn Snow"
+25,"Road, Broken",0,,18,"Forest, Bamboo"
+27,"Grass, Foundation",0,,49,"Forest, Baobab"
+28,"Water 2D, Bridge",0,,89,"Forest, Bush"
+29,"Farm, 0%",0,,106,"Forest, Dead"
+30,"Farm, 33%",0,,48,"Forest, Dragon Tree"
+31,"Farm, 67%",0,,17,"Forest, Jungle"
+35,Ice,0,,55,"Forest, Magrove"
+36,"Snow, Foundation",0,,88,"Forest, Mediterranean"
+37,"Beach, Ice",0,,10,"Forest, Oak"
+37,"Ice, Navigable",1,,20,"Forest, Oak Bush"
+37,Snow,2,,13,"Forest, Palm Desert"
+40,Rock 1,0,,19,"Forest, Pine"
+41,"Dirt, Savannah",0,,21,"Forest, Pine Snow"
+42,Dirt 4,0,,56,"Forest, Rainforest"
+45,"Desert, Cracked",0,,92,"Forest, Reeds"
+46,"Desert, Quicksand",0,,91,"Forest, Reeds (Beach)"
+47,Black,0,,90,"Forest, Reeds (Shallows)"
+48,"Forest, Dragon Tree",0,,0,Grass 1
+49,"Forest, Baobab",0,,12,Grass 2
+50,"Forest, Acacia",0,,9,Grass 3
+51,"Beach, White, Vegetation",0,,100,"Grass, Dry"
+52,"Beach, Vegetation",0,,27,"Grass, Foundation"
+53,"Beach, White",0,,60,"Grass, Jungle"
+54,"Shallows, Mangrove",0,,83,"Grass, Jungle (Rainforest)"
+55,"Forest, Magrove",0,,16,"Grass, Other"
+56,"Forest, Rainforest",0,,70,"Gravel, Default"
+57,"Water, Deep Ocean",0,,102,"Gravel, Desert"
+58,"Water, Azure",0,,35,Ice
+59,"Shallows, Azure",0,,37,"Ice, Navigable"
+59,,1,,63,Rice Farm
+60,"Grass, Jungle",0,,65,"Rice Farm, 0%"
+63,Rice Farm,0,,66,"Rice Farm, 33%"
+64,"Rice Farm, Dead",0,,67,"Rice Farm, 67%"
+65,"Rice Farm, 0%",0,,64,"Rice Farm, Dead"
+66,"Rice Farm, 33%",0,,24,Road
+67,"Rice Farm, 67%",0,,25,"Road, Broken"
+70,"Gravel, Default",0,,75,"Road, Fungus"
+71,"Underbush, Leaves",0,,78,"Road, Gravel"
+72,"Underbush, Snow",0,,40,Rock 1
+73,"Snow, Light",0,,4,Shallows
+74,"Snow, Strong",0,,59,"Shallows, Azure"
+75,"Road, Fungus",0,,54,"Shallows, Mangrove"
+76,"Dirt, Mud",0,,37,Snow
+77,"Underbush, Jungle",0,,36,"Snow, Foundation"
+78,"Road, Gravel",0,,73,"Snow, Light"
+79,Beach (Non-Navigable),0,,74,"Snow, Strong"
+80,"Beach (Non-Navigable), Wet Sand",0,,101,"Swamp, Bogland"
+81,"Beach (Non-Navigable), Wet Gravel",0,,5,Underbush
+82,"Beach (Non-Navigable), Wet Rock",0,,77,"Underbush, Jungle"
+83,"Grass, Jungle (Rainforest)",0,,71,"Underbush, Leaves"
+88,"Forest, Mediterranean",0,,72,"Underbush, Snow"
+89,"Forest, Bush",0,,28,"Water 2D, Bridge"
+90,"Forest, Reeds (Shallows)",0,,15,"Water 2D, Shoreless"
+91,"Forest, Reeds (Beach)",0,,58,"Water, Azure"
+92,"Forest, Reeds",0,,96,"Water, Brown"
+95,"Water, Green",0,,22,"Water, Deep"
+96,"Water, Brown",0,,57,"Water, Deep Ocean"
+100,"Grass, Dry",0,,95,"Water, Green"
+101,"Swamp, Bogland",0,,23,"Water, Medium"
+102,"Gravel, Desert",0,,1,"Water, Shallow"
+104,"Forest, Autumn",0,,,
+105,"Forest, Autumn Snow",0,,,
+106,"Forest, Dead",0,,,
+107,"Beach, Wet",0,,,
+108,"Beach, Wet Gravel",0,,,
+109,"Beach, Wet Rock",0,,,

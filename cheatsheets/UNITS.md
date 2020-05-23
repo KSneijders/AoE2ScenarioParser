@@ -15,7 +15,7 @@ You can add units using the `unit_manager`.
 ```py
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_id=units.conquistador,    # Units dataset
+    unit_id=Unit.CONQUISTADOR,    # Units dataset
     x=0,
     y=0
 )
@@ -24,7 +24,7 @@ This will add a conquistador for player 1 at 0, 0 (West corner of the map). Besi
 ```py
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_id=units.conquistador,
+    unit_id=Unit.CONQUISTADOR,
     x=0,
     y=0,
     z=0,                    # The 'height' of the unit. 
@@ -73,7 +73,7 @@ unit = unit_manager.add_unit(player=Player.ONE, unit_id=units.conquistador, x=5,
 unit2 = unit_manager.add_unit(player=Player.TWO, unit_id=units.conquistador, x=1, y=5)
 
 unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[Player.ONE])
-# Selects any unit from the given list that belong to Player 1.
+# Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
 ```
 
 ---
@@ -94,13 +94,22 @@ unit.y = 0.5
 
 Besides it's location you can also change the type of unit:
 ```py
-unit.unit_id = units.man_at_arms    # Units dataset
+unit.unit_const = Unit.MAN_AT_ARMS    # Units dataset
 ```
-*Note: Do not confuse this with `reference_id` because that's the unique identifier of that specific unit and you can't have duplicates in the reference_id table.*
 
-You also might want to change the ownership of a unit. This might seem easy as there is a `player` attribute within the unit. Unfortunately that value is read-only and only there so you can easily identify the player. To change a units ownership you need the `units_manager`.
+You also might want to change the ownership of a unit. This might seem easy as there is a `player` attribute within the unit. Unfortunately that value is read-only and only there so you can easily identify the player. To change a units ownership you need the `unit_manager`.
 ```py
 unit_manager.change_ownership(unit, Player.THREE)
+```
+
+---
+&nbsp;  
+
+## Removing units
+```py
+# Two ways to delete a unit:
+unit_manager.remove_unit(unit=UnitOBject)
+unit_manager.remove_unit(reference_id=UnitOBject.reference_id)
 ```
 
 ---

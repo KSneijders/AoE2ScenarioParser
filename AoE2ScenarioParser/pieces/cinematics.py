@@ -12,4 +12,4 @@ class CinematicsPiece(aoe2_piece.AoE2Piece):
             # Retriever("Separator (! in some version)", DataType("1")),
         ]
 
-        super().__init__("Cinematics", retrievers, parser_obj)
+        super().__init__("Cinematics", retrievers, parser_obj, data=data)

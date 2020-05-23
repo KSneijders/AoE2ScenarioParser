@@ -21,4 +21,4 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("Filename", DataType("str16"))
         ]
 
-        super().__init__("Data Header", retrievers, parser_obj)
+        super().__init__("Data Header", retrievers, parser_obj, data=data)

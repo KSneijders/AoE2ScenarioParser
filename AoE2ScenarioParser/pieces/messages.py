@@ -20,4 +20,4 @@ class MessagesPiece(aoe2_piece.AoE2Piece):
             Retriever("ASCII Scouts", DataType("str16")),
         ]
 
-        super().__init__("Messages", retrievers, parser_obj)
+        super().__init__("Messages", retrievers, parser_obj, data=data)

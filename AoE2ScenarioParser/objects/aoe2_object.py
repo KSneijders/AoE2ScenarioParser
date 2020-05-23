@@ -12,7 +12,7 @@ class AoE2Object:
 
     @staticmethod
     @abc.abstractmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):
         pass
 
     def __repr__(self):

@@ -22,4 +22,4 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever("Terrain data", DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
         ]
 
-        super().__init__("Map", retrievers, parser_obj)
+        super().__init__("Map", retrievers, parser_obj, data=data)

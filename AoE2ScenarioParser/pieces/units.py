@@ -16,4 +16,4 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
             Retriever("Player Units", DataType(PlayerUnitsStruct), set_repeat="{unit_sections}"),
         ]
 
-        super().__init__("Units", retrievers, parser_obj)
+        super().__init__("Units", retrievers, parser_obj, data=data)

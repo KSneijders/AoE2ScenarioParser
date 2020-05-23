@@ -57,7 +57,11 @@ class AoE2Piece:
     def set_data_from_generator(self, generator):
         if self.parser:
             for i, retriever in enumerate(self.retrievers):
-                retriever.set_data(self.parser.retrieve_value(generator, retriever))
+                try:
+                    retriever.set_data(self.parser.retrieve_value(generator, retriever))
+                except StopIteration as e:
+                    print(f"[StopIteration] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}\n")
+                    raise StopIteration(e)
 
     def _entry_to_string(self, name, data, datatype):
         return "\t" + name + ": " + data + " (" + datatype + ")\n"

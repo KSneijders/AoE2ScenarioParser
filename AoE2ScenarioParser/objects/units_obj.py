@@ -50,7 +50,7 @@ class UnitsObject(AoE2Object):
             y=y,
             z=z,
             reference_id=reference_id,
-            unit_id=unit_id,
+            unit_const=unit_id,
             status=status,
             rotation=rotation,
             animation_frame=animation_frame,
@@ -158,7 +158,21 @@ class UnitsObject(AoE2Object):
             for unit in self.units[player]:
                 if highest_id < unit.reference_id:
                     highest_id = unit.reference_id
-        return highest_id
+        return highest_id + 1
+
+    def remove_unit(self, reference_id: int = None, unit: UnitObject = None):
+        if reference_id is not None and unit is not None:
+            raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
+        if reference_id is None and unit is None:
+            raise ValueError("Both unit_ref_id and unit arguments were unused. Use one.")
+
+        if reference_id is not None:
+            for player in range(0, 9):
+                for i, unit in enumerate(self.units[player]):
+                    if unit.reference_id == reference_id:
+                        del self.units[player][i]
+        elif unit is not None:
+            self.units[unit.player.value].remove(unit)
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitsObject:
@@ -180,15 +194,19 @@ class UnitsObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
         player_units_retriever = find_retriever(parsed_data['UnitsPiece'].retrievers, "Player Units")
+
+        # Todo: Move this to DataHeader
+        new_unit_id_retriever = find_retriever(parsed_data['DataHeaderPiece'].retrievers, "Next unit ID to place")
+        new_unit_id_retriever.data = objects['UnitsObject'].get_new_reference_id()
 
         player_units_retriever.data = []
         for player_units in objects['UnitsObject'].units:
 
             units_list = []
             for unit in player_units:
-                UnitObject._reconstruct_object(parsed_data, objects, unit=unit, units=units_list)
+                UnitObject._reconstruct_object(parsed_header, parsed_data, objects, unit=unit, units=units_list)
 
             player_units_retriever.data.append(
                 PlayerUnitsStruct(data=[len(units_list), units_list])

@@ -1,4 +1,6 @@
 from AoE2ScenarioParser.datasets import effects, conditions
+from AoE2ScenarioParser.datasets.conditions import Condition
+from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -62,11 +64,11 @@ class TriggerObject(AoE2Object):
 
     @property
     def name(self):
-        return self.__name
+        return self._name
 
     @name.setter
     def name(self, val):
-        self.__name = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
+        self._name = helper.add_str_trail(val)
 
     @property
     def description(self):
@@ -74,7 +76,7 @@ class TriggerObject(AoE2Object):
 
     @description.setter
     def description(self, val):
-        self.__description = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
+        self.__description = helper.add_str_trail(val)
 
     @property
     def short_description(self):
@@ -82,16 +84,16 @@ class TriggerObject(AoE2Object):
 
     @short_description.setter
     def short_description(self, val):
-        self.__short_description = (val + "\x00" if val[-1] != "\x00" else "") if len(val) > 0 else val
+        self.__short_description = helper.add_str_trail(val)
 
-    def add_effect(self, effect_type):
-        new_effect = EffectObject(effect_type)
+    def add_effect(self, effect_type: Effect):
+        new_effect = EffectObject(**effects.default_attributes[effect_type.value])
         self.effects.append(new_effect)
         helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
 
-    def add_condition(self, condition_type):
-        new_cond = ConditionObject(condition_type)
+    def add_condition(self, condition_type: Condition):
+        new_cond = ConditionObject(**conditions.default_attributes[condition_type.value])
         self.conditions.append(new_cond)
         helper.update_order_array(self.condition_order, len(self.conditions))
         return new_cond
@@ -178,25 +180,25 @@ class TriggerObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         trigger = kwargs['trigger']
+        trigger.effect_order = parser.listify(trigger.effect_order)
+        trigger.condition_order = parser.listify(trigger.condition_order)
 
         effects_list = []
         for effect_obj in trigger.effects:
-            EffectObject._reconstruct_object(parsed_data, objects, effect=effect_obj, effects=effects_list)
+            EffectObject._reconstruct_object(parsed_header, parsed_data, objects, effect=effect_obj,
+                                             effects=effects_list)
 
-        helper.update_order_array(
-            parser.listify(trigger.effect_order), len(trigger.effects))
+        helper.update_order_array(trigger.effect_order, len(trigger.effects))
 
         conditions_list = []
         for condition_obj in trigger.conditions:
-            ConditionObject._reconstruct_object(parsed_data, objects,
-                                                condition=condition_obj,
+            ConditionObject._reconstruct_object(parsed_header, parsed_data, objects, condition=condition_obj,
                                                 conditions=conditions_list)
 
-        helper.update_order_array(
-            parser.listify(trigger.condition_order), len(trigger.conditions))
+        helper.update_order_array(trigger.condition_order, len(trigger.conditions))
 
         trigger_data_retriever.data.append(
             TriggerStruct(data=[

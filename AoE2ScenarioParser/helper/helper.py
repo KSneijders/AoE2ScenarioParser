@@ -1,3 +1,14 @@
+from enum import IntEnum
+
+from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
+from AoE2ScenarioParser.datasets.heroes import Hero
+from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
+
+""" =============================================================
+========================= HEX FUNCTIONS =========================
+=============================================================="""
+
+
 def update_order_array(order_array, supposed_length):
     for i in range(0, supposed_length):
         if i not in order_array:
@@ -15,15 +26,17 @@ def insert_char(string, char, every=64):
     return char.join(string[i:i + every] for i in range(0, len(string), every))
 
 
+""" =============================================================
+======================= STRING MODIFIERS ========================
+=============================================================="""
+
+
+def add_str_trail(string):
+    return (string + ("\x00" if string[-1] != "\x00" else "")) if len(string) > 0 else string
+
+
 def del_str_trail(string):
     return string.replace('\x00', "")
-
-
-def pretty_print_list(plist):
-    return_string = "[\n"
-    for x in plist:
-        return_string += "\t" + str(x)
-    return return_string + "]\n"
 
 
 def add_prefix_chars(string, char, length):
@@ -40,6 +53,18 @@ def add_suffix_chars(string, char, length):
         return string + char * (length - len(string))
 
 
+""" =============================================================
+======================== PRETTY PRINTERS ========================
+=============================================================="""
+
+
+def pretty_print_list(plist):
+    return_string = "[\n"
+    for x in plist:
+        return_string += "\t" + str(x)
+    return return_string + "]\n"
+
+
 def pretty_print_name(name: str) -> str:
     """
     Returns a pretty-printed version of the name string.
@@ -51,6 +76,30 @@ def pretty_print_name(name: str) -> str:
         T-West (https://github.com/twestura/)
     """
     return ' '.join(s[0].upper() + s[1:] for s in name.split('_'))
+
+
+""" =============================================================
+============================= OTHER =============================
+=============================================================="""
+
+
+def get_enum_from_unit_const(const: int) -> IntEnum:
+    """
+    Returns an Enum corresponding with the given Const.
+
+    Arguments:
+        const: The constant representing a unit
+    """
+    if any(item == const for item in Unit):
+        return Unit(const)
+    if any(item.value == const for item in Building):
+        return Building(const)
+    if any(item.value == const for item in Hero):
+        return Hero(const)
+    if any(item == const for item in GaiaUnit):
+        return GaiaUnit(const)
+    if any(item == const for item in GaiaBuilding):
+        return GaiaBuilding(const)
 
 
 class SimpleLogger:

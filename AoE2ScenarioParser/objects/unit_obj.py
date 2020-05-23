@@ -18,7 +18,7 @@ class UnitObject(AoE2Object):
                  y: float,
                  z: float,
                  reference_id: int,
-                 unit_id: int,
+                 unit_const: int,
                  status: int,
                  rotation: float,
                  animation_frame: int,
@@ -37,7 +37,7 @@ class UnitObject(AoE2Object):
         self.y: float = y
         self.z: float = z
         self.reference_id: int = reference_id
-        self.unit_id: int = unit_id
+        self.unit_id: int = unit_const
         self.status: int = status
         self.rotation: float = rotation % math.tau
         # Mods by tau because the scenario editor seems to place units at radian angles not strictly less than tau.
@@ -95,7 +95,7 @@ class UnitObject(AoE2Object):
             y=find_retriever(unit.retrievers, "Y position").data,
             z=find_retriever(unit.retrievers, "Z position").data,
             reference_id=find_retriever(unit.retrievers, "ID").data,
-            unit_id=find_retriever(unit.retrievers, "Unit 'constant'").data,
+            unit_const=find_retriever(unit.retrievers, "Unit 'constant'").data,
             status=find_retriever(unit.retrievers, "Status").data,
             rotation=find_retriever(unit.retrievers, "Rotation, in radians").data,
             animation_frame=find_retriever(unit.retrievers, "Initial animation frame").data,
@@ -103,7 +103,7 @@ class UnitObject(AoE2Object):
         )
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs) -> None:  # Expected {unit=unit_obj, units=units_list}
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {unit=unit_obj, units=units_list}
         unit_obj = kwargs['unit']
         units_list = kwargs['units']
 

@@ -1,3 +1,4 @@
+# ------------------- Creating BiDict -----------------------
 # from bidict import bidict
 #
 # from AoE2ScenarioParser.datasets import buildings
@@ -19,3 +20,16 @@
 # for key, value in units_dict.inverse.items():
 #     print(" " * 4 + str(key) + ": \"" + str(value) + "\",")
 # print("})")
+
+# ------------------- Find Difference ----------------------
+# Add IDs to be checked
+# a = []
+#
+# b = []
+# for x in a:
+#     try:
+#         ENUM_HERE(x)
+#     except ValueError:
+#         b.append(x)
+#
+# print(b)

@@ -19,4 +19,4 @@ class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
             Retriever("Time for timed game, in 10ths of a year", DataType("u32")),
         ]
 
-        super().__init__("Global Victory", retrievers, parser_obj)
+        super().__init__("Global Victory", retrievers, parser_obj, data=data)

@@ -14,4 +14,4 @@ class BackgroundImagePiece(aoe2_piece.AoE2Piece):
             # Retriever("	BITMAPINFOHEADER", DataType("u32")),
         ]
 
-        super().__init__("Background Image", retrievers, parser_obj)
+        super().__init__("Background Image", retrievers, parser_obj, data=data)

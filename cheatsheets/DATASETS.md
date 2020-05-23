@@ -3,27 +3,32 @@ The project currently contains multiple datasets. These are currently pretty bas
 
 ```py
 # Information about the conditions & effects and their attributes
-from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.datasets.conditions import Condition
+from AoE2ScenarioParser.datasets.effects import Effect
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operator, ButtonLocation, PanelLocation, \
+    TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
 
 # Information of unit/tech/terrain name and their ID
-from AoE2ScenarioParser.datasets import techs
-from AoE2ScenarioParser.datasets import units
-from AoE2ScenarioParser.datasets import buildings
-from AoE2ScenarioParser.datasets import terrains
+from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
+from AoE2ScenarioParser.datasets.techs import Tech
+from AoE2ScenarioParser.datasets.heroes import Hero
+from AoE2ScenarioParser.datasets.terrains import Terrain
+from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
 
 # Enum of players
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import Player, PlayerColor
 ```
 
 Current datasets are:
 
 - conditions
 - effects
-- buildings
-- units
+- condition and effect dropdown lists
+- (GAIA) buildings
+- (GAIA) units
+- heroes
 - techs
-- players
+- players (& player colors)
 - terrains
 
 ---
@@ -33,16 +38,16 @@ Current datasets are:
 The conditions and effects datasets are very usefull when creating triggers. You can use them to get the ID of an effect or condition using it's name.
 
 ```py
-conditions.object_in_area   # 5
-effects.patrol              # 19
+Condition.OBJECT_IN_AREA    # 5
+Effect.PATROL               # 19
 ```
 
 When you created a condition or effect inside of a trigger you can check what needs to be added to the effect to actually function. This is different in every editor (`CTRL + Q` for PyCharm) but you can also just check the github page. 
 ```py
 trigger = trigger_manager.add_trigger("Trigger0")
-effect = trigger.add_effect(effects.change_diplomacy)
+effect = trigger.add_effect(Effect.CHANGE_DIPLOMACY)
 
-# Checking the docs for effects.change_diplomacy will show:
+# Checking the docs for Effect.CHANGE_DIPLOMACY will show:
 """
 Attributes for the **change_diplomacy** effect are:
 - diplomacy
@@ -52,14 +57,14 @@ Attributes for the **change_diplomacy** effect are:
 ```
 You can use this information to edit this effect:
 ```py
-effect.diplomacy = 0  # Ally (1 = Neutral, 3 = Enemy) <- Datasets for this will be added
+effect.diplomacy = DiplomacyState.ALLY  # <-- New dropdown lists datasets!
 effect.player_source = Player.ONE.value
 effect.player_target = Player.TWO.value
 ```
 If you want to find the `ID` using the String name or the other way around of the condition or effect you can use the `Bidict` like so:
 ```py
-effects.effect_names(0)     # none
-effects.effect_names(11)    # create_object
+effects.effect_names(0)         # none
+effects.effect_names(11)        # create_object
 effects.effect_names.inverse("create_object")           # 11
 effects.effect_names.inverse("acknowledge_ai_signal")   # 50
 
@@ -76,31 +81,65 @@ helper.pretty_print_name(conditions.condition_names[11])  # Object Selected
 
 ---
 &nbsp;
-## Units, Buildings and Techs
+## Conditions & Effects dropdown lists
+Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to remember. That's why these datasets have been added:
+
+Names           | Explanation                                                                   | Example
+----------------|-------------------------------------------------------------------------------|----------------------------------------------
+DiplomacyState  | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.    | `DiplomacyState.ALLY` ( Value: 0 )
+Operator        | Used in many effects. Generally related to variables.                         | `Operator.MULTIPLY` ( Value: 4 )
+ButtonLocation  | Used in the `Change Research Location` and `Change Train Location` effects.   | `ButtonLocation.LOCATION_2_0` ( Value: 3 )
+PanelLocation   | Used in the `Display Instructions` effect.                                    | `PanelLocation.CENTER` ( Value: 2 )
+TimeUnit        | Used in the `Display Timer` effect.                                           | `TimeUnit.YEARS` ( Value: 2 )
+VisibilityState | Used in the `Set Player Visibility` effect.                                   | `VisibilityState.EXPLORED` ( Value: 1 )
+DifficultyLevel | Used in the `Difficulty Level` condition.                                     | `DifficultyLevel.HARDEST` ( Value: 0 )
+TechnologyState | Used in the `Technology State` condition.                                     | `TechnologyState.RESEARCHING` ( Value: 1 )
+Comparison      | Used in many effects and conditions. Generally related to variables.          | `Comparison.EQUAL` ( Value: 0 )
+ObjectAttribute | Used in the `Modify Attribute` effect.                                        | `ObjectAttribute.CARRY_CAPACITY` ( Value: 14 )
+Attribute       | Used in the `Accumulate Attribute` efect.                                     | `Attribute.ALL_TECHS_ACHIEVED` ( Value: 39 )
+
+Exmaple of some usages:
+```py
+trigger = trigger_manager.add_trigger("Inform Betrayal!")
+condition = trigger.add_condition(Condition.DIPLOMACY_STATE)
+condition.amount_or_quantity = DiplomacyState.ALLY                  # <-- DiplomacyState dataset
+condition.player = Player.TWO
+condition.target_player = Player.THREE
+
+effect = trigger.add_effect(Effect.DISPLAY_INSTRUCTIONS)
+effect.player_source = Player.ONE
+effect.message = "Spy: Your ally has betrayed you! He allied the enemy!"
+effect.instruction_panel_position = PanelLocation.CENTER            # <-- PanelLocation dataset
+effect.display_time = 10
+```
+---
+&nbsp;
+## (GAIA) Units, (GAIA) Buildings, Heroes and Techs
 
 The Units and Buildings datasets are very usefull when adding units. They're also, together with the the Techs dataset, very usefull when adding or editing triggers.
 
 For adding units it'll look something like the following:
 ```py
-unit_manager.add_unit(Player.ONE, units.conquistador, x=10, y=20)
-unit_manager.add_unit(Player.TWO, units.paladin, x=20, y=20)
-unit_manager.add_unit(Player.GAIA, buildings.feitoria, x=21, y=63)
+unit_manager.add_unit(Player.ONE,   Unit.CONQUISTADOR,      x=10,   y=20)
+unit_manager.add_unit(Player.TWO,   Unit.PALADIN,           x=20,   y=20)
+unit_manager.add_unit(Player.GAIA,  Building.FEITORIA,      x=30,   y=20)
+unit_manager.add_unit(Player.GAIA,  Hero.WILLIAM_WALLACE,   x=40,   y=20)
 ```
 
 With the triggers you can do similiar stuff like:
 ```py
 ...
 effect = trigger.add_effect(effects.create_object)
-effect.object_list_unit_id = units.man_at_arms      # <-- Can use either units  
-effect.object_list_unit_id = buildings.blacksmith   # <-- or buildings
+effect.object_list_unit_id = Unit.MAN_AT_ARMS      # <-- Can use either units  
+effect.object_list_unit_id = Building.BLACKSMITH   # <-- or buildings
 ...
 ```
 or:
 ```py
 ...
-effect = trigger.add_effect(effects.research_technology)
+effect = trigger.add_effect(Effect.RESEARCH_TECHNOLOGY)
 effect.player_source = Player.THREE.value
-effect.technology = techs.bloodlines  # <--
+effect.technology = Tech.BLOODLINES  # <-- or Techs
 ...
 ```
 Just like effects and conditions there is a `Bidict` within the dataset which you can use to translate the `ID -> Name` or `(inverse) Name -> ID`.
@@ -114,6 +153,16 @@ units.unit_names.inverse['galleon']         # 442
 buildings.building_names.inverse['stable']  # 101
 techs.tech_names.inverse['guard_tower']     # 140
 ```
+Some units and buildings are GAIA only. That's what the `GaiaBuilding` and `GaiaUnit` dataset are for. Both of the datasets are a copy of the Non-GAIA version but with the GAIA only units included.
+```py
+# So you can still do this:
+GaiaUnit.ARCHER         # 4
+GaiaBuilding.CASTLE     # 82
+# But you can now also do:
+GaiaUnit.WOLF           # 126 Woo, Woo, Woo!
+GaiaBuilding.RUINS      # 345
+```
+*Note: These datasets might make the non-GAIA versions seem redundant. But these datasets are added so you you are less likely to try and give a Player a wolf unit and then have to go and figure out yourself that the game does not support it (Unfortunately). It's just a simple way of showing which units can be added for Players and which units can't. You can, of course, still test it by adding a `GaiaUnit.WOLF` to `Player.ONE`.* 
 
 ---
 &nbsp;
@@ -122,9 +171,9 @@ techs.tech_names.inverse['guard_tower']     # 140
 The Terrain dataset has been added __but it's currently not very usefull__ as it's not supported to interact with terrain. It does exist and works as follows:
 
 ```py
-terrains.beach              # 2
-terrains.forest_oak         # 10
-terrains.underbush_leaves   # 71
+Terrain.BEACH               # 2
+Terrain.FOREST_OAK          # 10
+Terrain.UNDERBUSH_LEAVES    # 71
 ```
 
 ---
@@ -143,10 +192,16 @@ class Player(Enum):
     SIX = 6
     SEVEN = 7
     EIGHT = 8
-```
-For now some places (like effect attributes (as seen above)) do not support these Enum values. That said, it's still recommended to use them for consistency. You can do this by adding `.value` behind the Enum as: 
-```py
-Player.GAIA.value == 0  # True
+    
+class PlayerColor(Enum):
+    BLUE = 1
+    RED = 2
+    GREEN = 3
+    YELLOW = 4
+    AQUA = 5
+    PURPLE = 6
+    GREY = 7
+    ORANGE = 8
 ```
 
 ---

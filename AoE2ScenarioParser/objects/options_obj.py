@@ -17,5 +17,5 @@ class OptionsObject(AoE2Object):
         pass
 
     @staticmethod
-    def _reconstruct_object(parsed_data, objects, **kwargs):
+    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):
         pass

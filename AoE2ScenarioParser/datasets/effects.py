@@ -1,477 +1,485 @@
+from enum import IntEnum
+
 from bidict import bidict
 
-none = 0
-"""Attributes for the **none** effect are: \n
-... none... Just like Conditions... People these days... """
-change_diplomacy = 1
-"""Attributes for the **change_diplomacy** effect are: \n
-- diplomacy
-- player_source
-- player_target"""
-research_technology = 2
-"""Attributes for the **research_technology** effect are: \n
-- player_source
-- technology
-- force_research_technology"""
-send_chat = 3
-"""Attributes for the **send_chat** effect are: \n
-- player_source
-- string_id
-- message
-- sound_name"""
-play_sound = 4
-"""Attributes for the **play_sound** effect are: \n
-- player_source
-- location_x
-- location_y
-- sound_name"""
-tribute = 5
-"""Attributes for the **tribute** effect are: \n
-- quantity
-- tribute_list
-- player_source
-- player_target"""
-unlock_gate = 6
-"""Attributes for the **unlock_gate** effect are: \n
-- number_of_units_selected
-- selected_object_id"""
-lock_gate = 7
-"""Attributes for the **lock_gate** effect are: \n
-- number_of_units_selected
-- selected_object_id"""
-activate_trigger = 8
-"""Attributes for the **activate_trigger** effect are: \n
-- trigger_id"""
-deactivate_trigger = 9
-"""Attributes for the **deactivate_trigger** effect are: \n
-- trigger_id"""
-create_object = 11
-"""Attributes for the **create_object** effect are: \n
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- item_id
-- facet"""
-task_object = 12
-"""Attributes for the **task_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-declare_victory = 13
-"""Attributes for the **declare_victory** effect are: \n
-- player_source
-- enabled_or_victory"""
-kill_object = 14
-"""Attributes for the **kill_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-remove_object = 15
-"""Attributes for the **remove_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_view = 16
-"""Attributes for the **change_view** effect are: \n
-- player_source
-- location_x
-- location_y
-- scroll"""
-unload = 17
-"""Attributes for the **unload** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_ownership = 18
-"""Attributes for the **change_ownership** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- player_target
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- flash_object
-- selected_object_id"""
-patrol = 19
-"""Attributes for the **patrol** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-display_instructions = 20
-"""Attributes for the **display_instructions** effect are: \n
-- object_list_unit_id
-- player_source
-- string_id
-- display_time
-- instruction_panel_position
-- play_sound
-- message
-- sound_name"""
-clear_instructions = 21
-"""Attributes for the **clear_instructions** effect are: \n
-- instruction_panel_position"""
-freeze_object = 22
-"""Attributes for the **freeze_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-use_advanced_buttons = 23
-"""Attributes for the **use_advanced_buttons** effect are: \n
-None. \n
-Please don't use this effect. Please."""
-damage_object = 24
-"""Attributes for the **damage_object** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-place_foundation = 25
-"""Attributes for the **place_foundation** effect are: \n
-- object_list_unit_id
-- player_source
-- location_x
-- location_y"""
-change_object_name = 26
-"""Attributes for the **change_object_name** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- string_id
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- message
-- selected_object_id"""
-change_object_hp = 27
-"""Attributes for the **change_object_hp** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-change_object_attack = 28
-"""Attributes for the **change_object_attack** effect are: \n
-- aa_quantity
-- aa_armor_or_attack_type
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-stop_object = 29
-"""Attributes for the **stop_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-attack_move = 30
-"""Attributes for the **attack_move** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_object_armor = 31
-"""Attributes for the **change_object_armor** effect are: \n
-- aa_quantity
-- aa_armor_or_attack_type
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-change_object_range = 32
-"""Attributes for the **change_object_range** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- operation
-- selected_object_id"""
-change_object_speed = 33
-"""Attributes for the **change_object_speed** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-heal_object = 34
-"""Attributes for the **heal_object** effect are: \n
-- quantity
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-teleport_object = 35
-"""Attributes for the **teleport_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- location_x
-- location_y
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- selected_object_id"""
-change_object_stance = 36
-"""Attributes for the **change_object_stance** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- attack_stance
-- selected_object_id"""
-display_timer = 37
-"""Attributes for the **display_timer** effect are: \n
-- string_id
-- display_time
-- time_unit
-- variable_or_timer
-- message"""
-enable_disable_object = 38
-"""Attributes for the **enable_disable_object** effect are: \n
-- object_list_unit_id
-- player_source
-- enabled_or_victory
-- item_id"""
-enable_disable_technology = 39
-"""Attributes for the **enable_disable_technology** effect are: \n
-- player_source
-- technology
-- enabled_or_victory
-- item_id"""
-change_object_cost = 40
-"""Attributes for the **change_object_cost** effect are: \n
-- object_list_unit_id
-- player_source
-- food
-- wood
-- stone
-- gold"""
-set_player_visibility = 41
-"""Attributes for the **set_player_visibility** effect are: \n
-- player_source
-- player_target
-- visibility_state"""
-change_object_icon = 42
-"""Attributes for the **change_object_icon** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- object_list_unit_id_2
-- selected_object_id"""
-replace_object = 43
-"""Attributes for the **replace_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- player_target
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_group
-- object_type
-- object_list_unit_id_2
-- selected_object_id"""
-change_object_description = 44
-"""Attributes for the **change_object_description** effect are: \n
-- object_list_unit_id
-- player_source
-- string_id
-- message"""
-change_player_name = 45
-"""Attributes for the **change_player_name** effect are: \n
-- player_source
-- string_id
-- message"""
-change_train_location = 46
-"""Attributes for the **change_train_location** effect are: \n
-- object_list_unit_id
-- player_source
-- object_list_unit_id_2
-- button_location"""
-change_research_location = 47
-"""Attributes for the **change_research_location** effect are: \n
-- player_source
-- technology
-- object_list_unit_id_2
-- button_location"""
-change_civilization_name = 48
-"""Attributes for the **change_civilization_name** effect are: \n
-- player_source
-- string_id
-- message"""
-create_garrisoned_object = 49
-"""Attributes for the **create_garrisoned_object** effect are: \n
-- number_of_units_selected
-- object_list_unit_id
-- player_source
-- area_1_x
-- area_1_y
-- area_2_x
-- area_2_y
-- object_list_unit_id_2
-- selected_object_id"""
-acknowledge_ai_signal = 50
-"""Attributes for the **acknowledge_ai_signal** effect are: \n
-- ai_signal_value"""
-modify_attribute = 51
-"""Attributes for the **modify_attribute** effect are: \n
-- quantity
-- object_list_unit_id
-- player_source
-- item_id
-- operation
-- object_attributes"""
-modify_resource = 52
-"""Attributes for the **modify_resource** effect are: \n
-- quantity
-- tribute_list
-- player_source
-- item_id
-- operation"""
-modify_resource_by_variable = 53
-"""Attributes for the **modify_resource_by_variable** effect are: \n
-- tribute_list
-- player_source
-- item_id
-- operation
-- from_variable"""
-change_variable = 56
-"""Attributes for the **change_variable** effect are: \n
-- quantity
-- operation
-- from_variable
-- message"""
-clear_timer = 57
-"""Attributes for the **clear_timer** effect are: \n
-- variable_or_timer"""
+
+class Effect(IntEnum):
+    NONE = 0
+    """Attributes for the **none** effect are: \n
+    ... none... Just like Conditions... People these days... """
+    CHANGE_DIPLOMACY = 1
+    """Attributes for the **change_diplomacy** effect are: \n
+    - diplomacy
+    - player_source
+    - player_target"""
+    RESEARCH_TECHNOLOGY = 2
+    """Attributes for the **research_technology** effect are: \n
+    - player_source
+    - technology
+    - force_research_technology"""
+    SEND_CHAT = 3
+    """Attributes for the **send_chat** effect are: \n
+    - player_source
+    - string_id
+    - message
+    - sound_name"""
+    PLAY_SOUND = 4
+    """Attributes for the **play_sound** effect are: \n
+    - player_source
+    - location_x
+    - location_y
+    - sound_name"""
+    TRIBUTE = 5
+    """Attributes for the **tribute** effect are: \n
+    - quantity
+    - tribute_list
+    - player_source
+    - player_target"""
+    UNLOCK_GATE = 6
+    """Attributes for the **unlock_gate** effect are: \n
+    - number_of_units_selected
+    - selected_object_id"""
+    LOCK_GATE = 7
+    """Attributes for the **lock_gate** effect are: \n
+    - number_of_units_selected
+    - selected_object_id"""
+    ACTIVATE_TRIGGER = 8
+    """Attributes for the **activate_trigger** effect are: \n
+    - trigger_id"""
+    DEACTIVATE_TRIGGER = 9
+    """Attributes for the **deactivate_trigger** effect are: \n
+    - trigger_id"""
+    AI_SCRIPT_GOAL = 10
+    """Attributes for the **deactivate_trigger** effect are: \n
+    - ai_script_goal"""
+    CREATE_OBJECT = 11
+    """Attributes for the **create_object** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - item_id
+    - facet"""
+    TASK_OBJECT = 12
+    """Attributes for the **task_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    DECLARE_VICTORY = 13
+    """Attributes for the **declare_victory** effect are: \n
+    - player_source
+    - enabled_or_victory"""
+    KILL_OBJECT = 14
+    """Attributes for the **kill_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    REMOVE_OBJECT = 15
+    """Attributes for the **remove_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_VIEW = 16
+    """Attributes for the **change_view** effect are: \n
+    - player_source
+    - location_x
+    - location_y
+    - scroll"""
+    UNLOAD = 17
+    """Attributes for the **unload** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_OWNERSHIP = 18
+    """Attributes for the **change_ownership** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - player_target
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - flash_object
+    - selected_object_id"""
+    PATROL = 19
+    """Attributes for the **patrol** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    DISPLAY_INSTRUCTIONS = 20
+    """Attributes for the **display_instructions** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - string_id
+    - display_time
+    - instruction_panel_position
+    - play_sound
+    - message
+    - sound_name"""
+    CLEAR_INSTRUCTIONS = 21
+    """Attributes for the **clear_instructions** effect are: \n
+    - instruction_panel_position"""
+    FREEZE_OBJECT = 22
+    """Attributes for the **freeze_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    USE_ADVANCED_BUTTONS = 23
+    """Attributes for the **use_advanced_buttons** effect are: \n
+    None. \n
+    Please don't use this effect. Please."""
+    DAMAGE_OBJECT = 24
+    """Attributes for the **damage_object** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    PLACE_FOUNDATION = 25
+    """Attributes for the **place_foundation** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y"""
+    CHANGE_OBJECT_NAME = 26
+    """Attributes for the **change_object_name** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - string_id
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - message
+    - selected_object_id"""
+    CHANGE_OBJECT_HP = 27
+    """Attributes for the **change_object_hp** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    CHANGE_OBJECT_ATTACK = 28
+    """Attributes for the **change_object_attack** effect are: \n
+    - aa_quantity
+    - aa_armor_or_attack_type
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    STOP_OBJECT = 29
+    """Attributes for the **stop_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    ATTACK_MOVE = 30
+    """Attributes for the **attack_move** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_OBJECT_ARMOR = 31
+    """Attributes for the **change_object_armor** effect are: \n
+    - aa_quantity
+    - aa_armor_or_attack_type
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    CHANGE_OBJECT_RANGE = 32
+    """Attributes for the **change_object_range** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - operation
+    - selected_object_id"""
+    CHANGE_OBJECT_SPEED = 33
+    """Attributes for the **change_object_speed** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    HEAL_OBJECT = 34
+    """Attributes for the **heal_object** effect are: \n
+    - quantity
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    TELEPORT_OBJECT = 35
+    """Attributes for the **teleport_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - selected_object_id"""
+    CHANGE_OBJECT_STANCE = 36
+    """Attributes for the **change_object_stance** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - attack_stance
+    - selected_object_id"""
+    DISPLAY_TIMER = 37
+    """Attributes for the **display_timer** effect are: \n
+    - string_id
+    - display_time
+    - time_unit
+    - variable_or_timer
+    - message"""
+    ENABLE_DISABLE_OBJECT = 38
+    """Attributes for the **enable_disable_object** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - enabled_or_victory
+    - item_id"""
+    ENABLE_DISABLE_TECHNOLOGY = 39
+    """Attributes for the **enable_disable_technology** effect are: \n
+    - player_source
+    - technology
+    - enabled_or_victory
+    - item_id"""
+    CHANGE_OBJECT_COST = 40
+    """Attributes for the **change_object_cost** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - food
+    - wood
+    - stone
+    - gold"""
+    SET_PLAYER_VISIBILITY = 41
+    """Attributes for the **set_player_visibility** effect are: \n
+    - player_source
+    - player_target
+    - visibility_state"""
+    CHANGE_OBJECT_ICON = 42
+    """Attributes for the **change_object_icon** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - object_list_unit_id_2
+    - selected_object_id"""
+    REPLACE_OBJECT = 43
+    """Attributes for the **replace_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - player_target
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_group
+    - object_type
+    - object_list_unit_id_2
+    - selected_object_id"""
+    CHANGE_OBJECT_DESCRIPTION = 44
+    """Attributes for the **change_object_description** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - string_id
+    - message"""
+    CHANGE_PLAYER_NAME = 45
+    """Attributes for the **change_player_name** effect are: \n
+    - player_source
+    - string_id
+    - message"""
+    CHANGE_TRAIN_LOCATION = 46
+    """Attributes for the **change_train_location** effect are: \n
+    - object_list_unit_id
+    - player_source
+    - object_list_unit_id_2
+    - button_location"""
+    CHANGE_RESEARCH_LOCATION = 47
+    """Attributes for the **change_research_location** effect are: \n
+    - player_source
+    - technology
+    - object_list_unit_id_2
+    - button_location"""
+    CHANGE_CIVILIZATION_NAME = 48
+    """Attributes for the **change_civilization_name** effect are: \n
+    - player_source
+    - string_id
+    - message"""
+    CREATE_GARRISONED_OBJECT = 49
+    """Attributes for the **create_garrisoned_object** effect are: \n
+    - number_of_units_selected
+    - object_list_unit_id
+    - player_source
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - object_list_unit_id_2
+    - selected_object_id"""
+    ACKNOWLEDGE_AI_SIGNAL = 50
+    """Attributes for the **acknowledge_ai_signal** effect are: \n
+    - ai_signal_value"""
+    MODIFY_ATTRIBUTE = 51
+    """Attributes for the **modify_attribute** effect are: \n
+    - quantity
+    - object_list_unit_id
+    - player_source
+    - item_id
+    - operation
+    - object_attributes"""
+    MODIFY_RESOURCE = 52
+    """Attributes for the **modify_resource** effect are: \n
+    - quantity
+    - tribute_list
+    - player_source
+    - item_id
+    - operation"""
+    MODIFY_RESOURCE_BY_VARIABLE = 53
+    """Attributes for the **modify_resource_by_variable** effect are: \n
+    - tribute_list
+    - player_source
+    - item_id
+    - operation
+    - from_variable"""
+    CHANGE_VARIABLE = 56
+    """Attributes for the **change_variable** effect are: \n
+    - quantity
+    - operation
+    - from_variable
+    - message"""
+    CLEAR_TIMER = 57
+    """Attributes for the **clear_timer** effect are: \n
+    - variable_or_timer"""
+
 
 effect_names = bidict({
     0: "none",
@@ -484,6 +492,7 @@ effect_names = bidict({
     7: "lock_gate",
     8: "activate_trigger",
     9: "deactivate_trigger",
+    10: "ai_script_goal",
     11: "create_object",
     12: "task_object",
     13: "declare_victory",
@@ -582,6 +591,2809 @@ empty_attributes = {
     "selected_object_id": -1,
 }
 
+default_attributes = {
+    0: {
+        "effect_type": 0,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    50: {
+        "effect_type": 50,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": 0,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    8: {
+        "effect_type": 8,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    10: {
+        "effect_type": 10,
+        "ai_script_goal": 1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    30: {
+        "effect_type": 30,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    48: {
+        "effect_type": 48,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    1: {
+        "effect_type": 1,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": 0,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": 2,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    31: {
+        "effect_type": 31,
+        "ai_script_goal": -1,
+        "aa_quantity": 1,
+        "aa_armor_or_attack_type": 0,
+        "quantity": [],
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 3,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    28: {
+        "effect_type": 28,
+        "ai_script_goal": -1,
+        "aa_quantity": 1,
+        "aa_armor_or_attack_type": 0,
+        "quantity": [],
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 3,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    40: {
+        "effect_type": 40,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    44: {
+        "effect_type": 44,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    27: {
+        "effect_type": 27,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 2,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    42: {
+        "effect_type": 42,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    26: {
+        "effect_type": 26,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    32: {
+        "effect_type": 32,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 2,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    33: {
+        "effect_type": 33,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    36: {
+        "effect_type": 36,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": 0,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    18: {
+        "effect_type": 18,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": 2,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": 0,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    45: {
+        "effect_type": 45,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    47: {
+        "effect_type": 47,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": 82,
+        "button_location": 7,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    46: {
+        "effect_type": 46,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": 0,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    56: {
+        "effect_type": 56,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": 0,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    16: {
+        "effect_type": 16,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": 1,
+        "operation": 1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": 0,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    21: {
+        "effect_type": 21,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": 0,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    57: {
+        "effect_type": 57,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": 0,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    49: {
+        "effect_type": 49,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    11: {
+        "effect_type": 11,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": 0,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    24: {
+        "effect_type": 24,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    9: {
+        "effect_type": 9,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    13: {
+        "effect_type": 13,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": 1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    20: {
+        "effect_type": 20,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": 10,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": 0,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": 0,
+        "message": " ",
+        "sound_name": " ",
+        "selected_object_id": [],
+    },
+    37: {
+        "effect_type": 37,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": 10,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": 0,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": 0,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    38: {
+        "effect_type": 38,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": 1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    39: {
+        "effect_type": 39,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": 1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    22: {
+        "effect_type": 22,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    34: {
+        "effect_type": 34,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    14: {
+        "effect_type": 14,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    7: {
+        "effect_type": 7,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    51: {
+        "effect_type": 51,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": 0,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    52: {
+        "effect_type": 52,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": 0,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    53: {
+        "effect_type": 53,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": 0,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": 1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": 0,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    19: {
+        "effect_type": 19,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    25: {
+        "effect_type": 25,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    4: {
+        "effect_type": 4,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": " ",
+        "selected_object_id": [],
+    },
+    15: {
+        "effect_type": 15,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    43: {
+        "effect_type": 43,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": 2,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    2: {
+        "effect_type": 2,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": 0,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    3: {
+        "effect_type": 3,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": " ",
+        "sound_name": " ",
+        "selected_object_id": [],
+    },
+    41: {
+        "effect_type": 41,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": 2,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": 0,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    29: {
+        "effect_type": 29,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    12: {
+        "effect_type": 12,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    35: {
+        "effect_type": 35,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    5: {
+        "effect_type": 5,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": 0,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": 2,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    17: {
+        "effect_type": 17,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": 1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    6: {
+        "effect_type": 6,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    },
+    23: {
+        "effect_type": 23,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "number_of_units_selected": -1,
+        "object_list_unit_id": -1,
+        "player_source": -1,
+        "player_target": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_id": [],
+    }
+}
+
 attributes = {
     0: [
         "effect_type",
@@ -593,6 +3405,10 @@ attributes = {
     8: [
         "effect_type",
         "trigger_id",
+    ],
+    10: [
+        "effect_type",
+        "ai_script_goal",
     ],
     30: [
         "effect_type",
