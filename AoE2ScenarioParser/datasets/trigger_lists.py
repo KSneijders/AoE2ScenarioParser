@@ -127,7 +127,7 @@ class ObjectAttribute(IntEnum):
     REGENERATION_RATE = 109
 
 
-class Tribute(IntEnum):
+class Attribute(IntEnum):
     FOOD_STORAGE = 0
     WOOD_STORAGE = 1
     STONE_STORAGE = 2
@@ -167,7 +167,7 @@ class Tribute(IntEnum):
     FARM_FOOD_AMOUNT = 36
     CIVILIAN_POPULATION = 37
     UNUSED_RESOURCE_038 = 38
-    A1_TECHS_ACHIEVED = 39
+    ALL_TECHS_ACHIEVED = 39
     MILITARY_POPULATION = 40
     CONVERSIONS = 41
     STANDING_NDERS = 42
