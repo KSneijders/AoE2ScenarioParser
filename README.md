@@ -12,10 +12,10 @@ Current up-to-date progress can be found on the [Trello] board.
 
 |            | View | Add | Edit | Remove |
 |------------|------|-----|------|--------|
-| Triggers   | ✔️   | ✔️ | ✔️   | ✔️    |
-| Conditions | ✔️   | ✔️ | ✔️   |        |
-| Effects    | ✔️   | ✔️ | ✔️   |        |
-| Units      |      | ✔️ | ✔️   | ✔️    |
+| Triggers   | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:    |
+| Conditions | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   |        |
+| Effects    | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   |        |
+| Units      |      | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:    |
 
 ## Bugs:
 - None that I know of. Please report any bugs you find to the [github issue board].
@@ -26,8 +26,8 @@ Current up-to-date progress can be found on the [Trello] board.
 
 | ScenarioFiles | Read | Write | Reference            |
 |---------------|------|-------|----------------------|
-| 1.36          | ✔️   | ✔️   | -
-| 1.37          | ✔️   | ✔️   | From game update: [35584]
+| 1.36          | :heavy_check_mark:   | :heavy_check_mark:   | -
+| 1.37          | :heavy_check_mark:   | :heavy_check_mark:   | From game update: [35584]
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 
