@@ -67,12 +67,12 @@ class DifficultyLevel(IntEnum):
 
 
 class TechnologyState(IntEnum):
-    DISABLED = 4
-    NOT_READY = 3
-    READY = 2
-    RESEARCHING = 1
-    DONE = 0
-    # QUEUED = 5  # ???
+    DISABLED = -1
+    NOT_READY = 0
+    READY = 1
+    RESEARCHING = 2
+    DONE = 3
+    QUEUED = 4
 
 
 class Comparison(IntEnum):
