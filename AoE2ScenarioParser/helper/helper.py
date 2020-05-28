@@ -38,11 +38,8 @@ def add_str_trail(string):
 
 
 def del_str_trail(string):
-    print(f"String: '{string}'")
     if len(string) > 0:
         string = string if string[-1] != "\x00" else string[:-1]
-        print(f"New String: '{string}'")
-
     return string
 
 
