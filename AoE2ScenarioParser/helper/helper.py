@@ -32,11 +32,18 @@ def insert_char(string, char, every=64):
 
 
 def add_str_trail(string):
-    return (string + ("\x00" if string[-1] != "\x00" else "")) if len(string) > 0 else string
+    if len(string) > 0:
+        string = string + ("\x00" if string[-1] != "\x00" else "")
+    return string
 
 
 def del_str_trail(string):
-    return string.replace('\x00', "")
+    print(f"String: '{string}'")
+    if len(string) > 0:
+        string = string if string[-1] != "\x00" else string[:-1]
+        print(f"New String: '{string}'")
+
+    return string
 
 
 def add_prefix_chars(string, char, length):

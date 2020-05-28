@@ -62,30 +62,6 @@ class TriggerObject(AoE2Object):
 
         super().__init__()
 
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, val):
-        self._name = helper.add_str_trail(val)
-
-    @property
-    def description(self):
-        return self.__description
-
-    @description.setter
-    def description(self, val):
-        self.__description = helper.add_str_trail(val)
-
-    @property
-    def short_description(self):
-        return self.__short_description
-
-    @short_description.setter
-    def short_description(self, val):
-        self.__short_description = helper.add_str_trail(val)
-
     def add_effect(self, effect_type: Effect):
         new_effect = EffectObject(**effects.default_attributes[effect_type.value])
         self.effects.append(new_effect)

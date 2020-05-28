@@ -1,13 +1,15 @@
 import struct
-from enum import Enum, IntEnum
+from enum import IntEnum
+
+from AoE2ScenarioParser.helper import helper
 
 
 def bytes_to_str(byte_elements, codec="utf-8"):
-    return byte_elements.decode(codec)
+    return helper.del_str_trail(byte_elements.decode(codec))
 
 
 def str_to_bytes(string, codec="utf-8"):
-    return string.encode(codec)
+    return helper.add_str_trail(string.encode(codec))
 
 
 def bytes_to_int(byte_elements, endian="little", signed=False):
