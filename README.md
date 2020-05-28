@@ -10,12 +10,12 @@ Current up-to-date progress can be found on the [Trello] board.
 
 ## Features:
 
-|            | View | Add | Edit | Remove |
-|------------|------|-----|------|--------|
-| Triggers   | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:    |
-| Conditions | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   |        |
-| Effects    | :heavy_check_mark:   | :heavy_check_mark: | :heavy_check_mark:   |        |
-| Units      |      | :heavy_check_mark: | :heavy_check_mark:   | :heavy_check_mark:    |
+|            | View               | Add                | Edit               | Remove             |
+|------------|--------------------|--------------------|--------------------|--------------------|
+| Triggers   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Conditions | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | -                  |
+| Effects    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | -                  |
+| Units      | -                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ## Bugs:
 - None that I know of. Please report any bugs you find to the [github issue board].
@@ -24,12 +24,15 @@ Current up-to-date progress can be found on the [Trello] board.
 
 ## Support:
 
-| ScenarioFiles | Read | Write | Reference            |
-|---------------|------|-------|----------------------|
-| 1.36          | :heavy_check_mark:   | :heavy_check_mark:   | -
-| 1.37          | :heavy_check_mark:   | :heavy_check_mark:   | From game update: [35584]
+| ScenarioFiles | Read               | Write              | Reference                       |
+|---------------|--------------------|--------------------|---------------------------------|
+| 1.36          | :heavy_check_mark: | :heavy_check_mark: | -
+| 1.37          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [35584] (February 27th) <br> **Unchanged in**: <br> - Update [36202] (March 30th) <br> - Update [36906] (April 29th) <br> - Update [37650] (May 27th)
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
+[36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
+[36906]: https://www.ageofempires.com/news/aoe2de-update-36906/
+[37650]: https://www.ageofempires.com/news/aoe2de-update-37650/
 
 # Installation
 Run the following pip command for installation:
