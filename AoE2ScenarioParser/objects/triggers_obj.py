@@ -155,11 +155,15 @@ class TriggersObject(AoE2Object):
         else:
             display_index = self.trigger_display_order.index(trigger_id)
 
+        for x in self.trigger_display_order:
+            if x > trigger_id:
+                self.get_trigger(trigger_id=x).trigger_id -= 1
+
         del self.triggers[trigger_id]
         del self.trigger_display_order[display_index]
 
-        self.trigger_display_order = \
-            [x - 1 if x > trigger_id else x for x in self.trigger_display_order]
+        self.trigger_display_order = [x - 1 if x > trigger_id else x for x in self.trigger_display_order]
+
 
     def _get_trigger_id_by_display_index(self, display_index) -> int:
         return self.trigger_display_order[display_index]
