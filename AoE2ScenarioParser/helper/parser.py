@@ -62,7 +62,7 @@ class Parser:
                 else:  # Always 4 except for trigger version
                     val = bytes_to_double(r_gen(generator, var_len))
             elif var_type == "c":
-                val = bytes_to_str(r_gen(generator, var_len))
+                val = bytes_to_fixed_chars(r_gen(generator, var_len))
             elif var_type == "data":
                 val = r_gen(generator, var_len)
             elif var_type == "str":
@@ -193,12 +193,13 @@ def retriever_to_bytes(retriever):
                 else:  # Always 4 (float) except for trigger version (8: double)
                     return_bytes += double_to_bytes(data)
             elif var_type == "c":
-                return_bytes += str_to_bytes(data)
+                return_bytes += fixed_chars_to_bytes(data)
             elif var_type == "data":
                 return_bytes += data
             elif var_type == "str":
-                return_bytes += int_to_bytes(len(data.encode('utf-8')), var_len, endian="little", signed=True)
-                return_bytes += str_to_bytes(data)
+                byte_string = str_to_bytes(data)
+                return_bytes += int_to_bytes(len(byte_string), var_len, endian="little", signed=True)
+                return_bytes += byte_string
     except (AttributeError, TypeError) as e:
         print("\n" + type(e).__name__ + " occurred in: " + retriever.name +
               "\n\tData: " + repr(retriever.data) + "\n\tDatatype: " + str(retriever.datatype))
