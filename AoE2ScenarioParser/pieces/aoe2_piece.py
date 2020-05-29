@@ -30,7 +30,7 @@ class AoE2Piece:
                         data[i] = [data[i]]
                     saves[self.retrievers[i].save_as] = parser.vorl(data[i])
         else:
-            ValueError("Data list isn't the same size as the DataType list")
+            raise ValueError("Data list isn't the same size as the DataType list")
 
     def get_value(self, retriever_key):
         return find_retriever(self.retrievers, retriever_key).data
