@@ -16,7 +16,7 @@ trigger = trigger_manager.add_trigger("Trigger :)")
 trigger.description = "This is a great description!"
 ```
 
-To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the `condition` or `effect` dataset to give the function the right ID. If you're unsure about what attributes are available in every condition or effect, check the docs of the condition. Type (for example) `"conditions.chance"` and click it. Now show the docs (using `CTRL+Q` in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the attribute `amount_or_quantity` to apply the right value.
+To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the `Condition` or `Effect` dataset to give the function the right ID. If you're unsure about what attributes are available in every condition or effect, check the docs of the condition. Type (for example) `"Condition.CHANCE"` and click it. Now show the docs (using `CTRL+Q` in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the attribute `amount_or_quantity` to apply the right value.
 
 The example shows: A trigger with 25% chance of showing a message. 
 
