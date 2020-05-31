@@ -123,6 +123,46 @@ class TriggerObject(AoE2Object):
 
         return return_string
 
+    def remove_effect(self, effect_index: int = None, display_index: int = None, effect: EffectObject = None) -> None:
+        if effect is None:
+            if effect_index is None and display_index is None:
+                raise ValueError("Please choose 'effect_id' or 'display_index' as identification for the wanted effect")
+            if effect_index is not None and display_index is not None:
+                raise ValueError("Please identify an effect using 'effect_id' or 'display_index' but not both")
+        else:
+            effect_index = self.effects.index(effect)
+
+        if effect_index is None:
+            effect_index = self.effect_order[display_index]
+        else:
+            display_index = self.effect_order.index(effect_index)
+
+        del self.effects[effect_index]
+        del self.effect_order[display_index]
+
+        self.effect_order = [x - 1 if x > effect_index else x for x in self.effect_order]
+
+    def remove_condition(self, condition_index: int = None, display_index: int = None, condition: EffectObject = None) \
+            -> None:
+        if condition is None:
+            if condition_index is None and display_index is None:
+                raise ValueError("Please choose 'condition_id' or 'display_index' as identification for the wanted "
+                                 "condition")
+            if condition_index is not None and display_index is not None:
+                raise ValueError("Please identify a condition using 'condition_id' or 'display_index' but not both")
+        else:
+            condition_index = self.conditions.index(condition)
+
+        if condition_index is None:
+            condition_index = self.condition_order[display_index]
+        else:
+            display_index = self.condition_order.index(condition_index)
+
+        del self.conditions[condition_index]
+        del self.condition_order[display_index]
+
+        self.condition_order = [x - 1 if x > condition_index else x for x in self.condition_order]
+
     @staticmethod
     def _parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct, trigger_id=id}
         trigger = kwargs['trigger']
