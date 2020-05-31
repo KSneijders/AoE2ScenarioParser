@@ -108,7 +108,8 @@ class TriggerObject(AoE2Object):
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                return_string += "\t\t\t" + conditions.condition_names[condition.condition_type] + ":\n"
+                return_string += f"\t\t\t{conditions.condition_names[condition.condition_type]} " \
+                                 f"[Index: {condition_id}, Display: {c_display_order}]:\n"
                 return_string += condition.get_content_as_string()
 
         if len(self.effect_order) > 0:
@@ -116,7 +117,8 @@ class TriggerObject(AoE2Object):
             for e_display_order, effect_id in enumerate(self.effect_order):
                 effect = self.effects[effect_id]
 
-                return_string += "\t\t\t" + effects.effect_names[effect.effect_type] + ":\n"
+                return_string += f"\t\t\t{effects.effect_names[effect.effect_type]} " \
+                                 f"[Index: {effect_id}, Display: {e_display_order}]:\n"
                 return_string += effect.get_content_as_string()
 
         return return_string

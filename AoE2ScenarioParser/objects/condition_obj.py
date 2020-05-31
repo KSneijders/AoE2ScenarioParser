@@ -63,6 +63,9 @@ class ConditionObject(AoE2Object):
                 continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 
+        if return_string == "":
+            return "\t\t\t\t<< No Attributes >>\n"
+
         return return_string
 
     @staticmethod

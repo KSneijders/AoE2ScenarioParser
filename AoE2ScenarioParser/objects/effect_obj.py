@@ -128,7 +128,7 @@ class EffectObject(AoE2Object):
             return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 
         if return_string == "":
-            return "\t\t\t\t< no attributes >\n"
+            return "\t\t\t\t<< No Attributes >>\n"
 
         return return_string
 
