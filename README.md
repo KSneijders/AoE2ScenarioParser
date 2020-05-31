@@ -13,8 +13,8 @@ Current up-to-date progress can be found on the [Trello] board.
 |            | View               | Add                | Edit               | Remove             |
 |------------|--------------------|--------------------|--------------------|--------------------|
 | Triggers   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Conditions | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | -                  |
-| Effects    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | -                  |
+| Conditions | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Effects    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Units      | -                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ## Bugs:

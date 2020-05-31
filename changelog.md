@@ -7,7 +7,21 @@ The format is based on [Keep a Changelog]
 
 ## [Unreleased]
 
-- 
+### Added
+
+- `remove_condition()` and `remove_effect()` to TriggerObject
+- `get_condition()` and `get_effect()` to TriggerObject
+- The index and display index to the `trigger.get_content_as_string()` 
+
+### Changed
+
+- Within the library the use of `\x00` character for line endings is no longer a necessity. 
+  - This mainly affects checking names: (eg. trigger.name == "name\x00") (Credits: Alian713)
+
+### Fixed
+
+- Bug causing the local `trigger_id` attributes to be out of sync when removing triggers.
+- Bug causing the `ValueError` to not get raised when trying to construct a piece with invalid data length.
 
 ## 0.0.7 - 2019-May-23 
 ### Added
