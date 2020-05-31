@@ -16,7 +16,8 @@ The format is based on [Keep a Changelog]
 ### Changed
 
 - Within the library the use of `\x00` character for line endings is no longer a necessity. 
-  - This mainly affects checking names: (eg. trigger.name == "name\x00") (Credits: Alian713)
+  - This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
+- The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
 
 ### Fixed
 
