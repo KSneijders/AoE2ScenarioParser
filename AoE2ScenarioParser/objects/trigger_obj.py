@@ -125,10 +125,7 @@ class TriggerObject(AoE2Object):
 
     def remove_effect(self, effect_index: int = None, display_index: int = None, effect: EffectObject = None) -> None:
         if effect is None:
-            if effect_index is None and display_index is None:
-                raise ValueError("Please choose 'effect_id' or 'display_index' as identification for the wanted effect")
-            if effect_index is not None and display_index is not None:
-                raise ValueError("Please identify an effect using 'effect_id' or 'display_index' but not both")
+            helper.evaluate_index_params(effect_index, display_index, "effect")
         else:
             effect_index = self.effects.index(effect)
 
@@ -145,11 +142,7 @@ class TriggerObject(AoE2Object):
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: EffectObject = None) \
             -> None:
         if condition is None:
-            if condition_index is None and display_index is None:
-                raise ValueError("Please choose 'condition_id' or 'display_index' as identification for the wanted "
-                                 "condition")
-            if condition_index is not None and display_index is not None:
-                raise ValueError("Please identify a condition using 'condition_id' or 'display_index' but not both")
+            helper.evaluate_index_params(condition_index, display_index, "condition")
         else:
             condition_index = self.conditions.index(condition)
 

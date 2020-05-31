@@ -108,6 +108,13 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
         return GaiaBuilding(const)
 
 
+def evaluate_index_params(x_id, display_index, name):
+    if x_id is None and display_index is None:
+        raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted trigger")
+    if x_id is not None and display_index is not None:
+        raise ValueError(f"Please identify a trigger using '{name}_id' or 'display_index' but not both")
+
+
 class SimpleLogger:
     def __init__(self, should_log):
         self.should_log = should_log

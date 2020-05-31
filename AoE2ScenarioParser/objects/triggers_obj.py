@@ -10,13 +10,6 @@ from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 
-def _evaluate_index_params(trigger_id, display_index):
-    if trigger_id is None and display_index is None:
-        raise ValueError("Please choose 'trigger_id' or 'display_index' as identification for the wanted trigger")
-    if trigger_id is not None and display_index is not None:
-        raise ValueError("Please identify a trigger using 'trigger_id' or 'display_index' but not both")
-
-
 class TriggersObject(AoE2Object):
     def __init__(self,
                  triggers,
@@ -54,18 +47,18 @@ class TriggersObject(AoE2Object):
             return_string += "\t<< No Triggers >>"
 
         longest_trigger_name = -1
-        for trigger_id in display_order:
-            trigger_name = helper.del_str_trail(triggers[trigger_id].name)
+        for trigger_index in display_order:
+            trigger_name = helper.del_str_trail(triggers[trigger_index].name)
             longest_trigger_name = max(longest_trigger_name, len(trigger_name))
 
         longest_trigger_name += 3
-        for display, trigger_id in enumerate(display_order):
-            trigger = triggers[trigger_id]
+        for display, trigger_index in enumerate(display_order):
+            trigger = triggers[trigger_index]
             trigger_name = helper.del_str_trail(trigger.name)
 
             buffer = longest_trigger_name - len(trigger_name)
             return_string += "\t" + trigger_name + (" " * buffer)
-            return_string += " [Index: " + str(trigger_id) + ", Display: " + str(display) + "]"
+            return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display) + "]"
 
             return_string += "\t(conditions: " + str(len(parser.listify(trigger.conditions))) + ", "
             return_string += " effects: " + str(len(parser.listify(trigger.effects))) + ")\n"
@@ -97,8 +90,8 @@ class TriggersObject(AoE2Object):
         if len(triggers) == 0:
             return_string += "\t<<No triggers>>"
 
-        for trigger_id in display_order:
-            return_string += self.get_trigger_as_string(trigger_id) + "\n"
+        for trigger_index in display_order:
+            return_string += self.get_trigger_as_string(trigger_index) + "\n"
 
         return_string += "Variables:\n"
 
@@ -110,29 +103,29 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_id=None, display_index=None) -> str:
-        _evaluate_index_params(trigger_id, display_index)
+    def get_trigger_as_string(self, trigger_index=None, display_index=None) -> str:
+        helper.evaluate_index_params(trigger_index, display_index, "trigger")
 
-        if trigger_id is None:
-            trigger_id = self._get_trigger_id_by_display_index(display_index)
+        if trigger_index is None:
+            trigger_index = self._get_trigger_index_by_display_index(display_index)
 
-        trigger: TriggerObject = parser.listify(self.triggers)[trigger_id]
-        display = parser.listify(self.trigger_display_order).index(trigger_id)
+        trigger: TriggerObject = parser.listify(self.triggers)[trigger_index]
+        display = parser.listify(self.trigger_display_order).index(trigger_index)
 
         return_string = "\t'" + helper.del_str_trail(trigger.name) + "'"
-        return_string += " [Index: " + str(trigger_id) + ", Display: " + str(display) + "]" + ":\n"
+        return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display) + "]" + ":\n"
 
         return_string += trigger.get_content_as_string()
 
         return return_string
 
-    def get_trigger(self, trigger_id=None, display_index=None) -> TriggerObject:
-        _evaluate_index_params(trigger_id, display_index)
+    def get_trigger(self, trigger_index=None, display_index=None) -> TriggerObject:
+        helper.evaluate_index_params(trigger_index, display_index, "trigger")
 
-        if trigger_id is None:
-            trigger_id = self._get_trigger_id_by_display_index(display_index)
+        if trigger_index is None:
+            trigger_index = self._get_trigger_index_by_display_index(display_index)
 
-        return parser.listify(self.triggers)[trigger_id]
+        return parser.listify(self.triggers)[trigger_index]
 
     def get_variable(self, variable_id: int = None, variable_name: str = None) -> VariableObject:
         if variable_id is None and variable_name is None:
@@ -144,27 +137,27 @@ class TriggersObject(AoE2Object):
             if variable.variable_id == variable_id or variable.name == variable_name:
                 return variable
 
-    def remove_trigger(self, trigger_id: int = None, display_index: int = None, trigger: TriggerObject = None) -> None:
+    def remove_trigger(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None) -> None:
         if trigger is None:
-            _evaluate_index_params(trigger_id, display_index)
+            helper.evaluate_index_params(trigger_index, display_index, "trigger")
         else:
-            trigger_id = trigger.trigger_id
+            trigger_index = trigger.trigger_id
 
-        if trigger_id is None:
-            trigger_id = self._get_trigger_id_by_display_index(display_index)
+        if trigger_index is None:
+            trigger_index = self._get_trigger_index_by_display_index(display_index)
         else:
-            display_index = self.trigger_display_order.index(trigger_id)
+            display_index = self.trigger_display_order.index(trigger_index)
 
         for x in self.trigger_display_order:
-            if x > trigger_id:
-                self.get_trigger(trigger_id=x).trigger_id -= 1
+            if x > trigger_index:
+                self.get_trigger(trigger_index=x).trigger_id -= 1
 
-        del self.triggers[trigger_id]
+        del self.triggers[trigger_index]
         del self.trigger_display_order[display_index]
 
-        self.trigger_display_order = [x - 1 if x > trigger_id else x for x in self.trigger_display_order]
+        self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
 
-    def _get_trigger_id_by_display_index(self, display_index) -> int:
+    def _get_trigger_index_by_display_index(self, display_index) -> int:
         return self.trigger_display_order[display_index]
 
     @staticmethod
