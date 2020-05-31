@@ -123,6 +123,25 @@ class TriggerObject(AoE2Object):
 
         return return_string
 
+    def get_effect(self, effect_index: int = None, display_index: int = None) -> EffectObject:
+        helper.evaluate_index_params(effect_index, display_index, "effect")
+
+        if effect_index is None:
+            effect_index = self.effect_order[display_index]
+
+        return parser.listify(self.effects)[effect_index]
+
+    def get_condition(self, condition_index: int = None, display_index: int = None) -> ConditionObject:
+        helper.evaluate_index_params(condition_index, display_index, "condition")
+
+        if condition_index is None:
+            condition_index = self.condition_order[display_index]
+
+        return parser.listify(self.conditions)[condition_index]
+
+    def get_summary_as_string(self) -> str:
+        pass
+
     def remove_effect(self, effect_index: int = None, display_index: int = None, effect: EffectObject = None) -> None:
         if effect is None:
             helper.evaluate_index_params(effect_index, display_index, "effect")
