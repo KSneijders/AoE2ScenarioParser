@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from enum import IntEnum
+
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -8,52 +10,52 @@ from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 
 class ConditionObject(AoE2Object):
     def __init__(self,
-                 condition_type,
-                 amount_or_quantity,
-                 resource_type_or_tribute_list,
-                 unit_object,
-                 next_object,
-                 object_list,
-                 player,
-                 technology,
-                 timer,
-                 area_1_x,
-                 area_1_y,
-                 area_2_x,
-                 area_2_y,
-                 object_group,
-                 object_type,
-                 ai_signal,
-                 inverted,
-                 variable,
-                 comparison,
-                 target_player
+                 condition_type: int,
+                 amount_or_quantity: int,
+                 resource_type_or_tribute_list: int,
+                 unit_object: int,
+                 next_object: int,
+                 object_list: int,
+                 player: IntEnum,
+                 technology: IntEnum,
+                 timer: int,
+                 area_1_x: int,
+                 area_1_y: int,
+                 area_2_x: int,
+                 area_2_y: int,
+                 object_group: int,
+                 object_type: int,
+                 ai_signal: int,
+                 inverted: int,
+                 variable: int,
+                 comparison: int,
+                 target_player: IntEnum
                  ):
 
-        self.condition_type = condition_type
-        self.amount_or_quantity = amount_or_quantity
-        self.resource_type_or_tribute_list = resource_type_or_tribute_list
-        self.unit_object = unit_object
-        self.next_object = next_object
-        self.object_list = object_list
-        self.player = player
-        self.technology = technology
-        self.timer = timer
-        self.area_1_x = area_1_x
-        self.area_1_y = area_1_y
-        self.area_2_x = area_2_x
-        self.area_2_y = area_2_y
-        self.object_group = object_group
-        self.object_type = object_type
-        self.ai_signal = ai_signal
-        self.inverted = inverted
-        self.variable = variable
-        self.comparison = comparison
-        self.target_player = target_player
+        self.condition_type: int = condition_type
+        self.amount_or_quantity: int = amount_or_quantity
+        self.resource_type_or_tribute_list: int = resource_type_or_tribute_list
+        self.unit_object: int = unit_object
+        self.next_object: int = next_object
+        self.object_list: int = object_list
+        self.player: IntEnum = player
+        self.technology: IntEnum = technology
+        self.timer: int = timer
+        self.area_1_x: int = area_1_x
+        self.area_1_y: int = area_1_y
+        self.area_2_x: int = area_2_x
+        self.area_2_y: int = area_2_y
+        self.object_group: int = object_group
+        self.object_type: int = object_type
+        self.ai_signal: int = ai_signal
+        self.inverted: int = inverted
+        self.variable: int = variable
+        self.comparison: int = comparison
+        self.target_player: IntEnum = target_player
 
         super().__init__()
 
-    def get_content_as_string(self):
+    def get_content_as_string(self) -> str:
         attributes_list = conditions.attributes[self.condition_type]
 
         return_string = ""

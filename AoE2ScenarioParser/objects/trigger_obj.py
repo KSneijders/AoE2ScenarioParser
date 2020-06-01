@@ -1,3 +1,5 @@
+from typing import List
+
 from AoE2ScenarioParser.datasets import effects, conditions
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
@@ -12,23 +14,23 @@ from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 
 class TriggerObject(AoE2Object):
     def __init__(self,
-                 name,
-                 description="",
-                 description_stid=-1,
-                 display_as_objective=0,
-                 short_description="",
-                 short_description_stid=-1,
-                 display_on_screen=0,
-                 description_order=0,
-                 enabled=1,
-                 looping=0,
-                 header=0,
-                 mute_objectives=0,
-                 conditions_list=None,
-                 condition_order=None,
-                 effects_list=None,
-                 effect_order=None,
-                 trigger_id=-1,
+                 name: str,
+                 description: str = "",
+                 description_stid: int = -1,
+                 display_as_objective: int = 0,
+                 short_description: str = "",
+                 short_description_stid: int = -1,
+                 display_on_screen: int = 0,
+                 description_order: int = 0,
+                 enabled: int = 1,
+                 looping: int = 0,
+                 header: int = 0,
+                 mute_objectives: int = 0,
+                 conditions_list: List[ConditionObject] = None,
+                 condition_order: List[int] = None,
+                 effects_list: List[EffectObject] = None,
+                 effect_order: List[int] = None,
+                 trigger_id: int = -1,
                  ):
 
         if conditions_list is None:
@@ -40,41 +42,41 @@ class TriggerObject(AoE2Object):
         if effect_order is None:
             effect_order = []
 
-        self.name = name
-        self.description = description
-        self.description_stid = description_stid
-        self.display_as_objective = display_as_objective
-        self.short_description = short_description
-        self.short_description_stid = short_description_stid
-        self.display_on_screen = display_on_screen
-        self.description_order = description_order
-        self.enabled = enabled
-        self.looping = looping
-        self.header = header
-        self.mute_objectives = mute_objectives
-        self.conditions = conditions_list
-        self.condition_order = condition_order
-        self.effects = effects_list
-        self.effect_order = effect_order
-        self.trigger_id = trigger_id
+        self.name: str = name
+        self.description: str = description
+        self.description_stid: int = description_stid
+        self.display_as_objective: int = display_as_objective
+        self.short_description: str = short_description
+        self.short_description_stid: int = short_description_stid
+        self.display_on_screen: int = display_on_screen
+        self.description_order: int = description_order
+        self.enabled: int = enabled
+        self.looping: int = looping
+        self.header: int = header
+        self.mute_objectives: int = mute_objectives
+        self.conditions: List[ConditionObject] = conditions_list
+        self.condition_order: List[int] = condition_order
+        self.effects: List[EffectObject] = effects_list
+        self.effect_order: List[int] = effect_order
+        self.trigger_id: int = trigger_id
 
         self.trigger_id = trigger_id
 
         super().__init__()
 
-    def add_effect(self, effect_type: Effect):
+    def add_effect(self, effect_type: Effect) -> EffectObject:
         new_effect = EffectObject(**effects.default_attributes[effect_type.value])
         self.effects.append(new_effect)
         helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
 
-    def add_condition(self, condition_type: Condition):
+    def add_condition(self, condition_type: Condition) -> ConditionObject:
         new_cond = ConditionObject(**conditions.default_attributes[condition_type.value])
         self.conditions.append(new_cond)
         helper.update_order_array(self.condition_order, len(self.conditions))
         return new_cond
 
-    def get_content_as_string(self):
+    def get_content_as_string(self) -> str:
         return_string = ""
         data_tba = [
             ('enabled', self.enabled != 0),

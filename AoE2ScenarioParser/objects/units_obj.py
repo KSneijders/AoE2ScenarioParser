@@ -112,7 +112,7 @@ class UnitsObject(AoE2Object):
         if (not all([tile1, tile2])) and any([tile1, tile2]):
             raise ValueError("Cannot use one from tile1, tile2. Use both.")
         if players is not None and ignore_players is not None:
-            raise ValueError("Cannot use both whitelist and blacklist at the same time")
+            raise ValueError("Cannot use both whitelist (players) and blacklist (ignore_players) at the same time")
 
         if tile1:
             x1 = tile1.x1

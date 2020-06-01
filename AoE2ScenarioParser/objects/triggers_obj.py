@@ -12,9 +12,9 @@ from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 class TriggersObject(AoE2Object):
     def __init__(self,
-                 triggers,
-                 trigger_display_order,
-                 variables
+                 triggers: List[TriggersObject],
+                 trigger_display_order: List[int],
+                 variables: List[VariableObject]
                  ):
 
         self.triggers: List[TriggerObject] = parser.listify(triggers)
@@ -23,13 +23,13 @@ class TriggersObject(AoE2Object):
 
         super().__init__()
 
-    def add_trigger(self, name) -> TriggerObject:
+    def add_trigger(self, name: str) -> TriggerObject:
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
         self.triggers.append(new_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
         return new_trigger
 
-    def add_variable(self, variable_id, name) -> VariableObject:
+    def add_variable(self, variable_id: int, name: str) -> VariableObject:
         if not (0 <= variable_id <= 255):
             raise ValueError("Variable ID has to fall between 0 and 255 (incl).")
 
@@ -103,7 +103,7 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_index=None, display_index=None) -> str:
+    def get_trigger_as_string(self, trigger_index: int = None, display_index: int = None) -> str:
         helper.evaluate_index_params(trigger_index, display_index, "trigger")
 
         if trigger_index is None:
@@ -119,7 +119,7 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger(self, trigger_index=None, display_index=None) -> TriggerObject:
+    def get_trigger(self, trigger_index: int = None, display_index: int = None) -> TriggerObject:
         helper.evaluate_index_params(trigger_index, display_index, "trigger")
 
         if trigger_index is None:
@@ -137,7 +137,8 @@ class TriggersObject(AoE2Object):
             if variable.variable_id == variable_id or variable.name == variable_name:
                 return variable
 
-    def remove_trigger(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None) -> None:
+    def remove_trigger(self, trigger_index: int = None, display_index: int = None,
+                       trigger: TriggerObject = None) -> None:
         if trigger is None:
             helper.evaluate_index_params(trigger_index, display_index, "trigger")
         else:
@@ -157,7 +158,7 @@ class TriggersObject(AoE2Object):
 
         self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
 
-    def _get_trigger_index_by_display_index(self, display_index) -> int:
+    def _get_trigger_index_by_display_index(self, display_index: int) -> int:
         return self.trigger_display_order[display_index]
 
     @staticmethod
