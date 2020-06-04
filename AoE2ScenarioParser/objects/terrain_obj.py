@@ -4,10 +4,12 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 class TerrainObject(AoE2Object):
     def __init__(self,
                  terrain_id,
-                 elevation
+                 elevation,
+                 layer,
                  ):
         self.terrain_id = terrain_id
         self.elevation = elevation
+        self.layer = layer
 
         super().__init__()
 

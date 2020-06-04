@@ -9,7 +9,8 @@ class TerrainStruct(AoE2Struct):
             Retriever("Terrain ID", DataType("u8")),
             Retriever("Elevation", DataType("u8")),
             Retriever("Unused", DataType("u8")),
-            Retriever("Separator?", DataType("4"))
+            Retriever("Separator?", DataType("2")),
+            Retriever("Layer", DataType("s16"))
         ]
 
         super().__init__("Terrain", retrievers, parser_obj, data)
