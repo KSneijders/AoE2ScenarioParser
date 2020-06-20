@@ -4,6 +4,7 @@ from enum import IntEnum
 from typing import List, Union
 
 from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
@@ -63,6 +64,8 @@ class EffectObject(AoE2Object):
 
         if selected_object_id is None:
             selected_object_id = []
+        else:
+            selected_object_id = parser.listify(selected_object_id)
 
         self.effect_type: int = effect_type
         self.ai_script_goal: int = ai_script_goal
