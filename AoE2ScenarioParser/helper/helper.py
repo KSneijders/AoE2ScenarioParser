@@ -110,9 +110,9 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
 
 def evaluate_index_params(x_id, display_index, name):
     if x_id is None and display_index is None:
-        raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted trigger")
+        raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted {name}")
     if x_id is not None and display_index is not None:
-        raise ValueError(f"Please identify a trigger using '{name}_id' or 'display_index' but not both")
+        raise ValueError(f"Please identify a {name} using '{name}_id' or 'display_index' but not both")
 
 
 class SimpleLogger:
