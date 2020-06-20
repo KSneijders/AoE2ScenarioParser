@@ -84,18 +84,15 @@ class TriggersObject(AoE2Object):
     def get_content_as_string(self) -> str:
         return_string = "\nTriggers:\n"
 
-        triggers = parser.listify(self.triggers)
-        display_order = parser.listify(self.trigger_display_order)
-
-        if len(triggers) == 0:
+        if len(self.triggers) == 0:
             return_string += "\t<<No triggers>>\n"
 
-        for trigger_index in display_order:
+        for trigger_index in self.trigger_display_order:
             return_string += self.get_trigger_as_string(trigger_index) + "\n"
 
         return_string += "Variables:\n"
 
-        if len(triggers) == 0:
+        if len(self.variables) == 0:
             return_string += "\t<<No Variables>>\n"
 
         for variable in parser.listify(self.variables):
