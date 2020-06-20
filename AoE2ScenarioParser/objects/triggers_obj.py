@@ -104,28 +104,19 @@ class TriggersObject(AoE2Object):
         return return_string
 
     def get_trigger_as_string(self, trigger_index: int = None, display_index: int = None) -> str:
-        helper.evaluate_index_params(trigger_index, display_index, "trigger")
-
-        if trigger_index is None:
-            trigger_index = self._get_trigger_index_by_display_index(display_index)
-
-        trigger: TriggerObject = parser.listify(self.triggers)[trigger_index]
-        display = parser.listify(self.trigger_display_order).index(trigger_index)
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index)
 
         return_string = "\t'" + helper.del_str_trail(trigger.name) + "'"
-        return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display) + "]" + ":\n"
+        return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display_index) + "]" + ":\n"
 
         return_string += trigger.get_content_as_string()
 
         return return_string
 
     def get_trigger(self, trigger_index: int = None, display_index: int = None) -> TriggerObject:
-        helper.evaluate_index_params(trigger_index, display_index, "trigger")
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index)
 
-        if trigger_index is None:
-            trigger_index = self._get_trigger_index_by_display_index(display_index)
-
-        return parser.listify(self.triggers)[trigger_index]
+        return trigger
 
     def get_variable(self, variable_id: int = None, variable_name: str = None) -> VariableObject:
         if variable_id is None and variable_name is None:
@@ -139,15 +130,7 @@ class TriggersObject(AoE2Object):
 
     def remove_trigger(self, trigger_index: int = None, display_index: int = None,
                        trigger: TriggerObject = None) -> None:
-        if trigger is None:
-            helper.evaluate_index_params(trigger_index, display_index, "trigger")
-        else:
-            trigger_index = trigger.trigger_id
-
-        if trigger_index is None:
-            trigger_index = self._get_trigger_index_by_display_index(display_index)
-        else:
-            display_index = self.trigger_display_order.index(trigger_index)
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
 
         for x in self.trigger_display_order:
             if x > trigger_index:
@@ -158,8 +141,22 @@ class TriggersObject(AoE2Object):
 
         self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
 
-    def _get_trigger_index_by_display_index(self, display_index: int) -> int:
-        return self.trigger_display_order[display_index]
+    def _compute_trigger_info(self, trigger_index: int = None, display_index: int = None,
+                              trigger: TriggerObject = None) -> (int, int, TriggersObject):
+        if trigger is None:
+            helper.evaluate_index_params(trigger_index, display_index, "trigger")
+        else:
+            trigger_index = trigger.trigger_id
+
+        if trigger_index is None:
+            trigger_index = self.trigger_display_order[display_index]
+        else:
+            display_index = self.trigger_display_order.index(trigger_index)
+
+        if not trigger:
+            trigger = self.triggers[trigger_index]
+
+        return trigger_index, display_index, trigger
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
