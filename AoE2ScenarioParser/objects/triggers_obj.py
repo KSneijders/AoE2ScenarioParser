@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from typing import List
 
 from AoE2ScenarioParser.helper import helper
@@ -22,6 +23,16 @@ class TriggersObject(AoE2Object):
         self.variables: List[VariableObject] = parser.listify(variables)
 
         super().__init__()
+
+    def copy_trigger(self, trigger_index: int = None, display_index: int = None,
+                     trigger: TriggerObject = None):
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+
+        deepcopy_trigger = copy.deepcopy(trigger)
+        self.triggers.append(deepcopy_trigger)
+        helper.update_order_array(self.trigger_display_order, len(self.triggers))
+
+        return deepcopy_trigger
 
     def add_trigger(self, name: str) -> TriggerObject:
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
