@@ -77,9 +77,20 @@ class UnitsObject(AoE2Object):
             units += player_units
         return units
 
-    def get_units_in_area(self, x1: float = None, y1: float = None, x2: float = None, y2: float = None,
-                          tile1: Tile = None, tile2: Tile = None, unit_list: List[UnitObject] = None,
-                          players: List[Player] = None, ignore_players: List[Player] = None):
+    def remove_eye_candy(self) -> None:
+        eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
+        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
+
+    def get_units_in_area(self,
+                          x1: float = None,
+                          y1: float = None,
+                          x2: float = None,
+                          y2: float = None,
+                          tile1: Tile = None,
+                          tile2: Tile = None,
+                          unit_list: List[UnitObject] = None,
+                          players: List[Player] = None,
+                          ignore_players: List[Player] = None):
         """
         Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
 
@@ -132,10 +143,6 @@ class UnitsObject(AoE2Object):
 
         return [unit for unit in unit_list
                 if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
-
-    def remove_eye_candy(self) -> None:
-        eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
-        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
 
     def change_ownership(self, unit: UnitObject, to_player: Player) -> None:
         """

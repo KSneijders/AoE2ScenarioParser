@@ -136,7 +136,9 @@ class TriggersObject(AoE2Object):
             if variable.variable_id == variable_id or variable.name == variable_name:
                 return variable
 
-    def remove_trigger(self, trigger_index: int = None, display_index: int = None,
+    def remove_trigger(self,
+                       trigger_index: int = None,
+                       display_index: int = None,
                        trigger: TriggerObject = None) -> None:
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
 
@@ -149,7 +151,9 @@ class TriggersObject(AoE2Object):
 
         self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
 
-    def _compute_trigger_info(self, trigger_index: int = None, display_index: int = None,
+    def _compute_trigger_info(self,
+                              trigger_index: int = None,
+                              display_index: int = None,
                               trigger: TriggerObject = None) -> (int, int, TriggersObject):
         if trigger is None:
             helper.evaluate_index_params(trigger_index, display_index, "trigger")
