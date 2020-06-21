@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import copy
-from typing import List
+from enum import IntEnum
+from typing import List, Dict
 
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
@@ -24,11 +26,85 @@ class TriggersObject(AoE2Object):
 
         super().__init__()
 
-    def copy_trigger(self, trigger_index: int = None, display_index: int = None,
-                     trigger: TriggerObject = None):
+    def copy_trigger_for_players(self,
+                                 from_player: IntEnum,
+
+                                 trigger_index: int = None,
+                                 display_index: int = None,
+                                 trigger: TriggerObject = None,
+
+                                 lock_conditions: bool = False,
+                                 lock_effects: bool = False,
+                                 lock_condition_type: List[IntEnum] = None,
+                                 lock_effect_type: List[IntEnum] = None,
+                                 lock_condition_ids: List[int] = None,
+                                 lock_effect_ids: List[int] = None,
+
+                                 include_gaia: bool = False,
+                                 to_players: List[IntEnum] = None,
+                                 # Todo: Player Replacement
+                                 replacements: Dict[int, int] = None,
+                                 replace_source_player: bool = True,
+                                 replace_target_player: bool = False) -> Dict[Player, TriggerObject]:
+
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+
+        if lock_conditions is None:
+            lock_conditions = []
+        if lock_effects is None:
+            lock_effects = []
+        if lock_condition_type is None:
+            lock_condition_type = []
+        if lock_effect_type is None:
+            lock_effect_type = []
+        if lock_condition_ids is None:
+            lock_condition_ids = []
+        if lock_effect_ids is None:
+            lock_effect_ids = []
+
+        if to_players is None:
+            to_players = [
+                Player.ONE, Player.TWO, Player.THREE, Player.FOUR,
+                Player.FIVE, Player.SIX, Player.SEVEN, Player.EIGHT
+            ]
+        if include_gaia and Player.GAIA not in to_players:
+            to_players.append(Player.GAIA)
+
+        return_dict: Dict[Player, TriggerObject] = {}
+
+        alter_conditions: List[int] = []
+        alter_effects: List[int] = []
+        if not lock_conditions:
+            for i, cond in enumerate(trigger.conditions):
+                if i not in lock_condition_ids and cond.condition_type not in lock_condition_type:
+                    alter_conditions.append(i)
+        if not lock_effects:
+            for i, effect in enumerate(trigger.effects):
+                if i not in lock_effect_ids and effect.effect_type not in lock_effect_type:
+                    alter_effects.append(i)
+
+        for to_player in to_players:
+            if not to_player == from_player:
+                new_trigger = self.copy_trigger(trigger=trigger)
+                new_trigger.name += f" (p{to_player})"
+                return_dict[to_player] = new_trigger
+
+                for cond_x in alter_conditions:
+                    cond = new_trigger.conditions[cond_x]
+                    if not cond.player == -1:
+                        cond.player = Player(to_player)
+                for effect_x in alter_effects:
+                    effect = new_trigger.effects[effect_x]
+                    if not effect.player_source == -1:
+                        effect.player_source = Player(to_player)
+
+        return return_dict
+
+    def copy_trigger(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None):
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
 
         deepcopy_trigger = copy.deepcopy(trigger)
+        deepcopy_trigger.name += " (copy)"
         self.triggers.append(deepcopy_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
 
