@@ -110,6 +110,24 @@ class TriggersObject(AoE2Object):
 
         return deepcopy_trigger
 
+    # Todo: Player Replacement
+    def replace_player(self,
+                       replacements: Dict[int, int],
+                       replace_source_player: bool = True,
+                       replace_target_player: bool = False,
+
+                       trigger_index: int = None,
+                       display_index: int = None,
+                       trigger: TriggerObject = None,
+
+                       lock_conditions: bool = False,
+                       lock_effects: bool = False,
+                       lock_condition_type: List[IntEnum] = None,
+                       lock_effect_type: List[IntEnum] = None,
+                       lock_condition_ids: List[int] = None,
+                       lock_effect_ids: List[int] = None):
+        pass
+
     def add_trigger(self, name: str) -> TriggerObject:
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
         self.triggers.append(new_trigger)
