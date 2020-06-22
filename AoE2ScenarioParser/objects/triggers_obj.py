@@ -26,26 +26,22 @@ class TriggersObject(AoE2Object):
 
         super().__init__()
 
-    def copy_trigger_for_players(self,
-                                 from_player: IntEnum,
+    def copy_trigger_per_player(self,
+                                from_player: IntEnum,
 
-                                 trigger_index: int = None,
-                                 display_index: int = None,
-                                 trigger: TriggerObject = None,
+                                trigger_index: int = None,
+                                display_index: int = None,
+                                trigger: TriggerObject = None,
 
-                                 lock_conditions: bool = False,
-                                 lock_effects: bool = False,
-                                 lock_condition_type: List[IntEnum] = None,
-                                 lock_effect_type: List[IntEnum] = None,
-                                 lock_condition_ids: List[int] = None,
-                                 lock_effect_ids: List[int] = None,
+                                lock_conditions: bool = False,
+                                lock_effects: bool = False,
+                                lock_condition_type: List[IntEnum] = None,
+                                lock_effect_type: List[IntEnum] = None,
+                                lock_condition_ids: List[int] = None,
+                                lock_effect_ids: List[int] = None,
 
-                                 include_gaia: bool = False,
-                                 to_players: List[IntEnum] = None,
-                                 # Todo: Player Replacement
-                                 replacements: Dict[int, int] = None,
-                                 replace_source_player: bool = True,
-                                 replace_target_player: bool = False) -> Dict[Player, TriggerObject]:
+                                include_gaia: bool = False,
+                                to_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
 
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
 
