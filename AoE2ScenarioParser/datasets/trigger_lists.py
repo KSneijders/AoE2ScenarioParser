@@ -7,7 +7,7 @@ class DiplomacyState(IntEnum):
     ENEMY = 3
 
 
-class Operator(IntEnum):
+class Operation(IntEnum):
     SET = 1
     ADD = 2
     SUBTRACT = 3
