@@ -9,7 +9,7 @@ class UnitStruct(AoE2Struct):
             Retriever("X position", DataType("f32")),
             Retriever("Y position", DataType("f32")),
             Retriever("Z position", DataType("f32")),
-            Retriever("ID", DataType("u32")),
+            Retriever("ID", DataType("s32")),
             Retriever("Unit 'constant'", DataType("u16")),
             Retriever("Status", DataType("u8")),
             # Status, Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
