@@ -65,20 +65,20 @@ class TriggerObject(AoE2Object):
         super().__init__()
 
     @property
-    def conditions(self):
+    def conditions(self) -> List[ConditionObject]:
         return self._conditions
 
     @conditions.setter
-    def conditions(self, val):
+    def conditions(self, val: List[ConditionObject]) -> None:
         self._conditions = val
         self.condition_order = list(range(0, len(val)))
 
     @property
-    def effects(self):
+    def effects(self) -> List[EffectObject]:
         return self._effects
 
     @effects.setter
-    def effects(self, val):
+    def effects(self, val: List[EffectObject]) -> None:
         self._effects = val
         self.effect_order = list(range(0, len(val)))
 
