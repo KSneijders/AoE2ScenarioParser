@@ -70,19 +70,13 @@ class TriggersObject(AoE2Object):
         if include_gaia and Player.GAIA not in to_players:
             to_players.append(Player.GAIA)
 
+        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(
+            trigger, lock_conditions, lock_effects,
+            lock_condition_type, lock_effect_type,
+            lock_condition_ids, lock_effect_ids
+        )
+
         return_dict: Dict[Player, TriggerObject] = {}
-
-        alter_conditions: List[int] = []
-        alter_effects: List[int] = []
-        if not lock_conditions:
-            for i, cond in enumerate(trigger.conditions):
-                if i not in lock_condition_ids and cond.condition_type not in lock_condition_type:
-                    alter_conditions.append(i)
-        if not lock_effects:
-            for i, effect in enumerate(trigger.effects):
-                if i not in lock_effect_ids and effect.effect_type not in lock_effect_type:
-                    alter_effects.append(i)
-
         for to_player in to_players:
             if not to_player == from_player:
                 new_trigger = self.copy_trigger(trigger=trigger)
@@ -110,11 +104,9 @@ class TriggersObject(AoE2Object):
 
         return deepcopy_trigger
 
-    # Todo: Player Replacement
     def replace_player(self,
-                       replacements: Dict[int, int],
-                       replace_source_player: bool = True,
-                       replace_target_player: bool = False,
+                       source_player_replacements: Dict[int, int] = None,
+                       target_player_replacements: Dict[int, int] = None,
 
                        trigger_index: int = None,
                        display_index: int = None,
@@ -125,8 +117,43 @@ class TriggersObject(AoE2Object):
                        lock_condition_type: List[IntEnum] = None,
                        lock_effect_type: List[IntEnum] = None,
                        lock_condition_ids: List[int] = None,
-                       lock_effect_ids: List[int] = None):
-        pass
+                       lock_effect_ids: List[int] = None) -> TriggerObject:
+
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+
+        if lock_conditions is None:
+            lock_conditions = []
+        if lock_effects is None:
+            lock_effects = []
+        if lock_condition_type is None:
+            lock_condition_type = []
+        if lock_effect_type is None:
+            lock_effect_type = []
+        if lock_condition_ids is None:
+            lock_condition_ids = []
+        if lock_effect_ids is None:
+            lock_effect_ids = []
+
+        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(
+            trigger, lock_conditions, lock_effects,
+            lock_condition_type, lock_effect_type,
+            lock_condition_ids, lock_effect_ids
+        )
+
+        for cond_x in alter_conditions:
+            cond = trigger.conditions[cond_x]
+            if not cond.player == -1:
+                cond.player = Player(source_player_replacements[cond.player])
+            if not cond.target_player == -1:
+                cond.target_player = Player(target_player_replacements[cond.player])
+        for effect_x in alter_effects:
+            effect = trigger.effects[effect_x]
+            if not effect.player_source == -1:
+                effect.player_source = Player(source_player_replacements[effect.player_source])
+            if not effect.player_target == -1:
+                effect.player_target = Player(target_player_replacements[effect.player_target])
+
+        return trigger
 
     def add_trigger(self, name: str) -> TriggerObject:
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
@@ -263,6 +290,27 @@ class TriggersObject(AoE2Object):
             trigger = self.triggers[trigger_index]
 
         return trigger_index, display_index, trigger
+
+    @staticmethod
+    def _find_alterable_ce(trigger,
+                           lock_conditions,
+                           lock_effects,
+                           lock_condition_type,
+                           lock_effect_type,
+                           lock_condition_ids,
+                           lock_effect_ids) -> (List[int], List[int]):
+        alter_conditions: List[int] = []
+        alter_effects: List[int] = []
+        if not lock_conditions:
+            for i, cond in enumerate(trigger.conditions):
+                if i not in lock_condition_ids and cond.condition_type not in lock_condition_type:
+                    alter_conditions.append(i)
+        if not lock_effects:
+            for i, effect in enumerate(trigger.effects):
+                if i not in lock_effect_ids and effect.effect_type not in lock_effect_type:
+                    alter_effects.append(i)
+
+        return alter_conditions, alter_effects
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
