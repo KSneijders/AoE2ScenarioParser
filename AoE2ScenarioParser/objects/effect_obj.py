@@ -124,6 +124,7 @@ class EffectObject(AoE2Object):
 
     @selected_object_id.setter
     def selected_object_id(self, val: List[int]):
+        val = parser.listify(val)
         self._selected_object_id = val
         self.number_of_units_selected = len(val)
 
