@@ -95,6 +95,7 @@ class TriggersObject(AoE2Object):
 
         deepcopy_trigger = copy.deepcopy(trigger)
         deepcopy_trigger.name += " (copy)"
+        deepcopy_trigger.trigger_id = len(self.triggers)
         self.triggers.append(deepcopy_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
 
