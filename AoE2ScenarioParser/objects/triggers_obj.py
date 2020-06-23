@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import copy
 from enum import IntEnum
-from typing import List, Dict
+from typing import List, Dict, Set
 
+from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
@@ -100,6 +101,48 @@ class TriggersObject(AoE2Object):
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
 
         return deepcopy_trigger
+
+    def copy_trigger_tree(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None):
+        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+
+        known_node_indexes = {trigger_index}
+        # Create new instance of `known_node_indexes` so it doesn't receive updates from the recursion
+        for index in set(known_node_indexes):
+            self.find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+
+        new_triggers = []
+        id_swap = {}
+        for index in known_node_indexes:
+            trigger = self.copy_trigger(trigger_index=index)
+            new_triggers.append(trigger)
+            id_swap[index] = trigger.trigger_id
+
+        for trigger in new_triggers:
+            activation_effects = [
+                effect for effect in trigger.effects if
+                effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+            ]
+            for effect in activation_effects:
+                effect.trigger_id = id_swap[effect.trigger_id]
+
+    def find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: Set[int]) -> None:
+        found_node_indexes = TriggersObject.find_trigger_tree_nodes(trigger)
+        unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
+
+        if len(unknown_node_indexes) == 0:
+            return
+
+        known_node_indexes.update(unknown_node_indexes)
+
+        for index in unknown_node_indexes:
+            self.find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+
+    @staticmethod
+    def find_trigger_tree_nodes(trigger: TriggerObject) -> Set[int]:
+        return {
+            effect.trigger_id for effect in trigger.effects if
+            effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+        }
 
     def replace_player(self,
                        source_player_replacements: Dict[int, int] = None,
