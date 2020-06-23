@@ -91,7 +91,8 @@ class TriggersObject(AoE2Object):
 
         return return_dict
 
-    def copy_trigger(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None):
+    def copy_trigger(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None) \
+            -> TriggerObject:
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
 
         deepcopy_trigger = copy.deepcopy(trigger)
@@ -102,7 +103,8 @@ class TriggersObject(AoE2Object):
 
         return deepcopy_trigger
 
-    def copy_trigger_tree(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None):
+    def copy_trigger_tree(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None) \
+            -> List[TriggerObject]:
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
 
         known_node_indexes = {trigger_index}
@@ -124,6 +126,8 @@ class TriggersObject(AoE2Object):
             ]
             for effect in activation_effects:
                 effect.trigger_id = id_swap[effect.trigger_id]
+
+        return new_triggers
 
     def find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: Set[int]) -> None:
         found_node_indexes = TriggersObject.find_trigger_tree_nodes(trigger)
