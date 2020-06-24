@@ -1,20 +1,21 @@
-Welcome to the AoE2ScenarioParser docs!
-=======================================
+AoE2ScenarioParser Documentation
+================================
 
-First start to creating a project on READ THE DOCS ::
-
-   print("Hello World")
-   >> Hello World
-
-Guide
-^^^^^
+This is the documentation page for the AoE2ScenarioParser project. Which is used for editing parts of an `aoe2scenario` file from **Age of Empires 2 
+Definitive Edition** outside of the in-game editor.  
 
 .. toctree::
    :maxdepth: 2
+   :caption: 
 
-Indices and tables
-==================
+   installation
+   support
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
+
+.. Indices and tables
+.. ==================
+
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
