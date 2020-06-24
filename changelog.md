@@ -12,17 +12,32 @@ The format is based on [Keep a Changelog]
 - `remove_condition()` and `remove_effect()` to TriggerObject
 - `get_condition()` and `get_effect()` to TriggerObject
 - The index and display index to the `trigger.get_content_as_string()` 
+- Four very powerful trigger features! Please check the triggers cheatsheet for the how-to.
+  - `copy_trigger`
+  - `copy_trigger_per_player`
+  - `copy_trigger_tree`
+  - `replace_player`
+
+### Discovered (in byte structure)
+
+- the `layer` property for terrain tiles. Used for layering terrain types.
 
 ### Changed
 
 - Within the library the use of `\x00` character for line endings is no longer a necessity. 
   - This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
 - The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
+- Renamend `Operator` to `Operation`
 
 ### Fixed
 
 - Bug causing the local `trigger_id` attributes to be out of sync when removing triggers.
 - Bug causing the `ValueError` to not get raised when trying to construct a piece with invalid data length.
+- Bug causing `Conditions` and `Effects` not to show in 'get_as_string' functions when set directly using: `trigger.effects = [...]`
+- Bug causing a crash when `selected_object_id` in `Effects` held a single ID. 
+- Bug causing a crash when setting `selected_object_id` to an uniterable object. (Like an int instead of List[int])
+- Bug causing Variables to not show up when no triggers were present when using the `get_summary_as_string` in the trigger_manager.
+- Bug making it impossible to set unit IDs negative. (Supported by the game)
 
 ## 0.0.7 - 2019-May-23 
 ### Added
