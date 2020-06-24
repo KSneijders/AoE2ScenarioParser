@@ -5,6 +5,7 @@ This is the documentation page for the AoE2ScenarioParser project. Which is used
 Definitive Edition** outside of the in-game editor.  
 
 Table of contents:
+
 .. toctree::
    :maxdepth: 2
 
