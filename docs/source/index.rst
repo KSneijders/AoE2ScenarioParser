@@ -6,7 +6,6 @@ Definitive Edition** outside of the in-game editor.
 
 .. toctree::
    :maxdepth: 2
-   :caption: 
 
    installation
    support
