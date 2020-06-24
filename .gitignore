@@ -221,3 +221,5 @@ resources/maps/
 setup.py
 
 AoE2ScenarioParser/app.py
+
+.vscode/settings.json
