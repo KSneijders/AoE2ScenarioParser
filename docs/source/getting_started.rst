@@ -19,7 +19,7 @@ Now create the ``Scenario`` object with the filename as parameter.::
     scenario = AoE2Scenario(input_path)
 
 You can now edit to your heart's content. Every aspect of the scenario is seperated in managers. 
-Not all parts are currently supported. The following table shows the current support and use of 
+Not all parts are currently supported. The following list shows the current support and use of 
 all available managers:
 
 - **trigger_manager**: The trigger manager is used for creating, editing and removing Triggers, Conditions, Effects and Variables.
