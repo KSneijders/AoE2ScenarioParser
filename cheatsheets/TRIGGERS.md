@@ -85,7 +85,7 @@ trigger_manager.get_content_as_string()
 ---
 &nbsp;  
 
-## Editing or removing triggers, conditions or effects
+## Editing triggers, conditions or effects
 When opening a file that already contains triggers you might want to edit or even remove said triggers.
 
 You can edit a trigger like so:
@@ -96,6 +96,34 @@ trigger = trigger_manager.get_trigger(display_index=0)
 trigger.name = "New Trigger Name"
 trigger.description = "Awesome New Description!"
 ```
+
+&nbsp;  
+`copy_trigger` function
+---
+
+Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. Selecting a trigger is done using the standard `trigger_index`, `display_index` and `trigger` reference. You can use it as follows:
+
+```py
+copied_trigger = trigger_manager.copy_trigger(trigger_index=0)
+```
+This will result in a full (deep)copy of your trigger. The only parts that are edited are it's `id` and `name` (added " (copy)").
+
+&nbsp;  
+`copy_trigger_per_player`
+---
+> To be added
+
+&nbsp;  
+`copy_trigger_tree`
+---
+> To be added
+
+&nbsp;  
+`replace_player`
+---
+> To be added
+
+## Removing triggers, conditions or effects
 
 When removing a trigger you can select it the same way as when getting a trigger using the `get_trigger` function. But on top of that you can also use it's reference:
 ```py
