@@ -35,9 +35,9 @@ class Condition(IntEnum):
     - object_group
     - object_type
     """
-    OWH_FEWER_OBJECTS = 4
+    OWN_FEWER_OBJECTS = 4
     """
-    Attributes for the **owh_fewer_objects** condition are:\n
+    Attributes for the **own_fewer_objects** condition are:\n
     - amount_or_quantity
     - object_list
     - player
