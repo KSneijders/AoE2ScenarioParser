@@ -29,6 +29,9 @@ class TriggersObject(AoE2Object):
 
     def copy_trigger_per_player(self,
                                 from_player: IntEnum,
+                                change_from_player_only: bool = False,
+                                include_player_source: bool = True,
+                                include_player_target: bool = False,
 
                                 trigger_index: int = None,
                                 display_index: int = None,
@@ -42,9 +45,38 @@ class TriggersObject(AoE2Object):
                                 lock_effect_ids: List[int] = None,
 
                                 include_gaia: bool = False,
-                                to_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
+                                create_copy_for_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
+        """
+        Copies a trigger for a all or a selection of players.
+
+        Args:
+            from_player: The player the trigger is copied from. This should be the central player or the player that
+                should be changed in all conditions and effects when the `change_from_player_only` is set to `True`
+            change_from_player_only: Ensures that only player attributes equal to `from_player` are changed per copy
+            include_player_source: Ensures that only source_player attributes are changed
+            include_player_target: Ensures that only target_player attributes are changed
+            trigger_index: Selects a trigger based on it's index (Mutually exclusive with `display_index` and `trigger`)
+            display_index: Selects a trigger based on it's display index (Mutually exclusive with `trigger_index` and
+                `trigger`)
+            trigger: Selects a trigger (Mutually exclusive with `trigger_index` and `display_index`)
+            lock_conditions: Ensures that no player attributes are changed in any condition
+            lock_effects: Ensures that no player attributes are changed in any effect
+            lock_condition_type: Ensures that no player attributes are changed in the given condition type
+            lock_effect_type: Ensures that no player attributes are changed in the given effect type
+            lock_condition_ids: Ensures that no player attributes are changed in the given condition IDs
+            lock_effect_ids: Ensures that no player attributes are changed in the given effect IDs
+            include_gaia: If `True` creates a copy for GAIA
+            create_copy_for_players: Copy for certain and overwrite the default (All) players
+
+        Raises:
+            ValueError: if more than one trigger selection is used.
+                Or if Both `include_player_source` and `include_player_target` are `False`
+        :Authors:
+        """
 
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+        if not include_player_source and not include_player_target:
+            raise ValueError("Cannot exclude player source and target.")
 
         if lock_conditions is None:
             lock_conditions = []
@@ -59,13 +91,13 @@ class TriggersObject(AoE2Object):
         if lock_effect_ids is None:
             lock_effect_ids = []
 
-        if to_players is None:
-            to_players = [
+        if create_copy_for_players is None:
+            create_copy_for_players = [
                 Player.ONE, Player.TWO, Player.THREE, Player.FOUR,
                 Player.FIVE, Player.SIX, Player.SEVEN, Player.EIGHT
             ]
-        if include_gaia and Player.GAIA not in to_players:
-            to_players.append(Player.GAIA)
+        if include_gaia and Player.GAIA not in create_copy_for_players:
+            create_copy_for_players.append(Player.GAIA)
 
         alter_conditions, alter_effects = TriggersObject._find_alterable_ce(
             trigger, lock_conditions, lock_effects,
@@ -74,20 +106,42 @@ class TriggersObject(AoE2Object):
         )
 
         return_dict: Dict[Player, TriggerObject] = {}
-        for to_player in to_players:
-            if not to_player == from_player:
+        for player in create_copy_for_players:
+            if not player == from_player:
                 new_trigger = self.copy_trigger(trigger=trigger)
-                new_trigger.name += f" (p{to_player})"
-                return_dict[to_player] = new_trigger
+                new_trigger.name += f" (p{player})"
+                return_dict[player] = new_trigger
 
                 for cond_x in alter_conditions:
                     cond = new_trigger.conditions[cond_x]
-                    if not cond.player == -1:
-                        cond.player = Player(to_player)
+                    # Player not set
+                    if cond.player == -1:
+                        continue
+                    # Player not equal to 'from_player'
+                    if change_from_player_only:
+                        if not cond.player == from_player:
+                            continue
+                    # Change source player
+                    if include_player_source:
+                        cond.player = Player(player)
+                    # Change target player
+                    if include_player_target:
+                        cond.target_player = Player(player)
                 for effect_x in alter_effects:
                     effect = new_trigger.effects[effect_x]
-                    if not effect.player_source == -1:
-                        effect.player_source = Player(to_player)
+                    # Player not set
+                    if effect.player_source == -1:
+                        continue
+                    # Player not equal to 'from_player'
+                    if change_from_player_only:
+                        if not effect.player_source == from_player:
+                            continue
+                    # Change source player
+                    if include_player_source:
+                        effect.player_source = Player(player)
+                    # Change target player
+                    if include_player_target:
+                        effect.player_target = Player(player)
 
         return return_dict
 
