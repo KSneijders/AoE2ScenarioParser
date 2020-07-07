@@ -1,9 +1,9 @@
 # Triggers
 
-You can retrieve access to the triggers using the object_manager. 
+You can retrieve access to the triggers using the scenario object. 
 
 ```py
-trigger_manager = scenario.object_manager.trigger_manager
+trigger_manager = scenario.trigger_manager
 ```
 
 ---

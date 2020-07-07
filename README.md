@@ -1,9 +1,18 @@
 # AoE2ScenarioParser
 This is a project for editing parts of an `aoe2scenario` file from **Age of Empires 2 
 Definitive Edition** outside of the in-game editor.  
-Documentation can be found on the [readthedocs] page.
+Documentation can be found on the [readthedocs] page.  
+Examples can be found in the cheatsheets.
+
+- [Triggers Cheatsheet]
+- [Units Cheatsheet]
+- [Datasets Cheatsheet]
+
 
 [readthedocs]: https://aoe2scenarioparser.readthedocs.io/en/master/
+[Triggers Cheatsheet]: ./cheatsheets/TRIGGERS.md
+[Units Cheatsheet]: ./cheatsheets/UNITS.md
+[Datasets Cheatsheet]: ./cheatsheets/DATASETS.md
 
 # Progress
 Current up-to-date progress can be found on the [changelog.md] page. 

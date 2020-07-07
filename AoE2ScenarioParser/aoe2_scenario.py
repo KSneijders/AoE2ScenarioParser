@@ -22,6 +22,14 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 
 class AoE2Scenario:
+    @property
+    def trigger_manager(self):
+        return self._object_manager.trigger_manager
+
+    @property
+    def unit_manager(self):
+        return self._object_manager.unit_manager
+
     def __init__(self, filename, log_reading=True, log_parsing=False):
         print("\nPreparing & Loading file: '" + filename + "'...")
 
@@ -40,7 +48,7 @@ class AoE2Scenario:
 
         self.parser = parser.Parser()
         self._read_file(log_reading=log_reading)
-        self.object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
+        self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
@@ -102,7 +110,7 @@ class AoE2Scenario:
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
         if hasattr(self, 'object_manager'):
-            self.object_manager.reconstruct(log_reconstructing=log_reconstructing)
+            self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
 

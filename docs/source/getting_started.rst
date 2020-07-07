@@ -27,4 +27,4 @@ all available managers:
 
 You can access all managers like so::
 
-    trigger_manager = scenario.object_manager.trigger_manager
+    trigger_manager = scenario.trigger_manager

@@ -1,9 +1,9 @@
 # Units
 
-You can retrieve access to the units using the object_manager. 
+You can retrieve access to the units using the scenario object. 
 
 ```py
-unit_manager = scenario.object_manager.unit_manager
+unit_manager = scenario.unit_manager
 ```
 
 ---
@@ -122,3 +122,6 @@ Some other usefull functions are listed below:
 ```py
 unit_manager.remove_eye_candy()  # Removes All Eye Candy bushes etc.
 ```
+---
+
+End of the Units cheatsheet. [Return to README](./../README.md)
