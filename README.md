@@ -1,7 +1,8 @@
 # AoE2ScenarioParser
 This is a project for editing parts of an `aoe2scenario` file from **Age of Empires 2 
 Definitive Edition** outside of the in-game editor.  
-Documentation can be found on the [readthedocs] page.  
+
+Documentation can be found on the [readthedocs] page (**Work in Progress**).  
 Examples can be found in the cheatsheets.
 
 - [Triggers Cheatsheet]
@@ -15,7 +16,7 @@ Examples can be found in the cheatsheets.
 [Datasets Cheatsheet]: ./cheatsheets/DATASETS.md
 
 # Progress
-Current up-to-date progress can be found on the [changelog.md] page. 
+Current up-to-date progress can be found on the [changelog.md] page. (Dev branch for non-released progress).
 
 [changelog.md]: ./changelog.md
 

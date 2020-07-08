@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog]
   - `copy_trigger_per_player`
   - `copy_trigger_tree`
   - `replace_player`
+- **A Very much WIP** [Documentation API]
+
+[Documentation API]: https://aoe2scenarioparser.readthedocs.io/en/master/
 
 ### Discovered (in byte structure)
 
@@ -27,7 +30,11 @@ The format is based on [Keep a Changelog]
 - Within the library the use of `\x00` character for line endings is no longer a necessity. 
   - This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
 - The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
-- Renamend `Operator` to `Operation`
+- Renamend `Operator` to `Operation`.
+- Managers can now be accessed directly from the scenario. Eg: scenario.trigger_manager.
+- Renamed `player` attribute in the `Condition` object to `source_player`
+- Renamed `player_source` attribute in the `Effect` object to `source_player`
+- Renamed `player_target` attribute in the `Effect` object to `target_player`
 
 ### Fixed
 
@@ -38,6 +45,13 @@ The format is based on [Keep a Changelog]
 - Bug causing a crash when setting `selected_object_id` to an uniterable object. (Like an int instead of List[int])
 - Bug causing Variables to not show up when no triggers were present when using the `get_summary_as_string` in the trigger_manager.
 - Bug making it impossible to set unit IDs negative. (Supported by the game)
+- Typo in Condition dataset "OWH" to "OWN" in `OWH_FEWER_OBJECTS`.
+
+### Removed
+
+- Outdated examples
+
+---
 
 ## 0.0.7 - 2019-May-23 
 ### Added
