@@ -13,7 +13,7 @@ class ConditionStruct(AoE2Struct):
             Retriever("unit_object", DataType("s32")),
             Retriever("next_object", DataType("s32")),  # Old: Unit ID
             Retriever("object_list", DataType("s32")),
-            Retriever("player", DataType("s32")),
+            Retriever("source_player", DataType("s32")),
             Retriever("technology", DataType("s32")),
             Retriever("timer", DataType("s32")),
             Retriever("unknown", DataType("s32")),

@@ -21,8 +21,8 @@ class EffectObject(AoE2Object):
                  diplomacy: int,
                  number_of_units_selected: int,
                  object_list_unit_id: int,
-                 player_source: IntEnum,
-                 player_target: IntEnum,
+                 source_player: IntEnum,
+                 target_player: IntEnum,
                  technology: IntEnum,
                  string_id: int,
                  display_time: int,
@@ -76,8 +76,8 @@ class EffectObject(AoE2Object):
         self.diplomacy: int = diplomacy
         self.number_of_units_selected: int = number_of_units_selected
         self.object_list_unit_id: int = object_list_unit_id
-        self.player_source: IntEnum = player_source
-        self.player_target: IntEnum = player_target
+        self.player_source: IntEnum = source_player
+        self.player_target: IntEnum = target_player
         self.technology: IntEnum = technology
         self.string_id: int = string_id
         self.display_time: int = display_time

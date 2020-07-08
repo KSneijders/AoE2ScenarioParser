@@ -10,22 +10,22 @@ class Effect(IntEnum):
     CHANGE_DIPLOMACY = 1
     """Attributes for the **change_diplomacy** effect are: \n
     - diplomacy
-    - player_source
-    - player_target"""
+    - source_player
+    - target_player"""
     RESEARCH_TECHNOLOGY = 2
     """Attributes for the **research_technology** effect are: \n
-    - player_source
+    - source_player
     - technology
     - force_research_technology"""
     SEND_CHAT = 3
     """Attributes for the **send_chat** effect are: \n
-    - player_source
+    - source_player
     - string_id
     - message
     - sound_name"""
     PLAY_SOUND = 4
     """Attributes for the **play_sound** effect are: \n
-    - player_source
+    - source_player
     - location_x
     - location_y
     - sound_name"""
@@ -33,8 +33,8 @@ class Effect(IntEnum):
     """Attributes for the **tribute** effect are: \n
     - quantity
     - tribute_list
-    - player_source
-    - player_target"""
+    - source_player
+    - target_player"""
     UNLOCK_GATE = 6
     """Attributes for the **unlock_gate** effect are: \n
     - number_of_units_selected
@@ -55,7 +55,7 @@ class Effect(IntEnum):
     CREATE_OBJECT = 11
     """Attributes for the **create_object** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y
     - item_id
@@ -64,7 +64,7 @@ class Effect(IntEnum):
     """Attributes for the **task_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y
     - area_1_x
@@ -76,13 +76,13 @@ class Effect(IntEnum):
     - selected_object_id"""
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
-    - player_source
+    - source_player
     - enabled_or_victory"""
     KILL_OBJECT = 14
     """Attributes for the **kill_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -94,7 +94,7 @@ class Effect(IntEnum):
     """Attributes for the **remove_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -104,7 +104,7 @@ class Effect(IntEnum):
     - selected_object_id"""
     CHANGE_VIEW = 16
     """Attributes for the **change_view** effect are: \n
-    - player_source
+    - source_player
     - location_x
     - location_y
     - scroll"""
@@ -112,7 +112,7 @@ class Effect(IntEnum):
     """Attributes for the **unload** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y
     - area_1_x
@@ -126,8 +126,8 @@ class Effect(IntEnum):
     """Attributes for the **change_ownership** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
-    - player_target
+    - source_player
+    - target_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -140,7 +140,7 @@ class Effect(IntEnum):
     """Attributes for the **patrol** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y
     - area_1_x
@@ -153,7 +153,7 @@ class Effect(IntEnum):
     DISPLAY_INSTRUCTIONS = 20
     """Attributes for the **display_instructions** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - string_id
     - display_time
     - instruction_panel_position
@@ -167,7 +167,7 @@ class Effect(IntEnum):
     """Attributes for the **freeze_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -184,7 +184,7 @@ class Effect(IntEnum):
     - quantity
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -195,14 +195,14 @@ class Effect(IntEnum):
     PLACE_FOUNDATION = 25
     """Attributes for the **place_foundation** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y"""
     CHANGE_OBJECT_NAME = 26
     """Attributes for the **change_object_name** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - string_id
     - area_1_x
     - area_1_y
@@ -215,7 +215,7 @@ class Effect(IntEnum):
     - quantity
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -230,7 +230,7 @@ class Effect(IntEnum):
     - aa_armor_or_attack_type
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -243,7 +243,7 @@ class Effect(IntEnum):
     """Attributes for the **stop_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -255,7 +255,7 @@ class Effect(IntEnum):
     """Attributes for the **attack_move** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y
     - area_1_x
@@ -271,7 +271,7 @@ class Effect(IntEnum):
     - aa_armor_or_attack_type
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -285,7 +285,7 @@ class Effect(IntEnum):
     - quantity
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -299,7 +299,7 @@ class Effect(IntEnum):
     - quantity
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -312,7 +312,7 @@ class Effect(IntEnum):
     - quantity
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -324,7 +324,7 @@ class Effect(IntEnum):
     """Attributes for the **teleport_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - location_x
     - location_y
     - area_1_x
@@ -338,7 +338,7 @@ class Effect(IntEnum):
     """Attributes for the **change_object_stance** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -357,33 +357,33 @@ class Effect(IntEnum):
     ENABLE_DISABLE_OBJECT = 38
     """Attributes for the **enable_disable_object** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - enabled_or_victory
     - item_id"""
     ENABLE_DISABLE_TECHNOLOGY = 39
     """Attributes for the **enable_disable_technology** effect are: \n
-    - player_source
+    - source_player
     - technology
     - enabled_or_victory
     - item_id"""
     CHANGE_OBJECT_COST = 40
     """Attributes for the **change_object_cost** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - food
     - wood
     - stone
     - gold"""
     SET_PLAYER_VISIBILITY = 41
     """Attributes for the **set_player_visibility** effect are: \n
-    - player_source
-    - player_target
+    - source_player
+    - target_player
     - visibility_state"""
     CHANGE_OBJECT_ICON = 42
     """Attributes for the **change_object_icon** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -396,8 +396,8 @@ class Effect(IntEnum):
     """Attributes for the **replace_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
-    - player_target
+    - source_player
+    - target_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -409,36 +409,36 @@ class Effect(IntEnum):
     CHANGE_OBJECT_DESCRIPTION = 44
     """Attributes for the **change_object_description** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - string_id
     - message"""
     CHANGE_PLAYER_NAME = 45
     """Attributes for the **change_player_name** effect are: \n
-    - player_source
+    - source_player
     - string_id
     - message"""
     CHANGE_TRAIN_LOCATION = 46
     """Attributes for the **change_train_location** effect are: \n
     - object_list_unit_id
-    - player_source
+    - source_player
     - object_list_unit_id_2
     - button_location"""
     CHANGE_RESEARCH_LOCATION = 47
     """Attributes for the **change_research_location** effect are: \n
-    - player_source
+    - source_player
     - technology
     - object_list_unit_id_2
     - button_location"""
     CHANGE_CIVILIZATION_NAME = 48
     """Attributes for the **change_civilization_name** effect are: \n
-    - player_source
+    - source_player
     - string_id
     - message"""
     CREATE_GARRISONED_OBJECT = 49
     """Attributes for the **create_garrisoned_object** effect are: \n
     - number_of_units_selected
     - object_list_unit_id
-    - player_source
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -452,7 +452,7 @@ class Effect(IntEnum):
     """Attributes for the **modify_attribute** effect are: \n
     - quantity
     - object_list_unit_id
-    - player_source
+    - source_player
     - item_id
     - operation
     - object_attributes"""
@@ -460,13 +460,13 @@ class Effect(IntEnum):
     """Attributes for the **modify_resource** effect are: \n
     - quantity
     - tribute_list
-    - player_source
+    - source_player
     - item_id
     - operation"""
     MODIFY_RESOURCE_BY_VARIABLE = 53
     """Attributes for the **modify_resource_by_variable** effect are: \n
     - tribute_list
-    - player_source
+    - source_player
     - item_id
     - operation
     - from_variable"""
@@ -550,8 +550,8 @@ empty_attributes = {
     "diplomacy": -1,
     "number_of_units_selected": -1,
     "object_list_unit_id": -1,
-    "player_source": -1,
-    "player_target": -1,
+    "source_player": -1,
+    "target_player": -1,
     "technology": -1,
     "string_id": -1,
     "display_time": -1,
@@ -602,8 +602,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -652,8 +652,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -702,8 +702,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -752,8 +752,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -802,8 +802,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -852,8 +852,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -902,8 +902,8 @@ default_attributes = {
         "diplomacy": 0,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": 2,
+        "source_player": 1,
+        "target_player": 2,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -952,8 +952,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1002,8 +1002,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1052,8 +1052,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1102,8 +1102,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1152,8 +1152,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1202,8 +1202,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1252,8 +1252,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1302,8 +1302,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1352,8 +1352,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1402,8 +1402,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1452,8 +1452,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": 2,
+        "source_player": 1,
+        "target_player": 2,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1502,8 +1502,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1552,8 +1552,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": 16,
         "string_id": -1,
         "display_time": -1,
@@ -1602,8 +1602,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1652,8 +1652,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1702,8 +1702,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1752,8 +1752,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1802,8 +1802,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1852,8 +1852,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1902,8 +1902,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -1952,8 +1952,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2002,8 +2002,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2052,8 +2052,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2102,8 +2102,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": 10,
@@ -2152,8 +2152,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": 10,
@@ -2202,8 +2202,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2252,8 +2252,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": 16,
         "string_id": -1,
         "display_time": -1,
@@ -2302,8 +2302,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2352,8 +2352,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2402,8 +2402,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2452,8 +2452,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2502,8 +2502,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2552,8 +2552,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2602,8 +2602,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2652,8 +2652,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2702,8 +2702,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2752,8 +2752,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2802,8 +2802,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2852,8 +2852,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": 2,
+        "source_player": 1,
+        "target_player": 2,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -2902,8 +2902,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": 16,
         "string_id": -1,
         "display_time": -1,
@@ -2952,8 +2952,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3002,8 +3002,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": 2,
+        "source_player": 1,
+        "target_player": 2,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3052,8 +3052,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3102,8 +3102,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3152,8 +3152,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3202,8 +3202,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": 2,
+        "source_player": 1,
+        "target_player": 2,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3252,8 +3252,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": 1,
-        "player_target": -1,
+        "source_player": 1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3302,8 +3302,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3352,8 +3352,8 @@ default_attributes = {
         "diplomacy": -1,
         "number_of_units_selected": -1,
         "object_list_unit_id": -1,
-        "player_source": -1,
-        "player_target": -1,
+        "source_player": -1,
+        "target_player": -1,
         "technology": -1,
         "string_id": -1,
         "display_time": -1,
@@ -3414,7 +3414,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "area_1_x",
@@ -3427,15 +3427,15 @@ attributes = {
     ],
     48: [
         "effect_type",
-        "player_source",
+        "source_player",
         "string_id",
         "message",
     ],
     1: [
         "effect_type",
         "diplomacy",
-        "player_source",
-        "player_target",
+        "source_player",
+        "target_player",
     ],
     31: [
         "effect_type",
@@ -3443,7 +3443,7 @@ attributes = {
         "aa_armor_or_attack_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3459,7 +3459,7 @@ attributes = {
         "aa_armor_or_attack_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3472,7 +3472,7 @@ attributes = {
     40: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "food",
         "wood",
         "stone",
@@ -3481,7 +3481,7 @@ attributes = {
     44: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "string_id",
         "message",
     ],
@@ -3490,7 +3490,7 @@ attributes = {
         "quantity",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3504,7 +3504,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3518,7 +3518,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "string_id",
         "area_1_x",
         "area_1_y",
@@ -3532,7 +3532,7 @@ attributes = {
         "quantity",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3547,7 +3547,7 @@ attributes = {
         "quantity",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3560,7 +3560,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3574,8 +3574,8 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
-        "player_target",
+        "source_player",
+        "target_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3587,13 +3587,13 @@ attributes = {
     ],
     45: [
         "effect_type",
-        "player_source",
+        "source_player",
         "string_id",
         "message",
     ],
     47: [
         "effect_type",
-        "player_source",
+        "source_player",
         "technology",
         "object_list_unit_id_2",
         "button_location",
@@ -3601,7 +3601,7 @@ attributes = {
     46: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "object_list_unit_id_2",
         "button_location",
     ],
@@ -3614,7 +3614,7 @@ attributes = {
     ],
     16: [
         "effect_type",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "scroll",
@@ -3631,7 +3631,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3642,7 +3642,7 @@ attributes = {
     11: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "item_id",
@@ -3653,7 +3653,7 @@ attributes = {
         "quantity",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3668,13 +3668,13 @@ attributes = {
     ],
     13: [
         "effect_type",
-        "player_source",
+        "source_player",
         "enabled_or_victory",
     ],
     20: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "string_id",
         "display_time",
         "instruction_panel_position",
@@ -3693,13 +3693,13 @@ attributes = {
     38: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "enabled_or_victory",
         "item_id",
     ],
     39: [
         "effect_type",
-        "player_source",
+        "source_player",
         "technology",
         "enabled_or_victory",
         "item_id",
@@ -3708,7 +3708,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3722,7 +3722,7 @@ attributes = {
         "quantity",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3735,7 +3735,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3753,7 +3753,7 @@ attributes = {
         "effect_type",
         "quantity",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "item_id",
         "operation",
         "object_attributes",
@@ -3762,14 +3762,14 @@ attributes = {
         "effect_type",
         "quantity",
         "tribute_list",
-        "player_source",
+        "source_player",
         "item_id",
         "operation",
     ],
     53: [
         "effect_type",
         "tribute_list",
-        "player_source",
+        "source_player",
         "item_id",
         "operation",
         "from_variable",
@@ -3778,7 +3778,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "area_1_x",
@@ -3792,13 +3792,13 @@ attributes = {
     25: [
         "effect_type",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
     ],
     4: [
         "effect_type",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "sound_name",
@@ -3807,7 +3807,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3820,8 +3820,8 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
-        "player_target",
+        "source_player",
+        "target_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3833,28 +3833,28 @@ attributes = {
     ],
     2: [
         "effect_type",
-        "player_source",
+        "source_player",
         "technology",
         "force_research_technology",
     ],
     3: [
         "effect_type",
-        "player_source",
+        "source_player",
         "string_id",
         "message",
         "sound_name",
     ],
     41: [
         "effect_type",
-        "player_source",
-        "player_target",
+        "source_player",
+        "target_player",
         "visibility_state",
     ],
     29: [
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -3867,7 +3867,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "area_1_x",
@@ -3882,7 +3882,7 @@ attributes = {
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "area_1_x",
@@ -3897,14 +3897,14 @@ attributes = {
         "effect_type",
         "quantity",
         "tribute_list",
-        "player_source",
-        "player_target",
+        "source_player",
+        "target_player",
     ],
     17: [
         "effect_type",
         "number_of_units_selected",
         "object_list_unit_id",
-        "player_source",
+        "source_player",
         "location_x",
         "location_y",
         "area_1_x",

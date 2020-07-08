@@ -31,7 +31,7 @@ class Condition(IntEnum):
     Attributes for the **own_objects** condition are:\n
     - amount_or_quantity
     - object_list
-    - player
+    - source_player
     - object_group
     - object_type
     """
@@ -40,7 +40,7 @@ class Condition(IntEnum):
     Attributes for the **own_fewer_objects** condition are:\n
     - amount_or_quantity
     - object_list
-    - player
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -53,7 +53,7 @@ class Condition(IntEnum):
     Attributes for the **object_in_area** condition are:\n
     - amount_or_quantity
     - object_list
-    - player
+    - source_player
     - area_1_x
     - area_1_y
     - area_2_x
@@ -72,7 +72,7 @@ class Condition(IntEnum):
     """
     Attributes for the **capture_object** condition are:\n
     - unit_object
-    - player
+    - source_player
     - inverted
     """
     ACCUMULATE_ATTRIBUTE = 8
@@ -80,13 +80,13 @@ class Condition(IntEnum):
     Attributes for the **accumulate_attribute** condition are:\n
     - amount_or_quantity
     - resource_type_or_tribute_list
-    - player
+    - source_player
     - inverted
     """
     RESEARCH_TECHNOLOGY = 9
     """
     Attributes for the **research_technology** condition are:\n
-    - player
+    - source_player
     - technology
     - inverted
     """
@@ -111,7 +111,7 @@ class Condition(IntEnum):
     PLAYER_DEFEATED = 13
     """
     Attributes for the **player_defeated** condition are:\n
-    - player
+    - source_player
     - inverted
     """
     OBJECT_HAS_TARGET = 14
@@ -137,7 +137,7 @@ class Condition(IntEnum):
     RESEARCHING_TECH = 17
     """
     Attributes for the **researching_tech** condition are:\n
-    - player
+    - source_player
     - technology
     - inverted
     """
@@ -164,7 +164,7 @@ class Condition(IntEnum):
     """
     Attributes for the **technology_state** condition are:\n
     - amount_or_quantity
-    - player
+    - source_player
     - technology
     - inverted
     """
@@ -188,7 +188,7 @@ class Condition(IntEnum):
     """
     Attributes for the **diplomacy_state** condition are:\n
     - amount_or_quantity
-    - player
+    - source_player
     - inverted
     - target_player
     """
@@ -229,7 +229,7 @@ empty_attributes = {
     "unit_object": -1,
     "next_object": -1,
     "object_list": -1,
-    "player": -1,
+    "source_player": -1,
     "technology": -1,
     "timer": -1,
     "area_1_x": -1,
@@ -253,7 +253,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -275,7 +275,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -297,7 +297,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -319,7 +319,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -341,7 +341,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -363,7 +363,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -385,7 +385,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -407,7 +407,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -429,7 +429,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -451,7 +451,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -473,7 +473,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -495,7 +495,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -517,7 +517,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -539,7 +539,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -561,7 +561,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -583,7 +583,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -605,7 +605,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -627,7 +627,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -649,7 +649,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": -1,
         "timer": -1,
         "area_1_x": -1,
@@ -671,7 +671,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": 16,
         "timer": -1,
         "area_1_x": -1,
@@ -693,7 +693,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": 16,
         "timer": -1,
         "area_1_x": -1,
@@ -715,7 +715,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": 1,
+        "source_player": 1,
         "technology": 16,
         "timer": -1,
         "area_1_x": -1,
@@ -737,7 +737,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": 10,
         "area_1_x": -1,
@@ -759,7 +759,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": 10,
         "area_1_x": -1,
@@ -781,7 +781,7 @@ default_attributes = {
         "unit_object": -1,
         "next_object": -1,
         "object_list": -1,
-        "player": -1,
+        "source_player": -1,
         "technology": -1,
         "timer": 10,
         "area_1_x": -1,
@@ -821,7 +821,7 @@ attributes = {
         "condition_type",
         "amount_or_quantity",
         "object_list",
-        "player",
+        "source_player",
         "object_group",
         "object_type",
     ],
@@ -829,7 +829,7 @@ attributes = {
         "condition_type",
         "amount_or_quantity",
         "object_list",
-        "player",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -841,7 +841,7 @@ attributes = {
         "condition_type",
         "amount_or_quantity",
         "object_list",
-        "player",
+        "source_player",
         "area_1_x",
         "area_1_y",
         "area_2_x",
@@ -858,19 +858,19 @@ attributes = {
     7: [
         "condition_type",
         "unit_object",
-        "player",
+        "source_player",
         "inverted",
     ],
     8: [
         "condition_type",
         "amount_or_quantity",
         "resource_type_or_tribute_list",
-        "player",
+        "source_player",
         "inverted",
     ],
     9: [
         "condition_type",
-        "player",
+        "source_player",
         "technology",
         "inverted",
     ],
@@ -891,7 +891,7 @@ attributes = {
     ],
     13: [
         "condition_type",
-        "player",
+        "source_player",
         "inverted",
     ],
     14: [
@@ -913,7 +913,7 @@ attributes = {
     ],
     17: [
         "condition_type",
-        "player",
+        "source_player",
         "technology",
         "inverted",
     ],
@@ -935,7 +935,7 @@ attributes = {
     21: [
         "condition_type",
         "amount_or_quantity",
-        "player",
+        "source_player",
         "technology",
         "inverted",
     ],
@@ -956,7 +956,7 @@ attributes = {
     24: [
         "condition_type",
         "amount_or_quantity",
-        "player",
+        "source_player",
         "inverted",
         "target_player",
     ]
