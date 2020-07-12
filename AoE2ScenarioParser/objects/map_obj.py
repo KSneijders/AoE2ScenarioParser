@@ -26,6 +26,21 @@ class MapObject(AoE2Object):
 
         super().__init__()
 
+    def iterable_terrain(self):
+        """
+        Iterate through the terrain as if it were just a list.
+        """
+        for list in self.terrain:
+            for value in list:
+                yield value
+
+    def dump_raw_data(self, required_attr = ['terrain_id', 'elevation', 'layer']) -> []:
+        """
+        @param required_attr: list of attribute names that we want to use in the final concatenated list
+        @return: terrain attribute values concatenated in a single list
+        """
+        return [value for tile in self.iterable_terrain() for value in [getattr(tile, attr) for attr in required_attr]]
+
     @property
     def map_size(self) -> int:
         if self._map_height == self._map_width:
