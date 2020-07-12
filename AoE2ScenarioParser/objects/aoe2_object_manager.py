@@ -12,7 +12,6 @@ from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.messages_obj import MessagesObject
 from AoE2ScenarioParser.objects.options_obj import OptionsObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
-from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
@@ -25,6 +24,7 @@ class AoE2ObjectManager:
         self.parsed_data = parsed_data
         self._objects = {}
         self._finished_new_structure = {
+            "MapObject": MapObject,
             "UnitsObject": UnitsObject,
             "TriggersObject": TriggersObject,
         }
@@ -49,6 +49,10 @@ class AoE2ObjectManager:
         lgr.print("Parsing pieces and structs to objects finished successfully.")
 
     @property
+    def map(self) -> MapObject:
+        return self._objects['MapObject']
+
+    @property
     def trigger_manager(self) -> TriggersObject:
         return self._objects['TriggersObject']
 
@@ -70,39 +74,6 @@ class AoE2ObjectManager:
     # ################################################################################################ #
     #                           Todo: Move these functions to their objects.
     # ################################################################################################ #
-
-    def _parse_map_object(self):
-        object_piece = self.parsed_data['MapPiece']
-        map_width = find_retriever(object_piece.retrievers, "Map Width").data
-        map_height = find_retriever(object_piece.retrievers, "Map Height").data
-        terrain_list = find_retriever(object_piece.retrievers, "Terrain data").data
-        # AoE2 in Game map: Left to top = X. Left to bottom = Y. Tiny map top = [X:199,Y:0]
-        terrain_2d = []
-        """
-        Debating to support only Py3.6+. Until then, this'll be a comment.
-        >> terrain_2d: List[List[TerrainObject]] = []
-        """
-
-        for i in range(0, map_width * map_height):
-            to = TerrainObject(
-                terrain_id=find_retriever(terrain_list[i].retrievers, "Terrain ID").data,
-                elevation=find_retriever(terrain_list[i].retrievers, "Elevation").data
-            )
-            map_x = i % map_width
-            try:
-                terrain_2d[map_x].append(to)
-            except IndexError:
-                if len(terrain_2d) <= map_x:
-                    terrain_2d.append(list())
-                terrain_2d[map_x].append(to)
-
-        return MapObject(
-            map_color_mood=find_retriever(object_piece.retrievers, "Map color mood").data,
-            collide_and_correct=find_retriever(object_piece.retrievers, "Collide and Correcting").data,
-            map_width=map_width,
-            map_height=map_height,
-            terrain=terrain_2d,
-        )
 
     def _parse_options_object(self):
         object_piece = self.parsed_data['OptionsPiece']
