@@ -10,10 +10,9 @@ scenario = AoE2Scenario("../resources/maps/SavannahDE_grass.aoe2scenario")
 print(scenario.map_manager.dump_raw_data(['layer']))
 
 # Set the Savannah to be covered by a layer of grass
-for tile in scenario.map_manager.iterable_terrain():
+for tile in scenario.map_manager.terrain_data:
     tile.layer = 0
 
-# Check the elevation values of the scenario
-print(scenario.map_manager.dump_raw_data(['elevation']))
+scenario.map_manager.save()
 
 scenario.write_to_file("../resources/maps/SavannahDE_grass.aoe2scenario")

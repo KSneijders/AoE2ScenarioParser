@@ -26,8 +26,7 @@ class AoE2ObjectManager:
         self._objects = {}
         self._finished_new_structure = {
             "UnitsObject": UnitsObject,
-            "TriggersObject": TriggersObject,
-            "MapObject": MapObject,
+            "TriggersObject": TriggersObject
         }
 
         # self._objects = {
@@ -56,10 +55,6 @@ class AoE2ObjectManager:
     @property
     def unit_manager(self) -> UnitsObject:
         return self._objects['UnitsObject']
-
-    @property
-    def map_manager(self) -> MapObject:
-        return self._objects['MapObject']
 
     def reconstruct(self, log_reconstructing=False):
         lgr = SimpleLogger(should_log=log_reconstructing)

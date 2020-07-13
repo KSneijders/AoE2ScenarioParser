@@ -20,12 +20,10 @@ from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
+from AoE2ScenarioParser.objects.map_obj import MapObject
+
 
 class AoE2Scenario:
-    @property
-    def map_manager(self):
-        return self._object_manager.map_manager
-
     @property
     def trigger_manager(self):
         return self._object_manager.trigger_manager
@@ -83,6 +81,11 @@ class AoE2Scenario:
 
                 lgr.print("\tReading " + piece_name + "...")
                 piece.set_data_from_generator(data_generator)
+
+                # TODO Hack: save the pieces somewhere and load them in a generic way
+                if piece_name == "MapPiece":
+                    self.map_manager = MapObject(piece)
+
                 lgr.print("\tReading " + piece_name + " finished successfully.")
         except StopIteration as e:
             print(f"\n[StopIteration] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
@@ -115,6 +118,7 @@ class AoE2Scenario:
                               log_writing=True, log_reconstructing=False):
         if hasattr(self, 'object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
+        
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
 
