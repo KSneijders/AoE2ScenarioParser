@@ -48,9 +48,12 @@ class AoE2Scenario:
 
         print("File prepared and loaded.")
 
+        self.pieces = {}
         self.parser = parser.Parser()
         self._read_file(log_reading=log_reading)
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
+
+        self.map_manager = MapObject(self.pieces['MapPiece'])
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
@@ -72,6 +75,7 @@ class AoE2Scenario:
                 lgr.print("\tReading " + piece_name + "...")
                 piece.set_data_from_generator(header_generator)
                 lgr.print("\tReading " + piece_name + " finished successfully.")
+                self.pieces.update({piece_name : piece})
 
             for piece_object in _file_structure:
                 piece = piece_object(self.parser)
@@ -81,12 +85,8 @@ class AoE2Scenario:
 
                 lgr.print("\tReading " + piece_name + "...")
                 piece.set_data_from_generator(data_generator)
-
-                # TODO Hack: save the pieces somewhere and load them in a generic way
-                if piece_name == "MapPiece":
-                    self.map_manager = MapObject(piece)
-
                 lgr.print("\tReading " + piece_name + " finished successfully.")
+                self.pieces.update({piece_name : piece})
         except StopIteration as e:
             print(f"\n[StopIteration] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
             print("Writing ErrorFile...")
