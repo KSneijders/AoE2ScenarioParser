@@ -39,7 +39,10 @@ class MapObject(AoE2Object):
         @param required_attr: list of attribute names that we want to use in the final concatenated list
         @return: terrain attribute values concatenated in a single list
         """
-        return [value for tile in self.iterable_terrain() for value in [getattr(tile, attr) for attr in required_attr]]
+        # Put the required attributes as a list in a list
+        raw_attrs = [[getattr(tile, attr) for attr in required_attr] for tile in self.iterable_terrain()]
+        # Flatten the list of lists into a simple list
+        return [attr for tile in raw_attrs for attr in tile]
 
     @property
     def map_size(self) -> int:
