@@ -110,13 +110,13 @@ for player in range(1, 9):
     condition.amount_or_quantity = 1
     condition.player = player
 
-    condition = trigger.add_condition(Condition.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = 100
     condition.comparison = 1
     condition.variable = 1
     condition.inverted = 0
 
-    condition = trigger.add_condition(Condition.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = player
     condition.comparison = 0
     condition.variable = 2
