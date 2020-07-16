@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 
-scenario = AoE2Scenario("../resources/maps/SavannahDE_grass.aoe2scenario")
+scenario = AoE2Scenario("../resources/maps/SavannahDE.aoe2scenario")
 
 print("data_header:")
 print(scenario.data_header.filename)
@@ -28,5 +28,5 @@ print(scenario.global_victory.conquest_required)
 print(scenario.global_victory.required_score_for_score_victory)
 
 # print("diplomacy:")
-# print(scenario.diplomacy.per_player_diplomacy)
+print(scenario.diplomacy.per_player_diplomacy)
 # print(scenario.diplomacy.individual_victories) # doesn't work

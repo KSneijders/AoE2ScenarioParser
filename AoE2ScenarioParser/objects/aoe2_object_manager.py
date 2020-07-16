@@ -5,7 +5,6 @@ from typing import List
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.diplomacy_obj import DiplomacyObject
 from AoE2ScenarioParser.objects.file_header_obj import FileHeaderObject
 from AoE2ScenarioParser.objects.options_obj import OptionsObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
@@ -92,18 +91,6 @@ class AoE2ObjectManager:
         return OptionsObject(
             disables,
             find_retriever(object_piece.retrievers, "All techs").data
-        )
-
-    def _parse_diplomacy_object(self):
-        object_piece = self.parsed_data['DiplomacyPiece']
-        diplomacy = find_retriever(object_piece.retrievers, "Per-player diplomacy").data
-
-        diplomacies = []
-        for player_id in range(0, 8):  # 0-7 Players
-            diplomacies.append(find_retriever(diplomacy[player_id].retrievers, "Stance with each player").data)
-
-        return DiplomacyObject(
-            player_stances=diplomacies
         )
 
     def _parse_player_object(self):

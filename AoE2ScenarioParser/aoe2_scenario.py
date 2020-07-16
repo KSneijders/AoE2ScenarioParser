@@ -60,7 +60,7 @@ class AoE2Scenario:
         self.background_image = AoE2Object(self.pieces['BackgroundImagePiece'])
         # PlayerDataTwoPiece,
         self.global_victory = AoE2Object(self.pieces['GlobalVictoryPiece'])
-        # self.diplomacy = AoE2Object(self.pieces['DiplomacyPiece']) # To modify
+        self.diplomacy = AoE2Object(self.pieces['DiplomacyPiece'])
         # OptionsPiece,
         self.map = MapObject(self.pieces['MapPiece'])
 
@@ -70,6 +70,7 @@ class AoE2Scenario:
             self.cinematics,
             self.background_image,
             self.global_victory,
+            self.diplomacy,
             self.map
         ]
 
