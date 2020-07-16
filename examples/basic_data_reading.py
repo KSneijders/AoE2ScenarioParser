@@ -27,6 +27,9 @@ print("global_victory:")
 print(scenario.global_victory.conquest_required)
 print(scenario.global_victory.required_score_for_score_victory)
 
-# print("diplomacy:")
-print(scenario.diplomacy.per_player_diplomacy)
+print("diplomacy:")
+print(scenario.diplomacy.per_player_diplomacy[0].stance_with_each_player)
 # print(scenario.diplomacy.individual_victories) # doesn't work
+
+print("options:")
+print(scenario.options.per_player_number_of_disabled_buildings)

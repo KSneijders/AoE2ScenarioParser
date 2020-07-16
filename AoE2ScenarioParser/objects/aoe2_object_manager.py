@@ -6,7 +6,6 @@ from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.file_header_obj import FileHeaderObject
-from AoE2ScenarioParser.objects.options_obj import OptionsObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
@@ -53,45 +52,6 @@ class AoE2ObjectManager:
     # ################################################################################################ #
     #                           Todo: Move these functions to their objects.
     # ################################################################################################ #
-
-    def _parse_options_object(self):
-        object_piece = self.parsed_data['OptionsPiece']
-        # ppnd: Per Player Number of Disabled
-        ppnd_techs = find_retriever(object_piece.retrievers, "Per player number of disabled techs").data
-        ppnd_units = find_retriever(object_piece.retrievers, "Per player number of disabled units").data
-        ppnd_buildings = find_retriever(object_piece.retrievers, "Per player number of disabled buildings").data
-        disabled_techs = generator.create_generator(
-            find_retriever(object_piece.retrievers, "Disabled technology IDs in player order").data, 1
-        )
-        disabled_units = generator.create_generator(
-            find_retriever(object_piece.retrievers, "Disabled unit IDs in player order").data, 1
-        )
-        disabled_buildings = generator.create_generator(
-            find_retriever(object_piece.retrievers, "Disabled building IDs in player order").data, 1
-        )
-
-        disables = list()
-        for player_id in range(0, 8):  # 0-7 Players
-            nd_techs = ppnd_techs[player_id]
-            nd_units = ppnd_units[player_id]
-            nd_buildings = ppnd_buildings[player_id]
-            player_disabled_techs = generator.repeat_generator(
-                disabled_techs, nd_techs, return_bytes=False)
-            player_disabled_units = generator.repeat_generator(
-                disabled_units, nd_units, return_bytes=False)
-            player_disabled_buildings = generator.repeat_generator(
-                disabled_buildings, nd_buildings, return_bytes=False)
-
-            disables.append({
-                'techs': player_disabled_techs,
-                'units': player_disabled_units,
-                'buildings': player_disabled_buildings,
-            })
-
-        return OptionsObject(
-            disables,
-            find_retriever(object_piece.retrievers, "All techs").data
-        )
 
     def _parse_player_object(self):
         players = []

@@ -61,7 +61,7 @@ class AoE2Scenario:
         # PlayerDataTwoPiece,
         self.global_victory = AoE2Object(self.pieces['GlobalVictoryPiece'])
         self.diplomacy = AoE2Object(self.pieces['DiplomacyPiece'])
-        # OptionsPiece,
+        self.options = AoE2Object(self.pieces['OptionsPiece'])
         self.map = MapObject(self.pieces['MapPiece'])
 
         self.data_handlers = [
@@ -71,6 +71,7 @@ class AoE2Scenario:
             self.background_image,
             self.global_victory,
             self.diplomacy,
+            self.options,
             self.map
         ]
 
