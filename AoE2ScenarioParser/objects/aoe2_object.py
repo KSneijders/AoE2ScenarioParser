@@ -17,7 +17,7 @@ class AoE2Object:
 
         return data
 
-    def save(self):
+    def _save(self):
         for retriever in self.aoe2_piece.retrievers:
             retriever.data = self._save_data_as_obj(getattr(self, retriever.name))
             

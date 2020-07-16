@@ -64,6 +64,15 @@ class AoE2Scenario:
         # OptionsPiece,
         self.map = MapObject(self.pieces['MapPiece'])
 
+        self.data_handlers = [
+            self.data_header,
+            self.messages,
+            self.cinematics,
+            self.background_image,
+            self.global_victory,
+            self.map
+        ]
+
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
         lgr.print("\nFile reading started...")
@@ -127,6 +136,9 @@ class AoE2Scenario:
                               log_writing=True, log_reconstructing=False):
         if hasattr(self, 'object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
+
+        for data_handler in self.data_handlers:
+            data_handler._save()
         
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
