@@ -5,7 +5,6 @@ from typing import List
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.file_header_obj import FileHeaderObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
@@ -89,15 +88,3 @@ class AoE2ObjectManager:
             ))
 
         return players
-
-    def _parse_file_header_object(self):
-        object_piece = self.parser_header['FileHeaderPiece']
-        retrievers = object_piece.retrievers
-
-        return FileHeaderObject(
-            version=find_retriever(retrievers, "Version").data,
-            timestamp=find_retriever(retrievers, "Timestamp of last save").data,
-            instructions=find_retriever(retrievers, "Scenario instructions").data,
-            player_count=find_retriever(retrievers, "Player count").data,
-            creator_name=find_retriever(retrievers, "Creator name").data,
-        )

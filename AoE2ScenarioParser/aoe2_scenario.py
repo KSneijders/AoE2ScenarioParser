@@ -54,6 +54,7 @@ class AoE2Scenario:
         self._read_file(log_reading=log_reading)
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
+        self.file_header = AoE2Object(self.pieces['FileHeaderPiece'])
         self.data_header = AoE2Object(self.pieces['DataHeaderPiece'])
         self.messages = AoE2Object(self.pieces['MessagesPiece'])
         self.cinematics = AoE2Object(self.pieces['CinematicsPiece'])
@@ -65,6 +66,7 @@ class AoE2Scenario:
         self.map = MapObject(self.pieces['MapPiece'])
 
         self.data_handlers = [
+            self.file_header,
             self.data_header,
             self.messages,
             self.cinematics,

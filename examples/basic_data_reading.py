@@ -33,3 +33,8 @@ print(scenario.diplomacy.per_player_diplomacy[0].stance_with_each_player)
 
 print("options:")
 print(scenario.options.per_player_number_of_disabled_buildings)
+
+print("file_header")
+print(scenario.file_header.creator_name)
+print(scenario.file_header.version)
+print(scenario.file_header.player_count)
