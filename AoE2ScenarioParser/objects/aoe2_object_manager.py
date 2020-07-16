@@ -5,14 +5,10 @@ from typing import List
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.data_header_obj import DataHeaderObject
 from AoE2ScenarioParser.objects.diplomacy_obj import DiplomacyObject
 from AoE2ScenarioParser.objects.file_header_obj import FileHeaderObject
-from AoE2ScenarioParser.objects.map_obj import MapObject
-from AoE2ScenarioParser.objects.messages_obj import MessagesObject
 from AoE2ScenarioParser.objects.options_obj import OptionsObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
-from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
@@ -28,18 +24,6 @@ class AoE2ObjectManager:
             "UnitsObject": UnitsObject,
             "TriggersObject": TriggersObject
         }
-
-        # self._objects = {
-        #     # "FileHeaderObject": self._parse_file_header_object(),
-        #     # "DataHeaderObject": self._parse_data_header_object(),
-        #     # "PlayerObject": self._parse_player_object(),
-        #     # "MessagesObject": self._parse_messages_object(),
-        #     # "DiplomacyObject": self._parse_diplomacy_object(),
-        #     # "OptionsObject": self._parse_options_object(),
-        #     # "MapObject": self._parse_map_object(),
-        #     "UnitsObject": UnitsObject.parse_object(self.parsed_data),
-        #     "TriggersObject": TriggersObject.parse_object(self.parsed_data)
-        # }
 
         for key in self._finished_new_structure.keys():
             lgr.print("\tParsing " + key + "...")
@@ -122,25 +106,6 @@ class AoE2ObjectManager:
             player_stances=diplomacies
         )
 
-    def _parse_messages_object(self):
-        object_piece = self.parsed_data['MessagesPiece']
-        retrievers = object_piece.retrievers
-
-        return MessagesObject(
-            instructions=find_retriever(retrievers, "Instructions").data,
-            hints=find_retriever(retrievers, "Hints").data,
-            victory=find_retriever(retrievers, "Victory").data,
-            loss=find_retriever(retrievers, "Loss").data,
-            history=find_retriever(retrievers, "History").data,
-            scouts=find_retriever(retrievers, "Scouts").data,
-            ascii_instructions=find_retriever(retrievers, "ASCII Instructions").data,
-            ascii_hints=find_retriever(retrievers, "ASCII Hints").data,
-            ascii_victory=find_retriever(retrievers, "ASCII Victory").data,
-            ascii_loss=find_retriever(retrievers, "ASCII Loss").data,
-            ascii_history=find_retriever(retrievers, "ASCII History").data,
-            ascii_scouts=find_retriever(retrievers, "ASCII Scouts").data,
-        )
-
     def _parse_player_object(self):
         players = []
 
@@ -177,15 +142,6 @@ class AoE2ObjectManager:
             ))
 
         return players
-
-    def _parse_data_header_object(self):
-        object_piece = self.parsed_data['DataHeaderPiece']
-        retrievers = object_piece.retrievers
-
-        return DataHeaderObject(
-            version=find_retriever(retrievers, "Version").data,
-            filename=find_retriever(retrievers, "Filename").data
-        )
 
     def _parse_file_header_object(self):
         object_piece = self.parser_header['FileHeaderPiece']

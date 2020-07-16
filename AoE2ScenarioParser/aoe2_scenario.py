@@ -20,6 +20,7 @@ from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.map_obj import MapObject
 
 
@@ -53,7 +54,15 @@ class AoE2Scenario:
         self._read_file(log_reading=log_reading)
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
-        self.map_manager = MapObject(self.pieces['MapPiece'])
+        self.data_header = AoE2Object(self.pieces['DataHeaderPiece'])
+        self.messages = AoE2Object(self.pieces['MessagesPiece'])
+        self.cinematics = AoE2Object(self.pieces['CinematicsPiece'])
+        self.background_image = AoE2Object(self.pieces['BackgroundImagePiece'])
+        # PlayerDataTwoPiece,
+        self.global_victory = AoE2Object(self.pieces['GlobalVictoryPiece'])
+        # self.diplomacy = AoE2Object(self.pieces['DiplomacyPiece']) # To modify
+        # OptionsPiece,
+        self.map = MapObject(self.pieces['MapPiece'])
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
