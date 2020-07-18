@@ -13,7 +13,7 @@ class VariableObject(AoE2Object):
         self.variable_id = variable_id
         self.name = name
 
-        super().__init__()
+        super().__init__(None)
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> VariableObject:

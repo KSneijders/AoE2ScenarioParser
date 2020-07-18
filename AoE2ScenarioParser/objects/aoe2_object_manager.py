@@ -7,7 +7,6 @@ from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.player_object import PlayerObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
-from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
 
 class AoE2ObjectManager:
@@ -18,7 +17,6 @@ class AoE2ObjectManager:
         self.parsed_data = parsed_data
         self._objects = {}
         self._finished_new_structure = {
-            "UnitsObject": UnitsObject,
             "TriggersObject": TriggersObject
         }
 
@@ -32,10 +30,6 @@ class AoE2ObjectManager:
     @property
     def trigger_manager(self) -> TriggersObject:
         return self._objects['TriggersObject']
-
-    @property
-    def unit_manager(self) -> UnitsObject:
-        return self._objects['UnitsObject']
 
     def reconstruct(self, log_reconstructing=False):
         lgr = SimpleLogger(should_log=log_reconstructing)

@@ -53,7 +53,7 @@ class ConditionObject(AoE2Object):
         self.comparison: int = comparison
         self.target_player: IntEnum = target_player
 
-        super().__init__()
+        super().__init__(None)
 
     def get_content_as_string(self) -> str:
         attributes_list = conditions.attributes[self.condition_type]

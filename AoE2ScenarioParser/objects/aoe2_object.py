@@ -2,9 +2,9 @@ from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
 class AoE2Object:
-    def __init__(self, aoe2_piece = None):
+    def __init__(self, aoe2_piece):
+        self.aoe2_piece = aoe2_piece
         if aoe2_piece is not None:
-            self.aoe2_piece = aoe2_piece
             for retriever in aoe2_piece.retrievers:
                 setattr(self, retriever.name, self._get_data_as_obj(retriever.data))
 
@@ -13,6 +13,8 @@ class AoE2Object:
             return [self._get_data_as_obj(item) for item in data]
 
         if isinstance(data, AoE2Piece):
+            if hasattr(data, 'HANDLER_TYPE'):
+                return data.HANDLER_TYPE(data)
             return AoE2Object(data)
 
         return data
@@ -26,7 +28,7 @@ class AoE2Object:
             return [self._save_data_as_obj(item) for item in attr]
 
         if isinstance(attr, AoE2Object):
-            attr.save()
+            attr._save()
             return attr.aoe2_piece
             
         else:

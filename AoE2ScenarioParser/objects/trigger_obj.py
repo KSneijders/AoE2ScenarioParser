@@ -62,7 +62,7 @@ class TriggerObject(AoE2Object):
 
         self.trigger_id = trigger_id
 
-        super().__init__()
+        super().__init__(None)
 
     @property
     def conditions(self) -> List[ConditionObject]:
