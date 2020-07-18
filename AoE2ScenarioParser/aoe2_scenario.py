@@ -20,19 +20,15 @@ from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.map_obj import MapObject
+from AoE2ScenarioParser.objects.units_obj import UnitsObject
+
 
 class AoE2Scenario:
     @property
-    def map_manager(self):
-        return self._object_manager.map_manager
-
-    @property
     def trigger_manager(self):
         return self._object_manager.trigger_manager
-
-    @property
-    def unit_manager(self):
-        return self._object_manager.unit_manager
 
     def __init__(self, filename, log_reading=True, log_parsing=False):
         print("\nPreparing & Loading file: '" + filename + "'...")
@@ -50,9 +46,35 @@ class AoE2Scenario:
 
         print("File prepared and loaded.")
 
+        self.pieces = {}
         self.parser = parser.Parser()
         self._read_file(log_reading=log_reading)
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
+
+        self.file_header = AoE2Object(self.pieces['FileHeaderPiece'])
+        self.data_header = AoE2Object(self.pieces['DataHeaderPiece'])
+        self.messages = AoE2Object(self.pieces['MessagesPiece'])
+        self.cinematics = AoE2Object(self.pieces['CinematicsPiece'])
+        self.background_image = AoE2Object(self.pieces['BackgroundImagePiece'])
+        # PlayerDataTwoPiece,
+        self.global_victory = AoE2Object(self.pieces['GlobalVictoryPiece'])
+        self.diplomacy = AoE2Object(self.pieces['DiplomacyPiece'])
+        self.options = AoE2Object(self.pieces['OptionsPiece'])
+        self.map = MapObject(self.pieces['MapPiece'])
+        self.unit_manager = UnitsObject(self.pieces['UnitsPiece'])
+
+        self.data_handlers = [
+            self.file_header,
+            self.data_header,
+            self.messages,
+            self.cinematics,
+            self.background_image,
+            self.global_victory,
+            self.diplomacy,
+            self.options,
+            self.map,
+            self.unit_manager
+        ]
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
@@ -74,6 +96,7 @@ class AoE2Scenario:
                 lgr.print("\tReading " + piece_name + "...")
                 piece.set_data_from_generator(header_generator)
                 lgr.print("\tReading " + piece_name + " finished successfully.")
+                self.pieces.update({piece_name : piece})
 
             for piece_object in _file_structure:
                 piece = piece_object(self.parser)
@@ -84,6 +107,7 @@ class AoE2Scenario:
                 lgr.print("\tReading " + piece_name + "...")
                 piece.set_data_from_generator(data_generator)
                 lgr.print("\tReading " + piece_name + " finished successfully.")
+                self.pieces.update({piece_name : piece})
         except StopIteration as e:
             print(f"\n[StopIteration] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
             print("Writing ErrorFile...")
@@ -113,8 +137,13 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
+        
         if hasattr(self, 'object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
+
+        for data_handler in self.data_handlers:
+            data_handler._save()
+        
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
 

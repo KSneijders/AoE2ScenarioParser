@@ -116,7 +116,7 @@ class EffectObject(AoE2Object):
         self.sound_name: str = sound_name
         self.selected_object_id: List[int] = selected_object_id
 
-        super().__init__()
+        super().__init__(None)
 
     @property
     def selected_object_id(self) -> List[int]:

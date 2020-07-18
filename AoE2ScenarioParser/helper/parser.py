@@ -12,9 +12,13 @@ types = [
 ]
 
 
-def vorl(var):
+# TODO This function and its 'ignore' parameters are super hacky.
+# This should be refactored so that the body of the for loop in retrieve_value is extracted into a function
+# - When there is only one value, just return the result of the function
+# - When there are several values, call the function in a for loop and build a list
+def vorl(var, ignore):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
-    if type(var) is list:
+    if type(var) is list and not ignore:
         if len(var) is 1:
             return var[0]
         else:
@@ -95,12 +99,12 @@ class Parser:
                 result = retriever.on_success(result)
 
         if retriever.save_as is not None:
-            self.add_to_saves(retriever.save_as, vorl(result))
+            self.add_to_saves(retriever.save_as, vorl(result, retriever.set_repeat is not None))
 
         if retriever.log_value:
-            print(retriever, "retrieved:", vorl(result))
+            print(retriever, "retrieved:", vorl(result, retriever.set_repeat is not None))
 
-        return vorl(result) if not as_length else length
+        return vorl(result, retriever.set_repeat is not None) if not as_length else length
 
     def add_to_saves(self, name, value):
         self._saves[name] = value

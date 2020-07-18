@@ -9,18 +9,22 @@ from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
-
+from AoE2ScenarioParser.datasets.units import Unit
 
 class UnitsObject(AoE2Object):
-    def __init__(self,
-                 units: List[List[UnitObject]]
-                 ):
+    def __init__(self, units_piece):
+        super().__init__(units_piece)
 
-        self.units = units
+        # Set the player value for all the units
+        for i, units_of_player in enumerate(self.units):
+            for unit in units_of_player:
+                unit.player = Player(i)
 
-        super().__init__()
+    @property
+    def units(self):
+        return [player_units.units for player_units in self._players_units]
 
-    def add_unit(self, player: Player, unit_id: int, x: float, y: float, z: float = 0, rotation: float = 0,
+    def add_unit(self, player: Player, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
                  reference_id: int = None, ) -> UnitObject:
         """
@@ -28,7 +32,7 @@ class UnitsObject(AoE2Object):
 
         Args:
             player: The player the unit belongs to.
-            unit_id: Defines what unit you're placing. The IDs used in the unit/buildings dataset.
+            unit_const: Defines what unit you're placing. The IDs used in the unit/buildings dataset.
             x: The x location in the scenario.
             y: The y location in the scenario.
             z: The z (height) location in the scenario.
@@ -44,13 +48,13 @@ class UnitsObject(AoE2Object):
         if reference_id is None:
             reference_id = self.get_new_reference_id()
 
-        unit = UnitObject(
+        unit = UnitObject.create_unit(
             player=player,
             x=x,
             y=y,
             z=z,
             reference_id=reference_id,
-            unit_const=unit_id,
+            unit_const=unit_const,
             status=status,
             rotation=rotation,
             animation_frame=animation_frame,
@@ -79,7 +83,7 @@ class UnitsObject(AoE2Object):
 
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
-        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
+        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
 
     def get_units_in_area(self,
                           x1: float = None,
@@ -156,10 +160,10 @@ class UnitsObject(AoE2Object):
             if player_unit == unit:
                 del self.units[unit.player.value][i]
                 self.units[to_player.value].append(unit)
-                unit._player = Player(to_player)
+                unit.player = Player(to_player)
                 return
 
-    def get_new_reference_id(self) -> int:
+    def get_next_available_reference_id(self) -> int:
         highest_id = 0  # If no units, default to 0
         for player in range(0, 9):
             for unit in self.units[player]:
@@ -167,7 +171,7 @@ class UnitsObject(AoE2Object):
                     highest_id = unit.reference_id
         return highest_id + 1
 
-    def remove_unit(self, reference_id: int = None, unit: UnitObject = None):
+    def remove_unit(self, unit: UnitObject = None, reference_id: int = None):
         if reference_id is not None and unit is not None:
             raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
         if reference_id is None and unit is None:
@@ -181,40 +185,8 @@ class UnitsObject(AoE2Object):
         elif unit is not None:
             self.units[unit.player.value].remove(unit)
 
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> UnitsObject:
-        object_piece = parsed_data['UnitsPiece']
-        units_per_player = find_retriever(object_piece.retrievers, "Player Units").data
-
-        player_units = []
-        for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
-            player_units.append([])
-            units = parser.listify(find_retriever(units_per_player[player_id].retrievers, "Units").data)
-
-            for unit in units:
-                player_units[player_id].append(
-                    UnitObject._parse_object(parsed_data, unit=unit, player=Player(player_id))
-                )
-
-        return UnitsObject(
-            units=player_units
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
-        player_units_retriever = find_retriever(parsed_data['UnitsPiece'].retrievers, "Player Units")
-
-        # Todo: Move this to DataHeader
-        new_unit_id_retriever = find_retriever(parsed_data['DataHeaderPiece'].retrievers, "Next unit ID to place")
-        new_unit_id_retriever.data = objects['UnitsObject'].get_new_reference_id()
-
-        player_units_retriever.data = []
-        for player_units in objects['UnitsObject'].units:
-
-            units_list = []
-            for unit in player_units:
-                UnitObject._reconstruct_object(parsed_header, parsed_data, objects, unit=unit, units=units_list)
-
-            player_units_retriever.data.append(
-                PlayerUnitsStruct(data=[len(units_list), units_list])
-            )
+    def _save(self):
+        # Make sure that the unit count variable is up-to-date before saving
+        for i in range(0, 9):
+            self._players_units[i].unit_count = len(self.units[i])
+        super()._save()

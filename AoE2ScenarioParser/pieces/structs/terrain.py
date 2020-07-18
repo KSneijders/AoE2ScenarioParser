@@ -6,11 +6,11 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 class TerrainStruct(AoE2Struct):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("Terrain ID", DataType("u8")),
-            Retriever("Elevation", DataType("u8")),
-            Retriever("Unused", DataType("u8")),
-            Retriever("Separator?", DataType("2")),
-            Retriever("Layer", DataType("s16"))
+            Retriever("terrain_id", DataType("u8")),
+            Retriever("elevation", DataType("u8")),
+            Retriever("unused", DataType("u8")),
+            Retriever("separator", DataType("2")),
+            Retriever("layer", DataType("s16"))
         ]
 
         super().__init__("Terrain", retrievers, parser_obj, data)
