@@ -47,7 +47,14 @@ class TriggersObject(AoE2Object):
                                 include_gaia: bool = False,
                                 create_copy_for_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
         """
-        Copies a trigger for a all or a selection of players.
+        Copies a trigger for a all or a selection of players. Every copy will change desired player attributes with it.
+        Creates copies for all other players if `create_copy_for_players` is left to default.
+        By default 'all players' is every player (1-8) excluding the `from_player` value.
+        So when `from_player` is set to Player.SEVEN the copies will be: [1, 2, 3, 4, 5, 6, 8].
+        When `from_player` is set to Player.GAIA the copies will include all 1-8 players.
+
+        When `change_from_player_only` is set to False (Default) all player attributes will be changed to the copied
+        player. So when a copy for Player.FIVE is created,
 
         Args:
             from_player: The player the trigger is copied from. This should be the central player or the player that
@@ -66,12 +73,13 @@ class TriggersObject(AoE2Object):
             lock_condition_ids: Ensures that no player attributes are changed in the given condition IDs
             lock_effect_ids: Ensures that no player attributes are changed in the given effect IDs
             include_gaia: If `True` creates a copy for GAIA
-            create_copy_for_players: Copy for certain and overwrite the default (All) players
+            create_copy_for_players: Copy for certain and overwrite the default (All players)
 
         Raises:
-            ValueError: if more than one trigger selection is used.
+            ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
                 Or if Both `include_player_source` and `include_player_target` are `False`
         :Authors:
+            KSneijders
         """
 
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
