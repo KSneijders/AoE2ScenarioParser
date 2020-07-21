@@ -47,14 +47,22 @@ class TriggersObject(AoE2Object):
                                 include_gaia: bool = False,
                                 create_copy_for_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
         """
-        Copies a trigger for a all or a selection of players. Every copy will change desired player attributes with it.
+        Copies a trigger for all or a selection of players. Every copy will change desired player attributes with it.
         Creates copies for all other players if `create_copy_for_players` is left to default.
         By default 'all players' is every player (1-8) excluding the `from_player` value.
         So when `from_player` is set to Player.SEVEN the copies will be: [1, 2, 3, 4, 5, 6, 8].
         When `from_player` is set to Player.GAIA the copies will include all 1-8 players.
+        When `change_from_player_only` is set to False (Default) "all player attributes"* will be changed to the copied
+        player. When set to true only player attributes that are equal to the `from_player` parameter will be changed.
+        The meaning of "All player attributes" is based on the settings of the parameters:
+        `include_player_source` (Default: True) and `include_player_target` (Default: False).
 
-        When `change_from_player_only` is set to False (Default) all player attributes will be changed to the copied
-        player. So when a copy for Player.FIVE is created,
+        When doing a copy, some conditions or effects might want to stay unchanged. You can do this by 'locking' them.
+        You can lock effects and conditions separately in three ways. Locking all effects or conditions, locking a
+        specific type (Effect.x) or locking certain specific ones using their IDs.
+
+        When creating the copy you can include a copy for the GAIA 'player'. You can do so by enabling the
+        `include_gaia` parameter.
 
         Args:
             from_player: The player the trigger is copied from. This should be the central player or the player that
@@ -75,9 +83,14 @@ class TriggersObject(AoE2Object):
             include_gaia: If `True` creates a copy for GAIA
             create_copy_for_players: Copy for certain and overwrite the default (All players)
 
+        Returns:
+            Dict: A dict with all the new created triggers. The key is the player for which the trigger is
+                created using the IntEnum associated with it. Example: {Player.TWO: TriggerObject, Player.FIVE: TriggerObject}
+
         Raises:
             ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
                 Or if Both `include_player_source` and `include_player_target` are `False`
+
         :Authors:
             KSneijders
         """
