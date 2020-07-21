@@ -1,6 +1,9 @@
+from typing import Any
+
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
+from AoE2ScenarioParser.helper.retriever import Retriever
 
 types = [
     "s",  # Signed int
@@ -12,8 +15,11 @@ types = [
 ]
 
 
-def vorl(var):
+def vorl(var: Any,  retriever: Retriever = None):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
+    if Retriever is not None:
+        if retriever.set_repeat is not None or retriever.datatype.repeat is not 1:
+            return listify(var)
     if type(var) is list:
         if len(var) is 1:
             return var[0]
@@ -95,12 +101,12 @@ class Parser:
                 result = retriever.on_success(result)
 
         if retriever.save_as is not None:
-            self.add_to_saves(retriever.save_as, vorl(result))
+            self.add_to_saves(retriever.save_as, vorl(result, retriever))
 
         if retriever.log_value:
-            print(retriever, "retrieved:", vorl(result))
+            print(retriever, "retrieved:", vorl(result, retriever))
 
-        return vorl(result) if not as_length else length
+        return vorl(result, retriever) if not as_length else length
 
     def add_to_saves(self, name, value):
         self._saves[name] = value

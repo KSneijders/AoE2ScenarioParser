@@ -189,7 +189,7 @@ class UnitsObject(AoE2Object):
         player_units = []
         for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
             player_units.append([])
-            units = parser.listify(find_retriever(units_per_player[player_id].retrievers, "Units").data)
+            units = find_retriever(units_per_player[player_id].retrievers, "Units").data
 
             for unit in units:
                 player_units[player_id].append(

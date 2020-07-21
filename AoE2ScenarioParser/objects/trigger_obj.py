@@ -149,7 +149,7 @@ class TriggerObject(AoE2Object):
         if effect_index is None:
             effect_index = self.effect_order[display_index]
 
-        return parser.listify(self.effects)[effect_index]
+        return self.effects[effect_index]
 
     def get_condition(self, condition_index: int = None, display_index: int = None) -> ConditionObject:
         helper.evaluate_index_params(condition_index, display_index, "condition")
@@ -157,7 +157,7 @@ class TriggerObject(AoE2Object):
         if condition_index is None:
             condition_index = self.condition_order[display_index]
 
-        return parser.listify(self.conditions)[condition_index]
+        return self.conditions[condition_index]
 
     def get_summary_as_string(self) -> str:
         pass
@@ -200,12 +200,12 @@ class TriggerObject(AoE2Object):
         trigger = kwargs['trigger']
 
         effects_list = []
-        effect_structs = parser.listify(find_retriever(trigger.retrievers, "Effect data").data)
+        effect_structs = find_retriever(trigger.retrievers, "Effect data").data
         for effect_struct in effect_structs:
             effects_list.append(EffectObject._parse_object(parsed_data, effect=effect_struct))
 
         conditions_list = []
-        condition_structs = parser.listify(find_retriever(trigger.retrievers, "Condition data").data)
+        condition_structs = find_retriever(trigger.retrievers, "Condition data").data
         for condition_struct in condition_structs:
             conditions_list.append(ConditionObject._parse_object(parsed_data, condition=condition_struct))
 
@@ -223,9 +223,9 @@ class TriggerObject(AoE2Object):
             header=find_retriever(trigger.retrievers, "Make header").data,
             mute_objectives=find_retriever(trigger.retrievers, "Mute objectives").data,
             conditions_list=conditions_list,
-            condition_order=parser.listify(find_retriever(trigger.retrievers, "Condition display order array").data),
+            condition_order=find_retriever(trigger.retrievers, "Condition display order array").data,
             effects_list=effects_list,
-            effect_order=parser.listify(find_retriever(trigger.retrievers, "Effect display order array").data),
+            effect_order=find_retriever(trigger.retrievers, "Effect display order array").data,
             trigger_id=kwargs['trigger_id'],
         )
 
@@ -233,8 +233,8 @@ class TriggerObject(AoE2Object):
     def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         trigger = kwargs['trigger']
-        trigger.effect_order = parser.listify(trigger.effect_order)
-        trigger.condition_order = parser.listify(trigger.condition_order)
+        trigger.effect_order = trigger.effect_order
+        trigger.condition_order = trigger.condition_order
 
         effects_list = []
         for effect_obj in trigger.effects:

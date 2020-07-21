@@ -16,14 +16,14 @@ from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 class TriggersObject(AoE2Object):
     def __init__(self,
-                 triggers: List[TriggersObject],
+                 triggers: List[TriggerObject],
                  trigger_display_order: List[int],
                  variables: List[VariableObject]
                  ):
 
-        self.triggers: List[TriggerObject] = parser.listify(triggers)
-        self.trigger_display_order: List[int] = parser.listify(trigger_display_order)
-        self.variables: List[VariableObject] = parser.listify(variables)
+        self.triggers: List[TriggerObject] = triggers
+        self.trigger_display_order: List[int] = trigger_display_order
+        self.variables: List[VariableObject] = variables
 
         super().__init__()
 
@@ -291,8 +291,8 @@ class TriggersObject(AoE2Object):
     def get_summary_as_string(self) -> str:
         return_string = "\nTrigger Summary:\n"
 
-        triggers = parser.listify(self.triggers)
-        display_order = parser.listify(self.trigger_display_order)
+        triggers = self.triggers
+        display_order = self.trigger_display_order
 
         if len(display_order) == 0:
             return_string += "\t<< No Triggers >>"
@@ -311,10 +311,10 @@ class TriggersObject(AoE2Object):
             return_string += "\t" + trigger_name + (" " * buffer)
             return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display) + "]"
 
-            return_string += "\t(conditions: " + str(len(parser.listify(trigger.conditions))) + ", "
-            return_string += " effects: " + str(len(parser.listify(trigger.effects))) + ")\n"
+            return_string += "\t(conditions: " + str(len(trigger.conditions)) + ", "
+            return_string += " effects: " + str(len(trigger.effects)) + ")\n"
 
-        variables = parser.listify(self.variables)
+        variables = self.variables
 
         return_string += "\nVariables Summary:\n"
         if len(variables) == 0:
@@ -346,7 +346,7 @@ class TriggersObject(AoE2Object):
         if len(self.variables) == 0:
             return_string += "\t<<No Variables>>\n"
 
-        for variable in parser.listify(self.variables):
+        for variable in self.variables:
             return_string += f"\t'{variable.name}' [Index: {variable.variable_id}]\n"
 
         return return_string
@@ -433,12 +433,9 @@ class TriggersObject(AoE2Object):
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
-        display_order = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data)
-        trigger_data = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data)
-        var_data = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables").data)
+        display_order = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data
+        trigger_data = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        var_data = find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables").data
 
         triggers = []
         for index, trigger in enumerate(trigger_data):
@@ -459,7 +456,7 @@ class TriggersObject(AoE2Object):
         number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
-        display_order_retriever.data = parser.listify(display_order_retriever.data)
+        display_order_retriever.data = display_order_retriever.data
         file_header_trigger_count_retriever = find_retriever(parsed_header['FileHeaderPiece'].retrievers,
                                                              "Trigger count")
 
