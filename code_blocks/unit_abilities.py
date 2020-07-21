@@ -40,7 +40,7 @@ trigger.looping = True
 condition = trigger.add_condition(Condition.OBJECT_IN_AREA)
 condition.amount_or_quantity = 1
 condition.object_list = unit_to_be_garrisoned
-condition.player = Player.ONE
+condition.source_player = Player.ONE
 condition.area_1_x = 0
 condition.area_1_y = 0
 condition.area_2_x = 10
@@ -48,7 +48,7 @@ condition.area_2_y = 10
 
 effect = trigger.add_effect(Effect.DISPLAY_INSTRUCTIONS)
 effect.object_list_unit_id = Hero.EMPEROR_IN_A_BARREL
-effect.player_source = Player.ONE
+effect.source_player = Player.ONE
 effect.display_time = 1
 effect.instruction_panel_position = PanelLocation.TOP
 effect.message = "DETECTED!"
@@ -56,7 +56,7 @@ effect.message = "DETECTED!"
 # Works weird (only with units)
 effect = trigger.add_effect(Effect.TELEPORT_OBJECT)
 effect.object_list_unit_id = unit_to_be_garrisoned
-effect.player_source = Player.ONE
+effect.source_player = Player.ONE
 effect.location_x = 100
 effect.location_y = 100
 effect.area_1_x = 0
@@ -67,10 +67,12 @@ effect.area_2_y = 10
 # Works consistently (also with projectiles)
 effect = trigger.add_effect(Effect.PATROL)
 effect.object_list_unit_id = unit_to_be_garrisoned
-effect.player_source = Player.ONE
+effect.source_player = Player.ONE
 effect.location_x = 100
 effect.location_y = 100
 effect.area_1_x = 0
 effect.area_1_y = 0
 effect.area_2_x = 10
 effect.area_2_y = 10
+
+scenario.write_to_file(write_to_file, log_reconstructing=True)
