@@ -41,7 +41,7 @@ class Retriever:
             data = str(helper.pretty_print_list(self.data))
         else:
             data = str(self.data)
-        return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + str(data)
+        return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + data
 
 
 def find_retriever(retriever_list, name):

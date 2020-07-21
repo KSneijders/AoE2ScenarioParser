@@ -35,8 +35,5 @@ class DataType:
     def to_simple_string(self):
         return str(self.repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)
 
-    def _to_string(self):
-        return "[DataType] " + self.to_simple_string()
-
     def __repr__(self):
-        return self._to_string()
+        return "[DataType] " + self.to_simple_string()

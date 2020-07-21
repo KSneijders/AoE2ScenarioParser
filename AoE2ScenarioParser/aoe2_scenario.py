@@ -167,16 +167,6 @@ class AoE2Scenario:
     ################ Debug functions ################
     ############################################# """
 
-    def _debug_log_all_data_keys(self):
-        """ Used for debugging. """
-        print("FileHeader:")
-        print(self._parsed_header.keys())
-        print("DataHeader:")
-        print("odict_keys([")
-        for x in self._parsed_data.keys():
-            print("\t'" + x + "'")
-        print("])")
-
     def _debug_log_effect_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
         trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
