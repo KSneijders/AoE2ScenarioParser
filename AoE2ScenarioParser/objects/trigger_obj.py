@@ -101,12 +101,12 @@ class TriggerObject(AoE2Object):
             ('looping', self.looping != 0)
         ]
 
-        if helper.del_str_trail(self.description) != "":
-            data_tba.append(('description', "'" + helper.del_str_trail(self.description) + "'"))
+        if self.description != "":
+            data_tba.append(('description', "'" + self.description + "'"))
         if self.description_stid != -1:
             data_tba.append(('description_stid', self.description_stid))
-        if helper.del_str_trail(self.short_description) != "":
-            data_tba.append(('short_description', "'" + helper.del_str_trail(self.short_description) + "'"))
+        if self.short_description != "":
+            data_tba.append(('short_description', "'" + self.short_description + "'"))
         if self.short_description_stid != -1:
             data_tba.append(('short_description_stid', self.short_description_stid))
         if self.display_as_objective != 0:

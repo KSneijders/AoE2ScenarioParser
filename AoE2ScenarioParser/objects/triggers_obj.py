@@ -299,13 +299,13 @@ class TriggersObject(AoE2Object):
 
         longest_trigger_name = -1
         for trigger_index in display_order:
-            trigger_name = helper.del_str_trail(triggers[trigger_index].name)
+            trigger_name = triggers[trigger_index].name
             longest_trigger_name = max(longest_trigger_name, len(trigger_name))
 
         longest_trigger_name += 3
         for display, trigger_index in enumerate(display_order):
             trigger = triggers[trigger_index]
-            trigger_name = helper.del_str_trail(trigger.name)
+            trigger_name = trigger.name
 
             buffer = longest_trigger_name - len(trigger_name)
             return_string += "\t" + trigger_name + (" " * buffer)
@@ -354,7 +354,7 @@ class TriggersObject(AoE2Object):
     def get_trigger_as_string(self, trigger_index: int = None, display_index: int = None) -> str:
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index)
 
-        return_string = "\t'" + helper.del_str_trail(trigger.name) + "'"
+        return_string = "\t'" + trigger.name + "'"
         return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display_index) + "]" + ":\n"
 
         return_string += trigger.get_content_as_string()
