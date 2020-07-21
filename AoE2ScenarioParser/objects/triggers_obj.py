@@ -123,33 +123,33 @@ class TriggersObject(AoE2Object):
                 for cond_x in alter_conditions:
                     cond = new_trigger.conditions[cond_x]
                     # Player not set
-                    if cond.player == -1:
+                    if cond.source_player == -1:
                         continue
                     # Player not equal to 'from_player'
                     if change_from_player_only:
-                        if not cond.player == from_player:
+                        if not cond.source_player == from_player:
                             continue
                     # Change source player
                     if include_player_source:
-                        cond.player = Player(player)
+                        cond.source_player = Player(player)
                     # Change target player
                     if include_player_target:
                         cond.target_player = Player(player)
                 for effect_x in alter_effects:
                     effect = new_trigger.effects[effect_x]
                     # Player not set
-                    if effect.player_source == -1:
+                    if effect.source_player == -1:
                         continue
                     # Player not equal to 'from_player'
                     if change_from_player_only:
-                        if not effect.player_source == from_player:
+                        if not effect.source_player == from_player:
                             continue
                     # Change source player
                     if include_player_source:
-                        effect.player_source = Player(player)
+                        effect.source_player = Player(player)
                     # Change target player
                     if include_player_target:
-                        effect.player_target = Player(player)
+                        effect.target_player = Player(player)
 
         return return_dict
 
@@ -248,16 +248,16 @@ class TriggersObject(AoE2Object):
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
-            if not cond.player == -1:
-                cond.player = Player(source_player_replacements[cond.player])
+            if not cond.source_player == -1:
+                cond.source_player = Player(source_player_replacements[cond.source_player])
             if not cond.target_player == -1:
-                cond.target_player = Player(target_player_replacements[cond.player])
+                cond.target_player = Player(target_player_replacements[cond.source_player])
         for effect_x in alter_effects:
             effect = trigger.effects[effect_x]
-            if not effect.player_source == -1:
-                effect.player_source = Player(source_player_replacements[effect.player_source])
-            if not effect.player_target == -1:
-                effect.player_target = Player(target_player_replacements[effect.player_target])
+            if not effect.source_player == -1:
+                effect.source_player = Player(source_player_replacements[effect.source_player])
+            if not effect.target_player == -1:
+                effect.target_player = Player(target_player_replacements[effect.target_player])
 
         return trigger
 
