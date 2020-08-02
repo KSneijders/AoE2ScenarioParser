@@ -31,7 +31,7 @@ The format is based on [Keep a Changelog]
   - This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
 - The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
 - Renamend `Operator` to `Operation`.
-- Managers can now be accessed directly from the scenario. Eg: scenario.trigger_manager.
+- Managers can now be accessed directly from the scenario. Eg: `scenario.trigger_manager`.
 - Renamed `player` attribute in the `Condition` object to `source_player`
 - Renamed `player_source` attribute in the `Effect` object to `source_player`
 - Renamed `player_target` attribute in the `Effect` object to `target_player`

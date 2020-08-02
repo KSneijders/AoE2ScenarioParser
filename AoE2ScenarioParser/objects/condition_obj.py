@@ -38,7 +38,7 @@ class ConditionObject(AoE2Object):
         self.unit_object: int = unit_object
         self.next_object: int = next_object
         self.object_list: int = object_list
-        self.player: IntEnum = source_player
+        self.source_player: IntEnum = source_player
         self.technology: IntEnum = technology
         self.timer: int = timer
         self.area_1_x: int = area_1_x

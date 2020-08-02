@@ -16,14 +16,14 @@ from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 class TriggersObject(AoE2Object):
     def __init__(self,
-                 triggers: List[TriggersObject],
+                 triggers: List[TriggerObject],
                  trigger_display_order: List[int],
                  variables: List[VariableObject]
                  ):
 
-        self.triggers: List[TriggerObject] = parser.listify(triggers)
-        self.trigger_display_order: List[int] = parser.listify(trigger_display_order)
-        self.variables: List[VariableObject] = parser.listify(variables)
+        self.triggers: List[TriggerObject] = triggers
+        self.trigger_display_order: List[int] = trigger_display_order
+        self.variables: List[VariableObject] = variables
 
         super().__init__(None)
 
@@ -47,7 +47,22 @@ class TriggersObject(AoE2Object):
                                 include_gaia: bool = False,
                                 create_copy_for_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
         """
-        Copies a trigger for a all or a selection of players.
+        Copies a trigger for all or a selection of players. Every copy will change desired player attributes with it.
+        Creates copies for all other players if `create_copy_for_players` is left to default.
+        By default 'all players' is every player (1-8) excluding the `from_player` value.
+        So when `from_player` is set to Player.SEVEN the copies will be: [1, 2, 3, 4, 5, 6, 8].
+        When `from_player` is set to Player.GAIA the copies will include all 1-8 players.
+        When `change_from_player_only` is set to False (Default) "all player attributes"* will be changed to the copied
+        player. When set to true only player attributes that are equal to the `from_player` parameter will be changed.
+        The meaning of "All player attributes" is based on the settings of the parameters:
+        `include_player_source` (Default: True) and `include_player_target` (Default: False).
+
+        When doing a copy, some conditions or effects might want to stay unchanged. You can do this by 'locking' them.
+        You can lock effects and conditions separately in three ways. Locking all effects or conditions, locking a
+        specific type (Effect.x) or locking certain specific ones using their IDs.
+
+        When creating the copy you can include a copy for the GAIA 'player'. You can do so by enabling the
+        `include_gaia` parameter.
 
         Args:
             from_player: The player the trigger is copied from. This should be the central player or the player that
@@ -66,12 +81,18 @@ class TriggersObject(AoE2Object):
             lock_condition_ids: Ensures that no player attributes are changed in the given condition IDs
             lock_effect_ids: Ensures that no player attributes are changed in the given effect IDs
             include_gaia: If `True` creates a copy for GAIA
-            create_copy_for_players: Copy for certain and overwrite the default (All) players
+            create_copy_for_players: Copy for certain and overwrite the default (All players)
+
+        Returns:
+            Dict: A dict with all the new created triggers. The key is the player for which the trigger is
+                created using the IntEnum associated with it. Example: {Player.TWO: TriggerObject, Player.FIVE: TriggerObject}
 
         Raises:
-            ValueError: if more than one trigger selection is used.
+            ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
                 Or if Both `include_player_source` and `include_player_target` are `False`
+
         :Authors:
+            KSneijders
         """
 
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
@@ -115,33 +136,33 @@ class TriggersObject(AoE2Object):
                 for cond_x in alter_conditions:
                     cond = new_trigger.conditions[cond_x]
                     # Player not set
-                    if cond.player == -1:
+                    if cond.source_player == -1:
                         continue
                     # Player not equal to 'from_player'
                     if change_from_player_only:
-                        if not cond.player == from_player:
+                        if not cond.source_player == from_player:
                             continue
                     # Change source player
                     if include_player_source:
-                        cond.player = Player(player)
+                        cond.source_player = Player(player)
                     # Change target player
                     if include_player_target:
                         cond.target_player = Player(player)
                 for effect_x in alter_effects:
                     effect = new_trigger.effects[effect_x]
                     # Player not set
-                    if effect.player_source == -1:
+                    if effect.source_player == -1:
                         continue
                     # Player not equal to 'from_player'
                     if change_from_player_only:
-                        if not effect.player_source == from_player:
+                        if not effect.source_player == from_player:
                             continue
                     # Change source player
                     if include_player_source:
-                        effect.player_source = Player(player)
+                        effect.source_player = Player(player)
                     # Change target player
                     if include_player_target:
-                        effect.player_target = Player(player)
+                        effect.target_player = Player(player)
 
         return return_dict
 
@@ -240,16 +261,16 @@ class TriggersObject(AoE2Object):
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
-            if not cond.player == -1:
-                cond.player = Player(source_player_replacements[cond.player])
+            if not cond.source_player == -1:
+                cond.source_player = Player(source_player_replacements[cond.source_player])
             if not cond.target_player == -1:
-                cond.target_player = Player(target_player_replacements[cond.player])
+                cond.target_player = Player(target_player_replacements[cond.source_player])
         for effect_x in alter_effects:
             effect = trigger.effects[effect_x]
-            if not effect.player_source == -1:
-                effect.player_source = Player(source_player_replacements[effect.player_source])
-            if not effect.player_target == -1:
-                effect.player_target = Player(target_player_replacements[effect.player_target])
+            if not effect.source_player == -1:
+                effect.source_player = Player(source_player_replacements[effect.source_player])
+            if not effect.target_player == -1:
+                effect.target_player = Player(target_player_replacements[effect.target_player])
 
         return trigger
 
@@ -270,30 +291,30 @@ class TriggersObject(AoE2Object):
     def get_summary_as_string(self) -> str:
         return_string = "\nTrigger Summary:\n"
 
-        triggers = parser.listify(self.triggers)
-        display_order = parser.listify(self.trigger_display_order)
+        triggers = self.triggers
+        display_order = self.trigger_display_order
 
         if len(display_order) == 0:
             return_string += "\t<< No Triggers >>"
 
         longest_trigger_name = -1
         for trigger_index in display_order:
-            trigger_name = helper.del_str_trail(triggers[trigger_index].name)
+            trigger_name = triggers[trigger_index].name
             longest_trigger_name = max(longest_trigger_name, len(trigger_name))
 
         longest_trigger_name += 3
         for display, trigger_index in enumerate(display_order):
             trigger = triggers[trigger_index]
-            trigger_name = helper.del_str_trail(trigger.name)
+            trigger_name = trigger.name
 
             buffer = longest_trigger_name - len(trigger_name)
             return_string += "\t" + trigger_name + (" " * buffer)
             return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display) + "]"
 
-            return_string += "\t(conditions: " + str(len(parser.listify(trigger.conditions))) + ", "
-            return_string += " effects: " + str(len(parser.listify(trigger.effects))) + ")\n"
+            return_string += "\t(conditions: " + str(len(trigger.conditions)) + ", "
+            return_string += " effects: " + str(len(trigger.effects)) + ")\n"
 
-        variables = parser.listify(self.variables)
+        variables = self.variables
 
         return_string += "\nVariables Summary:\n"
         if len(variables) == 0:
@@ -325,7 +346,7 @@ class TriggersObject(AoE2Object):
         if len(self.variables) == 0:
             return_string += "\t<<No Variables>>\n"
 
-        for variable in parser.listify(self.variables):
+        for variable in self.variables:
             return_string += f"\t'{variable.name}' [Index: {variable.variable_id}]\n"
 
         return return_string
@@ -333,7 +354,7 @@ class TriggersObject(AoE2Object):
     def get_trigger_as_string(self, trigger_index: int = None, display_index: int = None) -> str:
         trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index)
 
-        return_string = "\t'" + helper.del_str_trail(trigger.name) + "'"
+        return_string = "\t'" + trigger.name + "'"
         return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display_index) + "]" + ":\n"
 
         return_string += trigger.get_content_as_string()
@@ -412,12 +433,9 @@ class TriggersObject(AoE2Object):
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
-        display_order = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data)
-        trigger_data = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data)
-        var_data = parser.listify(
-            find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables").data)
+        display_order = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data
+        trigger_data = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        var_data = find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables").data
 
         triggers = []
         for index, trigger in enumerate(trigger_data):
@@ -438,7 +456,7 @@ class TriggersObject(AoE2Object):
         number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
         trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
-        display_order_retriever.data = parser.listify(display_order_retriever.data)
+        display_order_retriever.data = display_order_retriever.data
         file_header_trigger_count_retriever = find_retriever(parsed_header['FileHeaderPiece'].retrievers,
                                                              "Trigger count")
 

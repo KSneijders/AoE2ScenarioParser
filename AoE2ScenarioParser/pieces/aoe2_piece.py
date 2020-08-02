@@ -22,14 +22,16 @@ class AoE2Piece:
                     )
 
                 if self.retrievers[i].log_value:
-                    print(self.retrievers[i], "was set to:", parser.vorl(data[i]))
+                    print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
                 self.retrievers[i].set_data(data[i])
 
                 if self.retrievers[i].save_as is not None:
                     if type(data[i]) is not list:
                         data[i] = [data[i]]
-                    saves[self.retrievers[i].save_as] = parser.vorl(data[i])
+                    saves[self.retrievers[i].save_as] = parser.vorl(data[i], self.retrievers[i])
         else:
+            print(f"Data: ({len(data)}) {data}")
+            print(f"Retrievers: ({len(self.retrievers)}) {self.retrievers}")
             raise ValueError("Data list isn't the same size as the DataType list")
 
     def get_value(self, retriever_key):

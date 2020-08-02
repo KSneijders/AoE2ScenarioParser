@@ -34,7 +34,7 @@ class UnitObject(AoE2Object):
         player controlling the unit but is not directly connected to it. Changing this value will have no impact to your
         scenario.
         To change which player controls this unit, use:
-            unit_manager.change_ownership(UnitObject, to_player[, from_player, skip_gaia])
+            unit_manager.change_ownership(UnitObject, to_player)
         """
         unit.x: float = x
         unit.y: float = y
@@ -56,7 +56,7 @@ class UnitObject(AoE2Object):
         player controlling the unit BUT IT IS NOT directly connected to it. Changing this value will have no impact to
         your scenario.
         To change which player controls this unit, use:
-            unit_manager.change_ownership(UnitObject, to_player[, from_player, skip_gaia])
+            unit_manager.change_ownership(UnitObject, to_player)
         """
         return self._player
 

@@ -2,7 +2,7 @@ from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.pieces.structs.player_data_four import PlayerDataFourStruct
-from AoE2ScenarioParser.pieces.structs.player_data_three_struct import PlayerDataThreeStruct
+from AoE2ScenarioParser.pieces.structs.player_data_three import PlayerDataThreeStruct
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 
 

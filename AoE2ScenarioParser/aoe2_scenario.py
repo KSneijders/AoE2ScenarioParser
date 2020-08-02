@@ -137,8 +137,7 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
-        
-        if hasattr(self, 'object_manager'):
+        if hasattr(self, '_object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
 
         for data_handler in self.data_handlers:
@@ -200,20 +199,10 @@ class AoE2Scenario:
     ################ Debug functions ################
     ############################################# """
 
-    def _debug_log_all_data_keys(self):
-        """ Used for debugging. """
-        print("FileHeader:")
-        print(self._parsed_header.keys())
-        print("DataHeader:")
-        print("odict_keys([")
-        for x in self._parsed_data.keys():
-            print("\t'" + x + "'")
-        print("])")
-
     def _debug_log_effect_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
         trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        effects = parser.listify(find_retriever(trigger_data.retrievers, "Effect data").data)
+        effects = find_retriever(trigger_data.retrievers, "Effect data").data
 
         for effect in effects:
             for retriever in effect.retrievers:
@@ -233,7 +222,7 @@ class AoE2Scenario:
     def _debug_log_condition_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
         trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        conditions = parser.listify(find_retriever(trigger_data.retrievers, "Condition data").data)
+        conditions = find_retriever(trigger_data.retrievers, "Condition data").data
 
         for condition in conditions:
             for retriever in condition.retrievers:

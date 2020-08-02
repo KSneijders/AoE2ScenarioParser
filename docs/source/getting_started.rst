@@ -11,7 +11,7 @@ To get started import the library in your python project like so::
 
 ::
 
-    input_path = "File/Path/To/Your/Input/File.aoe2scenario"
+    input_path = "File/Path/To/Your/Input/kFile.aoe2scenario"
     output_path = "File/Path/To/Your/Output/File.aoe2scenario"
 
 Now create the ``Scenario`` object with the filename as parameter.::

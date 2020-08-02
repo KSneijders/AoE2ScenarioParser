@@ -21,7 +21,7 @@ StartYearCountdown = trigger_manager.add_trigger("StartYearCountdown")
 condition = StartYearCountdown.add_condition(Condition.OWN_FEWER_OBJECTS)
 condition.amount_or_quantity = 0
 condition.object_list = Building.MONUMENT
-condition.player = Player.GAIA.value
+condition.source_player = Player.GAIA.value
 
 effect = StartYearCountdown.add_effect(Effect.CHANGE_VARIABLE)
 effect.quantity = 550
@@ -86,7 +86,7 @@ for player in range(1, 9):
     condition = trigger.add_condition(Condition.OWN_OBJECTS)
     condition.object_list = Building.MONUMENT
     condition.amount_or_quantity = 1
-    condition.player = player
+    condition.source_player = player
 
     effect = trigger.add_effect(Effect.CLEAR_TIMER)
     effect.variable_or_timer = 1
@@ -108,15 +108,15 @@ for player in range(1, 9):
     condition = trigger.add_condition(Condition.OWN_OBJECTS)
     condition.object_list = Building.MONUMENT
     condition.amount_or_quantity = 1
-    condition.player = player
+    condition.source_player = player
 
-    condition = trigger.add_condition(Condition.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = 100
     condition.comparison = 1
     condition.variable = 1
     condition.inverted = 0
 
-    condition = trigger.add_condition(Condition.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = player
     condition.comparison = 0
     condition.variable = 2
@@ -141,7 +141,7 @@ for player in range(1, 9):
     condition = trigger.add_condition(Condition.OWN_OBJECTS)
     condition.object_list = Building.MONUMENT
     condition.amount_or_quantity = 1
-    condition.player = player
+    condition.source_player = player
 
     effect = trigger.add_effect(Effect.CHANGE_VARIABLE)
     effect.quantity = player
@@ -166,7 +166,7 @@ for player in range(1, 9):
     condition.inverted = 0
 
     effect = trigger.add_effect(Effect.DECLARE_VICTORY)
-    effect.player_source = player
+    effect.source_player = player
 
 for player in range(1, 9):
     """Trigger per player for defeat when king is killed"""
@@ -175,10 +175,10 @@ for player in range(1, 9):
     condition = trigger.add_condition(Condition.OWN_FEWER_OBJECTS)
     condition.amount_or_quantity = 0
     condition.object_list = Unit.KING
-    condition.player = player
+    condition.source_player = player
 
     effect = trigger.add_effect(Effect.DECLARE_VICTORY)
-    effect.player_source = player
+    effect.source_player = player
     effect.enabled_or_victory = 0
 
 # Write scenario
