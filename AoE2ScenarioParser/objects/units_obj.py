@@ -18,7 +18,7 @@ class UnitsObject(AoE2Object):
         # Set the player value for all the units
         for i, units_of_player in enumerate(self.units):
             for unit in units_of_player:
-                unit.player = Player(i)
+                unit._player = Player(i)
 
     @property
     def units(self):
