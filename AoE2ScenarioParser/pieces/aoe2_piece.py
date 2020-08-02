@@ -10,6 +10,25 @@ class AoE2Piece:
         self.parser = parser_obj
         if data:
             self.set_data(data)
+    
+    def __getattr__(self, name):
+        """
+        Providing a default way to access retriever data labeled 'name'
+        """
+        return find_retriever(self.retrievers, name).data
+
+    def __setattr__(self, name, value):
+        """
+        Trying to edit retriever data labeled 'name' if available
+        """
+        if not 'retrievers' in self.__dict__:
+            super().__setattr__(name, value)
+        else:
+            retriever = find_retriever(self.retrievers, name)
+            if retriever is None:
+                super().__setattr__(name, value)
+            else:
+                retriever.data = value
 
     def set_data(self, data):
         saves = {}

@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.helper.alias import Alias
 
-
-class MapObject(AoE2Object):
+class MapObject():
     def __init__(self, map_piece):
-        super().__init__(map_piece)
+        self._map_piece = map_piece
+
+    _map_height = Alias('_map_piece', '_map_height')
+    _map_width  = Alias('_map_piece', '_map_width')
+    terrain_data = Alias('_map_piece', 'terrain_data')
 
     def dump_raw_data(self, required_attr = ['terrain_id', 'elevation', 'layer']) -> []:
         """

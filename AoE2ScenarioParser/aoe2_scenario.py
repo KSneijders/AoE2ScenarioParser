@@ -51,30 +51,8 @@ class AoE2Scenario:
         self._read_file(log_reading=log_reading)
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
-        self.file_header = AoE2Object(self.pieces['FileHeaderPiece'])
-        self.data_header = AoE2Object(self.pieces['DataHeaderPiece'])
-        self.messages = AoE2Object(self.pieces['MessagesPiece'])
-        self.cinematics = AoE2Object(self.pieces['CinematicsPiece'])
-        self.background_image = AoE2Object(self.pieces['BackgroundImagePiece'])
-        # PlayerDataTwoPiece,
-        self.global_victory = AoE2Object(self.pieces['GlobalVictoryPiece'])
-        self.diplomacy = AoE2Object(self.pieces['DiplomacyPiece'])
-        self.options = AoE2Object(self.pieces['OptionsPiece'])
         self.map = MapObject(self.pieces['MapPiece'])
         self.unit_manager = UnitsObject(self.pieces['UnitsPiece'])
-
-        self.data_handlers = [
-            self.file_header,
-            self.data_header,
-            self.messages,
-            self.cinematics,
-            self.background_image,
-            self.global_victory,
-            self.diplomacy,
-            self.options,
-            self.map,
-            self.unit_manager
-        ]
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
@@ -137,11 +115,8 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
-        if hasattr(self, '_object_manager'):
+        if hasattr(self, 'object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
-
-        for data_handler in self.data_handlers:
-            data_handler._save()
         
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
