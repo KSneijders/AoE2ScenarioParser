@@ -40,10 +40,10 @@ Here's an example of how to create (add) a trigger and add a condition and effec
 Select existing Triggers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Selecting a trigger can be done using the `get_trigger` function. The function accepts 2 arguments, `trigger_index` and `display_index`.
-The `trigger_index` expects the trigger ID of a trigger. This is the a number related to the order of creation starting from 0. 
-The `display_index` expects the display ID of a trigger. This is the a number related to the display order in the in-game editor.
-You can use the `get_summary_as_string` function to view these values without opening the in-game editor. 
+Selecting a trigger can be done using the ``get_trigger`` function. The function accepts 2 arguments, ``trigger_index`` and ``display_index``.
+The ``trigger_index`` expects the trigger ID of a trigger. This is the a number related to the order of creation starting from 0. 
+The ``display_index`` expects the display ID of a trigger. This is the a number related to the display order in the in-game editor.
+You can use the ``get_summary_as_string`` function to view these values without opening the in-game editor. 
 The code below includes the code above::
 
     print(trigger_manager.get_summary_as_string())
@@ -57,7 +57,7 @@ The code below includes the code above::
         << No Variables >>
     """
 
-As you can see, the trigger and display index can be seen in the `[Index: x, Display: x]` part. 
+As you can see, the trigger and display index can be seen in the ``[Index: x, Display: x]`` part. 
 These are the numbers you can use to select triggers. Which would look like::
 
     # Define Scenario file
@@ -67,8 +67,8 @@ These are the numbers you can use to select triggers. Which would look like::
     trigger_manager = scenario.trigger_manager
     trigger = trigger_manager.get_trigger(display_index=0)
 
-If you want to see the contents of the trigger you can do so by running the `get_content_as_string` function.
-This will result in the following (with the `create trigger` code)::
+If you want to see the contents of the trigger you can do so by running the ``get_content_as_string`` function.
+This will result in the following (with the ``create trigger`` code)::
 
     print(trigger_manager.get_content_as_string())
     
