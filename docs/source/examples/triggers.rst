@@ -44,7 +44,7 @@ Selecting a trigger can be done using the `get_trigger` function. The function a
 The `trigger_index` expects the trigger ID of a trigger. This is the a number related to the order of creation starting from 0. 
 The `display_index` expects the display ID of a trigger. This is the a number related to the display order in the in-game editor.
 You can use the `get_summary_as_string` function to view these values without opening the in-game editor. 
-The code below includes the code above:
+The code below includes the code above::
 
     print(trigger_manager.get_summary_as_string())
 
