@@ -17,8 +17,8 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('player_1_camera_y', DataType("s32")),
             Retriever('player_1_camera_x', DataType("s32")),
             Retriever('ai_type', DataType("s8")),
-            Retriever('_map_width', DataType("s32"), save_as="map_width"),
-            Retriever('_map_height', DataType("s32"), save_as="map_height"),
+            Retriever('map_width', DataType("s32"), save_as="map_width"),
+            Retriever('map_height', DataType("s32"), save_as="map_height"),
             Retriever('terrain_data', DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
         ]
 
