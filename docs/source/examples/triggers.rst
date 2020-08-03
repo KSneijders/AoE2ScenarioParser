@@ -6,7 +6,7 @@ You can use the trigger manager to add, remove edit and view triggers and variab
 Adding Triggers
 ^^^^^^^^^^^^^^^
 
-a::
+Here's an example of how to create (add) a trigger and add a condition and effect to it::
 
     # File & Folder setup
     from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
@@ -15,10 +15,9 @@ a::
     from AoE2ScenarioParser.datasets.players import Player
     from AoE2ScenarioParser.datasets.units import Unit
 
-    # Define paths to scenario
-    scenario_folder = "C:/Users/Kerwin Sneijders/Games/Age of Empires 2 DE/76561198140740017/resources/_common/scenario/"
-    read_file = scenario_folder + "testout.aoe2scenario"
-    write_to_file = scenario_folder + "test10.aoe2scenario"
+    # Define paths to scenario, you can find this folder by opening AoE2:DE and going to scenarios and clicking on 'open folder'
+    scenario_folder = "YOUR_PATH_TO_THE_SCENARIO_FOLDER"
+    read_file = scenario_folder + "MAP_NAME_TO_BE_READ.aoe2scenario"
 
     # Define Scenario file
     scenario = AoE2Scenario(read_file)
@@ -38,3 +37,23 @@ a::
     create_paladin_effect.location_x = 5
     create_paladin_effect.location_y = 4
 
+Select existing Triggers
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Selecting a trigger can be done using the `get_trigger` function. The function accepts 2 arguments, `trigger_index` and `display_index`.
+The `trigger_index` expects the trigger ID of a trigger. This is the a number related to the order of creation starting from 0. 
+The `display_index` expects the display ID of a trigger. This is the a number related to the display order in the in-game editor.
+You can use the `get_summary_as_string` function to view these values without opening the in-game editor. 
+The code below includes the code above:
+
+    print(trigger_manager.get_summary_as_string())
+
+    # Results in:
+    """
+    Trigger Summary:
+        Trigger 0            [Index: 0, Display: 0]	(conditions: 2,  effects: 1)
+        Trigger Name Here    [Index: 1, Display: 1]	(conditions: 1,  effects: 1)
+
+    Variables Summary:
+        << No Variables >>
+    """
