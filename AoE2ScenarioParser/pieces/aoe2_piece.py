@@ -42,6 +42,7 @@ class AoE2Piece:
 
                 if self.retrievers[i].log_value:
                     print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
+                    
                 self.retrievers[i].set_data(data[i])
 
                 if self.retrievers[i].save_as is not None:

@@ -14,11 +14,13 @@ unit_manager.add_unit(Player.TWO, Unit.PALADIN, 20, 5)
 
 print("Units of player 1:")
 print(unit_manager.units[1])
+# Wololo the blue paladin to red
 unit_manager.change_ownership(unit_manager.units[1][0], Player.TWO)
 
 print('\n')
 print("All units:")
 print(*unit_manager.get_all_units(), sep='\n')
+# Remove the cow from Gaia
 unit_manager.remove_unit(unit_manager.units[0][0])
 
 print('\n')

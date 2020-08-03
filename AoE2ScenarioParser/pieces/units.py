@@ -13,7 +13,7 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
             Retriever("player_data_4", DataType(PlayerDataFourStruct, repeat=8)),
             Retriever("number_of_players", DataType("u32")),  # Also always 9 (Gaia + 8Plyrs)
             Retriever("player_data_3", DataType(PlayerDataThreeStruct, repeat=8)),
-            Retriever("_players_units", DataType(PlayerUnitsStruct), set_repeat="{unit_sections}"),
+            Retriever("players_units", DataType(PlayerUnitsStruct), set_repeat="{unit_sections}"),
         ]
 
         super().__init__("Units", retrievers, parser_obj, data=data)

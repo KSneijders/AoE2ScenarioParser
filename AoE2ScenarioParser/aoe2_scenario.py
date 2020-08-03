@@ -50,7 +50,7 @@ class AoE2Scenario:
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
         self.map = MapObject(self._parsed_data)
-        # self.unit_manager = UnitsObject(self._parsed_data)
+        self.unit_manager = UnitsObject(self._parsed_data)
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
