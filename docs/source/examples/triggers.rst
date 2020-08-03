@@ -51,9 +51,45 @@ The code below includes the code above::
     # Results in:
     """
     Trigger Summary:
-        Trigger 0            [Index: 0, Display: 0]	(conditions: 2,  effects: 1)
-        Trigger Name Here    [Index: 1, Display: 1]	(conditions: 1,  effects: 1)
+        Trigger Name Here    [Index: 0, Display: 0]	(conditions: 1,  effects: 1)
 
     Variables Summary:
         << No Variables >>
+    """
+
+As you can see, the trigger and display index can be seen in the `[Index: x, Display: x]` part. 
+These are the numbers you can use to select triggers. Which would look like::
+
+    # Define Scenario file
+    scenario = AoE2Scenario(read_file)
+
+    # Get Trigger
+    trigger_manager = scenario.trigger_manager
+    trigger = trigger_manager.get_trigger(display_index=0)
+
+If you want to see the contents of the trigger you can do so by running the `get_content_as_string` function.
+This will result in the following (with the `create trigger` code)::
+
+    print(trigger_manager.get_content_as_string())
+    
+    # Results in:
+    """
+    Triggers:
+        'Trigger Name Here' [Index: 0, Display: 0]:
+            enabled: True
+            looping: False
+            conditions:
+                timer [Index: 0, Display: 0]:
+                    timer: 20
+                    inverted: 0
+            effects:
+                create_object [Index: 0, Display: 0]:
+                    object_list_unit_id: Unit.PALADIN
+                    source_player: Player.ONE
+                    location_x: 5
+                    location_y: 4
+                    facet: 0
+
+    Variables:
+        <<No Variables>>
     """
