@@ -63,3 +63,4 @@ class PlayerObject():
         result += "pop_limit " + str(self.pop_limit) + "\n"
         result += "starting_age " + str(self.starting_age) + "\n"
         return result
+        

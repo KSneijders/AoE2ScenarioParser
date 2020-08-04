@@ -110,8 +110,9 @@ class AoE2Scenario:
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
         
-        # To modify to use the 'store-no-data' paradigm, where all data is stored in the pieces
-        TriggersObject._reconstruct_object(self._parsed_header, self._parsed_data, {'TriggersObject', self.trigger_manager})
+        # Needs to be modified to use the 'store-no-data' paradigm, where all data is stored in the pieces
+        if hasattr(self, 'trigger_manager'):
+            TriggersObject._reconstruct_object(self._parsed_header, self._parsed_data, {'TriggersObject': self.trigger_manager})
         
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")

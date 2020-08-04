@@ -455,7 +455,7 @@ class TriggersObject():
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
         display_order_retriever.data = display_order_retriever.data
         file_header_trigger_count_retriever = find_retriever(parsed_header['FileHeaderPiece'].retrievers,
-                                                             "Trigger count")
+                                                             "trigger_count")
 
         number_of_variable_retriever = find_retriever(
             parsed_data['TriggerPiece'].retrievers, "Number of variables")
