@@ -6,11 +6,10 @@ from typing import List, Union
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 
 
-class EffectObject(AoE2Object):
+class EffectObject():
     def __init__(self,
                  effect_type: int,
                  ai_script_goal: int,

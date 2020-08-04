@@ -9,12 +9,11 @@ from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 
-class TriggersObject(AoE2Object):
+class TriggersObject():
     def __init__(self,
                  triggers: List[TriggerObject],
                  trigger_display_order: List[int],

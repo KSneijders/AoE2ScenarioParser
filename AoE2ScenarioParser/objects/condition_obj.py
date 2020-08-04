@@ -4,11 +4,10 @@ from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 
 
-class ConditionObject(AoE2Object):
+class ConditionObject():
     def __init__(self,
                  condition_type: int,
                  amount_or_quantity: int,

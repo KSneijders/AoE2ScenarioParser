@@ -6,13 +6,12 @@ from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.condition_obj import ConditionObject
 from AoE2ScenarioParser.objects.effect_obj import EffectObject
 from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 
 
-class TriggerObject(AoE2Object):
+class TriggerObject():
     def __init__(self,
                  name: str,
                  description: str = "",
