@@ -21,6 +21,7 @@ from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 from AoE2ScenarioParser.objects.map_obj import MapObject
+from AoE2ScenarioParser.objects.player_obj import PlayerObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
 
@@ -51,6 +52,7 @@ class AoE2Scenario:
 
         self.map = MapObject(self._parsed_data)
         self.unit_manager = UnitsObject(self._parsed_data)
+        self.players = PlayerObject.create_player_list(self._parsed_data)
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)

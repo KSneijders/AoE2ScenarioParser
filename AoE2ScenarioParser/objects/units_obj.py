@@ -10,10 +10,10 @@ from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 class UnitsObject():
-    _players_units = Alias('_units_piece', 'players_units')
+    _players_units = Alias('self._units_piece.players_units')
 
-    def __init__(self, pieces):
-        self._units_piece = pieces['UnitsPiece']
+    def __init__(self, parsed_data):
+        self._units_piece = parsed_data['UnitsPiece']
 
         # Set the player value for all the units
         for i, units_of_player in enumerate(self.units):

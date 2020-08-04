@@ -6,7 +6,6 @@ from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.units import Unit
 
-
 scenario = AoE2Scenario("../resources/maps/TwoUnits.aoe2scenario")
 unit_manager = scenario.unit_manager
 

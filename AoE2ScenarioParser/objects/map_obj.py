@@ -5,12 +5,12 @@ from typing import List
 from AoE2ScenarioParser.helper.alias import Alias
 
 class MapObject():
-    def __init__(self, pieces):
-        self._map_piece = pieces['MapPiece']
+    def __init__(self, parsed_data):
+        self._map_piece = parsed_data['MapPiece']
 
-    _map_height = Alias('_map_piece', 'map_height')
-    _map_width  = Alias('_map_piece', 'map_width')
-    terrain_data = Alias('_map_piece', 'terrain_data')
+    _map_height = Alias('self._map_piece.map_height')
+    _map_width  = Alias('self._map_piece.map_width')
+    terrain_data = Alias('self._map_piece.terrain_data')
 
     def dump_raw_data(self, required_attr = ['terrain_id', 'elevation', 'layer']) -> []:
         """

@@ -15,7 +15,10 @@ class AoE2Piece:
         """
         Providing a default way to access retriever data labeled 'name'
         """
-        return find_retriever(self.retrievers, name).data
+        try:
+            return find_retriever(self.retrievers, name).data
+        except:
+            raise AttributeError("No attribute retriever named \'" + name + "\' in piece \'" + str(type(self)) + "\'")
 
     def __setattr__(self, name, value):
         """
