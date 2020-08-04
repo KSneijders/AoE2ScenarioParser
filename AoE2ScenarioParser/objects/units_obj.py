@@ -10,6 +10,11 @@ from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 class UnitsObject():
+    """
+    The units manager object provides some default handlers for units,
+    since performing simple operations such as adding or removing units require to
+    modify different places in the file.
+    """
     _players_units = Alias('self._units_piece.players_units')
 
     def __init__(self, parsed_data):

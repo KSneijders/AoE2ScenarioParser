@@ -1,6 +1,13 @@
 from AoE2ScenarioParser.helper.alias import Alias
 
 class PlayerObject():
+    """
+    The player object is providing handlers that match the features of the player
+    tab in the in-game editor
+
+    Since player data is scattered around the scenario file, it provides a
+    centralized way to access meaningful data about one player
+    """
     active = Alias('self._player_data_one[self._internal_player_id].active')
     human  = Alias('self._player_data_one[self._internal_player_id].human')
 
