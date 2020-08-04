@@ -12,8 +12,6 @@ class VariableObject():
         self.variable_id = variable_id
         self.name = name
 
-        super().__init__(None)
-
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> VariableObject:
         # Expected {variable=VariableStruct}

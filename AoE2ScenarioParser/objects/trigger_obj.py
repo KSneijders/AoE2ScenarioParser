@@ -61,8 +61,6 @@ class TriggerObject():
 
         self.trigger_id = trigger_id
 
-        super().__init__(None)
-
     @property
     def conditions(self) -> List[ConditionObject]:
         return self._conditions

@@ -24,8 +24,6 @@ class TriggersObject():
         self.trigger_display_order: List[int] = trigger_display_order
         self.variables: List[VariableObject] = variables
 
-        super().__init__(None)
-
     def copy_trigger_per_player(self,
                                 from_player: IntEnum,
                                 change_from_player_only: bool = False,

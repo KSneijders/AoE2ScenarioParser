@@ -115,8 +115,6 @@ class EffectObject():
         self.sound_name: str = sound_name
         self.selected_object_id: List[int] = selected_object_id
 
-        super().__init__(None)
-
     @property
     def selected_object_id(self) -> List[int]:
         return self._selected_object_id
