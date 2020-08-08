@@ -1,16 +1,19 @@
 from __future__ import annotations
 
 from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.variable import VariableStruct
 
 
-class VariableObject():
+class VariableObject(AoE2Object):
     def __init__(self,
                  variable_id,
                  name
                  ):
         self.variable_id = variable_id
         self.name = name
+
+        super().__init__()
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> VariableObject:

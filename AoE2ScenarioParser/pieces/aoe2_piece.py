@@ -10,28 +10,6 @@ class AoE2Piece:
         self.parser = parser_obj
         if data:
             self.set_data(data)
-    
-    def __getattr__(self, name):
-        """
-        Providing a default way to access retriever data labeled 'name'
-        """
-        try:
-            return find_retriever(self.retrievers, name).data
-        except:
-            raise AttributeError("No attribute retriever named \'" + name + "\' in piece \'" + str(type(self)) + "\'")
-
-    def __setattr__(self, name, value):
-        """
-        Trying to edit retriever data labeled 'name' if available
-        """
-        if not 'retrievers' in self.__dict__:
-            super().__setattr__(name, value)
-        else:
-            retriever = find_retriever(self.retrievers, name)
-            if retriever is None:
-                super().__setattr__(name, value)
-            else:
-                retriever.data = value
 
     def set_data(self, data):
         saves = {}
@@ -45,7 +23,6 @@ class AoE2Piece:
 
                 if self.retrievers[i].log_value:
                     print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
-                    
                 self.retrievers[i].set_data(data[i])
 
                 if self.retrievers[i].save_as is not None:
