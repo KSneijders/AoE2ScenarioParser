@@ -9,12 +9,11 @@ from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 
-class TriggersObject(AoE2Object):
+class TriggersObject():
     def __init__(self,
                  triggers: List[TriggerObject],
                  trigger_display_order: List[int],
@@ -24,8 +23,6 @@ class TriggersObject(AoE2Object):
         self.triggers: List[TriggerObject] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
         self.variables: List[VariableObject] = variables
-
-        super().__init__()
 
     def copy_trigger_per_player(self,
                                 from_player: IntEnum,
@@ -458,7 +455,7 @@ class TriggersObject(AoE2Object):
         display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
         display_order_retriever.data = display_order_retriever.data
         file_header_trigger_count_retriever = find_retriever(parsed_header['FileHeaderPiece'].retrievers,
-                                                             "Trigger count")
+                                                             "trigger_count")
 
         number_of_variable_retriever = find_retriever(
             parsed_data['TriggerPiece'].retrievers, "Number of variables")

@@ -6,7 +6,6 @@ from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -20,16 +19,13 @@ from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
+from AoE2ScenarioParser.objects.map_obj import MapObject
+from AoE2ScenarioParser.objects.player_obj import PlayerObject
+from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
+from AoE2ScenarioParser.objects.units_obj import UnitsObject
+
 
 class AoE2Scenario:
-    @property
-    def trigger_manager(self):
-        return self._object_manager.trigger_manager
-
-    @property
-    def unit_manager(self):
-        return self._object_manager.unit_manager
-
     def __init__(self, filename, log_reading=True, log_parsing=False):
         print("\nPreparing & Loading file: '" + filename + "'...")
 
@@ -48,7 +44,11 @@ class AoE2Scenario:
 
         self.parser = parser.Parser()
         self._read_file(log_reading=log_reading)
-        self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
+
+        self.map = MapObject(self._parsed_data)
+        self.players = PlayerObject.create_player_list(self._parsed_data)
+        self.trigger_manager = TriggersObject._parse_object(self._parsed_data)
+        self.unit_manager = UnitsObject(self._parsed_data)
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(should_log=log_reading)
@@ -109,8 +109,11 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
                               log_writing=True, log_reconstructing=False):
-        if hasattr(self, '_object_manager'):
-            self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
+        
+        # Needs to be modified to use the 'store-no-data' paradigm, where all data is stored in the pieces
+        if hasattr(self, 'trigger_manager'):
+            TriggersObject._reconstruct_object(self._parsed_header, self._parsed_data, {'TriggersObject': self.trigger_manager})
+        
         lgr = SimpleLogger(should_log=log_writing)
         lgr.print("\nFile writing from structure started...")
 

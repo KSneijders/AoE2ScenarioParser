@@ -4,11 +4,10 @@ from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.retriever import find_retriever
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 
 
-class ConditionObject(AoE2Object):
+class ConditionObject():
     def __init__(self,
                  condition_type: int,
                  amount_or_quantity: int,
@@ -52,8 +51,6 @@ class ConditionObject(AoE2Object):
         self.variable: int = variable
         self.comparison: int = comparison
         self.target_player: IntEnum = target_player
-
-        super().__init__()
 
     def get_content_as_string(self) -> str:
         attributes_list = conditions.attributes[self.condition_type]
