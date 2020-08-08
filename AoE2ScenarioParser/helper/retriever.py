@@ -3,19 +3,19 @@ from AoE2ScenarioParser.helper.datatype import DataType
 
 
 class Retriever:
-    """ A Class for defining how to retrieve data.
-    The Constructor has quite some parameters which can all be used for getting the proper data
-        name: The name of the item. Recommended to make this unique within the Piece or Struct
-        datatype: A datatype object
-        on_success: A lambda which can be used to execute some code once the data is retrieved. You can use one
-                    parameter; the data that got retrieved.
-        save_as: Save the value retrieved to a dict. Can be used later with the 'set_repeat' parameter
-        set_repeat: Use a saved value (from 'save_as') to set repeat value. You can use values from the dict by
-                    surrounding them with curly brackets. The string will be executed using eval.
-        log_value: A boolean for, mostly, debugging. This will log this Retriever with it's data on retrieval.
-    """
-
     def __init__(self, name, datatype=DataType(), on_success=None, save_as=None, set_repeat=None, log_value=False):
+        """ A Class for defining how to retrieve data.
+
+        Args:
+            name: The name of the item. Recommended to make this unique within the Piece or Struct
+            datatype: A datatype object
+            on_success: A lambda which can be used to execute some code once the data is retrieved. You can use one
+                        parameter; the data that got retrieved.
+            save_as: Save the value retrieved to a dict. Can be used later with the 'set_repeat' parameter
+            set_repeat: Use a saved value (from 'save_as') to set repeat value. You can use values from the dict by
+                        surrounding them with curly brackets. The string will be executed using eval.
+            log_value: A boolean for, mostly, debugging. This will log this Retriever with it's data on retrieval.
+        """
         self.name = name
         self.datatype = datatype
         self.on_success = on_success

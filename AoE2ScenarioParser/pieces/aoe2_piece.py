@@ -1,5 +1,5 @@
-from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import find_retriever
 
 
@@ -10,28 +10,23 @@ class AoE2Piece:
         self.parser = parser_obj
         if data:
             self.set_data(data)
-    
+
     def __getattr__(self, name):
         """
         Providing a default way to access retriever data labeled 'name'
         """
-        try:
-            return find_retriever(self.retrievers, name).data
-        except:
-            raise AttributeError("No attribute retriever named \'" + name + "\' in piece \'" + str(type(self)) + "\'")
+        return find_retriever(self.retrievers, name).data
 
     def __setattr__(self, name, value):
         """
         Trying to edit retriever data labeled 'name' if available
         """
-        if not 'retrievers' in self.__dict__:
-            super().__setattr__(name, value)
-        else:
+        if 'retrievers' in self.__dict__:
             retriever = find_retriever(self.retrievers, name)
-            if retriever is None:
-                super().__setattr__(name, value)
-            else:
+            if retriever is not None:
                 retriever.data = value
+                return
+        super().__setattr__(name, value)
 
     def set_data(self, data):
         saves = {}
@@ -45,7 +40,7 @@ class AoE2Piece:
 
                 if self.retrievers[i].log_value:
                     print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
-                    
+
                 self.retrievers[i].set_data(data[i])
 
                 if self.retrievers[i].save_as is not None:
@@ -151,7 +146,7 @@ class AoE2Piece:
         return byte_structure + "\n\n"
 
     def __str__(self):
-        represent = self.piece_type + ": \n"
+        represent = self.piece_type + " [Retrievers]: \n"
 
         for i, val in enumerate(self.retrievers):
             if type(self.retrievers[i].data) is list and len(self.retrievers[i].data) > 0:

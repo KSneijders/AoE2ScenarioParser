@@ -1,6 +1,7 @@
 from AoE2ScenarioParser.helper.alias import Alias
 
-class PlayerObject():
+
+class PlayerObject:
     """
     The player object is providing handlers that match the features of the player
     tab in the in-game editor
@@ -8,8 +9,15 @@ class PlayerObject():
     Since player data is scattered around the scenario file, it provides a
     centralized way to access meaningful data about one player
     """
-    active = Alias('self._player_data_one[self._internal_player_id].active')
-    human  = Alias('self._player_data_one[self._internal_player_id].human')
+    active: bool = Alias('self._player_data_one[self._internal_player_id].active')
+    human = Alias('self._player_data_one[self._internal_player_id].human')
+    civilization = Alias('self._player_data_one[self._internal_player_id].civilization')
+    gold = Alias('self._resources[self._internal_player_id].gold')
+    wood = Alias('self._resources[self._internal_player_id].wood')
+    food = Alias('self._resources[self._internal_player_id].food')
+    stone = Alias('self._resources[self._internal_player_id].stone')
+    color = Alias('self._resources[self._internal_player_id].player_color')
+    starting_age = Alias('self._per_player_starting_age[self._internal_player_id]')
 
     def __init__(self, player_id, parsed_data):
         self._player_data_one = parsed_data['DataHeaderPiece'].player_data_1
@@ -17,24 +25,14 @@ class PlayerObject():
         self._player_data_four = parsed_data['UnitsPiece'].player_data_4
         self._per_player_starting_age = parsed_data['OptionsPiece'].per_player_starting_age
 
-        self.player_id = player_id # 0 = Gaia, 1-8 players, to be consistent with units
-
-    active       = Alias('self._player_data_one[self._internal_player_id].active')
-    human        = Alias('self._player_data_one[self._internal_player_id].human')
-    civilization = Alias('self._player_data_one[self._internal_player_id].civilization')
-    gold         = Alias('self._resources[self._internal_player_id].gold')
-    wood         = Alias('self._resources[self._internal_player_id].wood')
-    food         = Alias('self._resources[self._internal_player_id].food')
-    stone        = Alias('self._resources[self._internal_player_id].stone')
-    color        = Alias('self._resources[self._internal_player_id].player_color')
-    starting_age = Alias('self._per_player_starting_age[self._internal_player_id]')
+        self.player_id = player_id  # 0 = Gaia, 1-8 players, to be consistent with units
 
     @property
     def pop_limit(self):
-        if self.player_id == 0: # Gaia has no pop limit
+        if self.player_id == 0:  # Gaia has no pop limit
             return -1
         return self._player_data_four[self._internal_player_id].population_limit
-    
+
     @pop_limit.setter
     def pop_limit(self, val):
         if self.player_id != 0:
@@ -42,7 +40,7 @@ class PlayerObject():
 
     @staticmethod
     def create_player_list(parsed_data):
-        return [PlayerObject(i, parsed_data) for i in range(0,9)]
+        return [PlayerObject(i, parsed_data) for i in range(0, 9)]
 
     @property
     def _internal_player_id(self):
@@ -55,7 +53,7 @@ class PlayerObject():
         """
         if self.player_id == 0:
             return 8
-        return self.player_id-1
+        return self.player_id - 1
 
     def __repr__(self):
         result = ""
@@ -70,4 +68,3 @@ class PlayerObject():
         result += "pop_limit " + str(self.pop_limit) + "\n"
         result += "starting_age " + str(self.starting_age) + "\n"
         return result
-        

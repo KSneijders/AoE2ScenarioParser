@@ -9,13 +9,14 @@ from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
-class UnitsObject():
+
+class UnitsObject:
     """
     The units manager object provides some default handlers for units,
     since performing simple operations such as adding or removing units require to
     modify different places in the file.
     """
-    _players_units = Alias('self._units_piece.players_units')
+    _players_units: List[PlayerUnitsStruct] = Alias('self._units_piece.players_units')
 
     def __init__(self, parsed_data):
         self._units_piece = parsed_data['UnitsPiece']
@@ -26,7 +27,7 @@ class UnitsObject():
                 unit._player = Player(i)
 
     @property
-    def units(self):
+    def units(self) -> List[List[UnitStruct]]:
         return [player_units.units for player_units in self._players_units]
 
     def add_unit(self, player: Player, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
@@ -67,7 +68,7 @@ class UnitsObject():
 
         unit._player = player
 
-        self.units[player.value].append(unit)
+        self.units[player].append(unit)
         self._update_unit_count()
         return unit
 
@@ -78,9 +79,9 @@ class UnitsObject():
         Raises:
             ValueError: If player is not between 0 (GAIA) and 8 (EIGHT)
         """
-        if not 0 <= player.value <= 8:
+        if not 0 <= player <= 8:
             raise ValueError("Player must have a value between 0 and 8")
-        return self.units[player.value]
+        return self.units[player]
 
     def get_all_units(self) -> List[UnitStruct]:
         units = []
@@ -163,10 +164,10 @@ class UnitsObject():
             unit: The unit object which ownership will be changed
             to_player: The player that'll get ownership over the unit (using Player enum)
         """
-        for i, player_unit in enumerate(self.units[unit.player.value]):
+        for i, player_unit in enumerate(self.units[unit.player]):
             if player_unit == unit:
-                del self.units[unit.player.value][i]
-                self.units[to_player.value].append(unit)
+                del self.units[unit.player][i]
+                self.units[to_player].append(unit)
                 unit._player = Player(to_player)
                 self._update_unit_count()
                 return
@@ -191,7 +192,7 @@ class UnitsObject():
                     if unit.reference_id == reference_id:
                         del self.units[player][i]
         elif unit is not None:
-            self.units[unit.player.value].remove(unit)
+            self.units[unit.player].remove(unit)
         
         self._update_unit_count()
 
