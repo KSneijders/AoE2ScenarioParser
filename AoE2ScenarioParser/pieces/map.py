@@ -19,7 +19,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('ai_type', DataType("s8")),
             Retriever('map_width', DataType("s32"), save_as="map_width"),
             Retriever('map_height', DataType("s32"), save_as="map_height"),
-            Retriever('terrain', DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
+            Retriever('terrain_data', DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
         ]
 
         super().__init__("Map", retrievers, parser_obj, data=data)
