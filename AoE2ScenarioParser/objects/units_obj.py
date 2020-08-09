@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import List
 
 from AoE2ScenarioParser.datasets.players import Player
-from AoE2ScenarioParser.datasets.units import Unit
 from AoE2ScenarioParser.helper.alias import Alias
 from AoE2ScenarioParser.helper.helper import Tile
+from AoE2ScenarioParser.objects.unit_obj import UnitObject
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
@@ -21,20 +21,27 @@ class UnitsObject:
     def __init__(self, parsed_data):
         self._units_piece = parsed_data['UnitsPiece']
 
-        # Set the player value for all the units
-        for i, units_of_player in enumerate(self.units):
-            for unit in units_of_player:
-                unit._player = Player(i)
-
-    @property
-    def units(self) -> List[List[UnitStruct]]:
-        return [player_units.units for player_units in self._players_units]
+        self.units: List[List[UnitObject]] = []
+        for i, player_units in enumerate(self._units_piece.players_units):
+            current_unit_list = []
+            self.units.append(current_unit_list)
+            for unit in player_units.units:
+                unit_object = UnitObject(unit)
+                unit_object._player = Player(i)
+                current_unit_list.append(unit_object)
 
     def add_unit(self, player: Player, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
-                 reference_id: int = None, ) -> UnitStruct:
+                 reference_id: int = None, ) -> UnitObject:
         """
         Adds a unit to the scenario.
+
+        Please note, for every unit added a search is done for the next available reference ID. This is done using
+        the function `get_next_available_reference_id()`. This is only executed if `reference_id` is left empty. If
+        you're intending on adding many units it is recommended to run `get_next_available_reference_id()` once
+        yourself. You can use the result to fill the `reference_id` attribute and increment the value by yourself per
+        unit. This could improve performance massively. For more information, please read the docstring of said
+        function.
 
         Args:
             player: The player the unit belongs to.
@@ -49,22 +56,20 @@ class UnitsObject:
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
         Returns:
-            The UnitStruct created
+            The UnitObject created
         """
         if reference_id is None:
             reference_id = self.get_next_available_reference_id()
 
-        unit = UnitStruct(data = [
-            x,
-            y,
-            z,
+        unit = UnitObject(UnitStruct(data=[
+            x, y, z,
             reference_id,
             unit_const,
             status,
             rotation,
             animation_frame,
             garrisoned_in_id,
-        ])
+        ]))
 
         unit._player = player
 
@@ -72,26 +77,23 @@ class UnitsObject:
         self._update_unit_count()
         return unit
 
-    def get_player_units(self, player: Player) -> List[UnitStruct]:
-        """
-        Returns a list of UnitObjects for the given player.
-
-        Raises:
-            ValueError: If player is not between 0 (GAIA) and 8 (EIGHT)
-        """
-        if not 0 <= player <= 8:
-            raise ValueError("Player must have a value between 0 and 8")
+    def get_player_units(self, player: Player) -> List[UnitObject]:
+        """Returns a list of UnitObjects for the given player."""
         return self.units[player]
 
-    def get_all_units(self) -> List[UnitStruct]:
+    def get_all_units(self) -> List[UnitObject]:
         units = []
         for player_units in self.units:
             units += player_units
         return units
 
     def remove_eye_candy(self) -> None:
+        """
+        Remove eye candy objects from the map. List is a WIP.
+        """
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
+        self._update_unit_count()
 
     def get_units_in_area(self,
                           x1: float = None,
@@ -100,7 +102,7 @@ class UnitsObject:
                           y2: float = None,
                           tile1: Tile = None,
                           tile2: Tile = None,
-                          unit_list: List[UnitStruct] = None,
+                          unit_list: List[UnitObject] = None,
                           players: List[Player] = None,
                           ignore_players: List[Player] = None):
         """
@@ -137,7 +139,7 @@ class UnitsObject:
         if players is not None and ignore_players is not None:
             raise ValueError("Cannot use both whitelist (players) and blacklist (ignore_players) at the same time")
 
-        if tile1:
+        if tile1 and tile2:
             x1 = tile1.x1
             y1 = tile1.y1
             x2 = tile2.x2
@@ -156,7 +158,7 @@ class UnitsObject:
         return [unit for unit in unit_list
                 if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
-    def change_ownership(self, unit: UnitStruct, to_player: Player) -> None:
+    def change_ownership(self, unit: UnitObject, to_player: Player) -> None:
         """
         Changes a unit's ownership to the given player.
 
@@ -164,7 +166,7 @@ class UnitsObject:
             unit: The unit object which ownership will be changed
             to_player: The player that'll get ownership over the unit (using Player enum)
         """
-        for i, player_unit in enumerate(self.units[unit.player]):
+        for i, player_unit in enumerate(self.units[unit.player.value]):
             if player_unit == unit:
                 del self.units[unit.player][i]
                 self.units[to_player].append(unit)
@@ -173,29 +175,38 @@ class UnitsObject:
                 return
 
     def get_next_available_reference_id(self) -> int:
-        highest_id = 0  # If no units, default to 0
-        for player in range(0, 9):
+        """
+        Finds the highest reference ID currently used (n). Returns n + 1.
+
+        Please note: that this function searches through all units. If this function is used for the creation of
+        units (or anything comparable) and also within a controlled order, it is recommended to run this function
+        once. Then save the result and increment this value yourself and use the 'reference_id' attribute in the
+        add_unit function.
+        """
+        highest_id: int = 0  # If no units, default to 0
+        for player in Player:
             for unit in self.units[player]:
                 if highest_id < unit.reference_id:
                     highest_id = unit.reference_id
         return highest_id + 1
 
-    def remove_unit(self, unit: UnitStruct = None, reference_id: int = None):
+    def remove_unit(self, unit: UnitObject = None, reference_id: int = None):
         if reference_id is not None and unit is not None:
-            raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
+            raise ValueError("Cannot use both reference_id and unit arguments. Use one or the other.")
         if reference_id is None and unit is None:
-            raise ValueError("Both unit_ref_id and unit arguments were unused. Use one.")
+            raise ValueError("Select a unit to be removed using the reference_id or unit arguments.")
 
         if reference_id is not None:
-            for player in range(0, 9):
+            for player in Player:
                 for i, unit in enumerate(self.units[player]):
                     if unit.reference_id == reference_id:
                         del self.units[player][i]
         elif unit is not None:
             self.units[unit.player].remove(unit)
-        
+
         self._update_unit_count()
 
     def _update_unit_count(self):
-        for i in range(0, 9):
-            self._players_units[i].unit_count = len(self.units[i])
+        """Updates the unit_count numbers in the pieces"""
+        for p in Player:
+            self._players_units[p].unit_count = len(self.units[p])
