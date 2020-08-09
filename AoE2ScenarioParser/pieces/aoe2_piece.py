@@ -15,7 +15,13 @@ class AoE2Piece:
         """
         Providing a default way to access retriever data labeled 'name'
         """
-        return find_retriever(self.retrievers, name).data
+        if name not in self.__dict__:
+            try:
+                return find_retriever(self.retrievers, name).data
+            except AttributeError as e:
+                print(f"\n[AttributeError] Can't find retriever '{name}' in retriever list: "
+                      f"{[retriever.name for retriever in self.retrievers]}\n")
+                raise AttributeError(e)
 
     def __setattr__(self, name, value):
         """
