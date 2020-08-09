@@ -7,13 +7,9 @@ The format is based on [Keep a Changelog]
 
 ## [Unreleased]
 
-**Please note:** This patch includes a big backend rework. This was added through a pull request made by [pvallet]. Instead of the reconstructing phase (started when writing the new scenario file), the Pieces are directly linked to the Objects! If you find any issues please report them!
-
-[pvallet]: https://github.com/pvallet
-
 ### Added
 
-- `remove_condition()` and `revmove_effect()` to TriggerObject
+- `remove_condition()` and `remove_effect()` to TriggerObject
 - `get_condition()` and `get_effect()` to TriggerObject
 - The index and display index to the `trigger.get_content_as_string()` 
 - Four very powerful trigger features! Please check the triggers cheatsheet for the how-to.
