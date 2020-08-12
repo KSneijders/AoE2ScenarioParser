@@ -2,29 +2,44 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import find_retriever, RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 
 
 class MapObject(AoE2Object):
-    def __init__(self,
-                 map_color_mood: str,
-                 collide_and_correct: bool,
-                 villager_force_drop: bool,
-                 map_width: int,
-                 map_height: int,
-                 terrain: List[List[TerrainObject]]
-                 ):
+    _link_list = [
+        RetrieverObjectLink("map_color_mood", "data.MapPiece.map_color_mood"),
+        RetrieverObjectLink("collide_and_correct", "data.MapPiece.collide_and_correct"),
+        RetrieverObjectLink("villager_force_drop", "data.MapPiece.villager_force_drop"),
+        RetrieverObjectLink("_map_width", "data.MapPiece.map_width"),
+        RetrieverObjectLink("_map_height", "data.MapPiece.map_height"),
+        RetrieverObjectLink("terrain", "data.MapPiece.terrain_data", process_as_object=TerrainObject),
+    ]
 
-        self.map_color_mood: str = map_color_mood
-        self.collide_and_correct: bool = collide_and_correct
-        self.villager_force_drop: bool = villager_force_drop
-        self._map_width: int = map_width
-        self._map_height: int = map_height
-        self.terrain: List[List[TerrainObject]] = terrain
+    map_color_mood: str
+    collide_and_correct: bool
+    villager_force_drop: bool
+    _map_width: int
+    _map_height: int
+    terrain: List[TerrainObject]
+
+    def __init__(self, parsed_header, parsed_data, instance_number: int = -1):
+        self._parsed_header = parsed_header
+        self._parsed_data = parsed_data
+        self._instance_number = instance_number
+
+        self.construct()
 
         super().__init__()
+
+    def construct(self):
+        for link in self._link_list:
+            self.__setattr__(link.name, link.retrieve(self._parsed_header, self._parsed_data, self._instance_number))
+
+    def commit(self):
+        for link in self._link_list:
+            link.commit(self._parsed_header, self._parsed_data, self.__getattribute__(link.name))
 
     @property
     def map_size(self) -> int:

@@ -18,17 +18,19 @@ from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
 
 class AoE2ObjectManager:
-    def __init__(self, parser_header, parsed_data, log_parsing=True):
+    def __init__(self, parsed_header, parsed_data, log_parsing=True):
         lgr = SimpleLogger(should_log=log_parsing)
         lgr.print("\nParsing pieces and structs to objects...")
-        self.parser_header = parser_header
+        self.parsed_header = parsed_header
         self.parsed_data = parsed_data
         self._objects = {}
         self._finished_new_structure = {
             "UnitsObject": UnitsObject,
             "TriggersObject": TriggersObject,
-            "MapObject": MapObject,
+            # "MapObject": MapObject,
         }
+
+        self.map_manager = MapObject(self.parsed_header, self.parsed_data)
 
         # self._objects = {
         #     # "FileHeaderObject": self._parse_file_header_object(),
@@ -57,9 +59,9 @@ class AoE2ObjectManager:
     def unit_manager(self) -> UnitsObject:
         return self._objects['UnitsObject']
 
-    @property
-    def map_manager(self) -> MapObject:
-        return self._objects['MapObject']
+    # @property
+    # def map_manager(self) -> MapObject:
+    #     return self._objects['MapObject']
 
     def reconstruct(self, log_reconstructing=False):
         lgr = SimpleLogger(should_log=log_reconstructing)
@@ -67,7 +69,7 @@ class AoE2ObjectManager:
 
         for key in self._finished_new_structure.keys():
             lgr.print("\tReconstructing " + key + "...")
-            self._objects[key]._reconstruct_object(self.parser_header, self.parsed_data, self._objects)
+            self._objects[key]._reconstruct_object(self.parsed_header, self.parsed_data, self._objects)
             lgr.print("\tReconstructing " + key + " finished successfully.")
 
         lgr.print("Reconstruction finished successfully.")
@@ -193,7 +195,7 @@ class AoE2ObjectManager:
         )
 
     def _parse_file_header_object(self):
-        object_piece = self.parser_header['FileHeaderPiece']
+        object_piece = self.parsed_header['FileHeaderPiece']
         retrievers = object_piece.retrievers
 
         return FileHeaderObject(
