@@ -7,6 +7,7 @@ from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import find_retriever
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
+from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -29,6 +30,10 @@ class AoE2Scenario:
     @property
     def unit_manager(self):
         return self._object_manager.unit_manager
+
+    @property
+    def map_manager(self) -> MapObject:
+        return self._object_manager.map_manager
 
     def __init__(self, filename, log_reading=True, log_parsing=False):
         print("\nPreparing & Loading file: '" + filename + "'...")

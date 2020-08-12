@@ -1,5 +1,13 @@
+from __future__ import annotations
+
+from typing import Type, Any, TYPE_CHECKING, List
+
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
 class Retriever:
@@ -44,7 +52,67 @@ class Retriever:
         return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + data
 
 
-def find_retriever(retriever_list, name):
-    for x in retriever_list:
-        if x.name == name:
-            return x
+class RetrieverObjectLink:
+    def __init__(self, variable_name: str, link: str, process_as_object: Type[AoE2Object] = None):
+        if link[:5] not in ["head.", "data."]:
+            raise ValueError(f"The link parameter needs to start with \"head.\" or \"data.\", not \"{link[:5]}\"")
+
+        self.name: str = variable_name
+        self.link: str = self._process_link(link)
+        self.process_as_object: Type[AoE2Object] = process_as_object
+
+    def retrieve(self, parsed_header, parsed_data, instance_number: int) -> Any:
+        value = eval(self.link, {}, {
+            'head': dict(parsed_header),
+            'data': dict(parsed_data),
+            '__index__': instance_number
+        })
+
+        if self.process_as_object is not None:
+            value_list = []
+            for index, struct in enumerate(value):
+                value_list.append(self.process_as_object(parsed_header, parsed_data, instance_number=index))
+            return value_list
+        else:
+            return value
+
+    def commit(self, parsed_header, parsed_data, value) -> None:
+        if self.process_as_object is not None:
+            to_struct = self._retrieve_piece_type(parsed_data, parsed_data, self.link)
+            value_list = []
+            for index, obj in enumerate(value):
+                piece = to_struct()
+                value_list.append(piece)
+                for rol in obj._link_list:
+                    attr = rol.link.split(".").pop()
+                    piece.__setattr__(attr, obj.__getattribute__(rol.name))
+
+            value = value_list
+            exec(self.link + " = value", {}, {
+                'head': dict(parsed_header),
+                'data': dict(parsed_data),
+                'value': value
+            })
+
+    @staticmethod
+    def _process_link(link) -> str:
+        next_dot = link[5:].find(".")
+        # Convert piece attribute to dict key (data.MapPiece.x > data['MapPiece'].x)
+        link = link[:4] + "['" + link[5:5 + next_dot] + "']" + link[5 + next_dot:]
+        return link
+
+    @staticmethod
+    def _retrieve_piece_type(parsed_header, parsed_data, link) -> Type[AoE2Piece]:
+        split_link = link.split(".")
+        link_end = split_link.pop()
+        return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
+            'head': dict(parsed_header),
+            'data': dict(parsed_data),
+            'find_retriever': find_retriever
+        })
+
+
+def find_retriever(retriever_list: List[Retriever], name: str) -> Retriever:
+    for retriever in retriever_list:
+        if retriever.name == name:
+            return retriever
