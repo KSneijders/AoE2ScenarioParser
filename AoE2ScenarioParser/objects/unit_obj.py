@@ -91,15 +91,15 @@ class UnitObject(AoE2Object):
 
         return UnitObject(
             player=kwargs['player'],
-            x=find_retriever(unit.retrievers, "X position").data,
-            y=find_retriever(unit.retrievers, "Y position").data,
-            z=find_retriever(unit.retrievers, "Z position").data,
-            reference_id=find_retriever(unit.retrievers, "ID").data,
-            unit_const=find_retriever(unit.retrievers, "Unit 'constant'").data,
-            status=find_retriever(unit.retrievers, "Status").data,
-            rotation=find_retriever(unit.retrievers, "Rotation, in radians").data,
-            animation_frame=find_retriever(unit.retrievers, "Initial animation frame").data,
-            garrisoned_in_id=find_retriever(unit.retrievers, "Garrisoned in: ID").data,
+            x=find_retriever(unit.retrievers, "x").data,
+            y=find_retriever(unit.retrievers, "y").data,
+            z=find_retriever(unit.retrievers, "z").data,
+            reference_id=find_retriever(unit.retrievers, "reference_id").data,
+            unit_const=find_retriever(unit.retrievers, "unit_const").data,
+            status=find_retriever(unit.retrievers, "status").data,
+            rotation=find_retriever(unit.retrievers, "rotation_radians").data,
+            animation_frame=find_retriever(unit.retrievers, "initial_animation_frame").data,
+            garrisoned_in_id=find_retriever(unit.retrievers, "garrisoned_in_id").data,
         )
 
     @staticmethod
