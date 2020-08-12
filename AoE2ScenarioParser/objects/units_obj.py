@@ -184,12 +184,12 @@ class UnitsObject(AoE2Object):
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitsObject:
         object_piece = parsed_data['UnitsPiece']
-        units_per_player = find_retriever(object_piece.retrievers, "Player Units").data
+        units_per_player = find_retriever(object_piece.retrievers, "players_units").data
 
         player_units = []
         for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
             player_units.append([])
-            units = find_retriever(units_per_player[player_id].retrievers, "Units").data
+            units = find_retriever(units_per_player[player_id].retrievers, "units").data
 
             for unit in units:
                 player_units[player_id].append(
