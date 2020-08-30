@@ -158,7 +158,12 @@
 
 		<p>
 			The column <code>repeat</code> shows the amount of times the value is retrieved in a row. When an <code>s32</code> has a repeat of 
-			<code>4x</code> the Integer will be read 4 times. This means that the upcoming 16 Bytes will be read as 4 ints.
+			<code>4x</code> the Integer will be read 4 times. This means that the upcoming 16 Bytes will be read as 4 ints. <br/>
+			Another possibility is that the <code>repeat</code> cell shows a variable. Example: "<code>number_of_triggers</code>". 
+			This means the amount of times something has to be retrieved is dependant on another value retrieved earlier. 
+			Whenever a value is used as a repeat feature later on it is saved. This is mentioned in the description cell. 
+			Example: "Save as <code>number_of_triggers</code>". This is used for everything where the user can 'decide' on the amount of times
+			something is added. Think about the amount of players, the amount of tiles or units on the map, or the number of triggers. 
 		</p>
 
 		<p>There are multiple tags used in this document. They are used as follows:</p>
