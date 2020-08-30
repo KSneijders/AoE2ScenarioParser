@@ -54,9 +54,6 @@ class Retriever:
 
 class RetrieverObjectLink:
     def __init__(self, variable_name: str, link: str, process_as_object: Type[AoE2Object] = None):
-        if link[:5] not in ["head.", "data."]:
-            raise ValueError(f"The link parameter needs to start with \"head.\" or \"data.\", not \"{link[:5]}\"")
-
         self.name: str = variable_name
         self.link: str = self._process_link(link)
         self.process_as_object: Type[AoE2Object] = process_as_object
@@ -96,8 +93,11 @@ class RetrieverObjectLink:
 
     @staticmethod
     def _process_link(link) -> str:
+        if link[:5] not in ["head.", "data."]:
+            raise ValueError(f"The link parameter needs to start with \"head.\" or \"data.\", not \"{link[:5]}\"")
+
         next_dot = link[5:].find(".")
-        # Convert piece attribute to dict key (data.MapPiece.x > data['MapPiece'].x)
+        # Convert piece attribute to dict key: "data.MapPiece.x" > "data['MapPiece'].x"
         link = link[:4] + "['" + link[5:5 + next_dot] + "']" + link[5 + next_dot:]
         return link
 

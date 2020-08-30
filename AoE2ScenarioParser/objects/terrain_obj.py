@@ -13,9 +13,12 @@ class TerrainObject(AoE2Object):
     elevation: int
     layer: int
 
-    def __init__(self, ):
+    def __init__(self, parsed_header, parsed_data, instance_number: int = -1):
+        self._parsed_header = parsed_header
+        self._parsed_data = parsed_data
+        self._instance_number = instance_number
 
-        self.construct()
+        self.construct(self._parsed_header, self._parsed_data, self._instance_number)
 
         super().__init__()
 
@@ -25,7 +28,7 @@ class TerrainObject(AoE2Object):
 
     def commit(self):
         for link in self._link_list:
-            link.commit(self._parser_header, self._parsed_data, self.__getattribute__(link.name))
+            link.commit(self._parsed_header, self._parsed_data, self.__getattribute__(link.name))
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs):
