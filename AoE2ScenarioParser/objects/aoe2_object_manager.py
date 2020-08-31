@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import OrderedDict
 from typing import List
 
 from AoE2ScenarioParser.helper import generator
@@ -19,6 +20,9 @@ from AoE2ScenarioParser.objects.units_obj import UnitsObject
 
 class AoE2ObjectManager:
     def __init__(self, parsed_header, parsed_data, log_parsing=True):
+        # Todo: Create a piece holder object or something to simplify this process
+        pieces = OrderedDict(**parsed_header, **parsed_data)
+
         lgr = SimpleLogger(should_log=log_parsing)
         lgr.print("\nParsing pieces and structs to objects...")
         self.parsed_header = parsed_header
@@ -30,7 +34,7 @@ class AoE2ObjectManager:
             # "MapObject": MapObject,
         }
 
-        self.map_manager = MapObject(self.parsed_header, self.parsed_data)
+        self.map_manager = MapObject(pieces)
 
         # self._objects = {
         #     # "FileHeaderObject": self._parse_file_header_object(),

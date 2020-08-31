@@ -17,3 +17,11 @@ class AoE2Object:
 
     def __repr__(self):
         return str(self.__class__.__name__) + ": " + str(self.__dict__)
+
+
+class CommittingUnbasedObjectError(Exception):
+    """Raised when committing an object using `.commit()` that is not based on a piece or struct."""
+
+
+class RemovedFlagRaisedError(Exception):
+    """Raised when committing an object using `.commit()` but the object's removed flag has been set to True."""

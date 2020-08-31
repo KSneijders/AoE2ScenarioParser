@@ -58,61 +58,27 @@ class RetrieverObjectLink:
         self.link: str = self._process_link(link)
         self.process_as_object: Type[AoE2Object] = process_as_object
 
-    def retrieve(self, parsed_header, parsed_data, instance_number: int) -> Any:
-        value = eval(self.link, {}, {
-            'head': dict(parsed_header),
-            'data': dict(parsed_data),
-            '__index__': instance_number
-        })
-
-        if self.process_as_object is not None:
-            value_list = []
-            for index, struct in enumerate(value):
-                value_list.append(self.process_as_object(parsed_header, parsed_data, instance_number=index))
-            return value_list
-        else:
-            return value
-
-    def commit(self, parsed_header, parsed_data, value) -> None:
-        if self.process_as_object is not None:
-            to_struct = self._retrieve_piece_type(parsed_data, parsed_data, self.link)
-            value_list = []
-            for index, obj in enumerate(value):
-                piece = to_struct()
-                value_list.append(piece)
-                for rol in obj._link_list:
-                    attr = rol.link.split(".").pop()
-                    piece.__setattr__(attr, obj.__getattribute__(rol.name))
-
-            value = value_list
-            exec(self.link + " = value", {}, {
-                'head': dict(parsed_header),
-                'data': dict(parsed_data),
-                'value': value
-            })
-
     @staticmethod
     def _process_link(link) -> str:
-        if link[:5] not in ["head.", "data."]:
-            raise ValueError(f"The link parameter needs to start with \"head.\" or \"data.\", not \"{link[:5]}\"")
-
-        next_dot = link[5:].find(".")
-        # Convert piece attribute to dict key: "data.MapPiece.x" > "data['MapPiece'].x"
-        link = link[:4] + "['" + link[5:5 + next_dot] + "']" + link[5 + next_dot:]
+        dot = link.find(".")
+        # Convert piece attribute to dict key: "MapPiece.x" > "pieces['MapPiece'].x"
+        link = "pieces['" + link[0:dot] + "']" + link[dot:]
         return link
-
-    @staticmethod
-    def _retrieve_piece_type(parsed_header, parsed_data, link) -> Type[AoE2Piece]:
-        split_link = link.split(".")
-        link_end = split_link.pop()
-        return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
-            'head': dict(parsed_header),
-            'data': dict(parsed_data),
-            'find_retriever': find_retriever
-        })
 
 
 def find_retriever(retriever_list: List[Retriever], name: str) -> Retriever:
     for retriever in retriever_list:
         if retriever.name == name:
             return retriever
+
+
+def get_piece_from_retriever_object_link(pieces, retriever_object_link) -> Type[AoE2Piece]:
+    if retriever_object_link.process_as_object is None:
+        raise ValueError("Cannot get piece type from RetrieverObjectLink when parameter process_as_object has not "
+                         "been set.")
+    split_link = retriever_object_link.link.split(".")
+    link_end = split_link.pop()
+    return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
+        'pieces': dict(pieces),
+        'find_retriever': find_retriever
+    })

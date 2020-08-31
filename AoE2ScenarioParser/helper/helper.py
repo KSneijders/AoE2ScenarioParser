@@ -67,7 +67,10 @@ def add_suffix_chars(string, char, length):
 def pretty_print_list(plist):
     return_string = "[\n"
     for x in plist:
-        return_string += "\t" + str(x)
+        newline = "\t" + str(x)
+        if newline[::-2] is not "\n":
+            newline += "\n"
+        return_string += newline
     return return_string + "]\n"
 
 

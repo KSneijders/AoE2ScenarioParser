@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.helper.retriever import find_retriever, RetrieverObjectLink
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink, get_piece_from_retriever_object_link
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object, CommittingUnbasedObjectError, RemovedFlagRaisedError
 from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 
 
@@ -15,31 +15,103 @@ class MapObject(AoE2Object):
     _map_height: int
     terrain: List[TerrainObject]
 
-    def __init__(self, parsed_header, parsed_data, instance_number: int = -1):
+    def __init__(self, pieces=None, instance_number: int = -1):
+        if pieces is None and instance_number is not -1:
+            raise ValueError("Cannot create a based object with instance_number reference without pieces.")
+
         self._link_list = [
-            RetrieverObjectLink("map_color_mood", "data.MapPiece.map_color_mood"),
-            RetrieverObjectLink("collide_and_correct", "data.MapPiece.collide_and_correct"),
-            RetrieverObjectLink("villager_force_drop", "data.MapPiece.villager_force_drop"),
-            RetrieverObjectLink("_map_width", "data.MapPiece.map_width"),
-            RetrieverObjectLink("_map_height", "data.MapPiece.map_height"),
-            RetrieverObjectLink("terrain", "data.MapPiece.terrain_data", process_as_object=TerrainObject),
+            RetrieverObjectLink("map_color_mood", "MapPiece.map_color_mood"),
+            RetrieverObjectLink("collide_and_correct", "MapPiece.collide_and_correct"),
+            RetrieverObjectLink("villager_force_drop", "MapPiece.villager_force_drop"),
+            RetrieverObjectLink("_map_width", "MapPiece.map_width"),
+            RetrieverObjectLink("_map_height", "MapPiece.map_height"),
+            RetrieverObjectLink("terrain", "MapPiece.terrain_data", process_as_object=TerrainObject),
         ]
 
-        self._parsed_header = parsed_header
-        self._parsed_data = parsed_data
+        self._based: bool = pieces is not None
+        """Flag used to determine if an object is based on a corresponding piece or struct"""
+        self._removed: bool = False
+        """Flag used to determine that this object and it's corresponding piece or struct needs to be deleted"""
+
+        self._pieces = pieces
         self._instance_number = instance_number
 
-        self.construct()
+        if not self._based:
+            self._pieces = {}
+        else:
+            self._construct()
 
         super().__init__()
 
-    def construct(self):
-        for link in self._link_list:
-            self.__setattr__(link.name, link.retrieve(self._parsed_header, self._parsed_data, self._instance_number))
+    @property
+    def _removed(self):
+        return self._removed_flag
 
-    def commit(self):
+    @_removed.setter
+    def _removed(self, value: bool):
+        if value is not False:
+            if self._instance_number is -1:
+                raise ValueError("Objects without instance_number reference cannot set the removed flag.")
+        self._removed_flag = value
+
+    @property
+    def _instance_number(self):
+        return self._hidden_instance_number
+
+    @_instance_number.setter
+    def _instance_number(self, value):
+        if self._pieces == {}:
+            raise ValueError("Cannot set instance_number reference without pieces.")
+        if value is not -1:
+            self._based = True
+        self._hidden_instance_number = value
+
+    def _construct(self):
         for link in self._link_list:
-            link.commit(self._parsed_header, self._parsed_data, self.__getattribute__(link.name))
+            value = eval(link.link, {}, {'pieces': self._pieces, '__index__': self._instance_number})
+
+            if link.process_as_object is not None:
+                value_list = []
+                for index, struct in enumerate(value):
+                    value_list.append(link.process_as_object(self._pieces, instance_number=index))
+                value = value_list
+                print(value[0])
+
+            self.__setattr__(link.name, value)
+
+    def _commit(self):
+        print("Committing map_manager...")
+        if not self._based:
+            raise CommittingUnbasedObjectError("Unable to commit unbased object.")
+        if self._removed:
+            raise RemovedFlagRaisedError("Object's removed flag has been raised. Cannot commit changes.")
+
+        for link in self._link_list:
+            if link.process_as_object is not None:
+                object_list: List[TerrainObject] = self.__getattribute__(link.name)
+                for index, obj in enumerate(object_list):
+                    try:
+                        obj._commit()
+                    except CommittingUnbasedObjectError:
+                        to_struct = get_piece_from_retriever_object_link(self._pieces, link)
+                        struct = to_struct()
+                        index_to_be = eval(f"len({link.link})", {}, {'pieces': self._pieces})
+                        eval(f"{link.link}.append(struct)", {}, {'pieces': self._pieces, 'struct': struct})
+                        obj._pieces = self._pieces
+                        obj._instance_number = index_to_be
+                        obj._commit()
+                    except RemovedFlagRaisedError:
+                        exec(f"del {link.link}[__index__]", {}, {
+                            'pieces': self._pieces,
+                            '__index__': self._instance_number
+                        })
+
+            else:
+                exec(link.link + " = value", {}, {
+                    'pieces': self._pieces,
+                    'value': self.__getattribute__(link.name),
+                    '__index__': self._instance_number
+                })
 
     @property
     def map_size(self) -> int:
