@@ -56,7 +56,7 @@ class AoE2Scenario:
         self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
 
     def _read_file(self, log_reading):
-        lgr = SimpleLogger(should_log=log_reading)
+        lgr = SimpleLogger(log_reading)
         lgr.print("\nFile reading started...")
 
         self._parsed_header = collections.OrderedDict()
@@ -116,7 +116,7 @@ class AoE2Scenario:
                               log_writing=True, log_reconstructing=False):
         if hasattr(self, '_object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
-        lgr = SimpleLogger(should_log=log_writing)
+        lgr = SimpleLogger(log_writing)
         lgr.print("\nFile writing from structure started...")
 
         byte_header = b''
@@ -228,7 +228,7 @@ class AoE2Scenario:
 
     def _debug_byte_structure_to_file(self, filename, log_debug_write=True):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
-        lgr = SimpleLogger(should_log=log_debug_write)
+        lgr = SimpleLogger(log_debug_write)
 
         lgr.print("\nWriting structure to file...")
         with open(filename, 'w') as output_file:

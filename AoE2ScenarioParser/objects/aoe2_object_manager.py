@@ -23,7 +23,7 @@ class AoE2ObjectManager:
         # Todo: Create a piece holder object or something to simplify this process
         pieces = OrderedDict(**parsed_header, **parsed_data)
 
-        lgr = SimpleLogger(should_log=log_parsing)
+        lgr = SimpleLogger(log_parsing)
         lgr.print("\nParsing pieces and structs to objects...")
         self.parsed_header = parsed_header
         self.parsed_data = parsed_data
@@ -68,7 +68,7 @@ class AoE2ObjectManager:
     #     return self._objects['MapObject']
 
     def reconstruct(self, log_reconstructing=False):
-        lgr = SimpleLogger(should_log=log_reconstructing)
+        lgr = SimpleLogger(log_reconstructing)
         lgr.print("\nReconstructing pieces and structs from objects...")
 
         for key in self._finished_new_structure.keys():
