@@ -4,10 +4,10 @@ from typing import Type, Any, TYPE_CHECKING, List
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.datatype import DataType
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
+    from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
 class Retriever:
@@ -65,8 +65,12 @@ class RetrieverObjectLink:
         link = "pieces['" + link[0:dot] + "']" + link[dot:]
         return link
 
+    def __repr__(self):
+        return "[RetrieverObjectLink] " + self.name + ": " + str(self.link) + \
+               (" -> " + self.process_as_object.__name__ if self.process_as_object is not None else "")
 
-def find_retriever(retriever_list: List[Retriever], name: str) -> Retriever:
+
+def find_retriever(retriever_list: List[Retriever], name: str) -> (Retriever, RetrieverObjectLink):
     for retriever in retriever_list:
         if retriever.name == name:
             return retriever
