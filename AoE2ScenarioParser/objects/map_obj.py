@@ -8,6 +8,9 @@ from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 
 
 class MapObject(AoE2Object):
+    """Manager of the everything map related."""
+
+    # List of attributes
     map_color_mood: str
     collide_and_correct: bool
     villager_force_drop: bool
@@ -15,20 +18,20 @@ class MapObject(AoE2Object):
     _map_height: int
     terrain: List[TerrainObject]
 
+    _link_list = [
+        RetrieverObjectLink("map_color_mood", "MapPiece.map_color_mood"),
+        RetrieverObjectLink("collide_and_correct", "MapPiece.collide_and_correct"),
+        RetrieverObjectLink("villager_force_drop", "MapPiece.villager_force_drop"),
+        RetrieverObjectLink("_map_width", "MapPiece.map_width"),
+        RetrieverObjectLink("_map_height", "MapPiece.map_height"),
+        RetrieverObjectLink("terrain", "MapPiece.terrain_data", process_as_object=TerrainObject),
+    ]
+
     def __init__(self, pieces=None, instance_number: int = -1):
         if pieces is None and instance_number is not -1:
             raise ValueError("Cannot create a based object with instance_number reference without pieces.")
 
-        self._link_list = [
-            RetrieverObjectLink("map_color_mood", "MapPiece.map_color_mood"),
-            RetrieverObjectLink("collide_and_correct", "MapPiece.collide_and_correct"),
-            RetrieverObjectLink("villager_force_drop", "MapPiece.villager_force_drop"),
-            RetrieverObjectLink("_map_width", "MapPiece.map_width"),
-            RetrieverObjectLink("_map_height", "MapPiece.map_height"),
-            RetrieverObjectLink("terrain", "MapPiece.terrain_data", process_as_object=TerrainObject),
-        ]
-
-        self._based: bool = pieces is not None
+        self._based: bool = (pieces is not None)
         """Flag used to determine if an object is based on a corresponding piece or struct"""
         self._removed: bool = False
         """Flag used to determine that this object and it's corresponding piece or struct needs to be deleted"""
@@ -75,20 +78,22 @@ class MapObject(AoE2Object):
                 for index, struct in enumerate(value):
                     value_list.append(link.process_as_object(self._pieces, instance_number=index))
                 value = value_list
-                print(value[0])
 
             self.__setattr__(link.name, value)
 
-    def _commit(self):
+    def _commit(self, retriever_object_link_list: List[RetrieverObjectLink] = None):
         print("Committing map_manager...")
         if not self._based:
             raise CommittingUnbasedObjectError("Unable to commit unbased object.")
         if self._removed:
             raise RemovedFlagRaisedError("Object's removed flag has been raised. Cannot commit changes.")
 
-        for link in self._link_list:
+        if retriever_object_link_list is None:
+            retriever_object_link_list = self._link_list
+
+        for link in retriever_object_link_list:
             if link.process_as_object is not None:
-                object_list: List[TerrainObject] = self.__getattribute__(link.name)
+                object_list: List[AoE2Object] = self.__getattribute__(link.name)
                 for index, obj in enumerate(object_list):
                     try:
                         obj._commit()
