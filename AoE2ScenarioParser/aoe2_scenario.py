@@ -5,7 +5,7 @@ import zlib
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
@@ -174,8 +174,8 @@ class AoE2Scenario:
 
     def _debug_log_effect_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
-        trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        effects = find_retriever(trigger_data.retrievers, "Effect data").data
+        trigger_data = get_retriever_by_name(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        effects = get_retriever_by_name(trigger_data.retrievers, "Effect data").data
 
         for effect in effects:
             for retriever in effect.retrievers:
@@ -194,8 +194,8 @@ class AoE2Scenario:
 
     def _debug_log_condition_dataset(self):
         """ Used for debugging - Only reads One Trigger. """
-        trigger_data = find_retriever(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        conditions = find_retriever(trigger_data.retrievers, "Condition data").data
+        trigger_data = get_retriever_by_name(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        conditions = get_retriever_by_name(trigger_data.retrievers, "Condition data").data
 
         for condition in conditions:
             for retriever in condition.retrievers:

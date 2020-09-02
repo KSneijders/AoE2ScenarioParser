@@ -3,7 +3,7 @@ from collections import Iterable
 from typing import TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink

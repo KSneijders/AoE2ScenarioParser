@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets import units, buildings
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
@@ -91,15 +91,15 @@ class UnitObject(AoE2Object):
 
         return UnitObject(
             player=kwargs['player'],
-            x=find_retriever(unit.retrievers, "x").data,
-            y=find_retriever(unit.retrievers, "y").data,
-            z=find_retriever(unit.retrievers, "z").data,
-            reference_id=find_retriever(unit.retrievers, "reference_id").data,
-            unit_const=find_retriever(unit.retrievers, "unit_const").data,
-            status=find_retriever(unit.retrievers, "status").data,
-            rotation=find_retriever(unit.retrievers, "rotation_radians").data,
-            animation_frame=find_retriever(unit.retrievers, "initial_animation_frame").data,
-            garrisoned_in_id=find_retriever(unit.retrievers, "garrisoned_in_id").data,
+            x=get_retriever_by_name(unit.retrievers, "x").data,
+            y=get_retriever_by_name(unit.retrievers, "y").data,
+            z=get_retriever_by_name(unit.retrievers, "z").data,
+            reference_id=get_retriever_by_name(unit.retrievers, "reference_id").data,
+            unit_const=get_retriever_by_name(unit.retrievers, "unit_const").data,
+            status=get_retriever_by_name(unit.retrievers, "status").data,
+            rotation=get_retriever_by_name(unit.retrievers, "rotation_radians").data,
+            animation_frame=get_retriever_by_name(unit.retrievers, "initial_animation_frame").data,
+            garrisoned_in_id=get_retriever_by_name(unit.retrievers, "garrisoned_in_id").data,
         )
 
     @staticmethod

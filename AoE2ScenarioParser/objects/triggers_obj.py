@@ -8,7 +8,7 @@ from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 from AoE2ScenarioParser.objects.variable_obj import VariableObject
@@ -433,9 +433,9 @@ class TriggersObject(AoE2Object):
 
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> TriggersObject:  # Expected {}
-        display_order = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data
-        trigger_data = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        var_data = find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables").data
+        display_order = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Trigger display order array").data
+        trigger_data = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Trigger data").data
+        var_data = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Variables").data
 
         triggers = []
         for index, trigger in enumerate(trigger_data):
@@ -453,16 +453,16 @@ class TriggersObject(AoE2Object):
 
     @staticmethod
     def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
-        number_of_triggers_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
-        trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
-        display_order_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
+        number_of_triggers_retriever = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Number of triggers")
+        trigger_data_retriever = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Trigger data")
+        display_order_retriever = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Trigger display order array")
         display_order_retriever.data = display_order_retriever.data
-        file_header_trigger_count_retriever = find_retriever(parsed_header['FileHeaderPiece'].retrievers,
+        file_header_trigger_count_retriever = get_retriever_by_name(parsed_header['FileHeaderPiece'].retrievers,
                                                              "Trigger count")
 
-        number_of_variable_retriever = find_retriever(
+        number_of_variable_retriever = get_retriever_by_name(
             parsed_data['TriggerPiece'].retrievers, "Number of variables")
-        variable_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Variables")
+        variable_data_retriever = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Variables")
 
         trigger_data_retriever.data = []
         for trigger in objects["TriggersObject"].triggers:

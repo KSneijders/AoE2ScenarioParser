@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 
@@ -74,12 +74,12 @@ class ConditionObject(AoE2Object):
     def _parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
         condition_struct = kwargs['condition']
 
-        condition_type = find_retriever(condition_struct.retrievers, "condition_type").data
+        condition_type = get_retriever_by_name(condition_struct.retrievers, "condition_type").data
         parameters = conditions.attributes.get(condition_type)
 
         parameter_dict = conditions.empty_attributes.copy()
         for param in parameters:
-            parameter_dict[param] = find_retriever(condition_struct.retrievers, param).data
+            parameter_dict[param] = get_retriever_by_name(condition_struct.retrievers, param).data
 
         return ConditionObject(
             **parameter_dict

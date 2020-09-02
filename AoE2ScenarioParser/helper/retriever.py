@@ -70,7 +70,7 @@ class RetrieverObjectLink:
                (" -> " + self.process_as_object.__name__ if self.process_as_object is not None else "")
 
 
-def find_retriever(retriever_list: List[Retriever], name: str) -> (Retriever, RetrieverObjectLink):
+def get_retriever_by_name(retriever_list: List[Retriever], name: str) -> (Retriever, RetrieverObjectLink):
     for retriever in retriever_list:
         if retriever.name == name:
             return retriever
@@ -84,5 +84,5 @@ def get_piece_from_retriever_object_link(pieces, retriever_object_link) -> Type[
     link_end = split_link.pop()
     return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
         'pieces': dict(pieces),
-        'find_retriever': find_retriever
+        'find_retriever': get_retriever_by_name
     })

@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 
 
 class AoE2Piece:
@@ -16,7 +16,7 @@ class AoE2Piece:
         Providing a default way to access retriever data labeled 'name'
         """
         try:
-            return find_retriever(self.retrievers, name).data
+            return get_retriever_by_name(self.retrievers, name).data
         except:
             raise AttributeError("No attribute retriever named \'" + name + "\' in piece \'" + str(type(self)) + "\'")
 
@@ -27,7 +27,7 @@ class AoE2Piece:
         if 'retrievers' not in self.__dict__:
             super().__setattr__(name, value)
         else:
-            retriever = find_retriever(self.retrievers, name)
+            retriever = get_retriever_by_name(self.retrievers, name)
             if retriever is None:
                 super().__setattr__(name, value)
             else:
@@ -58,7 +58,7 @@ class AoE2Piece:
             raise ValueError("Data list isn't the same size as the DataType list")
 
     def get_value(self, retriever_key):
-        return find_retriever(self.retrievers, retriever_key).data
+        return get_retriever_by_name(self.retrievers, retriever_key).data
 
     def get_length(self):
         total_length = 0

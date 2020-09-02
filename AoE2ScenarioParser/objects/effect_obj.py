@@ -5,7 +5,7 @@ from typing import List, Union
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 
@@ -147,12 +147,12 @@ class EffectObject(AoE2Object):
     def _parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
         effect_struct = kwargs['effect']
 
-        effect_type = find_retriever(effect_struct.retrievers, "effect_type").data
+        effect_type = get_retriever_by_name(effect_struct.retrievers, "effect_type").data
         parameters = effects.attributes.get(effect_type)
 
         parameter_dict = effects.empty_attributes.copy()
         for param in parameters:
-            parameter_dict[param] = find_retriever(effect_struct.retrievers, param).data
+            parameter_dict[param] = get_retriever_by_name(effect_struct.retrievers, param).data
 
         return EffectObject(
             **parameter_dict

@@ -5,7 +5,7 @@ from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.condition_obj import ConditionObject
 from AoE2ScenarioParser.objects.effect_obj import EffectObject
@@ -200,38 +200,38 @@ class TriggerObject(AoE2Object):
         trigger = kwargs['trigger']
 
         effects_list = []
-        effect_structs = find_retriever(trigger.retrievers, "Effect data").data
+        effect_structs = get_retriever_by_name(trigger.retrievers, "Effect data").data
         for effect_struct in effect_structs:
             effects_list.append(EffectObject._parse_object(parsed_data, effect=effect_struct))
 
         conditions_list = []
-        condition_structs = find_retriever(trigger.retrievers, "Condition data").data
+        condition_structs = get_retriever_by_name(trigger.retrievers, "Condition data").data
         for condition_struct in condition_structs:
             conditions_list.append(ConditionObject._parse_object(parsed_data, condition=condition_struct))
 
         return TriggerObject(
-            name=find_retriever(trigger.retrievers, "Trigger name").data,
-            description=find_retriever(trigger.retrievers, "Trigger description").data,
-            description_stid=find_retriever(trigger.retrievers, "Description string Table ID").data,
-            display_as_objective=find_retriever(trigger.retrievers, "Act as objective").data,
-            short_description=find_retriever(trigger.retrievers, "Short description").data,
-            short_description_stid=find_retriever(trigger.retrievers, "Short description string Table ID").data,
-            display_on_screen=find_retriever(trigger.retrievers, "Display on screen").data,
-            description_order=find_retriever(trigger.retrievers, "Description order (in objectives)").data,
-            enabled=find_retriever(trigger.retrievers, "Enabled").data,
-            looping=find_retriever(trigger.retrievers, "Looping").data,
-            header=find_retriever(trigger.retrievers, "Make header").data,
-            mute_objectives=find_retriever(trigger.retrievers, "Mute objectives").data,
+            name=get_retriever_by_name(trigger.retrievers, "Trigger name").data,
+            description=get_retriever_by_name(trigger.retrievers, "Trigger description").data,
+            description_stid=get_retriever_by_name(trigger.retrievers, "Description string Table ID").data,
+            display_as_objective=get_retriever_by_name(trigger.retrievers, "Act as objective").data,
+            short_description=get_retriever_by_name(trigger.retrievers, "Short description").data,
+            short_description_stid=get_retriever_by_name(trigger.retrievers, "Short description string Table ID").data,
+            display_on_screen=get_retriever_by_name(trigger.retrievers, "Display on screen").data,
+            description_order=get_retriever_by_name(trigger.retrievers, "Description order (in objectives)").data,
+            enabled=get_retriever_by_name(trigger.retrievers, "Enabled").data,
+            looping=get_retriever_by_name(trigger.retrievers, "Looping").data,
+            header=get_retriever_by_name(trigger.retrievers, "Make header").data,
+            mute_objectives=get_retriever_by_name(trigger.retrievers, "Mute objectives").data,
             conditions_list=conditions_list,
-            condition_order=find_retriever(trigger.retrievers, "Condition display order array").data,
+            condition_order=get_retriever_by_name(trigger.retrievers, "Condition display order array").data,
             effects_list=effects_list,
-            effect_order=find_retriever(trigger.retrievers, "Effect display order array").data,
+            effect_order=get_retriever_by_name(trigger.retrievers, "Effect display order array").data,
             trigger_id=kwargs['trigger_id'],
         )
 
     @staticmethod
     def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
-        trigger_data_retriever = find_retriever(parsed_data['TriggerPiece'].retrievers, "Trigger data")
+        trigger_data_retriever = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Trigger data")
         trigger = kwargs['trigger']
         trigger.effect_order = trigger.effect_order
         trigger.condition_order = trigger.condition_order

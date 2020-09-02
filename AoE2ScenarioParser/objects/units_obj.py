@@ -5,7 +5,7 @@ from typing import List
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
@@ -184,12 +184,12 @@ class UnitsObject(AoE2Object):
     @staticmethod
     def _parse_object(parsed_data, **kwargs) -> UnitsObject:
         object_piece = parsed_data['UnitsPiece']
-        units_per_player = find_retriever(object_piece.retrievers, "players_units").data
+        units_per_player = get_retriever_by_name(object_piece.retrievers, "players_units").data
 
         player_units = []
         for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
             player_units.append([])
-            units = find_retriever(units_per_player[player_id].retrievers, "units").data
+            units = get_retriever_by_name(units_per_player[player_id].retrievers, "units").data
 
             for unit in units:
                 player_units[player_id].append(
@@ -202,10 +202,10 @@ class UnitsObject(AoE2Object):
 
     @staticmethod
     def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
-        player_units_retriever = find_retriever(parsed_data['UnitsPiece'].retrievers, "Player Units")
+        player_units_retriever = get_retriever_by_name(parsed_data['UnitsPiece'].retrievers, "Player Units")
 
         # Todo: Move this to DataHeader
-        new_unit_id_retriever = find_retriever(parsed_data['DataHeaderPiece'].retrievers, "Next unit ID to place")
+        new_unit_id_retriever = get_retriever_by_name(parsed_data['DataHeaderPiece'].retrievers, "next_unit_id_to_place")
         new_unit_id_retriever.data = objects['UnitsObject'].get_new_reference_id()
 
         player_units_retriever.data = []

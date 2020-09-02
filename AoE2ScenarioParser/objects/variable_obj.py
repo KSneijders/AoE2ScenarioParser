@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.variable import VariableStruct
 
@@ -21,8 +21,8 @@ class VariableObject(AoE2Object):
         variable = kwargs['variable']
 
         return VariableObject(
-            variable_id=find_retriever(variable.retrievers, "variable_id").data,
-            name=find_retriever(variable.retrievers, "name").data
+            variable_id=get_retriever_by_name(variable.retrievers, "variable_id").data,
+            name=get_retriever_by_name(variable.retrievers, "name").data
         )
 
     @staticmethod
