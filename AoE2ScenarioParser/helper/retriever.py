@@ -69,20 +69,19 @@ class RetrieverObjectLink:
         return "[RetrieverObjectLink] " + self.name + ": " + str(self.link) + \
                (" -> " + self.process_as_object.__name__ if self.process_as_object is not None else "")
 
+    def get_piece_datatype(self, pieces: List[AoE2Piece]) -> Type[AoE2Piece]:
+        if self.process_as_object is None:
+            raise ValueError("Cannot get piece type from RetrieverObjectLink when parameter process_as_object has not "
+                             "been set.")
+        split_link = self.link.split(".")
+        link_end = split_link.pop()
+        return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
+            'pieces': dict(pieces),
+            'find_retriever': get_retriever_by_name
+        })
+
 
 def get_retriever_by_name(retriever_list: List[Retriever], name: str) -> (Retriever, RetrieverObjectLink):
     for retriever in retriever_list:
         if retriever.name == name:
             return retriever
-
-
-def get_piece_from_retriever_object_link(pieces, retriever_object_link) -> Type[AoE2Piece]:
-    if retriever_object_link.process_as_object is None:
-        raise ValueError("Cannot get piece type from RetrieverObjectLink when parameter process_as_object has not "
-                         "been set.")
-    split_link = retriever_object_link.link.split(".")
-    link_end = split_link.pop()
-    return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
-        'pieces': dict(pieces),
-        'find_retriever': get_retriever_by_name
-    })
