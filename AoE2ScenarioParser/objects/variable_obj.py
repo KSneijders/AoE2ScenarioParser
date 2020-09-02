@@ -1,36 +1,21 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.variable import VariableStruct
 
 
 class VariableObject(AoE2Object):
-    def __init__(self,
-                 variable_id,
-                 name
-                 ):
-        self.variable_id = variable_id
-        self.name = name
+    """Object for handling a variable."""
 
-        super().__init__()
+    # List of attributes
+    variable_id: int
+    name: int
 
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> VariableObject:
-        # Expected {variable=VariableStruct}
-        variable = kwargs['variable']
+    _link_list = [
+        RetrieverObjectLink("variable_id", "TriggerPiece.variable_data[__index__].variable_id"),
+        RetrieverObjectLink("name", "TriggerPiece.variable_data[__index__].name"),
+    ]
 
-        return VariableObject(
-            variable_id=get_retriever_by_name(variable.retrievers, "variable_id").data,
-            name=get_retriever_by_name(variable.retrievers, "name").data
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:
-        # Expected {variable=VariableObject, variables=variables_list}
-        variable_obj = kwargs['variable']
-        variables_list = kwargs['variables']
-
-        variables_list.append(VariableStruct(
-            data=[variable_obj.variable_id, variable_obj.name]
-        ))
+    def __init__(self, pieces=None, instance_number: int = -1):
+        super().__init__(pieces, instance_number)

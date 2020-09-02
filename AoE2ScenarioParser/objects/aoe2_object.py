@@ -5,17 +5,9 @@ from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
 class AoE2Object:
     _link_list: List = []
 
-    def __init__(self, pieces=None, instance_number: int = -1):
-        if pieces is None and instance_number is not -1:
-            raise ValueError("Cannot create a based object with instance_number reference without pieces.")
-
-        self._pieces = pieces
-        self._instance_number = instance_number
-
-        if pieces is None:
-            self._pieces = {}
-        else:
-            self._construct()
+    def __init__(self, ):
+        self.instance_number = -1
+        self._pieces = {}
 
     @property
     def _instance_number(self):
@@ -27,17 +19,26 @@ class AoE2Object:
             raise ValueError("Cannot set instance_number reference without pieces.")
         self._hidden_instance_number = value
 
-    def _construct(self):
-        for link in self._link_list:
-            value = eval(link.link, {}, {'pieces': self._pieces, '__index__': self._instance_number})
+    @classmethod
+    def _construct(cls, pieces, instance_number: int):
+        obj = cls()
+        obj._pieces = pieces
+        obj._instance_number = instance_number
+
+        for link in obj._link_list:
+            value = eval(link.link, {}, {'pieces': obj._pieces, '__index__': obj._instance_number})
 
             if link.process_as_object is not None:
                 value_list = []
                 for index, struct in enumerate(value):
-                    value_list.append(link.process_as_object(self._pieces, instance_number=index))
+                    value_list.append(link.process_as_object(obj._pieces, instance_number=index))
                 value = value_list
 
-            self.__setattr__(link.name, value)
+            obj.__setattr__(link.name, value)
+        return obj
+
+    # TODO: RECREATE CREATION !!!EVERYWHERE!!! to use _construct() instead of constructor!
+    # TODO: ADD EXCEPTION FOR OBJECT WITHOUT PIECE. REDO WITH PIECE AFTER/ALWAYS COMMIT WITH PIECE REFERENCE?
 
     def commit(self, local_link_list: Type[List[RetrieverObjectLink]] = None):
         """
@@ -47,6 +48,9 @@ class AoE2Object:
             local_link_list: a separate list of RetrieverObjectLinks. This way it's possible to commit only specific
             properties instead of all from an object.
         """
+        if self._pieces == {}:
+            raise ValueError("Unable to commit object. No reference to pieces set.")
+
         if local_link_list is None:
             local_link_list = self._link_list
 
