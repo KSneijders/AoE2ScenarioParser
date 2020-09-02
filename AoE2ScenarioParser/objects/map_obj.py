@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from collections import Iterable
 from typing import List
 
 from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink, get_piece_from_retriever_object_link
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object, CommittingUnbasedObjectError, RemovedFlagRaisedError
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 
 
@@ -31,31 +32,15 @@ class MapObject(AoE2Object):
         if pieces is None and instance_number is not -1:
             raise ValueError("Cannot create a based object with instance_number reference without pieces.")
 
-        self._based: bool = (pieces is not None)
-        """Flag used to determine if an object is based on a corresponding piece or struct"""
-        self._removed: bool = False
-        """Flag used to determine that this object and it's corresponding piece or struct needs to be deleted"""
-
         self._pieces = pieces
         self._instance_number = instance_number
 
-        if not self._based:
+        if pieces is None:
             self._pieces = {}
         else:
             self._construct()
 
         super().__init__()
-
-    @property
-    def _removed(self):
-        return self._removed_flag
-
-    @_removed.setter
-    def _removed(self, value: bool):
-        if value is not False:
-            if self._instance_number is -1:
-                raise ValueError("Objects without instance_number reference cannot set the removed flag.")
-        self._removed_flag = value
 
     @property
     def _instance_number(self):
@@ -65,8 +50,6 @@ class MapObject(AoE2Object):
     def _instance_number(self, value):
         if self._pieces == {}:
             raise ValueError("Cannot set instance_number reference without pieces.")
-        if value is not -1:
-            self._based = True
         self._hidden_instance_number = value
 
     def _construct(self):
@@ -82,34 +65,24 @@ class MapObject(AoE2Object):
             self.__setattr__(link.name, value)
 
     def _commit(self, retriever_object_link_list: List[RetrieverObjectLink] = None):
-        print("Committing map_manager...")
-        if not self._based:
-            raise CommittingUnbasedObjectError("Unable to commit unbased object.")
-        if self._removed:
-            raise RemovedFlagRaisedError("Object's removed flag has been raised. Cannot commit changes.")
-
         if retriever_object_link_list is None:
             retriever_object_link_list = self._link_list
 
         for link in retriever_object_link_list:
             if link.process_as_object is not None:
                 object_list: List[AoE2Object] = self.__getattribute__(link.name)
+                link_piece = get_piece_from_retriever_object_link(self._pieces, link)
+
+                exec(f"{link.link} = [link_piece() for x in range(r)]", locals(), {
+                    'pieces': self._pieces,
+                    'link_piece': link_piece,
+                    'r': len(object_list)
+                })
+
                 for index, obj in enumerate(object_list):
-                    try:
-                        obj._commit()
-                    except CommittingUnbasedObjectError:
-                        to_struct = get_piece_from_retriever_object_link(self._pieces, link)
-                        struct = to_struct()
-                        index_to_be = eval(f"len({link.link})", {}, {'pieces': self._pieces})
-                        eval(f"{link.link}.append(struct)", {}, {'pieces': self._pieces, 'struct': struct})
-                        obj._pieces = self._pieces
-                        obj._instance_number = index_to_be
-                        obj._commit()
-                    except RemovedFlagRaisedError:
-                        exec(f"del {link.link}[__index__]", {}, {
-                            'pieces': self._pieces,
-                            '__index__': self._instance_number
-                        })
+                    obj._pieces = self._pieces
+                    obj._instance_number = index
+                    obj._commit()
 
             else:
                 exec(link.link + " = value", {}, {
