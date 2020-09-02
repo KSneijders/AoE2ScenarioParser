@@ -39,11 +39,18 @@ class AoE2Object:
 
             self.__setattr__(link.name, value)
 
-    def _commit(self, retriever_object_link_list: Type[List[RetrieverObjectLink]] = None):
-        if retriever_object_link_list is None:
-            retriever_object_link_list = self._link_list
+    def commit(self, local_link_list: Type[List[RetrieverObjectLink]] = None):
+        """
+        Commits all changes to the piece & struct structure of the object it's called upon.
 
-        for link in retriever_object_link_list:
+        Args:
+            local_link_list: a separate list of RetrieverObjectLinks. This way it's possible to commit only specific
+            properties instead of all from an object.
+        """
+        if local_link_list is None:
+            local_link_list = self._link_list
+
+        for link in local_link_list:
             if link.process_as_object is not None:
                 object_list: List[AoE2Object] = self.__getattribute__(link.name)
                 link_piece = link.get_piece_datatype(self._pieces)
@@ -57,7 +64,7 @@ class AoE2Object:
                 for index, obj in enumerate(object_list):
                     obj._pieces = self._pieces
                     obj._instance_number = index
-                    obj._commit()
+                    obj.commit()
 
             else:
                 exec(link.link + " = value", {}, {
