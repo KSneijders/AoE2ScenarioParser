@@ -8,14 +8,13 @@ from AoE2ScenarioParser.pieces.structs.variable import VariableStruct
 class VariableObject(AoE2Object):
     """Object for handling a variable."""
 
-    # List of attributes
-    variable_id: int
-    name: int
-
     _link_list = [
         RetrieverObjectLink("variable_id", "TriggerPiece.variable_data[__index__].variable_id"),
         RetrieverObjectLink("name", "TriggerPiece.variable_data[__index__].name"),
     ]
 
-    def __init__(self, pieces=None, instance_number: int = -1):
-        super().__init__(pieces, instance_number)
+    def __init__(self, variable_id: int, name: int):
+        self.variable_id = variable_id
+        self.name = name
+
+        super().__init__()
