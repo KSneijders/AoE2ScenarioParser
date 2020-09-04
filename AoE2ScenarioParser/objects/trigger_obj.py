@@ -4,15 +4,38 @@ from AoE2ScenarioParser.datasets import effects, conditions
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.condition_obj import ConditionObject
 from AoE2ScenarioParser.objects.effect_obj import EffectObject
-from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 
 
 class TriggerObject(AoE2Object):
+    """Object for handling a trigger."""
+
+    _link_list = [
+        RetrieverObjectLink("name", "TriggerPiece.trigger_data[__index__].trigger_name"),
+        RetrieverObjectLink("description", "TriggerPiece.trigger_data[__index__].trigger_description"),
+        RetrieverObjectLink("description_stid", "TriggerPiece.trigger_data[__index__].description_string_table_id"),
+        RetrieverObjectLink("display_as_objective", "TriggerPiece.trigger_data[__index__].display_as_objective"),
+        RetrieverObjectLink("short_description", "TriggerPiece.trigger_data[__index__].short_description"),
+        RetrieverObjectLink("short_description_stid",
+                            "TriggerPiece.trigger_data[__index__].short_description_string_table_id"),
+        RetrieverObjectLink("display_on_screen", "TriggerPiece.trigger_data[__index__].display_on_screen"),
+        RetrieverObjectLink("description_order", "TriggerPiece.trigger_data[__index__].objective_description_order"),
+        RetrieverObjectLink("enabled", "TriggerPiece.trigger_data[__index__].enabled"),
+        RetrieverObjectLink("looping", "TriggerPiece.trigger_data[__index__].looping"),
+        RetrieverObjectLink("header", "TriggerPiece.trigger_data[__index__].make_header"),
+        RetrieverObjectLink("mute_objectives", "TriggerPiece.trigger_data[__index__].mute_objectives"),
+        RetrieverObjectLink("conditions_list", "TriggerPiece.trigger_data[__index__].condition_data",
+                            process_as_object=ConditionObject),
+        RetrieverObjectLink("condition_order", "TriggerPiece.trigger_data[__index__].condition_display_order_array"),
+        RetrieverObjectLink("effects_list", "TriggerPiece.trigger_data[__index__].effect_data",
+                            process_as_object=EffectObject),
+        RetrieverObjectLink("effect_order", "TriggerPiece.trigger_data[__index__].effect_display_order_array"),
+        RetrieverObjectLink("trigger_id", retrieve_instance_number=True),
+    ]
+
     def __init__(self,
                  name: str,
                  description: str = "",
@@ -60,8 +83,6 @@ class TriggerObject(AoE2Object):
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
-        self.trigger_id = trigger_id
-
         super().__init__()
 
     @property
@@ -94,55 +115,6 @@ class TriggerObject(AoE2Object):
         helper.update_order_array(self.condition_order, len(self.conditions))
         return new_cond
 
-    def get_content_as_string(self) -> str:
-        return_string = ""
-        data_tba = [
-            ('enabled', self.enabled != 0),
-            ('looping', self.looping != 0)
-        ]
-
-        if self.description != "":
-            data_tba.append(('description', "'" + self.description + "'"))
-        if self.description_stid != -1:
-            data_tba.append(('description_stid', self.description_stid))
-        if self.short_description != "":
-            data_tba.append(('short_description', "'" + self.short_description + "'"))
-        if self.short_description_stid != -1:
-            data_tba.append(('short_description_stid', self.short_description_stid))
-        if self.display_as_objective != 0:
-            data_tba.append(('display_as_objective', self.display_as_objective != 0))
-        if self.display_on_screen != 0:
-            data_tba.append(('display_on_screen', self.display_on_screen != 0))
-        if self.description_order != 0:
-            data_tba.append(('description_order', self.description_order))
-        if self.header != 0:
-            data_tba.append(('header', self.header != 0))
-        if self.mute_objectives != 0:
-            data_tba.append(('mute_objectives', self.mute_objectives != 0))
-
-        for data in data_tba:
-            return_string += "\t\t" + data[0] + ": " + str(data[1]) + "\n"
-
-        if len(self.condition_order) > 0:
-            return_string += "\t\tconditions:\n"
-            for c_display_order, condition_id in enumerate(self.condition_order):
-                condition = self.conditions[condition_id]
-
-                return_string += f"\t\t\t{conditions.condition_names[condition.condition_type]} " \
-                                 f"[Index: {condition_id}, Display: {c_display_order}]:\n"
-                return_string += condition.get_content_as_string()
-
-        if len(self.effect_order) > 0:
-            return_string += "\t\teffects:\n"
-            for e_display_order, effect_id in enumerate(self.effect_order):
-                effect = self.effects[effect_id]
-
-                return_string += f"\t\t\t{effects.effect_names[effect.effect_type]} " \
-                                 f"[Index: {effect_id}, Display: {e_display_order}]:\n"
-                return_string += effect.get_content_as_string()
-
-        return return_string
-
     def get_effect(self, effect_index: int = None, display_index: int = None) -> EffectObject:
         helper.evaluate_index_params(effect_index, display_index, "effect")
 
@@ -158,9 +130,6 @@ class TriggerObject(AoE2Object):
             condition_index = self.condition_order[display_index]
 
         return self.conditions[condition_index]
-
-    def get_summary_as_string(self) -> str:
-        pass
 
     def remove_effect(self, effect_index: int = None, display_index: int = None, effect: EffectObject = None) -> None:
         if effect is None:
@@ -195,81 +164,55 @@ class TriggerObject(AoE2Object):
 
         self.condition_order = [x - 1 if x > condition_index else x for x in self.condition_order]
 
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs):  # Expected {trigger=triggerStruct, trigger_id=id}
-        trigger = kwargs['trigger']
+    def get_content_as_string(self) -> str:
+        return_string = ""
+        data_tba = {
+            'enabled': self.enabled != 0,
+            'looping': self.looping != 0
+        }
 
-        effects_list = []
-        effect_structs = get_retriever_by_name(trigger.retrievers, "Effect data").data
-        for effect_struct in effect_structs:
-            effects_list.append(EffectObject._parse_object(parsed_data, effect=effect_struct))
+        if self.description != "":
+            data_tba['description'] = f"'{self.description}'"
+        if self.description_stid != -1:
+            data_tba['description_stid'] = self.description_stid
+        if self.short_description != "":
+            data_tba['short_description'] = f"'{self.short_description}'"
+        if self.short_description_stid != -1:
+            data_tba['short_description_stid'] = self.short_description_stid
+        if self.display_as_objective != 0:
+            data_tba['display_as_objective'] = (self.display_as_objective != 0)
+        if self.display_on_screen != 0:
+            data_tba['display_on_screen'] = (self.display_on_screen != 0)
+        if self.description_order != 0:
+            data_tba['description_order'] = self.description_order
+        if self.header != 0:
+            data_tba['header'] = (self.header != 0)
+        if self.mute_objectives != 0:
+            data_tba['mute_objectives'] = (self.mute_objectives != 0)
 
-        conditions_list = []
-        condition_structs = get_retriever_by_name(trigger.retrievers, "Condition data").data
-        for condition_struct in condition_structs:
-            conditions_list.append(ConditionObject._parse_object(parsed_data, condition=condition_struct))
+        for key, value in data_tba.items():
+            return_string += f"\t\t{key}: {value}\n"
 
-        return TriggerObject(
-            name=get_retriever_by_name(trigger.retrievers, "Trigger name").data,
-            description=get_retriever_by_name(trigger.retrievers, "Trigger description").data,
-            description_stid=get_retriever_by_name(trigger.retrievers, "Description string Table ID").data,
-            display_as_objective=get_retriever_by_name(trigger.retrievers, "Act as objective").data,
-            short_description=get_retriever_by_name(trigger.retrievers, "Short description").data,
-            short_description_stid=get_retriever_by_name(trigger.retrievers, "Short description string Table ID").data,
-            display_on_screen=get_retriever_by_name(trigger.retrievers, "Display on screen").data,
-            description_order=get_retriever_by_name(trigger.retrievers, "Description order (in objectives)").data,
-            enabled=get_retriever_by_name(trigger.retrievers, "Enabled").data,
-            looping=get_retriever_by_name(trigger.retrievers, "Looping").data,
-            header=get_retriever_by_name(trigger.retrievers, "Make header").data,
-            mute_objectives=get_retriever_by_name(trigger.retrievers, "Mute objectives").data,
-            conditions_list=conditions_list,
-            condition_order=get_retriever_by_name(trigger.retrievers, "Condition display order array").data,
-            effects_list=effects_list,
-            effect_order=get_retriever_by_name(trigger.retrievers, "Effect display order array").data,
-            trigger_id=kwargs['trigger_id'],
-        )
+        if len(self.condition_order) > 0:
+            return_string += "\t\tconditions:\n"
+            for c_display_order, condition_id in enumerate(self.condition_order):
+                condition = self.conditions[condition_id]
 
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):  # Expected {trigger=triggerStruct}
-        trigger_data_retriever = get_retriever_by_name(parsed_data['TriggerPiece'].retrievers, "Trigger data")
-        trigger = kwargs['trigger']
-        trigger.effect_order = trigger.effect_order
-        trigger.condition_order = trigger.condition_order
+                return_string += f"\t\t\t{conditions.condition_names[condition.condition_type]} " \
+                                 f"[Index: {condition_id}, Display: {c_display_order}]:\n"
+                return_string += condition.get_content_as_string()
 
-        effects_list = []
-        for effect_obj in trigger.effects:
-            EffectObject._reconstruct_object(parsed_header, parsed_data, objects, effect=effect_obj,
-                                             effects=effects_list)
+        if len(self.effect_order) > 0:
+            return_string += "\t\teffects:\n"
+            for e_display_order, effect_id in enumerate(self.effect_order):
+                effect = self.effects[effect_id]
 
-        helper.update_order_array(trigger.effect_order, len(trigger.effects))
+                return_string += f"\t\t\t{effects.effect_names[effect.effect_type]} " \
+                                 f"[Index: {effect_id}, Display: {e_display_order}]:\n"
+                return_string += effect.get_content_as_string()
 
-        conditions_list = []
-        for condition_obj in trigger.conditions:
-            ConditionObject._reconstruct_object(parsed_header, parsed_data, objects, condition=condition_obj,
-                                                conditions=conditions_list)
+        return return_string
 
-        helper.update_order_array(trigger.condition_order, len(trigger.conditions))
+    def get_summary_as_string(self) -> str:
+        pass
 
-        trigger_data_retriever.data.append(
-            TriggerStruct(data=[
-                trigger.enabled,
-                trigger.looping,
-                trigger.description_stid,
-                trigger.display_as_objective,
-                trigger.description_order,
-                trigger.header,
-                trigger.short_description_stid,
-                trigger.display_on_screen,
-                b'\x00\x00\x00\x00\x00',  # Unknown
-                trigger.mute_objectives,
-                trigger.description,
-                trigger.name,
-                trigger.short_description,
-                len(trigger.effects),
-                effects_list,
-                trigger.effect_order,
-                len(trigger.conditions),
-                conditions_list,
-                trigger.condition_order,
-            ])
-        )
