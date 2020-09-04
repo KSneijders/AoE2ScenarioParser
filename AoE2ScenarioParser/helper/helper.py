@@ -1,4 +1,5 @@
 from enum import IntEnum
+from typing import Type
 
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
@@ -72,6 +73,16 @@ def pretty_print_list(plist):
             newline += "\n"
         return_string += newline
     return return_string + "]\n"
+
+
+def pretty_print_dict(pdict: dict):
+    return_string = "{\n"
+    for key, value in pdict.items():
+        newline = f"\t{key}: {value}"
+        if newline[::-2] is not "\n":
+            newline += "\n"
+        return_string += newline
+    return return_string + "}\n"
 
 
 def pretty_print_name(name: str) -> str:
