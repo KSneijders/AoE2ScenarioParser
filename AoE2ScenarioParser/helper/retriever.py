@@ -53,10 +53,24 @@ class Retriever:
 
 
 class RetrieverObjectLink:
-    def __init__(self, variable_name: str, link: str, process_as_object: Type[AoE2Object] = None):
+    def __init__(self,
+                 variable_name: str,
+                 link: str = None,
+                 process_as_object: Type[AoE2Object] = None,
+                 retrieve_instance_number: bool = False,
+                 ):
+        if link is None and not retrieve_instance_number:
+            raise ValueError("Either the 'link' parameter or 'retrieve_instance_number' parameter need to be defined.")
+        if link is not None and retrieve_instance_number:
+            raise ValueError("Cannot use both the 'link' parameter and 'retrieve_instance_number' parameter.")
+
+        if link is not None:
+            link: str = self._process_link(link)
+
         self.name: str = variable_name
-        self.link: str = self._process_link(link)
+        self.link = link
         self.process_as_object: Type[AoE2Object] = process_as_object
+        self.retrieve_instance_number: bool = retrieve_instance_number
 
     @staticmethod
     def _process_link(link) -> str:
