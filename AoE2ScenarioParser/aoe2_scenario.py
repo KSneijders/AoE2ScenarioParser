@@ -109,7 +109,7 @@ class AoE2Scenario:
 
         lgr.print("File reading finished successfully.")
 
-    def write_to_file(self, filename, log_writing=True, log_reconstructing=False):
+    def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=False):
         self._write_from_structure(filename, log_writing=log_writing, log_reconstructing=log_reconstructing)
 
     def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
