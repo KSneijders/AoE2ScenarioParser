@@ -12,13 +12,8 @@ from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 
 class UnitsObject(AoE2Object):
 
-    # Todo: Find a way to parse Struct > List or something similar so that the [x] isn't the only way
-    # Todo:     to circumvent the list of lists within PlayerUnitStruct
-    # Todo:     MAYBE: When attribute of another attribute is requested, but it's a list, parse it as such?
-    # Todo:         Example: UnitsPiece.players_units.units, `players_units` is a list of structs.
-    # Todo:             This way, parse it as a list making it a list of lists.
     _link_list = [
-        RetrieverObjectLink("units", "UnitsPiece.players_units[1].units", process_as_object=UnitObject)
+        RetrieverObjectLink("units", "UnitsPiece.players_units[].units", process_as_object=UnitObject)
     ]
 
     def __init__(self,
@@ -88,7 +83,7 @@ class UnitsObject(AoE2Object):
 
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
-        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_id not in eye_candy_ids]
+        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
 
     def get_units_in_area(self,
                           x1: float = None,
@@ -189,41 +184,3 @@ class UnitsObject(AoE2Object):
                         del self.units[player][i]
         elif unit is not None:
             self.units[unit.player.value].remove(unit)
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> UnitsObject:
-        object_piece = parsed_data['UnitsPiece']
-        units_per_player = get_retriever_by_name(object_piece.retrievers, "players_units").data
-
-        player_units = []
-        for player_id in range(0, 9):  # 0 Gaia & 1-8 Players:
-            player_units.append([])
-            units = get_retriever_by_name(units_per_player[player_id].retrievers, "units").data
-
-            for unit in units:
-                player_units[player_id].append(
-                    UnitObject._parse_object(parsed_data, unit=unit, player=Player(player_id))
-                )
-
-        return UnitsObject(
-            units=player_units
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {}
-        player_units_retriever = get_retriever_by_name(parsed_data['UnitsPiece'].retrievers, "Player Units")
-
-        # Todo: Move this to DataHeader
-        new_unit_id_retriever = get_retriever_by_name(parsed_data['DataHeaderPiece'].retrievers, "next_unit_id_to_place")
-        new_unit_id_retriever.data = objects['UnitsObject'].get_new_reference_id()
-
-        player_units_retriever.data = []
-        for player_units in objects['UnitsObject'].units:
-
-            units_list = []
-            for unit in player_units:
-                UnitObject._reconstruct_object(parsed_header, parsed_data, objects, unit=unit, units=units_list)
-
-            player_units_retriever.data.append(
-                PlayerUnitsStruct(data=[len(units_list), units_list])
-            )
