@@ -29,13 +29,14 @@ class AoE2ObjectManager:
         self.parsed_data = parsed_data
         self._objects = {}
         self._finished_new_structure = {
-            "UnitsObject": UnitsObject,
+            # "UnitsObject": UnitsObject,
             # "TriggersObject": TriggersObject,
             # "MapObject": MapObject,
         }
 
         self.map_manager = MapObject._construct(pieces)
         self.trigger_manager = TriggersObject._construct(pieces)
+        self.unit_manager = UnitsObject._construct(pieces)
 
         # self._objects = {
         #     # "FileHeaderObject": self._parse_file_header_object(),
@@ -55,10 +56,6 @@ class AoE2ObjectManager:
             lgr.print("\tParsing " + key + " finished successfully.")
 
         lgr.print("Parsing pieces and structs to objects finished successfully.")
-
-    @property
-    def unit_manager(self) -> UnitsObject:
-        return self._objects['UnitsObject']
 
     def reconstruct(self, log_reconstructing=False):
         lgr = SimpleLogger(log_reconstructing)

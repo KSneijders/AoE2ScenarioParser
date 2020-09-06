@@ -3,15 +3,24 @@ from __future__ import annotations
 from typing import List
 
 from AoE2ScenarioParser.datasets.players import Player
-from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 
 
 class UnitsObject(AoE2Object):
+
+    # Todo: Find a way to parse Struct > List or something similar so that the [x] isn't the only way
+    # Todo:     to circumvent the list of lists within PlayerUnitStruct
+    # Todo:     MAYBE: When attribute of another attribute is requested, but it's a list, parse it as such?
+    # Todo:         Example: UnitsPiece.players_units.units, `players_units` is a list of structs.
+    # Todo:             This way, parse it as a list making it a list of lists.
+    _link_list = [
+        RetrieverObjectLink("units", "UnitsPiece.players_units[1].units", process_as_object=UnitObject)
+    ]
+
     def __init__(self,
                  units: List[List[UnitObject]]
                  ):
@@ -53,7 +62,7 @@ class UnitsObject(AoE2Object):
             unit_const=unit_id,
             status=status,
             rotation=rotation,
-            animation_frame=animation_frame,
+            initial_animation_frame=animation_frame,
             garrisoned_in_id=garrisoned_in_id,
         )
 

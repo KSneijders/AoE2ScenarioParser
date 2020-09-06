@@ -6,12 +6,29 @@ from AoE2ScenarioParser.datasets import units, buildings
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 
 class UnitObject(AoE2Object):
+
+    # Todo: A way to get player information (x) of PlayerDataStruct. Through some sort of **kwargs?
+    # Todo:     Through some sort of history management? (Getting history[x]?)
+
+    _link_list = [
+        RetrieverObjectLink("player", ">> ? <<"),
+        RetrieverObjectLink("x", "UnitsPiece.players_units[0].units[__index__].x"),
+        RetrieverObjectLink("y", "UnitsPiece.players_units[0].units[__index__].y"),
+        RetrieverObjectLink("z", "UnitsPiece.players_units[0].units[__index__].z"),
+        RetrieverObjectLink("reference_id", "UnitsPiece.players_units[0].units[__index__].reference_id"),
+        RetrieverObjectLink("unit_const", "UnitsPiece.players_units[0].units[__index__].unit_const"),
+        RetrieverObjectLink("status", "UnitsPiece.players_units[0].units[__index__].status"),
+        RetrieverObjectLink("rotation", "UnitsPiece.players_units[0].units[__index__].rotation"),
+        RetrieverObjectLink("initial_animation_frame", "UnitsPiece.players_units[0].units[__index__].initial_animation_frame"),
+        RetrieverObjectLink("garrisoned_in_id", "UnitsPiece.players_units[0].units[__index__].garrisoned_in_id"),
+    ]
+
     def __init__(self,
                  player: Player,
                  x: float,
@@ -21,7 +38,7 @@ class UnitObject(AoE2Object):
                  unit_const: int,
                  status: int,
                  rotation: float,
-                 animation_frame: int,
+                 initial_animation_frame: int,
                  garrisoned_in_id: int
                  ):
 
@@ -41,7 +58,7 @@ class UnitObject(AoE2Object):
         self.status: int = status
         self.rotation: float = rotation % math.tau
         # Mods by tau because the scenario editor seems to place units at radian angles not strictly less than tau.
-        self.animation_frame: int = animation_frame
+        self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
 
         super().__init__()
@@ -98,7 +115,7 @@ class UnitObject(AoE2Object):
             unit_const=get_retriever_by_name(unit.retrievers, "unit_const").data,
             status=get_retriever_by_name(unit.retrievers, "status").data,
             rotation=get_retriever_by_name(unit.retrievers, "rotation_radians").data,
-            animation_frame=get_retriever_by_name(unit.retrievers, "initial_animation_frame").data,
+            initial_animation_frame=get_retriever_by_name(unit.retrievers, "initial_animation_frame").data,
             garrisoned_in_id=get_retriever_by_name(unit.retrievers, "garrisoned_in_id").data,
         )
 
