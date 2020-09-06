@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-import time
-from typing import List, Type, Dict
+from typing import List, Type, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
 from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
+
+if TYPE_CHECKING:
+    from typing import OrderedDict
 
 
 class AoE2Object:
@@ -16,49 +18,40 @@ class AoE2Object:
         self._pieces: List[AoE2Piece] = []
 
     @classmethod
-    def _construct(cls, pieces: Dict[str, AoE2Piece], instance_number_history=None):
-        # If unused, construct empty. If used, create copy to remove reference issues
-        # Issue: adding new index's to list used in calls higher up resulting in IndexErrors
-        # If we have instance number, add it to the history
+    def _construct(cls, pieces: OrderedDict[str, AoE2Piece], instance_number_history=None):
         if instance_number_history is None:
             instance_number_history = []
-        else:
-            instance_number_history = List.copy(instance_number_history)
 
         instance_number = AoE2Object.get_instance_number(instance_number_history=instance_number_history)
 
         object_parameters: dict = {}
         for link in cls._link_list:
-            if not link.retrieve_instance_number:
-                # Use temp_link to not change the actual links as they are class attributes
-                temp_link = link.link
-                if instance_number_history:
-                    for i in instance_number_history:
-                        temp_link = temp_link.replace("__index__", str(i), 1)
-
-                try:
-                    value = eval(temp_link, {}, {'pieces': pieces, '__index__': instance_number})
-                except IndexError as e:
-                    print(f"temp_link: {temp_link}\nPieces (len): {len(pieces)}\n__index__: {instance_number}\n"
-                          f"instance_number_history: {instance_number_history}")
-                    print(pieces['TriggerPiece'].trigger_data[instance_number_history[0]].effect_data)
-                    print(pieces['TriggerPiece'].trigger_data[instance_number_history[0]].effect_data[
-                            instance_number_history[1]])
-                    time.sleep(2)
-                    raise e
-
-                if link.process_as_object is not None:
-                    value_list = []
-                    for index, struct in enumerate(value):
-                        value_list.append(
-                            link.process_as_object._construct(
-                                pieces,
-                                instance_number_history=instance_number_history + [index]
-                            )
-                        )
-                    value = value_list
-            else:
+            if link.retrieve_instance_number:
                 value = instance_number
+            elif link.retrieve_history_number != -1:
+                value = instance_number_history[link.retrieve_history_number]
+            else:
+                special_result = link._process_special_link(pieces)
+                if special_result is not None:
+                    value = special_result
+                else:
+                    # Use temp_link to not change the actual links as they are class attributes
+                    temp_link = link.link
+                    if instance_number_history:
+                        for i in instance_number_history:
+                            temp_link = temp_link.replace("__index__", str(i), 1)
+                    value = eval(temp_link, {}, {'pieces': pieces, '__index__': instance_number})
+
+                    if link.process_as_object is not None:
+                        value_list = []
+                        for index, struct in enumerate(value):
+                            value_list.append(
+                                link.process_as_object._construct(
+                                    pieces,
+                                    instance_number_history=instance_number_history + [index]
+                                )
+                            )
+                        value = value_list
 
             object_parameters[link.name] = value
 
