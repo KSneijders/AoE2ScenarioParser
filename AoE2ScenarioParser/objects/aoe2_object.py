@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import copy
 import time
 from typing import List, Type, Dict
 
-from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
 from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
