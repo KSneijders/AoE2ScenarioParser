@@ -110,13 +110,9 @@ class AoE2Object:
         if obj is not None and instance_number_history is not None:
             raise ValueError("Cannot use both the parameter 'obj' and 'instance_number_history'.")
 
-        if instance_number_history is None:
-            instance_number_history = []
-
-        if obj is None:
-            return instance_number_history[-1] if len(instance_number_history) > 0 else -1
-        else:
-            return obj._instance_number_history[-1] if len(obj._instance_number_history) > 0 else -1
+        if instance_number_history is None and obj is not None:
+            instance_number_history = obj._instance_number_history
+        return instance_number_history[-1] if len(instance_number_history) > 0 else -1
 
     def __repr__(self):
         return str(self.__class__.__name__) + ": " + str(self.__dict__)
