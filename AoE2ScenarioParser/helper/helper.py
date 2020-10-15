@@ -23,8 +23,8 @@ def create_textual_hex(string, space_distance=2, enter_distance=48):
 
 
 # Credits: gurney alex @ https://stackoverflow.com/a/2657733/7230293
-def insert_char(string, char, every=64):
-    return char.join(string[i:i + every] for i in range(0, len(string), every))
+def insert_char(string, char, step=64):
+    return char.join(string[i:i + step] for i in range(0, len(string), step))
 
 
 """ =============================================================

@@ -13,9 +13,6 @@ from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 class UnitObject(AoE2Object):
 
-    # Todo: A way to get player information (x) of PlayerDataStruct. Through some sort of **kwargs?
-    # Todo:     Through some sort of history management? (Getting history[x]?)
-
     _link_list = [
         RetrieverObjectLink("player", retrieve_history_number=0),
         RetrieverObjectLink("x", "UnitsPiece.players_units[__index__].units[__index__].x"),
