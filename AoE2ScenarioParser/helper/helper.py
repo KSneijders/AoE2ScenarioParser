@@ -1,3 +1,4 @@
+import sys
 from enum import IntEnum
 from typing import Type
 
@@ -133,9 +134,12 @@ class SimpleLogger:
     def __init__(self, should_log):
         self.should_log = should_log
 
-    def print(self, string):
+    def print(self, string="", end="\n", replace_line=False):
         if self.should_log:
-            print(string)
+            if not replace_line:
+                print(string, end=end)
+            else:
+                sys.stdout.write('\r' + string)
 
     def __repr__(self):
         return f"SimpleLogger[should_log: {self.should_log}]"
