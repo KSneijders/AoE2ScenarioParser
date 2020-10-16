@@ -123,6 +123,12 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
         return GaiaBuilding(const)
 
 
+def q_str(value: any) -> str:
+    if type(value) is str:
+        return f"'{value}'"
+    return str(value)
+
+
 def evaluate_index_params(x_id, display_index, name):
     if x_id is None and display_index is None:
         raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted {name}")
