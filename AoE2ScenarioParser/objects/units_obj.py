@@ -4,10 +4,9 @@ from typing import List
 
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, RetrieverObjectLink
+from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
-from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 
 
 class UnitsObject(AoE2Object):

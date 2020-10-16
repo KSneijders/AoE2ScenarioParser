@@ -27,10 +27,10 @@ class TriggerObject(AoE2Object):
         RetrieverObjectLink("looping", "TriggerPiece.trigger_data[__index__].looping"),
         RetrieverObjectLink("header", "TriggerPiece.trigger_data[__index__].make_header"),
         RetrieverObjectLink("mute_objectives", "TriggerPiece.trigger_data[__index__].mute_objectives"),
-        RetrieverObjectLink("conditions_list", "TriggerPiece.trigger_data[__index__].condition_data",
+        RetrieverObjectLink("conditions", "TriggerPiece.trigger_data[__index__].condition_data",
                             process_as_object=ConditionObject),
         RetrieverObjectLink("condition_order", "TriggerPiece.trigger_data[__index__].condition_display_order_array"),
-        RetrieverObjectLink("effects_list", "TriggerPiece.trigger_data[__index__].effect_data",
+        RetrieverObjectLink("effects", "TriggerPiece.trigger_data[__index__].effect_data",
                             process_as_object=EffectObject),
         RetrieverObjectLink("effect_order", "TriggerPiece.trigger_data[__index__].effect_display_order_array"),
         RetrieverObjectLink("trigger_id", retrieve_instance_number=True),
@@ -49,19 +49,19 @@ class TriggerObject(AoE2Object):
                  looping: int = 0,
                  header: int = 0,
                  mute_objectives: int = 0,
-                 conditions_list: List[ConditionObject] = None,
+                 conditions: List[ConditionObject] = None,
                  condition_order: List[int] = None,
-                 effects_list: List[EffectObject] = None,
+                 effects: List[EffectObject] = None,
                  effect_order: List[int] = None,
                  trigger_id: int = -1,
                  ):
 
-        if conditions_list is None:
-            conditions_list = []
+        if conditions is None:
+            conditions = []
         if condition_order is None:
             condition_order = []
-        if effects_list is None:
-            effects_list = []
+        if effects is None:
+            effects = []
         if effect_order is None:
             effect_order = []
 
@@ -77,9 +77,9 @@ class TriggerObject(AoE2Object):
         self.looping: int = looping
         self.header: int = header
         self.mute_objectives: int = mute_objectives
-        self.conditions: List[ConditionObject] = conditions_list
+        self.conditions: List[ConditionObject] = conditions
         self.condition_order: List[int] = condition_order
-        self.effects: List[EffectObject] = effects_list
+        self.effects: List[EffectObject] = effects
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
