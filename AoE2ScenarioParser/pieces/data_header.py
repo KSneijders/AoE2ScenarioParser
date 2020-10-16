@@ -31,13 +31,15 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             'player_names': ['\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
             'player_data_1': DataHeaderPiece.get_player_data_1_default(),
-            'conquest_mode': 1_0_0_0_0_0_0_0_0,
-            'mission_items_counter': 1_0_0_0_0_0_0_0_0,
-            'mission_available': 1_0_0_0_0_0_0_0_0,
-            'mission_timeline': 1_0_0_0_0_0_0_0_0,
-            'mission_item': 1_0_0_0_0_0_0_0_0,
-            'unknown': 1_0_0_0_0_0_0_0_0,
-            'filename': 1_0_0_0_0_0_0_0_0,
+            'conquest_mode': 0,
+            'mission_items_counter': 0,
+            'mission_available': 0,
+            'mission_timeline': 0.0,
+            'mission_item': [],
+            'unknown': b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00',
+            'filename': 'CreatedUsingAoE2ScenarioParser',
         }
         return defaults
 
