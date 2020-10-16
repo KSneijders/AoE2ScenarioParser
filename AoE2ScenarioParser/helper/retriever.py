@@ -24,7 +24,8 @@ class Retriever:
         log_value: A boolean for, mostly, debugging. This will log this Retriever with it's data on retrieval.
     """
 
-    def __init__(self, name, datatype=DataType(), on_success=None, save_as=None, set_repeat=None, log_value=False):
+    def __init__(self, name, datatype=DataType(), on_success=None, save_as=None, set_repeat=None,
+                 log_value=False):
         self.name = name
         self.datatype = datatype
         self.on_success = on_success

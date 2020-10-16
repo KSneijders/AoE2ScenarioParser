@@ -1,3 +1,5 @@
+import abc
+
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
@@ -10,7 +12,12 @@ class AoE2Piece:
         self.parser = parser_obj
         if data:
             self.set_data(data)
-    
+
+    @staticmethod
+    @abc.abstractmethod
+    def defaults():
+        return {}
+
     def __getattr__(self, name):
         """
         Providing a default way to access retriever data labeled 'name'
@@ -45,7 +52,7 @@ class AoE2Piece:
 
                 if self.retrievers[i].log_value:
                     print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
-                    
+
                 self.retrievers[i].set_data(data[i])
 
                 if self.retrievers[i].save_as is not None:
