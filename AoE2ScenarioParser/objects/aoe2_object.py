@@ -115,4 +115,6 @@ class AoE2Object:
         return instance_number_history[-1] if len(instance_number_history) > 0 else -1
 
     def __repr__(self):
-        return str(self.__class__.__name__) + ": " + str(self.__dict__)
+        self_dict = self.__dict__
+        self_dict['_pieces'] = f"OrderDict"
+        return str(self.__class__.__name__) + ": " + helper.pretty_print_dict(self_dict)

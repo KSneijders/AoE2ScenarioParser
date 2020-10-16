@@ -33,6 +33,20 @@ class Retriever:
         self.log_value = log_value
         self.data = None
 
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, value):
+        try:
+            old_value = f"(was: {helper.q_str(self.data)})"
+        except AttributeError:
+            old_value = ""
+        self._data = value
+        if self.log_value:
+            print(f"{self} was set to: {helper.q_str(value)} {old_value}")
+
     def set_data(self, data):
         self.data = data
         if self.on_success is not None:
@@ -49,7 +63,7 @@ class Retriever:
         if type(self.data) is list:
             data = str(helper.pretty_print_list(self.data))
         else:
-            data = str(self.data)
+            data = helper.q_str(self.data)
         return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + data
 
 
@@ -82,8 +96,6 @@ class RetrieverObjectLink:
         return link
 
     def __repr__(self):
-        return "[RetrieverObjectLink] " + self.name + ": " + str(self.link) + \
-               (" -> " + self.process_as_object.__name__ if self.process_as_object is not None else "")
 
     def get_piece_datatype(self, pieces: OrderedDict[str, AoE2Piece]) -> Type[AoE2Piece]:
         if self.process_as_object is None:
@@ -111,6 +123,11 @@ class RetrieverObjectLink:
                     result_list[i].append(self.process_as_object._construct(pieces, [i, j]))
             return result_list
 
+    def __repr__(self):
+        return "[RetrieverObjectLink] " + self.name + ": " + str(self.link) + \
+               (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
+               (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
+               (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")
 
 def get_retriever_by_name(retriever_list: List[Retriever], name: str) -> (Retriever, RetrieverObjectLink):
     for retriever in retriever_list:

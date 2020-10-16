@@ -72,9 +72,10 @@ class AoE2Scenario:
                 self._parsed_header[piece_name] = piece
                 current_piece = piece_name
 
-                lgr.print("\tReading " + piece_name + "...")
+                lgr.print("\tReading " + piece_name + "...", replace_line=True)
                 piece.set_data_from_generator(header_generator)
-                lgr.print("\tReading " + piece_name + " finished successfully.")
+                lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
+                lgr.print()
 
             for piece_object in _file_structure:
                 piece = piece_object(self.parser)
@@ -82,9 +83,10 @@ class AoE2Scenario:
                 self._parsed_data[piece_name] = piece
                 current_piece = piece_name
 
-                lgr.print("\tReading " + piece_name + "...")
+                lgr.print("\tReading " + piece_name + "...", replace_line=True)
                 piece.set_data_from_generator(data_generator)
-                lgr.print("\tReading " + piece_name + " finished successfully.")
+                lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
+                lgr.print()
         except StopIteration as e:
             print(f"\n[StopIteration] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
             print("Writing ErrorFile...")
@@ -123,13 +125,14 @@ class AoE2Scenario:
         byte_data = b''
 
         for key in self._parsed_header:
-            lgr.print("\twriting " + key + "...")
+            lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_header[key].retrievers:
                 byte_header += parser.retriever_to_bytes(retriever)
-            lgr.print("\twriting " + key + " finished successfully.")
+            lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
+            lgr.print()
 
         for key in self._parsed_data:
-            lgr.print("\twriting " + key + "...")
+            lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data += parser.retriever_to_bytes(retriever)
@@ -137,7 +140,8 @@ class AoE2Scenario:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     print("\n\n\nAn error occurred. Writing failed.")
                     raise e
-            lgr.print("\twriting " + key + " finished successfully.")
+            lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
+            lgr.print()
 
         file = open(filename, "wb" if write_in_bytes else "w")
         file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))

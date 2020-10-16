@@ -207,8 +207,13 @@ def retriever_to_bytes(retriever):
                 return_bytes += int_to_bytes(len(byte_string), var_len, endian="little", signed=True)
                 return_bytes += byte_string
     except (AttributeError, TypeError) as e:
-        print("\n" + type(e).__name__ + " occurred in: " + retriever.name +
-              "\n\tData: " + repr(retriever.data) + "\n\tDatatype: " + str(retriever.datatype))
+        data_text = repr(retriever.data)
+        if type(retriever.data) == list and len(retriever.data) > 5:
+            data_text = f"[{retriever.data[0].__class__.__name__}] * {len(retriever.data)}"
+
+        print(f"\n{type(e).__name__} occurred in: {retriever.name} "
+              f"\n\tData: {data_text}"
+              f"\n\tDatatype: {str(retriever.datatype)}")
         raise e
 
     if retriever.log_value:
