@@ -238,13 +238,15 @@ class AoE2Scenario:
         with open(filename, 'w') as output_file:
             result = ""
             for key in self._parsed_header:
-                lgr.print("\tWriting " + key + "...")
+                lgr.print("\tWriting " + key + "...", replace_line=True)
                 result += self._parsed_header[key].get_byte_structure_as_string()
-                lgr.print("\tWriting " + key + " finished successfully.")
+                lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
+                lgr.print()
             for key in self._parsed_data:
-                lgr.print("\tWriting " + key + "...")
+                lgr.print("\tWriting " + key + "...", replace_line=True)
                 result += self._parsed_data[key].get_byte_structure_as_string()
-                lgr.print("\tWriting " + key + " finished successfully.")
+                lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
+                lgr.print()
 
             output_file.write(result)
             output_file.close()
