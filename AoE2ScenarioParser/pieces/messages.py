@@ -21,3 +21,21 @@ class MessagesPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Messages", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'instructions': 4294967294,
+            'hints': 4294967294,
+            'victory': 4294967294,
+            'loss': 4294967294,
+            'history': 4294967294,
+            'scouts': 4294967294,
+            'ascii_instructions': '',
+            'ascii_hints': '',
+            'ascii_victory': 'This scenario was created using AoE2ScenarioParser! Hopefully you enjoyed!',
+            'ascii_loss': '',
+            'ascii_history': '',
+            'ascii_scouts': '',
+        }
+        return defaults
