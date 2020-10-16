@@ -25,15 +25,15 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 class AoE2Scenario:
     @property
     def trigger_manager(self):
-        return self._object_manager.trigger_manager
+        return self._object_manager.objects['TriggersObject']
 
     @property
     def unit_manager(self):
-        return self._object_manager.unit_manager
+        return self._object_manager.objects['UnitsObject']
 
     @property
     def map_manager(self) -> MapObject:
-        return self._object_manager.map_manager
+        return self._object_manager.objects['MapObject']
 
     def __init__(self, filename, log_reading=True, log_parsing=False):
         print("\nPreparing & Loading file: '" + filename + "'...")

@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from typing import Type, TYPE_CHECKING, List
+from typing import Type, TYPE_CHECKING, List, Union
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
-    from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
     from typing import OrderedDict
 
 
@@ -84,6 +84,7 @@ class RetrieverObjectLink:
 
         self.name: str = variable_name
         self.link = link
+        self.is_special_unit_case = self._self_is_special_unit_case()
         self.process_as_object: Type[AoE2Object] = process_as_object
         self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
@@ -95,33 +96,108 @@ class RetrieverObjectLink:
         link = "pieces['" + link[0:dot] + "']" + link[dot:]
         return link
 
-    def __repr__(self):
-
-    def get_piece_datatype(self, pieces: OrderedDict[str, AoE2Piece]) -> Type[AoE2Piece]:
+    def get_piece_datatype(self, pieces: OrderedDict[str, AoE2Piece], custom_link="") -> Type[AoE2Piece]:
         if self.process_as_object is None:
             raise ValueError("Cannot get piece type from RetrieverObjectLink when parameter process_as_object has not "
                              "been set.")
-        split_link = self.link.split(".")
+        custom_link = self.link if custom_link == "" else custom_link
+        split_link = custom_link.split(".")
         link_end = split_link.pop()
+
         return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
             'pieces': dict(pieces),
             'find_retriever': get_retriever_by_name
         })
 
-    # Todo: Remove this ugly piece of code... Migrate _construct() and commit() logic (back) into RetrieverObjectLink?
-    def _process_special_link(self, pieces: OrderedDict[str, AoE2Piece]):
-        if "[]" not in self.link:
-            return None
+    def construct(self, pieces: OrderedDict[str, AoE2Piece], instance_number_history=None):
+        if instance_number_history is None:
+            instance_number_history = []
+
+        instance_number = AoE2Object.get_instance_number(instance_number_history=instance_number_history)
+
+        if self.retrieve_instance_number:
+            return instance_number
+        elif self.retrieve_history_number != -1:
+            return instance_number_history[self.retrieve_history_number]
         else:
-            list_notation_location = self.link.find("[]")
-            struct_list = eval(self.link[:list_notation_location], {}, {'pieces': pieces})
-            list_len = len(struct_list)
-            result_list = [[] for _ in range(0, list_len)]
-            for i in range(0, list_len):
-                list_of_attributes = struct_list[i].__getattr__(self.link[list_notation_location+3:])
-                for j in range(0, len(list_of_attributes)):
-                    result_list[i].append(self.process_as_object._construct(pieces, [i, j]))
-            return result_list
+            if self.is_special_unit_case:
+                return self._construct_special_unit_case(pieces)
+            # Use temp_link to not change the actual links as they are class attributes
+            temp_link = self.link
+            if instance_number_history:
+                for i in instance_number_history:
+                    temp_link = temp_link.replace("__index__", str(i), 1)
+            value = eval(temp_link, {}, {'pieces': pieces, '__index__': instance_number})
+
+            if self.process_as_object is not None:
+                value_list = []
+                for index, struct in enumerate(value):
+                    value_list.append(
+                        self.process_as_object._construct(
+                            pieces,
+                            instance_number_history=instance_number_history + [index]
+                        )
+                    )
+                return value_list
+            return value
+
+    def commit(self, pieces: OrderedDict[str, AoE2Piece], host_obj: AoE2Object):
+        # Object only retrievers for the ease of access of information.
+        # Not actually representing a value in the scenario file.
+        if self.retrieve_instance_number or self.retrieve_history_number >= 0:
+            return
+
+        instance_number_history = host_obj._instance_number_history
+        temp_link = self.link
+        if instance_number_history:
+            for i in instance_number_history:
+                temp_link = temp_link.replace("__index__", str(i), 1)
+
+        if self.is_special_unit_case:
+            temp_link = temp_link.replace("[]", "[0]", 1)
+
+        if self.process_as_object is not None:
+            object_list = host_obj.__getattribute__(self.name)
+            link_piece = self.get_piece_datatype(pieces, custom_link=temp_link)
+
+            exec(f"{temp_link} = [link_piece() for x in range(r)]", locals(), {
+                'pieces': pieces,
+                'link_piece': link_piece,
+                'r': len(object_list)
+            })
+
+            # Transform 2D list to 1D list: [[1,2,3], [4,5,6]] --> [1,2,3,4,5,6]
+            if self.is_special_unit_case:
+                object_list = [unit_struct for unit_struct_list in object_list for unit_struct in unit_struct_list]
+
+            for index, obj in enumerate(object_list):
+                obj._pieces = pieces
+                obj._instance_number = index
+                obj.commit()
+        else:
+            instance_number = AoE2Object.get_instance_number(obj=host_obj)
+
+            exec(f"{temp_link} = value", {}, {
+                'pieces': pieces,
+                'value': host_obj.__getattribute__(self.name),
+                '__index__': instance_number
+            })
+
+    def _self_is_special_unit_case(self):
+        if self.link is not None:
+            return "[]" in self.link
+        return False
+
+    def _construct_special_unit_case(self, pieces: OrderedDict[str, AoE2Piece]):
+        list_notation_location = self.link.find("[]")
+        struct_list = eval(self.link[:list_notation_location], {}, {'pieces': pieces})
+        list_len = len(struct_list)
+        result_list = [[] for _ in range(list_len)]
+        for i in range(list_len):
+            list_of_attributes = struct_list[i].__getattr__(self.link[list_notation_location + 3:])
+            for j in range(len(list_of_attributes)):
+                result_list[i].append(self.process_as_object._construct(pieces, [i, j]))
+        return result_list
 
     def __repr__(self):
         return "[RetrieverObjectLink] " + self.name + ": " + str(self.link) + \
@@ -129,7 +205,9 @@ class RetrieverObjectLink:
                (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
                (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")
 
-def get_retriever_by_name(retriever_list: List[Retriever], name: str) -> (Retriever, RetrieverObjectLink):
+
+def get_retriever_by_name(retriever_list: List[Union[Retriever, RetrieverObjectLink]], name: str) \
+        -> Union[Retriever, RetrieverObjectLink]:
     for retriever in retriever_list:
         if retriever.name == name:
             return retriever
