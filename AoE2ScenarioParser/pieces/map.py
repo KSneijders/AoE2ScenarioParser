@@ -23,3 +23,21 @@ class MapPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Map", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'separator_1': b'`\n',
+            'unknown_string': '',
+            'separator_2': b'`\n',
+            'map_color_mood': '',
+            'collide_and_correct': 0,
+            'villager_force_drop': [0],
+            'player_1_camera_y': -559026163,
+            'player_1_camera_x': 2,
+            'ai_type': 1,
+            'map_width': 120,
+            'map_height': 120,
+            'terrain_data': [TerrainStruct(data=[0, 0, 0, b'\xff\xff', -1]) for _ in range(120*120)],
+        }
+        return defaults
