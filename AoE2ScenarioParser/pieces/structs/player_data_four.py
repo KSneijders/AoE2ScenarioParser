@@ -16,3 +16,16 @@ class PlayerDataFourStruct(AoE2Struct):
         ]
 
         super().__init__("Player Data #4", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'food_duplicate': 0.0,
+            'wood_duplicate': 0.0,
+            'gold_duplicate': 0.0,
+            'stone_duplicate': 0.0,
+            'ore_x_duplicate': 0.0,
+            'trade_goods_duplicate': 0.0,
+            'population_limit': 200.0,
+        }
+        return defaults

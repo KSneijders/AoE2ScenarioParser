@@ -19,3 +19,18 @@ class UnitStruct(AoE2Struct):
         ]
 
         super().__init__("Unit", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'x': 0.5,
+            'y': 0.5,
+            'z': 0,
+            'reference_id': 0,
+            'unit_const': 4,  # Archer
+            'status': 2,
+            'rotation': 0,
+            'initial_animation_frame': 0,
+            'garrisoned_in_id': -1,
+        }
+        return defaults

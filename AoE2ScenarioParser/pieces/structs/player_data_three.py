@@ -25,3 +25,25 @@ class PlayerDataThreeStruct(AoE2Struct):
         ]
 
         super().__init__("Player Data #3", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'constant_name': 'Scenario Editor Phantom',
+            'initial_camera_x': 60.0,
+            'initial_camera_y': 60.0,
+            'unknown_similar_to_camera_x': 95,
+            'unknown_similar_to_camera_y': 87,
+            'aok_allied_victory': 0,
+            'player_count_for_diplomacy': 9,
+            'diplomacy_for_interaction': [3, 0, 3, 3, 3, 3, 3, 3, 3],
+            'diplomacy_for_ai_system': [0, 1, 4, 4, 4, 4, 4, 4, 4],
+            'color': 0,
+            'victory_version': 2.0,
+            'unknown': 0,
+            'unknown_2': [0, 0, 0, 0, 0, 0, 0, 0],
+            'unknown_structure_grand_theft_empires': [],
+            'unknown_3': [0, 0, 0, 0, 0, 0, 0],
+            'unknown_4': -1,
+        }
+        return defaults

@@ -10,3 +10,10 @@ class PlayerDiplomacyStruct(AoE2Struct):
         ]
 
         super().__init__("Player Diplomacy", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'stance_with_each_player': [3] * 16
+        }
+        return defaults

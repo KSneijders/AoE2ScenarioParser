@@ -12,3 +12,11 @@ class PlayerUnitsStruct(AoE2Struct):
         ]
 
         super().__init__("Player Units", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'unit_count': 0,
+            'units': [],
+        }
+        return defaults

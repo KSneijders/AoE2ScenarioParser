@@ -12,3 +12,12 @@ class AIStruct(AoE2Struct):
         ]
 
         super().__init__("AI", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'Unknown, always 0': 0,
+            'Unknown, always 0(2)': 0,
+            'AI.per file text': ''
+        }
+        return defaults

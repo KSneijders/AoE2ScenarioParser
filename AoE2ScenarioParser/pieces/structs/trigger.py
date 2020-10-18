@@ -31,3 +31,28 @@ class TriggerStruct(AoE2Struct):
         ]
 
         super().__init__("Trigger", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'enabled': 1,
+            'looping': 0,
+            'description_string_table_id': -1,
+            'display_as_objective': 0,
+            'objective_description_order': 0,
+            'make_header': 0,
+            'short_description_string_table_id': -1,
+            'display_on_screen': 0,
+            'unknown': b'\x00\x00\x00\x00\x00',
+            'mute_objectives': 0,
+            'trigger_description': '',
+            'trigger_name': 'Trigger 0',
+            'short_description': '',
+            'number_of_effects': 0,
+            'effect_data': [],
+            'effect_display_order_array': [],
+            'number_of_conditions': 0,
+            'condition_data': [],
+            'condition_display_order_array': [],
+        }
+        return defaults
