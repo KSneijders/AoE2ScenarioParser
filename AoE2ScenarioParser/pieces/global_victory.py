@@ -20,3 +20,22 @@ class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Global Victory", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'separator': 4294967197,
+            'conquest_required': 1,
+            'ruins': 0,
+            'artifacts': 0,
+            'discovery': 0,
+            'explored_percent_of_map_required': 0,
+            'gold': 0,
+            'all_custom_conditions_required': 0,
+            'mode': 0,
+            'required_score_for_score_victory': 900,
+            'time_for_timed_game_in_10ths_of_a_year': 9000,
+        }
+        return defaults
+
+
