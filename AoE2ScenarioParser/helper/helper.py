@@ -54,11 +54,11 @@ def add_prefix_chars(string, char, length):
         return char * (length - len(string)) + string
 
 
-def add_suffix_chars(string, char, length):
-    if len(string) > length:
+def add_suffix_chars(string, char, total_length):
+    if len(string) > total_length:
         return string
     else:
-        return string + char * (length - len(string))
+        return string + char * (total_length - len(string))
 
 
 """ =============================================================
