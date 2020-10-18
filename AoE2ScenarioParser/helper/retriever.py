@@ -55,10 +55,7 @@ class Retriever:
 
     def get_short_str(self):
         if self.data is not None:
-            if type(self.data) is str:
-                return self.name + " (" + self.datatype.to_simple_string() + "): '" + str(self.data) + "'"
-            else:
-                return self.name + " (" + self.datatype.to_simple_string() + "): " + str(self.data) + ""
+            return self.name + " (" + self.datatype.to_simple_string() + "): " + helper.q_str(self.data)
 
     def __repr__(self):
         if type(self.data) is list:

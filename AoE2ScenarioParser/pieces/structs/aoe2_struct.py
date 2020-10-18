@@ -14,7 +14,7 @@ class AoE2Struct(AoE2Piece):
         return "\t\t\t" + name + ": " + data + " (" + datatype + ")\n"
 
     def get_header_string(self):
-        return "############ " + self.piece_type + " ############"
+        return "############ " + self.piece_type + " ############  [STRUCT]"
 
     def __str__(self):
         """ Remove Terrain and EyeCandy Units from the __str__ representation. As it'd mostly be considered spam. """

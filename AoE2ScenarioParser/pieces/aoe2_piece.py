@@ -99,7 +99,7 @@ class AoE2Piece:
         return "\t" + name + ": " + data + " (" + datatype + ")\n"
 
     def get_header_string(self):
-        return "######################## " + self.piece_type + " ########################"
+        return "######################## " + self.piece_type + " ######################## [PIECE]"
 
     def get_byte_structure_as_string(self, skip_retrievers=None):
         if skip_retrievers is None:
@@ -111,15 +111,19 @@ class AoE2Piece:
             if retriever.name in skip_retrievers:
                 continue
             byte_structure += "\n"
-            if type(retriever.data) is list and len(retriever.data) > 0:
-                if isinstance(retriever.data[0], AoE2Piece):
-                    for struct in retriever.data:
-                        byte_structure += struct.get_byte_structure_as_string()
-                    continue
-            else:
-                if isinstance(retriever.data, AoE2Piece):
-                    byte_structure += retriever.data.get_byte_structure_as_string()
-                    continue
+
+            listed_retriever_data = parser.listify(retriever.data)
+            struct_header_set = False
+            for struct in listed_retriever_data:
+                if isinstance(struct, AoE2Piece):
+                    if not struct_header_set:
+                        byte_structure += f"\n{'#'*27} {retriever.name} ({retriever.datatype.to_simple_string()})"
+                        struct_header_set = True
+                    byte_structure += struct.get_byte_structure_as_string()
+            # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
+            if struct_header_set:
+                byte_structure += f"{'#'*27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
+                continue
 
             retriever_data_bytes = parser.retriever_to_bytes(retriever)
             if retriever_data_bytes is None:
@@ -128,7 +132,6 @@ class AoE2Piece:
                 retriever_data_bytes = retriever_data_bytes.hex()
 
             retriever_short_string = retriever.get_short_str()
-
             retriever_data_hex = helper.create_textual_hex(retriever_data_bytes, space_distance=2,
                                                            enter_distance=24)
 
@@ -155,7 +158,7 @@ class AoE2Piece:
             else:
                 byte_structure += helper.add_suffix_chars(retriever_data_hex, " ", 28) + retriever_short_string
 
-        return byte_structure + "\n\n"
+        return byte_structure + "\n"
 
     def __str__(self):
         represent = self.piece_type + ": \n"
