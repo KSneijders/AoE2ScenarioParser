@@ -30,7 +30,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             'version': 1.3600000143051147,
             'player_names': ['\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
-            'player_data_1': DataHeaderPiece.get_player_data_1_default(),
+            'player_data_1': DataHeaderPiece._get_player_data_1_default(),
             'conquest_mode': 0,
             'mission_items_counter': 0,
             'mission_available': 0,
@@ -44,7 +44,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
         return defaults
 
     @staticmethod
-    def get_player_data_1_default():
+    def _get_player_data_1_default():
         # active, human, civilization, cty_mode
         data = [
             [1, 1, 36, 4],
