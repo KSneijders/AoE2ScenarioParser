@@ -139,6 +139,17 @@ class RetrieverObjectLink:
                 return value_list
             return value
 
+    def _commit_special_unit_case(self, pieces: OrderedDict[str, AoE2Piece], link_piece, units):
+        for player_number in range(len(units)):
+            pieces['UnitsPiece'].players_units[player_number].unit_count = len(units[player_number])
+            pieces['UnitsPiece'].players_units[player_number].units = \
+                [link_piece() for _ in range(len(units[player_number]))]
+
+            for index, obj in enumerate(units[player_number]):
+                obj._pieces = pieces
+                obj._instance_number = index
+                obj.commit()
+
     def commit(self, pieces: OrderedDict[str, AoE2Piece], host_obj: AoE2Object):
         # Object only retrievers for the ease of access of information.
         # Not actually representing a value in the scenario file.
@@ -155,8 +166,14 @@ class RetrieverObjectLink:
             temp_link = temp_link.replace("[]", "[0]", 1)
 
         if self.process_as_object is not None:
-            object_list = host_obj.__getattribute__(self.name)
             link_piece = self.get_piece_datatype(pieces, custom_link=temp_link)
+
+            if self.is_special_unit_case:
+                object_list = host_obj.__getattribute__(self.name)
+                self._commit_special_unit_case(pieces, link_piece, object_list)
+                return
+
+            object_list = host_obj.__getattribute__(self.name)
 
             exec(f"{temp_link} = [link_piece() for x in range(r)]", locals(), {
                 'pieces': pieces,
@@ -164,17 +181,12 @@ class RetrieverObjectLink:
                 'r': len(object_list)
             })
 
-            # Transform 2D list to 1D list: [[1,2,3], [4,5,6]] --> [1,2,3,4,5,6]
-            if self.is_special_unit_case:
-                object_list = [unit_struct for unit_struct_list in object_list for unit_struct in unit_struct_list]
-
             for index, obj in enumerate(object_list):
                 obj._pieces = pieces
                 obj._instance_number = index
                 obj.commit()
         else:
             instance_number = AoE2Object.get_instance_number(obj=host_obj)
-
             exec(f"{temp_link} = value", {}, {
                 'pieces': pieces,
                 'value': host_obj.__getattribute__(self.name),
