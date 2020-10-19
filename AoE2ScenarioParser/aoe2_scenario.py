@@ -24,11 +24,11 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     @property
-    def trigger_manager(self):
+    def trigger_manager(self) -> TriggerObject:
         return self._object_manager.objects['TriggersObject']
 
     @property
-    def unit_manager(self):
+    def unit_manager(self) -> UnitsObject:
         return self._object_manager.objects['UnitsObject']
 
     @property
@@ -95,20 +95,6 @@ class AoE2Scenario:
             print("ErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
             time.sleep(1)
             raise StopIteration(e)
-
-        suffix = b''
-        try:
-            while True:
-                suffix += data_generator.__next__()
-        except StopIteration:
-            # End of file reached
-            pass
-        finally:
-            if len(suffix) > 0:
-                # print("Found file suffix! Length: " + str(len(suffix)) + ". Suffix content: '" + str(suffix) + "'.")
-                pass
-            self._suffix = suffix
-
         lgr.print("File reading finished successfully.")
 
     def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=False):
@@ -147,10 +133,13 @@ class AoE2Scenario:
         file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
 
         if compress:
+            lgr.print("\tCompressing...", replace_line=True)
             # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
             deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-            compressed = deflate_obj.compress(byte_data + self._suffix) + deflate_obj.flush()
+            compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
             file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
+            lgr.print("\tCompressing finished successfully.", replace_line=True)
+            lgr.print()
         else:
             file.write(byte_data if write_in_bytes else create_textual_hex(byte_data.hex()))
 
