@@ -42,6 +42,8 @@ class AoE2Piece:
 
     def set_data(self, data):
         saves = {}
+        if self.parser is not None:
+            saves = self.parser._saves
         if len(data) == len(self.retrievers):
             for i in range(0, len(data)):
                 if self.retrievers[i].set_repeat:
