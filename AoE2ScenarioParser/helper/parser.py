@@ -185,24 +185,33 @@ def retriever_to_bytes(retriever):
             data = retriever.data[i] if is_list else retriever.data
 
             if data is None:
-                print("No data found in retriever: " + str(retriever))
+                # No data is found in struct. Reasoning described below.
                 return None
 
             if var_type == "struct":
                 for struct_retriever in data.retrievers:
-                    return_bytes += retriever_to_bytes(struct_retriever)
-            if var_type == "u" or var_type == "s":
+                    result = retriever_to_bytes(struct_retriever)
+                    if result is None:
+                        # Return default value. When non is committed.
+                        # Should only happen when a value is not transferred from and to a struct.
+                        # This is because structs are recreated on file generation. When the struct does not contain
+                        # a certain value because it's use is unknown, the value isn't transferred between.
+                        struct_retriever.data = retriever.datatype.var.defaults()[struct_retriever.name]
+                        return_bytes += retriever_to_bytes(struct_retriever)
+                        continue
+                    return_bytes += result
+            if var_type == "u" or var_type == "s":  # int
                 return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
-            elif var_type == "f":
+            elif var_type == "f":  # float
                 if var_len == 4:
                     return_bytes += float_to_bytes(data)
-                else:  # Always 4 (float) except for trigger version (8: double)
+                else:
                     return_bytes += double_to_bytes(data)
-            elif var_type == "c":
+            elif var_type == "c":  # str
                 return_bytes += fixed_chars_to_bytes(data)
-            elif var_type == "data":
+            elif var_type == "data":  # bytes
                 return_bytes += data
-            elif var_type == "str":
+            elif var_type == "str":  # str
                 byte_string = str_to_bytes(data)
                 return_bytes += int_to_bytes(len(byte_string), var_len, endian="little", signed=True)
                 return_bytes += byte_string
