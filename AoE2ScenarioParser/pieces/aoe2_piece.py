@@ -52,9 +52,6 @@ class AoE2Piece:
                         self.retrievers[i].set_repeat
                     )
 
-                if self.retrievers[i].log_value:
-                    print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
-
                 self.retrievers[i].set_data(data[i])
 
                 if self.retrievers[i].save_as is not None:
@@ -182,7 +179,7 @@ class AoE2Piece:
                 if self.retrievers[i].data is not None:
                     data = self.retrievers[i].data
                 else:
-                    data = "<Empty>"
+                    data = "None"
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
 
         return represent

@@ -40,13 +40,12 @@ class Retriever:
 
     @data.setter
     def data(self, value):
-        try:
+        old_value = ""
+        if hasattr(self, 'data'):
             old_value = f"(was: {helper.q_str(self.data)})"
-        except AttributeError:
-            old_value = ""
         self._data = value
         if self.log_value:
-            print(f"{self} was set to: {helper.q_str(value)} {old_value}")
+            print(f"{self.to_simple_string()} >>> set to: {helper.q_str(value)} {old_value}")
 
     def set_data(self, data):
         self.data = data
@@ -57,12 +56,15 @@ class Retriever:
         if self.data is not None:
             return self.name + " (" + self.datatype.to_simple_string() + "): " + helper.q_str(self.data)
 
+    def to_simple_string(self):
+        return f"[Retriever] {self.name}: {self.datatype}"
+
     def __repr__(self):
         if type(self.data) is list:
             data = str(helper.pretty_print_list(self.data))
         else:
             data = helper.q_str(self.data)
-        return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + data
+        return f"{self.to_simple_string()} >>> {data}"
 
 
 class RetrieverObjectLink:
