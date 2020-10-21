@@ -13,3 +13,12 @@ class CinematicsPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Cinematics", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'ascii_pregame': '',
+            'ascii_victory': '',
+            'ascii_loss': '',
+        }
+        return defaults

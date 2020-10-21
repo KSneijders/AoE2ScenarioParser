@@ -18,7 +18,37 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("mission_timeline", DataType("f32")),
             Retriever("mission_item", DataType("30"), set_repeat="{mic}"),
             Retriever("unknown", DataType("64")),
-            Retriever("filename", DataType("str16"))
+            Retriever("filename", DataType("str16")),
         ]
 
         super().__init__("Data Header", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'next_unit_id_to_place': 0,
+            'version': 1.3700000047683716,
+            'player_names': ['\x00' * 256] * 16,
+            'string_table_player_names': [4294967294] * 16,
+            'player_data_1': DataHeaderPiece._get_player_data_1_default(),
+            'conquest_mode': 0,
+            'mission_items_counter': 0,
+            'mission_available': 0,
+            'mission_timeline': 0.0,
+            'mission_item': [],
+            'unknown': b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00',
+            'filename': 'CreatedUsingAoE2ScenarioParser',
+        }
+        return defaults
+
+    @staticmethod
+    def _get_player_data_1_default():
+        # active, human, civilization, cty_mode
+        data = [
+            [1, 1, 36, 4],
+            [1, 0, 36, 4],
+        ]
+        data += [[0, 0, 36, 4] for _ in range(14)]
+        return [PlayerDataOneStruct(data=x) for x in data]

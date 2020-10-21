@@ -17,3 +17,15 @@ class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Player Data #2", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'strings': [''] * 32,
+            'ai_names': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            'ai_files': [AIStruct(data=[0, 0, '']) for _ in range(16)],
+            'ai_type': [1] * 16,
+            'separator': 4294967197,
+            'resources': [ResourcesStruct(data=[0, 0, 0, 0, 0, 0, x]) for x in range(16)],
+        }
+        return defaults

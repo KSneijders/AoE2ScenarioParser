@@ -13,3 +13,13 @@ class PlayerDataOneStruct(AoE2Struct):
         ]
 
         super().__init__("Player Data #1", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'active': 0,
+            'human': 0,
+            'civilization': 36,
+            'cty_mode': 4,
+        }
+        return defaults

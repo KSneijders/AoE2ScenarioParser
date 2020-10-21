@@ -14,3 +14,14 @@ class TerrainStruct(AoE2Struct):
         ]
 
         super().__init__("Terrain", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'terrain_id': 0,
+            'elevation': 0,
+            'unused': 0,
+            'separator': b'\xff\xff',
+            'layer': -1,
+        }
+        return defaults

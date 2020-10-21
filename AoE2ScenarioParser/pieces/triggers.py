@@ -19,3 +19,17 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Triggers", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'trigger_version': 2.2,
+            'trigger_instruction_start': 0,
+            'number_of_triggers': 0,
+            'trigger_data': [],
+            'trigger_display_order_array': [],
+            'unknown': b'\x00' * 1028,
+            'number_of_variables': 0,
+            'variable_data': [],
+        }
+        return defaults

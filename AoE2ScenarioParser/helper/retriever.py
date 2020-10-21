@@ -24,7 +24,8 @@ class Retriever:
         log_value: A boolean for, mostly, debugging. This will log this Retriever with it's data on retrieval.
     """
 
-    def __init__(self, name, datatype=DataType(), on_success=None, save_as=None, set_repeat=None, log_value=False):
+    def __init__(self, name, datatype=DataType(), on_success=None, save_as=None, set_repeat=None,
+                 log_value=False):
         self.name = name
         self.datatype = datatype
         self.on_success = on_success
@@ -39,13 +40,12 @@ class Retriever:
 
     @data.setter
     def data(self, value):
-        try:
+        old_value = ""
+        if hasattr(self, 'data'):
             old_value = f"(was: {helper.q_str(self.data)})"
-        except AttributeError:
-            old_value = ""
         self._data = value
         if self.log_value:
-            print(f"{self} was set to: {helper.q_str(value)} {old_value}")
+            print(f"{self.to_simple_string()} >>> set to: {helper.q_str(value)} {old_value}")
 
     def set_data(self, data):
         self.data = data
@@ -54,17 +54,17 @@ class Retriever:
 
     def get_short_str(self):
         if self.data is not None:
-            if type(self.data) is str:
-                return self.name + " (" + self.datatype.to_simple_string() + "): '" + str(self.data) + "'"
-            else:
-                return self.name + " (" + self.datatype.to_simple_string() + "): " + str(self.data) + ""
+            return self.name + " (" + self.datatype.to_simple_string() + "): " + helper.q_str(self.data)
+
+    def to_simple_string(self):
+        return f"[Retriever] {self.name}: {self.datatype}"
 
     def __repr__(self):
         if type(self.data) is list:
             data = str(helper.pretty_print_list(self.data))
         else:
             data = helper.q_str(self.data)
-        return "[Retriever] " + self.name + ": " + str(self.datatype) + " >>> " + data
+        return f"{self.to_simple_string()} >>> {data}"
 
 
 class RetrieverObjectLink:
@@ -141,6 +141,17 @@ class RetrieverObjectLink:
                 return value_list
             return value
 
+    def _commit_special_unit_case(self, pieces: OrderedDict[str, AoE2Piece], link_piece, units):
+        for player_number in range(len(units)):
+            pieces['UnitsPiece'].players_units[player_number].unit_count = len(units[player_number])
+            pieces['UnitsPiece'].players_units[player_number].units = \
+                [link_piece() for _ in range(len(units[player_number]))]
+
+            for index, obj in enumerate(units[player_number]):
+                obj._pieces = pieces
+                obj._instance_number = index
+                obj.commit()
+
     def commit(self, pieces: OrderedDict[str, AoE2Piece], host_obj: AoE2Object):
         # Object only retrievers for the ease of access of information.
         # Not actually representing a value in the scenario file.
@@ -157,8 +168,14 @@ class RetrieverObjectLink:
             temp_link = temp_link.replace("[]", "[0]", 1)
 
         if self.process_as_object is not None:
-            object_list = host_obj.__getattribute__(self.name)
             link_piece = self.get_piece_datatype(pieces, custom_link=temp_link)
+
+            if self.is_special_unit_case:
+                object_list = host_obj.__getattribute__(self.name)
+                self._commit_special_unit_case(pieces, link_piece, object_list)
+                return
+
+            object_list = host_obj.__getattribute__(self.name)
 
             exec(f"{temp_link} = [link_piece() for x in range(r)]", locals(), {
                 'pieces': pieces,
@@ -166,17 +183,12 @@ class RetrieverObjectLink:
                 'r': len(object_list)
             })
 
-            # Transform 2D list to 1D list: [[1,2,3], [4,5,6]] --> [1,2,3,4,5,6]
-            if self.is_special_unit_case:
-                object_list = [unit_struct for unit_struct_list in object_list for unit_struct in unit_struct_list]
-
             for index, obj in enumerate(object_list):
                 obj._pieces = pieces
                 obj._instance_number = index
                 obj.commit()
         else:
             instance_number = AoE2Object.get_instance_number(obj=host_obj)
-
             exec(f"{temp_link} = value", {}, {
                 'pieces': pieces,
                 'value': host_obj.__getattribute__(self.name),

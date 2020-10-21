@@ -1,3 +1,5 @@
+import time
+
 from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
@@ -20,6 +22,19 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
 
         super().__init__("File Header", retrievers, parser_obj, data=data)
 
-# For when turning it back into bytes:
-# import time
-# timestamp = int(time.time()) <-- for seconds since epoch
+    @staticmethod
+    def defaults():
+        defaults = {
+            'version': '1.37',
+            'header_length': 0,
+            'savable': 5,
+            'timestamp_of_last_save': int(time.time()),
+            'scenario_instructions': '',
+            'individual_victories_used': 0,
+            'player_count': 2,
+            'data': b'\xe8\x03\x00\x00\x01\x00\x00\x00\x06\x00\x00\x00\x02\x00\x00\x00\x03\x00\x00\x00\x04\x00\x00'
+                    b'\x00\x05\x00\x00\x00\x06\x00\x00\x00\x07\x00\x00\x00',
+            'creator_name': 'KSneijders/AoE2ScenarioParser',
+            'trigger_count': 0,
+        }
+        return defaults

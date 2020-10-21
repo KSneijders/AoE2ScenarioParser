@@ -17,3 +17,26 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Units", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'number_of_unit_sections': 9,
+            'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0]) for _ in range(8)],
+            'number_of_players': 9,
+            'player_data_3': UnitsPiece._get_player_data_3_default(),
+            'players_units': [PlayerUnitsStruct(data=[0, []]) for _ in range(9)],
+        }
+        return defaults
+
+    @staticmethod
+    def _get_player_data_3_default():
+        return [PlayerDataThreeStruct(data=[
+            'Scenario Editor Phantom',
+            60.0, 60.0, 95, 87, 0, 9,
+            [3, 0, 3, 3, 3, 3, 3, 3, 3],
+            [0, 1, 4, 4, 4, 4, 4, 4, 4],
+            x, 2.0, 0,
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [], [0, 0, 0, 0, 0, 0, 0], -1
+        ]) for x in range(8)]

@@ -15,3 +15,16 @@ class DiplomacyPiece(aoe2_piece.AoE2Piece):
         ]
 
         super().__init__("Diplomacy", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'per_player_diplomacy': [PlayerDiplomacyStruct(data=[[3] * 16]) for _ in range(16)],
+            'individual_victories': [b'\x00' * 60] * 192,
+            'separator': 4294967197,
+            'per_player_allied_victory': [0] * 16,
+            'unknown': b'\x00\x01\x00\x04',
+        }
+        return defaults
+
+

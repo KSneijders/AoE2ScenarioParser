@@ -32,3 +32,32 @@ class ConditionStruct(AoE2Struct):
         ]
 
         super().__init__("Condition", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'condition_type': 0,
+            'static_value_21': 21,
+            'amount_or_quantity': -1,
+            'resource_type_or_tribute_list': -1,
+            'unit_object': -1,
+            'next_object': -1,
+            'object_list': -1,
+            'source_player': -1,
+            'technology': -1,
+            'timer': -1,
+            'unknown': -1,
+            'area_1_x': -1,
+            'area_1_y': -1,
+            'area_2_x': -1,
+            'area_2_y': -1,
+            'object_group': -1,
+            'object_type': -1,
+            'ai_signal': -1,
+            'inverted': -1,
+            'unknown_2': -1,
+            'variable': -1,
+            'comparison': -1,
+            'target_player': -1,
+        }
+        return defaults

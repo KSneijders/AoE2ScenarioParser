@@ -1,6 +1,7 @@
 import collections
 import time
 import zlib
+from typing import List, Type
 
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
@@ -8,6 +9,9 @@ from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
+from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
+from AoE2ScenarioParser.objects.units_obj import UnitsObject
+from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -24,36 +28,69 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     @property
-    def trigger_manager(self):
+    def trigger_manager(self) -> TriggerObject:
         return self._object_manager.objects['TriggersObject']
 
     @property
-    def unit_manager(self):
+    def unit_manager(self) -> UnitsObject:
         return self._object_manager.objects['UnitsObject']
 
     @property
     def map_manager(self) -> MapObject:
         return self._object_manager.objects['MapObject']
 
-    def __init__(self, filename, log_reading=True, log_parsing=False):
+    def __init__(self):
+        pass
+
+    @classmethod
+    def from_file(cls, filename, log_reading=True, log_parsing=False):
+        scenario = cls()
+
         print("\nPreparing & Loading file: '" + filename + "'...")
+        scenario_file = open(filename, "rb")
+        scenario._file = scenario_file.read()
+        scenario_file.seek(0)  # Reset file cursor to 0
 
-        scenario = open(filename, "rb")
-        self._file = scenario.read()
-        scenario.seek(0)  # Reset file cursor to 0
+        scenario._file_header = scenario_file.read(scenario._compute_header_length())
+        scenario._file_data = zlib.decompress(scenario_file.read(), -zlib.MAX_WBITS)
 
-        self._file_header = scenario.read(self._compute_header_length())
-        self._file_data = zlib.decompress(scenario.read(), -zlib.MAX_WBITS)
-
-        scenario.close()
-        # self._debug_write_from_source("../PreParseErrorFile", "hd", write_in_bytes=False)
-        # exit()
-
+        scenario_file.close()
         print("File prepared and loaded.")
 
-        self.parser = parser.Parser()
-        self._read_file(log_reading=log_reading)
-        self._object_manager = AoE2ObjectManager(self._parsed_header, self._parsed_data, log_parsing=log_parsing)
+        scenario.parser = parser.Parser()
+        scenario._read_file(log_reading=log_reading)
+        scenario._object_manager = AoE2ObjectManager(scenario._parsed_header, scenario._parsed_data,
+                                                     log_parsing=log_parsing)
+        return scenario
+
+    @classmethod
+    def create(cls, log_creating=True, log_parsing=False):
+        scenario = cls()
+
+        lgr = SimpleLogger(log_creating)
+        lgr.print("\nFile creation started...")
+
+        scenario.parser = parser.Parser()
+        scenario._parsed_header = collections.OrderedDict()
+        scenario._parsed_data = collections.OrderedDict()
+
+        for piece in _header_structure:
+            piece_name = piece.__name__
+            lgr.print("\tCreating " + piece_name + "...", replace_line=True)
+            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults().values()))
+            lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
+            lgr.print()
+        for piece in _file_structure:
+            piece_name = piece.__name__
+            lgr.print("\tCreating " + piece_name + "...", replace_line=True)
+            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults().values()))
+            lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
+            lgr.print()
+        lgr.print("\nFile creation finished successfully")
+
+        scenario._object_manager = AoE2ObjectManager(scenario._parsed_header, scenario._parsed_data,
+                                                     log_parsing=log_parsing)
+        return scenario
 
     def _read_file(self, log_reading):
         lgr = SimpleLogger(log_reading)
@@ -95,27 +132,17 @@ class AoE2Scenario:
             print("ErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
             time.sleep(1)
             raise StopIteration(e)
-
-        suffix = b''
-        try:
-            while True:
-                suffix += data_generator.__next__()
-        except StopIteration:
-            # End of file reached
-            pass
-        finally:
-            if len(suffix) > 0:
-                # print("Found file suffix! Length: " + str(len(suffix)) + ". Suffix content: '" + str(suffix) + "'.")
-                pass
-            self._suffix = suffix
-
         lgr.print("File reading finished successfully.")
 
     def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=False):
         self._write_from_structure(filename, log_writing=log_writing, log_reconstructing=log_reconstructing)
 
-    def _write_from_structure(self, filename, write_in_bytes=True, compress=True,
-                              log_writing=True, log_reconstructing=False):
+    def _write_from_structure(self,
+                              filename,
+                              write_in_bytes=True,
+                              compress=True,
+                              log_writing=True,
+                              log_reconstructing=False):
         if hasattr(self, '_object_manager'):
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
         lgr = SimpleLogger(log_writing)
@@ -147,10 +174,13 @@ class AoE2Scenario:
         file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
 
         if compress:
+            lgr.print("\tCompressing...", replace_line=True)
             # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
             deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-            compressed = deflate_obj.compress(byte_data + self._suffix) + deflate_obj.flush()
+            compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
             file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
+            lgr.print("\tCompressing finished successfully.", replace_line=True)
+            lgr.print()
         else:
             file.write(byte_data if write_in_bytes else create_textual_hex(byte_data.hex()))
 

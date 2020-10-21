@@ -16,3 +16,16 @@ class ResourcesStruct(AoE2Struct):
         ]
 
         super().__init__("Resources", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'gold': 0,
+            'wood': 0,
+            'food': 0,
+            'stone': 0,
+            'ore_x_unused': 0,
+            'trade_goods': 0,
+            'player_color': 0,
+        }
+        return defaults
