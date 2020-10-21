@@ -28,9 +28,9 @@ class MapPiece(aoe2_piece.AoE2Piece):
     def defaults():
         defaults = {
             'separator_1': b'`\n',
-            'unknown_string': '',
+            'unknown_string': 'Preset_Main',
             'separator_2': b'`\n',
-            'map_color_mood': '',
+            'map_color_mood': 'Empty',
             'collide_and_correct': 0,
             'villager_force_drop': [0],
             'player_1_camera_y': -559026163,

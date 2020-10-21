@@ -27,7 +27,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
     def defaults():
         defaults = {
             'next_unit_id_to_place': 0,
-            'version': 1.3600000143051147,
+            'version': 1.3700000047683716,
             'player_names': ['\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
             'player_data_1': DataHeaderPiece._get_player_data_1_default(),
