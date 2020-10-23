@@ -15,7 +15,6 @@ class AoE2Object:
     _link_list: List[RetrieverObjectLink] = []
 
     def __init__(self, **kwargs):
-        self._hidden_instance_number = -1
         self._instance_number_history = []
         self._pieces: OrderedDictType[str, AoE2Piece] = OrderedDict()
 
@@ -28,11 +27,8 @@ class AoE2Object:
         for link in cls._link_list:
             object_parameters[link.name] = link.construct(pieces, instance_number_history)
 
-        instance_number = AoE2Object.get_instance_number(instance_number_history=instance_number_history)
-
         obj = cls(**object_parameters)
         obj._pieces = pieces
-        obj._instance_number = instance_number
         obj._instance_number_history = instance_number_history
         return obj
 

@@ -96,7 +96,7 @@ class RetrieverObjectLink:
         link = "pieces['" + link[0:dot] + "']" + link[dot:]
         return link
 
-    def get_piece_datatype(self, pieces: OrderedDict[str, AoE2Piece], custom_link="") -> Type[AoE2Piece]:
+    def get_piece_datatype(self, pieces: OrderedDict[str, AoE2Piece], custom_link="", host_obj=None) -> Type[AoE2Piece]:
         if self.process_as_object is None:
             raise ValueError("Cannot get piece type from RetrieverObjectLink when parameter process_as_object has not "
                              "been set.")
@@ -104,9 +104,10 @@ class RetrieverObjectLink:
         split_link = custom_link.split(".")
         link_end = split_link.pop()
 
-        return eval("find_retriever(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
+        return eval("get_retriever_by_name(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var", {}, {
             'pieces': dict(pieces),
-            'find_retriever': get_retriever_by_name
+            'get_retriever_by_name': get_retriever_by_name,
+            '__index__': AoE2Object.get_instance_number(host_obj)
         })
 
     def construct(self, pieces: OrderedDict[str, AoE2Piece], instance_number_history=None):
@@ -141,7 +142,7 @@ class RetrieverObjectLink:
                 return value_list
             return value
 
-    def _commit_special_unit_case(self, pieces: OrderedDict[str, AoE2Piece], link_piece, units):
+    def _commit_special_unit_case(self, pieces: OrderedDict[str, AoE2Piece], link_piece, units: List[List[AoE2Object]]):
         for player_number in range(len(units)):
             pieces['UnitsPiece'].players_units[player_number].unit_count = len(units[player_number])
             pieces['UnitsPiece'].players_units[player_number].units = \
@@ -149,7 +150,7 @@ class RetrieverObjectLink:
 
             for index, obj in enumerate(units[player_number]):
                 obj._pieces = pieces
-                obj._instance_number = index
+                obj._instance_number_history.append(index)
                 obj.commit()
 
     def commit(self, pieces: OrderedDict[str, AoE2Piece], host_obj: AoE2Object):
@@ -168,7 +169,7 @@ class RetrieverObjectLink:
             temp_link = temp_link.replace("[]", "[0]", 1)
 
         if self.process_as_object is not None:
-            link_piece = self.get_piece_datatype(pieces, custom_link=temp_link)
+            link_piece = self.get_piece_datatype(pieces, custom_link=temp_link, host_obj=host_obj)
 
             if self.is_special_unit_case:
                 object_list = host_obj.__getattribute__(self.name)
@@ -177,15 +178,17 @@ class RetrieverObjectLink:
 
             object_list = host_obj.__getattribute__(self.name)
 
+            instance_number = AoE2Object.get_instance_number(obj=host_obj)
             exec(f"{temp_link} = [link_piece() for x in range(r)]", locals(), {
                 'pieces': pieces,
                 'link_piece': link_piece,
-                'r': len(object_list)
+                'r': len(object_list),
+                '__index__': instance_number
             })
 
             for index, obj in enumerate(object_list):
                 obj._pieces = pieces
-                obj._instance_number = index
+                obj._instance_number_history.append(index)
                 obj.commit()
         else:
             instance_number = AoE2Object.get_instance_number(obj=host_obj)
