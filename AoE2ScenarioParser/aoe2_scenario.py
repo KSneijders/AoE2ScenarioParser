@@ -1,7 +1,6 @@
 import collections
 import time
 import zlib
-from typing import List, Type
 
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
@@ -9,9 +8,8 @@ from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
-from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
+from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
-from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -28,7 +26,7 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     @property
-    def trigger_manager(self) -> TriggerObject:
+    def trigger_manager(self) -> TriggersObject:
         return self._object_manager.objects['TriggersObject']
 
     @property

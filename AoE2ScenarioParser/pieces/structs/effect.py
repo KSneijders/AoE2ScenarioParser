@@ -73,6 +73,8 @@ class EffectStruct(AoE2Struct):
             'static_value_46': 46,
             'ai_script_goal': -1,
             'quantity': -1,
+            'aa_quantity': -1,
+            'aa_armor_or_attack_type': -1,
             'tribute_list': -1,
             'diplomacy': -1,
             'number_of_units_selected': -1,
