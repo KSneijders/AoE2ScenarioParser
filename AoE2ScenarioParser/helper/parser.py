@@ -93,13 +93,6 @@ class Parser:
         #     print(e)
         #     exit()
 
-        if retriever.on_success is not None:
-            if type(result) is list:
-                for x in range(0, len(result)):
-                    result[x] = retriever.on_success(result[x])
-            else:
-                result = retriever.on_success(result)
-
         if retriever.save_as is not None:
             self.add_to_saves(retriever.save_as, vorl(result, retriever))
 
