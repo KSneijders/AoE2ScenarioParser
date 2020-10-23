@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog]
   - `copy_trigger_per_player`
   - `copy_trigger_tree`
   - `replace_player`
+- `commit()` function to objects. This will commit the changes to the piece structure. This is also done for all objects automatically when writing the file.
+- Every object now has `RetrieverObjectLink` objects to represent how to retrieve and commit their data. (These objects also have a commit function, which are called using the objects commit function)
+- The possibility to create a scenario from SCRATCH due to all pieces having default values now! No need for a 'base' scenario file from the game itself! You can achieve this like so: `AoE2Scenario.create()`!!!
 - **A Very much WIP** [Documentation API]
 
 [Documentation API]: https://aoe2scenarioparser.readthedocs.io/en/master/
@@ -35,6 +38,9 @@ The format is based on [Keep a Changelog]
 - Renamed `player` attribute in the `Condition` object to `source_player`
 - Renamed `player_source` attribute in the `Effect` object to `source_player`
 - Renamed `player_target` attribute in the `Effect` object to `target_player`
+- Renamed `find_retriever` function to `get_retriever_by_name`
+- Renamed all retriever names to be lowercase underscored (Credits: pvallet)
+- Progress print statements now replace their current line. So instead of using 2 lines per piece it's now 1.
 
 ### Fixed
 
@@ -46,6 +52,7 @@ The format is based on [Keep a Changelog]
 - Bug causing Variables to not show up when no triggers were present when using the `get_summary_as_string` in the trigger_manager.
 - Bug making it impossible to set unit IDs negative. (Supported by the game)
 - Typo in Condition dataset "OWH" to "OWN" in `OWH_FEWER_OBJECTS`.
+- Typo in Terrain dataset "MAGROVE" to "MANGROVE" in `FOREST_MANGROVE`.
 
 ### Removed
 
