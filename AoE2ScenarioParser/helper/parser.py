@@ -92,6 +92,61 @@ class Parser:
         self._saves[name] = value
 
 
+def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
+    print(retriever.name)
+    if state == "construct":
+        retriever_on_x = retriever.on_construct
+    elif state == "commit":
+        retriever_on_x = retriever.on_commit
+    elif state == "refresh":
+        retriever_on_x = retriever.on_refresh
+    else:
+        raise ValueError("State must be any of: construct, commit or refresh")
+
+    dep_action = retriever_on_x.dependency_type
+    dep_target = retriever_on_x.dependency_target
+    if dep_action == DependencyAction.REFRESH_SELF:
+        # print("REFRESH SELF!")
+        handle_retriever_dependency(retriever, retrievers, "refresh", pieces)
+    elif dep_action == DependencyAction.REFRESH:
+        listified_target = listify(dep_target.target_piece)
+        listified_target_attr = listify(dep_target.piece_attr_name)
+        for i in range(len(listified_target)):
+            retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
+            retriever_to_be_refreshed = get_retriever_by_name(retriever_list, listified_target_attr[i])
+            # print("REFRESH OTHER!")
+            handle_retriever_dependency(retriever_to_be_refreshed, retriever_list, "refresh", pieces)
+    elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
+        retriever_list = handle_dependency_target(dep_target.target_piece, retrievers, pieces)
+        retriever_data = get_retriever_by_name(retriever_list, dep_target.piece_attr_name).data
+        value = handle_dependency_eval(retriever_on_x, retriever_data)
+        if dep_action == DependencyAction.SET_VALUE:
+            retriever.data = value
+        elif dep_action == DependencyAction.SET_REPEAT:
+            retriever.datatype.repeat = value
+
+    # print("END", state, retriever)
+
+
+def handle_dependency_target(target_piece, retrievers, pieces):
+    if target_piece == "self":
+        retriever_list = retrievers
+    else:
+        retriever_list = eval("pieces[x].retrievers", {}, {
+            'pieces': pieces,
+            'x': target_piece
+        })
+        print("NOT SELF")
+        print(retriever_list)
+    return retriever_list
+
+
+def handle_dependency_eval(retriever_on_x, value):
+    eval_locals = retriever_on_x.dependency_eval.eval_locals
+    eval_locals['x'] = value
+    return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
+
+
 def parse_repeat_string(saves, repeat_string):
     while True:
         start = repeat_string.find("{")
