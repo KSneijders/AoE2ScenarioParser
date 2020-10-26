@@ -1,5 +1,7 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction, RetrieverDependency, DependencyTarget, \
+    DependencyEval
 from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
@@ -22,12 +24,47 @@ class TriggerStruct(AoE2Struct):
             Retriever("trigger_description", DataType("str32")),
             Retriever("trigger_name", DataType("str32")),  # (max 44 characters in UI)
             Retriever("short_description", DataType("str32")),
-            Retriever("number_of_effects", DataType("s32"), save_as="number_of_effects"),
-            Retriever("effect_data", DataType(EffectStruct), set_repeat="{number_of_effects}"),
-            Retriever("effect_display_order_array", DataType("s32"), set_repeat="{number_of_effects}"),
-            Retriever("number_of_conditions", DataType("s32"), save_as="number_of_conditions"),
-            Retriever("condition_data", DataType(ConditionStruct), set_repeat="{number_of_conditions}"),
-            Retriever("condition_display_order_array", DataType("s32"), set_repeat="{number_of_conditions}"),
+            Retriever("number_of_effects", DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_VALUE, DependencyTarget("self", "effect_data"),
+                          DependencyEval("len(x)")
+                      )),
+            Retriever("effect_data", DataType(EffectStruct),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects"),
+                          DependencyEval("x")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH, DependencyTarget("self", "number_of_effects")
+                      )),
+            Retriever("effect_display_order_array", DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects"),
+                          DependencyEval("x")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
+            Retriever("number_of_conditions", DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_VALUE, DependencyTarget("self", "condition_data"),
+                          DependencyEval("len(x)")
+                      )),
+            Retriever("condition_data", DataType(ConditionStruct),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_conditions"),
+                          DependencyEval("x")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH, DependencyTarget("self", "number_of_conditions")
+                      )),
+            Retriever("condition_display_order_array", DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget("self", "number_of_conditions"),
+                          DependencyEval("x")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF))
         ]
 
         super().__init__("Trigger", retrievers, parser_obj, data)
