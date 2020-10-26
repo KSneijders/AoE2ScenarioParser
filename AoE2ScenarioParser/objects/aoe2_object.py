@@ -7,7 +7,7 @@ from AoE2ScenarioParser.helper import helper
 
 if TYPE_CHECKING:
     from typing import OrderedDict as OrderedDictType
-    from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
+    from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
     from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
