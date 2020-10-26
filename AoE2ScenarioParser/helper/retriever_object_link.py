@@ -101,13 +101,12 @@ class RetrieverObjectLink:
                 return value_list
             return value
 
-    def commit(self, pieces, host_obj, saves):
+    def commit(self, pieces, host_obj):
         """
 
         Args:
             pieces (OrderedDict[str, AoE2Piece]):
             host_obj (AoE2Object):
-            saves (dict):
 
         Returns:
 
@@ -138,10 +137,6 @@ class RetrieverObjectLink:
             '__index__': instance_number
         })
         retriever = get_retriever_by_name(retriever_list, retriever_name)
-        # if retriever.on_commit[0] == CallbackType.SAVE:
-        #     parser.execute_save(saves, retriever, value, "commit")
-        # if retriever.on_commit[0] == CallbackType.SET_REPEAT:
-        #     parser.execute_repeat_or_value(saves, retriever, "commit")
 
         if self.process_as_object is not None:
             link_piece = self.get_piece_datatype(pieces, custom_link=temp_link, host_obj=host_obj)
@@ -161,7 +156,7 @@ class RetrieverObjectLink:
             for index, obj in enumerate(value):
                 obj._pieces = pieces
                 obj._instance_number_history.append(index)
-                obj.commit(saves)
+                obj.commit()
         else:
             exec(f"{temp_link} = value", {}, {
                 'value': value,
