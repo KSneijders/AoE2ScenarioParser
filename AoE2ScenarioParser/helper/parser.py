@@ -1,9 +1,10 @@
-from typing import Any
+from typing import Any, List
 
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
-from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
 
 types = [
     "s",  # Signed int
@@ -38,7 +39,11 @@ class Parser:
     def __init__(self):
         self._saves = dict()
 
-    def retrieve_value(self, generator, retriever, as_length=False):
+    def retrieve_value(self, generator, retriever, retrievers=None, pieces=None, as_length=False):
+        if (pieces is None or retrievers is None) and not as_length:
+            raise ValueError("Normal retrieval of length requires pieces parameter.")
+        if (pieces is not None and retrievers is None) or (pieces is None and retrievers is not None):
+            raise ValueError("The retrievers and pieces parameters always need to be used simultaneously")
         length = 0
         result = list()
         var_type, var_len = datatype_to_type_length(retriever.datatype.var)

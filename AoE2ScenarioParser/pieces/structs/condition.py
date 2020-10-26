@@ -8,7 +8,7 @@ class ConditionStruct(AoE2Struct):
         retrievers = [
             Retriever("condition_type", DataType("s32")),
             Retriever("static_value_21", DataType("s32")),  # Was always: 0x10
-            Retriever("amount_or_quantity", DataType("s32")),  # Also technology state, also Difficulty
+            Retriever("amount_or_quantity", DataType("s32"), log_value=True),  # Also technology state, also Difficulty
             Retriever("resource_type_or_tribute_list", DataType("s32")),
             Retriever("unit_object", DataType("s32")),
             Retriever("next_object", DataType("s32")),  # Old: Unit ID

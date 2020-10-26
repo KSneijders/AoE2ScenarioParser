@@ -7,6 +7,7 @@ from AoE2ScenarioParser.helper.datatype import DataType
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
+    from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 
 
 class Retriever:
@@ -18,7 +19,6 @@ class Retriever:
                  on_construct=None,
                  on_commit=None,
                  on_refresh=None,
-                 on_update=None,
                  save_as=None,
                  set_repeat=None,
                  log_value=False
@@ -27,27 +27,25 @@ class Retriever:
         Args:
             name (str): The name of the item. Has to be unique within the Piece or Struct
             datatype (DataType): A datatype object
-            on_construct (Tuple): A string that will be parsed using eval when constructing. It's uses can be found below.
-            on_commit (Tuple): A string that will be parsed using eval when committing. It's uses can be found below.
-            save_as (): To Be Removed (Deprecated)
-            set_repeat (): To Be Removed (Deprecated)
+            on_construct (RetrieverDependency): A RetrieverDependency to describe the dependencies of this retriever
+                triggered while the file is constructing
+            on_commit (RetrieverDependency): A RetrieverDependency to describe the dependencies of this retriever
+                triggered while the file is committing
+            on_refresh (RetrieverDependency): TODO: Add docstring
+            save_as (str): To Be Removed (Deprecated)
+            set_repeat (str): To Be Removed (Deprecated)
             log_value (bool): A boolean for, mostly, debugging. This will log this Retriever with it's data when the
                 data is changed, when this retriever is constructed and committed.
-
-            in the on_construct and on_commit you can use two functions:
-                - ?
-
         """
         # if on_construct is None:
         #     on_construct = (CallbackType.UNDEFINED, "")
         # if on_commit is None:
         #     on_commit = (CallbackType.UNDEFINED, "")
-        self.name = name
-        self.datatype = datatype
-        self.on_construct = on_construct
-        self.on_commit = on_commit
-        self.on_update = on_update
-        self.on_refresh = on_refresh
+        self.name: str = name
+        self.datatype: DataType = datatype
+        self.on_construct: RetrieverDependency = on_construct
+        self.on_commit: RetrieverDependency = on_commit
+        self.on_refresh: RetrieverDependency = on_refresh
         self.related_retrievers = []
         self.save_as = save_as
         self.set_repeat = set_repeat

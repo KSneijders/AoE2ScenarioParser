@@ -38,7 +38,10 @@ class AoE2Scenario:
         return self._object_manager.objects['MapObject']
 
     def __init__(self):
-        pass
+        self.parser = None
+        self._file_header = None
+        self._file_data = None
+        self._file = None
 
     @classmethod
     def from_file(cls, filename, log_reading=True, log_parsing=False):
@@ -102,24 +105,28 @@ class AoE2Scenario:
         current_piece = ""
         try:
             for piece_object in _header_structure:
+                # Rerender pieces dict each time - changes constantly
+                pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
                 piece = piece_object(self.parser)
                 piece_name = type(piece).__name__
                 self._parsed_header[piece_name] = piece
                 current_piece = piece_name
 
                 lgr.print("\tReading " + piece_name + "...", replace_line=True)
-                piece.set_data_from_generator(header_generator)
+                piece.set_data_from_generator(header_generator, pieces)
                 lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
                 lgr.print()
 
             for piece_object in _file_structure:
+                # Rerender pieces dict each time - changes constantly
+                pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
                 piece = piece_object(self.parser)
                 piece_name = type(piece).__name__
                 self._parsed_data[piece_name] = piece
                 current_piece = piece_name
 
                 lgr.print("\tReading " + piece_name + "...", replace_line=True)
-                piece.set_data_from_generator(data_generator)
+                piece.set_data_from_generator(data_generator, pieces)
                 lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
                 lgr.print()
         except StopIteration as e:
