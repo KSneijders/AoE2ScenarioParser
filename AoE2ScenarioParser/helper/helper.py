@@ -70,7 +70,7 @@ def pretty_print_list(plist):
     return_string = "[\n"
     for x in plist:
         newline = "\t" + str(x)
-        if newline[::-2] is not "\n":
+        if newline[::-2] != "\n":
             newline += "\n"
         return_string += newline
     return return_string + "]\n"
@@ -80,7 +80,7 @@ def pretty_print_dict(pdict: dict):
     return_string = "{\n"
     for key, value in pdict.items():
         newline = f"\t{key}: {value}"
-        if newline[::-2] is not "\n":
+        if newline[::-2] != "\n":
             newline += "\n"
         return_string += newline
     return return_string + "}\n"
