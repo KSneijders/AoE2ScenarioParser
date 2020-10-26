@@ -13,6 +13,10 @@ class RetrieverDependency:
         """
         self.dependency_type = dependency_type
         self.dependency_target = dependency_target
+
+        if dependency_type in [DependencyAction.SET_REPEAT, DependencyAction.SET_VALUE] and dependency_eval is None:
+            dependency_eval = DependencyEval('x')
+
         self.dependency_eval = dependency_eval
 
 
@@ -22,8 +26,8 @@ class DependencyTarget:
         Object for targeting a specific retriever based on it's piece name (or 'self') and the retriever name.
 
         Args:
-            target_piece (str): The name of the targeted piece or 'self' for own list
-            piece_attr_name (str): The name of the attribute in targeted piece or own list
+            target_piece (Union[str, List[str]]): The name of the targeted piece or 'self' for own list
+            piece_attr_name (Union[str, List[str]]): The name of the attribute in targeted piece or own list
         """
         self.target_piece = target_piece
         self.piece_attr_name = piece_attr_name
