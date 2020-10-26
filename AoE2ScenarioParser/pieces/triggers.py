@@ -10,12 +10,21 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
         retrievers = [
             Retriever("trigger_version", DataType("f64")),
             Retriever("trigger_instruction_start", DataType("s8")),
-            Retriever("number_of_triggers", DataType("s32"), save_as="number_of_triggers"),
-            Retriever("trigger_data", DataType(TriggerStruct), set_repeat="{number_of_triggers}"),
-            Retriever("trigger_display_order_array", DataType("u32"), set_repeat="{number_of_triggers}"),
+            Retriever("number_of_triggers", DataType("s32")),
+            # on_construct=(CallbackType.SAVE, 'number_of_triggers'),
+            # on_commit=(CallbackType.SET_VALUE, '{number_of_triggers}')),
+            Retriever("trigger_data", DataType(TriggerStruct)),
+            # on_construct=(CallbackType.SET_REPEAT, '{number_of_triggers}'),
+            # on_commit=(CallbackType.SAVE, 'number_of_triggers', 'len(x)')),
+            Retriever("trigger_display_order_array", DataType("u32")),
+            # on_construct=(CallbackType.SET_REPEAT, '{number_of_triggers}')),
             Retriever("unknown", DataType("1028")),
-            Retriever("number_of_variables", DataType("u32"), save_as="number_of_vars"),
-            Retriever("variable_data", DataType(VariableStruct), set_repeat="{number_of_vars}")
+            Retriever("number_of_variables", DataType("u32")),
+            # on_construct=(CallbackType.SAVE, 'number_of_vars'),
+            # on_commit=(CallbackType.SET_VALUE, '{number_of_vars}')),
+            Retriever("variable_data", DataType(VariableStruct))
+            # on_construct=(CallbackType.SET_REPEAT, '{number_of_vars}'),
+            # on_commit=(CallbackType.SAVE, 'number_of_vars', 'len(x)'))
         ]
 
         super().__init__("Triggers", retrievers, parser_obj, data=data)

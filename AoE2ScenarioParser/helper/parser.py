@@ -15,7 +15,7 @@ types = [
 ]
 
 
-def vorl(var: Any,  retriever: Retriever = None):
+def vorl(var: Any, retriever: Retriever = None):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
     if Retriever is not None:
         if retriever.set_repeat is not None or retriever.datatype.repeat is not 1:
@@ -23,10 +23,7 @@ def vorl(var: Any,  retriever: Retriever = None):
     if type(var) is list:
         if len(var) is 1:
             return var[0]
-        else:
-            return var
-    else:
-        return var
+    return var
 
 
 def listify(var):
@@ -48,7 +45,7 @@ class Parser:
 
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = parse_repeat_string(self._saves, retriever.set_repeat)
-        # try:
+
         for i in range(0, retriever.datatype.repeat):
             length += var_len
 
@@ -84,20 +81,10 @@ class Parser:
                     raise StopIteration(e)
             else:
                 break
-
             result.append(val)
-        # except StopIteration as e:
-        #     print(repr(retriever) + "\n" +
-        #           "var_type: " + var_type + "\n" +
-        #           "var_len: " + str(var_len))
-        #     print(e)
-        #     exit()
 
         if retriever.save_as is not None:
             self.add_to_saves(retriever.save_as, vorl(result, retriever))
-
-        if retriever.log_value:
-            print(retriever, "retrieved:", vorl(result, retriever))
 
         return vorl(result, retriever) if not as_length else length
 

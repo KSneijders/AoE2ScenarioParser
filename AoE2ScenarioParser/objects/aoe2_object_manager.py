@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections import OrderedDict
-from typing import List
 
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper.helper import SimpleLogger
@@ -13,7 +12,6 @@ from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.messages_obj import MessagesObject
 from AoE2ScenarioParser.objects.options_obj import OptionsObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
-from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
 from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
@@ -150,12 +148,12 @@ class AoE2ObjectManager:
         options_piece = self.parsed_data['OptionsPiece']
         starting_ages = get_retriever_by_name(options_piece.retrievers, "Per player starting age").data
 
-        # Player Data
-        player_data_one = get_retriever_by_name(data_header_piece.retrievers, "Player data#1").data  # 0-7 Players & 8 Gaia
-        player_data_two = self.parsed_data['PlayerDataTwoPiece']  # 0-7 Players & 8 Gaia
+        # Player Data >>> 0-7 Players & 8 Gaia <<<
+        player_data_one = get_retriever_by_name(data_header_piece.retrievers, "Player data#1").data
+        player_data_two = self.parsed_data['PlayerDataTwoPiece']
         resources = get_retriever_by_name(player_data_two.retrievers, "Resources").data
-        # player_data_three = find_retriever(unit_piece.retrievers, "Player data #3").data  # 0-7 Players
-        player_data_four = get_retriever_by_name(unit_piece.retrievers, "Player data #4").data  # 0-7 Players
+        # player_data_three = find_retriever(unit_piece.retrievers, "Player data #3").data
+        player_data_four = get_retriever_by_name(unit_piece.retrievers, "Player data #4").data
 
         for player_id in range(0, 9):  # 0-7 Players & 8 Gaia:
             try:  # If gaia isn't saved. (PlayerDataThree and PlayerDataFour)
