@@ -51,12 +51,15 @@ class Parser:
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = parse_repeat_string(self._saves, retriever.set_repeat)
 
+        if retriever.on_construct is not None:
+            handle_retriever_dependency(retriever, retrievers, "construct", pieces)
+
         for i in range(0, retriever.datatype.repeat):
             length += var_len
 
             if var_type == "struct":
                 val = retriever.datatype.var(self)
-                val.set_data_from_generator(generator)
+                val.set_data_from_generator(generator, pieces)
                 result.append(val)
                 i = val.get_length()
 

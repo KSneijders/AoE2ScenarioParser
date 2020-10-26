@@ -22,7 +22,8 @@ class MapPiece(aoe2_piece.AoE2Piece):
                           DependencyAction.SET_REPEAT,
                           DependencyTarget('FileHeaderPiece', 'version'),
                           DependencyEval('1 if x == \'1.37\' else 0')
-                      )),
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever('player_1_camera_y', DataType("s32")),
             Retriever('player_1_camera_x', DataType("s32")),
             Retriever('ai_type', DataType("s8")),
@@ -44,7 +45,10 @@ class MapPiece(aoe2_piece.AoE2Piece):
                           DependencyTarget("self", "map_width"),
                           DependencyEval("pow(x, 2)")
                       ),
-                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF))
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH, DependencyTarget(["self", "self"], ["map_width", "map_height"])
+                      ))
         ]
 
         super().__init__("Map", retrievers, parser_obj, data=data)

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from typing import Type, List
 
+from AoE2ScenarioParser.helper.parser import handle_retriever_dependency
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
@@ -163,6 +164,9 @@ class RetrieverObjectLink:
                 'pieces': pieces,
                 '__index__': instance_number
             })
+
+        if retriever.on_commit is not None:
+            handle_retriever_dependency(retriever, retriever_list, "commit", pieces)
 
     def _self_is_special_unit_case(self):
         if self.link is not None:
