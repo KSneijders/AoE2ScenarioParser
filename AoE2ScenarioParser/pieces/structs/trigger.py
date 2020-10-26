@@ -31,8 +31,7 @@ class TriggerStruct(AoE2Struct):
                       )),
             Retriever("effect_data", DataType(EffectStruct),
                       on_refresh=RetrieverDependency(
-                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects"),
-                          DependencyEval("x")
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects")
                       ),
                       on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
                       on_commit=RetrieverDependency(
@@ -40,8 +39,7 @@ class TriggerStruct(AoE2Struct):
                       )),
             Retriever("effect_display_order_array", DataType("s32"),
                       on_refresh=RetrieverDependency(
-                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects"),
-                          DependencyEval("x")
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects")
                       ),
                       on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever("number_of_conditions", DataType("s32"),
@@ -51,8 +49,7 @@ class TriggerStruct(AoE2Struct):
                       )),
             Retriever("condition_data", DataType(ConditionStruct),
                       on_refresh=RetrieverDependency(
-                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_conditions"),
-                          DependencyEval("x")
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_conditions")
                       ),
                       on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
                       on_commit=RetrieverDependency(
@@ -61,8 +58,7 @@ class TriggerStruct(AoE2Struct):
             Retriever("condition_display_order_array", DataType("s32"),
                       on_refresh=RetrieverDependency(
                           DependencyAction.SET_REPEAT,
-                          DependencyTarget("self", "number_of_conditions"),
-                          DependencyEval("x")
+                          DependencyTarget("self", "number_of_conditions")
                       ),
                       on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF))
         ]
