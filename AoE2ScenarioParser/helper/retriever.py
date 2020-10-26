@@ -67,9 +67,6 @@ class Retriever:
         if self.log_value:
             print(f"{self.to_simple_string()} >>> set to: {helper.q_str(value)} {old_value}")
 
-    def set_data(self, data):
-        self.data = data
-
     def get_short_str(self):
         if self.data is not None:
             return self.name + " (" + self.datatype.to_simple_string() + "): " + helper.q_str(self.data)
