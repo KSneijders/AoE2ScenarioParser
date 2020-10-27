@@ -4,10 +4,10 @@ from typing import List, Union, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
-    from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 
 
 class Retriever:
@@ -37,10 +37,12 @@ class Retriever:
             log_value (bool): A boolean for, mostly, debugging. This will log this Retriever with it's data when the
                 data is changed, when this retriever is constructed and committed.
         """
-        # if on_construct is None:
-        #     on_construct = (CallbackType.UNDEFINED, "")
-        # if on_commit is None:
-        #     on_commit = (CallbackType.UNDEFINED, "")
+        if on_construct is None:
+            on_construct = RetrieverDependency(DependencyAction.UNDEFINED)
+        if on_commit is None:
+            on_commit = RetrieverDependency(DependencyAction.UNDEFINED)
+        if on_refresh is None:
+            on_refresh = RetrieverDependency(DependencyAction.UNDEFINED)
         self.name: str = name
         self.datatype: DataType = datatype
         self.on_construct: RetrieverDependency = on_construct

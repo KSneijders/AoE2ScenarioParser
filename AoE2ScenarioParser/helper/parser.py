@@ -21,6 +21,8 @@ def vorl(var: Any, retriever: Retriever = None):
     if Retriever is not None:
         if retriever.set_repeat is not None or retriever.datatype.repeat != 1:
             return listify(var)
+        if retriever.on_refresh.dependency_type is DependencyAction.SET_REPEAT or retriever.datatype.repeat != 1:
+            return listify(var)
     if type(var) is list:
         if len(var) == 1:
             return var[0]
