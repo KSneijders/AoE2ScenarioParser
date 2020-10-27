@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Generator
 
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *
@@ -39,7 +39,7 @@ class Parser:
     def __init__(self):
         self._saves = dict()
 
-    def retrieve_value(self, generator, retriever, retrievers=None, pieces=None, as_length=False):
+    def retrieve_value(self, generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
         if (pieces is None or retrievers is None) and not as_length:
             raise ValueError("Normal retrieval of length requires pieces parameter.")
         if (pieces is not None and retrievers is None) or (pieces is None and retrievers is not None):
@@ -113,7 +113,6 @@ def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever
     dep_action = retriever_on_x.dependency_type
     dep_target = retriever_on_x.dependency_target
     if dep_action == DependencyAction.REFRESH_SELF:
-        # print("REFRESH SELF!")
         handle_retriever_dependency(retriever, retrievers, "refresh", pieces)
     elif dep_action == DependencyAction.REFRESH:
         listified_target = listify(dep_target.target_piece)
@@ -121,18 +120,18 @@ def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever
         for i in range(len(listified_target)):
             retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
             retriever_to_be_refreshed = get_retriever_by_name(retriever_list, listified_target_attr[i])
-            # print("REFRESH OTHER!")
             handle_retriever_dependency(retriever_to_be_refreshed, retriever_list, "refresh", pieces)
     elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
-        retriever_list = handle_dependency_target(dep_target.target_piece, retrievers, pieces)
-        retriever_data = get_retriever_by_name(retriever_list, dep_target.piece_attr_name).data
-        value = handle_dependency_eval(retriever_on_x, retriever_data)
-        if dep_action == DependencyAction.SET_VALUE:
-            retriever.data = value
-        elif dep_action == DependencyAction.SET_REPEAT:
-            retriever.datatype.repeat = value
-
-    # print("END", state, retriever)
+        listified_target = listify(dep_target.target_piece)
+        listified_target_attr = listify(dep_target.piece_attr_name)
+        for i in range(len(listified_target)):
+            retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
+            retriever_data = get_retriever_by_name(retriever_list, listified_target_attr[i]).data
+            value = handle_dependency_eval(retriever_on_x, retriever_data)
+            if dep_action == DependencyAction.SET_VALUE:
+                retriever.data = value
+            elif dep_action == DependencyAction.SET_REPEAT:
+                retriever.datatype.repeat = value
 
 
 def handle_dependency_target(target_piece, retrievers, pieces):
@@ -148,7 +147,12 @@ def handle_dependency_target(target_piece, retrievers, pieces):
 
 def handle_dependency_eval(retriever_on_x, value):
     eval_locals = retriever_on_x.dependency_eval.eval_locals
-    eval_locals['x'] = value
+    values_as_variable = retriever_on_x.dependency_eval.values_as_variable
+    # If value as is used, use it as keys for the value!
+    if values_as_variable:
+        eval_locals = {**eval_locals, **dict(zip(values_as_variable, value))}
+    else:
+        eval_locals['x'] = value
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 
