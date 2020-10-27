@@ -23,9 +23,10 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("mission_timeline", DataType("f32")),
             Retriever("mission_item", DataType("30"),
                       on_refresh=RetrieverDependency(
-                          DependencyAction.SET_REPEAT, DependencyTarget("self", "mission_items_counter")
-                      ),
-                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "mission_items_counter")),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH, DependencyTarget("self", "mission_items_counter"))),
             Retriever("unknown", DataType("64")),
             Retriever("filename", DataType("str16")),
         ]
