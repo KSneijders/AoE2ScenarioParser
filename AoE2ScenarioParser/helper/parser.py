@@ -101,7 +101,6 @@ class Parser:
 
 
 def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
-    print(retriever.name)
     if state == "construct":
         retriever_on_x = retriever.on_construct
     elif state == "commit":
@@ -144,8 +143,6 @@ def handle_dependency_target(target_piece, retrievers, pieces):
             'pieces': pieces,
             'x': target_piece
         })
-        print("NOT SELF")
-        print(retriever_list)
     return retriever_list
 
 
