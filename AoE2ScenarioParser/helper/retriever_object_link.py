@@ -143,7 +143,6 @@ class RetrieverObjectLink:
             link_piece = self.get_piece_datatype(pieces, custom_link=temp_link, host_obj=host_obj)
 
             if self.is_special_unit_case:
-                print(link_piece)
                 self._commit_special_unit_case(pieces, link_piece, value)
                 return
 
