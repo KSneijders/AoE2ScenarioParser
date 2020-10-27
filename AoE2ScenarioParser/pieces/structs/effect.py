@@ -1,23 +1,53 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
+    DependencyEval
 from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class EffectStruct(AoE2Struct):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("effect_type", DataType("s32"), save_as="effect_type"),
+            Retriever("effect_type", DataType("s32"),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH,
+                          DependencyTarget(
+                              ['self', 'self', 'self'],
+                              ['aa_quantity', 'aa_armor_or_attack_type', 'quantity']
+                          )
+                      )),
             Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x2e (46)?
             Retriever("ai_script_goal", DataType("s32")),
             Retriever("aa_quantity", DataType("u8"),
-                      set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget('self', 'effect_type'),
+                          DependencyEval('1 if x in [28, 31] else 0')
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever("aa_armor_or_attack_type", DataType("s24"),
-                      set_repeat="1 if {effect_type} == 31 or {effect_type} == 28 else 0"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget('self', 'effect_type'),
+                          DependencyEval('1 if x in [28, 31] else 0')
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever("quantity", DataType("s32"),
-                      set_repeat="1 if {effect_type} != 31 and {effect_type} != 28 else 0"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget('self', 'effect_type'),
+                          DependencyEval('1 if x not in [28, 31] else 0')
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever("tribute_list", DataType("s32")),
             Retriever("diplomacy", DataType("s32")),
-            Retriever("number_of_units_selected", DataType("s32"), save_as="number_of_units_selected"),
+            Retriever("number_of_units_selected", DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_VALUE,
+                          DependencyTarget('self', 'selected_object_id'),
+                          DependencyEval('len(x)')
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever("unknown", DataType("s32")),
             Retriever("object_list_unit_id", DataType("s32")),
             Retriever("source_player", DataType("s32")),
@@ -61,7 +91,16 @@ class EffectStruct(AoE2Struct):
             Retriever("play_sound", DataType("s32")),
             Retriever("message", DataType("str32")),
             Retriever("sound_name", DataType("str32")),
-            Retriever("selected_object_id", DataType("s32"), set_repeat="{number_of_units_selected}"),
+            Retriever("selected_object_id", DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget("self", "number_of_units_selected")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH,
+                          DependencyTarget("self", "number_of_units_selected")
+                      )),
         ]
 
         super().__init__("Effect", retrievers, parser_obj, data)

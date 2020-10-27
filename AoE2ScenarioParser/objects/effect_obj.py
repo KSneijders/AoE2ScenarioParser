@@ -5,7 +5,7 @@ from typing import List
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
+from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 

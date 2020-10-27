@@ -52,7 +52,7 @@ class AoE2Piece:
                         self.retrievers[i].set_repeat
                     )
 
-                self.retrievers[i].set_data(data[i])
+                self.retrievers[i].data = data[i]
 
                 if self.retrievers[i].save_as is not None:
                     if type(data[i]) is not list:
@@ -85,11 +85,11 @@ class AoE2Piece:
             print(self.retrievers)
         return total_length
 
-    def set_data_from_generator(self, generator):
+    def set_data_from_generator(self, generator, pieces=None):
         if self.parser:
             for i, retriever in enumerate(self.retrievers):
                 try:
-                    retriever.set_data(self.parser.retrieve_value(generator, retriever))
+                    retriever.data = self.parser.retrieve_value(generator, retriever, self.retrievers, pieces)
                 except StopIteration as e:
                     print(f"[StopIteration] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}\n")
                     raise StopIteration(e)

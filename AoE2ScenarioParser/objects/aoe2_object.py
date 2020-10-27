@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from collections import OrderedDict
-from typing import List, Type, TYPE_CHECKING
+from typing import List, Type, TYPE_CHECKING, Dict
 
 from AoE2ScenarioParser.helper import helper
 
 if TYPE_CHECKING:
     from typing import OrderedDict as OrderedDictType
-    from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
+    from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
     from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
@@ -32,16 +32,16 @@ class AoE2Object:
         obj._instance_number_history = instance_number_history
         return obj
 
-    def commit(self, pieces: OrderedDictType[str, AoE2Piece] = None, local_link_list: Type[List[RetrieverObjectLink]] = None):
+    def commit(self, pieces=None, local_link_list=None):
         """
         Commits all changes to the piece & struct structure of the object it's called upon.
 
         Args:
-            pieces: A list of pieces to reference where to commit to. If left empty, the pieces default to the pieces
-                where this object was constructed from. When this object wasn't present when the file was read it's not
-                possible to use the
-            local_link_list: a separate list of RetrieverObjectLinks. This way it's possible to commit only specific
-                properties instead of all from an object.
+            pieces (OrderedDictType[str, AoE2Piece]): A list of pieces to reference where to commit to. If left empty,
+                the pieces default to the pieces where this object was constructed from. When this object wasn't present
+                when the file was read it's not possible to use the
+            local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
+                possible to commit only specific properties instead of all from an object.
         """
         if self._pieces == {} and pieces is None:
             raise ValueError("Unable to commit object. No reference to pieces set.")
@@ -51,7 +51,7 @@ class AoE2Object:
         if pieces is None:
             pieces = self._pieces
 
-        for link in local_link_list:
+        for link in local_link_list[::-1]:
             link.commit(pieces, host_obj=self)
 
     @staticmethod

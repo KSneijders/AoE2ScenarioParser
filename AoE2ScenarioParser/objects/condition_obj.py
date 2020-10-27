@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.retriever import RetrieverObjectLink
+from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 

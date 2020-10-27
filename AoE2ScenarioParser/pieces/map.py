@@ -1,6 +1,10 @@
-from AoE2ScenarioParser.pieces import aoe2_piece
-from AoE2ScenarioParser.helper.retriever import Retriever
+import math
+
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
+    DependencyEval
+from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.pieces.structs.terrain import TerrainStruct
 
 
@@ -13,13 +17,38 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('map_color_mood', DataType("str16")),
             Retriever('collide_and_correct', DataType("u8")),
             # [VERSION CHANGE] ADDED in 1.36 > 1.37
-            Retriever('villager_force_drop', DataType("u8"), set_repeat="1 if '{scenario_version}' == '1.37' else 0"),
+            Retriever('villager_force_drop', DataType("u8"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget('FileHeaderPiece', 'version'),
+                          DependencyEval('1 if x == \'1.37\' else 0')
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever('player_1_camera_y', DataType("s32")),
             Retriever('player_1_camera_x', DataType("s32")),
             Retriever('ai_type', DataType("s8")),
-            Retriever('map_width', DataType("s32"), save_as="map_width"),
-            Retriever('map_height', DataType("s32"), save_as="map_height"),
-            Retriever('terrain_data', DataType(TerrainStruct), set_repeat="{map_width}*{map_height}"),
+            Retriever('map_width', DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_VALUE,
+                          DependencyTarget("self", "terrain_data"),
+                          DependencyEval("int(sqrt(len(x)))", {'sqrt': math.sqrt})
+                      )),
+            Retriever('map_height', DataType("s32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_VALUE,
+                          DependencyTarget("self", "terrain_data"),
+                          DependencyEval("int(sqrt(len(x)))", {'sqrt': math.sqrt})
+                      )),
+            Retriever('terrain_data', DataType(TerrainStruct),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT,
+                          DependencyTarget("self", "map_width"),
+                          DependencyEval("pow(x, 2)")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH, DependencyTarget(["self", "self"], ["map_width", "map_height"])
+                      ))
         ]
 
         super().__init__("Map", retrievers, parser_obj, data=data)
@@ -38,6 +67,6 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'ai_type': 1,
             'map_width': 120,
             'map_height': 120,
-            'terrain_data': [TerrainStruct(data=[0, 0, 0, b'\xff\xff', -1]) for _ in range(120*120)],
+            'terrain_data': [TerrainStruct(data=[0, 0, 0, b'\xff\xff', -1]) for _ in range(120 * 120)],
         }
         return defaults
