@@ -19,10 +19,10 @@ types = [
 def vorl(var: Any, retriever: Retriever = None):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
     if Retriever is not None:
-        if retriever.set_repeat is not None or retriever.datatype.repeat is not 1:
+        if retriever.set_repeat is not None or retriever.datatype.repeat != 1:
             return listify(var)
     if type(var) is list:
-        if len(var) is 1:
+        if len(var) == 1:
             return var[0]
     return var
 
@@ -157,7 +157,7 @@ def parse_repeat_string(saves, repeat_string):
         start = repeat_string.find("{")
         end = repeat_string.find("}")
 
-        if start is -1 and end is -1:
+        if start == -1 and end == -1:
             break
 
         inclusive = repeat_string[start:end + 1]
