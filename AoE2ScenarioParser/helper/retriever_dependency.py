@@ -31,7 +31,7 @@ class DependencyTarget:
         """
         if not ((type(target_piece) is list and type(piece_attr_name) is list) or
                 (type(target_piece) is str and type(piece_attr_name) is str)):
-            raise ValueError("Both parameters should be of the same type. This can be list or str.")
+            raise TypeError("Both parameters should be of the same type. This can be list or str.")
         if type(target_piece) is list:
             if not (len(target_piece) == len(piece_attr_name)):
                 raise ValueError("Both parameters should be of the same length when using lists.")
