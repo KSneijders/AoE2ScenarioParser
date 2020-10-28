@@ -29,7 +29,6 @@ class AoE2Object:
 
         obj = cls(**object_parameters)
         obj._pieces = pieces
-        obj._instance_number_history = instance_number_history
         return obj
 
     def commit(self, pieces=None, local_link_list=None):

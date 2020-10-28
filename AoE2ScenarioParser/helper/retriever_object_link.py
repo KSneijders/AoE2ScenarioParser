@@ -143,7 +143,7 @@ class RetrieverObjectLink:
             link_piece = self.get_piece_datatype(pieces, custom_link=temp_link, host_obj=host_obj)
 
             if self.is_special_unit_case:
-                self._commit_special_unit_case(pieces, link_piece, value)
+                self._commit_special_unit_case(host_obj, pieces, link_piece, value)
                 return
 
             exec(f"{temp_link} = [link_piece() for x in range(r)]", locals(), {
@@ -191,7 +191,7 @@ class RetrieverObjectLink:
                 result_list[i].append(self.process_as_object._construct(pieces, [i, j]))
         return result_list
 
-    def _commit_special_unit_case(self, pieces, link_piece, units):
+    def _commit_special_unit_case(self, host_obj, pieces, link_piece, units):
         """
 
         Args:
@@ -209,7 +209,7 @@ class RetrieverObjectLink:
 
             for index, obj in enumerate(units[player_number]):
                 obj._pieces = pieces
-                obj._instance_number_history.append(index)
+                obj._instance_number_history = [player_number, index]
                 obj.commit()
 
     def __repr__(self):
