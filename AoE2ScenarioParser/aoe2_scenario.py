@@ -65,7 +65,7 @@ class AoE2Scenario:
         return scenario
 
     @classmethod
-    def create(cls, log_creating=True, log_parsing=False):
+    def create_default(cls, log_creating=True, log_parsing=False):
         scenario = cls()
 
         lgr = SimpleLogger(log_creating)
