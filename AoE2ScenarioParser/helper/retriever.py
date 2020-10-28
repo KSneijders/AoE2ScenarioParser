@@ -52,7 +52,7 @@ class Retriever:
         self.save_as = save_as
         self.set_repeat = set_repeat
         self.log_value = log_value
-        self.data = None
+        self._data = None
 
     @property
     def data(self):

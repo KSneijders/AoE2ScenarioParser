@@ -1,5 +1,4 @@
 import struct
-from enum import IntEnum
 
 from AoE2ScenarioParser.helper import helper
 
@@ -25,8 +24,6 @@ def bytes_to_int(byte_elements, endian="little", signed=False):
 
 
 def int_to_bytes(integer: int, length, endian="little", signed=True):
-    if isinstance(integer, IntEnum):
-        integer = integer.value
     return integer.to_bytes(length, byteorder=endian, signed=signed)
 
 
