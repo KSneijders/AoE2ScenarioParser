@@ -14,11 +14,12 @@ To get started import the library in your python project like so::
     input_path = "File/Path/To/Your/Input/kFile.aoe2scenario"
     output_path = "File/Path/To/Your/Output/File.aoe2scenario"
 
-Now create the ``Scenario`` object with the filename as parameter.::
+Now create the ``Scenario`` object with the filename as parameter. Or create a default scenario::
 
-    scenario = AoE2Scenario(input_path)
+    scenario = AoE2Scenario.from_file(input_path)
+    scenario = AoE2Scenario.create_default()  # Creates scenario with most recent version
 
-You can now edit to your heart's content. Every aspect of the scenario is seperated in managers. 
+You can now edit to your heart's vontent. Every aspect of the scenario is seperated in managers. 
 Not all parts are currently supported. The following list shows the current support and use of 
 all available managers:
 

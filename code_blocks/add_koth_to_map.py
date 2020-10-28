@@ -12,7 +12,7 @@ read_file = scenario_folder + "KOTH_1.aoe2scenario"
 write_to_file = scenario_folder + "KOTH_1_.aoe2scenario"
 
 # Reading the scenario & Getting trigger manager
-scenario = AoE2Scenario(read_file, log_parsing=True)
+scenario = AoE2Scenario.from_file(read_file, log_parsing=True)
 trigger_manager = scenario.trigger_manager
 
 # Create new trigger named "StartYearCountdown", add effects & conditions to it

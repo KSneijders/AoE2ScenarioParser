@@ -12,7 +12,7 @@ scenario_folder = "C:/Users/Kerwin Sneijders/Games/Age of Empires 2 DE/765611981
 read_file = scenario_folder + "unitTest.aoe2scenario"
 write_to_file = scenario_folder + "unitTestResult.aoe2scenario"
 
-scenario = AoE2Scenario(read_file)
+scenario = AoE2Scenario.from_file(read_file)
 
 trigger_manager = scenario.trigger_manager
 unit_manager = scenario.unit_manager

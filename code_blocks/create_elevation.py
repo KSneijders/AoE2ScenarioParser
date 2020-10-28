@@ -8,7 +8,7 @@ scenario_folder = "C:/Users/Kerwin Sneijders/Games/Age of Empires 2 DE/765611981
 read_file = scenario_folder + "test5.aoe2scenario"
 write_to_file = scenario_folder + "test7.aoe2scenario"
 
-scenario = AoE2Scenario(read_file)
+scenario = AoE2Scenario.from_file(read_file)
 
 scenario.unit_manager.remove_eye_candy()
 

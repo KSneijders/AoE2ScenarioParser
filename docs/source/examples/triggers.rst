@@ -20,7 +20,7 @@ Here's an example of how to create (add) a trigger and add a condition and effec
     read_file = scenario_folder + "MAP_NAME_TO_BE_READ.aoe2scenario"
 
     # Define Scenario file
-    scenario = AoE2Scenario(read_file)
+    scenario = AoE2Scenario.from_file(read_file)
 
     # Add Trigger
     trigger_manager = scenario.trigger_manager
@@ -61,7 +61,7 @@ As you can see, the trigger and display index can be seen in the ``[Index: x, Di
 These are the numbers you can use to select triggers. Which would look like::
 
     # Define Scenario file
-    scenario = AoE2Scenario(read_file)
+    scenario = AoE2Scenario.from_file(read_file)
 
     # Get Trigger
     trigger_manager = scenario.trigger_manager
