@@ -155,7 +155,7 @@ class RetrieverObjectLink:
 
             for index, obj in enumerate(value):
                 obj._pieces = pieces
-                obj._instance_number_history.append(index)
+                obj._instance_number_history = host_obj._instance_number_history + [index]
                 obj.commit()
         else:
             exec(f"{temp_link} = value", {}, {
