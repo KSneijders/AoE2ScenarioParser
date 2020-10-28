@@ -46,8 +46,7 @@ class EffectStruct(AoE2Struct):
                           DependencyAction.SET_VALUE,
                           DependencyTarget('self', 'selected_object_id'),
                           DependencyEval('len(x)')
-                      ),
-                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
+                      )),
             Retriever("unknown", DataType("s32")),
             Retriever("object_list_unit_id", DataType("s32")),
             Retriever("source_player", DataType("s32")),
