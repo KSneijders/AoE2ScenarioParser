@@ -45,18 +45,18 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
 
     @staticmethod
     def defaults():
-        defaults = {
-            'per_player_number_of_disabled_techs': [0] * 16,
-            'disabled_technology_ids_in_player_order': [],
-            'per_player_number_of_disabled_units': [0] * 16,
-            'disabled_unit_ids_in_player_order': [],
-            'per_player_number_of_disabled_buildings': [0] * 16,
-            'disabled_building_IDs_in_player_order': [],
+        defaults = {}
+        for disabled_type in ["tech", "building", "unit"]:
+            defaults[f'per_player_number_of_disabled_{disabled_type}s'] = [0] * 16
+            for player in range(1, 9):
+                defaults[f'disabled_{disabled_type}_ids_player_{player}'] = []
+
+        defaults = dict(**defaults, **{
             'combat_mode': 0,
             'naval_mode': 0,
             'all_techs': 0,
             'per_player_starting_age': [2] * 16,
             'unknown': b'\x9d\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xffC\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                        b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00',
-        }
+        })
         return defaults
