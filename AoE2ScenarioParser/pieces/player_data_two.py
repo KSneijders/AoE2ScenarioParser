@@ -8,12 +8,24 @@ from AoE2ScenarioParser.pieces.structs.resources import ResourcesStruct
 class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("Strings", DataType("str16", repeat=32)),
-            Retriever("AI names", DataType("str16", repeat=16)),
-            Retriever("AI files", DataType(AIStruct, repeat=16)),
-            Retriever("AI type", DataType("u8", repeat=16)),
-            Retriever("Separator", DataType("u32")),
-            Retriever("Resources", DataType(ResourcesStruct, repeat=16))
+            Retriever("strings", DataType("str16", repeat=32)),
+            Retriever("ai_names", DataType("str16", repeat=16)),
+            Retriever("ai_files", DataType(AIStruct, repeat=16)),
+            Retriever("ai_type", DataType("u8", repeat=16)),
+            Retriever("separator", DataType("u32")),
+            Retriever("resources", DataType(ResourcesStruct, repeat=16))
         ]
 
         super().__init__("Player Data #2", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'strings': [''] * 32,
+            'ai_names': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            'ai_files': [AIStruct(data=[0, 0, '']) for _ in range(16)],
+            'ai_type': [1] * 16,
+            'separator': 4294967197,
+            'resources': [ResourcesStruct(data=[0, 0, 0, 0, 0, 0, x]) for x in range(16)],
+        }
+        return defaults

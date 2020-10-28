@@ -3,12 +3,47 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 
 
 class ConditionObject(AoE2Object):
+    """Object for handling a condition."""
+
+    _link_list = [
+        RetrieverObjectLink("condition_type",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].condition_type"),
+        RetrieverObjectLink("amount_or_quantity",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].amount_or_quantity"),
+        RetrieverObjectLink("resource_type_or_tribute_list",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__]"
+                            ".resource_type_or_tribute_list"),
+        RetrieverObjectLink("unit_object",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].unit_object"),
+        RetrieverObjectLink("next_object",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].next_object"),
+        RetrieverObjectLink("object_list",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].object_list"),
+        RetrieverObjectLink("source_player",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].source_player"),
+        RetrieverObjectLink("technology", "TriggerPiece.trigger_data[__index__].condition_data[__index__].technology"),
+        RetrieverObjectLink("timer", "TriggerPiece.trigger_data[__index__].condition_data[__index__].timer"),
+        RetrieverObjectLink("area_1_x", "TriggerPiece.trigger_data[__index__].condition_data[__index__].area_1_x"),
+        RetrieverObjectLink("area_1_y", "TriggerPiece.trigger_data[__index__].condition_data[__index__].area_1_y"),
+        RetrieverObjectLink("area_2_x", "TriggerPiece.trigger_data[__index__].condition_data[__index__].area_2_x"),
+        RetrieverObjectLink("area_2_y", "TriggerPiece.trigger_data[__index__].condition_data[__index__].area_2_y"),
+        RetrieverObjectLink("object_group",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].object_group"),
+        RetrieverObjectLink("object_type",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].object_type"),
+        RetrieverObjectLink("ai_signal", "TriggerPiece.trigger_data[__index__].condition_data[__index__].ai_signal"),
+        RetrieverObjectLink("inverted", "TriggerPiece.trigger_data[__index__].condition_data[__index__].inverted"),
+        RetrieverObjectLink("variable", "TriggerPiece.trigger_data[__index__].condition_data[__index__].variable"),
+        RetrieverObjectLink("comparison", "TriggerPiece.trigger_data[__index__].condition_data[__index__].comparison"),
+        RetrieverObjectLink("target_player",
+                            "TriggerPiece.trigger_data[__index__].condition_data[__index__].target_player"),
+    ]
+
     def __init__(self,
                  condition_type: int,
                  amount_or_quantity: int,
@@ -69,30 +104,3 @@ class ConditionObject(AoE2Object):
             return "\t\t\t\t<< No Attributes >>\n"
 
         return return_string
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> ConditionObject:  # Expected {condition=conditionStruct}
-        condition_struct = kwargs['condition']
-
-        condition_type = find_retriever(condition_struct.retrievers, "condition_type").data
-        parameters = conditions.attributes.get(condition_type)
-
-        parameter_dict = conditions.empty_attributes.copy()
-        for param in parameters:
-            parameter_dict[param] = find_retriever(condition_struct.retrievers, param).data
-
-        return ConditionObject(
-            **parameter_dict
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:
-        # Expected {condition=condition_obj, conditions=conditionsList}
-        condition_obj = kwargs['condition']
-        conditions_list = kwargs['conditions']
-
-        data_list = [value for key, value in vars(condition_obj).items()]
-        data_list.insert(1, 21)  # static_value_21
-        data_list.insert(10, -1)  # unknown
-        data_list.insert(19, -1)  # unknown_2
-        conditions_list.append(ConditionStruct(data=data_list))

@@ -11,11 +11,3 @@ class OptionsObject(AoE2Object):
         self.all_techs = all_techs
 
         super().__init__()
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs):
-        pass
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):
-        pass

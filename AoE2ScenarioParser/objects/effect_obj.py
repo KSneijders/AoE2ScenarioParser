@@ -1,16 +1,86 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import List, Union
+from typing import List
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 
 
 class EffectObject(AoE2Object):
+    """Object for handling an effect."""
+
+    _link_list = [
+        RetrieverObjectLink("effect_type", "TriggerPiece.trigger_data[__index__].effect_data[__index__].effect_type"),
+        RetrieverObjectLink("ai_script_goal",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].ai_script_goal"),
+        RetrieverObjectLink("aa_quantity", "TriggerPiece.trigger_data[__index__].effect_data[__index__].aa_quantity"),
+        RetrieverObjectLink("aa_armor_or_attack_type",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].aa_armor_or_attack_type"),
+        RetrieverObjectLink("quantity", "TriggerPiece.trigger_data[__index__].effect_data[__index__].quantity"),
+        RetrieverObjectLink("tribute_list", "TriggerPiece.trigger_data[__index__].effect_data[__index__].tribute_list"),
+        RetrieverObjectLink("diplomacy", "TriggerPiece.trigger_data[__index__].effect_data[__index__].diplomacy"),
+        RetrieverObjectLink("number_of_units_selected",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].number_of_units_selected"),
+        RetrieverObjectLink("object_list_unit_id",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].object_list_unit_id"),
+        RetrieverObjectLink("source_player",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].source_player"),
+        RetrieverObjectLink("target_player",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].target_player"),
+        RetrieverObjectLink("technology", "TriggerPiece.trigger_data[__index__].effect_data[__index__].technology"),
+        RetrieverObjectLink("string_id", "TriggerPiece.trigger_data[__index__].effect_data[__index__].string_id"),
+        RetrieverObjectLink("display_time", "TriggerPiece.trigger_data[__index__].effect_data[__index__].display_time"),
+        RetrieverObjectLink("trigger_id", "TriggerPiece.trigger_data[__index__].effect_data[__index__].trigger_id"),
+        RetrieverObjectLink("location_x", "TriggerPiece.trigger_data[__index__].effect_data[__index__].location_x"),
+        RetrieverObjectLink("location_y", "TriggerPiece.trigger_data[__index__].effect_data[__index__].location_y"),
+        RetrieverObjectLink("area_1_x", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_1_x"),
+        RetrieverObjectLink("area_1_y", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_1_y"),
+        RetrieverObjectLink("area_2_x", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_2_x"),
+        RetrieverObjectLink("area_2_y", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_2_y"),
+        RetrieverObjectLink("object_group", "TriggerPiece.trigger_data[__index__].effect_data[__index__].object_group"),
+        RetrieverObjectLink("object_type", "TriggerPiece.trigger_data[__index__].effect_data[__index__].object_type"),
+        RetrieverObjectLink("instruction_panel_position",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].instruction_panel_position"),
+        RetrieverObjectLink("attack_stance",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].attack_stance"),
+        RetrieverObjectLink("time_unit", "TriggerPiece.trigger_data[__index__].effect_data[__index__].time_unit"),
+        RetrieverObjectLink("enabled_or_victory",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].enabled_or_victory"),
+        RetrieverObjectLink("food", "TriggerPiece.trigger_data[__index__].effect_data[__index__].food"),
+        RetrieverObjectLink("wood", "TriggerPiece.trigger_data[__index__].effect_data[__index__].wood"),
+        RetrieverObjectLink("stone", "TriggerPiece.trigger_data[__index__].effect_data[__index__].stone"),
+        RetrieverObjectLink("gold", "TriggerPiece.trigger_data[__index__].effect_data[__index__].gold"),
+        RetrieverObjectLink("item_id", "TriggerPiece.trigger_data[__index__].effect_data[__index__].item_id"),
+        RetrieverObjectLink("flash_object", "TriggerPiece.trigger_data[__index__].effect_data[__index__].flash_object"),
+        RetrieverObjectLink("force_research_technology",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].force_research_technology"),
+        RetrieverObjectLink("visibility_state",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].visibility_state"),
+        RetrieverObjectLink("scroll", "TriggerPiece.trigger_data[__index__].effect_data[__index__].scroll"),
+        RetrieverObjectLink("operation", "TriggerPiece.trigger_data[__index__].effect_data[__index__].operation"),
+        RetrieverObjectLink("object_list_unit_id_2",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].object_list_unit_id_2"),
+        RetrieverObjectLink("button_location",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].button_location"),
+        RetrieverObjectLink("ai_signal_value",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].ai_signal_value"),
+        RetrieverObjectLink("object_attributes",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].object_attributes"),
+        RetrieverObjectLink("from_variable",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].from_variable"),
+        RetrieverObjectLink("variable_or_timer",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].variable_or_timer"),
+        RetrieverObjectLink("facet", "TriggerPiece.trigger_data[__index__].effect_data[__index__].facet"),
+        RetrieverObjectLink("play_sound", "TriggerPiece.trigger_data[__index__].effect_data[__index__].play_sound"),
+        RetrieverObjectLink("message", "TriggerPiece.trigger_data[__index__].effect_data[__index__].message"),
+        RetrieverObjectLink("sound_name", "TriggerPiece.trigger_data[__index__].effect_data[__index__].sound_name"),
+        RetrieverObjectLink("selected_object_id",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].selected_object_id"),
+    ]
+
     def __init__(self,
                  effect_type: int,
                  ai_script_goal: int,
@@ -142,33 +212,3 @@ class EffectObject(AoE2Object):
             return "\t\t\t\t<< No Attributes >>\n"
 
         return return_string
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs):  # Expected {effect=effectStruct}
-        effect_struct = kwargs['effect']
-
-        effect_type = find_retriever(effect_struct.retrievers, "effect_type").data
-        parameters = effects.attributes.get(effect_type)
-
-        parameter_dict = effects.empty_attributes.copy()
-        for param in parameters:
-            parameter_dict[param] = find_retriever(effect_struct.retrievers, param).data
-
-        return EffectObject(
-            **parameter_dict
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects,
-                            **kwargs):  # Expected {effect=effect_obj, effects=effectsList}
-        effect_obj = kwargs['effect']
-        effects_list = kwargs['effects']
-
-        data_list = [value for key, value in vars(effect_obj).items()]
-        data_list.insert(1, 46)  # static_value_46
-        data_list.insert(9, -1)  # unknown
-        data_list.insert(15, -1)  # unknown_2
-        data_list.insert(43, -1)  # unknown_3
-        data_list.insert(48, -1)  # unknown_4
-
-        effects_list.append(EffectStruct(data=data_list))

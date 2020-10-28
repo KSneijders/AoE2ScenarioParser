@@ -1,6 +1,8 @@
+import abc
+
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 
 
 class AoE2Piece:
@@ -11,8 +13,37 @@ class AoE2Piece:
         if data:
             self.set_data(data)
 
+    @staticmethod
+    @abc.abstractmethod
+    def defaults():
+        return {}
+
+    def __getattr__(self, name):
+        """
+        Providing a default way to access retriever data labeled 'name'
+        """
+        try:
+            return get_retriever_by_name(self.retrievers, name).data
+        except:
+            raise AttributeError("No attribute retriever named \'" + name + "\' in piece \'" + str(type(self)) + "\'")
+
+    def __setattr__(self, name, value):
+        """
+        Trying to edit retriever data labeled 'name' if available
+        """
+        if 'retrievers' not in self.__dict__:
+            super().__setattr__(name, value)
+        else:
+            retriever = get_retriever_by_name(self.retrievers, name)
+            if retriever is None:
+                super().__setattr__(name, value)
+            else:
+                retriever.data = value
+
     def set_data(self, data):
         saves = {}
+        if self.parser is not None:
+            saves = self.parser._saves
         if len(data) == len(self.retrievers):
             for i in range(0, len(data)):
                 if self.retrievers[i].set_repeat:
@@ -21,9 +52,7 @@ class AoE2Piece:
                         self.retrievers[i].set_repeat
                     )
 
-                if self.retrievers[i].log_value:
-                    print(self.retrievers[i], "was set to:", parser.vorl(data[i], self.retrievers[i]))
-                self.retrievers[i].set_data(data[i])
+                self.retrievers[i].data = data[i]
 
                 if self.retrievers[i].save_as is not None:
                     if type(data[i]) is not list:
@@ -35,7 +64,7 @@ class AoE2Piece:
             raise ValueError("Data list isn't the same size as the DataType list")
 
     def get_value(self, retriever_key):
-        return find_retriever(self.retrievers, retriever_key).data
+        return get_retriever_by_name(self.retrievers, retriever_key).data
 
     def get_length(self):
         total_length = 0
@@ -56,11 +85,11 @@ class AoE2Piece:
             print(self.retrievers)
         return total_length
 
-    def set_data_from_generator(self, generator):
+    def set_data_from_generator(self, generator, pieces=None):
         if self.parser:
             for i, retriever in enumerate(self.retrievers):
                 try:
-                    retriever.set_data(self.parser.retrieve_value(generator, retriever))
+                    retriever.data = self.parser.retrieve_value(generator, retriever, self.retrievers, pieces)
                 except StopIteration as e:
                     print(f"[StopIteration] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}\n")
                     raise StopIteration(e)
@@ -69,7 +98,7 @@ class AoE2Piece:
         return "\t" + name + ": " + data + " (" + datatype + ")\n"
 
     def get_header_string(self):
-        return "######################## " + self.piece_type + " ########################"
+        return "######################## " + self.piece_type + " ######################## [PIECE]"
 
     def get_byte_structure_as_string(self, skip_retrievers=None):
         if skip_retrievers is None:
@@ -81,15 +110,19 @@ class AoE2Piece:
             if retriever.name in skip_retrievers:
                 continue
             byte_structure += "\n"
-            if type(retriever.data) is list and len(retriever.data) > 0:
-                if isinstance(retriever.data[0], AoE2Piece):
-                    for struct in retriever.data:
-                        byte_structure += struct.get_byte_structure_as_string()
-                    continue
-            else:
-                if isinstance(retriever.data, AoE2Piece):
-                    byte_structure += retriever.data.get_byte_structure_as_string()
-                    continue
+
+            listed_retriever_data = parser.listify(retriever.data)
+            struct_header_set = False
+            for struct in listed_retriever_data:
+                if isinstance(struct, AoE2Piece):
+                    if not struct_header_set:
+                        byte_structure += f"\n{'#'*27} {retriever.name} ({retriever.datatype.to_simple_string()})"
+                        struct_header_set = True
+                    byte_structure += struct.get_byte_structure_as_string()
+            # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
+            if struct_header_set:
+                byte_structure += f"{'#'*27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
+                continue
 
             retriever_data_bytes = parser.retriever_to_bytes(retriever)
             if retriever_data_bytes is None:
@@ -98,7 +131,6 @@ class AoE2Piece:
                 retriever_data_bytes = retriever_data_bytes.hex()
 
             retriever_short_string = retriever.get_short_str()
-
             retriever_data_hex = helper.create_textual_hex(retriever_data_bytes, space_distance=2,
                                                            enter_distance=24)
 
@@ -125,7 +157,7 @@ class AoE2Piece:
             else:
                 byte_structure += helper.add_suffix_chars(retriever_data_hex, " ", 28) + retriever_short_string
 
-        return byte_structure + "\n\n"
+        return byte_structure + "\n"
 
     def __str__(self):
         represent = self.piece_type + ": \n"
@@ -147,7 +179,7 @@ class AoE2Piece:
                 if self.retrievers[i].data is not None:
                     data = self.retrievers[i].data
                 else:
-                    data = "<Empty>"
+                    data = "None"
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
 
         return represent

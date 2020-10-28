@@ -6,12 +6,29 @@ from AoE2ScenarioParser.datasets import units, buildings
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import find_retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 
 class UnitObject(AoE2Object):
+
+    _link_list = [
+        RetrieverObjectLink("player", retrieve_history_number=0),
+        RetrieverObjectLink("x", "UnitsPiece.players_units[__index__].units[__index__].x"),
+        RetrieverObjectLink("y", "UnitsPiece.players_units[__index__].units[__index__].y"),
+        RetrieverObjectLink("z", "UnitsPiece.players_units[__index__].units[__index__].z"),
+        RetrieverObjectLink("reference_id", "UnitsPiece.players_units[__index__].units[__index__].reference_id"),
+        RetrieverObjectLink("unit_const", "UnitsPiece.players_units[__index__].units[__index__].unit_const"),
+        RetrieverObjectLink("status", "UnitsPiece.players_units[__index__].units[__index__].status"),
+        RetrieverObjectLink("rotation", "UnitsPiece.players_units[__index__].units[__index__].rotation"),
+        RetrieverObjectLink("initial_animation_frame",
+                            "UnitsPiece.players_units[__index__].units[__index__].initial_animation_frame"),
+        RetrieverObjectLink("garrisoned_in_id",
+                            "UnitsPiece.players_units[__index__].units[__index__].garrisoned_in_id"),
+    ]
+
     def __init__(self,
                  player: Player,
                  x: float,
@@ -21,11 +38,11 @@ class UnitObject(AoE2Object):
                  unit_const: int,
                  status: int,
                  rotation: float,
-                 animation_frame: int,
+                 initial_animation_frame: int,
                  garrisoned_in_id: int
                  ):
 
-        self._player: Player = player
+        self._player: Player = Player(player)
         """
         PLEASE NOTE: This is an internal (read-only) value for ease of access. It accurately represent the actual 
         player controlling the unit but is not directly connected to it. Changing this value will have no impact to your
@@ -37,11 +54,11 @@ class UnitObject(AoE2Object):
         self.y: float = y
         self.z: float = z
         self.reference_id: int = reference_id
-        self.unit_id: int = unit_const
+        self.unit_const: int = unit_const
         self.status: int = status
         self.rotation: float = rotation % math.tau
         # Mods by tau because the scenario editor seems to place units at radian angles not strictly less than tau.
-        self.animation_frame: int = animation_frame
+        self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
 
         super().__init__()
@@ -81,33 +98,6 @@ class UnitObject(AoE2Object):
     @property
     def name(self) -> str:
         try:
-            return helper.pretty_print_name(units.unit_names[self.unit_id])
+            return helper.pretty_print_name(units.unit_names[self.unit_const])
         except KeyError:  # Object wasn't a unit, maybe a building?
-            return helper.pretty_print_name(buildings.building_names[self.unit_id])
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs) -> UnitObject:  # Expected {unit=unitStruct, player=Player}
-        unit = kwargs['unit']
-
-        return UnitObject(
-            player=kwargs['player'],
-            x=find_retriever(unit.retrievers, "X position").data,
-            y=find_retriever(unit.retrievers, "Y position").data,
-            z=find_retriever(unit.retrievers, "Z position").data,
-            reference_id=find_retriever(unit.retrievers, "ID").data,
-            unit_const=find_retriever(unit.retrievers, "Unit 'constant'").data,
-            status=find_retriever(unit.retrievers, "Status").data,
-            rotation=find_retriever(unit.retrievers, "Rotation, in radians").data,
-            animation_frame=find_retriever(unit.retrievers, "Initial animation frame").data,
-            garrisoned_in_id=find_retriever(unit.retrievers, "Garrisoned in: ID").data,
-        )
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs) -> None:  # Expected {unit=unit_obj, units=units_list}
-        unit_obj = kwargs['unit']
-        units_list = kwargs['units']
-
-        data_list = [value for key, value in vars(unit_obj).items()]
-        del data_list[0]  # Remove player attribute
-
-        units_list.append(UnitStruct(data=data_list))
+            return helper.pretty_print_name(buildings.building_names[self.unit_const])
