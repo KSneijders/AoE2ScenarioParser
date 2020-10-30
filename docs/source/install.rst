@@ -18,3 +18,12 @@ This project is made in Python 3. You'll need **Python 3.6 +** to able to run it
 | Note: *All these dependencies should install automatically when using the above command.*
 
 .. _bidict: https://pypi.org/project/bidict/
+
+Updating
+^^^^^^^^
+
+To update the library using pip when you have an older version, use the following command::
+
+    pip install --no-cache-dir --upgrade AoE2ScenarioParser
+
+To view the changes between versions, visit the github page and check the `changelog.md` file.
