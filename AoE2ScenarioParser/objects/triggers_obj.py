@@ -35,64 +35,40 @@ class TriggersObject(AoE2Object):
         super().__init__()
 
     def copy_trigger_per_player(self,
-                                from_player: IntEnum,
-                                change_from_player_only: bool = False,
-                                include_player_source: bool = True,
-                                include_player_target: bool = False,
-
-                                trigger_index: int = None,
-                                display_index: int = None,
-                                trigger: TriggerObject = None,
-
-                                lock_conditions: bool = False,
-                                lock_effects: bool = False,
-                                lock_condition_type: List[IntEnum] = None,
-                                lock_effect_type: List[IntEnum] = None,
-                                lock_condition_ids: List[int] = None,
-                                lock_effect_ids: List[int] = None,
-
+                                from_player,
+                                trigger_select,
+                                change_from_player_only=False,
+                                include_player_source=True,
+                                include_player_target=False,
+                                trigger_ce_lock=None,
                                 include_gaia: bool = False,
                                 create_copy_for_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
         """
         Copies a trigger for all or a selection of players. Every copy will change desired player attributes with it.
-        Creates copies for all other players if `create_copy_for_players` is left to default.
-        By default 'all players' is every player (1-8) excluding the `from_player` value.
-        So when `from_player` is set to Player.SEVEN the copies will be: [1, 2, 3, 4, 5, 6, 8].
-        When `from_player` is set to Player.GAIA the copies will include all 1-8 players.
-        When `change_from_player_only` is set to False (Default) "all player attributes"* will be changed to the copied
-        player. When set to true only player attributes that are equal to the `from_player` parameter will be changed.
-        The meaning of "All player attributes" is based on the settings of the parameters:
-        `include_player_source` (Default: True) and `include_player_target` (Default: False).
-
-        When doing a copy, some conditions or effects might want to stay unchanged. You can do this by 'locking' them.
-        You can lock effects and conditions separately in three ways. Locking all effects or conditions, locking a
-        specific type (Effect.x) or locking certain specific ones using their IDs.
-
-        When creating the copy you can include a copy for the GAIA 'player'. You can do so by enabling the
-        `include_gaia` parameter.
 
         Args:
-            from_player: The player the trigger is copied from. This should be the central player or the player that
-                should be changed in all conditions and effects when the `change_from_player_only` is set to `True`
-            change_from_player_only: Ensures that only player attributes equal to `from_player` are changed per copy
-            include_player_source: Ensures that only source_player attributes are changed
-            include_player_target: Ensures that only target_player attributes are changed
-            trigger_index: Selects a trigger based on it's index (Mutually exclusive with `display_index` and `trigger`)
-            display_index: Selects a trigger based on it's display index (Mutually exclusive with `trigger_index` and
-                `trigger`)
-            trigger: Selects a trigger (Mutually exclusive with `trigger_index` and `display_index`)
-            lock_conditions: Ensures that no player attributes are changed in any condition
-            lock_effects: Ensures that no player attributes are changed in any effect
-            lock_condition_type: Ensures that no player attributes are changed in the given condition type
-            lock_effect_type: Ensures that no player attributes are changed in the given effect type
-            lock_condition_ids: Ensures that no player attributes are changed in the given condition IDs
-            lock_effect_ids: Ensures that no player attributes are changed in the given effect IDs
-            include_gaia: If `True` creates a copy for GAIA
-            create_copy_for_players: Copy for certain and overwrite the default (All players)
+            from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
+                a copy.
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+            change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
+                are equal to the player defined using the `from_player` parameter.
+            include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
+                Player source attributes are attributes where a player is defined to perform an action such as create an
+                object. If set to False these attributes will remain unchanged.
+            include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
+                Player target attributes are attributes where a player is defined as the target such as change ownership
+                or sending resources.
+            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+                effects from being changed while copying.
+            include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
+                defined)
+            create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
+                excluded from this list.
 
         Returns:
-            Dict: A dict with all the new created triggers. The key is the player for which the trigger is
-                created using the IntEnum associated with it. Example: {Player.TWO: TriggerObject, Player.FIVE: TriggerObject}
+            A dict with all the new created triggers. The key is the player for which the trigger is
+                created using the IntEnum associated with it. Example:
+                {Player.TWO: TriggerObject, Player.FIVE: TriggerObject}
 
         Raises:
             ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
@@ -100,24 +76,11 @@ class TriggersObject(AoE2Object):
 
         :Authors:
             KSneijders
-        """
 
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+        """
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         if not include_player_source and not include_player_target:
             raise ValueError("Cannot exclude player source and target.")
-
-        if lock_conditions is None:
-            lock_conditions = []
-        if lock_effects is None:
-            lock_effects = []
-        if lock_condition_type is None:
-            lock_condition_type = []
-        if lock_effect_type is None:
-            lock_effect_type = []
-        if lock_condition_ids is None:
-            lock_condition_ids = []
-        if lock_effect_ids is None:
-            lock_effect_ids = []
 
         if create_copy_for_players is None:
             create_copy_for_players = [
@@ -127,16 +90,12 @@ class TriggersObject(AoE2Object):
         if include_gaia and Player.GAIA not in create_copy_for_players:
             create_copy_for_players.append(Player.GAIA)
 
-        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(
-            trigger, lock_conditions, lock_effects,
-            lock_condition_type, lock_effect_type,
-            lock_condition_ids, lock_effect_ids
-        )
+        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
 
         return_dict: Dict[Player, TriggerObject] = {}
         for player in create_copy_for_players:
             if not player == from_player:
-                new_trigger = self.copy_trigger(trigger=trigger)
+                new_trigger = self.copy_trigger(TS.trigger(trigger))
                 new_trigger.name += f" (p{player})"
                 return_dict[player] = new_trigger
 
@@ -173,9 +132,17 @@ class TriggersObject(AoE2Object):
 
         return return_dict
 
-    def copy_trigger(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None) \
-            -> TriggerObject:
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+    def copy_trigger(self, trigger_select) -> TriggerObject:
+        """
+        Creates an exact copy (deepcopy) of this trigger.
+
+        Args:
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+
+        Returns:
+            The newly copied trigger
+        """
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         deepcopy_trigger = copy.deepcopy(trigger)
         deepcopy_trigger.name += " (copy)"
@@ -185,19 +152,18 @@ class TriggersObject(AoE2Object):
 
         return deepcopy_trigger
 
-    def copy_trigger_tree(self, trigger_index: int = None, display_index: int = None, trigger: TriggerObject = None) \
-            -> List[TriggerObject]:
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
+    def copy_trigger_tree(self, trigger_select: TriggerSelect) -> List[TriggerObject]:
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = {trigger_index}
         # Create new instance of `known_node_indexes` so it doesn't receive updates from the recursion
         for index in set(known_node_indexes):
-            self.find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
 
         new_triggers = []
         id_swap = {}
         for index in known_node_indexes:
-            trigger = self.copy_trigger(trigger_index=index)
+            trigger = self.copy_trigger(TS.trigger(trigger))
             new_triggers.append(trigger)
             id_swap[index] = trigger.trigger_id
 
@@ -211,60 +177,14 @@ class TriggersObject(AoE2Object):
 
         return new_triggers
 
-    def find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: Set[int]) -> None:
-        found_node_indexes = TriggersObject.find_trigger_tree_nodes(trigger)
-        unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
-
-        if len(unknown_node_indexes) == 0:
-            return
-
-        known_node_indexes.update(unknown_node_indexes)
-
-        for index in unknown_node_indexes:
-            self.find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
-
-    @staticmethod
-    def find_trigger_tree_nodes(trigger: TriggerObject) -> Set[int]:
-        return {
-            effect.trigger_id for effect in trigger.effects if
-            effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
-        }
-
     def replace_player(self,
+                       trigger_select: TriggerSelect,
                        source_player_replacements: Dict[int, int] = None,
                        target_player_replacements: Dict[int, int] = None,
+                       trigger_ce_lock: TriggerCELock = None) -> TriggerObject:
 
-                       trigger_index: int = None,
-                       display_index: int = None,
-                       trigger: TriggerObject = None,
-
-                       lock_conditions: bool = False,
-                       lock_effects: bool = False,
-                       lock_condition_type: List[IntEnum] = None,
-                       lock_effect_type: List[IntEnum] = None,
-                       lock_condition_ids: List[int] = None,
-                       lock_effect_ids: List[int] = None) -> TriggerObject:
-
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
-
-        if lock_conditions is None:
-            lock_conditions = []
-        if lock_effects is None:
-            lock_effects = []
-        if lock_condition_type is None:
-            lock_condition_type = []
-        if lock_effect_type is None:
-            lock_effect_type = []
-        if lock_condition_ids is None:
-            lock_condition_ids = []
-        if lock_effect_ids is None:
-            lock_effect_ids = []
-
-        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(
-            trigger, lock_conditions, lock_effects,
-            lock_condition_type, lock_effect_type,
-            lock_condition_ids, lock_effect_ids
-        )
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
@@ -294,6 +214,64 @@ class TriggersObject(AoE2Object):
         new_variable = VariableObject(variable_id=variable_id, name=name)
         self.variables.append(new_variable)
         return new_variable
+
+    def get_trigger(self, trigger_select: TriggerSelect) -> TriggerObject:
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        return trigger
+
+    def get_variable(self, variable_id: int = None, variable_name: str = None) -> VariableObject:
+        if variable_id is None and variable_name is None:
+            raise ValueError("Select a variable using the variable_id or variable_name parameters")
+        if variable_id is not None and variable_name is not None:
+            raise ValueError("Select a variable using either the variable_id or variable_name parameters, not both.")
+
+        for variable in self.variables:
+            if variable.variable_id == variable_id or variable.name == variable_name:
+                return variable
+
+    def remove_trigger(self, trigger_select: TriggerSelect) -> None:
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+
+        for x in self.trigger_display_order:
+            if x > trigger_index:
+                self.get_trigger(TS.trigger(trigger)).trigger_id -= 1
+
+        del self.triggers[trigger_index]
+        del self.trigger_display_order[display_index]
+
+        self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
+
+    def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: Set[int]) -> None:
+        found_node_indexes = TriggersObject._find_trigger_tree_nodes(trigger)
+        unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
+
+        if len(unknown_node_indexes) == 0:
+            return
+
+        known_node_indexes.update(unknown_node_indexes)
+
+        for index in unknown_node_indexes:
+            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+
+    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, TriggersObject):
+        trigger = trigger_select.trigger
+        trigger_index = trigger_select.trigger_index
+        display_index = trigger_select.display_index
+
+        if trigger is None:
+            helper.evaluate_index_params(trigger_index, display_index, "trigger")
+        else:
+            trigger_index = trigger.trigger_id
+
+        if trigger_index is None:
+            trigger_index = self.trigger_display_order[display_index]
+        else:
+            display_index = self.trigger_display_order.index(trigger_index)
+
+        if not trigger:
+            trigger = self.triggers[trigger_index]
+
+        return trigger_index, display_index, trigger
 
     def get_summary_as_string(self) -> str:
         return_string = "\nTrigger Summary:\n"
@@ -346,7 +324,7 @@ class TriggersObject(AoE2Object):
             return_string += "\t<<No triggers>>\n"
 
         for trigger_index in self.trigger_display_order:
-            return_string += self.get_trigger_as_string(trigger_index) + "\n"
+            return_string += self.get_trigger_as_string(TS.index(trigger_index)) + "\n"
 
         return_string += "Variables:\n"
 
@@ -358,8 +336,8 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_index: int = None, display_index: int = None) -> str:
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index)
+    def get_trigger_as_string(self, trigger_select: TriggerSelect) -> str:
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         return_string = "\t'" + trigger.name + "'"
         return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display_index) + "]" + ":\n"
@@ -368,63 +346,15 @@ class TriggersObject(AoE2Object):
 
         return return_string
 
-    def get_trigger(self, trigger_index: int = None, display_index: int = None) -> TriggerObject:
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index)
-
-        return trigger
-
-    def get_variable(self, variable_id: int = None, variable_name: str = None) -> VariableObject:
-        if variable_id is None and variable_name is None:
-            raise ValueError("Select a variable using the variable_id or variable_name parameters")
-        if variable_id is not None and variable_name is not None:
-            raise ValueError("Select a variable using either the variable_id or variable_name parameters, not both.")
-
-        for variable in self.variables:
-            if variable.variable_id == variable_id or variable.name == variable_name:
-                return variable
-
-    def remove_trigger(self,
-                       trigger_index: int = None,
-                       display_index: int = None,
-                       trigger: TriggerObject = None) -> None:
-        trigger_index, display_index, trigger = self._compute_trigger_info(trigger_index, display_index, trigger)
-
-        for x in self.trigger_display_order:
-            if x > trigger_index:
-                self.get_trigger(trigger_index=x).trigger_id -= 1
-
-        del self.triggers[trigger_index]
-        del self.trigger_display_order[display_index]
-
-        self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
-
-    def _compute_trigger_info(self,
-                              trigger_index: int = None,
-                              display_index: int = None,
-                              trigger: TriggerObject = None) -> (int, int, TriggersObject):
-        if trigger is None:
-            helper.evaluate_index_params(trigger_index, display_index, "trigger")
-        else:
-            trigger_index = trigger.trigger_id
-
-        if trigger_index is None:
-            trigger_index = self.trigger_display_order[display_index]
-        else:
-            display_index = self.trigger_display_order.index(trigger_index)
-
-        if not trigger:
-            trigger = self.triggers[trigger_index]
-
-        return trigger_index, display_index, trigger
-
     @staticmethod
-    def _find_alterable_ce(trigger,
-                           lock_conditions,
-                           lock_effects,
-                           lock_condition_type,
-                           lock_effect_type,
-                           lock_condition_ids,
-                           lock_effect_ids) -> (List[int], List[int]):
+    def _find_alterable_ce(trigger, trigger_ce_lock) -> (List[int], List[int]):
+        lock_conditions = trigger_ce_lock.lock_conditions
+        lock_effects = trigger_ce_lock.lock_effects
+        lock_condition_type = trigger_ce_lock.lock_condition_type
+        lock_effect_type = trigger_ce_lock.lock_effect_type
+        lock_condition_ids = trigger_ce_lock.lock_condition_ids
+        lock_effect_ids = trigger_ce_lock.lock_effect_ids
+
         alter_conditions: List[int] = []
         alter_effects: List[int] = []
         if not lock_conditions:
@@ -437,3 +367,84 @@ class TriggersObject(AoE2Object):
                     alter_effects.append(i)
 
         return alter_conditions, alter_effects
+
+    @staticmethod
+    def _find_trigger_tree_nodes(trigger: TriggerObject) -> Set[int]:
+        return {
+            effect.trigger_id for effect in trigger.effects if
+            effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+        }
+
+
+class TriggerSelect:
+    def __init__(self, trigger_index=None, display_index=None, trigger=None):
+        """
+        Object used to select a trigger in many trigger related functions. For ease of use, the alias `TS` can be
+        called. You can also use those in combination with the class methods (factory methods). Like so:
+
+        TS.index(4)    # To select the trigger with index 4
+
+        TS.display(4)  # Trigger with display index 4
+
+        TS.trigger(trigger)  # Well... The trigger object given...
+
+        Args:
+            trigger_index (int): The index of the trigger. Starting from 0, based on creation time
+            display_index (int): The display index of a trigger. Starting from 0, based on display order in the editor
+            trigger (TriggerObject): The trigger object itself.
+        """
+        self.trigger = trigger
+        self.display_index = display_index
+        self.trigger_index = trigger_index
+
+    @classmethod
+    def index(cls, index: int):
+        return cls(trigger_index=index)
+
+    @classmethod
+    def display(cls, display_index: int):
+        return cls(display_index=display_index)
+
+    @classmethod
+    def trigger(cls, trigger: TriggerObject):
+        return cls(trigger=trigger)
+
+
+TS = TriggerSelect
+
+
+class TriggerCELock:
+    def __init__(self,
+                 lock_conditions=False,
+                 lock_effects=False,
+                 lock_condition_type=None,
+                 lock_effect_type=None,
+                 lock_condition_ids=None,
+                 lock_effect_ids=None,
+                 ):
+        """
+        Object used to identify which conditions and effects should be locked from change.
+
+        Args:
+            lock_conditions (bool): Lock all conditions
+            lock_effects (bool): Lock all effects
+            lock_condition_type (List[int]): Lock certain condition types. Example: `Condition.OWN_OBJECTS`
+            lock_effect_type (List[int]): Lock certain effect types. Example: `Effect.CREATE_OBJECT`
+            lock_condition_ids (List[int]): Lock certain conditions by their id
+            lock_effect_ids (List[int]): Lock certain effects by their id
+        """
+        if lock_condition_type is None:
+            lock_condition_type = []
+        if lock_effect_type is None:
+            lock_effect_type = []
+        if lock_condition_ids is None:
+            lock_condition_ids = []
+        if lock_effect_ids is None:
+            lock_effect_ids = []
+
+        self.lock_conditions = lock_conditions
+        self.lock_effects = lock_effects
+        self.lock_condition_type = lock_condition_type
+        self.lock_effect_type = lock_effect_type
+        self.lock_condition_ids = lock_condition_ids
+        self.lock_effect_ids = lock_effect_ids
