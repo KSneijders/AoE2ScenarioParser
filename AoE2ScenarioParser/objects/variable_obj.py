@@ -14,7 +14,7 @@ class VariableObject(AoE2Object):
         RetrieverObjectLink("name", "TriggerPiece.variable_data[__index__].name"),
     ]
 
-    def __init__(self, variable_id: int, name: int):
+    def __init__(self, variable_id: int, name: str):
         self.variable_id = variable_id
         self.name = name
 
