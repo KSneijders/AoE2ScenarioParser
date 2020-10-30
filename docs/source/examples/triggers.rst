@@ -93,3 +93,33 @@ This will result in the following (with the ``create trigger`` code)::
     Variables:
         <<No Variables>>
     """
+
+Editing triggers, conditions or effects
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When opening a file that already contains triggers you might want to edit or even remove said triggers.
+
+You can edit a trigger like so::
+
+    # Get the trigger_index or display_index using the methods above
+    trigger = trigger_manager.get_trigger(trigger_index=0)
+    trigger = trigger_manager.get_trigger(display_index=0)
+
+    trigger.name = "New Trigger Name"
+    trigger.description = "Awesome New Description!"
+
+Copy Triggers function
+~~~~~~~~~~~~~~~~~~~~~~
+
+Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. Selecting a trigger is done using the 
+standard trigger_index, display_index and trigger reference. You can use it as follows::
+
+    copied_trigger = trigger_manager.copy_trigger(trigger_index=0)
+
+This will result in a full (deep)copy of your trigger. The only parts that are edited are it's id and the name (added " (copy)").
+
+Copy trigger per player function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Just like the ``copy_trigger`` function, this trigger makes a (deep) copy of the given function. But, while copying, it'll change the everything player related.
+With this function comes great control. Below the usage is shown from simple to very specific::
