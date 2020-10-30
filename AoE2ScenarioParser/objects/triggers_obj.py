@@ -57,7 +57,7 @@ class TriggersObject(AoE2Object):
                 object. If set to False these attributes will remain unchanged.
             include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
-                or sending resources.
+                or sending resources. If set to False these attributes will remain unchanged.
             trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
             include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
@@ -177,27 +177,51 @@ class TriggersObject(AoE2Object):
 
         return new_triggers
 
-    def replace_player(self,
-                       trigger_select: TriggerSelect,
-                       source_player_replacements: Dict[int, int] = None,
-                       target_player_replacements: Dict[int, int] = None,
-                       trigger_ce_lock: TriggerCELock = None) -> TriggerObject:
+    def replace_player(self, trigger_select, to_player, only_change_from=None, include_player_source=True,
+                       include_player_target=False, trigger_ce_lock=None) -> TriggerObject:
+        """
+        Replaces player attributes. Specifically useful if multiple players are used in the same trigger.
+
+        Args:
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+            to_player (Player): The player the attributes are changed to.
+            only_change_from (Player): Can only change player attributes if the player is equal to the given value
+            include_player_source (bool): If set to True, allow player source attributes to be changed while replacing.
+                Player source attributes are attributes where a player is defined to perform an action such as create an
+                object. If set to False these attributes will remain unchanged.
+            include_player_target (bool): If set to True, allow player target attributes to be changed while replacing.
+                Player target attributes are attributes where a player is defined as the target such as change ownership
+                or sending resources. If set to False these attributes will remain unchanged.
+            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+                effects from being changed.
+
+        Returns:
+            The given trigger with the proper player attributes changed
+        """
 
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
-            if not cond.source_player == -1:
-                cond.source_player = Player(source_player_replacements[cond.source_player])
-            if not cond.target_player == -1:
-                cond.target_player = Player(target_player_replacements[cond.source_player])
+            if not cond.source_player == -1 and include_player_source:
+                if only_change_from is not None and only_change_from != cond.source_player:
+                    continue
+                cond.source_player = Player(to_player)
+            if not cond.target_player == -1 and include_player_target:
+                if only_change_from is not None and only_change_from != cond.target_player:
+                    continue
+                cond.target_player = Player(to_player)
         for effect_x in alter_effects:
             effect = trigger.effects[effect_x]
-            if not effect.source_player == -1:
-                effect.source_player = Player(source_player_replacements[effect.source_player])
-            if not effect.target_player == -1:
-                effect.target_player = Player(target_player_replacements[effect.target_player])
+            if not effect.source_player == -1 and include_player_source:
+                if only_change_from is not None and only_change_from != effect.source_player:
+                    continue
+                effect.source_player = Player(to_player)
+            if not effect.target_player == -1 and include_player_target:
+                if only_change_from is not None and only_change_from != effect.target_player:
+                    continue
+                effect.target_player = Player(to_player)
 
         return trigger
 
