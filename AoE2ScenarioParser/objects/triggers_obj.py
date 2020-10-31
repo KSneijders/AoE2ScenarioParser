@@ -401,12 +401,12 @@ class TriggersObject(AoE2Object):
 
     @staticmethod
     def _find_alterable_ce(trigger, trigger_ce_lock) -> (List[int], List[int]):
-        lock_conditions = trigger_ce_lock.lock_conditions
-        lock_effects = trigger_ce_lock.lock_effects
-        lock_condition_type = trigger_ce_lock.lock_condition_type
-        lock_effect_type = trigger_ce_lock.lock_effect_type
-        lock_condition_ids = trigger_ce_lock.lock_condition_ids
-        lock_effect_ids = trigger_ce_lock.lock_effect_ids
+        lock_conditions = trigger_ce_lock.lock_conditions if trigger_ce_lock is not None else False
+        lock_effects = trigger_ce_lock.lock_effects if trigger_ce_lock is not None else False
+        lock_condition_type = trigger_ce_lock.lock_condition_type if trigger_ce_lock is not None else []
+        lock_effect_type = trigger_ce_lock.lock_effect_type if trigger_ce_lock is not None else []
+        lock_condition_ids = trigger_ce_lock.lock_condition_ids if trigger_ce_lock is not None else []
+        lock_effect_ids = trigger_ce_lock.lock_effect_ids if trigger_ce_lock is not None else []
 
         alter_conditions: List[int] = []
         alter_effects: List[int] = []
