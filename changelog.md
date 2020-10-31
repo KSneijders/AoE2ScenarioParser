@@ -11,19 +11,23 @@ The format is based on [Keep a Changelog]
 
     AoE2Scenario.from_file(filename)  # Just add ".from_file". Nothing else changed :)
 
+Also, there has been a massive change to the 'back' portion of the project. If you used this directly, you might need to change quite some code. Sorry :(. If you've got any questions, feel free to reach out. Also, if you encounter any bugs, especially in the new system, please report them! Thanks in advance! <3 
+
 ### Added
 
 - `remove_condition()` and `remove_effect()` to TriggerObject
 - `get_condition()` and `get_effect()` to TriggerObject
 - The index and display index to the `trigger.get_content_as_string()` 
-- Four very powerful trigger features! Please check the triggers cheatsheet for the how-to.
+- Four very powerful trigger features! Please check the triggers cheatsheet, or the function docstrings for the how-to.
   - `copy_trigger`
   - `copy_trigger_per_player`
   - `copy_trigger_tree`
   - `replace_player`
 - `commit()` function to objects. This will commit the changes to the piece structure. This is also done for all objects automatically when writing the file.
 - Every object now has `RetrieverObjectLink` objects to represent how to retrieve and commit their data. (These objects also have a commit function, which are called using the objects commit function)
-- The possibility to create a scenario from SCRATCH due to all pieces having default values now! No need for a 'base' scenario file from the game itself! You can achieve this like so: `AoE2Scenario.create_default()`!!!
+- The possibility to create a scenario from SCRATCH due to all pieces having default values now! No need for a 'base' scenario file from the game itself! You can achieve this like so: `AoE2Scenario.create_default()`!
+- A `TriggerSelect` object. Used to identify a trigger in the trigger_manager functions. Alias: `TS`. Use Alias + class methods (factory methods) for ease of access: `TS.index(3)`, `TS.display(1)` and `TS.trigger(trigger)`.
+- A `TriggerCELock` object. Used to define which (or all) conditions and effects should be locked while copying/changing players.
 - **A Very much WIP** [Documentation API]
 
 [Documentation API]: https://aoe2scenarioparser.readthedocs.io/en/master/
@@ -46,6 +50,7 @@ The format is based on [Keep a Changelog]
 - Renamed `find_retriever` function to `get_retriever_by_name`
 - Renamed all retriever names to be lowercase underscored (Credits: pvallet)
 - Progress print statements now replace their current line. So instead of using 2 lines per piece it's now 1.
+- Most trigger_manager functions now require the new `TriggerSelect` object instead of 3 parameters for trigger selection. Read the docstring for more detail.
 
 
 ### Fixed
