@@ -226,14 +226,43 @@ class TriggersObject(AoE2Object):
         return trigger
 
     def add_trigger(self, name: str) -> TriggerObject:
+        """
+        Adds a trigger.
+
+        Args:
+            name (str): The name for the trigger
+
+        Returns:
+            The newly added TriggerObject
+        """
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
         self.triggers.append(new_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
         return new_trigger
 
-    def add_variable(self, variable_id: int, name: str) -> VariableObject:
+    def add_variable(self, name: str, variable_id: int = -1) -> VariableObject:
+        """
+        Adds a variable.
+
+        Args:
+            name (str): The name for the variable
+            variable_id (int): The ID of the variable. If left empty (default: -1), lowest available value will be used
+
+        Returns:
+            The newly added VariableObject
+        """
+        list_of_var_ids = [var.variable_id for var in self.variables]
+        if variable_id == -1:
+            for i in range(256):
+                if i not in list_of_var_ids:
+                    variable_id = i
+                    break
+            if variable_id == -1:
+                raise IndexError(f"No variable ID available. All in use? In use: ({list_of_var_ids}/256)")
         if not (0 <= variable_id <= 255):
             raise ValueError("Variable ID has to fall between 0 and 255 (incl).")
+        if variable_id in list_of_var_ids:
+            raise ValueError("Variable ID already in use.")
 
         new_variable = VariableObject(variable_id=variable_id, name=name)
         self.variables.append(new_variable)
