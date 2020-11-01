@@ -22,6 +22,7 @@ Also, there has been a massive change to the 'back' portion of the project. If y
   - `copy_trigger`
   - `copy_trigger_per_player`
   - `copy_trigger_tree`
+  - `copy_trigger_tree_per_player`
   - `replace_player`
 - `commit()` function to objects. This will commit the changes to the piece structure. This is also done for all objects automatically when writing the file.
 - Every object now has `RetrieverObjectLink` objects to represent how to retrieve and commit their data. (These objects also have a commit function, which are called using the objects commit function)

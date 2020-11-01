@@ -152,6 +152,48 @@ class TriggersObject(AoE2Object):
 
         return deepcopy_trigger
 
+    def copy_trigger_tree_per_player(self,
+                                     from_player,
+                                     trigger_select,
+                                     change_from_player_only=False,
+                                     include_player_source=True,
+                                     include_player_target=False,
+                                     trigger_ce_lock=None,
+                                     include_gaia: bool = False,
+                                     create_copy_for_players: List[IntEnum] = None):
+        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+
+        known_node_indexes = {trigger_index}
+        self._find_trigger_tree_nodes_recursively(trigger, known_node_indexes)
+
+        new_triggers = []
+        id_swap = {}
+        for index in known_node_indexes:
+            triggers = self.copy_trigger_per_player(
+                from_player,
+                TS.index(index),
+                change_from_player_only,
+                include_player_source,
+                include_player_target,
+                trigger_ce_lock,
+                include_gaia,
+                create_copy_for_players,
+            )
+            for player, trigger in triggers.items():
+                id_swap.setdefault(index, {})[player] = trigger.trigger_id
+
+            new_triggers += triggers.items()
+
+        for player, trigger in new_triggers:
+            activation_effects = [
+                effect for effect in trigger.effects if
+                effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+            ]
+            for effect in activation_effects:
+                effect.trigger_id = id_swap[effect.trigger_id][player]
+
+        return new_triggers
+
     def copy_trigger_tree(self, trigger_select: TriggerSelect) -> List[TriggerObject]:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
