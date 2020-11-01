@@ -156,14 +156,12 @@ class TriggersObject(AoE2Object):
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = {trigger_index}
-        # Create new instance of `known_node_indexes` so it doesn't receive updates from the recursion
-        for index in set(known_node_indexes):
-            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+        self._find_trigger_tree_nodes_recursively(trigger, known_node_indexes)
 
         new_triggers = []
         id_swap = {}
         for index in known_node_indexes:
-            trigger = self.copy_trigger(TS.trigger(trigger))
+            trigger = self.copy_trigger(TS.index(index))
             new_triggers.append(trigger)
             id_swap[index] = trigger.trigger_id
 
@@ -287,7 +285,7 @@ class TriggersObject(AoE2Object):
 
         for x in self.trigger_display_order:
             if x > trigger_index:
-                self.get_trigger(TS.trigger(trigger)).trigger_id -= 1
+                self.get_trigger(TS.index(x)).trigger_id -= 1
 
         del self.triggers[trigger_index]
         del self.trigger_display_order[display_index]
