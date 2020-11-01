@@ -1,3 +1,4 @@
+import math
 import sys
 from enum import IntEnum
 from typing import Type
@@ -59,6 +60,12 @@ def add_suffix_chars(string, char, total_length):
         return string
     else:
         return string + char * (total_length - len(string))
+
+
+def q_str(value: any) -> str:
+    if type(value) is str:
+        return f"'{value}'"
+    return str(value)
 
 
 """ =============================================================
@@ -123,10 +130,10 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
         return GaiaBuilding(const)
 
 
-def q_str(value: any) -> str:
-    if type(value) is str:
-        return f"'{value}'"
-    return str(value)
+def get_int_len(num):
+    if num > 0:
+        return math.floor(math.log10(num))
+    return 0
 
 
 def evaluate_index_params(x_id, display_index, name):

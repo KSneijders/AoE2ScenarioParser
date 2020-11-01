@@ -376,18 +376,25 @@ class TriggersObject(AoE2Object):
             return_string += "\t<< No Triggers >>"
 
         longest_trigger_name = -1
-        for trigger_index in display_order:
+        longest_index_notation = -1
+        for display, trigger_index in enumerate(display_order):
             trigger_name = triggers[trigger_index].name
             longest_trigger_name = max(longest_trigger_name, len(trigger_name))
+
+            longest_index_notation = max(
+                longest_index_notation,
+                helper.get_int_len(display) + helper.get_int_len(trigger_index)
+            )
 
         longest_trigger_name += 3
         for display, trigger_index in enumerate(display_order):
             trigger = triggers[trigger_index]
             trigger_name = trigger.name
 
-            buffer = longest_trigger_name - len(trigger_name)
-            return_string += "\t" + trigger_name + (" " * buffer)
-            return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display) + "]"
+            name_buffer = longest_trigger_name - len(trigger_name)
+            index_buffer = longest_index_notation - (helper.get_int_len(display) + helper.get_int_len(trigger_index))
+            return_string += "\t" + trigger_name + (" " * name_buffer)
+            return_string += f" [Index: {trigger_index}, Display: {display}] {' ' * index_buffer}"
 
             return_string += "\t(conditions: " + str(len(trigger.conditions)) + ", "
             return_string += " effects: " + str(len(trigger.effects)) + ")\n"
@@ -405,8 +412,8 @@ class TriggersObject(AoE2Object):
         longest_variable_name += 3
         for index, variable in enumerate(variables):
             var_name = variable.name
-            buffer = " " * (longest_variable_name - len(var_name))
-            return_string += f"\t{var_name}{buffer}[Index: {variable.variable_id}]\n"
+            name_buffer = " " * (longest_variable_name - len(var_name))
+            return_string += f"\t{var_name}{name_buffer}[Index: {variable.variable_id}]\n"
 
         return return_string
 
