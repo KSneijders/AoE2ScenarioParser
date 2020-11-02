@@ -24,15 +24,17 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
                               on_refresh=RetrieverDependency(
                                   DependencyAction.SET_REPEAT,
                                   DependencyTarget("self", f"per_player_number_of_disabled_{disabled_type}s"),
-                                  DependencyEval(f"x[{player}]")),
+                                  DependencyEval(f"x[{player - 1}]")),
                               on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
                               on_commit=RetrieverDependency(
                                   DependencyAction.REFRESH,
                                   DependencyTarget("self", f"per_player_number_of_disabled_{disabled_type}s")
                               ) if player == 1 else None)
                 )
-                # Unused: Players 9 - 16 can't have {disabled_type} technologies
-                Retriever(f"disabled_{disabled_type}_ids_player9-16", DataType("u32", repeat=0)),
+            # Unused: Players 9 - 16 can't have {disabled_type} technologies
+            retrievers.append(
+                Retriever(f"disabled_{disabled_type}_ids_player9-16", DataType("u32", repeat=0))
+            )
 
         retrievers += [
             Retriever("combat_mode", DataType("u32")),
