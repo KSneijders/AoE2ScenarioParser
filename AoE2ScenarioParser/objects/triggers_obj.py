@@ -160,13 +160,44 @@ class TriggersObject(AoE2Object):
                                      include_player_target=False,
                                      trigger_ce_lock=None,
                                      include_gaia: bool = False,
-                                     create_copy_for_players: List[IntEnum] = None):
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+                                     create_copy_for_players: List[IntEnum] = None,
+                                     group_triggers_by=None):
+        """
+        Copies an entire trigger tree for all or a selection of players. Every copy will change desired player
+        attributes with it. Trigger trees are triggers linked together using Effect.(DE)ACTIVATE_TRIGGER.
 
-        known_node_indexes = {trigger_index}
-        self._find_trigger_tree_nodes_recursively(trigger, known_node_indexes)
+        Args:
+            from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
+                a copy.
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+            change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
+                are equal to the player defined using the `from_player` parameter.
+            include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
+                Player source attributes are attributes where a player is defined to perform an action such as create an
+                object. If set to False these attributes will remain unchanged.
+            include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
+                Player target attributes are attributes where a player is defined as the target such as change ownership
+                or sending resources. If set to False these attributes will remain unchanged.
+            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+                effects from being changed while copying.
+            include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
+                defined)
+            create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
+                excluded from this list.
+            group_triggers_by (GroupTriggersBy): How to group the newly added triggers.
 
-        new_triggers = []
+        Returns:
+            The newly created triggers in a dict using the Player as key and as value with a list of triggers
+        """
+        if group_triggers_by is None:
+            group_triggers_by = GroupTriggersBy.NONE
+
+        trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+
+        known_node_indexes = [trigger_index]
+        self._find_trigger_tree_nodes_recursively(source_trigger, known_node_indexes)
+
+        new_triggers = {}
         id_swap = {}
         for index in known_node_indexes:
             triggers = self.copy_trigger_per_player(
@@ -181,16 +212,54 @@ class TriggersObject(AoE2Object):
             )
             for player, trigger in triggers.items():
                 id_swap.setdefault(index, {})[player] = trigger.trigger_id
+                new_triggers.setdefault(player, []).append(trigger)
 
-            new_triggers += triggers.items()
+        for player, triggers in new_triggers.items():
+            for trigger in triggers:
+                activation_effects = [
+                    effect for effect in trigger.effects if
+                    effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+                ]
+                for effect in activation_effects:
+                    effect.trigger_id = id_swap[effect.trigger_id][player]
 
-        for player, trigger in new_triggers:
-            activation_effects = [
-                effect for effect in trigger.effects if
-                effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
-            ]
-            for effect in activation_effects:
-                effect.trigger_id = id_swap[effect.trigger_id][player]
+        # Group by logic
+        if group_triggers_by == GroupTriggersBy.TRIGGER:
+            for index, source_trigger_id in enumerate(known_node_indexes):
+                for player, trigger in [(player, triggers[index]) for player, triggers in new_triggers.items()]:
+                    # When going negative (going 'below' the source already happens at insert @ 0
+                    display_index_offset = player - from_player if from_player <= player else 0
+                    source_trigger_display_index = self.trigger_display_order.index(source_trigger_id)
+                    self.trigger_display_order.remove(trigger.trigger_id)
+                    new_display_index = max(0, source_trigger_display_index + display_index_offset)
+                    self.trigger_display_order.insert(
+                        new_display_index,
+                        trigger.trigger_id
+                    )
+        elif group_triggers_by == GroupTriggersBy.PLAYER:
+            source_trigger_display_index = display_index
+            source_trigger_offset = 0
+            # Group known tree nodes
+            for tree_trigger_id in known_node_indexes:
+                self.trigger_display_order.remove(tree_trigger_id)
+                self.trigger_display_order.insert(
+                    source_trigger_display_index + source_trigger_offset,
+                    tree_trigger_id
+                )
+                source_trigger_offset += 1
+            # Group copied triggers
+            for player, triggers in new_triggers.items():
+                source_trigger_display_index = self.trigger_display_order.index(source_trigger.trigger_id)
+                source_trigger_offset = 0
+                display_index_offset = (player - from_player if from_player <= player else 0) * len(known_node_indexes)
+                for trigger in triggers:
+                    final_offset = max(source_trigger_display_index + display_index_offset + source_trigger_offset, 0)
+                    self.trigger_display_order.remove(trigger.trigger_id)
+                    self.trigger_display_order.insert(
+                        final_offset,
+                        trigger.trigger_id
+                    )
+                    source_trigger_offset += 1
 
         return new_triggers
 
