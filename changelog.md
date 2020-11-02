@@ -29,6 +29,7 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 - The possibility to create a scenario from SCRATCH due to all pieces having default values now! No need for a 'base' scenario file from the game itself! You can achieve this like so: `AoE2Scenario.create_default()`!
 - A `TriggerSelect` object. Used to identify a trigger in the trigger_manager functions. Alias: `TS`. Use Alias + class methods (factory methods) for ease of access: `TS.index(3)`, `TS.display(1)` and `TS.trigger(trigger)`.
 - A `TriggerCELock` object. Used to define which (or all) conditions and effects should be locked while copying/changing players.
+- A `GroupTriggersBy` Enum. For selecting the way triggers are grouped after creating them via `copy_trigger_tree_per_player`. You can choose from `NONE` (default), `TRIGGERS` and `PLAYERS`.
 - **A Very much WIP** [Documentation API]
 
 [Documentation API]: https://aoe2scenarioparser.readthedocs.io/en/master/
