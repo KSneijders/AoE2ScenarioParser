@@ -197,7 +197,7 @@ class TriggersObject(AoE2Object):
     def copy_trigger_tree(self, trigger_select: TriggerSelect) -> List[TriggerObject]:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
-        known_node_indexes = {trigger_index}
+        known_node_indexes = [trigger_index]
         self._find_trigger_tree_nodes_recursively(trigger, known_node_indexes)
 
         new_triggers = []
@@ -334,14 +334,15 @@ class TriggersObject(AoE2Object):
 
         self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
 
-    def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: Set[int]) -> None:
+    def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
         found_node_indexes = TriggersObject._find_trigger_tree_nodes(trigger)
-        unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
+        # unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
+        unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
 
         if len(unknown_node_indexes) == 0:
             return
 
-        known_node_indexes.update(unknown_node_indexes)
+        known_node_indexes += unknown_node_indexes
 
         for index in unknown_node_indexes:
             self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
@@ -469,11 +470,11 @@ class TriggersObject(AoE2Object):
         return alter_conditions, alter_effects
 
     @staticmethod
-    def _find_trigger_tree_nodes(trigger: TriggerObject) -> Set[int]:
-        return {
+    def _find_trigger_tree_nodes(trigger: TriggerObject) -> List[int]:
+        return [
             effect.trigger_id for effect in trigger.effects if
             effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
-        }
+        ]
 
 
 class TriggerSelect:
