@@ -199,13 +199,17 @@ class EffectObject(AoE2Object):
         self.number_of_units_selected = len(val)
 
     def get_content_as_string(self) -> str:
-        attributes_list = effects.attributes[self.effect_type]
+        if self.effect_type not in effects.attributes:  # Unknown effect
+            attributes_list = effects.empty_attributes
+        else:
+            attributes_list = effects.attributes[self.effect_type]
 
         return_string = ""
         for attribute in attributes_list:
             attr = getattr(self, attribute)
-            if attribute == "effect_type" or attr == [] or attr == "" or attr == " " or attr == -1:
-                continue
+            if self.effect_type != 58:
+                if attribute == "effect_type" or attr == [] or attr == "" or attr == " " or attr == -1:
+                    continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 
         if return_string == "":

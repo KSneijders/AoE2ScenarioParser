@@ -104,7 +104,7 @@ class TriggerObject(AoE2Object):
         self.effect_order = list(range(0, len(val)))
 
     def add_effect(self, effect_type: Effect) -> EffectObject:
-        new_effect = EffectObject(**effects.default_attributes[effect_type.value])
+        new_effect = EffectObject(**effects.default_attributes[effect_type])
         self.effects.append(new_effect)
         helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
@@ -207,8 +207,11 @@ class TriggerObject(AoE2Object):
             for e_display_order, effect_id in enumerate(self.effect_order):
                 effect = self.effects[effect_id]
 
-                return_string += f"\t\t\t{effects.effect_names[effect.effect_type]} " \
-                                 f"[Index: {effect_id}, Display: {e_display_order}]:\n"
+                try:
+                    return_string += f"\t\t\t{effects.effect_names[effect.effect_type]}"
+                except KeyError:
+                    return_string += f"\t\t\tUnknown Effect. ID: {effect.effect_type}"
+                return_string += f" [Index: {effect_id}, Display: {e_display_order}]:\n"
                 return_string += effect.get_content_as_string()
 
         return return_string

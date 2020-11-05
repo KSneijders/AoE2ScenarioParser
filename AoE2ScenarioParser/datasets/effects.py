@@ -470,6 +470,9 @@ class Effect(IntEnum):
     - item_id
     - operation
     - from_variable"""
+    # Only names are shown. Unable to find if functionality is actually added yet... https://tenor.com/xP1E.gif
+    # CHANGE_RESEARCH_COST = 54
+    # CHANGE_RESEARCH_TIME = 55
     CHANGE_VARIABLE = 56
     """Attributes for the **change_variable** effect are: \n
     - quantity
@@ -479,6 +482,8 @@ class Effect(IntEnum):
     CLEAR_TIMER = 57
     """Attributes for the **clear_timer** effect are: \n
     - variable_or_timer"""
+    # Possibly used for marking when achievements should be achieved. Doesn't seem to work in scenario's. F
+    # UNKNOWN_0 = 58
 
 
 effect_names = bidict({
