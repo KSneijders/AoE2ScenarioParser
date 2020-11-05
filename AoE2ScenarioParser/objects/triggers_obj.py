@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import copy
-from enum import IntEnum, Enum
-from typing import List, Dict, Set
+from enum import IntEnum
+from typing import List, Dict
 
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player
@@ -184,13 +184,13 @@ class TriggersObject(AoE2Object):
                 defined)
             create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
                 excluded from this list.
-            group_triggers_by (GroupTriggersBy): How to group the newly added triggers.
+            group_triggers_by (GroupBy): How to group the newly added triggers.
 
         Returns:
             The newly created triggers in a dict using the Player as key and as value with a list of triggers
         """
         if group_triggers_by is None:
-            group_triggers_by = GroupTriggersBy.NONE
+            group_triggers_by = GroupBy.NONE
 
         trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
@@ -224,7 +224,7 @@ class TriggersObject(AoE2Object):
                     effect.trigger_id = id_swap[effect.trigger_id][player]
 
         # Group by logic
-        if group_triggers_by == GroupTriggersBy.TRIGGER:
+        if group_triggers_by == GroupBy.TRIGGER:
             for index, source_trigger_id in enumerate(known_node_indexes):
                 for player, trigger in [(player, triggers[index]) for player, triggers in new_triggers.items()]:
                     # When going negative (going 'below' the source already happens at insert @ 0
@@ -236,7 +236,7 @@ class TriggersObject(AoE2Object):
                         new_display_index,
                         trigger.trigger_id
                     )
-        elif group_triggers_by == GroupTriggersBy.PLAYER:
+        elif group_triggers_by == GroupBy.PLAYER:
             source_trigger_display_index = display_index
             source_trigger_offset = 0
             # Group known tree nodes
@@ -584,14 +584,8 @@ TS = TriggerSelect
 
 
 class TriggerCELock:
-    def __init__(self,
-                 lock_conditions=False,
-                 lock_effects=False,
-                 lock_condition_type=None,
-                 lock_effect_type=None,
-                 lock_condition_ids=None,
-                 lock_effect_ids=None,
-                 ):
+    def __init__(self, lock_conditions=False, lock_effects=False, lock_condition_type=None, lock_effect_type=None,
+                 lock_condition_ids=None, lock_effect_ids=None):
         """
         Object used to identify which conditions and effects should be locked from change.
 
@@ -620,7 +614,7 @@ class TriggerCELock:
         self.lock_effect_ids = lock_effect_ids
 
 
-class GroupTriggersBy(Enum):
+class GroupBy(IntEnum):
     """
     Enum used to select what way the triggers should be grouped when using the function 'copy_trigger_tree_per_player'.
     Each mode has it's own explanation explained in the corresponding docstring.
