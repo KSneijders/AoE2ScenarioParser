@@ -29,17 +29,37 @@ class PlayerDataThreeStruct(AoE2Struct):
             Retriever("victory_version", DataType("f32"),
                       on_refresh=RetrieverDependency(
                           DependencyAction.SET_VALUE, DependencyTarget("self", "unknown_2"),
-                          DependencyEval("2 if x == 8 else 0"))),
-            Retriever("unknown", DataType("u16")),
+                          DependencyEval("2 if len(x) == 7 else 0"))),
+            Retriever("unknown", DataType("u16"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_VALUE, DependencyTarget("self", "unknown_structure_grand_theft_empires"),
+                          DependencyEval("len(x)"))),
             Retriever("unknown_2", DataType("u8"),
                       on_refresh=RetrieverDependency(
                           DependencyAction.SET_REPEAT, DependencyTarget("self", "victory_version"),
-                          DependencyEval("8 if x == 2 else 0")),
+                          DependencyEval("7 if x == 2 else 0")),
                       on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
                       on_commit=RetrieverDependency(
                           DependencyAction.REFRESH, DependencyTarget("self", "victory_version"))),
-            Retriever("unknown_structure_grand_theft_empires", DataType("44", repeat=0)),
+            Retriever("unknown_5", DataType("u8"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "victory_version"),
+                          DependencyEval("1 if x == 2 else 0")),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
+            Retriever("unknown_structure_grand_theft_empires", DataType("44"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "unknown")
+                      ),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                      on_commit=RetrieverDependency(
+                          DependencyAction.REFRESH, DependencyTarget("self", "unknown"))),
             Retriever("unknown_3", DataType("u8", repeat=7)),
+            # Todo: Has to change value of unknown_5. But currently not supported
+            Retriever("unknown_structure_ww_campaign_2", DataType("32"),
+                      on_refresh=RetrieverDependency(
+                          DependencyAction.SET_REPEAT, DependencyTarget("self", "unknown_5"),
+                      DependencyEval("x[0]")),
+                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
             Retriever("unknown_4", DataType("s32")),
         ]
 
@@ -60,9 +80,11 @@ class PlayerDataThreeStruct(AoE2Struct):
             'color': 0,
             'victory_version': 2.0,
             'unknown': 0,
-            'unknown_2': [0, 0, 0, 0, 0, 0, 0, 0],
+            'unknown_2': [0, 0, 0, 0, 0, 0, 0],
+            'unknown_5': 0,
             'unknown_structure_grand_theft_empires': [],
             'unknown_3': [0, 0, 0, 0, 0, 0, 0],
+            'unknown_structure_ww_campaign_2': [],
             'unknown_4': -1,
         }
         return defaults
