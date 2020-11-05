@@ -124,6 +124,8 @@ class ObjectAttribute(IntEnum):
     GOLD_COSTS = 105
     STONE_COSTS = 106
     MAX_TOTAL_MISSILES = 107
+    GARRISON_HEAL_RATE = 108
+    """Hidden in the editor, but does work! Do not open effect in editor. Will cause it to reset"""
     REGENERATION_RATE = 109
 
 
