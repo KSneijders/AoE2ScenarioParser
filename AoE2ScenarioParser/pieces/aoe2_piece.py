@@ -89,10 +89,12 @@ class AoE2Piece:
         if self.parser:
             for i, retriever in enumerate(self.retrievers):
                 try:
-                    retriever.data = self.parser.retrieve_value(generator, retriever, self.retrievers, pieces)
-                except StopIteration as e:
-                    print(f"[StopIteration] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}\n")
-                    raise StopIteration(e)
+                    retriever.data, status = self.parser.retrieve_value(generator, retriever, self.retrievers, pieces)
+                    if status is not None:
+                        raise status
+                except Exception as e:
+                    print(f"[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}\n")
+                    raise e
 
     def _entry_to_string(self, name, data, datatype):
         return "\t" + name + ": " + data + " (" + datatype + ")\n"

@@ -56,47 +56,50 @@ class Parser:
         if retriever.on_construct is not None:
             handle_retriever_dependency(retriever, retrievers, "construct", pieces)
 
-        for i in range(0, retriever.datatype.repeat):
-            length += var_len
+        try:
+            for i in range(0, retriever.datatype.repeat):
+                length += var_len
 
-            if var_type == "struct":
-                val = retriever.datatype.var(self)
-                val.set_data_from_generator(generator, pieces)
+                if var_type == "struct":
+                    val = retriever.datatype.var(self)
+                    result.append(val)
+                    val.set_data_from_generator(generator, pieces)
+                    i = val.get_length()
+
+                    length += i
+                    continue
+                if var_type == "u" or var_type == "s":
+                    val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
+                elif var_type == "f":
+                    if var_len == 4:
+                        val = bytes_to_float(r_gen(generator, var_len))
+                    else:  # Always 4 except for trigger version
+                        val = bytes_to_double(r_gen(generator, var_len))
+                elif var_type == "c":
+                    val = bytes_to_fixed_chars(r_gen(generator, var_len))
+                elif var_type == "data":
+                    val = r_gen(generator, var_len)
+                elif var_type == "str":
+                    string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
+                    try:
+                        data = r_gen(generator, string_length)
+                        val = bytes_to_str(data)
+                        length += string_length
+                    except StopIteration as e:
+                        print(f"\n[StopIteration] Parser.retrieve_value: \n"
+                              f"\tRetriever: {retriever}\n"
+                              f"\tString length: {string_length}\n")
+                        raise e
+                else:
+                    break
                 result.append(val)
-                i = val.get_length()
-
-                length += i
-                continue
-            if var_type == "u" or var_type == "s":
-                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
-            elif var_type == "f":
-                if var_len == 4:
-                    val = bytes_to_float(r_gen(generator, var_len))
-                else:  # Always 4 except for trigger version
-                    val = bytes_to_double(r_gen(generator, var_len))
-            elif var_type == "c":
-                val = bytes_to_fixed_chars(r_gen(generator, var_len))
-            elif var_type == "data":
-                val = r_gen(generator, var_len)
-            elif var_type == "str":
-                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                try:
-                    data = r_gen(generator, string_length)
-                    val = bytes_to_str(data)
-                    length += string_length
-                except StopIteration as e:
-                    print(f"\n[StopIteration] Parser.retrieve_value: \n"
-                          f"\tRetriever: {retriever}\n"
-                          f"\tString length: {string_length}\n")
-                    raise StopIteration(e)
-            else:
-                break
-            result.append(val)
+        except Exception as e:
+            return result, e
 
         if retriever.save_as is not None:
             self.add_to_saves(retriever.save_as, vorl(result, retriever))
 
-        return vorl(result, retriever) if not as_length else length
+        return (vorl(result, retriever) if not as_length else length), None
 
     def add_to_saves(self, name, value):
         self._saves[name] = value
@@ -178,7 +181,8 @@ def calculate_length(generator, retriever_list):
     total_length = 0
 
     for retriever in retriever_list:
-        total_length += parser.retrieve_value(generator, retriever, as_length=True)
+        result, status = parser.retrieve_value(generator, retriever, as_length=True)
+        total_length += result
 
     return total_length
 

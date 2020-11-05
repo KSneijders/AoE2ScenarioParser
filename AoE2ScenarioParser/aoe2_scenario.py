@@ -129,8 +129,8 @@ class AoE2Scenario:
                 piece.set_data_from_generator(data_generator, pieces)
                 lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
                 lgr.print()
-        except StopIteration as e:
-            print(f"\n[StopIteration] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
+        except Exception as e:
+            print(f"\n[{e.__class__.__name__}] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
             print("Writing ErrorFile...")
             self._debug_byte_structure_to_file("../ErrorFile", log_debug_write=False)
             time.sleep(1)
