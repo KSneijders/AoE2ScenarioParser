@@ -65,7 +65,7 @@ These are the numbers you can use to select triggers. Which would look like::
 
     # Get Trigger
     trigger_manager = scenario.trigger_manager
-    trigger = trigger_manager.get_trigger(display_index=0)
+    trigger = trigger_manager.get_trigger(TS.index(0))  # TS is an alias for the TriggerSelect object
 
 If you want to see the contents of the trigger you can do so by running the ``get_content_as_string`` function.
 This will result in the following (with the ``create trigger`` code)::
@@ -101,9 +101,9 @@ When opening a file that already contains triggers you might want to edit or eve
 
 You can edit a trigger like so::
 
-    # Get the trigger_index or display_index using the methods above
-    trigger = trigger_manager.get_trigger(trigger_index=0)
-    trigger = trigger_manager.get_trigger(display_index=0)
+    # Get the trigger_index or display_index using the content or summary methods above
+    trigger = trigger_manager.get_trigger(TS.index(0))
+    trigger = trigger_manager.get_trigger(TS.display(0))
 
     trigger.name = "New Trigger Name"
     trigger.description = "Awesome New Description!"
@@ -111,15 +111,51 @@ You can edit a trigger like so::
 Copy Triggers function
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. Selecting a trigger is done using the 
-standard trigger_index, display_index and trigger reference. You can use it as follows::
+Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. 
+Selecting a trigger is done using the standard trigger_index, display_index and trigger reference. 
+You can use it as follows::
 
-    copied_trigger = trigger_manager.copy_trigger(trigger_index=0)
+    copied_trigger = trigger_manager.copy_trigger(TS.index(0))
 
-This will result in a full (deep)copy of your trigger. The only parts that are edited are it's id and the name (added " (copy)").
+This will result in a full (deep)copy of your trigger. 
+The only parts that are edited are it's id and the name (added " (copy)").
 
 Copy trigger per player function
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Just like the ``copy_trigger`` function, this trigger makes a (deep) copy of the given function. But, while copying, it'll change the everything player related.
-With this function comes great control. Below the usage is shown from simple to very specific::
+Just like the ``copy_trigger`` function, this trigger makes a (deep) copy of the given function. 
+But, while copying, it'll change the everything player related.
+With this function comes great control. Below the usage is shown::
+
+    copied_triggers = trigger_manager.copy_trigger_per_player(
+        from_player=Player.ONE,
+        trigger_select=TS.index(0),
+        create_copy_for_players=[
+            Player.TWO, Player.THREE, Player.FOUR  # Optional list
+        ]
+    )
+    print(f"New trigger for Player Two: {copied_triggers[Player.TWO]}")
+
+Copy trigger tree
+~~~~~~~~~~~~~~~~~
+
+This function copies the given trigger and all that are linked to this one. 
+The function searches all effects in the given trigger and selects all triggers linked to it.
+It gets all triggers by taking the ids from (DE)ACTIVATE_TRIGGER effects. 
+This will result in the entire tree being copied::
+
+    trigger_manager.copy_trigger_tree(TS.index(0))
+
+Copy trigger tree per player function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A combination of the ``copy_trigger_per_player`` and ``copy_trigger_tree`` functions. 
+This function copies the entire tree per player. Besides the parameters that can be given to 
+``copy_trigger_per_player`` function, an additional ``group_triggers_by`` parameter is included. 
+This way you can select in which order all the new triggers should be placed::
+
+    trigger_manager.copy_trigger_tree_per_player(
+        from_player=Player.ONE,
+        trigger_select=TS.index(0),
+        group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.NONE and GroupBy.TRIGGER
+    )
