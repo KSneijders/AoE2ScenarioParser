@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## [Unreleased]
+## 0.0.8 - 2020-November-08 
 
 **Important notice:** The way you read your main file changed. It is now:
 
