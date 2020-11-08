@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.9 - 2020-November-09
+
+
+### Fixed
+
+- All `copy_trigger` related functions take very long to copy per player.
+
+---
+
 ## 0.0.8 - 2020-November-08 
 
 **Important notice:** The way you read your main file changed. It is now:
