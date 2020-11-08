@@ -108,21 +108,6 @@ copied_trigger = trigger_manager.copy_trigger(trigger_index=0)
 ```
 This will result in a full (deep)copy of your trigger. The only parts that are edited are it's `id` and `name` (added " (copy)").
 
-&nbsp;  
-`copy_trigger_per_player`
----
-> To be added
-
-&nbsp;  
-`copy_trigger_tree`
----
-> To be added
-
-&nbsp;  
-`replace_player`
----
-> To be added
-
 ## Removing triggers, conditions or effects
 
 When removing a trigger you can select it the same way as when getting a trigger using the `get_trigger` function. But on top of that you can also use it's reference:

@@ -18,7 +18,7 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 - `remove_condition()` and `remove_effect()` to TriggerObject
 - `get_condition()` and `get_effect()` to TriggerObject
 - The index and display index to the `trigger.get_content_as_string()` 
-- Four very powerful trigger features! Please check the triggers cheatsheet, or the function docstrings for the how-to.
+- Four very powerful trigger features! Please check the readthedocs [Documentation API], or the function docstrings for the how-to.
   - `copy_trigger`
   - `copy_trigger_per_player`
   - `copy_trigger_tree`
