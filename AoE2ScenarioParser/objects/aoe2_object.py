@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import OrderedDict
+from copy import deepcopy
 from typing import List, Type, TYPE_CHECKING, Dict
 
 from AoE2ScenarioParser.helper import helper
@@ -17,6 +18,18 @@ class AoE2Object:
     def __init__(self, **kwargs):
         self._instance_number_history = []
         self._pieces: OrderedDictType[str, AoE2Piece] = OrderedDict()
+
+    def __deepcopy__(self, memo):
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        for k, v in self.__dict__.items():
+            if k not in ['_pieces']:
+                val = deepcopy(v)
+            else:
+                val = getattr(self, k)
+            setattr(result, k, val)
+        return result
 
     @classmethod
     def _construct(cls, pieces: OrderedDictType[str, AoE2Piece], instance_number_history=None):
