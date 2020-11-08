@@ -6,17 +6,36 @@ from AoE2ScenarioParser.helper.retriever import Retriever
 class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
         retrievers = [
-            Retriever("Separator", DataType("u32")),
-            Retriever("Conquest required", DataType("u32")),
-            Retriever("Ruins", DataType("u32")),
-            Retriever("Artifacts", DataType("u32")),
-            Retriever("Discovery", DataType("u32")),
-            Retriever("Explored % of map required", DataType("u32")),
-            Retriever("Gold", DataType("u32")),
-            Retriever("All custom conditions required?", DataType("u32")),
-            Retriever("Mode", DataType("u32")),
-            Retriever("Required score for score victory", DataType("u32")),
-            Retriever("Time for timed game, in 10ths of a year", DataType("u32")),
+            Retriever("separator", DataType("u32")),
+            Retriever("conquest_required", DataType("u32")),
+            Retriever("ruins", DataType("u32")),
+            Retriever("artifacts", DataType("u32")),
+            Retriever("discovery", DataType("u32")),
+            Retriever("explored_percent_of_map_required", DataType("u32")),
+            Retriever("gold", DataType("u32")),
+            Retriever("all_custom_conditions_required", DataType("u32")),
+            Retriever("mode", DataType("u32")),
+            Retriever("required_score_for_score_victory", DataType("u32")),
+            Retriever("time_for_timed_game_in_10ths_of_a_year", DataType("u32")),
         ]
 
         super().__init__("Global Victory", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'separator': 4294967197,
+            'conquest_required': 1,
+            'ruins': 0,
+            'artifacts': 0,
+            'discovery': 0,
+            'explored_percent_of_map_required': 0,
+            'gold': 0,
+            'all_custom_conditions_required': 0,
+            'mode': 0,
+            'required_score_for_score_victory': 900,
+            'time_for_timed_game_in_10ths_of_a_year': 9000,
+        }
+        return defaults
+
+

@@ -1,24 +1,27 @@
 from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
-from AoE2ScenarioParser.datasets import effects, conditions, buildings, units
+from AoE2ScenarioParser.datasets.buildings import Building
+from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player, PlayerColor
 
 # File & Folder setup
+from AoE2ScenarioParser.datasets.units import Unit
+
 scenario_folder = "C:/Users/<USER>/Games/Age of Empires 2 DE/<STEAM_ID>/resources/_common/scenario/"
 read_file = scenario_folder + "KOTH_1.aoe2scenario"
 write_to_file = scenario_folder + "KOTH_1_.aoe2scenario"
 
 # Reading the scenario & Getting trigger manager
-scenario = AoE2Scenario(read_file, log_parsing=True)
-trigger_manager = scenario.object_manager.trigger_manager
+scenario = AoE2Scenario.from_file(read_file, log_parsing=True)
+trigger_manager = scenario.trigger_manager
 
 # Create new trigger named "StartYearCountdown", add effects & conditions to it
 StartYearCountdown = trigger_manager.add_trigger("StartYearCountdown")
 
-condition = StartYearCountdown.add_condition(conditions.owh_fewer_objects)
+condition = StartYearCountdown.add_condition(Condition.OWN_FEWER_OBJECTS)
 condition.amount_or_quantity = 0
-condition.object_list = buildings.monument
-condition.player = Player.GAIA.value
+condition.object_list = Building.MONUMENT
+condition.source_player = Player.GAIA.value
 
 effect = StartYearCountdown.add_effect(Effect.CHANGE_VARIABLE)
 effect.quantity = 550
@@ -36,10 +39,10 @@ effect.message = "PlayerControl"
 LowerYears = trigger_manager.add_trigger("LowerYears")
 LowerYears.looping = 1
 
-condition = LowerYears.add_condition(conditions.timer)
+condition = LowerYears.add_condition(Condition.TIMER)
 condition.timer = 5
 
-condition = LowerYears.add_condition(conditions.variable_value)
+condition = LowerYears.add_condition(Condition.VARIABLE_VALUE)
 condition.amount_or_quantity = 0
 condition.inverted = 0
 condition.variable = 1
@@ -56,7 +59,7 @@ for year in range(550, -1, -1):
     trigger = trigger_manager.add_trigger("CountdownTimer_" + str(year))
     trigger.looping = 1
 
-    condition = trigger.add_condition(conditions.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = year
     condition.inverted = 0
     condition.variable = 1
@@ -77,13 +80,13 @@ for player in range(1, 9):
     trigger = trigger_manager.add_trigger("Player" + str(player) + "CapturesMonument")
     trigger.looping = 1
 
-    condition = trigger.add_condition(conditions.timer)
+    condition = trigger.add_condition(Condition.TIMER)
     condition.timer = 5
 
-    condition = trigger.add_condition(conditions.own_objects)
-    condition.object_list = buildings.monument
+    condition = trigger.add_condition(Condition.OWN_OBJECTS)
+    condition.object_list = Building.MONUMENT
     condition.amount_or_quantity = 1
-    condition.player = player
+    condition.source_player = player
 
     effect = trigger.add_effect(Effect.CLEAR_TIMER)
     effect.variable_or_timer = 1
@@ -102,18 +105,18 @@ for player in range(1, 9):
     trigger = trigger_manager.add_trigger("Player" + str(player) + "CapturesMonumentBelow100Years")
     trigger.looping = 1
 
-    condition = trigger.add_condition(conditions.own_objects)
-    condition.object_list = buildings.monument
+    condition = trigger.add_condition(Condition.OWN_OBJECTS)
+    condition.object_list = Building.MONUMENT
     condition.amount_or_quantity = 1
-    condition.player = player
+    condition.source_player = player
 
-    condition = trigger.add_condition(conditions.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = 100
     condition.comparison = 1
     condition.variable = 1
     condition.inverted = 0
 
-    condition = trigger.add_condition(conditions.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = player
     condition.comparison = 0
     condition.variable = 2
@@ -135,10 +138,10 @@ for player in range(1, 9):
     """Trigger per player for capturing the monument for the first time. (Fix for Year<100 first time bug)"""
     trigger = trigger_manager.add_trigger("PlayerCapturedFirstTime" + str(player))
 
-    condition = trigger.add_condition(conditions.own_objects)
-    condition.object_list = buildings.monument
+    condition = trigger.add_condition(Condition.OWN_OBJECTS)
+    condition.object_list = Building.MONUMENT
     condition.amount_or_quantity = 1
-    condition.player = player
+    condition.source_player = player
 
     effect = trigger.add_effect(Effect.CHANGE_VARIABLE)
     effect.quantity = player
@@ -150,32 +153,32 @@ for player in range(1, 9):
     """Trigger per player for Victory Condition"""
     trigger = trigger_manager.add_trigger("VictoryPlayer" + str(player))
 
-    condition = trigger.add_condition(conditions.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = 0
     condition.inverted = 0
     condition.variable = 1
     condition.comparison = 0
 
-    condition = trigger.add_condition(conditions.variable_value)
+    condition = trigger.add_condition(Condition.VARIABLE_VALUE)
     condition.amount_or_quantity = player
     condition.comparison = 0
     condition.variable = 2
     condition.inverted = 0
 
     effect = trigger.add_effect(Effect.DECLARE_VICTORY)
-    effect.player_source = player
+    effect.source_player = player
 
 for player in range(1, 9):
     """Trigger per player for defeat when king is killed"""
     trigger = trigger_manager.add_trigger("DefeatPlayer" + str(player))
 
-    condition = trigger.add_condition(conditions.owh_fewer_objects)
+    condition = trigger.add_condition(Condition.OWN_FEWER_OBJECTS)
     condition.amount_or_quantity = 0
-    condition.object_list = units.king
-    condition.player = player
+    condition.object_list = Unit.KING
+    condition.source_player = player
 
     effect = trigger.add_effect(Effect.DECLARE_VICTORY)
-    effect.player_source = player
+    effect.source_player = player
     effect.enabled_or_victory = 0
 
 # Write scenario

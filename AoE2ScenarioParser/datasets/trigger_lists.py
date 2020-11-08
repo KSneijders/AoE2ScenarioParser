@@ -7,7 +7,7 @@ class DiplomacyState(IntEnum):
     ENEMY = 3
 
 
-class Operator(IntEnum):
+class Operation(IntEnum):
     SET = 1
     ADD = 2
     SUBTRACT = 3
@@ -67,12 +67,12 @@ class DifficultyLevel(IntEnum):
 
 
 class TechnologyState(IntEnum):
-    DISABLED = 4
-    NOT_READY = 3
-    READY = 2
-    RESEARCHING = 1
-    DONE = 0
-    # QUEUED = 5  # ???
+    DISABLED = -1
+    NOT_READY = 0
+    READY = 1
+    RESEARCHING = 2
+    DONE = 3
+    QUEUED = 4
 
 
 class Comparison(IntEnum):
@@ -124,6 +124,8 @@ class ObjectAttribute(IntEnum):
     GOLD_COSTS = 105
     STONE_COSTS = 106
     MAX_TOTAL_MISSILES = 107
+    GARRISON_HEAL_RATE = 108
+    """Hidden in the editor, but does work! Do not open effect in editor. Will cause it to reset"""
     REGENERATION_RATE = 109
 
 

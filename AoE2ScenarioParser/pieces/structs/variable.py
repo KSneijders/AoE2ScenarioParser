@@ -11,3 +11,11 @@ class VariableStruct(AoE2Struct):
         ]
 
         super().__init__("Variable", retrievers, parser_obj, data)
+
+    @staticmethod
+    def defaults():
+        defaults = {
+            'variable_id': 0,
+            'name': '_Variable0',
+        }
+        return defaults

@@ -5,7 +5,7 @@ The project currently contains multiple datasets. These are currently pretty bas
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
-from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operator, ButtonLocation, PanelLocation, \
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation, \
     TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
 
 # Information of unit/tech/terrain name and their ID
@@ -58,8 +58,8 @@ Attributes for the **change_diplomacy** effect are:
 You can use this information to edit this effect:
 ```py
 effect.diplomacy = DiplomacyState.ALLY  # <-- New dropdown lists datasets!
-effect.player_source = Player.ONE.value
-effect.player_target = Player.TWO.value
+effect.player_source = Player.ONE
+effect.player_target = Player.TWO
 ```
 If you want to find the `ID` using the String name or the other way around of the condition or effect you can use the `Bidict` like so:
 ```py
@@ -138,7 +138,7 @@ or:
 ```py
 ...
 effect = trigger.add_effect(Effect.RESEARCH_TECHNOLOGY)
-effect.player_source = Player.THREE.value
+effect.player_source = Player.THREE
 effect.technology = Tech.BLOODLINES  # <-- or Techs
 ...
 ```

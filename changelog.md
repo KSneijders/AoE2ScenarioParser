@@ -5,7 +5,75 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.0.7
+## [Unreleased]
+
+**Important notice:** The way you read your main file changed. It is now:
+
+    AoE2Scenario.from_file(filename)  # Just add ".from_file". Nothing else changed :)
+
+Also, there has been a massive change to the 'back' portion of the project. If you used this directly, you might need to change quite some code. Sorry :(. If you've got any questions, feel free to reach out. Also, if you encounter any bugs, especially in the new system, please report them! Thanks in advance! <3 
+
+### Added
+
+- `remove_condition()` and `remove_effect()` to TriggerObject
+- `get_condition()` and `get_effect()` to TriggerObject
+- The index and display index to the `trigger.get_content_as_string()` 
+- Four very powerful trigger features! Please check the triggers cheatsheet, or the function docstrings for the how-to.
+  - `copy_trigger`
+  - `copy_trigger_per_player`
+  - `copy_trigger_tree`
+  - `copy_trigger_tree_per_player`
+  - `replace_player`
+- `commit()` function to objects. This will commit the changes to the piece structure. This is also done for all objects automatically when writing the file.
+- Every object now has `RetrieverObjectLink` objects to represent how to retrieve and commit their data. (These objects also have a commit function, which are called using the objects commit function)
+- The possibility to create a scenario from SCRATCH due to all pieces having default values now! No need for a 'base' scenario file from the game itself! You can achieve this like so: `AoE2Scenario.create_default()`!
+- A `TriggerSelect` object. Used to identify a trigger in the trigger_manager functions. Alias: `TS`. Use Alias + class methods (factory methods) for ease of access: `TS.index(3)`, `TS.display(1)` and `TS.trigger(trigger)`.
+- A `TriggerCELock` object. Used to define which (or all) conditions and effects should be locked while copying/changing players.
+- A `GroupBy` Enum. For selecting the way triggers are grouped after creating them via `copy_trigger_tree_per_player`. You can choose from `NONE` (default), `TRIGGERS` and `PLAYERS`.
+- **A Very much WIP** [Documentation API]
+
+[Documentation API]: https://aoe2scenarioparser.readthedocs.io/en/master/
+
+### Discovered (in byte structure)
+
+- the `layer` property for terrain tiles. Used for layering terrain types.
+
+### Changed
+
+- **The way a file is read is now done using:** `AoE2Scenario.from_file(filename)`. Nothing changed - just add "*.from_file*" between the class and the brackets :)
+- Within the library the use of `\x00` character for line endings is no longer a necessity. 
+  - This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
+- The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
+- Renamend `Operator` to `Operation`.
+- Managers can now be accessed directly from the scenario. Eg: `scenario.trigger_manager`.
+- Renamed `player` attribute in the `Condition` object to `source_player`
+- Renamed `player_source` attribute in the `Effect` object to `source_player`
+- Renamed `player_target` attribute in the `Effect` object to `target_player`
+- Renamed `find_retriever` function to `get_retriever_by_name`
+- Renamed all retriever names to be lowercase underscored (Credits: pvallet)
+- Progress print statements now replace their current line. So instead of using 2 lines per piece it's now 1.
+- Most trigger_manager functions now require the new `TriggerSelect` object instead of 3 parameters for trigger selection. Read the docstring for more detail.
+
+
+### Fixed
+
+- Bug causing the local `trigger_id` attributes to be out of sync when removing triggers.
+- Bug causing the `ValueError` to not get raised when trying to construct a piece with invalid data length.
+- Bug causing `Conditions` and `Effects` not to show in 'get_as_string' functions when set directly using: `trigger.effects = [...]`
+- Bug causing a crash when `selected_object_id` in `Effects` held a single ID. 
+- Bug causing a crash when setting `selected_object_id` to an uniterable object. (Like an int instead of List[int])
+- Bug causing Variables to not show up when no triggers were present when using the `get_summary_as_string` in the trigger_manager.
+- Bug making it impossible to set unit IDs negative. (Supported by the game)
+- Typo in Condition dataset "OWH" to "OWN" in `OWH_FEWER_OBJECTS`.
+- Typo in Terrain dataset "MAGROVE" to "MANGROVE" in `FOREST_MAGROVE`.
+
+### Removed
+
+- Outdated examples
+
+---
+
+## 0.0.7 - 2019-May-23 
 ### Added
 
 - The `ai_script_goal` effect.
@@ -64,7 +132,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.0.6
+## 0.0.6 - 2019-April-20  
 ### Added
 
 - UnitsObject and UnitObject reconstruct support (AKA: Made Usable).

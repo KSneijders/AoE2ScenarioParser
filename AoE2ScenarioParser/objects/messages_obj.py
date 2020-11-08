@@ -31,11 +31,3 @@ class MessagesObject(AoE2Object):
         self.ascii_scouts = ascii_scouts
 
         super().__init__()
-
-    @staticmethod
-    def _parse_object(parsed_data, **kwargs):
-        pass
-
-    @staticmethod
-    def _reconstruct_object(parsed_header, parsed_data, objects, **kwargs):
-        pass

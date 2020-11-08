@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Age of Empires 2:DE Parser Byte Stucture</title>
+	<title>Age of Empires 2:DE Parser - Scenario Byte Stucture</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<style type="text/css">
 		.container { margin-top: 50px; }
@@ -37,7 +37,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1 class="text-center"><code>Age of Empires 2:DE Parser Byte Stucture</code></h1>
+		<h1 class="text-center"><code>Age of Empires 2:DE Parser - Scenario Byte Stucture</code></h1>
 		<p>When you want to parse <code>.aoe2scenario</code> files from the new DE version, the following information in this document should help you. A <code>.aoe2scenario</code> file is split in two sections. The <code>File Header</code> and the <code>Map data</code>. The header is uncompressed and is used in game to give a quick overview of certain map stats. The Map data on the other hand, is compressed and holds all data used for playing the map, like Player, Map and Trigger information.</p>
 
 		<p> The compression is done using the <a href="https://en.wikipedia.org/wiki/DEFLATE"><code>DEFLATE</code></a> algorithm. They used the attribute <code>MAX_WBITS</code>. I've used the following to (de)compress the files: </p>
@@ -56,10 +56,19 @@
 			# More info can be found here: 
 			# <a href="https://stackoverflow.com/a/22311297/7230293">https://stackoverflow.com/a/22311297/7230293</a>
 		</code>
-		<p>Once decompressed you can start reading the actual file data. Below is the overview of the entire file. This parsing is based on an older version, which you can find <a href="http://dderevjanik.github.io/agescx/formatscx/">here</a>.</p>
 
-		<p>Every entry has a <code>type</code>, <code>repeat</code>, <code>name</code> and <code>description</code> column. The <code>name</code> and <code>description</code> are mainly used to describe the entry. The <code>type</code> and <code>repeat</code> are a little more technical. <code>type</code> is the datatype describes how and how many bytes need to be read in a certain way. The structure works as follows: <br/>
-		There are multiple datatypes: </p>
+		<p>
+			Once decompressed you can start reading the actual file data. Below is the overview of the entire file. 
+			This parsing is based on an older version, which you can find <a href="http://dderevjanik.github.io/agescx/formatscx/">here</a>.
+		</p>
+
+		<p>
+			Every entry has a <code>type</code>, <code>repeat</code>, <code>name</code> and <code>description</code> column. 
+			The <code>name</code> and <code>description</code> are mainly used to describe the entry. 
+			The <code>type</code> and <code>repeat</code> are a little more technical. 
+			The <code>type</code> column describes how (and how many) bytes need to be read in a certain way. The structure works as follows: <br/>
+			There are multiple datatypes: 
+		</p>
 		<table>
 			<tr>
 				<th style="width: 100px">Datatype</th>
@@ -109,10 +118,13 @@
 			</tr>
 		</table>
 
-		<p>Per data type you can save how large the value is bit/byte wise. While this may be confusing not all values are in bit format. Some are in byte format. <br/>
-		Formats that use bit notation: <code>[s, u, f, str]</code> <br/>
-		Formats that use Byte notation: <code>[c, data]</code> <br/>
-        Some examples: </p>
+		<p>
+			Per data type you can save how large the value is bit/byte wise. While this may be confusing not all values are in bit format. 
+			Some are in byte format. <br/>
+			Formats that use bit notation: <code>[s, u, f, str]</code> <br/>
+			Formats that use Byte notation: <code>[c, data]</code> <br/>
+			Some examples: 
+		</p>
 		<table>
 			<tr>
 				<th style="width: 100px">Datatype</th>
@@ -121,6 +133,10 @@
 			<tr>
 				<td>s16</td>
 				<td>A little endian signed integer of 16 bits.</td>
+			</tr>
+			<tr>
+				<td>u32</td>
+				<td>A little endian unsigned integer of 32 bits.</td>
 			</tr>
 			<tr>
 				<td>f32</td>
@@ -135,27 +151,30 @@
 				<td>A 16 bit integer will be parsed (n). Now n bytes will be read as character string.</td>
 			</tr>
 			<tr>
-				<td>s16</td>
-				<td>A signed integer of 16 bits.</td>
-			</tr>
-			<tr>
 				<td>TerrainStruct</td>
-				<td>The TerrainStruct will be instantiated and DataTypes from that struct will
-                                            be loaded in it's place.</td>
+				<td>The TerrainStruct will be instantiated and DataTypes from that struct will be loaded in it's place.</td>
 			</tr>
 		</table>
+
+		<p>
+			The column <code>repeat</code> shows the amount of times the value is retrieved in a row. When an <code>s32</code> has a repeat of 
+			<code>4x</code> the Integer will be read 4 times. This means that the upcoming 16 Bytes will be read as 4 ints. <br/>
+			Another possibility is that the <code>repeat</code> cell shows a variable. Example: "<code>number_of_triggers</code>". 
+			This means the amount of times something has to be retrieved is dependant on another value retrieved earlier. 
+			Whenever a value is used as a repeat feature later on it is saved. This is mentioned in the description cell. 
+			Example: "Save as <code>number_of_triggers</code>". This is used for everything where the user can 'decide' on the amount of times
+			something is added. Think about the amount of players, the amount of tiles or units on the map, or the number of triggers. 
+		</p>
 
 		<p>There are multiple tags used in this document. They are used as follows:</p>
 		<ul>
 			<li><uk></uk> - Used when the older document had a name for some bytes but their usage might have changed or I've no clue what the name means. </li>
-			<li><tbd></tbd> - Used for elements where the usage of their bytes is unknown.</li>
+			<li><tbd></tbd> - Used for entries where the usage of their bytes is unknown.</li>
 			<li><ut></ut> - Used when I wasn't able to test this functionality, mostly due to now knowing how.</li>
-			<li><ni></ni> - Used when an element wasn't implemented in the DE parser.</li>
+			<li><ni></ni> - Used when an entry wasn't implemented in the this parser.</li>
 		</ul>
 
-		<p> The reason some bytes aren't actually known is because a lot has changed since <a href="http://dderevjanik.github.io/agescx/formatscx/">the other document linked above</a>. As that document was based on the disc version from 1999. Most of these tags (except for <tbd></tbd>) also have a reason which you can view when you <code>hover</code> over it. </p> 
-
-		<p>In the document are variable types used to define how to read a certain number of bytes. These bytes have </p>
+		<p> The reason some bytes aren't actually known is because a lot has changed since <a href="http://dderevjanik.github.io/agescx/formatscx/">the other document linked above</a>. As that document was based on the disc version from 1999. Most of these tags (except for <tbd></tbd>) also have a reason which you can view when you <code>hover</code> over it. </p>
 
 		<h2>Index</h2>
 		<table class="table-striped" id="index">
@@ -329,9 +348,9 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>4</td>
+					<td>u32</td>
 					<td>1x</td>
-					<td>Data<tbd></tbd></td>
+					<td>Trigger Count</td>
 					<td></td>
 				</tr>
 			</table>
@@ -1073,16 +1092,16 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>u8</td>
+					<td>3</td>
 					<td>1x</td>
 					<td>Unused<uk title="Never seen this used"></uk></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td>u32</td>
+					<td>s16</td>
 					<td>1x</td>
-					<td>Separator</td>
-					<td>Always <code>0xFFFFFFFF</code></td>
+					<td>Layer</td>
+					<td>The layered terrain type (same list as TerrainID)</td>
 				</tr>
 			</table>
 		</div>
@@ -1266,14 +1285,20 @@
 				</tr>
 				<tr>
 					<td>u8</td>
-					<td><code>8</code> or <code>0</code></td>
+					<td><code>7</code> or <code>0</code></td>
 					<td>Unknown<tbd></tbd></td>
-					<td>Repeat is <code>8</code> if <code>vic_version</code> == 2 else <code>0</code></td>
+					<td>Repeat is <code>7</code> if <code>vic_version</code> == 2 else <code>0</code></td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td><code>1</code> or <code>0</code></td>
+					<td>unknown_5<tbd></tbd></td>
+					<td>Repeat is <code>1</code> if <code>vic_version</code> == 2 else <code>0</code>. Save as <code>unknown_5</code></td>
 				</tr>
 				<tr>
 					<td>44</td>
 					<td><code>unknown_DAT</code></td>
-					<td>Unknown structure</td>
+					<td>Unknown structure<tbd></tbd></td>
 					<td>Used in Grand Theft Empires<uk title="Unused now?"></uk></td>
 				</tr>
 				<tr>
@@ -1281,6 +1306,12 @@
 					<td>7x</td>
 					<td>Unknown<tbd></tbd></td>
 					<td></td>
+				</tr>
+				<tr>
+					<td>32</td>
+					<td><code>unknown_5</code></td>
+					<td>Unknown structure<tbd></tbd></td>
+					<td>Only present in William Wallace campaign 2. <i>AFAIK</i></td>
 				</tr>
 				<tr>
 					<td>s32</td>
@@ -1433,7 +1464,7 @@
 					<td>Save as <code>number_of_changed_vars</code></td>
 				</tr>
 				<tr>
-					<td><a href="#changed-variable-struct">ChangedVariableStruct/a></td>
+					<td><a href="#changed-variable-struct">ChangedVariableStruct</a></td>
 					<td><code>number_of_changed_vars</code></td>
 					<td>Trigger display order</td>
 					<td></td>

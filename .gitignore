@@ -214,10 +214,9 @@ dmypy.json
 .idea/modules.xml
 .idea/inspectionProfiles/profiles_settings.xml
 
-resources/maps/
-
-.idea/inspectionProfiles/Project_Default.xml
-
 setup.py
-
+resources/maps/
 AoE2ScenarioParser/app.py
+.idea/inspectionProfiles/Project_Default.xml
+**/.vscode/settings.json
+/docs/source/_build

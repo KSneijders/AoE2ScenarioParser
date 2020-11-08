@@ -1,9 +1,9 @@
 # Triggers
 
-You can retrieve access to the triggers using the object_manager. 
+You can retrieve access to the triggers using the scenario object. 
 
 ```py
-trigger_manager = scenario.object_manager.trigger_manager
+trigger_manager = scenario.trigger_manager
 ```
 
 ---
@@ -16,7 +16,7 @@ trigger = trigger_manager.add_trigger("Trigger :)")
 trigger.description = "This is a great description!"
 ```
 
-To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the `condition` or `effect` dataset to give the function the right ID. If you're unsure about what attributes are available in every condition or effect, check the docs of the condition. Type (for example) `"conditions.chance"` and click it. Now show the docs (using `CTRL+Q` in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the attribute `amount_or_quantity` to apply the right value.
+To add conditions or effects, just call the method `add_condition` and `add_effect`. You can use the `Condition` or `Effect` dataset to give the function the right ID. If you're unsure about what attributes are available in every condition or effect, check the docs of the condition. Type (for example) `"Condition.CHANCE"` and click it. Now show the docs (using `CTRL+Q` in PyCharm). It will show you: "Parameters for the chance condition are: amount_or_quantity". Now use the attribute `amount_or_quantity` to apply the right value.
 
 The example shows: A trigger with 25% chance of showing a message. 
 
@@ -54,10 +54,10 @@ Trigger Summary:
 If you want to know all specifics about a trigger you can use the functions below. 
 
 ```py
-trigger_manager.get_trigger_as_string(trigger_id=0)
+trigger_manager.get_trigger_as_string(trigger_index=0)
 trigger_manager.get_trigger_as_string(display_index=0)
 # You can also request the id from a trigger object:
-trigger_manager.get_trigger_as_string(trigger_id=trigger.trigger_id)
+trigger_manager.get_trigger_as_string(trigger_index=trigger.trigger_id)
 
 # These functions return the following (As String):
 'Init Trigger' [Index: 0, Display: 0]:
@@ -65,19 +65,19 @@ trigger_manager.get_trigger_as_string(trigger_id=trigger.trigger_id)
     looping: False
     description: 'This is the initialisation trigger. '
     conditions:
-        timer:
+        timer [Index: 0, Display: 0]:
             timer: 5
             inverted: 0
-        variable_value:
+        variable_value [Index: 1, Display: 1]:
             amount_or_quantity: 1
             inverted: 0
             variable: 0
             comparison: 0
     effects:
-        activate_trigger:
+        activate_trigger [Index: 0, Display: 0]:
             trigger_id: 1
 ```
-You can also use this function to generate the above string but for all triggers at once.
+You can also use this function to generate the above string but for all triggers at once using:
 ```py
 trigger_manager.get_content_as_string()
 ```
@@ -85,25 +85,66 @@ trigger_manager.get_content_as_string()
 ---
 &nbsp;  
 
-## Editing or removing triggers
-When opening a file that already contains triggers you might want to edit or even remove said triggers. *Please note that it's not possible to remove specific conditions or effects (yet).*
+## Editing triggers, conditions or effects
+When opening a file that already contains triggers you might want to edit or even remove said triggers.
 
 You can edit a trigger like so:
 ```py
-trigger = trigger_manager.get_trigger(trigger_id=0)
+trigger = trigger_manager.get_trigger(trigger_index=0)
 trigger = trigger_manager.get_trigger(display_index=0)
 
 trigger.name = "New Trigger Name"
 trigger.description = "Awesome New Description!"
 ```
 
-For removing it basically works the same:
-```py
-# Remember to save to a different file. Especially when removing triggers.
-trigger_manager.remove_trigger(trigger_id=0)
-trigger_manager.remove_trigger(display_index=0)
-```
+&nbsp;  
+`copy_trigger` function
+---
 
+Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. Selecting a trigger is done using the standard `trigger_index`, `display_index` and `trigger` reference. You can use it as follows:
+
+```py
+copied_trigger = trigger_manager.copy_trigger(trigger_index=0)
+```
+This will result in a full (deep)copy of your trigger. The only parts that are edited are it's `id` and `name` (added " (copy)").
+
+&nbsp;  
+`copy_trigger_per_player`
+---
+> To be added
+
+&nbsp;  
+`copy_trigger_tree`
+---
+> To be added
+
+&nbsp;  
+`replace_player`
+---
+> To be added
+
+## Removing triggers, conditions or effects
+
+When removing a trigger you can select it the same way as when getting a trigger using the `get_trigger` function. But on top of that you can also use it's reference:
+```py
+trigger_manager.remove_trigger(trigger_index=0)
+trigger_manager.remove_trigger(display_index=0)
+trigger_manager.remove_trigger(trigger=trigger)
+```
+For removing effects and conditions it's very similiar but the functions are accessed from the triggers themselves instead of the trigger_manager. You can select the effect or condition you want to remove using:
+- it's index (time of creation)
+- display index (order like the in-game editor)
+- reference (the reference to that effect/condition)
+```py
+trigger = trigger_manager.get_trigger(0)
+trigger.remove_effect(effect_index=0)
+trigger.remove_effect(display_index=1)
+trigger.remove_effect(effect=effect)
+
+trigger.remove_condition(condition_index=0)
+trigger.remove_condition(display_index=1)
+trigger.remove_condition(condition=condition)
+```
 ---
 
 End of the Triggers cheatsheet. [Return to README](./../README.md)

@@ -1,4 +1,7 @@
+import math
+import sys
 from enum import IntEnum
+from typing import Type
 
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
@@ -22,8 +25,8 @@ def create_textual_hex(string, space_distance=2, enter_distance=48):
 
 
 # Credits: gurney alex @ https://stackoverflow.com/a/2657733/7230293
-def insert_char(string, char, every=64):
-    return char.join(string[i:i + every] for i in range(0, len(string), every))
+def insert_char(string, char, step=64):
+    return char.join(string[i:i + step] for i in range(0, len(string), step))
 
 
 """ =============================================================
@@ -32,11 +35,17 @@ def insert_char(string, char, every=64):
 
 
 def add_str_trail(string):
-    return (string + ("\x00" if string[-1] != "\x00" else "")) if len(string) > 0 else string
+    if len(string) > 0:
+        string = string + ("\x00" if string[-1] != "\x00" else "")
+    else:
+        string += "\x00"
+    return string
 
 
 def del_str_trail(string):
-    return string.replace('\x00', "")
+    if len(string) > 0:
+        string = string if string[-1] != "\x00" and string[-1] != 0 else string[:-1]
+    return string
 
 
 def add_prefix_chars(string, char, length):
@@ -46,11 +55,17 @@ def add_prefix_chars(string, char, length):
         return char * (length - len(string)) + string
 
 
-def add_suffix_chars(string, char, length):
-    if len(string) > length:
+def add_suffix_chars(string, char, total_length):
+    if len(string) > total_length:
         return string
     else:
-        return string + char * (length - len(string))
+        return string + char * (total_length - len(string))
+
+
+def q_str(value: any) -> str:
+    if type(value) is str:
+        return f"'{value}'"
+    return str(value)
 
 
 """ =============================================================
@@ -61,8 +76,21 @@ def add_suffix_chars(string, char, length):
 def pretty_print_list(plist):
     return_string = "[\n"
     for x in plist:
-        return_string += "\t" + str(x)
+        newline = "\t" + str(x)
+        if newline[::-2] != "\n":
+            newline += "\n"
+        return_string += newline
     return return_string + "]\n"
+
+
+def pretty_print_dict(pdict: dict):
+    return_string = "{\n"
+    for key, value in pdict.items():
+        newline = f"\t{key}: {value}"
+        if newline[::-2] != "\n":
+            newline += "\n"
+        return_string += newline
+    return return_string + "}\n"
 
 
 def pretty_print_name(name: str) -> str:
@@ -102,13 +130,29 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
         return GaiaBuilding(const)
 
 
+def get_int_len(num):
+    if num > 0:
+        return math.floor(math.log10(num))
+    return 0
+
+
+def evaluate_index_params(x_id, display_index, name):
+    if x_id is None and display_index is None:
+        raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted {name}")
+    if x_id is not None and display_index is not None:
+        raise ValueError(f"Please identify a {name} using '{name}_id' or 'display_index' but not both")
+
+
 class SimpleLogger:
     def __init__(self, should_log):
         self.should_log = should_log
 
-    def print(self, string):
+    def print(self, string="", end="\n", replace_line=False):
         if self.should_log:
-            print(string)
+            if not replace_line:
+                print(string, end=end)
+            else:
+                sys.stdout.write('\r' + string)
 
     def __repr__(self):
         return f"SimpleLogger[should_log: {self.should_log}]"

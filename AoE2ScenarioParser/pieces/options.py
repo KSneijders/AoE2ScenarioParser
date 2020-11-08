@@ -1,26 +1,65 @@
-from AoE2ScenarioParser.pieces import aoe2_piece
-from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyTarget, DependencyAction, \
+    DependencyEval
+from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class OptionsPiece(aoe2_piece.AoE2Piece):
     def __init__(self, parser_obj=None, data=None):
-        retrievers = [
-            Retriever("Per player number of disabled techs", DataType("u32", repeat=16), save_as="disabled_techs"),
-            Retriever("Disabled technology IDs in player order", DataType("u32"), set_repeat="sum({disabled_techs})"),
-            # Retriever("Per player extra number of disabled techs", DataType("u32", repeat=16)),  # Removed in DE?
-            Retriever("Per player number of disabled units", DataType("u32", repeat=16), save_as="disabled_units"),
-            Retriever("Disabled unit IDs in player order", DataType("u32"), set_repeat="sum({disabled_units})"),
-            # Retriever("Per player extra number of disabled units", DataType("u32", repeat=16)),  # Removed in DE?
-            Retriever("Per player number of disabled buildings",
-                      DataType("u32", repeat=16), save_as="disabled_buildings"),
-            Retriever("Disabled building IDs in player order",
-                      DataType("u32"), set_repeat="sum({disabled_buildings})"),
-            Retriever("Combat Mode", DataType("u32")),
-            Retriever("Naval Mode", DataType("u32")),
-            Retriever("All techs", DataType("u32")),
-            Retriever("Per player starting age", DataType("u32", repeat=16)),  # 2: Dark 6 = Post | 1-8 players 9 GAIA
-            Retriever("Unknown", DataType("36")),
-        ]
+        retrievers = []
+        for disabled_type in ["tech", "building", "unit"]:
+            retrievers.append(
+                Retriever(f"per_player_number_of_disabled_{disabled_type}s", DataType("u32", repeat=16),
+                          on_refresh=RetrieverDependency(
+                              DependencyAction.SET_VALUE,
+                              DependencyTarget(["self"] * 8,
+                                               [f"disabled_{disabled_type}_ids_player_{p}" for p in range(1, 9)]),
+                              DependencyEval("[len(x) for x in [p1, p2, p3, p4, p5, p6, p7, p8]]",
+                                             values_as_variable=['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'])))
+            )
+            for player in range(1, 9):
+                retrievers.append(
+                    Retriever(f"disabled_{disabled_type}_ids_player_{player}", DataType("u32"),
+                              on_refresh=RetrieverDependency(
+                                  DependencyAction.SET_REPEAT,
+                                  DependencyTarget("self", f"per_player_number_of_disabled_{disabled_type}s"),
+                                  DependencyEval(f"x[{player - 1}]")),
+                              on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
+                              on_commit=RetrieverDependency(
+                                  DependencyAction.REFRESH,
+                                  DependencyTarget("self", f"per_player_number_of_disabled_{disabled_type}s")
+                              ) if player == 1 else None)
+                )
+            # Unused: Players 9 - 16 can't have {disabled_type} technologies
+            retrievers.append(
+                Retriever(f"disabled_{disabled_type}_ids_player9-16", DataType("u32", repeat=0))
+            )
 
+        retrievers += [
+            Retriever("combat_mode", DataType("u32")),
+            Retriever("naval_mode", DataType("u32")),
+            Retriever("all_techs", DataType("u32")),
+            Retriever("per_player_starting_age", DataType("u32", repeat=16)),  # 2: Dark 6 = Post | 1-8 players 9 GAIA
+            Retriever("unknown", DataType("36")),
+        ]
         super().__init__("Options", retrievers, parser_obj, data=data)
+
+    @staticmethod
+    def defaults():
+        defaults = {}
+        for disabled_type in ["tech", "building", "unit"]:
+            defaults[f'per_player_number_of_disabled_{disabled_type}s'] = [0] * 16
+            for player in range(1, 9):
+                defaults[f'disabled_{disabled_type}_ids_player_{player}'] = []
+            defaults[f'disabled_{disabled_type}_ids_player9-16'] = [0] * 8
+
+        defaults = dict(**defaults, **{
+            'combat_mode': 0,
+            'naval_mode': 0,
+            'all_techs': 0,
+            'per_player_starting_age': [2] * 16,
+            'unknown': b'\x9d\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xffC\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00',
+        })
+        return defaults
