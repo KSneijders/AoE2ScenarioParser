@@ -30,7 +30,10 @@ Current up-to-date progress can be found on the [changelog.md] page. (Dev branch
 | Units      | -                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ## Bugs:
-None that I know of. If you find a bug, please check if it's already been reported or maybe even fixed ([changelog.md]). Please report any bugs you find to the [github issue board].
+
+- copy trigger functions take a long time to copy
+
+If you find a bug, please check if it's already been reported or maybe even fixed ([changelog.md]). Please report any bugs you find to the [github issue board].
 
 [github issue board]: https://github.com/KSneijders/AoE2ScenarioParser/issues
 
