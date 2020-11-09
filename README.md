@@ -31,7 +31,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Dev branch
 
 ## Bugs:
 
-- copy trigger functions take a long time to copy
+- None that I know of
 
 If you find a bug, please check if it's already been reported or maybe even fixed ([changelog.md]). Please report any bugs you find to the [github issue board].
 
