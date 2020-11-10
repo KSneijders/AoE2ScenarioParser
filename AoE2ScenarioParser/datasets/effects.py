@@ -28,6 +28,7 @@ class Effect(IntEnum):
     - source_player
     - location_x
     - location_y
+    - location_object_reference
     - sound_name"""
     TRIBUTE = 5
     """Attributes for the **tribute** effect are: \n
@@ -38,11 +39,11 @@ class Effect(IntEnum):
     UNLOCK_GATE = 6
     """Attributes for the **unlock_gate** effect are: \n
     - number_of_units_selected
-    - selected_object_id"""
+    - selected_object_ids"""
     LOCK_GATE = 7
     """Attributes for the **lock_gate** effect are: \n
     - number_of_units_selected
-    - selected_object_id"""
+    - selected_object_ids"""
     ACTIVATE_TRIGGER = 8
     """Attributes for the **activate_trigger** effect are: \n
     - trigger_id"""
@@ -67,13 +68,14 @@ class Effect(IntEnum):
     - source_player
     - location_x
     - location_y
+    - location_object_reference
     - area_1_x
     - area_1_y
     - area_2_x
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
     - source_player
@@ -89,7 +91,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     REMOVE_OBJECT = 15
     """Attributes for the **remove_object** effect are: \n
     - number_of_units_selected
@@ -101,12 +103,13 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_VIEW = 16
     """Attributes for the **change_view** effect are: \n
     - source_player
     - location_x
     - location_y
+    - location_object_reference
     - scroll"""
     UNLOAD = 17
     """Attributes for the **unload** effect are: \n
@@ -115,13 +118,14 @@ class Effect(IntEnum):
     - source_player
     - location_x
     - location_y
+    - location_object_reference
     - area_1_x
     - area_1_y
     - area_2_x
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OWNERSHIP = 18
     """Attributes for the **change_ownership** effect are: \n
     - number_of_units_selected
@@ -135,7 +139,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - flash_object
-    - selected_object_id"""
+    - selected_object_ids"""
     PATROL = 19
     """Attributes for the **patrol** effect are: \n
     - number_of_units_selected
@@ -143,13 +147,14 @@ class Effect(IntEnum):
     - source_player
     - location_x
     - location_y
+    - location_object_reference
     - area_1_x
     - area_1_y
     - area_2_x
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     DISPLAY_INSTRUCTIONS = 20
     """Attributes for the **display_instructions** effect are: \n
     - object_list_unit_id
@@ -174,7 +179,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     USE_ADVANCED_BUTTONS = 23
     """Attributes for the **use_advanced_buttons** effect are: \n
     None. \n
@@ -191,7 +196,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     PLACE_FOUNDATION = 25
     """Attributes for the **place_foundation** effect are: \n
     - object_list_unit_id
@@ -209,7 +214,7 @@ class Effect(IntEnum):
     - area_2_x
     - area_2_y
     - message
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_HP = 27
     """Attributes for the **change_object_hp** effect are: \n
     - quantity
@@ -223,7 +228,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_ATTACK = 28
     """Attributes for the **change_object_attack** effect are: \n
     - aa_quantity
@@ -238,7 +243,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_id"""
+    - selected_object_ids"""
     STOP_OBJECT = 29
     """Attributes for the **stop_object** effect are: \n
     - number_of_units_selected
@@ -250,7 +255,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     ATTACK_MOVE = 30
     """Attributes for the **attack_move** effect are: \n
     - number_of_units_selected
@@ -258,13 +263,14 @@ class Effect(IntEnum):
     - source_player
     - location_x
     - location_y
+    - location_object_reference
     - area_1_x
     - area_1_y
     - area_2_x
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_ARMOR = 31
     """Attributes for the **change_object_armor** effect are: \n
     - aa_quantity
@@ -279,7 +285,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_RANGE = 32
     """Attributes for the **change_object_range** effect are: \n
     - quantity
@@ -293,7 +299,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_SPEED = 33
     """Attributes for the **change_object_speed** effect are: \n
     - quantity
@@ -306,7 +312,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     HEAL_OBJECT = 34
     """Attributes for the **heal_object** effect are: \n
     - quantity
@@ -319,7 +325,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     TELEPORT_OBJECT = 35
     """Attributes for the **teleport_object** effect are: \n
     - number_of_units_selected
@@ -333,7 +339,7 @@ class Effect(IntEnum):
     - area_2_y
     - object_group
     - object_type
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_STANCE = 36
     """Attributes for the **change_object_stance** effect are: \n
     - number_of_units_selected
@@ -346,7 +352,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - attack_stance
-    - selected_object_id"""
+    - selected_object_ids"""
     DISPLAY_TIMER = 37
     """Attributes for the **display_timer** effect are: \n
     - string_id
@@ -391,7 +397,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - object_list_unit_id_2
-    - selected_object_id"""
+    - selected_object_ids"""
     REPLACE_OBJECT = 43
     """Attributes for the **replace_object** effect are: \n
     - number_of_units_selected
@@ -405,7 +411,7 @@ class Effect(IntEnum):
     - object_group
     - object_type
     - object_list_unit_id_2
-    - selected_object_id"""
+    - selected_object_ids"""
     CHANGE_OBJECT_DESCRIPTION = 44
     """Attributes for the **change_object_description** effect are: \n
     - object_list_unit_id
@@ -444,7 +450,7 @@ class Effect(IntEnum):
     - area_2_x
     - area_2_y
     - object_list_unit_id_2
-    - selected_object_id"""
+    - selected_object_ids"""
     ACKNOWLEDGE_AI_SIGNAL = 50
     """Attributes for the **acknowledge_ai_signal** effect are: \n
     - ai_signal_value"""
@@ -563,6 +569,7 @@ empty_attributes = {
     "trigger_id": -1,
     "location_x": -1,
     "location_y": -1,
+    "location_object_reference": -1,
     "area_1_x": -1,
     "area_1_y": -1,
     "area_2_x": -1,
@@ -593,7 +600,7 @@ empty_attributes = {
     "play_sound": -1,
     "message": '',
     "sound_name": '',
-    "selected_object_id": -1,
+    "selected_object_ids": -1,
 }
 
 default_attributes = {
@@ -615,6 +622,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -645,7 +653,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     50: {
         "effect_type": 50,
@@ -665,6 +673,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -695,7 +704,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     8: {
         "effect_type": 8,
@@ -715,6 +724,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -745,7 +755,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     10: {
         "effect_type": 10,
@@ -765,6 +775,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -795,7 +806,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     30: {
         "effect_type": 30,
@@ -815,6 +826,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -845,7 +857,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     48: {
         "effect_type": 48,
@@ -865,6 +877,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -895,7 +908,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     1: {
         "effect_type": 1,
@@ -915,6 +928,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -945,7 +959,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     31: {
         "effect_type": 31,
@@ -965,6 +979,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -995,7 +1010,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     28: {
         "effect_type": 28,
@@ -1015,6 +1030,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1045,7 +1061,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     40: {
         "effect_type": 40,
@@ -1065,6 +1081,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1095,7 +1112,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     44: {
         "effect_type": 44,
@@ -1115,6 +1132,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1145,7 +1163,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     27: {
         "effect_type": 27,
@@ -1165,6 +1183,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1195,7 +1214,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     42: {
         "effect_type": 42,
@@ -1215,6 +1234,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1245,7 +1265,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     26: {
         "effect_type": 26,
@@ -1265,6 +1285,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1295,7 +1316,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     32: {
         "effect_type": 32,
@@ -1315,6 +1336,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1345,7 +1367,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     33: {
         "effect_type": 33,
@@ -1365,6 +1387,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1395,7 +1418,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     36: {
         "effect_type": 36,
@@ -1415,6 +1438,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1445,7 +1469,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     18: {
         "effect_type": 18,
@@ -1465,6 +1489,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1495,7 +1520,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     45: {
         "effect_type": 45,
@@ -1515,6 +1540,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1545,7 +1571,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     47: {
         "effect_type": 47,
@@ -1565,6 +1591,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1595,7 +1622,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     46: {
         "effect_type": 46,
@@ -1615,6 +1642,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1645,7 +1673,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     56: {
         "effect_type": 56,
@@ -1665,6 +1693,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1695,7 +1724,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     16: {
         "effect_type": 16,
@@ -1715,6 +1744,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1745,7 +1775,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     21: {
         "effect_type": 21,
@@ -1765,6 +1795,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1795,7 +1826,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     57: {
         "effect_type": 57,
@@ -1815,6 +1846,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1845,7 +1877,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     49: {
         "effect_type": 49,
@@ -1865,6 +1897,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1895,7 +1928,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     11: {
         "effect_type": 11,
@@ -1915,6 +1948,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1945,7 +1979,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     24: {
         "effect_type": 24,
@@ -1965,6 +1999,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -1995,7 +2030,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     9: {
         "effect_type": 9,
@@ -2015,6 +2050,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2045,7 +2081,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     13: {
         "effect_type": 13,
@@ -2065,6 +2101,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2095,7 +2132,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     20: {
         "effect_type": 20,
@@ -2115,6 +2152,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2145,7 +2183,7 @@ default_attributes = {
         "play_sound": 0,
         "message": " ",
         "sound_name": " ",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     37: {
         "effect_type": 37,
@@ -2165,6 +2203,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2195,7 +2234,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     38: {
         "effect_type": 38,
@@ -2215,6 +2254,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2245,7 +2285,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     39: {
         "effect_type": 39,
@@ -2265,6 +2305,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2295,7 +2336,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     22: {
         "effect_type": 22,
@@ -2315,6 +2356,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2345,7 +2387,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     34: {
         "effect_type": 34,
@@ -2365,6 +2407,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2395,7 +2438,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     14: {
         "effect_type": 14,
@@ -2415,6 +2458,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2445,7 +2489,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     7: {
         "effect_type": 7,
@@ -2465,6 +2509,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2495,7 +2540,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     51: {
         "effect_type": 51,
@@ -2515,6 +2560,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2545,7 +2591,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     52: {
         "effect_type": 52,
@@ -2565,6 +2611,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2595,7 +2642,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     53: {
         "effect_type": 53,
@@ -2615,6 +2662,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2645,7 +2693,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     19: {
         "effect_type": 19,
@@ -2665,6 +2713,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2695,7 +2744,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     25: {
         "effect_type": 25,
@@ -2715,6 +2764,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2745,7 +2795,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     4: {
         "effect_type": 4,
@@ -2765,6 +2815,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2795,7 +2846,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": " ",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     15: {
         "effect_type": 15,
@@ -2815,6 +2866,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2845,7 +2897,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     43: {
         "effect_type": 43,
@@ -2865,6 +2917,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2895,7 +2948,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     2: {
         "effect_type": 2,
@@ -2915,6 +2968,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2945,7 +2999,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     3: {
         "effect_type": 3,
@@ -2965,6 +3019,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -2995,7 +3050,7 @@ default_attributes = {
         "play_sound": -1,
         "message": " ",
         "sound_name": " ",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     41: {
         "effect_type": 41,
@@ -3015,6 +3070,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3045,7 +3101,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     29: {
         "effect_type": 29,
@@ -3065,6 +3121,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3095,7 +3152,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     12: {
         "effect_type": 12,
@@ -3115,6 +3172,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3145,7 +3203,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     35: {
         "effect_type": 35,
@@ -3165,6 +3223,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3195,7 +3254,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     5: {
         "effect_type": 5,
@@ -3215,6 +3274,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3245,7 +3305,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     17: {
         "effect_type": 17,
@@ -3265,6 +3325,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3295,7 +3356,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     6: {
         "effect_type": 6,
@@ -3315,6 +3376,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3345,7 +3407,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     },
     23: {
         "effect_type": 23,
@@ -3365,6 +3427,7 @@ default_attributes = {
         "trigger_id": -1,
         "location_x": -1,
         "location_y": -1,
+        "location_object_reference": -1,
         "area_1_x": -1,
         "area_1_y": -1,
         "area_2_x": -1,
@@ -3395,7 +3458,7 @@ default_attributes = {
         "play_sound": -1,
         "message": "",
         "sound_name": "",
-        "selected_object_id": [],
+        "selected_object_ids": [],
     }
 }
 
@@ -3422,13 +3485,14 @@ attributes = {
         "source_player",
         "location_x",
         "location_y",
+        "location_object_reference",
         "area_1_x",
         "area_1_y",
         "area_2_x",
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     48: [
         "effect_type",
@@ -3456,7 +3520,7 @@ attributes = {
         "object_group",
         "object_type",
         "operation",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     28: [
         "effect_type",
@@ -3472,7 +3536,7 @@ attributes = {
         "object_group",
         "object_type",
         "operation",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     40: [
         "effect_type",
@@ -3503,7 +3567,7 @@ attributes = {
         "object_group",
         "object_type",
         "operation",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     42: [
         "effect_type",
@@ -3517,7 +3581,7 @@ attributes = {
         "object_group",
         "object_type",
         "object_list_unit_id_2",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     26: [
         "effect_type",
@@ -3530,7 +3594,7 @@ attributes = {
         "area_2_x",
         "area_2_y",
         "message",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     32: [
         "effect_type",
@@ -3545,7 +3609,7 @@ attributes = {
         "object_group",
         "object_type",
         "operation",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     33: [
         "effect_type",
@@ -3559,7 +3623,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     36: [
         "effect_type",
@@ -3573,7 +3637,7 @@ attributes = {
         "object_group",
         "object_type",
         "attack_stance",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     18: [
         "effect_type",
@@ -3588,7 +3652,7 @@ attributes = {
         "object_group",
         "object_type",
         "flash_object",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     45: [
         "effect_type",
@@ -3622,6 +3686,7 @@ attributes = {
         "source_player",
         "location_x",
         "location_y",
+        "location_object_reference",
         "scroll",
     ],
     21: [
@@ -3642,7 +3707,7 @@ attributes = {
         "area_2_x",
         "area_2_y",
         "object_list_unit_id_2",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     11: [
         "effect_type",
@@ -3665,7 +3730,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     9: [
         "effect_type",
@@ -3720,7 +3785,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     34: [
         "effect_type",
@@ -3734,7 +3799,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     14: [
         "effect_type",
@@ -3747,12 +3812,12 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     7: [
         "effect_type",
         "number_of_units_selected",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     51: [
         "effect_type",
@@ -3786,13 +3851,14 @@ attributes = {
         "source_player",
         "location_x",
         "location_y",
+        "location_object_reference",
         "area_1_x",
         "area_1_y",
         "area_2_x",
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     25: [
         "effect_type",
@@ -3806,6 +3872,7 @@ attributes = {
         "source_player",
         "location_x",
         "location_y",
+        "location_object_reference",
         "sound_name",
     ],
     15: [
@@ -3819,7 +3886,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     43: [
         "effect_type",
@@ -3834,7 +3901,7 @@ attributes = {
         "object_group",
         "object_type",
         "object_list_unit_id_2",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     2: [
         "effect_type",
@@ -3866,7 +3933,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     12: [
         "effect_type",
@@ -3875,13 +3942,14 @@ attributes = {
         "source_player",
         "location_x",
         "location_y",
+        "location_object_reference",
         "area_1_x",
         "area_1_y",
         "area_2_x",
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     35: [
         "effect_type",
@@ -3896,7 +3964,7 @@ attributes = {
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     5: [
         "effect_type",
@@ -3912,18 +3980,19 @@ attributes = {
         "source_player",
         "location_x",
         "location_y",
+        "location_object_reference",
         "area_1_x",
         "area_1_y",
         "area_2_x",
         "area_2_y",
         "object_group",
         "object_type",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     6: [
         "effect_type",
         "number_of_units_selected",
-        "selected_object_id",
+        "selected_object_ids",
     ],
     23: [
         "effect_type",

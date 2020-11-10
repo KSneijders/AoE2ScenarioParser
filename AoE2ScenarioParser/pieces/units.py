@@ -46,12 +46,4 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
 
     @staticmethod
     def _get_player_data_3_default():
-        return [PlayerDataThreeStruct(data=[
-            'Scenario Editor Phantom',
-            60.0, 60.0, 95, 87, 0, 9,
-            [3, 0, 3, 3, 3, 3, 3, 3, 3],
-            [0, 1, 4, 4, 4, 4, 4, 4, 4],
-            x, 2.0, 0,
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [], [0, 0, 0, 0, 0, 0, 0], -1
-        ]) for x in range(8)]
+        return [PlayerDataThreeStruct(data=list(PlayerDataThreeStruct.defaults().values())) for _ in range(8)]

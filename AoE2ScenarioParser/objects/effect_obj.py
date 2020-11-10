@@ -36,6 +36,8 @@ class EffectObject(AoE2Object):
         RetrieverObjectLink("trigger_id", "TriggerPiece.trigger_data[__index__].effect_data[__index__].trigger_id"),
         RetrieverObjectLink("location_x", "TriggerPiece.trigger_data[__index__].effect_data[__index__].location_x"),
         RetrieverObjectLink("location_y", "TriggerPiece.trigger_data[__index__].effect_data[__index__].location_y"),
+        RetrieverObjectLink("location_object_reference",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].location_object_reference"),
         RetrieverObjectLink("area_1_x", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_1_x"),
         RetrieverObjectLink("area_1_y", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_1_y"),
         RetrieverObjectLink("area_2_x", "TriggerPiece.trigger_data[__index__].effect_data[__index__].area_2_x"),
@@ -77,8 +79,8 @@ class EffectObject(AoE2Object):
         RetrieverObjectLink("play_sound", "TriggerPiece.trigger_data[__index__].effect_data[__index__].play_sound"),
         RetrieverObjectLink("message", "TriggerPiece.trigger_data[__index__].effect_data[__index__].message"),
         RetrieverObjectLink("sound_name", "TriggerPiece.trigger_data[__index__].effect_data[__index__].sound_name"),
-        RetrieverObjectLink("selected_object_id",
-                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].selected_object_id"),
+        RetrieverObjectLink("selected_object_ids",
+                            "TriggerPiece.trigger_data[__index__].effect_data[__index__].selected_object_ids"),
     ]
 
     def __init__(self,
@@ -99,6 +101,7 @@ class EffectObject(AoE2Object):
                  trigger_id: int,
                  location_x: int,
                  location_y: int,
+                 location_object_reference: int,
                  area_1_x: int,
                  area_1_y: int,
                  area_2_x: int,
@@ -129,13 +132,13 @@ class EffectObject(AoE2Object):
                  play_sound: int,
                  message: str = "",
                  sound_name: str = "",
-                 selected_object_id: List[int] = None,
+                 selected_object_ids: List[int] = None,
                  ):
 
-        if selected_object_id is None:
-            selected_object_id = []
+        if selected_object_ids is None:
+            selected_object_ids = []
         else:
-            selected_object_id = parser.listify(selected_object_id)
+            selected_object_ids = parser.listify(selected_object_ids)
 
         self.effect_type: int = effect_type
         self.ai_script_goal: int = ai_script_goal
@@ -154,6 +157,7 @@ class EffectObject(AoE2Object):
         self.trigger_id: int = trigger_id
         self.location_x: int = location_x
         self.location_y: int = location_y
+        self.location_object_reference: int = location_object_reference
         self.area_1_x: int = area_1_x
         self.area_1_y: int = area_1_y
         self.area_2_x: int = area_2_x
@@ -184,18 +188,18 @@ class EffectObject(AoE2Object):
         self.play_sound: int = play_sound
         self.message: str = message
         self.sound_name: str = sound_name
-        self.selected_object_id: List[int] = selected_object_id
+        self.selected_object_ids: List[int] = selected_object_ids
 
         super().__init__()
 
     @property
-    def selected_object_id(self) -> List[int]:
-        return self._selected_object_id
+    def selected_object_ids(self) -> List[int]:
+        return self._selected_object_ids
 
-    @selected_object_id.setter
-    def selected_object_id(self, val: List[int]):
+    @selected_object_ids.setter
+    def selected_object_ids(self, val: List[int]):
         val = parser.listify(val)
-        self._selected_object_id = val
+        self._selected_object_ids = val
         self.number_of_units_selected = len(val)
 
     def get_content_as_string(self) -> str:

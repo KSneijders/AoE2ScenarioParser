@@ -23,9 +23,9 @@ class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
         defaults = {
             'strings': [''] * 32,
             'ai_names': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-            'ai_files': [AIStruct(data=[0, 0, '']) for _ in range(16)],
+            'ai_files': [AIStruct(data=list(AIStruct.defaults().values())) for _ in range(16)],
             'ai_type': [1] * 16,
             'separator': 4294967197,
-            'resources': [ResourcesStruct(data=[0, 0, 0, 0, 0, 0, x]) for x in range(16)],
+            'resources': [ResourcesStruct(data=list(ResourcesStruct.defaults().values())) for x in range(16)],
         }
         return defaults
