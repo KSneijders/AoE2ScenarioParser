@@ -31,7 +31,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Dev branch
 
 ## Bugs:
 
-- Create default map not working currently
+- None that I know of
 
 If you find a bug, please check if it's already been reported or maybe even fixed ([changelog.md]). Please report any bugs you find to the [github issue board].
 

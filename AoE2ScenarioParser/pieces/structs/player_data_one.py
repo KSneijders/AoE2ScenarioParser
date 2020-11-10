@@ -16,6 +16,9 @@ class PlayerDataOneStruct(AoE2Struct):
 
     @staticmethod
     def defaults():
+        # This default is adjusted in DataHeaderPiece:
+        # - P1 (Active: 1, Human: 1)
+        # - P2 (Active: 1)
         defaults = {
             'active': 0,
             'human': 0,

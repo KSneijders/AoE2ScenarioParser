@@ -67,6 +67,6 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'ai_type': 1,
             'map_width': 120,
             'map_height': 120,
-            'terrain_data': [TerrainStruct(data=[0, 0, 0, b'\xff\xff', -1]) for _ in range(120 * 120)],
+            'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults().values())) for _ in range(120 * 120)],
         }
         return defaults

@@ -19,7 +19,9 @@ class DiplomacyPiece(aoe2_piece.AoE2Piece):
     @staticmethod
     def defaults():
         defaults = {
-            'per_player_diplomacy': [PlayerDiplomacyStruct(data=[[3] * 16]) for _ in range(16)],
+            'per_player_diplomacy': [
+                PlayerDiplomacyStruct(data=list(PlayerDiplomacyStruct.defaults().values())) for _ in range(16)
+            ],
             'individual_victories': [b'\x00' * 60] * 192,
             'separator': 4294967197,
             'per_player_allied_victory': [0] * 16,

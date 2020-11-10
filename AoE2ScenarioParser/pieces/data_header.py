@@ -56,9 +56,9 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
     @staticmethod
     def _get_player_data_1_default():
         # active, human, civilization, cty_mode
-        data = [
-            [1, 1, 36, 4],
-            [1, 0, 36, 4],
-        ]
-        data += [[0, 0, 36, 4] for _ in range(14)]
+        data = [list(PlayerDataOneStruct.defaults().values()) for _ in range(2)]
+        data[0][0] = 1  # P1 Active
+        data[0][1] = 1  # P1 Human
+        data[1][0] = 1  # P2 Active
+        data += [list(PlayerDataOneStruct.defaults().values()) for _ in range(14)]
         return [PlayerDataOneStruct(data=x) for x in data]
