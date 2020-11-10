@@ -44,7 +44,7 @@ class EffectStruct(AoE2Struct):
             Retriever("number_of_units_selected", DataType("s32"),
                       on_refresh=RetrieverDependency(
                           DependencyAction.SET_VALUE,
-                          DependencyTarget('self', 'selected_object_id'),
+                          DependencyTarget('self', 'selected_object_ids'),
                           DependencyEval('len(x)')
                       )),
             Retriever("unknown", DataType("s32")),
@@ -86,11 +86,11 @@ class EffectStruct(AoE2Struct):
             Retriever("from_variable", DataType("s32")),
             Retriever("variable_or_timer", DataType("s32")),
             Retriever("facet", DataType("s32")),
-            Retriever("unknown_4", DataType("s32")),
+            Retriever("location_object_reference", DataType("s32")),
             Retriever("play_sound", DataType("s32")),
             Retriever("message", DataType("str32")),
             Retriever("sound_name", DataType("str32")),
-            Retriever("selected_object_id", DataType("s32"),
+            Retriever("selected_object_ids", DataType("s32"),
                       on_refresh=RetrieverDependency(
                           DependencyAction.SET_REPEAT,
                           DependencyTarget("self", "number_of_units_selected")
@@ -159,6 +159,6 @@ class EffectStruct(AoE2Struct):
             'play_sound': -1,
             'message': '',
             'sound_name': '',
-            'selected_object_id': [],
+            'selected_object_ids': [],
         }
         return defaults

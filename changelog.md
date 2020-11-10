@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.10 - 2020-November-10
+
+### Changed
+
+- The effect attribute `selected_object_id` to `selected_object_ids` to indicate the use of a list.
+
+### Discovered (in byte structure)
+
+- The `location_object_reference` property for effects. Used for targeting an object as location. For example in the `TaskObject` effect.
+
+---
+
 ## 0.0.9 - 2020-November-09
 
 
