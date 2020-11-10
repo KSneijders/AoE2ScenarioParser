@@ -54,10 +54,11 @@ Trigger Summary:
 If you want to know all specifics about a trigger you can use the functions below. 
 
 ```py
-trigger_manager.get_trigger_as_string(trigger_index=0)
-trigger_manager.get_trigger_as_string(display_index=0)
-# You can also request the id from a trigger object:
-trigger_manager.get_trigger_as_string(trigger_index=trigger.trigger_id)
+trigger_manager.get_trigger_as_string(TS.index(0))
+trigger_manager.get_trigger_as_string(TS.display(0))
+# You can also request the id from a trigger object or give the trigger object itself:
+trigger_manager.get_trigger_as_string(TS.index(trigger.trigger_id))
+trigger_manager.get_trigger_as_string(TS.trigger(trigger))
 
 # These functions return the following (As String):
 'Init Trigger' [Index: 0, Display: 0]:
@@ -90,8 +91,8 @@ When opening a file that already contains triggers you might want to edit or eve
 
 You can edit a trigger like so:
 ```py
-trigger = trigger_manager.get_trigger(trigger_index=0)
-trigger = trigger_manager.get_trigger(display_index=0)
+trigger = trigger_manager.get_trigger(TS.index(0))
+trigger = trigger_manager.get_trigger(TS.display(0))
 
 trigger.name = "New Trigger Name"
 trigger.description = "Awesome New Description!"
@@ -101,10 +102,10 @@ trigger.description = "Awesome New Description!"
 `copy_trigger` function
 ---
 
-Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. Selecting a trigger is done using the standard `trigger_index`, `display_index` and `trigger` reference. You can use it as follows:
+Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. Selecting a trigger is done using the standard new TriggerSelect object. You can use it as follows:
 
 ```py
-copied_trigger = trigger_manager.copy_trigger(trigger_index=0)
+copied_trigger = trigger_manager.copy_trigger(TS.index(0))
 ```
 This will result in a full (deep)copy of your trigger. The only parts that are edited are it's `id` and `name` (added " (copy)").
 
@@ -112,9 +113,9 @@ This will result in a full (deep)copy of your trigger. The only parts that are e
 
 When removing a trigger you can select it the same way as when getting a trigger using the `get_trigger` function. But on top of that you can also use it's reference:
 ```py
-trigger_manager.remove_trigger(trigger_index=0)
-trigger_manager.remove_trigger(display_index=0)
-trigger_manager.remove_trigger(trigger=trigger)
+trigger_manager.remove_trigger(TS.index(0))
+trigger_manager.remove_trigger(TS.display(0))
+trigger_manager.remove_trigger(TS.trigger(trigger))
 ```
 For removing effects and conditions it's very similiar but the functions are accessed from the triggers themselves instead of the trigger_manager. You can select the effect or condition you want to remove using:
 - it's index (time of creation)
