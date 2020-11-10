@@ -155,6 +155,7 @@ class EffectStruct(AoE2Struct):
             'from_variable': -1,
             'variable_or_timer': -1,
             'facet': -1,
+            'location_object_reference': -1,
             'unknown_4': -1,
             'play_sound': -1,
             'message': '',
