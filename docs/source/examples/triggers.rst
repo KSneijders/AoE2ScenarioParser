@@ -40,9 +40,12 @@ Here's an example of how to create (add) a trigger and add a condition and effec
 Select existing Triggers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Selecting a trigger can be done using the ``get_trigger`` function. The function accepts 2 arguments, ``trigger_index`` and ``display_index``.
+Selecting a trigger can be done using the ``get_trigger`` function. The function accepts 1 argument, a ``TriggerSelect`` (Alias: ``TS``) object.
+
+The constructor of ``TriggerSelect`` accepts 3 arguments, ``trigger_index``, ``display_index`` and ``trigger``. 
 The ``trigger_index`` expects the trigger ID of a trigger. This is the a number related to the order of creation starting from 0. 
 The ``display_index`` expects the display ID of a trigger. This is the a number related to the display order in the in-game editor.
+The ``trigger`` expects a trigger object. Read further below on how to create or select one.
 You can use the ``get_summary_as_string`` function to view these values without opening the in-game editor. 
 The code below includes the code above::
 
