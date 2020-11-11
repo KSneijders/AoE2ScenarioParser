@@ -153,13 +153,12 @@ class AoE2Scenario:
         lgr = SimpleLogger(log_writing)
         lgr.print("\nFile writing from structure started...")
 
-        byte_header = b''
-        byte_data = b''
-
+        byte_header_list = []
+        byte_data_list = []
         for key in self._parsed_header:
             lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_header[key].retrievers:
-                byte_header += parser.retriever_to_bytes(retriever)
+                byte_header_list.append(parser.retriever_to_bytes(retriever))
             lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
             lgr.print()
 
@@ -167,7 +166,7 @@ class AoE2Scenario:
             lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_data[key].retrievers:
                 try:
-                    byte_data += parser.retriever_to_bytes(retriever)
+                    byte_data_list.append(parser.retriever_to_bytes(retriever))
                 except AttributeError as e:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     print("\n\n\nAn error occurred. Writing failed.")
@@ -176,13 +175,16 @@ class AoE2Scenario:
             lgr.print()
 
         file = open(filename, "wb" if write_in_bytes else "w")
-        file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
 
+        byte_header = b''.join(byte_header_list)
+        byte_data = b''.join(byte_data_list)
+
+        file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
         if compress:
             lgr.print("\tCompressing...", replace_line=True)
             # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
             deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-            compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
+            compressed = deflate_obj.compress(b''.join(byte_data_list)) + deflate_obj.flush()
             file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
             lgr.print("\tCompressing finished successfully.", replace_line=True)
             lgr.print()
