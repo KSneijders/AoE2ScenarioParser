@@ -41,23 +41,9 @@ class AoE2Piece:
                 retriever.data = value
 
     def set_data(self, data):
-        saves = {}
-        if self.parser is not None:
-            saves = self.parser._saves
         if len(data) == len(self.retrievers):
             for i in range(0, len(data)):
-                if self.retrievers[i].set_repeat:
-                    self.retrievers[i].datatype.repeat = parser.parse_repeat_string(
-                        saves,
-                        self.retrievers[i].set_repeat
-                    )
-
                 self.retrievers[i].data = data[i]
-
-                if self.retrievers[i].save_as is not None:
-                    if type(data[i]) is not list:
-                        data[i] = [data[i]]
-                    saves[self.retrievers[i].save_as] = parser.vorl(data[i], self.retrievers[i])
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: ({len(data)}) "

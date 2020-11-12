@@ -146,12 +146,22 @@ class RetrieverObjectLink:
                 self._commit_special_unit_case(host_obj, pieces, link_piece, value)
                 return
 
-            exec(f"{temp_link} = [link_piece() for x in range(r)]", locals(), {
-                'r': len(value),
-                'pieces': pieces,
-                'link_piece': link_piece,
-                '__index__': instance_number
-            })
+            try:
+                old_length = len(retriever.data)
+            except TypeError:
+                # retriever.data was not set before (list of 0)
+                retriever.data = []
+                old_length = 0
+            new_length = len(value)
+
+            if new_length < old_length:
+                retriever.data = retriever.data[:new_length]
+            elif new_length > old_length:
+                retriever.data += eval(f"[link_piece() for x in range({new_length - old_length})]", locals(), {
+                    'pieces': pieces,
+                    'link_piece': link_piece,
+                    '__index__': instance_number
+                })
 
             for index, obj in enumerate(value):
                 obj._pieces = pieces
