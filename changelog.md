@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog]
   - Writing the file, combining strings using `str.join(list)` instead of `str += str`
   - Reusing structs when reconstructing where possible, instead of overwriting all of them.
   - Not initialising RetrieverDependencies for every retriever. Using references instead. 
+  - Reworked the eval functions to direct code, huge performance boost
+  - Removed unnecessary DependencyAction objects creation (From ~500.000 to 99)
 
 ---
 

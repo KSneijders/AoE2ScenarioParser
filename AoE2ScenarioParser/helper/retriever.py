@@ -16,9 +16,6 @@ class Retriever:
     """
 
     def __init__(self, name, datatype=DataType(),
-                 on_construct=None,
-                 on_commit=None,
-                 on_refresh=None,
                  save_as=None,
                  set_repeat=None,
                  log_value=False
@@ -27,32 +24,21 @@ class Retriever:
         Args:
             name (str): The name of the item. Has to be unique within the Piece or Struct
             datatype (DataType): A datatype object
-            on_construct (RetrieverDependency): A RetrieverDependency to describe the dependencies of this retriever
-                triggered while the file is constructing
-            on_commit (RetrieverDependency): A RetrieverDependency to describe the dependencies of this retriever
-                triggered while the file is committing
-            on_refresh (RetrieverDependency): TODO: Add docstring
             save_as (str): To Be Removed (Deprecated)
             set_repeat (str): To Be Removed (Deprecated)
             log_value (bool): A boolean for, mostly, debugging. This will log this Retriever with it's data when the
                 data is changed, when this retriever is constructed and committed.
         """
-        if on_construct is None:
-            on_construct = RetrieverDependency(DependencyAction.UNDEFINED)
-        if on_commit is None:
-            on_commit = RetrieverDependency(DependencyAction.UNDEFINED)
-        if on_refresh is None:
-            on_refresh = RetrieverDependency(DependencyAction.UNDEFINED)
         self.name: str = name
         self.datatype: DataType = datatype
-        self.on_construct: RetrieverDependency = on_construct
-        self.on_commit: RetrieverDependency = on_commit
-        self.on_refresh: RetrieverDependency = on_refresh
-        self.related_retrievers = []
         self.save_as = save_as
         self.set_repeat = set_repeat
         self.log_value = log_value
         self._data = None
+
+        self.on_construct: RetrieverDependency
+        self.on_commit: RetrieverDependency
+        self.on_refresh: RetrieverDependency
 
     @property
     def data(self):

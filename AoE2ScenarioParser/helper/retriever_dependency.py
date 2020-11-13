@@ -11,6 +11,7 @@ class RetrieverDependency:
             dependency_target (DependencyTarget): TODO: Add docstring
             dependency_eval (DependencyEval): TODO: Add docstring
         """
+
         self.dependency_type = dependency_type
         self.dependency_target = dependency_target
 
@@ -58,7 +59,6 @@ class DependencyEval:
 
 
 class DependencyAction(Enum):
-    UNDEFINED = -1
     REFRESH = 0
     REFRESH_SELF = 1
     SET_REPEAT = 2
