@@ -28,15 +28,6 @@ class RetrieverObjectLink:
         self.retrieve_history_number: int = retrieve_history_number
 
     def construct(self, pieces, instance_number_history=None):
-        """
-
-        Args:
-            pieces (OrderedDict[str, AoE2Piece]):
-            instance_number_history (List[int]):
-
-        Returns:
-
-        """
         if instance_number_history is None:
             instance_number_history = []
 
@@ -78,7 +69,7 @@ class RetrieverObjectLink:
             return value
 
     def commit(self, pieces, host_obj):
-        # Object only retrievers for the ease of access of information.
+        # Object-only retrievers for the ease of access of information.
         # Not actually representing a value in the scenario file.
         if self.retrieve_instance_number or self.retrieve_history_number >= 0:
             return
@@ -89,7 +80,7 @@ class RetrieverObjectLink:
 
         # Replace __index__ values
         temp_link = self.link
-        if instance_number_history:  
+        if instance_number_history:
             for i in instance_number_history:
                 temp_link = temp_link.replace("__index__", str(i), 1)
         temp_link = temp_link.replace("__index__", str(instance_number), 1)
