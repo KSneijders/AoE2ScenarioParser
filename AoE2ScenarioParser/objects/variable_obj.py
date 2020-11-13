@@ -10,8 +10,8 @@ class VariableObject(AoE2Object):
     """Object for handling a variable."""
 
     _link_list = [
-        RetrieverObjectLink("variable_id", "TriggerPiece.variable_data[__index__].variable_id"),
-        RetrieverObjectLink("name", "TriggerPiece.variable_data[__index__].name"),
+        RetrieverObjectLink("variable_id", "TriggerPiece", "variable_data[__index__].variable_id"),
+        RetrieverObjectLink("name", "TriggerPiece", "variable_data[__index__].name"),
     ]
 
     def __init__(self, variable_id: int, name: str):

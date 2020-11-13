@@ -11,12 +11,12 @@ class MapObject(AoE2Object):
     """Manager of the everything map related."""
 
     _link_list = [
-        RetrieverObjectLink("map_color_mood", "MapPiece.map_color_mood"),
-        RetrieverObjectLink("collide_and_correct", "MapPiece.collide_and_correct"),
-        RetrieverObjectLink("villager_force_drop", "MapPiece.villager_force_drop"),
-        RetrieverObjectLink("map_width", "MapPiece.map_width"),
-        RetrieverObjectLink("map_height", "MapPiece.map_height"),
-        RetrieverObjectLink("terrain", "MapPiece.terrain_data", process_as_object=TerrainObject),
+        RetrieverObjectLink("map_color_mood", "MapPiece", "map_color_mood"),
+        RetrieverObjectLink("collide_and_correct", "MapPiece", "collide_and_correct"),
+        RetrieverObjectLink("villager_force_drop", "MapPiece", "villager_force_drop"),
+        RetrieverObjectLink("map_width", "MapPiece", "map_width"),
+        RetrieverObjectLink("map_height", "MapPiece", "map_height"),
+        RetrieverObjectLink("terrain", "MapPiece", "terrain_data", process_as_object=TerrainObject),
     ]
 
     def __init__(self,

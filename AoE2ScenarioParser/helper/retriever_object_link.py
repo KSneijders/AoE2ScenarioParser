@@ -10,6 +10,7 @@ from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 class RetrieverObjectLink:
     def __init__(self,
                  variable_name: str,
+                 piece: str = None,
                  link: str = None,
                  process_as_object: Type[AoE2Object] = None,
                  retrieve_instance_number: bool = False,
@@ -18,23 +19,13 @@ class RetrieverObjectLink:
         if (link is not None) + retrieve_instance_number + (retrieve_history_number != -1) != 1:
             raise ValueError("Use one and only one of the following parameters: 'link', 'retrieve_instance_number' or "
                              "'retrieve_history_number'.")
-
-        if link is not None:
-            link: str = RetrieverObjectLink._process_link(link)
-
         self.name: str = variable_name
+        self.piece = piece
         self.link = link
         self.is_special_unit_case = self._self_is_special_unit_case()
         self.process_as_object: Type[AoE2Object] = process_as_object
         self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
-
-    @staticmethod
-    def _process_link(link: str) -> str:
-        dot = link.find(".")
-        # Convert piece attribute to dict key: "MapPiece.x" > "pieces['MapPiece'].x"
-        link = "pieces['" + link[0:dot] + "']" + link[dot:]
-        return link
 
     def get_piece_datatype(self, pieces, custom_link="", host_obj=None) -> Type[AoE2Piece]:
         """

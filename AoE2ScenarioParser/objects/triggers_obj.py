@@ -17,9 +17,9 @@ class TriggersObject(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
-        RetrieverObjectLink("triggers", "TriggerPiece.trigger_data", process_as_object=TriggerObject),
-        RetrieverObjectLink("trigger_display_order", "TriggerPiece.trigger_display_order_array"),
-        RetrieverObjectLink("variables", "TriggerPiece.variable_data", process_as_object=VariableObject),
+        RetrieverObjectLink("triggers", "TriggerPiece", "trigger_data", process_as_object=TriggerObject),
+        RetrieverObjectLink("trigger_display_order", "TriggerPiece", "trigger_display_order_array"),
+        RetrieverObjectLink("variables", "TriggerPiece", "variable_data", process_as_object=VariableObject),
     ]
 
     def __init__(self,
