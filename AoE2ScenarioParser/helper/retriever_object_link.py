@@ -27,31 +27,6 @@ class RetrieverObjectLink:
         self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
 
-    def get_piece_datatype(self, pieces, custom_link="", host_obj=None) -> Type[AoE2Piece]:
-        """
-
-        Args:
-            pieces (OrderedDict[str, AoE2Piece]):
-            custom_link (str):
-            host_obj ():
-
-        Returns:
-
-        """
-        if self.process_as_object is None:
-            raise ValueError("Cannot get piece type from RetrieverObjectLink when parameter process_as_object has not "
-                             "been set.")
-        custom_link = self.link if custom_link == "" else custom_link
-        split_link = custom_link.split(".")
-        link_end = split_link.pop()
-
-        return eval("get_retriever_by_name(" + ".".join(split_link) + ".retrievers, '" + link_end + "').datatype.var",
-                    {}, {
-                        'pieces': dict(pieces),
-                        'get_retriever_by_name': get_retriever_by_name,
-                        '__index__': AoE2Object.get_instance_number(host_obj)
-                    })
-
     def construct(self, pieces, instance_number_history=None):
         """
 
@@ -79,7 +54,16 @@ class RetrieverObjectLink:
             if instance_number_history:
                 for i in instance_number_history:
                     temp_link = temp_link.replace("__index__", str(i), 1)
-            value = eval(temp_link, {}, {'pieces': pieces, '__index__': instance_number})
+            temp_link = temp_link.replace("__index__", str(instance_number), 1)
+
+            value = pieces[self.piece]
+            for x in temp_link.split("."):
+                if "[" in x:
+                    indexing = x.index('[')
+                    value = getattr(value, x[:indexing])
+                    value = value[int(x[indexing+1:len(x)-1])]
+                else:
+                    value = getattr(value, x)
 
             if self.process_as_object is not None:
                 value_list = []
@@ -94,15 +78,6 @@ class RetrieverObjectLink:
             return value
 
     def commit(self, pieces, host_obj):
-        """
-
-        Args:
-            pieces (OrderedDict[str, AoE2Piece]):
-            host_obj (AoE2Object):
-
-        Returns:
-
-        """
         # Object only retrievers for the ease of access of information.
         # Not actually representing a value in the scenario file.
         if self.retrieve_instance_number or self.retrieve_history_number >= 0:
@@ -117,21 +92,30 @@ class RetrieverObjectLink:
         if instance_number_history:
             for i in instance_number_history:
                 temp_link = temp_link.replace("__index__", str(i), 1)
+        temp_link = temp_link.replace("__index__", str(instance_number), 1)
 
         if self.is_special_unit_case:
             temp_link = temp_link.replace('[]', '[0]', 1)
 
-        # Get retriever and update/save value
-        split_temp_link = temp_link.split(".")
-        retriever_name = split_temp_link.pop()
-        retriever_list = eval('.'.join(split_temp_link) + ".retrievers", {}, {
-            'pieces': pieces,
-            '__index__': instance_number
-        })
-        retriever = get_retriever_by_name(retriever_list, retriever_name)
+        split_temp_link: List[str] = temp_link.split(".")
+        retriever = None
+
+        piece = pieces[self.piece]
+        for attribute in split_temp_link:
+            if '[' in attribute:
+                index_location = attribute.index('[')
+                index = int(attribute[index_location+1:len(attribute)-1])
+                piece = get_retriever_by_name(piece.retrievers, attribute[:index_location]).data[index]
+            else:
+                retriever = get_retriever_by_name(piece.retrievers, attribute)
+
+        if retriever is None:
+            raise ValueError("RetrieverObjectLink is unable to connect to retriever")
+
+        retriever_list = piece.retrievers
 
         if self.process_as_object is not None:
-            link_piece = self.get_piece_datatype(pieces, custom_link=temp_link, host_obj=host_obj)
+            link_piece = retriever.datatype.var
 
             if self.is_special_unit_case:
                 self._commit_special_unit_case(host_obj, pieces, link_piece, value)
@@ -140,7 +124,7 @@ class RetrieverObjectLink:
             try:
                 old_length = len(retriever.data)
             except TypeError:
-                # retriever.data was not set before (list of 0)
+                # retriever.data was not set before (list of 0 -> None)
                 retriever.data = []
                 old_length = 0
             new_length = len(value)
@@ -148,22 +132,14 @@ class RetrieverObjectLink:
             if new_length < old_length:
                 retriever.data = retriever.data[:new_length]
             elif new_length > old_length:
-                retriever.data += eval(f"[link_piece() for x in range({new_length - old_length})]", locals(), {
-                    'pieces': pieces,
-                    'link_piece': link_piece,
-                    '__index__': instance_number
-                })
+                retriever.data += [link_piece() for x in range(new_length - old_length)]
 
             for index, obj in enumerate(value):
                 obj._pieces = pieces
                 obj._instance_number_history = host_obj._instance_number_history + [index]
                 obj.commit()
         else:
-            exec(f"{temp_link} = value", {}, {
-                'value': value,
-                'pieces': pieces,
-                '__index__': instance_number
-            })
+            retriever.data = value
 
         if retriever.on_commit is not None:
             handle_retriever_dependency(retriever, retriever_list, "commit", pieces)
@@ -174,16 +150,8 @@ class RetrieverObjectLink:
         return False
 
     def _construct_special_unit_case(self, pieces):
-        """
-
-        Args:
-            pieces (OrderedDict[str, AoE2Piece]):
-
-        Returns:
-
-        """
         list_notation_location = self.link.find("[]")
-        struct_list = eval(self.link[:list_notation_location], {}, {'pieces': pieces})
+        struct_list = getattr(pieces[self.piece], self.link[:list_notation_location])
         list_len = len(struct_list)
         result_list = [[] for _ in range(list_len)]
         for i in range(list_len):
@@ -214,7 +182,7 @@ class RetrieverObjectLink:
                 obj.commit()
 
     def __repr__(self):
-        return "[RetrieverObjectLink] " + self.name + ": " + str(self.link) + \
+        return "[RetrieverObjectLink] " + self.name + ": " + str(self.piece) + "." + str(self.link) + \
                (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
                (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
                (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")
