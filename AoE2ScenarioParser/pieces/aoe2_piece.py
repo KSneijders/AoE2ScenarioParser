@@ -6,12 +6,19 @@ from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 
 
 class AoE2Piece:
+    dependencies = {}
+
     def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
         self.piece_type = piece_type
         self.retrievers = retrievers
         self.parser = parser_obj
         if data:
             self.set_data(data)
+
+        for retriever in retrievers:
+            if retriever.name in self.__class__.dependencies.keys():
+                for key, value in self.__class__.dependencies[retriever.name].items():
+                    setattr(retriever, key, value)
 
     @staticmethod
     @abc.abstractmethod
