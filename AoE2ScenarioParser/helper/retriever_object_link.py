@@ -89,7 +89,7 @@ class RetrieverObjectLink:
 
         # Replace __index__ values
         temp_link = self.link
-        if instance_number_history:
+        if instance_number_history:  
             for i in instance_number_history:
                 temp_link = temp_link.replace("__index__", str(i), 1)
         temp_link = temp_link.replace("__index__", str(instance_number), 1)
@@ -141,7 +141,7 @@ class RetrieverObjectLink:
         else:
             retriever.data = value
 
-        if retriever.on_commit is not None:
+        if hasattr(retriever, 'on_commit'):
             handle_retriever_dependency(retriever, retriever_list, "commit", pieces)
 
     def _self_is_special_unit_case(self):
@@ -161,16 +161,6 @@ class RetrieverObjectLink:
         return result_list
 
     def _commit_special_unit_case(self, host_obj, pieces, link_piece, units):
-        """
-
-        Args:
-            pieces (OrderedDict[str, AoE2Piece]):
-            link_piece ():
-            units (List[List[AoE2Object]]):
-
-        Returns:
-
-        """
         for player_number in range(len(units)):
             pieces['UnitsPiece'].players_units[player_number].unit_count = len(units[player_number])
             pieces['UnitsPiece'].players_units[player_number].units = \
