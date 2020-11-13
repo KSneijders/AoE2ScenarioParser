@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## [Unreleased]
+
+### Improved
+
+- Performance:
+  - Writing the file, combining strings using `str.join(list)` instead of `str += str`
+  - Reusing structs when reconstructing where possible, instead of overwriting all of them.
+  - Not initialising RetrieverDependencies for every retriever. Using references instead. 
+
+---
+
 ## 0.0.10 - 2020-November-10
 
 ### Changed
