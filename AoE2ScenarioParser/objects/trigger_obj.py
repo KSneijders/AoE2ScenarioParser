@@ -77,13 +77,37 @@ class TriggerObject(AoE2Object):
         self.looping: int = looping
         self.header: int = header
         self.mute_objectives: int = mute_objectives
+        self._condition_hash = helper.hash_list(conditions)
         self.conditions: List[ConditionObject] = conditions
         self.condition_order: List[int] = condition_order
+        self._effect_hash = helper.hash_list(effects)
         self.effects: List[EffectObject] = effects
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
         super().__init__()
+
+    @property
+    def condition_order(self):
+        if helper.list_changed(self.conditions, self._condition_hash):
+            helper.update_order_array(self._condition_order, len(self.conditions))
+            self._condition_hash = helper.hash_list(self.conditions)
+        return self._condition_order
+
+    @condition_order.setter
+    def condition_order(self, val):
+        self._condition_order = val
+
+    @property
+    def effect_order(self):
+        if helper.list_changed(self.effects, self._effect_hash):
+            helper.update_order_array(self._effect_order, len(self.effects))
+            self._effect_hash = helper.hash_list(self.effects)
+        return self._effect_order
+
+    @effect_order.setter
+    def effect_order(self, val):
+        self._effect_order = val
 
     @property
     def conditions(self) -> List[ConditionObject]:
