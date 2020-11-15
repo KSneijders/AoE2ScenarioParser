@@ -334,17 +334,20 @@ class TriggersObject(AoE2Object):
 
         return trigger
 
-    def add_trigger(self, name: str) -> TriggerObject:
+    def add_trigger(self, name, enabled=None, looping=None) -> TriggerObject:
         """
-        Adds a trigger.
+        Adds a new trigger to the scenario.
 
         Args:
             name (str): The name for the trigger
+            enabled (bool): If the trigger is enabled from the start.
+            looping (bool): If the trigger loops.
 
         Returns:
-            The newly added TriggerObject
+            The newly created trigger
         """
-        new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
+        trigger_attr = {key: locals()[key] for key in ['enabled', 'looping'] if hasattr(locals(), key)}
+        new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
         helper.update_order_array(self.trigger_display_order, len(self.triggers))
         return new_trigger
