@@ -84,33 +84,37 @@ helper.pretty_print_name(conditions.condition_names[11])  # Object Selected
 ## Conditions & Effects dropdown lists
 Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to remember. That's why these datasets have been added:
 
-Names           | Explanation                                                                   | Example
-----------------|-------------------------------------------------------------------------------|----------------------------------------------
-DiplomacyState  | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.    | `DiplomacyState.ALLY` ( Value: 0 )
-Operator        | Used in many effects. Generally related to variables.                         | `Operator.MULTIPLY` ( Value: 4 )
-ButtonLocation  | Used in the `Change Research Location` and `Change Train Location` effects.   | `ButtonLocation.LOCATION_2_0` ( Value: 3 )
-PanelLocation   | Used in the `Display Instructions` effect.                                    | `PanelLocation.CENTER` ( Value: 2 )
-TimeUnit        | Used in the `Display Timer` effect.                                           | `TimeUnit.YEARS` ( Value: 2 )
-VisibilityState | Used in the `Set Player Visibility` effect.                                   | `VisibilityState.EXPLORED` ( Value: 1 )
-DifficultyLevel | Used in the `Difficulty Level` condition.                                     | `DifficultyLevel.HARDEST` ( Value: 0 )
-TechnologyState | Used in the `Technology State` condition.                                     | `TechnologyState.RESEARCHING` ( Value: 1 )
-Comparison      | Used in many effects and conditions. Generally related to variables.          | `Comparison.EQUAL` ( Value: 0 )
-ObjectAttribute | Used in the `Modify Attribute` effect.                                        | `ObjectAttribute.CARRY_CAPACITY` ( Value: 14 )
-Attribute       | Used in the `Accumulate Attribute` efect.                                     | `Attribute.ALL_TECHS_ACHIEVED` ( Value: 39 )
+| Names           | Explanation                                                                 | Example                                        |
+| --------------- | --------------------------------------------------------------------------- | ---------------------------------------------- |
+| DiplomacyState  | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.  | `DiplomacyState.ALLY` ( Value: 0 )             |
+| Operator        | Used in many effects. Generally related to variables.                       | `Operator.MULTIPLY` ( Value: 4 )               |
+| ButtonLocation  | Used in the `Change Research Location` and `Change Train Location` effects. | `ButtonLocation.LOCATION_2_0` ( Value: 3 )     |
+| PanelLocation   | Used in the `Display Instructions` effect.                                  | `PanelLocation.CENTER` ( Value: 2 )            |
+| TimeUnit        | Used in the `Display Timer` effect.                                         | `TimeUnit.YEARS` ( Value: 2 )                  |
+| VisibilityState | Used in the `Set Player Visibility` effect.                                 | `VisibilityState.EXPLORED` ( Value: 1 )        |
+| DifficultyLevel | Used in the `Difficulty Level` condition.                                   | `DifficultyLevel.HARDEST` ( Value: 0 )         |
+| TechnologyState | Used in the `Technology State` condition.                                   | `TechnologyState.RESEARCHING` ( Value: 1 )     |
+| Comparison      | Used in many effects and conditions. Generally related to variables.        | `Comparison.EQUAL` ( Value: 0 )                |
+| ObjectAttribute | Used in the `Modify Attribute` effect.                                      | `ObjectAttribute.CARRY_CAPACITY` ( Value: 14 ) |
+| Attribute       | Used in the `Accumulate Attribute` efect.                                   | `Attribute.ALL_TECHS_ACHIEVED` ( Value: 39 )   |
 
 Exmaple of some usages:
 ```py
 trigger = trigger_manager.add_trigger("Inform Betrayal!")
-condition = trigger.add_condition(Condition.DIPLOMACY_STATE)
-condition.amount_or_quantity = DiplomacyState.ALLY                  # <-- DiplomacyState dataset
-condition.player = Player.TWO
-condition.target_player = Player.THREE
+condition = trigger.add_condition(
+    Condition.DIPLOMACY_STATE,
+    amount_or_quantity=DiplomacyState.ALLY,  # <-- DiplomacyState dataset
+    player=Player.TWO,
+    target_player=Player.THREE
+)
 
-effect = trigger.add_effect(Effect.DISPLAY_INSTRUCTIONS)
-effect.player_source = Player.ONE
-effect.message = "Spy: Your ally has betrayed you! He allied the enemy!"
-effect.instruction_panel_position = PanelLocation.CENTER            # <-- PanelLocation dataset
-effect.display_time = 10
+effect = trigger.add_effect(
+    Effect.DISPLAY_INSTRUCTIONS,
+    player_source=Player.ONE,
+    message="Spy: Your ally has betrayed you! He allied the enemy!",
+    instruction_panel_position=PanelLocation.CENTER,  # <-- PanelLocation dataset
+    display_time=10
+)
 ```
 ---
 &nbsp;
@@ -137,9 +141,7 @@ effect.object_list_unit_id = Building.BLACKSMITH   # <-- or buildings
 or:
 ```py
 ...
-effect = trigger.add_effect(Effect.RESEARCH_TECHNOLOGY)
-effect.player_source = Player.THREE
-effect.technology = Tech.BLOODLINES  # <-- or Techs
+effect = trigger.add_effect(Effect.RESEARCH_TECHNOLOGY, player_source=Player.THREE, technology=Tech.BLOODLINES)
 ...
 ```
 Just like effects and conditions there is a `Bidict` within the dataset which you can use to translate the `ID -> Name` or `(inverse) Name -> ID`.

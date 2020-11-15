@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog]
 
 ## [Unreleased]
 
+### Added
+
+- Optional arguments for `create_trigger` function (`enabled` and `looping`)
+- Optional arguments for `add_condition` function (all condition parameters)
+- Optional arguments for `add_effect` function (all effect parameters)
+
 ### Improved
 
 - Performance:
@@ -14,7 +20,7 @@ The format is based on [Keep a Changelog]
   - Reusing structs when reconstructing where possible, instead of overwriting all of them.
   - Not initialising RetrieverDependencies for every retriever. Using references instead. 
   - Reworked the eval functions to direct code, huge performance boost
-  - Removed unnecessary DependencyAction objects creation (From ~500.000 to 99)
+  - Removed unnecessary DependencyAction objects creation (From ~500.000 to ~100)
 
 ---
 
