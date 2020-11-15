@@ -28,11 +28,24 @@ class TriggersObject(AoE2Object):
                  variables: List[VariableObject]
                  ):
 
+        self._trigger_hash = hash(tuple(triggers))
         self.triggers: List[TriggerObject] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
         self.variables: List[VariableObject] = variables
 
         super().__init__()
+
+    @property
+    def trigger_display_order(self):
+        if self._trigger_hash != hash(tuple(self.triggers)):
+            helper.update_order_array(self._trigger_display_order, len(self.triggers))
+            self._trigger_hash = hash(tuple(self.triggers))
+        return self._trigger_display_order
+
+    @trigger_display_order.setter
+    def trigger_display_order(self, val):
+        self._trigger_display_order = val
+        self._trigger_hash = hash(tuple(val))
 
     def copy_trigger_per_player(self,
                                 from_player,
@@ -148,7 +161,7 @@ class TriggersObject(AoE2Object):
         deepcopy_trigger.name += " (copy)"
         deepcopy_trigger.trigger_id = len(self.triggers)
         self.triggers.append(deepcopy_trigger)
-        helper.update_order_array(self.trigger_display_order, len(self.triggers))
+        # helper.update_order_array(self.trigger_display_order, len(self.triggers))
 
         return deepcopy_trigger
 
@@ -349,7 +362,7 @@ class TriggersObject(AoE2Object):
         trigger_attr = {key: locals()[key] for key in ['enabled', 'looping'] if hasattr(locals(), key)}
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
-        helper.update_order_array(self.trigger_display_order, len(self.triggers))
+        # helper.update_order_array(self._trigger_display_order, len(self.triggers))
         return new_trigger
 
     def add_variable(self, name: str, variable_id: int = -1) -> VariableObject:
@@ -424,17 +437,14 @@ class TriggersObject(AoE2Object):
         trigger_index = trigger_select.trigger_index
         display_index = trigger_select.display_index
 
-        if trigger is None:
-            helper.evaluate_index_params(trigger_index, display_index, "trigger")
-        else:
+        if trigger is not None:
             trigger_index = trigger.trigger_id
-
-        if trigger_index is None:
-            trigger_index = self.trigger_display_order[display_index]
-        else:
             display_index = self.trigger_display_order.index(trigger_index)
-
-        if not trigger:
+        elif trigger_index is not None:
+            trigger = self.triggers[trigger_index]
+            display_index = self.trigger_display_order.index(trigger_index)
+        elif display_index is not None:
+            trigger_index = self.trigger_display_order[display_index]
             trigger = self.triggers[trigger_index]
 
         return trigger_index, display_index, trigger
