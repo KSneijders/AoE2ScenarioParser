@@ -20,6 +20,11 @@ class RetrieverDependency:
 
         self.dependency_eval = dependency_eval
 
+    def __repr__(self):
+        return f"[RetrieverDependency] {self.dependency_type} " \
+               f"\n\tTarget: {self.dependency_target}" \
+               f"\n\tEval: {self.dependency_eval.eval_code}"
+
 
 class DependencyTarget:
     def __init__(self, target_piece, piece_attr_name):
@@ -38,6 +43,9 @@ class DependencyTarget:
                 raise ValueError("Both parameters should be of the same length when using lists.")
         self.target_piece = target_piece
         self.piece_attr_name = piece_attr_name
+
+    def __repr__(self) -> str:
+        return f"[DependencyTarget] {self.target_piece} -> {self.piece_attr_name}"
 
 
 class DependencyEval:
