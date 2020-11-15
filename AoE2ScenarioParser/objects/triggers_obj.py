@@ -28,7 +28,7 @@ class TriggersObject(AoE2Object):
                  variables: List[VariableObject]
                  ):
 
-        self._trigger_hash = hash(tuple(triggers))
+        self._trigger_hash = helper.hash_list(triggers)
         self.triggers: List[TriggerObject] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
         self.variables: List[VariableObject] = variables
@@ -37,15 +37,14 @@ class TriggersObject(AoE2Object):
 
     @property
     def trigger_display_order(self):
-        if self._trigger_hash != hash(tuple(self.triggers)):
+        if helper.list_changed(self.triggers, self._trigger_hash):
             helper.update_order_array(self._trigger_display_order, len(self.triggers))
-            self._trigger_hash = hash(tuple(self.triggers))
+            self._trigger_hash = helper.hash_list(self.triggers)
         return self._trigger_display_order
 
     @trigger_display_order.setter
     def trigger_display_order(self, val):
         self._trigger_display_order = val
-        self._trigger_hash = hash(tuple(val))
 
     def copy_trigger_per_player(self,
                                 from_player,
