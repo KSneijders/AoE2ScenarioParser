@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import OrderedDict
 from copy import deepcopy
-from typing import List, Type, TYPE_CHECKING, Dict
+from typing import List, Type, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper
 

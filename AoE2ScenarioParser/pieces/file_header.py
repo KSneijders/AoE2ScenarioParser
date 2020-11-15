@@ -1,8 +1,8 @@
 import time
 
-from AoE2ScenarioParser.pieces import aoe2_piece
-from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class FileHeaderPiece(aoe2_piece.AoE2Piece):

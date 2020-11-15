@@ -1,6 +1,6 @@
-from AoE2ScenarioParser.pieces import aoe2_piece
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
@@ -37,5 +37,3 @@ class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
             'time_for_timed_game_in_10ths_of_a_year': 9000,
         }
         return defaults
-
-

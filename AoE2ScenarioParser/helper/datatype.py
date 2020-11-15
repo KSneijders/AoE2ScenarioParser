@@ -28,6 +28,7 @@ class DataType:
         repeat:
             The amount of times the above datatype needs to be repeated
     """
+
     def __init__(self, var="0", repeat=1, log_value=False):
         self.log_value = log_value
         self._debug_retriever_name = "???"

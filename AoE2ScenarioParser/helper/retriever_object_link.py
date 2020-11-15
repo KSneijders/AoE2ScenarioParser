@@ -1,10 +1,8 @@
-from collections import OrderedDict
 from typing import Type, List
 
 from AoE2ScenarioParser.helper.parser import handle_retriever_dependency
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
 class RetrieverObjectLink:
@@ -52,7 +50,7 @@ class RetrieverObjectLink:
                 if "[" in x:
                     indexing = x.index('[')
                     value = getattr(value, x[:indexing])
-                    value = value[int(x[indexing+1:len(x)-1])]
+                    value = value[int(x[indexing + 1:len(x) - 1])]
                 else:
                     value = getattr(value, x)
 
@@ -95,7 +93,7 @@ class RetrieverObjectLink:
         for attribute in split_temp_link:
             if '[' in attribute:
                 index_location = attribute.index('[')
-                index = int(attribute[index_location+1:len(attribute)-1])
+                index = int(attribute[index_location + 1:len(attribute) - 1])
                 piece = get_retriever_by_name(piece.retrievers, attribute[:index_location]).data[index]
             else:
                 retriever = get_retriever_by_name(piece.retrievers, attribute)

@@ -13,10 +13,12 @@ class EffectObject(AoE2Object):
     """Object for handling an effect."""
 
     _link_list = [
-        RetrieverObjectLink("effect_type", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].effect_type"),
+        RetrieverObjectLink("effect_type", "TriggerPiece",
+                            "trigger_data[__index__].effect_data[__index__].effect_type"),
         RetrieverObjectLink("ai_script_goal", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].ai_script_goal"),
-        RetrieverObjectLink("aa_quantity", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].aa_quantity"),
+        RetrieverObjectLink("aa_quantity", "TriggerPiece",
+                            "trigger_data[__index__].effect_data[__index__].aa_quantity"),
         RetrieverObjectLink("aa_armor_or_attack_type", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].aa_armor_or_attack_type"),
         RetrieverObjectLink("quantity", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].quantity"),

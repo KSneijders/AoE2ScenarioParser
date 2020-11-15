@@ -4,7 +4,7 @@ from typing import List, Union, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.datatype import DataType
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink

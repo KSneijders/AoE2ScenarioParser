@@ -1,7 +1,6 @@
 import collections
 import time
 import zlib
-
 from collections import OrderedDict
 from typing import List, Type
 
@@ -83,14 +82,16 @@ class AoE2Scenario:
         for piece in _header_structure:
             piece_name = piece.__name__
             lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()), pieces=pieces)
+            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()),
+                                                        pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
         for piece in _file_structure:
             pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
             piece_name = piece.__name__
             lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()), pieces=pieces)
+            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()),
+                                                      pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
         lgr.print("File creation finished successfully")

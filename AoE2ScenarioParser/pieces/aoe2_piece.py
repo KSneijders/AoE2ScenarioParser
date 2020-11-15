@@ -1,7 +1,7 @@
 import abc
 
-from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 
 
@@ -119,12 +119,12 @@ class AoE2Piece:
             for struct in listed_retriever_data:
                 if isinstance(struct, AoE2Piece):
                     if not struct_header_set:
-                        byte_structure += f"\n{'#'*27} {retriever.name} ({retriever.datatype.to_simple_string()})"
+                        byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
                         struct_header_set = True
                     byte_structure += struct.get_byte_structure_as_string()
             # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
             if struct_header_set:
-                byte_structure += f"{'#'*27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
+                byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
                 continue
 
             retriever_data_bytes = parser.retriever_to_bytes(retriever)

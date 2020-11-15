@@ -9,7 +9,6 @@ class FileHeaderObject(AoE2Object):
                  player_count,
                  creator_name,
                  ):
-
         self.version = version
         self.timestamp = timestamp
         self.instructions = instructions
@@ -17,8 +16,6 @@ class FileHeaderObject(AoE2Object):
         self.creator_name = creator_name
 
         super().__init__()
-
-
 
 # For when turning it back into bytes:
 # import time

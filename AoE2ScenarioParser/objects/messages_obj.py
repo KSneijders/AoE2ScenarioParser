@@ -16,7 +16,6 @@ class MessagesObject(AoE2Object):
                  ascii_history,
                  ascii_scouts,
                  ):
-
         self.instructions = instructions
         self.hints = hints
         self.victory = victory

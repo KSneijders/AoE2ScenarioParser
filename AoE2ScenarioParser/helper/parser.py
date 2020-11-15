@@ -1,4 +1,4 @@
-from typing import Any, List, Generator
+from typing import Any, List
 
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *

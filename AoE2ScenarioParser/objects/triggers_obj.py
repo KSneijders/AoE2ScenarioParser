@@ -319,7 +319,6 @@ class TriggersObject(AoE2Object):
         Returns:
             The given trigger with the proper player attributes changed
         """
-
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
 

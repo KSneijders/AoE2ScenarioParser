@@ -46,10 +46,12 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
     def defaults(pieces):
         defaults = {
             'number_of_unit_sections': 9,
-            'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0], pieces=pieces) for _ in range(8)],
+            'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0], pieces=pieces) for _ in
+                              range(8)],
             'number_of_players': 9,
-            'player_data_3': [PlayerDataThreeStruct(data=list(PlayerDataThreeStruct.defaults(pieces).values()), pieces=pieces) for _ in range(8)],
+            'player_data_3': [
+                PlayerDataThreeStruct(data=list(PlayerDataThreeStruct.defaults(pieces).values()), pieces=pieces) for _
+                in range(8)],
             'players_units': [PlayerUnitsStruct(data=[0, []], pieces=pieces) for _ in range(9)],
         }
         return defaults
-
