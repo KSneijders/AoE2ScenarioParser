@@ -11,6 +11,7 @@ class RetrieverDependency:
             dependency_target (DependencyTarget): TODO: Add docstring
             dependency_eval (DependencyEval): TODO: Add docstring
         """
+
         self.dependency_type = dependency_type
         self.dependency_target = dependency_target
 
@@ -18,6 +19,11 @@ class RetrieverDependency:
             dependency_eval = DependencyEval('x')
 
         self.dependency_eval = dependency_eval
+
+    def __repr__(self):
+        return f"[RetrieverDependency] {self.dependency_type} " \
+               f"\n\tTarget: {self.dependency_target}" \
+               f"\n\tEval: {self.dependency_eval.eval_code}"
 
 
 class DependencyTarget:
@@ -37,6 +43,9 @@ class DependencyTarget:
                 raise ValueError("Both parameters should be of the same length when using lists.")
         self.target_piece = target_piece
         self.piece_attr_name = piece_attr_name
+
+    def __repr__(self) -> str:
+        return f"[DependencyTarget] {self.target_piece} -> {self.piece_attr_name}"
 
 
 class DependencyEval:
@@ -58,7 +67,6 @@ class DependencyEval:
 
 
 class DependencyAction(Enum):
-    UNDEFINED = -1
     REFRESH = 0
     REFRESH_SELF = 1
     SET_REPEAT = 2

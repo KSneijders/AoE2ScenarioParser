@@ -28,12 +28,27 @@ class DataType:
         repeat:
             The amount of times the above datatype needs to be repeated
     """
-    def __init__(self, var="0", repeat=1):
+
+    def __init__(self, var="0", repeat=1, log_value=False):
+        self.log_value = log_value
+        self._debug_retriever_name = "???"
         self.var = var
-        self.repeat = repeat
+        self._repeat = repeat
 
     def to_simple_string(self):
-        return str(self.repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)
+        return str(self._repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)
 
     def __repr__(self):
-        return "[DataType] " + self.to_simple_string()
+        return f"[DataType] " + self.to_simple_string()
+
+    @property
+    def repeat(self):
+        if self.log_value:
+            print(f"[DataType] {self._debug_retriever_name} Retrieved as " + self.to_simple_string())
+        return self._repeat
+
+    @repeat.setter
+    def repeat(self, value):
+        if self.log_value:
+            print(f"[DataType] {self._debug_retriever_name} Repeat set to {value} from: " + self.to_simple_string())
+        self._repeat = value

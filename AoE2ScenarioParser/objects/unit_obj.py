@@ -6,27 +6,24 @@ from AoE2ScenarioParser.datasets import units, buildings
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.pieces.structs.unit import UnitStruct
 
 
 class UnitObject(AoE2Object):
-
     _link_list = [
         RetrieverObjectLink("player", retrieve_history_number=0),
-        RetrieverObjectLink("x", "UnitsPiece.players_units[__index__].units[__index__].x"),
-        RetrieverObjectLink("y", "UnitsPiece.players_units[__index__].units[__index__].y"),
-        RetrieverObjectLink("z", "UnitsPiece.players_units[__index__].units[__index__].z"),
-        RetrieverObjectLink("reference_id", "UnitsPiece.players_units[__index__].units[__index__].reference_id"),
-        RetrieverObjectLink("unit_const", "UnitsPiece.players_units[__index__].units[__index__].unit_const"),
-        RetrieverObjectLink("status", "UnitsPiece.players_units[__index__].units[__index__].status"),
-        RetrieverObjectLink("rotation", "UnitsPiece.players_units[__index__].units[__index__].rotation"),
-        RetrieverObjectLink("initial_animation_frame",
-                            "UnitsPiece.players_units[__index__].units[__index__].initial_animation_frame"),
-        RetrieverObjectLink("garrisoned_in_id",
-                            "UnitsPiece.players_units[__index__].units[__index__].garrisoned_in_id"),
+        RetrieverObjectLink("x", "UnitsPiece", "players_units[__index__].units[__index__].x"),
+        RetrieverObjectLink("y", "UnitsPiece", "players_units[__index__].units[__index__].y"),
+        RetrieverObjectLink("z", "UnitsPiece", "players_units[__index__].units[__index__].z"),
+        RetrieverObjectLink("reference_id", "UnitsPiece", "players_units[__index__].units[__index__].reference_id"),
+        RetrieverObjectLink("unit_const", "UnitsPiece", "players_units[__index__].units[__index__].unit_const"),
+        RetrieverObjectLink("status", "UnitsPiece", "players_units[__index__].units[__index__].status"),
+        RetrieverObjectLink("rotation", "UnitsPiece", "players_units[__index__].units[__index__].rotation"),
+        RetrieverObjectLink("initial_animation_frame", "UnitsPiece",
+                            "players_units[__index__].units[__index__].initial_animation_frame"),
+        RetrieverObjectLink("garrisoned_in_id", "UnitsPiece",
+                            "players_units[__index__].units[__index__].garrisoned_in_id"),
     ]
 
     def __init__(self,

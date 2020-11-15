@@ -27,15 +27,16 @@ Here's an example of how to create (add) a trigger and add a condition and effec
     trigger = trigger_manager.add_trigger("Trigger Name Here")
 
     # Add Timer Condition
-    timer_condition = trigger.add_condition(Condition.TIMER)
-    timer_condition.timer = 20
+    timer_condition = trigger.add_condition(Condition.TIMER, timer=20)
 
-    # Add Create Object Effect 
-    create_paladin_effect = trigger.add_effect(Effect.CREATE_OBJECT)
-    create_paladin_effect.object_list_unit_id = Unit.PALADIN
-    create_paladin_effect.source_player = Player.ONE
-    create_paladin_effect.location_x = 5
-    create_paladin_effect.location_y = 4
+    # Add Create Object Effect
+    create_paladin_effect = trigger.add_effect(
+        Effect.CREATE_OBJECT,
+        object_list_unit_id=Unit.PALADIN,
+        source_player=Player.ONE,
+        location_x=5,
+        location_y=4,
+    )
 
 Select existing Triggers
 ^^^^^^^^^^^^^^^^^^^^^^^^

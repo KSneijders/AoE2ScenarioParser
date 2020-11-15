@@ -17,9 +17,9 @@ class TriggersObject(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
-        RetrieverObjectLink("triggers", "TriggerPiece.trigger_data", process_as_object=TriggerObject),
-        RetrieverObjectLink("trigger_display_order", "TriggerPiece.trigger_display_order_array"),
-        RetrieverObjectLink("variables", "TriggerPiece.variable_data", process_as_object=VariableObject),
+        RetrieverObjectLink("triggers", "TriggerPiece", "trigger_data", process_as_object=TriggerObject),
+        RetrieverObjectLink("trigger_display_order", "TriggerPiece", "trigger_display_order_array"),
+        RetrieverObjectLink("variables", "TriggerPiece", "variable_data", process_as_object=VariableObject),
     ]
 
     def __init__(self,
@@ -28,11 +28,23 @@ class TriggersObject(AoE2Object):
                  variables: List[VariableObject]
                  ):
 
+        self._trigger_hash = helper.hash_list(triggers)
         self.triggers: List[TriggerObject] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
         self.variables: List[VariableObject] = variables
 
         super().__init__()
+
+    @property
+    def trigger_display_order(self):
+        if helper.list_changed(self.triggers, self._trigger_hash):
+            helper.update_order_array(self._trigger_display_order, len(self.triggers))
+            self._trigger_hash = helper.hash_list(self.triggers)
+        return self._trigger_display_order
+
+    @trigger_display_order.setter
+    def trigger_display_order(self, val):
+        self._trigger_display_order = val
 
     def copy_trigger_per_player(self,
                                 from_player,
@@ -148,7 +160,7 @@ class TriggersObject(AoE2Object):
         deepcopy_trigger.name += " (copy)"
         deepcopy_trigger.trigger_id = len(self.triggers)
         self.triggers.append(deepcopy_trigger)
-        helper.update_order_array(self.trigger_display_order, len(self.triggers))
+        # helper.update_order_array(self.trigger_display_order, len(self.triggers))
 
         return deepcopy_trigger
 
@@ -307,7 +319,6 @@ class TriggersObject(AoE2Object):
         Returns:
             The given trigger with the proper player attributes changed
         """
-
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
 
@@ -334,19 +345,37 @@ class TriggersObject(AoE2Object):
 
         return trigger
 
-    def add_trigger(self, name: str) -> TriggerObject:
+    def add_trigger(self, name, description=None, description_stid=None, display_as_objective=None,
+                    short_description=None, short_description_stid=None, display_on_screen=None, description_order=None,
+                    enabled=None, looping=None, header=None, mute_objectives=None, conditions=None,
+                    effects=None) -> TriggerObject:
         """
-        Adds a trigger.
+        Adds a new trigger to the scenario.
 
         Args:
             name (str): The name for the trigger
+            description (str): The trigger description
+            description_stid (int): The trigger description string table ID
+            display_as_objective (bool): Display the trigger as objective
+            short_description (str): The short trigger description
+            short_description_stid (int): The short trigger description string table ID
+            display_on_screen (bool): Display the trigger objective on screen
+            description_order (int): ?
+            enabled (bool): If the trigger is enabled from the start.
+            looping (bool): If the trigger loops.
+            header (bool): Turn objective into header
+            mute_objectives (bool): Mute objectives
+            conditions (List): A list of condition objects
+            effects (List): A list of effect objects
 
         Returns:
-            The newly added TriggerObject
+            The newly created trigger
+
         """
-        new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers))
+        trigger_attr = {key: locals()[key] for key in ['enabled', 'looping'] if hasattr(locals(), key)}
+        new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
-        helper.update_order_array(self.trigger_display_order, len(self.triggers))
+        # helper.update_order_array(self._trigger_display_order, len(self.triggers))
         return new_trigger
 
     def add_variable(self, name: str, variable_id: int = -1) -> VariableObject:
@@ -421,17 +450,14 @@ class TriggersObject(AoE2Object):
         trigger_index = trigger_select.trigger_index
         display_index = trigger_select.display_index
 
-        if trigger is None:
-            helper.evaluate_index_params(trigger_index, display_index, "trigger")
-        else:
+        if trigger is not None:
             trigger_index = trigger.trigger_id
-
-        if trigger_index is None:
-            trigger_index = self.trigger_display_order[display_index]
-        else:
             display_index = self.trigger_display_order.index(trigger_index)
-
-        if not trigger:
+        elif trigger_index is not None:
+            trigger = self.triggers[trigger_index]
+            display_index = self.trigger_display_order.index(trigger_index)
+        elif display_index is not None:
+            trigger_index = self.trigger_display_order[display_index]
             trigger = self.triggers[trigger_index]
 
         return trigger_index, display_index, trigger

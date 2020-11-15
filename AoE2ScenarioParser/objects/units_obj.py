@@ -10,9 +10,8 @@ from AoE2ScenarioParser.objects.unit_obj import UnitObject
 
 
 class UnitsObject(AoE2Object):
-
     _link_list = [
-        RetrieverObjectLink("units", "UnitsPiece.players_units[].units", process_as_object=UnitObject)
+        RetrieverObjectLink("units", "UnitsPiece", "players_units[].units", process_as_object=UnitObject)
     ]
 
     def __init__(self,

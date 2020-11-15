@@ -1,10 +1,15 @@
+from typing import Dict
+
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class ConditionStruct(AoE2Struct):
-    def __init__(self, parser_obj=None, data=None):
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {}
+
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("condition_type", DataType("s32")),
             Retriever("static_value_21", DataType("s32")),  # Was always: 0x10
@@ -31,10 +36,10 @@ class ConditionStruct(AoE2Struct):
             Retriever("target_player", DataType("s32")),
         ]
 
-        super().__init__("Condition", retrievers, parser_obj, data)
+        super().__init__("Condition", retrievers, parser_obj, data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'condition_type': 0,
             'static_value_21': 21,

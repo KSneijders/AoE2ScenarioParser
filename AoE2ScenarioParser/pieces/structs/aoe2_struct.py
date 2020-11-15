@@ -1,10 +1,12 @@
+from abc import ABC
+
 from AoE2ScenarioParser.helper.generator import create_generator
 from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
-class AoE2Struct(AoE2Piece):
-    def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
-        super().__init__(piece_type, retrievers, parser_obj, data)
+class AoE2Struct(AoE2Piece, ABC):
+    def __init__(self, piece_type, retrievers, parser_obj=None, data=None, pieces=None):
+        super().__init__(piece_type, retrievers, parser_obj, data, pieces)
 
         if data and parser_obj:
             gen = create_generator(data, 1)

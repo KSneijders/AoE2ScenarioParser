@@ -1,21 +1,30 @@
 import abc
 
-from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 
 
 class AoE2Piece:
-    def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
+    dependencies = {}
+
+    def __init__(self, piece_type, retrievers, parser_obj=None, data=None, pieces=None):
+        if data is not None and pieces is None:
+            raise ValueError("When creating a piece based on data, a pieces dict has to be given")
         self.piece_type = piece_type
         self.retrievers = retrievers
         self.parser = parser_obj
+
+        for retriever in retrievers:
+            if retriever.name in self.__class__.dependencies.keys():
+                for key, value in self.__class__.dependencies[retriever.name].items():
+                    setattr(retriever, key, value)
         if data:
-            self.set_data(data)
+            self.set_data(data, pieces)
 
     @staticmethod
     @abc.abstractmethod
-    def defaults():
+    def defaults(pieces):
         return {}
 
     def __getattr__(self, name):
@@ -40,24 +49,13 @@ class AoE2Piece:
             else:
                 retriever.data = value
 
-    def set_data(self, data):
-        saves = {}
-        if self.parser is not None:
-            saves = self.parser._saves
+    def set_data(self, data, pieces):
         if len(data) == len(self.retrievers):
-            for i in range(0, len(data)):
-                if self.retrievers[i].set_repeat:
-                    self.retrievers[i].datatype.repeat = parser.parse_repeat_string(
-                        saves,
-                        self.retrievers[i].set_repeat
-                    )
-
+            for i in range(len(data)):
                 self.retrievers[i].data = data[i]
 
-                if self.retrievers[i].save_as is not None:
-                    if type(data[i]) is not list:
-                        data[i] = [data[i]]
-                    saves[self.retrievers[i].save_as] = parser.vorl(data[i], self.retrievers[i])
+                if hasattr(self.retrievers[i], 'on_construct'):
+                    parser.handle_retriever_dependency(self.retrievers[i], self.retrievers, "construct", pieces)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: ({len(data)}) "
@@ -121,12 +119,12 @@ class AoE2Piece:
             for struct in listed_retriever_data:
                 if isinstance(struct, AoE2Piece):
                     if not struct_header_set:
-                        byte_structure += f"\n{'#'*27} {retriever.name} ({retriever.datatype.to_simple_string()})"
+                        byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
                         struct_header_set = True
                     byte_structure += struct.get_byte_structure_as_string()
             # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
             if struct_header_set:
-                byte_structure += f"{'#'*27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
+                byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
                 continue
 
             retriever_data_bytes = parser.retriever_to_bytes(retriever)

@@ -6,7 +6,6 @@ class OptionsObject(AoE2Object):
                  disables,
                  all_techs
                  ):
-
         self.disables = disables
         self.all_techs = all_techs
 

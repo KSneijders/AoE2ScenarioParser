@@ -1,4 +1,4 @@
-from typing import Any, List, Generator
+from typing import Any, List
 
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *
@@ -21,8 +21,10 @@ def vorl(var: Any, retriever: Retriever = None):
     if Retriever is not None:
         if retriever.set_repeat is not None or retriever.datatype.repeat != 1:
             return listify(var)
-        if retriever.on_refresh.dependency_type is DependencyAction.SET_REPEAT or retriever.datatype.repeat != 1:
-            return listify(var)
+
+        if hasattr(retriever, 'on_refresh'):
+            if retriever.on_refresh.dependency_type is DependencyAction.SET_REPEAT or retriever.datatype.repeat != 1:
+                return listify(var)
     if type(var) is list:
         if len(var) == 1:
             return var[0]
@@ -53,7 +55,7 @@ class Parser:
         if retriever.set_repeat is not None:
             retriever.datatype.repeat = parse_repeat_string(self._saves, retriever.set_repeat)
 
-        if retriever.on_construct is not None:
+        if hasattr(retriever, 'on_construct'):
             handle_retriever_dependency(retriever, retrievers, "construct", pieces)
 
         try:
@@ -246,7 +248,7 @@ def retriever_to_bytes(retriever):
                         # Should only happen when a value is not transferred from and to a struct.
                         # This is because structs are recreated on file generation. When the struct does not contain
                         # a certain value because it's use is unknown, the value isn't transferred between.
-                        struct_retriever.data = retriever.datatype.var.defaults()[struct_retriever.name]
+                        struct_retriever.data = retriever.datatype.var.defaults({})[struct_retriever.name]
                         return_bytes += retriever_to_bytes(struct_retriever)
                         continue
                     return_bytes += result

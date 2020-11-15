@@ -6,9 +6,9 @@ class TerrainObject(AoE2Object):
     """Object for handling a tile in the map."""
 
     _link_list = [
-        RetrieverObjectLink("terrain_id", "MapPiece.terrain_data[__index__].terrain_id"),
-        RetrieverObjectLink("elevation", "MapPiece.terrain_data[__index__].elevation"),
-        RetrieverObjectLink("layer", "MapPiece.terrain_data[__index__].layer"),
+        RetrieverObjectLink("terrain_id", "MapPiece", "terrain_data[__index__].terrain_id"),
+        RetrieverObjectLink("elevation", "MapPiece", "terrain_data[__index__].elevation"),
+        RetrieverObjectLink("layer", "MapPiece", "terrain_data[__index__].layer"),
     ]
 
     def __init__(self, terrain_id: int, elevation: int, layer: int):

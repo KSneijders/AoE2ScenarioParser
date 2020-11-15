@@ -1,4 +1,5 @@
 import math
+from typing import Dict
 
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
@@ -9,7 +10,43 @@ from AoE2ScenarioParser.pieces.structs.terrain import TerrainStruct
 
 
 class MapPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, parser_obj=None, data=None):
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        "villager_force_drop": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x == \'1.37\' else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "map_width": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE,
+                DependencyTarget("self", "terrain_data"),
+                DependencyEval("int(sqrt(len(x)))", {'sqrt': math.sqrt})
+            )
+        },
+        "map_height": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE,
+                DependencyTarget("self", "terrain_data"),
+                DependencyEval("int(sqrt(len(x)))", {'sqrt': math.sqrt})
+            )
+        },
+        "terrain_data": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget("self", "map_width"),
+                DependencyEval("pow(x, 2)")
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF),
+            "on_commit": RetrieverDependency(
+                DependencyAction.REFRESH, DependencyTarget(["self", "self"], ["map_width", "map_height"])
+            )
+        }
+    }
+
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever('separator_1', DataType("2")),
             Retriever('unknown_string', DataType("str16")),
@@ -17,44 +54,19 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('map_color_mood', DataType("str16")),
             Retriever('collide_and_correct', DataType("u8")),
             # [VERSION CHANGE] ADDED in 1.36 > 1.37
-            Retriever('villager_force_drop', DataType("u8"),
-                      on_refresh=RetrieverDependency(
-                          DependencyAction.SET_REPEAT,
-                          DependencyTarget('FileHeaderPiece', 'version'),
-                          DependencyEval('1 if x == \'1.37\' else 0')
-                      ),
-                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF)),
+            Retriever('villager_force_drop', DataType("u8")),
             Retriever('player_1_camera_y', DataType("s32")),
             Retriever('player_1_camera_x', DataType("s32")),
             Retriever('ai_type', DataType("s8")),
-            Retriever('map_width', DataType("s32"),
-                      on_refresh=RetrieverDependency(
-                          DependencyAction.SET_VALUE,
-                          DependencyTarget("self", "terrain_data"),
-                          DependencyEval("int(sqrt(len(x)))", {'sqrt': math.sqrt})
-                      )),
-            Retriever('map_height', DataType("s32"),
-                      on_refresh=RetrieverDependency(
-                          DependencyAction.SET_VALUE,
-                          DependencyTarget("self", "terrain_data"),
-                          DependencyEval("int(sqrt(len(x)))", {'sqrt': math.sqrt})
-                      )),
-            Retriever('terrain_data', DataType(TerrainStruct),
-                      on_refresh=RetrieverDependency(
-                          DependencyAction.SET_REPEAT,
-                          DependencyTarget("self", "map_width"),
-                          DependencyEval("pow(x, 2)")
-                      ),
-                      on_construct=RetrieverDependency(DependencyAction.REFRESH_SELF),
-                      on_commit=RetrieverDependency(
-                          DependencyAction.REFRESH, DependencyTarget(["self", "self"], ["map_width", "map_height"])
-                      ))
+            Retriever('map_width', DataType("s32")),
+            Retriever('map_height', DataType("s32")),
+            Retriever('terrain_data', DataType(TerrainStruct))
         ]
 
-        super().__init__("Map", retrievers, parser_obj, data=data)
+        super().__init__("Map", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'separator_1': b'`\n',
             'unknown_string': 'Preset_Main',
@@ -67,6 +79,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'ai_type': 1,
             'map_width': 120,
             'map_height': 120,
-            'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults().values())) for _ in range(120 * 120)],
+            'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults(pieces).values()), pieces=pieces) for _ in
+                             range(120 * 120)],
         }
         return defaults

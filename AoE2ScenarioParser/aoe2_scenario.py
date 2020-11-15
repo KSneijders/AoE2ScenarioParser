@@ -1,6 +1,8 @@
 import collections
 import time
 import zlib
+from collections import OrderedDict
+from typing import List, Type
 
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
@@ -10,6 +12,7 @@ from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
+from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -74,17 +77,21 @@ class AoE2Scenario:
         scenario.parser = parser.Parser()
         scenario._parsed_header = collections.OrderedDict()
         scenario._parsed_data = collections.OrderedDict()
+        pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
 
         for piece in _header_structure:
             piece_name = piece.__name__
             lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults().values()))
+            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()),
+                                                        pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
         for piece in _file_structure:
+            pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
             piece_name = piece.__name__
             lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults().values()))
+            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()),
+                                                      pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
         lgr.print("File creation finished successfully")
@@ -153,13 +160,12 @@ class AoE2Scenario:
         lgr = SimpleLogger(log_writing)
         lgr.print("\nFile writing from structure started...")
 
-        byte_header = b''
-        byte_data = b''
-
+        byte_header_list = []
+        byte_data_list = []
         for key in self._parsed_header:
             lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_header[key].retrievers:
-                byte_header += parser.retriever_to_bytes(retriever)
+                byte_header_list.append(parser.retriever_to_bytes(retriever))
             lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
             lgr.print()
 
@@ -167,7 +173,7 @@ class AoE2Scenario:
             lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_data[key].retrievers:
                 try:
-                    byte_data += parser.retriever_to_bytes(retriever)
+                    byte_data_list.append(parser.retriever_to_bytes(retriever))
                 except AttributeError as e:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     print("\n\n\nAn error occurred. Writing failed.")
@@ -176,13 +182,16 @@ class AoE2Scenario:
             lgr.print()
 
         file = open(filename, "wb" if write_in_bytes else "w")
-        file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
 
+        byte_header = b''.join(byte_header_list)
+        byte_data = b''.join(byte_data_list)
+
+        file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
         if compress:
             lgr.print("\tCompressing...", replace_line=True)
             # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
             deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-            compressed = deflate_obj.compress(byte_data) + deflate_obj.flush()
+            compressed = deflate_obj.compress(b''.join(byte_data_list)) + deflate_obj.flush()
             file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
             lgr.print("\tCompressing finished successfully.", replace_line=True)
             lgr.print()
@@ -288,10 +297,10 @@ class AoE2Scenario:
         lgr.print("Writing structure to file finished successfully.")
 
 
-_header_structure = [
+_header_structure: List[Type[AoE2Piece]] = [
     FileHeaderPiece
 ]
-_file_structure = [
+_file_structure: List[Type[AoE2Piece]] = [
     DataHeaderPiece,
     MessagesPiece,
     CinematicsPiece,

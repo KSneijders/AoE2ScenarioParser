@@ -5,6 +5,30 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.11 - 2020-November-15
+
+### Added
+
+- Optional arguments for `create_trigger` function (all trigger parameters except for it's internal ID)
+- Optional arguments for `add_condition` function (all condition parameters)
+- Optional arguments for `add_effect` function (all effect parameters)
+
+### Improved
+
+- Performance:
+  - Writing the file, combining strings using `str.join(list)` instead of `str += str`
+  - Reusing structs when reconstructing where possible, instead of overwriting all of them.
+  - Not initialising RetrieverDependencies for every retriever. Using references instead. 
+  - Reworked the eval functions to direct code, huge performance boost
+  - Removed unnecessary DependencyAction objects creation (From ~500.000 to ~100)
+  - Changed trigger display order, condition display order, effect display order attribute to lazy load
+
+### Fixed
+
+- The `AoE2Scenario.create_default()` function. (Incorrect defaults caused the file to corrupt)
+
+---
+
 ## 0.0.10 - 2020-November-10
 
 ### Changed

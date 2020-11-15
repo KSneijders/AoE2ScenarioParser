@@ -1,10 +1,10 @@
-from AoE2ScenarioParser.pieces import aoe2_piece
-from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class MessagesPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("instructions", DataType("u32")),
             Retriever("hints", DataType("u32")),
@@ -20,10 +20,10 @@ class MessagesPiece(aoe2_piece.AoE2Piece):
             Retriever("ascii_scouts", DataType("str16")),
         ]
 
-        super().__init__("Messages", retrievers, parser_obj, data=data)
+        super().__init__("Messages", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'instructions': 4294967294,
             'hints': 4294967294,

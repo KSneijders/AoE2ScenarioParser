@@ -1,7 +1,6 @@
 import math
 import sys
 from enum import IntEnum
-from typing import Type
 
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
@@ -104,6 +103,19 @@ def pretty_print_name(name: str) -> str:
         T-West (https://github.com/twestura/)
     """
     return ' '.join(s[0].upper() + s[1:] for s in name.split('_'))
+
+
+""" =============================================================
+============================= HASH ==============================
+=============================================================="""
+
+
+def hash_list(lst: list):
+    return hash(tuple(lst))
+
+
+def list_changed(lst, lst_hash):
+    return lst_hash != hash(tuple(lst))
 
 
 """ =============================================================

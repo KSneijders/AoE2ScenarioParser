@@ -15,7 +15,6 @@ class PlayerObject(AoE2Object):
                  starting_age,
                  pop_limit
                  ):
-
         self.player_number = player_number
         self.active = active
         self.human = human
