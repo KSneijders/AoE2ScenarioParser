@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## [Unreleased]
+## 0.0.11 - 2020-November-15
 
 ### Added
 
