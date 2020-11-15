@@ -21,6 +21,11 @@ The format is based on [Keep a Changelog]
   - Not initialising RetrieverDependencies for every retriever. Using references instead. 
   - Reworked the eval functions to direct code, huge performance boost
   - Removed unnecessary DependencyAction objects creation (From ~500.000 to ~100)
+  - Changed trigger display order attribute to lazy load
+
+### Fixed
+
+- The `AoE2Scenario.create_default()` function. (Incorrect defaults caused the file to corrupt)
 
 ---
 
