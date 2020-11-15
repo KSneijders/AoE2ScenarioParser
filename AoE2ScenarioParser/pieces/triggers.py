@@ -49,7 +49,7 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("trigger_version", DataType("f64")),
             Retriever("trigger_instruction_start", DataType("s8")),
@@ -61,10 +61,10 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("variable_data", DataType(VariableStruct)),
         ]
 
-        super().__init__("Triggers", retrievers, parser_obj, data=data)
+        super().__init__("Triggers", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'trigger_version': 2.2,
             'trigger_instruction_start': 0,

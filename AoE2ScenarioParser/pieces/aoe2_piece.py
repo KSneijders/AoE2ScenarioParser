@@ -8,21 +8,23 @@ from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 class AoE2Piece:
     dependencies = {}
 
-    def __init__(self, piece_type, retrievers, parser_obj=None, data=None):
+    def __init__(self, piece_type, retrievers, parser_obj=None, data=None, pieces=None):
+        if data is not None and pieces is None:
+            raise ValueError("When creating a piece based on data, a pieces dict has to be given")
         self.piece_type = piece_type
         self.retrievers = retrievers
         self.parser = parser_obj
-        if data:
-            self.set_data(data)
 
         for retriever in retrievers:
             if retriever.name in self.__class__.dependencies.keys():
                 for key, value in self.__class__.dependencies[retriever.name].items():
                     setattr(retriever, key, value)
+        if data:
+            self.set_data(data, pieces)
 
     @staticmethod
     @abc.abstractmethod
-    def defaults():
+    def defaults(pieces):
         return {}
 
     def __getattr__(self, name):
@@ -47,10 +49,13 @@ class AoE2Piece:
             else:
                 retriever.data = value
 
-    def set_data(self, data):
+    def set_data(self, data, pieces):
         if len(data) == len(self.retrievers):
-            for i in range(0, len(data)):
+            for i in range(len(data)):
                 self.retrievers[i].data = data[i]
+
+                if hasattr(self.retrievers[i], 'on_construct'):
+                    parser.handle_retriever_dependency(self.retrievers[i], self.retrievers, "construct", pieces)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: ({len(data)}) "

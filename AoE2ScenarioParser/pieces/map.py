@@ -46,7 +46,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
         }
     }
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever('separator_1', DataType("2")),
             Retriever('unknown_string', DataType("str16")),
@@ -54,19 +54,19 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('map_color_mood', DataType("str16")),
             Retriever('collide_and_correct', DataType("u8")),
             # [VERSION CHANGE] ADDED in 1.36 > 1.37
-            Retriever('villager_force_drop', DataType("u8"), ),
+            Retriever('villager_force_drop', DataType("u8")),
             Retriever('player_1_camera_y', DataType("s32")),
             Retriever('player_1_camera_x', DataType("s32")),
             Retriever('ai_type', DataType("s8")),
-            Retriever('map_width', DataType("s32"), ),
-            Retriever('map_height', DataType("s32"), ),
-            Retriever('terrain_data', DataType(TerrainStruct), )
+            Retriever('map_width', DataType("s32")),
+            Retriever('map_height', DataType("s32")),
+            Retriever('terrain_data', DataType(TerrainStruct))
         ]
 
-        super().__init__("Map", retrievers, parser_obj, data=data)
+        super().__init__("Map", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'separator_1': b'`\n',
             'unknown_string': 'Preset_Main',
@@ -79,6 +79,6 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'ai_type': 1,
             'map_width': 120,
             'map_height': 120,
-            'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults().values())) for _ in range(120 * 120)],
+            'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults(pieces).values()), pieces=pieces) for _ in range(120 * 120)],
         }
         return defaults

@@ -2,6 +2,9 @@ import collections
 import time
 import zlib
 
+from collections import OrderedDict
+from typing import List, Type
+
 from AoE2ScenarioParser.helper import generator
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
@@ -10,6 +13,7 @@ from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
+from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -74,17 +78,19 @@ class AoE2Scenario:
         scenario.parser = parser.Parser()
         scenario._parsed_header = collections.OrderedDict()
         scenario._parsed_data = collections.OrderedDict()
+        pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
 
         for piece in _header_structure:
             piece_name = piece.__name__
             lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults().values()))
+            scenario._parsed_header[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()), pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
         for piece in _file_structure:
+            pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
             piece_name = piece.__name__
             lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults().values()))
+            scenario._parsed_data[piece_name] = piece(scenario.parser, data=list(piece.defaults(pieces).values()), pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
         lgr.print("File creation finished successfully")
@@ -290,10 +296,10 @@ class AoE2Scenario:
         lgr.print("Writing structure to file finished successfully.")
 
 
-_header_structure = [
+_header_structure: List[Type[AoE2Piece]] = [
     FileHeaderPiece
 ]
-_file_structure = [
+_file_structure: List[Type[AoE2Piece]] = [
     DataHeaderPiece,
     MessagesPiece,
     CinematicsPiece,

@@ -4,7 +4,7 @@ from AoE2ScenarioParser.helper.retriever import Retriever
 
 
 class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("separator", DataType("u32")),
             Retriever("conquest_required", DataType("u32")),
@@ -19,10 +19,10 @@ class GlobalVictoryPiece(aoe2_piece.AoE2Piece):
             Retriever("time_for_timed_game_in_10ths_of_a_year", DataType("u32")),
         ]
 
-        super().__init__("Global Victory", retrievers, parser_obj, data=data)
+        super().__init__("Global Victory", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'separator': 4294967197,
             'conquest_required': 1,

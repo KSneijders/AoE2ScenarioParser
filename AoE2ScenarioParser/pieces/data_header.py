@@ -24,7 +24,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("next_unit_id_to_place", DataType("u32")),
             Retriever("version", DataType("f32")),
@@ -40,16 +40,16 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("filename", DataType("str16")),
         ]
 
-        super().__init__("Data Header", retrievers, parser_obj, data=data)
+        super().__init__("Data Header", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'next_unit_id_to_place': 0,
             'version': 1.3700000047683716,
             'player_names': ['\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
-            'player_data_1': DataHeaderPiece._get_player_data_1_default(),
+            'player_data_1': DataHeaderPiece._get_player_data_1_default(pieces),
             'conquest_mode': 0,
             'mission_items_counter': 0,
             'mission_available': 0,
@@ -63,11 +63,11 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
         return defaults
 
     @staticmethod
-    def _get_player_data_1_default():
+    def _get_player_data_1_default(pieces):
         # active, human, civilization, cty_mode
-        data = [list(PlayerDataOneStruct.defaults().values()) for _ in range(2)]
+        data = [list(PlayerDataOneStruct.defaults(pieces).values()) for _ in range(2)]
         data[0][0] = 1  # P1 Active
         data[0][1] = 1  # P1 Human
         data[1][0] = 1  # P2 Active
-        data += [list(PlayerDataOneStruct.defaults().values()) for _ in range(14)]
-        return [PlayerDataOneStruct(data=x) for x in data]
+        data += [list(PlayerDataOneStruct.defaults(pieces).values()) for _ in range(14)]
+        return [PlayerDataOneStruct(data=x, pieces=pieces) for x in data]

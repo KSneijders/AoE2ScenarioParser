@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class PlayerDataOneStruct(AoE2Struct):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("active", DataType("u32")),
             Retriever("human", DataType("u32")),
@@ -12,10 +12,10 @@ class PlayerDataOneStruct(AoE2Struct):
             Retriever("cty_mode", DataType("u32"))
         ]
 
-        super().__init__("Player Data #1", retrievers, parser_obj, data)
+        super().__init__("Player Data #1", retrievers, parser_obj, data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         # This default is adjusted in DataHeaderPiece:
         # - P1 (Active: 1, Human: 1)
         # - P2 (Active: 1)

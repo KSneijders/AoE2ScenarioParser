@@ -36,7 +36,7 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {}
     _fill_dependencies(dependencies)
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = []
         for disabled_type in ["tech", "building", "unit"]:
             retrievers.append(Retriever(f"per_player_number_of_disabled_{disabled_type}s", DataType("u32", repeat=16)))
@@ -53,10 +53,10 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
             # 2: Dark 6 = Post | 1-8 players 9 GAIA
             Retriever("unknown", DataType("36")),
         ]
-        super().__init__("Options", retrievers, parser_obj, data=data)
+        super().__init__("Options", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {}
         for disabled_type in ["tech", "building", "unit"]:
             defaults[f'per_player_number_of_disabled_{disabled_type}s'] = [0] * 16

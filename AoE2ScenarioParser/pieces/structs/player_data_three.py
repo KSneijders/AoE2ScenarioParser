@@ -60,7 +60,7 @@ class PlayerDataThreeStruct(AoE2Struct):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("constant_name", DataType("str16")),
             Retriever("initial_camera_x", DataType("f32")),
@@ -83,10 +83,10 @@ class PlayerDataThreeStruct(AoE2Struct):
             Retriever("unknown_4", DataType("s32")),
         ]
 
-        super().__init__("Player Data #3", retrievers, parser_obj, data)
+        super().__init__("Player Data #3", retrievers, parser_obj, data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'constant_name': 'Scenario Editor Phantom',
             'initial_camera_x': 60.0,

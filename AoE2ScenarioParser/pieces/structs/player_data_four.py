@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class PlayerDataFourStruct(AoE2Struct):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("food_duplicate", DataType("f32")),
             Retriever("wood_duplicate", DataType("f32")),
@@ -15,10 +15,10 @@ class PlayerDataFourStruct(AoE2Struct):
             Retriever("population_limit", DataType("f32")),
         ]
 
-        super().__init__("Player Data #4", retrievers, parser_obj, data)
+        super().__init__("Player Data #4", retrievers, parser_obj, data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'food_duplicate': 0.0,
             'wood_duplicate': 0.0,

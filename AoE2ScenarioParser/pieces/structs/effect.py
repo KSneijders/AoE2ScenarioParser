@@ -59,7 +59,7 @@ class EffectStruct(AoE2Struct):
         }
     }
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("effect_type", DataType("s32")),
             Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x2e (46)?
@@ -116,10 +116,10 @@ class EffectStruct(AoE2Struct):
             Retriever("selected_object_ids", DataType("s32"))
         ]
 
-        super().__init__("Effect", retrievers, parser_obj, data)
+        super().__init__("Effect", retrievers, parser_obj, data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'effect_type': 0,
             'static_value_46': 46,

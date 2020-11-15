@@ -4,7 +4,7 @@ from AoE2ScenarioParser.helper.datatype import DataType
 
 
 class BackgroundImagePiece(aoe2_piece.AoE2Piece):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("ascii_filename", DataType("str16")),
             Retriever("picture_version", DataType("u32")),
@@ -14,10 +14,10 @@ class BackgroundImagePiece(aoe2_piece.AoE2Piece):
             # Retriever("BITMAPINFOHEADER", DataType("u32")),
         ]
 
-        super().__init__("Background Image", retrievers, parser_obj, data=data)
+        super().__init__("Background Image", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'ascii_filename': '',
             'picture_version': 3,

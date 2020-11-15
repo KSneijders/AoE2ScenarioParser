@@ -248,7 +248,7 @@ def retriever_to_bytes(retriever):
                         # Should only happen when a value is not transferred from and to a struct.
                         # This is because structs are recreated on file generation. When the struct does not contain
                         # a certain value because it's use is unknown, the value isn't transferred between.
-                        struct_retriever.data = retriever.datatype.var.defaults()[struct_retriever.name]
+                        struct_retriever.data = retriever.datatype.var.defaults({})[struct_retriever.name]
                         return_bytes += retriever_to_bytes(struct_retriever)
                         continue
                     return_bytes += result

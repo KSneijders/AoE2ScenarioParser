@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class ResourcesStruct(AoE2Struct):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("gold", DataType("u32")),
             Retriever("wood", DataType("u32")),
@@ -15,10 +15,10 @@ class ResourcesStruct(AoE2Struct):
             Retriever("player_color", DataType("u32"))
         ]
 
-        super().__init__("Resources", retrievers, parser_obj, data)
+        super().__init__("Resources", retrievers, parser_obj, data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'gold': 0,
             'wood': 0,

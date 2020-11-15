@@ -6,7 +6,7 @@ from AoE2ScenarioParser.pieces.structs.resources import ResourcesStruct
 
 
 class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("strings", DataType("str16", repeat=32)),
             Retriever("ai_names", DataType("str16", repeat=16)),
@@ -16,16 +16,16 @@ class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
             Retriever("resources", DataType(ResourcesStruct, repeat=16))
         ]
 
-        super().__init__("Player Data #2", retrievers, parser_obj, data=data)
+        super().__init__("Player Data #2", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'strings': [''] * 32,
             'ai_names': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-            'ai_files': [AIStruct(data=list(AIStruct.defaults().values())) for _ in range(16)],
+            'ai_files': [AIStruct(data=list(AIStruct.defaults(pieces).values()), pieces=pieces) for _ in range(16)],
             'ai_type': [1] * 16,
             'separator': 4294967197,
-            'resources': [ResourcesStruct(data=list(ResourcesStruct.defaults().values())) for x in range(16)],
+            'resources': [ResourcesStruct(data=list(ResourcesStruct.defaults(pieces).values()), pieces=pieces) for _ in range(16)],
         }
         return defaults

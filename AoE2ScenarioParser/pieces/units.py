@@ -31,7 +31,7 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
         }
     }
 
-    def __init__(self, parser_obj=None, data=None):
+    def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("number_of_unit_sections", DataType("u32")),
             Retriever("player_data_4", DataType(PlayerDataFourStruct, repeat=8)),
@@ -40,19 +40,16 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
             Retriever("players_units", DataType(PlayerUnitsStruct)),
         ]
 
-        super().__init__("Units", retrievers, parser_obj, data=data)
+        super().__init__("Units", retrievers, parser_obj, data=data, pieces=pieces)
 
     @staticmethod
-    def defaults():
+    def defaults(pieces):
         defaults = {
             'number_of_unit_sections': 9,
-            'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0]) for _ in range(8)],
+            'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0], pieces=pieces) for _ in range(8)],
             'number_of_players': 9,
-            'player_data_3': UnitsPiece._get_player_data_3_default(),
-            'players_units': [PlayerUnitsStruct(data=[0, []]) for _ in range(9)],
+            'player_data_3': [PlayerDataThreeStruct(data=list(PlayerDataThreeStruct.defaults(pieces).values()), pieces=pieces) for _ in range(8)],
+            'players_units': [PlayerUnitsStruct(data=[0, []], pieces=pieces) for _ in range(9)],
         }
         return defaults
 
-    @staticmethod
-    def _get_player_data_3_default():
-        return [PlayerDataThreeStruct(data=list(PlayerDataThreeStruct.defaults().values())) for _ in range(8)]
