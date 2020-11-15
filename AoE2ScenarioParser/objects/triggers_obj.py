@@ -346,17 +346,32 @@ class TriggersObject(AoE2Object):
 
         return trigger
 
-    def add_trigger(self, name, enabled=None, looping=None) -> TriggerObject:
+    def add_trigger(self, name, description=None, description_stid=None, display_as_objective=None,
+                    short_description=None, short_description_stid=None, display_on_screen=None, description_order=None,
+                    enabled=None, looping=None, header=None, mute_objectives=None, conditions=None,
+                    effects=None) -> TriggerObject:
         """
         Adds a new trigger to the scenario.
 
         Args:
             name (str): The name for the trigger
+            description (str): The trigger description
+            description_stid (int): The trigger description string table ID
+            display_as_objective (bool): Display the trigger as objective
+            short_description (str): The short trigger description
+            short_description_stid (int): The short trigger description string table ID
+            display_on_screen (bool): Display the trigger objective on screen
+            description_order (int): ?
             enabled (bool): If the trigger is enabled from the start.
             looping (bool): If the trigger loops.
+            header (bool): Turn objective into header
+            mute_objectives (bool): Mute objectives
+            conditions (List): A list of condition objects
+            effects (List): A list of effect objects
 
         Returns:
             The newly created trigger
+
         """
         trigger_attr = {key: locals()[key] for key in ['enabled', 'looping'] if hasattr(locals(), key)}
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers), **trigger_attr)
