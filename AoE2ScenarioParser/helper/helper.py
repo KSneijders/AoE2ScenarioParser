@@ -116,7 +116,7 @@ def hash_list(lst: list):
 
 
 def list_changed(lst, lst_hash):
-    return lst_hash == hash(tuple(lst))
+    return lst_hash != hash(tuple(lst))
 
 
 """ =============================================================
