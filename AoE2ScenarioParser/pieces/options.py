@@ -62,7 +62,7 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
             defaults[f'per_player_number_of_disabled_{disabled_type}s'] = [0] * 16
             for player in range(1, 9):
                 defaults[f'disabled_{disabled_type}_ids_player_{player}'] = []
-            defaults[f'disabled_{disabled_type}_ids_player9-16'] = [0] * 8
+            defaults[f'disabled_{disabled_type}_ids_player9-16'] = []
 
         defaults = dict(**defaults, **{
             'combat_mode': 0,

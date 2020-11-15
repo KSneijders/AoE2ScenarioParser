@@ -101,7 +101,7 @@ class PlayerDataThreeStruct(AoE2Struct):
             'victory_version': 2.0,
             'unknown': 0,
             'unknown_2': [0, 0, 0, 0, 0, 0, 0],
-            'unknown_5': 0,
+            'unknown_5': [0],
             'unknown_structure_grand_theft_empires': [],
             'unknown_3': [0, 0, 0, 0, 0, 0, 0],
             'unknown_structure_ww_campaign_2': [],
