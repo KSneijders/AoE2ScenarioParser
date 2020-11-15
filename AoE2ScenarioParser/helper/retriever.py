@@ -31,6 +31,9 @@ class Retriever:
         """
         self.name: str = name
         self.datatype: DataType = datatype
+        if log_value:
+            self.datatype.log_value = True
+        self.datatype._debug_retriever_name = name
         self.save_as = save_as
         self.set_repeat = set_repeat
         self.log_value = log_value
