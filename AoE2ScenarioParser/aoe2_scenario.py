@@ -45,6 +45,7 @@ class AoE2Scenario:
         self._file_header = None
         self._file_data = None
         self._file = None
+        self._object_manager = None
 
     @classmethod
     def from_file(cls, filename, log_reading=True, log_parsing=False):

@@ -46,8 +46,6 @@ class Parser:
     def retrieve_value(self, generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
         if (pieces is None or retrievers is None) and not as_length:
             raise ValueError("Normal retrieval of length requires pieces parameter.")
-        if (pieces is not None and retrievers is None) or (pieces is None and retrievers is not None):
-            raise ValueError("The retrievers and pieces parameters always need to be used simultaneously")
         length = 0
         result = list()
         var_type, var_len = datatype_to_type_length(retriever.datatype.var)
@@ -96,12 +94,12 @@ class Parser:
                     break
                 result.append(val)
         except Exception as e:
-            return result, e
+            return vorl(result, retriever), None if not as_length else length, e
 
         if retriever.save_as is not None:
             self.add_to_saves(retriever.save_as, vorl(result, retriever))
 
-        return (vorl(result, retriever) if not as_length else length), None
+        return vorl(result, retriever), None if not as_length else length, None
 
     def add_to_saves(self, name, value):
         self._saves[name] = value
@@ -183,8 +181,9 @@ def calculate_length(generator, retriever_list):
     total_length = 0
 
     for retriever in retriever_list:
-        result, status = parser.retrieve_value(generator, retriever, as_length=True)
-        total_length += result
+        result, length, status = parser.retrieve_value(generator, retriever, retriever_list, as_length=True)
+        retriever.data = result
+        total_length += length
 
     return total_length
 
