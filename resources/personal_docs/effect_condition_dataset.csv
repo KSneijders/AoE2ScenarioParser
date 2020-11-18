@@ -18,18 +18,26 @@ ID,Effect name (in game),Effect name as var,Condition name (in game),Condition n
 16,Change View,change_view,Object Not Visible,object_not_visible,,,
 17,Unload,unload,Researching Tech,researching_tech,,,
 18,Change Ownership,change_ownership,Units Garrisoned,units_garrisoned,,,
-19,Patrol,patrol,,,,,
+19,Patrol,patrol,Difficulty Level,difficulty_level,,,
 20,Display Instructions,display_instructions,Chance,chance,,,
 21,Clear Instructions,clear_instructions,Technology State,technology_state,,,
 22,Freeze Object,freeze_object,Variable Value,variable_value,,,
 23,Use Advanced Buttons,use_advanced_buttons,Object HP,object_hp,,,
 24,Damage Object,damage_object,Diplomacy State,diplomacy_state,,,
-25,Place Foundation,place_foundation,,,,,
-26,Change Object Name,change_object_name,,,,,
-27,Change Object HP,change_object_hp,,,,,
-28,Change Object Attack,change_object_attack,,,,,
-29,Stop Object,stop_object,,,,,
-30,Attack Move,attack_move,,,,,
+25,Place Foundation,place_foundation,Script Call,xs_function,,,
+26,Change Object Name,change_object_name,Object Visible (Multiplayer),"unit_object
+source_player
+inverted",,,
+27,Change Object HP,change_object_hp,Object Selected (Multiplayer),"unit_object
+source_player
+inverted",,,
+28,Change Object Attack,change_object_attack,Object has Action,"unit_object
+next_object
+inverted
+unit_ai_action",,,
+29,Stop Object,stop_object,OR,-,,,
+30,Attack Move,attack_move,Multiplayer AI Signal,"ai_signal
+inverted",,,
 31,Change Object Armor,change_object_armor,,,,,
 32,Change Object Range,change_object_range,,,,,
 33,Change Object Speed,change_object_speed,,,,,
@@ -53,7 +61,98 @@ ID,Effect name (in game),Effect name as var,Condition name (in game),Condition n
 51,Modify Attribute,modify_attribute,,,,,
 52,Modify Resource,modify_resource,,,,,
 53,Modify Resource By Variable,modify_resource_by_variable,,,,,
-54,,,,,,,
-55,,,,,,,
+54,Set Building Gather Point,"number_of_units_selected
+object_list_unit_id
+source_player
+location_x
+location_y
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+55,Script Call,"number_of_units_selected
+string_id
+xs_function",,,,,
 56,Change Variable,change_variable,,,,,
 57,Clear Timer,clear_timer,,,,, 
+58,Change Object Player Color,"number_of_units_selected
+object_list_unit_id
+source_player
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+59,Change Object Civilization Name,"number_of_units_selected
+string_id
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+60,Change Object Player Name,"number_of_units_selected
+object_list_unit_id
+source_player
+string_id
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+61,Disable Unit Targeting,"number_of_units_selected
+object_list_unit_id
+source_player
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+62,Enable Unit Targeting,"number_of_units_selected
+object_list_unit_id
+source_player
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+63,Change Technology Cost,"source_player
+technology
+food
+wood
+stone
+gold",,,,,
+64,Change Technology Research Time,"quantity
+source_player
+technology",,,,,
+65,Change Technology Name,"source_player
+technology
+string_id
+name_or_func",,,,,
+66,Change Technology Description,"source_player
+technology
+string_id
+name_or_func",,,,,
+67,Enable Technology Stacking,"number_of_units_selected
+source_player
+technology",,,,,
+68,Disable Technology Stacking,"number_of_units_selected
+source_player
+technology",,,,,
+69,Acknowledge Multiplayer AI Signal,ai_signal_value,,,,,
+70,Disable Object Selection,"number_of_units_selected
+object_list_unit_id
+source_player
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
+71,Enable Object Selection,"number_of_units_selected
+object_list_unit_id
+source_player
+area_1_x
+area_1_y
+area_2_x
+area_2_y
+selected_object_ids",,,,,
