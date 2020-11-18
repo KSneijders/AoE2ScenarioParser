@@ -89,10 +89,10 @@ class PlayerDataThreeStruct(AoE2Struct):
     def defaults(pieces):
         defaults = {
             'constant_name': 'Scenario Editor Phantom',
-            'initial_camera_x': 60.0,
-            'initial_camera_y': 60.0,
-            'unknown_similar_to_camera_x': 95,
-            'unknown_similar_to_camera_y': 87,
+            'initial_camera_x': 72.0,
+            'initial_camera_y': 72.0,
+            'unknown_similar_to_camera_x': 72,
+            'unknown_similar_to_camera_y': 72,
             'aok_allied_victory': 0,
             'player_count_for_diplomacy': 9,
             'diplomacy_for_interaction': [3, 0, 3, 3, 3, 3, 3, 3, 3],

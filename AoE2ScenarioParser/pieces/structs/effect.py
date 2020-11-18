@@ -57,22 +57,22 @@ class EffectStruct(AoE2Struct):
                 DependencyTarget("self", "number_of_units_selected")
             )
         },
-        "unknown_4": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
-        "name_or_func": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
+        # "unknown_4": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
+        # "name_or_func": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):

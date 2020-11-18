@@ -22,7 +22,7 @@ class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
     def defaults(pieces):
         defaults = {
             'strings': [''] * 32,
-            'ai_names': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            'ai_names': [''] * 16,
             'ai_files': [AIStruct(data=list(AIStruct.defaults(pieces).values()), pieces=pieces) for _ in range(16)],
             'ai_type': [1] * 16,
             'separator': 4294967197,

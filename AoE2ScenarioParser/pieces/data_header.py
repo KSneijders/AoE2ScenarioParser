@@ -43,7 +43,6 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("mission_timeline", DataType("f32")),
             Retriever("mission_item", DataType("30")),
             Retriever("unknown", DataType("64")),
-            Retriever("unknown2", DataType("64")),
             Retriever("filename", DataType("str16")),
         ]
 
@@ -53,7 +52,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
     def defaults(pieces):
         defaults = {
             'next_unit_id_to_place': 0,
-            'version': 1.3700000047683716,
+            'version': 1.399999976158142,
             'player_names': ['\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
             'player_data_1': DataHeaderPiece._get_player_data_1_default(pieces),

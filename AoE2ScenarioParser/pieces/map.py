@@ -19,22 +19,22 @@ class MapPiece(aoe2_piece.AoE2Piece):
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         },
-        "script_name": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
-        "unknown": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
+        # "script_name": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
+        # "unknown": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
         "map_width": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_VALUE,
@@ -89,14 +89,21 @@ class MapPiece(aoe2_piece.AoE2Piece):
     def defaults(pieces):
         defaults = {
             'separator_1': b'`\n',
-            'unknown_string': 'Preset_Main',
+            'unknown_string': '',
             'separator_2': b'`\n',
-            'map_color_mood': 'Empty',
-            'collide_and_correct': 0,
-            'villager_force_drop': [0],
+            'map_color_mood': '',
+            'collide_and_correct': 96,
+            'villager_force_drop': [10],
+            'script_name': "",
+            'unknown': b'\x00\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+                       b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+                       b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+                       b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+                       b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+                       b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff',
             'player_1_camera_y': -559026163,
             'player_1_camera_x': 2,
-            'ai_type': 1,
+            'ai_type': 0,
             'map_width': 120,
             'map_height': 120,
             'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults(pieces).values()), pieces=pieces) for _ in

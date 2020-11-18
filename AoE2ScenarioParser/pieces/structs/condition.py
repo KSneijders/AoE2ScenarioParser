@@ -9,30 +9,30 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 class ConditionStruct(AoE2Struct):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
-        "unit_ai_action": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
-        "unknown_4": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
-        "xs_function": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.40\'] else 0')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        },
+        # "unit_ai_action": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
+        # "unknown_4": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
+        # "xs_function": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -60,8 +60,11 @@ class ConditionStruct(AoE2Struct):
             Retriever("variable", DataType("s32")),  # Number == VariableX
             Retriever("comparison", DataType("s32")),  # 0: ==, 1: <, 2: >, 3: <=, 4 >=
             Retriever("target_player", DataType("s32")),
+            # Todo: Mark as 1.40 feature
             Retriever("unit_ai_action", DataType("s32")),
+            # Todo: Mark as 1.40 feature
             Retriever("unknown_4", DataType("s32")),
+            # Todo: Mark as 1.40 feature
             Retriever("xs_function", DataType("str32")),
         ]
 
@@ -71,7 +74,7 @@ class ConditionStruct(AoE2Struct):
     def defaults(pieces):
         defaults = {
             'condition_type': 0,
-            'static_value_21': 21,
+            'static_value_21': 23,
             'amount_or_quantity': -1,
             'resource_type_or_tribute_list': -1,
             'unit_object': -1,
@@ -93,5 +96,8 @@ class ConditionStruct(AoE2Struct):
             'variable': -1,
             'comparison': -1,
             'target_player': -1,
+            'unit_ai_action': -1,
+            'unknown_4': -1,
+            'xs_function': "",
         }
         return defaults

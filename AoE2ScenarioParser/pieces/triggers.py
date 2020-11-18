@@ -66,7 +66,7 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
     @staticmethod
     def defaults(pieces):
         defaults = {
-            'trigger_version': 2.2,
+            'trigger_version': 2.4,
             'trigger_instruction_start': 0,
             'number_of_triggers': 0,
             'trigger_data': [],

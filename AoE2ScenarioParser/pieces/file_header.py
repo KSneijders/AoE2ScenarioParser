@@ -10,14 +10,14 @@ from AoE2ScenarioParser.pieces import aoe2_piece
 
 class FileHeaderPiece(aoe2_piece.AoE2Piece):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
-        "individual_victories_used": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT,
-                DependencyTarget('self', 'version'),
-                DependencyEval('0 if x == \'1.40\' else 1')
-            ),
-            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        }
+        # "individual_victories_used": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('self', 'version'),
+        #         DependencyEval('0 if x == \'1.40\' else 1')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # }
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -27,7 +27,7 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("savable", DataType("s32")),
             Retriever("timestamp_of_last_save", DataType("u32")),
             Retriever("scenario_instructions", DataType("str32")),
-            Retriever("individual_victories_used", DataType("u32")),
+            # Retriever("individual_victories_used", DataType("u32")),
             Retriever("player_count", DataType("u32")),
             Retriever("data", DataType("36")),
             Retriever("creator_name", DataType("str32")),
@@ -39,12 +39,12 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
     @staticmethod
     def defaults(pieces):
         defaults = {
-            'version': '1.37',
+            'version': '1.40',
             'header_length': 0,
-            'savable': 5,
+            'savable': 6,
             'timestamp_of_last_save': int(time.time()),
             'scenario_instructions': '',
-            'individual_victories_used': 0,
+            # 'individual_victories_used': 0,
             'player_count': 2,
             'data': b'\xe8\x03\x00\x00\x01\x00\x00\x00\x06\x00\x00\x00\x02\x00\x00\x00\x03\x00\x00\x00\x04\x00\x00'
                     b'\x00\x05\x00\x00\x00\x06\x00\x00\x00\x07\x00\x00\x00',
