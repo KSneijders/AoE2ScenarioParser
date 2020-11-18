@@ -56,7 +56,23 @@ class EffectStruct(AoE2Struct):
                 DependencyAction.REFRESH,
                 DependencyTarget("self", "number_of_units_selected")
             )
-        }
+        },
+        "unknown_4": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "name_or_func": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -111,9 +127,11 @@ class EffectStruct(AoE2Struct):
             Retriever("facet", DataType("s32")),
             Retriever("location_object_reference", DataType("s32")),
             Retriever("play_sound", DataType("s32")),
+            Retriever("unknown_4", DataType("s32")),
             Retriever("message", DataType("str32")),
+            Retriever("name_or_func", DataType("str32")),
             Retriever("sound_name", DataType("str32")),
-            Retriever("selected_object_ids", DataType("s32"))
+            Retriever("selected_object_ids", DataType("s32")),
         ]
 
         super().__init__("Effect", retrievers, parser_obj, data, pieces=pieces)

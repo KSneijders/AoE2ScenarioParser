@@ -2,12 +2,38 @@ from typing import Dict
 
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
+    DependencyEval
 from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class ConditionStruct(AoE2Struct):
-    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {}
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        "unit_ai_action": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "unknown_4": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "xs_function": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+    }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
@@ -34,6 +60,9 @@ class ConditionStruct(AoE2Struct):
             Retriever("variable", DataType("s32")),  # Number == VariableX
             Retriever("comparison", DataType("s32")),  # 0: ==, 1: <, 2: >, 3: <=, 4 >=
             Retriever("target_player", DataType("s32")),
+            Retriever("unit_ai_action", DataType("s32")),
+            Retriever("unknown_4", DataType("s32")),
+            Retriever("xs_function", DataType("str32")),
         ]
 
         super().__init__("Condition", retrievers, parser_obj, data, pieces=pieces)

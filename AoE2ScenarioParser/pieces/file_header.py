@@ -1,11 +1,25 @@
 import time
+from typing import Dict
 
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
+    DependencyEval
 from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class FileHeaderPiece(aoe2_piece.AoE2Piece):
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        "individual_victories_used": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('self', 'version'),
+                DependencyEval('0 if x == \'1.40\' else 1')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        }
+    }
+
     def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("version", DataType("c4"), save_as="scenario_version"),

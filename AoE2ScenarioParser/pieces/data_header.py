@@ -22,6 +22,12 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             "on_commit": RetrieverDependency(
                 DependencyAction.REFRESH, DependencyTarget("self", "mission_items_counter"))
         },
+        "unknown2": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT, DependencyTarget("FileHeaderPiece", "version"),
+                DependencyEval("1 if x == '1.40' else 0")),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -37,6 +43,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("mission_timeline", DataType("f32")),
             Retriever("mission_item", DataType("30")),
             Retriever("unknown", DataType("64")),
+            Retriever("unknown2", DataType("64")),
             Retriever("filename", DataType("str16")),
         ]
 

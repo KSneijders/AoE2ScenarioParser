@@ -15,7 +15,23 @@ class MapPiece(aoe2_piece.AoE2Piece):
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT,
                 DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x == \'1.37\' else 0')
+                DependencyEval('1 if x in [\'1.37\', \'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "script_name": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "unknown": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.40\'] else 0')
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         },
@@ -55,6 +71,10 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('collide_and_correct', DataType("u8")),
             # [VERSION CHANGE] ADDED in 1.36 > 1.37
             Retriever('villager_force_drop', DataType("u8")),
+            # [VERSION CHANGE] ADDED in 1.37 > 1.40
+            Retriever('script_name', DataType("str16")),
+            # [VERSION CHANGE] ADDED in 1.37 > 1.40
+            Retriever('unknown', DataType("130")),
             Retriever('player_1_camera_y', DataType("s32")),
             Retriever('player_1_camera_x', DataType("s32")),
             Retriever('ai_type', DataType("s8")),
