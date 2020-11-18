@@ -219,7 +219,7 @@ class EffectObject(AoE2Object):
         for attribute in attributes_list:
             attr = getattr(self, attribute)
             if self.effect_type != 58:
-                if attribute == "effect_type" or attr == [] or attr == "" or attr == " " or attr == -1:
+                if attribute == "effect_type" or attr in [[], [-1], "", " ", -1]:
                     continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 
