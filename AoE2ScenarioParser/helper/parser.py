@@ -1,3 +1,4 @@
+import time
 from typing import Any, List
 
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
@@ -98,6 +99,32 @@ class Parser:
 
         if retriever.save_as is not None:
             self.add_to_saves(retriever.save_as, vorl(result, retriever))
+
+        # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
+        if retriever.name == "version" and retriever.datatype.var == "c4":
+            version = vorl(result, retriever)
+            if version != "1.40":
+                print("\n\n")
+                print('\n'.join([
+                    "#### SORRY FOR THE INCONVENIENCE ####",
+                    "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
+                    "supported at this time.",
+                    f"Your current version is: '{version}'. The currently only supported version is: '1.40'.",
+                    "The reason for this is a huge rework for version support.",
+                    "This rework will take some time to complete, so until then, please upgrade your scenario to the "
+                    "newest version. You can do this by saving it again in the in-game editor.",
+                    "If you do not want to upgrade the scenarios, please downgrade this library to version 0.0.11. You "
+                    "can do so by executing the following command in cmd:",
+                    "",
+                    ">>> pip install --force-reinstall AoE2ScenarioParser==0.0.11",
+                    "",
+                    "Thank you in advance."
+                ]))
+                time.sleep(1)
+                print("- KSneijders")
+                print("\n\n")
+                time.sleep(1)
+                raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
 
         return vorl(result, retriever), None if not as_length else length, None
 
