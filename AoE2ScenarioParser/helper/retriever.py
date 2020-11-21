@@ -51,10 +51,13 @@ class Retriever:
     def data(self, value):
         old_value = ""
         if hasattr(self, 'data'):
-            old_value = f"(was: {helper.q_str(self.data)})"
+            old_value = self.data
         self._data = value
         if self.log_value:
-            print(f"{self.to_simple_string()} >>> set to: {helper.q_str(value)} {old_value}")
+            self._update_print(old_value, value)
+
+    def _update_print(self, old, new):
+        print(f"{self.to_simple_string()} >>> set to: {helper.q_str(new)} (was: {helper.q_str(old)})")
 
     def get_short_str(self):
         if self.data is not None:
