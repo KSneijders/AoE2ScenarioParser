@@ -137,7 +137,7 @@ class TriggerObject(AoE2Object):
                    force_research_technology=None, visibility_state=None, scroll=None, operation=None,
                    object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
                    from_variable=None, variable_or_timer=None, facet=None, play_sound=None, message=None,
-                   sound_name=None, selected_object_ids=None) -> EffectObject:
+                   player_color=None, name_or_func=None, sound_name=None, selected_object_ids=None, ) -> EffectObject:
         effect_defaults = effects.default_attributes[effect_type]
         effect_attr = {}
         for key, value in effect_defaults.items():
@@ -151,7 +151,7 @@ class TriggerObject(AoE2Object):
                       resource_type_or_tribute_list=None, unit_object=None, next_object=None, object_list=None,
                       source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
                       area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-                      comparison=None, target_player=None) -> ConditionObject:
+                      comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> ConditionObject:
         condition_defaults = conditions.default_attributes[condition_type]
         condition_attr = {}
         for key, value in condition_defaults.items():

@@ -84,6 +84,8 @@ class EffectObject(AoE2Object):
                             "trigger_data[__index__].effect_data[__index__].variable_or_timer"),
         RetrieverObjectLink("facet", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].facet"),
         RetrieverObjectLink("play_sound", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].play_sound"),
+        RetrieverObjectLink("player_color", "TriggerPiece",
+                            "trigger_data[__index__].effect_data[__index__].player_color"),
         RetrieverObjectLink("message", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].message"),
         RetrieverObjectLink("sound_name", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].sound_name"),
         RetrieverObjectLink("selected_object_ids", "TriggerPiece",
@@ -137,7 +139,9 @@ class EffectObject(AoE2Object):
                  variable_or_timer: int,
                  facet: int,
                  play_sound: int,
+                 player_color: int,
                  message: str = "",
+                 name_or_func: str = "",
                  sound_name: str = "",
                  selected_object_ids: List[int] = None,
                  ):
@@ -193,7 +197,9 @@ class EffectObject(AoE2Object):
         self.variable_or_timer: int = variable_or_timer
         self.facet: int = facet
         self.play_sound: int = play_sound
+        self.player_color: int = player_color
         self.message: str = message
+        self.name_or_func: str = name_or_func
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
 
