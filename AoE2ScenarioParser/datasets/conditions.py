@@ -192,6 +192,49 @@ class Condition(IntEnum):
     - inverted
     - target_player
     """
+    # Todo: Mark as 1.40 feature
+    SCRIPT_CALL = 25
+    """
+    Attributes for the **script_call** condition are:\n
+    - xs_function
+    """
+    # Todo: Mark as 1.40 feature
+    OBJECT_VISIBLE_MULTIPLAYER = 26
+    """
+    Attributes for the **object_visible_multiplayer** condition are:\n
+    - unit_object
+    - source_player
+    - inverted
+    """
+    # Todo: Mark as 1.40 feature
+    OBJECT_SELECTED_MULTIPLAYER = 27
+    """
+    Attributes for the **object_selected_multiplayer** condition are:\n
+    - unit_object
+    - source_player
+    - inverted
+    """
+    # Todo: Mark as 1.40 feature
+    OBJECT_HAS_ACTION = 28
+    """
+    Attributes for the **object_has_action** condition are:\n
+    - unit_object
+    - next_object
+    - inverted
+    - unit_ai_action
+    """
+    # Todo: Mark as 1.40 feature
+    OR = 29
+    """
+    The **OR** condition does not have any attributes
+    """
+    # Todo: Mark as 1.40 feature
+    AI_SIGNAL_MULTIPLAYER = 30
+    """
+    Attributes for the **ai_signal_multiplayer** condition are:\n
+    - ai_signal
+    - inverted
+    """
 
 
 condition_names = bidict({
@@ -220,6 +263,12 @@ condition_names = bidict({
     22: "variable_value",
     23: "object_hp",
     24: "diplomacy_state",
+    25: "script_call",
+    26: "object_visible_multiplayer",
+    27: "object_selected_multiplayer",
+    28: "object_has_action",
+    29: "or",
+    30: "ai_signal_multiplayer"
 })
 
 empty_attributes = {
@@ -243,6 +292,8 @@ empty_attributes = {
     "variable": -1,
     "comparison": -1,
     "target_player": -1,
+    "unit_ai_action": -1,
+    "xs_function": ""
 }
 
 default_attributes = {
@@ -267,6 +318,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     8: {
         "condition_type": 8,
@@ -289,6 +342,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     12: {
         "condition_type": 12,
@@ -311,6 +366,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     1: {
         "condition_type": 1,
@@ -333,6 +390,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     2: {
         "condition_type": 2,
@@ -355,6 +414,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     7: {
         "condition_type": 7,
@@ -377,6 +438,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     20: {
         "condition_type": 20,
@@ -399,6 +462,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     6: {
         "condition_type": 6,
@@ -421,6 +486,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     19: {
         "condition_type": 19,
@@ -443,6 +510,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     24: {
         "condition_type": 24,
@@ -465,6 +534,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     14: {
         "condition_type": 14,
@@ -487,6 +558,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     23: {
         "condition_type": 23,
@@ -509,6 +582,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     16: {
         "condition_type": 16,
@@ -531,6 +606,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     11: {
         "condition_type": 11,
@@ -553,6 +630,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     15: {
         "condition_type": 15,
@@ -575,6 +654,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     5: {
         "condition_type": 5,
@@ -597,6 +678,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     4: {
         "condition_type": 4,
@@ -619,6 +702,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     3: {
         "condition_type": 3,
@@ -641,6 +726,8 @@ default_attributes = {
         "variable": -1,
         "comparison": 0,
         "target_player": 1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     13: {
         "condition_type": 13,
@@ -663,6 +750,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     9: {
         "condition_type": 9,
@@ -685,6 +774,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     17: {
         "condition_type": 17,
@@ -707,6 +798,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     21: {
         "condition_type": 21,
@@ -729,6 +822,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     10: {
         "condition_type": 10,
@@ -751,6 +846,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     18: {
         "condition_type": 18,
@@ -773,6 +870,8 @@ default_attributes = {
         "variable": -1,
         "comparison": -1,
         "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
     },
     22: {
         "condition_type": 22,
@@ -795,7 +894,153 @@ default_attributes = {
         "variable": 0,
         "comparison": 0,
         "target_player": -1,
-    }
+        "unit_ai_action": -1,
+        "xs_function": ""
+    },
+    25: {
+        "condition_type": 25,
+        "amount_or_quantity": -1,
+        "resource_type_or_tribute_list": -1,
+        "unit_object": -1,
+        "next_object": -1,
+        "object_list": -1,
+        "source_player": -1,
+        "technology": -1,
+        "timer": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "ai_signal": -1,
+        "inverted": -1,
+        "variable": -1,
+        "comparison": -1,
+        "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
+    },
+    26: {
+        "condition_type": 26,
+        "amount_or_quantity": -1,
+        "resource_type_or_tribute_list": -1,
+        "unit_object": -1,
+        "next_object": -1,
+        "object_list": -1,
+        "source_player": 1,
+        "technology": -1,
+        "timer": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "ai_signal": -1,
+        "inverted": 0,
+        "variable": -1,
+        "comparison": -1,
+        "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
+    },
+    27: {
+        "condition_type": 27,
+        "amount_or_quantity": -1,
+        "resource_type_or_tribute_list": -1,
+        "unit_object": -1,
+        "next_object": -1,
+        "object_list": -1,
+        "source_player": 1,
+        "technology": -1,
+        "timer": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "ai_signal": -1,
+        "inverted": 0,
+        "variable": -1,
+        "comparison": -1,
+        "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
+    },
+    28: {
+        "condition_type": 28,
+        "amount_or_quantity": -1,
+        "resource_type_or_tribute_list": -1,
+        "unit_object": -1,
+        "next_object": -1,
+        "object_list": -1,
+        "source_player": -1,
+        "technology": -1,
+        "timer": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "ai_signal": -1,
+        "inverted": 0,
+        "variable": -1,
+        "comparison": -1,
+        "target_player": -1,
+        "unit_ai_action": 0,
+        "xs_function": ""
+    },
+    29: {
+        "condition_type": 29,
+        "amount_or_quantity": -1,
+        "resource_type_or_tribute_list": -1,
+        "unit_object": -1,
+        "next_object": -1,
+        "object_list": -1,
+        "source_player": -1,
+        "technology": -1,
+        "timer": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "ai_signal": -1,
+        "inverted": -1,
+        "variable": -1,
+        "comparison": -1,
+        "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
+    },
+    30: {
+        "condition_type": 30,
+        "amount_or_quantity": -1,
+        "resource_type_or_tribute_list": -1,
+        "unit_object": -1,
+        "next_object": -1,
+        "object_list": -1,
+        "source_player": -1,
+        "technology": -1,
+        "timer": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "ai_signal": 0,
+        "inverted": 0,
+        "variable": -1,
+        "comparison": -1,
+        "target_player": -1,
+        "unit_ai_action": -1,
+        "xs_function": ""
+    },
 }
 
 attributes = {
@@ -959,7 +1204,31 @@ attributes = {
         "source_player",
         "inverted",
         "target_player",
-    ]
+    ],
+    25: [
+        "xs_function"
+    ],
+    26: [
+        "unit_object",
+        "source_player",
+        "inverted",
+    ],
+    27: [
+        "unit_object",
+        "source_player",
+        "inverted",
+    ],
+    28: [
+        "unit_object",
+        "next_object",
+        "inverted",
+        "unit_ai_action",
+    ],
+    29: [],
+    30: [
+        "ai_signal",
+        "inverted",
+    ],
 }
 
 # for condition_id in range(0, 25):
