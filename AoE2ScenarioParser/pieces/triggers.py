@@ -69,10 +69,10 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("unknown", DataType("1028")),
             Retriever("number_of_variables", DataType("u32")),
             Retriever("variable_data", DataType(VariableStruct)),
+            Retriever("unknown", DataType("18")),
         ]
 
         super().__init__("Triggers", retrievers, parser_obj, data=data, pieces=pieces)
-
     @staticmethod
     def defaults(pieces):
         defaults = {
