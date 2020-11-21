@@ -33,7 +33,14 @@ def _fill_dependencies(dependencies):
 
 
 class OptionsPiece(aoe2_piece.AoE2Piece):
-    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {}
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        'number_of_triggers': {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("TriggerPiece", "trigger_data"),
+                DependencyEval("len(x)")
+            )
+        }
+    }
     _fill_dependencies(dependencies)
 
     def __init__(self, parser_obj=None, data=None, pieces=None):

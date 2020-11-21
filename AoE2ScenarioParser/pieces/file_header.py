@@ -18,11 +18,17 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
         #     ),
         #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         # }
+        "trigger_count": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("TriggerPiece", "trigger_data"),
+                DependencyEval("len(x)")
+            )
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
-            Retriever("version", DataType("c4"), save_as="scenario_version"),
+            Retriever("version", DataType("c4")),
             Retriever("header_length", DataType("u32")),
             Retriever("savable", DataType("s32")),
             Retriever("timestamp_of_last_save", DataType("u32")),

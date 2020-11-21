@@ -57,7 +57,7 @@ class EffectStruct(AoE2Struct):
                 DependencyTarget("self", "number_of_units_selected")
             )
         },
-        # "unknown_4": {
+        # "player_color": {
         #     "on_refresh": RetrieverDependency(
         #         DependencyAction.SET_REPEAT,
         #         DependencyTarget('FileHeaderPiece', 'version'),
@@ -127,7 +127,7 @@ class EffectStruct(AoE2Struct):
             Retriever("facet", DataType("s32")),
             Retriever("location_object_reference", DataType("s32")),
             Retriever("play_sound", DataType("s32")),
-            Retriever("unknown_4", DataType("s32")),
+            Retriever("player_color", DataType("s32")),
             Retriever("message", DataType("str32")),
             Retriever("name_or_func", DataType("str32")),
             Retriever("sound_name", DataType("str32")),
@@ -140,7 +140,7 @@ class EffectStruct(AoE2Struct):
     def defaults(pieces):
         defaults = {
             'effect_type': 0,
-            'static_value_46': 46,
+            'static_value_46': 48,
             'ai_script_goal': -1,
             'quantity': -1,
             'aa_quantity': -1,
@@ -188,9 +188,10 @@ class EffectStruct(AoE2Struct):
             'variable_or_timer': -1,
             'facet': -1,
             'location_object_reference': -1,
-            'unknown_4': -1,
             'play_sound': -1,
+            'player_color': -1,
             'message': '',
+            'name_or_func': '',
             'sound_name': '',
             'selected_object_ids': [],
         }

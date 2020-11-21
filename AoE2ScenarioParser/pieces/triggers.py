@@ -23,7 +23,17 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF),
             "on_commit": RetrieverDependency(
-                DependencyAction.REFRESH, DependencyTarget("self", "number_of_triggers")
+                DependencyAction.REFRESH, DependencyTarget(
+                    [
+                        "self",
+                        "FileHeaderPiece",
+                        "OptionsPiece",
+                    ], [
+                        "number_of_triggers",
+                        "trigger_count",
+                        "number_of_triggers",
+                    ]
+                )
             )
         },
         "trigger_display_order_array": {
