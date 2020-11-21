@@ -122,6 +122,11 @@ class RetrieverObjectLink:
                 retriever.data = retriever.data[:new_length]
             elif new_length > old_length:
                 retriever.data += [link_piece() for x in range(new_length - old_length)]
+                if retriever.log_value:
+                    retriever._update_print(
+                        f"[{link_piece.__name__}] * {old_length}",
+                        f"[{link_piece.__name__}] * {new_length}"
+                    )
 
             for index, obj in enumerate(value):
                 obj._pieces = pieces
