@@ -249,7 +249,7 @@ def datatype_to_type_length(var):
     return var_type, var_len
 
 
-def retriever_to_bytes(retriever):
+def retriever_to_bytes(retriever, pieces):
     var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
     return_bytes = b''
@@ -268,14 +268,14 @@ def retriever_to_bytes(retriever):
 
             if var_type == "struct":
                 for struct_retriever in data.retrievers:
-                    result = retriever_to_bytes(struct_retriever)
+                    result = retriever_to_bytes(struct_retriever, pieces)
                     if result is None:
                         # Return default value. When non is committed.
                         # Should only happen when a value is not transferred from and to a struct.
                         # This is because structs are recreated on file generation. When the struct does not contain
                         # a certain value because it's use is unknown, the value isn't transferred between.
-                        struct_retriever.data = retriever.datatype.var.defaults({})[struct_retriever.name]
-                        return_bytes += retriever_to_bytes(struct_retriever)
+                        struct_retriever.data = retriever.datatype.var.defaults(pieces)[struct_retriever.name]
+                        return_bytes += retriever_to_bytes(struct_retriever, pieces)
                         continue
                     return_bytes += result
             if var_type == "u" or var_type == "s":  # int
@@ -290,7 +290,7 @@ def retriever_to_bytes(retriever):
             elif var_type == "data":  # bytes
                 return_bytes += data
             elif var_type == "str":  # str
-                byte_string = str_to_bytes(data)
+                byte_string = str_to_bytes(data, retriever)
                 return_bytes += int_to_bytes(len(byte_string), var_len, endian="little", signed=True)
                 return_bytes += byte_string
     except (AttributeError, TypeError) as e:

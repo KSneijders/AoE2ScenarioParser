@@ -161,12 +161,14 @@ class AoE2Scenario:
         lgr = SimpleLogger(log_writing)
         lgr.print("\nFile writing from structure started...")
 
+        pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
+
         byte_header_list = []
         byte_data_list = []
         for key in self._parsed_header:
             lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_header[key].retrievers:
-                byte_header_list.append(parser.retriever_to_bytes(retriever))
+                byte_header_list.append(parser.retriever_to_bytes(retriever, pieces))
             lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
             lgr.print()
 
@@ -174,7 +176,7 @@ class AoE2Scenario:
             lgr.print("\twriting " + key + "...", replace_line=True)
             for retriever in self._parsed_data[key].retrievers:
                 try:
-                    byte_data_list.append(parser.retriever_to_bytes(retriever))
+                    byte_data_list.append(parser.retriever_to_bytes(retriever, pieces))
                 except AttributeError as e:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     print("\n\n\nAn error occurred. Writing failed.")
@@ -275,21 +277,26 @@ class AoE2Scenario:
         file.close()
         print("File writing finished successfully.")
 
-    def _debug_byte_structure_to_file(self, filename, log_debug_write=True):
+    def _debug_byte_structure_to_file(self, filename, log_debug_write=True, commit=False):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
+        if commit and hasattr(self, '_object_manager'):
+            self._object_manager.reconstruct(log_debug_write)
+            self._write_from_structure(filename, log_writing=log_debug_write, log_reconstructing=log_debug_write)
+
         lgr = SimpleLogger(log_debug_write)
 
+        pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
         lgr.print("\nWriting structure to file...")
         with open(filename, 'w') as output_file:
             result = ""
             for key in self._parsed_header:
                 lgr.print("\tWriting " + key + "...", replace_line=True)
-                result += self._parsed_header[key].get_byte_structure_as_string()
+                result += self._parsed_header[key].get_byte_structure_as_string(pieces)
                 lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
                 lgr.print()
             for key in self._parsed_data:
                 lgr.print("\tWriting " + key + "...", replace_line=True)
-                result += self._parsed_data[key].get_byte_structure_as_string()
+                result += self._parsed_data[key].get_byte_structure_as_string(pieces)
                 lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
                 lgr.print()
 
