@@ -9,7 +9,7 @@ class PlayerDataOneStruct(AoE2Struct):
             Retriever("active", DataType("u32")),
             Retriever("human", DataType("u32")),
             Retriever("civilization", DataType("u32")),
-            Retriever("unknown", DataType("u32")),
+            Retriever("architecture_set", DataType("u32")),
             Retriever("cty_mode", DataType("u32")),
         ]
 
@@ -24,7 +24,7 @@ class PlayerDataOneStruct(AoE2Struct):
             'active': 0,
             'human': 0,
             'civilization': 36,
-            'unknown': 36,
+            'architecture_set': 36,
             'cty_mode': 4,
         }
         return defaults
