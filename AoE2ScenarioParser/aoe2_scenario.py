@@ -48,7 +48,7 @@ class AoE2Scenario:
         self._object_manager = None
 
     @classmethod
-    def from_file(cls, filename, log_reading=True, log_parsing=False):
+    def from_file(cls, filename, log_reading=True, log_parsing=True):
         scenario = cls()
 
         print("\nPreparing & Loading file: '" + filename + "'...")
@@ -147,7 +147,7 @@ class AoE2Scenario:
             raise StopIteration(e)
         lgr.print("File reading finished successfully.")
 
-    def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=False):
+    def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=True):
         self._write_from_structure(filename, log_writing=log_writing, log_reconstructing=log_reconstructing)
 
     def _write_from_structure(self,
