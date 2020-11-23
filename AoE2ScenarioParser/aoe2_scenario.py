@@ -144,7 +144,7 @@ class AoE2Scenario:
             time.sleep(1)
             print("ErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
             time.sleep(1)
-            raise StopIteration(e)
+            raise e
         lgr.print("File reading finished successfully.")
 
     def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=True):

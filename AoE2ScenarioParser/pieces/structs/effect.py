@@ -43,13 +43,13 @@ class EffectStruct(AoE2Struct):
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_VALUE,
                 DependencyTarget('self', 'selected_object_ids'),
-                DependencyEval('len(x)')
+                DependencyEval('len(x) if len(x) != 0 else -1')
             )
         },
         "selected_object_ids": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT,
-                DependencyTarget("self", "number_of_units_selected")
+                DependencyTarget("self", "number_of_units_selected"),
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF),
             "on_commit": RetrieverDependency(

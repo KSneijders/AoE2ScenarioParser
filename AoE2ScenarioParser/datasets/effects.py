@@ -490,7 +490,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     SCRIPT_CALL = 55
     """Attributes for the **script_call** effect are: \n
-    - number_of_units_selected
     - string_id
     - name_or_func"""
     CHANGE_VARIABLE = 56
@@ -5112,7 +5111,6 @@ attributes = {
         "selected_object_ids",
     ],
     55: [
-        "number_of_units_selected",
         "string_id",
         "name_or_func",
     ],
