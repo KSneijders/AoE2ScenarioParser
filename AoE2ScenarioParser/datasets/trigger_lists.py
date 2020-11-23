@@ -15,6 +15,13 @@ class Operation(IntEnum):
     DIVIDE = 5
 
 
+class AttackStance(IntEnum):
+    AGGRESSIVE_STANCE = 0
+    DEFENSIVE_STANCE = 1
+    STAND_GROUND = 2
+    NO_ATTACK_STANCE = 3
+
+
 class UnitAIAction(IntEnum):
     ANY = 0
     ATTACK = 1
