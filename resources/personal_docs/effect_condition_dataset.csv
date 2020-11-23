@@ -24,20 +24,12 @@ ID,Effect name (in game),Effect name as var,Condition name (in game),Condition n
 22,Freeze Object,freeze_object,Variable Value,variable_value,,,
 23,Use Advanced Buttons,use_advanced_buttons,Object HP,object_hp,,,
 24,Damage Object,damage_object,Diplomacy State,diplomacy_state,,,
-25,Place Foundation,place_foundation,Script Call,xs_function,,,
-26,Change Object Name,change_object_name,Object Visible (Multiplayer),"unit_object
-source_player
-inverted",,,
-27,Change Object HP,change_object_hp,Object Selected (Multiplayer),"unit_object
-source_player
-inverted",,,
-28,Change Object Attack,change_object_attack,Object has Action,"unit_object
-next_object
-inverted
-unit_ai_action",,,
-29,Stop Object,stop_object,OR,-,,,
-30,Attack Move,attack_move,Multiplayer AI Signal,"ai_signal
-inverted",,,
+25,Place Foundation,place_foundation,Script Call,script_call,,,
+26,Change Object Name,change_object_name,Object Visible (Multiplayer),object_visible_multiplayer,,,
+27,Change Object HP,change_object_hp,Object Selected (Multiplayer),object_selected_multiplayer,,,
+28,Change Object Attack,change_object_attack,Object has Action,object_has_action,,,
+29,Stop Object,stop_object,OR,or,,,
+30,Attack Move,attack_move,Multiplayer AI Signal,ai_signal_multiplayer,,,
 31,Change Object Armor,change_object_armor,,,,,
 32,Change Object Range,change_object_range,,,,,
 33,Change Object Speed,change_object_speed,,,,,
@@ -76,83 +68,17 @@ string_id
 xs_function",,,,,
 56,Change Variable,change_variable,,,,,
 57,Clear Timer,clear_timer,,,,, 
-58,Change Object Player Color,"number_of_units_selected
-object_list_unit_id
-source_player
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
-59,Change Object Civilization Name,"number_of_units_selected
-string_id
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
-60,Change Object Player Name,"number_of_units_selected
-object_list_unit_id
-source_player
-string_id
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
-61,Disable Unit Targeting,"number_of_units_selected
-object_list_unit_id
-source_player
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
-62,Enable Unit Targeting,"number_of_units_selected
-object_list_unit_id
-source_player
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
-63,Change Technology Cost,"source_player
-technology
-food
-wood
-stone
-gold",,,,,
-64,Change Technology Research Time,"quantity
-source_player
-technology",,,,,
-65,Change Technology Name,"source_player
-technology
-string_id
-name_or_func",,,,,
-66,Change Technology Description,"source_player
-technology
-string_id
-name_or_func",,,,,
-67,Enable Technology Stacking,"number_of_units_selected
-source_player
-technology",,,,,
-68,Disable Technology Stacking,"number_of_units_selected
-source_player
-technology",,,,,
-69,Acknowledge Multiplayer AI Signal,ai_signal_value,,,,,
-70,Disable Object Selection,"number_of_units_selected
-object_list_unit_id
-source_player
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
-71,Enable Object Selection,"number_of_units_selected
-object_list_unit_id
-source_player
-area_1_x
-area_1_y
-area_2_x
-area_2_y
-selected_object_ids",,,,,
+58,Change Object Player Color,change_object_player_color,,,,,
+59,Change Object Civilization Name,change_object_civilization_name,,,,,
+60,Change Object Player Name,change_object_player_name,,,,,
+61,Disable Unit Targeting,disable_unit_targeting,,,,,
+62,Enable Unit Targeting,enable_unit_targeting,,,,,
+63,Change Technology Cost,change_technology_cost,,,,,
+64,Change Technology Research Time,change_technology_research_time,,,,,
+65,Change Technology Name,change_technology_name,,,,,
+66,Change Technology Description,change_technology_description,,,,,
+67,Enable Technology Stacking,enable_technology_stacking,,,,,
+68,Disable Technology Stacking,disable_technology_stacking,,,,,
+69,Acknowledge Multiplayer AI Signal,acknowledge_multiplayer_ai_signal,,,,,
+70,Disable Object Selection,disable_object_selection,,,,,
+71,Enable Object Selection,enable_object_selection,,,,,
