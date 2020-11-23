@@ -220,3 +220,5 @@ AoE2ScenarioParser/app.py
 .idea/inspectionProfiles/Project_Default.xml
 **/.vscode/settings.json
 /docs/source/_build
+
+tests/results/
