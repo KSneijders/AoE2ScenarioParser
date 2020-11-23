@@ -10,21 +10,19 @@ print("\n")
 pyautogui.press('tab')
 sleep(0.2)
 
-for _ in range(0, 9):
+tabs_from_copy_to_list = 10
+
+for _ in range(tabs_from_copy_to_list + 5):
     pyautogui.press('tab')
 
 while True:
-    pyautogui.hotkey('shiftleft', 'tab')
-    pyautogui.hotkey('shiftleft', 'tab')
-    pyautogui.hotkey('shiftleft', 'tab')
-    pyautogui.hotkey('shiftleft', 'tab')
+    for _ in range(tabs_from_copy_to_list):
+        pyautogui.hotkey('shiftleft', 'tab')
     sleep(0.05)
     pyautogui.press('enter')
     sleep(0.05)
-    pyautogui.press('tab')
-    pyautogui.press('tab')
-    pyautogui.press('tab')
-    pyautogui.press('tab')
+    for _ in range(tabs_from_copy_to_list):
+        pyautogui.press('tab')
     pyautogui.press('enter')
     pyautogui.press('down')
     pyautogui.press('enter')
