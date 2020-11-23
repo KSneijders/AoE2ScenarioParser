@@ -94,7 +94,6 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'separator_2': b'`\n',
             'map_color_mood': 'Empty',
             'separator_3': b'`\n',
-            'team_positions': 1,
             'collide_and_correct': 0,
             'villager_force_drop': 0,
             'script_name': "",
