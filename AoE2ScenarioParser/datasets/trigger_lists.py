@@ -15,6 +15,34 @@ class Operation(IntEnum):
     DIVIDE = 5
 
 
+class UnitAIAction(IntEnum):
+    ANY = 0
+    ATTACK = 1
+    BUILD = 3
+    CONVERT = 5
+    DEFEND = 2
+    ENTER = 18
+    EVADE = 17
+    EXPLORE = 6
+    FOLLOW = 13
+    GATHER = 10
+    HEAL = 4
+    HUNT = 14
+    IDLE = 24
+    MOVE = 11
+    PATROL = 12
+    RELIC = 23
+    REPAIR = 19
+    RESEARCH = 21
+    RETREAT = 9
+    RUNAWAY = 8
+    STOP = 7
+    TRADE = 16
+    TRAIN = 20
+    TRANSPORT = 15
+    UNLOAD = 22
+
+
 class ButtonLocation(IntEnum):
     LOCATION_0_0 = 0
     LOCATION_1_0 = 2
@@ -30,7 +58,7 @@ class ButtonLocation(IntEnum):
     LOCATION_1_2 = 12
     LOCATION_2_2 = 13
     LOCATION_3_2 = 14
-    # LOCATION_4_2 = 15? (Actually placed at 0_0 at the moment)
+    # LOCATION_4_2 = 15?  # Probably disabled for the arrow key if present
 
 
 class PanelLocation(IntEnum):
