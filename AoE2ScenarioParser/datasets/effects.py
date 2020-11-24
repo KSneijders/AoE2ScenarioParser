@@ -38,11 +38,9 @@ class Effect(IntEnum):
     - target_player"""
     UNLOCK_GATE = 6
     """Attributes for the **unlock_gate** effect are: \n
-    - number_of_units_selected
     - selected_object_ids"""
     LOCK_GATE = 7
     """Attributes for the **lock_gate** effect are: \n
-    - number_of_units_selected
     - selected_object_ids"""
     ACTIVATE_TRIGGER = 8
     """Attributes for the **activate_trigger** effect are: \n
@@ -63,7 +61,6 @@ class Effect(IntEnum):
     - facet"""
     TASK_OBJECT = 12
     """Attributes for the **task_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -82,7 +79,6 @@ class Effect(IntEnum):
     - enabled_or_victory"""
     KILL_OBJECT = 14
     """Attributes for the **kill_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -94,7 +90,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     REMOVE_OBJECT = 15
     """Attributes for the **remove_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -113,7 +108,6 @@ class Effect(IntEnum):
     - scroll"""
     UNLOAD = 17
     """Attributes for the **unload** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -128,7 +122,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OWNERSHIP = 18
     """Attributes for the **change_ownership** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - target_player
@@ -142,7 +135,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     PATROL = 19
     """Attributes for the **patrol** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -170,7 +162,6 @@ class Effect(IntEnum):
     - instruction_panel_position"""
     FREEZE_OBJECT = 22
     """Attributes for the **freeze_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -187,7 +178,6 @@ class Effect(IntEnum):
     DAMAGE_OBJECT = 24
     """Attributes for the **damage_object** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -205,7 +195,6 @@ class Effect(IntEnum):
     - location_y"""
     CHANGE_OBJECT_NAME = 26
     """Attributes for the **change_object_name** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - string_id
@@ -218,7 +207,6 @@ class Effect(IntEnum):
     CHANGE_OBJECT_HP = 27
     """Attributes for the **change_object_hp** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -233,7 +221,6 @@ class Effect(IntEnum):
     """Attributes for the **change_object_attack** effect are: \n
     - aa_quantity
     - aa_armor_or_attack_type
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -246,7 +233,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     STOP_OBJECT = 29
     """Attributes for the **stop_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -258,7 +244,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     ATTACK_MOVE = 30
     """Attributes for the **attack_move** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -275,7 +260,6 @@ class Effect(IntEnum):
     """Attributes for the **change_object_armor** effect are: \n
     - aa_quantity
     - aa_armor_or_attack_type
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -289,7 +273,6 @@ class Effect(IntEnum):
     CHANGE_OBJECT_RANGE = 32
     """Attributes for the **change_object_range** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -303,7 +286,6 @@ class Effect(IntEnum):
     CHANGE_OBJECT_SPEED = 33
     """Attributes for the **change_object_speed** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -316,7 +298,6 @@ class Effect(IntEnum):
     HEAL_OBJECT = 34
     """Attributes for the **heal_object** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -328,7 +309,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     TELEPORT_OBJECT = 35
     """Attributes for the **teleport_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -342,7 +322,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OBJECT_STANCE = 36
     """Attributes for the **change_object_stance** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -387,7 +366,6 @@ class Effect(IntEnum):
     - visibility_state"""
     CHANGE_OBJECT_ICON = 42
     """Attributes for the **change_object_icon** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -400,7 +378,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     REPLACE_OBJECT = 43
     """Attributes for the **replace_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - target_player
@@ -442,7 +419,6 @@ class Effect(IntEnum):
     - message"""
     CREATE_GARRISONED_OBJECT = 49
     """Attributes for the **create_garrisoned_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -478,7 +454,6 @@ class Effect(IntEnum):
     - from_variable"""
     SET_BUILDING_GATHER_POINT = 54
     """Attributes for the **set_building_gather_point** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -491,7 +466,7 @@ class Effect(IntEnum):
     SCRIPT_CALL = 55
     """Attributes for the **script_call** effect are: \n
     - string_id
-    - name_or_func"""
+    - message"""
     CHANGE_VARIABLE = 56
     """Attributes for the **change_variable** effect are: \n
     - quantity
@@ -503,7 +478,6 @@ class Effect(IntEnum):
     - variable_or_timer"""
     CHANGE_OBJECT_PLAYER_COLOR = 58
     """Attributes for the **change_object_player_color** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -514,7 +488,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OBJECT_CIVILIZATION_NAME = 59
     """Attributes for the **change_object_civilization_name** effect are: \n
-    - number_of_units_selected
     - string_id
     - area_1_x
     - area_1_y
@@ -523,7 +496,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OBJECT_PLAYER_NAME = 60
     """Attributes for the **change_object_player_name** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - string_id
@@ -534,7 +506,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     DISABLE_UNIT_TARGETING = 61
     """Attributes for the **disable_unit_targeting** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -544,7 +515,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     ENABLE_UNIT_TARGETING = 62
     """Attributes for the **enable_unit_targeting** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -570,21 +540,19 @@ class Effect(IntEnum):
     - source_player
     - technology
     - string_id
-    - name_or_func"""
+    - message"""
     CHANGE_TECHNOLOGY_DESCRIPTION = 66
     """Attributes for the **change_technology_description** effect are: \n
     - source_player
     - technology
     - string_id
-    - name_or_func"""
+    - message"""
     ENABLE_TECHNOLOGY_STACKING = 67
     """Attributes for the **enable_technology_stacking** effect are: \n
-    - number_of_units_selected
     - source_player
     - technology"""
     DISABLE_TECHNOLOGY_STACKING = 68
     """Attributes for the **disable_technology_stacking** effect are: \n
-    - number_of_units_selected
     - source_player
     - technology"""
     ACKNOWLEDGE_MULTIPLAYER_AI_SIGNAL = 69
@@ -593,7 +561,6 @@ class Effect(IntEnum):
     """
     DISABLE_OBJECT_SELECTION = 70
     """Attributes for the **disable_object_selection** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -603,7 +570,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     ENABLE_OBJECT_SELECTION = 71
     """Attributes for the **enable_object_selection** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -698,7 +664,6 @@ empty_attributes = {
     "quantity": -1,
     "tribute_list": -1,
     "diplomacy": -1,
-    "number_of_units_selected": -1,
     "object_list_unit_id": -1,
     "source_player": -1,
     "target_player": -1,
@@ -739,7 +704,6 @@ empty_attributes = {
     "play_sound": -1,
     "player_color": -1,
     "message": '',
-    "name_or_func": '',
     "sound_name": '',
     "selected_object_ids": -1,
 }
@@ -753,7 +717,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -794,7 +757,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -806,7 +768,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -847,7 +808,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -859,7 +819,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -900,7 +859,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -912,7 +870,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -953,7 +910,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -965,7 +921,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1006,7 +961,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1018,7 +972,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1059,7 +1012,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1071,7 +1023,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": 0,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -1112,7 +1063,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1124,7 +1074,6 @@ default_attributes = {
         "quantity": [],
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1165,7 +1114,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1177,7 +1125,6 @@ default_attributes = {
         "quantity": [],
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1218,7 +1165,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1230,7 +1176,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1271,7 +1216,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1283,7 +1227,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1324,7 +1267,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1336,7 +1278,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1377,7 +1318,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1389,7 +1329,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1430,7 +1369,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1442,7 +1380,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1483,7 +1420,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1495,7 +1431,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1536,7 +1471,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1548,7 +1482,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1589,7 +1522,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1601,7 +1533,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1642,7 +1573,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1654,7 +1584,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -1695,7 +1624,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1707,7 +1635,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1748,7 +1675,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1760,7 +1686,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1801,7 +1726,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1813,7 +1737,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1854,7 +1777,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1866,7 +1788,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -1907,7 +1828,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1919,7 +1839,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1960,7 +1879,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1972,7 +1890,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2013,7 +1930,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2025,7 +1941,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2066,7 +1981,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2078,7 +1992,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2119,7 +2032,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2131,7 +2043,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2172,7 +2083,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2184,7 +2094,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2225,7 +2134,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2237,7 +2145,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2278,7 +2185,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2290,7 +2196,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2331,7 +2236,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2343,7 +2247,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2384,8 +2287,7 @@ default_attributes = {
         "play_sound": 0,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
-        "sound_name": " ",
+        "sound_name": "",
         "selected_object_ids": [],
     },
     37: {
@@ -2396,7 +2298,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2437,7 +2338,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2449,7 +2349,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2490,7 +2389,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2502,7 +2400,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2543,7 +2440,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2555,7 +2451,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2596,7 +2491,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2608,7 +2502,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2649,7 +2542,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2661,7 +2553,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2702,7 +2593,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2714,7 +2604,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2755,7 +2644,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2767,7 +2655,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2808,7 +2695,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2820,7 +2706,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2861,7 +2746,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2873,7 +2757,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2914,7 +2797,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2926,7 +2808,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2967,7 +2848,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2979,7 +2859,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3020,7 +2899,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3032,7 +2910,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3073,8 +2950,7 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
-        "sound_name": " ",
+        "sound_name": "",
         "selected_object_ids": [],
     },
     15: {
@@ -3085,7 +2961,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3126,7 +3001,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3138,7 +3012,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -3179,7 +3052,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3191,7 +3063,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3232,7 +3103,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3244,7 +3114,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3285,8 +3154,7 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
-        "sound_name": " ",
+        "sound_name": "",
         "selected_object_ids": [],
     },
     41: {
@@ -3297,7 +3165,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -3338,7 +3205,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3350,7 +3216,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3391,7 +3256,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3403,7 +3267,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3444,7 +3307,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3456,7 +3318,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3497,7 +3358,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3509,7 +3369,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -3550,7 +3409,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3562,7 +3420,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3603,7 +3460,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3615,7 +3471,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -3656,7 +3511,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3668,7 +3522,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -3709,7 +3562,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3721,7 +3573,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3762,7 +3613,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3774,7 +3624,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -3815,7 +3664,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3827,7 +3675,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3868,7 +3715,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": 0,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3880,7 +3726,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -3921,7 +3766,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3933,7 +3777,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3974,7 +3817,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -3986,7 +3828,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4027,7 +3868,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4039,7 +3879,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4080,7 +3919,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4092,7 +3930,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4133,7 +3970,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4145,7 +3981,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4186,7 +4021,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4198,7 +4032,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4239,7 +4072,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4251,7 +4083,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4292,7 +4123,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4304,7 +4134,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4345,7 +4174,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4357,7 +4185,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4398,7 +4225,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4410,7 +4236,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -4451,7 +4276,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4463,7 +4287,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4504,7 +4327,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4516,7 +4338,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -4557,7 +4378,6 @@ default_attributes = {
         "play_sound": -1,
         "player_color": -1,
         "message": "",
-        "name_or_func": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -4581,7 +4401,6 @@ attributes = {
     ],
     30: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -4611,7 +4430,6 @@ attributes = {
         "effect_type",
         "aa_quantity",
         "aa_armor_or_attack_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4627,7 +4445,6 @@ attributes = {
         "effect_type",
         "aa_quantity",
         "aa_armor_or_attack_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4658,7 +4475,6 @@ attributes = {
     27: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4672,7 +4488,6 @@ attributes = {
     ],
     42: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4686,7 +4501,6 @@ attributes = {
     ],
     26: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "string_id",
@@ -4700,7 +4514,6 @@ attributes = {
     32: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4715,7 +4528,6 @@ attributes = {
     33: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4728,7 +4540,6 @@ attributes = {
     ],
     36: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4742,7 +4553,6 @@ attributes = {
     ],
     18: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "target_player",
@@ -4800,7 +4610,6 @@ attributes = {
     ],
     49: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4822,7 +4631,6 @@ attributes = {
     24: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4877,7 +4685,6 @@ attributes = {
     ],
     22: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4891,7 +4698,6 @@ attributes = {
     34: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4904,7 +4710,6 @@ attributes = {
     ],
     14: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4917,7 +4722,6 @@ attributes = {
     ],
     7: [
         "effect_type",
-        "number_of_units_selected",
         "selected_object_ids",
     ],
     51: [
@@ -4947,7 +4751,6 @@ attributes = {
     ],
     19: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -4978,7 +4781,6 @@ attributes = {
     ],
     15: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4991,7 +4793,6 @@ attributes = {
     ],
     43: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "target_player",
@@ -5025,7 +4826,6 @@ attributes = {
     ],
     29: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -5038,7 +4838,6 @@ attributes = {
     ],
     12: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -5054,7 +4853,6 @@ attributes = {
     ],
     35: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -5076,7 +4874,6 @@ attributes = {
     ],
     17: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -5092,14 +4889,12 @@ attributes = {
     ],
     6: [
         "effect_type",
-        "number_of_units_selected",
         "selected_object_ids",
     ],
     23: [
         "effect_type",
     ],
     54: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -5112,10 +4907,9 @@ attributes = {
     ],
     55: [
         "string_id",
-        "name_or_func",
+        "message",
     ],
     58: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -5125,7 +4919,6 @@ attributes = {
         "selected_object_ids",
     ],
     59: [
-        "number_of_units_selected",
         "string_id",
         "area_1_x",
         "area_1_y",
@@ -5134,7 +4927,6 @@ attributes = {
         "selected_object_ids",
     ],
     60: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "string_id",
@@ -5145,7 +4937,6 @@ attributes = {
         "selected_object_ids",
     ],
     61: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -5155,7 +4946,6 @@ attributes = {
         "selected_object_ids",
     ],
     62: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -5181,21 +4971,19 @@ attributes = {
         "source_player",
         "technology",
         "string_id",
-        "name_or_func",
+        "message",
     ],
     66: [
         "source_player",
         "technology",
         "string_id",
-        "name_or_func",
+        "message",
     ],
     67: [
-        "number_of_units_selected",
         "source_player",
         "technology",
     ],
     68: [
-        "number_of_units_selected",
         "source_player",
         "technology",
     ],
@@ -5203,7 +4991,6 @@ attributes = {
         "ai_signal_value",
     ],
     70: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -5213,7 +5000,6 @@ attributes = {
         "selected_object_ids",
     ],
     71: [
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
