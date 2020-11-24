@@ -11,31 +11,38 @@ def fixed_chars_to_bytes(string, codec="utf-8"):
     return string.encode(codec)
 
 
-def bytes_to_str(byte_elements, codec="utf-8"):
+_non_trail_names = [
+    "filename",
+    "ascii_instructions",
+    "ascii_hints",
+    "ascii_victory",
+    "ascii_loss",
+    "ascii_history",
+    "ascii_scouts",
+    "ascii_pregame",
+    "ascii_victory",
+    "ascii_loss",
+    "ascii_filename",
+    "strings",
+    "ai_names",
+    "ai_per_file_text",
+    "map_color_mood",
+    "unknown_string",
+    "script_name",
+    "creator_name",
+    "constant_name",
+    "name_or_func"
+]
+
+
+def bytes_to_str(byte_elements, retriever, codec="utf-8"):
+    if retriever.name in _non_trail_names:
+        return byte_elements.decode(codec)
     return helper.del_str_trail(byte_elements).decode(codec)
-    # return byte_elements.decode(codec)
 
 
 def str_to_bytes(string, retriever, codec="utf-8"):
-    if retriever.name in [
-        "filename",
-        "ascii_instructions",
-        "ascii_hints",
-        "ascii_victory",
-        "ascii_loss",
-        "ascii_history",
-        "ascii_scouts",
-        "ascii_pregame",
-        "ascii_victory",
-        "ascii_loss",
-        "ascii_filename",
-        "strings",
-        "ai_names",
-        "ai_per_file_text",
-        "map_color_mood",
-        "unknown_string",
-        "script_name",
-    ]:
+    if retriever.name in _non_trail_names:
         return string.encode(codec)
     return helper.add_str_trail(string).encode(codec)
 
