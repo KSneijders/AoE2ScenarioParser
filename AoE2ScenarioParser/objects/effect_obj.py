@@ -150,8 +150,6 @@ class EffectObject(AoE2Object):
 
         if selected_object_ids is None:
             selected_object_ids = []
-        else:
-            selected_object_ids = parser.listify(selected_object_ids)
 
         self.effect_type: int = effect_type
         self.ai_script_goal: int = ai_script_goal
@@ -226,7 +224,6 @@ class EffectObject(AoE2Object):
         return_string = ""
         for attribute in attributes_list:
             attribute_value = getattr(self, attribute)
-            if self.effect_type != 58:
             if attribute == "effect_type" or attribute_value in [[], [-1], "", " ", -1]:
                 continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"

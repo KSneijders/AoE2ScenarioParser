@@ -154,9 +154,9 @@ class TriggerObject(AoE2Object):
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_cond = ConditionObject(**condition_attr)
-        self.conditions.append(new_cond)
-        return new_cond
+        new_condition = ConditionObject(**condition_attr)
+        self.conditions.append(new_condition)
+        return new_condition
 
     def get_effect(self, effect_index: int = None, display_index: int = None) -> EffectObject:
         helper.evaluate_index_params(effect_index, display_index, "effect")
