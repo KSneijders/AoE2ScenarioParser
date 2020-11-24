@@ -31,7 +31,7 @@ _non_trail_names = [
     "script_name",
     "creator_name",
     "constant_name",
-    "name_or_func"
+    "sound_name",
 ]
 
 
