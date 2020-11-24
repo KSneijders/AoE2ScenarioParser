@@ -87,6 +87,8 @@ class EffectObject(AoE2Object):
         RetrieverObjectLink("player_color", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].player_color"),
         RetrieverObjectLink("message", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].message"),
+        RetrieverObjectLink("name_or_func", "TriggerPiece",
+                            "trigger_data[__index__].effect_data[__index__].name_or_func"),
         RetrieverObjectLink("sound_name", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].sound_name"),
         RetrieverObjectLink("selected_object_ids", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].selected_object_ids"),
@@ -223,11 +225,11 @@ class EffectObject(AoE2Object):
 
         return_string = ""
         for attribute in attributes_list:
-            attr = getattr(self, attribute)
+            attribute_value = getattr(self, attribute)
             if self.effect_type != 58:
-                if attribute == "effect_type" or attr in [[], [-1], "", " ", -1]:
-                    continue
-            return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
+            if attribute == "effect_type" or attribute_value in [[], [-1], "", " ", -1]:
+                continue
+            return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"
 
         if return_string == "":
             return "\t\t\t\t<< No Attributes >>\n"
