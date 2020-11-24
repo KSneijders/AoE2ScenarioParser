@@ -49,9 +49,19 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
             'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0], pieces=pieces) for _ in
                               range(8)],
             'number_of_players': 9,
-            'player_data_3': [
-                PlayerDataThreeStruct(data=list(PlayerDataThreeStruct.defaults(pieces).values()), pieces=pieces) for _
-                in range(8)],
+            'player_data_3': UnitsPiece._get_player_data_three_default(pieces),
             'players_units': [PlayerUnitsStruct(data=[0, []], pieces=pieces) for _ in range(9)],
         }
         return defaults
+
+    @staticmethod
+    def _get_player_data_three_default(pieces):
+        data = [list(PlayerDataThreeStruct.defaults(pieces).values()) for _ in range(8)]
+        for i in range(len(data)):
+            # diplomacy_for_interaction
+            data[i][7] = [3] + ([3] * i) + [0] + ([3] * (7 - i))
+            # diplomacy_for_ai_system
+            data[i][8] = [0] + ([4] * i) + [1] + ([4] * (7 - i))
+            # Color
+            data[i][9] = i
+        return [PlayerDataThreeStruct(data=d, pieces=pieces) for d in data]
