@@ -55,7 +55,6 @@ class TriggerObject(AoE2Object):
                  effect_order: List[int] = None,
                  trigger_id: int = -1,
                  ):
-
         if conditions is None:
             conditions = []
         if condition_order is None:
@@ -142,9 +141,8 @@ class TriggerObject(AoE2Object):
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_effect = EffectObject(**{**effect_defaults, **effect_attr})
+        new_effect = EffectObject(**effect_attr)
         self.effects.append(new_effect)
-        helper.update_order_array(self.effect_order, len(self.effects))
         return new_effect
 
     def add_condition(self, condition_type: Condition, amount_or_quantity=None,
@@ -156,9 +154,8 @@ class TriggerObject(AoE2Object):
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_cond = ConditionObject(**conditions.default_attributes[condition_type.value])
+        new_cond = ConditionObject(**condition_attr)
         self.conditions.append(new_cond)
-        helper.update_order_array(self.condition_order, len(self.conditions))
         return new_cond
 
     def get_effect(self, effect_index: int = None, display_index: int = None) -> EffectObject:
