@@ -25,8 +25,6 @@ class EffectObject(AoE2Object):
         RetrieverObjectLink("tribute_list", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].tribute_list"),
         RetrieverObjectLink("diplomacy", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].diplomacy"),
-        RetrieverObjectLink("number_of_units_selected", "TriggerPiece",
-                            "trigger_data[__index__].effect_data[__index__].number_of_units_selected"),
         RetrieverObjectLink("object_list_unit_id", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].object_list_unit_id"),
         RetrieverObjectLink("source_player", "TriggerPiece",
@@ -87,8 +85,6 @@ class EffectObject(AoE2Object):
         RetrieverObjectLink("player_color", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].player_color"),
         RetrieverObjectLink("message", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].message"),
-        RetrieverObjectLink("name_or_func", "TriggerPiece",
-                            "trigger_data[__index__].effect_data[__index__].name_or_func"),
         RetrieverObjectLink("sound_name", "TriggerPiece", "trigger_data[__index__].effect_data[__index__].sound_name"),
         RetrieverObjectLink("selected_object_ids", "TriggerPiece",
                             "trigger_data[__index__].effect_data[__index__].selected_object_ids"),
@@ -102,7 +98,6 @@ class EffectObject(AoE2Object):
                  quantity: int,
                  tribute_list: int,
                  diplomacy: int,
-                 number_of_units_selected: int,
                  object_list_unit_id: int,
                  source_player: IntEnum,
                  target_player: IntEnum,
@@ -143,7 +138,6 @@ class EffectObject(AoE2Object):
                  play_sound: int,
                  player_color: int,
                  message: str = "",
-                 name_or_func: str = "",
                  sound_name: str = "",
                  selected_object_ids: List[int] = None,
                  ):
@@ -158,7 +152,6 @@ class EffectObject(AoE2Object):
         self.quantity: int = quantity
         self.tribute_list: int = tribute_list
         self.diplomacy: int = diplomacy
-        self.number_of_units_selected: int = number_of_units_selected
         self.object_list_unit_id: int = object_list_unit_id
         self.source_player: IntEnum = source_player
         self.target_player: IntEnum = target_player
@@ -199,7 +192,6 @@ class EffectObject(AoE2Object):
         self.play_sound: int = play_sound
         self.player_color: int = player_color
         self.message: str = message
-        self.name_or_func: str = name_or_func
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
 
@@ -213,7 +205,6 @@ class EffectObject(AoE2Object):
     def selected_object_ids(self, val: List[int]):
         val = parser.listify(val)
         self._selected_object_ids = val
-        self.number_of_units_selected = len(val)
 
     def get_content_as_string(self) -> str:
         if self.effect_type not in effects.attributes:  # Unknown effect

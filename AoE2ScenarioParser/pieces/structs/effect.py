@@ -65,14 +65,6 @@ class EffectStruct(AoE2Struct):
         #     ),
         #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         # },
-        # "name_or_func": {
-        #     "on_refresh": RetrieverDependency(
-        #         DependencyAction.SET_REPEAT,
-        #         DependencyTarget('FileHeaderPiece', 'version'),
-        #         DependencyEval('1 if x in [\'1.40\'] else 0')
-        #     ),
-        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        # },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -128,8 +120,8 @@ class EffectStruct(AoE2Struct):
             Retriever("location_object_reference", DataType("s32")),
             Retriever("play_sound", DataType("s32")),
             Retriever("player_color", DataType("s32")),
+            Retriever("unknown_4", DataType("s32")),
             Retriever("message", DataType("str32")),
-            Retriever("name_or_func", DataType("str32")),
             Retriever("sound_name", DataType("str32")),
             Retriever("selected_object_ids", DataType("s32")),
         ]
@@ -190,8 +182,8 @@ class EffectStruct(AoE2Struct):
             'location_object_reference': -1,
             'play_sound': -1,
             'player_color': -1,
+            'unknown_4': -1,
             'message': '',
-            'name_or_func': '',
             'sound_name': '',
             'selected_object_ids': [],
         }

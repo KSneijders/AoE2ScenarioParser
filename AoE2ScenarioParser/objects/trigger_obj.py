@@ -127,17 +127,19 @@ class TriggerObject(AoE2Object):
         self.effect_order = list(range(0, len(val)))
 
     def add_effect(self, effect_type: Effect, ai_script_goal=None, aa_quantity=None, aa_armor_or_attack_type=None,
-                   quantity=None, tribute_list=None, diplomacy=None, number_of_units_selected=None,
-                   object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
-                   display_time=None, trigger_id=None, location_x=None, location_y=None, location_object_reference=None,
-                   area_1_x=None, area_1_y=None, area_2_x=None, area_2_y=None, object_group=None, object_type=None,
-                   instruction_panel_position=None, attack_stance=None, time_unit=None, enabled_or_victory=None,
-                   food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
-                   force_research_technology=None, visibility_state=None, scroll=None, operation=None,
-                   object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
-                   from_variable=None, variable_or_timer=None, facet=None, play_sound=None, message=None,
-                   player_color=None, name_or_func=None, sound_name=None, selected_object_ids=None, ) -> EffectObject:
+                   quantity=None, tribute_list=None, diplomacy=None,  object_list_unit_id=None, source_player=None,
+                   target_player=None, technology=None, string_id=None, display_time=None, trigger_id=None,
+                   location_x=None, location_y=None, location_object_reference=None, area_1_x=None, area_1_y=None,
+                   area_2_x=None, area_2_y=None, object_group=None, object_type=None, instruction_panel_position=None,
+                   attack_stance=None, time_unit=None, enabled_or_victory=None, food=None, wood=None, stone=None,
+                   gold=None, item_id=None, flash_object=None, force_research_technology=None, visibility_state=None,
+                   scroll=None, operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
+                   object_attributes=None, from_variable=None, variable_or_timer=None, facet=None, play_sound=None,
+                   message=None, player_color=None, sound_name=None,
+                   selected_object_ids=None) -> EffectObject:
         effect_defaults = effects.default_attributes[effect_type]
+        print(helper.pretty_print_dict(effect_defaults))
+        exit()
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
