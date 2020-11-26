@@ -19,6 +19,7 @@ class MapObject(AoE2Object):
         RetrieverObjectLink("map_width", "MapPiece", "map_width"),
         RetrieverObjectLink("map_height", "MapPiece", "map_height"),
         RetrieverObjectLink("terrain", "MapPiece", "terrain_data", process_as_object=TerrainObject),
+        RetrieverObjectLink("script_name", "MapPiece", "script_name"),
     ]
 
     def __init__(self,
@@ -27,7 +28,8 @@ class MapObject(AoE2Object):
                  villager_force_drop: bool,
                  map_width: int,
                  map_height: int,
-                 terrain: List[TerrainObject]
+                 terrain: List[TerrainObject],
+                 script_name: str
                  ):
         if map_width != map_height:
             raise ValueError("Age of Empires II:DE Does not support non-square maps.")
@@ -38,8 +40,8 @@ class MapObject(AoE2Object):
         self._map_width = map_width
         self._map_height = map_height
         self.terrain = terrain
+        self.script_name = script_name
         super().__init__()
-
 
     @property
     def map_width(self) -> int:
