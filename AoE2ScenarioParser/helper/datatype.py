@@ -30,10 +30,10 @@ class DataType:
     """
 
     def __init__(self, var="0", repeat=1, log_value=False):
-        self.log_value = log_value
-        self._debug_retriever_name = "???"
         self.var = var
         self._repeat = repeat
+        self.log_value = log_value
+        self._debug_retriever_name = "???"
 
     def to_simple_string(self):
         return str(self._repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)

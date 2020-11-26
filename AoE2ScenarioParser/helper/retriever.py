@@ -11,6 +11,9 @@ if TYPE_CHECKING:
 
 
 class Retriever:
+    on_construct: RetrieverDependency
+    on_commit: RetrieverDependency
+    on_refresh: RetrieverDependency
     """ A Class for defining how to retrieve data.
     The Constructor has quite some parameters which can all be used for getting the proper data
     """
@@ -38,10 +41,6 @@ class Retriever:
         self.set_repeat = set_repeat
         self.log_value = log_value
         self._data = None
-
-        self.on_construct: RetrieverDependency
-        self.on_commit: RetrieverDependency
-        self.on_refresh: RetrieverDependency
 
     @property
     def data(self):

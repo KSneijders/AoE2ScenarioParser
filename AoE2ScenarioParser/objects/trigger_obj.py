@@ -138,8 +138,6 @@ class TriggerObject(AoE2Object):
                    message=None, player_color=None, sound_name=None,
                    selected_object_ids=None) -> EffectObject:
         effect_defaults = effects.default_attributes[effect_type]
-        print(helper.pretty_print_dict(effect_defaults))
-        exit()
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
