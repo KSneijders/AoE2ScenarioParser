@@ -94,6 +94,12 @@ class Parser:
                 else:
                     break
                 result.append(val)
+        except StopIteration as e:
+            if retriever.name == "__END_OF_FILE_MARK__":
+                retriever.datatype.repeat = 0
+                return True, None, None
+            else:
+                raise e
         except Exception as e:
             return vorl(result, retriever), None if not as_length else length, e
 
@@ -125,6 +131,8 @@ class Parser:
                 print("\n\n")
                 time.sleep(1)
                 raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
+        elif retriever.name == "__END_OF_FILE_MARK__":
+            raise ValueError("End of file mark reached without it actually being the end of the file.")
 
         return vorl(result, retriever), None if not as_length else length, None
 

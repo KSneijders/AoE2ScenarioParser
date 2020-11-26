@@ -72,6 +72,7 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("unknown2", DataType("4")),
             Retriever("script_file_path", DataType("str16")),
             Retriever("unknown_3", DataType("12")),
+            Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]
 
         super().__init__("Triggers", retrievers, parser_obj, data=data, pieces=pieces)
@@ -90,5 +91,6 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             'unknown2': b'\x00' * 4,
             'script_name': "",
             'unknown_3': b'\x00' * 12,
+            '__END_OF_FILE_MARK__': '__END_OF_FILE_MARK__',
         }
         return defaults
