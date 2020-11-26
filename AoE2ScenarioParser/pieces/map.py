@@ -69,11 +69,11 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('separator_2', DataType("2")),
             Retriever('map_color_mood', DataType("str16")),
             Retriever('separator_3', DataType("2")),
+            # [VERSION CHANGE] ADDED in 1.37 > 1.40
+            Retriever('script_name', DataType("str16")),
             Retriever('collide_and_correct', DataType("u8")),
             # [VERSION CHANGE] ADDED in 1.36 > 1.37
             Retriever('villager_force_drop', DataType("u8")),
-            # [VERSION CHANGE] ADDED in 1.37 > 1.40
-            Retriever('script_name', DataType("str16")),
             # [VERSION CHANGE] ADDED in 1.37 > 1.40
             Retriever('unknown', DataType("128")),
             Retriever('player_1_camera_y', DataType("s32")),
