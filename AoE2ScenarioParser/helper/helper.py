@@ -36,8 +36,6 @@ def insert_char(string, char, step=64):
 def add_str_trail(string):
     if len(string) > 0:
         string = string + ("\x00" if string[-1] != "\x00" else "")
-    else:
-        string += "\x00"
     return string
 
 

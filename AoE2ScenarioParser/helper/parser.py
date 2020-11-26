@@ -84,7 +84,7 @@ class Parser:
                     string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
                     try:
                         data = r_gen(generator, string_length)
-                        val = bytes_to_str(data, retriever)
+                        val = bytes_to_str(data)
                         length += string_length
                     except StopIteration as e:
                         print(f"\n[StopIteration] Parser.retrieve_value: \n"
