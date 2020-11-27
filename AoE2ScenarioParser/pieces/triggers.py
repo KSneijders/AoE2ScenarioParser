@@ -76,7 +76,7 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("number_of_variables", DataType("u32")),
             Retriever("variable_data", DataType(VariableStruct)),
             Retriever("unknown2", DataType("4")),
-            Retriever("script_file_path", DataType("str16"), log_value=True),
+            Retriever("script_file_path", DataType("str16")),
             Retriever("unknown_3", DataType("12")),
             Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]

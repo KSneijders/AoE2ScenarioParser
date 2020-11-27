@@ -20,9 +20,6 @@ types = [
 def vorl(var: Any, retriever: Retriever = None):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
     if Retriever is not None:
-        if retriever.set_repeat is not None or retriever.datatype.repeat != 1:
-            return listify(var)
-
         if hasattr(retriever, 'on_refresh'):
             if retriever.on_refresh.dependency_type is DependencyAction.SET_REPEAT or retriever.datatype.repeat != 1:
                 return listify(var)
@@ -50,9 +47,6 @@ class Parser:
         length = 0
         result = list()
         var_type, var_len = datatype_to_type_length(retriever.datatype.var)
-
-        if retriever.set_repeat is not None:
-            retriever.datatype.repeat = parse_repeat_string(self._saves, retriever.set_repeat)
 
         if hasattr(retriever, 'on_construct'):
             handle_retriever_dependency(retriever, retrievers, "construct", pieces)
@@ -102,9 +96,6 @@ class Parser:
                 raise e
         except Exception as e:
             return vorl(result, retriever), None if not as_length else length, e
-
-        if retriever.save_as is not None:
-            self.add_to_saves(retriever.save_as, vorl(result, retriever))
 
         # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
         if retriever.name == "version" and retriever.datatype.var == "c4":
