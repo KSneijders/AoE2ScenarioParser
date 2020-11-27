@@ -59,7 +59,12 @@ class MapPiece(aoe2_piece.AoE2Piece):
             "on_commit": RetrieverDependency(
                 DependencyAction.REFRESH, DependencyTarget(["self", "self"], ["map_width", "map_height"])
             )
-        }
+        },
+        "script_name": {
+            "on_commit": RetrieverDependency(
+                DependencyAction.REFRESH, DependencyTarget("TriggerPiece", "script_file_path")
+            )
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):

@@ -57,6 +57,12 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
                 DependencyAction.REFRESH, DependencyTarget("self", "number_of_variables")
             )
         },
+        "script_file_path": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("MapPiece", "script_name"),
+                DependencyEval("x + ('.xs' if len(x) > 0 else '')")
+            ),
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -70,7 +76,7 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("number_of_variables", DataType("u32")),
             Retriever("variable_data", DataType(VariableStruct)),
             Retriever("unknown2", DataType("4")),
-            Retriever("script_file_path", DataType("str16")),
+            Retriever("script_file_path", DataType("str16"), log_value=True),
             Retriever("unknown_3", DataType("12")),
             Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]
