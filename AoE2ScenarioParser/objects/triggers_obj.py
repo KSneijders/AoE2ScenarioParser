@@ -372,7 +372,15 @@ class TriggersObject(AoE2Object):
             The newly created trigger
 
         """
-        trigger_attr = {key: locals()[key] for key in ['enabled', 'looping'] if hasattr(locals(), key)}
+        keys = [
+            'description', 'description_stid', 'display_as_objective', 'short_description',
+            'short_description_stid', 'display_on_screen', 'description_order', 'enabled', 'looping', 'header',
+            'mute_objectives', 'conditions', 'effects'
+        ]
+        trigger_attr = {}
+        for key in keys:
+            if locals()[key] is not None:
+                trigger_attr[key] = locals()[key]
         new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
         # helper.update_order_array(self._trigger_display_order, len(self.triggers))

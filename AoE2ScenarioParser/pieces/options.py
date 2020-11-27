@@ -33,7 +33,14 @@ def _fill_dependencies(dependencies):
 
 
 class OptionsPiece(aoe2_piece.AoE2Piece):
-    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {}
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        'number_of_triggers': {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("TriggerPiece", "trigger_data"),
+                DependencyEval("len(x)")
+            )
+        }
+    }
     _fill_dependencies(dependencies)
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -51,7 +58,8 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
             Retriever("all_techs", DataType("u32")),
             Retriever("per_player_starting_age", DataType("u32", repeat=16)),
             # 2: Dark 6 = Post | 1-8 players 9 GAIA
-            Retriever("unknown", DataType("36")),
+            Retriever("unknown", DataType("32")),
+            Retriever("number_of_triggers", DataType("u32")),
         ]
         super().__init__("Options", retrievers, parser_obj, data=data, pieces=pieces)
 
@@ -69,7 +77,13 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
             'naval_mode': 0,
             'all_techs': 0,
             'per_player_starting_age': [2] * 16,
-            'unknown': b'\x9d\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xffC\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00',
+            # 'unknown': b'\x9d\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            #            b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00',
+            # 'unknown': b'\x9d\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            #            b'\x00\x00\x00\x00\x00\x00\x00\x00\x00',
+            'unknown': b'\x9d\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+                       b'\x00\x00\x00\x00\x00\x00\x00\x00\x00',
+
+            'number_of_triggers': 0,
         })
         return defaults

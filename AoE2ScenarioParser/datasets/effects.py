@@ -38,11 +38,9 @@ class Effect(IntEnum):
     - target_player"""
     UNLOCK_GATE = 6
     """Attributes for the **unlock_gate** effect are: \n
-    - number_of_units_selected
     - selected_object_ids"""
     LOCK_GATE = 7
     """Attributes for the **lock_gate** effect are: \n
-    - number_of_units_selected
     - selected_object_ids"""
     ACTIVATE_TRIGGER = 8
     """Attributes for the **activate_trigger** effect are: \n
@@ -63,7 +61,6 @@ class Effect(IntEnum):
     - facet"""
     TASK_OBJECT = 12
     """Attributes for the **task_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -82,7 +79,6 @@ class Effect(IntEnum):
     - enabled_or_victory"""
     KILL_OBJECT = 14
     """Attributes for the **kill_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -94,7 +90,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     REMOVE_OBJECT = 15
     """Attributes for the **remove_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -113,7 +108,6 @@ class Effect(IntEnum):
     - scroll"""
     UNLOAD = 17
     """Attributes for the **unload** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -128,7 +122,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OWNERSHIP = 18
     """Attributes for the **change_ownership** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - target_player
@@ -142,7 +135,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     PATROL = 19
     """Attributes for the **patrol** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -170,7 +162,6 @@ class Effect(IntEnum):
     - instruction_panel_position"""
     FREEZE_OBJECT = 22
     """Attributes for the **freeze_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -187,7 +178,6 @@ class Effect(IntEnum):
     DAMAGE_OBJECT = 24
     """Attributes for the **damage_object** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -205,7 +195,6 @@ class Effect(IntEnum):
     - location_y"""
     CHANGE_OBJECT_NAME = 26
     """Attributes for the **change_object_name** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - string_id
@@ -218,7 +207,6 @@ class Effect(IntEnum):
     CHANGE_OBJECT_HP = 27
     """Attributes for the **change_object_hp** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -233,7 +221,6 @@ class Effect(IntEnum):
     """Attributes for the **change_object_attack** effect are: \n
     - aa_quantity
     - aa_armor_or_attack_type
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -246,7 +233,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     STOP_OBJECT = 29
     """Attributes for the **stop_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -258,7 +244,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     ATTACK_MOVE = 30
     """Attributes for the **attack_move** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -275,7 +260,6 @@ class Effect(IntEnum):
     """Attributes for the **change_object_armor** effect are: \n
     - aa_quantity
     - aa_armor_or_attack_type
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -289,7 +273,6 @@ class Effect(IntEnum):
     CHANGE_OBJECT_RANGE = 32
     """Attributes for the **change_object_range** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -303,7 +286,6 @@ class Effect(IntEnum):
     CHANGE_OBJECT_SPEED = 33
     """Attributes for the **change_object_speed** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -316,7 +298,6 @@ class Effect(IntEnum):
     HEAL_OBJECT = 34
     """Attributes for the **heal_object** effect are: \n
     - quantity
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -328,7 +309,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     TELEPORT_OBJECT = 35
     """Attributes for the **teleport_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - location_x
@@ -342,7 +322,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OBJECT_STANCE = 36
     """Attributes for the **change_object_stance** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -387,7 +366,6 @@ class Effect(IntEnum):
     - visibility_state"""
     CHANGE_OBJECT_ICON = 42
     """Attributes for the **change_object_icon** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -400,7 +378,6 @@ class Effect(IntEnum):
     - selected_object_ids"""
     REPLACE_OBJECT = 43
     """Attributes for the **replace_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - target_player
@@ -442,7 +419,6 @@ class Effect(IntEnum):
     - message"""
     CREATE_GARRISONED_OBJECT = 49
     """Attributes for the **create_garrisoned_object** effect are: \n
-    - number_of_units_selected
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -476,9 +452,21 @@ class Effect(IntEnum):
     - item_id
     - operation
     - from_variable"""
-    # Only names are shown. Unable to find if functionality is actually added yet... https://tenor.com/xP1E.gif
-    # CHANGE_RESEARCH_COST = 54
-    # CHANGE_RESEARCH_TIME = 55
+    SET_BUILDING_GATHER_POINT = 54
+    """Attributes for the **set_building_gather_point** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - location_x
+    - location_y
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
+    SCRIPT_CALL = 55
+    """Attributes for the **script_call** effect are: \n
+    - string_id
+    - message"""
     CHANGE_VARIABLE = 56
     """Attributes for the **change_variable** effect are: \n
     - quantity
@@ -488,8 +476,109 @@ class Effect(IntEnum):
     CLEAR_TIMER = 57
     """Attributes for the **clear_timer** effect are: \n
     - variable_or_timer"""
+    CHANGE_OBJECT_PLAYER_COLOR = 58
+    """Attributes for the **change_object_player_color** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - player_color
+    - selected_object_ids"""
+    CHANGE_OBJECT_CIVILIZATION_NAME = 59
+    """Attributes for the **change_object_civilization_name** effect are: \n
+    - string_id
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
+    CHANGE_OBJECT_PLAYER_NAME = 60
+    """Attributes for the **change_object_player_name** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - string_id
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
+    DISABLE_UNIT_TARGETING = 61
+    """Attributes for the **disable_unit_targeting** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
+    ENABLE_UNIT_TARGETING = 62
+    """Attributes for the **enable_unit_targeting** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
+    CHANGE_TECHNOLOGY_COST = 63
+    """Attributes for the **change_technology_cost** effect are: \n
+    - source_player
+    - technology
+    - food
+    - wood
+    - stone
+    - gold"""
+    CHANGE_TECHNOLOGY_RESEARCH_TIME = 64
+    """Attributes for the **change_technology_research_time** effect are: \n
+    - quantity
+    - source_player
+    - technology"""
+    CHANGE_TECHNOLOGY_NAME = 65
+    """Attributes for the **change_technology_name** effect are: \n
+    - source_player
+    - technology
+    - string_id
+    - message"""
+    CHANGE_TECHNOLOGY_DESCRIPTION = 66
+    """Attributes for the **change_technology_description** effect are: \n
+    - source_player
+    - technology
+    - string_id
+    - message"""
+    ENABLE_TECHNOLOGY_STACKING = 67
+    """Attributes for the **enable_technology_stacking** effect are: \n
+    - source_player
+    - technology"""
+    DISABLE_TECHNOLOGY_STACKING = 68
+    """Attributes for the **disable_technology_stacking** effect are: \n
+    - source_player
+    - technology"""
+    ACKNOWLEDGE_MULTIPLAYER_AI_SIGNAL = 69
+    """Attributes for the **acknowledge_multiplayer_ai_signal** effect are: \n
+    - ai_signal_value
+    """
+    DISABLE_OBJECT_SELECTION = 70
+    """Attributes for the **disable_object_selection** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
+    ENABLE_OBJECT_SELECTION = 71
+    """Attributes for the **enable_object_selection** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_1_x
+    - area_1_y
+    - area_2_x
+    - area_2_y
+    - selected_object_ids"""
     # Possibly used for marking when achievements should be achieved. Doesn't seem to work in scenario's. F
-    # UNKNOWN_0 = 58
+    # UNKNOWN_0 = 58  # Was 58... Not anymore (?)
 
 
 effect_names = bidict({
@@ -547,8 +636,24 @@ effect_names = bidict({
     51: "modify_attribute",
     52: "modify_resource",
     53: "modify_resource_by_variable",
+    54: "set_building_gather_point",
+    55: "script_call",
     56: "change_variable",
     57: "clear_timer",
+    58: "change_object_player_color",
+    59: "change_object_civilization_name",
+    60: "change_object_player_name",
+    61: "disable_unit_targeting",
+    62: "enable_unit_targeting",
+    63: "change_technology_cost",
+    64: "change_technology_research_time",
+    65: "change_technology_name",
+    66: "change_technology_description",
+    67: "enable_technology_stacking",
+    68: "disable_technology_stacking",
+    69: "acknowledge_multiplayer_ai_signal",
+    70: "disable_object_selection",
+    71: "enable_object_selection",
 })
 
 empty_attributes = {
@@ -559,7 +664,6 @@ empty_attributes = {
     "quantity": -1,
     "tribute_list": -1,
     "diplomacy": -1,
-    "number_of_units_selected": -1,
     "object_list_unit_id": -1,
     "source_player": -1,
     "target_player": -1,
@@ -598,6 +702,7 @@ empty_attributes = {
     "variable_or_timer": -1,
     "facet": -1,
     "play_sound": -1,
+    "player_color": -1,
     "message": '',
     "sound_name": '',
     "selected_object_ids": -1,
@@ -612,7 +717,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -651,6 +755,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -663,7 +768,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -702,6 +806,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -714,7 +819,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -753,6 +857,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -765,7 +870,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -804,6 +908,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -816,7 +921,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -855,6 +959,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -867,7 +972,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -906,7 +1010,8 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
+        "player_color": -1,
+        "message": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -918,7 +1023,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": 0,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -957,6 +1061,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -969,7 +1074,6 @@ default_attributes = {
         "quantity": [],
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1008,6 +1112,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1020,7 +1125,6 @@ default_attributes = {
         "quantity": [],
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1059,6 +1163,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1071,7 +1176,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1110,6 +1214,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1122,7 +1227,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1161,7 +1265,8 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
+        "player_color": -1,
+        "message": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1173,7 +1278,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1212,6 +1316,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1224,7 +1329,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1263,6 +1367,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1275,7 +1380,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1314,7 +1418,8 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
+        "player_color": -1,
+        "message": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1326,7 +1431,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1365,6 +1469,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1377,7 +1482,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1416,6 +1520,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1428,7 +1533,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1467,6 +1571,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1479,7 +1584,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -1518,6 +1622,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1530,7 +1635,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1569,7 +1673,8 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
+        "player_color": -1,
+        "message": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1581,7 +1686,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1620,6 +1724,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1632,7 +1737,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1671,6 +1775,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1683,7 +1788,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -1722,7 +1826,8 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
+        "player_color": -1,
+        "message": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -1734,7 +1839,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1773,6 +1877,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1785,7 +1890,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -1824,6 +1928,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1836,7 +1941,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -1875,6 +1979,7 @@ default_attributes = {
         "variable_or_timer": 0,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1887,7 +1992,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1926,6 +2030,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1938,7 +2043,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -1977,6 +2081,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": 0,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -1989,7 +2094,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2028,6 +2132,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2040,7 +2145,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2079,6 +2183,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2091,7 +2196,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2130,6 +2234,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2142,7 +2247,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2181,8 +2285,9 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": 0,
-        "message": " ",
-        "sound_name": " ",
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
         "selected_object_ids": [],
     },
     37: {
@@ -2193,7 +2298,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2232,7 +2336,8 @@ default_attributes = {
         "variable_or_timer": 0,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
+        "player_color": -1,
+        "message": "",
         "sound_name": "",
         "selected_object_ids": [],
     },
@@ -2244,7 +2349,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2283,6 +2387,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2295,7 +2400,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2334,6 +2438,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2346,7 +2451,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2385,6 +2489,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2397,7 +2502,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2436,6 +2540,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2448,7 +2553,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2487,6 +2591,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2499,7 +2604,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -2538,6 +2642,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2550,7 +2655,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2589,6 +2693,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2601,7 +2706,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2640,6 +2744,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2652,7 +2757,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2691,6 +2795,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2703,7 +2808,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2742,6 +2846,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2754,7 +2859,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2793,6 +2897,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2805,7 +2910,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2844,8 +2948,9 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
-        "sound_name": " ",
+        "sound_name": "",
         "selected_object_ids": [],
     },
     15: {
@@ -2856,7 +2961,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2895,6 +2999,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2907,7 +3012,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -2946,6 +3050,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -2958,7 +3063,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -2997,6 +3101,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3009,7 +3114,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3048,8 +3152,9 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
-        "message": " ",
-        "sound_name": " ",
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
         "selected_object_ids": [],
     },
     41: {
@@ -3060,7 +3165,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -3099,6 +3203,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3111,7 +3216,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3150,6 +3254,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3162,7 +3267,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3201,6 +3305,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3213,7 +3318,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3252,6 +3356,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3264,7 +3369,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": 2,
@@ -3303,6 +3407,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3315,7 +3420,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": 1,
         "target_player": -1,
@@ -3354,6 +3458,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3366,7 +3471,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -3405,6 +3509,7 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
@@ -3417,7 +3522,6 @@ default_attributes = {
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
-        "number_of_units_selected": -1,
         "object_list_unit_id": -1,
         "source_player": -1,
         "target_player": -1,
@@ -3456,10 +3560,827 @@ default_attributes = {
         "variable_or_timer": -1,
         "facet": -1,
         "play_sound": -1,
+        "player_color": -1,
         "message": "",
         "sound_name": "",
         "selected_object_ids": [],
-    }
+    },
+    54: {
+        "effect_type": 54,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    55: {
+        "effect_type": 55,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": -1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    58: {
+        "effect_type": 58,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": 0,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    59: {
+        "effect_type": 59,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": -1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    60: {
+        "effect_type": 60,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    61: {
+        "effect_type": 61,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    62: {
+        "effect_type": 62,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    63: {
+        "effect_type": 63,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    64: {
+        "effect_type": 64,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    65: {
+        "effect_type": 65,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    66: {
+        "effect_type": 66,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    67: {
+        "effect_type": 67,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    68: {
+        "effect_type": 68,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": 16,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    69: {
+        "effect_type": 69,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": -1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": 0,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    70: {
+        "effect_type": 70,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
+    71: {
+        "effect_type": 71,
+        "ai_script_goal": -1,
+        "aa_quantity": [],
+        "aa_armor_or_attack_type": [],
+        "quantity": -1,
+        "tribute_list": -1,
+        "diplomacy": -1,
+        "object_list_unit_id": -1,
+        "source_player": 1,
+        "target_player": -1,
+        "technology": -1,
+        "string_id": -1,
+        "display_time": -1,
+        "trigger_id": -1,
+        "location_x": -1,
+        "location_y": -1,
+        "location_object_reference": -1,
+        "area_1_x": -1,
+        "area_1_y": -1,
+        "area_2_x": -1,
+        "area_2_y": -1,
+        "object_group": -1,
+        "object_type": -1,
+        "instruction_panel_position": -1,
+        "attack_stance": -1,
+        "time_unit": -1,
+        "enabled_or_victory": -1,
+        "food": -1,
+        "wood": -1,
+        "stone": -1,
+        "gold": -1,
+        "item_id": -1,
+        "flash_object": -1,
+        "force_research_technology": -1,
+        "visibility_state": -1,
+        "scroll": -1,
+        "operation": -1,
+        "object_list_unit_id_2": -1,
+        "button_location": -1,
+        "ai_signal_value": -1,
+        "object_attributes": -1,
+        "from_variable": -1,
+        "variable_or_timer": -1,
+        "facet": -1,
+        "play_sound": -1,
+        "player_color": -1,
+        "message": "",
+        "sound_name": "",
+        "selected_object_ids": [],
+    },
 }
 
 attributes = {
@@ -3480,7 +4401,6 @@ attributes = {
     ],
     30: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -3510,7 +4430,6 @@ attributes = {
         "effect_type",
         "aa_quantity",
         "aa_armor_or_attack_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3526,7 +4445,6 @@ attributes = {
         "effect_type",
         "aa_quantity",
         "aa_armor_or_attack_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3557,7 +4475,6 @@ attributes = {
     27: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3571,7 +4488,6 @@ attributes = {
     ],
     42: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3585,7 +4501,6 @@ attributes = {
     ],
     26: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "string_id",
@@ -3599,7 +4514,6 @@ attributes = {
     32: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3614,7 +4528,6 @@ attributes = {
     33: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3627,7 +4540,6 @@ attributes = {
     ],
     36: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3641,7 +4553,6 @@ attributes = {
     ],
     18: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "target_player",
@@ -3699,7 +4610,6 @@ attributes = {
     ],
     49: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3721,7 +4631,6 @@ attributes = {
     24: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3776,7 +4685,6 @@ attributes = {
     ],
     22: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3790,7 +4698,6 @@ attributes = {
     34: [
         "effect_type",
         "quantity",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3803,7 +4710,6 @@ attributes = {
     ],
     14: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3816,7 +4722,6 @@ attributes = {
     ],
     7: [
         "effect_type",
-        "number_of_units_selected",
         "selected_object_ids",
     ],
     51: [
@@ -3846,7 +4751,6 @@ attributes = {
     ],
     19: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -3877,7 +4781,6 @@ attributes = {
     ],
     15: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3890,7 +4793,6 @@ attributes = {
     ],
     43: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "target_player",
@@ -3924,7 +4826,6 @@ attributes = {
     ],
     29: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -3937,7 +4838,6 @@ attributes = {
     ],
     12: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -3953,7 +4853,6 @@ attributes = {
     ],
     35: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -3975,7 +4874,6 @@ attributes = {
     ],
     17: [
         "effect_type",
-        "number_of_units_selected",
         "object_list_unit_id",
         "source_player",
         "location_x",
@@ -3991,12 +4889,125 @@ attributes = {
     ],
     6: [
         "effect_type",
-        "number_of_units_selected",
         "selected_object_ids",
     ],
     23: [
         "effect_type",
-    ]
+    ],
+    54: [
+        "object_list_unit_id",
+        "source_player",
+        "location_x",
+        "location_y",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    55: [
+        "string_id",
+        "message",
+    ],
+    58: [
+        "object_list_unit_id",
+        "source_player",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    59: [
+        "string_id",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    60: [
+        "object_list_unit_id",
+        "source_player",
+        "string_id",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    61: [
+        "object_list_unit_id",
+        "source_player",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    62: [
+        "object_list_unit_id",
+        "source_player",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    63: [
+        "source_player",
+        "technology",
+        "food",
+        "wood",
+        "stone",
+        "gold",
+    ],
+    64: [
+        "quantity",
+        "source_player",
+        "technology",
+    ],
+    65: [
+        "source_player",
+        "technology",
+        "string_id",
+        "message",
+    ],
+    66: [
+        "source_player",
+        "technology",
+        "string_id",
+        "message",
+    ],
+    67: [
+        "source_player",
+        "technology",
+    ],
+    68: [
+        "source_player",
+        "technology",
+    ],
+    69: [
+        "ai_signal_value",
+    ],
+    70: [
+        "object_list_unit_id",
+        "source_player",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
+    71: [
+        "object_list_unit_id",
+        "source_player",
+        "area_1_x",
+        "area_1_y",
+        "area_2_x",
+        "area_2_y",
+        "selected_object_ids",
+    ],
 }
 
 # for effect_id in range(0, 58):

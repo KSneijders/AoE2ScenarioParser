@@ -44,6 +44,10 @@ class ConditionObject(AoE2Object):
                             "trigger_data[__index__].condition_data[__index__].comparison"),
         RetrieverObjectLink("target_player", "TriggerPiece",
                             "trigger_data[__index__].condition_data[__index__].target_player"),
+        RetrieverObjectLink("xs_function", "TriggerPiece",
+                            "trigger_data[__index__].condition_data[__index__].xs_function"),
+        RetrieverObjectLink("unit_ai_action", "TriggerPiece",
+                            "trigger_data[__index__].condition_data[__index__].unit_ai_action"),
     ]
 
     def __init__(self,
@@ -66,7 +70,9 @@ class ConditionObject(AoE2Object):
                  inverted: int,
                  variable: int,
                  comparison: int,
-                 target_player: IntEnum
+                 target_player: IntEnum,
+                 unit_ai_action: int,
+                 xs_function: str,
                  ):
 
         self.condition_type: int = condition_type
@@ -89,16 +95,21 @@ class ConditionObject(AoE2Object):
         self.variable: int = variable
         self.comparison: int = comparison
         self.target_player: IntEnum = target_player
+        self.unit_ai_action: int = unit_ai_action
+        self.xs_function: str = xs_function
 
         super().__init__()
 
     def get_content_as_string(self) -> str:
-        attributes_list = conditions.attributes[self.condition_type]
+        if self.condition_type not in conditions.attributes:
+            attributes_list = conditions.empty_attributes
+        else:
+            attributes_list = conditions.attributes[self.condition_type]
 
         return_string = ""
         for attribute in attributes_list:
             attr = getattr(self, attribute)
-            if attribute == "condition_type" or attr == [] or attr == "" or attr == " " or attr == -1:
+            if attribute == "condition_type" or attr in [[], [-1], [''], "", " ", -1]:
                 continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
 

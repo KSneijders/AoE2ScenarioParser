@@ -22,6 +22,12 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             "on_commit": RetrieverDependency(
                 DependencyAction.REFRESH, DependencyTarget("self", "mission_items_counter"))
         },
+        "unknown2": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT, DependencyTarget("FileHeaderPiece", "version"),
+                DependencyEval("1 if x == '1.40' else 0")),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -46,7 +52,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
     def defaults(pieces):
         defaults = {
             'next_unit_id_to_place': 0,
-            'version': 1.3700000047683716,
+            'version': 1.399999976158142,
             'player_names': ['\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
             'player_data_1': DataHeaderPiece._get_player_data_1_default(pieces),
@@ -58,7 +64,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             'unknown': b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                        b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
                        b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00',
-            'filename': 'CreatedUsingAoE2ScenarioParser',
+            'filename': 'CreatedUsingAoE2ScenarioParser.aoe2scenario',
         }
         return defaults
 

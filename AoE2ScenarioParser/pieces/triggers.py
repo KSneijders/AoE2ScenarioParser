@@ -23,7 +23,17 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF),
             "on_commit": RetrieverDependency(
-                DependencyAction.REFRESH, DependencyTarget("self", "number_of_triggers")
+                DependencyAction.REFRESH, DependencyTarget(
+                    [
+                        "self",
+                        "FileHeaderPiece",
+                        "OptionsPiece",
+                    ], [
+                        "number_of_triggers",
+                        "trigger_count",
+                        "number_of_triggers",
+                    ]
+                )
             )
         },
         "trigger_display_order_array": {
@@ -47,6 +57,12 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
                 DependencyAction.REFRESH, DependencyTarget("self", "number_of_variables")
             )
         },
+        "script_file_path": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("MapPiece", "script_name"),
+                DependencyEval("x + ('.xs' if len(x) > 0 else '')")
+            ),
+        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -59,6 +75,10 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             Retriever("unknown", DataType("1028")),
             Retriever("number_of_variables", DataType("u32")),
             Retriever("variable_data", DataType(VariableStruct)),
+            Retriever("unknown2", DataType("4")),
+            Retriever("script_file_path", DataType("str16"), log_value=True),
+            Retriever("unknown_3", DataType("12")),
+            Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]
 
         super().__init__("Triggers", retrievers, parser_obj, data=data, pieces=pieces)
@@ -66,7 +86,7 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
     @staticmethod
     def defaults(pieces):
         defaults = {
-            'trigger_version': 2.2,
+            'trigger_version': 2.4,
             'trigger_instruction_start': 0,
             'number_of_triggers': 0,
             'trigger_data': [],
@@ -74,5 +94,9 @@ class TriggerPiece(aoe2_piece.AoE2Piece):
             'unknown': b'\x00' * 1028,
             'number_of_variables': 0,
             'variable_data': [],
+            'unknown2': b'\x00' * 4,
+            'script_name': "",
+            'unknown_3': b'\x00' * 12,
+            '__END_OF_FILE_MARK__': '__END_OF_FILE_MARK__',
         }
         return defaults

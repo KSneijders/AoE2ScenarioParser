@@ -90,7 +90,7 @@ class AoE2Piece:
         if self.parser:
             for i, retriever in enumerate(self.retrievers):
                 try:
-                    retriever.data, status = self.parser.retrieve_value(generator, retriever, self.retrievers, pieces)
+                    retriever.data, _, status = self.parser.retrieve_value(generator, retriever, self.retrievers, pieces)
                     if status is not None:
                         raise status
                 except Exception as e:
@@ -103,7 +103,7 @@ class AoE2Piece:
     def get_header_string(self):
         return "######################## " + self.piece_type + " ######################## [PIECE]"
 
-    def get_byte_structure_as_string(self, skip_retrievers=None):
+    def get_byte_structure_as_string(self, pieces, skip_retrievers=None):
         if skip_retrievers is None:
             skip_retrievers = []
 
@@ -121,13 +121,13 @@ class AoE2Piece:
                     if not struct_header_set:
                         byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
                         struct_header_set = True
-                    byte_structure += struct.get_byte_structure_as_string()
+                    byte_structure += struct.get_byte_structure_as_string(pieces)
             # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
             if struct_header_set:
                 byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
                 continue
 
-            retriever_data_bytes = parser.retriever_to_bytes(retriever)
+            retriever_data_bytes = parser.retriever_to_bytes(retriever, pieces)
             if retriever_data_bytes is None:
                 return byte_structure
             else:

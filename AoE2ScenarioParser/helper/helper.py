@@ -36,8 +36,6 @@ def insert_char(string, char, step=64):
 def add_str_trail(string):
     if len(string) > 0:
         string = string + ("\x00" if string[-1] != "\x00" else "")
-    else:
-        string += "\x00"
     return string
 
 
@@ -103,6 +101,19 @@ def pretty_print_name(name: str) -> str:
         T-West (https://github.com/twestura/)
     """
     return ' '.join(s[0].upper() + s[1:] for s in name.split('_'))
+
+
+""" =============================================================
+============================ COORDS =============================
+=============================================================="""
+
+
+def xy_to_i(x, y, map_size):
+    return x * map_size + y
+
+
+def i_to_xy(i, map_size):
+    return int(i / map_size), i % map_size
 
 
 """ =============================================================

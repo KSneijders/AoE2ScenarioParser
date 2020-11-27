@@ -1,3 +1,4 @@
+import time
 from typing import Any, List
 
 import AoE2ScenarioParser.pieces.structs.aoe2_struct
@@ -46,8 +47,6 @@ class Parser:
     def retrieve_value(self, generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
         if (pieces is None or retrievers is None) and not as_length:
             raise ValueError("Normal retrieval of length requires pieces parameter.")
-        if (pieces is not None and retrievers is None) or (pieces is None and retrievers is not None):
-            raise ValueError("The retrievers and pieces parameters always need to be used simultaneously")
         length = 0
         result = list()
         var_type, var_len = datatype_to_type_length(retriever.datatype.var)
@@ -95,13 +94,47 @@ class Parser:
                 else:
                     break
                 result.append(val)
+        except StopIteration as e:
+            if retriever.name == "__END_OF_FILE_MARK__":
+                retriever.datatype.repeat = 0
+                return True, None, None
+            else:
+                raise e
         except Exception as e:
-            return result, e
+            return vorl(result, retriever), None if not as_length else length, e
 
         if retriever.save_as is not None:
             self.add_to_saves(retriever.save_as, vorl(result, retriever))
 
-        return (vorl(result, retriever) if not as_length else length), None
+        # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
+        if retriever.name == "version" and retriever.datatype.var == "c4":
+            version = vorl(result, retriever)
+            if version != "1.40":
+                print("\n\n")
+                print('\n'.join([
+                    "#### SORRY FOR THE INCONVENIENCE ####",
+                    "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
+                    "supported at this time.",
+                    f"Your current version is: '{version}'. The currently only supported version is: '1.40'.",
+                    "The reason for this is a huge rework for version support.",
+                    "This rework will take some time to complete, so until then, please upgrade your scenario to the "
+                    "newest version. You can do this by saving it again in the in-game editor.",
+                    "If you do not want to upgrade the scenarios, please downgrade this library to version 0.0.11. You "
+                    "can do so by executing the following command in cmd:",
+                    "",
+                    ">>> pip install --force-reinstall AoE2ScenarioParser==0.0.11",
+                    "",
+                    "Thank you in advance."
+                ]))
+                time.sleep(1)
+                print("- KSneijders")
+                print("\n\n")
+                time.sleep(1)
+                raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
+        elif retriever.name == "__END_OF_FILE_MARK__":
+            raise ValueError("End of file mark reached without it actually being the end of the file.")
+
+        return vorl(result, retriever), None if not as_length else length, None
 
     def add_to_saves(self, name, value):
         self._saves[name] = value
@@ -183,8 +216,9 @@ def calculate_length(generator, retriever_list):
     total_length = 0
 
     for retriever in retriever_list:
-        result, status = parser.retrieve_value(generator, retriever, as_length=True)
-        total_length += result
+        result, length, status = parser.retrieve_value(generator, retriever, retriever_list, as_length=True)
+        retriever.data = result
+        total_length += length
 
     return total_length
 
@@ -223,7 +257,7 @@ def datatype_to_type_length(var):
     return var_type, var_len
 
 
-def retriever_to_bytes(retriever):
+def retriever_to_bytes(retriever, pieces):
     var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
     return_bytes = b''
@@ -242,14 +276,14 @@ def retriever_to_bytes(retriever):
 
             if var_type == "struct":
                 for struct_retriever in data.retrievers:
-                    result = retriever_to_bytes(struct_retriever)
+                    result = retriever_to_bytes(struct_retriever, pieces)
                     if result is None:
                         # Return default value. When non is committed.
                         # Should only happen when a value is not transferred from and to a struct.
                         # This is because structs are recreated on file generation. When the struct does not contain
                         # a certain value because it's use is unknown, the value isn't transferred between.
-                        struct_retriever.data = retriever.datatype.var.defaults({})[struct_retriever.name]
-                        return_bytes += retriever_to_bytes(struct_retriever)
+                        struct_retriever.data = retriever.datatype.var.defaults(pieces)[struct_retriever.name]
+                        return_bytes += retriever_to_bytes(struct_retriever, pieces)
                         continue
                     return_bytes += result
             if var_type == "u" or var_type == "s":  # int
@@ -264,7 +298,7 @@ def retriever_to_bytes(retriever):
             elif var_type == "data":  # bytes
                 return_bytes += data
             elif var_type == "str":  # str
-                byte_string = str_to_bytes(data)
+                byte_string = str_to_bytes(data, retriever)
                 return_bytes += int_to_bytes(len(byte_string), var_len, endian="little", signed=True)
                 return_bytes += byte_string
     except (AttributeError, TypeError) as e:

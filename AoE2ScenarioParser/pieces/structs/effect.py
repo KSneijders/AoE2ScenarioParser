@@ -43,20 +43,28 @@ class EffectStruct(AoE2Struct):
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_VALUE,
                 DependencyTarget('self', 'selected_object_ids'),
-                DependencyEval('len(x)')
+                DependencyEval('len(x) if len(x) != 0 else -1')
             )
         },
         "selected_object_ids": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT,
-                DependencyTarget("self", "number_of_units_selected")
+                DependencyTarget("self", "number_of_units_selected"),
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF),
             "on_commit": RetrieverDependency(
                 DependencyAction.REFRESH,
                 DependencyTarget("self", "number_of_units_selected")
             )
-        }
+        },
+        # "player_color": {
+        #     "on_refresh": RetrieverDependency(
+        #         DependencyAction.SET_REPEAT,
+        #         DependencyTarget('FileHeaderPiece', 'version'),
+        #         DependencyEval('1 if x in [\'1.40\'] else 0')
+        #     ),
+        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        # },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -111,9 +119,11 @@ class EffectStruct(AoE2Struct):
             Retriever("facet", DataType("s32")),
             Retriever("location_object_reference", DataType("s32")),
             Retriever("play_sound", DataType("s32")),
+            Retriever("player_color", DataType("s32")),
+            Retriever("unknown_4", DataType("s32")),
             Retriever("message", DataType("str32")),
             Retriever("sound_name", DataType("str32")),
-            Retriever("selected_object_ids", DataType("s32"))
+            Retriever("selected_object_ids", DataType("s32")),
         ]
 
         super().__init__("Effect", retrievers, parser_obj, data, pieces=pieces)
@@ -122,7 +132,7 @@ class EffectStruct(AoE2Struct):
     def defaults(pieces):
         defaults = {
             'effect_type': 0,
-            'static_value_46': 46,
+            'static_value_46': 48,
             'ai_script_goal': -1,
             'quantity': -1,
             'aa_quantity': -1,
@@ -170,8 +180,9 @@ class EffectStruct(AoE2Struct):
             'variable_or_timer': -1,
             'facet': -1,
             'location_object_reference': -1,
-            'unknown_4': -1,
             'play_sound': -1,
+            'player_color': -1,
+            'unknown_4': -1,
             'message': '',
             'sound_name': '',
             'selected_object_ids': [],
