@@ -5,6 +5,64 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.12 - 2020-November-27
+
+**Support for the new update!**
+
+**Important notice:** This version does not support older versions of the scenario files. This is temporary due to the amount of changes from the newest version (Update: 42848), sorry for the inconvience.  
+When loading a map from an older version, instructions will be provided for downgrading this library or updating the scenario to the newest version.
+
+### Added
+
+- `create_hill` function to the map_manager (Credits: pvallet)
+- **[Update 42848]** `script_name` (xs file) to the MapManager
+- **[Update 42848]** The new effects!!
+  - `Set Building Gather Point`
+  - `Script Call`
+  - `Change Object Player Color`
+  - `Change Object Civilization Name`
+  - `Change Object Player Name`
+  - `Disable Unit Targeting`
+  - `Enable Unit Targeting`
+  - `Change Technology Cost`
+  - `Change Technology Research Time`
+  - `Change Technology Name`
+  - `Change Technology Description`
+  - `Enable Technology Stacking`
+  - `Disable Technology Stacking`
+  - `Acknowledge Multiplayer AI Signal`
+  - `Disable Object Selection`
+  - `Enable Object Selection`
+- **[Update 42848]** The new conditions!!
+  - `Script Call`
+  - `Object Visible (Multiplayer)`
+  - `Object Selected (Multiplayer)`
+  - `Object has Action`
+  - `OR`
+  - `Multiplayer AI Signal`
+- **[Update 42848]** `UnitAIAction` dataset
+- `AttackStance` dataset
+
+### Discovered (in byte structure)
+
+- **[Update 42848]** The new architecture set feature
+- **[Update 42848]** script (xs) file path at the end of the file
+
+### Improved
+
+- Defaults for the `create_default()` function when dealing with inconsistent structs
+ 
+### Fixed
+
+- Adding a trigger with extra arguments will now work properly (Example: `.add_trigger("name", description="desc")`)
+- Adding a condition with extra arguments will now work properly (Example: `.add_condition(Cond.TIMER, timer=20)`)
+
+### Removed
+
+- `number_of_units_selected` as an attribute for effects. This is now dealt with internally. 
+
+---
+
 ## 0.0.11 - 2020-November-15
 
 ### Added
@@ -46,7 +104,6 @@ The format is based on [Keep a Changelog]
 ---
 
 ## 0.0.9 - 2020-November-09
-
 
 ### Fixed
 
