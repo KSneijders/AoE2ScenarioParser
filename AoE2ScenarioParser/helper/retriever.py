@@ -18,17 +18,11 @@ class Retriever:
     The Constructor has quite some parameters which can all be used for getting the proper data
     """
 
-    def __init__(self, name, datatype=DataType(),
-                 save_as=None,
-                 set_repeat=None,
-                 log_value=False
-                 ):
+    def __init__(self, name, datatype=DataType(), log_value=False):
         """
         Args:
             name (str): The name of the item. Has to be unique within the Piece or Struct
             datatype (DataType): A datatype object
-            save_as (str): To Be Removed (Deprecated)
-            set_repeat (str): To Be Removed (Deprecated)
             log_value (bool): A boolean for, mostly, debugging. This will log this Retriever with it's data when the
                 data is changed, when this retriever is constructed and committed.
         """
@@ -37,8 +31,6 @@ class Retriever:
         if log_value:
             self.datatype.log_value = True
         self.datatype._debug_retriever_name = name
-        self.save_as = save_as
-        self.set_repeat = set_repeat
         self.log_value = log_value
         self._data = None
 
