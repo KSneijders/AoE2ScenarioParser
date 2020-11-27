@@ -56,6 +56,7 @@ When loading a map from an older version, instructions will be provided for down
 
 - Adding a trigger with extra arguments will now work properly (Example: `.add_trigger("name", description="desc")`)
 - Adding a condition with extra arguments will now work properly (Example: `.add_condition(Cond.TIMER, timer=20)`)
+- The 'Fix' in version `0.0.11` for the lazy loading of effect and condition display orders wasn't working properly. Now it is.
 
 ### Removed
 
