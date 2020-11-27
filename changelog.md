@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.13 - 2020-November-27
+
+### Fixed
+
+- Issue introduced in `0.0.12`
+
 ## 0.0.12 - 2020-November-27
 
 **Support for the new update!**
