@@ -62,7 +62,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
         },
         "script_name": {
             "on_commit": RetrieverDependency(
-                DependencyAction.REFRESH, DependencyTarget("TriggerPiece", "script_file_path")
+                DependencyAction.REFRESH, DependencyTarget("FilesPiece", "script_file_path")
             )
         },
     }
