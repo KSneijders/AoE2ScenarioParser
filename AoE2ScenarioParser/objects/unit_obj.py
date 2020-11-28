@@ -53,8 +53,7 @@ class UnitObject(AoE2Object):
         self.reference_id: int = reference_id
         self.unit_const: int = unit_const
         self.status: int = status
-        self.rotation: float = rotation % math.tau
-        # Mods by tau because the scenario editor seems to place units at radian angles not strictly less than tau.
+        self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
 
@@ -77,9 +76,6 @@ class UnitObject(AoE2Object):
 
     @rotation.setter
     def rotation(self, rotation: float) -> None:
-        """Rotation in radians"""
-        if not 0.0 <= rotation <= math.tau:
-            raise ValueError(f'The Rotation value must be between 0 and tau (excl).')
         self._rotation = rotation
 
     @property
