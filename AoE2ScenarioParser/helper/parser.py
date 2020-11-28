@@ -127,7 +127,24 @@ class Parser:
                 time.sleep(1)
                 raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
         elif retriever.name == "__END_OF_FILE_MARK__":
-            raise ValueError("End of file mark reached without it actually being the end of the file.")
+            result = b''
+            try:
+                while True:
+                    result += next(generator)
+            except StopIteration:
+                pass
+            print("\n\n" + "\n".join([
+                "The file being read has more bytes than anticipated.",
+                "Please notify me (MrKirby/KSneijders) about this message!",
+                "This will help with understanding more parts of scenario files! Thanks in advance!",
+                "You can contact me using:",
+                "- Discord: MrKirby # 5063",
+                "- Github: https://github.com/KSneijders/AoE2ScenarioParser/issues",
+                "",
+                "Please be so kind and include the map in question. Thanks again!\n\n",
+            ]))
+            retriever.datatype.repeat = 1
+            return result, None, None
 
         return vorl(result, retriever), None if not as_length else length, None
 
