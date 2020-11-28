@@ -18,7 +18,7 @@ class Retriever:
     The Constructor has quite some parameters which can all be used for getting the proper data
     """
 
-    def __init__(self, name, datatype=DataType(), log_value=False):
+    def __init__(self, name, datatype=DataType(), possibly_list=True, log_value=False):
         """
         Args:
             name (str): The name of the item. Has to be unique within the Piece or Struct
@@ -31,6 +31,7 @@ class Retriever:
         if log_value:
             self.datatype.log_value = True
         self.datatype._debug_retriever_name = name
+        self.possibly_list = possibly_list
         self.log_value = log_value
         self._data = None
 

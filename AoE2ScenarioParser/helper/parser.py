@@ -15,21 +15,25 @@ types = [
     "str",  # Variable length string
     "data",  # Data (Can be changed by used using bytes_to_x functions)
 ]
+attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
 def vorl(var: Any, retriever: Retriever = None):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
-    if Retriever is not None:
-        if hasattr(retriever, 'on_refresh'):
-            if retriever.on_refresh.dependency_type is DependencyAction.SET_REPEAT or retriever.datatype.repeat != 1:
-                return listify(var)
+    if Retriever is not None and retriever.possibly_list:
+        dependencies = []
+        for attribute in attributes:
+            if hasattr(retriever, attribute):
+                dependencies += listify(getattr(retriever, attribute))
+                if retriever.datatype.repeat != 1 or DependencyAction.SET_REPEAT in [x.dependency_type for x in dependencies]:
+                    return listify(var)
     if type(var) is list:
         if len(var) == 1:
             return var[0]
     return var
 
 
-def listify(var):
+def listify(var) -> list:
     """Always return item as list"""
     if type(var) is list:
         return var
@@ -141,28 +145,30 @@ def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever
     else:
         raise ValueError("State must be any of: construct, commit or refresh")
 
-    dep_action = retriever_on_x.dependency_type
-    dep_target = retriever_on_x.dependency_target
-    if dep_action == DependencyAction.REFRESH_SELF:
-        handle_retriever_dependency(retriever, retrievers, "refresh", pieces)
-    elif dep_action == DependencyAction.REFRESH:
-        listified_target = listify(dep_target.target_piece)
-        listified_target_attr = listify(dep_target.piece_attr_name)
-        for i in range(len(listified_target)):
-            retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
-            retriever_to_be_refreshed = get_retriever_by_name(retriever_list, listified_target_attr[i])
-            handle_retriever_dependency(retriever_to_be_refreshed, retriever_list, "refresh", pieces)
-    elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
-        listified_target = listify(dep_target.target_piece)
-        listified_target_attr = listify(dep_target.piece_attr_name)
-        for i in range(len(listified_target)):
-            retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
-            retriever_data = get_retriever_by_name(retriever_list, listified_target_attr[i]).data
-            value = handle_dependency_eval(retriever_on_x, retriever_data)
-            if dep_action == DependencyAction.SET_VALUE:
-                retriever.data = value
-            elif dep_action == DependencyAction.SET_REPEAT:
-                retriever.datatype.repeat = value
+    retriever_on_x_list = listify(retriever_on_x)
+    for retriever_on_x in retriever_on_x_list:
+        dep_action = retriever_on_x.dependency_type
+        dep_target = retriever_on_x.dependency_target
+        if dep_action == DependencyAction.REFRESH_SELF:
+            handle_retriever_dependency(retriever, retrievers, "refresh", pieces)
+        elif dep_action == DependencyAction.REFRESH:
+            listified_target = listify(dep_target.target_piece)
+            listified_target_attr = listify(dep_target.piece_attr_name)
+            for i in range(len(listified_target)):
+                retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
+                retriever_to_be_refreshed = get_retriever_by_name(retriever_list, listified_target_attr[i])
+                handle_retriever_dependency(retriever_to_be_refreshed, retriever_list, "refresh", pieces)
+        elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
+            listified_target = listify(dep_target.target_piece)
+            listified_target_attr = listify(dep_target.piece_attr_name)
+            for i in range(len(listified_target)):
+                retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
+                retriever_data = get_retriever_by_name(retriever_list, listified_target_attr[i]).data
+                value = handle_dependency_eval(retriever_on_x, retriever_data)
+                if dep_action == DependencyAction.SET_VALUE:
+                    retriever.data = value
+                elif dep_action == DependencyAction.SET_REPEAT:
+                    retriever.datatype.repeat = value
 
 
 def handle_dependency_target(target_piece, retrievers, pieces):
