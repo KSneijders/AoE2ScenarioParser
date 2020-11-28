@@ -18,6 +18,7 @@ from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
 from AoE2ScenarioParser.pieces.diplomacy import DiplomacyPiece
 from AoE2ScenarioParser.pieces.file_header import FileHeaderPiece
+from AoE2ScenarioParser.pieces.files import FilesPiece
 from AoE2ScenarioParser.pieces.global_victory import GlobalVictoryPiece
 from AoE2ScenarioParser.pieces.map import MapPiece
 from AoE2ScenarioParser.pieces.messages import MessagesPiece
@@ -331,4 +332,5 @@ _file_structure: List[Type[AoE2Piece]] = [
     MapPiece,
     UnitsPiece,
     TriggerPiece,
+    FilesPiece,
 ]
