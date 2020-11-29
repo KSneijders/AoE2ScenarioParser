@@ -5,11 +5,31 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.14 - 2020-November-29
+
+### Added
+
+- Support for AI files. Since the latest update (42848) AI files are (sometimes) stored differently
+
+### Updated
+
+- [HTML file] with byte structure (Download to view file. Does not contain JS. Just HTML & CSS)
+
+[HTML file]: https://github.com/KSneijders/AoE2ScenarioParser/blob/master/resources/personal_docs/file_structure.html
+
+### Fixed
+
+- Issue with rotation on objects. Mostly affecting cliffs, certain tree types and other rotatable objects
+
+---
+
 ## 0.0.13 - 2020-November-27
 
 ### Fixed
 
 - Issue introduced in `0.0.12`
+  
+---
 
 ## 0.0.12 - 2020-November-27
 
