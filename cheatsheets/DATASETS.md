@@ -97,6 +97,8 @@ Many conditions and effects have dropdown lists with options. These options are,
 | Comparison      | Used in many effects and conditions. Generally related to variables.        | `Comparison.EQUAL` ( Value: 0 )                |
 | ObjectAttribute | Used in the `Modify Attribute` effect.                                      | `ObjectAttribute.CARRY_CAPACITY` ( Value: 14 ) |
 | Attribute       | Used in the `Accumulate Attribute` efect.                                   | `Attribute.ALL_TECHS_ACHIEVED` ( Value: 39 )   |
+| UnitAIAction    | Used in the `Object has Action` condition.                                  | `UnitAIAction.ATTACK` ( Value: 1 )             |
+| AttackStance    | Used in the `Change Object Stance` effect.                                  | `AttackStance.AGGRESSIVE_STANCE` ( Value: 0 )  |
 
 Exmaple of some usages:
 ```py
