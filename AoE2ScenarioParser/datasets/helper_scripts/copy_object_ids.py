@@ -1,8 +1,9 @@
-import pyautogui
 from time import sleep
 from tkinter import Tk
-r = Tk()
 
+import pyautogui
+
+r = Tk()
 
 """
 When copying select the top entry. With Units and Buildings this'll be '<none>'. For technologies this isn't the case. 

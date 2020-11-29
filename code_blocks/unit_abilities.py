@@ -6,7 +6,6 @@ from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.trigger_lists import PanelLocation
 from AoE2ScenarioParser.datasets.units import Unit
 
-
 # File & Folder setup
 scenario_folder = "C:/Users/Kerwin Sneijders/Games/Age of Empires 2 DE/76561198140740017/resources/_common/scenario/"
 read_file = scenario_folder + "unitTest.aoe2scenario"

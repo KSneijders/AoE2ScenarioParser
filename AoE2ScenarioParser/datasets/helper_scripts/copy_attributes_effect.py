@@ -1,5 +1,6 @@
-import pyautogui
 from time import sleep
+
+import pyautogui
 
 for x in range(5, 0, -1):
     print(x, end=" ")

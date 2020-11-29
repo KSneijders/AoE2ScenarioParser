@@ -127,7 +127,7 @@ class TriggerObject(AoE2Object):
         self.effect_order = list(range(0, len(val)))
 
     def add_effect(self, effect_type: Effect, ai_script_goal=None, aa_quantity=None, aa_armor_or_attack_type=None,
-                   quantity=None, tribute_list=None, diplomacy=None,  object_list_unit_id=None, source_player=None,
+                   quantity=None, tribute_list=None, diplomacy=None, object_list_unit_id=None, source_player=None,
                    target_player=None, technology=None, string_id=None, display_time=None, trigger_id=None,
                    location_x=None, location_y=None, location_object_reference=None, area_1_x=None, area_1_y=None,
                    area_2_x=None, area_2_y=None, object_group=None, object_type=None, instruction_panel_position=None,

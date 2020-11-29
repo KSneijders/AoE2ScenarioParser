@@ -99,7 +99,7 @@ class AoE2Scenario:
                                                       pieces=pieces)
             lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
             lgr.print()
-        lgr.print("File creation finished successfully")
+        lgr.print("File creation finished successfully.")
 
         scenario._object_manager = AoE2ObjectManager(scenario._parsed_header, scenario._parsed_data,
                                                      log_parsing=log_parsing)

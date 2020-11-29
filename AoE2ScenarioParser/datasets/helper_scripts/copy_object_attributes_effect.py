@@ -1,5 +1,6 @@
-import pyautogui
 from time import sleep
+
+import pyautogui
 
 # [Condition] Accumulate Attribute
 # distance_to_list = 9

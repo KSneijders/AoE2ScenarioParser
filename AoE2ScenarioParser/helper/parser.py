@@ -25,7 +25,8 @@ def vorl(var: Any, retriever: Retriever = None):
         for attribute in attributes:
             if hasattr(retriever, attribute):
                 dependencies += listify(getattr(retriever, attribute))
-                if retriever.datatype.repeat != 1 or DependencyAction.SET_REPEAT in [x.dependency_type for x in dependencies]:
+                if retriever.datatype.repeat != 1 or DependencyAction.SET_REPEAT in [x.dependency_type for x in
+                                                                                     dependencies]:
                     return listify(var)
     if type(var) is list:
         if len(var) == 1:

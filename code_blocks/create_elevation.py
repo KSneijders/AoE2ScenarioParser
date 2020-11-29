@@ -22,18 +22,18 @@ for x in range(0, 120):
 
 print(len(tiles))
 
-
 for init_x in range(25, 30):
     for init_y in range(25, 30):
         initial_x = init_x
         initial_y = init_y
         for height in range(1, max_height + 1):
-            for x in range(-height, height+1):
-                for y in range(-height, height+1):
+            for x in range(-height, height + 1):
+                for y in range(-height, height + 1):
                     if abs((initial_x + x) - initial_x) == height or abs((initial_y + y) - initial_y) == height:
                         if tiles[initial_x + x][initial_y + y].retrievers[1].data < abs(height - max_height):
                             try:
-                                tiles[initial_x + x][initial_y + y].retrievers[1].data = max_height - abs(height - max_height)
+                                tiles[initial_x + x][initial_y + y].retrievers[1].data = max_height - abs(
+                                    height - max_height)
                                 tiles[initial_x + x][initial_y + y].retrievers[0].data = Terrain.WATER_DEEP
                             except IndexError:
                                 pass
