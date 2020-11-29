@@ -222,3 +222,5 @@ AoE2ScenarioParser/app.py
 /docs/source/_build
 
 tests/results/
+
+tests/source/
