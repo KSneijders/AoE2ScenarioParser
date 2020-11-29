@@ -70,7 +70,7 @@ class EffectStruct(AoE2Struct):
     def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("effect_type", DataType("s32")),
-            Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x2e (46)?
+            Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x30 (48)?
             Retriever("ai_script_goal", DataType("s32")),
             Retriever("aa_quantity", DataType("u8")),
             Retriever("aa_armor_or_attack_type", DataType("s24")),
