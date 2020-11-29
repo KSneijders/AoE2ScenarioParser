@@ -142,6 +142,9 @@ class Parser:
                 "- Github: https://github.com/KSneijders/AoE2ScenarioParser/issues",
                 "",
                 "Please be so kind and include the map in question. Thanks again!\n\n",
+                "",
+                "Extra data found in the file:",
+                f"\t'{result}'"
             ]))
             retriever.datatype.repeat = 1
             return result, None, None

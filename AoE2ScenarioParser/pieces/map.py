@@ -19,22 +19,6 @@ class MapPiece(aoe2_piece.AoE2Piece):
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         },
-        # "script_name": {
-        #     "on_refresh": RetrieverDependency(
-        #         DependencyAction.SET_REPEAT,
-        #         DependencyTarget('FileHeaderPiece', 'version'),
-        #         DependencyEval('1 if x in [\'1.40\'] else 0')
-        #     ),
-        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        # },
-        # "unknown": {
-        #     "on_refresh": RetrieverDependency(
-        #         DependencyAction.SET_REPEAT,
-        #         DependencyTarget('FileHeaderPiece', 'version'),
-        #         DependencyEval('1 if x in [\'1.40\'] else 0')
-        #     ),
-        #     "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
-        # },
         "map_width": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_VALUE,
@@ -99,9 +83,9 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'separator_2': b'`\n',
             'map_color_mood': 'Empty',
             'separator_3': b'`\n',
+            'script_name': '',
             'collide_and_correct': 0,
             'villager_force_drop': 0,
-            'script_name': "",
             'unknown': b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
                        b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
                        b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'

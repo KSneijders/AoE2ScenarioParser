@@ -10,6 +10,12 @@ from AoE2ScenarioParser.pieces.structs.ai2 import AI2Struct
 
 class FilesPiece(aoe2_piece.AoE2Piece):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        "script_file_path": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("MapPiece", "script_name"),
+                DependencyEval("x + ('.xs' if len(x) > 0 else '')")
+            ),
+        },
         "ai_files_present": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_VALUE, DependencyTarget("self", "number_of_ai_files"),
@@ -43,12 +49,6 @@ class FilesPiece(aoe2_piece.AoE2Piece):
                 DependencyAction.REFRESH, DependencyTarget("self", "number_of_ai_files")
             )
         },
-        "script_file_path": {
-            "on_refresh": RetrieverDependency(
-                DependencyAction.SET_VALUE, DependencyTarget("MapPiece", "script_name"),
-                DependencyEval("x + ('.xs' if len(x) > 0 else '')")
-            ),
-        },
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
@@ -58,7 +58,7 @@ class FilesPiece(aoe2_piece.AoE2Piece):
             Retriever("unknown_3", DataType("4")),
             Retriever("ai_files_present", DataType("u32")),
             Retriever("unknown_4", DataType("4")),
-            Retriever("number_of_ai_files", DataType("u32"), possibly_list=False, log_value=True),
+            Retriever("number_of_ai_files", DataType("u32"), possibly_list=False),
             Retriever("ai_files", DataType(AI2Struct)),
             Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]
@@ -75,6 +75,6 @@ class FilesPiece(aoe2_piece.AoE2Piece):
             'unknown_4': b'\x00' * 4,
             'number_of_ai_files': [],
             'ai_files': [],
-            '__END_OF_FILE_MARK__': '__END_OF_FILE_MARK__',
+            '__END_OF_FILE_MARK__': b'',
         }
         return defaults
