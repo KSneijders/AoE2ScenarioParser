@@ -12,6 +12,6 @@ Contents
 
    install
    getting_started
-   triggers
-   units
+   examples/triggers
+   examples/units
    support
