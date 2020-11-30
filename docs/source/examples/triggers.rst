@@ -1,5 +1,5 @@
-Example - Triggers
-=========================
+Triggers
+========
 
 You can use the trigger manager to add, remove edit and view triggers and variables.
 

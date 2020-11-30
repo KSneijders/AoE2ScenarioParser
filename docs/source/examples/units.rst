@@ -1,5 +1,5 @@
-Example - Units
-=========================
+Units
+=====
 
 You can use the unit manager to add, edit and remove units. This includes buildings and heroes etc.
 
