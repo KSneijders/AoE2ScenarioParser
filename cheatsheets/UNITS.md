@@ -15,7 +15,7 @@ You can add units using the `unit_manager`.
 ```py
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_id=Unit.CONQUISTADOR,    # Units dataset
+    unit_const=Unit.CONQUISTADOR,    # Units dataset
     x=0,
     y=0
 )
@@ -24,7 +24,7 @@ This will add a conquistador for player 1 at 0, 0 (West corner of the map). Besi
 ```py
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_id=Unit.CONQUISTADOR,
+    unit_const=Unit.CONQUISTADOR,
     x=0,
     y=0,
     z=0,                    # The 'height' of the unit. 
@@ -53,7 +53,7 @@ unit_manager.get_units_in_area(x1=0, y1=0, x2=10, y2=10)
 
 unit_manager.get_units_in_area(tile1=Tile(0, 0), tile2=Tile(10, 10))
 # Any unit within 0,0 => 11, 11 (Note the 11, 11)
-# This is because Tiles are quares (1x1). So: 
+# This is because Tiles are squares (1x1). So: 
 #    Tile(0,0).x1 == 0  # True  
 #    Tile(0,0).x2 == 1  # True
 ```
@@ -69,8 +69,8 @@ unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, ignore_players=[
 ])
 # Any unit within 2,3 => 4,5 from any Player but GAIA.
 
-unit = unit_manager.add_unit(player=Player.ONE, unit_id=units.conquistador, x=5, y=1)
-unit2 = unit_manager.add_unit(player=Player.TWO, unit_id=units.conquistador, x=1, y=5)
+unit = unit_manager.add_unit(player=Player.ONE, unit_const=Unit.CONQUISTADOR, x=5, y=1)
+unit2 = unit_manager.add_unit(player=Player.TWO, unit_const=Unit.CONQUISTADOR, x=1, y=5)
 
 unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[Player.ONE])
 # Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
