@@ -22,7 +22,7 @@ class UnitsObject(AoE2Object):
 
         super().__init__()
 
-    def add_unit(self, player: Player, unit_id: int, x: float, y: float, z: float = 0, rotation: float = 0,
+    def add_unit(self, player: Player, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
                  reference_id: int = None, ) -> UnitObject:
         """
@@ -30,7 +30,7 @@ class UnitsObject(AoE2Object):
 
         Args:
             player: The player the unit belongs to.
-            unit_id: Defines what unit you're placing. The IDs used in the unit/buildings dataset.
+            unit_const: Defines what unit you're placing. The IDs used in the unit/buildings dataset.
             x: The x location in the scenario.
             y: The y location in the scenario.
             z: The z (height) location in the scenario.
@@ -52,7 +52,7 @@ class UnitsObject(AoE2Object):
             y=y,
             z=z,
             reference_id=reference_id,
-            unit_const=unit_id,
+            unit_const=unit_const,
             status=status,
             rotation=rotation,
             initial_animation_frame=animation_frame,
