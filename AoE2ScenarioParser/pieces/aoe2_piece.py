@@ -135,32 +135,32 @@ class AoE2Piece:
             else:
                 retriever_data_bytes = retriever_data_bytes.hex()
 
-            retriever_short_string = retriever.get_short_str()
-            retriever_data_hex = helper.create_textual_hex(retriever_data_bytes, space_distance=2,
-                                                           enter_distance=24)
+            retriever_short_string: str = retriever.get_short_str()
+            retriever_hex = helper.create_textual_hex(
+                retriever_data_bytes, space_distance=2, enter_distance=24
+            )
 
-            if "\n" in retriever_data_hex:
-                split_hex = retriever_data_hex.split("\n")
-                if "\r\n" in retriever_short_string:
-                    split_data_string = retriever_short_string.split("\r\n")
+            split_hex = retriever_hex.split("\n")
+            split_hex_length = len(split_hex)
 
-                    split_hex_length = len(split_hex)
-                    split_data_string_length = len(split_data_string)
-                    lines = max(split_hex_length, split_data_string_length)
-
-                    combined_strings = []
-                    for i in range(0, lines):
-                        combined_strings.append(
-                            helper.add_suffix_chars(split_hex[i] if i < split_hex_length else "", " ", 28) +
-                            (split_data_string[i] if i < split_data_string_length else "")
-                        )
-
-                    byte_structure += "\n".join(combined_strings)
+            split_data_string = retriever_short_string.replace('\x00', ' ').splitlines()
+            data_lines = []
+            for x in split_data_string:
+                if len(x) > 120:
+                    data_lines += helper.insert_char(x, '\r\n', 120).splitlines()
                 else:
-                    split_hex[0] = helper.add_suffix_chars(split_hex[0], " ", 28) + retriever_short_string
-                    byte_structure += "\n".join(split_hex)
-            else:
-                byte_structure += helper.add_suffix_chars(retriever_data_hex, " ", 28) + retriever_short_string
+                    data_lines.append(x)
+            split_data_length = len(data_lines)
+
+            lines = max(split_hex_length, split_data_length)
+
+            combined_strings = []
+            for i in range(0, lines):
+                hex_part = split_hex[i] if i < split_hex_length else ""
+                data_part = data_lines[i] if i < split_data_length else ""
+                combined_strings.append(helper.add_suffix_chars(hex_part, " ", 28) + data_part)
+
+            byte_structure += "\n".join(combined_strings)
 
         return byte_structure + "\n"
 
