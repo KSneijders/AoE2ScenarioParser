@@ -53,7 +53,11 @@ class Retriever:
 
     def get_short_str(self):
         if self.data is not None:
-            return self.name + " (" + self.datatype.to_simple_string() + "): " + helper.q_str(self.data)
+            if type(self.data) is list:
+                data = helper.pretty_print_list(self.data)
+            else:
+                data = helper.q_str(self.data)
+            return self.name + " (" + self.datatype.to_simple_string() + "): " + data
 
     def to_simple_string(self):
         return f"[Retriever] {self.name}: {self.datatype}"
