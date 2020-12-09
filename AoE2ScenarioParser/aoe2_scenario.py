@@ -305,7 +305,7 @@ class AoE2Scenario:
 
         pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
         lgr.print("\nWriting structure to file...")
-        with open(filename, 'w') as output_file:
+        with open(filename, 'w', encoding="utf-8") as output_file:
             result = ""
             for key in self._parsed_header:
                 lgr.print("\tWriting " + key + "...", replace_line=True)
