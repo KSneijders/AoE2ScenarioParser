@@ -151,16 +151,22 @@ class AoE2Scenario:
             raise e
         lgr.print("File reading finished successfully.")
 
-    def write_to_file(self, filename, no_commit=False, log_writing=True, log_reconstructing=True):
-        self._write_from_structure(filename, log_writing=log_writing, log_reconstructing=log_reconstructing)
+    def write_to_file(self, filename, commit_on_write=True, log_writing=True, log_reconstructing=True):
+        self._write_from_structure(
+            filename,
+            log_writing=log_writing,
+            log_reconstructing=log_reconstructing,
+            commit_on_write=commit_on_write,
+        )
 
     def _write_from_structure(self,
                               filename,
                               write_in_bytes=True,
                               compress=True,
+                              commit_on_write=True,
                               log_writing=True,
-                              log_reconstructing=False):
-        if hasattr(self, '_object_manager'):
+                              log_reconstructing=True):
+        if hasattr(self, '_object_manager') and commit_on_write:
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
         lgr = SimpleLogger(log_writing)
         lgr.print("\nFile writing from structure started...")
@@ -292,7 +298,7 @@ class AoE2Scenario:
     def _debug_byte_structure_to_file(self, filename, log_debug_write=True, commit=False):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
-            self._object_manager.reconstruct(log_debug_write)
+            # self._object_manager.reconstruct(log_debug_write)
             self._write_from_structure(filename, log_writing=log_debug_write, log_reconstructing=log_debug_write)
 
         lgr = SimpleLogger(log_debug_write)
