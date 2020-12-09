@@ -90,8 +90,9 @@ class AoE2Piece:
         if self.parser:
             for i, retriever in enumerate(self.retrievers):
                 try:
-                    retriever.data, _, status = self.parser.retrieve_value(generator, retriever, self.retrievers,
-                                                                           pieces)
+                    retriever.data, _, status = self.parser.retrieve_value(
+                        generator, retriever, self.retrievers, pieces
+                    )
                     if status is not None:
                         raise status
                 except Exception as e:

@@ -8,11 +8,12 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class PlayerDataThreeStruct(AoE2Struct):
-    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {"player_count_for_diplomacy": {
-        "on_refresh": RetrieverDependency(
-            DependencyAction.SET_VALUE, DependencyTarget("self", "diplomacy_for_interaction"),
-            DependencyEval("len(x)"))
-    },
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        "player_count_for_diplomacy": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("self", "diplomacy_for_interaction"),
+                DependencyEval("len(x)"))
+        },
         "diplomacy_for_interaction": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT, DependencyTarget("self", "player_count_for_diplomacy")),

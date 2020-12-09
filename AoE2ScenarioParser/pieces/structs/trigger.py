@@ -26,21 +26,18 @@ class TriggerStruct(AoE2Struct):
             )
         },
         "effect_display_order_array": {
-
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_effects")
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         },
         "number_of_conditions": {
-
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_VALUE, DependencyTarget("self", "condition_data"),
                 DependencyEval("len(x)")
             )
         },
         "condition_data": {
-
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_conditions")
             ),
@@ -50,7 +47,6 @@ class TriggerStruct(AoE2Struct):
             )
         },
         "condition_display_order_array": {
-
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT,
                 DependencyTarget("self", "number_of_conditions")
