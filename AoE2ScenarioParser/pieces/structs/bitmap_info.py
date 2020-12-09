@@ -20,16 +20,16 @@ class BitMapInfoStruct(AoE2Struct):
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
-            Retriever("size", DataType("s32"), log_value=True),
+            Retriever("size", DataType("s32")),
             Retriever("width", DataType("u32")),
             Retriever("height", DataType("s32")),
             Retriever("planes", DataType("s16")),
             Retriever("bit_count", DataType("s16")),
             Retriever("compression", DataType("u32")),
-            Retriever("image_size", DataType("u32"), log_value=True),
+            Retriever("image_size", DataType("u32")),
             Retriever("x_pels", DataType("u32")),
             Retriever("y_pels", DataType("u32")),
-            Retriever("number_of_colors_used", DataType("u32"), log_value=True),
+            Retriever("number_of_colors_used", DataType("u32")),
             Retriever("important_colors", DataType("u32")),
             Retriever("colors_used", DataType("u32")),
             Retriever("image", DataType("u32")),
