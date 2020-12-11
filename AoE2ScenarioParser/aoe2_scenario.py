@@ -233,46 +233,6 @@ class AoE2Scenario:
     ################ Debug functions ################
     ############################################# """
 
-    def _debug_log_effect_dataset(self):
-        """ Used for debugging - Only reads One Trigger. """
-        trigger_data = get_retriever_by_name(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        effects = get_retriever_by_name(trigger_data.retrievers, "Effect data").data
-
-        for effect in effects:
-            for retriever in effect.retrievers:
-                # if retriever.data != -1 and \
-                #         retriever.data != [] and \
-                #         retriever.data != "" and \
-                #         retriever.data != " " and \
-                #         retriever.name != "static_value_46":
-                if retriever.name != "static_value_46":
-                    if retriever.name == "effect_type":
-                        print("},\n" + str(retriever.data) + ": {")
-                    print("\t\"" + retriever.name + "\": " +
-                          (str(retriever.data) if type(retriever.data) is not str else "\"" + retriever.data + "\"")
-                          + ",")
-        print("}\n")
-
-    def _debug_log_condition_dataset(self):
-        """ Used for debugging - Only reads One Trigger. """
-        trigger_data = get_retriever_by_name(self._parsed_data['TriggerPiece'].retrievers, "Trigger data").data
-        conditions = get_retriever_by_name(trigger_data.retrievers, "Condition data").data
-
-        for condition in conditions:
-            for retriever in condition.retrievers:
-                # if retriever.data != -1 and \
-                #         retriever.data != [] and \
-                #         retriever.data != "" and \
-                #         retriever.data != " " and \
-                #         retriever.name != "static_value_21":
-                if retriever.name != "static_value_21":
-                    if retriever.name == "condition_type":
-                        print("},\n" + str(retriever.data) + ": {")
-                    print("\t\"" + retriever.name + "\": " +
-                          (str(retriever.data) if type(retriever.data) is not str else "\"" + retriever.data + "\"")
-                          + ",")
-        print("}\n")
-
     def _debug_write_from_source(self, filename, datatype, write_bytes=True):
         """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
         print("File writing from source started with attributes " + datatype + "...")
