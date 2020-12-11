@@ -32,7 +32,7 @@ class BitMapInfoStruct(AoE2Struct):
             Retriever("number_of_colors_used", DataType("u32")),
             Retriever("important_colors", DataType("u32")),
             Retriever("colors_used", DataType("u32")),
-            Retriever("image", DataType("u32")),
+            Retriever("image", DataType("u8")),
         ]
 
         super().__init__("BitMap Info", retrievers, parser_obj, data=data, pieces=pieces)
