@@ -96,7 +96,7 @@ class AoE2Piece:
                     if status is not None:
                         raise status
                 except Exception as e:
-                    print(f"[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}\n")
+                    print(f"\n\n[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}")
                     raise e
 
     def _entry_to_string(self, name, data, datatype):
@@ -147,7 +147,7 @@ class AoE2Piece:
             data_lines = []
             for x in split_data_string:
                 if len(x) > 120:
-                    data_lines += helper.insert_char(x, '\r\n', 120).splitlines()
+                    data_lines += [f'\t{x}' for x in helper.insert_char(x, '\r\n', 120).splitlines()]
                 else:
                     data_lines.append(x)
             split_data_length = len(data_lines)

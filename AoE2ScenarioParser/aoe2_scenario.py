@@ -4,7 +4,7 @@ import zlib
 from collections import OrderedDict
 from typing import List, Type
 
-from AoE2ScenarioParser.helper import generator
+from AoE2ScenarioParser.helper import generator, helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
@@ -144,9 +144,13 @@ class AoE2Scenario:
         except Exception as e:
             print(f"\n[{e.__class__.__name__}] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
             print("Writing ErrorFile...")
-            self._debug_byte_structure_to_file("../ErrorFile", log_debug_write=False)
+            self._debug_byte_structure_to_file(
+                filename="../ErrorFile",
+                generator_for_trail=data_generator,
+                log_debug_write=True
+            )
             time.sleep(1)
-            print("ErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
+            print("\nErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
             time.sleep(1)
             raise e
         lgr.print("File reading finished successfully.")
@@ -255,7 +259,7 @@ class AoE2Scenario:
         file.close()
         print("File writing finished successfully.")
 
-    def _debug_byte_structure_to_file(self, filename, log_debug_write=True, commit=False):
+    def _debug_byte_structure_to_file(self, filename, generator_for_trail=None, log_debug_write=True, commit=False):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
             # self._object_manager.reconstruct(log_debug_write)
@@ -266,19 +270,48 @@ class AoE2Scenario:
         pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
         lgr.print("\nWriting structure to file...")
         with open(filename, 'w', encoding="utf-8") as output_file:
-            result = ""
+            result = []
             for key in self._parsed_header:
                 lgr.print("\tWriting " + key + "...", replace_line=True)
-                result += self._parsed_header[key].get_byte_structure_as_string(pieces)
+                result.append(self._parsed_header[key].get_byte_structure_as_string(pieces))
                 lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
                 lgr.print()
             for key in self._parsed_data:
+                if key == "MapPiece":
+                    continue
                 lgr.print("\tWriting " + key + "...", replace_line=True)
-                result += self._parsed_data[key].get_byte_structure_as_string(pieces)
+                result.append(self._parsed_data[key].get_byte_structure_as_string(pieces))
                 lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
                 lgr.print()
 
-            output_file.write(result)
+            if generator_for_trail is not None:
+                lgr.print("\tWriting trail...", replace_line=True)
+                trail_length = -1  # -1 == inf
+                try:
+                    trail = b''
+                    i = 0
+                    while i != trail_length:
+                        trail += generator.repeat_generator(
+                            generator=generator_for_trail,
+                            run_times=1,
+                            intended_stop_iteration=True,
+                            return_bytes=True
+                        )
+                        i += 1
+                except StopIteration:
+                    pass  # Expected, if trail is not present or shorter than {trail_length} bytes
+                if i != 0:
+                    i += 1
+                if i == trail_length:
+                    i = str(i) + '+'
+                if trail_length == -1:
+                    trail_length = i
+                result.append(f"\n\n{'#' * 27} TRAIL ({i}/{trail_length})\n\n")
+                result.append(helper.create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
+                lgr.print("\tWriting trail finished successfully.", replace_line=True)
+                lgr.print()
+
+            output_file.write(''.join(result))
             output_file.close()
         lgr.print("Writing structure to file finished successfully.")
 
