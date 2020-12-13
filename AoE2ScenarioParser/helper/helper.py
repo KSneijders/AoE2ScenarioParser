@@ -1,6 +1,7 @@
 import math
 import sys
 from enum import IntEnum
+from typing import List, Dict
 
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
