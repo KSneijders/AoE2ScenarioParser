@@ -333,3 +333,17 @@ _file_structure: List[Type[AoE2Piece]] = [
     TriggerPiece,
     FilesPiece,
 ]
+
+# Define piece names
+data_header_piece = "DataHeaderPiece"
+messages_piece = "MessagesPiece"
+cinematics_piece = "CinematicsPiece"
+background_image_piece = "BackgroundImagePiece"
+player_data_two_piece = "PlayerDataTwoPiece"
+global_victory_piece = "GlobalVictoryPiece"
+diplomacy_piece = "DiplomacyPiece"
+options_piece = "OptionsPiece"
+map_piece = "MapPiece"
+units_piece = "UnitsPiece"
+trigger_piece = "TriggerPiece"
+files_piece = "FilesPiece"
