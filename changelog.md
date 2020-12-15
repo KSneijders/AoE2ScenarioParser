@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - Support for bitmap images (Can't be seen, used (or removed) in DE but crashed the parser if present)
+- Support for legacy codec `latin-1` (Voobly converted maps). Please note that all text will be written back into `utf-8` when writing a new file.
 
 ### Fixed
 

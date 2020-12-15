@@ -33,7 +33,11 @@ _no_string_trail = [
 
 
 def bytes_to_str(byte_elements, codec="utf-8"):
-    return helper.del_str_trail(byte_elements).decode(codec)
+    trail_removed_elements = helper.del_str_trail(byte_elements)
+    try:
+        return trail_removed_elements.decode(codec)
+    except UnicodeDecodeError:
+        return trail_removed_elements.decode('latin-1')
 
 
 def str_to_bytes(string, retriever, codec="utf-8"):
