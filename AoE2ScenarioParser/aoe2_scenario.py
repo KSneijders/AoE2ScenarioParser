@@ -1,4 +1,5 @@
 import collections
+import json
 import time
 import zlib
 from collections import OrderedDict
@@ -6,8 +7,9 @@ from typing import List, Type
 
 from AoE2ScenarioParser.helper import generator, helper
 from AoE2ScenarioParser.helper import parser
+from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
@@ -43,7 +45,8 @@ class AoE2Scenario:
 
     def __init__(self):
         self.read_mode = None
-        self.parser = None
+        self.scenario_version = "<<Unknown>>"
+        self.game_version = "<<Unknown>>"
         self._file_header = None
         self._decompressed_file_data = None
         self._file = None
@@ -65,10 +68,56 @@ class AoE2Scenario:
         scenario_file.close()
         print("File prepared and loaded.")
 
-        scenario.parser = parser.Parser()
         scenario._read_file(log_reading=log_reading)
-        scenario._object_manager = AoE2ObjectManager(scenario._parsed_header, scenario._parsed_data,
-                                                     log_parsing=log_parsing)
+        scenario._object_manager = AoE2ObjectManager(
+            scenario._parsed_header,
+            scenario._parsed_data,
+            log_parsing=log_parsing
+        )
+
+    @classmethod
+    def from_file_poc(cls, filename, log_reading=True, log_parsing=True):
+        print("\nPreparing & Loading file: '" + filename + "'...")
+        scenario = cls()
+        scenario.read_mode = "from_file"
+
+        lgr = SimpleLogger(should_log=True)
+
+        scenario_file = open(filename, "rb")
+        scenario._file = scenario_file.read()
+
+        scenario.game_version = "DE"
+        scenario.scenario_version = scenario._file[:4].decode('ASCII')
+
+        scenario_file.seek(0)  # Reset file cursor to 0
+
+        lgr.print(f">>> Game version: {scenario.game_version}")
+        lgr.print(f">>> Scenario version: {scenario.scenario_version}")
+        lgr.print(f"Loading scenario structure...", replace_line=True)
+
+        structure = json.loads(
+            open(f"versions/{scenario.game_version}/v{scenario.scenario_version}/structure.json", 'r').read()
+        )
+
+        # file_header = scenario_file.read(scenario._compute_header_length())
+        # file_data = zlib.decompress(scenario_file.read(), -zlib.MAX_WBITS)
+        # a = file_header + file_data
+
+        a = 0
+        file_generator = generator.create_generator(a)
+
+        # TODO: Find a clean way to decompress the rest of the file
+
+        for piece_structure in structure:
+            piece = AoE2Piece.from_structure(piece_structure)
+            piece.set_data_from_generator(file_generator)
+
+            print(piece)
+
+        lgr.print(f"Loading scenario structure finished successfully", replace_line=True)
+        lgr.print()
+
+        exit()
         return scenario
 
     @classmethod
