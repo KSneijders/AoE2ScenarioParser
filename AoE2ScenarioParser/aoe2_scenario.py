@@ -219,19 +219,16 @@ class AoE2Scenario:
         lgr.print("File writing finished successfully.")
 
     def _create_header_generator(self, chunk_size):
-        return generator.create_generator(self._file_header, chunk_size)
+        return generator.create_advanced_generator(self._file_header, chunk_size)
 
     def _create_data_generator(self, chunk_size):
-        return generator.create_generator(self._decompressed_file_data, chunk_size)
+        return generator.create_advanced_generator(self._decompressed_file_data, chunk_size)
 
     def _create_file_generator(self, chunk_size):
-        return generator.create_generator(self._file, chunk_size)
+        return generator.create_advanced_generator(self._file, chunk_size)
 
     def _compute_header_length(self):
-        return parser.calculate_length(
-            self._create_file_generator(1),
-            FileHeaderPiece(parser.Parser()).retrievers
-        )
+        return parser.calculate_length(self._create_file_generator(1), FileHeaderPiece().retrievers)
 
     """ #############################################
     ################ Debug functions ################

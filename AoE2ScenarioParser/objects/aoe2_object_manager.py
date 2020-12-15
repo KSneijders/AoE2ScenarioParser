@@ -76,13 +76,13 @@ class AoE2ObjectManager:
         ppnd_techs = get_retriever_by_name(object_piece.retrievers, "Per player number of disabled techs").data
         ppnd_units = get_retriever_by_name(object_piece.retrievers, "Per player number of disabled units").data
         ppnd_buildings = get_retriever_by_name(object_piece.retrievers, "Per player number of disabled buildings").data
-        disabled_techs = generator.create_generator(
+        disabled_techs = generator.create_advanced_generator(
             get_retriever_by_name(object_piece.retrievers, "Disabled technology IDs in player order").data, 1
         )
-        disabled_units = generator.create_generator(
+        disabled_units = generator.create_advanced_generator(
             get_retriever_by_name(object_piece.retrievers, "Disabled unit IDs in player order").data, 1
         )
-        disabled_buildings = generator.create_generator(
+        disabled_buildings = generator.create_advanced_generator(
             get_retriever_by_name(object_piece.retrievers, "Disabled building IDs in player order").data, 1
         )
 

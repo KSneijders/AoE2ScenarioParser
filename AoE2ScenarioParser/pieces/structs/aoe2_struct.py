@@ -1,6 +1,6 @@
 from abc import ABC
 
-from AoE2ScenarioParser.helper.generator import create_generator
+from AoE2ScenarioParser.helper.generator import create_advanced_generator
 from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
 
 
@@ -9,7 +9,7 @@ class AoE2Struct(AoE2Piece, ABC):
         super().__init__(piece_type, retrievers, data, pieces)
 
         if data and parser_obj:
-            gen = create_generator(data, 1)
+            gen = create_advanced_generator(data, 1)
             super().set_data_from_generator(gen)
 
     def _entry_to_string(self, name, data, datatype):
