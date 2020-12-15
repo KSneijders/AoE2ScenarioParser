@@ -18,7 +18,7 @@ class BitMapInfoStruct(AoE2Struct):
         }
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("size", DataType("s32")),
             Retriever("width", DataType("u32")),

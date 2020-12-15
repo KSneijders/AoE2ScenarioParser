@@ -24,7 +24,7 @@ class PlayerUnitsStruct(AoE2Struct):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("unit_count", DataType("u32")),
             Retriever("units", DataType(UnitStruct))

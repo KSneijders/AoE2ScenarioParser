@@ -67,7 +67,7 @@ class EffectStruct(AoE2Struct):
         # },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("effect_type", DataType("s32")),
             Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x30 (48)?

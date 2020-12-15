@@ -26,7 +26,7 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("version", DataType("c4")),
             Retriever("header_length", DataType("u32")),
@@ -40,7 +40,7 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("trigger_count", DataType("u32")),
         ]
 
-        super().__init__("File Header", retrievers, parser_obj, data=data, pieces=pieces)
+        super().__init__("File Header", retrievers, data=data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

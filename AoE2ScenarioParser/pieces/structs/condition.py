@@ -34,7 +34,7 @@ class ConditionStruct(AoE2Struct):
         # },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("condition_type", DataType("s32")),
             Retriever("static_value_21", DataType("s32")),  # Was always: 0x10

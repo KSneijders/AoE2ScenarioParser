@@ -51,7 +51,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever('separator_1', DataType("2")),
             Retriever('unknown_string', DataType("str16")),
@@ -73,7 +73,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('terrain_data', DataType(TerrainStruct))
         ]
 
-        super().__init__("Map", retrievers, parser_obj, data=data, pieces=pieces)
+        super().__init__("Map", retrievers, data=data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

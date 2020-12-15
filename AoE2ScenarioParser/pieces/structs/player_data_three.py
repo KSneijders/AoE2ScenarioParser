@@ -60,7 +60,7 @@ class PlayerDataThreeStruct(AoE2Struct):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("constant_name", DataType("str16")),
             Retriever("initial_camera_x", DataType("f32")),

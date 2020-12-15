@@ -30,7 +30,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = [
             Retriever("next_unit_id_to_place", DataType("u32")),
             Retriever("version", DataType("f32")),
@@ -46,7 +46,7 @@ class DataHeaderPiece(aoe2_piece.AoE2Piece):
             Retriever("filename", DataType("str16")),
         ]
 
-        super().__init__("Data Header", retrievers, parser_obj, data=data, pieces=pieces)
+        super().__init__("Data Header", retrievers, data=data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

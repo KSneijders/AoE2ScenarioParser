@@ -43,7 +43,7 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
     }
     _fill_dependencies(dependencies)
 
-    def __init__(self, parser_obj=None, data=None, pieces=None):
+    def __init__(self, data=None, pieces=None):
         retrievers = []
         for disabled_type in ["tech", "building", "unit"]:
             retrievers.append(Retriever(f"per_player_number_of_disabled_{disabled_type}s", DataType("u32", repeat=16)))
@@ -61,7 +61,7 @@ class OptionsPiece(aoe2_piece.AoE2Piece):
             Retriever("unknown", DataType("32")),
             Retriever("number_of_triggers", DataType("u32")),
         ]
-        super().__init__("Options", retrievers, parser_obj, data=data, pieces=pieces)
+        super().__init__("Options", retrievers, data=data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

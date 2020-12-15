@@ -42,115 +42,111 @@ def listify(var) -> list:
         return [var]
 
 
-class Parser:
-    def __init__(self):
-        self._saves = dict()
+def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
+    length = 0
+    result = list()
+    var_type, var_len = datatype_to_type_length(retriever.datatype.var)
 
-    def retrieve_value(self, generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
-        if (pieces is None or retrievers is None) and not as_length:
-            raise ValueError("Normal retrieval of length requires pieces parameter.")
-        length = 0
-        result = list()
-        var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+    if hasattr(retriever, 'on_construct'):
+        handle_retriever_dependency(retriever, retrievers, "construct", pieces)
 
-        if hasattr(retriever, 'on_construct'):
-            handle_retriever_dependency(retriever, retrievers, "construct", pieces)
+    try:
+        for i in range(0, retriever.datatype.repeat):
+            length += var_len
 
-        try:
-            for i in range(0, retriever.datatype.repeat):
-                length += var_len
-
-                if var_type == "struct":
-                    val = retriever.datatype.var(self)
-                    result.append(val)
-                    val.set_data_from_generator(generator, pieces)
-                    i = val.get_length()
-
-                    length += i
-                    continue
-                if var_type == "u" or var_type == "s":
-                    val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
-                elif var_type == "f":
-                    if var_len == 4:
-                        val = bytes_to_float(r_gen(generator, var_len))
-                    else:  # Always 4 except for trigger version
-                        val = bytes_to_double(r_gen(generator, var_len))
-                elif var_type == "c":
-                    val = bytes_to_fixed_chars(r_gen(generator, var_len))
-                elif var_type == "data":
-                    val = r_gen(generator, var_len, intended_stop_iteration=(retriever.name == "__END_OF_FILE_MARK__"))
-                elif var_type == "str":
-                    string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
-                    try:
-                        data = r_gen(generator, string_length)
-                        val = bytes_to_str(data)
-                        length += string_length
-                    except StopIteration as e:
-                        print(f"\n[StopIteration] Parser.retrieve_value: \n"
-                              f"\tRetriever: {retriever}\n"
-                              f"\tString length: {string_length}\n")
-                        raise e
-                else:
-                    break
+            if var_type == "struct":
+                val = retriever.datatype.var()
                 result.append(val)
-        except StopIteration as e:
-            if retriever.name == "__END_OF_FILE_MARK__":
-                retriever.datatype.repeat = 0
-                return True, None, None
+                val.set_data_from_generator(generator, pieces)
+                i = val.get_length()
+
+                length += i
+                continue
+            if var_type == "u" or var_type == "s":
+                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
+            elif var_type == "f":
+                if var_len == 4:
+                    val = bytes_to_float(r_gen(generator, var_len))
+                else:  # Always 4 except for trigger version
+                    val = bytes_to_double(r_gen(generator, var_len))
+            elif var_type == "c":
+                val = bytes_to_fixed_chars(r_gen(generator, var_len))
+            elif var_type == "data":
+                val = r_gen(generator, var_len, intended_stop_iteration=(retriever.name == "__END_OF_FILE_MARK__"))
+            elif var_type == "str":
+                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
+                try:
+                    data = r_gen(generator, string_length)
+                    val = bytes_to_str(data)
+                    length += string_length
+                except StopIteration as e:
+                    print(f"\n[StopIteration] Parser.retrieve_value: \n"
+                          f"\tRetriever: {retriever}\n"
+                          f"\tString length: {string_length}\n")
+                    raise e
             else:
-                raise e
-        except Exception as e:
-            return vorl(result, retriever), None if not as_length else length, e
+                break
+            result.append(val)
+    except StopIteration as e:
+        if retriever.name == "__END_OF_FILE_MARK__":
+            retriever.datatype.repeat = 0
+            return True, None, None
+        else:
+            raise e
+    except Exception as e:
+        return vorl(result, retriever), None if not as_length else length, e
 
-        # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
-        if retriever.name == "version" and retriever.datatype.var == "c4":
-            version = vorl(result, retriever)
-            if version != "1.40":
-                print("\n\n")
-                print('\n'.join([
-                    "#### SORRY FOR THE INCONVENIENCE ####",
-                    "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
-                    "supported at this time.",
-                    f"Your current version is: '{version}'. The currently only supported version is: '1.40'.",
-                    "The reason for this is a huge rework for version support.",
-                    "This rework will take some time to complete, so until then, please upgrade your scenario to the "
-                    "newest version. You can do this by saving it again in the in-game editor.",
-                    "If you do not want to upgrade the scenarios, please downgrade this library to version 0.0.11. You "
-                    "can do so by executing the following command in cmd:",
-                    "",
-                    ">>> pip install --force-reinstall AoE2ScenarioParser==0.0.11",
-                    "",
-                    "Thank you in advance."
-                ]))
-                time.sleep(1)
-                print("- KSneijders")
-                print("\n\n")
-                time.sleep(1)
-                raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
-        elif retriever.name == "__END_OF_FILE_MARK__":
-            result = b''
-            try:
-                while True:
-                    result += next(generator)
-            except StopIteration:
-                pass
-            print("\n\n" + "\n".join([
-                "The file being read has more bytes than anticipated.",
-                "Please notify me (MrKirby/KSneijders) about this message!",
-                "This will help with understanding more parts of scenario files! Thanks in advance!",
-                "You can contact me using:",
-                "- Discord: MrKirby # 5063",
-                "- Github: https://github.com/KSneijders/AoE2ScenarioParser/issues",
+    # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
+    if retriever.name == "version" and retriever.datatype.var == "c4":
+        version = vorl(result, retriever)
+        print(type(version))
+        print(version == "1.40")
+        if version != "1.40":
+            print("\n\n")
+            print('\n'.join([
+                "#### SORRY FOR THE INCONVENIENCE ####",
+                "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
+                "supported at this time.",
+                f"Your current version is: '{version}'. The currently only supported version is: '1.40'.",
+                "The reason for this is a huge rework for version support.",
+                "This rework will take some time to complete, so until then, please upgrade your scenario to the "
+                "newest version. You can do this by saving it again in the in-game editor.",
+                "If you do not want to upgrade the scenarios, please downgrade this library to version 0.0.11. You "
+                "can do so by executing the following command in cmd:",
                 "",
-                "Please be so kind and include the map in question. Thanks again!\n\n",
+                ">>> pip install --force-reinstall AoE2ScenarioParser==0.0.11",
                 "",
-                "Extra data found in the file:",
-                f"\t'{result}'"
+                "Thank you in advance."
             ]))
-            retriever.datatype.repeat = 1
-            return result, None, None
+            time.sleep(1)
+            print("- KSneijders")
+            print("\n\n")
+            time.sleep(1)
+            raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
+    elif retriever.name == "__END_OF_FILE_MARK__":
+        result = b''
+        try:
+            while True:
+                result += next(generator)
+        except StopIteration:
+            pass
+        print("\n\n" + "\n".join([
+            "The file being read has more bytes than anticipated.",
+            "Please notify me (MrKirby/KSneijders) about this message!",
+            "This will help with understanding more parts of scenario files! Thanks in advance!",
+            "You can contact me using:",
+            "- Discord: MrKirby # 5063",
+            "- Github: https://github.com/KSneijders/AoE2ScenarioParser/issues",
+            "",
+            "Please be so kind and include the map in question. Thanks again!\n\n",
+            "",
+            "Extra data found in the file:",
+            f"\t'{result}'"
+        ]))
+        retriever.datatype.repeat = 1
+        return result, None, None
 
-        return vorl(result, retriever), None if not as_length else length, None
+    return vorl(result, retriever), None if not as_length else length, None
 
 
 def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
@@ -227,11 +223,10 @@ def parse_repeat_string(saves, repeat_string):
 
 
 def calculate_length(generator, retriever_list):
-    parser = Parser()
     total_length = 0
 
     for retriever in retriever_list:
-        result, length, status = parser.retrieve_value(generator, retriever, retriever_list, as_length=True)
+        result, length, status = retrieve_value(generator, retriever, retriever_list, as_length=True)
         retriever.data = result
         total_length += length
 
