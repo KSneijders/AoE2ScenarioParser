@@ -2,18 +2,18 @@ import abc
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper import parser
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 
 
 class AoE2Piece:
     dependencies = {}
 
-    def __init__(self, piece_type, retrievers, parser_obj=None, data=None, pieces=None):
+    def __init__(self, piece_type, retrievers, data=None, pieces=None):
         if data is not None and pieces is None:
             raise ValueError("When creating a piece based on data, a pieces dict has to be given")
         self.piece_type = piece_type
         self.retrievers = retrievers
-        self.parser = parser_obj
 
         for retriever in retrievers:
             if retriever.name in self.__class__.dependencies.keys():
@@ -21,6 +21,18 @@ class AoE2Piece:
                     setattr(retriever, key, value)
         if data:
             self.set_data(data, pieces)
+
+    @classmethod
+    def from_structure(cls, piece_structure):
+        piece_name = piece_structure['name']
+        retrievers = []
+        for name, attr in piece_structure['retrievers'].items():
+            datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
+            retrievers.append(Retriever(
+                name=name,
+                datatype=datatype
+            ))
+        return cls(piece_name, retrievers)
 
     @staticmethod
     @abc.abstractmethod
