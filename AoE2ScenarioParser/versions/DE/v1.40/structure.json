@@ -1,0 +1,43 @@
+[
+    {
+        "name": "FileHeader",
+        "retrievers": {
+            "version": {
+                "type": "c4",
+                "default": "1.40"
+            },
+            "header_length": {
+                "type": "u32",
+                "default": 0
+            },
+            "savable":  {
+                "type": "s32",
+                "default": 6
+            },
+            "timestamp_of_last_save": {
+                "type": "u32",
+                "default": 0
+            },
+            "scenario_instructions":  {
+                "type": "str32",
+                "default": ""
+            },
+            "player_count": {
+                "type": "u32",
+                "default": 2
+            },
+            "data":  {
+                "type": "36",
+                "default": "e80300000100000006000000020000000300000004000000050000000600000007000000"
+            },
+            "creator_name": {
+                "type": "str32",
+                "default": "KSneijders/AoE2ScenarioParser"
+            },
+            "trigger_count": {
+                "type": "u32",
+                "default": 0
+            }
+        }
+    }
+]
