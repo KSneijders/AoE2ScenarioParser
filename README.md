@@ -2,11 +2,11 @@
 This is a project for editing parts of an `aoe2scenario` file from **Age of Empires 2 
 Definitive Edition** outside of the in-game editor.  
 
-Documentation can be found on the [readthedocs] page (**Work in Progress**).  
+Documentation can be found on the [readthedocs] page.  
 Examples can be found in the cheatsheets.
 
-- [Triggers Cheatsheet]
-- [Units Cheatsheet]
+- [Triggers Cheatsheet]  (More up-to-date information can be found on: [readthedocs])
+- [Units Cheatsheet]  (More up-to-date information can be found on: [readthedocs])
 - [Datasets Cheatsheet]
 
 [readthedocs]: https://aoe2scenarioparser.readthedocs.io/en/master/
@@ -26,7 +26,10 @@ Current up-to-date progress can be found on the [changelog.md] page. (Dev branch
 | Triggers   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Conditions | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Effects    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Units      | -                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Units      | n/a                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Map*       | n/a                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+The map can be edited in size. Every tile can be changed in terrain, layer and elevation.
 
 ## Bugs:
 

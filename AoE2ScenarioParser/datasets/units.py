@@ -221,6 +221,18 @@ class Unit(IntEnum):
     WATER_BUFFALO = 1142
     WOAD_RAIDER = 232
     XOLOTL_WARRIOR = 1570
+    SMALL_TEMP_MAP_REVEAL = 112
+    LARGE_TEMP_MAP_REVEAL = 332
+    BOARDER_GALLEY = 536
+    """Monk for ships - can convert enemy boats with 1 range"""
+    HUSKARL_BARRACKS = 759
+    ELITE_HUSKARL_BARRACKS = 761
+    TARKAN_STABLE = 886
+    ELITE_TARKAN_STABLE = 887
+    GENITOUR_ORIGINAL = 583
+    """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
+    ELITE_GENITOUR_ORIGINAL = 596
+    """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
 
 
 class GaiaUnit(IntEnum):
@@ -476,6 +488,18 @@ class GaiaUnit(IntEnum):
     WATER_BUFFALO = 1142
     WOAD_RAIDER = 232
     XOLOTL_WARRIOR = 1570
+    SMALL_TEMP_MAP_REVEAL = 112
+    LARGE_TEMP_MAP_REVEAL = 332
+    BOARDER_GALLEY = 536
+    """Monk for ships - can convert enemy boats with 1 range"""
+    HUSKARL_BARRACKS = 759
+    ELITE_HUSKARL_BARRACKS = 761
+    TARKAN_STABLE = 886
+    ELITE_TARKAN_STABLE = 887
+    GENITOUR_ORIGINAL = 583
+    """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
+    ELITE_GENITOUR_ORIGINAL = 596
+    """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
 
 
 unit_names = bidict({

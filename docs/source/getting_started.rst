@@ -19,13 +19,18 @@ Now create the ``Scenario`` object with the filename as parameter. Or create a d
     scenario = AoE2Scenario.from_file(input_path)
     scenario = AoE2Scenario.create_default()  # Creates scenario with most recent version
 
-You can now edit to your heart's vontent. Every aspect of the scenario is seperated in managers. 
+You can now edit to your heart's content. Every aspect of the scenario is seperated in managers. 
 Not all parts are currently supported. The following list shows the current support and use of 
 all available managers:
 
 - **trigger_manager**: The trigger manager is used for creating, editing and removing Triggers, Conditions, Effects and Variables.
 - **unit_manager**: The unit manager is used for creating, editing and removing Units. This includes buildings and heroes etc.
+- **map_manager**: The map manager is used for changing terrain, elevation or simply getting coordinates for certain types.
 
 You can access all managers like so::
 
     trigger_manager = scenario.trigger_manager
+
+After you're done editing, you can save your work and write it to an ``aoe2scenario`` file::
+
+    scenario.write_to_file(output_path)

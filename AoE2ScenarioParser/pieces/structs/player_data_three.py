@@ -8,11 +8,12 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class PlayerDataThreeStruct(AoE2Struct):
-    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {"player_count_for_diplomacy": {
-        "on_refresh": RetrieverDependency(
-            DependencyAction.SET_VALUE, DependencyTarget("self", "diplomacy_for_interaction"),
-            DependencyEval("len(x)"))
-    },
+    dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
+        "player_count_for_diplomacy": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_VALUE, DependencyTarget("self", "diplomacy_for_interaction"),
+                DependencyEval("len(x)"))
+        },
         "diplomacy_for_interaction": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT, DependencyTarget("self", "player_count_for_diplomacy")),
@@ -54,8 +55,7 @@ class PlayerDataThreeStruct(AoE2Struct):
         },
         "unknown_structure_ww_campaign_2": {
             "on_refresh": RetrieverDependency(
-                DependencyAction.SET_REPEAT, DependencyTarget("self", "unknown_5"),
-                DependencyEval("x[0]")),
+                DependencyAction.SET_REPEAT, DependencyTarget("self", "unknown_5")),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         },
     }
@@ -75,8 +75,8 @@ class PlayerDataThreeStruct(AoE2Struct):
             Retriever("victory_version", DataType("f32")),
             Retriever("unknown", DataType("u16")),
             Retriever("unknown_2", DataType("u8")),
-            Retriever("unknown_5", DataType("u8")),
             Retriever("unknown_structure_grand_theft_empires", DataType("44")),
+            Retriever("unknown_5", DataType("u8"), possibly_list=False),
             Retriever("unknown_3", DataType("u8", repeat=7)),
             # Todo: Has to change value of unknown_5. But currently not supported
             Retriever("unknown_structure_ww_campaign_2", DataType("32")),
@@ -101,7 +101,7 @@ class PlayerDataThreeStruct(AoE2Struct):
             'victory_version': 2.0,
             'unknown': 0,
             'unknown_2': [0, 0, 0, 0, 0, 0, 0],
-            'unknown_5': [0],
+            'unknown_5': 0,
             'unknown_structure_grand_theft_empires': [],
             'unknown_3': [0, 0, 0, 0, 0, 0, 0],
             'unknown_structure_ww_campaign_2': [],

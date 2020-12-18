@@ -78,7 +78,7 @@ class Parser:
                 elif var_type == "c":
                     val = bytes_to_fixed_chars(r_gen(generator, var_len))
                 elif var_type == "data":
-                    val = r_gen(generator, var_len)
+                    val = r_gen(generator, var_len, intended_stop_iteration=(retriever.name == "__END_OF_FILE_MARK__"))
                 elif var_type == "str":
                     string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
                     try:
@@ -151,9 +151,6 @@ class Parser:
             return result, None, None
 
         return vorl(result, retriever), None if not as_length else length, None
-
-    def add_to_saves(self, name, value):
-        self._saves[name] = value
 
 
 def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):

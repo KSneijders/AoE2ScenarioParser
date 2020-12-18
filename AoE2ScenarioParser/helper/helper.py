@@ -1,6 +1,7 @@
 import math
 import sys
 from enum import IntEnum
+from typing import List, Dict
 
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
@@ -69,15 +70,37 @@ def q_str(value: any) -> str:
 ======================== PRETTY PRINTERS ========================
 =============================================================="""
 
+_default_inline_types = {
+    'int': 8,
+    'float': 8
+}
 
-def pretty_print_list(plist):
-    return_string = "[\n"
-    for x in plist:
-        newline = "\t" + str(x)
-        if newline[::-2] != "\n":
-            newline += "\n"
-        return_string += newline
-    return return_string + "]\n"
+
+def pretty_print_list(plist: List, inline_types: Dict[str, int] = None):
+    if len(plist) == 0:
+        return "[]\r\n"
+    if inline_types is None:
+        inline_types = _default_inline_types
+    entry_type = type(plist[0]).__name__  # Get entry type
+
+    return_string = "[\r\n"
+    line_items = []
+    for index, entry in enumerate(plist):
+        if entry_type in inline_types.keys():
+            line_items.append(entry)
+            if index % inline_types[entry_type] == inline_types[entry_type] - 1:
+                return_string += _create_inline_line(line_items)
+                line_items = []
+            continue
+        else:
+            return_string += f"\t{entry}\r\n"
+    if len(line_items) != 0:
+        return_string += _create_inline_line(line_items)
+    return return_string + "]\r\n"
+
+
+def _create_inline_line(entries):
+    return "\t" + ", ".join(map(str, entries)) + "\r\n"
 
 
 def pretty_print_dict(pdict: dict):

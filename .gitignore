@@ -224,3 +224,5 @@ AoE2ScenarioParser/app.py
 tests/results/
 
 tests/source/
+
+AoE2ScenarioParser/local_config.py
