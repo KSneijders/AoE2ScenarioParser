@@ -1,0 +1,43 @@
+[
+    {
+        "name": "Map",
+        "retrievers": {
+            "map_width":  {"type": "u32", "repeat": 1, "default": 144},
+            "map_height": {"type": "u32", "repeat": 1, "default": 144},
+            "terrain_data": {"type": "TerrainStruct"}
+        },
+        "dependencies": {
+            "map_width": {
+                "type": "value",  
+                "target": ["self", "terrain_data"],
+                "eval": "math.sqrt(len(terrain_data))"
+            },
+            "map_height": {
+                "type": "value",
+                "target": ["self", "terrain_data"],
+                "eval": "math.sqrt(len(terrain_data))"
+            },
+            "terrain_data": {
+                "type": "repeat",
+                "target": [
+                    ["self", "map_width"],
+                    ["self", "map_height"]
+                ],
+                "eval": "map_width * map_height"
+            }
+        }
+    },
+    {
+        "name": "Trigger",
+        "retrievers": {
+            "number_of_triggers": ["u32", 1],
+            "trigger_data": ["TriggerStruct"]
+        },
+        "dependencies": { 
+            "number_of_triggers": {
+                "type": "length_dependency",
+                "target": ["self", "trigger_data"]
+            }
+        }
+    }
+]
