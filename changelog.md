@@ -5,12 +5,17 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## Unrealesed
+## 0.0.15 - 2020-December-18
 
 ### Added
 
 - Support for bitmap images (Can't be seen, used (or removed) in DE but crashed the parser if present)
 - Support for legacy codec `latin-1` (Voobly converted maps). Please note that all text will be written back into `utf-8` when writing a new file.
+- Units to the units dataset (Credis: Alian713)
+
+### Updated
+
+- Many Attribute ID names and their description and usages. (Credits: Alian713)  
 
 ### Fixed
 
