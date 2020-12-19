@@ -1,7 +1,6 @@
 import time
 from typing import Any, List
 
-import AoE2ScenarioParser.pieces.structs.aoe2_struct
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
@@ -25,8 +24,8 @@ def vorl(var: Any, retriever: Retriever = None):
         for attribute in attributes:
             if hasattr(retriever, attribute):
                 dependencies += listify(getattr(retriever, attribute))
-                if retriever.datatype.repeat != 1 or DependencyAction.SET_REPEAT in [x.dependency_type for x in
-                                                                                     dependencies]:
+                if retriever.datatype.repeat != 1 or \
+                        DependencyAction.SET_REPEAT in [x.dependency_type for x in dependencies]:
                     return listify(var)
     if type(var) is list:
         if len(var) == 1:
@@ -43,9 +42,9 @@ def listify(var) -> list:
 
 
 def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
-    length = 0
-    result = list()
     var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+    result = list()
+    length = 0
 
     if hasattr(retriever, 'on_construct'):
         handle_retriever_dependency(retriever, retrievers, "construct", pieces)
@@ -58,7 +57,7 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length
                 val = retriever.datatype.var()
                 result.append(val)
                 val.set_data_from_generator(generator, pieces)
-                i = val.get_length()
+                i = val.get_byte_length()
 
                 length += i
                 continue
@@ -135,7 +134,7 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length
             "Please notify me (MrKirby/KSneijders) about this message!",
             "This will help with understanding more parts of scenario files! Thanks in advance!",
             "You can contact me using:",
-            "- Discord: MrKirby # 5063",
+            "- Discord: MrKirby#5063",
             "- Github: https://github.com/KSneijders/AoE2ScenarioParser/issues",
             "",
             "Please be so kind and include the map in question. Thanks again!\n\n",
@@ -207,61 +206,23 @@ def handle_dependency_eval(retriever_on_x, value):
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 
-def parse_repeat_string(saves, repeat_string):
-    while True:
-        start = repeat_string.find("{")
-        end = repeat_string.find("}")
-
-        if start == -1 and end == -1:
-            break
-
-        inclusive = repeat_string[start:end + 1]
-        exclusive = repeat_string[start + 1:end]
-
-        repeat_string = repeat_string.replace(inclusive, str(saves[exclusive]))
-    return eval(repeat_string)
-
-
-def calculate_length(generator, retriever_list):
-    total_length = 0
-
-    for retriever in retriever_list:
-        result, length, status = retrieve_value(generator, retriever, retriever_list, as_length=True)
-        retriever.data = result
-        total_length += length
-
-    return total_length
-
-
 def datatype_to_type_length(var):
-    try:
-        if issubclass(var, AoE2ScenarioParser.pieces.structs.aoe2_struct.AoE2Struct):
-            return "struct", 0
-        else:  # Not possible at this time
-            return "", 0
-    except TypeError:
-        pass
+    """Returns the type and length of a datatype. So: 'int32' returns 'int', 32. """
+    if type(var) is not str:
+        return "struct", 0
 
-    var_type = ""
-    var_len = ""
+    # Filter numbers out for length, filter text for type
+    var_len = int(''.join(filter(str.isnumeric, var)))
+    var_type = ''.join(filter(str.isalpha, var))
 
-    for char in var:
-        if char.isnumeric():
-            var_len += char
-        else:
-            var_type += char
-
-    if var_type == "":
+    if var_type == '':
         var_type = "data"
 
-    if var_len == "":
-        var_len = 0
-    else:
-        var_len = int(var_len)
+    if var_type not in types:
+        raise ValueError(f"Unknown variable type '{var_type}'")
 
-    assert var_type in types
-
-    if var_type != "c" and var_type != "data":
+    # Divide by 8, and parse from float to int
+    if var_type not in ["c", "data"]:
         var_len = int(var_len / 8)
 
     return var_type, var_len
@@ -269,7 +230,6 @@ def datatype_to_type_length(var):
 
 def retriever_to_bytes(retriever, pieces):
     var_type, var_len = datatype_to_type_length(retriever.datatype.var)
-
     return_bytes = b''
 
     is_list = type(retriever.data) == list
