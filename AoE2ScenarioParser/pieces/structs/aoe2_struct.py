@@ -8,7 +8,7 @@ class AoE2Struct(AoE2Piece, ABC):
     def __init__(self, piece_type, retrievers, data=None, pieces=None):
         super().__init__(piece_type, retrievers, data, pieces)
 
-        if data and parser_obj:
+        if data:
             gen = create_advanced_generator(data, 1)
             super().set_data_from_generator(gen)
 

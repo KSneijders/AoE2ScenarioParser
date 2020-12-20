@@ -40,18 +40,18 @@ class AoE2Piece:
         return {}
 
     def __getattr__(self, name):
-        """
-        Providing a default way to access retriever data labeled 'name'
-        """
-        try:
-            return get_retriever_by_name(self.retrievers, name).data
-        except:
-            raise AttributeError("No attribute retriever named \'" + name + "\' in piece \'" + str(type(self)) + "\'")
+        """Providing a default way to access retriever data labeled 'name'"""
+        if 'retrievers' not in self.__dict__:
+            return super().__getattribute__(name)
+        else:
+            retriever = get_retriever_by_name(self.retrievers, name)
+            if retriever is None:
+                return super().__getattribute__(name)
+            else:
+                return retriever.data
 
     def __setattr__(self, name, value):
-        """
-        Trying to edit retriever data labeled 'name' if available
-        """
+        """Trying to edit retriever data labeled 'name' if available"""
         if 'retrievers' not in self.__dict__:
             super().__setattr__(name, value)
         else:
@@ -79,7 +79,7 @@ class AoE2Piece:
     def get_value(self, retriever_key):
         return get_retriever_by_name(self.retrievers, retriever_key).data
 
-    def get_length(self):
+    def get_byte_length(self):
         total_length = 0
         try:
             for i in range(0, len(self.retrievers)):
@@ -88,9 +88,9 @@ class AoE2Piece:
                 if datatype == "struct":
                     if type(self.retrievers[i].data) == list:
                         for continues_struct in self.retrievers[i].data:
-                            length += continues_struct.get_length()
+                            length += continues_struct.get_byte_length()
                     else:
-                        length = self.retrievers[i].data.get_length()
+                        length = self.retrievers[i].data.get_byte_length()
                 elif datatype == "str":
                     length = len(self.retrievers[i].data)
                 total_length += length
