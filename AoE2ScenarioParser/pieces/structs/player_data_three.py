@@ -83,7 +83,7 @@ class PlayerDataThreeStruct(AoE2Struct):
             Retriever("unknown_4", DataType("s32")),
         ]
 
-        super().__init__("Player Data #3", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Player Data #3", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

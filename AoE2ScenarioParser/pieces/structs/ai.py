@@ -11,7 +11,7 @@ class AIStruct(AoE2Struct):
             Retriever("ai_per_file_text", DataType("str32")),
         ]
 
-        super().__init__("AI", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("AI", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

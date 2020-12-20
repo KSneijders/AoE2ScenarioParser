@@ -13,7 +13,7 @@ class PlayerDataOneStruct(AoE2Struct):
             Retriever("cty_mode", DataType("u32")),
         ]
 
-        super().__init__("Player Data #1", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Player Data #1", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

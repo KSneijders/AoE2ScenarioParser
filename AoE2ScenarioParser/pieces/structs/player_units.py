@@ -30,7 +30,7 @@ class PlayerUnitsStruct(AoE2Struct):
             Retriever("units", DataType(UnitStruct))
         ]
 
-        super().__init__("Player Units", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Player Units", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

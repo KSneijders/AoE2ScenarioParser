@@ -126,7 +126,7 @@ class EffectStruct(AoE2Struct):
             Retriever("selected_object_ids", DataType("s32")),
         ]
 
-        super().__init__("Effect", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Effect", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

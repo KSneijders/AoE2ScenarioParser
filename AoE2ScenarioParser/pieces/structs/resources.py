@@ -15,7 +15,7 @@ class ResourcesStruct(AoE2Struct):
             Retriever("player_color", DataType("u32"))
         ]
 
-        super().__init__("Resources", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Resources", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

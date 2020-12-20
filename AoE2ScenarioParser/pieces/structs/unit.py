@@ -18,7 +18,7 @@ class UnitStruct(AoE2Struct):
             Retriever("garrisoned_in_id", DataType("s32")),
         ]
 
-        super().__init__("Unit", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Unit", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

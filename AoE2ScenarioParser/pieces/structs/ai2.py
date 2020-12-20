@@ -10,7 +10,7 @@ class AI2Struct(AoE2Struct):
             Retriever("ai_file", DataType("str32")),
         ]
 
-        super().__init__("AI2", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("AI2", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

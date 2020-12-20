@@ -10,7 +10,7 @@ class VariableStruct(AoE2Struct):
             Retriever("name", DataType("str32")),
         ]
 
-        super().__init__("Variable", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Variable", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

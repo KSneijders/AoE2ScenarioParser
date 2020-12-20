@@ -9,7 +9,7 @@ class PlayerDiplomacyStruct(AoE2Struct):
             Retriever("stance_with_each_player", DataType("u32", repeat=16)),
         ]
 
-        super().__init__("Player Diplomacy", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Player Diplomacy", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

@@ -15,7 +15,7 @@ class PlayerDataFourStruct(AoE2Struct):
             Retriever("population_limit", DataType("f32")),
         ]
 
-        super().__init__("Player Data #4", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Player Data #4", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

@@ -67,7 +67,7 @@ class ConditionStruct(AoE2Struct):
             Retriever("xs_function", DataType("str32")),
         ]
 
-        super().__init__("Condition", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Condition", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

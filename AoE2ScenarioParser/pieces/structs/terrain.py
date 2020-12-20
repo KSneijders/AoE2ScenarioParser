@@ -13,7 +13,7 @@ class TerrainStruct(AoE2Struct):
             Retriever("layer", DataType("s16"))
         ]
 
-        super().__init__("Terrain", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Terrain", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):

@@ -79,7 +79,7 @@ class TriggerStruct(AoE2Struct):
             Retriever("condition_display_order_array", DataType("s32"))
         ]
 
-        super().__init__("Trigger", retrievers, parser_obj, data, pieces=pieces)
+        super().__init__("Trigger", retrievers, data, pieces=pieces)
 
     @staticmethod
     def defaults(pieces):
