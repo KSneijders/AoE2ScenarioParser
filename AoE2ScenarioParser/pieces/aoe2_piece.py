@@ -14,6 +14,7 @@ class AoE2Piece:
             raise ValueError("When creating a piece based on data, a pieces dict has to be given")
         self.piece_type = piece_type
         self.retrievers = retrievers
+        self.byte_length = -1
 
         for retriever in retrievers:
             if retriever.name in self.__class__.dependencies.keys():
@@ -79,37 +80,28 @@ class AoE2Piece:
     def get_value(self, retriever_key):
         return get_retriever_by_name(self.retrievers, retriever_key).data
 
-    def get_byte_length(self):
-        total_length = 0
-        try:
-            for i in range(0, len(self.retrievers)):
-                datatype, length = parser.datatype_to_type_length(self.retrievers[i].datatype.var)
-
-                if datatype == "struct":
-                    if type(self.retrievers[i].data) == list:
-                        for continues_struct in self.retrievers[i].data:
-                            length += continues_struct.get_byte_length()
-                    else:
-                        length = self.retrievers[i].data.get_byte_length()
-                elif datatype == "str":
-                    length += len(self.retrievers[i].data)
-                total_length += length
-        except TypeError:
-            print(self.retrievers)
-        return total_length
-
     def set_data_from_generator(self, generator, pieces=None):
+        """
+        Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
+        Bytes will be parsed based on the retrievers. The total length of bytes read to fill this piece is also stored
+        in this piece as `byte_length`.
+
+        Args:
+            generator (Generator[bytes, None, None] ): A generator from a binary scenario file
+            pieces (OrderedDictType[str, AoE2Piece]): A list of pieces to reference when the retrievers have
+                dependencies to or from them.
+        """
+        total_length = 0
         for i, retriever in enumerate(self.retrievers):
-            print(retriever)
             try:
-                retriever.data, _, status = parser.retrieve_value(
-                    generator, retriever, self.retrievers, pieces
-                )
+                retriever.data, length, status = parser.retrieve_value(generator, retriever, self.retrievers, pieces)
+                total_length += length
                 if status is not None:
                     raise status
             except Exception as e:
                 print(f"\n\n[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}")
                 raise e
+        self.byte_length = total_length
 
     def _entry_to_string(self, name, data, datatype):
         return "\t" + name + ": " + data + " (" + datatype + ")\n"
