@@ -1,6 +1,5 @@
-[
-    {
-        "name": "FileHeader",
+{
+    "FileHeader": {
         "retrievers": {
             "version": {
                 "type": "c4",
@@ -10,7 +9,7 @@
                 "type": "u32",
                 "default": 0
             },
-            "savable":  {
+            "savable": {
                 "type": "s32",
                 "default": 6
             },
@@ -18,7 +17,7 @@
                 "type": "u32",
                 "default": 0
             },
-            "scenario_instructions":  {
+            "scenario_instructions": {
                 "type": "str32",
                 "default": ""
             },
@@ -26,7 +25,7 @@
                 "type": "u32",
                 "default": 2
             },
-            "data":  {
+            "data": {
                 "type": "36",
                 "default": "e80300000100000006000000020000000300000004000000050000000600000007000000"
             },
@@ -39,5 +38,60 @@
                 "default": 0
             }
         }
+    },
+    "DataHeader": {
+        "retrievers": {
+            "next_unit_id_to_place": {
+                "type": "u32",
+                "default": 0
+            },
+            "version": {
+                "type": "f32",
+                "default": 0
+            },
+            "player_names": {
+                "type": "c256",
+                "default": 0
+            },
+            "string_table_player_names": {
+                "type": "u32",
+                "repeat": 16,
+                "default": 0
+            },
+            "player_data_1": {
+                "type": "PlayerDataOneStruct",
+                "repeat": 16,
+                "default": 0
+            },
+            "conquest_mode": {
+                "type": "u8",
+                "default": 0
+            },
+            "mission_available": {
+                "type": "u16",
+                "default": 0
+            },
+            "mission_timeline": {
+                "type": "f32",
+                "default": 0
+            },
+            "mission_item": {
+                "type": "30",
+                "default": 0
+            },
+            "unknown": {
+                "type": "64",
+                "default": 0
+            },
+            "filename": {
+                "type": "str16",
+                "default": 0
+            }
+        },
+        "structs": {
+            "PlayerDataOneStruct": {
+
+            }
+        }
     }
-]
+}

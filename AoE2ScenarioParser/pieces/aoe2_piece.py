@@ -24,8 +24,8 @@ class AoE2Piece:
             self.set_data(data, pieces)
 
     @classmethod
-    def from_structure(cls, piece_structure):
-        piece_name = piece_structure['name']
+    def from_structure(cls, piece_name, structure):
+        piece_structure = structure.get(piece_name)
         retrievers = []
         for name, attr in piece_structure['retrievers'].items():
             datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
