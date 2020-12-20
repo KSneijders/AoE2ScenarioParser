@@ -8,6 +8,7 @@ from typing import List, Type
 from AoE2ScenarioParser.helper import generator, helper
 from AoE2ScenarioParser.helper import parser
 from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
@@ -77,36 +78,36 @@ class AoE2Scenario:
 
     @classmethod
     def from_file_poc(cls, filename, log_reading=True, log_parsing=True):
-        print("\nPreparing & Loading file: '" + filename + "'...")
+        print(f"\nPreparing & Loading file: '{filename}'...")
+        file_content = read_file(filename)
+
         scenario = cls()
         scenario.read_mode = "from_file"
-
-        lgr = SimpleLogger(should_log=True)
-
-        scenario_file = open(filename, "rb")
-        scenario._file = scenario_file.read()
-
         scenario.game_version = "DE"
-        scenario.scenario_version = scenario._file[:4].decode('ASCII')
+        scenario.scenario_version = get_file_version(file_content)
+        # scenario_file.seek(0)  # Reset file cursor to 0
 
-        scenario_file.seek(0)  # Reset file cursor to 0
-
+        # Log game and scenario version
+        lgr = SimpleLogger(should_log=True)
         lgr.print(f">>> Game version: {scenario.game_version}")
         lgr.print(f">>> Scenario version: {scenario.scenario_version}")
+
+        structure = get_structure_by_scenario(scenario)
+
         lgr.print(f"Loading scenario structure...", replace_line=True)
 
-        structure = json.loads(
-            open(f"versions/{scenario.game_version}/v{scenario.scenario_version}/structure.json", 'r').read()
-        )
+        # Read and create header piece
+        header = AoE2Piece.from_structure(structure[0])
+        header.set_data_from_generator(generator.create_generator(file_content))
+
+        print(header)
+        exit()
 
         # file_header = scenario_file.read(scenario._compute_header_length())
         # file_data = zlib.decompress(scenario_file.read(), -zlib.MAX_WBITS)
         # a = file_header + file_data
-
         a = 0
         file_generator = generator.create_generator(a)
-
-        # TODO: Find a clean way to decompress the rest of the file
 
         for piece_structure in structure:
             piece = AoE2Piece.from_structure(piece_structure)
@@ -276,9 +277,6 @@ class AoE2Scenario:
     def _create_file_generator(self, chunk_size):
         return generator.create_advanced_generator(self._file, chunk_size)
 
-    def _compute_header_length(self):
-        return parser.calculate_length(self._create_file_generator(1), FileHeaderPiece().retrievers)
-
     """ #############################################
     ################ Debug functions ################
     ############################################# """
@@ -360,6 +358,28 @@ class AoE2Scenario:
             output_file.write(''.join(result))
             output_file.close()
         lgr.print("Writing structure to file finished successfully.")
+
+
+def read_file(filename):
+    scenario_file = open(filename, "rb")
+    file_content = scenario_file.read()
+    scenario_file.close()
+    return file_content
+
+
+def get_file_version(file_content):
+    return file_content[:4].decode('ASCII')
+
+
+def get_structure_by_scenario(scenario: AoE2Scenario) -> list:
+    structure = json.loads(
+        open(f"versions/{scenario.game_version}/v{scenario.scenario_version}/structure.json", 'r').read()
+    )
+
+    first_piece_name = structure[0].get('name')
+    if first_piece_name != "FileHeader":
+        raise InvalidScenarioStructure(f"First piece in structure should always be FileHeader. Not {first_piece_name}.")
+    return structure
 
 
 _header_structure: List[Type[AoE2Piece]] = [
