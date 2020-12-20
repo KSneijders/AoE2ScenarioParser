@@ -12,12 +12,6 @@ from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
 =============================================================="""
 
 
-def update_order_array(order_array, supposed_length):
-    for i in range(0, supposed_length):
-        if i not in order_array:
-            order_array.append(i)
-
-
 def create_textual_hex(string, space_distance=2, enter_distance=48):
     """Please note that the 'enter_distance' parameter is including the - to be added - spaces. If you calculated it
     without the spaces, please multiply the number by: `block size incl space / block size excl space`"""
@@ -157,6 +151,12 @@ def list_changed(lst, lst_hash):
 =============================================================="""
 
 
+def update_order_array(order_array, supposed_length):
+    for i in range(0, supposed_length):
+        if i not in order_array:
+            order_array.append(i)
+
+
 def get_enum_from_unit_const(const: int) -> IntEnum:
     """
     Returns an Enum corresponding with the given Const.
@@ -164,6 +164,7 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
     Arguments:
         const: The constant representing a unit
     """
+    # Todo: try catch in loop with `return x(const)` in main body. loop through enums
     if any(item == const for item in Unit):
         return Unit(const)
     if any(item.value == const for item in Building):
