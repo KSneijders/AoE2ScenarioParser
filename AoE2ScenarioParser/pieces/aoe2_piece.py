@@ -92,7 +92,7 @@ class AoE2Piece:
                     else:
                         length = self.retrievers[i].data.get_byte_length()
                 elif datatype == "str":
-                    length = len(self.retrievers[i].data)
+                    length += len(self.retrievers[i].data)
                 total_length += length
         except TypeError:
             print(self.retrievers)
