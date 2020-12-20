@@ -1,10 +1,13 @@
 import time
-from typing import Any, List
+from typing import Any, List, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.bytes_to_x import *
-from AoE2ScenarioParser.helper.generator import repeat_generator as r_gen
+from AoE2ScenarioParser.helper.generator import repeat_generator
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 types = [
     "s",  # Signed int
@@ -41,7 +44,7 @@ def listify(var) -> list:
         return [var]
 
 
-def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length=False) -> Any:
+def retrieve_value(generator, retriever, retrievers=None, pieces=None) -> Any:
     var_type, var_len = datatype_to_type_length(retriever.datatype.var)
     result = list()
     length = 0
@@ -54,28 +57,29 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length
             length += var_len
 
             if var_type == "struct":
-                val = retriever.datatype.var()
+                # Todo: Find a way to store structs (different json file?) and find a way to instantiate them somewhere
+                val: AoE2Struct = retriever.datatype.var()
                 result.append(val)
-                val.set_data_from_generator(generator, pieces)
-                i = val.get_byte_length()
-
-                length += i
+                length += val.set_data_from_generator(generator, pieces)
                 continue
             if var_type == "u" or var_type == "s":
-                val = bytes_to_int(r_gen(generator, var_len), signed=(var_type == "s"))
+                val = bytes_to_int(repeat_generator(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
-                if var_len == 4:
-                    val = bytes_to_float(r_gen(generator, var_len))
-                else:  # Always 4 except for trigger version
-                    val = bytes_to_double(r_gen(generator, var_len))
+                if var_len == 4:  # Float value
+                    val = bytes_to_float(repeat_generator(generator, var_len))
+                else:  # only 'else' is the trigger version. Which is a double (8 bytes)
+                    val = bytes_to_double(repeat_generator(generator, var_len))
             elif var_type == "c":
-                val = bytes_to_fixed_chars(r_gen(generator, var_len))
+                val = bytes_to_fixed_chars(repeat_generator(generator, var_len))
             elif var_type == "data":
-                val = r_gen(generator, var_len, intended_stop_iteration=(retriever.name == "__END_OF_FILE_MARK__"))
+                val = repeat_generator(
+                    generator, var_len,
+                    intended_stop_iteration=(retriever.name == "__END_OF_FILE_MARK__")
+                )
             elif var_type == "str":
-                string_length = bytes_to_int(r_gen(generator, var_len), endian="little", signed=True)
+                string_length = bytes_to_int(repeat_generator(generator, var_len), endian="little", signed=True)
                 try:
-                    data = r_gen(generator, string_length)
+                    data = repeat_generator(generator, string_length)
                     val = bytes_to_str(data)
                     length += string_length
                 except StopIteration as e:
@@ -93,13 +97,11 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length
         else:
             raise e
     except Exception as e:
-        return vorl(result, retriever), None if not as_length else length, e
+        return vorl(result, retriever), length, e
 
     # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
     if retriever.name == "version" and retriever.datatype.var == "c4":
         version = vorl(result, retriever)
-        print(type(version))
-        print(version == "1.40")
         if version != "1.40":
             print("\n\n")
             print('\n'.join([
@@ -145,7 +147,7 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None, as_length
         retriever.datatype.repeat = 1
         return result, None, None
 
-    return vorl(result, retriever), None if not as_length else length, None
+    return vorl(result, retriever), length, None
 
 
 def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
@@ -208,7 +210,7 @@ def handle_dependency_eval(retriever_on_x, value):
 
 def datatype_to_type_length(var):
     """Returns the type and length of a datatype. So: 'int32' returns 'int', 32. """
-    if type(var) is not str:
+    if "Struct" in var:
         return "struct", 0
 
     # Filter numbers out for length, filter text for type
