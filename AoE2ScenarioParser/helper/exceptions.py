@@ -1,0 +1,2 @@
+class InvalidScenarioStructure(Exception):
+    pass
