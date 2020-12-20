@@ -50,8 +50,7 @@ class AoE2Object:
 
         Args:
             pieces (OrderedDictType[str, AoE2Piece]): A list of pieces to reference where to commit to. If left empty,
-                the pieces default to the pieces where this object was constructed from. When this object wasn't present
-                when the file was read it's not possible to use the
+                the pieces default to the pieces where this object was constructed from.
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
         """
