@@ -193,12 +193,14 @@ class SimpleLogger:
     def __init__(self, should_log):
         self.should_log = should_log
 
-    def print(self, string="", end="\n", replace_line=False):
+    def print(self, string="", end="\n", replace_line=False, last_replace_line=False):
         if self.should_log:
             if not replace_line:
                 print(string, end=end)
             else:
                 sys.stdout.write('\r' + string)
+                if last_replace_line:
+                    print()
 
     def __repr__(self):
         return f"SimpleLogger[should_log: {self.should_log}]"
