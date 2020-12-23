@@ -95,7 +95,7 @@ class AoE2Scenario:
         lgr.print(f"Loading scenario structure...", replace_line=True)
 
         # Read and init header
-        header = AoE2Piece.from_structure('FileHeader', structure)
+        header = AoE2Piece.from_structure('FileHeader', structure.get('FileHeader'))
         header.set_data_from_generator(generator.create_generator(file_content))
 
         # Decompressed the file (starting from where header ended)
@@ -105,7 +105,7 @@ class AoE2Scenario:
         for piece_name in structure.keys():
             if piece_name == "FileHeader":
                 continue
-            piece = AoE2Piece.from_structure(piece_name, structure)
+            piece = AoE2Piece.from_structure(piece_name, structure.get(piece_name))
             piece.set_data_from_generator(file_generator)
 
         lgr.print(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)

@@ -21,9 +21,8 @@ class AoE2FilePart:
 
     @classmethod
     def from_structure(cls, piece_name, structure):
-        piece_structure = structure.get(piece_name)
         retrievers = []
-        for name, attr in piece_structure['retrievers'].items():
+        for name, attr in structure.get('retrievers', {}).items():
             datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
             retrievers.append(Retriever(
                 name=name,
