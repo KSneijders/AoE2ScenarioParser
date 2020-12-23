@@ -31,7 +31,7 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
         }
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("number_of_unit_sections", DataType("u32")),
             Retriever("player_data_4", DataType(PlayerDataFourStruct, repeat=8)),
@@ -40,7 +40,7 @@ class UnitsPiece(aoe2_piece.AoE2Piece):
             Retriever("players_units", DataType(PlayerUnitsStruct)),
         ]
 
-        super().__init__("Units", retrievers, data=data, pieces=pieces)
+        super().__init__("Units", retrievers)
 
     @staticmethod
     def defaults(pieces):

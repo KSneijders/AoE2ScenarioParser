@@ -18,7 +18,7 @@ class BitMapInfoStruct(AoE2Struct):
         }
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("size", DataType("s32")),
             Retriever("width", DataType("u32")),
@@ -35,7 +35,7 @@ class BitMapInfoStruct(AoE2Struct):
             Retriever("image", DataType("u8")),
         ]
 
-        super().__init__("BitMap Info", retrievers, parser_obj, data=data, pieces=pieces)
+        super().__init__("BitMap Info", retrievers)
 
     @staticmethod
     def defaults(pieces):

@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class TerrainStruct(AoE2Struct):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("terrain_id", DataType("u8")),
             Retriever("elevation", DataType("u8")),
@@ -13,7 +13,7 @@ class TerrainStruct(AoE2Struct):
             Retriever("layer", DataType("s16"))
         ]
 
-        super().__init__("Terrain", retrievers, data, pieces=pieces)
+        super().__init__("Terrain", retrievers)
 
     @staticmethod
     def defaults(pieces):

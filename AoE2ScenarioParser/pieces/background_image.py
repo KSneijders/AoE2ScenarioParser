@@ -16,7 +16,7 @@ class BackgroundImagePiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("ascii_filename", DataType("str16")),
             Retriever("picture_version", DataType("u32")),
@@ -26,7 +26,7 @@ class BackgroundImagePiece(aoe2_piece.AoE2Piece):
             Retriever("bitmap_info", DataType(BitMapInfoStruct), possibly_list=False),
         ]
 
-        super().__init__("Background Image", retrievers, data=data, pieces=pieces)
+        super().__init__("Background Image", retrievers)
 
     @staticmethod
     def defaults(pieces):

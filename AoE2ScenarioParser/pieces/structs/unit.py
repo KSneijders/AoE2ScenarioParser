@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class UnitStruct(AoE2Struct):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("x", DataType("f32")),
             Retriever("y", DataType("f32")),
@@ -18,7 +18,7 @@ class UnitStruct(AoE2Struct):
             Retriever("garrisoned_in_id", DataType("s32")),
         ]
 
-        super().__init__("Unit", retrievers, data, pieces=pieces)
+        super().__init__("Unit", retrievers)
 
     @staticmethod
     def defaults(pieces):

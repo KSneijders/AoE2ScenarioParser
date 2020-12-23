@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class MessagesPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("instructions", DataType("u32")),
             Retriever("hints", DataType("u32")),
@@ -20,7 +20,7 @@ class MessagesPiece(aoe2_piece.AoE2Piece):
             Retriever("ascii_scouts", DataType("str16")),
         ]
 
-        super().__init__("Messages", retrievers, data=data, pieces=pieces)
+        super().__init__("Messages", retrievers)
 
     @staticmethod
     def defaults(pieces):

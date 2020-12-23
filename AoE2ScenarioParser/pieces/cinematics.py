@@ -4,7 +4,7 @@ from AoE2ScenarioParser.pieces import aoe2_piece
 
 
 class CinematicsPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("ascii_pregame", DataType("str16")),
             Retriever("ascii_victory", DataType("str16")),
@@ -12,7 +12,7 @@ class CinematicsPiece(aoe2_piece.AoE2Piece):
             # Retriever("Separator (! in some version)", DataType("1")),
         ]
 
-        super().__init__("Cinematics", retrievers, data=data, pieces=pieces)
+        super().__init__("Cinematics", retrievers)
 
     @staticmethod
     def defaults(pieces):

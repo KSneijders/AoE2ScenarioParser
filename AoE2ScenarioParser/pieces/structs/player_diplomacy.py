@@ -4,12 +4,12 @@ from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
 class PlayerDiplomacyStruct(AoE2Struct):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("stance_with_each_player", DataType("u32", repeat=16)),
         ]
 
-        super().__init__("Player Diplomacy", retrievers, data, pieces=pieces)
+        super().__init__("Player Diplomacy", retrievers)
 
     @staticmethod
     def defaults(pieces):

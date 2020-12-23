@@ -5,7 +5,7 @@ from AoE2ScenarioParser.pieces.structs.player_diplomacy import PlayerDiplomacySt
 
 
 class DiplomacyPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("per_player_diplomacy", DataType(PlayerDiplomacyStruct, repeat=16)),
             Retriever("individual_victories", DataType("60", repeat=16 * 12)),  # 12 Conditions per (16) Player(s).
@@ -14,7 +14,7 @@ class DiplomacyPiece(aoe2_piece.AoE2Piece):
             Retriever("unknown", DataType("4")),
         ]
 
-        super().__init__("Diplomacy", retrievers, data=data, pieces=pieces)
+        super().__init__("Diplomacy", retrievers)
 
     @staticmethod
     def defaults(pieces):

@@ -55,7 +55,7 @@ class TriggerStruct(AoE2Struct):
         },
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("enabled", DataType("u32")),
             Retriever("looping", DataType("s8")),
@@ -79,7 +79,7 @@ class TriggerStruct(AoE2Struct):
             Retriever("condition_display_order_array", DataType("s32"))
         ]
 
-        super().__init__("Trigger", retrievers, data, pieces=pieces)
+        super().__init__("Trigger", retrievers)
 
     @staticmethod
     def defaults(pieces):

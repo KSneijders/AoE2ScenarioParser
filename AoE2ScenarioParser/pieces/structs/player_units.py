@@ -24,13 +24,13 @@ class PlayerUnitsStruct(AoE2Struct):
         },
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("unit_count", DataType("u32")),
             Retriever("units", DataType(UnitStruct))
         ]
 
-        super().__init__("Player Units", retrievers, data, pieces=pieces)
+        super().__init__("Player Units", retrievers)
 
     @staticmethod
     def defaults(pieces):

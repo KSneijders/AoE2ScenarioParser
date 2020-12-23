@@ -6,7 +6,7 @@ from AoE2ScenarioParser.pieces.structs.resources import ResourcesStruct
 
 
 class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("strings", DataType("str16", repeat=32)),
             Retriever("ai_names", DataType("str16", repeat=16)),
@@ -16,7 +16,7 @@ class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
             Retriever("resources", DataType(ResourcesStruct, repeat=16))
         ]
 
-        super().__init__("Player Data #2", retrievers, data=data, pieces=pieces)
+        super().__init__("Player Data #2", retrievers)
 
     @staticmethod
     def defaults(pieces):

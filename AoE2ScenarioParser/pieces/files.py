@@ -51,7 +51,7 @@ class FilesPiece(aoe2_piece.AoE2Piece):
         },
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("unknown_2", DataType("4")),
             Retriever("script_file_path", DataType("str16")),
@@ -63,7 +63,7 @@ class FilesPiece(aoe2_piece.AoE2Piece):
             Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]
 
-        super().__init__("Files", retrievers, data=data, pieces=pieces)
+        super().__init__("Files", retrievers)
 
     @staticmethod
     def defaults(pieces):

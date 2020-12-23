@@ -34,7 +34,7 @@ class ConditionStruct(AoE2Struct):
         # },
     }
 
-    def __init__(self, data=None, pieces=None):
+    def __init__(self):
         retrievers = [
             Retriever("condition_type", DataType("s32")),
             Retriever("static_value_21", DataType("s32")),  # Was always: 0x10
@@ -67,7 +67,7 @@ class ConditionStruct(AoE2Struct):
             Retriever("xs_function", DataType("str32")),
         ]
 
-        super().__init__("Condition", retrievers, data, pieces=pieces)
+        super().__init__("Condition", retrievers)
 
     @staticmethod
     def defaults(pieces):
