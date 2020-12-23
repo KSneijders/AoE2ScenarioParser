@@ -210,7 +210,7 @@ def handle_dependency_eval(retriever_on_x, value):
 
 def datatype_to_type_length(var):
     """Returns the type and length of a datatype. So: 'int32' returns 'int', 32. """
-    if "Struct" in var:
+    if var[:7] == "struct:":
         return "struct", 0
 
     # Filter numbers out for length, filter text for type
