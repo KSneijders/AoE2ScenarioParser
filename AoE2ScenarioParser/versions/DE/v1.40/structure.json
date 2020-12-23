@@ -47,19 +47,19 @@
             },
             "version": {
                 "type": "f32",
-                "default": 0
+                "default": 1.399999976158142
             },
             "player_names": {
                 "type": "c256",
-                "default": 0
+                "default": "eval:['\\x00' * 256] * 16"
             },
             "string_table_player_names": {
                 "type": "u32",
                 "repeat": 16,
-                "default": 0
+                "default": "eval:[4294967294] * 16"
             },
             "player_data_1": {
-                "type": "PlayerDataOneStruct",
+                "type": "struct:PlayerDataOneStruct",
                 "repeat": 16,
                 "default": 0
             },
@@ -73,24 +73,45 @@
             },
             "mission_timeline": {
                 "type": "f32",
-                "default": 0
+                "default": 0.0
             },
             "mission_item": {
                 "type": "30",
-                "default": 0
+                "default": []
             },
             "unknown": {
                 "type": "64",
-                "default": 0
+                "default": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000"
             },
             "filename": {
                 "type": "str16",
-                "default": 0
+                "default": "CreatedUsingAoE2ScenarioParser.aoe2scenario"
             }
         },
         "structs": {
             "PlayerDataOneStruct": {
-
+                "retrievers": {
+                    "active": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "human": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "civilization": {
+                        "type": "u32",
+                        "default": 36
+                    },
+                    "architecture_set": {
+                        "type": "u32",
+                        "default": 36
+                    },
+                    "cty_mode": {
+                        "type": "u32",
+                        "default": 4
+                    }
+                }
             }
         }
     }
