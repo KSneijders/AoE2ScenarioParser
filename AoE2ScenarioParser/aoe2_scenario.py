@@ -25,6 +25,7 @@ from AoE2ScenarioParser.pieces.map import MapPiece
 from AoE2ScenarioParser.pieces.messages import MessagesPiece
 from AoE2ScenarioParser.pieces.options import OptionsPiece
 from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
+from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
@@ -372,7 +373,7 @@ def get_structure_by_scenario(scenario: AoE2Scenario) -> dict:
     )
 
     if "FileHeader" not in structure.keys():
-        raise InvalidScenarioStructure(f"First piece in structure should always be FileHeader. Not {first_piece_name}.")
+        raise InvalidScenarioStructure(f"First piece in structure should always be FileHeader.")
     return structure
 
 
