@@ -62,7 +62,7 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None) -> Any:
                 result.append(val)
                 length += val.set_data_from_generator(generator, pieces)
                 continue
-            if var_type == "u" or var_type == "s":
+            if var_type in ["u", "s"]:
                 val = bytes_to_int(repeat_generator(generator, var_len), signed=(var_type == "s"))
             elif var_type == "f":
                 if var_len == 4:  # Float value
