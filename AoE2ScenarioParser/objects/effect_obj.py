@@ -4,7 +4,7 @@ from enum import IntEnum
 from typing import List
 
 from AoE2ScenarioParser.datasets import effects
-from AoE2ScenarioParser.helper import parser
+from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
@@ -203,7 +203,7 @@ class EffectObject(AoE2Object):
 
     @selected_object_ids.setter
     def selected_object_ids(self, val: List[int]):
-        val = parser.listify(val)
+        val = helper.listify(val)
         self._selected_object_ids = val
 
     def get_content_as_string(self) -> str:

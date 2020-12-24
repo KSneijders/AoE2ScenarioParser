@@ -117,7 +117,7 @@ class AoE2FilePart:
                 continue
             byte_structure += "\n"
 
-            listed_retriever_data = parser.listify(retriever.data)
+            listed_retriever_data = helper.listify(retriever.data)
             struct_header_set = False
             for struct in listed_retriever_data:
                 if not struct_header_set:

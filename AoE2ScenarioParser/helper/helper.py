@@ -151,6 +151,14 @@ def list_changed(lst, lst_hash):
 =============================================================="""
 
 
+def listify(var) -> list:
+    """Always return item as list"""
+    if type(var) is list:
+        return var
+    else:
+        return [var]
+
+
 def update_order_array(order_array, supposed_length):
     for i in range(0, supposed_length):
         if i not in order_array:

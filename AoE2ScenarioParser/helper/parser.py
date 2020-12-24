@@ -3,6 +3,7 @@ from typing import Any, List, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator
+from AoE2ScenarioParser.helper.helper import listify
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
 
@@ -26,14 +27,6 @@ def vorl(var: Any, retriever: Retriever = None):
         if len(var) == 1:
             return var[0]
     return var
-
-
-def listify(var) -> list:
-    """Always return item as list"""
-    if type(var) is list:
-        return var
-    else:
-        return [var]
 
 
 def retrieve_bytes(generator, retriever) -> bytes:
