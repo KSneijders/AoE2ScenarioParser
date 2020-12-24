@@ -1,12 +1,10 @@
-import collections
 import json
 import time
 import zlib
 from collections import OrderedDict
 from typing import List, Type
 
-from AoE2ScenarioParser.helper import generator, helper
-from AoE2ScenarioParser.helper import parser
+from AoE2ScenarioParser.helper import generator, helper, parser
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
@@ -25,7 +23,6 @@ from AoE2ScenarioParser.pieces.map import MapPiece
 from AoE2ScenarioParser.pieces.messages import MessagesPiece
 from AoE2ScenarioParser.pieces.options import OptionsPiece
 from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
-from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 from AoE2ScenarioParser.pieces.triggers import TriggerPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
@@ -81,6 +78,7 @@ class AoE2Scenario:
     @classmethod
     def from_file_poc(cls, filename, log_reading=True, log_parsing=True):
         print(f"\nPreparing & Loading file: '{filename}'...")
+
         file_content = read_file(filename)
 
         scenario = cls()
@@ -129,8 +127,8 @@ class AoE2Scenario:
         lgr = SimpleLogger(log_creating)
         lgr.print("\nFile creation started...")
 
-        scenario._parsed_header = collections.OrderedDict()
-        scenario._parsed_data = collections.OrderedDict()
+        scenario._parsed_header = OrderedDict()
+        scenario._parsed_data = OrderedDict()
         pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
 
         for piece in _header_structure:
@@ -159,8 +157,8 @@ class AoE2Scenario:
         lgr = SimpleLogger(log_reading)
         lgr.print("\nFile reading started...")
 
-        self._parsed_header = collections.OrderedDict()
-        self._parsed_data = collections.OrderedDict()
+        self._parsed_header = OrderedDict()
+        self._parsed_data = OrderedDict()
         header_generator = self._create_header_generator(1)
         data_generator = self._create_data_generator(1)
 
@@ -168,7 +166,7 @@ class AoE2Scenario:
         try:
             for piece_object in _header_structure:
                 # Rerender pieces dict each time - changes constantly
-                pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
+                pieces = OrderedDict(**self._parsed_header, **self._parsed_data)
                 piece = piece_object()
                 piece_name = type(piece).__name__
                 self._parsed_header[piece_name] = piece
@@ -181,7 +179,7 @@ class AoE2Scenario:
 
             for piece_object in _file_structure:
                 # Rerender pieces dict each time - changes constantly
-                pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
+                pieces = OrderedDict(**self._parsed_header, **self._parsed_data)
                 piece = piece_object()
                 piece_name = type(piece).__name__
                 self._parsed_data[piece_name] = piece
@@ -225,7 +223,7 @@ class AoE2Scenario:
         lgr = SimpleLogger(log_writing)
         lgr.print("\nFile writing from structure started...")
 
-        pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
+        pieces = OrderedDict(**self._parsed_header, **self._parsed_data)
 
         byte_header_list = []
         byte_data_list = []
@@ -311,7 +309,7 @@ class AoE2Scenario:
 
         lgr = SimpleLogger(log_debug_write)
 
-        pieces = collections.OrderedDict(**self._parsed_header, **self._parsed_data)
+        pieces = OrderedDict(**self._parsed_header, **self._parsed_data)
         lgr.print("\nWriting structure to file...")
         with open(filename, 'w', encoding="utf-8") as output_file:
             result = []
