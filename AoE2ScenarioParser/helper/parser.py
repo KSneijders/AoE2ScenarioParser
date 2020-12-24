@@ -31,7 +31,7 @@ def vorl(var: Any, retriever: Retriever = None):
     return var
 
 
-def retrieve_bytes(generator, retriever) -> bytes:
+def retrieve_bytes(generator, retriever) -> List[bytes]:
     """
     Retrieves the bytes belonging to this retriever.
 
@@ -43,20 +43,20 @@ def retrieve_bytes(generator, retriever) -> bytes:
         The corresponding bytes
     """
     var_type, var_len = retriever.datatype.type_and_length
-    retrieved_bytes = b''
+    retrieved_bytes = []
 
     try:
         for i in range(retriever.datatype.repeat):
             if var_type != "str":  # (Signed) ints, floats, chars, plain bytes etc.
-                retrieved_bytes = repeat_generator(generator, var_len)
+                retrieved_bytes.append(repeat_generator(generator, var_len))
             else:  # String, Stored as: (signed int (n), string (string_length = n))
                 int_bytes = repeat_generator(generator, var_len)
                 string_length = bytes_to_int(int_bytes, signed=True)
-                retrieved_bytes = int_bytes + repeat_generator(generator, string_length)
+                retrieved_bytes.append(int_bytes + repeat_generator(generator, string_length))
     except StopIteration:
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
-            return b'\x00'
+            return [b'\x00']
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(generator, retriever)
@@ -64,6 +64,29 @@ def retrieve_bytes(generator, retriever) -> bytes:
     handle_unsupported_version(retriever, retrieved_bytes)
 
     return retrieved_bytes
+
+
+def parse_bytes(retriever, bytes_list) -> List[Any]:
+    var_type, var_len = retriever.datatype.type_and_length
+    result = []
+    val = None
+
+    for entry_bytes in bytes_list:
+        if var_type in ["u", "s"]:
+            val = bytes_to_int(entry_bytes, signed=(var_type == "s"))
+        elif var_type == "f":
+            if var_len == 4:  # Float value
+                val = bytes_to_float(entry_bytes)
+            else:  # only 'else' is the trigger version. Which is a double (8 bytes)
+                val = bytes_to_double(entry_bytes)
+        elif var_type == "c":
+            val = bytes_to_fixed_chars(entry_bytes)
+        elif var_type == "data":
+            val = entry_bytes
+        elif var_type == "str":
+            val = bytes_to_str(entry_bytes[var_len:])
+        result.append(val)
+    return result
 
 
 def is_end_of_file_mark(retriever) -> bool:
@@ -315,15 +338,15 @@ def retriever_to_bytes(retriever, pieces):
     return return_bytes
 
 
-def handle_unsupported_version(retriever, retrieved_bytes) -> None:
+def handle_unsupported_version(retriever: Retriever, retrieved_bytes: List[bytes]) -> None:
     if retriever.name == "version" and retriever.datatype.var == "c4":
-        if bytes_to_fixed_chars(retrieved_bytes) != "1.40":
+        if bytes_to_fixed_chars(retrieved_bytes[0]) != "1.40":
             print("\n\n")
             print('\n'.join([
                 "#### SORRY FOR THE INCONVENIENCE ####",
                 "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
                 "supported at this time.",
-                f"Your current version is: '{retrieved_bytes}'. The currently only supported version is: '1.40'.",
+                f"Your current version is: '{retrieved_bytes[0]}'. The currently only supported version is: '1.40'.",
                 "The reason for this is a huge rework for version support.",
                 "This rework will take some time to complete, so until then, please upgrade your scenario to the "
                 "newest version. You can do this by saving it again in the in-game editor.",

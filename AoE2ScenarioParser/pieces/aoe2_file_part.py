@@ -73,8 +73,9 @@ class AoE2FilePart:
         for i, retriever in enumerate(self.retrievers):
             parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
             retrieved_bytes = parser.retrieve_bytes(generator, retriever)
-            total_length += len(retrieved_bytes)
-            # Todo: Parse bytes --> parser.parse_bytes(retriever, bytes) (?)
+            total_length += sum(map(len, retrieved_bytes))
+            # Todo: All data is still in list, something like vorl is needed (?)
+            retriever.data = parser.parse_bytes(retriever, retrieved_bytes)
             # Todo: Still unsure about struct handling :/
 
             continue
