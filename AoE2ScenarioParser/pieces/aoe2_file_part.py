@@ -72,17 +72,21 @@ class AoE2FilePart:
         total_length = 0
         for i, retriever in enumerate(self.retrievers):
             parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
-            # Todo: retrieve_bytes
-            # Todo: parse_bytes
+            retrieved_bytes = parser.retrieve_bytes(generator, retriever)
+            total_length += len(retrieved_bytes)
+            # Todo: Parse bytes --> parser.parse_bytes(retriever, bytes) (?)
+            # Todo: Still unsure about struct handling :/
 
-            try:
-                retriever.data, length, status = parser.retrieve_value(generator, retriever, pieces)
-                total_length += length
-                if status is not None:
-                    raise status
-            except Exception as e:
-                print(f"\n\n[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}")
-                raise e
+            continue
+            # OLD VERSION:
+            # try:
+            #     retriever.data, length, status = parser.retrieve_value(generator, retriever, pieces)
+            #     total_length += length
+            #     if status is not None:
+            #         raise status
+            # except Exception as e:
+            #     print(f"\n\n[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}")
+            #     raise e
         self.byte_length = total_length
 
     def set_data(self, data, pieces):

@@ -1,6 +1,7 @@
 import time
 from typing import Any, List, TYPE_CHECKING
 
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.generator import repeat_generator
 from AoE2ScenarioParser.helper.helper import listify
@@ -13,6 +14,7 @@ if TYPE_CHECKING:
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
+# Todo: Rework this piece of crap
 def vorl(var: Any, retriever: Retriever = None):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
     if Retriever is not None and retriever.possibly_list:
@@ -40,17 +42,52 @@ def retrieve_bytes(generator, retriever) -> bytes:
     Returns:
         The corresponding bytes
     """
+    var_type, var_len = retriever.datatype.type_and_length
+    retrieved_bytes = b''
+
     try:
         for i in range(retriever.datatype.repeat):
-            pass
-            # Todo: Get actual bytes, Unsure about struct handling at the moment.
+            if var_type != "str":  # (Signed) ints, floats, chars, plain bytes etc.
+                retrieved_bytes = repeat_generator(generator, var_len)
+            else:  # String, Stored as: (signed int (n), string (string_length = n))
+                int_bytes = repeat_generator(generator, var_len)
+                string_length = bytes_to_int(int_bytes, signed=True)
+                retrieved_bytes = int_bytes + repeat_generator(generator, string_length)
+    except StopIteration:
+        if is_end_of_file_mark(retriever):
+            retriever.datatype.repeat = 0
+            return b'\x00'
+
+    # If more bytes present in the file after END_OF_FILE_MARK
+    handle_end_of_file_mark(generator, retriever)
+    # If invalid version (Currently only 1.40 supported)
+    handle_unsupported_version(retriever, retrieved_bytes)
+
+    return retrieved_bytes
+
+
+def is_end_of_file_mark(retriever) -> bool:
+    """Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false"""
+    return retriever.name == "__END_OF_FILE_MARK__"
+
+
+def retrieve_until_end_of_file(generator):
+    """
+    Returns all bytes until StopIteration exception is thrown from the given generator
+
+    Args:
+        generator (Generator[bytes]): The generator to read from
+
+    Returns:
+        All the bytes found
+    """
+    retrieved_bytes = b''
+    try:
+        while True:
+            retrieved_bytes += next(generator)
     except StopIteration:
         pass
-        # Todo: Create functions for specials (
-        #    END_OF_FILE: handle_end_of_file_mark
-        #    EXTRA_BYTES: handle_extra_bytes
-        #  )
-    return b''
+    return retrieved_bytes
 
 
 def retrieve_value(generator, retriever, pieces=None) -> Any:
