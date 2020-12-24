@@ -9,14 +9,6 @@ from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
 if TYPE_CHECKING:
     from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
-types = [
-    "s",  # Signed int
-    "u",  # Unsigned int
-    "f",  # FloatingPoint
-    "c",  # Character string
-    "str",  # Variable length string
-    "data",  # Data (Can be changed by used using bytes_to_x functions)
-]
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
@@ -45,7 +37,7 @@ def listify(var) -> list:
 
 
 def retrieve_value(generator, retriever, retrievers=None, pieces=None) -> Any:
-    var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+    var_type, var_len = retriever.datatype.type_and_length
     result = list()
     length = 0
 
@@ -208,30 +200,8 @@ def handle_dependency_eval(retriever_on_x, value):
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 
-def datatype_to_type_length(var):
-    """Returns the type and length of a datatype. So: 'int32' returns 'int', 32. """
-    if var[:7] == "struct:":
-        return "struct", 0
-
-    # Filter numbers out for length, filter text for type
-    var_len = int(''.join(filter(str.isnumeric, var)))
-    var_type = ''.join(filter(str.isalpha, var))
-
-    if var_type == '':
-        var_type = "data"
-
-    if var_type not in types:
-        raise ValueError(f"Unknown variable type '{var_type}'")
-
-    # Divide by 8, and parse from float to int
-    if var_type not in ["c", "data"]:
-        var_len = int(var_len / 8)
-
-    return var_type, var_len
-
-
 def retriever_to_bytes(retriever, pieces):
-    var_type, var_len = datatype_to_type_length(retriever.datatype.var)
+    var_type, var_len = retriever.datatype.type_and_length
     return_bytes = b''
 
     is_list = type(retriever.data) == list

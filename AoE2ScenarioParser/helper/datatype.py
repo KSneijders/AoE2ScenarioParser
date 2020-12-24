@@ -34,12 +34,15 @@ class DataType:
         self._repeat = repeat
         self.log_value = log_value
         self._debug_retriever_name = "???"
+        self._type_and_length = None
 
-    def to_simple_string(self):
-        return str(self._repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)
-
-    def __repr__(self):
-        return f"[DataType] " + self.to_simple_string()
+    @property
+    def type_and_length(self):
+        if self._type_and_length is not None:
+            return self._type_and_length
+        else:
+            self._type_and_length = datatype_to_type_length(self.var)
+            return self._type_and_length
 
     @property
     def repeat(self):
@@ -52,3 +55,41 @@ class DataType:
         if self.log_value:
             print(f"[DataType] {self._debug_retriever_name} Repeat set to {value} from: " + self.to_simple_string())
         self._repeat = value
+
+    def to_simple_string(self):
+        return str(self._repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)
+
+    def __repr__(self):
+        return f"[DataType] " + self.to_simple_string()
+
+
+def datatype_to_type_length(var):
+    """Returns the type and length of a datatype. So: 'int32' returns 'int', 32. """
+    if var[:7] == "struct:":
+        return "struct", 0
+
+    # Filter numbers out for length, filter text for type
+    var_len = int(''.join(filter(str.isnumeric, var)))
+    var_type = ''.join(filter(str.isalpha, var))
+
+    if var_type == '':
+        var_type = "data"
+
+    if var_type not in datatype_types:
+        raise ValueError(f"Unknown variable type '{var_type}'")
+
+    # Divide by 8, and parse from float to int
+    if var_type not in ["c", "data"]:
+        var_len = int(var_len / 8)
+
+    return var_type, var_len
+
+
+datatype_types = [
+    "s",  # Signed int
+    "u",  # Unsigned int
+    "f",  # FloatingPoint
+    "c",  # Character string
+    "str",  # Variable length string
+    "data",  # Data (Can be changed by used using bytes_to_x functions)
+]
