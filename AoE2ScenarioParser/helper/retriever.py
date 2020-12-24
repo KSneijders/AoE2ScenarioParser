@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Union, TYPE_CHECKING
 
-from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper import helper, parser
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 
@@ -18,7 +18,7 @@ class Retriever:
     The Constructor has quite some parameters which can all be used for getting the proper data
     """
 
-    def __init__(self, name, datatype=DataType(), possibly_list=True, log_value=False) -> object:
+    def __init__(self, name, datatype=DataType(), possibly_list=True, log_value=False):
         """
         Args:
             name (str): The name of the item. Has to be unique within the Piece or Struct

@@ -71,8 +71,12 @@ class AoE2FilePart:
         """
         total_length = 0
         for i, retriever in enumerate(self.retrievers):
+            parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
+            # Todo: retrieve_bytes
+            # Todo: parse_bytes
+
             try:
-                retriever.data, length, status = parser.retrieve_value(generator, retriever, self.retrievers, pieces)
+                retriever.data, length, status = parser.retrieve_value(generator, retriever, pieces)
                 total_length += length
                 if status is not None:
                     raise status

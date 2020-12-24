@@ -36,13 +36,37 @@ def listify(var) -> list:
         return [var]
 
 
-def retrieve_value(generator, retriever, retrievers=None, pieces=None) -> Any:
+def retrieve_bytes(generator, retriever) -> bytes:
+    """
+    Retrieves the bytes belonging to this retriever.
+
+    Args:
+        generator (Generator[bytes]): The generator to return the bytes from
+        retriever (Retriever): The retriever holding the bytes
+
+    Returns:
+        The corresponding bytes
+    """
+    try:
+        for i in range(retriever.datatype.repeat):
+            pass
+            # Todo: Get actual bytes, Unsure about struct handling at the moment.
+    except StopIteration:
+        pass
+        # Todo: Create functions for specials (
+        #    END_OF_FILE: handle_end_of_file_mark
+        #    EXTRA_BYTES: handle_extra_bytes
+        #  )
+    return b''
+
+
+def retrieve_value(generator, retriever, pieces=None) -> Any:
     var_type, var_len = retriever.datatype.type_and_length
     result = list()
     length = 0
 
-    if hasattr(retriever, 'on_construct'):
-        handle_retriever_dependency(retriever, retrievers, "construct", pieces)
+    # if hasattr(retriever, 'on_construct'):
+    #     handle_retriever_dependency(retriever, retrievers, "construct", pieces)
 
     try:
         for i in range(0, retriever.datatype.repeat):
@@ -143,6 +167,8 @@ def retrieve_value(generator, retriever, retrievers=None, pieces=None) -> Any:
 
 
 def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
+    if not hasattr(retriever, f'on_{state}'):
+        return
     if state == "construct":
         retriever_on_x = retriever.on_construct
     elif state == "commit":
