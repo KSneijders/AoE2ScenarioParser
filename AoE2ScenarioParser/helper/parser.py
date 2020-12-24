@@ -276,3 +276,64 @@ def retriever_to_bytes(retriever, pieces):
         print(retriever, "returned", return_bytes)
 
     return return_bytes
+
+
+def handle_unsupported_version(retriever, retrieved_bytes) -> None:
+    if retriever.name == "version" and retriever.datatype.var == "c4":
+        if bytes_to_fixed_chars(retrieved_bytes) != "1.40":
+            print("\n\n")
+            print('\n'.join([
+                "#### SORRY FOR THE INCONVENIENCE ####",
+                "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
+                "supported at this time.",
+                f"Your current version is: '{retrieved_bytes}'. The currently only supported version is: '1.40'.",
+                "The reason for this is a huge rework for version support.",
+                "This rework will take some time to complete, so until then, please upgrade your scenario to the "
+                "newest version. You can do this by saving it again in the in-game editor.",
+                "If you do not want to upgrade the scenarios, please downgrade this library to version 0.0.11. You "
+                "can do so by executing the following command in cmd:",
+                "",
+                ">>> pip install --force-reinstall AoE2ScenarioParser==0.0.11",
+                "",
+                "Thank you in advance."
+            ]))
+            time.sleep(1)
+            print("- KSneijders")
+            time.sleep(1)
+            raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
+
+
+def handle_end_of_file_mark(generator, retriever) -> None:
+    """
+    Print message when the END_OF_FILE_MARK is reached and more bytes are present.\n
+    You can disable this check (and thereby this message) using:\n
+    ``>> from AoE2ScenarioParser import settings``\n
+    ``>> settings.NOTIFY_UNKNOWN_BYTES = False``
+
+    Args:
+        generator (Generator[bytes]): The generator to check if more bytes are present
+        retriever (Retriever): The retriever to check if it's the end of file mark
+
+    Returns:
+        None
+    """
+    if is_end_of_file_mark(retriever) and settings.NOTIFY_UNKNOWN_BYTES:
+        retrieved_bytes = retrieve_until_end_of_file(generator)
+        print("\n\n" + "\n".join([
+            "The file being read has more bytes than anticipated.",
+            "Please notify me (MrKirby/KSneijders) about this message!",
+            "This will help with understanding more parts of scenario files! Thanks in advance!",
+            "You can contact me using:",
+            "- Discord: MrKirby#5063",
+            "- Github: https://github.com/KSneijders/AoE2ScenarioParser/issues",
+            "",
+            "You can disable this check (and thereby this message) using:",
+            ">>> from AoE2ScenarioParser import settings",
+            ">>> settings.NOTIFY_UNKNOWN_BYTES = False",
+            "",
+            "Please be so kind and include the map in question. Thanks again!\n\n",
+            "",
+            "Extra data found in the file:",
+            f"\t'{retrieved_bytes}'"
+        ]))
+        retriever.datatype.repeat = 1
