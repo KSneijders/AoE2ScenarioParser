@@ -58,7 +58,7 @@ class AoE2FilePart:
             else:
                 retriever.data = value
 
-    def set_data_from_generator(self, generator, pieces=None):
+    def set_data_from_generator(self, generator, pieces):
         """
         Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
         Bytes will be parsed based on the retrievers. The total length of bytes read to fill this piece is also stored

@@ -47,10 +47,13 @@ class AoE2Scenario:
         self.read_mode = None
         self.scenario_version = "<<Unknown>>"
         self.game_version = "<<Unknown>>"
+        self.pieces = OrderedDict()
+        self._object_manager = None
+
+        # Used in debug functions
         self._file_header = None
         self._decompressed_file_data = None
         self._file = None
-        self._object_manager = None
 
     # @classmethod
     # def from_file(cls, filename, log_reading=True, log_parsing=True):
@@ -96,7 +99,8 @@ class AoE2Scenario:
 
         # Read and init header
         header = AoE2Piece.from_structure('FileHeader', structure.get('FileHeader'))
-        header.set_data_from_generator(generator.create_generator(file_content))
+        scenario.add_to_pieces(header)
+        header.set_data_from_generator(generator.create_generator(file_content), scenario.pieces)
 
         # Decompressed the file (starting from where header ended)
         decompressed_file_data = decompress_filedata(file_content, header.byte_length)
@@ -106,12 +110,16 @@ class AoE2Scenario:
             if piece_name == "FileHeader":
                 continue
             piece = AoE2Piece.from_structure(piece_name, structure.get(piece_name))
-            piece.set_data_from_generator(file_generator)
+            scenario.add_to_pieces(piece)
+            piece.set_data_from_generator(file_generator, scenario.pieces)
 
         lgr.print(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
 
         exit()
         return scenario
+
+    def add_to_pieces(self, piece):
+        self.pieces[piece.name] = piece
 
     @classmethod
     def create_default(cls, log_creating=True, log_parsing=False):
