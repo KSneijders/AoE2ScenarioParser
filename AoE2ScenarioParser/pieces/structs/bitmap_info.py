@@ -1,7 +1,6 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
-    DependencyEval
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget
 from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
 
 
@@ -14,17 +13,16 @@ class BitMapInfoStruct(AoE2Struct):
         },
         'image': {
             "on_construct": RetrieverDependency(
-                DependencyAction.SET_REPEAT, DependencyTarget(["self"] * 2, ["width", "height"]),
-                DependencyEval("width * height", values_as_variable=['width', 'height'])
+                DependencyAction.SET_REPEAT, DependencyTarget("self", "image_size"),
             )
-        },
+        }
     }
 
     def __init__(self, parser_obj=None, data=None, pieces=None):
         retrievers = [
             Retriever("size", DataType("s32")),
             Retriever("width", DataType("u32")),
-            Retriever("height", DataType("u32")),
+            Retriever("height", DataType("s32")),
             Retriever("planes", DataType("s16")),
             Retriever("bit_count", DataType("s16")),
             Retriever("compression", DataType("u32")),
