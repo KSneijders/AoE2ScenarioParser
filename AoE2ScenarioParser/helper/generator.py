@@ -19,10 +19,5 @@ def repeat_generator(generator, run_times, intended_stop_iteration=False, return
     except StopIteration as e:
         if not intended_stop_iteration:
             print(f"\n\n[StopIteration] in repeat_generator while retrieving {run_times} bytes.")
-            print(f"{' ' * 14}> Bytes are being written to ErrorFile_RepeaterBytes.txt...")
-            error_file = open("../ErrorFile_RepeaterBytes.txt", 'w')
-            error_file.write(helper.create_textual_hex(elements.hex(), space_distance=2, enter_distance=24))
-            error_file.close()
-            print(f"{' ' * 14}> Writing bytes finished.")
         raise e
     return elements
