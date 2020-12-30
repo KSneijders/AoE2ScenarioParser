@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.16 - 2020-December-30
+
+### Fixed
+
+- Issue with reading bitmap image with certain sizes
+
+---
+
 ## 0.0.15 - 2020-December-18
 
 ### Added
