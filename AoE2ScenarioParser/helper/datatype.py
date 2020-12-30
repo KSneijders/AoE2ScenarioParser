@@ -28,21 +28,13 @@ class DataType:
         repeat:
             The amount of times the above datatype needs to be repeated
     """
+    _debug_retriever_name: str
 
     def __init__(self, var="0", repeat=1, log_value=False):
         self.var = var
         self._repeat = repeat
         self.log_value = log_value
-        self._debug_retriever_name = "???"
-        self._type_and_length = None
-
-    @property
-    def type_and_length(self):
-        if self._type_and_length is not None:
-            return self._type_and_length
-        else:
-            self._type_and_length = datatype_to_type_length(self.var)
-            return self._type_and_length
+        self.type_and_length = datatype_to_type_length(self.var)
 
     @property
     def repeat(self):
