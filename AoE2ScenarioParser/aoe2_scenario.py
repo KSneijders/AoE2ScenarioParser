@@ -87,13 +87,12 @@ class AoE2Scenario:
         scenario.scenario_version = get_file_version(file_content)
 
         # Log game and scenario version
-        lgr = SimpleLogger(should_log=True)
-        lgr.print(f">>> Game version: {scenario.game_version}")
-        lgr.print(f">>> Scenario version: {scenario.scenario_version}")
+        print(f">>> Game version: {scenario.game_version}")
+        print(f">>> Scenario version: {scenario.scenario_version}")
 
         structure = get_structure_by_scenario(scenario)
 
-        lgr.print(f"Loading scenario structure...", replace_line=True)
+        helper.cprint(f"Loading scenario structure...", replace_line=True)
 
         # Read and init header
         header = AoE2Piece.from_structure('FileHeader', structure.get('FileHeader'))
@@ -111,7 +110,7 @@ class AoE2Scenario:
             scenario.add_to_pieces(piece)
             piece.set_data_from_generator(file_generator, scenario.pieces)
 
-        lgr.print(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
+        helper.cprint(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
 
         exit()
         return scenario
