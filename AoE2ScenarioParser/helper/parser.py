@@ -1,3 +1,5 @@
+# Parser
+
 import time
 from typing import Any, List, TYPE_CHECKING
 
@@ -247,24 +249,22 @@ def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever
         elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
             listified_target = listify(dep_target.target_piece)
             listified_target_attr = listify(dep_target.piece_attr_name)
+            retriever_data = []
             for i in range(len(listified_target)):
                 retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
-                retriever_data = get_retriever_by_name(retriever_list, listified_target_attr[i]).data
-                value = handle_dependency_eval(retriever_on_x, retriever_data)
-                if dep_action == DependencyAction.SET_VALUE:
-                    retriever.data = value
-                elif dep_action == DependencyAction.SET_REPEAT:
-                    retriever.datatype.repeat = value
+                retriever_data.append(get_retriever_by_name(retriever_list, listified_target_attr[i]).data)
+            value = handle_dependency_eval(retriever_on_x, retriever_data)
+            if dep_action == DependencyAction.SET_VALUE:
+                retriever.data = value
+            elif dep_action == DependencyAction.SET_REPEAT:
+                retriever.datatype.repeat = value
 
 
 def handle_dependency_target(target_piece, retrievers, pieces):
     if target_piece == "self":
         retriever_list = retrievers
     else:
-        retriever_list = eval("pieces[x].retrievers", {}, {
-            'pieces': pieces,
-            'x': target_piece
-        })
+        retriever_list = pieces[target_piece].retrievers
     return retriever_list
 
 
@@ -275,7 +275,7 @@ def handle_dependency_eval(retriever_on_x, value):
     if values_as_variable:
         eval_locals = {**eval_locals, **dict(zip(values_as_variable, value))}
     else:
-        eval_locals['x'] = value
+        eval_locals['x'] = value[0]
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 

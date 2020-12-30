@@ -46,6 +46,7 @@ def print_section(name, section_length=90):
 
 
 if __name__ == "__main__":
+    # Files to be present: `default_scx.aoe2scenario` & all custom files below
     change_default_scenarios_tests = [
         general.write_to_file
     ]
