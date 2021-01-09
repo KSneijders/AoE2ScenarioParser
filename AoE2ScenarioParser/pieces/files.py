@@ -27,22 +27,22 @@ class FilesPiece(aoe2_piece.AoE2Piece):
                 DependencyAction.SET_REPEAT, DependencyTarget("self", "ai_files_present"),
             ),
             "on_refresh": [
-                RetrieverDependency(
-                    DependencyAction.SET_VALUE, DependencyTarget("self", "ai_files"), DependencyEval('len(x)')
-                ),
+                # RetrieverDependency(
+                #     DependencyAction.SET_VALUE, DependencyTarget("self", "ai_files"), DependencyEval('len(x)')
+                # ),
                 RetrieverDependency(
                     DependencyAction.SET_REPEAT, DependencyTarget("self", "ai_files"),
                     DependencyEval('1 if len(x) > 0 else 0')
                 ),
             ],
             "on_commit": RetrieverDependency(
-                DependencyAction.REFRESH, DependencyTarget("self", "number_of_ai_files")
+                DependencyAction.REFRESH, DependencyTarget("self", "ai_files_present")
             )
         },
         "ai_files": {
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT, DependencyTarget("self", "number_of_ai_files"),
-                DependencyEval('x if x != [] else 0')  # x is a list because of the SET_REPEAT present
+                DependencyEval('0 if x == [] else x')  # x is a list because of the SET_REPEAT present
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF),
             "on_commit": RetrieverDependency(
