@@ -88,7 +88,7 @@ def parse_bytes(retriever, bytes_list) -> Any:
         elif var_type == "str":
             val = bytes_to_str(entry_bytes[var_len:])
         result.append(val)
-    return result
+    return vorl(result, retriever)
 
 
 def is_end_of_file_mark(retriever) -> bool:
