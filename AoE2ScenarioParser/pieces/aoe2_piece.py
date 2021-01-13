@@ -1,7 +1,5 @@
-from AoE2ScenarioParser.helper.datatype import DataType
-from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
-from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
+from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2StructModel
 
 
 class AoE2Piece(AoE2FilePart):
@@ -12,9 +10,9 @@ class AoE2Piece(AoE2FilePart):
     def from_structure(cls, piece_name, structure):
         piece = super().from_structure(piece_name, structure)
 
-        structs = []
         for name, attr in structure.get('structs', {}).items():
-            structs.append(AoE2Struct.from_structure(name, attr))
+            # Create struct model
+            piece.struct_models[name] = AoE2StructModel.from_structure(name, attr)
         return piece
 
     def get_header_string(self):

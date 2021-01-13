@@ -25,3 +25,26 @@ class AoE2Struct(AoE2FilePart):
             if self.retrievers[4].data == 1358:  # Eye Candy (eg. Fake plants)
                 return "."
         return super().__str__()
+
+
+class AoE2StructModel:
+    def __init__(self, name: str, retrievers: List[Retriever]):
+        self.name = name
+        self.retrievers = retrievers
+
+    @classmethod
+    def from_structure(cls, name, structure):
+        retrievers = []
+        for name, attr in structure.get('retrievers', {}).items():
+            datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
+            retrievers.append(Retriever(
+                name=name,
+                datatype=datatype
+            ))
+        return cls(name, retrievers)
+
+    def clone_as_struct(self):
+        return AoE2Struct(
+            self.name,
+            copy.deepcopy(self.retrievers)
+        )

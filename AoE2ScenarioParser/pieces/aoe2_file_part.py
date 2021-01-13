@@ -4,6 +4,9 @@ from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2StructModel
+
 
 class AoE2FilePart:
     dependencies = {}
@@ -12,7 +15,7 @@ class AoE2FilePart:
         self.name = name
         self.retrievers = retrievers
         self.byte_length = -1
-        self.structs = {}
+        self.struct_models: Dict[str, AoE2StructModel] = {}
 
         for retriever in retrievers:
             if retriever.name in self.__class__.dependencies.keys():
@@ -70,24 +73,24 @@ class AoE2FilePart:
                 dependencies to orf rom them.
         """
         total_length = 0
-        for i, retriever in enumerate(self.retrievers):
+        for _, retriever in enumerate(self.retrievers):
             parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
-            retrieved_bytes = parser.retrieve_bytes(generator, retriever)
-            total_length += sum(map(len, retrieved_bytes))
-            # Todo: All data is still in list, something like vorl is needed (?)
-            retriever.data = parser.parse_bytes(retriever, retrieved_bytes)
-            # Todo: Still unsure about struct handling :/
 
-            continue
-            # OLD VERSION:
-            # try:
-            #     retriever.data, length, status = parser.retrieve_value(generator, retriever, pieces)
-            #     total_length += length
-            #     if status is not None:
-            #         raise status
-            # except Exception as e:
-            #     print(f"\n\n[{e.__class__.__name__}] AoE2Piece.set_data_from_generator: \n\tRetriever: {retriever}")
-            #     raise e
+            if retriever.datatype.type == "struct":
+                retriever.data = []
+                struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
+                for _ in range(retriever.datatype.repeat):
+                    struct = self.struct_models.get(struct_name).clone_as_struct()
+                    struct.set_data_from_generator(generator, pieces)
+                    retriever.data.append(struct)
+
+                    total_length += struct.byte_length
+            else:
+                retrieved_bytes = parser.retrieve_bytes(generator, retriever)
+                retriever.data = parser.parse_bytes(retriever, retrieved_bytes)
+
+                total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
+
         self.byte_length = total_length
 
     def set_data(self, data, pieces):
