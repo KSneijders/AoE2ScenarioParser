@@ -100,7 +100,7 @@ class AoE2Scenario:
         header.set_data_from_generator(generator.create_generator(file_content), scenario.pieces)
 
         # Decompressed the file (starting from where header ended)
-        decompressed_file_data = decompress_filedata(file_content, header.byte_length)
+        decompressed_file_data = decompress_file_data(file_content, header.byte_length)
 
         file_generator = generator.create_generator(decompressed_file_data)
         for piece_name in structure.keys():
@@ -368,7 +368,7 @@ def get_file_version(file_content):
     return file_content[:4].decode('ASCII')
 
 
-def decompress_filedata(file_content, header_length):
+def decompress_file_data(file_content, header_length):
     return zlib.decompress(file_content[header_length:], -zlib.MAX_WBITS)
 
 

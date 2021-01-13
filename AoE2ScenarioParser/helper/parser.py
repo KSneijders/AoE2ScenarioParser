@@ -17,7 +17,7 @@ attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
 # Todo: Rework this piece of crap
-def vorl(var: Any, retriever: Retriever = None):
+def vorl(var: Any, retriever: Retriever):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
     if Retriever is not None and retriever.possibly_list:
         dependencies = []
@@ -68,7 +68,7 @@ def retrieve_bytes(generator, retriever) -> List[bytes]:
     return retrieved_bytes
 
 
-def parse_bytes(retriever, bytes_list) -> List[Any]:
+def parse_bytes(retriever, bytes_list) -> Any:
     var_type, var_len = retriever.datatype.type_and_length
     result = []
     val = None
