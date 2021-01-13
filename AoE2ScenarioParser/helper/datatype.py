@@ -34,7 +34,11 @@ class DataType:
         self.var = var
         self._repeat = repeat
         self.log_value = log_value
-        self.type_and_length = datatype_to_type_length(self.var)
+        self.type, self.length = datatype_to_type_length(self.var)
+
+    @property
+    def type_and_length(self):
+        return self.type, self.length
 
     @property
     def repeat(self):
