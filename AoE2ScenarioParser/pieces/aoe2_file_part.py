@@ -1,4 +1,4 @@
-import abc
+from typing import Dict, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.datatype import DataType

@@ -1,9 +1,12 @@
-from abc import ABC
+import copy
+from typing import List
 
+from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 
-class AoE2Struct(AoE2FilePart, ABC):
+class AoE2Struct(AoE2FilePart):
 
     def __init__(self, name, retrievers):
         super().__init__(name, retrievers)
