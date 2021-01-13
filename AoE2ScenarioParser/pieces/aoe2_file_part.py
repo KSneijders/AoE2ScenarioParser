@@ -102,9 +102,9 @@ class AoE2FilePart:
                     parser.handle_retriever_dependency(self.retrievers[i], self.retrievers, "construct", pieces)
         else:
             print(f"\nError in: {self.__class__.__name__}")
-            print(f"Data: ({len(data)}) "
+            print(f"Data: (len: {len(data)}) "
                   f"{helper.pretty_print_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
-            print(f"Retrievers: ({len(self.retrievers)}) "
+            print(f"Retrievers: (len: {len(self.retrievers)}) "
                   f"{helper.pretty_print_list([f'{i}: {str(x)}' for i, x in enumerate(self.retrievers)])}")
             raise ValueError("Data list isn't the same size as the DataType list")
 

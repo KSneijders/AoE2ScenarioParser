@@ -42,7 +42,8 @@ def retrieve_bytes(generator, retriever) -> List[bytes]:
         retriever (Retriever): The retriever holding the bytes
 
     Returns:
-        The corresponding bytes
+        The corresponding bytes in a list. When 4 int8s need to retrieved, the list will have a length of 4 where each
+            entry is 1 byte each.
     """
     var_type, var_len = retriever.datatype.type_and_length
     retrieved_bytes = []
