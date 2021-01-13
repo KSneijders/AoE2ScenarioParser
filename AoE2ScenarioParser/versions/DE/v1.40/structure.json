@@ -51,6 +51,7 @@
             },
             "player_names": {
                 "type": "c256",
+                "repeat": 16,
                 "default": "eval:['\\x00' * 256] * 16"
             },
             "string_table_player_names": {
