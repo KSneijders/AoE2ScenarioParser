@@ -3,6 +3,8 @@ from typing import Dict, TYPE_CHECKING
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
+    DependencyEval
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2StructModel
@@ -27,10 +29,15 @@ class AoE2FilePart:
         retrievers = []
         for name, attr in structure.get('retrievers', {}).items():
             datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
-            retrievers.append(Retriever(
+            retriever = Retriever(
                 name=name,
                 datatype=datatype
-            ))
+            )
+            # Go through dependencies if exist, else empty dict
+            for dependency_name, properties in attr.get('dependencies', {}).items():
+                setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
+            retrievers.append(retriever)
+
         return cls(piece_name, retrievers)
 
     @classmethod
