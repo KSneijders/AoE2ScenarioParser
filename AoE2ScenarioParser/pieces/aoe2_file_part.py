@@ -29,6 +29,14 @@ class AoE2FilePart:
                     setattr(retriever, key, value)
 
     @classmethod
+    def from_model(cls, model):
+        return cls(
+            name=model.name,
+            retrievers=copy.deepcopy(model.retrievers),
+            level=PieceLevel.STRUCT
+        )
+
+    @classmethod
     def from_structure(cls, piece_name, structure):
         retrievers = []
         for name, attr in structure.get('retrievers', {}).items():
@@ -42,7 +50,12 @@ class AoE2FilePart:
                 setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
             retrievers.append(retriever)
 
-        return cls(piece_name, retrievers)
+        inst = cls(piece_name, retrievers)
+        for name, attr in structure.get('structs', {}).items():
+            # Create struct model
+            inst.struct_models[name] = AoE2StructModel.from_structure(name, attr)
+
+        return inst
 
     @classmethod
     def from_data(cls, name, retrievers, data, pieces):
@@ -91,7 +104,7 @@ class AoE2FilePart:
                 retriever.data = []
                 struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
                 for _ in range(retriever.datatype.repeat):
-                    struct = self.struct_models.get(struct_name).clone_as_struct()
+                    struct = AoE2FilePart.from_model(self.struct_models.get(struct_name))
                     struct.set_data_from_generator(generator, pieces)
                     retriever.data.append(struct)
 
