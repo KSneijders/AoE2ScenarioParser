@@ -4,13 +4,13 @@ from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
     DependencyEval
-from AoE2ScenarioParser.pieces import aoe2_piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 from AoE2ScenarioParser.pieces.structs.player_data_four import PlayerDataFourStruct
 from AoE2ScenarioParser.pieces.structs.player_data_three import PlayerDataThreeStruct
 from AoE2ScenarioParser.pieces.structs.player_units import PlayerUnitsStruct
 
 
-class UnitsPiece(aoe2_piece.AoE2Piece):
+class UnitsPiece(AoE2FilePart):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
         "number_of_unit_sections": {
 

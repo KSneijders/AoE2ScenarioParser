@@ -2,10 +2,10 @@ from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
     DependencyEval
-from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 
-class BitMapInfoStruct(AoE2Struct):
+class BitMapInfoStruct(AoE2FilePart):
     dependencies = {
         'colors_used': {
             "on_construct": RetrieverDependency(

@@ -1,9 +1,9 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
-from AoE2ScenarioParser.pieces import aoe2_piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 
-class CinematicsPiece(aoe2_piece.AoE2Piece):
+class CinematicsPiece(AoE2FilePart):
     def __init__(self):
         retrievers = [
             Retriever("ascii_pregame", DataType("str16")),

@@ -14,13 +14,13 @@ from AoE2ScenarioParser.objects.options_obj import OptionsObject
 from AoE2ScenarioParser.objects.player_object import PlayerObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
-from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 
 class AoE2ObjectManager:
     def __init__(self, parsed_header, parsed_data, log_parsing=True):
         # Todo: Create a piece holder object or something to simplify this process
-        self.pieces: OrderedDict[str, AoE2Piece] = OrderedDict(**parsed_header, **parsed_data)
+        self.pieces: OrderedDict[str, AoE2FilePart] = OrderedDict(**parsed_header, **parsed_data)
 
         lgr = SimpleLogger(log_parsing)
         lgr.print("\nParsing pieces and structs to objects...")

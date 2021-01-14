@@ -1,11 +1,11 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
-from AoE2ScenarioParser.pieces import aoe2_piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 from AoE2ScenarioParser.pieces.structs.ai import AIStruct
 from AoE2ScenarioParser.pieces.structs.resources import ResourcesStruct
 
 
-class PlayerDataTwoPiece(aoe2_piece.AoE2Piece):
+class PlayerDataTwoPiece(AoE2FilePart):
     def __init__(self):
         retrievers = [
             Retriever("strings", DataType("str16", repeat=32)),

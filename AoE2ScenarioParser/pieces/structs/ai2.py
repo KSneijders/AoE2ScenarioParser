@@ -1,9 +1,9 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
-from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 
-class AI2Struct(AoE2Struct):
+class AI2Struct(AoE2FilePart):
     def __init__(self):
         retrievers = [
             Retriever("ai_file_name", DataType("str32")),

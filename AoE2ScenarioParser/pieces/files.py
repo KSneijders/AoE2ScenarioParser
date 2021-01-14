@@ -4,11 +4,11 @@ from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
     DependencyEval
-from AoE2ScenarioParser.pieces import aoe2_piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 from AoE2ScenarioParser.pieces.structs.ai2 import AI2Struct
 
 
-class FilesPiece(aoe2_piece.AoE2Piece):
+class FilesPiece(AoE2FilePart):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
         "script_file_path": {
             "on_refresh": RetrieverDependency(

@@ -5,11 +5,11 @@ from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
     DependencyEval
-from AoE2ScenarioParser.pieces import aoe2_piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 from AoE2ScenarioParser.pieces.structs.terrain import TerrainStruct
 
 
-class MapPiece(aoe2_piece.AoE2Piece):
+class MapPiece(AoE2FilePart):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
         "villager_force_drop": {
             "on_refresh": RetrieverDependency(

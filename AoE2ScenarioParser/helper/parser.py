@@ -9,9 +9,7 @@ from AoE2ScenarioParser.helper.generator import repeat_generator
 from AoE2ScenarioParser.helper.helper import listify
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
-
-if TYPE_CHECKING:
-    from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2Struct
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
@@ -130,7 +128,7 @@ def retrieve_value(generator, retriever, pieces=None) -> Any:
 
             if var_type == "struct":
                 # Todo: Find a way to store structs (different json file?) and find a way to instantiate them somewhere
-                val: AoE2Struct = retriever.datatype.var()
+                val: AoE2FilePart = retriever.datatype.var()
                 result.append(val)
                 length += val.set_data_from_generator(generator, pieces)
                 continue

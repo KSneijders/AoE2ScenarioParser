@@ -11,7 +11,7 @@ from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
-from AoE2ScenarioParser.pieces.aoe2_piece import AoE2Piece
+from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -95,7 +95,7 @@ class AoE2Scenario:
         helper.cprint(f"Loading scenario structure...", replace_line=True)
 
         # Read and init header
-        header = AoE2Piece.from_structure('FileHeader', structure.get('FileHeader'))
+        header = AoE2FilePart.from_structure('FileHeader', structure.get('FileHeader'))
         scenario.add_to_pieces(header)
         header.set_data_from_generator(generator.create_generator(file_content), scenario.pieces)
 
@@ -106,7 +106,7 @@ class AoE2Scenario:
         for piece_name in structure.keys():
             if piece_name == "FileHeader":
                 continue
-            piece = AoE2Piece.from_structure(piece_name, structure.get(piece_name))
+            piece = AoE2FilePart.from_structure(piece_name, structure.get(piece_name))
             scenario.add_to_pieces(piece)
             piece.set_data_from_generator(file_generator, scenario.pieces)
 
@@ -382,10 +382,10 @@ def get_structure_by_scenario(scenario: AoE2Scenario) -> dict:
     return structure
 
 
-_header_structure: List[Type[AoE2Piece]] = [
+_header_structure: List[Type[AoE2FilePart]] = [
     FileHeaderPiece
 ]
-_file_structure: List[Type[AoE2Piece]] = [
+_file_structure: List[Type[AoE2FilePart]] = [
     DataHeaderPiece,
     MessagesPiece,
     CinematicsPiece,
