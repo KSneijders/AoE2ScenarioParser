@@ -1,13 +1,17 @@
-from typing import Dict, TYPE_CHECKING
+import copy
+from enum import Enum
+from typing import Dict
 
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyTarget, \
-    DependencyEval
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
+from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel
 
-if TYPE_CHECKING:
-    from AoE2ScenarioParser.pieces.structs.aoe2_struct import AoE2StructModel
+
+class PieceLevel(Enum):
+    TOP_LEVEL = 0
+    STRUCT = 1
 
 
 class AoE2FilePart:
@@ -116,10 +120,22 @@ class AoE2FilePart:
             raise ValueError("Data list isn't the same size as the DataType list")
 
     def _entry_to_string(self, name, data, datatype):
-        return "\t" + name + ": " + data + " (" + datatype + ")\n"
+        self._verify_level()
+        prefix = "\t"
+        if self.level == PieceLevel.STRUCT:
+            prefix = "\t\t\t"
+        return f"{prefix}{name}: {data} ({datatype}\n"
 
     def get_header_string(self):
-        return "######################## " + self.name + " ######################## [FILEPART]"
+        self._verify_level()
+        if self.level == PieceLevel.TOP_LEVEL:
+            return "######################## " + self.name + " ######################## [PIECE]"
+        elif self.level == PieceLevel.STRUCT:
+            return "############ " + self.name + " ############  [STRUCT]"
+
+    def _verify_level(self):
+        if self.level not in PieceLevel:
+            raise ValueError(f"Invalid level: '{self.level}'")
 
     def get_byte_structure_as_string(self, pieces, skip_retrievers=None):
         if skip_retrievers is None:
