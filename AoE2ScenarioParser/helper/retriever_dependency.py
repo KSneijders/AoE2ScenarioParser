@@ -11,6 +11,8 @@ class RetrieverDependency:
             dependency_target (DependencyTarget): TODO: Add docstring
             dependency_eval (DependencyEval): TODO: Add docstring
         """
+        if dependency_type != DependencyAction.REFRESH_SELF and dependency_target is None:
+            raise ValueError(f"Parameter dependency_target cannot be None when target is {dependency_type.name}")
 
         self.dependency_type = dependency_type
         self.dependency_target = dependency_target
@@ -19,6 +21,18 @@ class RetrieverDependency:
             dependency_eval = DependencyEval('x')
 
         self.dependency_eval = dependency_eval
+
+    @classmethod
+    def from_structure(cls, structure):
+        dependency_action = DependencyAction[structure.get('action')]
+        dependency_target = DependencyTarget.instance_or_none(structure.get('target'))
+        dependency_eval = DependencyEval.instance_or_none(structure.get('eval'))
+
+        return cls(
+            dependency_type=dependency_action,
+            dependency_target=dependency_target,
+            dependency_eval=dependency_eval,
+        )
 
     def __repr__(self):
         return f"[RetrieverDependency] {self.dependency_type} " \
@@ -44,6 +58,14 @@ class DependencyTarget:
         self.target_piece = target_piece
         self.piece_attr_name = piece_attr_name
 
+    @staticmethod
+    def instance_or_none(target_string):
+        if target_string is None:
+            return None
+        if ':' not in target_string:
+            raise ValueError("Invalid target string. Valid syntax: 'self'/{piece_name}:{name_of_target_retriever}")
+        return DependencyTarget(*target_string.split(":"))
+
     def __repr__(self) -> str:
         return f"[DependencyTarget] {self.target_piece} -> {self.piece_attr_name}"
 
@@ -64,6 +86,12 @@ class DependencyEval:
         self.eval_code = eval_code
         self.eval_locals = eval_locals
         self.values_as_variable = values_as_variable
+
+    @staticmethod
+    def instance_or_none(eval_code):
+        if eval_code is None:
+            return None
+        return DependencyEval(eval_code)
 
 
 class DependencyAction(Enum):
