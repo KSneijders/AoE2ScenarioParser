@@ -68,6 +68,17 @@
                 "type": "u8",
                 "default": 0
             },
+            "mission_items_counter": {
+                "type": "u16",
+                "default": 0,
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_VALUE",
+                        "target": "self:mission_item",
+                        "eval": "len(mission_item)"
+                    }
+                }
+            },
             "mission_available": {
                 "type": "u16",
                 "default": 0
@@ -78,7 +89,20 @@
             },
             "mission_item": {
                 "type": "30",
-                "default": []
+                "default": [],
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:mission_items_counter"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    },
+                    "on_commit": {
+                        "action": "REFRESH",
+                        "target": "self:mission_items_counter"
+                    }
+                }
             },
             "unknown": {
                 "type": "64",
