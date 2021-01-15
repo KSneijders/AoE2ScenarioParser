@@ -1,5 +1,5 @@
 {
-    "FileHeaderPiece": {
+    "FileHeader": {
         "retrievers": {
             "version": {
                 "type": "c4",
@@ -46,7 +46,7 @@
             }
         }
     },
-    "DataHeaderPiece": {
+    "DataHeader": {
         "retrievers": {
             "next_unit_id_to_place": {
                 "type": "u32",
@@ -181,7 +181,7 @@
             }
         }
     },
-    "MessagesPiece": {
+    "Messages": {
         "retrievers": {
             "instructions": {
                 "type": "u32",
@@ -233,7 +233,7 @@
             }
         }
     },
-    "CinematicsPiece": {
+    "Cinematics": {
         "retrievers": {
             "ascii_pregame": {
                 "type": "str16",
@@ -249,7 +249,7 @@
             }
         }
     },
-    "BackgroundImagePiece": {
+    "BackgroundImage": {
         "retrievers": {
             "ascii_filename": {
                 "type": "str16",
@@ -278,28 +278,102 @@
                     "on_construct": {
                         "action": "SET_REPEAT",
                         "target": "self:picture_orientation",
-                        "eval": "1 if picture_orientation in [-1, 2] else 0 Todo:VERIFY"
+                        "eval": "1 if picture_orientation in [-1, 2] else 0"
+                    }
+                }
+            }
+        },
+        "structs": {
+            "BitMapInfoStruct": {
+                "retrievers": {
+                    "size": {
+                        "type": "s32",
+                        "default": 0
+                    },
+                    "width": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "height": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "planes": {
+                        "type": "s16",
+                        "default": 0
+                    },
+                    "bit_count": {
+                        "type": "s16",
+                        "default": 0
+                    },
+                    "compression": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "image_size": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "x_pels": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "y_pels": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "number_of_colors_used": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "important_colors": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "colors_used": {
+                        "type": "u32",
+                        "default": 0,
+                        "dependencies": {
+                            "on_construct": {
+                                "action": "SET_REPEAT",
+                                "target": "self:number_of_colors_used"
+                            }
+                        }
+                    },
+                    "image": {
+                        "type": "u8",
+                        "default": 0,
+                        "dependencies": {
+                            "on_construct": {
+                                "action": "SET_REPEAT",
+                                "target": [
+                                    "self:width",
+                                    "self:height"
+                                ],
+                                "eval": "width * height"
+                            }
+                        }
                     }
                 }
             }
         }
     },
-    "PlayerDataTwoPiece": {
+    "PlayerDataTwo": {
         "retrievers": {
             "strings": {
                 "type": "str16",
                 "repeat": 32,
-                "default": "Todo:DEFAULT"
+                "default": ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
             },
             "ai_names": {
                 "type": "str16",
                 "repeat": 16,
-                "default": "Todo:DEFAULT"
+                "default": ["","","","","","","","","","","","","","","",""]
             },
             "ai_files": {
                 "type": "struct:AIStruct",
                 "repeat": 16,
-                "default": "Todo:DEFAULT"
+                "default": null
             },
             "ai_type": {
                 "type": "u8",
@@ -315,9 +389,59 @@
                 "repeat": 16,
                 "default": "Todo:DEFAULT"
             }
+        },
+        "structs": {
+            "AIStruct": {
+                "retrievers": {
+                    "unknown": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "unknown_2": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "ai_per_file_text":  {
+                        "type": "str32",
+                        "default": ""
+                    }
+                }
+            },
+            "ResourcesStruct": {
+                "retrievers": {
+                    "gold": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "wood": {
+                        "type": "u32",
+                        "default":  0
+                    },
+                    "food":  {
+                        "type": "u32",
+                        "default":  0
+                    },
+                    "stone": {
+                        "type": "u32",
+                        "default":  0
+                    },
+                    "ore_x_unused":  {
+                        "type": "u32",
+                        "default":  0
+                    },
+                    "trade_goods": {
+                        "type": "u32",
+                        "default":  0
+                    },
+                    "player_color":  {
+                        "type": "u32",
+                        "default":  0
+                    }
+                }
+            }
         }
     },
-    "GlobalVictoryPiece": {
+    "GlobalVictory": {
         "retrievers": {
             "separator": {
                 "type": "u32",
@@ -365,7 +489,7 @@
             }
         }
     },
-    "DiplomacyPiece": {
+    "Diplomacy": {
         "retrievers": {
             "per_player_diplomacy": {
                 "type": "struct:PlayerDiplomacyStruct",
@@ -600,9 +724,20 @@
                 "type": "4",
                 "default": "00010004"
             }
+        },
+        "structs": {
+            "PlayerDiplomacyStruct": {
+                "retrievers": {
+                    "stance_with_each_player": {
+                        "type": "u32",
+                        "repeat": 16,
+                        "default": [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
+                    }
+                }
+            }
         }
     },
-    "MapPiece": {
+    "Map": {
         "retrievers": {
             "separator_1": {
                 "type": "2",
@@ -640,17 +775,7 @@
             },
             "villager_force_drop": {
                 "type": "u8",
-                "default": 0,
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "FileHeaderPiece:version",
-                        "eval": "1 if version in ['1.37', '1.40'] else 0 Todo:VERIFY"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
+                "default": 0
             },
             "unknown": {
                 "type": "128",
@@ -675,7 +800,7 @@
                     "on_refresh": {
                         "action": "SET_VALUE",
                         "target": "self:terrain_data",
-                        "eval": "int(sqrt(len(terrain_data))) Todo:VERIFY"
+                        "eval": "int(sqrt(len(terrain_data)))"
                     }
                 }
             },
@@ -686,7 +811,7 @@
                     "on_refresh": {
                         "action": "SET_VALUE",
                         "target": "self:terrain_data",
-                        "eval": "int(sqrt(len(terrain_data))) Todo:VERIFY"
+                        "eval": "int(sqrt(len(terrain_data)))"
                     }
                 }
             },
@@ -697,20 +822,23 @@
                     "on_refresh": {
                         "action": "SET_REPEAT",
                         "target": "self:map_width",
-                        "eval": "pow(map_width, 2) Todo:VERIFY"
+                        "eval": "pow(map_width, 2)"
                     },
                     "on_construct": {
                         "action": "REFRESH_SELF"
                     },
                     "on_commit": {
                         "action": "REFRESH",
-                        "target": "['self', 'self']:['map_width', 'map_height']"
+                        "target": [
+                            "self:map_width",
+                            "self:map_height"
+                        ]
                     }
                 }
             }
         }
     },
-    "UnitsPiece": {
+    "Units": {
         "retrievers": {
             "number_of_unit_sections": {
                 "type": "u32",
@@ -757,7 +885,7 @@
             }
         }
     },
-    "TriggersPiece": {
+    "Triggers": {
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
@@ -792,7 +920,7 @@
                     },
                     "on_commit": {
                         "action": "REFRESH",
-                        "target": "['self', 'FileHeaderPiece', 'OptionsPiece']:['number_of_triggers', 'trigger_count', 'number_of_triggers']"
+                        "target": "['self', 'FileHeader', 'Options']:['number_of_triggers', 'trigger_count', 'number_of_triggers']"
                     }
                 }
             },
@@ -845,7 +973,7 @@
             }
         }
     },
-    "FilesPiece": {
+    "Files": {
         "retrievers": {
             "unknown_2": {
                 "type": "4",
