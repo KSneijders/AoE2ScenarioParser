@@ -1,4 +1,6 @@
 import copy
+import importlib
+import re
 from enum import Enum
 from typing import Dict
 
@@ -17,16 +19,66 @@ class PieceLevel(Enum):
 class AoE2FilePart:
     dependencies = {}
 
-    def __init__(self, name, retrievers):
+    def __init__(self, name, retrievers, level=PieceLevel.TOP_LEVEL):
         self.name = name
         self.retrievers = retrievers
         self.byte_length = -1
         self.struct_models: Dict[str, AoE2StructModel] = {}
+        self.level = level
 
         for retriever in retrievers:
             if retriever.name in self.__class__.dependencies.keys():
                 for key, value in self.__class__.dependencies[retriever.name].items():
                     setattr(retriever, key, value)
+
+    def get_json(self):
+        def get_snake_case(string: str):
+            return re.sub(r'(?<!^)(?=[A-Z])', '_', string.replace(' ', '')).lower()
+
+        json = {}
+
+        retrievers = {}
+        for retriever in self.retrievers:
+            retrievers[retriever.name] = {
+                "type": retriever.datatype.var
+            }
+            if retriever.datatype.repeat != 1:
+                retrievers[retriever.name]["repeat"] = retriever.datatype.repeat
+            try:
+                dynamic_import = importlib.import_module("AoE2ScenarioParser.pieces." + get_snake_case(self.name[:-5]))
+                defaults = getattr(dynamic_import, f"{self.name.replace(' ', '')}").defaults({})
+                value = defaults.get(retriever.name)
+                if type(value) is bytes:
+                    value = value.hex()
+                if type(value) is list and len(value) > 0 and type(value[0]) is bytes:
+                    value = [x.hex() for x in value]
+                retrievers[retriever.name]["default"] = value
+            except Exception as e:
+                print(e)
+                retrievers[retriever.name]["default"] = "Todo:DEFAULT"
+
+            for on_x in ['on_refresh', 'on_construct', 'on_commit']:
+                if hasattr(retriever, on_x):
+                    try:
+                        retrievers[retriever.name].setdefault('dependencies', {})
+                        dependency: RetrieverDependency = getattr(retriever, on_x)
+                        retrievers[retriever.name]['dependencies'][on_x] = {
+                            "action": dependency.dependency_type.name
+                        }
+                        if dependency.dependency_target is not None:
+                            retrievers[retriever.name]['dependencies'][on_x]["target"] = \
+                                f"{dependency.dependency_target.target_piece}:" \
+                                f"{dependency.dependency_target.piece_attr_name}"
+                        if dependency.dependency_eval is not None:
+                            retrievers[retriever.name]['dependencies'][on_x]["eval"] = \
+                                dependency.dependency_eval.eval_code. \
+                                replace('x', dependency.dependency_target.piece_attr_name) + " Todo:VERIFY"
+                    except Exception as e:
+                        print(e)
+                        retrievers[retriever.name]['dependencies'] = "Todo: Dependencies"
+
+        json[self.name] = {'retrievers': retrievers}
+        return json
 
     @classmethod
     def from_model(cls, model):
@@ -137,7 +189,7 @@ class AoE2FilePart:
         prefix = "\t"
         if self.level == PieceLevel.STRUCT:
             prefix = "\t\t\t"
-        return f"{prefix}{name}: {data} ({datatype}\n"
+        return f"{prefix}{name}: {data} ({datatype})\n"
 
     def get_header_string(self):
         self._verify_level()
