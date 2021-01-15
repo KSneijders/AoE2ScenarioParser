@@ -31,10 +31,16 @@ class DataType:
     _debug_retriever_name: str
 
     def __init__(self, var="0", repeat=1, log_value=False):
+        if type(var) is not str:
+            var = f"struct:{var.__name__}"
         self.var = var
         self._repeat = repeat
         self.log_value = log_value
-        self.type, self.length = datatype_to_type_length(self.var)
+        try:
+            self.type, self.length = datatype_to_type_length(self.var)
+        except TypeError:  # Todo: remove after structure.json is implemented
+            self.type = "struct"
+            self.length = 0
 
     @property
     def type_and_length(self):
