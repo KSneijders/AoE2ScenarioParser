@@ -961,6 +961,32 @@
                     }
                 }
             }
+        },
+        "structs": {
+            "TerrainStruct": {
+                "retrievers": {
+                    "terrain_id": {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "elevation": {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "unused":  {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "separator": {
+                        "type": "2",
+                        "default": "ffff"
+                    },
+                    "layer":  {
+                        "type": "s16",
+                        "default": -1
+                    }
+                }
+            }
         }
     },
     "Units": {
