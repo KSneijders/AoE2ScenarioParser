@@ -12,10 +12,10 @@ class AoE2StructModel:
     @classmethod
     def from_structure(cls, name, structure):
         retrievers = []
-        for name, attr in structure.get('retrievers', {}).items():
+        for retriever_name, attr in structure.get('retrievers', {}).items():
             datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
             retrievers.append(Retriever(
-                name=name,
+                name=retriever_name,
                 datatype=datatype
             ))
         return cls(name, retrievers)
