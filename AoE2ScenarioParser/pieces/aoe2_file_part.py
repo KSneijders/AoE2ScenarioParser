@@ -95,7 +95,8 @@ class AoE2FilePart:
             datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
             retriever = Retriever(
                 name=name,
-                datatype=datatype
+                datatype=datatype,
+                log_value=attr.get('log', False)
             )
             # Go through dependencies if exist, else empty dict
             for dependency_name, properties in attr.get('dependencies', {}).items():
@@ -151,7 +152,6 @@ class AoE2FilePart:
         total_length = 0
         for _, retriever in enumerate(self.retrievers):
             parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
-
             if retriever.datatype.type == "struct":
                 retriever.data = []
                 struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
