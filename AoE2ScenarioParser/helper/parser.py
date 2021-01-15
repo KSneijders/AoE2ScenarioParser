@@ -246,6 +246,7 @@ def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever
                 retriever_to_be_refreshed = get_retriever_by_name(retriever_list, listified_target_attr[i])
                 handle_retriever_dependency(retriever_to_be_refreshed, retriever_list, "refresh", pieces)
         elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
+            # Todo: Instead of ['self', 'self'] & ['retr_name', 'retr_name'] just have: [('self', 'retr_name'), ...]
             listified_target = listify(dep_target.target_piece)
             listified_target_attr = listify(dep_target.piece_attr_name)
             retriever_data = []
