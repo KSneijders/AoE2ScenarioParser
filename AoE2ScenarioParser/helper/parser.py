@@ -270,11 +270,12 @@ def handle_dependency_target(target_piece, retrievers, pieces):
 def handle_dependency_eval(retriever_on_x, value):
     eval_locals = retriever_on_x.dependency_eval.eval_locals
     values_as_variable = retriever_on_x.dependency_eval.values_as_variable
+    attr_name = retriever_on_x.dependency_target.piece_attr_name
     # If value as is used, use it as keys for the value!
     if values_as_variable:
         eval_locals = {**eval_locals, **dict(zip(values_as_variable, value))}
     else:
-        eval_locals['x'] = value[0]
+        eval_locals[attr_name] = value[0]
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 
