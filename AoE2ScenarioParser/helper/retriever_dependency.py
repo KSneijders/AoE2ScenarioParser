@@ -1,5 +1,7 @@
 from enum import Enum
 
+from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure
+
 
 class RetrieverDependency:
     def __init__(self, dependency_type, dependency_target=None, dependency_eval=None):
@@ -18,7 +20,7 @@ class RetrieverDependency:
         self.dependency_target = dependency_target
 
         if dependency_type in [DependencyAction.SET_REPEAT, DependencyAction.SET_VALUE] and dependency_eval is None:
-            dependency_eval = DependencyEval('x')
+            dependency_eval = DependencyEval(dependency_target.piece_attr_name)
 
         self.dependency_eval = dependency_eval
 
@@ -62,9 +64,29 @@ class DependencyTarget:
     def instance_or_none(target_string):
         if target_string is None:
             return None
+        DependencyTarget.validate_target_attr(target_string)
+
+        if type(target_string) is str:
+            return DependencyTarget(*target_string.split(":"))
+        elif type(target_string) is list:
+            target_list = [entry.split(':') for entry in target_string]
+            target_list = list(map(list, zip(*target_list)))
+            return DependencyTarget(*target_list)
+
+    @staticmethod
+    def validate_target_attr(target_attr):
+        if type(target_attr) is str:
+            DependencyTarget.validate_target_string(target_attr)
+        elif type(target_attr) is list:
+            for string in target_attr:
+                DependencyTarget.validate_target_string(string)
+        else:
+            raise TypeError(f"Invalid target string type. (type: {type(target_attr)})")
+
+    @staticmethod
+    def validate_target_string(target_string):
         if ':' not in target_string:
-            raise ValueError("Invalid target string. Valid syntax: 'self'/{piece_name}:{name_of_target_retriever}")
-        return DependencyTarget(*target_string.split(":"))
+            raise InvalidScenarioStructure("Invalid target string. Syntax: 'self'/{piece_name}:{name_of_retriever}")
 
     def __repr__(self) -> str:
         return f"[DependencyTarget] {self.target_piece} -> {self.piece_attr_name}"
