@@ -73,7 +73,7 @@ class MapPiece(AoE2FilePart):
             Retriever('terrain_data', DataType(TerrainStruct))
         ]
 
-        super().__init__("Map", retrievers)
+        super().__init__("MapPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):
@@ -97,7 +97,7 @@ class MapPiece(AoE2FilePart):
             'ai_type': 1,
             'map_width': 120,
             'map_height': 120,
-            'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults(pieces).values()), pieces=pieces) for _ in
-                             range(120 * 120)],
+            # 'terrain_data': [TerrainStruct(data=list(TerrainStruct.defaults(pieces).values()), pieces=pieces) for _ in
+            #                  range(120 * 120)],
         }
         return defaults

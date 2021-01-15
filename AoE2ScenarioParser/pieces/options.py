@@ -61,7 +61,7 @@ class OptionsPiece(AoE2FilePart):
             Retriever("unknown", DataType("32")),
             Retriever("number_of_triggers", DataType("u32")),
         ]
-        super().__init__("Options", retrievers)
+        super().__init__("OptionsPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

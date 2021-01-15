@@ -14,15 +14,15 @@ class DiplomacyPiece(AoE2FilePart):
             Retriever("unknown", DataType("4")),
         ]
 
-        super().__init__("Diplomacy", retrievers)
+        super().__init__("DiplomacyPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):
         defaults = {
-            'per_player_diplomacy': [
-                PlayerDiplomacyStruct(data=list(PlayerDiplomacyStruct.defaults(pieces).values()), pieces=pieces) for _
-                in range(16)
-            ],
+            # 'per_player_diplomacy': [
+            #     PlayerDiplomacyStruct(data=list(PlayerDiplomacyStruct.defaults(pieces).values()), pieces=pieces) for _
+            #     in range(16)
+            # ],
             'individual_victories': [b'\x00' * 60] * 192,
             'separator': 4294967197,
             'per_player_allied_victory': [0] * 16,

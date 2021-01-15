@@ -40,17 +40,17 @@ class UnitsPiece(AoE2FilePart):
             Retriever("players_units", DataType(PlayerUnitsStruct)),
         ]
 
-        super().__init__("Units", retrievers)
+        super().__init__("UnitsPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):
         defaults = {
             'number_of_unit_sections': 9,
-            'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0], pieces=pieces) for _ in
-                              range(8)],
+            # 'player_data_4': [PlayerDataFourStruct(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 200.0], pieces=pieces) for _ in
+            #                   range(8)],
             'number_of_players': 9,
-            'player_data_3': UnitsPiece._get_player_data_three_default(pieces),
-            'players_units': [PlayerUnitsStruct(data=[0, []], pieces=pieces) for _ in range(9)],
+            # 'player_data_3': UnitsPiece._get_player_data_three_default(pieces),
+            # 'players_units': [PlayerUnitsStruct(data=[0, []], pieces=pieces) for _ in range(9)],
         }
         return defaults
 

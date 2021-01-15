@@ -40,14 +40,14 @@ class DataHeaderPiece(AoE2FilePart):
             Retriever("filename", DataType("str16")),
         ]
 
-        super().__init__("Data Header", retrievers)
+        super().__init__("DataHeaderPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):
         defaults = {
             'next_unit_id_to_place': 0,
             'version': 1.399999976158142,
-            'player_names': ['\x00' * 256] * 16,
+            'player_names': [b'\x00' * 256] * 16,
             'string_table_player_names': [4294967294] * 16,
             'player_data_1': DataHeaderPiece._get_player_data_1_default(pieces),
             'conquest_mode': 0,
@@ -70,4 +70,4 @@ class DataHeaderPiece(AoE2FilePart):
         data[0][1] = 1  # P1 Human
         data[1][0] = 1  # P2 Active
         data += [list(PlayerDataOneStruct.defaults(pieces).values()) for _ in range(14)]
-        return [PlayerDataOneStruct(data=x, pieces=pieces) for x in data]
+        # return [PlayerDataOneStruct(data=x, pieces=pieces) for x in data]

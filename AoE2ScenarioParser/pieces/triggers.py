@@ -71,7 +71,7 @@ class TriggersPiece(AoE2FilePart):
             Retriever("variable_data", DataType(VariableStruct)),
         ]
 
-        super().__init__("Triggers", retrievers)
+        super().__init__("TriggersPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

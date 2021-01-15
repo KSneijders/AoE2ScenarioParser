@@ -12,7 +12,7 @@ class CinematicsPiece(AoE2FilePart):
             # Retriever("Separator (! in some version)", DataType("1")),
         ]
 
-        super().__init__("Cinematics", retrievers)
+        super().__init__("CinematicsPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

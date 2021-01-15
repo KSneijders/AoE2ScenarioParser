@@ -16,7 +16,7 @@ class PlayerDataTwoPiece(AoE2FilePart):
             Retriever("resources", DataType(ResourcesStruct, repeat=16))
         ]
 
-        super().__init__("Player Data #2", retrievers)
+        super().__init__("PlayerDataTwoPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

@@ -26,7 +26,7 @@ class BackgroundImagePiece(AoE2FilePart):
             Retriever("bitmap_info", DataType(BitMapInfoStruct), possibly_list=False),
         ]
 
-        super().__init__("Background Image", retrievers)
+        super().__init__("BackgroundImagePiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

@@ -63,7 +63,7 @@ class FilesPiece(AoE2FilePart):
             Retriever("__END_OF_FILE_MARK__", DataType("1")),
         ]
 
-        super().__init__("Files", retrievers)
+        super().__init__("FilesPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

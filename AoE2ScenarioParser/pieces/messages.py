@@ -20,7 +20,7 @@ class MessagesPiece(AoE2FilePart):
             Retriever("ascii_scouts", DataType("str16")),
         ]
 
-        super().__init__("Messages", retrievers)
+        super().__init__("MessagesPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

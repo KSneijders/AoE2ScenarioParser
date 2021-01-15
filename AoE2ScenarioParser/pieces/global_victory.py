@@ -19,7 +19,7 @@ class GlobalVictoryPiece(AoE2FilePart):
             Retriever("time_for_timed_game_in_10ths_of_a_year", DataType("u32")),
         ]
 
-        super().__init__("Global Victory", retrievers)
+        super().__init__("GlobalVictoryPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):

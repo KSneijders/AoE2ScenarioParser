@@ -40,7 +40,7 @@ class FileHeaderPiece(AoE2FilePart):
             Retriever("trigger_count", DataType("u32")),
         ]
 
-        super().__init__("File Header", retrievers)
+        super().__init__("FileHeaderPiece", retrievers)
 
     @staticmethod
     def defaults(pieces):
