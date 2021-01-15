@@ -99,6 +99,10 @@ class AoE2Scenario:
         scenario.add_to_pieces(header)
         header.set_data_from_generator(generator.create_generator(file_content), scenario.pieces)
 
+        # Todo: Refactor _debug_byte_structure_to_file so it works without these params
+        scenario._parsed_header = {"FileHeaderPiece": header}
+        scenario._parsed_data = scenario.pieces
+
         # Decompressed the file (starting from where header ended)
         decompressed_file_data = decompress_file_data(file_content, header.byte_length)
 
@@ -106,9 +110,19 @@ class AoE2Scenario:
         for piece_name in structure.keys():
             if piece_name == "FileHeader":
                 continue
-            piece = AoE2FilePart.from_structure(piece_name, structure.get(piece_name))
-            scenario.add_to_pieces(piece)
-            piece.set_data_from_generator(file_generator, scenario.pieces)
+            try:
+                piece = AoE2FilePart.from_structure(piece_name, structure.get(piece_name))
+                scenario.add_to_pieces(piece)
+                piece.set_data_from_generator(file_generator, scenario.pieces)
+            except Exception as e:
+                print(f"\n[{e.__class__.__name__}] [EXIT] AoE2Scenario._read_file: \n\tPiece: {piece_name}\n")
+                print("Writing ErrorFile...")
+                scenario._debug_byte_structure_to_file(
+                    filename="../ErrorFile",
+                    generator_for_trail=file_generator,
+                    log_debug_write=True
+                )
+                exit()
 
         helper.cprint(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
 
