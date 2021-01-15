@@ -363,12 +363,62 @@
             "strings": {
                 "type": "str16",
                 "repeat": 32,
-                "default": ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
+                "default": [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
             },
             "ai_names": {
                 "type": "str16",
                 "repeat": 16,
-                "default": ["","","","","","","","","","","","","","","",""]
+                "default": [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
             },
             "ai_files": {
                 "type": "struct:AIStruct",
@@ -401,7 +451,7 @@
                         "type": "u32",
                         "default": 0
                     },
-                    "ai_per_file_text":  {
+                    "ai_per_file_text": {
                         "type": "str32",
                         "default": ""
                     }
@@ -415,27 +465,27 @@
                     },
                     "wood": {
                         "type": "u32",
-                        "default":  0
+                        "default": 0
                     },
-                    "food":  {
+                    "food": {
                         "type": "u32",
-                        "default":  0
+                        "default": 0
                     },
                     "stone": {
                         "type": "u32",
-                        "default":  0
+                        "default": 0
                     },
-                    "ore_x_unused":  {
+                    "ore_x_unused": {
                         "type": "u32",
-                        "default":  0
+                        "default": 0
                     },
                     "trade_goods": {
                         "type": "u32",
-                        "default":  0
+                        "default": 0
                     },
-                    "player_color":  {
+                    "player_color": {
                         "type": "u32",
-                        "default":  0
+                        "default": 0
                     }
                 }
             }
@@ -731,8 +781,81 @@
                     "stance_with_each_player": {
                         "type": "u32",
                         "repeat": 16,
-                        "default": [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
+                        "default": [
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3
+                        ]
                     }
+                }
+            }
+        }
+    },
+    "Options": {
+        "retrievers": {
+            "per_player_number_of_disabled_techs": {
+                "type": "u32",
+                "repeat": 16
+            },
+            "disabled_tech_ids_player_1": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_2": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_3": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_4": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_5": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_6": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_7": {
+                "type": "u32",
+                "dependencies": {
+
+                }
+            },
+            "disabled_tech_ids_player_8": {
+                "type": "u32",
+                "dependencies": {
+
                 }
             }
         }
@@ -794,6 +917,7 @@
                 "default": 1
             },
             "map_width": {
+                "log": true,
                 "type": "s32",
                 "default": 120,
                 "dependencies": {
@@ -805,6 +929,7 @@
                 }
             },
             "map_height": {
+                "log": true,
                 "type": "s32",
                 "default": 120,
                 "dependencies": {
