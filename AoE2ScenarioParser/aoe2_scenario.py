@@ -23,7 +23,7 @@ from AoE2ScenarioParser.pieces.map import MapPiece
 from AoE2ScenarioParser.pieces.messages import MessagesPiece
 from AoE2ScenarioParser.pieces.options import OptionsPiece
 from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
-from AoE2ScenarioParser.pieces.triggers import TriggerPiece
+from AoE2ScenarioParser.pieces.triggers import TriggersPiece
 from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 
@@ -396,7 +396,7 @@ _file_structure: List[Type[AoE2FilePart]] = [
     OptionsPiece,
     MapPiece,
     UnitsPiece,
-    TriggerPiece,
+    TriggersPiece,
     FilesPiece,
 ]
 
@@ -411,5 +411,5 @@ diplomacy_piece = "DiplomacyPiece"
 options_piece = "OptionsPiece"
 map_piece = "MapPiece"
 units_piece = "UnitsPiece"
-trigger_piece = "TriggerPiece"
+trigger_piece = "TriggersPiece"
 files_piece = "FilesPiece"

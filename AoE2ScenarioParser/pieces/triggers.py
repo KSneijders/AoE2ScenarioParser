@@ -9,7 +9,7 @@ from AoE2ScenarioParser.pieces.structs.trigger import TriggerStruct
 from AoE2ScenarioParser.pieces.structs.variable import VariableStruct
 
 
-class TriggerPiece(AoE2FilePart):
+class TriggersPiece(AoE2FilePart):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
         "number_of_triggers": {
             "on_refresh": RetrieverDependency(

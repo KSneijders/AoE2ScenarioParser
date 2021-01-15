@@ -20,7 +20,7 @@ class FileHeaderPiece(AoE2FilePart):
         # }
         "trigger_count": {
             "on_refresh": RetrieverDependency(
-                DependencyAction.SET_VALUE, DependencyTarget("TriggerPiece", "trigger_data"),
+                DependencyAction.SET_VALUE, DependencyTarget("TriggersPiece", "trigger_data"),
                 DependencyEval("len(x)")
             )
         },
