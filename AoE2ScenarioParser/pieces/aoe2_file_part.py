@@ -26,10 +26,10 @@ class AoE2FilePart:
         self.struct_models: Dict[str, AoE2StructModel] = {}
         self.level = level
 
-        for retriever in retrievers:
-            if retriever.name in self.__class__.dependencies.keys():
-                for key, value in self.__class__.dependencies[retriever.name].items():
-                    setattr(retriever, key, value)
+        # for retriever in retrievers:
+        #     if retriever.name in self.__class__.dependencies.keys():
+        #         for key, value in self.__class__.dependencies[retriever.name].items():
+        #             setattr(retriever, key, value)
 
     def get_json(self):
         def get_snake_case(string: str):
@@ -219,10 +219,11 @@ class AoE2FilePart:
             listed_retriever_data = helper.listify(retriever.data)
             struct_header_set = False
             for struct in listed_retriever_data:
-                if not struct_header_set:
-                    byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
-                    struct_header_set = True
-                byte_structure += struct.get_byte_structure_as_string(pieces)
+                if isinstance(struct, AoE2FilePart):
+                    if not struct_header_set:
+                        byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
+                        struct_header_set = True
+                    byte_structure += struct.get_byte_structure_as_string(pieces)
             # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
             if struct_header_set:
                 byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
