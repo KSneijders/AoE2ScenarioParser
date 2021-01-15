@@ -156,7 +156,10 @@ class AoE2FilePart:
                 retriever.data = []
                 struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
                 for _ in range(retriever.datatype.repeat):
-                    struct = AoE2FilePart.from_model(self.struct_models.get(struct_name))
+                    model = self.struct_models.get(struct_name)
+                    if model is None:
+                        raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
+                    struct = AoE2FilePart.from_model(model)
                     struct.set_data_from_generator(generator, pieces)
                     retriever.data.append(struct)
 
