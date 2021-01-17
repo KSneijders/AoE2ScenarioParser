@@ -2,13 +2,13 @@ import copy
 import importlib
 import re
 from enum import Enum
-from typing import Dict
+from typing import Dict, List
 
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
-from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel
+from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
 
 class PieceLevel(Enum):
@@ -19,17 +19,20 @@ class PieceLevel(Enum):
 class AoE2FilePart:
     dependencies = {}
 
-    def __init__(self, name, retrievers, level=PieceLevel.TOP_LEVEL):
-        self.name = name
-        self.retrievers = retrievers
-        self.byte_length = -1
-        self.struct_models: Dict[str, AoE2StructModel] = {}
-        self.level = level
+    def __init__(self, name, retrievers, struct_models=None, level=PieceLevel.TOP_LEVEL):
+        if struct_models is None:
+            struct_models = {}
 
-        # for retriever in retrievers:
-        #     if retriever.name in self.__class__.dependencies.keys():
-        #         for key, value in self.__class__.dependencies[retriever.name].items():
-        #             setattr(retriever, key, value)
+        self.name: str = name
+        self.retrievers: List[Retriever] = retrievers
+        self.byte_length: int = -1
+        self.struct_models: Dict[str, AoE2StructModel] = struct_models
+        self.level: PieceLevel = level
+
+        for retriever in retrievers:
+            if retriever.name in self.__class__.dependencies.keys():
+                for key, value in self.__class__.dependencies[retriever.name].items():
+                    setattr(retriever, key, value)
 
     def get_json(self):
         def get_snake_case(string: str):
@@ -44,18 +47,18 @@ class AoE2FilePart:
             }
             if retriever.datatype.repeat != 1:
                 retrievers[retriever.name]["repeat"] = retriever.datatype.repeat
-            try:
-                dynamic_import = importlib.import_module("AoE2ScenarioParser.pieces." + get_snake_case(self.name[:-5]))
-                defaults = getattr(dynamic_import, f"{self.name.replace(' ', '')}").defaults({})
-                value = defaults.get(retriever.name)
-                if type(value) is bytes:
-                    value = value.hex()
-                if type(value) is list and len(value) > 0 and type(value[0]) is bytes:
-                    value = [x.hex() for x in value]
-                retrievers[retriever.name]["default"] = value
-            except Exception as e:
-                print(e)
-                retrievers[retriever.name]["default"] = "Todo:DEFAULT"
+            # try:
+            #     dynamic_import = importlib.import_module("AoE2ScenarioParser.pieces." + get_snake_case(self.name[:-5]))
+            #     defaults = getattr(dynamic_import, f"{self.name.replace(' ', '')}").defaults({})
+            #     value = defaults.get(retriever.name)
+            #     if type(value) is bytes:
+            #         value = value.hex()
+            #     if type(value) is list and len(value) > 0 and type(value[0]) is bytes:
+            #         value = [x.hex() for x in value]
+            #     retrievers[retriever.name]["default"] = value
+            # except Exception as e:
+            #     print(e)
+            retrievers[retriever.name]["default"] = "Todo:DEFAULT"
 
             for on_x in ['on_refresh', 'on_construct', 'on_commit']:
                 if hasattr(retriever, on_x):
@@ -85,39 +88,27 @@ class AoE2FilePart:
         return cls(
             name=model.name,
             retrievers=copy.deepcopy(model.retrievers),
-            level=PieceLevel.STRUCT
+            struct_models=model.structs,
+            level=PieceLevel.STRUCT  # File parts from models are always structs
         )
 
     @classmethod
     def from_structure(cls, piece_name, structure):
         retrievers = []
         for name, attr in structure.get('retrievers', {}).items():
-            datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))
-            retriever = Retriever(
-                name=name,
-                datatype=datatype,
-                log_value=attr.get('log', False)
-            )
-            # Go through dependencies if exist, else empty dict
-            for dependency_name, properties in attr.get('dependencies', {}).items():
-                setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
-            retrievers.append(retriever)
+            retrievers.append(Retriever.from_structure(name, attr))
 
-        inst = cls(piece_name, retrievers)
-        for name, attr in structure.get('structs', {}).items():
-            # Create struct model
-            inst.struct_models[name] = AoE2StructModel.from_structure(name, attr)
-
+        structs = model_dict_from_structure(structure)
+        inst = cls(piece_name, retrievers, structs)
         return inst
 
     @classmethod
     def from_data(cls, name, retrievers, data, pieces):
         part = cls(name, retrievers)
         part.set_data(data, pieces)
-        return cls
+        return part
 
-
-    def set_data_from_generator(self, generator, pieces):
+    def set_data_from_generator(self, generator, pieces) -> None:
         """
         Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
         Bytes will be parsed based on the retrievers. The total length of bytes read to fill this piece is also stored
