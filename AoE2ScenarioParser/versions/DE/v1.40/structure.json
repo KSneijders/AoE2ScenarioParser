@@ -428,16 +428,16 @@
             "ai_type": {
                 "type": "u8",
                 "repeat": 16,
-                "default": "Todo:DEFAULT"
+                "default": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
             },
             "separator": {
                 "type": "u32",
-                "default": "Todo:DEFAULT"
+                "default": 4294967197
             },
             "resources": {
                 "type": "struct:ResourcesStruct",
                 "repeat": 16,
-                "default": "Todo:DEFAULT"
+                "default": null
             }
         },
         "structs": {
@@ -1357,7 +1357,7 @@
                     "on_refresh": {
                         "action": "SET_VALUE",
                         "target": "self:players_units",
-                        "eval": "len(players_units) Todo:VERIFY"
+                        "eval": "len(players_units)"
                     }
                 }
             },
@@ -1777,6 +1777,432 @@
                     "on_commit": {
                         "action": "REFRESH",
                         "target": "self:number_of_variables"
+                    }
+                }
+            }
+        },
+        "structs": {
+            "TriggerStruct": {
+                "retrievers": {
+                    "enabled": {
+                        "type": "u32",
+                        "default": 1
+                    },
+                    "looping": {
+                        "type": "s8",
+                        "default": 0
+                    },
+                    "description_string_table_id": {
+                        "type": "s32",
+                        "default": -1
+                    },
+                    "display_as_objective": {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "objective_description_order": {
+                        "type": "u32",
+                        "default": 0
+                    },
+                    "make_header": {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "short_description_string_table_id": {
+                        "type": "s32",
+                        "default": -1
+                    },
+                    "display_on_screen": {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "unknown": {
+                        "type": "5",
+                        "default": "0000000000"
+                    },
+                    "mute_objectives": {
+                        "type": "u8",
+                        "default": 0
+                    },
+                    "trigger_description": {
+                        "type": "str32",
+                        "default": ""
+                    },
+                    "trigger_name": {
+                        "type": "str32",
+                        "default": "Trigger 0"
+                    },
+                    "short_description": {
+                        "type": "str32",
+                        "default": ""
+                    },
+                    "number_of_effects": {
+                        "type": "s32",
+                        "default": 0,
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_VALUE",
+                                "target": "self:effect_data",
+                                "eval": "len(effect_data)"
+                            }
+                        }
+                    },
+                    "effect_data": {
+                        "type": "struct:EffectStruct",
+                        "default": [],
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_REPEAT",
+                                "target": "self:number_of_effects"
+                            },
+                            "on_construct": {
+                                "action": "REFRESH_SELF"
+                            },
+                            "on_commit": {
+                                "action": "REFRESH",
+                                "target": "self:number_of_effects"
+                            }
+                        }
+                    },
+                    "effect_display_order_array": {
+                        "type": "s32",
+                        "default": [],
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_REPEAT",
+                                "target": "self:number_of_effects"
+                            },
+                            "on_construct": {
+                                "action": "REFRESH_SELF"
+                            }
+                        }
+                    },
+                    "number_of_conditions": {
+                        "type": "s32",
+                        "default": 0,
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_VALUE",
+                                "target": "self:condition_data",
+                                "eval": "len(condition_data)"
+                            }
+                        }
+                    },
+                    "condition_data": {
+                        "type": "struct:ConditionStruct",
+                        "default": [],
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_REPEAT",
+                                "target": "self:number_of_conditions"
+                            },
+                            "on_construct": {
+                                "action": "REFRESH_SELF"
+                            },
+                            "on_commit": {
+                                "action": "REFRESH",
+                                "target": "self:number_of_conditions"
+                            }
+                        }
+                    },
+                    "condition_display_order_array": {
+                        "type": "s32",
+                        "default": [],
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_REPEAT",
+                                "target": "self:number_of_conditions"
+                            },
+                            "on_construct": {
+                                "action": "REFRESH_SELF"
+                            }
+                        }
+                    }
+                },
+                "structs": {
+                    "EffectStruct": {
+                        "retrievers": {
+                            "effect_type": {
+                                "type": "s32",
+                                "default": 0,
+                                "dependencies": {
+                                    "on_commit": {
+                                        "action": "REFRESH",
+                                        "target": [
+                                            "self:aa_quantity",
+                                            "self:aa_armor_or_attack_type",
+                                            "self:quantity"
+                                        ]
+                                    }
+                                }
+                            },
+                            "static_value_46": {
+                                "type": "s32",
+                                "default": 48
+                            },
+                            "ai_script_goal": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "aa_quantity": {
+                                "type": "u8",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:effect_type",
+                                        "eval": "1 if effect_type in [28, 31] else 0"
+                                    },
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    }
+                                }
+                            },
+                            "aa_armor_or_attack_type": {
+                                "type": "s24",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:effect_type",
+                                        "eval": "1 if effect_type in [28, 31] else 0"
+                                    },
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    }
+                                }
+                            },
+                            "quantity": {
+                                "type": "s32",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:effect_type",
+                                        "eval": "1 if effect_type not in [28, 31] else 0"
+                                    },
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    }
+                                }
+                            },
+                            "tribute_list": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "diplomacy": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "number_of_units_selected": {
+                                "type": "s32",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_refresh": {
+                                        "action": "SET_VALUE",
+                                        "target": "self:selected_object_ids",
+                                        "eval": "len(selected_object_ids) if len(selected_object_ids) != 0 else -1"
+                                    }
+                                }
+                            },
+                            "unknown": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_list_unit_id": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "source_player": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "target_player": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "technology": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "string_id": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "unknown_2": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "display_time": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "trigger_id": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "location_x": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "location_y": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "area_1_x": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "area_1_y": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "area_2_x": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "area_2_y": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_group": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_type": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "instruction_panel_position": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "attack_stance": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "time_unit": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "enabled_or_victory": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "food": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "wood": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "stone": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "gold": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "item_id": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "flash_object": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "force_research_technology": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "visibility_state": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "scroll": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "operation": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_list_unit_id_2": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "button_location": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "ai_signal_value": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "unknown_3": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_attributes": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "from_variable": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "variable_or_timer": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "facet": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "location_object_reference": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "play_sound": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "player_color": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "unknown_4": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "message": {
+                                "type": "str32",
+                                "default": ""
+                            },
+                            "sound_name": {
+                                "type": "str32",
+                                "default": ""
+                            },
+                            "selected_object_ids": {
+                                "type": "s32",
+                                "default": [],
+                                "dependencies": {
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:number_of_units_selected"
+                                    },
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH",
+                                        "target": "self:number_of_units_selected"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
