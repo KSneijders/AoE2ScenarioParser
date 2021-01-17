@@ -57,6 +57,7 @@ class DependencyTarget:
         if type(target_piece) is list:
             if not (len(target_piece) == len(piece_attr_name)):
                 raise ValueError("Both parameters should be of the same length when using lists.")
+
         self.target_piece = target_piece
         self.piece_attr_name = piece_attr_name
 

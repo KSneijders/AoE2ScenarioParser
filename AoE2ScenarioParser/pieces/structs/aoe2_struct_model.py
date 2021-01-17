@@ -10,7 +10,7 @@ class AoE2StructModel:
         self.retrievers = retrievers
 
     @classmethod
-    def from_structure(cls, name, structure):
+    def from_structure(cls, name, structure) -> AoE2StructModel:
         retrievers = []
         for retriever_name, attr in structure.get('retrievers', {}).items():
             datatype = DataType(var=attr.get('type'), repeat=attr.get('repeat', 1))

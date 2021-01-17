@@ -116,27 +116,6 @@ class AoE2FilePart:
         part.set_data(data, pieces)
         return cls
 
-    def __getattr__(self, item):
-        """Providing a default way to access retriever data labeled 'name'"""
-        if 'retrievers' not in self.__dict__:
-            return super().__getattribute__(item)
-        else:
-            retriever = get_retriever_by_name(self.retrievers, item)
-            if retriever is None:
-                return super().__getattribute__(item)
-            else:
-                return retriever.data
-
-    def __setattr__(self, name, value):
-        """Trying to edit retriever data labeled 'name' if available"""
-        if 'retrievers' not in self.__dict__:
-            super().__setattr__(name, value)
-        else:
-            retriever = get_retriever_by_name(self.retrievers, name)
-            if retriever is None:
-                super().__setattr__(name, value)
-            else:
-                retriever.data = value
 
     def set_data_from_generator(self, generator, pieces):
         """
@@ -150,7 +129,7 @@ class AoE2FilePart:
                 dependencies to orf rom them.
         """
         total_length = 0
-        for _, retriever in enumerate(self.retrievers):
+        for retriever in self.retrievers:
             parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
             if retriever.datatype.type == "struct":
                 retriever.data = []
@@ -186,6 +165,28 @@ class AoE2FilePart:
             print(f"Retrievers: (len: {len(self.retrievers)}) "
                   f"{helper.pretty_print_list([f'{i}: {str(x)}' for i, x in enumerate(self.retrievers)])}")
             raise ValueError("Data list isn't the same size as the DataType list")
+
+    def __getattr__(self, item):
+        """Providing a default way to access retriever data labeled 'name'"""
+        if 'retrievers' not in self.__dict__:
+            return super().__getattribute__(item)
+        else:
+            retriever = get_retriever_by_name(self.retrievers, item)
+            if retriever is None:
+                return super().__getattribute__(item)
+            else:
+                return retriever.data
+
+    def __setattr__(self, name, value):
+        """Trying to edit retriever data labeled 'name' if available"""
+        if 'retrievers' not in self.__dict__:
+            super().__setattr__(name, value)
+        else:
+            retriever = get_retriever_by_name(self.retrievers, name)
+            if retriever is None:
+                super().__setattr__(name, value)
+            else:
+                retriever.data = value
 
     def _entry_to_string(self, name, data, datatype):
         self._verify_level()
