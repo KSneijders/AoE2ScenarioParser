@@ -130,24 +130,28 @@ class AoE2FilePart:
         """
         total_length = 0
         for retriever in self.retrievers:
-            parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
-            if retriever.datatype.type == "struct":
-                retriever.data = []
-                struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
-                for _ in range(retriever.datatype.repeat):
-                    model = self.struct_models.get(struct_name)
-                    if model is None:
-                        raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
-                    struct = AoE2FilePart.from_model(model)
-                    struct.set_data_from_generator(generator, pieces)
-                    retriever.data.append(struct)
+            try:
+                parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
+                if retriever.datatype.type == "struct":
+                    retriever.data = []
+                    struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
+                    for _ in range(retriever.datatype.repeat):
+                        model = self.struct_models.get(struct_name)
+                        if model is None:
+                            raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
+                        struct = AoE2FilePart.from_model(model)
+                        struct.set_data_from_generator(generator, pieces)
+                        retriever.data.append(struct)
 
-                    total_length += struct.byte_length
-            else:
-                retrieved_bytes = parser.retrieve_bytes(generator, retriever)
-                retriever.data = parser.parse_bytes(retriever, retrieved_bytes)
+                        total_length += struct.byte_length
+                else:
+                    retrieved_bytes = parser.retrieve_bytes(generator, retriever)
+                    retriever.data = parser.parse_bytes(retriever, retrieved_bytes)
 
-                total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
+                    total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
+            except (TypeError, ValueError) as e:
+                print(f"\n\n[{e.__class__.__name__}] Occurred while setting data in:\n\t{retriever}")
+                raise e
 
         self.byte_length = total_length
 
