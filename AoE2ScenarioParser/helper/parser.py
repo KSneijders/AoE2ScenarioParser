@@ -17,7 +17,7 @@ attributes = ['on_refresh', 'on_construct', 'on_commit']
 # Todo: Rework this piece of crap
 def vorl(var: Any, retriever: Retriever):
     """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
-    if Retriever is not None and retriever.possibly_list:
+    if Retriever is not None and retriever.potential_list:
         dependencies = []
         for attribute in attributes:
             if hasattr(retriever, attribute):
