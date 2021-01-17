@@ -35,6 +35,20 @@ class Retriever:
         self.log_value = log_value
         self._data = None
 
+    @classmethod
+    def from_structure(cls, name, structure):
+        datatype = DataType(var=structure.get('type'), repeat=structure.get('repeat', 1))
+        retriever = cls(
+            name=name,
+            datatype=datatype,
+            potential_list=structure.get('potential_list', True),
+            log_value=structure.get('log', False)
+        )
+        # Go through dependencies if exist, else empty dict
+        for dependency_name, properties in structure.get('dependencies', {}).items():
+            setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
+        return retriever
+
     @property
     def data(self):
         return self._data
