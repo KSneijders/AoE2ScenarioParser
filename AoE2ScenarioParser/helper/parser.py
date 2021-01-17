@@ -270,13 +270,16 @@ def handle_dependency_target(target_piece, retrievers, pieces):
 
 def handle_dependency_eval(retriever_on_x, value):
     eval_locals = retriever_on_x.dependency_eval.eval_locals
-    values_as_variable = retriever_on_x.dependency_eval.values_as_variable
-    attr_name = retriever_on_x.dependency_target.piece_attr_name
+    # values_as_variable = retriever_on_x.dependency_eval.values_as_variable
+    attribute_names = listify(retriever_on_x.dependency_target.piece_attr_name)
     # If value as is used, use it as keys for the value!
-    if values_as_variable:
-        eval_locals = {**eval_locals, **dict(zip(values_as_variable, value))}
-    else:
-        eval_locals[attr_name] = value[0]
+    # Todo: Remove 'values_as_variable' logic
+    # if values_as_variable:
+    #     print(":o")
+    #     eval_locals = {**eval_locals, **dict(zip(values_as_variable, value))}
+    # else:
+    for i in range(len(attribute_names)):
+        eval_locals[attribute_names[i]] = value[i]
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 
