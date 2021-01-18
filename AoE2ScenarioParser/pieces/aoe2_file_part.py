@@ -5,8 +5,6 @@ import re
 from enum import Enum
 from typing import Dict, List
 
-import ujson
-
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
