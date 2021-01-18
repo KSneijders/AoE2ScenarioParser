@@ -1,11 +1,13 @@
-import copy
-import importlib
+from __future__ import annotations
+
+import pickle
 import re
 from enum import Enum
 from typing import Dict, List
 
+import ujson
+
 from AoE2ScenarioParser.helper import parser, helper
-from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
@@ -74,8 +76,8 @@ class AoE2FilePart:
                                 f"{dependency.dependency_target.piece_attr_name}"
                         if dependency.dependency_eval is not None:
                             retrievers[retriever.name]['dependencies'][on_x]["eval"] = \
-                                dependency.dependency_eval.eval_code. \
-                                replace('x', dependency.dependency_target.piece_attr_name) + " Todo:VERIFY"
+                                dependency.dependency_eval.eval_code.replace(
+                                    'x', dependency.dependency_target.piece_attr_name) + " Todo:VERIFY"
                     except Exception as e:
                         print(e)
                         retrievers[retriever.name]['dependencies'] = "Todo: Dependencies"
@@ -84,12 +86,24 @@ class AoE2FilePart:
         return json
 
     @classmethod
-    def from_model(cls, model):
+    def from_model(cls, model) -> AoE2FilePart:
+        """
+        Create a copy (what was called struct before) from a model.
+
+        Args:
+            model (AoE2StructModel): The model to copy from
+
+        Returns:
+            A FilePart instance based on the model
+        """
+        # Using pickle.loads(pickle.dumps(...)) instead of copy.deepcopy()
+        # Reason for this is the huge speed difference. Details can be found at:
+        # https://stackoverflow.com/a/29385667/7230293
         return cls(
             name=model.name,
-            retrievers=copy.deepcopy(model.retrievers),
+            retrievers=pickle.loads(pickle.dumps(model.retrievers, -1)),
             struct_models=model.structs,
-            level=PieceLevel.STRUCT  # File parts from models are always structs
+            level=PieceLevel.STRUCT
         )
 
     @classmethod
