@@ -5,7 +5,7 @@ from collections import OrderedDict
 from typing import List, Type
 
 from AoE2ScenarioParser.helper import generator, helper, parser
-from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure
+from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
@@ -90,14 +90,21 @@ class AoE2Scenario:
         print(f">>> Game version: {scenario.game_version}")
         print(f">>> Scenario version: {scenario.scenario_version}")
 
-        structure = get_structure_by_scenario(scenario)
-
         helper.cprint(f"Loading scenario structure...", replace_line=True)
+        try:
+            structure = get_structure_by_scenario(scenario)
+        except FileNotFoundError as e:  # Unsupported version
+            v = f"{scenario.game_version}:{scenario.scenario_version}"
+            raise UnknownScenarioStructure(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None
+        helper.cprint(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
 
+        print(f"\n Reading scenario...")
+        helper.cprint("\tReading FileHeader...", replace_line=True)
         # Read and init header
         header = AoE2FilePart.from_structure('FileHeader', structure.get('FileHeader'))
         scenario.add_to_pieces(header)
         header.set_data_from_generator(generator.create_generator(file_content), scenario.pieces)
+        helper.cprint("\tReading FileHeader finished successfully", replace_line=True, last_replace_line=True)
 
         # Todo: Refactor _debug_byte_structure_to_file so it works without these params
         scenario._parsed_header = {"FileHeaderPiece": header}
@@ -106,15 +113,20 @@ class AoE2Scenario:
         # Decompressed the file (starting from where header ended)
         decompressed_file_data = decompress_file_data(file_content, header.byte_length)
 
+        lgr = SimpleLogger(should_log=log_reading)
+
         file_generator = generator.create_generator(decompressed_file_data)
         for piece_name in structure.keys():
             if piece_name == "FileHeader":
                 continue
             try:
+                lgr.print("\tReading " + piece_name + "...", replace_line=True)
                 piece = AoE2FilePart.from_structure(piece_name, structure.get(piece_name))
                 scenario.add_to_pieces(piece)
                 piece.set_data_from_generator(file_generator, scenario.pieces)
-            except Exception as e:
+                lgr.print("\tReading " + piece_name + " finished successfully.",
+                          replace_line=True, last_replace_line=True)
+            except (ValueError, TypeError) as e:
                 print(f"\n[{e.__class__.__name__}] [EXIT] AoE2Scenario._read_file: \n\tPiece: {piece_name}\n")
                 print("Writing ErrorFile...")
                 scenario._debug_byte_structure_to_file(
@@ -122,11 +134,10 @@ class AoE2Scenario:
                     generator_for_trail=file_generator,
                     log_debug_write=True
                 )
-                exit()
+                raise e
 
-        helper.cprint(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
+        helper.cprint(f"Reading scenario finished successfully", replace_line=True, last_replace_line=True)
 
-        exit()
         return scenario
 
     def add_to_pieces(self, piece):
