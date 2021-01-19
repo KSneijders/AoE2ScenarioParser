@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import List, Dict
 
+from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever import Retriever
 
 
@@ -19,6 +20,10 @@ class AoE2StructModel:
         structs = model_dict_from_structure(structure)
 
         return cls(name, retrievers, structs)
+
+    def __str__(self):
+        return_string = f"[AoE2StructModel] {self.name} -> retrievers: " + helper.pretty_print_list(self.retrievers)
+        return return_string
 
 
 def model_dict_from_structure(structure) -> Dict[AoE2StructModel]:
