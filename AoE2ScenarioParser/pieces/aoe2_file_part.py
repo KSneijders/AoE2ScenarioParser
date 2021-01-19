@@ -107,7 +107,7 @@ class AoE2FilePart:
     @classmethod
     def from_structure(cls, piece_name, structure):
         retrievers = []
-        for name, attr in structure.get('retrievers', {}).items():
+        for name, attr in structure.get('retrievers').items():
             retrievers.append(Retriever.from_structure(name, attr))
 
         structs = model_dict_from_structure(structure)

@@ -14,7 +14,7 @@ class AoE2StructModel:
     @classmethod
     def from_structure(cls, name, structure) -> AoE2StructModel:
         retrievers = []
-        for retriever_name, attr in structure.get('retrievers', {}).items():
+        for retriever_name, attr in structure.get('retrievers').items():
             retrievers.append(Retriever.from_structure(retriever_name, attr))
         structs = model_dict_from_structure(structure)
 
