@@ -2398,13 +2398,15 @@
         },
         "structs": {
             "AI2Struct": {
-                "ai_file_name":  {
-                    "type": "str32",
-                    "default": ""
-                },
-                "ai_file": {
-                    "type":  "str32",
-                    "default":  ""
+                "retrievers": {
+                    "ai_file_name": {
+                        "type": "str32",
+                        "default": ""
+                    },
+                    "ai_file": {
+                        "type": "str32",
+                        "default": ""
+                    }
                 }
             }
         }
