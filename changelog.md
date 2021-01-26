@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.17 - 2021-January-26
+
+**Support for the new update!**
+
+### Added
+
+- Support for the new version `1.41` (Version `1.40` is still supported)
+
+Please note that work on reading and versions is still being worked on.
+
+---
 ## 0.0.15 - 2020-December-18
 
 ### Added
