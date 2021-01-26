@@ -2,8 +2,11 @@ uncapped = [
     'if', 'a', 'is', 'by', 'of', 'the', 'to', 'per', 'in', 'an', 'for', 'and', 'from','does', 'not', 'also', 'have',
     'this', 'set', 'will'
 ]
+full_capped = [
+    'swgb', 'ptwc'
+]
 
-with open('../../../resources/personal_docs/ResourceAttributeDescriptionsV1.3.3.md', 'r') as file:
+with open('../../../resources/personal_docs/ResourceAttributeDescriptionsV1.4.1.md', 'r') as file:
     state = 0
     state_lines = []
     file = file.read()
@@ -51,10 +54,17 @@ with open('../../../resources/personal_docs/ResourceAttributeDescriptionsV1.3.3.
             # Boolean Allow Enemy Building Conversions by the Source Player:
             replaced_line = line.replace('_', ' ')
             edited_line = replaced_line.strip()[1:-1].split(' ')
-            capitalized_line = ' '.join(
-                [item.lower() if item.lower() in uncapped else item.capitalize() for item in edited_line]
-            )
-            state_lines.append(capitalized_line)
+            items = []
+            for item in edited_line:
+                lower_item = item.lower()
+                if lower_item in uncapped:
+                    items.append(item.lower())
+                elif lower_item in full_capped:
+                    items.append(item.upper())
+                else:
+                    items.append(item.capitalize())
+
+            state_lines.append(' '.join(items))
         elif line.strip()[:2] == '**':
             state = 1
 

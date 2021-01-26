@@ -139,7 +139,7 @@ class ObjectAttribute(IntEnum):
     TERRAIN_DEFENSE_BONUS = 18
     ENABLE_SMART_PROJECTILES = 19
     MINIMUM_RANGE = 20
-    ARNOUNT_OF_1ST_RESOURCES = 21
+    AMOUNT_OF_1ST_RESOURCES = 21
     BLAST_WIDTH = 22
     SEARCH_RADIUS = 23
     HERO_STATUS = 40
@@ -436,7 +436,7 @@ class Attribute(IntEnum):
 
     - 0: Normal Sheep Conversion Behaviour
     - >=1: if Another Player does not also have this set to a Non Zero Value, Their Sheep will Force Convert to Source 
-        Player
+      Player
     """
     OBJECT_COST_SUMMATION = 98
     """Total Cost of All Units and Buildings Owned by the Source Player"""
@@ -735,11 +735,11 @@ class Attribute(IntEnum):
     """Give 0.7925*value Stone per Second if a Monument is Owned by the Source Player"""
     GOLD_TRICKLE_FROM_MONUMENT = 224
     """Give 0.7925*value Gold per Second if a Monument is Owned by the Source Player"""
-    UNKNOWN_RESOURCE_225 = 225
-    """Unknown: Amount of the Source Player"""
+    RELIC_FOOD_PRODUCTION_RATE = 225
+    """Relic Food Production Rate of the Source Player"""
     VILLAGERS_KILLED_BY_GAIA = 226
     """Villagers Lost to Gaia by the Source Player"""
-    VILLAGERS_KILLED_BY_ANIMALS_INCLUDED_IN_GAIA = 227
+    VILLAGERS_KILLED_BY_ANIMALS = 227
     """Villagers Lost to Wild Animals by the Source Player"""
     VILLAGERS_KILLED_BY_AI_PLAYER = 228
     """Villagers Lost to Ais by the Source Player"""
@@ -753,3 +753,14 @@ class Attribute(IntEnum):
     """Stone Given per Minute to the Source Player"""
     GOLD_TRICKLE = 233
     """Gold Given per Minute to the Source Player"""
+    SPAWN_LIMIT = 234
+    """Number of buildings from which a tech with command type 7 (spawn) will spawn units"""
+    FLEMISH_MILITIA_POPULATION = 235
+    """Number of Flemish Militia of the Source Player"""
+    FARMING_GOLD_TRICKLE = 235
+    """
+    Farming Gold Generation Rate*0.01 of the Source Player:
+
+    - Burgundian Vineyards set this to 1.5 => 0.015g/s for One Farmer Continuously Farming.
+    - in Practise, Its Closer to 0.01g/s Factoring in Walking Times
+    """
