@@ -49,7 +49,8 @@ If you find a bug, please check if it's already been reported or maybe even fixe
 | ------------- | ------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.36          | :x:                | :x:                | -                                                                                                                                                                                                                                                                                                                                                                                                     |
 | 1.37          | :x:                | :x:                | Version since game update: [35584] (February 27th) <br> **Unchanged in**: <br> - Update [36202] (March 30th) <br> - Update [36906] (April 29th) <br> - Update [37650] (May 27th) <br> - Hotfix [37906] (June 2nd) <br> - Update [39284] (July 20th) <br> - Hotfix [39515] (July 27th) <br> - Update [40220] (August 24th) <br> - Update [40874] (September 22nd) <br> - Update [41855] (October 20th) |
-| 1.40          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [42848] (November 17th) <br> **Unchanged in**: <br> - Hotfix [43210] (November  24th)                                                                                                                                                                                                                                                                                      |
+| 1.40          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [42848] (November 17th) <br> **Unchanged in**: <br> - Hotfix [43210] (November  24th)                                                                                                                                                                                                                                                              |
+| 1.41          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [44725] (January 25th)                                                                                                                                                                                                                                                               |
 
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
@@ -64,6 +65,8 @@ If you find a bug, please check if it's already been reported or maybe even fixe
 [41855]: https://www.ageofempires.com/news/aoe2de-update-41855/
 [42848]: https://www.ageofempires.com/news/aoe2de-update-42848/
 [43210]: https://www.ageofempires.com/news/aoe2de-hotfix-43210/
+[44725]: https://www.ageofempires.com/news/aoeiide-update-44725/
+[//]: # (They had to change the URL... F)
 
 # Authors
 -  Kerwin Sneijders (Main Author)

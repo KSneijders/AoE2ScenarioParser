@@ -15,7 +15,15 @@ class MapPiece(aoe2_piece.AoE2Piece):
             "on_refresh": RetrieverDependency(
                 DependencyAction.SET_REPEAT,
                 DependencyTarget('FileHeaderPiece', 'version'),
-                DependencyEval('1 if x in [\'1.37\', \'1.40\'] else 0')
+                DependencyEval('1 if x in [\'1.37\', \'1.40\', \'1.41\'] else 0')
+            ),
+            "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
+        },
+        "block_humanity_team_change": {
+            "on_refresh": RetrieverDependency(
+                DependencyAction.SET_REPEAT,
+                DependencyTarget('FileHeaderPiece', 'version'),
+                DependencyEval('1 if x in [\'1.41\'] else 0')
             ),
             "on_construct": RetrieverDependency(DependencyAction.REFRESH_SELF)
         },
@@ -60,6 +68,8 @@ class MapPiece(aoe2_piece.AoE2Piece):
             Retriever('separator_3', DataType("2")),
             # [VERSION CHANGE] ADDED in 1.37 > 1.40
             Retriever('script_name', DataType("str16")),
+            # [VERSION CHANGE] ADDED in 1.40 > 1.41
+            Retriever('block_humanity_team_change', DataType("u8")),
             Retriever('collide_and_correct', DataType("u8")),
             # [VERSION CHANGE] ADDED in 1.36 > 1.37
             Retriever('villager_force_drop', DataType("u8")),
@@ -84,6 +94,7 @@ class MapPiece(aoe2_piece.AoE2Piece):
             'map_color_mood': 'Empty',
             'separator_3': b'`\n',
             'script_name': '',
+            'block_humanity_team_change': 0,
             'collide_and_correct': 0,
             'villager_force_drop': 0,
             'unknown': b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
