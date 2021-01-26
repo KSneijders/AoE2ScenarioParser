@@ -277,6 +277,8 @@ class AoE2Scenario:
                 lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
                 lgr.print()
             for key in self._parsed_data:
+                if key == "MapPiece":
+                    continue
                 lgr.print("\tWriting " + key + "...", replace_line=True)
                 result.append(self._parsed_data[key].get_byte_structure_as_string(pieces))
                 lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
