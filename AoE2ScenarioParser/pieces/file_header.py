@@ -45,7 +45,7 @@ class FileHeaderPiece(aoe2_piece.AoE2Piece):
     @staticmethod
     def defaults(pieces):
         defaults = {
-            'version': '1.40',
+            'version': '1.41',
             'header_length': 0,
             'savable': 6,
             'timestamp_of_last_save': int(time.time()),
