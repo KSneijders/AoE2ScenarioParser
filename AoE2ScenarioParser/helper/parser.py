@@ -107,14 +107,13 @@ class Parser:
         # TODO: REMOVE THIS AFTER TRUE VERSION SUPPORT
         if retriever.name == "version" and retriever.datatype.var == "c4":
             version = vorl(result, retriever)
-            if version not in ["1.40", "1.41"]:
+            if version != "1.40":
                 print("\n\n")
                 print('\n'.join([
                     "#### SORRY FOR THE INCONVENIENCE ####",
-                    f"Your current version is: '{version}'. ",
-                    f"The only supported versions currently are: '1.40' & '1.41'.",
-                    f"If this scenario has a version below '1.40', please continue reading below. If your version is "
-                    f"higher, I'm probably working on supporting it. Hopefully within a couple of days!",
+                    "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
+                    "supported at this time.",
+                    f"Your current version is: '{version}'. The currently only supported version is: '1.40'.",
                     "The reason for this is a huge rework for version support.",
                     "This rework will take some time to complete, so until then, please upgrade your scenario to the "
                     "newest version. You can do this by saving it again in the in-game editor.",
