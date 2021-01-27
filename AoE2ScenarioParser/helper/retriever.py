@@ -46,7 +46,13 @@ class Retriever:
         )
         # Go through dependencies if exist, else empty dict
         for dependency_name, properties in structure.get('dependencies', {}).items():
-            setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
+            if type(properties) is not list:
+                setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
+            else:
+                dependency_list = []
+                for dependency_struct in properties:
+                    dependency_list.append(RetrieverDependency.from_structure(dependency_struct))
+                setattr(retriever, dependency_name, dependency_list)
         return retriever
 
     @property
