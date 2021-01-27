@@ -69,6 +69,10 @@ def retrieve_bytes(generator, retriever) -> List[bytes]:
 
 def parse_bytes(retriever, bytes_list) -> Any:
     var_type, var_len = retriever.datatype.type_and_length
+
+    if retriever.datatype.repeat > 0 and len(bytes_list) == 0:
+        raise ValueError("Unable to parse bytes when no bytes are given")
+
     result = []
     val = None
 
