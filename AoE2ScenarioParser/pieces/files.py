@@ -36,7 +36,7 @@ class FilesPiece(AoE2FilePart):
                 ),
             ],
             "on_commit": RetrieverDependency(
-                DependencyAction.REFRESH, DependencyTarget("self", "number_of_ai_files")
+                DependencyAction.REFRESH, DependencyTarget("self", "ai_files_present")
             )
         },
         "ai_files": {
