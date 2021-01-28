@@ -1,5 +1,4 @@
 import json
-import time
 import zlib
 from collections import OrderedDict
 from typing import List, Type
@@ -7,7 +6,6 @@ from typing import List, Type
 from AoE2ScenarioParser.helper import generator, helper, parser
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
-from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
@@ -44,6 +42,7 @@ class AoE2Scenario:
         self.read_mode = None
         self.scenario_version = "<<Unknown>>"
         self.game_version = "<<Unknown>>"
+        self.structure = {}
         self.pieces = OrderedDict()
         self._object_manager = None
 
@@ -52,33 +51,9 @@ class AoE2Scenario:
         self._decompressed_file_data = None
         self._file = None
 
-    # @classmethod
-    # def from_file(cls, filename, log_reading=True, log_parsing=True):
-    #     scenario = cls()
-    #     scenario.read_mode = "from_file"
-    #
-    #     print("\nPreparing & Loading file: '" + filename + "'...")
-    #     scenario_file = open(filename, "rb")
-    #     scenario._file = scenario_file.read()
-    #     scenario_file.seek(0)  # Reset file cursor to 0
-    #
-    #     scenario._file_header = scenario_file.read(scenario._compute_header_length())
-    #     scenario._decompressed_file_data = zlib.decompress(scenario_file.read(), -zlib.MAX_WBITS)
-    #
-    #     scenario_file.close()
-    #     print("File prepared and loaded.")
-    #
-    #     scenario._read_file(log_reading=log_reading)
-    #     scenario._object_manager = AoE2ObjectManager(
-    #         scenario._parsed_header,
-    #         scenario._parsed_data,
-    #         log_parsing=log_parsing
-    #     )
-
     @classmethod
-    def from_file_poc(cls, filename, log_reading=True, log_parsing=True):
-        print(f"\nPreparing & Loading file: '{filename}'...")
-
+    def from_file_poc(cls, filename):
+        print(f"\nSelected file: '{filename}'")
         file_content = read_file(filename)
 
         scenario = cls()
@@ -87,161 +62,26 @@ class AoE2Scenario:
         scenario.scenario_version = get_file_version(file_content)
 
         # Log game and scenario version
-        print(f">>> Game version: {scenario.game_version}")
+        print("\n############### Attributes ###############")
+        print(f">>> Game version: '{scenario.game_version}'")
         print(f">>> Scenario version: {scenario.scenario_version}")
+        print("##########################################")
 
-        helper.cprint(f"Loading scenario structure...", replace_line=True)
-        try:
-            structure = get_structure_by_scenario(scenario)
-        except FileNotFoundError as e:  # Unsupported version
-            v = f"{scenario.game_version}:{scenario.scenario_version}"
-            raise UnknownScenarioStructure(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None
-        helper.cprint(f"Loading scenario structure finished successfully", replace_line=True, last_replace_line=True)
+        helper.rprint(f"\nLoading scenario structure...")
+        scenario.structure = get_structure_by_scenario(scenario)
+        helper.rprint(f"Loading scenario structure finished successfully.", final=True)
 
-        print(f"\n Reading scenario...")
-        helper.cprint("\tReading FileHeader...", replace_line=True)
-        # Read and init header
-        header = AoE2FilePart.from_structure('FileHeader', structure.get('FileHeader'))
-        scenario.add_to_pieces(header)
-        header.set_data_from_generator(generator.create_generator(file_content), scenario.pieces)
-        helper.cprint("\tReading FileHeader finished successfully", replace_line=True, last_replace_line=True)
-
-        # Todo: Refactor _debug_byte_structure_to_file so it works without these params
-        scenario._parsed_header = {"FileHeaderPiece": header}
-        scenario._parsed_data = scenario.pieces
-
-        # Decompressed the file (starting from where header ended)
-        decompressed_file_data = decompress_file_data(file_content, header.byte_length)
-
-        lgr = SimpleLogger(should_log=log_reading)
-
-        file_generator = generator.create_generator(decompressed_file_data)
-        for piece_name in structure.keys():
-            if piece_name == "FileHeader":
-                continue
-            try:
-                lgr.print("\tReading " + piece_name + "...", replace_line=True)
-                piece = AoE2FilePart.from_structure(piece_name, structure.get(piece_name))
-                scenario.add_to_pieces(piece)
-                piece.set_data_from_generator(file_generator, scenario.pieces)
-                lgr.print("\tReading " + piece_name + " finished successfully.",
-                          replace_line=True, last_replace_line=True)
-            except (ValueError, TypeError) as e:
-                print(f"\n[{e.__class__.__name__}] [EXIT] AoE2Scenario._read_file: \n\tPiece: {piece_name}\n")
-                print("Writing ErrorFile...")
-                scenario._debug_byte_structure_to_file(
-                    filename="../ErrorFile",
-                    generator_for_trail=file_generator,
-                    log_debug_write=True
-                )
-                raise e
-
-        helper.cprint(f"Reading scenario finished successfully", replace_line=True, last_replace_line=True)
+        scenario._parse(file_content)
 
         return scenario
 
     def add_to_pieces(self, piece):
         self.pieces[piece.name] = piece
 
-    @classmethod
-    def create_default(cls, log_creating=True, log_parsing=False):
-        scenario = cls()
-        scenario.read_mode = "create_default"
+    def write_to_file(self, filename, commit_on_write=True):
+        self._write_from_structure(filename, commit_on_write=commit_on_write)
 
-        lgr = SimpleLogger(log_creating)
-        lgr.print("\nFile creation started...")
-
-        scenario._parsed_header = OrderedDict()
-        scenario._parsed_data = OrderedDict()
-        pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
-
-        for piece in _header_structure:
-            piece_name = piece.__name__
-            lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_header[piece_name] = piece(data=list(piece.defaults(pieces).values()), pieces=pieces)
-            lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
-            lgr.print()
-        for piece in _file_structure:
-            pieces = OrderedDict(**scenario._parsed_header, **scenario._parsed_data)
-            piece_name = piece.__name__
-            lgr.print("\tCreating " + piece_name + "...", replace_line=True)
-            scenario._parsed_data[piece_name] = piece(
-                data=list(piece.defaults(pieces).values()),
-                pieces=pieces
-            )
-            lgr.print("\tCreating " + piece_name + " finished successfully.", replace_line=True)
-            lgr.print()
-        lgr.print("File creation finished successfully.")
-
-        scenario._object_manager = AoE2ObjectManager(scenario._parsed_header, scenario._parsed_data,
-                                                     log_parsing=log_parsing)
-        return scenario
-
-    def _read_file(self, log_reading):
-        lgr = SimpleLogger(log_reading)
-        lgr.print("\nFile reading started...")
-
-        self._parsed_header = OrderedDict()
-        self._parsed_data = OrderedDict()
-        header_generator = self._create_header_generator(1)
-        data_generator = self._create_data_generator(1)
-
-        current_piece = ""
-        try:
-            for piece_object in _header_structure:
-                # Rerender pieces dict each time - changes constantly
-                pieces = OrderedDict(**self._parsed_header, **self._parsed_data)
-                piece = piece_object()
-                piece_name = type(piece).__name__
-                self._parsed_header[piece_name] = piece
-                current_piece = piece_name
-
-                lgr.print("\tReading " + piece_name + "...", replace_line=True)
-                piece.set_data_from_generator(header_generator, pieces)
-                lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
-                lgr.print()
-
-            for piece_object in _file_structure:
-                # Rerender pieces dict each time - changes constantly
-                pieces = OrderedDict(**self._parsed_header, **self._parsed_data)
-                piece = piece_object()
-                piece_name = type(piece).__name__
-                self._parsed_data[piece_name] = piece
-                current_piece = piece_name
-
-                lgr.print("\tReading " + piece_name + "...", replace_line=True)
-                piece.set_data_from_generator(data_generator, pieces)
-                lgr.print("\tReading " + piece_name + " finished successfully.", replace_line=True)
-                lgr.print()
-        except Exception as e:
-            print(f"\n[{e.__class__.__name__}] [EXIT] AoE2Scenario._read_file: \n\tPiece: {current_piece}\n")
-            print("Writing ErrorFile...")
-            self._debug_byte_structure_to_file(
-                filename="../ErrorFile",
-                generator_for_trail=data_generator,
-                log_debug_write=True
-            )
-            time.sleep(1)
-            print("\nErrorFile written. \n\n\n ------------------------ STACK TRACE ------------------------\n\n")
-            time.sleep(1)
-            raise e
-        lgr.print("File reading finished successfully.")
-
-    def write_to_file(self, filename, commit_on_write=True, log_writing=True, log_reconstructing=True):
-        self._write_from_structure(
-            filename,
-            log_writing=log_writing,
-            log_reconstructing=log_reconstructing,
-            commit_on_write=commit_on_write,
-        )
-
-    def _write_from_structure(self,
-                              filename,
-                              write_in_bytes=True,
-                              compress=True,
-                              commit_on_write=True,
-                              log_writing=True,
-                              log_reconstructing=True):
+    def _write_from_structure(self, filename, write_in_bytes=True, compress=True, commit_on_write=True):
         if hasattr(self, '_object_manager') and commit_on_write:
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
         lgr = SimpleLogger(log_writing)
@@ -381,11 +221,48 @@ class AoE2Scenario:
             output_file.close()
         lgr.print("Writing structure to file finished successfully.")
 
+    def _parse(self, file_content):
+        helper.rprint("\nParsing scenario file...", final=True)
+
+        raw_file_generator = generator.create_generator(file_content)
+
+        header = self._parse_file_part('FileHeader')
+        header.set_data_from_generator(raw_file_generator, self.pieces)
+        self.add_to_pieces(header)
+
+        # Decompress the file (starting from where header ended)
+        decompressed_file_data = decompress_file_from(file_content, header.byte_length)
+
+        scenario_data_generator = generator.create_generator(decompressed_file_data)
+        for piece_name in self.structure.keys():
+            if piece_name == "FileHeader":
+                continue
+            try:
+                piece = self._parse_file_part(piece_name)
+                piece.set_data_from_generator(scenario_data_generator, self.pieces)
+                self.add_to_pieces(piece)
+            except (ValueError, TypeError) as e:
+                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
+                self.write_error_file(generator_for_trail=scenario_data_generator)
+                raise e
+
+        helper.rprint(f"Parsing scenario file finished successfully.", final=True)
+
+    def _parse_file_part(self, name):
+        helper.rprint("\tParsing " + name + "...")
+        piece = AoE2FilePart.from_structure(name, self.structure.get(name))
+        helper.rprint("\tParsing " + name + " finished successfully.", final=True)
+        return piece
+
+    def write_error_file(self, filename="error_file", generator_for_trail=None):
+        self._debug_byte_structure_to_file(filename=filename, generator_for_trail=generator_for_trail)
+
 
 def read_file(filename):
-    scenario_file = open(filename, "rb")
-    file_content = scenario_file.read()
-    scenario_file.close()
+    helper.rprint("Reading scenario file...")
+    with open(filename, "rb") as f:
+        file_content = f.read()
+    helper.rprint("Reading scenario file finished successfully.", final=True)
     return file_content
 
 
@@ -393,14 +270,22 @@ def get_file_version(file_content):
     return file_content[:4].decode('ASCII')
 
 
-def decompress_file_data(file_content, header_length):
+def decompress_file_from(file_content, header_length):
     return zlib.decompress(file_content[header_length:], -zlib.MAX_WBITS)
 
 
-def get_structure_by_scenario(scenario: AoE2Scenario) -> dict:
-    structure = json.loads(
-        open(f"versions/{scenario.game_version}/v{scenario.scenario_version}/structure.json", 'r').read()
-    )
+def get_structure_by_scenario(scenario: AoE2Scenario):
+    return get_structure(scenario.game_version, scenario.scenario_version)
+
+
+def get_structure(game_version, scenario_version) -> dict:
+    try:
+        structure_file = open(f"versions/{game_version}/v{scenario_version}/structure.json", 'r')
+    except FileNotFoundError:  # Unsupported version
+        v = f"{game_version}:{scenario_version}"
+        raise UnknownScenarioStructure(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None
+
+    structure = json.loads(structure_file.read())
 
     if "FileHeader" not in structure.keys():
         raise InvalidScenarioStructure(f"First piece in structure should always be FileHeader.")
