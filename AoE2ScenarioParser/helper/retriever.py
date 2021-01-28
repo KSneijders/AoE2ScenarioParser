@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import List, Union, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper, parser
+from AoE2ScenarioParser.helper.bytes_to_x import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.datatype import DataType
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
+from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
@@ -35,6 +36,20 @@ class Retriever:
         self.log_value = log_value
         self._data = None
 
+    def duplicate(self):
+        retriever = Retriever(
+            self.name,
+            self.datatype.duplicate(),
+            potential_list=self.potential_list,
+            log_value=self.log_value
+        )
+        for attr in parser.attributes:
+            try:
+                setattr(retriever, attr, getattr(self, attr))
+            except AttributeError:
+                continue
+        return retriever
+
     @classmethod
     def from_structure(cls, name, structure):
         datatype = DataType(var=structure.get('type'), repeat=structure.get('repeat', 1))
@@ -55,15 +70,40 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
+    def get_data_as_bytes(self):
+        self.update_datatype_repeat()
+
+        result = []
+        for value in parser.listify(self.data):
+            result.append(parse_val_to_bytes(self, value))
+        return b''.join(result)
+
+    def set_data_from_bytes(self, bytes_list):
+        if self.datatype.repeat > 0 and len(bytes_list) == 0:
+            raise ValueError("Unable to set bytes when no bytes are given")
+        if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
+            raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
+
+        result = []
+        for entry_bytes in bytes_list:
+            result.append(parse_bytes_to_val(self.datatype, entry_bytes))
+        self.data = parser.vorl(self, result)
+
+    def update_datatype_repeat(self):
+        is_list = type(self.data) == list
+        if is_list:
+            self.datatype.repeat = len(self.data)
+
     @property
     def data(self):
         return self._data
 
     @data.setter
     def data(self, value):
-        old_value = ""
-        if hasattr(self, 'data'):
+        try:
             old_value = self.data
+        except AttributeError:
+            old_value = ""
         self._data = value
         if self.log_value:
             self._update_print(old_value, value)
@@ -88,6 +128,10 @@ class Retriever:
         else:
             data = helper.q_str(self.data)
         return f"{self.to_simple_string()} >>> {data}"
+
+
+def copy_retriever_list(retriever_list):
+    return [r.duplicate() for r in retriever_list]
 
 
 def get_retriever_by_name(retriever_list: List[Union[Retriever, RetrieverObjectLink]], name: str) \

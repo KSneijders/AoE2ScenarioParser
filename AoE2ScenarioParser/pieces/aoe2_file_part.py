@@ -6,7 +6,7 @@ from enum import Enum
 from typing import Dict, List
 
 from AoE2ScenarioParser.helper import parser, helper
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever
+from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever, copy_retriever_list
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
@@ -99,7 +99,7 @@ class AoE2FilePart:
         # https://stackoverflow.com/a/29385667/7230293
         return cls(
             name=model.name,
-            retrievers=pickle.loads(pickle.dumps(model.retrievers, -1)),
+            retrievers=copy_retriever_list(model.retrievers),
             struct_models=model.structs,
             level=PieceLevel.STRUCT
         )
@@ -118,6 +118,16 @@ class AoE2FilePart:
         part = cls(name, retrievers)
         part.set_data(data, pieces)
         return part
+
+    def get_data_as_bytes(self):
+        result = []
+        for retriever in self.retrievers:
+            if retriever.datatype.type == "struct":
+                for struct in retriever.data:
+                    result.append(struct.get_data_as_bytes())
+            else:
+                result.append(retriever.get_data_as_bytes())
+        return b''.join(result)
 
     def set_data_from_generator(self, generator, pieces) -> None:
         """
@@ -148,7 +158,7 @@ class AoE2FilePart:
                         total_length += struct.byte_length
                 else:
                     retrieved_bytes = parser.retrieve_bytes(generator, retriever)
-                    retriever.data = parser.parse_bytes(retriever, retrieved_bytes)
+                    retriever.set_data_from_bytes(retrieved_bytes)
 
                     total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
             except (TypeError, ValueError) as e:

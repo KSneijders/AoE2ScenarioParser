@@ -3,7 +3,7 @@ import zlib
 from collections import OrderedDict
 from typing import List, Type
 
-from AoE2ScenarioParser.helper import generator, helper, parser
+from AoE2ScenarioParser.helper import generators, helper, parser
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
 from AoE2ScenarioParser.objects.map_obj import MapObject
@@ -71,17 +71,78 @@ class AoE2Scenario:
         scenario.structure = get_structure_by_scenario(scenario)
         helper.rprint(f"Loading scenario structure finished successfully.", final=True)
 
-        scenario._parse(file_content)
+        scenario._initialise(file_content)
 
         return scenario
 
     def add_to_pieces(self, piece):
         self.pieces[piece.name] = piece
 
-    def write_to_file(self, filename, commit_on_write=True):
-        self._write_from_structure(filename, commit_on_write=commit_on_write)
+    def write_to_file(self, filename):
+        helper.rprint("\nFile writing from structure started...", final=True)
+        self._write_from_structure(filename)
+        helper.rprint("File writing finished successfully.", final=True)
 
-    def _write_from_structure(self, filename, write_in_bytes=True, compress=True, commit_on_write=True):
+    def _write_from_structure(self, filename):
+        binary = self._get_file_part_data(self.pieces.get('FileHeader'))
+
+        binary_list_to_be_compressed = []
+        for file_part in self.pieces.values():
+            if file_part.name == "FileHeader":
+                continue
+            binary_list_to_be_compressed.append(self._get_file_part_data(file_part))
+        binary += compress_bytes(b''.join(binary_list_to_be_compressed))
+
+        file = open(filename, "wb")
+        file.write(binary)
+        file.close()
+
+    def _get_file_part_data(self, file_part):
+        helper.rprint(f"\t🔄 Reconstructing {file_part.name}...")
+        value = file_part.get_data_as_bytes()
+        helper.rprint(f"\t✔ {file_part.name}", final=True)
+        return value
+
+    def _initialise_file_part(self, name, generator):
+        helper.rprint(f"\t🔄 Parsing {name}...")
+        piece = self._parse_file_part(name)
+        helper.rprint(f"\t🔄 Setting {name} data...")
+        piece.set_data_from_generator(generator, self.pieces)
+        helper.rprint(f"\t✔ {name}", final=True)
+        return piece
+
+    def _initialise(self, file_content):
+        helper.rprint("Parsing scenario file...", final=True)
+
+        raw_file_generator = generators.create_generator(file_content)
+
+        header = self._initialise_file_part('FileHeader', raw_file_generator)
+        self.add_to_pieces(header)
+
+        # Decompress the file (starting from where header ended)
+        decompressed_file_data = decompress_bytes(file_content[header.byte_length:])
+
+        scenario_data_generator = generators.create_generator(decompressed_file_data)
+        for piece_name in self.structure.keys():
+            if piece_name == "FileHeader":
+                continue
+            try:
+                piece = self._initialise_file_part(piece_name, scenario_data_generator)
+                self.add_to_pieces(piece)
+            except (ValueError, TypeError) as e:
+                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
+                self.write_error_file(generator_for_trail=scenario_data_generator)
+                raise e
+
+        helper.rprint(f"Parsing scenario file finished successfully.", final=True)
+
+    def _parse_file_part(self, name):
+        return AoE2FilePart.from_structure(name, self.structure.get(name))
+
+    def write_error_file(self, filename="error_file", generator_for_trail=None):
+        self._debug_byte_structure_to_file(filename=filename, generator_for_trail=generator_for_trail)
+
+    def ___write_from_structure(self, filename, write_in_bytes=True, compress=True, commit_on_write=True):
         if hasattr(self, '_object_manager') and commit_on_write:
             self._object_manager.reconstruct(log_reconstructing=log_reconstructing)
         lgr = SimpleLogger(log_writing)
@@ -188,7 +249,7 @@ class AoE2Scenario:
                     trail = b''
                     i = 0
                     while i != trail_length:
-                        trail += generator.repeat_generator(
+                        trail += generators.repeat_generator(
                             generator=generator_for_trail,
                             run_times=1,
                             intended_stop_iteration=True,
@@ -212,42 +273,6 @@ class AoE2Scenario:
             output_file.close()
         lgr.print("Writing structure to file finished successfully.")
 
-    def _parse(self, file_content):
-        helper.rprint("Parsing scenario file...", final=True)
-
-        raw_file_generator = generator.create_generator(file_content)
-
-        header = self._parse_file_part('FileHeader')
-        header.set_data_from_generator(raw_file_generator, self.pieces)
-        self.add_to_pieces(header)
-
-        # Decompress the file (starting from where header ended)
-        decompressed_file_data = decompress_bytes(file_content[header.byte_length:])
-
-        scenario_data_generator = generator.create_generator(decompressed_file_data)
-        for piece_name in self.structure.keys():
-            if piece_name == "FileHeader":
-                continue
-            try:
-                piece = self._parse_file_part(piece_name)
-                piece.set_data_from_generator(scenario_data_generator, self.pieces)
-                self.add_to_pieces(piece)
-            except (ValueError, TypeError) as e:
-                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
-                self.write_error_file(generator_for_trail=scenario_data_generator)
-                raise e
-
-        helper.rprint(f"Parsing scenario file finished successfully.", final=True)
-
-    def _parse_file_part(self, name):
-        helper.rprint("\tParsing " + name + "...")
-        piece = AoE2FilePart.from_structure(name, self.structure.get(name))
-        helper.rprint("\tParsing " + name + " finished successfully.", final=True)
-        return piece
-
-    def write_error_file(self, filename="error_file", generator_for_trail=None):
-        self._debug_byte_structure_to_file(filename=filename, generator_for_trail=generator_for_trail)
-
 
 def read_file(filename):
     helper.rprint("Reading scenario file...")
@@ -261,8 +286,15 @@ def get_file_version(file_content):
     return file_content[:4].decode('ASCII')
 
 
-def decompress_file_from(file_content, header_length):
-    return zlib.decompress(file_content[header_length:], -zlib.MAX_WBITS)
+def decompress_bytes(file_content):
+    return zlib.decompress(file_content, -zlib.MAX_WBITS)
+
+
+def compress_bytes(file_content):
+    # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
+    deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
+    compressed = deflate_obj.compress(file_content) + deflate_obj.flush()
+    return compressed
 
 
 def get_structure_by_scenario(scenario: AoE2Scenario):

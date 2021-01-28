@@ -5,7 +5,7 @@ from typing import Any, List, TYPE_CHECKING
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_to_x import *
-from AoE2ScenarioParser.helper.generator import repeat_generator
+from AoE2ScenarioParser.helper.generators import repeat_generator
 from AoE2ScenarioParser.helper.helper import listify
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
@@ -14,17 +14,18 @@ from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
-# Todo: Rework this piece of crap
-def vorl(var: Any, retriever: Retriever):
-    """vorl stands for "Variable or List". This function returns the value if the list is a size of 1"""
-    if Retriever is not None and retriever.potential_list:
-        dependencies = []
+def vorl(retriever: Retriever, var):
+    """VorL: "Variable or List". This function returns the value based on retriever configurations"""
+    if retriever.potential_list:
+        if retriever.datatype.repeat != 1:
+            return listify(var)
         for attribute in attributes:
             if hasattr(retriever, attribute):
-                dependencies += listify(getattr(retriever, attribute))
-                if retriever.datatype.repeat != 1 or \
-                        DependencyAction.SET_REPEAT in [x.dependency_type for x in dependencies]:
-                    return listify(var)
+                for x in listify(getattr(retriever, attribute)):
+                    if x.dependency_type == DependencyAction.SET_REPEAT:
+                        return listify(var)
+
+    # Fallback to length check
     if type(var) is list:
         if len(var) == 1:
             return var[0]
@@ -67,10 +68,10 @@ def retrieve_bytes(generator, retriever) -> List[bytes]:
     return retrieved_bytes
 
 
-def parse_bytes(retriever, bytes_list) -> Any:
-    var_type, var_len = retriever.datatype.type_and_length
+def parse_bytes(datatype, bytes_list) -> Any:
+    var_type, var_len = datatype.type_and_length
 
-    if retriever.datatype.repeat > 0 and len(bytes_list) == 0:
+    if datatype.repeat > 0 and len(bytes_list) == 0:
         raise ValueError("Unable to parse bytes when no bytes are given")
 
     result = []
@@ -91,7 +92,7 @@ def parse_bytes(retriever, bytes_list) -> Any:
         elif var_type == "str":
             val = bytes_to_str(entry_bytes[var_len:])
         result.append(val)
-    return vorl(result, retriever)
+    return result
 
 
 def is_end_of_file_mark(retriever) -> bool:
@@ -182,12 +183,15 @@ def handle_dependency_eval(retriever_on_x, value):
 
 
 def retriever_to_bytes(retriever, pieces):
+    retriever.update_datatype_repeat()
     var_type, var_len = retriever.datatype.type_and_length
-    return_bytes = b''
+    binary_list = []
 
-    is_list = type(retriever.data) == list
-    if is_list:
-        retriever.datatype.repeat = len(retriever.data)
+    for data in listify(retriever.data):
+        if data is None:  # No data is found in struct. Reasoning described below
+            return None
+        print(data)
+        exit()
 
     try:
         for i in range(0, retriever.datatype.repeat):

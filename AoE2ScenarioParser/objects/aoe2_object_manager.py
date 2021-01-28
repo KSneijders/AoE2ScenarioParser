@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import OrderedDict
 
-from AoE2ScenarioParser.helper import generator
+from AoE2ScenarioParser.helper import generators
 from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.data_header_obj import DataHeaderObject
@@ -76,13 +76,13 @@ class AoE2ObjectManager:
         ppnd_techs = get_retriever_by_name(object_piece.retrievers, "Per player number of disabled techs").data
         ppnd_units = get_retriever_by_name(object_piece.retrievers, "Per player number of disabled units").data
         ppnd_buildings = get_retriever_by_name(object_piece.retrievers, "Per player number of disabled buildings").data
-        disabled_techs = generator.create_advanced_generator(
+        disabled_techs = generators.create_advanced_generator(
             get_retriever_by_name(object_piece.retrievers, "Disabled technology IDs in player order").data, 1
         )
-        disabled_units = generator.create_advanced_generator(
+        disabled_units = generators.create_advanced_generator(
             get_retriever_by_name(object_piece.retrievers, "Disabled unit IDs in player order").data, 1
         )
-        disabled_buildings = generator.create_advanced_generator(
+        disabled_buildings = generators.create_advanced_generator(
             get_retriever_by_name(object_piece.retrievers, "Disabled building IDs in player order").data, 1
         )
 
@@ -91,11 +91,11 @@ class AoE2ObjectManager:
             nd_techs = ppnd_techs[player_id]
             nd_units = ppnd_units[player_id]
             nd_buildings = ppnd_buildings[player_id]
-            player_disabled_techs = generator.repeat_generator(
+            player_disabled_techs = generators.repeat_generator(
                 disabled_techs, nd_techs, return_bytes=False)
-            player_disabled_units = generator.repeat_generator(
+            player_disabled_units = generators.repeat_generator(
                 disabled_units, nd_units, return_bytes=False)
-            player_disabled_buildings = generator.repeat_generator(
+            player_disabled_buildings = generators.repeat_generator(
                 disabled_buildings, nd_buildings, return_bytes=False)
 
             disables.append({
