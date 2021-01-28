@@ -202,34 +202,33 @@ class SimpleLogger:
     def __init__(self, should_log):
         self.should_log = should_log
 
-    def print(self, string="", end="\n", replace_line=False, last_replace_line=False):
+    def print(self, string="", replace=False, cancel_next=False):
         if self.should_log:
-            cprint(string, end, replace_line, last_replace_line)
+            rprint(string, replace, cancel_next)
 
     def __repr__(self):
         return f"SimpleLogger[should_log: {self.should_log}]"
 
 
-def cprint(string="", end="\n", replace_line=False, last_replace_line=False) -> None:
+def rprint(string="", replace=True, final=False) -> None:
     """
-    Controlled print, print with more options
+    Replaceable print, print lines which can be overwritten by the next
 
     Args:
         string (str): The string to print -> print(str)
-        end (str): The line ending -> print(..., end=end)
-        replace_line (bool): If this line should be replaced by the next if the next also has replace_line=True
-        last_replace_line (bool): If true, the next print is not able to replace this line. Used when this line replaces
-            another line but should not be replaced by the next replace_line=True.
+        replace (bool): If this line should be replaced by the next if the next also has replace=True
+        final (bool): If true, the next print is not able to replace this line. Used when this line replaces
+            another line but should not be replaced by the next replace=True.
 
     Returns:
         None
     """
-    if not replace_line:
-        print(string, end=end)
-    else:
+    if replace:
         sys.stdout.write('\r' + string)
-        if last_replace_line:
+        if final:
             print()
+    else:
+        print(string)
 
 
 class Tile:

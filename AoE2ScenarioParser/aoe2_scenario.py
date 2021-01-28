@@ -252,14 +252,14 @@ class AoE2Scenario:
         byte_header_list = []
         byte_data_list = []
         for key in self._parsed_header:
-            lgr.print("\twriting " + key + "...", replace_line=True)
+            lgr.print("\twriting " + key + "...", replace=True)
             for retriever in self._parsed_header[key].retrievers:
                 byte_header_list.append(parser.retriever_to_bytes(retriever, pieces))
-            lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
+            lgr.print("\twriting " + key + " finished successfully.", replace=True)
             lgr.print()
 
         for key in self._parsed_data:
-            lgr.print("\twriting " + key + "...", replace_line=True)
+            lgr.print("\twriting " + key + "...", replace=True)
             for retriever in self._parsed_data[key].retrievers:
                 try:
                     byte_data_list.append(parser.retriever_to_bytes(retriever, pieces))
@@ -267,7 +267,7 @@ class AoE2Scenario:
                     print("AttributeError occurred while writing '" + key + "' > '" + retriever.name + "'")
                     print("\n\n\nAn error occurred. Writing failed.")
                     raise e
-            lgr.print("\twriting " + key + " finished successfully.", replace_line=True)
+            lgr.print("\twriting " + key + " finished successfully.", replace=True)
             lgr.print()
 
         file = open(filename, "wb" if write_in_bytes else "w")
@@ -277,12 +277,12 @@ class AoE2Scenario:
 
         file.write(byte_header if write_in_bytes else create_textual_hex(byte_header.hex()))
         if compress:
-            lgr.print("\tCompressing...", replace_line=True)
+            lgr.print("\tCompressing...", replace=True)
             # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
             deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
             compressed = deflate_obj.compress(b''.join(byte_data_list)) + deflate_obj.flush()
             file.write(compressed if write_in_bytes else create_textual_hex(compressed.hex()))
-            lgr.print("\tCompressing finished successfully.", replace_line=True)
+            lgr.print("\tCompressing finished successfully.", replace=True)
             lgr.print()
         else:
             file.write(byte_data if write_in_bytes else create_textual_hex(byte_data.hex()))
@@ -338,20 +338,20 @@ class AoE2Scenario:
         with open(filename, 'w', encoding="utf-8") as output_file:
             result = []
             for key in self._parsed_header:
-                lgr.print("\tWriting " + key + "...", replace_line=True)
+                lgr.print("\tWriting " + key + "...", replace=True)
                 result.append(self._parsed_header[key].get_byte_structure_as_string(pieces))
-                lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
+                lgr.print("\tWriting " + key + " finished successfully.", replace=True)
                 lgr.print()
             for key in self._parsed_data:
                 if key == "MapPiece":
                     continue
-                lgr.print("\tWriting " + key + "...", replace_line=True)
+                lgr.print("\tWriting " + key + "...", replace=True)
                 result.append(self._parsed_data[key].get_byte_structure_as_string(pieces))
-                lgr.print("\tWriting " + key + " finished successfully.", replace_line=True)
+                lgr.print("\tWriting " + key + " finished successfully.", replace=True)
                 lgr.print()
 
             if generator_for_trail is not None:
-                lgr.print("\tWriting trail...", replace_line=True)
+                lgr.print("\tWriting trail...", replace=True)
                 trail_length = -1  # -1 == inf
                 try:
                     trail = b''
@@ -374,7 +374,7 @@ class AoE2Scenario:
                     trail_length = i
                 result.append(f"\n\n{'#' * 27} TRAIL ({i}/{trail_length})\n\n")
                 result.append(helper.create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
-                lgr.print("\tWriting trail finished successfully.", replace_line=True)
+                lgr.print("\tWriting trail finished successfully.", replace=True)
                 lgr.print()
 
             output_file.write(''.join(result))

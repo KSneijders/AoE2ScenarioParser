@@ -35,9 +35,9 @@ class AoE2ObjectManager:
         self.objects = {}
 
         for obj in self.constructables:
-            lgr.print("\tParsing " + obj.__name__ + "...", replace_line=True)
+            lgr.print("\tParsing " + obj.__name__ + "...", replace=True)
             self.objects[obj.__name__] = obj._construct(self.pieces)
-            lgr.print("\tParsing " + obj.__name__ + " finished successfully.", replace_line=True)
+            lgr.print("\tParsing " + obj.__name__ + " finished successfully.", replace=True)
             lgr.print()
 
         lgr.print("Parsing pieces and structs to objects finished successfully.")
@@ -59,9 +59,9 @@ class AoE2ObjectManager:
         lgr.print("\nReconstructing pieces and structs from objects...")
 
         for obj in self.constructables:
-            lgr.print("\tReconstructing " + obj.__name__ + "...", replace_line=True)
+            lgr.print("\tReconstructing " + obj.__name__ + "...", replace=True)
             self.objects[obj.__name__].commit(pieces=self.pieces)
-            lgr.print("\tReconstructing " + obj.__name__ + " finished successfully.", replace_line=True)
+            lgr.print("\tReconstructing " + obj.__name__ + " finished successfully.", replace=True)
             lgr.print()
 
         lgr.print("Reconstruction finished successfully.")
