@@ -43,7 +43,7 @@ class AoE2Scenario:
         self.scenario_version = "<<Unknown>>"
         self.game_version = "<<Unknown>>"
         self.structure = {}
-        self.pieces = OrderedDict()
+        self.pieces: OrderedDict[str, AoE2FilePart] = OrderedDict()
         self._object_manager = None
 
         # Used in debug functions
@@ -130,15 +130,6 @@ class AoE2Scenario:
         file.close()
         lgr.print("File writing finished successfully.")
 
-    def _create_header_generator(self, chunk_size):
-        return generator.create_advanced_generator(self._file_header, chunk_size)
-
-    def _create_data_generator(self, chunk_size):
-        return generator.create_advanced_generator(self._decompressed_file_data, chunk_size)
-
-    def _create_file_generator(self, chunk_size):
-        return generator.create_advanced_generator(self._file, chunk_size)
-
     """ #############################################
     ################ Debug functions ################
     ############################################# """
@@ -222,7 +213,7 @@ class AoE2Scenario:
         lgr.print("Writing structure to file finished successfully.")
 
     def _parse(self, file_content):
-        helper.rprint("\nParsing scenario file...", final=True)
+        helper.rprint("Parsing scenario file...", final=True)
 
         raw_file_generator = generator.create_generator(file_content)
 
@@ -231,7 +222,7 @@ class AoE2Scenario:
         self.add_to_pieces(header)
 
         # Decompress the file (starting from where header ended)
-        decompressed_file_data = decompress_file_from(file_content, header.byte_length)
+        decompressed_file_data = decompress_bytes(file_content[header.byte_length:])
 
         scenario_data_generator = generator.create_generator(decompressed_file_data)
         for piece_name in self.structure.keys():

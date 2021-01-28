@@ -111,8 +111,7 @@ class AoE2FilePart:
             retrievers.append(Retriever.from_structure(name, attr))
 
         structs = model_dict_from_structure(structure)
-        inst = cls(piece_name, retrievers, structs)
-        return inst
+        return cls(piece_name, retrievers, structs)
 
     @classmethod
     def from_data(cls, name, retrievers, data, pieces):
