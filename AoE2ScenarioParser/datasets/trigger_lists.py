@@ -850,3 +850,37 @@ class ObjectClass(IntEnum):
     MISC_BUILDING = 60
     CONTROLLED_ANIMAL = 61
 
+
+class TerrainRestrictions(IntEnum):
+    ALL = 0
+    LAND_SHALLOWS = 1
+    BEACH = 2
+    WATER = 3
+    LAND = 4
+    NOTHING = 5
+    # WATER = 6
+    ALL_WATER = 7
+    LAND_FARM = 8
+    # NOTHING = 9
+    LAND_BEACH = 10
+    # LAND_FARM = 11
+    ALL_WATER_BRIDGE = 12
+    # WATER = 13
+    # ALL_WATER_BRIDGE = 14
+    # WATER = 15
+    GRASS_BEACH = 16
+    WATER_BRIDGE_BEACH = 17
+    # ALL_WATER_BRIDGE = 18
+    ONLY_WATER_ICE = 19
+    # ALL_WATER = 20
+    SHALLOW_WATER = 21
+    TABLE = 22
+    # TABLE = 23
+    # TABLE = 24
+    # TABLE = 25
+    # TABLE = 26
+    # TABLE = 27
+    # TABLE = 28
+    # TABLE = 29
+    # TABLE = 30
+
