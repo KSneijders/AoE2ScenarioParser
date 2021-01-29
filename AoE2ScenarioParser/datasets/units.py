@@ -234,6 +234,19 @@ class Unit(IntEnum):
     ELITE_GENITOUR_ORIGINAL = 596
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
 
+    # Lords of the West - DLC Units
+    COUSTILLIER = 1655
+    ELITE_COUSTILLIER = 1657
+    FLEMISH_MILITIA = 1699
+    FLEMISH_MILITIA_M = 1667
+    """Refers to the Flemish militia after being converted from a male villager"""
+    FLEMISH_MILITIA_F = 1697
+    """Refers to the Flemish militia after being converted from a female villager"""
+    SERJEANT = 1658
+    ELITE_SERJEANT = 1659
+    SERJEANT_DONJON = 1660
+    ELITE_SERJEANT_DONJON = 1661
+
 
 class GaiaUnit(IntEnum):
     # GAIA Units
@@ -501,6 +514,19 @@ class GaiaUnit(IntEnum):
     ELITE_GENITOUR_ORIGINAL = 596
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
 
+    # Lords of the West - DLC Units
+    COUSTILLIER = 1655
+    ELITE_COUSTILLIER = 1657
+    FLEMISH_MILITIA = 1699
+    FLEMISH_MILITIA_M = 1667
+    """Refers to the Flemish militia after being converted from a male villager"""
+    FLEMISH_MILITIA_F = 1697
+    """Refers to the Flemish militia after being converted from a female villager"""
+    SERJEANT = 1658
+    ELITE_SERJEANT = 1659
+    SERJEANT_DONJON = 1660
+    ELITE_SERJEANT_DONJON = 1661
+
 
 unit_names = bidict({
     0: "moveable_map_revealer",
@@ -754,4 +780,15 @@ unit_names = bidict({
     1608: "butterfly1",
     1609: "butterfly2",
     1610: "butterfly3",
+
+    # Lords of the West - DLC Units
+    1655: "coustillier",
+    1657: "elite_coustillier",
+    1699: "flemish_militia",
+    1667: "flemish_militia_m",
+    1697: "flemish_militia_f",
+    1658: "serjeant",
+    1659: "elite_serjeant",
+    1660: "serjeant_donjon",
+    1661: "elite_serjeant_donjon",
 })

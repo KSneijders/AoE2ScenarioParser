@@ -276,6 +276,14 @@ class Tech(IntEnum):
     YEOMEN = 3
     ZEALOTRY = 9
 
+    # Lords of the West - DLC Techs
+    SICILIANS = 749
+    BURGUNDIANS = 748
+    BURGUNDIAN_VINEYARDS = 754
+    FELMISH_REVOLUTION = 755
+    FIRST_CRUSADE = 756
+    SCUTAGE = 757
+
 
 tech_names = bidict({
     2: "elite_tarkan",
@@ -549,4 +557,12 @@ tech_names = bidict({
     692: "tower_shields",
     715: "elite_steppe_lancer",
     716: "supplies",
+
+    # Lords of the West - DLC Techs
+    749: "sicilians",
+    748: "burgundians",
+    754: "burgundian_vineyards",
+    755: "felmish_revolution",
+    756: "first_crusade",
+    757: "scutage",
 })

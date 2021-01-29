@@ -150,6 +150,9 @@ class Building(IntEnum):
     YURT_G = 718
     YURT_H = 719
 
+    # Lords of the West - DLC Buildings
+    DONJON = 1665
+
 
 class GaiaBuilding(IntEnum):
     # Gaia Buildings
@@ -302,6 +305,9 @@ class GaiaBuilding(IntEnum):
     YURT_G = 718
     YURT_H = 719
 
+    # Lords of the West - DLC Buildings
+    DONJON = 1665
+
 
 building_names = bidict({
     12: "barracks",
@@ -452,4 +458,7 @@ building_names = bidict({
 
     # Gaia Buildings
     345: "ruins",
+
+    # Lords of the West - DLC Buildings
+    1665: "donjon"
 })
