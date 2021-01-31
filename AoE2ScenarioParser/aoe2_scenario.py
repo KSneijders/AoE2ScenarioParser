@@ -40,8 +40,8 @@ class AoE2Scenario:
 
     def __init__(self):
         self.read_mode = None
-        self.scenario_version = "<<Unknown>>"
-        self.game_version = "<<Unknown>>"
+        self.scenario_version = "???"
+        self.game_version = "???"
         self.structure = {}
         self.pieces: OrderedDict[str, AoE2FilePart] = OrderedDict()
         self._object_manager = None
@@ -77,6 +77,11 @@ class AoE2Scenario:
 
     def add_to_pieces(self, piece):
         self.pieces[piece.name] = piece
+
+    def load_structure(self):
+        if self.game_version == "???" or self.scenario_version == "???":
+            raise ValueError("Both game and scenario version need to be set to load structure")
+        return get_structure(self.game_version, self.scenario_version)
 
     def _initialise(self, file_content):
         helper.rprint("Parsing scenario file...", final=True)
@@ -253,10 +258,6 @@ def compress_bytes(file_content):
     deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
     compressed = deflate_obj.compress(file_content) + deflate_obj.flush()
     return compressed
-
-
-def get_structure_by_scenario(scenario: AoE2Scenario):
-    return get_structure(scenario.game_version, scenario.scenario_version)
 
 
 def get_structure(game_version, scenario_version) -> dict:
