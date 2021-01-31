@@ -1,7 +1,5 @@
-# Parser
-
 import time
-from typing import Any, List, TYPE_CHECKING
+from typing import Any, List
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_to_x import *
@@ -9,7 +7,6 @@ from AoE2ScenarioParser.helper.generators import repeat_generator
 from AoE2ScenarioParser.helper.helper import listify
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
-from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
@@ -180,68 +177,6 @@ def handle_dependency_eval(retriever_on_x, value):
     for i in range(len(attribute_names)):
         eval_locals[attribute_names[i]] = value[i]
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
-
-
-def retriever_to_bytes(retriever, pieces):
-    retriever.update_datatype_repeat()
-    var_type, var_len = retriever.datatype.type_and_length
-    binary_list = []
-
-    for data in listify(retriever.data):
-        if data is None:  # No data is found in struct. Reasoning described below
-            return None
-        print(data)
-        exit()
-
-    try:
-        for i in range(0, retriever.datatype.repeat):
-            data = retriever.data[i] if is_list else retriever.data
-
-            if data is None:
-                # No data is found in struct. Reasoning described below.
-                return None
-
-            if var_type == "struct":
-                for struct_retriever in data.retrievers:
-                    result = retriever_to_bytes(struct_retriever, pieces)
-                    if result is None:
-                        # Return default value. When non is committed.
-                        # Should only happen when a value is not transferred from and to a struct.
-                        # This is because structs are recreated on file generation. When the struct does not contain
-                        # a certain value because it's use is unknown, the value isn't transferred between.
-                        struct_retriever.data = retriever.datatype.var.defaults(pieces)[struct_retriever.name]
-                        return_bytes += retriever_to_bytes(struct_retriever, pieces)
-                        continue
-                    return_bytes += result
-            if var_type == "u" or var_type == "s":  # int
-                return_bytes += int_to_bytes(data, var_len, signed=(var_type == "s"))
-            elif var_type == "f":  # float
-                if var_len == 4:
-                    return_bytes += float_to_bytes(data)
-                else:
-                    return_bytes += double_to_bytes(data)
-            elif var_type == "c":  # str
-                return_bytes += fixed_chars_to_bytes(data)
-            elif var_type == "data":  # bytes
-                return_bytes += data
-            elif var_type == "str":  # str
-                byte_string = str_to_bytes(data, retriever)
-                return_bytes += int_to_bytes(len(byte_string), var_len, endian="little", signed=True)
-                return_bytes += byte_string
-    except (AttributeError, TypeError) as e:
-        data_text = repr(retriever.data)
-        if type(retriever.data) == list and len(retriever.data) > 5:
-            data_text = f"[{retriever.data[0].__class__.__name__}] * {len(retriever.data)}"
-
-        print(f"\n{type(e).__name__} occurred in: {retriever.name} "
-              f"\n\tData: {data_text}"
-              f"\n\tDatatype: {str(retriever.datatype)}")
-        raise e
-
-    if retriever.log_value:
-        print(retriever, "returned", return_bytes)
-
-    return return_bytes
 
 
 def handle_unsupported_version(retriever: Retriever, retrieved_bytes: List[bytes]) -> None:
