@@ -68,7 +68,7 @@ class AoE2Scenario:
         print("##########################################")
 
         helper.rprint(f"\nLoading scenario structure...")
-        scenario.structure = get_structure_by_scenario(scenario)
+        scenario.load_structure()
         helper.rprint(f"Loading scenario structure finished successfully.", final=True)
 
         scenario._initialise(file_content)
@@ -81,7 +81,7 @@ class AoE2Scenario:
     def load_structure(self):
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
-        return get_structure(self.game_version, self.scenario_version)
+        self.structure = get_structure(self.game_version, self.scenario_version)
 
     def _initialise(self, file_content):
         helper.rprint("Parsing scenario file...", final=True)
