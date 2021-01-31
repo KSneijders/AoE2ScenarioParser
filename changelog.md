@@ -1,7 +1,20 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog]
+
+---
+
+## 0.0.18 - 2021-January-31
+
+### Added
+
+- Icon datasets for `Units`, `Heroes` and `Buildings` (Credis: Alian713)
+- `TerrainRestrictions` dataset (Used for `ObjectAttribute.TERRAIN_RESTRICTON_ID`, it defines where units can be placed/walk on) (Credis: Alian713)
+- The new `Techs`, `Units` and `Buildings` added in the new [44725] update.
+
+[44725]: https://www.ageofempires.com/news/aoeiide-update-44725/
 
 ---
 
@@ -16,6 +29,7 @@ The format is based on [Keep a Changelog]
 Please note that work on reading and versions is still being worked on.
 
 ---
+
 ## 0.0.16 - 2020-December-30
 
 ### Fixed
@@ -34,7 +48,7 @@ Please note that work on reading and versions is still being worked on.
 
 ### Updated
 
-- Many Attribute ID names and their description and usages. (Credits: Alian713)  
+- Many Attribute ID names and their description and usages. (Credits: Alian713)
 
 ### Fixed
 
@@ -57,7 +71,7 @@ Please note that work on reading and versions is still being worked on.
 
 - [HTML file] with byte structure (Download to view file. Does not contain JS. Just HTML & CSS)
 
-[HTML file]: https://github.com/KSneijders/AoE2ScenarioParser/blob/master/resources/personal_docs/file_structure.html
+[html file]: https://github.com/KSneijders/AoE2ScenarioParser/blob/master/resources/personal_docs/file_structure.html
 
 ### Fixed
 
@@ -70,7 +84,7 @@ Please note that work on reading and versions is still being worked on.
 ### Fixed
 
 - Issue introduced in `0.0.12`
-  
+
 ---
 
 ## 0.0.12 - 2020-November-27
@@ -119,7 +133,7 @@ When loading a map from an older version, instructions will be provided for down
 ### Improved
 
 - Defaults for the `create_default()` function when dealing with inconsistent structs
- 
+
 ### Fixed
 
 - Adding a trigger with extra arguments will now work properly (Example: `.add_trigger("name", description="desc")`)
@@ -128,7 +142,7 @@ When loading a map from an older version, instructions will be provided for down
 
 ### Removed
 
-- `number_of_units_selected` as an attribute for effects. This is now dealt with internally. 
+- `number_of_units_selected` as an attribute for effects. This is now dealt with internally.
 
 ---
 
@@ -145,7 +159,7 @@ When loading a map from an older version, instructions will be provided for down
 - Performance:
   - Writing the file, combining strings using `str.join(list)` instead of `str += str`
   - Reusing structs when reconstructing where possible, instead of overwriting all of them.
-  - Not initialising RetrieverDependencies for every retriever. Using references instead. 
+  - Not initialising RetrieverDependencies for every retriever. Using references instead.
   - Reworked the eval functions to direct code, huge performance boost
   - Removed unnecessary DependencyAction objects creation (From ~500.000 to ~100)
   - Changed trigger display order, condition display order, effect display order attribute to lazy load
@@ -180,19 +194,19 @@ When loading a map from an older version, instructions will be provided for down
 
 ---
 
-## 0.0.8 - 2020-November-08 
+## 0.0.8 - 2020-November-08
 
 **Important notice:** The way you read your main file changed. It is now:
 
     AoE2Scenario.from_file(filename)  # Just add ".from_file". Nothing else changed :)
 
-Also, there has been a massive change to the 'back' portion of the project. If you used this directly, you might need to change quite some code. Sorry :(. If you've got any questions, feel free to reach out. Also, if you encounter any bugs, especially in the new system, please report them! Thanks in advance! <3 
+Also, there has been a massive change to the 'back' portion of the project. If you used this directly, you might need to change quite some code. Sorry :(. If you've got any questions, feel free to reach out. Also, if you encounter any bugs, especially in the new system, please report them! Thanks in advance! <3
 
 ### Added
 
 - `remove_condition()` and `remove_effect()` to TriggerObject
 - `get_condition()` and `get_effect()` to TriggerObject
-- The index and display index to the `trigger.get_content_as_string()` 
+- The index and display index to the `trigger.get_content_as_string()`
 - Four very powerful trigger features! Please check the readthedocs [Documentation API], or the function docstrings for the how-to.
   - `copy_trigger`
   - `copy_trigger_per_player`
@@ -207,7 +221,7 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 - A `GroupBy` Enum. For selecting the way triggers are grouped after creating them via `copy_trigger_tree_per_player`. You can choose from `NONE` (default), `TRIGGERS` and `PLAYERS`.
 - **A Very much WIP** [Documentation API]
 
-[Documentation API]: https://aoe2scenarioparser.readthedocs.io/en/master/
+[documentation api]: https://aoe2scenarioparser.readthedocs.io/en/master/
 
 ### Discovered (in byte structure)
 
@@ -215,8 +229,8 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 
 ### Changed
 
-- **The way a file is read is now done using:** `AoE2Scenario.from_file(filename)`. Nothing changed - just add "*.from_file*" between the class and the brackets :)
-- Within the library the use of `\x00` character for line endings is no longer a necessity. 
+- **The way a file is read is now done using:** `AoE2Scenario.from_file(filename)`. Nothing changed - just add "_.from_file_" between the class and the brackets :)
+- Within the library the use of `\x00` character for line endings is no longer a necessity.
   - This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
 - The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
 - Renamend `Operator` to `Operation`.
@@ -229,13 +243,12 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 - Progress print statements now replace their current line. So instead of using 2 lines per piece it's now 1.
 - Most trigger_manager functions now require the new `TriggerSelect` object instead of 3 parameters for trigger selection. Read the docstring for more detail.
 
-
 ### Fixed
 
 - Bug causing the local `trigger_id` attributes to be out of sync when removing triggers.
 - Bug causing the `ValueError` to not get raised when trying to construct a piece with invalid data length.
 - Bug causing `Conditions` and `Effects` not to show in 'get_as_string' functions when set directly using: `trigger.effects = [...]`
-- Bug causing a crash when `selected_object_id` in `Effects` held a single ID. 
+- Bug causing a crash when `selected_object_id` in `Effects` held a single ID.
 - Bug causing a crash when setting `selected_object_id` to an uniterable object. (Like an int instead of List[int])
 - Bug causing Variables to not show up when no triggers were present when using the `get_summary_as_string` in the trigger_manager.
 - Bug making it impossible to set unit IDs negative. (Supported by the game)
@@ -248,7 +261,8 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 
 ---
 
-## 0.0.7 - 2019-May-23 
+## 0.0.7 - 2019-May-23
+
 ### Added
 
 - The `ai_script_goal` effect.
@@ -307,7 +321,8 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 
 ---
 
-## 0.0.6 - 2019-April-20  
+## 0.0.6 - 2019-April-20
+
 ### Added
 
 - UnitsObject and UnitObject reconstruct support (AKA: Made Usable).
@@ -324,6 +339,6 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 - The object_manager function `get_x_object` to `x_manager`.
 - Some `__repr__` and `__str__` are now more readable
 
-[Keep a Changelog]:     https://keepachangelog.com/en/1.0.0/
-[Github edit Scenario]: https://github.com/KSneijders/AoE2ScenarioParser#editing-a-scenario
-[T-West]:               https://github.com/twestura/
+[keep a changelog]: https://keepachangelog.com/en/1.0.0/
+[github edit scenario]: https://github.com/KSneijders/AoE2ScenarioParser#editing-a-scenario
+[t-west]: https://github.com/twestura/
