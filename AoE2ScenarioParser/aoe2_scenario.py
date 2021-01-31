@@ -3,9 +3,10 @@ import zlib
 from collections import OrderedDict
 from typing import List, Type
 
-from AoE2ScenarioParser.helper import generators, helper, parser
+from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
-from AoE2ScenarioParser.helper.helper import create_textual_hex, SimpleLogger
+from AoE2ScenarioParser.helper.helper import create_textual_hex
+from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
@@ -54,12 +55,12 @@ class AoE2Scenario:
     @classmethod
     def from_file_poc(cls, filename):
         print(f"\nSelected file: '{filename}'")
-        file_content = read_file(filename)
+        igenerator = IncrementalGenerator.from_file(filename)
 
         scenario = cls()
         scenario.read_mode = "from_file"
         scenario.game_version = "DE"
-        scenario.scenario_version = get_file_version(file_content)
+        scenario.scenario_version = get_file_version(igenerator)
 
         # Log game and scenario version
         print("\n############### Attributes ###############")
@@ -71,7 +72,7 @@ class AoE2Scenario:
         scenario.load_structure()
         helper.rprint(f"Loading scenario structure finished successfully.", final=True)
 
-        scenario._initialise(file_content)
+        scenario._initialise(igenerator)
 
         return scenario
 
@@ -83,36 +84,40 @@ class AoE2Scenario:
             raise ValueError("Both game and scenario version need to be set to load structure")
         self.structure = get_structure(self.game_version, self.scenario_version)
 
-    def _initialise(self, file_content):
+    def _initialise(self, raw_file_igenerator: IncrementalGenerator):
         helper.rprint("Parsing scenario file...", final=True)
 
-        raw_file_generator = generators.create_generator(file_content)
+        # raw_file_generator = generators.create_generator(file_content)
 
-        header = self._initialise_file_part('FileHeader', raw_file_generator)
+        header = self._initialise_file_part('FileHeader', raw_file_igenerator)
         self.add_to_pieces(header)
 
         # Decompress the file (starting from where header ended)
-        decompressed_file_data = decompress_bytes(file_content[header.byte_length:])
-        scenario_data_generator = generators.create_generator(decompressed_file_data)
+        data_igenerator = IncrementalGenerator(
+            name='Scenario Data',
+            file_content=decompress_bytes(raw_file_igenerator.get_remaining_bytes())
+        )
+        # decompressed_file_data =
+        # scenario_data_generator = generators.create_generator(decompressed_file_data)
 
         for piece_name in self.structure.keys():
             if piece_name == "FileHeader":
                 continue
             try:
-                piece = self._initialise_file_part(piece_name, scenario_data_generator)
+                piece = self._initialise_file_part(piece_name, data_igenerator)
                 self.add_to_pieces(piece)
             except (ValueError, TypeError) as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
-                self.write_error_file(generator_for_trail=scenario_data_generator)
+                self.write_error_file(generator_for_trail=data_igenerator)
                 raise e
 
         helper.rprint(f"Parsing scenario file finished successfully.", final=True)
 
-    def _initialise_file_part(self, name, generator):
+    def _initialise_file_part(self, name, igenerator):
         helper.rprint(f"\t🔄 Parsing {name}...")
         piece = self._parse_file_part(name)
         helper.rprint(f"\t🔄 Setting {name} data...")
-        piece.set_data_from_generator(generator, self.pieces)
+        piece.set_data_from_generator(igenerator, self.pieces)
         helper.rprint(f"\t✔ {name}", final=True)
         return piece
 
@@ -245,8 +250,9 @@ def read_file(filename):
     return file_content
 
 
-def get_file_version(file_content):
-    return file_content[:4].decode('ASCII')
+def get_file_version(generator: IncrementalGenerator):
+    """Get first 4 bytes of a file, which contains the version of the scenario"""
+    return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
 
 def decompress_bytes(file_content):

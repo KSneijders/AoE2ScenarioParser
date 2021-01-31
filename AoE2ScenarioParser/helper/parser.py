@@ -3,7 +3,8 @@ from typing import Any, List
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_to_x import *
-from AoE2ScenarioParser.helper.generators import repeat_generator
+from AoE2ScenarioParser.helper.exceptions import EndOfFileError
+from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.helper import listify
 from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
@@ -29,12 +30,12 @@ def vorl(retriever: Retriever, var):
     return var
 
 
-def retrieve_bytes(generator, retriever) -> List[bytes]:
+def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     """
     Retrieves the bytes belonging to this retriever.
 
     Args:
-        generator (Generator[bytes]): The generator to return the bytes from
+        igenerator (IncrementalGenerator): The generator to return the bytes from
         retriever (Retriever): The retriever holding the bytes
 
     Returns:
@@ -47,18 +48,24 @@ def retrieve_bytes(generator, retriever) -> List[bytes]:
     try:
         for i in range(retriever.datatype.repeat):
             if var_type != "str":  # (Signed) ints, floats, chars, plain bytes etc.
-                retrieved_bytes.append(repeat_generator(generator, var_len))
+                # Todo: Remove commented code (x3)
+                # retrieved_bytes.append(repeat_generator(generator, var_len))
+                retrieved_bytes.append(igenerator.get_bytes(var_len))
             else:  # String, Stored as: (signed int (n), string (string_length = n))
-                int_bytes = repeat_generator(generator, var_len)
+                # int_bytes = repeat_generator(generator, var_len)
+                int_bytes = igenerator.get_bytes(var_len)
                 string_length = bytes_to_int(int_bytes, signed=True)
-                retrieved_bytes.append(int_bytes + repeat_generator(generator, string_length))
-    except StopIteration:
+                # retrieved_bytes.append(int_bytes)
+                string_bytes = b'' if string_length == 0 else igenerator.get_bytes(string_length)
+                retrieved_bytes.append(int_bytes + string_bytes)
+                # retrieved_bytes.append(int_bytes + repeat_generator(generator, string_length))
+    except EndOfFileError:
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
             return [b'\x00']
 
     # If more bytes present in the file after END_OF_FILE_MARK
-    handle_end_of_file_mark(generator, retriever)
+    handle_end_of_file_mark(igenerator, retriever)
     # If invalid version (Currently only 1.40 supported)
     handle_unsupported_version(retriever, retrieved_bytes)
 
@@ -204,7 +211,7 @@ def handle_unsupported_version(retriever: Retriever, retrieved_bytes: List[bytes
             raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
 
 
-def handle_end_of_file_mark(generator, retriever) -> None:
+def handle_end_of_file_mark(igenerator, retriever) -> None:
     """
     Print message when the END_OF_FILE_MARK is reached and more bytes are present.\n
     You can disable this check (and thereby this message) using:\n
@@ -212,14 +219,14 @@ def handle_end_of_file_mark(generator, retriever) -> None:
     ``>> settings.NOTIFY_UNKNOWN_BYTES = False``
 
     Args:
-        generator (Generator[bytes]): The generator to check if more bytes are present
+        igenerator (IncrementalGenerator): The generator to check if more bytes are present
         retriever (Retriever): The retriever to check if it's the end of file mark
 
     Returns:
         None
     """
     if is_end_of_file_mark(retriever) and settings.NOTIFY_UNKNOWN_BYTES:
-        retrieved_bytes = retrieve_until_end_of_file(generator)
+        retrieved_bytes = igenerator.get_remaining_bytes()
         print("\n\n" + "\n".join([
             "The file being read has more bytes than anticipated.",
             "Please notify me (MrKirby/KSneijders) about this message!",

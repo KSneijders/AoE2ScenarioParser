@@ -7,3 +7,7 @@ class InvalidScenarioStructure(Exception):
 
 class UnknownScenarioStructure(Exception):
     pass
+
+
+class EndOfFileError(Exception):
+    pass

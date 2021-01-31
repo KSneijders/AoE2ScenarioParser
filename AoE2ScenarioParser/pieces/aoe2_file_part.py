@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List
 
 from AoE2ScenarioParser.helper import parser, helper
+from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever, copy_retriever_list
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
@@ -129,14 +130,14 @@ class AoE2FilePart:
                 result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
-    def set_data_from_generator(self, generator, pieces) -> None:
+    def set_data_from_generator(self, igenerator: IncrementalGenerator, pieces) -> None:
         """
         Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
         Bytes will be parsed based on the retrievers. The total length of bytes read to fill this piece is also stored
         in this piece as `byte_length`.
 
         Args:
-            generator (Generator[bytes, None, None] ): A generator from a binary scenario file
+            igenerator (IncrementalGenerator): A generator from a binary scenario file
             pieces (OrderedDictType[str, AoE2Piece]): A list of pieces to reference when the retrievers have
                 dependencies to orf rom them.
         """
@@ -152,12 +153,12 @@ class AoE2FilePart:
                         if model is None:
                             raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
                         struct = AoE2FilePart.from_model(model)
-                        struct.set_data_from_generator(generator, pieces)
+                        struct.set_data_from_generator(igenerator, pieces)
                         retriever.data.append(struct)
 
                         total_length += struct.byte_length
                 else:
-                    retrieved_bytes = parser.retrieve_bytes(generator, retriever)
+                    retrieved_bytes = parser.retrieve_bytes(igenerator, retriever)
                     retriever.set_data_from_bytes(retrieved_bytes)
 
                     total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
