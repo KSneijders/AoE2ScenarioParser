@@ -142,11 +142,17 @@ class ObjectAttribute(IntEnum):
     AMOUNT_OF_1ST_RESOURCES = 21
     BLAST_WIDTH = 22
     SEARCH_RADIUS = 23
+    BONUS_DAMAGE_RESIST = 24
+    ICON_ID = 25
     HERO_STATUS = 40
     FRAME_DELAY = 41
     TRAIN_LOCATION = 42
     TRAIN_BUTTON = 43
     BLAST_LEVEL = 44
+    SHOWN_ATTACK = 46
+    SHOWN_RANGE = 47
+    SHOWN_MELEE_ARMOR = 48
+    SHOWN_PIERCE_ARMOR = 49
     OBJECT_NAME_ID = 50
     SHORT_DESCRIPTION_ID = 51
     TERRAIN_RESTRICTION_ID = 53
@@ -764,3 +770,147 @@ class Attribute(IntEnum):
     - Burgundian Vineyards set this to 1.5 => 0.015g/s for One Farmer Continuously Farming.
     - in Practise, Its Closer to 0.01g/s Factoring in Walking Times
     """
+
+
+class ObjectType(IntEnum):
+    EYE_CANDY = 10
+    TREE_AOK = 15
+    ANIMATED = 20
+    DOPPELGANGER = 25
+    MOVING = 30
+    ACTOR = 40
+    SUPERCLASS = 50
+    PROJECTILE = 60
+    COMBATANT = 70
+    BUILDING = 80
+    TREE_AOE = 90
+
+
+class ObjectClass(IntEnum):
+    ARCHER = 0
+    ARTIFACT = 1
+    TRADE_BOAT = 2
+    BUILDING = 3
+    CIVILIAN = 4
+    OCEAN_FISH = 5
+    INFANTRY = 6
+    BERRY_BUSH = 7
+    STONE_MINE = 8
+    PREY_ANIMAL = 9
+    PREDATOR_ANIMAL = 10
+    MISCELLANEOUS = 11
+    CAVALRY = 12
+    SIEGE_WEAPON = 13
+    TERRAIN = 14
+    TREE = 15
+    TREE_STUMP = 16
+    HEALER = 17
+    MONK = 18
+    TRADE_CART = 19
+    TRANSPORT_BOAT = 20
+    FISHING_BOAT = 21
+    WARSHIP = 22
+    CONQUISTADOR = 23
+    WAR_ELEPHANT = 24
+    HERO = 25
+    ELEPHANT_ARCHER = 26
+    WALL = 27
+    PHALANX = 28
+    DOMESTIC_ANIMAL = 29
+    FLAG = 30
+    DEEP_SEA_FISH = 31
+    GOLD_MINE = 32
+    SHORE_FISH = 33
+    CLIFF = 34
+    PETARD = 35
+    CAVALRY_ARCHER = 36
+    DOPPELGANGER = 37
+    BIRD = 38
+    GATE = 39
+    SALVAGE_PILE = 40
+    RESOURCE_PILE = 41
+    RELIC = 42
+    MONKWITH_RELIC = 43
+    HAND_CANNONEER = 44
+    TWO_HANDED_SWORDSMAN = 45
+    PIKEMAN = 46
+    SCOUT = 47
+    ORE_MINE = 48
+    FARM = 49
+    SPEARMAN = 50
+    PACKED_UNIT = 51
+    TOWER = 52
+    BOARDING_BOAT = 53
+    UNPACKED_SIEGE_UNIT = 54
+    BALLISTA = 55
+    RAIDER = 56
+    CAVALRY_RAIDER = 57
+    LIVESTOCK = 58
+    KING = 59
+    MISC_BUILDING = 60
+    CONTROLLED_ANIMAL = 61
+
+
+class TerrainRestrictions(IntEnum):
+    ALL = 0
+    LAND_AND_SHALLOWS = 1
+    BEACH = 2
+    WATER_SMALL_TRAIL = 3
+    LAND = 4
+    NOTHING = 5
+    WATER_NO_TRAIL = 6
+    ALL_EXCEPT_WATER = 7
+    LAND_EXCEPT_FARM = 8
+    NOTHING_2 = 9
+    LAND_AND_BEACH = 10
+    LAND_EXCEPT_FARM_2 = 11
+    ALL_EXCEPT_WATER_BRIDGE_CANNON = 12
+    WATER_MEDIUM_TRAIL = 13
+    ALL_EXCEPT_WATER_BRIDGE = 14
+    WATER_LARGE_TRAIL = 15
+    GRASS_AND_BEACH = 16
+    WATER_AND_BRIDGE_EXCEPT_BEACH = 17
+    ALL_EXCEPT_WATER_BRIDGE_SPEAR = 18
+    ONLY_WATER_AND_ICE = 19
+    ALL_EXCEPT_WATER2 = 20
+    SHALLOW_WATER = 21
+    ALL_DART = 22
+    ALL_ARROW = 23
+    ALL_CANNON = 24
+    ALL_SPEAR = 25
+    ALL_DART2 = 26
+    ALL_EXPLOSION = 27
+    UNKNOWN = 28
+    UNKNOWN_2 = 29
+    WATER_SMALLEST_TRAIL = 30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
