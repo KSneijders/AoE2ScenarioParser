@@ -55,7 +55,9 @@ class AoE2Scenario:
     @classmethod
     def from_file_poc(cls, filename):
         print(f"\nSelected file: '{filename}'")
+        helper.rprint("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
+        helper.rprint("Reading scenario file finished successfully.", final=True)
 
         scenario = cls()
         scenario.read_mode = "from_file"
@@ -76,9 +78,6 @@ class AoE2Scenario:
 
         return scenario
 
-    def add_to_pieces(self, piece):
-        self.pieces[piece.name] = piece
-
     def load_structure(self):
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
@@ -87,25 +86,20 @@ class AoE2Scenario:
     def _initialise(self, raw_file_igenerator: IncrementalGenerator):
         helper.rprint("Parsing scenario file...", final=True)
 
-        # raw_file_generator = generators.create_generator(file_content)
-
         header = self._initialise_file_part('FileHeader', raw_file_igenerator)
-        self.add_to_pieces(header)
+        self._add_to_pieces(header)
 
-        # Decompress the file (starting from where header ended)
         data_igenerator = IncrementalGenerator(
             name='Scenario Data',
             file_content=decompress_bytes(raw_file_igenerator.get_remaining_bytes())
         )
-        # decompressed_file_data =
-        # scenario_data_generator = generators.create_generator(decompressed_file_data)
 
         for piece_name in self.structure.keys():
             if piece_name == "FileHeader":
                 continue
             try:
                 piece = self._initialise_file_part(piece_name, data_igenerator)
-                self.add_to_pieces(piece)
+                self._add_to_pieces(piece)
             except (ValueError, TypeError) as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
                 self.write_error_file(generator_for_trail=data_igenerator)
@@ -123,6 +117,9 @@ class AoE2Scenario:
 
     def _parse_file_part(self, name):
         return AoE2FilePart.from_structure(name, self.structure.get(name))
+
+    def _add_to_pieces(self, piece):
+        self.pieces[piece.name] = piece
 
     """ ##########################################################################################
     ####################################### Write functions ######################################
@@ -182,72 +179,34 @@ class AoE2Scenario:
         file.close()
         print("File writing finished successfully.")
 
-    def _debug_byte_structure_to_file(self, filename, generator_for_trail=None, commit=False):
+    def _retrieve_byte_structure(self, file_part):
+        helper.rprint(f"\t🔄 Writing {file_part.name}...")
+        value = file_part.get_byte_structure_as_string(self.pieces)
+        helper.rprint(f"\t✔ {file_part.name}", final=True)
+        return value
+
+    def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
             pass
             # self._object_manager.reconstruct(log_debug_write)
 
+        helper.rprint("Writing structure to file...", final=True)
         with open(filename, 'w', encoding="utf-8") as f:
             result = []
             for piece in self.pieces.values():
-                result.append(
-                    piece.get_byte_structure_as_string(self.pieces)
-                )
+                result.append(self._retrieve_byte_structure(piece))
 
-        lgr.print("\nWriting structure to file...")
-        with open(filename, 'w', encoding="utf-8") as output_file:
-            result = []
-            for key in self._parsed_header:
-                lgr.print("\tWriting " + key + "...", replace=True)
-                result.append(self._parsed_header[key].get_byte_structure_as_string(pieces))
-                lgr.print("\tWriting " + key + " finished successfully.", replace=True)
-                lgr.print()
-            for key in self._parsed_data:
-                if key == "MapPiece":
-                    continue
-                lgr.print("\tWriting " + key + "...", replace=True)
-                result.append(self._parsed_data[key].get_byte_structure_as_string(pieces))
-                lgr.print("\tWriting " + key + " finished successfully.", replace=True)
-                lgr.print()
+            if trail_generator is not None:
+                helper.rprint("\tWriting trail...")
+                trail = trail_generator.get_remaining_bytes()
 
-            if generator_for_trail is not None:
-                lgr.print("\tWriting trail...", replace=True)
-                trail_length = -1  # -1 == inf
-                try:
-                    trail = b''
-                    i = 0
-                    while i != trail_length:
-                        trail += generators.repeat_generator(
-                            generator=generator_for_trail,
-                            run_times=1,
-                            intended_stop_iteration=True,
-                            return_bytes=True
-                        )
-                        i += 1
-                except StopIteration:
-                    pass  # Expected, if trail is not present or shorter than {trail_length} bytes
-                if i != 0:
-                    i += 1
-                if i == trail_length:
-                    i = str(i) + '+'
-                if trail_length == -1:
-                    trail_length = i
-                result.append(f"\n\n{'#' * 27} TRAIL ({i}/{trail_length})\n\n")
+                result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
                 result.append(helper.create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
-                lgr.print("\tWriting trail finished successfully.", replace=True)
-                lgr.print()
+                helper.rprint("\tWriting trail finished successfully.", final=True)
 
-            output_file.write(''.join(result))
-        lgr.print("Writing structure to file finished successfully.")
-
-
-def read_file(filename):
-    helper.rprint("Reading scenario file...")
-    with open(filename, "rb") as f:
-        file_content = f.read()
-    helper.rprint("Reading scenario file finished successfully.", final=True)
-    return file_content
+            f.write(''.join(result))
+        helper.rprint("Writing structure to file finished successfully.", final=True)
 
 
 def get_file_version(generator: IncrementalGenerator):

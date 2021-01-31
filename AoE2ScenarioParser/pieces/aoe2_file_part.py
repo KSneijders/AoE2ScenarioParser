@@ -247,7 +247,7 @@ class AoE2FilePart:
                 byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
                 continue
 
-            retriever_data_bytes = parser.retriever_to_bytes(retriever, pieces)
+            retriever_data_bytes = retriever.get_data_as_bytes()
             if retriever_data_bytes is None:
                 return byte_structure
             else:
