@@ -853,34 +853,64 @@ class ObjectClass(IntEnum):
 
 class TerrainRestrictions(IntEnum):
     ALL = 0
-    LAND_SHALLOWS = 1
+    LAND_AND_SHALLOWS = 1
     BEACH = 2
-    WATER = 3
+    WATER_SMALL_TRAIL = 3
     LAND = 4
     NOTHING = 5
-    # WATER = 6
-    ALL_WATER = 7
-    LAND_FARM = 8
-    # NOTHING = 9
-    LAND_BEACH = 10
-    # LAND_FARM = 11
-    ALL_WATER_BRIDGE = 12
-    # WATER = 13
-    # ALL_WATER_BRIDGE = 14
-    # WATER = 15
-    GRASS_BEACH = 16
-    WATER_BRIDGE_BEACH = 17
-    # ALL_WATER_BRIDGE = 18
-    ONLY_WATER_ICE = 19
-    # ALL_WATER = 20
+    WATER_NO_TRAIL = 6
+    ALL_EXCEPT_WATER = 7
+    LAND_EXCEPT_FARM = 8
+    NOTHING_2 = 9
+    LAND_AND_BEACH = 10
+    LAND_EXCEPT_FARM_2 = 11
+    ALL_EXCEPT_WATER_BRIDGE_CANNON = 12
+    WATER_MEDIUM_TRAIL = 13
+    ALL_EXCEPT_WATER_BRIDGE = 14
+    WATER_LARGE_TRAIL = 15
+    GRASS_AND_BEACH = 16
+    WATER_AND_BRIDGE_EXCEPT_BEACH = 17
+    ALL_EXCEPT_WATER_BRIDGE_SPEAR = 18
+    ONLY_WATER_AND_ICE = 19
+    ALL_EXCEPT_WATER2 = 20
     SHALLOW_WATER = 21
-    TABLE = 22
-    # TABLE = 23
-    # TABLE = 24
-    # TABLE = 25
-    # TABLE = 26
-    # TABLE = 27
-    # TABLE = 28
-    # TABLE = 29
-    # TABLE = 30
+    ALL_DART = 22
+    ALL_ARROW = 23
+    ALL_CANNON = 24
+    ALL_SPEAR = 25
+    ALL_DART2 = 26
+    ALL_EXPLOSION = 27
+    UNKNOWN = 28
+    UNKNOWN_2 = 29
+    WATER_SMALLEST_TRAIL = 30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
