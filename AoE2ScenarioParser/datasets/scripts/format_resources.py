@@ -3,7 +3,7 @@ uncapped = [
     'this', 'set', 'will'
 ]
 
-with open('../../../resources/personal_docs/ResourceAttributeDescriptionsV1.3.3.md', 'r') as file:
+with open('../../../resources/documents/ResourceAttributeDescriptionsV1.3.3.md', 'r') as file:
     state = 0
     state_lines = []
     file = file.read()
