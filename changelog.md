@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.19 - 2021-January-31
+
+### Fixed
+
+- Flemish Militia ID in dataset `Unit` and `UnitIcon`
+- IDE autocomplete finding variables with similar names to the Enums
+
+---
+
 ## 0.0.18 - 2021-January-31
 
 ### Added

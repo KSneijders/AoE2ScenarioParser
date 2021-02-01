@@ -238,7 +238,7 @@ class Unit(IntEnum):
     COUSTILLIER = 1655
     ELITE_COUSTILLIER = 1657
     FLEMISH_MILITIA = 1699
-    FLEMISH_MILITIA_M = 1667
+    FLEMISH_MILITIA_M = 1663
     """Refers to the Flemish militia after being converted from a male villager"""
     FLEMISH_MILITIA_F = 1697
     """Refers to the Flemish militia after being converted from a female villager"""
@@ -518,7 +518,7 @@ class GaiaUnit(IntEnum):
     COUSTILLIER = 1655
     ELITE_COUSTILLIER = 1657
     FLEMISH_MILITIA = 1699
-    FLEMISH_MILITIA_M = 1667
+    FLEMISH_MILITIA_M = 1663
     """Refers to the Flemish militia after being converted from a male villager"""
     FLEMISH_MILITIA_F = 1697
     """Refers to the Flemish militia after being converted from a female villager"""
@@ -759,7 +759,7 @@ class UnitIcon(IntEnum):
     COUSTILLIER = 355
     ELITE_COUSTILLIER = 355
     FLEMISH_MILITIA = 354
-    FLEMISH_MILITIA_M = -1
+    FLEMISH_MILITIA_M = 354
     FLEMISH_MILITIA_F = 354
     SERJEANT = 356
     ELITE_SERJEANT = 356
@@ -1030,7 +1030,7 @@ class GaiaUnitIcon(IntEnum):
     COUSTILLIER = 355
     ELITE_COUSTILLIER = 355
     FLEMISH_MILITIA = 354
-    FLEMISH_MILITIA_M = -1
+    FLEMISH_MILITIA_M = 354
     FLEMISH_MILITIA_F = 354
     SERJEANT = 356
     ELITE_SERJEANT = 356
