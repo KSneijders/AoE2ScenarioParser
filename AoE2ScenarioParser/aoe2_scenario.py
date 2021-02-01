@@ -86,7 +86,7 @@ class AoE2Scenario:
     def _initialise(self, raw_file_igenerator: IncrementalGenerator):
         helper.rprint("Parsing scenario file...", final=True)
 
-        header = self._initialise_file_part('FileHeader', raw_file_igenerator)
+        header = self._construct_and_fill_filepart('FileHeader', raw_file_igenerator)
         self._add_to_pieces(header)
 
         data_igenerator = IncrementalGenerator(
@@ -98,7 +98,7 @@ class AoE2Scenario:
             if piece_name == "FileHeader":
                 continue
             try:
-                piece = self._initialise_file_part(piece_name, data_igenerator)
+                piece = self._construct_and_fill_filepart(piece_name, data_igenerator)
                 self._add_to_pieces(piece)
             except (ValueError, TypeError) as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
@@ -107,16 +107,13 @@ class AoE2Scenario:
 
         helper.rprint(f"Parsing scenario file finished successfully.", final=True)
 
-    def _initialise_file_part(self, name, igenerator):
+    def _construct_and_fill_filepart(self, name, igenerator):
         helper.rprint(f"\t🔄 Parsing {name}...")
-        piece = self._parse_file_part(name)
+        piece = AoE2FilePart.from_structure(name, self.structure.get(name))
         helper.rprint(f"\t🔄 Setting {name} data...")
         piece.set_data_from_generator(igenerator, self.pieces)
         helper.rprint(f"\t✔ {name}", final=True)
         return piece
-
-    def _parse_file_part(self, name):
-        return AoE2FilePart.from_structure(name, self.structure.get(name))
 
     def _add_to_pieces(self, piece):
         self.pieces[piece.name] = piece
