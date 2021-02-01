@@ -72,57 +72,6 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     return retrieved_bytes
 
 
-def parse_bytes(datatype, bytes_list) -> Any:
-    var_type, var_len = datatype.type_and_length
-
-    if datatype.repeat > 0 and len(bytes_list) == 0:
-        raise ValueError("Unable to parse bytes when no bytes are given")
-
-    result = []
-    val = None
-
-    for entry_bytes in bytes_list:
-        if var_type in ["u", "s"]:
-            val = bytes_to_int(entry_bytes, signed=(var_type == "s"))
-        elif var_type == "f":
-            if var_len == 4:  # Float value
-                val = bytes_to_float(entry_bytes)
-            else:  # only 'else' is the trigger version. Which is a double (8 bytes)
-                val = bytes_to_double(entry_bytes)
-        elif var_type == "c":
-            val = bytes_to_fixed_chars(entry_bytes)
-        elif var_type == "data":
-            val = entry_bytes
-        elif var_type == "str":
-            val = bytes_to_str(entry_bytes[var_len:])
-        result.append(val)
-    return result
-
-
-def is_end_of_file_mark(retriever) -> bool:
-    """Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false"""
-    return retriever.name == "__END_OF_FILE_MARK__"
-
-
-def retrieve_until_end_of_file(generator):
-    """
-    Returns all bytes until StopIteration exception is thrown from the given generator
-
-    Args:
-        generator (Generator[bytes]): The generator to read from
-
-    Returns:
-        All the bytes found
-    """
-    retrieved_bytes = b''
-    try:
-        while True:
-            retrieved_bytes += next(generator)
-    except StopIteration:
-        pass
-    return retrieved_bytes
-
-
 def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
     if not hasattr(retriever, f'on_{state}'):
         return
@@ -209,6 +158,11 @@ def handle_unsupported_version(retriever: Retriever, retrieved_bytes: List[bytes
             print("- KSneijders")
             time.sleep(1)
             raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
+
+
+def is_end_of_file_mark(retriever) -> bool:
+    """Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false"""
+    return retriever.name == "__END_OF_FILE_MARK__"
 
 
 def handle_end_of_file_mark(igenerator, retriever) -> None:
