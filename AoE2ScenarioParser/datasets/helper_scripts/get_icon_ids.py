@@ -11,80 +11,81 @@ from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
 #
 
 
-with open("./full.json") as file:
+with open("C:/Users/Kerwin Sneijders/Downloads/Temp/full.json") as file:
     dataset = json.load(file)
 
-iconIDs = {}
+_icon_ids = {}
 
-UnitIcon = {}
+_unit_icon = {}
 for obj in Unit:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            UnitIcon[str(obj).split(".")[1]] = unit["IconID"]
+            _unit_icon[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["UnitIcon"] = UnitIcon
+_icon_ids["_unit_icon"] = _unit_icon
 
-BuildingIcon = {}
+_building_icon = {}
 for obj in Building:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            BuildingIcon[str(obj).split(".")[1]] = unit["IconID"]
+            _building_icon[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["BuildingIcon"] = BuildingIcon
+_icon_ids["_building_icon"] = _building_icon
 
-GaiaUnitIcon = {}
+_gaia_unit_icon = {}
 for obj in GaiaUnit:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            GaiaUnitIcon[str(obj).split(".")[1]] = unit["IconID"]
+            _gaia_unit_icon[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["GaiaUnitIcon"] = GaiaUnitIcon
+_icon_ids["_gaia_unit_icon"] = _gaia_unit_icon
 
-GaiaBuildingIcon = {}
+_gaia_building_icon = {}
 for obj in GaiaBuilding:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            GaiaBuildingIcon[str(obj).split(".")[1]] = unit["IconID"]
+            _gaia_building_icon[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["GaiaBuildingIcon"] = GaiaBuildingIcon
+_icon_ids["_gaia_building_icon"] = _gaia_building_icon
 
-UnitOther = {}
-for obj in UnitOther:
+_unit_other = {}
+for obj in _unit_other:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            UnitOther[str(obj).split(".")[1]] = unit["IconID"]
+            _unit_other[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["UnitOther"] = UnitOther
+_icon_ids["_unit_other"] = _unit_other
 
-GaiaUnitOtherIcon = {}
+_gaia_unit_other_icon = {}
 for obj in GaiaUnitOther:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            GaiaUnitOtherIcon[str(obj).split(".")[1]] = unit["IconID"]
+            _gaia_unit_other_icon[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["GaiaUnitOtherIcon"] = GaiaUnitOtherIcon
+_icon_ids["_gaia_unit_other_icon"] = _gaia_unit_other_icon
 
-HeroIcon = {}
+_hero_icon = {}
 for obj in Hero:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
-            HeroIcon[str(obj).split(".")[1]] = unit["IconID"]
+            _hero_icon[str(obj).split(".")[1]] = unit["IconID"]
 
-iconIDs["HeroIcon"] = HeroIcon
+_icon_ids["_hero_icon"] = _hero_icon
 
 with open("./icons.json", "w") as file:
-    json.dump(iconIDs, file, indent=4)
+    json.dump(_icon_ids, file, indent=4)
 
 
 # Change json to print Python code
 
 
-with open('icons.json', 'r') as f:
+with open('./icons.json', 'r') as f:
     js = json.loads(f.read())
 
     for header in js:
         print(f"class {header}(IntEnum):")
-        for k, v in js.get(header).items():
-            print(f"    {k} = {v}")
+        for key, v in js.get(header).items():
+            if v == -1 and 'BRIDGE' not in key:
+                print(f"    {key} = {v}")
 
         input("Press Enter to continue...")
