@@ -1964,6 +1964,7 @@
                             "aa_quantity": {
                                 "type": "u8",
                                 "default": -1,
+                                "potential_list": false,
                                 "dependencies": {
                                     "on_refresh": {
                                         "action": "SET_REPEAT",
@@ -1976,8 +1977,9 @@
                                 }
                             },
                             "aa_armor_or_attack_type": {
-                                "type": "s24",
+                                "type": "u8",
                                 "default": -1,
+                                "potential_list": false,
                                 "dependencies": {
                                     "on_refresh": {
                                         "action": "SET_REPEAT",
