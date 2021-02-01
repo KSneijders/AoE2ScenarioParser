@@ -53,7 +53,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
     @classmethod
-    def from_file_poc(cls, filename):
+    def from_file(cls, filename):
         print(f"\nSelected file: '{filename}'")
         helper.rprint("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
@@ -102,7 +102,7 @@ class AoE2Scenario:
                 self._add_to_pieces(piece)
             except (ValueError, TypeError) as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
-                self.write_error_file(generator_for_trail=data_igenerator)
+                self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
         helper.rprint(f"Parsing scenario file finished successfully.", final=True)
@@ -150,8 +150,8 @@ class AoE2Scenario:
         helper.rprint(f"\t✔ {file_part.name}", final=True)
         return value
 
-    def write_error_file(self, filename="error_file", generator_for_trail=None):
-        self._debug_byte_structure_to_file(filename=filename, generator_for_trail=generator_for_trail)
+    def write_error_file(self, filename="error_file", trail_generator=None):
+        self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
 
     """ #############################################
     ################ Debug functions ################
