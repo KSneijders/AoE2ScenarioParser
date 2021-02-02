@@ -11,7 +11,7 @@ from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
 #
 
 
-with open("C:/Users/Kerwin Sneijders/Downloads/Temp/full.json") as file:
+with open("./full.json") as file:
     dataset = json.load(file)
 
 _icon_ids = {}
@@ -85,7 +85,6 @@ with open('./icons.json', 'r') as f:
     for header in js:
         print(f"class {header}(IntEnum):")
         for key, v in js.get(header).items():
-            if v == -1 and 'BRIDGE' not in key:
-                print(f"    {key} = {v}")
+            print(f"    {key} = {v}")
 
         input("Press Enter to continue...")
