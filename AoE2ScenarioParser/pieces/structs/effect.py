@@ -72,9 +72,9 @@ class EffectStruct(AoE2Struct):
             Retriever("effect_type", DataType("s32")),
             Retriever("static_value_46", DataType("s32")),  # always 0x17, now 0x30 (48)?
             Retriever("ai_script_goal", DataType("s32")),
-            Retriever("aa_quantity", DataType("u8")),
-            Retriever("aa_armor_or_attack_type", DataType("s24")),
-            Retriever("quantity", DataType("s32")),
+            Retriever("aa_quantity", DataType("u8"), possibly_list=False),
+            Retriever("aa_armor_or_attack_type", DataType("s24"), possibly_list=False),
+            Retriever("quantity", DataType("s32"), possibly_list=False),
             Retriever("tribute_list", DataType("s32")),
             Retriever("diplomacy", DataType("s32")),
             Retriever("number_of_units_selected", DataType("s32")),
