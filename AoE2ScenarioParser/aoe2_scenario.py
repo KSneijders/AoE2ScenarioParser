@@ -110,7 +110,7 @@ class AoE2Scenario:
     def _construct_and_fill_filepart(self, name, igenerator):
         helper.rprint(f"\t🔄 Parsing {name}...")
         piece = AoE2FilePart.from_structure(name, self.structure.get(name))
-        helper.rprint(f"\t🔄 Setting {name} data...")
+        helper.rprint(f"\t🔄 Gathering {name} data...")
         piece.set_data_from_generator(igenerator, self.pieces)
         helper.rprint(f"\t✔ {name}", final=True)
         return piece
