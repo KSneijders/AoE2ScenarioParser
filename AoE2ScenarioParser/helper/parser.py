@@ -137,13 +137,15 @@ def handle_dependency_eval(retriever_on_x, value):
 
 def handle_unsupported_version(retriever: Retriever, retrieved_bytes: List[bytes]) -> None:
     if retriever.name == "version" and retriever.datatype.var == "c4":
-        if bytes_to_fixed_chars(retrieved_bytes[0]) != "1.40":
+        v = bytes_to_fixed_chars(retrieved_bytes[0])
+        # Todo: Decide to keep, maybe check using float version. Only show when < ??? - (Probably just remove)
+        if v not in ["1.40", "1.41"]:
             print("\n\n")
             print('\n'.join([
                 "#### SORRY FOR THE INCONVENIENCE ####",
                 "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
                 "supported at this time.",
-                f"Your current version is: '{retrieved_bytes[0]}'. The currently only supported version is: '1.40'.",
+                f"Your current version is: '{v}'. The currently only supported version is: '1.40'.",
                 "The reason for this is a huge rework for version support.",
                 "This rework will take some time to complete, so until then, please upgrade your scenario to the "
                 "newest version. You can do this by saving it again in the in-game editor.",
