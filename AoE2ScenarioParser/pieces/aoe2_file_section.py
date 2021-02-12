@@ -35,55 +35,6 @@ class AoE2FileSection:
                 for key, value in self.__class__.dependencies[retriever.name].items():
                     setattr(retriever, key, value)
 
-    def get_json(self):
-        def get_snake_case(string: str):
-            return re.sub(r'(?<!^)(?=[A-Z])', '_', string.replace(' ', '')).lower()
-
-        json = {}
-
-        retrievers = {}
-        for retriever in self.retrievers:
-            retrievers[retriever.name] = {
-                "type": retriever.datatype.var
-            }
-            if retriever.datatype.repeat != 1:
-                retrievers[retriever.name]["repeat"] = retriever.datatype.repeat
-            # try:
-            #     dynamic_import = importlib.import_module("AoE2ScenarioParser.pieces." + get_snake_case(self.name[:-5]))
-            #     defaults = getattr(dynamic_import, f"{self.name.replace(' ', '')}").defaults({})
-            #     value = defaults.get(retriever.name)
-            #     if type(value) is bytes:
-            #         value = value.hex()
-            #     if type(value) is list and len(value) > 0 and type(value[0]) is bytes:
-            #         value = [x.hex() for x in value]
-            #     retrievers[retriever.name]["default"] = value
-            # except Exception as e:
-            #     print(e)
-            retrievers[retriever.name]["default"] = "Todo:DEFAULT"
-
-            for on_x in ['on_refresh', 'on_construct', 'on_commit']:
-                if hasattr(retriever, on_x):
-                    try:
-                        retrievers[retriever.name].setdefault('dependencies', {})
-                        dependency: RetrieverDependency = getattr(retriever, on_x)
-                        retrievers[retriever.name]['dependencies'][on_x] = {
-                            "action": dependency.dependency_type.name
-                        }
-                        if dependency.dependency_target is not None:
-                            retrievers[retriever.name]['dependencies'][on_x]["target"] = \
-                                f"{dependency.dependency_target.target_piece}:" \
-                                f"{dependency.dependency_target.piece_attr_name}"
-                        if dependency.dependency_eval is not None:
-                            retrievers[retriever.name]['dependencies'][on_x]["eval"] = \
-                                dependency.dependency_eval.eval_code.replace(
-                                    'x', dependency.dependency_target.piece_attr_name) + " Todo:VERIFY"
-                    except Exception as e:
-                        print(e)
-                        retrievers[retriever.name]['dependencies'] = "Todo: Dependencies"
-
-        json[self.name] = {'retrievers': retrievers}
-        return json
-
     @classmethod
     def from_model(cls, model) -> AoE2FileSection:
         """
