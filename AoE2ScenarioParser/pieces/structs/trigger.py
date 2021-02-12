@@ -4,12 +4,12 @@ from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction, RetrieverDependency, DependencyTarget, \
     DependencyEval
-from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
+from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.pieces.structs.condition import ConditionStruct
 from AoE2ScenarioParser.pieces.structs.effect import EffectStruct
 
 
-class TriggerStruct(AoE2FilePart):
+class TriggerStruct(AoE2FileSection):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
         "number_of_effects": {
             "on_refresh": RetrieverDependency(

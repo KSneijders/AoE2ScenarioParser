@@ -6,13 +6,13 @@ from AoE2ScenarioParser.helper.helper import SimpleLogger
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
-from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
+from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 
 
 class AoE2ObjectManager:
     def __init__(self, parsed_header, parsed_data, log_parsing=True):
         # Todo: Create a piece holder object or something to simplify this process
-        self.pieces: OrderedDict[str, AoE2FilePart] = OrderedDict(**parsed_header, **parsed_data)
+        self.pieces: OrderedDict[str, AoE2FileSection] = OrderedDict(**parsed_header, **parsed_data)
 
         lgr = SimpleLogger(log_parsing)
         lgr.print("\nParsing pieces and structs to objects...")

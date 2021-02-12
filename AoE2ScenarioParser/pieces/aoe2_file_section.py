@@ -17,7 +17,7 @@ class PieceLevel(Enum):
     STRUCT = 1
 
 
-class AoE2FilePart:
+class AoE2FileSection:
     dependencies = {}
 
     def __init__(self, name, retrievers, struct_models=None, level=PieceLevel.TOP_LEVEL):
@@ -85,7 +85,7 @@ class AoE2FilePart:
         return json
 
     @classmethod
-    def from_model(cls, model) -> AoE2FilePart:
+    def from_model(cls, model) -> AoE2FileSection:
         """
         Create a copy (what was called struct before) from a model.
 
@@ -152,7 +152,7 @@ class AoE2FilePart:
                         model = self.struct_models.get(struct_name)
                         if model is None:
                             raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
-                        struct = AoE2FilePart.from_model(model)
+                        struct = AoE2FileSection.from_model(model)
                         struct.set_data_from_generator(igenerator, pieces)
                         retriever.data.append(struct)
 
@@ -237,7 +237,7 @@ class AoE2FilePart:
             listed_retriever_data = helper.listify(retriever.data)
             struct_header_set = False
             for struct in listed_retriever_data:
-                if isinstance(struct, AoE2FilePart):
+                if isinstance(struct, AoE2FileSection):
                     if not struct_header_set:
                         byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
                         struct_header_set = True
@@ -287,7 +287,7 @@ class AoE2FilePart:
 
         for i, val in enumerate(self.retrievers):
             if type(self.retrievers[i].data) is list and len(self.retrievers[i].data) > 0:
-                if isinstance(self.retrievers[i].data[0], AoE2FilePart):
+                if isinstance(self.retrievers[i].data[0], AoE2FileSection):
                     represent += "\t" + val.name + ": [\n"
                     for x in self.retrievers[i].data:
                         represent += "\t\t" + str(x)

@@ -9,7 +9,7 @@ from AoE2ScenarioParser.helper import helper
 if TYPE_CHECKING:
     from typing import OrderedDict as OrderedDictType
     from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
-    from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
+    from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Object:
@@ -17,7 +17,7 @@ class AoE2Object:
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-        self._pieces: OrderedDictType[str, AoE2FilePart] = OrderedDict()
+        self._pieces: OrderedDictType[str, AoE2FileSection] = OrderedDict()
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -32,7 +32,7 @@ class AoE2Object:
         return result
 
     @classmethod
-    def _construct(cls, pieces: OrderedDictType[str, AoE2FilePart], instance_number_history=None):
+    def _construct(cls, pieces: OrderedDictType[str, AoE2FileSection], instance_number_history=None):
         if instance_number_history is None:
             instance_number_history = []
 
@@ -49,7 +49,7 @@ class AoE2Object:
         Commits all changes to the piece & struct structure of the object it's called upon.
 
         Args:
-            pieces (OrderedDictType[str, AoE2FilePart]): A list of pieces to reference where to commit to. If left empty,
+            pieces (OrderedDictType[str, AoE2FileSection]): A list of pieces to reference where to commit to. If left empty,
                 the pieces default to the pieces where this object was constructed from.
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.

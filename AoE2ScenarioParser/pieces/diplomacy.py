@@ -1,10 +1,10 @@
 from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
-from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
+from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.pieces.structs.player_diplomacy import PlayerDiplomacyStruct
 
 
-class DiplomacyPiece(AoE2FilePart):
+class DiplomacyPiece(AoE2FileSection):
     def __init__(self):
         retrievers = [
             Retriever("per_player_diplomacy", DataType(PlayerDiplomacyStruct, repeat=16)),

@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.objects.map_obj import MapObject
 from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
 from AoE2ScenarioParser.objects.units_obj import UnitsObject
-from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
+from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
 from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
@@ -44,7 +44,7 @@ class AoE2Scenario:
         self.scenario_version = "???"
         self.game_version = "???"
         self.structure = {}
-        self.pieces: OrderedDict[str, AoE2FilePart] = OrderedDict()
+        self.pieces: OrderedDict[str, AoE2FileSection] = OrderedDict()
         self._object_manager = None
 
         # Used in debug functions
@@ -109,7 +109,7 @@ class AoE2Scenario:
 
     def _construct_and_fill_filepart(self, name, igenerator):
         helper.rprint(f"\t🔄 Parsing {name}...")
-        piece = AoE2FilePart.from_structure(name, self.structure.get(name))
+        piece = AoE2FileSection.from_structure(name, self.structure.get(name))
         helper.rprint(f"\t🔄 Gathering {name} data...")
         piece.set_data_from_generator(igenerator, self.pieces)
         helper.rprint(f"\t✔ {name}", final=True)
@@ -236,10 +236,10 @@ def get_structure(game_version, scenario_version) -> dict:
     return structure
 
 
-_header_structure: List[Type[AoE2FilePart]] = [
+_header_structure: List[Type[AoE2FileSection]] = [
     FileHeaderPiece
 ]
-_file_structure: List[Type[AoE2FilePart]] = [
+_file_structure: List[Type[AoE2FileSection]] = [
     DataHeaderPiece,
     MessagesPiece,
     CinematicsPiece,

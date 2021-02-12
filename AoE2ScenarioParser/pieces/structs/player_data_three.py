@@ -4,10 +4,10 @@ from AoE2ScenarioParser.helper.datatype import DataType
 from AoE2ScenarioParser.helper.retriever import Retriever
 from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction, DependencyEval, \
     DependencyTarget
-from AoE2ScenarioParser.pieces.aoe2_file_part import AoE2FilePart
+from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 
 
-class PlayerDataThreeStruct(AoE2FilePart):
+class PlayerDataThreeStruct(AoE2FileSection):
     dependencies: Dict[str, Dict[str, RetrieverDependency]] = {
         "player_count_for_diplomacy": {
             "on_refresh": RetrieverDependency(
