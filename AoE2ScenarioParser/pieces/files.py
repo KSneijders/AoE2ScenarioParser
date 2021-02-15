@@ -70,7 +70,7 @@ class FilesPiece(aoe2_piece.AoE2Piece):
         defaults = {
             'unknown_2': b'\x00' * 4,
             'script_name': "",
-            'unknown_3': b'\x00' * 4,
+            'script_file_content': "",
             'ai_files_present': 0,
             'unknown_4': b'\x00' * 4,
             'number_of_ai_files': [],
