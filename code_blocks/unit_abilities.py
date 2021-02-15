@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.heroes import Hero

@@ -74,7 +74,11 @@ class AoE2Scenario:
         scenario.load_structure()
         helper.rprint(f"Loading scenario structure finished successfully.", final=True)
 
-        scenario._initialise(igenerator)
+        # scenario._initialize(igenerator)
+        helper.rprint("Parsing scenario file...", final=True)
+        scenario._load_header_section(igenerator)
+        scenario._load_content_sections(igenerator)
+        helper.rprint(f"Parsing scenario file finished successfully.", final=True)
 
         return scenario
 
@@ -83,31 +87,28 @@ class AoE2Scenario:
             raise ValueError("Both game and scenario version need to be set to load structure")
         self.structure = get_structure(self.game_version, self.scenario_version)
 
-    def _initialise(self, raw_file_igenerator: IncrementalGenerator):
-        helper.rprint("Parsing scenario file...", final=True)
-
-        header = self._construct_and_fill_filepart('FileHeader', raw_file_igenerator)
+    def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
+        header = self._create_and_load_section('FileHeader', raw_file_igenerator)
         self._add_to_pieces(header)
 
+    def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
         data_igenerator = IncrementalGenerator(
             name='Scenario Data',
             file_content=decompress_bytes(raw_file_igenerator.get_remaining_bytes())
         )
 
-        for piece_name in self.structure.keys():
-            if piece_name == "FileHeader":
+        for section_name in self.structure.keys():
+            if section_name == "FileHeader":
                 continue
             try:
-                piece = self._construct_and_fill_filepart(piece_name, data_igenerator)
+                piece = self._create_and_load_section(section_name, data_igenerator)
                 self._add_to_pieces(piece)
             except (ValueError, TypeError) as e:
-                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {piece_name}\n")
+                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {section_name}\n")
                 self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
-        helper.rprint(f"Parsing scenario file finished successfully.", final=True)
-
-    def _construct_and_fill_filepart(self, name, igenerator):
+    def _create_and_load_section(self, name, igenerator):
         helper.rprint(f"\t🔄 Parsing {name}...")
         piece = AoE2FileSection.from_structure(name, self.structure.get(name))
         helper.rprint(f"\t🔄 Gathering {name} data...")

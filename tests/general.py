@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 
 def write_to_file(scx_type: str, scx: AoE2Scenario):
