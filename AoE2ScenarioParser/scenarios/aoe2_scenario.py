@@ -53,7 +53,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
     @classmethod
-    def from_file(cls, filename):
+    def from_file(cls, game_version, filename):
         print(f"\nSelected file: '{filename}'")
         helper.rprint("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
@@ -61,7 +61,7 @@ class AoE2Scenario:
 
         scenario = cls()
         scenario.read_mode = "from_file"
-        scenario.game_version = "DE"
+        scenario.game_version = game_version
         scenario.scenario_version = get_file_version(igenerator)
 
         # Log game and scenario version
