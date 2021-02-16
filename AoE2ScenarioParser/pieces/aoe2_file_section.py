@@ -44,7 +44,7 @@ class AoE2FileSection:
             model (AoE2StructModel): The model to copy from
 
         Returns:
-            A FilePart instance based on the model
+            An AoE2FileSection instance based on the model
         """
         # Using pickle.loads(pickle.dumps(...)) instead of copy.deepcopy()
         # Reason for this is the huge speed difference. Details can be found at:

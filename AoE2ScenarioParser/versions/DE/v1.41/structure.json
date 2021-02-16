@@ -25,9 +25,43 @@
                 "type": "u32",
                 "default": 2
             },
-            "data": {
-                "type": "36",
-                "default": "e80300000100000006000000020000000300000004000000050000000600000007000000"
+            "unknown_value":  {
+                "type": "u32",
+                "comment": "Always (?) 1k",
+                "default": 1000
+            },
+            "unknown_value_2":  {
+                "type":  "u32",
+                "comment": "Always (?) 1",
+                "default": 1
+            },
+            "amount_of_unknown_numbers":  {
+                "type":  "u32",
+                "default": 6,
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_VALUE",
+                        "target": "self:unknown_numbers",
+                        "eval": "len(unknown_numbers)"
+                    }
+                }
+            },
+            "unknown_numbers":  {
+                "type":  "u32",
+                "default": [2, 3, 4, 5, 6, 7],
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:amount_of_unknown_numbers"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    },
+                    "on_commit": {
+                        "action": "REFRESH",
+                        "target": "self:amount_of_unknown_numbers"
+                    }
+                }
             },
             "creator_name": {
                 "type": "str32",
@@ -2386,9 +2420,9 @@
                     }
                 }
             },
-            "unknown_3": {
-                "type": "4",
-                "default": "00000000"
+            "script_file_content": {
+                "type": "str32",
+                "default": ""
             },
             "ai_files_present": {
                 "type": "u32",
