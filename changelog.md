@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.20 - 2021-February-17
+
+### Fixed
+
+- Issue with reading a very rare scenario file header. Usage of the difference is unknown. 
+- Issue with reading the xs script content that was saved to the scenario.
+- Some small effect fields to no longer be set in a list when they were single ints.
+
+---
+
 ## 0.0.19 - 2021-January-31
 
 ### Fixed

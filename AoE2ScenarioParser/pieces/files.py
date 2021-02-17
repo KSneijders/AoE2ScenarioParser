@@ -55,7 +55,7 @@ class FilesPiece(aoe2_piece.AoE2Piece):
         retrievers = [
             Retriever("unknown_2", DataType("4")),
             Retriever("script_file_path", DataType("str16")),
-            Retriever("unknown_3", DataType("4")),
+            Retriever("script_file_content", DataType("str32")),
             Retriever("ai_files_present", DataType("u32")),
             Retriever("unknown_4", DataType("4")),
             Retriever("number_of_ai_files", DataType("u32"), possibly_list=False),
@@ -70,7 +70,7 @@ class FilesPiece(aoe2_piece.AoE2Piece):
         defaults = {
             'unknown_2': b'\x00' * 4,
             'script_name': "",
-            'unknown_3': b'\x00' * 4,
+            'script_file_content': "",
             'ai_files_present': 0,
             'unknown_4': b'\x00' * 4,
             'number_of_ai_files': [],
