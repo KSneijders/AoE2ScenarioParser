@@ -7,9 +7,9 @@ from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.objects.map_obj import MapObject
-from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
-from AoE2ScenarioParser.objects.units_obj import UnitsObject
+from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
 from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
 from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
@@ -28,16 +28,16 @@ from AoE2ScenarioParser.pieces.units import UnitsPiece
 
 class AoE2Scenario:
     @property
-    def trigger_manager(self) -> TriggersObject:
-        return self._object_manager.objects['TriggersObject']
+    def trigger_manager(self) -> TriggerManager:
+        return self._object_manager.objects['TriggerManager']
 
     @property
-    def unit_manager(self) -> UnitsObject:
-        return self._object_manager.objects['UnitsObject']
+    def unit_manager(self) -> UnitManager:
+        return self._object_manager.objects['UnitManager']
 
     @property
-    def map_manager(self) -> MapObject:
-        return self._object_manager.objects['MapObject']
+    def map_manager(self) -> MapManager:
+        return self._object_manager.objects['MapManager']
 
     def __init__(self):
         self.read_mode = None

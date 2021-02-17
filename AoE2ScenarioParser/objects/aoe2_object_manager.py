@@ -3,9 +3,9 @@ from __future__ import annotations
 from collections import OrderedDict
 
 from AoE2ScenarioParser.helper.helper import SimpleLogger
-from AoE2ScenarioParser.objects.map_obj import MapObject
-from AoE2ScenarioParser.objects.triggers_obj import TriggersObject
-from AoE2ScenarioParser.objects.units_obj import UnitsObject
+from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
 from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
 
 
@@ -20,9 +20,9 @@ class AoE2ObjectManager:
         self.parsed_data = parsed_data
 
         self.constructables = [
-            MapObject,
-            TriggersObject,
-            UnitsObject,
+            MapManager,
+            TriggerManager,
+            UnitManager,
         ]
         self.objects = {}
 

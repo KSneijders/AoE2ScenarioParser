@@ -13,7 +13,7 @@ from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
 from AoE2ScenarioParser.objects.variable_obj import VariableObject
 
 
-class TriggersObject(AoE2Object):
+class TriggerManager(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
@@ -102,7 +102,7 @@ class TriggersObject(AoE2Object):
         if include_gaia and Player.GAIA not in create_copy_for_players:
             create_copy_for_players.append(Player.GAIA)
 
-        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
+        alter_conditions, alter_effects = TriggerManager._find_alterable_ce(trigger, trigger_ce_lock)
 
         return_dict: Dict[Player, TriggerObject] = {}
         for player in create_copy_for_players:
@@ -320,7 +320,7 @@ class TriggersObject(AoE2Object):
             The given trigger with the proper player attributes changed
         """
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
-        alter_conditions, alter_effects = TriggersObject._find_alterable_ce(trigger, trigger_ce_lock)
+        alter_conditions, alter_effects = TriggerManager._find_alterable_ce(trigger, trigger_ce_lock)
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
@@ -441,7 +441,7 @@ class TriggersObject(AoE2Object):
         self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
 
     def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
-        found_node_indexes = TriggersObject._find_trigger_tree_nodes(trigger)
+        found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
         # unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
         unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
 
@@ -453,7 +453,7 @@ class TriggersObject(AoE2Object):
         for index in unknown_node_indexes:
             self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
 
-    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, TriggersObject):
+    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, TriggerManager):
         trigger = trigger_select.trigger
         trigger_index = trigger_select.trigger_index
         display_index = trigger_select.display_index

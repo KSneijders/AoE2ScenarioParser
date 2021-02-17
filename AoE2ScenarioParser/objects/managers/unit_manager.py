@@ -9,7 +9,8 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.unit_obj import UnitObject
 
 
-class UnitsObject(AoE2Object):
+class UnitManager(AoE2Object):
+    """Manager of the everything trigger related."""
     _link_list = [
         RetrieverObjectLink("units", "UnitsPiece", "players_units[].units", process_as_object=UnitObject)
     ]

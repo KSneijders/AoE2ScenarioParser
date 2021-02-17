@@ -9,7 +9,7 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
 
 
-class MapObject(AoE2Object):
+class MapManager(AoE2Object):
     """Manager of the everything map related."""
 
     _link_list = [
