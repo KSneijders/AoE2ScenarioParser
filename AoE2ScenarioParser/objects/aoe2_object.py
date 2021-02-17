@@ -9,7 +9,7 @@ from AoE2ScenarioParser.helper import helper
 if TYPE_CHECKING:
     from typing import OrderedDict as OrderedDictType
     from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
-    from AoE2ScenarioParser.aoe2_file_section import AoE2FileSection
+    from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Object:
