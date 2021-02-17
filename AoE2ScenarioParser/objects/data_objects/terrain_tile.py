@@ -2,7 +2,7 @@ from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
-class TerrainObject(AoE2Object):
+class TerrainTile(AoE2Object):
     """Object for handling a tile in the map."""
 
     _link_list = [

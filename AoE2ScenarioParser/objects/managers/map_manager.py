@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets.terrains import Terrain
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.terrain_obj import TerrainObject
+from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 
 
 class MapManager(AoE2Object):
@@ -18,7 +18,7 @@ class MapManager(AoE2Object):
         RetrieverObjectLink("villager_force_drop", "MapPiece", "villager_force_drop"),
         RetrieverObjectLink("map_width", "MapPiece", "map_width"),
         RetrieverObjectLink("map_height", "MapPiece", "map_height"),
-        RetrieverObjectLink("terrain", "MapPiece", "terrain_data", process_as_object=TerrainObject),
+        RetrieverObjectLink("terrain", "MapPiece", "terrain_data", process_as_object=TerrainTile),
         RetrieverObjectLink("script_name", "MapPiece", "script_name"),
     ]
 
@@ -28,7 +28,7 @@ class MapManager(AoE2Object):
                  villager_force_drop: bool,
                  map_width: int,
                  map_height: int,
-                 terrain: List[TerrainObject],
+                 terrain: List[TerrainTile],
                  script_name: str
                  ):
         if map_width != map_height:
@@ -71,7 +71,7 @@ class MapManager(AoE2Object):
         elif difference > 0:
             for _ in range(difference):
                 self.terrain.append(
-                    TerrainObject(
+                    TerrainTile(
                         Terrain.GRASS_1,
                         elevation=1,
                         layer=-1

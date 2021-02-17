@@ -6,17 +6,17 @@ from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.unit_obj import UnitObject
+from AoE2ScenarioParser.objects.data_objects.unit import Unit
 
 
 class UnitManager(AoE2Object):
     """Manager of the everything trigger related."""
     _link_list = [
-        RetrieverObjectLink("units", "UnitsPiece", "players_units[].units", process_as_object=UnitObject)
+        RetrieverObjectLink("units", "UnitsPiece", "players_units[].units", process_as_object=Unit)
     ]
 
     def __init__(self,
-                 units: List[List[UnitObject]]
+                 units: List[List[Unit]]
                  ):
 
         self.units = units
@@ -25,7 +25,7 @@ class UnitManager(AoE2Object):
 
     def add_unit(self, player: Player, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
-                 reference_id: int = None, ) -> UnitObject:
+                 reference_id: int = None, ) -> Unit:
         """
         Adds a unit to the scenario.
 
@@ -42,12 +42,12 @@ class UnitManager(AoE2Object):
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
         Returns:
-            The UnitObject created
+            The Unit created
         """
         if reference_id is None:
             reference_id = self.get_new_reference_id()
 
-        unit = UnitObject(
+        unit = Unit(
             player=player,
             x=x,
             y=y,
@@ -63,7 +63,7 @@ class UnitManager(AoE2Object):
         self.units[player.value].append(unit)
         return unit
 
-    def get_player_units(self, player: Player) -> List[UnitObject]:
+    def get_player_units(self, player: Player) -> List[Unit]:
         """
         Returns a list of UnitObjects for the given player.
 
@@ -74,7 +74,7 @@ class UnitManager(AoE2Object):
             raise ValueError("Player must have a value between 0 and 8")
         return self.units[player.value]
 
-    def get_all_units(self) -> List[UnitObject]:
+    def get_all_units(self) -> List[Unit]:
         units = []
         for player_units in self.units:
             units += player_units
@@ -91,7 +91,7 @@ class UnitManager(AoE2Object):
                           y2: float = None,
                           tile1: Tile = None,
                           tile2: Tile = None,
-                          unit_list: List[UnitObject] = None,
+                          unit_list: List[Unit] = None,
                           players: List[Player] = None,
                           ignore_players: List[Player] = None):
         """
@@ -147,7 +147,7 @@ class UnitManager(AoE2Object):
         return [unit for unit in unit_list
                 if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
-    def change_ownership(self, unit: UnitObject, to_player: Player) -> None:
+    def change_ownership(self, unit: Unit, to_player: Player) -> None:
         """
         Changes a unit's ownership to the given player.
 
@@ -170,7 +170,7 @@ class UnitManager(AoE2Object):
                     highest_id = unit.reference_id
         return highest_id + 1
 
-    def remove_unit(self, reference_id: int = None, unit: UnitObject = None):
+    def remove_unit(self, reference_id: int = None, unit: Unit = None):
         if reference_id is not None and unit is not None:
             raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
         if reference_id is None and unit is None:

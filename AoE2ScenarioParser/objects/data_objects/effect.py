@@ -9,7 +9,7 @@ from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
-class EffectObject(AoE2Object):
+class Effect(AoE2Object):
     """Object for handling an effect."""
 
     _link_list = [

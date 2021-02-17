@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
-class UnitObject(AoE2Object):
+class Unit(AoE2Object):
     _link_list = [
         RetrieverObjectLink("player", retrieve_history_number=0),
         RetrieverObjectLink("x", "UnitsPiece", "players_units[__index__].units[__index__].x"),
@@ -45,7 +45,7 @@ class UnitObject(AoE2Object):
         player controlling the unit but is not directly connected to it. Changing this value will have no impact to your
         scenario.
         To change which player controls this unit, use:
-            unit_manager.change_ownership(UnitObject, to_player)
+            unit_manager.change_ownership(Unit, to_player)
         """
         self.x: float = x
         self.y: float = y
@@ -66,7 +66,7 @@ class UnitObject(AoE2Object):
         player controlling the unit BUT IT IS NOT directly connected to it. Changing this value will have no impact to
         your scenario.
         To change which player controls this unit, use:
-            unit_manager.change_ownership(UnitObject, to_player)
+            unit_manager.change_ownership(Unit, to_player)
         """
         return self._player
 

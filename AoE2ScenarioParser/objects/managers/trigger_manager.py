@@ -9,29 +9,29 @@ from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.trigger_obj import TriggerObject
-from AoE2ScenarioParser.objects.variable_obj import VariableObject
+from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+from AoE2ScenarioParser.objects.data_objects.variable import Variable
 
 
 class TriggerManager(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
-        RetrieverObjectLink("triggers", "TriggersPiece", "trigger_data", process_as_object=TriggerObject),
+        RetrieverObjectLink("triggers", "TriggersPiece", "trigger_data", process_as_object=Trigger),
         RetrieverObjectLink("trigger_display_order", "TriggersPiece", "trigger_display_order_array"),
-        RetrieverObjectLink("variables", "TriggersPiece", "variable_data", process_as_object=VariableObject),
+        RetrieverObjectLink("variables", "TriggersPiece", "variable_data", process_as_object=Variable),
     ]
 
     def __init__(self,
-                 triggers: List[TriggerObject],
+                 triggers: List[Trigger],
                  trigger_display_order: List[int],
-                 variables: List[VariableObject]
+                 variables: List[Variable]
                  ):
 
         self._trigger_hash = helper.hash_list(triggers)
-        self.triggers: List[TriggerObject] = triggers
+        self.triggers: List[Trigger] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
-        self.variables: List[VariableObject] = variables
+        self.variables: List[Variable] = variables
 
         super().__init__()
 
@@ -54,7 +54,7 @@ class TriggerManager(AoE2Object):
                                 include_player_target=False,
                                 trigger_ce_lock=None,
                                 include_gaia: bool = False,
-                                create_copy_for_players: List[IntEnum] = None) -> Dict[Player, TriggerObject]:
+                                create_copy_for_players: List[IntEnum] = None) -> Dict[Player, Trigger]:
         """
         Copies a trigger for all or a selection of players. Every copy will change desired player attributes with it.
 
@@ -80,7 +80,7 @@ class TriggerManager(AoE2Object):
         Returns:
             A dict with all the new created triggers. The key is the player for which the trigger is
                 created using the IntEnum associated with it. Example:
-                {Player.TWO: TriggerObject, Player.FIVE: TriggerObject}
+                {Player.TWO: Trigger, Player.FIVE: Trigger}
 
         Raises:
             ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
@@ -104,7 +104,7 @@ class TriggerManager(AoE2Object):
 
         alter_conditions, alter_effects = TriggerManager._find_alterable_ce(trigger, trigger_ce_lock)
 
-        return_dict: Dict[Player, TriggerObject] = {}
+        return_dict: Dict[Player, Trigger] = {}
         for player in create_copy_for_players:
             if not player == from_player:
                 new_trigger = self.copy_trigger(TS.trigger(trigger))
@@ -144,7 +144,7 @@ class TriggerManager(AoE2Object):
 
         return return_dict
 
-    def copy_trigger(self, trigger_select) -> TriggerObject:
+    def copy_trigger(self, trigger_select) -> Trigger:
         """
         Creates an exact copy (deepcopy) of this trigger.
 
@@ -275,7 +275,7 @@ class TriggerManager(AoE2Object):
 
         return new_triggers
 
-    def copy_trigger_tree(self, trigger_select: TriggerSelect) -> List[TriggerObject]:
+    def copy_trigger_tree(self, trigger_select: TriggerSelect) -> List[Trigger]:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = [trigger_index]
@@ -299,7 +299,7 @@ class TriggerManager(AoE2Object):
         return new_triggers
 
     def replace_player(self, trigger_select, to_player, only_change_from=None, include_player_source=True,
-                       include_player_target=False, trigger_ce_lock=None) -> TriggerObject:
+                       include_player_target=False, trigger_ce_lock=None) -> Trigger:
         """
         Replaces player attributes. Specifically useful if multiple players are used in the same trigger.
 
@@ -348,7 +348,7 @@ class TriggerManager(AoE2Object):
     def add_trigger(self, name, description=None, description_stid=None, display_as_objective=None,
                     short_description=None, short_description_stid=None, display_on_screen=None, description_order=None,
                     enabled=None, looping=None, header=None, mute_objectives=None, conditions=None,
-                    effects=None) -> TriggerObject:
+                    effects=None) -> Trigger:
         """
         Adds a new trigger to the scenario.
 
@@ -381,12 +381,12 @@ class TriggerManager(AoE2Object):
         for key in keys:
             if locals()[key] is not None:
                 trigger_attr[key] = locals()[key]
-        new_trigger = TriggerObject(name=name, trigger_id=len(self.triggers), **trigger_attr)
+        new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
         # helper.update_order_array(self._trigger_display_order, len(self.triggers))
         return new_trigger
 
-    def add_variable(self, name: str, variable_id: int = -1) -> VariableObject:
+    def add_variable(self, name: str, variable_id: int = -1) -> Variable:
         """
         Adds a variable.
 
@@ -395,7 +395,7 @@ class TriggerManager(AoE2Object):
             variable_id (int): The ID of the variable. If left empty (default: -1), lowest available value will be used
 
         Returns:
-            The newly added VariableObject
+            The newly added Variable
         """
         list_of_var_ids = [var.variable_id for var in self.variables]
         if variable_id == -1:
@@ -410,15 +410,15 @@ class TriggerManager(AoE2Object):
         if variable_id in list_of_var_ids:
             raise ValueError("Variable ID already in use.")
 
-        new_variable = VariableObject(variable_id=variable_id, name=name)
+        new_variable = Variable(variable_id=variable_id, name=name)
         self.variables.append(new_variable)
         return new_variable
 
-    def get_trigger(self, trigger_select: TriggerSelect) -> TriggerObject:
+    def get_trigger(self, trigger_select: TriggerSelect) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         return trigger
 
-    def get_variable(self, variable_id: int = None, variable_name: str = None) -> VariableObject:
+    def get_variable(self, variable_id: int = None, variable_name: str = None) -> Variable:
         if variable_id is None and variable_name is None:
             raise ValueError("Select a variable using the variable_id or variable_name parameters")
         if variable_id is not None and variable_name is not None:
@@ -573,7 +573,7 @@ class TriggerManager(AoE2Object):
         return alter_conditions, alter_effects
 
     @staticmethod
-    def _find_trigger_tree_nodes(trigger: TriggerObject) -> List[int]:
+    def _find_trigger_tree_nodes(trigger: Trigger) -> List[int]:
         return [
             effect.trigger_id for effect in trigger.effects if
             effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
@@ -595,7 +595,7 @@ class TriggerSelect:
         Args:
             trigger_index (int): The index of the trigger. Starting from 0, based on creation time
             display_index (int): The display index of a trigger. Starting from 0, based on display order in the editor
-            trigger (TriggerObject): The trigger object itself.
+            trigger (Trigger): The trigger object itself.
         """
         self.trigger = trigger
         self.display_index = display_index
@@ -610,7 +610,7 @@ class TriggerSelect:
         return cls(display_index=display_index)
 
     @classmethod
-    def trigger(cls, trigger: TriggerObject):
+    def trigger(cls, trigger: Trigger):
         return cls(trigger=trigger)
 
 

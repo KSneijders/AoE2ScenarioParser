@@ -7,7 +7,7 @@ from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
-class ConditionObject(AoE2Object):
+class Condition(AoE2Object):
     """Object for handling a condition."""
 
     _link_list = [
