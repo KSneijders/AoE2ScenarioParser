@@ -10,20 +10,7 @@ from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
-from AoE2ScenarioParser.pieces.aoe2_file_section import AoE2FileSection
-from AoE2ScenarioParser.pieces.background_image import BackgroundImagePiece
-from AoE2ScenarioParser.pieces.cinematics import CinematicsPiece
-from AoE2ScenarioParser.pieces.data_header import DataHeaderPiece
-from AoE2ScenarioParser.pieces.diplomacy import DiplomacyPiece
-from AoE2ScenarioParser.pieces.file_header import FileHeaderPiece
-from AoE2ScenarioParser.pieces.files import FilesPiece
-from AoE2ScenarioParser.pieces.global_victory import GlobalVictoryPiece
-from AoE2ScenarioParser.pieces.map import MapPiece
-from AoE2ScenarioParser.pieces.messages import MessagesPiece
-from AoE2ScenarioParser.pieces.options import OptionsPiece
-from AoE2ScenarioParser.pieces.player_data_two import PlayerDataTwoPiece
-from AoE2ScenarioParser.pieces.triggers import TriggersPiece
-from AoE2ScenarioParser.pieces.units import UnitsPiece
+from AoE2ScenarioParser.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Scenario:
@@ -235,36 +222,3 @@ def get_structure(game_version, scenario_version) -> dict:
     if "FileHeader" not in structure.keys():
         raise InvalidScenarioStructure(f"First piece in structure should always be FileHeader.")
     return structure
-
-
-_header_structure: List[Type[AoE2FileSection]] = [
-    FileHeaderPiece
-]
-_file_structure: List[Type[AoE2FileSection]] = [
-    DataHeaderPiece,
-    MessagesPiece,
-    CinematicsPiece,
-    BackgroundImagePiece,
-    PlayerDataTwoPiece,
-    GlobalVictoryPiece,
-    DiplomacyPiece,
-    OptionsPiece,
-    MapPiece,
-    UnitsPiece,
-    TriggersPiece,
-    FilesPiece,
-]
-
-# Define piece names
-data_header_piece = "DataHeaderPiece"
-messages_piece = "MessagesPiece"
-cinematics_piece = "CinematicsPiece"
-background_image_piece = "BackgroundImagePiece"
-player_data_two_piece = "PlayerDataTwoPiece"
-global_victory_piece = "GlobalVictoryPiece"
-diplomacy_piece = "DiplomacyPiece"
-options_piece = "OptionsPiece"
-map_piece = "MapPiece"
-units_piece = "UnitsPiece"
-trigger_piece = "TriggersPiece"
-files_piece = "FilesPiece"

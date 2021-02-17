@@ -1,15 +1,12 @@
 from __future__ import annotations
 
-import pickle
-import re
 from enum import Enum
 from typing import Dict, List
 
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever, copy_retriever_list
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency
-from AoE2ScenarioParser.pieces.structs.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
+from AoE2ScenarioParser.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
 
 class PieceLevel(Enum):
