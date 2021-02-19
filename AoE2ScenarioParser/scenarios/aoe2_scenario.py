@@ -1,6 +1,7 @@
 import json
 import zlib
 from collections import OrderedDict
+from typing import Union
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
@@ -32,7 +33,7 @@ class AoE2Scenario:
         self.game_version = "???"
         self.structure = {}
         self.pieces: OrderedDict[str, AoE2FileSection] = OrderedDict()
-        self._object_manager = None
+        self._object_manager: Union[AoE2ObjectManager, None] = None
 
         # Used in debug functions
         self._file = None
@@ -119,6 +120,8 @@ class AoE2Scenario:
         helper.rprint("File writing finished successfully.", final=True)
 
     def _write_from_structure(self, filename):
+        self._object_manager.reconstruct()
+
         binary = self._get_file_part_data(self.pieces.get('FileHeader'))
 
         binary_list_to_be_compressed = []
@@ -132,7 +135,7 @@ class AoE2Scenario:
         file.write(binary + compressed)
         file.close()
 
-    def _get_file_part_data(self, file_part):
+    def _get_file_part_data(self, file_part: AoE2FileSection):
         helper.rprint(f"\t🔄 Reconstructing {file_part.name}...")
         value = file_part.get_data_as_bytes()
         helper.rprint(f"\t✔ {file_part.name}", final=True)

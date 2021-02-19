@@ -1,3 +1,4 @@
+import math
 import time
 from typing import Any, List
 
@@ -132,6 +133,7 @@ def handle_dependency_eval(retriever_on_x, value):
     # else:
     for i in range(len(attribute_names)):
         eval_locals[attribute_names[i]] = value[i]
+        eval_locals['math'] = math
     return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
 
 

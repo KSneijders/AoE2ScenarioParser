@@ -1,4 +1,7 @@
+import time
+
 from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from warnings import warn
 
 _deprecation_msg = '\n'.join([
     "", "",
@@ -15,6 +18,10 @@ class AoE2Scenario:
 
     @staticmethod
     def from_file(filename) -> AoE2DEScenario:
-        from warnings import warn
         warn(_deprecation_msg)
+
+        # Making sure there's time to see the warning.
+        # Also good incentive to switch :)
+        time.sleep(2)
+
         return AoE2DEScenario.from_file(filename)

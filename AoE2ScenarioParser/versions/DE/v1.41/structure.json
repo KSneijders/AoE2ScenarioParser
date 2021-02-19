@@ -73,7 +73,7 @@
                 "dependencies": {
                     "on_refresh": {
                         "action": "SET_VALUE",
-                        "target": "TriggersPiece:trigger_data",
+                        "target": "Triggers:trigger_data",
                         "eval": "len(trigger_data)"
                     }
                 }
@@ -1262,7 +1262,7 @@
                 "dependencies": {
                     "on_refresh": {
                         "action": "SET_VALUE",
-                        "target": "TriggersPiece:trigger_data",
+                        "target": "Triggers:trigger_data",
                         "eval": "len(trigger_data)"
                     }
                 }
@@ -1297,7 +1297,7 @@
                 "dependencies": {
                     "on_commit": {
                         "action": "REFRESH",
-                        "target": "FilesPiece:script_file_path"
+                        "target": "Files:script_file_path"
                     }
                 }
             },
@@ -1336,7 +1336,7 @@
                     "on_refresh": {
                         "action": "SET_VALUE",
                         "target": "self:terrain_data",
-                        "eval": "int(sqrt(len(terrain_data)))"
+                        "eval": "int(math.sqrt(len(terrain_data)))"
                     }
                 }
             },
@@ -1347,7 +1347,7 @@
                     "on_refresh": {
                         "action": "SET_VALUE",
                         "target": "self:terrain_data",
-                        "eval": "int(sqrt(len(terrain_data)))"
+                        "eval": "int(math.sqrt(len(terrain_data)))"
                     }
                 }
             },
@@ -2415,7 +2415,7 @@
                 "dependencies": {
                     "on_refresh": {
                         "action": "SET_VALUE",
-                        "target": "MapPiece:script_name",
+                        "target": "Map:script_name",
                         "eval": "script_name + ('.xs' if len(script_name) > 0 else '')"
                     }
                 }

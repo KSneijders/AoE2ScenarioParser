@@ -72,6 +72,7 @@ class AoE2FileSection:
         result = []
         for retriever in self.retrievers:
             if retriever.datatype.type == "struct":
+                struct: AoE2FileSection
                 for struct in retriever.data:
                     result.append(struct.get_data_as_bytes())
             else:

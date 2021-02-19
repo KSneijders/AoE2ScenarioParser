@@ -3,13 +3,13 @@ from __future__ import annotations
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
-from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 
 managers = {
     'DE': {
         'Map': MapManagerDE,
         'Trigger': TriggerManagerDE,
-        'Unit': UnitManager,
+        'Unit': UnitManagerDE,
     }
 }
 
