@@ -10,9 +10,9 @@ from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation,
 TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
 
 # Information of unit/tech/terrain name and their ID
-from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
+from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
 from AoE2ScenarioParser.datasets.techs import Tech
-from AoE2ScenarioParser.datasets.heroes import Hero
+from AoE2ScenarioParser.datasets.heroes import HeroId
 from AoE2ScenarioParser.datasets.terrains import Terrain
 from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 

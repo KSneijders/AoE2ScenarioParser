@@ -1,7 +1,7 @@
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
-from AoE2ScenarioParser.datasets.heroes import Hero
+from AoE2ScenarioParser.datasets.heroes import HeroId
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.trigger_lists import PanelLocation
 from AoE2ScenarioParser.datasets.units import UnitId
@@ -30,7 +30,7 @@ unit_manager.add_unit(Player.ONE, unit_to_be_garrisoned, 119, 119, garrisoned_in
 
 # trigger = trigger_manager.add_trigger("ChangeGraphic")
 # effect = trigger.add_effect(Effect.CHANGE_OBJECT_ICON)
-# effect.object_list_unit_id_2 = Hero.EMPEROR_IN_A_BARREL
+# effect.object_list_unit_id_2 = HeroId.EMPEROR_IN_A_BARREL
 # effect.selected_object_id = unit_to_be_garrisoned_id
 
 trigger = trigger_manager.add_trigger("DetectUnitUngarrisoned")
@@ -46,7 +46,7 @@ condition.area_2_x = 10
 condition.area_2_y = 10
 
 effect = trigger.add_effect(Effect.DISPLAY_INSTRUCTIONS)
-effect.object_list_unit_id = Hero.EMPEROR_IN_A_BARREL
+effect.object_list_unit_id = HeroId.EMPEROR_IN_A_BARREL
 effect.source_player = Player.ONE
 effect.display_time = 1
 effect.instruction_panel_position = PanelLocation.TOP

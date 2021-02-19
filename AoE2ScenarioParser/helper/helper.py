@@ -3,8 +3,8 @@ import sys
 from enum import IntEnum
 from typing import List, Dict
 
-from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
-from AoE2ScenarioParser.datasets.heroes import Hero
+from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
+from AoE2ScenarioParser.datasets.heroes import HeroId
 from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 """ =============================================================
@@ -174,15 +174,15 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
     """
     # Todo: try catch in loop with `return x(const)` in main body. loop through enums
     if any(item == const for item in UnitId):
-        return Unit(const)
-    if any(item.value == const for item in Building):
-        return Building(const)
-    if any(item.value == const for item in Hero):
-        return Hero(const)
+        return UnitId(const)
+    if any(item.value == const for item in BuildingId):
+        return BuildingId(const)
+    if any(item.value == const for item in HeroId):
+        return HeroId(const)
     if any(item == const for item in GaiaUnitId):
-        return GaiaUnit(const)
-    if any(item == const for item in GaiaBuilding):
-        return GaiaBuilding(const)
+        return GaiaUnitId(const)
+    if any(item == const for item in GaiaBuildingId):
+        return GaiaBuildingId(const)
 
 
 def get_int_len(num):

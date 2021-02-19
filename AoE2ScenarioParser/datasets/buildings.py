@@ -3,7 +3,7 @@ from enum import IntEnum
 from bidict import bidict
 
 
-class Building(IntEnum):
+class BuildingId(IntEnum):
     AACHEN_CATHEDRAL = 1622
     AMPHITHEATRE = 251
     AQUEDUCT = 231
@@ -151,7 +151,7 @@ class Building(IntEnum):
     YURT_H = 719
 
 
-class GaiaBuilding(IntEnum):
+class GaiaBuildingId(IntEnum):
     # Gaia Buildings
     RUINS = 345
 
