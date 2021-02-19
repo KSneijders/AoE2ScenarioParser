@@ -106,6 +106,14 @@ class RetrieverObjectLink:
         if self.process_as_object is not None:
             link_piece = retriever.datatype.var
 
+            expected = "struct:"
+            if not link_piece.startswith(expected):
+                raise ValueError(
+                    f"Process as object isn't defined properly. Expected: '{expected}...' got: '{link_piece}'"
+                )
+
+            # Todo: Get struct formation
+
             if self.is_special_unit_case:
                 self._commit_special_unit_case(host_obj, pieces, link_piece, value)
                 return
@@ -121,7 +129,7 @@ class RetrieverObjectLink:
             if new_length < old_length:
                 retriever.data = retriever.data[:new_length]
             elif new_length > old_length:
-                retriever.data += [link_piece() for x in range(new_length - old_length)]
+                retriever.data += [link_piece() for _ in range(new_length - old_length)]
                 if retriever.log_value:
                     retriever._update_print(
                         f"[{link_piece.__name__}] * {old_length}",
@@ -166,7 +174,7 @@ class RetrieverObjectLink:
                 obj.commit()
 
     def __repr__(self):
-        return "[RetrieverObjectLink] " + self.name + ": " + str(self.piece) + "." + str(self.link) + \
+        return f"[RetrieverObjectLink] {self.name}: {self.piece}. {self.link}" + \
                (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
                (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
                (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")
