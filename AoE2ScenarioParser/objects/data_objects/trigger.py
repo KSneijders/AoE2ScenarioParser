@@ -1,8 +1,8 @@
 from typing import List
 
-from AoE2ScenarioParser.datasets import effects, conditions
-from AoE2ScenarioParser.datasets.conditions import ConditionId
-from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.conditions import ConditionId, default_attributes as c_default_attributes, \
+    condition_names
+from AoE2ScenarioParser.datasets.effects import EffectId, default_attributes as e_default_attributes, effect_names
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -77,10 +77,10 @@ class Trigger(AoE2Object):
         self.header: int = header
         self.mute_objectives: int = mute_objectives
         self._condition_hash = helper.hash_list(conditions)
-        self.conditions: List[ConditionId] = conditions
+        self.conditions: List[Condition] = conditions
         self.condition_order: List[int] = condition_order
         self._effect_hash = helper.hash_list(effects)
-        self.effects: List[EffectId] = effects
+        self.effects: List[Effect] = effects
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
@@ -126,7 +126,7 @@ class Trigger(AoE2Object):
         self._effects = val
         self.effect_order = list(range(0, len(val)))
 
-    def add_effect(self, effect_type: Effect, ai_script_goal=None, aa_quantity=None, aa_armor_or_attack_type=None,
+    def add_effect(self, effect_type: EffectId, ai_script_goal=None, aa_quantity=None, aa_armor_or_attack_type=None,
                    quantity=None, tribute_list=None, diplomacy=None, object_list_unit_id=None, source_player=None,
                    target_player=None, technology=None, string_id=None, display_time=None, trigger_id=None,
                    location_x=None, location_y=None, location_object_reference=None, area_1_x=None, area_1_y=None,
@@ -137,7 +137,7 @@ class Trigger(AoE2Object):
                    object_attributes=None, from_variable=None, variable_or_timer=None, facet=None, play_sound=None,
                    message=None, player_color=None, sound_name=None,
                    selected_object_ids=None) -> Effect:
-        effect_defaults = effects.default_attributes[effect_type]
+        effect_defaults = e_default_attributes[effect_type]
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
@@ -145,12 +145,12 @@ class Trigger(AoE2Object):
         self.effects.append(new_effect)
         return new_effect
 
-    def add_condition(self, condition_type: Condition, amount_or_quantity=None,
+    def add_condition(self, condition_type: ConditionId, amount_or_quantity=None,
                       resource_type_or_tribute_list=None, unit_object=None, next_object=None, object_list=None,
                       source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
                       area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> Condition:
-        condition_defaults = conditions.default_attributes[condition_type]
+        condition_defaults = c_default_attributes.default_attributes[condition_type]
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
@@ -190,7 +190,7 @@ class Trigger(AoE2Object):
 
         self.effect_order = [x - 1 if x > effect_index else x for x in self.effect_order]
 
-    def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Effect = None) \
+    def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
         if condition is None:
             helper.evaluate_index_params(condition_index, display_index, "condition")
@@ -241,7 +241,7 @@ class Trigger(AoE2Object):
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                return_string += f"\t\t\t{conditions.condition_names[condition.condition_type]} " \
+                return_string += f"\t\t\t{condition_names[condition.condition_type]} " \
                                  f"[Index: {condition_id}, Display: {c_display_order}]:\n"
                 return_string += condition.get_content_as_string()
 
@@ -251,7 +251,7 @@ class Trigger(AoE2Object):
                 effect = self.effects[effect_id]
 
                 try:
-                    return_string += f"\t\t\t{effects.effect_names[effect.effect_type]}"
+                    return_string += f"\t\t\t{effect_names[effect.effect_type]}"
                 except KeyError:
                     return_string += f"\t\t\tUnknown Effect. ID: {effect.effect_type}"
                 return_string += f" [Index: {effect_id}, Display: {e_display_order}]:\n"
