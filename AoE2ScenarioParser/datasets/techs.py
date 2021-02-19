@@ -3,7 +3,7 @@ from enum import IntEnum
 from bidict import bidict
 
 
-class Tech(IntEnum):
+class TechId(IntEnum):
     ANARCHY = 16
     ANDEAN_SLING = 516
     ARBALESTER = 237
