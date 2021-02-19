@@ -4,7 +4,6 @@ from typing import List
 
 from AoE2ScenarioParser.datasets.terrains import Terrain
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 
@@ -12,35 +11,17 @@ from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 class MapManager(AoE2Object):
     """Manager of the everything map related."""
 
-    _link_list = [
-        RetrieverObjectLink("map_color_mood", "MapPiece", "map_color_mood"),
-        RetrieverObjectLink("collide_and_correct", "MapPiece", "collide_and_correct"),
-        RetrieverObjectLink("villager_force_drop", "MapPiece", "villager_force_drop"),
-        RetrieverObjectLink("map_width", "MapPiece", "map_width"),
-        RetrieverObjectLink("map_height", "MapPiece", "map_height"),
-        RetrieverObjectLink("terrain", "MapPiece", "terrain_data", process_as_object=TerrainTile),
-        RetrieverObjectLink("script_name", "MapPiece", "script_name"),
-    ]
-
     def __init__(self,
-                 map_color_mood: str,
-                 collide_and_correct: bool,
-                 villager_force_drop: bool,
                  map_width: int,
                  map_height: int,
-                 terrain: List[TerrainTile],
-                 script_name: str
+                 terrain: List[TerrainTile]
                  ):
         if map_width != map_height:
             raise ValueError("Age of Empires II:DE Does not support non-square maps.")
 
-        self.map_color_mood = map_color_mood
-        self.collide_and_correct = collide_and_correct
-        self.villager_force_drop = villager_force_drop
         self._map_width = map_width
         self._map_height = map_height
         self.terrain = terrain
-        self.script_name = script_name
         super().__init__()
 
     @property
@@ -89,8 +70,8 @@ class MapManager(AoE2Object):
             x2 (int): The x coordinate of the east corner
             y2 (int): The y coordinate of the east corner
             elevation (int): The elevation of the map. Default in-game = 1, in-game max = 7. If the given value is over
-                20 the game camera will 'clip' into the hill. So the in-game camera hovers around the height of 20/21 when
-                fully zoomed in, without Ultra Graphics.
+                20 the game camera will 'clip' into the hill. So the in-game camera hovers around the height of 20/21
+                when fully zoomed in, without Ultra Graphics.
 
         :Author:
             pvallet

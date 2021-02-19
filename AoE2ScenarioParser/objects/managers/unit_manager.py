@@ -4,20 +4,14 @@ from typing import List
 
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper.helper import Tile
-from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 
 
 class UnitManager(AoE2Object):
     """Manager of the everything trigger related."""
-    _link_list = [
-        RetrieverObjectLink("units", "UnitsPiece", "players_units[].units", process_as_object=Unit)
-    ]
 
-    def __init__(self,
-                 units: List[List[Unit]]
-                 ):
+    def __init__(self, units: List[List[Unit]]):
 
         self.units = units
 

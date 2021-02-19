@@ -6,24 +6,25 @@ from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
+from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
-from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Scenario:
     @property
-    def trigger_manager(self) -> TriggerManager:
-        return self._object_manager.objects['TriggerManager']
+    def trigger_manager(self) -> TriggerManagerDE:
+        return self._object_manager.managers['Trigger']
 
     @property
     def unit_manager(self) -> UnitManager:
-        return self._object_manager.objects['UnitManager']
+        return self._object_manager.managers['Unit']
 
     @property
     def map_manager(self) -> MapManager:
-        return self._object_manager.objects['MapManager']
+        return self._object_manager.managers['Map']
 
     def __init__(self):
         self.read_mode = None
@@ -65,6 +66,9 @@ class AoE2Scenario:
         scenario._load_header_section(igenerator)
         scenario._load_content_sections(igenerator)
         helper.rprint(f"Parsing scenario file finished successfully.", final=True)
+
+        scenario._object_manager = AoE2ObjectManager(scenario.pieces, scenario.game_version)
+        scenario._object_manager.setup()
 
         return scenario
 

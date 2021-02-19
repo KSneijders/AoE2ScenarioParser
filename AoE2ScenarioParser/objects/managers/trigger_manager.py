@@ -7,31 +7,21 @@ from typing import List, Dict
 from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
-from AoE2ScenarioParser.objects.data_objects.variable import Variable
 
 
 class TriggerManager(AoE2Object):
     """Manager of the everything trigger related."""
 
-    _link_list = [
-        RetrieverObjectLink("triggers", "TriggersPiece", "trigger_data", process_as_object=Trigger),
-        RetrieverObjectLink("trigger_display_order", "TriggersPiece", "trigger_display_order_array"),
-        RetrieverObjectLink("variables", "TriggersPiece", "variable_data", process_as_object=Variable),
-    ]
-
     def __init__(self,
                  triggers: List[Trigger],
                  trigger_display_order: List[int],
-                 variables: List[Variable]
                  ):
 
         self._trigger_hash = helper.hash_list(triggers)
         self.triggers: List[Trigger] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
-        self.variables: List[Variable] = variables
 
         super().__init__()
 
@@ -160,7 +150,6 @@ class TriggerManager(AoE2Object):
         deepcopy_trigger.name += " (copy)"
         deepcopy_trigger.trigger_id = len(self.triggers)
         self.triggers.append(deepcopy_trigger)
-        # helper.update_order_array(self.trigger_display_order, len(self.triggers))
 
         return deepcopy_trigger
 
@@ -365,8 +354,8 @@ class TriggerManager(AoE2Object):
             looping (bool): If the trigger loops.
             header (bool): Turn objective into header
             mute_objectives (bool): Mute objectives
-            conditions (List): A list of condition objects
-            effects (List): A list of effect objects
+            conditions (List): A list of condition managers
+            effects (List): A list of effect managers
 
         Returns:
             The newly created trigger
@@ -386,47 +375,9 @@ class TriggerManager(AoE2Object):
         # helper.update_order_array(self._trigger_display_order, len(self.triggers))
         return new_trigger
 
-    def add_variable(self, name: str, variable_id: int = -1) -> Variable:
-        """
-        Adds a variable.
-
-        Args:
-            name (str): The name for the variable
-            variable_id (int): The ID of the variable. If left empty (default: -1), lowest available value will be used
-
-        Returns:
-            The newly added Variable
-        """
-        list_of_var_ids = [var.variable_id for var in self.variables]
-        if variable_id == -1:
-            for i in range(256):
-                if i not in list_of_var_ids:
-                    variable_id = i
-                    break
-            if variable_id == -1:
-                raise IndexError(f"No variable ID available. All in use? In use: ({list_of_var_ids}/256)")
-        if not (0 <= variable_id <= 255):
-            raise ValueError("Variable ID has to fall between 0 and 255 (incl).")
-        if variable_id in list_of_var_ids:
-            raise ValueError("Variable ID already in use.")
-
-        new_variable = Variable(variable_id=variable_id, name=name)
-        self.variables.append(new_variable)
-        return new_variable
-
     def get_trigger(self, trigger_select: TriggerSelect) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         return trigger
-
-    def get_variable(self, variable_id: int = None, variable_name: str = None) -> Variable:
-        if variable_id is None and variable_name is None:
-            raise ValueError("Select a variable using the variable_id or variable_name parameters")
-        if variable_id is not None and variable_name is not None:
-            raise ValueError("Select a variable using either the variable_id or variable_name parameters, not both.")
-
-        for variable in self.variables:
-            if variable.variable_id == variable_id or variable.name == variable_name:
-                return variable
 
     def remove_trigger(self, trigger_select: TriggerSelect) -> None:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
@@ -503,22 +454,6 @@ class TriggerManager(AoE2Object):
             return_string += "\t(conditions: " + str(len(trigger.conditions)) + ", "
             return_string += " effects: " + str(len(trigger.effects)) + ")\n"
 
-        variables = self.variables
-
-        return_string += "\nVariables Summary:\n"
-        if len(variables) == 0:
-            return_string += "\t<< No Variables >>"
-
-        longest_variable_name = -1
-        for variable in variables:
-            longest_variable_name = max(longest_variable_name, len(variable.name))
-
-        longest_variable_name += 3
-        for index, variable in enumerate(variables):
-            var_name = variable.name
-            name_buffer = " " * (longest_variable_name - len(var_name))
-            return_string += f"\t{var_name}{name_buffer}[Index: {variable.variable_id}]\n"
-
         return return_string
 
     def get_content_as_string(self) -> str:
@@ -531,12 +466,6 @@ class TriggerManager(AoE2Object):
             return_string += self.get_trigger_as_string(TS.index(trigger_index)) + "\n"
 
         return_string += "Variables:\n"
-
-        if len(self.variables) == 0:
-            return_string += "\t<<No Variables>>\n"
-
-        for variable in self.variables:
-            return_string += f"\t'{variable.name}' [Index: {variable.variable_id}]\n"
 
         return return_string
 
