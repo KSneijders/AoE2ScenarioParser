@@ -5,7 +5,7 @@ from typing import List, Dict
 
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.heroes import Hero
-from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
+from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 """ =============================================================
 ========================= HEX FUNCTIONS =========================
@@ -173,13 +173,13 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
         const: The constant representing a unit
     """
     # Todo: try catch in loop with `return x(const)` in main body. loop through enums
-    if any(item == const for item in Unit):
+    if any(item == const for item in UnitId):
         return Unit(const)
     if any(item.value == const for item in Building):
         return Building(const)
     if any(item.value == const for item in Hero):
         return Hero(const)
-    if any(item == const for item in GaiaUnit):
+    if any(item == const for item in GaiaUnitId):
         return GaiaUnit(const)
     if any(item == const for item in GaiaBuilding):
         return GaiaBuilding(const)

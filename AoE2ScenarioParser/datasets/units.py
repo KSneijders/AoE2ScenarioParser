@@ -3,7 +3,7 @@ from enum import IntEnum
 from bidict import bidict
 
 
-class Unit(IntEnum):
+class UnitId(IntEnum):
     MOVEABLE_MAP_REVEALER = 0
     ALFRED_THE_ALPACA = 1300
     AMAZON_ARCHER = 850
@@ -235,7 +235,7 @@ class Unit(IntEnum):
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
 
 
-class GaiaUnit(IntEnum):
+class GaiaUnitId(IntEnum):
     # GAIA Units
     BEAR = 486
     BUTTERFLY1 = 1608

@@ -1,19 +1,20 @@
 # Datasets
-The project currently contains multiple datasets. These are currently pretty basic and only contain the in-editor options. You can retrieve access to the datasets by importing them. 
+The project currently contains multiple datasets. These are currently pretty basic and only contain the in-editor options. You can retrieve access to the datasets by importing them.
 
 ```py
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import Condition
 from AoE2ScenarioParser.datasets.effects import Effect
-from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation, \
-    TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation,
+
+TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
 
 # Information of unit/tech/terrain name and their ID
 from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
 from AoE2ScenarioParser.datasets.techs import Tech
 from AoE2ScenarioParser.datasets.heroes import Hero
 from AoE2ScenarioParser.datasets.terrains import Terrain
-from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
+from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 # Enum of players
 from AoE2ScenarioParser.datasets.players import Player, PlayerColor

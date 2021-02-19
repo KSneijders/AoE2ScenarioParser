@@ -4,7 +4,7 @@ from AoE2ScenarioParser.datasets.effects import Effect
 from AoE2ScenarioParser.datasets.heroes import Hero
 from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.trigger_lists import PanelLocation
-from AoE2ScenarioParser.datasets.units import Unit
+from AoE2ScenarioParser.datasets.units import UnitId
 
 # File & Folder setup
 scenario_folder = "C:/Users/Kerwin Sneijders/Games/Age of Empires 2 DE/76561198140740017/resources/_common/scenario/"
@@ -17,11 +17,11 @@ trigger_manager = scenario.trigger_manager
 unit_manager = scenario.unit_manager
 
 # Use 9 for projectile.
-unit_to_be_garrisoned = Unit.ARCHER
+unit_to_be_garrisoned = UnitId.ARCHER
 # Anything < 0, but not -1 as that's default
 unit_to_be_garrisoned_id = -20
 
-unit_manager.add_unit(Player.ONE, Unit.PALADIN, 20, 5, reference_id=0)
+unit_manager.add_unit(Player.ONE, UnitId.PALADIN, 20, 5, reference_id=0)
 
 unit_manager.add_unit(Player.ONE, unit_to_be_garrisoned, 0, 0, garrisoned_in_id=0,
                       reference_id=unit_to_be_garrisoned_id)
