@@ -219,8 +219,8 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OBJECT_ATTACK = 28
     """Attributes for the **change_object_attack** effect are: \n
-    - aa_quantity
-    - aa_armor_or_attack_type
+    - armour_attack_quantity
+    - armour_attack_class
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -258,8 +258,8 @@ class Effect(IntEnum):
     - selected_object_ids"""
     CHANGE_OBJECT_ARMOR = 31
     """Attributes for the **change_object_armor** effect are: \n
-    - aa_quantity
-    - aa_armor_or_attack_type
+    - armour_attack_quantity
+    - armour_attack_class
     - object_list_unit_id
     - source_player
     - area_1_x
@@ -659,8 +659,8 @@ effect_names = bidict({
 empty_attributes = {
     "effect_type": -1,
     "ai_script_goal": -1,
-    "aa_quantity": -1,
-    "aa_armor_or_attack_type": -1,
+    "armour_attack_quantity": -1,
+    "armour_attack_class": -1,
     "quantity": -1,
     "tribute_list": -1,
     "diplomacy": -1,
@@ -712,8 +712,8 @@ default_attributes = {
     0: {
         "effect_type": 0,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -763,8 +763,8 @@ default_attributes = {
     50: {
         "effect_type": 50,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -814,8 +814,8 @@ default_attributes = {
     8: {
         "effect_type": 8,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -865,8 +865,8 @@ default_attributes = {
     10: {
         "effect_type": 10,
         "ai_script_goal": 1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -916,8 +916,8 @@ default_attributes = {
     30: {
         "effect_type": 30,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -967,8 +967,8 @@ default_attributes = {
     48: {
         "effect_type": 48,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1018,8 +1018,8 @@ default_attributes = {
     1: {
         "effect_type": 1,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": 0,
@@ -1069,8 +1069,8 @@ default_attributes = {
     31: {
         "effect_type": 31,
         "ai_script_goal": -1,
-        "aa_quantity": 1,
-        "aa_armor_or_attack_type": 0,
+        "armour_attack_quantity": 1,
+        "armour_attack_class": 0,
         "quantity": [],
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1120,8 +1120,8 @@ default_attributes = {
     28: {
         "effect_type": 28,
         "ai_script_goal": -1,
-        "aa_quantity": 1,
-        "aa_armor_or_attack_type": 0,
+        "armour_attack_quantity": 1,
+        "armour_attack_class": 0,
         "quantity": [],
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1171,8 +1171,8 @@ default_attributes = {
     40: {
         "effect_type": 40,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1222,8 +1222,8 @@ default_attributes = {
     44: {
         "effect_type": 44,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1273,8 +1273,8 @@ default_attributes = {
     27: {
         "effect_type": 27,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1324,8 +1324,8 @@ default_attributes = {
     42: {
         "effect_type": 42,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1375,8 +1375,8 @@ default_attributes = {
     26: {
         "effect_type": 26,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1426,8 +1426,8 @@ default_attributes = {
     32: {
         "effect_type": 32,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1477,8 +1477,8 @@ default_attributes = {
     33: {
         "effect_type": 33,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1528,8 +1528,8 @@ default_attributes = {
     36: {
         "effect_type": 36,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1579,8 +1579,8 @@ default_attributes = {
     18: {
         "effect_type": 18,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1630,8 +1630,8 @@ default_attributes = {
     45: {
         "effect_type": 45,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1681,8 +1681,8 @@ default_attributes = {
     47: {
         "effect_type": 47,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1732,8 +1732,8 @@ default_attributes = {
     46: {
         "effect_type": 46,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1783,8 +1783,8 @@ default_attributes = {
     56: {
         "effect_type": 56,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1834,8 +1834,8 @@ default_attributes = {
     16: {
         "effect_type": 16,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1885,8 +1885,8 @@ default_attributes = {
     21: {
         "effect_type": 21,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1936,8 +1936,8 @@ default_attributes = {
     57: {
         "effect_type": 57,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -1987,8 +1987,8 @@ default_attributes = {
     49: {
         "effect_type": 49,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2038,8 +2038,8 @@ default_attributes = {
     11: {
         "effect_type": 11,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2089,8 +2089,8 @@ default_attributes = {
     24: {
         "effect_type": 24,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2140,8 +2140,8 @@ default_attributes = {
     9: {
         "effect_type": 9,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2191,8 +2191,8 @@ default_attributes = {
     13: {
         "effect_type": 13,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2242,8 +2242,8 @@ default_attributes = {
     20: {
         "effect_type": 20,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2293,8 +2293,8 @@ default_attributes = {
     37: {
         "effect_type": 37,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2344,8 +2344,8 @@ default_attributes = {
     38: {
         "effect_type": 38,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2395,8 +2395,8 @@ default_attributes = {
     39: {
         "effect_type": 39,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2446,8 +2446,8 @@ default_attributes = {
     22: {
         "effect_type": 22,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2497,8 +2497,8 @@ default_attributes = {
     34: {
         "effect_type": 34,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2548,8 +2548,8 @@ default_attributes = {
     14: {
         "effect_type": 14,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2599,8 +2599,8 @@ default_attributes = {
     7: {
         "effect_type": 7,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2650,8 +2650,8 @@ default_attributes = {
     51: {
         "effect_type": 51,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2701,8 +2701,8 @@ default_attributes = {
     52: {
         "effect_type": 52,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
@@ -2752,8 +2752,8 @@ default_attributes = {
     53: {
         "effect_type": 53,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
@@ -2803,8 +2803,8 @@ default_attributes = {
     19: {
         "effect_type": 19,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2854,8 +2854,8 @@ default_attributes = {
     25: {
         "effect_type": 25,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2905,8 +2905,8 @@ default_attributes = {
     4: {
         "effect_type": 4,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -2956,8 +2956,8 @@ default_attributes = {
     15: {
         "effect_type": 15,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3007,8 +3007,8 @@ default_attributes = {
     43: {
         "effect_type": 43,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3058,8 +3058,8 @@ default_attributes = {
     2: {
         "effect_type": 2,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3109,8 +3109,8 @@ default_attributes = {
     3: {
         "effect_type": 3,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3160,8 +3160,8 @@ default_attributes = {
     41: {
         "effect_type": 41,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3211,8 +3211,8 @@ default_attributes = {
     29: {
         "effect_type": 29,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3262,8 +3262,8 @@ default_attributes = {
     12: {
         "effect_type": 12,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3313,8 +3313,8 @@ default_attributes = {
     35: {
         "effect_type": 35,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3364,8 +3364,8 @@ default_attributes = {
     5: {
         "effect_type": 5,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": 0,
         "diplomacy": -1,
@@ -3415,8 +3415,8 @@ default_attributes = {
     17: {
         "effect_type": 17,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3466,8 +3466,8 @@ default_attributes = {
     6: {
         "effect_type": 6,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3517,8 +3517,8 @@ default_attributes = {
     23: {
         "effect_type": 23,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3568,8 +3568,8 @@ default_attributes = {
     54: {
         "effect_type": 54,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3619,8 +3619,8 @@ default_attributes = {
     55: {
         "effect_type": 55,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3670,8 +3670,8 @@ default_attributes = {
     58: {
         "effect_type": 58,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3721,8 +3721,8 @@ default_attributes = {
     59: {
         "effect_type": 59,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3772,8 +3772,8 @@ default_attributes = {
     60: {
         "effect_type": 60,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3823,8 +3823,8 @@ default_attributes = {
     61: {
         "effect_type": 61,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3874,8 +3874,8 @@ default_attributes = {
     62: {
         "effect_type": 62,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3925,8 +3925,8 @@ default_attributes = {
     63: {
         "effect_type": 63,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -3976,8 +3976,8 @@ default_attributes = {
     64: {
         "effect_type": 64,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4027,8 +4027,8 @@ default_attributes = {
     65: {
         "effect_type": 65,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4078,8 +4078,8 @@ default_attributes = {
     66: {
         "effect_type": 66,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4129,8 +4129,8 @@ default_attributes = {
     67: {
         "effect_type": 67,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4180,8 +4180,8 @@ default_attributes = {
     68: {
         "effect_type": 68,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4231,8 +4231,8 @@ default_attributes = {
     69: {
         "effect_type": 69,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4282,8 +4282,8 @@ default_attributes = {
     70: {
         "effect_type": 70,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4333,8 +4333,8 @@ default_attributes = {
     71: {
         "effect_type": 71,
         "ai_script_goal": -1,
-        "aa_quantity": [],
-        "aa_armor_or_attack_type": [],
+        "armour_attack_quantity": [],
+        "armour_attack_class": [],
         "quantity": -1,
         "tribute_list": -1,
         "diplomacy": -1,
@@ -4428,8 +4428,8 @@ attributes = {
     ],
     31: [
         "effect_type",
-        "aa_quantity",
-        "aa_armor_or_attack_type",
+        "armour_attack_quantity",
+        "armour_attack_class",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
@@ -4443,8 +4443,8 @@ attributes = {
     ],
     28: [
         "effect_type",
-        "aa_quantity",
-        "aa_armor_or_attack_type",
+        "armour_attack_quantity",
+        "armour_attack_class",
         "object_list_unit_id",
         "source_player",
         "area_1_x",
