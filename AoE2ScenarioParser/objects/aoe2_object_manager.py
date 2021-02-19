@@ -1,47 +1,42 @@
 from __future__ import annotations
 
-from collections import OrderedDict
-
-from AoE2ScenarioParser.helper.helper import SimpleLogger
-from AoE2ScenarioParser.objects.managers.map_manager import MapManager
-from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
+from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
-from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+
+managers = {
+    'DE': {
+        'Map': MapManagerDE,
+        'Trigger': TriggerManagerDE,
+        'Unit': UnitManager,
+    }
+}
 
 
 class AoE2ObjectManager:
-    def __init__(self, parsed_header, parsed_data, log_parsing=True):
-        # Todo: Create a piece holder object or something to simplify this process
-        self.pieces: OrderedDict[str, AoE2FileSection] = OrderedDict(**parsed_header, **parsed_data)
+    def __init__(self, pieces, game_version):
+        self.pieces = pieces
+        self.game_version = game_version
+        self.managers = {}
 
-        lgr = SimpleLogger(log_parsing)
-        lgr.print("\nParsing pieces and structs to objects...")
-        self.parsed_header = parsed_header
-        self.parsed_data = parsed_data
+    def setup(self):
+        helper.rprint(f"Setting up managers ...", final=True)
 
-        self.constructables = [
-            MapManager,
-            TriggerManager,
-            UnitManager,
-        ]
-        self.objects = {}
+        for name, manager in managers[self.game_version].items():
+            helper.rprint(f"\t🔄 Setting up {name}Manager...")
+            self.managers[name] = manager._construct(self.pieces)
+            helper.rprint(f"\t✔ {name}Manager", final=True)
 
-        for obj in self.constructables:
-            lgr.print("\tParsing " + obj.__name__ + "...", replace=True)
-            self.objects[obj.__name__] = obj._construct(self.pieces)
-            lgr.print("\tParsing " + obj.__name__ + " finished successfully.", replace=True)
-            lgr.print()
+        helper.rprint(f"Setting up managers finished successfully.", final=True)
 
-        lgr.print("Parsing pieces and structs to objects finished successfully.")
+    def reconstruct(self):
+        helper.rprint("\nReconstructing pieces and structs from managers...")
 
-    def reconstruct(self, log_reconstructing=False):
-        lgr = SimpleLogger(log_reconstructing)
-        lgr.print("\nReconstructing pieces and structs from objects...")
+        for name, manager in managers[self.game_version].items():
+            helper.rprint("\tReconstructing " + manager.__name__ + "...", replace=True)
+            self.managers[name].commit(self.pieces)
+            helper.rprint("\tReconstructing " + manager.__name__ + " finished successfully.", replace=True)
+            helper.rprint()
 
-        for obj in self.constructables:
-            lgr.print("\tReconstructing " + obj.__name__ + "...", replace=True)
-            self.objects[obj.__name__].commit(pieces=self.pieces)
-            lgr.print("\tReconstructing " + obj.__name__ + " finished successfully.", replace=True)
-            lgr.print()
-
-        lgr.print("Reconstruction finished successfully.")
+        helper.rprint("Reconstruction finished successfully.")
