@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class Terrain(IntEnum):
+class TerrainId(IntEnum):
     BEACH = 2
     BEACH_NON_NAVIGABLE = 79
     BEACH_NON_NAVIGABLE_WET_GRAVEL = 81

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.datasets.terrains import Terrain
+from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
@@ -53,7 +53,7 @@ class MapManager(AoE2Object):
             for _ in range(difference):
                 self.terrain.append(
                     TerrainTile(
-                        Terrain.GRASS_1,
+                        TerrainId.GRASS_1,
                         elevation=1,
                         layer=-1
                     )

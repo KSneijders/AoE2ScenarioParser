@@ -13,7 +13,7 @@ TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectA
 from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
 from AoE2ScenarioParser.datasets.techs import Tech
 from AoE2ScenarioParser.datasets.heroes import HeroId
-from AoE2ScenarioParser.datasets.terrains import Terrain
+from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 # Enum of players
