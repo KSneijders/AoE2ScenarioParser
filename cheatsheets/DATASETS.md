@@ -3,8 +3,8 @@ The project currently contains multiple datasets. These are currently pretty bas
 
 ```py
 # Information about the conditions & effects and their attributes
-from AoE2ScenarioParser.datasets.conditions import Condition
-from AoE2ScenarioParser.datasets.effects import Effect
+from AoE2ScenarioParser.datasets.conditions import ConditionId
+from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation,
 
 TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
@@ -17,7 +17,7 @@ from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 # Enum of players
-from AoE2ScenarioParser.datasets.players import Player, PlayerColor
+from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
 ```
 
 Current datasets are:
@@ -48,7 +48,7 @@ When you created a condition or effect inside of a trigger you can check what ne
 trigger = trigger_manager.add_trigger("Trigger0")
 effect = trigger.add_effect(Effect.CHANGE_DIPLOMACY)
 
-# Checking the docs for Effect.CHANGE_DIPLOMACY will show:
+# Checking the docs for EffectId.CHANGE_DIPLOMACY will show:
 """
 Attributes for the **change_diplomacy** effect are:
 - diplomacy

@@ -3,7 +3,7 @@ from enum import IntEnum
 from bidict import bidict
 
 
-class Effect(IntEnum):
+class EffectId(IntEnum):
     NONE = 0
     """Attributes for the **none** effect are: \n
     ... none... Just like Conditions... People these days... """

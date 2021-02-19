@@ -1,8 +1,8 @@
 from typing import List
 
 from AoE2ScenarioParser.datasets import effects, conditions
-from AoE2ScenarioParser.datasets.conditions import Condition
-from AoE2ScenarioParser.datasets.effects import Effect
+from AoE2ScenarioParser.datasets.conditions import ConditionId
+from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -77,10 +77,10 @@ class Trigger(AoE2Object):
         self.header: int = header
         self.mute_objectives: int = mute_objectives
         self._condition_hash = helper.hash_list(conditions)
-        self.conditions: List[Condition] = conditions
+        self.conditions: List[ConditionId] = conditions
         self.condition_order: List[int] = condition_order
         self._effect_hash = helper.hash_list(effects)
-        self.effects: List[Effect] = effects
+        self.effects: List[EffectId] = effects
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 

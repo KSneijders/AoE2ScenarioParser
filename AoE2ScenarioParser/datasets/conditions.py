@@ -3,7 +3,7 @@ from enum import IntEnum
 from bidict import bidict
 
 
-class Condition(IntEnum):
+class ConditionId(IntEnum):
     NONE = 0
     """
     Attributes for the **none**  condition are:\n

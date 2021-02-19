@@ -1,9 +1,9 @@
 from enum import IntEnum
 
 
-class UnitOther(IntEnum):
+class UnitOtherId(IntEnum):
     FLARE = 274
 
 
-class GaiaUnitOther(IntEnum):
+class GaiaUnitOtherId(IntEnum):
     FLARE = 274

@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 
 from AoE2ScenarioParser.datasets import units, buildings
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
@@ -26,7 +26,7 @@ class Unit(AoE2Object):
     ]
 
     def __init__(self,
-                 player: Player,
+                 player: PlayerId,
                  x: float,
                  y: float,
                  z: float,
@@ -38,7 +38,7 @@ class Unit(AoE2Object):
                  garrisoned_in_id: int
                  ):
 
-        self._player: Player = Player(player)
+        self._player: PlayerId = Player(player)
         """
         PLEASE NOTE: This is an internal (read-only) value for ease of access. It accurately represent the actual 
         player controlling the unit but is not directly connected to it. Changing this value will have no impact to your
@@ -59,7 +59,7 @@ class Unit(AoE2Object):
         super().__init__()
 
     @property
-    def player(self) -> Player:
+    def player(self) -> PlayerId:
         """
         PLEASE NOTE: This is an internal (read-only) value for ease of access. It DOES accurately represent the actual
         player controlling the unit BUT IT IS NOT directly connected to it. Changing this value will have no impact to

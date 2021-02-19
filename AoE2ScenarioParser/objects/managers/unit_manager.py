@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
@@ -17,7 +17,7 @@ class UnitManager(AoE2Object):
 
         super().__init__()
 
-    def add_unit(self, player: Player, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
+    def add_unit(self, player: PlayerId, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
                  reference_id: int = None, ) -> Unit:
         """
@@ -57,7 +57,7 @@ class UnitManager(AoE2Object):
         self.units[player.value].append(unit)
         return unit
 
-    def get_player_units(self, player: Player) -> List[Unit]:
+    def get_player_units(self, player: PlayerId) -> List[Unit]:
         """
         Returns a list of UnitObjects for the given player.
 
@@ -86,8 +86,8 @@ class UnitManager(AoE2Object):
                           tile1: Tile = None,
                           tile2: Tile = None,
                           unit_list: List[Unit] = None,
-                          players: List[Player] = None,
-                          ignore_players: List[Player] = None):
+                          players: List[PlayerId] = None,
+                          ignore_players: List[PlayerId] = None):
         """
         Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
 
@@ -131,9 +131,9 @@ class UnitManager(AoE2Object):
         if players is not None:
             players = players
         elif ignore_players is not None:
-            players = [p for p in Player if p not in ignore_players]
+            players = [p for p in PlayerId if p not in ignore_players]
         else:
-            players = [p for p in Player]
+            players = [p for p in PlayerId]
 
         if unit_list is None:
             unit_list = self.get_all_units()
@@ -141,13 +141,13 @@ class UnitManager(AoE2Object):
         return [unit for unit in unit_list
                 if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
-    def change_ownership(self, unit: Unit, to_player: Player) -> None:
+    def change_ownership(self, unit: Unit, to_player: PlayerId) -> None:
         """
         Changes a unit's ownership to the given player.
 
         Args:
             unit: The unit object which ownership will be changed
-            to_player: The player that'll get ownership over the unit (using Player enum)
+            to_player: The player that'll get ownership over the unit (using PlayerId enum)
         """
         for i, player_unit in enumerate(self.units[unit.player.value]):
             if player_unit == unit:

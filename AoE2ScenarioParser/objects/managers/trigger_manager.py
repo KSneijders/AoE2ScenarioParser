@@ -4,8 +4,8 @@ import copy
 from enum import IntEnum
 from typing import List, Dict
 
-from AoE2ScenarioParser.datasets.effects import Effect
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
@@ -44,7 +44,7 @@ class TriggerManager(AoE2Object):
                                 include_player_target=False,
                                 trigger_ce_lock=None,
                                 include_gaia: bool = False,
-                                create_copy_for_players: List[IntEnum] = None) -> Dict[Player, Trigger]:
+                                create_copy_for_players: List[IntEnum] = None) -> Dict[PlayerId, Trigger]:
         """
         Copies a trigger for all or a selection of players. Every copy will change desired player attributes with it.
 
@@ -70,7 +70,7 @@ class TriggerManager(AoE2Object):
         Returns:
             A dict with all the new created triggers. The key is the player for which the trigger is
                 created using the IntEnum associated with it. Example:
-                {Player.TWO: Trigger, Player.FIVE: Trigger}
+                {PlayerId.TWO: Trigger, PlayerId.FIVE: Trigger}
 
         Raises:
             ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
@@ -86,15 +86,15 @@ class TriggerManager(AoE2Object):
 
         if create_copy_for_players is None:
             create_copy_for_players = [
-                Player.ONE, Player.TWO, Player.THREE, Player.FOUR,
-                Player.FIVE, Player.SIX, Player.SEVEN, Player.EIGHT
+                PlayerId.ONE, PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR,
+                PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
             ]
-        if include_gaia and Player.GAIA not in create_copy_for_players:
-            create_copy_for_players.append(Player.GAIA)
+        if include_gaia and PlayerId.GAIA not in create_copy_for_players:
+            create_copy_for_players.append(PlayerId.GAIA)
 
         alter_conditions, alter_effects = TriggerManager._find_alterable_ce(trigger, trigger_ce_lock)
 
-        return_dict: Dict[Player, Trigger] = {}
+        return_dict: Dict[PlayerId, Trigger] = {}
         for player in create_copy_for_players:
             if not player == from_player:
                 new_trigger = self.copy_trigger(TS.trigger(trigger))
@@ -165,7 +165,7 @@ class TriggerManager(AoE2Object):
                                      group_triggers_by=None):
         """
         Copies an entire trigger tree for all or a selection of players. Every copy will change desired player
-        attributes with it. Trigger trees are triggers linked together using Effect.(DE)ACTIVATE_TRIGGER.
+        attributes with it. Trigger trees are triggers linked together using EffectId.(DE)ACTIVATE_TRIGGER.
 
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
@@ -219,7 +219,7 @@ class TriggerManager(AoE2Object):
             for trigger in triggers:
                 activation_effects = [
                     effect for effect in trigger.effects if
-                    effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+                    effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
                 ]
                 for effect in activation_effects:
                     effect.trigger_id = id_swap[effect.trigger_id][player]
@@ -280,7 +280,7 @@ class TriggerManager(AoE2Object):
         for trigger in new_triggers:
             activation_effects = [
                 effect for effect in trigger.effects if
-                effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+                effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
             ]
             for effect in activation_effects:
                 effect.trigger_id = id_swap[effect.trigger_id]
@@ -294,8 +294,8 @@ class TriggerManager(AoE2Object):
 
         Args:
             trigger_select (TriggerSelect): An object used to identify which trigger to select.
-            to_player (Player): The player the attributes are changed to.
-            only_change_from (Player): Can only change player attributes if the player is equal to the given value
+            to_player (PlayerId): The player the attributes are changed to.
+            only_change_from (PlayerId): Can only change player attributes if the player is equal to the given value
             include_player_source (bool): If set to True, allow player source attributes to be changed while replacing.
                 Player source attributes are attributes where a player is defined to perform an action such as create an
                 object. If set to False these attributes will remain unchanged.
@@ -505,7 +505,7 @@ class TriggerManager(AoE2Object):
     def _find_trigger_tree_nodes(trigger: Trigger) -> List[int]:
         return [
             effect.trigger_id for effect in trigger.effects if
-            effect.effect_type in [Effect.ACTIVATE_TRIGGER, Effect.DEACTIVATE_TRIGGER]
+            effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
         ]
 
 
@@ -555,8 +555,8 @@ class TriggerCELock:
         Args:
             lock_conditions (bool): Lock all conditions
             lock_effects (bool): Lock all effects
-            lock_condition_type (List[int]): Lock certain condition types. Example: `Condition.OWN_OBJECTS`
-            lock_effect_type (List[int]): Lock certain effect types. Example: `Effect.CREATE_OBJECT`
+            lock_condition_type (List[int]): Lock certain condition types. Example: `ConditionId.OWN_OBJECTS`
+            lock_effect_type (List[int]): Lock certain effect types. Example: `EffectId.CREATE_OBJECT`
             lock_condition_ids (List[int]): Lock certain conditions by their id
             lock_effect_ids (List[int]): Lock certain effects by their id
         """
@@ -601,7 +601,7 @@ class GroupBy(IntEnum):
     Example: If the 'source' trigger has display_index of 3, and another trigger in it's tree has 5. Assuming the 
     triggers were copied for all players, display indexes of the copies from the firs trigger would be: 5, 7, 9, 11, 13,
     15 and 17. The second trigger would have moved to 4 (from 5) and it's copies would occupy slots: 6, 8, 10, 12, 14, 
-    16 and 18. This way both Player.ONE (assuming that's the source player) triggers will be together, same goes for all
+    16 and 18. This way both PlayerId.ONE (assuming that's the source player) triggers will be together, same goes for all
     other player. 
     
     In the example above can be seen how the second trigger was moved from 5 to 4. The unrelated trigger in between was
