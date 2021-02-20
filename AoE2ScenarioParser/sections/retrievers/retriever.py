@@ -4,7 +4,7 @@ from typing import List, Union, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper, parser
 from AoE2ScenarioParser.helper.bytes_to_x import parse_bytes_to_val, parse_val_to_bytes
-from AoE2ScenarioParser.helper.datatype import DataType
+from AoE2ScenarioParser.sections.retrievers.datatype import DataType
 from AoE2ScenarioParser.helper.parser import attributes
 from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
 
