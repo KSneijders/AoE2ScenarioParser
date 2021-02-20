@@ -31,7 +31,7 @@ class AoE2ObjectManager:
         helper.rprint(f"Setting up managers finished successfully.", final=True)
 
     def reconstruct(self):
-        helper.rprint("\nReconstructing pieces and structs from managers...")
+        helper.rprint("\nReconstructing sections and structs from managers...")
 
         for name, manager in managers[self.game_version].items():
             helper.rprint("\tReconstructing " + manager.__name__ + "...", replace=True)

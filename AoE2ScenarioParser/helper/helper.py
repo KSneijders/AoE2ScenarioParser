@@ -93,6 +93,10 @@ def pretty_print_list(plist: List, inline_types: Dict[str, int] = None):
     return return_string + "]\r\n"
 
 
+def add_tabs(string: str, tabs: int):
+    return ("\n\r"+("\t" * tabs)).join(string.split("\r\n"))
+
+
 def _create_inline_line(entries):
     return "\t" + ", ".join(map(str, entries)) + "\r\n"
 

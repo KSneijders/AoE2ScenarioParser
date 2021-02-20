@@ -5,10 +5,11 @@ from typing import List, Union, TYPE_CHECKING
 from AoE2ScenarioParser.helper import helper, parser
 from AoE2ScenarioParser.helper.bytes_to_x import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.datatype import DataType
-from AoE2ScenarioParser.helper.retriever_dependency import RetrieverDependency, DependencyAction
+from AoE2ScenarioParser.helper.parser import attributes
+from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
+    from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class Retriever:
@@ -43,7 +44,7 @@ class Retriever:
             potential_list=self.potential_list,
             log_value=self.log_value
         )
-        for attr in parser.attributes:
+        for attr in attributes:
             try:
                 setattr(retriever, attr, getattr(self, attr))
             except AttributeError:

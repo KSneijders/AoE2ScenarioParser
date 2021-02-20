@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Dict, List
+from typing import Dict, List, OrderedDict
 
+import AoE2ScenarioParser.sections.dependencies.dependency
+import AoE2ScenarioParser.sections.dependencies.retriever_dependency
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name, Retriever, copy_retriever_list
+from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, copy_retriever_list
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
 
-class PieceLevel(Enum):
+class SectionLevel(Enum):
     TOP_LEVEL = 0
     STRUCT = 1
 
@@ -17,7 +19,7 @@ class PieceLevel(Enum):
 class AoE2FileSection:
     dependencies = {}
 
-    def __init__(self, name, retrievers, struct_models=None, level=PieceLevel.TOP_LEVEL):
+    def __init__(self, name, retrievers, struct_models=None, level=SectionLevel.TOP_LEVEL):
         if struct_models is None:
             struct_models = {}
 
@@ -25,7 +27,7 @@ class AoE2FileSection:
         self.retrievers: List[Retriever] = retrievers
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
-        self.level: PieceLevel = level
+        self.level: SectionLevel = level
 
         for retriever in retrievers:
             if retriever.name in self.__class__.dependencies.keys():
@@ -50,22 +52,22 @@ class AoE2FileSection:
             name=model.name,
             retrievers=copy_retriever_list(model.retrievers),
             struct_models=model.structs,
-            level=PieceLevel.STRUCT
+            level=SectionLevel.STRUCT
         )
 
     @classmethod
-    def from_structure(cls, piece_name, structure):
+    def from_structure(cls, section_name, structure):
         retrievers = []
         for name, attr in structure.get('retrievers').items():
             retrievers.append(Retriever.from_structure(name, attr))
 
         structs = model_dict_from_structure(structure)
-        return cls(piece_name, retrievers, structs)
+        return cls(section_name, retrievers, structs)
 
     @classmethod
-    def from_data(cls, name, retrievers, data, pieces):
+    def from_data(cls, name, retrievers, data, sections):
         part = cls(name, retrievers)
-        part.set_data(data, pieces)
+        part.set_data(data, sections)
         return part
 
     def get_data_as_bytes(self):
@@ -79,21 +81,22 @@ class AoE2FileSection:
                 result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
-    def set_data_from_generator(self, igenerator: IncrementalGenerator, pieces) -> None:
+    def set_data_from_generator(self, igenerator: IncrementalGenerator, sections: OrderedDict[str, AoE2FileSection]) \
+            -> None:
         """
         Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
-        Bytes will be parsed based on the retrievers. The total length of bytes read to fill this piece is also stored
-        in this piece as `byte_length`.
+        Bytes will be parsed based on the retrievers. The total length of bytes read to fill this section is also stored
+        in this section as `byte_length`.
 
         Args:
-            igenerator (IncrementalGenerator): A generator from a binary scenario file
-            pieces (OrderedDictType[str, AoE2Piece]): A list of pieces to reference when the retrievers have
+            igenerator: A generator from a binary scenario file
+            sections: A list of sections to reference when the retrievers have
                 dependencies to orf rom them.
         """
         total_length = 0
         for retriever in self.retrievers:
             try:
-                parser.handle_retriever_dependency(retriever, self.retrievers, "construct", pieces)
+                AoE2ScenarioParser.sections.dependencies.dependency.handle_retriever_dependency(retriever, "construct", self.retrievers, sections)
                 if retriever.datatype.type == "struct":
                     retriever.data = []
                     struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
@@ -102,7 +105,7 @@ class AoE2FileSection:
                         if model is None:
                             raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
                         struct = AoE2FileSection.from_model(model)
-                        struct.set_data_from_generator(igenerator, pieces)
+                        struct.set_data_from_generator(igenerator, sections)
                         retriever.data.append(struct)
 
                         total_length += struct.byte_length
@@ -117,13 +120,13 @@ class AoE2FileSection:
 
         self.byte_length = total_length
 
-    def set_data(self, data, pieces):
+    def set_data(self, data, sections):
         if len(data) == len(self.retrievers):
             for i in range(len(data)):
                 self.retrievers[i].data = data[i]
 
                 if hasattr(self.retrievers[i], 'on_construct'):
-                    parser.handle_retriever_dependency(self.retrievers[i], self.retrievers, "construct", pieces)
+                    AoE2ScenarioParser.sections.dependencies.dependency.handle_retriever_dependency(self.retrievers[i], "construct", self.retrievers, sections)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: (len: {len(data)}) "
@@ -157,22 +160,22 @@ class AoE2FileSection:
     def _entry_to_string(self, name, data, datatype):
         self._verify_level()
         prefix = "\t"
-        if self.level == PieceLevel.STRUCT:
+        if self.level == SectionLevel.STRUCT:
             prefix = "\t\t\t"
         return f"{prefix}{name}: {data} ({datatype})\n"
 
     def get_header_string(self):
         self._verify_level()
-        if self.level == PieceLevel.TOP_LEVEL:
-            return "######################## " + self.name + " ######################## [PIECE]"
-        elif self.level == PieceLevel.STRUCT:
+        if self.level == SectionLevel.TOP_LEVEL:
+            return "######################## " + self.name + " ######################## [SECTION]"
+        elif self.level == SectionLevel.STRUCT:
             return "############ " + self.name + " ############  [STRUCT]"
 
     def _verify_level(self):
-        if self.level not in PieceLevel:
+        if self.level not in SectionLevel:
             raise ValueError(f"Invalid level: '{self.level}'")
 
-    def get_byte_structure_as_string(self, pieces, skip_retrievers=None):
+    def get_byte_structure_as_string(self, sections, skip_retrievers=None):
         if skip_retrievers is None:
             skip_retrievers = []
 
@@ -190,7 +193,7 @@ class AoE2FileSection:
                     if not struct_header_set:
                         byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
                         struct_header_set = True
-                    byte_structure += struct.get_byte_structure_as_string(pieces)
+                    byte_structure += struct.get_byte_structure_as_string(sections)
             # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
             if struct_header_set:
                 byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"

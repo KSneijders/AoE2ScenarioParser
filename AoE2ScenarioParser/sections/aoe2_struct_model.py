@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Dict
 
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever import Retriever
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
 class AoE2StructModel:

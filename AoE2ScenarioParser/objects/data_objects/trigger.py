@@ -4,7 +4,7 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId, default_attribut
     condition_names
 from AoE2ScenarioParser.datasets.effects import EffectId, default_attributes as e_default_attributes, effect_names
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect

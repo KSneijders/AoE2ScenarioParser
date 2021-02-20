@@ -1,14 +1,14 @@
 from typing import Type, List
 
-from AoE2ScenarioParser.helper.parser import handle_retriever_dependency
-from AoE2ScenarioParser.helper.retriever import get_retriever_by_name
+from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
+from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
 class RetrieverObjectLink:
     def __init__(self,
                  variable_name: str,
-                 piece: str = None,
+                 section: str = None,
                  link: str = None,
                  process_as_object: Type[AoE2Object] = None,
                  retrieve_instance_number: bool = False,
@@ -18,7 +18,7 @@ class RetrieverObjectLink:
             raise ValueError("Use one and only one of the following parameters: 'link', 'retrieve_instance_number' or "
                              "'retrieve_history_number'.")
         self.name: str = variable_name
-        self.piece = piece
+        self.section = section
         self.link = link
         self.is_special_unit_case = self._self_is_special_unit_case()
         self.process_as_object: Type[AoE2Object] = process_as_object
@@ -45,7 +45,7 @@ class RetrieverObjectLink:
                     temp_link = temp_link.replace("__index__", str(i), 1)
             temp_link = temp_link.replace("__index__", str(instance_number), 1)
 
-            value = pieces[self.piece]
+            value = pieces[self.section]
             for x in temp_link.split("."):
                 if "[" in x:
                     indexing = x.index('[')
@@ -89,7 +89,7 @@ class RetrieverObjectLink:
         split_temp_link: List[str] = temp_link.split(".")
         retriever = None
 
-        piece = pieces[self.piece]
+        piece = pieces[self.section]
         for attribute in split_temp_link:
             if '[' in attribute:
                 index_location = attribute.index('[')
@@ -144,7 +144,7 @@ class RetrieverObjectLink:
             retriever.data = value
 
         if hasattr(retriever, 'on_commit'):
-            handle_retriever_dependency(retriever, retriever_list, "commit", pieces)
+            handle_retriever_dependency(retriever, "commit", retriever_list, pieces)
 
     def _self_is_special_unit_case(self):
         if self.link is not None:
@@ -153,7 +153,7 @@ class RetrieverObjectLink:
 
     def _construct_special_unit_case(self, pieces):
         list_notation_location = self.link.find("[]")
-        struct_list = getattr(pieces[self.piece], self.link[:list_notation_location])
+        struct_list = getattr(pieces[self.section], self.link[:list_notation_location])
         list_len = len(struct_list)
         result_list = [[] for _ in range(list_len)]
         for i in range(list_len):
@@ -174,7 +174,7 @@ class RetrieverObjectLink:
                 obj.commit()
 
     def __repr__(self):
-        return f"[RetrieverObjectLink] {self.name}: {self.piece}. {self.link}" + \
+        return f"[RetrieverObjectLink] {self.name}: {self.section}. {self.link}" + \
                (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
                (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
                (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")

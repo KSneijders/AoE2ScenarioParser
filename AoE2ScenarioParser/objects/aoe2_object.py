@@ -8,7 +8,7 @@ from AoE2ScenarioParser.helper import helper
 
 if TYPE_CHECKING:
     from typing import OrderedDict as OrderedDictType
-    from AoE2ScenarioParser.helper.retriever_object_link import RetrieverObjectLink
+    from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
@@ -46,16 +46,16 @@ class AoE2Object:
 
     def commit(self, pieces=None, local_link_list=None):
         """
-        Commits all changes to the piece & struct structure of the object it's called upon.
+        Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            pieces (OrderedDictType[str, AoE2FileSection]): A list of pieces to reference where to commit to. If left empty,
-                the pieces default to the pieces where this object was constructed from.
+            pieces (OrderedDictType[str, AoE2FileSection]): A list of sections to reference where to commit to. If left empty,
+                the sections default to the sections where this object was constructed from.
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
         """
         if self._pieces == {} and pieces is None:
-            raise ValueError("Unable to commit object. No reference to pieces set.")
+            raise ValueError("Unable to commit object. No reference to sections set.")
 
         if local_link_list is None:
             local_link_list = self._link_list

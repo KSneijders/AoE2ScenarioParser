@@ -23,8 +23,8 @@ _no_string_trail = [
     "ascii_victory",  # Cinematics
     "ascii_loss",  # Cinematics
     "ascii_filename",  # Cinematics
-    "strings",  # in PlayerDataTwoPiece
-    "ai_names",  # in PlayerDataTwoPiece
+    "strings",  # in PlayerDataTwo
+    "ai_names",  # in PlayerDataTwo
     "ai_per_file_text",  # in AIStruct
     "unknown_string",  # in Map
     "map_color_mood",  # in Map

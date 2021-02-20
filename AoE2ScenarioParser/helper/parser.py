@@ -1,34 +1,41 @@
-import math
 import time
-from typing import Any, List
+from typing import List, TYPE_CHECKING
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_to_x import *
 from AoE2ScenarioParser.helper.exceptions import EndOfFileError
-from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.helper import listify
-from AoE2ScenarioParser.helper.retriever import Retriever, get_retriever_by_name
-from AoE2ScenarioParser.helper.retriever_dependency import DependencyAction
+from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
-def vorl(retriever: Retriever, var):
-    """VorL: "Variable or List". This function returns the value based on retriever configurations"""
+def vorl(retriever, value):
+    """
+    Variable or List
+
+    Args:
+        retriever (Retriever): The retriever
+        value (Any): A value to be put in the retriever
+
+    Returns:
+        Given value itself or list form depending on retriever configuration
+    """
     if retriever.potential_list:
         if retriever.datatype.repeat != 1:
-            return listify(var)
+            return listify(value)
         for attribute in attributes:
             if hasattr(retriever, attribute):
                 for x in listify(getattr(retriever, attribute)):
-                    if x.dependency_type == DependencyAction.SET_REPEAT:
-                        return listify(var)
+                    if x.dependency_action == DependencyAction.SET_REPEAT:
+                        return listify(value)
 
     # Fallback to length check
-    if type(var) is list:
-        if len(var) == 1:
-            return var[0]
-    return var
+    if type(value) is list:
+        if len(value) == 1:
+            return value[0]
+    return value
 
 
 def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
@@ -49,17 +56,12 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     try:
         for i in range(retriever.datatype.repeat):
             if var_type != "str":  # (Signed) ints, floats, chars, plain bytes etc.
-                # Todo: Remove commented code (x3)
-                # retrieved_bytes.append(repeat_generator(generator, var_len))
                 retrieved_bytes.append(igenerator.get_bytes(var_len))
             else:  # String, Stored as: (signed int (n), string (string_length = n))
-                # int_bytes = repeat_generator(generator, var_len)
                 int_bytes = igenerator.get_bytes(var_len)
                 string_length = bytes_to_int(int_bytes, signed=True)
-                # retrieved_bytes.append(int_bytes)
                 string_bytes = b'' if string_length == 0 else igenerator.get_bytes(string_length)
                 retrieved_bytes.append(int_bytes + string_bytes)
-                # retrieved_bytes.append(int_bytes + repeat_generator(generator, string_length))
     except EndOfFileError:
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
@@ -73,71 +75,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     return retrieved_bytes
 
 
-def handle_retriever_dependency(retriever: Retriever, retrievers: List[Retriever], state, pieces):
-    if not hasattr(retriever, f'on_{state}'):
-        return
-    if state == "construct":
-        retriever_on_x = retriever.on_construct
-    elif state == "commit":
-        retriever_on_x = retriever.on_commit
-    elif state == "refresh":
-        retriever_on_x = retriever.on_refresh
-    else:
-        raise ValueError("State must be any of: construct, commit or refresh")
-
-    retriever_on_x_list = listify(retriever_on_x)
-    for retriever_on_x in retriever_on_x_list:
-        dep_action = retriever_on_x.dependency_type
-        dep_target = retriever_on_x.dependency_target
-        if dep_action == DependencyAction.REFRESH_SELF:
-            handle_retriever_dependency(retriever, retrievers, "refresh", pieces)
-        elif dep_action == DependencyAction.REFRESH:
-            listified_target = listify(dep_target.target_piece)
-            listified_target_attr = listify(dep_target.piece_attr_name)
-            for i in range(len(listified_target)):
-                retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
-                retriever_to_be_refreshed = get_retriever_by_name(retriever_list, listified_target_attr[i])
-                handle_retriever_dependency(retriever_to_be_refreshed, retriever_list, "refresh", pieces)
-        elif dep_action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
-            # Todo: Instead of ['self', 'self'] & ['retr_name', 'retr_name'] just have: [('self', 'retr_name'), ...]
-            listified_target = listify(dep_target.target_piece)
-            listified_target_attr = listify(dep_target.piece_attr_name)
-            retriever_data = []
-            for i in range(len(listified_target)):
-                retriever_list = handle_dependency_target(listified_target[i], retrievers, pieces)
-                retriever_data.append(get_retriever_by_name(retriever_list, listified_target_attr[i]).data)
-            value = handle_dependency_eval(retriever_on_x, retriever_data)
-            if dep_action == DependencyAction.SET_VALUE:
-                retriever.data = value
-            elif dep_action == DependencyAction.SET_REPEAT:
-                retriever.datatype.repeat = value
-
-
-def handle_dependency_target(target_piece, retrievers, pieces):
-    if target_piece == "self":
-        retriever_list = retrievers
-    else:
-        retriever_list = pieces[target_piece].retrievers
-    return retriever_list
-
-
-def handle_dependency_eval(retriever_on_x, value):
-    eval_locals = retriever_on_x.dependency_eval.eval_locals
-    # values_as_variable = retriever_on_x.dependency_eval.values_as_variable
-    attribute_names = listify(retriever_on_x.dependency_target.piece_attr_name)
-    # If value as is used, use it as keys for the value!
-    # Todo: Remove 'values_as_variable' logic
-    # if values_as_variable:
-    #     print(":o")
-    #     eval_locals = {**eval_locals, **dict(zip(values_as_variable, value))}
-    # else:
-    for i in range(len(attribute_names)):
-        eval_locals[attribute_names[i]] = value[i]
-        eval_locals['math'] = math
-    return eval(retriever_on_x.dependency_eval.eval_code, {}, eval_locals)
-
-
-def handle_unsupported_version(retriever: Retriever, retrieved_bytes: List[bytes]) -> None:
+def handle_unsupported_version(retriever, retrieved_bytes: List[bytes]) -> None:
     if retriever.name == "version" and retriever.datatype.var == "c4":
         v = bytes_to_fixed_chars(retrieved_bytes[0])
         # Todo: Decide to keep, maybe check using float version. Only show when < ??? - (Probably just remove)

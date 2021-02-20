@@ -32,7 +32,7 @@ class AoE2Scenario:
         self.scenario_version = "???"
         self.game_version = "???"
         self.structure = {}
-        self.pieces: OrderedDict[str, AoE2FileSection] = OrderedDict()
+        self.sections: OrderedDict[str, AoE2FileSection] = OrderedDict()
         self._object_manager: Union[AoE2ObjectManager, None] = None
 
         # Used in debug functions
@@ -68,7 +68,7 @@ class AoE2Scenario:
         scenario._load_content_sections(igenerator)
         helper.rprint(f"Parsing scenario file finished successfully.", final=True)
 
-        scenario._object_manager = AoE2ObjectManager(scenario.pieces, scenario.game_version)
+        scenario._object_manager = AoE2ObjectManager(scenario.sections, scenario.game_version)
         scenario._object_manager.setup()
 
         return scenario
@@ -80,7 +80,7 @@ class AoE2Scenario:
 
     def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
-        self._add_to_pieces(header)
+        self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
         data_igenerator = IncrementalGenerator(
@@ -92,23 +92,23 @@ class AoE2Scenario:
             if section_name == "FileHeader":
                 continue
             try:
-                piece = self._create_and_load_section(section_name, data_igenerator)
-                self._add_to_pieces(piece)
+                section = self._create_and_load_section(section_name, data_igenerator)
+                self._add_to_sections(section)
             except (ValueError, TypeError) as e:
-                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tPiece: {section_name}\n")
+                print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tSection: {section_name}\n")
                 self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
     def _create_and_load_section(self, name, igenerator):
         helper.rprint(f"\t🔄 Parsing {name}...")
-        piece = AoE2FileSection.from_structure(name, self.structure.get(name))
+        section = AoE2FileSection.from_structure(name, self.structure.get(name))
         helper.rprint(f"\t🔄 Gathering {name} data...")
-        piece.set_data_from_generator(igenerator, self.pieces)
+        section.set_data_from_generator(igenerator, self.sections)
         helper.rprint(f"\t✔ {name}", final=True)
-        return piece
+        return section
 
-    def _add_to_pieces(self, piece):
-        self.pieces[piece.name] = piece
+    def _add_to_sections(self, section):
+        self.sections[section.name] = section
 
     """ ##########################################################################################
     ####################################### Write functions ######################################
@@ -122,10 +122,10 @@ class AoE2Scenario:
     def _write_from_structure(self, filename):
         self._object_manager.reconstruct()
 
-        binary = self._get_file_part_data(self.pieces.get('FileHeader'))
+        binary = self._get_file_part_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
-        for file_part in self.pieces.values():
+        for file_part in self.sections.values():
             if file_part.name == "FileHeader":
                 continue
             binary_list_to_be_compressed.append(self._get_file_part_data(file_part))
@@ -172,7 +172,7 @@ class AoE2Scenario:
 
     def _retrieve_byte_structure(self, file_part):
         helper.rprint(f"\t🔄 Writing {file_part.name}...")
-        value = file_part.get_byte_structure_as_string(self.pieces)
+        value = file_part.get_byte_structure_as_string(self.sections)
         helper.rprint(f"\t✔ {file_part.name}", final=True)
         return value
 
@@ -185,8 +185,8 @@ class AoE2Scenario:
         helper.rprint("Writing structure to file...", final=True)
         with open(filename, 'w', encoding="utf-8") as f:
             result = []
-            for piece in self.pieces.values():
-                result.append(self._retrieve_byte_structure(piece))
+            for section in self.sections.values():
+                result.append(self._retrieve_byte_structure(section))
 
             if trail_generator is not None:
                 helper.rprint("\tWriting trail...")
@@ -226,5 +226,5 @@ def get_structure(game_version, scenario_version) -> dict:
     structure = json.loads(structure_file.read())
 
     if "FileHeader" not in structure.keys():
-        raise InvalidScenarioStructure(f"First piece in structure should always be FileHeader.")
+        raise InvalidScenarioStructure(f"First section in structure should always be FileHeader.")
     return structure
