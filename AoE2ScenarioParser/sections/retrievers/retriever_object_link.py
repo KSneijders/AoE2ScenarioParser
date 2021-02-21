@@ -25,7 +25,7 @@ class RetrieverObjectLink:
         self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
 
-    def construct(self, pieces, instance_number_history=None):
+    def construct(self, sections, instance_number_history=None):
         if instance_number_history is None:
             instance_number_history = []
 
@@ -37,7 +37,7 @@ class RetrieverObjectLink:
             return instance_number_history[self.retrieve_history_number]
         else:
             if self.is_special_unit_case:
-                return self._construct_special_unit_case(pieces)
+                return self._construct_special_unit_case(sections)
             # Use temp_link to not change the actual links as they are class attributes
             temp_link = self.link
             if instance_number_history:
@@ -45,7 +45,7 @@ class RetrieverObjectLink:
                     temp_link = temp_link.replace("__index__", str(i), 1)
             temp_link = temp_link.replace("__index__", str(instance_number), 1)
 
-            value = pieces[self.section]
+            value = sections[self.section]
             for x in temp_link.split("."):
                 if "[" in x:
                     indexing = x.index('[')
@@ -59,14 +59,14 @@ class RetrieverObjectLink:
                 for index, struct in enumerate(value):
                     value_list.append(
                         self.process_as_object._construct(
-                            pieces,
+                            sections,
                             instance_number_history=instance_number_history + [index]
                         )
                     )
                 return value_list
             return value
 
-    def commit(self, pieces, host_obj):
+    def commit(self, sections, host_obj):
         # Object-only retrievers for the ease of access of information.
         # Not actually representing a value in the scenario file.
         if self.retrieve_instance_number or self.retrieve_history_number >= 0:
@@ -89,33 +89,36 @@ class RetrieverObjectLink:
         split_temp_link: List[str] = temp_link.split(".")
         retriever = None
 
-        piece = pieces[self.section]
+        section = sections[self.section]
         for attribute in split_temp_link:
             if '[' in attribute:
                 index_location = attribute.index('[')
                 index = int(attribute[index_location + 1:len(attribute) - 1])
-                piece = get_retriever_by_name(piece.retrievers, attribute[:index_location]).data[index]
+                retriever = get_retriever_by_name(section.retrievers, attribute[:index_location]).data[index]
             else:
-                retriever = get_retriever_by_name(piece.retrievers, attribute)
+                retriever = get_retriever_by_name(section.retrievers, attribute)
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to connect to retriever")
 
-        retriever_list = piece.retrievers
+        retriever_list = section.retrievers
 
         if self.process_as_object is not None:
-            link_piece = retriever.datatype.var
+            struct_datatype = retriever.datatype.var
 
-            expected = "struct:"
-            if not link_piece.startswith(expected):
+            struct_prefix = "struct:"
+            if not struct_datatype.startswith(struct_prefix):
                 raise ValueError(
-                    f"Process as object isn't defined properly. Expected: '{expected}...' got: '{link_piece}'"
+                    f"Process as object isn't defined properly. Expected: '{struct_prefix}...' got: '{struct_datatype}'"
                 )
+            
+            print(section)
+            print()
 
             # Todo: Get struct formation
 
             if self.is_special_unit_case:
-                self._commit_special_unit_case(host_obj, pieces, link_piece, value)
+                self._commit_special_unit_case(host_obj, sections, struct_datatype, value)
                 return
 
             try:
@@ -129,22 +132,22 @@ class RetrieverObjectLink:
             if new_length < old_length:
                 retriever.data = retriever.data[:new_length]
             elif new_length > old_length:
-                retriever.data += [link_piece() for _ in range(new_length - old_length)]
+                retriever.data += [struct_datatype() for _ in range(new_length - old_length)]
                 if retriever.log_value:
                     retriever._update_print(
-                        f"[{link_piece.__name__}] * {old_length}",
-                        f"[{link_piece.__name__}] * {new_length}"
+                        f"[{struct_datatype.__name__}] * {old_length}",
+                        f"[{struct_datatype.__name__}] * {new_length}"
                     )
 
             for index, obj in enumerate(value):
-                obj._pieces = pieces
+                obj._pieces = sections
                 obj._instance_number_history = host_obj._instance_number_history + [index]
                 obj.commit()
         else:
             retriever.data = value
 
         if hasattr(retriever, 'on_commit'):
-            handle_retriever_dependency(retriever, "commit", retriever_list, pieces)
+            handle_retriever_dependency(retriever, "commit", retriever_list, sections)
 
     def _self_is_special_unit_case(self):
         if self.link is not None:
