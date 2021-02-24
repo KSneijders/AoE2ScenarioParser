@@ -17,6 +17,22 @@ class UnitManager(AoE2Object):
 
         super().__init__()
 
+    @property
+    def units(self):
+        return self._units
+
+    @units.setter
+    def units(self, value: List[List[Unit]]):
+        def _raise():
+            raise ValueError("Units should be list with 9 sub lists, example: [[Unit], [Unit, Unit], ...]")
+
+        if len(value) > 9:
+            _raise()
+        elif len(value) < 9:
+            value.extend([[] for _ in range(9 - len(value))])
+
+        self._units = value
+
     def add_unit(self, player: PlayerId, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
                  garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
                  reference_id: int = None, ) -> Unit:

@@ -26,6 +26,16 @@ class TriggerManager(AoE2Object):
         super().__init__()
 
     @property
+    def triggers(self):
+        return self._triggers
+
+    @triggers.setter
+    def triggers(self, value):
+        self._trigger_hash = helper.hash_list(value)
+        self._triggers = value
+        self.trigger_display_order = list(range(len(value)))
+
+    @property
     def trigger_display_order(self):
         if helper.list_changed(self.triggers, self._trigger_hash):
             helper.update_order_array(self._trigger_display_order, len(self.triggers))
