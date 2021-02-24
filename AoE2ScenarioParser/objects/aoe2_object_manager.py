@@ -15,8 +15,8 @@ managers = {
 
 
 class AoE2ObjectManager:
-    def __init__(self, pieces, game_version):
-        self.pieces = pieces
+    def __init__(self, sections, game_version):
+        self.sections = sections
         self.game_version = game_version
         self.managers = {}
 
@@ -25,7 +25,7 @@ class AoE2ObjectManager:
 
         for name, manager in managers[self.game_version].items():
             helper.rprint(f"\t🔄 Setting up {name}Manager...")
-            self.managers[name] = manager._construct(self.pieces)
+            self.managers[name] = manager._construct(self.sections)
             helper.rprint(f"\t✔ {name}Manager", final=True)
 
         helper.rprint(f"Setting up managers finished successfully.", final=True)
@@ -35,7 +35,7 @@ class AoE2ObjectManager:
 
         for name, manager in managers[self.game_version].items():
             helper.rprint("\tReconstructing " + manager.__name__ + "...", replace=True)
-            self.managers[name].commit(self.pieces)
+            self.managers[name].commit(self.sections)
             helper.rprint("\tReconstructing " + manager.__name__ + " finished successfully.", replace=True)
             helper.rprint()
 

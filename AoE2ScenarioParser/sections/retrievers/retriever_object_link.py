@@ -140,7 +140,7 @@ class RetrieverObjectLink:
                     )
 
             for index, obj in enumerate(value):
-                obj._pieces = sections
+                obj._sections = sections
                 obj._instance_number_history = host_obj._instance_number_history + [index]
                 obj.commit()
         else:
@@ -154,25 +154,25 @@ class RetrieverObjectLink:
             return "[]" in self.link
         return False
 
-    def _construct_special_unit_case(self, pieces):
+    def _construct_special_unit_case(self, sections):
         list_notation_location = self.link.find("[]")
-        struct_list = getattr(pieces[self.section], self.link[:list_notation_location])
+        struct_list = getattr(sections[self.section], self.link[:list_notation_location])
         list_len = len(struct_list)
         result_list = [[] for _ in range(list_len)]
         for i in range(list_len):
             list_of_attributes = struct_list[i].__getattr__(self.link[list_notation_location + 3:])
             for j in range(len(list_of_attributes)):
-                result_list[i].append(self.process_as_object._construct(pieces, [i, j]))
+                result_list[i].append(self.process_as_object._construct(sections, [i, j]))
         return result_list
 
-    def _commit_special_unit_case(self, host_obj, pieces, link_piece, units):
+    def _commit_special_unit_case(self, host_obj, sections, link_sections, units):
         for player_number in range(len(units)):
-            pieces['UnitsPiece'].players_units[player_number].unit_count = len(units[player_number])
-            pieces['UnitsPiece'].players_units[player_number].units = \
-                [link_piece() for _ in range(len(units[player_number]))]
+            sections['Units'].players_units[player_number].unit_count = len(units[player_number])
+            sections['Units'].players_units[player_number].units = \
+                [link_sections() for _ in range(len(units[player_number]))]
 
             for index, obj in enumerate(units[player_number]):
-                obj._pieces = pieces
+                obj._sections = sections
                 obj._instance_number_history = [player_number, index]
                 obj.commit()
 

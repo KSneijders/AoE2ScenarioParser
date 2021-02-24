@@ -23,7 +23,7 @@ class Retriever:
     def __init__(self, name, datatype=DataType(), potential_list=True, log_value=False):
         """
         Args:
-            name (str): The name of the item. Has to be unique within the Piece or Struct
+            name (str): The name of the item. Has to be unique within the Section or Struct
             datatype (DataType): A datatype object
             log_value (bool): A boolean for, mostly, debugging. This will log this Retriever with it's data when the
                 data is changed, when this retriever is constructed and committed.
