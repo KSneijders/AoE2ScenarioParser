@@ -234,7 +234,7 @@ class AoE2FileSection:
 
         return byte_structure + "\n"
 
-    def __str__(self):
+    def __repr__(self):
         represent = self.name + ": \n"
 
         for i, val in enumerate(self.retrievers):

@@ -66,15 +66,15 @@ class AoE2Object:
             link.commit(sections, host_obj=self)
 
     @staticmethod
-    def _get_instance_number(obj: AoE2Object = None, instance_number_history=None) -> int:
-        if obj is None and instance_number_history is None:
-            raise ValueError("The use of the parameter 'obj' or 'instance_number_history' is required.")
-        if obj is not None and instance_number_history is not None:
-            raise ValueError("Cannot use both the parameter 'obj' and 'instance_number_history'.")
+    def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:
+        if obj is None and number_hist is None:
+            raise ValueError("The use of the parameter 'obj' or 'number_hist' is required.")
+        if obj is not None and number_hist is not None:
+            raise ValueError("Cannot use both the parameter 'obj' and 'number_hist'.")
 
-        if instance_number_history is None and obj is not None:
-            instance_number_history = obj._instance_number_history
-        return instance_number_history[-1] if len(instance_number_history) > 0 else None
+        if number_hist is None and obj is not None:
+            number_hist = obj._instance_number_history
+        return number_hist[-1] if len(number_hist) > 0 else None
 
     def __repr__(self):
         self_dict = self.__dict__

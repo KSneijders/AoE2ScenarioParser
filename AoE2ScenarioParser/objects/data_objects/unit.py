@@ -38,7 +38,7 @@ class Unit(AoE2Object):
                  garrisoned_in_id: int
                  ):
 
-        self._player: PlayerId = Player(player)
+        self._player: PlayerId = PlayerId(player)
         """
         PLEASE NOTE: This is an internal (read-only) value for ease of access. It accurately represent the actual 
         player controlling the unit but is not directly connected to it. Changing this value will have no impact to your
