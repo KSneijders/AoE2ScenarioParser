@@ -37,6 +37,54 @@ class Retriever:
         self.log_value = log_value
         self._data = None
 
+    def get_data_as_bytes(self):
+        self.update_datatype_repeat()
+
+        result = []
+        if self.datatype.type == "struct":
+            for struct in self.data:
+                result.append(struct.get_data_as_bytes())
+        else:
+            for value in parser.listify(self.data):
+                result.append(parse_val_to_bytes(self, value))
+
+        joined_result = b''.join(result)
+
+        if self.log_value:
+            print(f"{self.to_simple_string()} retrieved: {joined_result}")
+
+        return joined_result
+
+    def set_data_from_bytes(self, bytes_list):
+        if self.datatype.repeat > 0 and len(bytes_list) == 0:
+            raise ValueError("Unable to set bytes when no bytes are given")
+        if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
+            raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
+
+        result = []
+        for entry_bytes in bytes_list:
+            result.append(parse_bytes_to_val(self.datatype, entry_bytes))
+        self.data = parser.vorl(self, result)
+
+    def update_datatype_repeat(self):
+        is_list = type(self.data) == list
+        if is_list:
+            self.datatype.repeat = len(self.data)
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, value):
+        try:
+            old_value = self.data
+        except AttributeError:
+            old_value = ""
+        self._data = value
+        if self.log_value:
+            self._update_print(old_value, value)
+
     def duplicate(self):
         retriever = Retriever(
             self.name,
@@ -71,46 +119,8 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
-    def get_data_as_bytes(self):
-        self.update_datatype_repeat()
-
-        result = []
-        for value in parser.listify(self.data):
-            result.append(parse_val_to_bytes(self, value))
-        return b''.join(result)
-
-    def set_data_from_bytes(self, bytes_list):
-        if self.datatype.repeat > 0 and len(bytes_list) == 0:
-            raise ValueError("Unable to set bytes when no bytes are given")
-        if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
-            raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
-
-        result = []
-        for entry_bytes in bytes_list:
-            result.append(parse_bytes_to_val(self.datatype, entry_bytes))
-        self.data = parser.vorl(self, result)
-
-    def update_datatype_repeat(self):
-        is_list = type(self.data) == list
-        if is_list:
-            self.datatype.repeat = len(self.data)
-
-    @property
-    def data(self):
-        return self._data
-
-    @data.setter
-    def data(self, value):
-        try:
-            old_value = self.data
-        except AttributeError:
-            old_value = ""
-        self._data = value
-        if self.log_value:
-            self._update_print(old_value, value)
-
     def _update_print(self, old, new):
-        print(f"{self.to_simple_string()} >>> set to: {helper.q_str(new)} (was: {helper.q_str(old)})")
+        print(f"\n{self.to_simple_string()} >>> set to: {helper.q_str(new)} (was: {helper.q_str(old)})")
 
     def get_short_str(self):
         if self.data is not None:

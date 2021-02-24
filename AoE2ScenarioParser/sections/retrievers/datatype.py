@@ -53,14 +53,12 @@ class DataType:
 
     @property
     def repeat(self):
-        if self.log_value:
-            print(f"\t[DataType] {self._debug_retriever_name} Retrieved as " + self.to_simple_string())
         return self._repeat
 
     @repeat.setter
     def repeat(self, value):
         if self.log_value:
-            print(f"\t[DataType] {self._debug_retriever_name} Repeat set to {value} from: " + self.to_simple_string())
+            print(f"[DataType] {self._debug_retriever_name} 'repeat' set to {value} (was: {self._repeat})")
         self._repeat = value
 
     def to_simple_string(self):

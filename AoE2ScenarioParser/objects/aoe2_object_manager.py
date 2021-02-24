@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+from typing import Dict, Type
+
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 
-managers = {
+managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
     'DE': {
         'Map': MapManagerDE,
         'Trigger': TriggerManagerDE,
@@ -21,7 +24,7 @@ class AoE2ObjectManager:
         self.managers = {}
 
     def setup(self):
-        helper.rprint(f"Setting up managers ...", final=True)
+        helper.rprint(f"\nSetting up managers ...", final=True)
 
         for name, manager in managers[self.game_version].items():
             helper.rprint(f"\t🔄 Setting up {name}Manager...")
@@ -33,9 +36,9 @@ class AoE2ObjectManager:
     def reconstruct(self):
         helper.rprint("\nReconstructing sections and structs from managers...", final=True)
 
-        for name, manager in managers[self.game_version].items():
+        for name, manager in self.managers.items():
             helper.rprint(f"\t🔄 Reconstructing {name}Manager...")
-            self.managers[name].commit(self.sections)
+            manager.commit(self.sections)
             helper.rprint(f"\t✔ {name}Manager", final=True)
 
         helper.rprint("Reconstruction finished successfully.", final=True)

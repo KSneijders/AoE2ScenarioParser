@@ -73,12 +73,7 @@ class AoE2FileSection:
     def get_data_as_bytes(self):
         result = []
         for retriever in self.retrievers:
-            if retriever.datatype.type == "struct":
-                struct: AoE2FileSection
-                for struct in retriever.data:
-                    result.append(struct.get_data_as_bytes())
-            else:
-                result.append(retriever.get_data_as_bytes())
+            result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
     def set_data_from_generator(self, igenerator: IncrementalGenerator, sections: OrderedDict[str, AoE2FileSection]) \
