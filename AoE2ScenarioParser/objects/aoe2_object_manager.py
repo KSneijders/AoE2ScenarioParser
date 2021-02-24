@@ -31,12 +31,11 @@ class AoE2ObjectManager:
         helper.rprint(f"Setting up managers finished successfully.", final=True)
 
     def reconstruct(self):
-        helper.rprint("\nReconstructing sections and structs from managers...")
+        helper.rprint("\nReconstructing sections and structs from managers...", final=True)
 
         for name, manager in managers[self.game_version].items():
-            helper.rprint("\tReconstructing " + manager.__name__ + "...", replace=True)
+            helper.rprint(f"\t🔄 Reconstructing {name}Manager...")
             self.managers[name].commit(self.sections)
-            helper.rprint("\tReconstructing " + manager.__name__ + " finished successfully.", replace=True)
-            helper.rprint()
+            helper.rprint(f"\t✔ {name}Manager", final=True)
 
-        helper.rprint("Reconstruction finished successfully.")
+        helper.rprint("Reconstruction finished successfully.", final=True)
