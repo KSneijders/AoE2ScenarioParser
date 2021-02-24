@@ -65,7 +65,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     except EndOfFileError:
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
-            return [b'\x00']
+            return []
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)

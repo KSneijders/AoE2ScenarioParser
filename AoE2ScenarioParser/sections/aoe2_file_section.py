@@ -158,22 +158,16 @@ class AoE2FileSection:
                 retriever.data = value
 
     def _entry_to_string(self, name, data, datatype):
-        self._verify_level()
         prefix = "\t"
         if self.level == SectionLevel.STRUCT:
             prefix = "\t\t\t"
         return f"{prefix}{name}: {data} ({datatype})\n"
 
     def get_header_string(self):
-        self._verify_level()
         if self.level == SectionLevel.TOP_LEVEL:
             return "######################## " + self.name + " ######################## [SECTION]"
         elif self.level == SectionLevel.STRUCT:
             return "############ " + self.name + " ############  [STRUCT]"
-
-    def _verify_level(self):
-        if self.level not in SectionLevel:
-            raise ValueError(f"Invalid level: '{self.level}'")
 
     def get_byte_structure_as_string(self, sections, skip_retrievers=None):
         if skip_retrievers is None:
@@ -234,7 +228,7 @@ class AoE2FileSection:
 
         return byte_structure + "\n"
 
-    def __repr__(self):
+    def __str__(self):
         represent = self.name + ": \n"
 
         for i, val in enumerate(self.retrievers):
@@ -258,3 +252,6 @@ class AoE2FileSection:
                 represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
 
         return represent
+
+    def __repr__(self):
+        return f"<AoE2FileSection> {self.name}"

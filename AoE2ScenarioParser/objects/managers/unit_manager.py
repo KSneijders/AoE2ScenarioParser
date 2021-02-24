@@ -153,7 +153,7 @@ class UnitManager(AoE2Object):
             if player_unit == unit:
                 del self.units[unit.player.value][i]
                 self.units[to_player.value].append(unit)
-                unit._player = Player(to_player)
+                unit._player = PlayerId(to_player)
                 return
 
     def get_new_reference_id(self) -> int:

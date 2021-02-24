@@ -115,13 +115,12 @@ class AoE2Scenario:
     ########################################################################################## """
 
     def write_to_file(self, filename):
-        helper.rprint("\nFile writing from structure started...", final=True)
         self._write_from_structure(filename)
-        helper.rprint("File writing finished successfully.", final=True)
 
     def _write_from_structure(self, filename):
         self._object_manager.reconstruct()
 
+        helper.rprint("\nFile writing from structure started...", final=True)
         binary = self._get_file_part_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
@@ -130,6 +129,7 @@ class AoE2Scenario:
                 continue
             binary_list_to_be_compressed.append(self._get_file_part_data(file_part))
         compressed = compress_bytes(b''.join(binary_list_to_be_compressed))
+        helper.rprint("File writing finished successfully.", final=True)
 
         file = open(filename, "wb")
         file.write(binary + compressed)
@@ -179,8 +179,7 @@ class AoE2Scenario:
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
-            pass
-            # self._object_manager.reconstruct(log_debug_write)
+            self._object_manager.reconstruct()
 
         helper.rprint("Writing structure to file...", final=True)
         with open(filename, 'w', encoding="utf-8") as f:

@@ -70,14 +70,6 @@ class Unit(AoE2Object):
         return self._player
 
     @property
-    def rotation(self) -> float:
-        return self._rotation
-
-    @rotation.setter
-    def rotation(self, rotation: float) -> None:
-        self._rotation = rotation
-
-    @property
     def tile(self) -> Tile:
         return Tile(math.floor(self.x), math.floor(self.y))
         # Floor x and y as location (0.9, 0.9) is still Tile[x=0, y=0]

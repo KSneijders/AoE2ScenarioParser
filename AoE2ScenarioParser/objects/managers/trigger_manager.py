@@ -112,10 +112,10 @@ class TriggerManager(AoE2Object):
                             continue
                     # Change source player
                     if include_player_source:
-                        cond.source_player = Player(player)
+                        cond.source_player = PlayerId(player)
                     # Change target player
                     if include_player_target:
-                        cond.target_player = Player(player)
+                        cond.target_player = PlayerId(player)
                 for effect_x in alter_effects:
                     effect = new_trigger.effects[effect_x]
                     # Player not set
@@ -127,10 +127,10 @@ class TriggerManager(AoE2Object):
                             continue
                     # Change source player
                     if include_player_source:
-                        effect.source_player = Player(player)
+                        effect.source_player = PlayerId(player)
                     # Change target player
                     if include_player_target:
-                        effect.target_player = Player(player)
+                        effect.target_player = PlayerId(player)
 
         return return_dict
 
@@ -316,21 +316,21 @@ class TriggerManager(AoE2Object):
             if not cond.source_player == -1 and include_player_source:
                 if only_change_from is not None and only_change_from != cond.source_player:
                     continue
-                cond.source_player = Player(to_player)
+                cond.source_player = PlayerId(to_player)
             if not cond.target_player == -1 and include_player_target:
                 if only_change_from is not None and only_change_from != cond.target_player:
                     continue
-                cond.target_player = Player(to_player)
+                cond.target_player = PlayerId(to_player)
         for effect_x in alter_effects:
             effect = trigger.effects[effect_x]
             if not effect.source_player == -1 and include_player_source:
                 if only_change_from is not None and only_change_from != effect.source_player:
                     continue
-                effect.source_player = Player(to_player)
+                effect.source_player = PlayerId(to_player)
             if not effect.target_player == -1 and include_player_target:
                 if only_change_from is not None and only_change_from != effect.target_player:
                     continue
-                effect.target_player = Player(to_player)
+                effect.target_player = PlayerId(to_player)
 
         return trigger
 
