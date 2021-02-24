@@ -1,70 +1,68 @@
 from typing import Type, List
 
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
 class RetrieverObjectLink:
     def __init__(self,
                  variable_name: str,
-                 section: str = None,
+                 section_name: str = None,
                  link: str = None,
                  process_as_object: Type[AoE2Object] = None,
                  retrieve_instance_number: bool = False,
-                 retrieve_history_number=-1
+                 retrieve_history_number: int = -1
                  ):
-        if (link is not None) + retrieve_instance_number + (retrieve_history_number != -1) != 1:
-            raise ValueError("Use one and only one of the following parameters: 'link', 'retrieve_instance_number' or "
-                             "'retrieve_history_number'.")
+        if sum([link is not None, retrieve_instance_number, (retrieve_history_number != -1)]) != 1:
+            raise ValueError("You must use one parameter from 'link' and the two 'retrieve...number' parameters.")
+
         self.name: str = variable_name
-        self.section = section
+        self.section_name = section_name
         self.link = link
-        self.is_special_unit_case = self._self_is_special_unit_case()
+        self.is_special_unit_case = self._is_special_unit_case()
         self.process_as_object: Type[AoE2Object] = process_as_object
         self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
 
-    def construct(self, sections, instance_number_history=None):
-        if instance_number_history is None:
-            instance_number_history = []
+        self.splitted_link: List[str] = link.split('.') if link is not None else []
 
-        instance_number = AoE2Object.get_instance_number(instance_number_history=instance_number_history)
+    def construct(self, sections, number_hist=None):
+        if number_hist is None:
+            number_hist = []
+        instance_number = AoE2Object.get_instance_number(number_hist=number_hist)
 
         if self.retrieve_instance_number:
             return instance_number
         elif self.retrieve_history_number != -1:
-            return instance_number_history[self.retrieve_history_number]
+            return number_hist[self.retrieve_history_number]
         else:
+            # Todo: Look into saving some results here - this code runs 62.556 times
             if self.is_special_unit_case:
                 return self._construct_special_unit_case(sections)
-            # Use temp_link to not change the actual links as they are class attributes
-            temp_link = self.link
-            if instance_number_history:
-                for i in instance_number_history:
-                    temp_link = temp_link.replace("__index__", str(i), 1)
-            temp_link = temp_link.replace("__index__", str(instance_number), 1)
 
-            value = sections[self.section]
-            for x in temp_link.split("."):
-                if "[" in x:
-                    indexing = x.index('[')
-                    value = getattr(value, x[:indexing])
-                    value = value[int(x[indexing + 1:len(x) - 1])]
+            # Retrieve value without using eval() -- Eval is slow
+            value = sections[self.section_name]
+            for index, item in enumerate(self.splitted_link):
+                if "[" in item:
+                    value = getattr(value, item[:-11])[number_hist[index]]
                 else:
-                    value = getattr(value, x)
+                    value = getattr(value, item)
 
-            if self.process_as_object is not None:
-                value_list = []
-                for index, struct in enumerate(value):
-                    value_list.append(
-                        self.process_as_object._construct(
-                            sections,
-                            instance_number_history=instance_number_history + [index]
-                        )
-                    )
-                return value_list
+            if self.process_as_object:
+                return self.process_object_list(value, number_hist, sections)
             return value
+
+    def process_object_list(self, value_list, instance_number_history, sections):
+        object_list = []
+        for index, struct in enumerate(value_list):
+            object_list.append(
+                self.process_as_object._construct(
+                    sections,
+                    instance_number_history=instance_number_history + [index]
+                )
+            )
+        return object_list
 
     def commit(self, sections, host_obj):
         # Object-only retrievers for the ease of access of information.
@@ -89,7 +87,7 @@ class RetrieverObjectLink:
         split_temp_link: List[str] = temp_link.split(".")
         retriever = None
 
-        section = sections[self.section]
+        section = sections[self.section_name]
         for attribute in split_temp_link:
             if '[' in attribute:
                 index_location = attribute.index('[')
@@ -111,7 +109,7 @@ class RetrieverObjectLink:
                 raise ValueError(
                     f"Process as object isn't defined properly. Expected: '{struct_prefix}...' got: '{struct_datatype}'"
                 )
-            
+
             print(section)
             print()
 
@@ -149,21 +147,20 @@ class RetrieverObjectLink:
         if hasattr(retriever, 'on_commit'):
             handle_retriever_dependency(retriever, "commit", retriever_list, sections)
 
-    def _self_is_special_unit_case(self):
-        if self.link is not None:
-            return "[]" in self.link
-        return False
+    def _is_special_unit_case(self) -> bool:
+        return ("[]" in self.link) if self.link else False
 
     def _construct_special_unit_case(self, sections):
-        list_notation_location = self.link.find("[]")
-        struct_list = getattr(sections[self.section], self.link[:list_notation_location])
-        list_len = len(struct_list)
-        result_list = [[] for _ in range(list_len)]
-        for i in range(list_len):
-            list_of_attributes = struct_list[i].__getattr__(self.link[list_notation_location + 3:])
-            for j in range(len(list_of_attributes)):
-                result_list[i].append(self.process_as_object._construct(sections, [i, j]))
-        return result_list
+        units = []
+        value = sections[self.section_name]
+        for index, item in enumerate(self.splitted_link):
+            if "[]" in item:
+                value = getattr(value, item[:-2])
+            else:
+                for player, player_units_section in enumerate(value):
+                    player_units = getattr(player_units_section, item)
+                    units.append(self.process_object_list(player_units, [player], sections))
+        return units
 
     def _commit_special_unit_case(self, host_obj, sections, link_sections, units):
         for player_number in range(len(units)):
@@ -177,7 +174,7 @@ class RetrieverObjectLink:
                 obj.commit()
 
     def __repr__(self):
-        return f"[RetrieverObjectLink] {self.name}: {self.section}. {self.link}" + \
+        return f"[RetrieverObjectLink] {self.name}: {self.section_name}. {self.link}" + \
                (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
                (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
                (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")
