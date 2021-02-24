@@ -1786,7 +1786,11 @@
                     },
                     "on_commit": {
                         "action": "REFRESH",
-                        "target": "['self', 'FileHeader', 'Options']:['number_of_triggers', 'trigger_count', 'number_of_triggers']"
+                        "target": [
+                            "self:number_of_triggers",
+                            "FileHeader:trigger_count",
+                            "Options:number_of_triggers"
+                        ]
                     }
                 }
             },
