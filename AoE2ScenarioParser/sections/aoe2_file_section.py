@@ -3,10 +3,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import Dict, List, OrderedDict
 
-import AoE2ScenarioParser.sections.dependencies.dependency
-import AoE2ScenarioParser.sections.dependencies.retriever_dependency
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, copy_retriever_list
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
@@ -91,7 +90,7 @@ class AoE2FileSection:
         total_length = 0
         for retriever in self.retrievers:
             try:
-                AoE2ScenarioParser.sections.dependencies.dependency.handle_retriever_dependency(retriever, "construct", self.retrievers, sections)
+                handle_retriever_dependency(retriever, "construct", self.retrievers, sections)
                 if retriever.datatype.type == "struct":
                     retriever.data = []
                     struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
@@ -121,7 +120,7 @@ class AoE2FileSection:
                 self.retrievers[i].data = data[i]
 
                 if hasattr(self.retrievers[i], 'on_construct'):
-                    AoE2ScenarioParser.sections.dependencies.dependency.handle_retriever_dependency(self.retrievers[i], "construct", self.retrievers, sections)
+                    handle_retriever_dependency(self.retrievers[i], "construct", self.retrievers, sections)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: (len: {len(data)}) "
