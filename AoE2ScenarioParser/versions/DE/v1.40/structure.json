@@ -1384,12 +1384,8 @@
                         "default": 0
                     },
                     "unused": {
-                        "type": "u8",
-                        "default": 0
-                    },
-                    "separator": {
-                        "type": "2",
-                        "default": "ffff"
+                        "type": "3",
+                        "default": "00ffff"
                     },
                     "layer": {
                         "type": "s16",
