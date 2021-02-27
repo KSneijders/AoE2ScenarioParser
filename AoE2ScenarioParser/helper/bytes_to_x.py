@@ -76,35 +76,35 @@ def parse_val_to_bytes(retriever, val):
 
     if var_type == "u" or var_type == "s":  # int
         return int_to_bytes(val, var_len, signed=(var_type == "s"))
+    elif var_type == "str":  # str
+        byte_string = str_to_bytes(val, retriever)
+        return int_to_bytes(len(byte_string), var_len, endian="little", signed=True) + byte_string
+    elif var_type == "c":  # str
+        return fixed_chars_to_bytes(val)
+    elif var_type == "data":  # bytes
+        return val
     elif var_type == "f":  # float
         if var_len == 4:
             return float_to_bytes(val)
         else:
             return double_to_bytes(val)
-    elif var_type == "c":  # str
-        return fixed_chars_to_bytes(val)
-    elif var_type == "data":  # bytes
-        return val
-    elif var_type == "str":  # str
-        byte_string = str_to_bytes(val, retriever)
-        return int_to_bytes(len(byte_string), var_len, endian="little", signed=True) + byte_string
 
 
 def parse_bytes_to_val(datatype, byte_elements):
     var_type, var_len = datatype.type_and_length
 
-    if var_type in ["u", "s"]:
+    if var_type == "u" or var_type == "s":
         return bytes_to_int(byte_elements, signed=(var_type == "s"))
+    elif var_type == "str":
+        return bytes_to_str(byte_elements[var_len:])
+    elif var_type == "c":
+        return bytes_to_fixed_chars(byte_elements)
+    elif var_type == "data":
+        return byte_elements
     elif var_type == "f":
         if var_len == 4:  # Float value
             return bytes_to_float(byte_elements)
         else:  # only 'else' is the trigger version. Which is a double (8 bytes)
             return bytes_to_double(byte_elements)
-    elif var_type == "c":
-        return bytes_to_fixed_chars(byte_elements)
-    elif var_type == "data":
-        return byte_elements
-    elif var_type == "str":
-        return bytes_to_str(byte_elements[var_len:])
-
-    raise ValueError(f"Unable to parse bytes with unknown type: ({var_type})")
+    else:
+        raise ValueError(f"Unable to parse bytes with unknown type: ({var_type})")
