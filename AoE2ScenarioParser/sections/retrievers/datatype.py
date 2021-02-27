@@ -28,6 +28,16 @@ class DataType:
         repeat:
             The amount of times the above datatype needs to be repeated
     """
+
+    __slots__ = [
+        'var',
+        '_repeat',
+        'log_value',
+        'type',
+        'length',
+        '_debug_retriever_name'
+    ]
+
     _debug_retriever_name: str
 
     def __init__(self, var="0", repeat=1, log_value=False, type_length=None):

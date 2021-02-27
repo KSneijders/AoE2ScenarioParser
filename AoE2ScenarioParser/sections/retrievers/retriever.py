@@ -13,12 +13,24 @@ if TYPE_CHECKING:
 
 
 class Retriever:
-    on_construct: RetrieverDependency
-    on_commit: RetrieverDependency
-    on_refresh: RetrieverDependency
     """ A Class for defining how to retrieve data.
     The Constructor has quite some parameters which can all be used for getting the proper data
     """
+
+    __slots__ = [
+        'on_construct',
+        'on_commit',
+        'on_refresh',
+        'name',
+        'datatype',
+        'potential_list',
+        'log_value',
+        '_data',
+    ]
+
+    on_construct: RetrieverDependency
+    on_commit: RetrieverDependency
+    on_refresh: RetrieverDependency
 
     def __init__(self, name, datatype=DataType(), potential_list=True, log_value=False):
         """
@@ -61,9 +73,7 @@ class Retriever:
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
             raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
 
-        result = []
-        for entry_bytes in bytes_list:
-            result.append(parse_bytes_to_val(self.datatype, entry_bytes))
+        result = [parse_bytes_to_val(self.datatype, entry_bytes) for entry_bytes in bytes_list]
         self.data = parser.vorl(self, result)
 
     def update_datatype_repeat(self):
@@ -88,15 +98,13 @@ class Retriever:
     def duplicate(self):
         retriever = Retriever(
             self.name,
-            self.datatype.duplicate(),
+            self.datatype,
             potential_list=self.potential_list,
             log_value=self.log_value
         )
         for attr in attributes:
-            try:
+            if hasattr(self, attr):
                 setattr(retriever, attr, getattr(self, attr))
-            except AttributeError:
-                continue
         return retriever
 
     @classmethod
