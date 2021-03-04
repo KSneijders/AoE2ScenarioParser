@@ -112,6 +112,7 @@ class RetrieverObjectLink:
 
     @staticmethod
     def commit_object_list(object_list, sections, instance_number_history):
+        obj: AoE2Object
         for index, obj in enumerate(object_list):
             obj._sections = sections
             obj._instance_number_history = instance_number_history + [index]
@@ -128,9 +129,10 @@ class RetrieverObjectLink:
         if new_len < old_len:
             retriever.data = retriever.data[:new_len]
         elif new_len > old_len:
-            retriever.data += [AoE2FileSection.from_model(model) for _ in range(new_len - old_len)]
+            retriever.data += [AoE2FileSection.from_model(model, set_defaults=True) for _ in range(new_len - old_len)]
+
             if retriever.log_value:
-                retriever._update_print(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
+                retriever._print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
 
     def _is_special_unit_case(self) -> bool:
         return ("[]" in self.link) if self.link else False

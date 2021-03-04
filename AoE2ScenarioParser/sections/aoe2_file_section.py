@@ -6,7 +6,7 @@ from typing import Dict, List, OrderedDict
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, copy_retriever_list
+from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, duplicate_retriever_list
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
 
@@ -34,12 +34,13 @@ class AoE2FileSection:
                     setattr(retriever, key, value)
 
     @classmethod
-    def from_model(cls, model) -> AoE2FileSection:
+    def from_model(cls, model, set_defaults=False) -> AoE2FileSection:
         """
         Create a copy (what was called struct before) from a model.
 
         Args:
             model (AoE2StructModel): The model to copy from
+            set_defaults (bool): If retrievers need to be set to the default values
 
         Returns:
             An AoE2FileSection instance based on the model
@@ -47,9 +48,14 @@ class AoE2FileSection:
         # Using pickle.loads(pickle.dumps(...)) instead of copy.deepcopy()
         # Reason for this is the huge speed difference. Details can be found at:
         # https://stackoverflow.com/a/29385667/7230293
+        duplicate_list = duplicate_retriever_list(model.retrievers)
+        if set_defaults:
+            for retriever in duplicate_list:
+                retriever.set_data_to_default()
+
         return cls(
             name=model.name,
-            retrievers=copy_retriever_list(model.retrievers),
+            retrievers=duplicate_list,
             struct_models=model.structs,
             level=SectionLevel.STRUCT
         )

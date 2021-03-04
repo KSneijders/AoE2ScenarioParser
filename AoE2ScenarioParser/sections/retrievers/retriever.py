@@ -26,13 +26,14 @@ class Retriever:
         'potential_list',
         'log_value',
         '_data',
+        'default_value'
     ]
 
     on_construct: RetrieverDependency
     on_commit: RetrieverDependency
     on_refresh: RetrieverDependency
 
-    def __init__(self, name, datatype=DataType(), potential_list=True, log_value=False):
+    def __init__(self, name, default_value, datatype=DataType(), potential_list=True, log_value=False):
         """
         Args:
             name (str): The name of the item. Has to be unique within the Section or Struct
@@ -41,6 +42,7 @@ class Retriever:
                 data is changed, when this retriever is constructed and committed.
         """
         self.name: str = name
+        self.default_value = default_value
         self.datatype: DataType = datatype
         if log_value:
             self.datatype.log_value = True
@@ -52,23 +54,27 @@ class Retriever:
     def get_data_as_bytes(self):
         self.update_datatype_repeat()
 
-        result = []
-        if self.datatype.type == "struct":
-            for struct in self.data:
-                result.append(struct.get_data_as_bytes())
-        else:
-            for value in parser.listify(self.data):
-                result.append(parse_val_to_bytes(self, value))
+        if self.data is not None and self.datatype.repeat != 0:
+            result = []
+            if self.datatype.type == "struct":
+                for struct in self.data:
+                    result.append(struct.get_data_as_bytes())
+            else:
+                for value in parser.listify(self.data):
+                    result.append(parse_val_to_bytes(self, value))
 
-        joined_result = b''.join(result)
+            joined_result = b''.join(result)
+        else:
+            joined_result = b''
 
         if self.log_value:
-            print(f"{self.to_simple_string()} retrieved: {joined_result}")
+            print(f"{self.to_simple_string()} (Data: {self.data}) retrieved: {joined_result}")
 
         return joined_result
 
     def set_data_from_bytes(self, bytes_list):
         if self.datatype.repeat > 0 and len(bytes_list) == 0:
+            print(type(bytes_list), bytes_list)
             raise ValueError("Unable to set bytes when no bytes are given")
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
             raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
@@ -77,8 +83,7 @@ class Retriever:
         self.data = parser.vorl(self, result)
 
     def update_datatype_repeat(self):
-        is_list = type(self.data) == list
-        if is_list:
+        if type(self.data) == list:
             self.datatype.repeat = len(self.data)
 
     @property
@@ -87,18 +92,27 @@ class Retriever:
 
     @data.setter
     def data(self, value):
-        try:
-            old_value = self.data
-        except AttributeError:
-            old_value = ""
+        old_value = self._data
         self._data = value
         if self.log_value:
-            self._update_print(old_value, value)
+            self._print_value_update(old_value, value)
+
+    def set_data_to_default(self):
+        if self.datatype.type == "data":
+            data = bytes.fromhex(self.default_value)
+        elif type(self.default_value) is list:
+            data = self.default_value.copy()
+            assert data is not self.default_value
+        else:
+            data = self.default_value
+
+        self.data = data
 
     def duplicate(self):
         retriever = Retriever(
-            self.name,
-            self.datatype,
+            name=self.name,
+            default_value=self.default_value,
+            datatype=self.datatype.duplicate(),
             potential_list=self.potential_list,
             log_value=self.log_value
         )
@@ -112,6 +126,7 @@ class Retriever:
         datatype = DataType(var=structure.get('type'), repeat=structure.get('repeat', 1))
         retriever = cls(
             name=name,
+            default_value=structure.get('default'),
             datatype=datatype,
             potential_list=structure.get('potential_list', True),
             log_value=structure.get('log', False)
@@ -127,8 +142,16 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
-    def _update_print(self, old, new):
-        print(f"\n{self.to_simple_string()} >>> set to: {helper.q_str(new)} (was: {helper.q_str(old)})")
+    def _print_value_update(self, old, new) -> None:
+        """
+        Function to print when data is changed. Can also be called for when data is changed but the property doesn't
+        fire. This happens when an array is adjusted in size by appending to it ([...] += [...]).
+
+        Args:
+            old (str): The old value represented using a string
+            new (str): The new value represented using a string
+        """
+        print(f"{self.to_simple_string()} >>> set to: {helper.q_str(new)} (was: {helper.q_str(old)})")
 
     def get_short_str(self):
         if self.data is not None:
@@ -151,7 +174,7 @@ class Retriever:
         return f"{self.to_simple_string()} >>> {data}"
 
 
-def copy_retriever_list(retriever_list):
+def duplicate_retriever_list(retriever_list):
     return [r.duplicate() for r in retriever_list]
 
 

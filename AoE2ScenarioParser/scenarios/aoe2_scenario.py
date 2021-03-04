@@ -121,27 +121,27 @@ class AoE2Scenario:
         self._object_manager.reconstruct()
 
         helper.rprint("\nFile writing from structure started...", final=True)
-        binary = self._get_file_part_data(self.sections.get('FileHeader'))
+        binary = self._get_file_section_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
         for file_part in self.sections.values():
             if file_part.name == "FileHeader":
                 continue
-            binary_list_to_be_compressed.append(self._get_file_part_data(file_part))
+            binary_list_to_be_compressed.append(self._get_file_section_data(file_part))
         compressed = compress_bytes(b''.join(binary_list_to_be_compressed))
+
+        with open(filename, 'wb') as f:
+            f.write(binary + compressed)
+
         helper.rprint("File writing finished successfully.", final=True)
 
-        file = open(filename, "wb")
-        file.write(binary + compressed)
-        file.close()
-
-    def _get_file_part_data(self, file_part: AoE2FileSection):
-        helper.rprint(f"\t🔄 Reconstructing {file_part.name}...")
-        value = file_part.get_data_as_bytes()
-        helper.rprint(f"\t✔ {file_part.name}", final=True)
+    def _get_file_section_data(self, file_section: AoE2FileSection):
+        helper.rprint(f"\t🔄 Reconstructing {file_section.name}...")
+        value = file_section.get_data_as_bytes()
+        helper.rprint(f"\t✔ {file_section.name}", final=True)
         return value
 
-    def write_error_file(self, filename="error_file", trail_generator=None):
+    def write_error_file(self, filename="error_file.txt", trail_generator=None):
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
 
     """ #############################################
@@ -181,7 +181,7 @@ class AoE2Scenario:
         if commit and hasattr(self, '_object_manager'):
             self._object_manager.reconstruct()
 
-        helper.rprint("Writing structure to file...", final=True)
+        helper.rprint("\nWriting structure to file...", final=True)
         with open(filename, 'w', encoding="utf-8") as f:
             result = []
             for section in self.sections.values():
