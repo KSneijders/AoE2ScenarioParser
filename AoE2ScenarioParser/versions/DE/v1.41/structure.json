@@ -1849,7 +1849,7 @@
                     },
                     "description_string_table_id": {
                         "type": "s32",
-                        "default": -1
+                        "default": 0
                     },
                     "display_as_objective": {
                         "type": "u8",
@@ -1865,7 +1865,7 @@
                     },
                     "short_description_string_table_id": {
                         "type": "s32",
-                        "default": -1
+                        "default": 0
                     },
                     "display_on_screen": {
                         "type": "u8",
@@ -2002,7 +2002,7 @@
                             },
                             "armour_attack_quantity": {
                                 "type": "u8",
-                                "default": -1,
+                                "default": 0,
                                 "potential_list": false,
                                 "dependencies": {
                                     "on_refresh": {
@@ -2017,7 +2017,7 @@
                             },
                             "armour_attack_class": {
                                 "type": "u8",
-                                "default": -1,
+                                "default": 0,
                                 "potential_list": false,
                                 "dependencies": {
                                     "on_refresh": {
@@ -2033,7 +2033,7 @@
                             "armour_attack_unused": {
                                 "comment": "These 2 bytes are unused but present when armour_attack is used.",
                                 "type": "u16",
-                                "default": -1,
+                                "default": 0,
                                 "potential_list": false,
                                 "dependencies": {
                                     "on_refresh": {

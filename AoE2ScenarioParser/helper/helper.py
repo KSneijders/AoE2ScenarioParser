@@ -72,7 +72,7 @@ _default_inline_types = {
 
 def pretty_print_list(plist: List, inline_types: Dict[str, int] = None):
     if len(plist) == 0:
-        return "[]\r\n"
+        return "[]"
     if inline_types is None:
         inline_types = _default_inline_types
     entry_type = type(plist[0]).__name__  # Get entry type

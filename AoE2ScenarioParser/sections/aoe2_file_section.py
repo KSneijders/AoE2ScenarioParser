@@ -109,6 +109,8 @@ class AoE2FileSection:
 
                     total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
             except (TypeError, ValueError) as e:
+                if retriever.datatype.type == "struct":
+                    print(struct.get_byte_structure_as_string(sections))
                 print(f"\n\n[{e.__class__.__name__}] Occurred while setting data in:\n\t{retriever}")
                 raise e
 

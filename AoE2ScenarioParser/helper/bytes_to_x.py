@@ -88,6 +88,8 @@ def parse_val_to_bytes(retriever, val):
             return float_to_bytes(val)
         else:
             return double_to_bytes(val)
+    else:
+        raise ValueError(f"Unable to parse value to bytes with unknown type: ({var_type})")
 
 
 def parse_bytes_to_val(datatype, byte_elements):

@@ -11,8 +11,8 @@ from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
     'DE': {
         'Map': MapManagerDE,
-        'Trigger': TriggerManagerDE,
         'Unit': UnitManagerDE,
+        'Trigger': TriggerManagerDE,
     }
 }
 

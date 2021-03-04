@@ -137,9 +137,11 @@ class Retriever:
             else:
                 data = helper.q_str(self.data)
             return self.name + " (" + self.datatype.to_simple_string() + "): " + data
+        else:
+            return "<None>"
 
     def to_simple_string(self):
-        return f"[Retriever] {self.name}: {self.datatype}"
+        return f"[Retriever] {self.name}: {self.datatype} (Default: {helper.q_str(self.default_value)})"
 
     def __repr__(self):
         if type(self.data) is list:
