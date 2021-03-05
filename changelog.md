@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog]
 - The class to call the `from_file(...)` function on has changed from: `AoE2Scenario` to `AoE2DEScenario`. You can import the new class using:  
   `from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario`
 - The dataset, object and manager naming convention has changed slightly.
-  - The datasets got a `Id` suffix on all object like sets:
+  - The datasets got an `Id` suffix on all object-like sets:
     - `Unit` & `GaiaUnit` -> `UnitId` & `GaiaUnitId`
     - `UnitOther` & `GaiaUnitOther` -> `UnitOtherId` & `GaiaUnitOtherId`
     - `Building` & `GaiaBuilding` -> `BuildingId` & `GaiaBuildingId`
@@ -44,7 +44,7 @@ After these changes everything should function like it did before. If you used i
 Changes made to the backend that might affect your code:
 
 - `Pieces` are now named `Sections`. So accessing those can be done using: `scenario.sections['name']`
-- Reading had changed from hardcoded pieces to json files. So all hardcoded retrievers etc. have been removed.
+- Reading has changed from hardcoded pieces to json files. So all hardcoded retrievers etc. have been removed.
 - `Section` information is no longer seperated between the `FileHeader` and all compressed data.
 - Section names no longer have a 'piece' suffix. These are the new names:
   - `FileHeader`, `DataHeader`, `Messages`, `Cinematics`, `BackgroundImage`, `PlayerDataTwo`, `GlobalVictory`, `Diplomacy`, `Options`, `Map`, `Units`, `Triggers`, `Files`.  
@@ -52,6 +52,7 @@ Changes made to the backend that might affect your code:
 - There is no longer a parser object (just a small module). Parsing is now done mostly in the appropriate objects / modules.
 - The location of many scripts have changed. Most notably, `retriever`, `retriever_object_link` and `datatype` have moved.  
   From: `helper/...` to: `sections/retrievers/...`
+- `Retrievers` and `Datatypes` now use the python `__slots__` property for faster access.
 - Many unused helper scripts have been removed (from `datasets/helper_scripts`).
 - Dependency objects all have their own files which can now be found at: `sections/dependencies/...`
   - `dependency`: General dependency functions.
