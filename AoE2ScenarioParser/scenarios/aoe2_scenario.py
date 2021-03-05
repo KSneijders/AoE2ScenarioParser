@@ -217,7 +217,7 @@ def compress_bytes(file_content):
 
 def get_structure(game_version, scenario_version) -> dict:
     try:
-        structure_file = open(f"versions/{game_version}/v{scenario_version}/structure.json", 'r')
+        structure_file = open(f"./versions/{game_version}/v{scenario_version}/structure.json", 'r')
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
         raise UnknownScenarioStructure(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None

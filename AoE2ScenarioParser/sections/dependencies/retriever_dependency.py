@@ -9,9 +9,9 @@ class RetrieverDependency:
         Object for handling dependencies between retrievers
 
         Args:
-            dependency_action (AoE2ScenarioParser.sections.dependencies.dependency_action.DependencyAction): The type of action taken.
-            dependency_target (AoE2ScenarioParser.sections.dependencies.dependency_target.DependencyTarget): The target of the action.
-            dependency_eval (AoE2ScenarioParser.sections.dependencies.dependency_eval.DependencyEval): Eval code to execute for action.
+            dependency_action (DependencyAction): The type of action taken.
+            dependency_target (DependencyTarget): The target of the action.
+            dependency_eval (DependencyEval): Eval code to execute for action.
         """
         if dependency_action != DependencyAction.REFRESH_SELF and dependency_target is None:
             raise ValueError(f"Parameter dependency_target cannot be None when action is {dependency_action.name}")
