@@ -69,37 +69,8 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)
-    # If invalid version (Currently only 1.40 supported)
-    handle_unsupported_version(retriever, retrieved_bytes)
 
     return retrieved_bytes
-
-
-def handle_unsupported_version(retriever, retrieved_bytes: List[bytes]) -> None:
-    if retriever.name == "version" and retriever.datatype.var == "c4":
-        v = bytes_to_fixed_chars(retrieved_bytes[0])
-        # Todo: Decide to keep, maybe check using float version. Only show when < ??? - (Probably just remove)
-        if v not in ["1.40", "1.41"]:
-            print("\n\n")
-            print('\n'.join([
-                "#### SORRY FOR THE INCONVENIENCE ####",
-                "Scenarios that are not converted to the latest version of the game (Update 42848) are not "
-                "supported at this time.",
-                f"Your current version is: '{v}'. The currently only supported version is: '1.40'.",
-                "The reason for this is a huge rework for version support.",
-                "This rework will take some time to complete, so until then, please upgrade your scenario to the "
-                "newest version. You can do this by saving it again in the in-game editor.",
-                "If you do not want to upgrade the scenarios, please downgrade this library to version 0.0.11. You "
-                "can do so by executing the following command in cmd:",
-                "",
-                ">>> pip install --force-reinstall AoE2ScenarioParser==0.0.11",
-                "",
-                "Thank you in advance."
-            ]))
-            time.sleep(1)
-            print("- KSneijders")
-            time.sleep(1)
-            raise ValueError("Currently unsupported version. Please read the message above. Thank you.")
 
 
 def is_end_of_file_mark(retriever) -> bool:
