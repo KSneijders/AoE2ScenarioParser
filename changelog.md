@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog]
 
 **Important notice:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to change two important changes. If you use the internal part of the scenario, there are more changes which are also listed below. If you find any bugs please report them on github.
 
+**Second important notice:** This release _should_ improve average reading and writing speed. Some tested scenarios had a read speed improvement of over 15x when using large AI or other text files. Average reading time will be around 20 to 40 percent faster. Writing time has increased significantly too. Maps with large amount of data have around 700% (7x faster) increase in writing time!
+
 ### Changes to make the library function properly again:
 
 - The class to call the `from_file(...)` function on has changed from: `AoE2Scenario` to `AoE2DEScenario`. You can import the new class using:  
