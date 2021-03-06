@@ -18,9 +18,10 @@ managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
 
 
 class AoE2ObjectManager:
-    def __init__(self, sections, game_version):
+    def __init__(self, sections, game_version, scenario_version):
         self.sections = sections
         self.game_version = game_version
+        self.scenario_version = scenario_version
         self.managers = {}
 
     def setup(self):
@@ -28,7 +29,7 @@ class AoE2ObjectManager:
 
         for name, manager in managers[self.game_version].items():
             helper.rprint(f"\t🔄 Setting up {name}Manager...")
-            self.managers[name] = manager._construct(self.sections)
+            self.managers[name] = manager._construct(self.sections, self.scenario_version)
             helper.rprint(f"\t✔ {name}Manager", final=True)
 
         helper.rprint(f"Setting up managers finished successfully.", final=True)

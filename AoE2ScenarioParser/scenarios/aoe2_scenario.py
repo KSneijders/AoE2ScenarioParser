@@ -68,7 +68,11 @@ class AoE2Scenario:
         scenario._load_content_sections(igenerator)
         helper.rprint(f"Parsing scenario file finished successfully.", final=True)
 
-        scenario._object_manager = AoE2ObjectManager(scenario.sections, scenario.game_version)
+        scenario._object_manager = AoE2ObjectManager(
+            sections=scenario.sections,
+            game_version=scenario.game_version,
+            scenario_version=scenario.scenario_version
+        )
         scenario._object_manager.setup()
 
         return scenario

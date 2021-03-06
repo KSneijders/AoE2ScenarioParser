@@ -9,10 +9,16 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class TriggerManager(AoE2Object):
     """Manager of the everything trigger related."""
+
+    _link_list = [
+        RetrieverObjectLink("triggers", "Triggers", "trigger_data", process_as_object=Trigger),
+        RetrieverObjectLink("trigger_display_order", "Triggers", "trigger_display_order_array"),
+    ]
 
     def __init__(self,
                  triggers: List[Trigger],

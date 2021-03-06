@@ -5,6 +5,7 @@ from enum import IntEnum
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class Condition(AoE2Object):
@@ -44,9 +45,9 @@ class Condition(AoE2Object):
         RetrieverObjectLink("target_player", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].target_player"),
         RetrieverObjectLink("xs_function", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].xs_function"),
+                            "trigger_data[__index__].condition_data[__index__].xs_function", Support(since=1.40)),
         RetrieverObjectLink("unit_ai_action", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].unit_ai_action"),
+                            "trigger_data[__index__].condition_data[__index__].unit_ai_action", Support(since=1.40)),
     ]
 
     def __init__(self,

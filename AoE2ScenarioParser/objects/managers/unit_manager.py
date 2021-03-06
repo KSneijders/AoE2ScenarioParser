@@ -6,13 +6,17 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper.helper import Tile
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class UnitManager(AoE2Object):
     """Manager of the everything trigger related."""
 
-    def __init__(self, units: List[List[Unit]]):
+    _link_list = [
+        RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)
+    ]
 
+    def __init__(self, units: List[List[Unit]]):
         self.units = units
 
         super().__init__()

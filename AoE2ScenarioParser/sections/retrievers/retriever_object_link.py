@@ -1,10 +1,10 @@
 from typing import Type, List
 
-from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class RetrieverObjectLink:
@@ -12,6 +12,7 @@ class RetrieverObjectLink:
                  variable_name: str,
                  section_name: str = None,
                  link: str = None,
+                 support: Support = None,
                  process_as_object: Type[AoE2Object] = None,
                  retrieve_instance_number: bool = False,
                  retrieve_history_number: int = -1
@@ -22,6 +23,7 @@ class RetrieverObjectLink:
         self.name: str = variable_name
         self.section_name = section_name
         self.link = link
+        self.support: Support = support
         self.is_special_unit_case = self._is_special_unit_case()
         self.process_as_object: Type[AoE2Object] = process_as_object
         self.retrieve_instance_number: bool = retrieve_instance_number
@@ -29,7 +31,7 @@ class RetrieverObjectLink:
 
         self.splitted_link: List[str] = link.split('.') if link is not None else []
 
-    def construct(self, sections, number_hist=None):
+    def construct(self, sections, scenario_version, number_hist=None):
         if number_hist is None:
             number_hist = []
         instance_number = AoE2Object.get_instance_number(number_hist=number_hist)
@@ -41,24 +43,40 @@ class RetrieverObjectLink:
         else:
             # Todo: Look into saving some results here - this code runs 62.556 times
             if self.is_special_unit_case:
-                return self._construct_special_unit_case(sections)
+                return self._construct_special_unit_case(sections, scenario_version)
 
             # Retrieve value without using eval() -- Eval is slow
             value = sections[self.section_name]
             for index, item in enumerate(self.splitted_link):
-                if "[" in item:
-                    value = getattr(value, item[:-11])[number_hist[index]]
-                else:
-                    value = getattr(value, item)
+                try:
+                    if "[" in item:
+                        value = getattr(value, item[:-11])[number_hist[index]]
+                    else:
+                        value = getattr(value, item)
+                except AttributeError as e:
+                    # Maybe not supported in current version. if not supported has been defined -> ignore
+                    if self.support is not None:
+                        if not self.support.supports(scenario_version):
+                            value = None
+                            break
+                    print(self)
+                    exit()
+                    raise e
 
             if self.process_as_object:
-                return self.process_object_list(value, number_hist, sections)
+                return self.process_object_list(value, number_hist, sections, scenario_version)
             return value
 
-    def process_object_list(self, value_list, instance_number_history, sections):
+    def process_object_list(self, value_list, instance_number_history, sections, scenario_version):
         object_list = []
         for index, struct in enumerate(value_list):
-            object_list.append(self.process_as_object._construct(sections, instance_number_history + [index]))
+            object_list.append(
+                self.process_as_object._construct(
+                    sections,
+                    scenario_version,
+                    number_hist=instance_number_history + [index]
+                )
+            )
         return object_list
 
     def commit(self, sections, host_obj):
@@ -137,7 +155,7 @@ class RetrieverObjectLink:
     def _is_special_unit_case(self) -> bool:
         return ("[]" in self.link) if self.link else False
 
-    def _construct_special_unit_case(self, sections):
+    def _construct_special_unit_case(self, sections, scenario_version):
         units = []
         value = sections[self.section_name]
         for index, item in enumerate(self.splitted_link):
@@ -146,7 +164,7 @@ class RetrieverObjectLink:
             else:
                 for player, player_units_section in enumerate(value):
                     player_units = getattr(player_units_section, item)
-                    units.append(self.process_object_list(player_units, [player], sections))
+                    units.append(self.process_object_list(player_units, [player], sections, scenario_version))
         return units
 
     def _commit_special_unit_case(self, sections, value):

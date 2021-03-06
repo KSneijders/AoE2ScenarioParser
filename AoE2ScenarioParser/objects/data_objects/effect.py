@@ -5,8 +5,9 @@ from typing import List
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class Effect(AoE2Object):
@@ -76,7 +77,8 @@ class Effect(AoE2Object):
                             "trigger_data[__index__].effect_data[__index__].variable_or_timer"),
         RetrieverObjectLink("facet", "Triggers", "trigger_data[__index__].effect_data[__index__].facet"),
         RetrieverObjectLink("play_sound", "Triggers", "trigger_data[__index__].effect_data[__index__].play_sound"),
-        RetrieverObjectLink("player_color", "Triggers", "trigger_data[__index__].effect_data[__index__].player_color"),
+        RetrieverObjectLink("player_color", "Triggers", "trigger_data[__index__].effect_data[__index__].player_color",
+                            Support(since=1.40)),
         RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message"),
         RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name"),
         RetrieverObjectLink("selected_object_ids", "Triggers",

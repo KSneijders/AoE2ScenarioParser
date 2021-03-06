@@ -24,7 +24,7 @@ class AoE2Object:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            if k not in ['_sections']:
+            if k != '_sections':
                 val = deepcopy(v)
             else:
                 val = getattr(self, k)
@@ -32,13 +32,13 @@ class AoE2Object:
         return result
 
     @classmethod
-    def _construct(cls, sections: OrderedDictType[str, AoE2FileSection], instance_number_history=None):
-        if instance_number_history is None:
-            instance_number_history = []
+    def _construct(cls, sections: OrderedDictType[str, AoE2FileSection], scenario_version, number_hist=None):
+        if number_hist is None:
+            number_hist = []
 
         object_parameters: dict = {}
         for link in cls._link_list:
-            object_parameters[link.name] = link.construct(sections, instance_number_history)
+            object_parameters[link.name] = link.construct(sections, scenario_version, number_hist=number_hist)
 
         obj = cls(**object_parameters)
         obj._sections = sections
