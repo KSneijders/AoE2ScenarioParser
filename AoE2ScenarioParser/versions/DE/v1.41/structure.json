@@ -1238,7 +1238,7 @@
                 "type": "2",
                 "default": "600a"
             },
-            "unknown_string": {
+            "water_definition": {
                 "type": "str16",
                 "default": ""
             },
@@ -1288,7 +1288,7 @@
                 "type": "s32",
                 "default": 2
             },
-            "ai_type": {
+            "no_waves_on_shore": {
                 "type": "s8",
                 "default": 1
             },
