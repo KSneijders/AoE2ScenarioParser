@@ -5,6 +5,7 @@ from copy import deepcopy
 from typing import List, Type, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 
 if TYPE_CHECKING:
     from typing import OrderedDict as OrderedDictType
@@ -18,6 +19,7 @@ class AoE2Object:
     def __init__(self, **kwargs):
         self._instance_number_history = []
         self._sections: OrderedDictType[str, AoE2FileSection] = OrderedDict()
+        self._scenario_version = None
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -36,12 +38,24 @@ class AoE2Object:
         if number_hist is None:
             number_hist = []
 
-        object_parameters: dict = {}
+        object_parameters = {}
         for link in cls._link_list:
             object_parameters[link.name] = link.construct(sections, scenario_version, number_hist=number_hist)
 
+            if link.support is not None and not link.support.supports(scenario_version):
+                def _get(self):
+                    raise UnsupportedAttributeError(f_unsupported_string(link, scenario_version))
+
+                def _set(self, val):
+                    if val is not None:
+                        raise UnsupportedAttributeError(f_unsupported_string(link, scenario_version))
+
+                setattr(cls, link.name, property(_get, _set))
+
         obj = cls(**object_parameters)
         obj._sections = sections
+        obj._scenario_version = scenario_version
+
         return obj
 
     def commit(self, sections=None, local_link_list=None):
@@ -80,3 +94,8 @@ class AoE2Object:
         self_dict = self.__dict__
         self_dict['_sections'] = f"OrderDict"
         return str(self.__class__.__name__) + ": " + helper.pretty_print_dict(self_dict)
+
+
+def f_unsupported_string(link: RetrieverObjectLink, version: str):
+    return f"The property '{link.name}' is {link.support}. Current version: {version}.\n" \
+           f"You can update your scenario by opening & saving it using the in-game editor of the Definitive Edition."

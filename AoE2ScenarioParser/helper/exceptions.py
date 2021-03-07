@@ -11,3 +11,7 @@ class UnknownScenarioStructure(Exception):
 
 class EndOfFileError(Exception):
     pass
+
+
+class UnsupportedAttributeError(Exception):
+    pass
