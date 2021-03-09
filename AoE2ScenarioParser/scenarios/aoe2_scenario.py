@@ -3,8 +3,11 @@ import zlib
 from collections import OrderedDict
 from typing import Union
 
+import AoE2ScenarioParser.datasets.conditions as conditions
+import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure
+from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure, \
+    UnknownVersionDependencyStructure
 from AoE2ScenarioParser.helper.helper import create_textual_hex
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
@@ -12,6 +15,26 @@ from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+
+
+def initialise_version_dependencies(game_version, scenario_version):
+    condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
+
+    for condition_id, structure in condition_json.items():
+        condition_id = int(condition_id)
+
+        conditions.condition_names[condition_id] = structure['name']
+        conditions.default_attributes[condition_id] = structure['default_attributes']
+        conditions.attributes[condition_id] = structure['attributes']
+
+    effect_json = get_version_dependant_structure_file(game_version, scenario_version, "effects")
+
+    for effect_id, structure in effect_json.items():
+        effect_id = int(effect_id)
+
+        effects.effect_names[effect_id] = structure['name']
+        effects.default_attributes[effect_id] = structure['default_attributes']
+        effects.attributes[effect_id] = structure['attributes']
 
 
 class AoE2Scenario:
@@ -59,6 +82,7 @@ class AoE2Scenario:
         print("##########################################")
 
         helper.rprint(f"\nLoading scenario structure...")
+        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         scenario.load_structure()
         helper.rprint(f"Loading scenario structure finished successfully.", final=True)
 
@@ -217,6 +241,15 @@ def compress_bytes(file_content):
     deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
     compressed = deflate_obj.compress(file_content) + deflate_obj.flush()
     return compressed
+
+
+def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
+    try:
+        structure_file = open(f"./versions/{game_version}/v{scenario_version}/{name}.json", 'r')
+    except FileNotFoundError:  # Unsupported version
+        v = f"{game_version}:{scenario_version}"
+        raise UnknownVersionDependencyStructure(f"The structure {name} could not be found with: {v}")
+    return json.loads(structure_file.read())
 
 
 def get_structure(game_version, scenario_version) -> dict:

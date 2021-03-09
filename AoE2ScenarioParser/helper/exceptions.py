@@ -9,6 +9,10 @@ class UnknownScenarioStructure(Exception):
     pass
 
 
+class UnknownVersionDependencyStructure(Exception):
+    pass
+
+
 class EndOfFileError(Exception):
     pass
 

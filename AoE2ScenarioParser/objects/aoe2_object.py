@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 class AoE2Object:
     _link_list: List[RetrieverObjectLink] = []
+    _overwritten_attributes = []
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
@@ -42,15 +43,19 @@ class AoE2Object:
         for link in cls._link_list:
             object_parameters[link.name] = link.construct(sections, scenario_version, number_hist=number_hist)
 
-            if link.support is not None and not link.support.supports(scenario_version):
+            if link.support is not None and not link.support.supports(scenario_version) and \
+                    link.name not in AoE2Object._overwritten_attributes:
+                error_msg = f_unsupported_string(link, scenario_version)
+
                 def _get(self):
-                    raise UnsupportedAttributeError(f_unsupported_string(link, scenario_version))
+                    raise UnsupportedAttributeError(error_msg)
 
                 def _set(self, val):
                     if val is not None:
-                        raise UnsupportedAttributeError(f_unsupported_string(link, scenario_version))
+                        raise UnsupportedAttributeError(error_msg)
 
                 setattr(cls, link.name, property(_get, _set))
+                AoE2Object._overwritten_attributes.append(link.name)
 
         obj = cls(**object_parameters)
         obj._sections = sections
@@ -63,8 +68,8 @@ class AoE2Object:
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            sections (OrderedDictType[str, AoE2FileSection]): A list of sections to reference where to commit to. If left empty,
-                the sections default to the sections where this object was constructed from.
+            sections (OrderedDictType[str, AoE2FileSection]): A list of sections to reference where to commit to.
+                If left empty, the sections default to the sections where this object was constructed from.
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
         """
@@ -97,5 +102,4 @@ class AoE2Object:
 
 
 def f_unsupported_string(link: RetrieverObjectLink, version: str):
-    return f"The property '{link.name}' is {link.support}. Current version: {version}.\n" \
-           f"You can update your scenario by opening & saving it using the in-game editor of the Definitive Edition."
+    return f"The property '{link.name}' is {link.support}. Current version: {version}.\n"

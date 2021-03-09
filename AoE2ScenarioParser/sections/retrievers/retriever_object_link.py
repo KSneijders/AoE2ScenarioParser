@@ -1,5 +1,6 @@
 from typing import Type, List
 
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
@@ -79,14 +80,19 @@ class RetrieverObjectLink:
             )
         return object_list
 
-    def commit(self, sections, host_obj):
+    def commit(self, sections, host_obj: AoE2Object):
         # Object-only attributes for the ease of access of information.
         # Not actually representing a value in the scenario file.
         if self.retrieve_instance_number or self.retrieve_history_number >= 0:
             return
 
         number_hist = host_obj._instance_number_history
-        value = getattr(host_obj, self.name)  # Get new value for receiver
+
+        try:
+            # Get new value for receiver
+            value = getattr(host_obj, self.name)
+        except UnsupportedAttributeError as e:
+            return  # Not supported in current version.
 
         section: AoE2FileSection = sections[self.section_name]
 
@@ -117,7 +123,6 @@ class RetrieverObjectLink:
                 )
 
             struct_name = struct_datatype[len(prefix):]
-            # print(file_section)
             struct_model = file_section.struct_models[struct_name]
 
             RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value))

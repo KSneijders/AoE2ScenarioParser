@@ -37,6 +37,7 @@ class AoE2ObjectManager:
     def reconstruct(self):
         helper.rprint("\nReconstructing sections and structs from managers...", final=True)
 
+        manager: AoE2Object
         for name, manager in self.managers.items():
             helper.rprint(f"\t🔄 Reconstructing {name}Manager...")
             manager.commit(self.sections)

@@ -1,9 +1,11 @@
 from typing import List
 
-from AoE2ScenarioParser.datasets.conditions import ConditionId, default_attributes as c_default_attributes, \
-    condition_names
-from AoE2ScenarioParser.datasets.effects import EffectId, default_attributes as e_default_attributes, effect_names
+import AoE2ScenarioParser.datasets.conditions as condition_dataset
+import AoE2ScenarioParser.datasets.effects as effect_dataset
+from AoE2ScenarioParser.datasets.conditions import ConditionId
+from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
@@ -137,7 +139,7 @@ class Trigger(AoE2Object):
                    object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
                    from_variable=None, variable_or_timer=None, facet=None, play_sound=None, message=None,
                    player_color=None, sound_name=None, selected_object_ids=None) -> Effect:
-        effect_defaults = e_default_attributes[effect_type]
+        effect_defaults = _get_default_effect_attributes(effect_type)
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
@@ -150,13 +152,33 @@ class Trigger(AoE2Object):
                       source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
                       area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> Condition:
-        condition_defaults = c_default_attributes[condition_type]
+        condition_defaults = _get_default_condition_attributes(condition_type)
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
         new_condition = Condition(**condition_attr)
         self.conditions.append(new_condition)
         return new_condition
+
+    def _get_default_condition_attributes(self, condition_type):
+        """Gets the default condition attributes based on a certain condition type, with exception handling"""
+        try:
+            return condition_dataset.default_attributes[condition_type]
+        except KeyError:
+            condition = ConditionId(condition_type)
+            raise UnsupportedAttributeError(
+                f"The condition {condition.name} is not supported in scenario version {self._scenario_version}"
+            ) from None
+
+    def _get_default_effect_attributes(self, effect_type):
+        """Gets the default effect attributes based on a certain effect type, with exception handling"""
+        try:
+            return effect_dataset.default_attributes[effect_type]
+        except KeyError:
+            effect = EffectId(effect_type)
+            raise UnsupportedAttributeError(
+                f"The effect {effect.name} is not supported in scenario version {self._scenario_version}"
+            ) from None
 
     def get_effect(self, effect_index: int = None, display_index: int = None) -> Effect:
         helper.evaluate_index_params(effect_index, display_index, "effect")
@@ -241,7 +263,7 @@ class Trigger(AoE2Object):
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                return_string += f"\t\t\t{condition_names[condition.condition_type]} " \
+                return_string += f"\t\t\t{condition_dataset.condition_names[condition.condition_type]} " \
                                  f"[Index: {condition_id}, Display: {c_display_order}]:\n"
                 return_string += condition.get_content_as_string()
 
@@ -251,13 +273,10 @@ class Trigger(AoE2Object):
                 effect = self.effects[effect_id]
 
                 try:
-                    return_string += f"\t\t\t{effect_names[effect.effect_type]}"
+                    return_string += f"\t\t\t{effect_dataset.effect_names[effect.effect_type]}"
                 except KeyError:
                     return_string += f"\t\t\tUnknown Effect. ID: {effect.effect_type}"
                 return_string += f" [Index: {effect_id}, Display: {e_display_order}]:\n"
                 return_string += effect.get_content_as_string()
 
         return return_string
-
-    def get_summary_as_string(self) -> str:
-        pass
