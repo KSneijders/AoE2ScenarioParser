@@ -1,7 +1,6 @@
 import json
 import zlib
-from collections import OrderedDict
-from typing import Union
+from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
@@ -55,7 +54,7 @@ class AoE2Scenario:
         self.scenario_version = "???"
         self.game_version = "???"
         self.structure = {}
-        self.sections: OrderedDict[str, AoE2FileSection] = OrderedDict()
+        self.sections: Dict[str, AoE2FileSection] = {}
         self._object_manager: Union[AoE2ObjectManager, None] = None
 
         # Used in debug functions
@@ -245,22 +244,21 @@ def compress_bytes(file_content):
 
 def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     try:
-        structure_file = open(f"./versions/{game_version}/v{scenario_version}/{name}.json", 'r')
+        with open(f"./versions/{game_version}/v{scenario_version}/{name}.json", 'r') as structure_file:
+            return json.load(structure_file)
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
         raise UnknownVersionDependencyStructure(f"The structure {name} could not be found with: {v}")
-    return json.loads(structure_file.read())
 
 
 def get_structure(game_version, scenario_version) -> dict:
     try:
-        structure_file = open(f"./versions/{game_version}/v{scenario_version}/structure.json", 'r')
+        with open(f"./versions/{game_version}/v{scenario_version}/structure.json", 'r') as structure_file:
+            structure = json.load(structure_file)
+
+            if "FileHeader" not in structure.keys():
+                raise InvalidScenarioStructure(f"First section in structure should always be FileHeader.")
+            return structure
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
         raise UnknownScenarioStructure(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None
-
-    structure = json.loads(structure_file.read())
-
-    if "FileHeader" not in structure.keys():
-        raise InvalidScenarioStructure(f"First section in structure should always be FileHeader.")
-    return structure

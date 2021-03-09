@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Dict, List, OrderedDict
+from typing import Dict, List
 
 from AoE2ScenarioParser.helper import parser, helper
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, duplicate_retriever_list
-from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 
 
 class SectionLevel(Enum):
@@ -81,7 +81,7 @@ class AoE2FileSection:
             result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
-    def set_data_from_generator(self, igenerator: IncrementalGenerator, sections: OrderedDict[str, AoE2FileSection]) \
+    def set_data_from_generator(self, igenerator: IncrementalGenerator, sections: Dict[str, AoE2FileSection]) \
             -> None:
         """
         Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.

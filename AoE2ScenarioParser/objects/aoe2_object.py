@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from collections import OrderedDict
 from copy import deepcopy
-from typing import List, Type, TYPE_CHECKING
+from typing import List, Type, TYPE_CHECKING, Dict
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 
 if TYPE_CHECKING:
-    from typing import OrderedDict as OrderedDictType
     from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
@@ -19,7 +17,7 @@ class AoE2Object:
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-        self._sections: OrderedDictType[str, AoE2FileSection] = OrderedDict()
+        self._sections: Dict[str, AoE2FileSection] = {}
         self._scenario_version = None
 
     def __deepcopy__(self, memo):
@@ -35,7 +33,7 @@ class AoE2Object:
         return result
 
     @classmethod
-    def _construct(cls, sections: OrderedDictType[str, AoE2FileSection], scenario_version, number_hist=None):
+    def _construct(cls, sections: Dict[str, AoE2FileSection], scenario_version, number_hist=None):
         if number_hist is None:
             number_hist = []
 
@@ -68,7 +66,7 @@ class AoE2Object:
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            sections (OrderedDictType[str, AoE2FileSection]): A list of sections to reference where to commit to.
+            sections (Dict[str, AoE2FileSection]): A list of sections to reference where to commit to.
                 If left empty, the sections default to the sections where this object was constructed from.
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
