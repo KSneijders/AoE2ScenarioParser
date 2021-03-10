@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog]
   The reason for this is the introduction of the `new_effect` and `new_condition` objects!  
   These objects have all conditions and effects as functions. This makes it easier in combination with autocomplete to know what attributes can be used!  
   You can transform your function as follows:  
-  From: `trigger.add_effect(Effect.CREATE_OBJECT, ...)` to: `trigger.new_effect.create_object(...)` (All parameters remain unchanged)
+  From: `trigger.add_effect(Effect.SEND_CHAT, message="Hello")` to: `trigger.new_effect.send_chat(message="Hello")` (All parameters remain unchanged)
 - The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
 - The dataset, object and manager naming convention has changed slightly.
   - The datasets got an `Id` suffix on all object-like sets:
