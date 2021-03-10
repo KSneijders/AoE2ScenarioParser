@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog]
 
 ## 0.1.0 - ????
 
-**Important notice:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to change two important changes. If you use the internal part of the scenario, there are more changes which are also listed below. If you find any bugs please report them on github.
+**Important notice:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to implement a couple of important changes. If you use the internal part of the scenario, there are more changes which are also listed below. If you find any bugs please report them on github.
 
 **Second important notice:** This release _should_ improve average reading and writing speed. Some tested scenarios had a read speed improvement of over 15x when using large AI or other text files. Average reading time will be around 20 to 40 percent faster. Writing time has increased significantly too. Maps with large amount of data have around 700% (7x faster) increase in writing time!
 
@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog]
 
 - The class to call the `from_file(...)` function on has changed from: `AoE2Scenario` to `AoE2DEScenario`. You can import the new class using:  
   `from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario`
+- The `trigger.add_effect(...)` and `trigger.add_condition(...)` are now private functions in a trigger. So now: (`trigger._add_effect(...)` and `trigger._add_condition(...)`)  
+  The reason for this is the introduction of the `new_effect` and `new_condition` objects!  
+  These objects have all conditions and effects as functions. This makes it easier in combination with autocomplete to know what attributes can be used!  
+  You can transform your function as follows:  
+  From: `trigger.add_effect(Effect.CREATE_OBJECT, ...)` to: `trigger.new_effect.create_object(...)` (All parameters remain unchanged)
+- The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
 - The dataset, object and manager naming convention has changed slightly.
   - The datasets got an `Id` suffix on all object-like sets:
     - `Unit` & `GaiaUnit` -> `UnitId` & `GaiaUnitId`
@@ -63,7 +69,6 @@ Changes made to the backend that might affect your code:
   - `dependency_target`: The `DependencyTarget` class.
   - `retriever_dependency`: The `RetrieverDependency` class.
 - The way generators work has changed. Instead of an actual python generator which runs byte-by-byte, slicing is used.
-- The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
 
 ---
 
