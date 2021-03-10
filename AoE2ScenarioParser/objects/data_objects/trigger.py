@@ -9,6 +9,8 @@ from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
+from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
+from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -86,6 +88,9 @@ class Trigger(AoE2Object):
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
+        self.new_effect = NewEffectSupport(self)
+        self.new_condition = NewConditionSupport(self)
+
         super().__init__()
 
     @property
@@ -128,17 +133,18 @@ class Trigger(AoE2Object):
         self._effects = val
         self.effect_order = list(range(0, len(val)))
 
-    def add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
-                   armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None, object_list_unit_id=None,
-                   source_player=None, target_player=None, technology=None, string_id=None, display_time=None,
-                   trigger_id=None, location_x=None, location_y=None, location_object_reference=None, area_1_x=None,
-                   area_1_y=None, area_2_x=None, area_2_y=None, object_group=None, object_type=None,
-                   instruction_panel_position=None, attack_stance=None, time_unit=None, enabled_or_victory=None,
-                   food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
-                   force_research_technology=None, visibility_state=None, scroll=None, operation=None,
-                   object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
-                   from_variable=None, variable_or_timer=None, facet=None, play_sound=None, message=None,
-                   player_color=None, sound_name=None, selected_object_ids=None) -> Effect:
+    def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
+                    armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None, object_list_unit_id=None,
+                    source_player=None, target_player=None, technology=None, string_id=None, display_time=None,
+                    trigger_id=None, location_x=None, location_y=None, location_object_reference=None, area_1_x=None,
+                    area_1_y=None, area_2_x=None, area_2_y=None, object_group=None, object_type=None,
+                    instruction_panel_position=None, attack_stance=None, time_unit=None, enabled_or_victory=None,
+                    food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
+                    force_research_technology=None, visibility_state=None, scroll=None, operation=None,
+                    object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
+                    from_variable=None, variable_or_timer=None, facet=None, play_sound=None, message=None,
+                    player_color=None, sound_name=None, selected_object_ids=None) -> Effect:
+        """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
@@ -158,11 +164,12 @@ class Trigger(AoE2Object):
         self.effects.append(new_effect)
         return new_effect
 
-    def add_condition(self, condition_type: ConditionId, amount_or_quantity=None,
-                      resource_type_or_tribute_list=None, unit_object=None, next_object=None, object_list=None,
-                      source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
-                      area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-                      comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> Condition:
+    def _add_condition(self, condition_type: ConditionId, amount_or_quantity=None,
+                       resource_type_or_tribute_list=None, unit_object=None, next_object=None, object_list=None,
+                       source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
+                       area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
+                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> Condition:
+        """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
