@@ -22,7 +22,7 @@ The format is based on [Keep a Changelog]
   You can transform your function as follows:  
   From: `trigger.add_effect(Effect.SEND_CHAT, message="Hello")` to: `trigger.new_effect.send_chat(message="Hello")` (All parameters remain unchanged)
 - The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
-- The dataset, object and manager naming convention has changed slightly.
+- The dataset, object and manager naming conventions have changed slightly.
   - The datasets got an `Id` suffix on all object-like sets:
     - `Unit` & `GaiaUnit` -> `UnitId` & `GaiaUnitId`
     - `UnitOther` & `GaiaUnitOther` -> `UnitOtherId` & `GaiaUnitOtherId`
