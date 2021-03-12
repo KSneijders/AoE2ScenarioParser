@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.0.21 - Unreleased
+
+### Added
+
+- All villagers to the `Unit` dataset as: `VILLAGER_<SEX>[_<PROFESSION>]`
+- A handful of other units to the `Unit` dataset
+
+### Changed
+
+- Renamed `FLEMISH_MILITIA_M` and `FLEMISH_MILITIA_F` to `FLEMISH_MILITIA_MALE` and `FLEMISH_MILITIA_FEMALE`
+
+### Removed
+
+- The old names used for villagers (e.g. `BUILDER` or `HUNTER`). (These were male only)
+
+---
+
 ## 0.0.20 - 2021-February-17
 
 ### Fixed
