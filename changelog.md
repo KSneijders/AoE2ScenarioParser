@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog]
 ### Removed
 
 - The old names used for villagers (e.g. `BUILDER` or `HUNTER`). (These were male only)
+- The BiDict variable `unit_names`, because the same effect can be achieved using the `.name` attributes in the dataset.
 
 ---
 
