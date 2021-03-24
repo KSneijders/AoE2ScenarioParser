@@ -108,7 +108,9 @@ unit.y = 0.5
 
 Besides it\'s location you can also change the type of unit:
 
+```py
 unit.unit_const = UnitId.MAN_AT_ARMS    # Units dataset
+```
 
 You also might want to change the ownership of a unit. This might seem
 easy as there is a [player]{.title-ref} attribute within the unit.
