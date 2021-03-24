@@ -5,8 +5,8 @@ from typing import Union, Dict
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure, UnknownScenarioStructure, \
-    UnknownVersionDependencyStructure
+from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
+    UnknownStructureError
 from AoE2ScenarioParser.helper.helper import create_textual_hex
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
@@ -248,7 +248,7 @@ def get_version_dependant_structure_file(game_version: str, scenario_version: st
             return json.load(structure_file)
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
-        raise UnknownVersionDependencyStructure(f"The structure {name} could not be found with: {v}")
+        raise UnknownStructureError(f"The structure {name} could not be found with: {v}")
 
 
 def get_structure(game_version, scenario_version) -> dict:
@@ -257,8 +257,8 @@ def get_structure(game_version, scenario_version) -> dict:
             structure = json.load(structure_file)
 
             if "FileHeader" not in structure.keys():
-                raise InvalidScenarioStructure(f"First section in structure should always be FileHeader.")
+                raise InvalidScenarioStructureError(f"First section in structure should always be FileHeader.")
             return structure
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
-        raise UnknownScenarioStructure(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None
+        raise UnknownScenarioStructureError(f"The version {v} is not supported by AoE2ScenarioParser. :(") from None

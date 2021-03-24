@@ -1,15 +1,12 @@
-# Todo: Add 'exception' or 'error' to the names for clarity
-
-
-class InvalidScenarioStructure(Exception):
+class InvalidScenarioStructureError(Exception):
     pass
 
 
-class UnknownScenarioStructure(Exception):
+class UnknownScenarioStructureError(Exception):
     pass
 
 
-class UnknownVersionDependencyStructure(Exception):
+class UnknownStructureError(Exception):
     pass
 
 

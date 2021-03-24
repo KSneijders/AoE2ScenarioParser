@@ -1,7 +1,7 @@
 from typing import List
 
 from AoE2ScenarioParser.helper import helper
-from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructure
+from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError
 
 
 class DependencyTarget:
@@ -24,7 +24,7 @@ class DependencyTarget:
         elif type(target) is list:
             return cls([entry.split(':') for entry in target])
         else:
-            raise InvalidScenarioStructure("Target defined using unknown type. For single targets, use str else list")
+            raise InvalidScenarioStructureError("Target defined using unknown type. For single targets, use str else list")
 
     def __repr__(self) -> str:
         return f"[DependencyTarget] {helper.add_tabs(helper.pretty_print_list(self.targets).strip(), 1)}"
