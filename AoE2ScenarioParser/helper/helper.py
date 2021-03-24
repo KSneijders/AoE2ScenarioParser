@@ -1,7 +1,7 @@
 import math
 import sys
 from enum import IntEnum
-from typing import List, Dict
+from typing import List, Dict, Union
 
 from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
 from AoE2ScenarioParser.datasets.heroes import HeroId
@@ -24,19 +24,25 @@ def insert_char(string, char, step=64):
 
 
 """ =============================================================
-======================= STRING MODIFIERS ========================
+======================= STRING FUNCTIONS ========================
 =============================================================="""
 
 
-def add_str_trail(string):
+def add_str_trail(string) -> str:
     if len(string) > 0:
         string = string + ("\x00" if string[-1] != "\x00" else "")
     return string
 
 
-def del_str_trail(string):
-    if len(string) > 0:
-        string = string if string[-1] != "\x00" and string[-1] != 0 else string[:-1]
+def has_str_trail(string) -> bool:
+    if len(string) > 0 and string[-1] == 0:
+        return True
+    return False
+
+
+def del_str_trail(string) -> Union[str, bytes]:
+    if has_str_trail(string):
+        string = string[:-1]
     return string
 
 

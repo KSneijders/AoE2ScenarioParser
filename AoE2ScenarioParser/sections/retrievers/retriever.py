@@ -26,7 +26,8 @@ class Retriever:
         'potential_list',
         'log_value',
         '_data',
-        'default_value'
+        'default_value',
+        'string_end_char'
     ]
 
     on_construct: RetrieverDependency
@@ -50,6 +51,7 @@ class Retriever:
         self.potential_list = potential_list
         self.log_value = log_value
         self._data = None
+        self.string_end_char = False
 
     def get_data_as_bytes(self):
         self.update_datatype_repeat()
@@ -79,7 +81,7 @@ class Retriever:
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
             raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
 
-        result = [parse_bytes_to_val(self.datatype, entry_bytes) for entry_bytes in bytes_list]
+        result = [parse_bytes_to_val(self, entry_bytes) for entry_bytes in bytes_list]
         self.data = parser.vorl(self, result)
 
     def update_datatype_repeat(self):

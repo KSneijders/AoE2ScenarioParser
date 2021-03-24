@@ -32,18 +32,20 @@ _no_string_trail = [
 ]
 
 
-def bytes_to_str(byte_elements, codec="utf-8"):
-    trail_removed_elements = helper.del_str_trail(byte_elements)
+def bytes_to_str(byte_elements, retriever, codec="utf-8"):
+    if helper.has_str_trail(byte_elements):
+        byte_elements = helper.del_str_trail(byte_elements)
+        retriever.string_end_char = True
     try:
-        return trail_removed_elements.decode(codec)
+        return byte_elements.decode(codec)
     except UnicodeDecodeError:
-        return trail_removed_elements.decode('latin-1')
+        return byte_elements.decode('latin-1')
 
 
 def str_to_bytes(string, retriever, codec="utf-8"):
-    if retriever.name in _no_string_trail:
-        return string.encode(codec)
-    return helper.add_str_trail(string).encode(codec)
+    if retriever.string_end_char:
+        return helper.add_str_trail(string).encode(codec)
+    return string.encode(codec)
 
 
 def bytes_to_int(byte_elements, endian="little", signed=False):
@@ -70,7 +72,6 @@ def double_to_bytes(d):
     return struct.pack('d', d)
 
 
-# Todo: Change retriever to datatype (rework string conversion)
 def parse_val_to_bytes(retriever, val):
     var_type, var_len = retriever.datatype.type_and_length
 
@@ -92,13 +93,13 @@ def parse_val_to_bytes(retriever, val):
         raise ValueError(f"Unable to parse value to bytes with unknown type: ({var_type})")
 
 
-def parse_bytes_to_val(datatype, byte_elements):
-    var_type, var_len = datatype.type_and_length
+def parse_bytes_to_val(retriever, byte_elements):
+    var_type, var_len = retriever.datatype.type_and_length
 
     if var_type == "u" or var_type == "s":
         return bytes_to_int(byte_elements, signed=(var_type == "s"))
     elif var_type == "str":
-        return bytes_to_str(byte_elements[var_len:])
+        return bytes_to_str(byte_elements[var_len:], retriever)
     elif var_type == "c":
         return bytes_to_fixed_chars(byte_elements)
     elif var_type == "data":
