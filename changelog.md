@@ -46,6 +46,10 @@ The format is based on [Keep a Changelog]
     - `EffectObject` -> `Effect`
     - `ConditionObject` -> `Condition`
     - `VariableObject` -> `Variable`
+- The way you 'hide' the status messages like: `Creating MapPiece finished successfully.` has been changed. Before you had to set a param like `log_reading` to True in the `from_file` function. Now you can do it globally through settings. So: `from AoE2ScenarioParser import settings` and then `settings.PRINT_STATUS_UPDATES = False`.  
+  **PLEASE NOTE**: `from AoE2ScenarioParser.settings import PRINT_STATUS_UPDATES` and then `PRINT_STATUS_UPDATES = False` does **NOT** work. [Click here if you want to know why]. 
+
+[Click here if you want to know why]: https://stackoverflow.com/a/10501768/7230293
 
 After these changes everything should function like it did before. If you used internal parts of the parser, below is a list of what you should change. Note that these are the most obvious changes. If you used very complex internal functionality, I cannot guarentee anything.
 
@@ -69,6 +73,10 @@ Changes made to the backend that might affect your code:
   - `dependency_target`: The `DependencyTarget` class.
   - `retriever_dependency`: The `RetrieverDependency` class.
 - The way generators work has changed. Instead of an actual python generator which runs byte-by-byte, slicing is used.
+
+### Other changes:
+
+- the `create_default` function has temporarily (?) been removed. 
 
 ---
 

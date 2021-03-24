@@ -5,9 +5,8 @@ The project currently contains multiple datasets. These are currently pretty bas
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation,
-
-TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation, \
+    TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute
 
 # Information of unit/tech/terrain name and their ID
 from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
