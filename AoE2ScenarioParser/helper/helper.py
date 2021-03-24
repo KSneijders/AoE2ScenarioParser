@@ -3,8 +3,10 @@ import sys
 from enum import IntEnum
 from typing import List, Dict, Union
 
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
 from AoE2ScenarioParser.datasets.heroes import HeroId
+from AoE2ScenarioParser.datasets.other import UnitOtherId, GaiaUnitOtherId
 from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 """ =============================================================
@@ -182,17 +184,20 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
     Arguments:
         const: The constant representing a unit
     """
-    # Todo: try catch in loop with `return x(const)` in main body. loop through enums
-    if any(item == const for item in UnitId):
-        return UnitId(const)
-    if any(item.value == const for item in BuildingId):
-        return BuildingId(const)
-    if any(item.value == const for item in HeroId):
-        return HeroId(const)
-    if any(item == const for item in GaiaUnitId):
-        return GaiaUnitId(const)
-    if any(item == const for item in GaiaBuildingId):
-        return GaiaBuildingId(const)
+    enums = [
+        UnitId,
+        GaiaUnitId,
+        BuildingId,
+        GaiaBuildingId,
+        HeroId,
+        UnitOtherId,
+        GaiaUnitOtherId,
+    ]
+    for enum in enums:
+        try:
+            return enum(const)
+        except ValueError:
+            continue
 
 
 def get_int_len(num):
@@ -209,15 +214,28 @@ def evaluate_index_params(x_id, display_index, name):
 
 
 class SimpleLogger:
-    def __init__(self, should_log):
+    def __init__(self, should_log, is_status_print):
         self.should_log = should_log
+        self.is_status_print = is_status_print
 
     def print(self, string="", replace=False, cancel_next=False):
         if self.should_log:
-            rprint(string, replace, cancel_next)
+            if self.is_status_print:
+                s_print(string, replace, cancel_next)
+            else:
+                rprint(string, replace, cancel_next)
 
     def __repr__(self):
         return f"SimpleLogger[should_log: {self.should_log}]"
+
+
+def s_print(string="", replace=True, final=False) -> None:
+    """
+    Status print, read rprint docstring for more info.
+    Simple rprint wrapper with a check for the PRINT_STATUS_UPDATES setting.
+    """
+    if settings.PRINT_STATUS_UPDATES:
+        rprint(string, replace, final)
 
 
 def rprint(string="", replace=True, final=False) -> None:

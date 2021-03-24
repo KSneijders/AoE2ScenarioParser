@@ -23,7 +23,6 @@ def handle_retriever_dependency(retriever: Retriever, state, self_list: List[Ret
         return
     retriever_event = getattr(retriever, on_x)  # construct, commit or refresh
 
-    # Todo: Action could be list (Catch exception?), check if list in catch - throw again if not
     action = retriever_event.dependency_action
 
     if action == DependencyAction.REFRESH_SELF:

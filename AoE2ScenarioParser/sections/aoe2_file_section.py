@@ -163,6 +163,8 @@ class AoE2FileSection:
         prefix = "\t"
         if self.level == SectionLevel.STRUCT:
             prefix = "\t\t\t"
+        if 'str' in datatype:
+            data = helper.q_str(data)
         return f"{prefix}{name}: {data} ({datatype})\n"
 
     def get_header_string(self):

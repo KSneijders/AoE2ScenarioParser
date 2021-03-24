@@ -41,10 +41,6 @@ class DataType:
     _debug_retriever_name: str
 
     def __init__(self, var="0", repeat=1, log_value=False, type_length=None):
-        # Todo: remove after structure.json is implemented (?)
-        if type(var) is not str:
-            var = f"struct:{var.__name__}"
-
         self.var = var
         self._repeat = repeat
         self.log_value = log_value
@@ -52,11 +48,7 @@ class DataType:
         if type_length is not None:
             self.type, self.length = type_length
         else:
-            try:
-                self.type, self.length = datatype_to_type_length(self.var)
-            except TypeError:  # Todo: remove after structure.json is implemented
-                self.type = "struct"
-                self.length = 0
+            self.type, self.length = datatype_to_type_length(self.var)
 
     @property
     def type_and_length(self):
@@ -73,8 +65,7 @@ class DataType:
         self._repeat = value
 
     def to_simple_string(self):
-        # Todo: remove if statement after structure.json is implemented (?)
-        return str(self._repeat) + " * " + (self.var if type(self.var) is str else self.var.__name__)
+        return f"{self._repeat} * {self.var}"
 
     def __repr__(self):
         return f"[DataType] " + self.to_simple_string()

@@ -42,7 +42,6 @@ class RetrieverObjectLink:
         elif self.retrieve_history_number != -1:
             return number_hist[self.retrieve_history_number]
         else:
-            # Todo: Look into saving some results here - this code runs 62.556 times
             if self.is_special_unit_case:
                 return self._construct_special_unit_case(sections, scenario_version)
 
@@ -60,8 +59,6 @@ class RetrieverObjectLink:
                         if not self.support.supports(scenario_version):
                             value = None
                             break
-                    print(self)
-                    exit()
                     raise e
 
             if self.process_as_object:
