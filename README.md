@@ -43,16 +43,12 @@ If you find a bug, please check if it's already been reported or maybe even fixe
 
 ## Support:
 
-**CURRENTLY OLDER VERSIONS ARE NOT SUPPORTED - THIS IS DUE TO A REWORK FOR PROPER VERSION SUPPORT.**  
-**PLEASE UPDATE YOUR SCENARIO TO THE NEWEST VERSION BY SAVING IT IN THE IN-GAME EDITOR.**  
-**ALTERNATIVELY YOU CAN DOWNGRADE TO VERSION 0.0.11 FOR SUPPORT FOR OLDER VERSIONS**
-
 | ScenarioFiles | Read               | Write              | Reference                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------- | ------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.36          | :x:                | :x:                | -                                                                                                                                                                                                                                                                                                                                                                                                     |
-| 1.37          | :x:                | :x:                | Version since game update: [35584] (February 27th) <br> **Unchanged in**: <br> - Update [36202] (March 30th) <br> - Update [36906] (April 29th) <br> - Update [37650] (May 27th) <br> - Hotfix [37906] (June 2nd) <br> - Update [39284] (July 20th) <br> - Hotfix [39515] (July 27th) <br> - Update [40220] (August 24th) <br> - Update [40874] (September 22nd) <br> - Update [41855] (October 20th) |
+| 1.36          | :x:                | :x:                | ?                                                                                                                                                                                                                                                                                                                                                                                                     |
+| 1.37          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [35584] (February 27th) <br> **Unchanged in**: <br> - Update [36202] (March 30th) <br> - Update [36906] (April 29th) <br> - Update [37650] (May 27th) <br> - Hotfix [37906] (June 2nd) <br> - Update [39284] (July 20th) <br> - Hotfix [39515] (July 27th) <br> - Update [40220] (August 24th) <br> - Update [40874] (September 22nd) <br> - Update [41855] (October 20th) |
 | 1.40          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [42848] (November 17th) <br> **Unchanged in**: <br> - Hotfix [43210] (November 24th)                                                                                                                                                                                                                                                                                       |
-| 1.41          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [44725] (January 25th) <br> **Unchanged in**: <br> - Hotfix [44834] (January 28th)<br> - Hotfix [45185] (February 11th)                                                                                                                                                                                                                                                                                         |
+| 1.41          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [44725] (January 25th) <br> **Unchanged in**: <br> - Hotfix [44834] (January 28th)<br> - Hotfix [45185] (February 11th)<br> - Hotfix [46265] (March 24th)                                                                                                                                                                                                                                                                                         |
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 [36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
@@ -69,6 +65,7 @@ If you find a bug, please check if it's already been reported or maybe even fixe
 [44725]: https://www.ageofempires.com/news/aoeiide-update-44725/
 [44834]: https://www.ageofempires.com/news/aoeiide-update-44725#hotfix-44834
 [45185]: https://www.ageofempires.com/news/aoe2de-hotfix-45185/
+[46265]: https://www.ageofempires.com/news/aoe2de-update-46295/
 
 # Authors
 

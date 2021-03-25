@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.0 - ????
+## 0.1.0 - 2021-March-25
 
 **Important notice:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to implement a couple of important changes. If you use the internal part of the scenario, there are more changes which are also listed below. If you find any bugs please report them on github.
 
@@ -67,11 +67,7 @@ After these changes everything should function like it did before. If you used i
 
 ### Other changes:
 
-- the `create_default` function has temporarily (?) been removed. 
-
----
-
-## 0.0.21 - Unreleased
+These changes were in the works for `0.0.21` but got merged into the `0.1.0` relesase.
 
 ### Added
 
@@ -86,6 +82,7 @@ After these changes everything should function like it did before. If you used i
 
 - The old names used for villagers (e.g. `BUILDER` or `HUNTER`). (These were male only)
 - The BiDict variable `unit_names`, because the same effect can be achieved using the `.name` attributes in the dataset.
+- the `scenario.create_default()` function. 
 
 ---
 
