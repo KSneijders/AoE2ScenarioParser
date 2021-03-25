@@ -184,12 +184,12 @@ class NewEffectSupport:
     def declare_victory(
             self,
             source_player=None,
-            enabled_or_victory=None,
+            enabled=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.DECLARE_VICTORY,
             source_player=source_player,
-            enabled_or_victory=enabled_or_victory,
+            enabled=enabled,
         )
 
     def kill_object(
@@ -788,14 +788,14 @@ class NewEffectSupport:
             self,
             object_list_unit_id=None,
             source_player=None,
-            enabled_or_victory=None,
+            enabled=None,
             item_id=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.ENABLE_DISABLE_OBJECT,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
-            enabled_or_victory=enabled_or_victory,
+            enabled=enabled,
             item_id=item_id,
         )
 
@@ -803,14 +803,14 @@ class NewEffectSupport:
             self,
             source_player=None,
             technology=None,
-            enabled_or_victory=None,
+            enabled=None,
             item_id=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.ENABLE_DISABLE_TECHNOLOGY,
             source_player=source_player,
             technology=technology,
-            enabled_or_victory=enabled_or_victory,
+            enabled=enabled,
             item_id=item_id,
         )
 

@@ -2077,7 +2077,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "enabled_or_victory": {
+                            "enabled": {
                                 "type": "s32",
                                 "default": -1
                             },

@@ -76,7 +76,7 @@ class EffectId(IntEnum):
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
     - source_player
-    - enabled_or_victory"""
+    - enabled"""
     KILL_OBJECT = 14
     """Attributes for the **kill_object** effect are: \n
     - object_list_unit_id
@@ -343,13 +343,13 @@ class EffectId(IntEnum):
     """Attributes for the **enable_disable_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - enabled_or_victory
+    - enabled
     - item_id"""
     ENABLE_DISABLE_TECHNOLOGY = 39
     """Attributes for the **enable_disable_technology** effect are: \n
     - source_player
     - technology
-    - enabled_or_victory
+    - enabled
     - item_id"""
     CHANGE_OBJECT_COST = 40
     """Attributes for the **change_object_cost** effect are: \n
@@ -608,7 +608,7 @@ empty_attributes = {
     "instruction_panel_position": -1,
     "attack_stance": -1,
     "time_unit": -1,
-    "enabled_or_victory": -1,
+    "enabled": -1,
     "food": -1,
     "wood": -1,
     "stone": -1,

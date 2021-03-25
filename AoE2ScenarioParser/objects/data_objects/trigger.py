@@ -138,7 +138,7 @@ class Trigger(AoE2Object):
                     source_player=None, target_player=None, technology=None, string_id=None, display_time=None,
                     trigger_id=None, location_x=None, location_y=None, location_object_reference=None, area_1_x=None,
                     area_1_y=None, area_2_x=None, area_2_y=None, object_group=None, object_type=None,
-                    instruction_panel_position=None, attack_stance=None, time_unit=None, enabled_or_victory=None,
+                    instruction_panel_position=None, attack_stance=None, time_unit=None, enabled=None,
                     food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
                     force_research_technology=None, visibility_state=None, scroll=None, operation=None,
                     object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,

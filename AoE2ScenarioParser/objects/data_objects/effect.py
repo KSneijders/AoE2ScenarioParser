@@ -49,8 +49,8 @@ class Effect(AoE2Object):
         RetrieverObjectLink("attack_stance", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].attack_stance"),
         RetrieverObjectLink("time_unit", "Triggers", "trigger_data[__index__].effect_data[__index__].time_unit"),
-        RetrieverObjectLink("enabled_or_victory", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].enabled_or_victory"),
+        RetrieverObjectLink("enabled", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].enabled"),
         RetrieverObjectLink("food", "Triggers", "trigger_data[__index__].effect_data[__index__].food"),
         RetrieverObjectLink("wood", "Triggers", "trigger_data[__index__].effect_data[__index__].wood"),
         RetrieverObjectLink("stone", "Triggers", "trigger_data[__index__].effect_data[__index__].stone"),
@@ -112,7 +112,7 @@ class Effect(AoE2Object):
                  instruction_panel_position: int = None,
                  attack_stance: int = None,
                  time_unit: int = None,
-                 enabled_or_victory: int = None,
+                 enabled: int = None,
                  food: int = None,
                  wood: int = None,
                  stone: int = None,
@@ -166,7 +166,7 @@ class Effect(AoE2Object):
         self.instruction_panel_position: int = instruction_panel_position
         self.attack_stance: int = attack_stance
         self.time_unit: int = time_unit
-        self.enabled_or_victory: int = enabled_or_victory
+        self.enabled: int = enabled
         self.food: int = food
         self.wood: int = wood
         self.stone: int = stone
