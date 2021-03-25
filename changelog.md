@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.1 - Unreleased
+
+### Changed
+
+- Renamed `amount_or_quantity` to `quantity` in conditions for consistentcy.
+
+---
+
 ## 0.1.0 - 2021-March-25
 
 **Important notice:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to implement a couple of important changes. If you use the internal part of the scenario, there are more changes which are also listed below. If you find any bugs please report them on github.

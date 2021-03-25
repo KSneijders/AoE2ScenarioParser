@@ -164,7 +164,7 @@ class Trigger(AoE2Object):
         self.effects.append(new_effect)
         return new_effect
 
-    def _add_condition(self, condition_type: ConditionId, amount_or_quantity=None,
+    def _add_condition(self, condition_type: ConditionId, quantity=None,
                        resource_type_or_tribute_list=None, unit_object=None, next_object=None, object_list=None,
                        source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
                        area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,

@@ -2206,7 +2206,7 @@
                                 "type": "s32",
                                 "default": 23
                             },
-                            "amount_or_quantity": {
+                            "quantity": {
                                 "type": "s32",
                                 "default": -1
                             },

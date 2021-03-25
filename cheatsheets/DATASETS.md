@@ -124,7 +124,7 @@ Exmaple of some usages:
 trigger = trigger_manager.add_trigger("Inform Betrayal!")
 condition = trigger.add_condition(
     Condition.DIPLOMACY_STATE,
-    amount_or_quantity=DiplomacyState.ALLY,  # <-- DiplomacyState dataset
+    quantity=DiplomacyState.ALLY,  # <-- DiplomacyState dataset
     player=Player.TWO,
     target_player=Player.THREE
 )

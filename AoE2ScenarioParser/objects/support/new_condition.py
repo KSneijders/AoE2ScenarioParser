@@ -47,7 +47,7 @@ class NewConditionSupport:
 
     def own_objects(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             object_list=None,
             source_player=None,
             object_group=None,
@@ -55,7 +55,7 @@ class NewConditionSupport:
     ):
         self.trigger_ref._add_condition(
             ConditionId.OWN_OBJECTS,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             object_list=object_list,
             source_player=source_player,
             object_group=object_group,
@@ -64,7 +64,7 @@ class NewConditionSupport:
 
     def own_fewer_objects(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             object_list=None,
             source_player=None,
             area_1_x=None,
@@ -76,7 +76,7 @@ class NewConditionSupport:
     ):
         self.trigger_ref._add_condition(
             ConditionId.OWN_FEWER_OBJECTS,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             object_list=object_list,
             source_player=source_player,
             area_1_x=area_1_x,
@@ -89,7 +89,7 @@ class NewConditionSupport:
 
     def objects_in_area(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             object_list=None,
             source_player=None,
             area_1_x=None,
@@ -102,7 +102,7 @@ class NewConditionSupport:
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECTS_IN_AREA,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             object_list=object_list,
             source_player=source_player,
             area_1_x=area_1_x,
@@ -140,14 +140,14 @@ class NewConditionSupport:
 
     def accumulate_attribute(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             resource_type_or_tribute_list=None,
             source_player=None,
             inverted=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.ACCUMULATE_ATTRIBUTE,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             resource_type_or_tribute_list=resource_type_or_tribute_list,
             source_player=source_player,
             inverted=inverted,
@@ -262,47 +262,47 @@ class NewConditionSupport:
 
     def units_garrisoned(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             unit_object=None,
             inverted=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.UNITS_GARRISONED,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             unit_object=unit_object,
             inverted=inverted,
         )
 
     def difficulty_level(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             inverted=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.DIFFICULTY_LEVEL,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             inverted=inverted,
         )
 
     def chance(
             self,
-            amount_or_quantity=None,
+            quantity=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.CHANCE,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
         )
 
     def technology_state(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             source_player=None,
             technology=None,
             inverted=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.TECHNOLOGY_STATE,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             source_player=source_player,
             technology=technology,
             inverted=inverted,
@@ -310,14 +310,14 @@ class NewConditionSupport:
 
     def variable_value(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             inverted=None,
             variable=None,
             comparison=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.VARIABLE_VALUE,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             inverted=inverted,
             variable=variable,
             comparison=comparison,
@@ -325,14 +325,14 @@ class NewConditionSupport:
 
     def object_hp(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             unit_object=None,
             inverted=None,
             comparison=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_HP,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             unit_object=unit_object,
             inverted=inverted,
             comparison=comparison,
@@ -340,14 +340,14 @@ class NewConditionSupport:
 
     def diplomacy_state(
             self,
-            amount_or_quantity=None,
+            quantity=None,
             source_player=None,
             inverted=None,
             target_player=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.DIPLOMACY_STATE,
-            amount_or_quantity=amount_or_quantity,
+            quantity=quantity,
             source_player=source_player,
             inverted=inverted,
             target_player=target_player,
