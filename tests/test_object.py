@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Tuple, List, Callable
 
-from AoE2ScenarioParser.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from tests import general
 
 

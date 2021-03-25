@@ -15,9 +15,11 @@ Dependencies
 This project is made in Python 3. You'll need **Python 3.6 +** to able to run it properly.
 
 | The project uses bidict_ for bidirectional  mapping.
+| The project uses deprecation_ for deprecation warnings.
 | Note: *All these dependencies should install automatically when using the above command.*
 
 .. _bidict: https://pypi.org/project/bidict/
+.. _deprecation: https://pypi.org/project/deprecation/
 
 Updating
 ^^^^^^^^

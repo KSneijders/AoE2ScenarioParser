@@ -1,9 +1,7 @@
 from enum import IntEnum
 
-from bidict import bidict
 
-
-class Unit(IntEnum):
+class UnitId(IntEnum):
     MOVEABLE_MAP_REVEALER = 0
     ALFRED_THE_ALPACA = 1300
     AMAZON_ARCHER = 850
@@ -19,7 +17,6 @@ class Unit(IntEnum):
     BERSERK = 692
     BOMBARD_CANNON = 36
     BOYAR = 876
-    BUILDER = 118
     CAMEL = 897
     CAMEL_ARCHER = 1007
     CAMEL_RIDER = 329
@@ -95,15 +92,12 @@ class Unit(IntEnum):
     ELITE_WAR_ELEPHANT = 558
     ELITE_WAR_WAGON = 829
     ELITE_WOAD_RAIDER = 534
-    FARMER = 259
     FAST_FIRE_SHIP = 532
     FIRE_GALLEY = 1103
     FIRE_SHIP = 529
-    FISHERMAN = 56
     FISHING_SHIP = 13
     FLAMETHROWER = 188
     FLAMING_CAMEL = 1263
-    FORAGER = 120
     FURIOUS_THE_MONKEY_BOY = 860
     GALLEON = 442
     GALLEY = 539
@@ -111,7 +105,6 @@ class Unit(IntEnum):
     GENITOUR = 1010
     GENOESE_CROSSBOWMAN = 866
     GOAT = 1060
-    GOLD_MINER = 579
     GOOSE = 1243
     HALBERDIER = 359
     HAND_CANNONEER = 5
@@ -127,7 +120,6 @@ class Unit(IntEnum):
     HORSE_C = 1602
     HORSE_D = 1604
     HORSE_E = 1606
-    HUNTER = 122
     HUSKARL = 41
     HUSSAR = 441
     IMPERIAL_CAMEL_RIDER = 207
@@ -153,7 +145,6 @@ class Unit(IntEnum):
     LONG_SWORDSMAN = 77
     LONGBOAT = 250
     LONGBOWMAN = 8
-    LUMBERJACK = 123
     MAGYAR_HUSZAR = 869
     MAMELUKE = 282
     MAN_AT_ARMS = 75
@@ -182,14 +173,12 @@ class Unit(IntEnum):
     QUEEN = 1292
     RATTAN_ARCHER = 1129
     RELIC_CART = 1304
-    REPAIRER = 156
     ROYAL_JANISSARY = 52
     SAMURAI = 291
     SCORPION = 279
     SCOUT_CAVALRY = 448
     SHARKATZOR = 1222
     SHEEP = 594
-    SHEPHERD = 592
     SHOTEL_WARRIOR = 1016
     SIEGE_ONAGER = 588
     SIEGE_RAM = 548
@@ -198,7 +187,6 @@ class Unit(IntEnum):
     SLINGER = 185
     SPEARMAN = 93
     STEPPE_LANCER = 1370
-    STONE_MINER = 124
     TARKAN = 755
     TEUTONIC_KNIGHT = 25
     THROWING_AXEMAN = 281
@@ -213,8 +201,32 @@ class Unit(IntEnum):
     TURKEY = 833
     TURTLE_SHIP = 831
     TWO_HANDED_SWORDSMAN = 473
-    VILLAGER_FEMALE = 293
+
+    VILLAGER_MALE_FISHERMAN = 56
+    VILLAGER_FEMALE_FISHERMAN = 57
     VILLAGER_MALE = 83
+    VILLAGER_MALE_BUILDER = 118
+    VILLAGER_MALE_FORAGER = 120
+    VILLAGER_MALE_HUNTER = 122
+    VILLAGER_MALE_LUMBERJACK = 123
+    VILLAGER_MALE_STONE_MINER = 124
+    VILLAGER_MALE_REPAIRER = 156
+    VILLAGER_FEMALE_BUILDER = 212
+    VILLAGER_FEMALE_FARMER = 214
+    VILLAGER_FEMALE_HUNTER = 216
+    VILLAGER_FEMALE_LUMBERJACK = 218
+    VILLAGER_FEMALE_STONE_MINER = 220
+    VILLAGER_FEMALE_REPAIRER = 222
+    VILLAGER_MALE_FARMER = 259
+    VILLAGER_FEMALE = 293
+    VILLAGER_FEMALE_FORAGER = 354
+    VILLAGER_MALE_GOLD_MINER = 579
+    VILLAGER_FEMALE_GOLD_MINER = 581
+    VILLAGER_FEMALE_SHEPHERD = 590
+    VILLAGER_MALE_SHEPHERD = 592
+
+    VILLAGER_MALE_DAVE_LEWIS = 206
+
     WAR_ELEPHANT = 239
     WAR_GALLEY = 21
     WAR_WAGON = 827
@@ -233,14 +245,18 @@ class Unit(IntEnum):
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
     ELITE_GENITOUR_ORIGINAL = 596
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
+    CONDOTTIERO_PLACEHOLDER = 184
+    KONNIK_KREPOST = 1254
+    ELITE_KONNIK_KREPOST = 1255
+    ELITE_KIPCHAK_CUMAN_MERCENARIES = 1260
 
     # Lords of the West - DLC Units
     COUSTILLIER = 1655
     ELITE_COUSTILLIER = 1657
     FLEMISH_MILITIA = 1699
-    FLEMISH_MILITIA_M = 1663
+    FLEMISH_MILITIA_MALE = 1663
     """Refers to the Flemish militia after being converted from a male villager"""
-    FLEMISH_MILITIA_F = 1697
+    FLEMISH_MILITIA_FEMALE = 1697
     """Refers to the Flemish militia after being converted from a female villager"""
     SERJEANT = 1658
     ELITE_SERJEANT = 1659
@@ -248,7 +264,7 @@ class Unit(IntEnum):
     ELITE_SERJEANT_DONJON = 1661
 
 
-class GaiaUnit(IntEnum):
+class GaiaUnitId(IntEnum):
     # GAIA Units
     BEAR = 486
     BUTTERFLY1 = 1608
@@ -299,7 +315,6 @@ class GaiaUnit(IntEnum):
     BERSERK = 692
     BOMBARD_CANNON = 36
     BOYAR = 876
-    BUILDER = 118
     CAMEL = 897
     CAMEL_ARCHER = 1007
     CAMEL_RIDER = 329
@@ -375,15 +390,12 @@ class GaiaUnit(IntEnum):
     ELITE_WAR_ELEPHANT = 558
     ELITE_WAR_WAGON = 829
     ELITE_WOAD_RAIDER = 534
-    FARMER = 259
     FAST_FIRE_SHIP = 532
     FIRE_GALLEY = 1103
     FIRE_SHIP = 529
-    FISHERMAN = 56
     FISHING_SHIP = 13
     FLAMETHROWER = 188
     FLAMING_CAMEL = 1263
-    FORAGER = 120
     FURIOUS_THE_MONKEY_BOY = 860
     GALLEON = 442
     GALLEY = 539
@@ -391,7 +403,6 @@ class GaiaUnit(IntEnum):
     GENITOUR = 1010
     GENOESE_CROSSBOWMAN = 866
     GOAT = 1060
-    GOLD_MINER = 579
     GOOSE = 1243
     HALBERDIER = 359
     HAND_CANNONEER = 5
@@ -407,7 +418,6 @@ class GaiaUnit(IntEnum):
     HORSE_C = 1602
     HORSE_D = 1604
     HORSE_E = 1606
-    HUNTER = 122
     HUSKARL = 41
     HUSSAR = 441
     IMPERIAL_CAMEL_RIDER = 207
@@ -433,7 +443,6 @@ class GaiaUnit(IntEnum):
     LONG_SWORDSMAN = 77
     LONGBOAT = 250
     LONGBOWMAN = 8
-    LUMBERJACK = 123
     MAGYAR_HUSZAR = 869
     MAMELUKE = 282
     MAN_AT_ARMS = 75
@@ -462,14 +471,12 @@ class GaiaUnit(IntEnum):
     QUEEN = 1292
     RATTAN_ARCHER = 1129
     RELIC_CART = 1304
-    REPAIRER = 156
     ROYAL_JANISSARY = 52
     SAMURAI = 291
     SCORPION = 279
     SCOUT_CAVALRY = 448
     SHARKATZOR = 1222
     SHEEP = 594
-    SHEPHERD = 592
     SHOTEL_WARRIOR = 1016
     SIEGE_ONAGER = 588
     SIEGE_RAM = 548
@@ -478,7 +485,6 @@ class GaiaUnit(IntEnum):
     SLINGER = 185
     SPEARMAN = 93
     STEPPE_LANCER = 1370
-    STONE_MINER = 124
     TARKAN = 755
     TEUTONIC_KNIGHT = 25
     THROWING_AXEMAN = 281
@@ -493,8 +499,32 @@ class GaiaUnit(IntEnum):
     TURKEY = 833
     TURTLE_SHIP = 831
     TWO_HANDED_SWORDSMAN = 473
-    VILLAGER_FEMALE = 293
+
+    VILLAGER_MALE_FISHERMAN = 56
+    VILLAGER_FEMALE_FISHERMAN = 57
     VILLAGER_MALE = 83
+    VILLAGER_MALE_BUILDER = 118
+    VILLAGER_MALE_FORAGER = 120
+    VILLAGER_MALE_HUNTER = 122
+    VILLAGER_MALE_LUMBERJACK = 123
+    VILLAGER_MALE_STONE_MINER = 124
+    VILLAGER_MALE_REPAIRER = 156
+    VILLAGER_FEMALE_BUILDER = 212
+    VILLAGER_FEMALE_FARMER = 214
+    VILLAGER_FEMALE_HUNTER = 216
+    VILLAGER_FEMALE_LUMBERJACK = 218
+    VILLAGER_FEMALE_STONE_MINER = 220
+    VILLAGER_FEMALE_REPAIRER = 222
+    VILLAGER_MALE_FARMER = 259
+    VILLAGER_FEMALE = 293
+    VILLAGER_FEMALE_FORAGER = 354
+    VILLAGER_MALE_GOLD_MINER = 579
+    VILLAGER_FEMALE_GOLD_MINER = 581
+    VILLAGER_FEMALE_SHEPHERD = 590
+    VILLAGER_MALE_SHEPHERD = 592
+
+    VILLAGER_MALE_DAVE_LEWIS = 206
+
     WAR_ELEPHANT = 239
     WAR_GALLEY = 21
     WAR_WAGON = 827
@@ -513,19 +543,24 @@ class GaiaUnit(IntEnum):
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
     ELITE_GENITOUR_ORIGINAL = 596
     """Refers to the original unit named genitour, which was a militia with a ranged attack, like a skirmisher"""
-
+    
     # Lords of the West - DLC Units
     COUSTILLIER = 1655
     ELITE_COUSTILLIER = 1657
     FLEMISH_MILITIA = 1699
-    FLEMISH_MILITIA_M = 1663
+    FLEMISH_MILITIA_MALE = 1663
     """Refers to the Flemish militia after being converted from a male villager"""
-    FLEMISH_MILITIA_F = 1697
+    FLEMISH_MILITIA_FEMALE = 1697
     """Refers to the Flemish militia after being converted from a female villager"""
     SERJEANT = 1658
     ELITE_SERJEANT = 1659
     SERJEANT_DONJON = 1660
     ELITE_SERJEANT_DONJON = 1661
+
+    CONDOTTIERO_PLACEHOLDER = 184
+    KONNIK_KREPOST = 1254
+    ELITE_KONNIK_KREPOST = 1255
+    ELITE_KIPCHAK_CUMAN_MERCENARIES = 1260
 
 
 class UnitIcon(IntEnum):
@@ -544,7 +579,6 @@ class UnitIcon(IntEnum):
     BERSERK = 38
     BOMBARD_CANNON = 30
     BOYAR = 114
-    BUILDER = 330
     CAMEL = 135
     CAMEL_ARCHER = 191
     CAMEL_RIDER = 78
@@ -620,15 +654,12 @@ class UnitIcon(IntEnum):
     ELITE_WAR_ELEPHANT = 43
     ELITE_WAR_WAGON = 117
     ELITE_WOAD_RAIDER = 47
-    FARMER = 332
     FAST_FIRE_SHIP = 85
     FIRE_GALLEY = 203
     FIRE_SHIP = 86
-    FISHERMAN = 332
     FISHING_SHIP = 24
     FLAMETHROWER = 144
     FLAMING_CAMEL = 270
-    FORAGER = 332
     FURIOUS_THE_MONKEY_BOY = 132
     GALLEON = 60
     GALLEY = 87
@@ -636,7 +667,6 @@ class UnitIcon(IntEnum):
     GENITOUR = 201
     GENOESE_CROSSBOWMAN = 133
     GOAT = 200
-    GOLD_MINER = 334
     GOOSE = 265
     HALBERDIER = 104
     HAND_CANNONEER = 22
@@ -652,7 +682,6 @@ class UnitIcon(IntEnum):
     HORSE_C = 112
     HORSE_D = 112
     HORSE_E = 112
-    HUNTER = 332
     HUSKARL = 50
     HUSSAR = 103
     IMPERIAL_CAMEL_RIDER = 185
@@ -678,7 +707,6 @@ class UnitIcon(IntEnum):
     LONG_SWORDSMAN = 13
     LONGBOAT = 40
     LONGBOWMAN = 41
-    LUMBERJACK = 339
     MAGYAR_HUSZAR = 99
     MAMELUKE = 37
     MAN_AT_ARMS = 10
@@ -707,14 +735,12 @@ class UnitIcon(IntEnum):
     QUEEN = 168
     RATTAN_ARCHER = 232
     RELIC_CART = 295
-    REPAIRER = 330
     ROYAL_JANISSARY = 296
     SAMURAI = 44
     SCORPION = 80
     SCOUT_CAVALRY = 64
     SHARKATZOR = 352
     SHEEP = 96
-    SHEPHERD = 332
     SHOTEL_WARRIOR = 195
     SIEGE_ONAGER = 102
     SIEGE_RAM = 73
@@ -723,7 +749,6 @@ class UnitIcon(IntEnum):
     SLINGER = 143
     SPEARMAN = 31
     STEPPE_LANCER = 273
-    STONE_MINER = 336
     TARKAN = 105
     TEUTONIC_KNIGHT = 45
     THROWING_AXEMAN = 46
@@ -739,8 +764,31 @@ class UnitIcon(IntEnum):
     TURKEY = 115
     TURTLE_SHIP = 116
     TWO_HANDED_SWORDSMAN = 12
-    VILLAGER_FEMALE = 16
+
+    VILLAGER_MALE_FISHERMAN = 332
+    VILLAGER_FEMALE_FISHERMAN = 331
     VILLAGER_MALE = 15
+    VILLAGER_MALE_BUILDER = 330
+    VILLAGER_MALE_FORAGER = 332
+    VILLAGER_MALE_HUNTER = 332
+    VILLAGER_MALE_LUMBERJACK = 339
+    VILLAGER_MALE_STONE_MINER = 336
+    VILLAGER_MALE_REPAIRER = 330
+    VILLAGER_MALE_VMDL = 337
+    VILLAGER_FEMALE_BUILDER = 329
+    VILLAGER_FEMALE_FARMER = 331
+    VILLAGER_FEMALE_HUNTER = 331
+    VILLAGER_FEMALE_LUMBERJACK = 338
+    VILLAGER_FEMALE_STONE_MINER = 335
+    VILLAGER_FEMALE_REPAIRER = 329
+    VILLAGER_MALE_FARMER = 332
+    VILLAGER_FEMALE = 16
+    VILLAGER_FEMALE_FORAGER = 331
+    VILLAGER_MALE_GOLD_MINER = 334
+    VILLAGER_FEMALE_GOLD_MINER = 333
+    VILLAGER_FEMALE_SHEPHERD = 331
+    VILLAGER_MALE_SHEPHERD = 332
+
     WAR_ELEPHANT = 43
     WAR_GALLEY = 25
     WAR_WAGON = 117
@@ -759,8 +807,8 @@ class UnitIcon(IntEnum):
     COUSTILLIER = 355
     ELITE_COUSTILLIER = 355
     FLEMISH_MILITIA = 354
-    FLEMISH_MILITIA_M = 354
-    FLEMISH_MILITIA_F = 354
+    FLEMISH_MILITIA_MALE = 354
+    FLEMISH_MILITIA_FEMALE = 354
     SERJEANT = 356
     ELITE_SERJEANT = 356
     SERJEANT_DONJON = 356
@@ -815,7 +863,6 @@ class GaiaUnitIcon(IntEnum):
     BERSERK = 38
     BOMBARD_CANNON = 30
     BOYAR = 114
-    BUILDER = 330
     CAMEL = 135
     CAMEL_ARCHER = 191
     CAMEL_RIDER = 78
@@ -891,15 +938,12 @@ class GaiaUnitIcon(IntEnum):
     ELITE_WAR_ELEPHANT = 43
     ELITE_WAR_WAGON = 117
     ELITE_WOAD_RAIDER = 47
-    FARMER = 332
     FAST_FIRE_SHIP = 85
     FIRE_GALLEY = 203
     FIRE_SHIP = 86
-    FISHERMAN = 332
     FISHING_SHIP = 24
     FLAMETHROWER = 144
     FLAMING_CAMEL = 270
-    FORAGER = 332
     FURIOUS_THE_MONKEY_BOY = 132
     GALLEON = 60
     GALLEY = 87
@@ -907,7 +951,6 @@ class GaiaUnitIcon(IntEnum):
     GENITOUR = 201
     GENOESE_CROSSBOWMAN = 133
     GOAT = 200
-    GOLD_MINER = 334
     GOOSE = 265
     HALBERDIER = 104
     HAND_CANNONEER = 22
@@ -923,7 +966,6 @@ class GaiaUnitIcon(IntEnum):
     HORSE_C = 112
     HORSE_D = 112
     HORSE_E = 112
-    HUNTER = 332
     HUSKARL = 50
     HUSSAR = 103
     IMPERIAL_CAMEL_RIDER = 185
@@ -949,7 +991,6 @@ class GaiaUnitIcon(IntEnum):
     LONG_SWORDSMAN = 13
     LONGBOAT = 40
     LONGBOWMAN = 41
-    LUMBERJACK = 339
     MAGYAR_HUSZAR = 99
     MAMELUKE = 37
     MAN_AT_ARMS = 10
@@ -978,14 +1019,12 @@ class GaiaUnitIcon(IntEnum):
     QUEEN = 168
     RATTAN_ARCHER = 232
     RELIC_CART = 295
-    REPAIRER = 330
     ROYAL_JANISSARY = 296
     SAMURAI = 44
     SCORPION = 80
     SCOUT_CAVALRY = 64
     SHARKATZOR = 352
     SHEEP = 96
-    SHEPHERD = 332
     SHOTEL_WARRIOR = 195
     SIEGE_ONAGER = 102
     SIEGE_RAM = 73
@@ -994,7 +1033,6 @@ class GaiaUnitIcon(IntEnum):
     SLINGER = 143
     SPEARMAN = 31
     STEPPE_LANCER = 273
-    STONE_MINER = 336
     TARKAN = 105
     TEUTONIC_KNIGHT = 45
     THROWING_AXEMAN = 46
@@ -1010,8 +1048,31 @@ class GaiaUnitIcon(IntEnum):
     TURKEY = 115
     TURTLE_SHIP = 116
     TWO_HANDED_SWORDSMAN = 12
-    VILLAGER_FEMALE = 16
+
+    VILLAGER_MALE_FISHERMAN = 332
+    VILLAGER_FEMALE_FISHERMAN = 331
     VILLAGER_MALE = 15
+    VILLAGER_MALE_BUILDER = 330
+    VILLAGER_MALE_FORAGER = 332
+    VILLAGER_MALE_HUNTER = 332
+    VILLAGER_MALE_LUMBERJACK = 339
+    VILLAGER_MALE_STONE_MINER = 336
+    VILLAGER_MALE_REPAIRER = 330
+    VILLAGER_MALE_VMDL = 337
+    VILLAGER_FEMALE_BUILDER = 329
+    VILLAGER_FEMALE_FARMER = 331
+    VILLAGER_FEMALE_HUNTER = 331
+    VILLAGER_FEMALE_LUMBERJACK = 338
+    VILLAGER_FEMALE_STONE_MINER = 335
+    VILLAGER_FEMALE_REPAIRER = 329
+    VILLAGER_MALE_FARMER = 332
+    VILLAGER_FEMALE = 16
+    VILLAGER_FEMALE_FORAGER = 331
+    VILLAGER_MALE_GOLD_MINER = 334
+    VILLAGER_FEMALE_GOLD_MINER = 333
+    VILLAGER_FEMALE_SHEPHERD = 331
+    VILLAGER_MALE_SHEPHERD = 332
+
     WAR_ELEPHANT = 43
     WAR_GALLEY = 25
     WAR_WAGON = 117
@@ -1030,275 +1091,10 @@ class GaiaUnitIcon(IntEnum):
     COUSTILLIER = 355
     ELITE_COUSTILLIER = 355
     FLEMISH_MILITIA = 354
-    FLEMISH_MILITIA_M = 354
-    FLEMISH_MILITIA_F = 354
+    FLEMISH_MILITIA_MALE = 354
+    FLEMISH_MILITIA_FEMALE = 354
     SERJEANT = 356
     ELITE_SERJEANT = 356
     SERJEANT_DONJON = 356
     ELITE_SERJEANT_DONJON = 356
 
-
-unit_names = bidict({
-    0: "moveable_map_revealer",
-    1: "legionary",
-    4: "archer",
-    5: "hand_cannoneer",
-    6: "elite_skirmisher",
-    7: "skirmisher",
-    8: "longbowman",
-    11: "mangudai",
-    13: "fishing_ship",
-    15: "junk",
-    17: "trade_cog",
-    21: "war_galley",
-    24: "crossbowman",
-    25: "teutonic_knight",
-    36: "bombard_cannon",
-    38: "knight",
-    39: "cavalry_archer",
-    40: "cataphract",
-    41: "huskarl",
-    42: "trebuchet",
-    46: "janissary",
-    52: "royal_janissary",
-    56: "fisherman",
-    73: "chu_ko_nu",
-    74: "militia",
-    75: "man_at_arms",
-    76: "heavy_swordsman",
-    77: "long_swordsman",
-    83: "villager_male",
-    93: "spearman",
-    118: "builder",
-    120: "forager",
-    122: "hunter",
-    123: "lumberjack",
-    124: "stone_miner",
-    125: "monk",
-    128: "trade_cart_empty",
-    156: "repairer",
-    185: "slinger",
-    188: "flamethrower",
-    204: "trade_cart_full",
-    207: "imperial_camel_rider",
-    232: "woad_raider",
-    239: "war_elephant",
-    250: "longboat",
-    259: "farmer",
-    275: "centurion",
-    279: "scorpion",
-    280: "mangonel",
-    281: "throwing_axeman",
-    282: "mameluke",
-    283: "cavalier",
-    286: "monk_with_relic",
-    291: "samurai",
-    293: "villager_female",
-    299: "bandit",
-    305: "llama",
-    329: "camel_rider",
-    330: "heavy_camel_rider",
-    331: "trebuchet_packed",
-    358: "pikeman",
-    359: "halberdier",
-    361: "norse_warrior",
-    420: "cannon_galleon",
-    422: "capped_ram",
-    434: "king",
-    440: "petard",
-    441: "hussar",
-    442: "galleon",
-    448: "scout_cavalry",
-    473: "two_handed_swordsman",
-    474: "heavy_cavalry_archer",
-    492: "arbalester",
-    493: "heavy_crossbowman",
-    527: "demolition_ship",
-    528: "heavy_demolition_ship",
-    529: "fire_ship",
-    530: "elite_longbowman",
-    531: "elite_throwing_axeman",
-    532: "fast_fire_ship",
-    533: "elite_longboat",
-    534: "elite_woad_raider",
-    539: "galley",
-    542: "heavy_scorpion",
-    545: "transport_ship",
-    546: "light_cavalry",
-    548: "siege_ram",
-    550: "onager",
-    553: "elite_cataphract",
-    554: "elite_teutonic_knight",
-    555: "elite_huskarl",
-    556: "elite_mameluke",
-    557: "elite_janissary",
-    558: "elite_war_elephant",
-    559: "elite_chu_ko_nu",
-    560: "elite_samurai",
-    561: "elite_mangudai",
-    567: "champion",
-    569: "paladin",
-    579: "gold_miner",
-    588: "siege_onager",
-    592: "shepherd",
-    594: "sheep",
-    639: "penguin",
-    691: "elite_cannon_galleon",
-    692: "berserk",
-    694: "elite_berserk",
-    705: "cow_a",
-    725: "jaguar_warrior",
-    726: "elite_jaguar_warrior",
-    748: "cobra_car",
-    751: "eagle_scout",
-    752: "elite_eagle_warrior",
-    753: "eagle_warrior",
-    755: "tarkan",
-    757: "elite_tarkan",
-    763: "plumed_archer",
-    765: "elite_plumed_archer",
-    771: "conquistador",
-    773: "elite_conquistador",
-    775: "missionary",
-    778: "canoe",
-    814: "horse_a",
-    825: "amazon_warrior",
-    827: "war_wagon",
-    829: "elite_war_wagon",
-    831: "turtle_ship",
-    832: "elite_turtle_ship",
-    833: "turkey",
-    846: "donkey",
-    850: "amazon_archer",
-    854: "torch_a_convertable",
-    860: "furious_the_monkey_boy",
-    866: "genoese_crossbowman",
-    868: "elite_genoese_crossbowman",
-    869: "magyar_huszar",
-    871: "elite_magyar_huszar",
-    873: "elephant_archer",
-    875: "elite_elephant_archer",
-    876: "boyar",
-    878: "elite_boyar",
-    879: "kamayuk",
-    881: "elite_kamayuk",
-    882: "condottiero",
-    892: "heavy_pikeman",
-    894: "eastern_swordsman",
-    897: "camel",
-    1001: "organ_gun",
-    1003: "elite_organ_gun",
-    1004: "caravel",
-    1006: "elite_caravel",
-    1007: "camel_archer",
-    1009: "elite_camel_archer",
-    1010: "genitour",
-    1012: "elite_genitour",
-    1013: "gbeto",
-    1015: "elite_gbeto",
-    1016: "shotel_warrior",
-    1018: "elite_shotel_warrior",
-    1023: "priest",
-    1060: "goat",
-    1103: "fire_galley",
-    1104: "demolition_raft",
-    1105: "siege_tower",
-    1120: "ballista_elephant",
-    1122: "elite_ballista_elephant",
-    1123: "karambit_warrior",
-    1125: "elite_karambit_warrior",
-    1126: "arambai",
-    1128: "elite_arambai",
-    1129: "rattan_archer",
-    1131: "elite_rattan_archer",
-    1132: "battle_elephant",
-    1134: "elite_battle_elephant",
-    1142: "water_buffalo",
-    1145: "ninja",
-    1155: "imperial_skirmisher",
-    1222: "sharkatzor",
-    1225: "konnik",
-    1227: "elite_konnik",
-    1228: "keshik",
-    1230: "elite_keshik",
-    1231: "kipchak",
-    1233: "elite_kipchak",
-    1234: "leitis",
-    1236: "elite_leitis",
-    1237: "bactrian_camel",
-    1243: "goose",
-    1245: "pig",
-    1252: "konnik_dismounted",
-    1253: "elite_konnik_dismounted",
-    1258: "battering_ram",
-    1263: "flaming_camel",
-    1271: "ox_cart",
-    1273: "ox_wagon",
-    1275: "khan",
-    1291: "invisible_object",
-    1292: "queen",
-    1300: "alfred_the_alpaca",
-    1302: "dragon_ship",
-    1304: "relic_cart",
-    1338: "cart",
-    1356: "horse_b",
-    1370: "steppe_lancer",
-    1372: "elite_steppe_lancer",
-    1374: "iroquois_warrior",
-    1377: "torch_b_convertable",
-    1400: "priest_with_relic",
-    1570: "xolotl_warrior",
-    1572: "merchant",
-    1577: "photonman",
-    1596: "cow_b",
-    1598: "cow_c",
-    1600: "cow_d",
-    1602: "horse_c",
-    1604: "horse_d",
-    1606: "horse_e",
-
-    # Gaia Units
-    48: "wild_boar",
-    65: "deer",
-    89: "dire_wolf",
-    96: "hawk",
-    126: "wolf",
-    202: "rabid_wolf",
-    303: "seagulls",
-    486: "bear",
-    810: "iron_boar",
-    812: "jaguar",
-    816: "macaw",
-    822: "javelina",
-    835: "wild_horse",
-    862: "stormy_dog",
-    884: "wild_camel",
-    1019: "zebra",
-    1026: "ostrich",
-    1028: "stork",
-    1029: "lion",
-    1031: "crocodile",
-    1137: "tiger",
-    1056: "falcon",
-    1135: "komodo_dragon",
-    1139: "rhinoceros",
-    1241: "snow_leopard",
-    1247: "wild_bactrian_camel",
-    1301: "elephant",
-    1305: "vulture",
-    1239: "ibex",
-    1608: "butterfly1",
-    1609: "butterfly2",
-    1610: "butterfly3",
-
-    # Lords of the West - DLC Units
-    1655: "coustillier",
-    1657: "elite_coustillier",
-    1699: "flemish_militia",
-    1667: "flemish_militia_m",
-    1697: "flemish_militia_f",
-    1658: "serjeant",
-    1659: "elite_serjeant",
-    1660: "serjeant_donjon",
-    1661: "elite_serjeant_donjon",
-})

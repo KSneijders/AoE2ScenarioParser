@@ -9,30 +9,37 @@ Adding Units
 Below you can find examples on how to add units to the scenario.  
 This will add a conquistador for player 1 at (0, 0) which is the West corner of the map::
 
+    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    from AoE2ScenarioParser.datasets.players import PlayerId
+    from AoE2ScenarioParser.datasets.units import UnitId
+
+    # Add Unit
+    unit_manager = scenario.unit_manager
+
     unit = unit_manager.add_unit(
-        player=Player.ONE,
-        unit_const=Unit.CONQUISTADOR,    # Units dataset
+        player=PlayerId.ONE,
+        unit_const=UnitId.CONQUISTADOR,  # Units dataset
         x=0.5,
         y=0.5
     )
 
     # Or, with more detail:
     unit = unit_manager.add_unit(
-        player=Player.ONE,
-        unit_const=Unit.CONQUISTADOR,
+        player=PlayerId.ONE,
+        unit_const=UnitId.CONQUISTADOR,
         x=0.5,
         y=0.5,
-        z=0,                    # The 'height' of the unit. 
-        rotation=0,             # Rotation in radians
-        animation_frame=0,      # The nth animation frame
-    )"
-
+        z=0,                # The 'height' of the unit. 
+        rotation=0,         # Rotation in radians
+        animation_frame=0,  # The nth animation frame
+    )
+ 
 Select existing Units
 ^^^^^^^^^^^^^^^^^^^^^
 
 To select the units you want there are a couple options. You can select all the units from a certain player::
 
-    gaia_units = unit_manager.get_player_units(Player.GAIA)
+    gaia_units = unit_manager.get_player_units(PlayerId.GAIA)
 
 Or, get all units::
 
@@ -55,19 +62,19 @@ And, if you have, hand it your own list of units to filter through. You can see 
 For all other examples we'll be using the `x, y` notation. But you can use the `Tile` notation interchangably::
 
     unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, players=[
-        Player.ONE, Player.TWO
+        PlayerId.ONE, PlayerId.TWO
     ])
     # Any unit within 2,3 => 4,5 from Player 1 and 2.
 
     unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, ignore_players=[
-        Player.GAIA
+        PlayerId.GAIA
     ])
     # Any unit within 2,3 => 4,5 from any Player but GAIA.
 
-    unit = unit_manager.add_unit(player=Player.ONE, unit_const=Unit.CONQUISTADOR, x=5, y=1)
-    unit2 = unit_manager.add_unit(player=Player.TWO, unit_const=Unit.CONQUISTADOR, x=1, y=5)
+    unit = unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitId.CONQUISTADOR, x=5, y=1)
+    unit2 = unit_manager.add_unit(player=PlayerId.TWO, unit_const=UnitId.CONQUISTADOR, x=1, y=5)
 
-    unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[Player.ONE])
+    unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[PlayerId.ONE])
     # Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
 
 Edit Units
@@ -86,12 +93,12 @@ While adding units is fun, you might want to change existing units. You can, for
 
 Besides it's location you can also change the type of unit::
 
-    unit.unit_const = Unit.MAN_AT_ARMS    # Units dataset
+    unit.unit_const = UnitId.MAN_AT_ARMS    # Units dataset
 
 You also might want to change the ownership of a unit. This might seem easy as there is a `player` attribute within the unit. 
 Unfortunately that value is read-only. It's only there so you can easily identify the player. To change a units ownership you need the `unit_manager`::
 
-    unit_manager.change_ownership(unit, Player.THREE)
+    unit_manager.change_ownership(unit, PlayerId.THREE)
 
 Removing Units
 ^^^^^^^^^^^^^^
