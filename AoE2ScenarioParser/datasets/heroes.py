@@ -3,7 +3,7 @@ from enum import IntEnum
 from bidict import bidict
 
 
-class Hero(IntEnum):
+class HeroId(IntEnum):
     LIEF_ERIKSON = 106
     RICHARD_THE_LIONHEART = 160
     THE_BLACK_PRINCE = 161

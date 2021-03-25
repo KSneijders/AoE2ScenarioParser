@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class Unit(IntEnum):
+class UnitId(IntEnum):
     MOVEABLE_MAP_REVEALER = 0
     ALFRED_THE_ALPACA = 1300
     AMAZON_ARCHER = 850
@@ -264,7 +264,7 @@ class Unit(IntEnum):
     ELITE_SERJEANT_DONJON = 1661
 
 
-class GaiaUnit(IntEnum):
+class GaiaUnitId(IntEnum):
     # GAIA Units
     BEAR = 486
     BUTTERFLY1 = 1608

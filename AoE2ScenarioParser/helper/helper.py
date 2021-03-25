@@ -1,21 +1,17 @@
 import math
 import sys
 from enum import IntEnum
-from typing import List, Dict
+from typing import List, Dict, Union
 
-from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
-from AoE2ScenarioParser.datasets.heroes import Hero
-from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
+from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
+from AoE2ScenarioParser.datasets.heroes import HeroId
+from AoE2ScenarioParser.datasets.other import UnitOtherId, GaiaUnitOtherId
+from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 """ =============================================================
 ========================= HEX FUNCTIONS =========================
 =============================================================="""
-
-
-def update_order_array(order_array, supposed_length):
-    for i in range(0, supposed_length):
-        if i not in order_array:
-            order_array.append(i)
 
 
 def create_textual_hex(string, space_distance=2, enter_distance=48):
@@ -30,19 +26,25 @@ def insert_char(string, char, step=64):
 
 
 """ =============================================================
-======================= STRING MODIFIERS ========================
+======================= STRING FUNCTIONS ========================
 =============================================================="""
 
 
-def add_str_trail(string):
+def add_str_trail(string) -> str:
     if len(string) > 0:
         string = string + ("\x00" if string[-1] != "\x00" else "")
     return string
 
 
-def del_str_trail(string):
-    if len(string) > 0:
-        string = string if string[-1] != "\x00" and string[-1] != 0 else string[:-1]
+def has_str_trail(string) -> bool:
+    if len(string) > 0 and string[-1] == 0:
+        return True
+    return False
+
+
+def del_str_trail(string) -> Union[str, bytes]:
+    if has_str_trail(string):
+        string = string[:-1]
     return string
 
 
@@ -78,7 +80,7 @@ _default_inline_types = {
 
 def pretty_print_list(plist: List, inline_types: Dict[str, int] = None):
     if len(plist) == 0:
-        return "[]\r\n"
+        return "[]"
     if inline_types is None:
         inline_types = _default_inline_types
     entry_type = type(plist[0]).__name__  # Get entry type
@@ -97,6 +99,10 @@ def pretty_print_list(plist: List, inline_types: Dict[str, int] = None):
     if len(line_items) != 0:
         return_string += _create_inline_line(line_items)
     return return_string + "]\r\n"
+
+
+def add_tabs(string: str, tabs: int):
+    return ("\n\r"+("\t" * tabs)).join(string.split("\r\n"))
 
 
 def _create_inline_line(entries):
@@ -157,6 +163,20 @@ def list_changed(lst, lst_hash):
 =============================================================="""
 
 
+def listify(var) -> list:
+    """Always return item as list"""
+    if type(var) is list:
+        return var
+    else:
+        return [var]
+
+
+def update_order_array(order_array, supposed_length):
+    for i in range(supposed_length):
+        if i not in order_array:
+            order_array.append(i)
+
+
 def get_enum_from_unit_const(const: int) -> IntEnum:
     """
     Returns an Enum corresponding with the given Const.
@@ -164,16 +184,20 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
     Arguments:
         const: The constant representing a unit
     """
-    if any(item == const for item in Unit):
-        return Unit(const)
-    if any(item.value == const for item in Building):
-        return Building(const)
-    if any(item.value == const for item in Hero):
-        return Hero(const)
-    if any(item == const for item in GaiaUnit):
-        return GaiaUnit(const)
-    if any(item == const for item in GaiaBuilding):
-        return GaiaBuilding(const)
+    enums = [
+        UnitId,
+        GaiaUnitId,
+        BuildingId,
+        GaiaBuildingId,
+        HeroId,
+        UnitOtherId,
+        GaiaUnitOtherId,
+    ]
+    for enum in enums:
+        try:
+            return enum(const)
+        except ValueError:
+            continue
 
 
 def get_int_len(num):
@@ -190,56 +214,48 @@ def evaluate_index_params(x_id, display_index, name):
 
 
 class SimpleLogger:
-    def __init__(self, should_log):
+    def __init__(self, should_log, is_status_print):
         self.should_log = should_log
+        self.is_status_print = is_status_print
 
-    def print(self, string="", end="\n", replace_line=False):
+    def print(self, string="", replace=False, cancel_next=False):
         if self.should_log:
-            if not replace_line:
-                print(string, end=end)
+            if self.is_status_print:
+                s_print(string, replace, cancel_next)
             else:
-                sys.stdout.write('\r' + string)
+                rprint(string, replace, cancel_next)
 
     def __repr__(self):
         return f"SimpleLogger[should_log: {self.should_log}]"
 
 
-class Tile:
-    def __init__(self, x: int, y: int):
-        self.x: float = x
-        self.y: float = y
+def s_print(string="", replace=True, final=False) -> None:
+    """
+    Status print, read rprint docstring for more info.
+    Simple rprint wrapper with a check for the PRINT_STATUS_UPDATES setting.
+    """
+    if settings.PRINT_STATUS_UPDATES:
+        rprint(string, replace, final)
 
-    def __repr__(self):
-        return f"Tile[x: {self.x}, y: {self.y}]"
 
-    @property
-    def x(self) -> float:
-        return self._x
+def rprint(string="", replace=True, final=False) -> None:
+    """
+    Replaceable print, print lines which can be overwritten by the next
 
-    @x.setter
-    def x(self, val: int):
-        self._x = int(val) + .5
+    Args:
+        string (str): The string to print -> print(str)
+        replace (bool): If this line should be replaced by the next if the next also has replace=True
+        final (bool): If true, the next print is not able to replace this line. Used when this line replaces
+            another line but should not be replaced by the next replace=True.
 
-    @property
-    def y(self) -> float:
-        return self._y
+    Returns:
+        None
+    """
+    if replace:
+        sys.stdout.write('\r' + string)
+        if final:
+            print()
+    else:
+        print(string)
 
-    @y.setter
-    def y(self, val: int):
-        self._y = int(val) + .5
 
-    @property
-    def x1(self) -> int:
-        return int(self.x - .5)
-
-    @property
-    def y1(self) -> int:
-        return int(self.y - .5)
-
-    @property
-    def x2(self) -> int:
-        return int(self.x + .5)
-
-    @property
-    def y2(self) -> int:
-        return int(self.y + .5)
