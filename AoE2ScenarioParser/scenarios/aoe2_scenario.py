@@ -64,7 +64,7 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(cls, game_version, filename):
-        print(f"\nSelected file: '{filename}'")
+        print(f"\nReading file: '{filename}'")
         helper.s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
         helper.s_print("Reading scenario file finished successfully.", final=True)
@@ -161,6 +161,7 @@ class AoE2Scenario:
             f.write(binary + compressed)
 
         helper.s_print("File writing finished successfully.", final=True)
+        print(f"File successfully written to: '{filename}'")
 
     def _get_file_section_data(self, file_section: AoE2FileSection):
         helper.s_print(f"\t🔄 Reconstructing {file_section.name}...")
