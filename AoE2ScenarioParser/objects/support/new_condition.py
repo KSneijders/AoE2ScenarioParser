@@ -141,14 +141,14 @@ class NewConditionSupport:
     def accumulate_attribute(
             self,
             quantity=None,
-            resource_type_or_tribute_list=None,
+            attribute=None,
             source_player=None,
             inverted=None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.ACCUMULATE_ATTRIBUTE,
             quantity=quantity,
-            resource_type_or_tribute_list=resource_type_or_tribute_list,
+            attribute=attribute,
             source_player=source_player,
             inverted=inverted,
         )

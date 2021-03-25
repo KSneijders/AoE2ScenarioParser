@@ -79,7 +79,7 @@ class ConditionId(IntEnum):
     """
     Attributes for the **accumulate_attribute** condition are:\n
     - quantity
-    - resource_type_or_tribute_list
+    - attribute
     - source_player
     - inverted
     """
@@ -252,7 +252,7 @@ class ConditionId(IntEnum):
 empty_attributes = {
     "condition_type": -1,
     "quantity": -1,
-    "resource_type_or_tribute_list": -1,
+    "attribute": -1,
     "unit_object": -1,
     "next_object": -1,
     "object_list": -1,

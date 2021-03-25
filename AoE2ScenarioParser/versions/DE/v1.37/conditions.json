@@ -7,7 +7,7 @@
         "default_attributes": {
             "condition_type": 0,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -41,7 +41,7 @@
         "default_attributes": {
             "condition_type": 1,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -72,7 +72,7 @@
         "default_attributes": {
             "condition_type": 2,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -105,7 +105,7 @@
         "default_attributes": {
             "condition_type": 3,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -142,7 +142,7 @@
         "default_attributes": {
             "condition_type": 4,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -180,7 +180,7 @@
         "default_attributes": {
             "condition_type": 5,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -210,7 +210,7 @@
         "default_attributes": {
             "condition_type": 6,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -241,7 +241,7 @@
         "default_attributes": {
             "condition_type": 7,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -266,14 +266,14 @@
         "attributes": [
             "condition_type",
             "quantity",
-            "resource_type_or_tribute_list",
+            "attribute",
             "source_player",
             "inverted"
         ],
         "default_attributes": {
             "condition_type": 8,
             "quantity": -1,
-            "resource_type_or_tribute_list": 0,
+            "attribute": 0,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -304,7 +304,7 @@
         "default_attributes": {
             "condition_type": 9,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -334,7 +334,7 @@
         "default_attributes": {
             "condition_type": 10,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -364,7 +364,7 @@
         "default_attributes": {
             "condition_type": 11,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -394,7 +394,7 @@
         "default_attributes": {
             "condition_type": 12,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -424,7 +424,7 @@
         "default_attributes": {
             "condition_type": 13,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -458,7 +458,7 @@
         "default_attributes": {
             "condition_type": 14,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -487,7 +487,7 @@
         "default_attributes": {
             "condition_type": 15,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -516,7 +516,7 @@
         "default_attributes": {
             "condition_type": 16,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -547,7 +547,7 @@
         "default_attributes": {
             "condition_type": 17,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -578,7 +578,7 @@
         "default_attributes": {
             "condition_type": 18,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -608,7 +608,7 @@
         "default_attributes": {
             "condition_type": 19,
             "quantity": 3,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -637,7 +637,7 @@
         "default_attributes": {
             "condition_type": 20,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -669,7 +669,7 @@
         "default_attributes": {
             "condition_type": 21,
             "quantity": 3,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -701,7 +701,7 @@
         "default_attributes": {
             "condition_type": 22,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -733,7 +733,7 @@
         "default_attributes": {
             "condition_type": 23,
             "quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -765,7 +765,7 @@
         "default_attributes": {
             "condition_type": 24,
             "quantity": 0,
-            "resource_type_or_tribute_list": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,

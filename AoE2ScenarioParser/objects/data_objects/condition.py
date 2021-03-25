@@ -16,8 +16,8 @@ class Condition(AoE2Object):
                             "trigger_data[__index__].condition_data[__index__].condition_type"),
         RetrieverObjectLink("quantity", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].quantity"),
-        RetrieverObjectLink("resource_type_or_tribute_list", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].resource_type_or_tribute_list"),
+        RetrieverObjectLink("attribute", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].attribute"),
         RetrieverObjectLink("unit_object", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].unit_object"),
         RetrieverObjectLink("next_object", "Triggers",
@@ -53,7 +53,7 @@ class Condition(AoE2Object):
     def __init__(self,
                  condition_type: int = None,
                  quantity: int = None,
-                 resource_type_or_tribute_list: int = None,
+                 attribute: int = None,
                  unit_object: int = None,
                  next_object: int = None,
                  object_list: int = None,
@@ -76,7 +76,7 @@ class Condition(AoE2Object):
                  ):
         self.condition_type: int = condition_type
         self.quantity: int = quantity
-        self.resource_type_or_tribute_list: int = resource_type_or_tribute_list
+        self.attribute: int = attribute
         self.unit_object: int = unit_object
         self.next_object: int = next_object
         self.object_list: int = object_list

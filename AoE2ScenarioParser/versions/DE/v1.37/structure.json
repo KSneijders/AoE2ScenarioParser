@@ -2184,7 +2184,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "resource_type_or_tribute_list": {
+                            "attribute": {
                                 "type": "s32",
                                 "default": -1
                             },
