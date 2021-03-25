@@ -1,9 +1,9 @@
 import json
 
-from AoE2ScenarioParser.datasets.buildings import Building, GaiaBuilding
-from AoE2ScenarioParser.datasets.heroes import Hero
-from AoE2ScenarioParser.datasets.other import GaiaUnitOther
-from AoE2ScenarioParser.datasets.units import Unit, GaiaUnit
+from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
+from AoE2ScenarioParser.datasets.heroes import HeroId
+from AoE2ScenarioParser.datasets.other import GaiaUnitOtherId
+from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
 
 
 #
@@ -17,7 +17,7 @@ with open("./full.json") as file:
 _icon_ids = {}
 
 _unit_icon = {}
-for obj in Unit:
+for obj in UnitId:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
             _unit_icon[str(obj).split(".")[1]] = unit["IconID"]
@@ -25,7 +25,7 @@ for obj in Unit:
 _icon_ids["_unit_icon"] = _unit_icon
 
 _building_icon = {}
-for obj in Building:
+for obj in BuildingId:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
             _building_icon[str(obj).split(".")[1]] = unit["IconID"]
@@ -33,7 +33,7 @@ for obj in Building:
 _icon_ids["_building_icon"] = _building_icon
 
 _gaia_unit_icon = {}
-for obj in GaiaUnit:
+for obj in GaiaUnitId:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
             _gaia_unit_icon[str(obj).split(".")[1]] = unit["IconID"]
@@ -41,7 +41,7 @@ for obj in GaiaUnit:
 _icon_ids["_gaia_unit_icon"] = _gaia_unit_icon
 
 _gaia_building_icon = {}
-for obj in GaiaBuilding:
+for obj in GaiaBuildingId:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
             _gaia_building_icon[str(obj).split(".")[1]] = unit["IconID"]
@@ -57,7 +57,7 @@ for obj in _unit_other:
 _icon_ids["_unit_other"] = _unit_other
 
 _gaia_unit_other_icon = {}
-for obj in GaiaUnitOther:
+for obj in GaiaUnitOtherId:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
             _gaia_unit_other_icon[str(obj).split(".")[1]] = unit["IconID"]
@@ -65,7 +65,7 @@ for obj in GaiaUnitOther:
 _icon_ids["_gaia_unit_other_icon"] = _gaia_unit_other_icon
 
 _hero_icon = {}
-for obj in Hero:
+for obj in HeroId:
     for unit in dataset["Civs"][0]["Units"]:
         if unit["ID"] == obj:
             _hero_icon[str(obj).split(".")[1]] = unit["IconID"]
