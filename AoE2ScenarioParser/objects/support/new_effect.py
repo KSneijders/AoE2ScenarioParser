@@ -1047,7 +1047,7 @@ class NewEffectSupport:
             source_player=None,
             item_id=None,
             operation=None,
-            from_variable=None,
+            variable=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.MODIFY_RESOURCE_BY_VARIABLE,
@@ -1055,7 +1055,7 @@ class NewEffectSupport:
             source_player=source_player,
             item_id=item_id,
             operation=operation,
-            from_variable=from_variable,
+            variable=variable,
         )
 
     def set_building_gather_point(
@@ -1098,14 +1098,14 @@ class NewEffectSupport:
             self,
             quantity=None,
             operation=None,
-            from_variable=None,
+            variable=None,
             message=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.CHANGE_VARIABLE,
             quantity=quantity,
             operation=operation,
-            from_variable=from_variable,
+            variable=variable,
             message=message,
         )
 

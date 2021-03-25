@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog]
 
 - Renamed `amount_or_quantity` to `quantity` in conditions for consistentcy with effects.
 - Renamed `variable_or_timer` to `timer` in effects because it wasn't used for variables.
+- Renamed `from_variable` to `variable` in effects for consistentcy with conditions.
 
 ---
 

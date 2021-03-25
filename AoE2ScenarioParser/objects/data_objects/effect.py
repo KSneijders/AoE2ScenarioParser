@@ -71,8 +71,8 @@ class Effect(AoE2Object):
                             "trigger_data[__index__].effect_data[__index__].ai_signal_value"),
         RetrieverObjectLink("object_attributes", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].object_attributes"),
-        RetrieverObjectLink("from_variable", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].from_variable"),
+        RetrieverObjectLink("variable", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].variable"),
         RetrieverObjectLink("timer", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].timer"),
         RetrieverObjectLink("facet", "Triggers", "trigger_data[__index__].effect_data[__index__].facet"),
@@ -127,7 +127,7 @@ class Effect(AoE2Object):
                  button_location: int = None,
                  ai_signal_value: int = None,
                  object_attributes: int = None,
-                 from_variable: int = None,
+                 variable: int = None,
                  timer: int = None,
                  facet: int = None,
                  play_sound: int = None,
@@ -181,7 +181,7 @@ class Effect(AoE2Object):
         self.button_location: int = button_location
         self.ai_signal_value: int = ai_signal_value
         self.object_attributes: int = object_attributes
-        self.from_variable: int = from_variable
+        self.variable: int = variable
         self.timer: int = timer
         self.facet: int = facet
         self.play_sound: int = play_sound

@@ -451,7 +451,7 @@ class EffectId(IntEnum):
     - source_player
     - item_id
     - operation
-    - from_variable"""
+    - variable"""
     SET_BUILDING_GATHER_POINT = 54
     """Attributes for the **set_building_gather_point** effect are: \n
     - object_list_unit_id
@@ -471,7 +471,7 @@ class EffectId(IntEnum):
     """Attributes for the **change_variable** effect are: \n
     - quantity
     - operation
-    - from_variable
+    - variable
     - message"""
     CLEAR_TIMER = 57
     """Attributes for the **clear_timer** effect are: \n
@@ -623,7 +623,7 @@ empty_attributes = {
     "button_location": -1,
     "ai_signal_value": -1,
     "object_attributes": -1,
-    "from_variable": -1,
+    "variable": -1,
     "timer": -1,
     "facet": -1,
     "play_sound": -1,

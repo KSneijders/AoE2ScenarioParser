@@ -2145,7 +2145,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "from_variable": {
+                            "variable": {
                                 "type": "s32",
                                 "default": -1
                             },
