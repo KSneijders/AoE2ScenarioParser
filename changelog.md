@@ -21,39 +21,30 @@ The format is based on [Keep a Changelog]
   These objects have all conditions and effects as functions. This makes it easier in combination with autocomplete to know what attributes can be used!  
   You can transform your function as follows:  
   From: `trigger.add_effect(Effect.SEND_CHAT, message="Hello")` to: `trigger.new_effect.send_chat(message="Hello")` (All parameters remain unchanged)
-- The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
 - The dataset, object and manager naming conventions have changed slightly.
-  - The datasets got an `Id` suffix on all object-like sets:
-    - `Unit` & `GaiaUnit` -> `UnitId` & `GaiaUnitId`
-    - `UnitOther` & `GaiaUnitOther` -> `UnitOtherId` & `GaiaUnitOtherId`
-    - `Building` & `GaiaBuilding` -> `BuildingId` & `GaiaBuildingId`
-    - `Tech` -> `TechId`
-    - `Hero` -> `HeroId`
-    - `Terrain` -> `TerrainId`
-    - `Player` & `PlayerColor` -> `PlayerId` & `PlayerColorId`
-    - `Effect` -> `EffectId`
-    - `Condition` -> `ConditionId`
+  - The datasets got an `Id` suffix on all object-like sets. Example: `Unit` -> `UnitId`  
+    The same goes for: `Building`, `GaiaBuilding`, `Tech`, `Hero`, `Terrain`, `Player`, `PlayerColor`, `Effect` and `Condition`.
   - The managers got their suffix changed and location changed:
-    - The location changed from: `objects/map_obj` -> `objects/managers/de/map_manager_de`
-    - `MapObject` -> `MapManagerDE`
-    - `UnitsObject` -> `UnitManagerDE`
-    - `TriggersObject` -> `TriggerManagerDE`
+    - The location changed from: `objects/map_obj` -> `objects/managers/de/map_manager_de`. 
+    - The managers renaming: `MapObject` -> `MapManagerDE`  
+      The same with location and renaming goes for: `UnitsObject` and `TriggersObject`
   - The objects had their suffix removed and location changed:
     - The location changed from: `objects/terrain_obj` -> `objects/data_objects/terrain_tile`
-    - `TerrainObject` -> `TerrainTile`
-    - `UnitObject` -> `Unit`
-    - `TriggerObject` -> `Trigger`
-    - `EffectObject` -> `Effect`
-    - `ConditionObject` -> `Condition`
-    - `VariableObject` -> `Variable`
+    - The objects renaming: `TerrainObject` -> `TerrainTile`  
+      The same with location and renaming goes for: `UnitObject`, `TriggerObject`, `EffectObject`, `ConditionObject` and `VariableObject`.
+- Certain objects got their own file. 
+  - `Tile`, `TriggerSelect` (Alias `TS`) and `TriggerCELock`  
+    You can now import them using: `from AoE2ScenarioParser.objects.support.<filename> import <classname>`
+  - The enum `GroupBy` got moved too. You can import it using: `from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy`
 - The way you 'hide' the status messages like: `Creating MapPiece finished successfully.` has been changed. Before you had to set a param like `log_reading` to True in the `from_file` function. Now you can do it globally through settings. So: `from AoE2ScenarioParser import settings` and then `settings.PRINT_STATUS_UPDATES = False`.  
   **PLEASE NOTE**: `from AoE2ScenarioParser.settings import PRINT_STATUS_UPDATES` and then `PRINT_STATUS_UPDATES = False` does **NOT** work. [Click here if you want to know why]. 
+- The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
 
 [Click here if you want to know why]: https://stackoverflow.com/a/10501768/7230293
 
 After these changes everything should function like it did before. If you used internal parts of the parser, below is a list of what you should change. Note that these are the most obvious changes. If you used very complex internal functionality, I cannot guarentee anything.
 
-Changes made to the backend that might affect your code:
+### Changes made to the backend that might affect your code:
 
 - `Pieces` are now named `Sections`. So accessing those can be done using: `scenario.sections['name']`
 - Reading has changed from hardcoded pieces to json files. So all hardcoded retrievers etc. have been removed.

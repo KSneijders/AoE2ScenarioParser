@@ -9,6 +9,8 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
+from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -67,7 +69,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+            trigger_select (AoE2ScenarioParser.objects.support.trigger_select.TriggerSelect): An object used to identify which trigger to select.
             change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
@@ -76,7 +78,7 @@ class TriggerManager(AoE2Object):
             include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock (AoE2ScenarioParser.objects.support.trigger_ce_lock.TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
             include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
                 defined)
@@ -155,7 +157,7 @@ class TriggerManager(AoE2Object):
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
-            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+            trigger_select (AoE2ScenarioParser.objects.support.trigger_select.TriggerSelect): An object used to identify which trigger to select.
 
         Returns:
             The newly copied trigger
@@ -186,7 +188,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (TriggerSelect): An object used to identify which trigger to select.
+            trigger_select (AoE2ScenarioParser.objects.support.trigger_select.TriggerSelect): An object used to identify which trigger to select.
             change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
@@ -195,13 +197,13 @@ class TriggerManager(AoE2Object):
             include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock (AoE2ScenarioParser.objects.support.trigger_ce_lock.TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
             include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
                 defined)
             create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
                 excluded from this list.
-            group_triggers_by (GroupBy): How to group the newly added triggers.
+            group_triggers_by (AoE2ScenarioParser.objects.support.enums.group_by.GroupBy): How to group the newly added triggers.
 
         Returns:
             The newly created triggers in a dict using the Player as key and as value with a list of triggers
@@ -318,7 +320,7 @@ class TriggerManager(AoE2Object):
             include_player_target (bool): If set to True, allow player target attributes to be changed while replacing.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock (AoE2ScenarioParser.objects.support.trigger_ce_lock.TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed.
 
         Returns:
@@ -523,103 +525,3 @@ class TriggerManager(AoE2Object):
             effect.trigger_id for effect in trigger.effects if
             effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
         ]
-
-
-class TriggerSelect:
-    def __init__(self, trigger_index=None, display_index=None, trigger=None):
-        """
-        Object used to select a trigger in many trigger related functions. For ease of use, the alias `TS` can be
-        called. You can also use those in combination with the class methods (factory methods). Like so:
-
-        TS.index(4)    # To select the trigger with index 4
-
-        TS.display(4)  # Trigger with display index 4
-
-        TS.trigger(trigger)  # Well... The trigger object given...
-
-        Args:
-            trigger_index (int): The index of the trigger. Starting from 0, based on creation time
-            display_index (int): The display index of a trigger. Starting from 0, based on display order in the editor
-            trigger (Trigger): The trigger object itself.
-        """
-        self.trigger = trigger
-        self.display_index = display_index
-        self.trigger_index = trigger_index
-
-    @classmethod
-    def index(cls, index: int):
-        return cls(trigger_index=index)
-
-    @classmethod
-    def display(cls, display_index: int):
-        return cls(display_index=display_index)
-
-    @classmethod
-    def trigger(cls, trigger: Trigger):
-        return cls(trigger=trigger)
-
-
-TS = TriggerSelect
-
-
-class TriggerCELock:
-    def __init__(self, lock_conditions=False, lock_effects=False, lock_condition_type=None, lock_effect_type=None,
-                 lock_condition_ids=None, lock_effect_ids=None):
-        """
-        Object used to identify which conditions and effects should be locked from change.
-
-        Args:
-            lock_conditions (bool): Lock all conditions
-            lock_effects (bool): Lock all effects
-            lock_condition_type (List[int]): Lock certain condition types. Example: `ConditionId.OWN_OBJECTS`
-            lock_effect_type (List[int]): Lock certain effect types. Example: `EffectId.CREATE_OBJECT`
-            lock_condition_ids (List[int]): Lock certain conditions by their id
-            lock_effect_ids (List[int]): Lock certain effects by their id
-        """
-        if lock_condition_type is None:
-            lock_condition_type = []
-        if lock_effect_type is None:
-            lock_effect_type = []
-        if lock_condition_ids is None:
-            lock_condition_ids = []
-        if lock_effect_ids is None:
-            lock_effect_ids = []
-
-        self.lock_conditions = lock_conditions
-        self.lock_effects = lock_effects
-        self.lock_condition_type = lock_condition_type
-        self.lock_effect_type = lock_effect_type
-        self.lock_condition_ids = lock_condition_ids
-        self.lock_effect_ids = lock_effect_ids
-
-
-class GroupBy(IntEnum):
-    """
-    Enum used to select what way the triggers should be grouped when using the function 'copy_trigger_tree_per_player'.
-    Each mode has it's own explanation explained in the corresponding docstring.
-    """
-    NONE = -1
-    """
-    Don't group triggers. Add triggers to the end of the list. This could mean the source triggers aren't near the 
-    copies. All copies, however, will be grouped like the TRIGGER grouping mechanism - at the end of the list.
-    """
-    TRIGGER = 0
-    """
-    Group triggers by trigger. All copies of a trigger will be put directly below the 'source' trigger. 
-    Example: If the 'source' trigger has display_index of 3, and another trigger in it's tree has 5. Assuming the 
-    triggers were copied for all players, display indexes of the copies from the first trigger would be 4-10. The second
-    trigger in the tree would be bumped up to 12 (from 5) and it's copies would use: 13-19. 
-    """
-    PLAYER = 1
-    """
-    Group triggers by player. Warning: This mode could change some of the intended order of the triggers. All copies of
-    the trigger will be put together sorted on player first, then trigger order. 
-    Example: If the 'source' trigger has display_index of 3, and another trigger in it's tree has 5. Assuming the 
-    triggers were copied for all players, display indexes of the copies from the firs trigger would be: 5, 7, 9, 11, 13,
-    15 and 17. The second trigger would have moved to 4 (from 5) and it's copies would occupy slots: 6, 8, 10, 12, 14, 
-    16 and 18. This way both PlayerId.ONE (assuming that's the source player) triggers will be together, same goes for all
-    other player. 
-    
-    In the example above can be seen how the second trigger was moved from 5 to 4. The unrelated trigger in between was
-    moved to the end, 19. This might be an unwanted side effect, be aware.
-    """
