@@ -337,7 +337,7 @@ class EffectId(IntEnum):
     - string_id
     - display_time
     - time_unit
-    - variable_or_timer
+    - timer
     - message"""
     ENABLE_DISABLE_OBJECT = 38
     """Attributes for the **enable_disable_object** effect are: \n
@@ -475,7 +475,7 @@ class EffectId(IntEnum):
     - message"""
     CLEAR_TIMER = 57
     """Attributes for the **clear_timer** effect are: \n
-    - variable_or_timer"""
+    - timer"""
     CHANGE_OBJECT_PLAYER_COLOR = 58
     """Attributes for the **change_object_player_color** effect are: \n
     - object_list_unit_id
@@ -624,7 +624,7 @@ empty_attributes = {
     "ai_signal_value": -1,
     "object_attributes": -1,
     "from_variable": -1,
-    "variable_or_timer": -1,
+    "timer": -1,
     "facet": -1,
     "play_sound": -1,
     "player_color": -1,

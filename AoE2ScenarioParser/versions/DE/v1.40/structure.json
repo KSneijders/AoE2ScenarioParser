@@ -2145,7 +2145,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "variable_or_timer": {
+                            "timer": {
                                 "type": "s32",
                                 "default": -1
                             },

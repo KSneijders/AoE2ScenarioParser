@@ -10,7 +10,8 @@ The format is based on [Keep a Changelog]
 
 ### Changed
 
-- Renamed `amount_or_quantity` to `quantity` in conditions for consistentcy.
+- Renamed `amount_or_quantity` to `quantity` in conditions for consistentcy with effects.
+- Renamed `variable_or_timer` to `timer` in effects because it wasn't used for variables.
 
 ---
 

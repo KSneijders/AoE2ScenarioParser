@@ -73,8 +73,8 @@ class Effect(AoE2Object):
                             "trigger_data[__index__].effect_data[__index__].object_attributes"),
         RetrieverObjectLink("from_variable", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].from_variable"),
-        RetrieverObjectLink("variable_or_timer", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].variable_or_timer"),
+        RetrieverObjectLink("timer", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].timer"),
         RetrieverObjectLink("facet", "Triggers", "trigger_data[__index__].effect_data[__index__].facet"),
         RetrieverObjectLink("play_sound", "Triggers", "trigger_data[__index__].effect_data[__index__].play_sound"),
         RetrieverObjectLink("player_color", "Triggers", "trigger_data[__index__].effect_data[__index__].player_color",
@@ -128,7 +128,7 @@ class Effect(AoE2Object):
                  ai_signal_value: int = None,
                  object_attributes: int = None,
                  from_variable: int = None,
-                 variable_or_timer: int = None,
+                 timer: int = None,
                  facet: int = None,
                  play_sound: int = None,
                  player_color: int = None,
@@ -182,7 +182,7 @@ class Effect(AoE2Object):
         self.ai_signal_value: int = ai_signal_value
         self.object_attributes: int = object_attributes
         self.from_variable: int = from_variable
-        self.variable_or_timer: int = variable_or_timer
+        self.timer: int = timer
         self.facet: int = facet
         self.play_sound: int = play_sound
         self.player_color: int = player_color

@@ -772,7 +772,7 @@ class NewEffectSupport:
             string_id=None,
             display_time=None,
             time_unit=None,
-            variable_or_timer=None,
+            timer=None,
             message=None,
     ):
         self.trigger_ref._add_effect(
@@ -780,7 +780,7 @@ class NewEffectSupport:
             string_id=string_id,
             display_time=display_time,
             time_unit=time_unit,
-            variable_or_timer=variable_or_timer,
+            timer=timer,
             message=message,
         )
 
@@ -1111,11 +1111,11 @@ class NewEffectSupport:
 
     def clear_timer(
             self,
-            variable_or_timer=None,
+            timer=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.CLEAR_TIMER,
-            variable_or_timer=variable_or_timer,
+            timer=timer,
         )
 
     def change_object_player_color(

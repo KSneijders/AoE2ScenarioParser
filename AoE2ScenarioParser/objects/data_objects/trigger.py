@@ -142,7 +142,7 @@ class Trigger(AoE2Object):
                     food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
                     force_research_technology=None, visibility_state=None, scroll=None, operation=None,
                     object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
-                    from_variable=None, variable_or_timer=None, facet=None, play_sound=None, message=None,
+                    from_variable=None, timer=None, facet=None, play_sound=None, message=None,
                     player_color=None, sound_name=None, selected_object_ids=None) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
