@@ -45,11 +45,13 @@ This document shows the changes that have to be made to `0.0.20` code for it to 
   ```
 - The retrievers `aa_quantity` and `aa_armor_or_attack_type` in effects were renamed to: `armour_attack_quantity` and `armour_attack_class`.
 
-[Click here if you want to know why]: 
-
 After these changes everything should function like it did before. If you used internal parts of the parser, below is a list of what you should change. Note that these are the most obvious changes. If you used very complex internal functionality, I cannot guarentee anything.
 
-### Changes made to the backend that might affect your code:
+---
+
+## Changes made to the backend that might affect your code:
+
+**This only applies if you used code outside of the managers.**
 
 - `Pieces` are now named `Sections`. So accessing those can be done using: `scenario.sections['name']`
 - Reading has changed from hardcoded pieces to json files. So all hardcoded retrievers etc. have been removed.
