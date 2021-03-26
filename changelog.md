@@ -8,16 +8,16 @@ The format is based on [Keep a Changelog]
 
 ## 0.1.0 - 2021-March-25
 
-**Important notice:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to implement a [couple of important changes].  
+**IMPORTANT NOTICE:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to implement a [couple of important changes].  
 Click the link on the line above to find said changes. If you find any bugs please report them on github.
 
 [couple of important changes]: https://github.com/KSneijders/AoE2ScenarioParser/blob/master/resources/md/update_to_0.1.0.md
 
+**SPEED:** This release _should_ improve average reading and writing speed. Some tested scenarios had a read speed improvement of over 15x when using large AI or other text files. Average reading time will be around 20 to 40 percent faster. Writing time has increased significantly too. Maps with large amount of data have around 700% (7x faster) increase in writing time!
+
 ### Other changes:
 
 These changes were in the works for `0.0.21` but got merged into the `0.1.0` relesase.
-
-**SPEED:** This release _should_ improve average reading and writing speed. Some tested scenarios had a read speed improvement of over 15x when using large AI or other text files. Average reading time will be around 20 to 40 percent faster. Writing time has increased significantly too. Maps with large amount of data have around 700% (7x faster) increase in writing time!
 
 ### Added
 
