@@ -230,3 +230,5 @@ AoE2ScenarioParser/local_config.py
 .idea/scopes/
 
 .idea/scopes/exclude__vscode.xml
+
+venv/
