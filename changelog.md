@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog]
 
 ## 0.1.1 - Unreleased
 
+### Fixed
+
+- Issue with pip not finding the packages due to removing `__init__.py` in `0.1.0`
+
 ### Changed
 
 - Renamed `amount_or_quantity` to `quantity` in conditions for consistentcy with effects.
