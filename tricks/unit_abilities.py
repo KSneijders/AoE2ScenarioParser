@@ -29,7 +29,7 @@ unit_manager.add_unit(PlayerId.ONE, unit_to_be_garrisoned, 119, 119, garrisoned_
 trigger = trigger_manager.add_trigger("DetectUnitUngarrisoned", looping=True)
 
 trigger.new_condition.objects_in_area(
-    amount_or_quantity=1,
+    quantity=1,
     object_list=unit_to_be_garrisoned,
     source_player=PlayerId.ONE,
     area_1_x=0,

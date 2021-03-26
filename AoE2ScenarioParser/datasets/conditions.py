@@ -29,7 +29,7 @@ class ConditionId(IntEnum):
     OWN_OBJECTS = 3
     """
     Attributes for the **own_objects** condition are:\n
-    - amount_or_quantity
+    - quantity
     - object_list
     - source_player
     - object_group
@@ -38,7 +38,7 @@ class ConditionId(IntEnum):
     OWN_FEWER_OBJECTS = 4
     """
     Attributes for the **own_fewer_objects** condition are:\n
-    - amount_or_quantity
+    - quantity
     - object_list
     - source_player
     - area_1_x
@@ -51,7 +51,7 @@ class ConditionId(IntEnum):
     OBJECT_IN_AREA = 5
     """
     Attributes for the **object_in_area** condition are:\n
-    - amount_or_quantity
+    - quantity
     - object_list
     - source_player
     - area_1_x
@@ -78,8 +78,8 @@ class ConditionId(IntEnum):
     ACCUMULATE_ATTRIBUTE = 8
     """
     Attributes for the **accumulate_attribute** condition are:\n
-    - amount_or_quantity
-    - resource_type_or_tribute_list
+    - quantity
+    - attribute
     - source_player
     - inverted
     """
@@ -144,7 +144,7 @@ class ConditionId(IntEnum):
     UNITS_GARRISONED = 18
     """
     Attributes for the **units_garrisoned** condition are:\n
-    - amount_or_quantity
+    - quantity
     - unit_object
     - inverted
     """
@@ -152,18 +152,18 @@ class ConditionId(IntEnum):
     """
     Attributes for the **units_garrisoned** condition are:\n
     - condition_type
-    - amount_or_quantity
+    - quantity
     - inverted
     """
     CHANCE = 20
     """
     Attributes for the **chance** condition are:\n
-    - amount_or_quantity
+    - quantity
     """
     TECHNOLOGY_STATE = 21
     """
     Attributes for the **technology_state** condition are:\n
-    - amount_or_quantity
+    - quantity
     - source_player
     - technology
     - inverted
@@ -171,7 +171,7 @@ class ConditionId(IntEnum):
     VARIABLE_VALUE = 22
     """
     Attributes for the **variable_value** condition are:\n
-    - amount_or_quantity
+    - quantity
     - inverted
     - variable
     - comparison
@@ -179,7 +179,7 @@ class ConditionId(IntEnum):
     OBJECT_HP = 23
     """
     Attributes for the **object_hp** condition are:\n
-    - amount_or_quantity
+    - quantity
     - unit_object
     - inverted
     - comparison
@@ -187,7 +187,7 @@ class ConditionId(IntEnum):
     DIPLOMACY_STATE = 24
     """
     Attributes for the **diplomacy_state** condition are:\n
-    - amount_or_quantity
+    - quantity
     - source_player
     - inverted
     - target_player
@@ -251,8 +251,8 @@ class ConditionId(IntEnum):
 
 empty_attributes = {
     "condition_type": -1,
-    "amount_or_quantity": -1,
-    "resource_type_or_tribute_list": -1,
+    "quantity": -1,
+    "attribute": -1,
     "unit_object": -1,
     "next_object": -1,
     "object_list": -1,

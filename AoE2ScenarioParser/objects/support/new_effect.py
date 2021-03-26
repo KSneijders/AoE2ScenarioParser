@@ -184,12 +184,12 @@ class NewEffectSupport:
     def declare_victory(
             self,
             source_player=None,
-            enabled_or_victory=None,
+            enabled=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.DECLARE_VICTORY,
             source_player=source_player,
-            enabled_or_victory=enabled_or_victory,
+            enabled=enabled,
         )
 
     def kill_object(
@@ -772,7 +772,7 @@ class NewEffectSupport:
             string_id=None,
             display_time=None,
             time_unit=None,
-            variable_or_timer=None,
+            timer=None,
             message=None,
     ):
         self.trigger_ref._add_effect(
@@ -780,7 +780,7 @@ class NewEffectSupport:
             string_id=string_id,
             display_time=display_time,
             time_unit=time_unit,
-            variable_or_timer=variable_or_timer,
+            timer=timer,
             message=message,
         )
 
@@ -788,14 +788,14 @@ class NewEffectSupport:
             self,
             object_list_unit_id=None,
             source_player=None,
-            enabled_or_victory=None,
+            enabled=None,
             item_id=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.ENABLE_DISABLE_OBJECT,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
-            enabled_or_victory=enabled_or_victory,
+            enabled=enabled,
             item_id=item_id,
         )
 
@@ -803,14 +803,14 @@ class NewEffectSupport:
             self,
             source_player=None,
             technology=None,
-            enabled_or_victory=None,
+            enabled=None,
             item_id=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.ENABLE_DISABLE_TECHNOLOGY,
             source_player=source_player,
             technology=technology,
-            enabled_or_victory=enabled_or_victory,
+            enabled=enabled,
             item_id=item_id,
         )
 
@@ -1047,7 +1047,7 @@ class NewEffectSupport:
             source_player=None,
             item_id=None,
             operation=None,
-            from_variable=None,
+            variable=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.MODIFY_RESOURCE_BY_VARIABLE,
@@ -1055,7 +1055,7 @@ class NewEffectSupport:
             source_player=source_player,
             item_id=item_id,
             operation=operation,
-            from_variable=from_variable,
+            variable=variable,
         )
 
     def set_building_gather_point(
@@ -1098,24 +1098,24 @@ class NewEffectSupport:
             self,
             quantity=None,
             operation=None,
-            from_variable=None,
+            variable=None,
             message=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.CHANGE_VARIABLE,
             quantity=quantity,
             operation=operation,
-            from_variable=from_variable,
+            variable=variable,
             message=message,
         )
 
     def clear_timer(
             self,
-            variable_or_timer=None,
+            timer=None,
     ):
         self.trigger_ref._add_effect(
             EffectId.CLEAR_TIMER,
-            variable_or_timer=variable_or_timer,
+            timer=timer,
         )
 
     def change_object_player_color(

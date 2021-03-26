@@ -6,8 +6,8 @@
         ],
         "default_attributes": {
             "condition_type": 0,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -40,8 +40,8 @@
         ],
         "default_attributes": {
             "condition_type": 1,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -71,8 +71,8 @@
         ],
         "default_attributes": {
             "condition_type": 2,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -96,7 +96,7 @@
         "name": "own_objects",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "object_list",
             "source_player",
             "object_group",
@@ -104,8 +104,8 @@
         ],
         "default_attributes": {
             "condition_type": 3,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -129,7 +129,7 @@
         "name": "own_fewer_objects",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "object_list",
             "source_player",
             "area_1_x",
@@ -141,8 +141,8 @@
         ],
         "default_attributes": {
             "condition_type": 4,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -166,7 +166,7 @@
         "name": "objects_in_area",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "object_list",
             "source_player",
             "area_1_x",
@@ -179,8 +179,8 @@
         ],
         "default_attributes": {
             "condition_type": 5,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -209,8 +209,8 @@
         ],
         "default_attributes": {
             "condition_type": 6,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -240,8 +240,8 @@
         ],
         "default_attributes": {
             "condition_type": 7,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -265,15 +265,15 @@
         "name": "accumulate_attribute",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
-            "resource_type_or_tribute_list",
+            "quantity",
+            "attribute",
             "source_player",
             "inverted"
         ],
         "default_attributes": {
             "condition_type": 8,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": 0,
+            "quantity": -1,
+            "attribute": 0,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -303,8 +303,8 @@
         ],
         "default_attributes": {
             "condition_type": 9,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -333,8 +333,8 @@
         ],
         "default_attributes": {
             "condition_type": 10,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -363,8 +363,8 @@
         ],
         "default_attributes": {
             "condition_type": 11,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -393,8 +393,8 @@
         ],
         "default_attributes": {
             "condition_type": 12,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -423,8 +423,8 @@
         ],
         "default_attributes": {
             "condition_type": 13,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -457,8 +457,8 @@
         ],
         "default_attributes": {
             "condition_type": 14,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -486,8 +486,8 @@
         ],
         "default_attributes": {
             "condition_type": 15,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -515,8 +515,8 @@
         ],
         "default_attributes": {
             "condition_type": 16,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -546,8 +546,8 @@
         ],
         "default_attributes": {
             "condition_type": 17,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -571,14 +571,14 @@
         "name": "units_garrisoned",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "unit_object",
             "inverted"
         ],
         "default_attributes": {
             "condition_type": 18,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -602,13 +602,13 @@
         "name": "difficulty_level",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "inverted"
         ],
         "default_attributes": {
             "condition_type": 19,
-            "amount_or_quantity": 3,
-            "resource_type_or_tribute_list": -1,
+            "quantity": 3,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -632,12 +632,12 @@
         "name": "chance",
         "attributes": [
             "condition_type",
-            "amount_or_quantity"
+            "quantity"
         ],
         "default_attributes": {
             "condition_type": 20,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -661,15 +661,15 @@
         "name": "technology_state",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "source_player",
             "technology",
             "inverted"
         ],
         "default_attributes": {
             "condition_type": 21,
-            "amount_or_quantity": 3,
-            "resource_type_or_tribute_list": -1,
+            "quantity": 3,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -693,15 +693,15 @@
         "name": "variable_value",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "inverted",
             "variable",
             "comparison"
         ],
         "default_attributes": {
             "condition_type": 22,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -725,15 +725,15 @@
         "name": "object_hp",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "unit_object",
             "inverted",
             "comparison"
         ],
         "default_attributes": {
             "condition_type": 23,
-            "amount_or_quantity": -1,
-            "resource_type_or_tribute_list": -1,
+            "quantity": -1,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
@@ -757,15 +757,15 @@
         "name": "diplomacy_state",
         "attributes": [
             "condition_type",
-            "amount_or_quantity",
+            "quantity",
             "source_player",
             "inverted",
             "target_player"
         ],
         "default_attributes": {
             "condition_type": 24,
-            "amount_or_quantity": 0,
-            "resource_type_or_tribute_list": -1,
+            "quantity": 0,
+            "attribute": -1,
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,

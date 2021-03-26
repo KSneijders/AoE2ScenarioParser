@@ -2077,7 +2077,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "enabled_or_victory": {
+                            "enabled": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -2141,11 +2141,11 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "from_variable": {
+                            "variable": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "variable_or_timer": {
+                            "timer": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -2206,11 +2206,11 @@
                                 "type": "s32",
                                 "default": 23
                             },
-                            "amount_or_quantity": {
+                            "quantity": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "resource_type_or_tribute_list": {
+                            "attribute": {
                                 "type": "s32",
                                 "default": -1
                             },

@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.1 - Unreleased
+
+### Fixed
+
+- Issue with pip not finding the packages due to removing `__init__.py` in `0.1.0`
+
+### Changed
+
+- Renamed `amount_or_quantity` to `quantity` in conditions for consistentcy with effects.
+- Renamed `resource_type_or_tribute_list` to `attribute` in conditions.
+- Renamed `variable_or_timer` to `timer` in effects because it wasn't used for variables.
+- Renamed `from_variable` to `variable` in effects for consistentcy with conditions.
+- Renamed `enabled_or_victory` to `enabled` in effects.
+
+---
+
 ## 0.1.0 - 2021-March-25
 
 **IMPORTANT NOTICE:** A lot about the library has changed internally. Switching from `0.0.20` to `0.1.0` should only require you to implement a [couple of important changes].  

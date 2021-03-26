@@ -49,8 +49,8 @@ class Effect(AoE2Object):
         RetrieverObjectLink("attack_stance", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].attack_stance"),
         RetrieverObjectLink("time_unit", "Triggers", "trigger_data[__index__].effect_data[__index__].time_unit"),
-        RetrieverObjectLink("enabled_or_victory", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].enabled_or_victory"),
+        RetrieverObjectLink("enabled", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].enabled"),
         RetrieverObjectLink("food", "Triggers", "trigger_data[__index__].effect_data[__index__].food"),
         RetrieverObjectLink("wood", "Triggers", "trigger_data[__index__].effect_data[__index__].wood"),
         RetrieverObjectLink("stone", "Triggers", "trigger_data[__index__].effect_data[__index__].stone"),
@@ -71,10 +71,10 @@ class Effect(AoE2Object):
                             "trigger_data[__index__].effect_data[__index__].ai_signal_value"),
         RetrieverObjectLink("object_attributes", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].object_attributes"),
-        RetrieverObjectLink("from_variable", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].from_variable"),
-        RetrieverObjectLink("variable_or_timer", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].variable_or_timer"),
+        RetrieverObjectLink("variable", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].variable"),
+        RetrieverObjectLink("timer", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].timer"),
         RetrieverObjectLink("facet", "Triggers", "trigger_data[__index__].effect_data[__index__].facet"),
         RetrieverObjectLink("play_sound", "Triggers", "trigger_data[__index__].effect_data[__index__].play_sound"),
         RetrieverObjectLink("player_color", "Triggers", "trigger_data[__index__].effect_data[__index__].player_color",
@@ -112,7 +112,7 @@ class Effect(AoE2Object):
                  instruction_panel_position: int = None,
                  attack_stance: int = None,
                  time_unit: int = None,
-                 enabled_or_victory: int = None,
+                 enabled: int = None,
                  food: int = None,
                  wood: int = None,
                  stone: int = None,
@@ -127,8 +127,8 @@ class Effect(AoE2Object):
                  button_location: int = None,
                  ai_signal_value: int = None,
                  object_attributes: int = None,
-                 from_variable: int = None,
-                 variable_or_timer: int = None,
+                 variable: int = None,
+                 timer: int = None,
                  facet: int = None,
                  play_sound: int = None,
                  player_color: int = None,
@@ -166,7 +166,7 @@ class Effect(AoE2Object):
         self.instruction_panel_position: int = instruction_panel_position
         self.attack_stance: int = attack_stance
         self.time_unit: int = time_unit
-        self.enabled_or_victory: int = enabled_or_victory
+        self.enabled: int = enabled
         self.food: int = food
         self.wood: int = wood
         self.stone: int = stone
@@ -181,8 +181,8 @@ class Effect(AoE2Object):
         self.button_location: int = button_location
         self.ai_signal_value: int = ai_signal_value
         self.object_attributes: int = object_attributes
-        self.from_variable: int = from_variable
-        self.variable_or_timer: int = variable_or_timer
+        self.variable: int = variable
+        self.timer: int = timer
         self.facet: int = facet
         self.play_sound: int = play_sound
         self.player_color: int = player_color

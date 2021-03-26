@@ -76,7 +76,7 @@ class EffectId(IntEnum):
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
     - source_player
-    - enabled_or_victory"""
+    - enabled"""
     KILL_OBJECT = 14
     """Attributes for the **kill_object** effect are: \n
     - object_list_unit_id
@@ -337,19 +337,19 @@ class EffectId(IntEnum):
     - string_id
     - display_time
     - time_unit
-    - variable_or_timer
+    - timer
     - message"""
     ENABLE_DISABLE_OBJECT = 38
     """Attributes for the **enable_disable_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - enabled_or_victory
+    - enabled
     - item_id"""
     ENABLE_DISABLE_TECHNOLOGY = 39
     """Attributes for the **enable_disable_technology** effect are: \n
     - source_player
     - technology
-    - enabled_or_victory
+    - enabled
     - item_id"""
     CHANGE_OBJECT_COST = 40
     """Attributes for the **change_object_cost** effect are: \n
@@ -451,7 +451,7 @@ class EffectId(IntEnum):
     - source_player
     - item_id
     - operation
-    - from_variable"""
+    - variable"""
     SET_BUILDING_GATHER_POINT = 54
     """Attributes for the **set_building_gather_point** effect are: \n
     - object_list_unit_id
@@ -471,11 +471,11 @@ class EffectId(IntEnum):
     """Attributes for the **change_variable** effect are: \n
     - quantity
     - operation
-    - from_variable
+    - variable
     - message"""
     CLEAR_TIMER = 57
     """Attributes for the **clear_timer** effect are: \n
-    - variable_or_timer"""
+    - timer"""
     CHANGE_OBJECT_PLAYER_COLOR = 58
     """Attributes for the **change_object_player_color** effect are: \n
     - object_list_unit_id
@@ -608,7 +608,7 @@ empty_attributes = {
     "instruction_panel_position": -1,
     "attack_stance": -1,
     "time_unit": -1,
-    "enabled_or_victory": -1,
+    "enabled": -1,
     "food": -1,
     "wood": -1,
     "stone": -1,
@@ -623,8 +623,8 @@ empty_attributes = {
     "button_location": -1,
     "ai_signal_value": -1,
     "object_attributes": -1,
-    "from_variable": -1,
-    "variable_or_timer": -1,
+    "variable": -1,
+    "timer": -1,
     "facet": -1,
     "play_sound": -1,
     "player_color": -1,
