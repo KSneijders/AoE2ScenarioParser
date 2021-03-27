@@ -6,7 +6,31 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.1 - Unreleased
+## 0.1.4 - 2021-March-27
+
+### Fixed
+
+- An issue looking up the `.json` files on non-windows machines.
+
+---
+
+## 0.1.3 - 2021-March-27
+
+### Fixed
+
+- An issue with relative directories when accessing `.json` structure files.
+
+---
+
+## 0.1.2 - 2021-March-27
+
+### Fixed
+
+- An issue with pip not uploading non `*.py` files. 
+
+---
+
+## 0.1.1 - 2021-March-26
 
 ### Fixed
 

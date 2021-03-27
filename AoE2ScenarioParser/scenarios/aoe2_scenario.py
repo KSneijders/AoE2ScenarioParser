@@ -1,5 +1,7 @@
 import json
+import os
 import zlib
+from pathlib import PurePath, Path
 from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -63,7 +65,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
     @classmethod
-    def from_file(cls, game_version, filename):
+    def from_file(cls, filename, game_version):
         print(f"\nReading file: '{filename}'")
         helper.s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
@@ -243,9 +245,14 @@ def compress_bytes(file_content):
     return compressed
 
 
+def get_version_directory_path() -> Path:
+    return Path(__file__).parent.parent / 'versions'
+
+
 def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     try:
-        with open(f"./versions/{game_version}/v{scenario_version}/{name}.json", 'r') as structure_file:
+        vdir = get_version_directory_path()
+        with (vdir / game_version / f'v{scenario_version}' / f'{name}.json').open() as structure_file:
             return json.load(structure_file)
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
@@ -254,7 +261,8 @@ def get_version_dependant_structure_file(game_version: str, scenario_version: st
 
 def get_structure(game_version, scenario_version) -> dict:
     try:
-        with open(f"./versions/{game_version}/v{scenario_version}/structure.json", 'r') as structure_file:
+        vdir = get_version_directory_path()
+        with (vdir / game_version / f'v{scenario_version}' / 'structure.json').open() as structure_file:
             structure = json.load(structure_file)
 
             if "FileHeader" not in structure.keys():
