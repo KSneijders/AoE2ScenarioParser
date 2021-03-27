@@ -20,5 +20,5 @@ class AoE2DEScenario(AoE2Scenario):
         return self._object_manager.managers['Map']
 
     @classmethod
-    def from_file(cls, filename) -> AoE2DEScenario:
-        return super().from_file("DE", filename)
+    def from_file(cls, filename, game_version="DE") -> AoE2DEScenario:
+        return super().from_file(filename, game_version)
