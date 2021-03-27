@@ -214,7 +214,6 @@ dmypy.json
 .idea/modules.xml
 .idea/inspectionProfiles/profiles_settings.xml
 
-setup.py
 resources/maps/
 AoE2ScenarioParser/app.py
 .idea/inspectionProfiles/Project_Default.xml
