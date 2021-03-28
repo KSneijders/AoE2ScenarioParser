@@ -37,7 +37,7 @@ for name, file in f_dict.items():
     file.write(gaia_only.replace('__CLASSNAME__', f'{name.capitalize()}Info'))
     file.write(non_gaia.replace('__CLASSNAME__', f'{name.capitalize()}Info'))
 
-with open('./../dataset.json', 'r') as file_content:
+with open('./../units.json', 'r') as file_content:
     json_content = json.load(file_content)
 
     for name, unit in json_content.items():
