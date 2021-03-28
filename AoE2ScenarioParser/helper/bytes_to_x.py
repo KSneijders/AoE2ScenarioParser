@@ -43,7 +43,8 @@ def bytes_to_str(byte_elements, retriever, codec="utf-8"):
 
 
 def str_to_bytes(string, retriever, codec="utf-8"):
-    if retriever.string_end_char:
+    # if retriever.string_end_char:
+    if retriever.name not in _no_string_trail:
         return helper.add_str_trail(string).encode(codec)
     return string.encode(codec)
 
