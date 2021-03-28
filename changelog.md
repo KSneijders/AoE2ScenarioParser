@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.5 - 2021-March-27
+
+### Fixed
+
+- An issue with `\x00` suffixes
+
+---
+
 ## 0.1.4 - 2021-March-27
 
 ### Fixed
