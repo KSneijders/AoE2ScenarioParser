@@ -93,65 +93,80 @@ Many conditions and effects have dropdown lists with options. These
 options are, like everything else, impossible to remember. That’s why
 these datasets have been added:
 
-+-------+-------------------------------------------+-----------------+
-| Names | Explanation                               | Example         |
-+=======+===========================================+=================+
-| Dipl  | Used in the ``Change Diplomacy`` effect   | ``Diplom        |
-| omacy | and the ``Diplomacy State`` condition.    | acyState.ALLY`` |
-| State |                                           |                 |
-+-------+-------------------------------------------+-----------------+
-| Ope   | Used in many effects. Generally related   | ``Oper          |
-| rator | to variables.                             | ator.MULTIPLY`` |
-+-------+-------------------------------------------+-----------------+
-| Butt  | Used in the ``Change Research Location``  | ``Button        |
-| onLoc | and ``Change Train Location`` effects. \* | Location.r2c3`` |
-| ation |                                           |                 |
-+-------+-------------------------------------------+-----------------+
-| Pan   | Used in the ``Display Instructions``      | ``PanelLo       |
-| elLoc | effect.                                   | cation.CENTER`` |
-| ation |                                           |                 |
-+-------+-------------------------------------------+-----------------+
-| Tim   | Used in the ``Display Timer`` effect.     | ``T             |
-| eUnit |                                           | imeUnit.YEARS`` |
-+-------+-------------------------------------------+-----------------+
-| Visib | Used in the ``Set Player Visibility``     | ``VisibilityS   |
-| ility | effect.                                   | tate.EXPLORED`` |
-| State |                                           |                 |
-+-------+-------------------------------------------+-----------------+
-| Diffi | Used in the ``Difficulty Level``          | ``Difficulty    |
-| culty | condition.                                | Level.HARDEST`` |
-| Level |                                           |                 |
-+-------+-------------------------------------------+-----------------+
-| Techn | Used in the ``Technology State``          | `               |
-| ology | condition.                                | `TechnologyStat |
-| State |                                           | e.RESEARCHING`` |
-+-------+-------------------------------------------+-----------------+
-| Compa | Used in many effects and conditions.      | ``Com           |
-| rison | Generally related to variables.           | parison.EQUAL`` |
-+-------+-------------------------------------------+-----------------+
-| Objec | Used in the ``Modify Attribute`` effect.  | ``Ob            |
-| tAttr |                                           | jectAttribute.C |
-| ibute |                                           | ARRY_CAPACITY`` |
-+-------+-------------------------------------------+-----------------+
-| Attr  | Used in the ``Accumulate Attribute``      | ``              |
-| ibute | efect.                                    | Attribute.ALL_T |
-|       |                                           | ECHS_ACHIEVED`` |
-+-------+-------------------------------------------+-----------------+
-| Un    | Used in the ``Object has Action``         | ``UnitAI        |
-| itAIA | condition.                                | Action.ATTACK`` |
-| ction |                                           |                 |
-+-------+-------------------------------------------+-----------------+
-| At    | Used in the ``Change Object Stance``      | ``At            |
-| tackS | effect.                                   | tackStance.AGGR |
-| tance |                                           | ESSIVE_STANCE`` |
-+-------+-------------------------------------------+-----------------+
-| Objec | Used in every unit selection effect &     | ``ObjectType    |
-| tType | condition                                 | .DOPPELGANGER`` |
-+-------+-------------------------------------------+-----------------+
-| O     | Used in every unit selection effect &     | ``ObjectC       |
-| bject | condition                                 | lass.INFANTRY`` |
-| Class |                                           |                 |
-+-------+-------------------------------------------+-----------------+
++-----------------+------------------------+---------------------------------------+
+| Names           | Explanation            | Example                               |
++=================+========================+=======================================+
+| DiplomacyState  | Used in the            | ``DiplomacyState.ALLY``               |
+|                 | ``Change Diplomacy``   |                                       |
+|                 | effect and the         |                                       |
+|                 | ``Diplomacy State``    |                                       |
+|                 | condition.             |                                       |
++-----------------+------------------------+---------------------------------------+
+| Operator        | Used in many effects.  | ``Operator.MULTIPLY``                 |
+|                 | Generally related to   |                                       |
+|                 | variables.             |                                       |
++-----------------+------------------------+---------------------------------------+
+| ButtonLocation  | Used in the            | ``ButtonLocation.r2c3``               |
+|                 | ``Chan                 |                                       |
+|                 | ge Research Location`` |                                       |
+|                 | and                    |                                       |
+|                 | ``C                    |                                       |
+|                 | hange Train Location`` |                                       |
+|                 | effects. \*            |                                       |
++-----------------+------------------------+---------------------------------------+
+| PanelLocation   | Used in the            | ``PanelLocation.CENTER``              |
+|                 | ``                     |                                       |
+|                 | Display Instructions`` |                                       |
+|                 | effect.                |                                       |
++-----------------+------------------------+---------------------------------------+
+| TimeUnit        | Used in the            | ``TimeUnit.YEARS``                    |
+|                 | ``Display Timer``      |                                       |
+|                 | effect.                |                                       |
++-----------------+------------------------+---------------------------------------+
+| VisibilityState | Used in the            | ``VisibilityState.EXPLORED``          |
+|                 | ``S                    |                                       |
+|                 | et Player Visibility`` |                                       |
+|                 | effect.                |                                       |
++-----------------+------------------------+---------------------------------------+
+| DifficultyLevel | Used in the            | ``DifficultyLevel.HARDEST``           |
+|                 | ``Difficulty Level``   |                                       |
+|                 | condition.             |                                       |
++-----------------+------------------------+---------------------------------------+
+| TechnologyState | Used in the            | ``TechnologyState.RESEARCHING``       |
+|                 | ``Technology State``   |                                       |
+|                 | condition.             |                                       |
++-----------------+------------------------+---------------------------------------+
+| Comparison      | Used in many effects   | ``Comparison.EQUAL``                  |
+|                 | and conditions.        |                                       |
+|                 | Generally related to   |                                       |
+|                 | variables.             |                                       |
++-----------------+------------------------+---------------------------------------+
+| ObjectAttribute | Used in the            | ``ObjectAttribute.CARRY_CAPACITY``    |
+|                 | ``Modify Attribute``   |                                       |
+|                 | effect.                |                                       |
++-----------------+------------------------+---------------------------------------+
+| Attribute       | Used in the            | ``Attribute.ALL_TECHS_ACHIEVED``      |
+|                 | ``                     |                                       |
+|                 | Accumulate Attribute`` |                                       |
+|                 | efect.                 |                                       |
++-----------------+------------------------+---------------------------------------+
+| UnitAIAction    | Used in the            | ``UnitAIAction.ATTACK``               |
+|                 | ``Object has Action``  |                                       |
+|                 | condition.             |                                       |
++-----------------+------------------------+---------------------------------------+
+| AttackStance    | Used in the            | ``AttackStance.AGGRESSIVE_STANCE``    |
+|                 | ``                     |                                       |
+|                 | Change Object Stance`` |                                       |
+|                 | effect.                |                                       |
++-----------------+------------------------+---------------------------------------+
+| ObjectType      | Used in every unit     | ``ObjectType.DOPPELGANGER``           |
+|                 | selection effect &     |                                       |
+|                 | condition              |                                       |
++-----------------+------------------------+---------------------------------------+
+| ObjectClass     | Used in every unit     | ``ObjectClass.INFANTRY``              |
+|                 | selection effect &     |                                       |
+|                 | condition              |                                       |
++-----------------+------------------------+---------------------------------------+
 
 \*: Means extra functionality listed below.
 
