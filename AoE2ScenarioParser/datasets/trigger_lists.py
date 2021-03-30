@@ -65,8 +65,7 @@ class ButtonLocation(IntEnum):
     r3c2 = 12
     r3c3 = 13
     r3c4 = 14
-
-    # r3c5 = 15  # Disabled in-game. Probably to make space for the arrow key if present
+    # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
 
     @classmethod
     def row_col(cls, row, col):

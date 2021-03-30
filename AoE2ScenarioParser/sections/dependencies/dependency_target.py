@@ -24,7 +24,9 @@ class DependencyTarget:
         elif type(target) is list:
             return cls([entry.split(':') for entry in target])
         else:
-            raise InvalidScenarioStructureError("Target defined using unknown type. For single targets, use str else list")
+            raise InvalidScenarioStructureError(
+                "Target defined using unknown type. For single targets, use str else list"
+            )
 
     def __repr__(self) -> str:
         return f"[DependencyTarget] {helper.add_tabs(helper.pretty_print_list(self.targets).strip(), 1)}"

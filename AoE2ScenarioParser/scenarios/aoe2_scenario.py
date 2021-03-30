@@ -1,7 +1,6 @@
 import json
-import os
 import zlib
-from pathlib import PurePath, Path
+from pathlib import Path
 from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions

@@ -4,7 +4,7 @@ from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever
+from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
@@ -88,7 +88,7 @@ class RetrieverObjectLink:
         try:
             # Get new value for receiver
             value = getattr(host_obj, self.name)
-        except UnsupportedAttributeError as e:
+        except UnsupportedAttributeError:
             return  # Not supported in current version.
 
         section: AoE2FileSection = sections[self.section_name]
