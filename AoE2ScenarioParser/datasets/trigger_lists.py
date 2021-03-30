@@ -776,19 +776,11 @@ class Attribute(IntEnum):
     """
 
 
-# Todo: replace with in game ObjectType versions
 class ObjectType(IntEnum):
-    EYE_CANDY = 10
-    TREE_AOK = 15
-    ANIMATED = 20
-    DOPPELGANGER = 25
-    MOVING = 30
-    ACTOR = 40
-    SUPERCLASS = 50
-    PROJECTILE = 60
-    COMBATANT = 70
-    BUILDING = 80
-    TREE_AOE = 90
+    OTHER = 1
+    BUILDING = 2
+    CIVILIAN = 3
+    MILITARY = 4
 
 
 class ObjectClass(IntEnum):
