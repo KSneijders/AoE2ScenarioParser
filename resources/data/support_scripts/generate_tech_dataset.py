@@ -18,7 +18,7 @@ from_id = """
         for x in cls._member_map_.values():
             if x.value[__VALUE__] == value:
                 return x
-        raise ValueError(f"{value} is not valid")\n"""
+        raise ValueError(f"{value} is not a valid __NAME__ value")\n"""
 
 for name, file in f_dict.items():
     file.write(f"from enum import Enum\n\n\nclass {name.capitalize()}Info(Enum):")
