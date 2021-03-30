@@ -6,9 +6,27 @@ class TechInfo(Enum):
     def ID(self):
         return self.value[0]
 
+    @classmethod
+    def from_id(cls, value):
+        if value == -1:
+            raise ValueError("-1 is not a valid id value")
+        for x in cls._member_map_.values():
+            if x.value[0] == value:
+                return x
+        raise ValueError(f"{value} is not valid")
+
     @property
     def ICON_ID(self):
         return self.value[1]
+
+    @classmethod
+    def from_icon_id(cls, value):
+        if value == -1:
+            raise ValueError("-1 is not a valid icon_id value")
+        for x in cls._member_map_.values():
+            if x.value[1] == value:
+                return x
+        raise ValueError(f"{value} is not valid")
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33

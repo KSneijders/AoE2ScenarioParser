@@ -13,6 +13,7 @@ class BuildingInfo(Enum):
         for x in cls._member_map_.values():
             if x.value[0] == value:
                 return x
+        raise ValueError(f"{value} is not valid")
 
     @property
     def ICON_ID(self):
@@ -25,6 +26,7 @@ class BuildingInfo(Enum):
         for x in cls._member_map_.values():
             if x.value[1] == value:
                 return x
+        raise ValueError(f"{value} is not valid")
 
     @property
     def DEAD_ID(self):
@@ -37,6 +39,7 @@ class BuildingInfo(Enum):
         for x in cls._member_map_.values():
             if x.value[2] == value:
                 return x
+        raise ValueError(f"{value} is not valid")
 
     @property
     def IS_GAIA_ONLY(self):
@@ -57,7 +60,6 @@ class BuildingInfo(Enum):
             if not x.IS_GAIA:
                 result.append(x)
         return result
-
 
     RUINS = 345, -1, -1, True
     AACHEN_CATHEDRAL = 1622, 37, 1517, False

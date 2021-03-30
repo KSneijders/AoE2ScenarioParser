@@ -51,21 +51,26 @@ class UnitAIAction(IntEnum):
 
 
 class ButtonLocation(IntEnum):
-    LOCATION_0_0 = 0
-    LOCATION_1_0 = 2
-    LOCATION_2_0 = 3
-    LOCATION_3_0 = 4
-    LOCATION_4_0 = 5
-    LOCATION_0_1 = 6
-    LOCATION_1_1 = 7
-    LOCATION_2_1 = 8
-    LOCATION_3_1 = 9
-    LOCATION_4_1 = 10
-    LOCATION_0_2 = 11
-    LOCATION_1_2 = 12
-    LOCATION_2_2 = 13
-    LOCATION_3_2 = 14
-    # LOCATION_4_2 = 15?  # Probably disabled for the arrow key if present
+    r1c1 = 1
+    r1c2 = 2
+    r1c3 = 3
+    r1c4 = 4
+    r1c5 = 5
+    r2c1 = 6
+    r2c2 = 7
+    r2c3 = 8
+    r2c4 = 9
+    r2c5 = 10
+    r3c1 = 11
+    r3c2 = 12
+    r3c3 = 13
+    r3c4 = 14
+
+    # r3c5 = 15  # Disabled in-game. Probably to make space for the arrow key if present
+
+    @classmethod
+    def row_col(cls, row, col):
+        return cls((row - 1) * 5 + col)
 
 
 class PanelLocation(IntEnum):
@@ -772,6 +777,7 @@ class Attribute(IntEnum):
     """
 
 
+# Todo: replace with in game ObjectType versions
 class ObjectType(IntEnum):
     EYE_CANDY = 10
     TREE_AOK = 15
@@ -883,34 +889,3 @@ class TerrainRestrictions(IntEnum):
     UNKNOWN = 28
     UNKNOWN_2 = 29
     WATER_SMALLEST_TRAIL = 30
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

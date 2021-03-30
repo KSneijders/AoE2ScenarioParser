@@ -13,6 +13,7 @@ class HeroInfo(Enum):
         for x in cls._member_map_.values():
             if x.value[0] == value:
                 return x
+        raise ValueError(f"{value} is not valid")
 
     @property
     def ICON_ID(self):
@@ -25,6 +26,7 @@ class HeroInfo(Enum):
         for x in cls._member_map_.values():
             if x.value[1] == value:
                 return x
+        raise ValueError(f"{value} is not valid")
 
     @property
     def DEAD_ID(self):
@@ -37,7 +39,7 @@ class HeroInfo(Enum):
         for x in cls._member_map_.values():
             if x.value[2] == value:
                 return x
-
+        raise ValueError(f"{value} is not valid")
     KHOSRAU = 1297, 172, 874, False
     LIEF_ERIKSON = 106, 118, -1, False
     RICHARD_THE_LIONHEART = 160, 92, 570, False

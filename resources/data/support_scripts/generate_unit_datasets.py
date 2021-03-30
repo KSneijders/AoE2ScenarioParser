@@ -13,7 +13,7 @@ gaia_only = """
     @staticmethod
     def gaia_only():
         result = []
-        for x in __CLASSNAME__:
+        for x in __CLASSNAME__Info:
             if x.IS_GAIA:
                 result.append(x)
         return result\n"""
@@ -21,7 +21,7 @@ non_gaia = """
     @staticmethod
     def non_gaia():
         result = []
-        for x in __CLASSNAME__:
+        for x in __CLASSNAME__Info:
             if not x.IS_GAIA:
                 result.append(x)
         return result\n\n"""
@@ -32,7 +32,8 @@ from_id = """
             raise ValueError("-1 is not a valid __NAME__ value")
         for x in cls._member_map_.values():
             if x.value[__VALUE__] == value:
-                return x\n"""
+                return x
+        raise ValueError(f"{value} is not valid")\n"""
 
 for name, file in f_dict.items():
     file.write(f"from enum import Enum\n\n\nclass {name.capitalize()}Info(Enum):")
@@ -50,10 +51,8 @@ for name, file in f_dict.items():
             )
 
     if name != 'hero':
-        file.write(gaia_only.replace('__CLASSNAME__', f'{name.capitalize()}Info'))
-        file.write(non_gaia.replace('__CLASSNAME__', f'{name.capitalize()}Info'))
-
-    file.write("\n")
+        file.write(gaia_only.replace('__CLASSNAME__', name.capitalize()))
+        file.write(non_gaia.replace('__CLASSNAME__', name.capitalize()))
 
 with open('./../units.json', 'r') as file_content:
     json_content = json.load(file_content)
