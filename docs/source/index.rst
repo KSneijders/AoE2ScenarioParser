@@ -14,4 +14,5 @@ Contents
    getting_started
    examples/triggers
    examples/units
+   examples/datasets
    support

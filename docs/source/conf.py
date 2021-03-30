@@ -22,7 +22,7 @@ copyright = '2020, KSneijders'
 author = 'KSneijders'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '0.1.6'
 
 
 # -- General configuration ---------------------------------------------------

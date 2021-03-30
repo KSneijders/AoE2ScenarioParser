@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.6 - Unreleased
+
+### Changed
+
+- The datasets `UnitInfo`, `BuildingInfo`, `HeroInfo`, `TechInfo` and `OtherInfo` replace the following datasets:
+  - UnitId, GaiaUnitId, UnitIcon and GaiaUnitIcon
+  - BuildingId, GaiaBuildingId and BuildingIcon
+  - HeroId, HeroIcon
+  - TechId
+  - UnitOtherId, GaiaUnitOtherId
+- The `ButtonLocation` dataset has changed it's properties. 
+  - From: `LOCATION_<C>_<R>` (`<C>` = Column number, `<R>` = Row number)
+  - To: `r<R>c<C>`
+  - Example (Row 1, col 4):
+    - Old: `LOCATION_3_0`. Old numbering started from 0.
+    - New: `r1c4`. New numbering starts from 1.
+
+Please check the datasets page on how to use the new datasets.
+
+---
+
 ## 0.1.5 - 2021-March-27
 
 ### Fixed
