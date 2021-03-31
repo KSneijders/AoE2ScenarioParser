@@ -2312,7 +2312,7 @@
                         "type": "u32",
                         "default": 0
                     },
-                    "name": {
+                    "variable_name": {
                         "type": "str32",
                         "default": "_Variable0"
                     }
