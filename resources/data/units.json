@@ -1616,6 +1616,48 @@
         "dead_id": 500,
         "icon_id": 12
     },
+    "VILLAGER_MALE": {
+        "id": 83,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 224,
+        "icon_id": 15
+    },
+    "VILLAGER_FEMALE": {
+        "id": 293,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 211,
+        "icon_id": 16
+    },
+    "VILLAGER_MALE_BUILDER": {
+        "id": 118,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 225,
+        "icon_id": 330
+    },
+    "VILLAGER_FEMALE_BUILDER": {
+        "id": 212,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 213,
+        "icon_id": 329
+    },
+    "VILLAGER_MALE_FARMER": {
+        "id": 259,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 226,
+        "icon_id": 332
+    },
+    "VILLAGER_FEMALE_FARMER": {
+        "id": 214,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 215,
+        "icon_id": 331
+    },
     "VILLAGER_MALE_FISHERMAN": {
         "id": 56,
         "gaia_only": false,
@@ -1630,110 +1672,12 @@
         "dead_id": 60,
         "icon_id": 331
     },
-    "VILLAGER_MALE": {
-        "id": 83,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 224,
-        "icon_id": 15
-    },
-    "VILLAGER_MALE_BUILDER": {
-        "id": 118,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 225,
-        "icon_id": 330
-    },
     "VILLAGER_MALE_FORAGER": {
         "id": 120,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 353,
         "icon_id": 332
-    },
-    "VILLAGER_MALE_HUNTER": {
-        "id": 122,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 227,
-        "icon_id": 332
-    },
-    "VILLAGER_MALE_LUMBERJACK": {
-        "id": 123,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 228,
-        "icon_id": 339
-    },
-    "VILLAGER_MALE_STONE_MINER": {
-        "id": 124,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 229,
-        "icon_id": 336
-    },
-    "VILLAGER_MALE_REPAIRER": {
-        "id": 156,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 225,
-        "icon_id": 330
-    },
-    "VILLAGER_FEMALE_BUILDER": {
-        "id": 212,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 213,
-        "icon_id": 329
-    },
-    "VILLAGER_FEMALE_FARMER": {
-        "id": 214,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 215,
-        "icon_id": 331
-    },
-    "VILLAGER_FEMALE_HUNTER": {
-        "id": 216,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 217,
-        "icon_id": 331
-    },
-    "VILLAGER_FEMALE_LUMBERJACK": {
-        "id": 218,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 219,
-        "icon_id": 338
-    },
-    "VILLAGER_FEMALE_STONE_MINER": {
-        "id": 220,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 221,
-        "icon_id": 335
-    },
-    "VILLAGER_FEMALE_REPAIRER": {
-        "id": 222,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 213,
-        "icon_id": 329
-    },
-    "VILLAGER_MALE_FARMER": {
-        "id": 259,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 226,
-        "icon_id": 332
-    },
-    "VILLAGER_FEMALE": {
-        "id": 293,
-        "gaia_only": false,
-        "type": "unit",
-        "dead_id": 211,
-        "icon_id": 16
     },
     "VILLAGER_FEMALE_FORAGER": {
         "id": 354,
@@ -1756,12 +1700,47 @@
         "dead_id": 221,
         "icon_id": 333
     },
-    "VILLAGER_FEMALE_SHEPHERD": {
-        "id": 590,
+    "VILLAGER_MALE_HUNTER": {
+        "id": 122,
         "gaia_only": false,
         "type": "unit",
-        "dead_id": 591,
+        "dead_id": 227,
+        "icon_id": 332
+    },
+    "VILLAGER_FEMALE_HUNTER": {
+        "id": 216,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 217,
         "icon_id": 331
+    },
+    "VILLAGER_MALE_LUMBERJACK": {
+        "id": 123,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 228,
+        "icon_id": 339
+    },
+    "VILLAGER_FEMALE_LUMBERJACK": {
+        "id": 218,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 219,
+        "icon_id": 338
+    },
+    "VILLAGER_MALE_REPAIRER": {
+        "id": 156,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 225,
+        "icon_id": 330
+    },
+    "VILLAGER_FEMALE_REPAIRER": {
+        "id": 222,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 213,
+        "icon_id": 329
     },
     "VILLAGER_MALE_SHEPHERD": {
         "id": 592,
@@ -1770,7 +1749,28 @@
         "dead_id": 593,
         "icon_id": 332
     },
-    "VILLAGER_MALE_DAVE_LEWIS": {
+    "VILLAGER_FEMALE_SHEPHERD": {
+        "id": 590,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 591,
+        "icon_id": 331
+    },
+    "VILLAGER_MALE_STONE_MINER": {
+        "id": 124,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 229,
+        "icon_id": 336
+    },
+    "VILLAGER_FEMALE_STONE_MINER": {
+        "id": 220,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 221,
+        "icon_id": 335
+    },
+    "VMDL": {
         "id": 206,
         "gaia_only": false,
         "type": "unit",
