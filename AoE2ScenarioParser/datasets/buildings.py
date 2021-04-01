@@ -1,763 +1,211 @@
-from enum import IntEnum
-
-from bidict import bidict
+from enum import Enum
 
 
-class BuildingId(IntEnum):
-    AACHEN_CATHEDRAL = 1622
-    AMPHITHEATRE = 251
-    AQUEDUCT = 231
-    ARCH_OF_CONSTANTINE = 899
-    ARCHERY_RANGE = 87
-    ARMY_TENT_A = 1196
-    ARMY_TENT_B = 1197
-    ARMY_TENT_C = 1198
-    ARMY_TENT_D = 1199
-    ARMY_TENT_E = 1200
-    BARRACKS = 12
-    BLACKSMITH = 103
-    BOMBARD_TOWER = 236
-    BRIDGE_A_BOTTOM = 607
-    BRIDGE_A_BROKEN_BOTTOM = 740
-    BRIDGE_A_BROKEN_TOP = 739
-    BRIDGE_A_CRACKED = 738
-    BRIDGE_A_MIDDLE = 606
-    BRIDGE_A_TOP = 605
-    BRIDGE_B_BOTTOM = 610
-    BRIDGE_B_BROKEN_BOTTOM = 743
-    BRIDGE_B_BROKEN_TOP = 742
-    BRIDGE_B_CRACKED = 741
-    BRIDGE_B_MIDDLE = 609
-    BRIDGE_B_TOP = 608
-    BRIDGE_C_BOTTOM = 1206
-    BRIDGE_C_BROKEN_BOTTOM = 1212
-    BRIDGE_C_BROKEN_TOP = 1211
-    BRIDGE_C_CRACKED = 1210
-    BRIDGE_C_MIDDLE = 1205
-    BRIDGE_C_TOP = 1204
-    BRIDGE_D_BOTTOM = 1209
-    BRIDGE_D_BROKEN_BOTTOM = 1215
-    BRIDGE_D_BROKEN_TOP = 1214
-    BRIDGE_D_CRACKED = 1213
-    BRIDGE_D_MIDDLE = 1208
-    BRIDGE_D_TOP = 1207
-    BRIDGE_E_BOTTOM = 1552
-    BRIDGE_E_BROKEN_BOTTOM = 1558
-    BRIDGE_E_BROKEN_TOP = 1557
-    BRIDGE_E_CRACKED = 1556
-    BRIDGE_E_MIDDLE = 1551
-    BRIDGE_E_TOP = 1550
-    BRIDGE_F_BOTTOM = 1555
-    BRIDGE_F_BROKEN_BOTTOM = 1561
-    BRIDGE_F_BROKEN_TOP = 1560
-    BRIDGE_F_CRACKED = 1559
-    BRIDGE_F_MIDDLE = 1554
-    BRIDGE_F_TOP = 1553
-    CASTLE = 82
-    CATHEDRAL = 599
-    CHAIN_WEST_TO_EAST = 1398
-    CHAIN_SOUTHWEST_TO_NORTHEAST = 1396
-    CHAIN_NORTH_TO_SOUTH = 1399
-    CHAIN_NORTHWEST_TO_SOUTHEAST = 1397
-    CITY_GATE_WEST_TO_EAST = 1587
-    CITY_GATE_SOUTHWEST_TO_NORTHEAST = 1579
-    CITY_GATE_NORTH_TO_SOUTH = 1591
-    CITY_GATE_NORTHWEST_TO_SOUTHEAST = 1583
-    CITY_WALL = 370
-    COLOSSEUM = 263
-    DOCK = 45
-    DORMITION_CATHEDRAL = 1369
-    FARM = 50
-    FEITORIA = 1021
-    FENCE = 1062
-    FIRE_TOWER = 190
-    FISH_TRAP = 199
-    FORTIFIED_PALISADE_WALL = 119
-    FORTIFIED_TOWER = 1102
-    FORTIFIED_WALL = 155
-    FORTRESS = 33
-    GATE_NORTHWEST_TO_SOUTHEAST = 88
-    GATE_WEST_TO_EAST = 659
-    GATE_SOUTHWEST_TO_NORTHEAST = 64
-    GATE_NORTH_TO_SOUTH = 667
-    GOL_GUMBAZ = 1217
-    GUARD_TOWER = 234
-    HARBOR = 1189
-    HOUSE = 70
-    HUT_A = 1082
-    HUT_B = 1083
-    HUT_C = 1084
-    HUT_D = 1085
-    HUT_E = 1086
-    HUT_F = 1087
-    HUT_G = 1088
-    KEEP = 235
-    KREPOST = 1251
-    LUMBER_CAMP = 562
-    MARKET = 84
-    MILL = 68
-    MINING_CAMP = 584
-    MONASTERY = 104
-    MONUMENT = 826
-    OUTPOST = 598
-    PALISADE_GATE_SOUTHWEST_TO_NORTHEAST = 793
-    PALISADE_GATE_WEST_TO_EAST = 797
-    PALISADE_GATE_NORTHWEST_TO_SOUTHEAST = 789
-    PALISADE_GATE_NORTH_TO_SOUTH = 801
-    PALISADE_WALL = 72
-    PYRAMID = 689
-    QUIMPER_CATHEDRAL = 872
-    RICE_FARM = 1187
-    ROCK_CHURCH = 1378
-    SANCHI_STUPA = 1216
-    SANKORE_MADRASAH = 1367
-    SEA_GATE_SOUTHWEST_TO_NORTHEAST = 1379
-    SEA_GATE_NORTH_TO_SOUTH = 1391
-    SEA_GATE_WEST_TO_EAST = 1387
-    SEA_GATE_NORTHWEST_TO_SOUTHEAST = 1383
-    SEA_TOWER = 785
-    SEA_WALL = 788
-    SHRINE = 1264
-    SIEGE_WORKSHOP = 49
-    STABLE = 101
-    STONE_WALL = 117
-    STORAGE = 1081
-    TEMPLE_OF_HEAVEN = 637
-    TENT_A = 1097
-    TENT_B = 1098
-    TENT_C = 1099
-    TENT_D = 1100
-    TENT_E = 1101
-    TOWER_OF_LONDON = 1368
-    TOWN_CENTER = 109
-    KHOSRAU = 444
-    TRADE_WORKSHOP = 110
-    UNIVERSITY = 209
-    WATCH_TOWER = 79
-    WONDER = 276
-    WOODEN_BRIDGE_A_BOTTOM = 1311
-    WOODEN_BRIDGE_A_MIDDLE = 1310
-    WOODEN_BRIDGE_A_TOP = 1309
-    WOODEN_BRIDGE_B_BOTTOM = 1314
-    WOODEN_BRIDGE_B_MIDDLE = 1313
-    WOODEN_BRIDGE_B_TOP = 1312
-    YURT_A = 712
-    YURT_B = 713
-    YURT_C = 714
-    YURT_D = 715
-    YURT_E = 716
-    YURT_F = 717
-    YURT_G = 718
-    YURT_H = 719
+class BuildingInfo(Enum):
+    @property
+    def ID(self):
+        return self.value[0]
 
-    # Lords of the West - DLC Buildings
-    DONJON = 1665
+    @classmethod
+    def from_id(cls, value):
+        if value == -1:
+            raise ValueError("-1 is not a valid id value")
+        for x in cls._member_map_.values():
+            if x.value[0] == value:
+                return x
+        raise ValueError(f"{value} is not a valid id value")
 
+    @property
+    def ICON_ID(self):
+        return self.value[1]
 
-class GaiaBuildingId(IntEnum):
-    # Gaia Buildings
-    RUINS = 345
+    @classmethod
+    def from_icon_id(cls, value):
+        if value == -1:
+            raise ValueError("-1 is not a valid icon_id value")
+        for x in cls._member_map_.values():
+            if x.value[1] == value:
+                return x
+        raise ValueError(f"{value} is not a valid icon_id value")
 
-    # Normal Buildings
-    AACHEN_CATHEDRAL = 1622
-    AMPHITHEATRE = 251
-    AQUEDUCT = 231
-    ARCH_OF_CONSTANTINE = 899
-    ARCHERY_RANGE = 87
-    ARMY_TENT_A = 1196
-    ARMY_TENT_B = 1197
-    ARMY_TENT_C = 1198
-    ARMY_TENT_D = 1199
-    ARMY_TENT_E = 1200
-    BARRACKS = 12
-    BLACKSMITH = 103
-    BOMBARD_TOWER = 236
-    BRIDGE_A_BOTTOM = 607
-    BRIDGE_A_BROKEN_BOTTOM = 740
-    BRIDGE_A_BROKEN_TOP = 739
-    BRIDGE_A_CRACKED = 738
-    BRIDGE_A_MIDDLE = 606
-    BRIDGE_A_TOP = 605
-    BRIDGE_B_BOTTOM = 610
-    BRIDGE_B_BROKEN_BOTTOM = 743
-    BRIDGE_B_BROKEN_TOP = 742
-    BRIDGE_B_CRACKED = 741
-    BRIDGE_B_MIDDLE = 609
-    BRIDGE_B_TOP = 608
-    BRIDGE_C_BOTTOM = 1206
-    BRIDGE_C_BROKEN_BOTTOM = 1212
-    BRIDGE_C_BROKEN_TOP = 1211
-    BRIDGE_C_CRACKED = 1210
-    BRIDGE_C_MIDDLE = 1205
-    BRIDGE_C_TOP = 1204
-    BRIDGE_D_BOTTOM = 1209
-    BRIDGE_D_BROKEN_BOTTOM = 1215
-    BRIDGE_D_BROKEN_TOP = 1214
-    BRIDGE_D_CRACKED = 1213
-    BRIDGE_D_MIDDLE = 1208
-    BRIDGE_D_TOP = 1207
-    BRIDGE_E_BOTTOM = 1552
-    BRIDGE_E_BROKEN_BOTTOM = 1558
-    BRIDGE_E_BROKEN_TOP = 1557
-    BRIDGE_E_CRACKED = 1556
-    BRIDGE_E_MIDDLE = 1551
-    BRIDGE_E_TOP = 1550
-    BRIDGE_F_BOTTOM = 1555
-    BRIDGE_F_BROKEN_BOTTOM = 1561
-    BRIDGE_F_BROKEN_TOP = 1560
-    BRIDGE_F_CRACKED = 1559
-    BRIDGE_F_MIDDLE = 1554
-    BRIDGE_F_TOP = 1553
-    CASTLE = 82
-    CATHEDRAL = 599
-    CHAIN_WEST_TO_EAST = 1398
-    CHAIN_SOUTHWEST_TO_NORTHEAST = 1396
-    CHAIN_NORTH_TO_SOUTH = 1399
-    CHAIN_NORTHWEST_TO_SOUTHEAST = 1397
-    CITY_GATE_WEST_TO_EAST = 1587
-    CITY_GATE_SOUTHWEST_TO_NORTHEAST = 1579
-    CITY_GATE_NORTH_TO_SOUTH = 1591
-    CITY_GATE_NORTHWEST_TO_SOUTHEAST = 1583
-    CITY_WALL = 370
-    COLOSSEUM = 263
-    DOCK = 45
-    DORMITION_CATHEDRAL = 1369
-    FARM = 50
-    FEITORIA = 1021
-    FENCE = 1062
-    FIRE_TOWER = 190
-    FISH_TRAP = 199
-    FORTIFIED_PALISADE_WALL = 119
-    FORTIFIED_TOWER = 1102
-    FORTIFIED_WALL = 155
-    FORTRESS = 33
-    GATE_NORTHWEST_TO_SOUTHEAST = 88
-    GATE_WEST_TO_EAST = 659
-    GATE_SOUTHWEST_TO_NORTHEAST = 64
-    GATE_NORTH_TO_SOUTH = 667
-    GOL_GUMBAZ = 1217
-    GUARD_TOWER = 234
-    HARBOR = 1189
-    HOUSE = 70
-    HUT_A = 1082
-    HUT_B = 1083
-    HUT_C = 1084
-    HUT_D = 1085
-    HUT_E = 1086
-    HUT_F = 1087
-    HUT_G = 1088
-    KEEP = 235
-    KREPOST = 1251
-    LUMBER_CAMP = 562
-    MARKET = 84
-    MILL = 68
-    MINING_CAMP = 584
-    MONASTERY = 104
-    MONUMENT = 826
-    OUTPOST = 598
-    PALISADE_GATE_SOUTHWEST_TO_NORTHEAST = 793
-    PALISADE_GATE_WEST_TO_EAST = 797
-    PALISADE_GATE_NORTHWEST_TO_SOUTHEAST = 789
-    PALISADE_GATE_NORTH_TO_SOUTH = 801
-    PALISADE_WALL = 72
-    PYRAMID = 689
-    QUIMPER_CATHEDRAL = 872
-    RICE_FARM = 1187
-    ROCK_CHURCH = 1378
-    SANCHI_STUPA = 1216
-    SANKORE_MADRASAH = 1367
-    SEA_GATE_SOUTHWEST_TO_NORTHEAST = 1379
-    SEA_GATE_NORTH_TO_SOUTH = 1391
-    SEA_GATE_WEST_TO_EAST = 1387
-    SEA_GATE_NORTHWEST_TO_SOUTHEAST = 1383
-    SEA_TOWER = 785
-    SEA_WALL = 788
-    SHRINE = 1264
-    SIEGE_WORKSHOP = 49
-    STABLE = 101
-    STONE_WALL = 117
-    STORAGE = 1081
-    TEMPLE_OF_HEAVEN = 637
-    TENT_A = 1097
-    TENT_B = 1098
-    TENT_C = 1099
-    TENT_D = 1100
-    TENT_E = 1101
-    TOWER_OF_LONDON = 1368
-    TOWN_CENTER = 109
-    KHOSRAU = 444
-    TRADE_WORKSHOP = 110
-    UNIVERSITY = 209
-    WATCH_TOWER = 79
-    WONDER = 276
-    WOODEN_BRIDGE_A_BOTTOM = 1311
-    WOODEN_BRIDGE_A_MIDDLE = 1310
-    WOODEN_BRIDGE_A_TOP = 1309
-    WOODEN_BRIDGE_B_BOTTOM = 1314
-    WOODEN_BRIDGE_B_MIDDLE = 1313
-    WOODEN_BRIDGE_B_TOP = 1312
-    YURT_A = 712
-    YURT_B = 713
-    YURT_C = 714
-    YURT_D = 715
-    YURT_E = 716
-    YURT_F = 717
-    YURT_G = 718
-    YURT_H = 719
+    @property
+    def DEAD_ID(self):
+        return self.value[2]
 
-    # Lords of the West - DLC Buildings
-    DONJON = 1665
+    @classmethod
+    def from_dead_id(cls, value):
+        if value == -1:
+            raise ValueError("-1 is not a valid dead_id value")
+        for x in cls._member_map_.values():
+            if x.value[2] == value:
+                return x
+        raise ValueError(f"{value} is not a valid dead_id value")
 
+    @property
+    def IS_GAIA_ONLY(self):
+        return self.value[3]
 
-class BuildingIcon(IntEnum):
-    AACHEN_CATHEDRAL = 37
-    AMPHITHEATRE = 58
-    AQUEDUCT = 52
-    ARCH_OF_CONSTANTINE = 37
-    ARCHERY_RANGE = 0
-    ARMY_TENT_A = 76
-    ARMY_TENT_B = 76
-    ARMY_TENT_C = 77
-    ARMY_TENT_D = 77
-    ARMY_TENT_E = 77
-    BARRACKS = 2
-    BLACKSMITH = 4
-    BOMBARD_TOWER = 42
-    BRIDGE_A_BOTTOM = -1
-    BRIDGE_A_BROKEN_BOTTOM = -1
-    BRIDGE_A_BROKEN_TOP = -1
-    BRIDGE_A_CRACKED = -1
-    BRIDGE_A_MIDDLE = -1
-    BRIDGE_A_TOP = -1
-    BRIDGE_B_BOTTOM = -1
-    BRIDGE_B_BROKEN_BOTTOM = -1
-    BRIDGE_B_BROKEN_TOP = -1
-    BRIDGE_B_CRACKED = -1
-    BRIDGE_B_MIDDLE = -1
-    BRIDGE_B_TOP = -1
-    BRIDGE_C_BOTTOM = -1
-    BRIDGE_C_BROKEN_BOTTOM = -1
-    BRIDGE_C_BROKEN_TOP = -1
-    BRIDGE_C_CRACKED = -1
-    BRIDGE_C_MIDDLE = -1
-    BRIDGE_C_TOP = -1
-    BRIDGE_D_BOTTOM = -1
-    BRIDGE_D_BROKEN_BOTTOM = -1
-    BRIDGE_D_BROKEN_TOP = -1
-    BRIDGE_D_CRACKED = -1
-    BRIDGE_D_MIDDLE = -1
-    BRIDGE_D_TOP = -1
-    BRIDGE_E_BOTTOM = -1
-    BRIDGE_E_BROKEN_BOTTOM = -1
-    BRIDGE_E_BROKEN_TOP = -1
-    BRIDGE_E_CRACKED = -1
-    BRIDGE_E_MIDDLE = -1
-    BRIDGE_E_TOP = -1
-    BRIDGE_F_BOTTOM = -1
-    BRIDGE_F_BROKEN_BOTTOM = -1
-    BRIDGE_F_BROKEN_TOP = -1
-    BRIDGE_F_CRACKED = -1
-    BRIDGE_F_MIDDLE = -1
-    BRIDGE_F_TOP = -1
-    CASTLE = 7
-    CATHEDRAL = 11
-    CHAIN_WEST_TO_EAST = 72
-    CHAIN_SOUTHWEST_TO_NORTHEAST = 72
-    CHAIN_NORTH_TO_SOUTH = 72
-    CHAIN_NORTHWEST_TO_SOUTHEAST = 72
-    CITY_GATE_WEST_TO_EAST = 36
-    CITY_GATE_SOUTHWEST_TO_NORTHEAST = 36
-    CITY_GATE_NORTH_TO_SOUTH = 36
-    CITY_GATE_NORTHWEST_TO_SOUTHEAST = 36
-    CITY_WALL = 31
-    COLOSSEUM = 58
-    DOCK = 13
-    DORMITION_CATHEDRAL = 37
-    FARM = 35
-    FEITORIA = 53
-    FENCE = 30
-    FIRE_TOWER = 26
-    FISH_TRAP = 41
-    FORTIFIED_PALISADE_WALL = 30
-    FORTIFIED_TOWER = 45
-    FORTIFIED_WALL = 31
-    FORTRESS = 8
-    GATE_NORTHWEST_TO_SOUTHEAST = 36
-    GATE_WEST_TO_EAST = 36
-    GATE_SOUTHWEST_TO_NORTHEAST = 36
-    GATE_NORTH_TO_SOUTH = 36
-    GOL_GUMBAZ = 37
-    GUARD_TOWER = 25
-    HARBOR = 56
-    HOUSE = 34
-    HUT_A = 75
-    HUT_B = 75
-    HUT_C = 74
-    HUT_D = 75
-    HUT_E = 75
-    HUT_F = 75
-    HUT_G = 75
-    KEEP = 26
-    KREPOST = 55
-    LUMBER_CAMP = 40
-    MARKET = 16
-    MILL = 19
-    MINING_CAMP = 39
-    MONASTERY = 10
-    MONUMENT = 37
-    OUTPOST = 38
-    PALISADE_GATE_SOUTHWEST_TO_NORTHEAST = 44
-    PALISADE_GATE_WEST_TO_EAST = 44
-    PALISADE_GATE_NORTHWEST_TO_SOUTHEAST = 44
-    PALISADE_GATE_NORTH_TO_SOUTH = 44
-    PALISADE_WALL = 30
-    PYRAMID = 57
-    QUIMPER_CATHEDRAL = 37
-    RICE_FARM = 35
-    ROCK_CHURCH = 341
-    SANCHI_STUPA = 37
-    SANKORE_MADRASAH = 37
-    SEA_GATE_SOUTHWEST_TO_NORTHEAST = 71
-    SEA_GATE_NORTH_TO_SOUTH = 71
-    SEA_GATE_WEST_TO_EAST = 71
-    SEA_GATE_NORTHWEST_TO_SOUTHEAST = 71
-    SEA_TOWER = 25
-    SEA_WALL = 30
-    SHRINE = 12
-    SIEGE_WORKSHOP = 22
-    STABLE = 23
-    STONE_WALL = 31
-    STORAGE = 59
-    TEMPLE_OF_HEAVEN = 11
-    TENT_A = 78
-    TENT_B = 83
-    TENT_C = 83
-    TENT_D = 83
-    TENT_E = 83
-    TOWER_OF_LONDON = 37
-    TOWN_CENTER = 28
-    KHOSRAU = 264
-    TRADE_WORKSHOP = 17
-    UNIVERSITY = 32
-    WATCH_TOWER = 25
-    WONDER = 37
-    WOODEN_BRIDGE_A_BOTTOM = -1
-    WOODEN_BRIDGE_A_MIDDLE = -1
-    WOODEN_BRIDGE_A_TOP = -1
-    WOODEN_BRIDGE_B_BOTTOM = -1
-    WOODEN_BRIDGE_B_MIDDLE = -1
-    WOODEN_BRIDGE_B_TOP = -1
-    YURT_A = 81
-    YURT_B = 82
-    YURT_C = 82
-    YURT_D = 82
-    YURT_E = 80
-    YURT_F = 80
-    YURT_G = 80
-    YURT_H = 79
-    DONJON = 84
+    @staticmethod
+    def gaia_only():
+        result = []
+        for x in BuildingInfo:
+            if x.IS_GAIA:
+                result.append(x)
+        return result
 
+    @staticmethod
+    def non_gaia():
+        result = []
+        for x in BuildingInfo:
+            if not x.IS_GAIA:
+                result.append(x)
+        return result
 
-class GaiaBuildingIcon(IntEnum):
-    RUINS = -1
-    AACHEN_CATHEDRAL = 37
-    AMPHITHEATRE = 58
-    AQUEDUCT = 52
-    ARCH_OF_CONSTANTINE = 37
-    ARCHERY_RANGE = 0
-    ARMY_TENT_A = 76
-    ARMY_TENT_B = 76
-    ARMY_TENT_C = 77
-    ARMY_TENT_D = 77
-    ARMY_TENT_E = 77
-    BARRACKS = 2
-    BLACKSMITH = 4
-    BOMBARD_TOWER = 42
-    BRIDGE_A_BOTTOM = -1
-    BRIDGE_A_BROKEN_BOTTOM = -1
-    BRIDGE_A_BROKEN_TOP = -1
-    BRIDGE_A_CRACKED = -1
-    BRIDGE_A_MIDDLE = -1
-    BRIDGE_A_TOP = -1
-    BRIDGE_B_BOTTOM = -1
-    BRIDGE_B_BROKEN_BOTTOM = -1
-    BRIDGE_B_BROKEN_TOP = -1
-    BRIDGE_B_CRACKED = -1
-    BRIDGE_B_MIDDLE = -1
-    BRIDGE_B_TOP = -1
-    BRIDGE_C_BOTTOM = -1
-    BRIDGE_C_BROKEN_BOTTOM = -1
-    BRIDGE_C_BROKEN_TOP = -1
-    BRIDGE_C_CRACKED = -1
-    BRIDGE_C_MIDDLE = -1
-    BRIDGE_C_TOP = -1
-    BRIDGE_D_BOTTOM = -1
-    BRIDGE_D_BROKEN_BOTTOM = -1
-    BRIDGE_D_BROKEN_TOP = -1
-    BRIDGE_D_CRACKED = -1
-    BRIDGE_D_MIDDLE = -1
-    BRIDGE_D_TOP = -1
-    BRIDGE_E_BOTTOM = -1
-    BRIDGE_E_BROKEN_BOTTOM = -1
-    BRIDGE_E_BROKEN_TOP = -1
-    BRIDGE_E_CRACKED = -1
-    BRIDGE_E_MIDDLE = -1
-    BRIDGE_E_TOP = -1
-    BRIDGE_F_BOTTOM = -1
-    BRIDGE_F_BROKEN_BOTTOM = -1
-    BRIDGE_F_BROKEN_TOP = -1
-    BRIDGE_F_CRACKED = -1
-    BRIDGE_F_MIDDLE = -1
-    BRIDGE_F_TOP = -1
-    CASTLE = 7
-    CATHEDRAL = 11
-    CHAIN_WEST_TO_EAST = 72
-    CHAIN_SOUTHWEST_TO_NORTHEAST = 72
-    CHAIN_NORTH_TO_SOUTH = 72
-    CHAIN_NORTHWEST_TO_SOUTHEAST = 72
-    CITY_GATE_WEST_TO_EAST = 36
-    CITY_GATE_SOUTHWEST_TO_NORTHEAST = 36
-    CITY_GATE_NORTH_TO_SOUTH = 36
-    CITY_GATE_NORTHWEST_TO_SOUTHEAST = 36
-    CITY_WALL = 31
-    COLOSSEUM = 58
-    DOCK = 13
-    DORMITION_CATHEDRAL = 37
-    FARM = 35
-    FEITORIA = 53
-    FENCE = 30
-    FIRE_TOWER = 26
-    FISH_TRAP = 41
-    FORTIFIED_PALISADE_WALL = 30
-    FORTIFIED_TOWER = 45
-    FORTIFIED_WALL = 31
-    FORTRESS = 8
-    GATE_NORTHWEST_TO_SOUTHEAST = 36
-    GATE_WEST_TO_EAST = 36
-    GATE_SOUTHWEST_TO_NORTHEAST = 36
-    GATE_NORTH_TO_SOUTH = 36
-    GOL_GUMBAZ = 37
-    GUARD_TOWER = 25
-    HARBOR = 56
-    HOUSE = 34
-    HUT_A = 75
-    HUT_B = 75
-    HUT_C = 74
-    HUT_D = 75
-    HUT_E = 75
-    HUT_F = 75
-    HUT_G = 75
-    KEEP = 26
-    KREPOST = 55
-    LUMBER_CAMP = 40
-    MARKET = 16
-    MILL = 19
-    MINING_CAMP = 39
-    MONASTERY = 10
-    MONUMENT = 37
-    OUTPOST = 38
-    PALISADE_GATE_SOUTHWEST_TO_NORTHEAST = 44
-    PALISADE_GATE_WEST_TO_EAST = 44
-    PALISADE_GATE_NORTHWEST_TO_SOUTHEAST = 44
-    PALISADE_GATE_NORTH_TO_SOUTH = 44
-    PALISADE_WALL = 30
-    PYRAMID = 57
-    QUIMPER_CATHEDRAL = 37
-    RICE_FARM = 35
-    ROCK_CHURCH = 341
-    SANCHI_STUPA = 37
-    SANKORE_MADRASAH = 37
-    SEA_GATE_SOUTHWEST_TO_NORTHEAST = 71
-    SEA_GATE_NORTH_TO_SOUTH = 71
-    SEA_GATE_WEST_TO_EAST = 71
-    SEA_GATE_NORTHWEST_TO_SOUTHEAST = 71
-    SEA_TOWER = 25
-    SEA_WALL = 30
-    SHRINE = 12
-    SIEGE_WORKSHOP = 22
-    STABLE = 23
-    STONE_WALL = 31
-    STORAGE = 59
-    TEMPLE_OF_HEAVEN = 11
-    TENT_A = 78
-    TENT_B = 83
-    TENT_C = 83
-    TENT_D = 83
-    TENT_E = 83
-    TOWER_OF_LONDON = 37
-    TOWN_CENTER = 28
-    KHOSRAU = 264
-    TRADE_WORKSHOP = 17
-    UNIVERSITY = 32
-    WATCH_TOWER = 25
-    WONDER = 37
-    WOODEN_BRIDGE_A_BOTTOM = -1
-    WOODEN_BRIDGE_A_MIDDLE = -1
-    WOODEN_BRIDGE_A_TOP = -1
-    WOODEN_BRIDGE_B_BOTTOM = -1
-    WOODEN_BRIDGE_B_MIDDLE = -1
-    WOODEN_BRIDGE_B_TOP = -1
-    YURT_A = 81
-    YURT_B = 82
-    YURT_C = 82
-    YURT_D = 82
-    YURT_E = 80
-    YURT_F = 80
-    YURT_G = 80
-    YURT_H = 79
-    DONJON = 84
-
-
-building_names = bidict({
-    12: "barracks",
-    33: "fortress",
-    45: "dock",
-    49: "siege_workshop",
-    50: "farm",
-    64: "gate_southwest_to_northeast",
-    68: "mill",
-    70: "house",
-    72: "palisade_wall",
-    79: "watch_tower",
-    82: "castle",
-    84: "market",
-    87: "archery_range",
-    88: "gate_northwest_to_southeast",
-    101: "stable",
-    103: "blacksmith",
-    104: "monastery",
-    109: "town_center",
-    110: "trade_workshop",
-    117: "stone_wall",
-    119: "fortified_palisade_wall",
-    155: "fortified_wall",
-    190: "fire_tower",
-    199: "fish_trap",
-    209: "university",
-    231: "aqueduct",
-    234: "guard_tower",
-    235: "keep",
-    236: "bombard_tower",
-    251: "amphitheatre",
-    263: "colosseum",
-    276: "wonder",
-    370: "city_wall",
-    444: "khosrau",
-    562: "lumber_camp",
-    584: "mining_camp",
-    598: "outpost",
-    599: "cathedral",
-    605: "bridge_a_top",
-    606: "bridge_a_middle",
-    607: "bridge_a_bottom",
-    608: "bridge_b_top",
-    609: "bridge_b_middle",
-    610: "bridge_b_bottom",
-    637: "temple_of_heaven",
-    659: "gate_west_to_east",
-    667: "gate_north_to_south",
-    689: "pyramid",
-    712: "yurt_a",
-    713: "yurt_b",
-    714: "yurt_c",
-    715: "yurt_d",
-    716: "yurt_e",
-    717: "yurt_f",
-    718: "yurt_g",
-    719: "yurt_h",
-    738: "bridge_a_cracked",
-    739: "bridge_a_broken_top",
-    740: "bridge_a_broken_bottom",
-    741: "bridge_b_cracked",
-    742: "bridge_b_broken_top",
-    743: "bridge_b_broken_bottom",
-    785: "sea_tower",
-    788: "sea_wall",
-    793: "palisade_gate_southwest_to_northeast",
-    797: "palisade_gate_west_to_east",
-    789: "palisade_gate_northwest_to_southeast",
-    801: "palisade_gate_north_to_south",
-    826: "monument",
-    872: "quimper_cathedral",
-    899: "arch_of_constantine",
-    1021: "feitoria",
-    1062: "fence",
-    1081: "storage",
-    1082: "hut_a",
-    1083: "hut_b",
-    1084: "hut_c",
-    1085: "hut_d",
-    1086: "hut_e",
-    1087: "hut_f",
-    1088: "hut_g",
-    1097: "tent_a",
-    1098: "tent_b",
-    1099: "tent_c",
-    1100: "tent_d",
-    1101: "tent_e",
-    1102: "fortified_tower",
-    1187: "rice_farm",
-    1189: "harbor",
-    1196: "army_tent_a",
-    1197: "army_tent_b",
-    1198: "army_tent_c",
-    1199: "army_tent_d",
-    1200: "army_tent_e",
-    1204: "bridge_c_top",
-    1205: "bridge_c_middle",
-    1206: "bridge_c_bottom",
-    1207: "bridge_d_top",
-    1208: "bridge_d_middle",
-    1209: "bridge_d_bottom",
-    1210: "bridge_c_cracked",
-    1211: "bridge_c_broken_top",
-    1212: "bridge_c_broken_bottom",
-    1213: "bridge_d_cracked",
-    1214: "bridge_d_broken_top",
-    1215: "bridge_d_broken_bottom",
-    1216: "sanchi_stupa",
-    1217: "gol_gumbaz",
-    1251: "krepost",
-    1264: "shrine",
-    1309: "wooden_bridge_a_top",
-    1310: "wooden_bridge_a_middle",
-    1311: "wooden_bridge_a_bottom",
-    1312: "wooden_bridge_b_top",
-    1313: "wooden_bridge_b_middle",
-    1314: "wooden_bridge_b_bottom",
-    1367: "sankore_madrasah",
-    1368: "tower_of_london",
-    1369: "dormition_cathedral",
-    1378: "rock_church",
-    1379: "sea_gate_southwest_to_northeast",
-    1391: "sea_gate_north_to_south",
-    1387: "sea_gate_west_to_east",
-    1383: "sea_gate_northwest_to_southeast",
-    1396: "chain_southwest_to_northeast",
-    1397: "chain_northwest_to_southeast",
-    1398: "chain_west_to_east",
-    1399: "chain_north_to_south",
-    1550: "bridge_e_top",
-    1551: "bridge_e_middle",
-    1552: "bridge_e_bottom",
-    1553: "bridge_f_top",
-    1554: "bridge_f_middle",
-    1555: "bridge_f_bottom",
-    1556: "bridge_e_cracked",
-    1557: "bridge_e_broken_top",
-    1558: "bridge_e_broken_bottom",
-    1559: "bridge_f_cracked",
-    1560: "bridge_f_broken_top",
-    1561: "bridge_f_broken_bottom",
-    1579: "city_gate_southwest_to_northeast",
-    1583: "city_gate_northwest_to_southeast",
-    1587: "city_gate_west_to_east",
-    1591: "city_gate_north_to_south",
-    1622: "aachen_cathedral",
-
-    # Gaia Buildings
-    345: "ruins",
-
-    # Lords of the West - DLC Buildings
-    1665: "donjon"
-})
+    RUINS = 345, -1, -1, True
+    AACHEN_CATHEDRAL = 1622, 37, 1517, False
+    AMPHITHEATRE = 251, 58, 1514, False
+    AQUEDUCT = 231, 52, 1522, False
+    ARCH_OF_CONSTANTINE = 899, 37, 1485, False
+    ARCHERY_RANGE = 87, 0, 1415, False
+    ARMY_TENT_A = 1196, 76, 1467, False
+    ARMY_TENT_B = 1197, 76, 1468, False
+    ARMY_TENT_C = 1198, 77, 1469, False
+    ARMY_TENT_D = 1199, 77, 1470, False
+    ARMY_TENT_E = 1200, 77, 1471, False
+    BARRACKS = 12, 2, 1402, False
+    BLACKSMITH = 103, 4, 1419, False
+    BOMBARD_TOWER = 236, 42, 1439, False
+    BRIDGE_A_BOTTOM = 607, -1, 144, False
+    BRIDGE_A_BROKEN_BOTTOM = 740, -1, 144, False
+    BRIDGE_A_BROKEN_TOP = 739, -1, 144, False
+    BRIDGE_A_CRACKED = 738, -1, 144, False
+    BRIDGE_A_MIDDLE = 606, -1, 144, False
+    BRIDGE_A_TOP = 605, -1, 144, False
+    BRIDGE_B_BOTTOM = 610, -1, 144, False
+    BRIDGE_B_BROKEN_BOTTOM = 743, -1, 144, False
+    BRIDGE_B_BROKEN_TOP = 742, -1, 144, False
+    BRIDGE_B_CRACKED = 741, -1, 144, False
+    BRIDGE_B_MIDDLE = 609, -1, 144, False
+    BRIDGE_B_TOP = 608, -1, 144, False
+    BRIDGE_C_BOTTOM = 1206, -1, 144, False
+    BRIDGE_C_BROKEN_BOTTOM = 1212, -1, 144, False
+    BRIDGE_C_BROKEN_TOP = 1211, -1, 144, False
+    BRIDGE_C_CRACKED = 1210, -1, 144, False
+    BRIDGE_C_MIDDLE = 1205, -1, 144, False
+    BRIDGE_C_TOP = 1204, -1, 144, False
+    BRIDGE_D_BOTTOM = 1209, -1, 144, False
+    BRIDGE_D_BROKEN_BOTTOM = 1215, -1, 144, False
+    BRIDGE_D_BROKEN_TOP = 1214, -1, 144, False
+    BRIDGE_D_CRACKED = 1213, -1, 144, False
+    BRIDGE_D_MIDDLE = 1208, -1, 144, False
+    BRIDGE_D_TOP = 1207, -1, 144, False
+    BRIDGE_E_BOTTOM = 1552, -1, 144, False
+    BRIDGE_E_BROKEN_BOTTOM = 1558, -1, 144, False
+    BRIDGE_E_BROKEN_TOP = 1557, -1, 144, False
+    BRIDGE_E_CRACKED = 1556, -1, 144, False
+    BRIDGE_E_MIDDLE = 1551, -1, 144, False
+    BRIDGE_E_TOP = 1550, -1, 144, False
+    BRIDGE_F_BOTTOM = 1555, -1, 144, False
+    BRIDGE_F_BROKEN_BOTTOM = 1561, -1, 144, False
+    BRIDGE_F_BROKEN_TOP = 1560, -1, 144, False
+    BRIDGE_F_CRACKED = 1559, -1, 144, False
+    BRIDGE_F_MIDDLE = 1554, -1, 144, False
+    BRIDGE_F_TOP = 1553, -1, 144, False
+    CASTLE = 82, 7, 1430, False
+    CATHEDRAL = 599, 11, 1480, False
+    CHAIN_WEST_TO_EAST = 1398, 72, 144, False
+    CHAIN_SOUTHWEST_TO_NORTHEAST = 1396, 72, 144, False
+    CHAIN_NORTH_TO_SOUTH = 1399, 72, 144, False
+    CHAIN_NORTHWEST_TO_SOUTHEAST = 1397, 72, 144, False
+    CITY_GATE_WEST_TO_EAST = 1587, 36, 1512, False
+    CITY_GATE_SOUTHWEST_TO_NORTHEAST = 1579, 36, 1510, False
+    CITY_GATE_NORTH_TO_SOUTH = 1591, 36, 1513, False
+    CITY_GATE_NORTHWEST_TO_SOUTHEAST = 1583, 36, 1511, False
+    CITY_WALL = 370, 31, 143, False
+    COLOSSEUM = 263, 58, 1520, False
+    DOCK = 45, 13, -1, False
+    DORMITION_CATHEDRAL = 1369, 37, 1493, False
+    FARM = 50, 35, 357, False
+    FEITORIA = 1021, 53, 1446, False
+    FENCE = 1062, 30, 1065, False
+    FIRE_TOWER = 190, 26, 1438, False
+    FISH_TRAP = 199, 41, 278, False
+    FORTIFIED_PALISADE_WALL = 119, 30, 143, False
+    FORTIFIED_TOWER = 1102, 45, 1444, False
+    FORTIFIED_WALL = 155, 31, 1509, False
+    FORTRESS = 33, 8, 1486, False
+    GATE_NORTHWEST_TO_SOUTHEAST = 88, 36, 1501, False
+    GATE_WEST_TO_EAST = 659, 36, 1502, False
+    GATE_SOUTHWEST_TO_NORTHEAST = 64, 36, 1500, False
+    GATE_NORTH_TO_SOUTH = 667, 36, 1503, False
+    GOL_GUMBAZ = 1217, 37, 1487, False
+    GUARD_TOWER = 234, 25, 1437, False
+    HARBOR = 1189, 56, -1, False
+    HOUSE = 70, 34, 1403, False
+    HUT_A = 1082, 75, 1455, False
+    HUT_B = 1083, 75, 1456, False
+    HUT_C = 1084, 74, 1457, False
+    HUT_D = 1085, 75, 1458, False
+    HUT_E = 1086, 75, 1459, False
+    HUT_F = 1087, 75, 1460, False
+    HUT_G = 1088, 75, 1461, False
+    KEEP = 235, 26, 1438, False
+    KREPOST = 1251, 55, 1479, False
+    LUMBER_CAMP = 562, 40, 1409, False
+    MARKET = 84, 16, 1422, False
+    MILL = 68, 19, 1404, False
+    MINING_CAMP = 584, 39, 1410, False
+    MONASTERY = 104, 10, 1421, False
+    MONUMENT = 826, 37, -1, False
+    OUTPOST = 598, 38, 1405, False
+    PALISADE_GATE_SOUTHWEST_TO_NORTHEAST = 793, 44, 1441, False
+    PALISADE_GATE_WEST_TO_EAST = 797, 44, 1442, False
+    PALISADE_GATE_NORTHWEST_TO_SOUTHEAST = 789, 44, 1440, False
+    PALISADE_GATE_NORTH_TO_SOUTH = 801, 44, 1443, False
+    PALISADE_WALL = 72, 30, 1407, False
+    PYRAMID = 689, 57, 1515, False
+    QUIMPER_CATHEDRAL = 872, 37, 1489, False
+    RICE_FARM = 1187, 35, 1188, False
+    ROCK_CHURCH = 1378, 341, -1, False
+    SANCHI_STUPA = 1216, 37, 1490, False
+    SANKORE_MADRASAH = 1367, 37, 1491, False
+    SEA_GATE_SOUTHWEST_TO_NORTHEAST = 1379, 71, -1, False
+    SEA_GATE_NORTH_TO_SOUTH = 1391, 71, -1, False
+    SEA_GATE_WEST_TO_EAST = 1387, 71, -1, False
+    SEA_GATE_NORTHWEST_TO_SOUTHEAST = 1383, 71, -1, False
+    SEA_TOWER = 785, 25, -1, False
+    SEA_WALL = 788, 30, -1, False
+    SHRINE = 1264, 12, 1483, False
+    SIEGE_WORKSHOP = 49, 22, 1425, False
+    STABLE = 101, 23, 1417, False
+    STONE_WALL = 117, 31, 1508, False
+    STORAGE = 1081, 59, 1484, False
+    TEMPLE_OF_HEAVEN = 637, 11, 1481, False
+    TENT_A = 1097, 78, 1462, False
+    TENT_B = 1098, 83, 1463, False
+    TENT_C = 1099, 83, 1464, False
+    TENT_D = 1100, 83, 1465, False
+    TENT_E = 1101, 83, 1466, False
+    TOWER_OF_LONDON = 1368, 37, 1492, False
+    TOWN_CENTER = 109, 28, 1408, False
+    TRADE_WORKSHOP = 110, 17, 1429, False
+    UNIVERSITY = 209, 32, 1427, False
+    WATCH_TOWER = 79, 25, 1436, False
+    WONDER = 276, 37, 1445, False
+    WOODEN_BRIDGE_A_BOTTOM = 1311, -1, 144, False
+    WOODEN_BRIDGE_A_MIDDLE = 1310, -1, 144, False
+    WOODEN_BRIDGE_A_TOP = 1309, -1, 144, False
+    WOODEN_BRIDGE_B_BOTTOM = 1314, -1, 144, False
+    WOODEN_BRIDGE_B_MIDDLE = 1313, -1, 144, False
+    WOODEN_BRIDGE_B_TOP = 1312, -1, 144, False
+    YURT_A = 712, 81, 1447, False
+    YURT_B = 713, 82, 1448, False
+    YURT_C = 714, 82, 1449, False
+    YURT_D = 715, 82, 1450, False
+    YURT_E = 716, 80, 1451, False
+    YURT_F = 717, 80, 1452, False
+    YURT_G = 718, 80, 1453, False
+    YURT_H = 719, 79, 1454, False
+    DONJON = 1665, 84, 1524, False
+    TRADE_WORKSHOP_BR = 1647, 17, 1429, False
+    TRADE_WORKSHOP_TG = 179, 17, 1429, False

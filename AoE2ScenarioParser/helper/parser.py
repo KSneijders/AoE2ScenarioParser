@@ -1,5 +1,4 @@
-import time
-from typing import List, TYPE_CHECKING
+from typing import List
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_to_x import *

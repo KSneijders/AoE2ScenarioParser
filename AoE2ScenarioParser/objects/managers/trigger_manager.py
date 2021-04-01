@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
-from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect
+from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect, TS
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -69,7 +69,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (AoE2ScenarioParser.objects.support.trigger_select.TriggerSelect): An object used to identify which trigger to select.
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
             change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
@@ -78,7 +78,7 @@ class TriggerManager(AoE2Object):
             include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (AoE2ScenarioParser.objects.support.trigger_ce_lock.TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
             include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
                 defined)
@@ -157,7 +157,7 @@ class TriggerManager(AoE2Object):
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
-            trigger_select (AoE2ScenarioParser.objects.support.trigger_select.TriggerSelect): An object used to identify which trigger to select.
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
 
         Returns:
             The newly copied trigger
@@ -188,7 +188,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (AoE2ScenarioParser.objects.support.trigger_select.TriggerSelect): An object used to identify which trigger to select.
+            trigger_select (TriggerSelect): An object used to identify which trigger to select.
             change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
@@ -197,13 +197,13 @@ class TriggerManager(AoE2Object):
             include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (AoE2ScenarioParser.objects.support.trigger_ce_lock.TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
             include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
                 defined)
             create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
                 excluded from this list.
-            group_triggers_by (AoE2ScenarioParser.objects.support.enums.group_by.GroupBy): How to group the newly added triggers.
+            group_triggers_by (GroupBy): How to group the newly added triggers.
 
         Returns:
             The newly created triggers in a dict using the Player as key and as value with a list of triggers
@@ -320,7 +320,7 @@ class TriggerManager(AoE2Object):
             include_player_target (bool): If set to True, allow player target attributes to be changed while replacing.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (AoE2ScenarioParser.objects.support.trigger_ce_lock.TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed.
 
         Returns:

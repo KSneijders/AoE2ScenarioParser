@@ -4,10 +4,10 @@ from enum import IntEnum
 from typing import List, Dict, Union
 
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.datasets.buildings import BuildingId, GaiaBuildingId
-from AoE2ScenarioParser.datasets.heroes import HeroId
-from AoE2ScenarioParser.datasets.other import UnitOtherId, GaiaUnitOtherId
-from AoE2ScenarioParser.datasets.units import UnitId, GaiaUnitId
+from AoE2ScenarioParser.datasets.buildings import BuildingInfo
+from AoE2ScenarioParser.datasets.heroes import HeroInfo
+from AoE2ScenarioParser.datasets.other import OtherInfo
+from AoE2ScenarioParser.datasets.units import UnitInfo
 
 """ =============================================================
 ========================= HEX FUNCTIONS =========================
@@ -185,17 +185,14 @@ def get_enum_from_unit_const(const: int) -> IntEnum:
         const: The constant representing a unit
     """
     enums = [
-        UnitId,
-        GaiaUnitId,
-        BuildingId,
-        GaiaBuildingId,
-        HeroId,
-        UnitOtherId,
-        GaiaUnitOtherId,
+        UnitInfo,
+        BuildingInfo,
+        HeroInfo,
+        OtherInfo
     ]
     for enum in enums:
         try:
-            return enum(const)
+            return enum.from_id(const)
         except ValueError:
             continue
 

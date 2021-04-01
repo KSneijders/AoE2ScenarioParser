@@ -10,6 +10,16 @@ for x in files:
 
 f_list = f_dict.values()
 
+from_id = """
+    @classmethod
+    def from___NAME__(cls, value):
+        if value == -1:
+            raise ValueError("-1 is not a valid __NAME__ value")
+        for x in cls._member_map_.values():
+            if x.value[__VALUE__] == value:
+                return x
+        raise ValueError(f"{value} is not a valid __NAME__ value")\n"""
+
 for name, file in f_dict.items():
     file.write(f"from enum import Enum\n\n\nclass {name.capitalize()}Info(Enum):")
 
@@ -17,6 +27,10 @@ for name, file in f_dict.items():
         file.write(f"\n    @property\n")
         file.write(f"    def {id_type}(self):\n")
         file.write(f"        return self.value[{index}]\n")
+
+        file.write(
+            from_id.replace('__VALUE__', str(index)).replace('__NAME__', f'{id_type.lower()}')
+        )
 
     file.write("\n")
 

@@ -8,7 +8,7 @@ Examples can be found in the cheatsheets.
 
 - [Triggers Cheatsheet] (More up-to-date information can be found on: [readthedocs])
 - [Units Cheatsheet] (More up-to-date information can be found on: [readthedocs])
-- [Datasets Cheatsheet]
+- [Datasets Cheatsheet] (More up-to-date information can be found on: [readthedocs])
 
 [readthedocs]: https://aoe2scenarioparser.readthedocs.io/en/master/
 [triggers cheatsheet]: ./cheatsheets/TRIGGERS.md
