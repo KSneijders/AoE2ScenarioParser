@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Tuple, List, Callable
 
-from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 from tests import general
 
 
@@ -14,17 +14,17 @@ class TestObject:
     def init_files(self):
         if not hasattr(self, "scenario_folder") or not hasattr(self, "file_name"):
             raise ValueError("Path and filename need to be initialised using TestObject.init()")
-        default_scenario = AoE2Scenario.create_default()
-        read_scenario = AoE2Scenario.from_file(f"{self.scenario_folder}{self.file_name}.aoe2scenario")
+        # default_scenario = AoE2Scenario.create_default()
+        read_scenario = AoE2DEScenario.from_file(f"{self.scenario_folder}{self.file_name}.aoe2scenario")
         return {
-            'default': default_scenario,
+            # 'default': default_scenario,
             'read': read_scenario
         }
 
     @staticmethod
     def get_instance():
         if not hasattr(TestObject, "instance"):
-            return TestObject()
+            return
         return TestObject.instance
 
     @staticmethod
