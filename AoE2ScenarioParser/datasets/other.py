@@ -7,7 +7,9 @@ class OtherInfo(Enum):
         return self.value[0]
 
     @classmethod
-    def from_id(cls, value):
+    def from_id(cls, value: int):
+        if type(value) is not int:
+            raise TypeError(f"from_id expected int, got {type(value)}")
         if value == -1:
             raise ValueError("-1 is not a valid id value")
         for x in cls._member_map_.values():
@@ -20,7 +22,9 @@ class OtherInfo(Enum):
         return self.value[1]
 
     @classmethod
-    def from_icon_id(cls, value):
+    def from_icon_id(cls, value: int):
+        if type(value) is not int:
+            raise TypeError(f"from_icon_id expected int, got {type(value)}")
         if value == -1:
             raise ValueError("-1 is not a valid icon_id value")
         for x in cls._member_map_.values():
@@ -33,7 +37,9 @@ class OtherInfo(Enum):
         return self.value[2]
 
     @classmethod
-    def from_dead_id(cls, value):
+    def from_dead_id(cls, value: int):
+        if type(value) is not int:
+            raise TypeError(f"from_dead_id expected int, got {type(value)}")
         if value == -1:
             raise ValueError("-1 is not a valid dead_id value")
         for x in cls._member_map_.values():
