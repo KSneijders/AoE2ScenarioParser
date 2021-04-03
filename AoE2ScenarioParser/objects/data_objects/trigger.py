@@ -4,8 +4,8 @@ import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.helper import exclusive_if
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
@@ -191,7 +191,8 @@ class Trigger(AoE2Object):
         return new_condition
 
     def get_effect(self, effect_index: int = None, display_index: int = None) -> Effect:
-        helper.evaluate_index_params(effect_index, display_index, "effect")
+        if not exclusive_if(effect_index is not None, display_index is not None):
+            raise ValueError(f"Please identify an effect using either effect_index or display_index.")
 
         if effect_index is None:
             effect_index = self.effect_order[display_index]
@@ -199,7 +200,8 @@ class Trigger(AoE2Object):
         return self.effects[effect_index]
 
     def get_condition(self, condition_index: int = None, display_index: int = None) -> Condition:
-        helper.evaluate_index_params(condition_index, display_index, "condition")
+        if not exclusive_if(condition_index is not None, display_index is not None):
+            raise ValueError(f"Please identify a condition using either condition_index or display_index.")
 
         if condition_index is None:
             condition_index = self.condition_order[display_index]
@@ -207,9 +209,10 @@ class Trigger(AoE2Object):
         return self.conditions[condition_index]
 
     def remove_effect(self, effect_index: int = None, display_index: int = None, effect: Effect = None) -> None:
-        if effect is None:
-            helper.evaluate_index_params(effect_index, display_index, "effect")
-        else:
+        if not exclusive_if(effect_index is not None, display_index is not None, effect is not None):
+            raise ValueError(f"Please identify an effect using either effect_index, display_index or effect.")
+
+        if effect is not None:
             effect_index = self.effects.index(effect)
 
         if effect_index is None:
@@ -224,9 +227,10 @@ class Trigger(AoE2Object):
 
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
-        if condition is None:
-            helper.evaluate_index_params(condition_index, display_index, "condition")
-        else:
+        if not exclusive_if(condition_index is not None, display_index is not None, condition is not None):
+            raise ValueError(f"Please identify a condition using either condition_index, display_index or condition.")
+
+        if condition is not None:
             condition_index = self.conditions.index(condition)
 
         if condition_index is None:

@@ -1,13 +1,13 @@
 from typing import List
 
-from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.helper.helper import exclusive_if
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.variable import Variable
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class TriggerManagerDE(TriggerManager):
-
     _link_list = [
         RetrieverObjectLink("triggers", "Triggers", "trigger_data", process_as_object=Trigger),
         RetrieverObjectLink("trigger_display_order", "Triggers", "trigger_display_order_array"),
@@ -48,11 +48,8 @@ class TriggerManagerDE(TriggerManager):
         return new_variable
 
     def get_variable(self, variable_id: int = None, variable_name: str = None) -> Variable:
-        if variable_id is None and variable_name is None:
-            raise ValueError("Select a variable using the variable_id or variable_name parameters")
-        if variable_id is not None and variable_name is not None:
-            raise ValueError("Select a variable using either the variable_id or variable_name parameters, not both.")
-
+        if not exclusive_if(variable_id is not None, variable_name is not None):
+            raise ValueError("Select a variable using either the variable_id or variable_name parameters.")
         for variable in self.variables:
             if variable.variable_id == variable_id or variable.name == variable_name:
                 return variable

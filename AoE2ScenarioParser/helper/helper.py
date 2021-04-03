@@ -1,5 +1,6 @@
 import math
 from enum import IntEnum
+from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
@@ -50,8 +51,6 @@ def get_int_len(num):
     return 0
 
 
-def evaluate_index_params(x_id, display_index, name):
-    if x_id is None and display_index is None:
-        raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted {name}")
-    if x_id is not None and display_index is not None:
-        raise ValueError(f"Please identify a {name} using '{name}_id' or 'display_index' but not both")
+def exclusive_if(*args):
+    """Returns True if exactly one entry is true. False otherwise"""
+    return sum(map(bool, args)) == 1
