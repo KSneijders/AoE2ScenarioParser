@@ -1,9 +1,9 @@
 from typing import List
 
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.helper.bytes_to_x import *
+from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.helper.exceptions import EndOfFileError
-from AoE2ScenarioParser.helper.helper import listify
+from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 

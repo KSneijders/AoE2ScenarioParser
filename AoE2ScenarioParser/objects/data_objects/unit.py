@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import math
 
-from AoE2ScenarioParser.datasets import units, buildings
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -81,6 +81,4 @@ class Unit(AoE2Object):
 
     @property
     def name(self) -> str:
-        return helper.pretty_print_name(
-            helper.get_enum_from_unit_const(self.unit_const).name
-        )
+        return pretty_format_name(helper.get_enum_from_unit_const(self.unit_const).name)

@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from typing import List, Union, TYPE_CHECKING
 
-from AoE2ScenarioParser.helper import helper, parser
-from AoE2ScenarioParser.helper.bytes_to_x import parse_bytes_to_val, parse_val_to_bytes
+from AoE2ScenarioParser.helper import helper, bytes_parser, string_manipulations
+from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val, parse_val_to_bytes
+from AoE2ScenarioParser.helper.list_functions import listify
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.sections.retrievers.datatype import DataType
-from AoE2ScenarioParser.helper.parser import attributes
+from AoE2ScenarioParser.helper.bytes_parser import attributes
 from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
 
 if TYPE_CHECKING:
@@ -62,7 +64,7 @@ class Retriever:
                 for struct in self.data:
                     result.append(struct.get_data_as_bytes())
             else:
-                for value in parser.listify(self.data):
+                for value in listify(self.data):
                     result.append(parse_val_to_bytes(self, value))
 
             joined_result = b''.join(result)
@@ -82,7 +84,7 @@ class Retriever:
             raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
 
         result = [parse_bytes_to_val(self, entry_bytes) for entry_bytes in bytes_list]
-        self.data = parser.vorl(self, result)
+        self.data = bytes_parser.vorl(self, result)
 
     def update_datatype_repeat(self):
         if type(self.data) == list:
@@ -153,26 +155,27 @@ class Retriever:
             old (str): The old value represented using a string
             new (str): The new value represented using a string
         """
-        print(f"{self.to_simple_string()} >>> set to: {helper.q_str(new)} (was: {helper.q_str(old)})")
+        print(f"{self.to_simple_string()} >>> set to: {string_manipulations.q_str(new)} "
+              f"(was: {string_manipulations.q_str(old)})")
 
     def get_short_str(self):
         if self.data is not None:
             if type(self.data) is list:
-                data = helper.pretty_print_list(self.data)
+                data = pretty_format_list(self.data)
             else:
-                data = helper.q_str(self.data)
+                data = string_manipulations.q_str(self.data)
             return self.name + " (" + self.datatype.to_simple_string() + "): " + data
         else:
             return "<None>"
 
     def to_simple_string(self):
-        return f"[Retriever] {self.name}: {self.datatype} (Default: {helper.q_str(self.default_value)})"
+        return f"[Retriever] {self.name}: {self.datatype} (Default: {string_manipulations.q_str(self.default_value)})"
 
     def __repr__(self):
         if type(self.data) is list:
-            data = str(helper.pretty_print_list(self.data))
+            data = str(pretty_format_list(self.data))
         else:
-            data = helper.q_str(self.data)
+            data = string_manipulations.q_str(self.data)
         return f"{self.to_simple_string()} >>> {data}"
 
 

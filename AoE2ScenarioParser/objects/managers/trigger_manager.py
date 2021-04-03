@@ -7,6 +7,7 @@ from typing import List, Dict
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.list_functions import hash_list, list_changed, update_order_array
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
@@ -27,7 +28,7 @@ class TriggerManager(AoE2Object):
                  trigger_display_order: List[int],
                  ):
 
-        self._trigger_hash = helper.hash_list(triggers)
+        self._trigger_hash = hash_list(triggers)
         self.triggers: List[Trigger] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
 
@@ -39,15 +40,15 @@ class TriggerManager(AoE2Object):
 
     @triggers.setter
     def triggers(self, value):
-        self._trigger_hash = helper.hash_list(value)
+        self._trigger_hash = hash_list(value)
         self._triggers = value
         self.trigger_display_order = list(range(len(value)))
 
     @property
     def trigger_display_order(self):
-        if helper.list_changed(self.triggers, self._trigger_hash):
-            helper.update_order_array(self._trigger_display_order, len(self.triggers))
-            self._trigger_hash = helper.hash_list(self.triggers)
+        if list_changed(self.triggers, self._trigger_hash):
+            update_order_array(self._trigger_display_order, len(self.triggers))
+            self._trigger_hash = hash_list(self.triggers)
         return self._trigger_display_order
 
     @trigger_display_order.setter

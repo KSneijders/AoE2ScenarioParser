@@ -6,6 +6,7 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
@@ -80,10 +81,10 @@ class Trigger(AoE2Object):
         self.looping: int = looping
         self.header: int = header
         self.mute_objectives: int = mute_objectives
-        self._condition_hash = helper.hash_list(conditions)
+        self._condition_hash = hash_list(conditions)
         self.conditions: List[Condition] = conditions
         self.condition_order: List[int] = condition_order
-        self._effect_hash = helper.hash_list(effects)
+        self._effect_hash = hash_list(effects)
         self.effects: List[Effect] = effects
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
@@ -95,9 +96,9 @@ class Trigger(AoE2Object):
 
     @property
     def condition_order(self):
-        if helper.list_changed(self.conditions, self._condition_hash):
-            helper.update_order_array(self._condition_order, len(self.conditions))
-            self._condition_hash = helper.hash_list(self.conditions)
+        if list_changed(self.conditions, self._condition_hash):
+            update_order_array(self._condition_order, len(self.conditions))
+            self._condition_hash = hash_list(self.conditions)
         return self._condition_order
 
     @condition_order.setter
@@ -106,9 +107,9 @@ class Trigger(AoE2Object):
 
     @property
     def effect_order(self):
-        if helper.list_changed(self.effects, self._effect_hash):
-            helper.update_order_array(self._effect_order, len(self.effects))
-            self._effect_hash = helper.hash_list(self.effects)
+        if list_changed(self.effects, self._effect_hash):
+            update_order_array(self._effect_order, len(self.effects))
+            self._effect_hash = hash_list(self.effects)
         return self._effect_order
 
     @effect_order.setter

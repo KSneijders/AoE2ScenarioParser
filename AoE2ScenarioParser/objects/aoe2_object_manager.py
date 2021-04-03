@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Dict, Type
 
-from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
@@ -25,22 +25,22 @@ class AoE2ObjectManager:
         self.managers = {}
 
     def setup(self):
-        helper.s_print(f"\nSetting up managers ...", final=True)
+        s_print(f"\nSetting up managers ...", final=True)
 
         for name, manager in managers[self.game_version].items():
-            helper.s_print(f"\t🔄 Setting up {name}Manager...")
+            s_print(f"\t🔄 Setting up {name}Manager...")
             self.managers[name] = manager._construct(self.sections, self.scenario_version)
-            helper.s_print(f"\t✔ {name}Manager", final=True)
+            s_print(f"\t✔ {name}Manager", final=True)
 
-        helper.s_print(f"Setting up managers finished successfully.", final=True)
+        s_print(f"Setting up managers finished successfully.", final=True)
 
     def reconstruct(self):
-        helper.s_print("\nReconstructing sections and structs from managers...", final=True)
+        s_print("\nReconstructing sections and structs from managers...", final=True)
 
         manager: AoE2Object
         for name, manager in self.managers.items():
-            helper.s_print(f"\t🔄 Reconstructing {name}Manager...")
+            s_print(f"\t🔄 Reconstructing {name}Manager...")
             manager.commit(self.sections)
-            helper.s_print(f"\t✔ {name}Manager", final=True)
+            s_print(f"\t✔ {name}Manager", final=True)
 
-        helper.s_print("Reconstruction finished successfully.", final=True)
+        s_print("Reconstruction finished successfully.", final=True)

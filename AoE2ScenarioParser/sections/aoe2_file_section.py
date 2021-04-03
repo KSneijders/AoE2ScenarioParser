@@ -3,8 +3,11 @@ from __future__ import annotations
 from enum import Enum
 from typing import Dict, List
 
-from AoE2ScenarioParser.helper import parser, helper
+from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+from AoE2ScenarioParser.helper.list_functions import listify
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, duplicate_retriever_list
@@ -110,7 +113,7 @@ class AoE2FileSection:
 
                         total_length += struct.byte_length
                 else:
-                    retrieved_bytes = parser.retrieve_bytes(igenerator, retriever)
+                    retrieved_bytes = bytes_parser.retrieve_bytes(igenerator, retriever)
                     retriever.set_data_from_bytes(retrieved_bytes)
 
                     total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
@@ -132,9 +135,9 @@ class AoE2FileSection:
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: (len: {len(data)}) "
-                  f"{helper.pretty_print_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
+                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
             print(f"Retrievers: (len: {len(self.retrievers)}) "
-                  f"{helper.pretty_print_list([f'{i}: {str(x)}' for i, x in enumerate(self.retrievers)])}")
+                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retrievers)])}")
             raise ValueError("Data list isn't the same size as the DataType list")
 
     def __getattr__(self, item):
@@ -164,7 +167,7 @@ class AoE2FileSection:
         if self.level == SectionLevel.STRUCT:
             prefix = "\t\t\t"
         if 'str' in datatype:
-            data = helper.q_str(data)
+            data = string_manipulations.q_str(data)
         return f"{prefix}{name}: {data} ({datatype})\n"
 
     def get_header_string(self):
@@ -184,7 +187,7 @@ class AoE2FileSection:
                 continue
             byte_structure += "\n"
 
-            listed_retriever_data = helper.listify(retriever.data)
+            listed_retriever_data = listify(retriever.data)
             struct_header_set = False
             for struct in listed_retriever_data:
                 if isinstance(struct, AoE2FileSection):
@@ -204,9 +207,7 @@ class AoE2FileSection:
                 retriever_data_bytes = retriever_data_bytes.hex()
 
             retriever_short_string: str = retriever.get_short_str()
-            retriever_hex = helper.create_textual_hex(
-                retriever_data_bytes, space_distance=2, enter_distance=24
-            )
+            retriever_hex = create_textual_hex(retriever_data_bytes, space_distance=2, enter_distance=24)
 
             split_hex = retriever_hex.split("\n")
             split_hex_length = len(split_hex)
@@ -215,7 +216,7 @@ class AoE2FileSection:
             data_lines = []
             for x in split_data_string:
                 if len(x) > 120:
-                    data_lines += [f'\t{x}' for x in helper.insert_char(x, '\r\n', 120).splitlines()]
+                    data_lines += [f'\t{x}' for x in insert_char(x, '\r\n', 120).splitlines()]
                 else:
                     data_lines.append(x)
             split_data_length = len(data_lines)
@@ -226,7 +227,8 @@ class AoE2FileSection:
             for i in range(0, lines):
                 hex_part = split_hex[i] if i < split_hex_length else ""
                 data_part = data_lines[i] if i < split_data_length else ""
-                combined_strings.append(helper.add_suffix_chars(hex_part, " ", 28) + data_part)
+                combined_strings.append(
+                    string_manipulations.add_suffix_chars(hex_part, " ", 28) + data_part)
 
             byte_structure += "\n".join(combined_strings)
 
