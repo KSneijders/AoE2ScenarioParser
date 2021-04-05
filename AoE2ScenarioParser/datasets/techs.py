@@ -29,7 +29,7 @@ class TechInfo(Enum):
         raise ValueError(f"{value} is not a valid icon_id value")
 
     @staticmethod
-    def unique_units():
+    def unique_techs():
         return [
             TechInfo.YEOMEN, TechInfo.EL_DORADO, TechInfo.FUROR_CELTICA, TechInfo.DRILL, TechInfo.MAHOUTS,
             TechInfo.ZEALOTRY, TechInfo.ARTILLERY, TechInfo.CRENELLATIONS, TechInfo.ANARCHY, TechInfo.ATHEISM,
