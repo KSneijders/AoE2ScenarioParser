@@ -3,8 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import List, Type, TYPE_CHECKING, Dict
 
-from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -25,12 +25,16 @@ class AoE2Object:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            if k != '_sections':
-                val = deepcopy(v)
-            else:
-                val = getattr(self, k)
-            setattr(result, k, val)
+            setattr(result, k, self._deepcopy_entry(k, v))
         return result
+
+    def _deepcopy_entry(self, k, v):
+        """Default copy implementation per key for AoE2Object. Created so this logic can be inherited."""
+        if k not in ['_sections', '_link_list']:
+            val = deepcopy(v)
+        else:
+            val = getattr(self, k)
+        return val
 
     @classmethod
     def _construct(cls, sections: Dict[str, AoE2FileSection], scenario_version, number_hist=None):
@@ -96,7 +100,7 @@ class AoE2Object:
     def __repr__(self):
         self_dict = self.__dict__
         self_dict['_sections'] = f"OrderDict"
-        return str(self.__class__.__name__) + ": " + helper.pretty_print_dict(self_dict)
+        return str(self.__class__.__name__) + ": " + pretty_format_dict(self_dict)
 
 
 def f_unsupported_string(link: RetrieverObjectLink, version: str):

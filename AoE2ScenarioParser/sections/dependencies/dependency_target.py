@@ -1,7 +1,8 @@
 from typing import List
 
-from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 
 class DependencyTarget:
@@ -29,4 +30,4 @@ class DependencyTarget:
             )
 
     def __repr__(self) -> str:
-        return f"[DependencyTarget] {helper.add_tabs(helper.pretty_print_list(self.targets).strip(), 1)}"
+        return f"[DependencyTarget] {add_tabs(pretty_format_list(self.targets).strip(), 1)}"

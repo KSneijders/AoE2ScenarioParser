@@ -1,6 +1,6 @@
 import struct
 
-from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.string_manipulations import has_str_trail, del_str_trail, add_str_trail
 
 
 def bytes_to_fixed_chars(byte_elements, codec="utf-8"):
@@ -33,8 +33,8 @@ _no_string_trail = [
 
 
 def bytes_to_str(byte_elements, retriever, codec="utf-8"):
-    if helper.has_str_trail(byte_elements):
-        byte_elements = helper.del_str_trail(byte_elements)
+    if has_str_trail(byte_elements):
+        byte_elements = del_str_trail(byte_elements)
         retriever.string_end_char = True
     try:
         return byte_elements.decode(codec)
@@ -45,7 +45,7 @@ def bytes_to_str(byte_elements, retriever, codec="utf-8"):
 def str_to_bytes(string, retriever, codec="utf-8"):
     # if retriever.string_end_char:
     if retriever.name not in _no_string_trail:
-        return helper.add_str_trail(string).encode(codec)
+        return add_str_trail(string).encode(codec)
     return string.encode(codec)
 
 

@@ -3,8 +3,9 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
@@ -74,14 +75,16 @@ class Condition(AoE2Object):
                  unit_ai_action: int = None,
                  xs_function: str = None,
                  ):
+        raise_if_not_int_subclass([object_list, technology])
+
         self.condition_type: int = condition_type
         self.quantity: int = quantity
         self.attribute: int = attribute
         self.unit_object: int = unit_object
         self.next_object: int = next_object
         self.object_list: int = object_list
-        self.source_player: IntEnum = source_player
-        self.technology: IntEnum = technology
+        self.source_player: int = source_player
+        self.technology: int = technology
         self.timer: int = timer
         self.area_1_x: int = area_1_x
         self.area_1_y: int = area_1_y
@@ -93,7 +96,7 @@ class Condition(AoE2Object):
         self.inverted: int = inverted
         self.variable: int = variable
         self.comparison: int = comparison
-        self.target_player: IntEnum = target_player
+        self.target_player: int = target_player
         self.unit_ai_action: int = unit_ai_action
         self.xs_function: str = xs_function
 

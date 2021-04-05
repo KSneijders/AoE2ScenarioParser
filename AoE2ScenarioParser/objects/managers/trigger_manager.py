@@ -7,6 +7,7 @@ from typing import List, Dict
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.list_functions import hash_list, list_changed, update_order_array
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
@@ -27,7 +28,7 @@ class TriggerManager(AoE2Object):
                  trigger_display_order: List[int],
                  ):
 
-        self._trigger_hash = helper.hash_list(triggers)
+        self._trigger_hash = hash_list(triggers)
         self.triggers: List[Trigger] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
 
@@ -39,15 +40,15 @@ class TriggerManager(AoE2Object):
 
     @triggers.setter
     def triggers(self, value):
-        self._trigger_hash = helper.hash_list(value)
+        self._trigger_hash = hash_list(value)
         self._triggers = value
         self.trigger_display_order = list(range(len(value)))
 
     @property
     def trigger_display_order(self):
-        if helper.list_changed(self.triggers, self._trigger_hash):
-            helper.update_order_array(self._trigger_display_order, len(self.triggers))
-            self._trigger_hash = helper.hash_list(self.triggers)
+        if list_changed(self.triggers, self._trigger_hash):
+            update_order_array(self._trigger_display_order, len(self.triggers))
+            self._trigger_hash = hash_list(self.triggers)
         return self._trigger_display_order
 
     @trigger_display_order.setter
@@ -390,7 +391,6 @@ class TriggerManager(AoE2Object):
                 trigger_attr[key] = locals()[key]
         new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
-        # helper.update_order_array(self._trigger_display_order, len(self.triggers))
         return new_trigger
 
     def get_trigger(self, trigger_select: TriggerSelect) -> Trigger:
@@ -411,7 +411,6 @@ class TriggerManager(AoE2Object):
 
     def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
         found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
-        # unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
         unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
 
         if len(unknown_node_indexes) == 0:
@@ -422,7 +421,7 @@ class TriggerManager(AoE2Object):
         for index in unknown_node_indexes:
             self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
 
-    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, TriggerManager):
+    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, Trigger):
         trigger = trigger_select.trigger
         trigger_index = trigger_select.trigger_index
         display_index = trigger_select.display_index

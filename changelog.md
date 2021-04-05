@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.7 - 2021-April-05
+
+### Added
+
+-   Functions to the `UnitInfo` and `TechInfo` dataset.
+    -   `UnitInfo.vils()` for all villagers (Male/Female and all their professions).
+    -   `UnitInfo.unique_units()` for all unique units (Both castle and non castle unique units).
+    -   `TechInfo.unique_techs()` for all unique technologies.
+-   Error messages when accidently setting a value to `UnitInfo.ARCHER` instead of `UnitInfo.ARCHER.ID` (as an example).
+
+### Fixed
+
+-   A recursion issue with the `copy_trigger` related functions [Issue #10]
+
+[issue #10]: https://github.com/KSneijders/AoE2ScenarioParser/issues/10
+
 ## 0.1.6 - 2021-April-01
 
 ### Fixed

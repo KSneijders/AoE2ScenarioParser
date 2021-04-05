@@ -1,5 +1,6 @@
 import json
 
+from resources.data.support_scripts.strings_tech_dataset import unique_techs
 
 files = ["tech"]
 f_plural = {"tech": "techs"}
@@ -31,6 +32,8 @@ for name, file in f_dict.items():
         file.write(
             from_id.replace('__VALUE__', str(index)).replace('__NAME__', f'{id_type.lower()}')
         )
+
+    file.write(unique_techs)
 
     file.write("\n")
 

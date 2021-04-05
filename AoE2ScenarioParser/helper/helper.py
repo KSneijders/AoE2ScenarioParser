@@ -1,136 +1,11 @@
 import math
-import sys
 from enum import IntEnum
-from typing import List, Dict, Union
 
-from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.units import UnitInfo
-
-""" =============================================================
-========================= HEX FUNCTIONS =========================
-=============================================================="""
-
-
-def create_textual_hex(string, space_distance=2, enter_distance=48):
-    """Please note that the 'enter_distance' parameter is including the - to be added - spaces. If you calculated it
-    without the spaces, please multiply the number by: `block size incl space / block size excl space`"""
-    return insert_char(insert_char(string, " ", space_distance), "\n", enter_distance)
-
-
-# Credits: gurney alex @ https://stackoverflow.com/a/2657733/7230293
-def insert_char(string, char, step=64):
-    return char.join(string[i:i + step] for i in range(0, len(string), step))
-
-
-""" =============================================================
-======================= STRING FUNCTIONS ========================
-=============================================================="""
-
-
-def add_str_trail(string) -> str:
-    if len(string) > 0:
-        string = string + ("\x00" if string[-1] != "\x00" else "")
-    return string
-
-
-def has_str_trail(string) -> bool:
-    if len(string) > 0 and string[-1] == 0:
-        return True
-    return False
-
-
-def del_str_trail(string) -> Union[str, bytes]:
-    if has_str_trail(string):
-        string = string[:-1]
-    return string
-
-
-def add_prefix_chars(string, char, length):
-    if len(string) > length:
-        return string
-    else:
-        return char * (length - len(string)) + string
-
-
-def add_suffix_chars(string, char, total_length):
-    if len(string) > total_length:
-        return string
-    else:
-        return string + char * (total_length - len(string))
-
-
-def q_str(value: any) -> str:
-    if type(value) is str:
-        return f"'{value}'"
-    return str(value)
-
-
-""" =============================================================
-======================== PRETTY PRINTERS ========================
-=============================================================="""
-
-_default_inline_types = {
-    'int': 8,
-    'float': 8
-}
-
-
-def pretty_print_list(plist: List, inline_types: Dict[str, int] = None):
-    if len(plist) == 0:
-        return "[]"
-    if inline_types is None:
-        inline_types = _default_inline_types
-    entry_type = type(plist[0]).__name__  # Get entry type
-
-    return_string = "[\r\n"
-    line_items = []
-    for index, entry in enumerate(plist):
-        if entry_type in inline_types.keys():
-            line_items.append(entry)
-            if index % inline_types[entry_type] == inline_types[entry_type] - 1:
-                return_string += _create_inline_line(line_items)
-                line_items = []
-            continue
-        else:
-            return_string += f"\t{entry}\r\n"
-    if len(line_items) != 0:
-        return_string += _create_inline_line(line_items)
-    return return_string + "]\r\n"
-
-
-def add_tabs(string: str, tabs: int):
-    return ("\n\r"+("\t" * tabs)).join(string.split("\r\n"))
-
-
-def _create_inline_line(entries):
-    return "\t" + ", ".join(map(str, entries)) + "\r\n"
-
-
-def pretty_print_dict(pdict: dict):
-    return_string = "{\n"
-    for key, value in pdict.items():
-        newline = f"\t{key}: {value}"
-        if newline[::-2] != "\n":
-            newline += "\n"
-        return_string += newline
-    return return_string + "}\n"
-
-
-def pretty_print_name(name: str) -> str:
-    """
-    Returns a pretty-printed version of the name string.
-    Replaces all underscores with spaces and capitalizes the first letter
-    of each word.
-    For example, elite_chu_ko_nu -> Elite Chu Ko Nu.
-
-    :Author:
-        T-West (https://github.com/twestura/)
-    """
-    return ' '.join(s[0].upper() + s[1:] for s in name.split('_'))
-
+from AoE2ScenarioParser.helper import exceptions
 
 """ =============================================================
 ============================ COORDS =============================
@@ -146,35 +21,8 @@ def i_to_xy(i, map_size):
 
 
 """ =============================================================
-============================= HASH ==============================
-=============================================================="""
-
-
-def hash_list(lst: list):
-    return hash(tuple(lst))
-
-
-def list_changed(lst, lst_hash):
-    return lst_hash != hash(tuple(lst))
-
-
-""" =============================================================
 ============================= OTHER =============================
 =============================================================="""
-
-
-def listify(var) -> list:
-    """Always return item as list"""
-    if type(var) is list:
-        return var
-    else:
-        return [var]
-
-
-def update_order_array(order_array, supposed_length):
-    for i in range(supposed_length):
-        if i not in order_array:
-            order_array.append(i)
 
 
 def get_enum_from_unit_const(const: int) -> IntEnum:
@@ -203,56 +51,12 @@ def get_int_len(num):
     return 0
 
 
-def evaluate_index_params(x_id, display_index, name):
-    if x_id is None and display_index is None:
-        raise ValueError(f"Please choose '{name}_id' or 'display_index' as identification for the wanted {name}")
-    if x_id is not None and display_index is not None:
-        raise ValueError(f"Please identify a {name} using '{name}_id' or 'display_index' but not both")
+def exclusive_if(*args):
+    """Returns True if exactly one entry is true. False otherwise"""
+    return sum(map(bool, args)) == 1
 
 
-class SimpleLogger:
-    def __init__(self, should_log, is_status_print):
-        self.should_log = should_log
-        self.is_status_print = is_status_print
-
-    def print(self, string="", replace=False, cancel_next=False):
-        if self.should_log:
-            if self.is_status_print:
-                s_print(string, replace, cancel_next)
-            else:
-                rprint(string, replace, cancel_next)
-
-    def __repr__(self):
-        return f"SimpleLogger[should_log: {self.should_log}]"
-
-
-def s_print(string="", replace=True, final=False) -> None:
-    """
-    Status print, read rprint docstring for more info.
-    Simple rprint wrapper with a check for the PRINT_STATUS_UPDATES setting.
-    """
-    if settings.PRINT_STATUS_UPDATES:
-        rprint(string, replace, final)
-
-
-def rprint(string="", replace=True, final=False) -> None:
-    """
-    Replaceable print, print lines which can be overwritten by the next
-
-    Args:
-        string (str): The string to print -> print(str)
-        replace (bool): If this line should be replaced by the next if the next also has replace=True
-        final (bool): If true, the next print is not able to replace this line. Used when this line replaces
-            another line but should not be replaced by the next replace=True.
-
-    Returns:
-        None
-    """
-    if replace:
-        sys.stdout.write('\r' + string)
-        if final:
-            print()
-    else:
-        print(string)
-
-
+def raise_if_not_int_subclass(values):
+    for v in values:
+        if not issubclass(v.__class__, int):
+            raise TypeError(exceptions.type_error_message(v))

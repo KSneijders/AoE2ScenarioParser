@@ -5,10 +5,10 @@ from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
-from AoE2ScenarioParser.helper import helper
+from  AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
-from AoE2ScenarioParser.helper.helper import create_textual_hex
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -66,9 +66,9 @@ class AoE2Scenario:
     @classmethod
     def from_file(cls, filename, game_version):
         print(f"\nReading file: '{filename}'")
-        helper.s_print("Reading scenario file...")
+        s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
-        helper.s_print("Reading scenario file finished successfully.", final=True)
+        s_print("Reading scenario file finished successfully.", final=True)
 
         scenario = cls()
         scenario.read_mode = "from_file"
@@ -81,16 +81,16 @@ class AoE2Scenario:
         print(f">>> Scenario version: {scenario.scenario_version}")
         print("##########################################")
 
-        helper.s_print(f"\nLoading scenario structure...")
+        s_print(f"\nLoading scenario structure...")
         initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
-        scenario.load_structure()
-        helper.s_print(f"Loading scenario structure finished successfully.", final=True)
+        scenario._load_structure()
+        s_print(f"Loading scenario structure finished successfully.", final=True)
 
         # scenario._initialize(igenerator)
-        helper.s_print("Parsing scenario file...", final=True)
+        s_print("Parsing scenario file...", final=True)
         scenario._load_header_section(igenerator)
         scenario._load_content_sections(igenerator)
-        helper.s_print(f"Parsing scenario file finished successfully.", final=True)
+        s_print(f"Parsing scenario file finished successfully.", final=True)
 
         scenario._object_manager = AoE2ObjectManager(
             sections=scenario.sections,
@@ -101,7 +101,7 @@ class AoE2Scenario:
 
         return scenario
 
-    def load_structure(self):
+    def _load_structure(self):
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
         self.structure = get_structure(self.game_version, self.scenario_version)
@@ -128,11 +128,11 @@ class AoE2Scenario:
                 raise e
 
     def _create_and_load_section(self, name, igenerator):
-        helper.s_print(f"\t🔄 Parsing {name}...")
+        s_print(f"\t🔄 Parsing {name}...")
         section = AoE2FileSection.from_structure(name, self.structure.get(name))
-        helper.s_print(f"\t🔄 Gathering {name} data...")
+        s_print(f"\t🔄 Gathering {name} data...")
         section.set_data_from_generator(igenerator, self.sections)
-        helper.s_print(f"\t✔ {name}", final=True)
+        s_print(f"\t✔ {name}", final=True)
         return section
 
     def _add_to_sections(self, section):
@@ -148,7 +148,7 @@ class AoE2Scenario:
     def _write_from_structure(self, filename):
         self._object_manager.reconstruct()
 
-        helper.s_print("\nFile writing from structure started...", final=True)
+        s_print("\nFile writing from structure started...", final=True)
         binary = self._get_file_section_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
@@ -161,13 +161,13 @@ class AoE2Scenario:
         with open(filename, 'wb') as f:
             f.write(binary + compressed)
 
-        helper.s_print("File writing finished successfully.", final=True)
+        s_print("File writing finished successfully.", final=True)
         print(f"File successfully written to: '{filename}'")
 
     def _get_file_section_data(self, file_section: AoE2FileSection):
-        helper.s_print(f"\t🔄 Reconstructing {file_section.name}...")
+        s_print(f"\t🔄 Reconstructing {file_section.name}...")
         value = file_section.get_data_as_bytes()
-        helper.s_print(f"\t✔ {file_section.name}", final=True)
+        s_print(f"\t✔ {file_section.name}", final=True)
         return value
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):
@@ -200,9 +200,9 @@ class AoE2Scenario:
         print("File writing finished successfully.")
 
     def _retrieve_byte_structure(self, file_part):
-        helper.s_print(f"\t🔄 Writing {file_part.name}...")
+        s_print(f"\t🔄 Writing {file_part.name}...")
         value = file_part.get_byte_structure_as_string(self.sections)
-        helper.s_print(f"\t✔ {file_part.name}", final=True)
+        s_print(f"\t✔ {file_part.name}", final=True)
         return value
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
@@ -210,22 +210,22 @@ class AoE2Scenario:
         if commit and hasattr(self, '_object_manager'):
             self._object_manager.reconstruct()
 
-        helper.s_print("\nWriting structure to file...", final=True)
+        s_print("\nWriting structure to file...", final=True)
         with open(filename, 'w', encoding="utf-8") as f:
             result = []
             for section in self.sections.values():
                 result.append(self._retrieve_byte_structure(section))
 
             if trail_generator is not None:
-                helper.s_print("\tWriting trail...")
+                s_print("\tWriting trail...")
                 trail = trail_generator.get_remaining_bytes()
 
                 result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
-                result.append(helper.create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
-                helper.s_print("\tWriting trail finished successfully.", final=True)
+                result.append(create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
+                s_print("\tWriting trail finished successfully.", final=True)
 
             f.write(''.join(result))
-        helper.s_print("Writing structure to file finished successfully.", final=True)
+        s_print("Writing structure to file finished successfully.", final=True)
 
 
 def get_file_version(generator: IncrementalGenerator):
