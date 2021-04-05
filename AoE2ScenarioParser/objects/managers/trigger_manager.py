@@ -391,7 +391,6 @@ class TriggerManager(AoE2Object):
                 trigger_attr[key] = locals()[key]
         new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr)
         self.triggers.append(new_trigger)
-        # helper.update_order_array(self._trigger_display_order, len(self.triggers))
         return new_trigger
 
     def get_trigger(self, trigger_select: TriggerSelect) -> Trigger:
@@ -412,7 +411,6 @@ class TriggerManager(AoE2Object):
 
     def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
         found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
-        # unknown_node_indexes = found_node_indexes.difference(known_node_indexes)
         unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
 
         if len(unknown_node_indexes) == 0:
@@ -423,7 +421,7 @@ class TriggerManager(AoE2Object):
         for index in unknown_node_indexes:
             self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
 
-    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, TriggerManager):
+    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, Trigger):
         trigger = trigger_select.trigger
         trigger_index = trigger_select.trigger_index
         display_index = trigger_select.display_index

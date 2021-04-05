@@ -1,6 +1,5 @@
 import math
 from enum import IntEnum
-from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo

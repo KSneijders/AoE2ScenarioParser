@@ -25,12 +25,16 @@ class AoE2Object:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            if k != '_sections':
-                val = deepcopy(v)
-            else:
-                val = getattr(self, k)
-            setattr(result, k, val)
+            setattr(result, k, self._deepcopy_entry(k, v))
         return result
+
+    def _deepcopy_entry(self, k, v):
+        """Default copy implementation per key for AoE2Object. Created so this logic can be inherited."""
+        if k not in ['_sections', '_link_list']:
+            val = deepcopy(v)
+        else:
+            val = getattr(self, k)
+        return val
 
     @classmethod
     def _construct(cls, sections: Dict[str, AoE2FileSection], scenario_version, number_hist=None):
