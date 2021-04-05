@@ -5,6 +5,7 @@ from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.units import UnitInfo
+from AoE2ScenarioParser.helper import exceptions
 
 """ =============================================================
 ============================ COORDS =============================
@@ -53,3 +54,9 @@ def get_int_len(num):
 def exclusive_if(*args):
     """Returns True if exactly one entry is true. False otherwise"""
     return sum(map(bool, args)) == 1
+
+
+def raise_if_not_int_subclass(values):
+    for v in values:
+        if not issubclass(v.__class__, int):
+            raise TypeError(exceptions.type_error_message(v))

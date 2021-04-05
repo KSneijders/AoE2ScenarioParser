@@ -4,6 +4,7 @@ import math
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.tile import Tile
@@ -37,6 +38,7 @@ class Unit(AoE2Object):
                  initial_animation_frame: int,
                  garrisoned_in_id: int
                  ):
+        raise_if_not_int_subclass([unit_const])
 
         self._player: PlayerId = PlayerId(player)
         """

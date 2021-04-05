@@ -16,3 +16,7 @@ class EndOfFileError(Exception):
 
 class UnsupportedAttributeError(Exception):
     pass
+
+
+def type_error_message(value):
+    return f"Expected int, found: {value.__class__}. Maybe you meant: '{value}.ID'?"

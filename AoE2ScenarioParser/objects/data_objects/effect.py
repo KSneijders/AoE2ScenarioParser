@@ -4,6 +4,7 @@ from enum import IntEnum
 from typing import List
 
 from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -136,6 +137,7 @@ class Effect(AoE2Object):
                  sound_name: str = None,
                  selected_object_ids: List[int] = None,
                  ):
+        raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
 
         if selected_object_ids is None:
             selected_object_ids = []
