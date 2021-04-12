@@ -181,10 +181,3 @@ class Retriever:
 
 def duplicate_retriever_list(retriever_list):
     return [r.duplicate() for r in retriever_list]
-
-
-def get_retriever_by_name(retriever_list: List[Union[Retriever, RetrieverObjectLink]], name: str) \
-        -> Union[Retriever, RetrieverObjectLink]:
-    for retriever in retriever_list:
-        if retriever.name == name:
-            return retriever
