@@ -150,9 +150,9 @@ class Effect(AoE2Object):
         self.tribute_list: int = tribute_list
         self.diplomacy: int = diplomacy
         self.object_list_unit_id: int = object_list_unit_id
-        self.source_player: IntEnum = source_player
-        self.target_player: IntEnum = target_player
-        self.technology: IntEnum = technology
+        self.source_player: int = source_player
+        self.target_player: int = target_player
+        self.technology: int = technology
         self.string_id: int = string_id
         self.display_time: int = display_time
         self.trigger_id: int = trigger_id
@@ -179,7 +179,7 @@ class Effect(AoE2Object):
         self.visibility_state: int = visibility_state
         self.scroll: int = scroll
         self.operation: int = operation
-        self.object_list_unit_id_2: IntEnum = object_list_unit_id_2
+        self.object_list_unit_id_2: int = object_list_unit_id_2
         self.button_location: int = button_location
         self.ai_signal_value: int = ai_signal_value
         self.object_attributes: int = object_attributes

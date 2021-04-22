@@ -73,6 +73,15 @@ def double_to_bytes(d):
     return struct.pack('d', d)
 
 
+# var_type_to_func = {
+#     'u': lambda val, vlen: int_to_bytes(val, vlen, signed=False),
+#     's': lambda val, vlen: int_to_bytes(val, vlen, signed=True),
+#     'c': lambda val, vlen: fixed_chars_to_bytes(val),
+#     'data': lambda val, vlen: val,
+#     'f': lambda val, vlen:  float_to_bytes(val) if vlen == 4 else double_to_bytes(val)
+# }
+
+
 def parse_val_to_bytes(retriever, val):
     var_type, var_len = retriever.datatype.type_and_length
 
