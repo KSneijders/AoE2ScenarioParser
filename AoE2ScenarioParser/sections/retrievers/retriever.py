@@ -29,7 +29,7 @@ class Retriever:
         'log_value',
         '_data',
         'default_value',
-        'string_end_char'
+        # 'string_end_char'
     ]
 
     on_construct: RetrieverDependency
@@ -53,7 +53,7 @@ class Retriever:
         self.potential_list = potential_list
         self.log_value = log_value
         self._data = None
-        self.string_end_char = False
+        # self.string_end_char = False
 
     def get_data_as_bytes(self):
         self.update_datatype_repeat()
