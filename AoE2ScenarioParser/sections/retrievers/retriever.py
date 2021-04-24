@@ -1,17 +1,12 @@
 from __future__ import annotations
 
-from typing import List, Union, TYPE_CHECKING
-
-from AoE2ScenarioParser.helper import helper, bytes_parser, string_manipulations
+from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
-from AoE2ScenarioParser.sections.retrievers.datatype import DataType
-from AoE2ScenarioParser.helper.bytes_parser import attributes
+from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
-
-if TYPE_CHECKING:
-    from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.datatype import DataType
 
 
 class Retriever:
@@ -25,7 +20,7 @@ class Retriever:
         'on_refresh',
         'name',
         'datatype',
-        'potential_list',
+        'is_list',
         'log_value',
         '_data',
         'default_value',
@@ -36,23 +31,27 @@ class Retriever:
     on_commit: RetrieverDependency
     on_refresh: RetrieverDependency
 
-    def __init__(self, name, default_value, datatype=DataType(), potential_list=True, log_value=False):
+    def __init__(self, name, default_value, datatype=DataType(), is_list=None, log_value=False):
         """
         Args:
             name (str): The name of the item. Has to be unique within the Section or Struct
+            default_value (Any): The default value of this retriever
             datatype (DataType): A datatype object
-            log_value (bool): A boolean for, mostly, debugging. This will log this Retriever with it's data when the
-                data is changed, when this retriever is constructed and committed.
+            is_list (Union[None, bool]): If this retriever data should be presented using a list. If None, it's unknown.
+            log_value (bool): A boolean for, mostly, debugging. This will log information about this retrievers when the
+                data is changed, when this retriever is constructed and when it's committed.
         """
         self.name: str = name
         self.default_value = default_value
         self.datatype: DataType = datatype
-        if log_value:
-            self.datatype.log_value = True
-        self.datatype._debug_retriever_name = name
-        self.potential_list = potential_list
+        self.is_list = is_list
         self.log_value = log_value
         self._data = None
+
+        if log_value:
+            self.datatype.log_value = True
+            self.datatype._debug_retriever_name = name
+
         # self.string_end_char = False
 
     def get_data_as_bytes(self):
@@ -96,10 +95,10 @@ class Retriever:
 
     @data.setter
     def data(self, value):
-        old_value = self._data
-        self._data = value
         if self.log_value:
+            old_value = self._data
             self._print_value_update(old_value, value)
+        self._data = value
 
     def set_data_to_default(self):
         if self.datatype.type == "data":
@@ -117,7 +116,7 @@ class Retriever:
             name=self.name,
             default_value=self.default_value,
             datatype=self.datatype.duplicate(),
-            potential_list=self.potential_list,
+            is_list=self.is_list,
             log_value=self.log_value
         )
         for attr in attributes:
@@ -132,17 +131,21 @@ class Retriever:
             name=name,
             default_value=structure.get('default'),
             datatype=datatype,
-            potential_list=structure.get('potential_list', True),
+            is_list=structure.get('is_list', None),
             log_value=structure.get('log', False)
         )
         # Go through dependencies if exist, else empty dict
         for dependency_name, properties in structure.get('dependencies', {}).items():
             if type(properties) is not list:
-                setattr(retriever, dependency_name, RetrieverDependency.from_structure(properties))
+                r_dep = RetrieverDependency.from_structure(properties)
+                _evaluate_is_list_attribute(retriever, r_dep)
+                setattr(retriever, dependency_name, r_dep)
             else:
                 dependency_list = []
                 for dependency_struct in properties:
-                    dependency_list.append(RetrieverDependency.from_structure(dependency_struct))
+                    r_dep = RetrieverDependency.from_structure(dependency_struct)
+                    _evaluate_is_list_attribute(retriever, r_dep)
+                    dependency_list.append(r_dep)
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
@@ -181,3 +184,11 @@ class Retriever:
 
 def duplicate_retriever_list(retriever_list):
     return [r.duplicate() for r in retriever_list]
+
+
+def _evaluate_is_list_attribute(retriever, dependency):
+    if dependency.dependency_action == DependencyAction.SET_REPEAT and retriever.is_list is None:
+        retriever.is_list = True
+
+
+attributes = ['on_refresh', 'on_construct', 'on_commit']
