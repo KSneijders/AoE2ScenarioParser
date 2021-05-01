@@ -60,4 +60,3 @@ def raise_if_not_int_subclass(values):
     for v in values:
         if not issubclass(v.__class__, int):
             raise TypeError(exceptions.type_error_message(v, issubclass(v.__class__, Enum)))
-

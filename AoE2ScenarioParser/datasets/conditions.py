@@ -48,7 +48,7 @@ class ConditionId(IntEnum):
     - object_group
     - object_type
     """
-    OBJECT_IN_AREA = 5
+    OBJECTS_IN_AREA = 5
     """
     Attributes for the **object_in_area** condition are:\n
     - quantity

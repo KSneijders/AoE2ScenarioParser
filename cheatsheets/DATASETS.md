@@ -57,11 +57,11 @@ The condition and effect datasets aren't really necessary in regular scripting a
 effect = trigger.new_effect.change_diplomacy(...)
 ```
 
-They can still be used if you want the effect & condition IDs for other purposes. 
+They can still be used if you want the effect & condition IDs for other purposes.
 
 ```py
-Condition.OBJECT_IN_AREA    # 5
-Effect.PATROL               # 19
+Condition.OBJECTS_IN_AREA  # 5
+Effect.PATROL  # 19
 ```
 
 ```py
