@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.8 - 2021-May-01
+
+### Updated
+
+- Several speed improvements
+
+### Fixed
+
+- Hint in exception message when it was clearly not the cause of the error.
+- A typo in the condition dataset `OBJECT_IN_AREA` to `OBJECTS_IN_AREA`.
+- Unit dataset not updated with the new `UnitInfo` - [Issue #12].
+
+[issue #12]: https://github.com/KSneijders/AoE2ScenarioParser/issues/12
+
+---
+
 ## 0.1.7 - 2021-April-05
 
 ### Added
@@ -18,9 +34,11 @@ The format is based on [Keep a Changelog]
 
 ### Fixed
 
--   A recursion issue with the `copy_trigger` related functions [Issue #10]
+-   A recursion issue with the `copy_trigger` related functions - [Issue #10]
 
 [issue #10]: https://github.com/KSneijders/AoE2ScenarioParser/issues/10
+
+---
 
 ## 0.1.6 - 2021-April-01
 
@@ -126,7 +144,7 @@ These changes were in the works for `0.0.21` but got merged into the `0.1.0` rel
 
 -   The old names used for villagers (e.g. `BUILDER` or `HUNTER`). (These were male only)
 -   The BiDict variable `unit_names`, because the same effect can be achieved using the `.name` attributes in the dataset.
--   the `scenario.create_default()` function.
+-   The `scenario.create_default()` function.
 
 ---
 
