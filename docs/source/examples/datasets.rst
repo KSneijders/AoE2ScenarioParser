@@ -107,16 +107,16 @@ these datasets have been added:
 |                 | variables.             |                                       |
 +-----------------+------------------------+---------------------------------------+
 | ButtonLocation  | Used in the            | ``ButtonLocation.r2c3``               |
-|                 | ``Chan                 |                                       |
-|                 | ge Research Location`` |                                       |
+| \*              | ``Change               |                                       |
+|                 | Research Location``    |                                       |
 |                 | and                    |                                       |
-|                 | ``C                    |                                       |
-|                 | hange Train Location`` |                                       |
+|                 | ``Change Train         |                                       |
+|                 | Location``             |                                       |
 |                 | effects. \*            |                                       |
 +-----------------+------------------------+---------------------------------------+
 | PanelLocation   | Used in the            | ``PanelLocation.CENTER``              |
-|                 | ``                     |                                       |
-|                 | Display Instructions`` |                                       |
+|                 | ``Display              |                                       |
+|                 | Instructions``         |                                       |
 |                 | effect.                |                                       |
 +-----------------+------------------------+---------------------------------------+
 | TimeUnit        | Used in the            | ``TimeUnit.YEARS``                    |
@@ -124,8 +124,8 @@ these datasets have been added:
 |                 | effect.                |                                       |
 +-----------------+------------------------+---------------------------------------+
 | VisibilityState | Used in the            | ``VisibilityState.EXPLORED``          |
-|                 | ``S                    |                                       |
-|                 | et Player Visibility`` |                                       |
+|                 | ``Set                  |                                       |
+|                 | Player Visibility``    |                                       |
 |                 | effect.                |                                       |
 +-----------------+------------------------+---------------------------------------+
 | DifficultyLevel | Used in the            | ``DifficultyLevel.HARDEST``           |
@@ -146,8 +146,8 @@ these datasets have been added:
 |                 | effect.                |                                       |
 +-----------------+------------------------+---------------------------------------+
 | Attribute       | Used in the            | ``Attribute.ALL_TECHS_ACHIEVED``      |
-|                 | ``                     |                                       |
-|                 | Accumulate Attribute`` |                                       |
+|                 | ``Accumulate           |                                       |
+|                 | Attribute``            |                                       |
 |                 | efect.                 |                                       |
 +-----------------+------------------------+---------------------------------------+
 | UnitAIAction    | Used in the            | ``UnitAIAction.ATTACK``               |
@@ -155,8 +155,8 @@ these datasets have been added:
 |                 | condition.             |                                       |
 +-----------------+------------------------+---------------------------------------+
 | AttackStance    | Used in the            | ``AttackStance.AGGRESSIVE_STANCE``    |
-|                 | ``                     |                                       |
-|                 | Change Object Stance`` |                                       |
+|                 | ``Change               |                                       |
+|                 | Object Stance``        |                                       |
 |                 | effect.                |                                       |
 +-----------------+------------------------+---------------------------------------+
 | ObjectType      | Used in every unit     | ``ObjectType.DOPPELGANGER``           |

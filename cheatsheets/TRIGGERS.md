@@ -40,16 +40,41 @@ create_paladin_effect = trigger.new_effect.create_object(
 ## Select existing Triggers
 
 Selecting a trigger can be done using the `get_trigger` function. The
-function accepts 1 argument, a `TriggerSelect` (Alias: `TS`) object.
+function accepts 1 argument, a `TriggerSelect` (Alias: `TS`) object.  
+You can import `TS` (or `TriggerSelect`) like so:
+
+```py
+from AoE2ScenarioParser.objects.support.trigger_select import TS
+from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect
+```
 
 The constructor of `TriggerSelect` accepts 3 arguments, `trigger_index`,
-`display_index` and `trigger`. The `trigger_index` expects the trigger
-ID of a trigger. This is the a number related to the order of creation
-starting from 0. The `display_index` expects the display ID of a
-trigger. This is the a number related to the display order in the
-in-game editor. The `trigger` expects a trigger object. Read further
-below on how to create or select one. You can use the
-`get_summary_as_string` function to view these values without opening
+`display_index` and `trigger`.
+
+-   The `trigger_index` expects the trigger
+    ID of a trigger. This is the a number related to the order of creation
+    starting from 0.
+-   The `display_index` expects the display ID of a
+    trigger. This is the a number related to the display order in the
+    in-game editor.
+-   The `trigger` expects a trigger object. Read further
+    below on how to create or select one.
+
+```py
+TriggerSelect(trigger_index=...)
+TriggerSelect(display_index=...)
+TriggerSelect(trigger=...)
+
+# Use TS as alias & class methods:
+TS.index(...)  # Short hand for: trigger_index
+TS.display(...)  # Short hand for: display_index
+TS.trigger(...)
+
+# Examples:
+trigger = trigger_manager.get_trigger(TS.index(0))
+```
+
+You can use the `get_summary_as_string` function to view these values without opening
 the in-game editor. The code below includes the code above:
 
 ```py
@@ -75,7 +100,7 @@ scenario = AoE2DEScenario.from_file(read_file)
 
 # Get Trigger
 trigger_manager = scenario.trigger_manager
-trigger = trigger_manager.get_trigger(TS.index(0))  # TS is an alias for the TriggerSelect object
+trigger = trigger_manager.get_trigger(TS.index(0))
 ```
 
 If you want to see the contents of the trigger you can do so by running
@@ -204,7 +229,6 @@ remove using:
 -   it\'s index (the order by time of creation)
 -   display index (the order like the in-game editor)
 -   reference (the reference to that effect/condition object)
-
 
 ```py
 trigger = trigger_manager.get_trigger(0)

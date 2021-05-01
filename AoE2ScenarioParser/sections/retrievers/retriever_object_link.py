@@ -4,7 +4,6 @@ from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
@@ -104,7 +103,8 @@ class RetrieverObjectLink:
             if "[" in item:
                 file_section = getattr(file_section, item[:-11])[number_hist[index]]
             else:
-                retriever = get_retriever_by_name(file_section.retrievers, item)
+                retriever = file_section.retriever_map[item]
+                # retriever = get_retriever_by_name(file_section.retrievers, item)
         retriever_list = file_section.retrievers
 
         if retriever is None:
@@ -128,7 +128,7 @@ class RetrieverObjectLink:
             retriever.data = value
 
         if hasattr(retriever, 'on_commit'):
-            handle_retriever_dependency(retriever, "commit", retriever_list, sections)
+            handle_retriever_dependency(retriever, "commit", file_section, sections)
 
     @staticmethod
     def commit_object_list(object_list, sections, instance_number_history):
@@ -173,7 +173,8 @@ class RetrieverObjectLink:
         for player, player_unit in enumerate(value):
             player_unit_retriever = sections["Units"].players_units[player]
             retriever_list = player_unit_retriever.retrievers
-            units = get_retriever_by_name(retriever_list, "units")
+            units = player_unit_retriever.retriever_map["units"]
+            # units = get_retriever_by_name(retriever_list, "units")
             struct_model = player_unit_retriever.struct_models["UnitStruct"]
 
             RetrieverObjectLink.update_retriever_length(units, struct_model, len(value[player]))
@@ -181,7 +182,7 @@ class RetrieverObjectLink:
 
             for retriever in retriever_list:
                 if hasattr(retriever, 'on_commit'):
-                    handle_retriever_dependency(retriever, "commit", retriever_list, sections)
+                    handle_retriever_dependency(retriever, "commit", player_unit_retriever, sections)
 
     def __repr__(self):
         return f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}" + \

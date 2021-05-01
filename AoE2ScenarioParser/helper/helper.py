@@ -1,5 +1,5 @@
 import math
-from enum import IntEnum
+from enum import IntEnum, Enum
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
@@ -59,4 +59,4 @@ def exclusive_if(*args):
 def raise_if_not_int_subclass(values):
     for v in values:
         if not issubclass(v.__class__, int):
-            raise TypeError(exceptions.type_error_message(v))
+            raise TypeError(exceptions.type_error_message(v, issubclass(v.__class__, Enum)))

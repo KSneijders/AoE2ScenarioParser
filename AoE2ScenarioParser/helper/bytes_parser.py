@@ -3,9 +3,8 @@ from typing import List
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.helper.exceptions import EndOfFileError
-from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
+from AoE2ScenarioParser.helper.list_functions import listify
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
@@ -16,24 +15,21 @@ def vorl(retriever, value):
 
     Args:
         retriever (Retriever): The retriever
-        value (Any): A value to be put in the retriever
+        value (List[Any]): A value to be put in the retriever
 
     Returns:
-        Given value itself or list form depending on retriever configuration
+        The given list or the value inside it
     """
-    if retriever.potential_list:
-        if retriever.datatype.repeat != 1:
-            return listify(value)
-        for attribute in attributes:
-            if hasattr(retriever, attribute):
-                for x in listify(getattr(retriever, attribute)):
-                    if x.dependency_action == DependencyAction.SET_REPEAT:
-                        return listify(value)
+    if retriever.datatype.repeat != 1:
+        return listify(value)
+
+    if retriever.is_list is not None:
+        return listify(value) if retriever.is_list else value[0]
 
     # Fallback to length check
-    if type(value) is list:
-        if len(value) == 1:
-            return value[0]
+    if len(value) == 1:
+        return value[0]
+
     return value
 
 
@@ -65,6 +61,10 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
             return []
+    except TypeError:
+        print(retriever)
+        print(retriever.datatype.repeat)
+        exit()
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)

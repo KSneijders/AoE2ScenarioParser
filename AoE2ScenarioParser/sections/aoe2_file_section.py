@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import get_retriever_by_name, Retriever, duplicate_retriever_list
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicate_retriever_list
 
 
 class SectionLevel(Enum):
@@ -31,7 +31,10 @@ class AoE2FileSection:
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
         self.level: SectionLevel = level
 
+        self.retriever_map = {}
         for retriever in retrievers:
+            self.retriever_map[retriever.name] = retriever
+
             if retriever.name in self.__class__.dependencies.keys():
                 for key, value in self.__class__.dependencies[retriever.name].items():
                     setattr(retriever, key, value)
@@ -99,7 +102,7 @@ class AoE2FileSection:
         total_length = 0
         for retriever in self.retrievers:
             try:
-                handle_retriever_dependency(retriever, "construct", self.retrievers, sections)
+                handle_retriever_dependency(retriever, "construct", self, sections)
                 if retriever.datatype.type == "struct":
                     retriever.data = []
                     struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
@@ -131,7 +134,7 @@ class AoE2FileSection:
                 self.retrievers[i].data = data[i]
 
                 if hasattr(self.retrievers[i], 'on_construct'):
-                    handle_retriever_dependency(self.retrievers[i], "construct", self.retrievers, sections)
+                    handle_retriever_dependency(self.retrievers[i], "construct", self, sections)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: (len: {len(data)}) "
@@ -142,10 +145,10 @@ class AoE2FileSection:
 
     def __getattr__(self, item):
         """Providing a default way to access retriever data labeled 'name'"""
-        if 'retrievers' not in self.__dict__:
+        if 'retriever_map' not in self.__dict__:
             return super().__getattribute__(item)
         else:
-            retriever = get_retriever_by_name(self.retrievers, item)
+            retriever = self.retriever_map[item]
             if retriever is None:
                 return super().__getattribute__(item)
             else:
@@ -153,14 +156,13 @@ class AoE2FileSection:
 
     def __setattr__(self, name, value):
         """Trying to edit retriever data labeled 'name' if available"""
-        if 'retrievers' not in self.__dict__:
+        if 'retriever_map' not in self.__dict__:
             super().__setattr__(name, value)
         else:
-            retriever = get_retriever_by_name(self.retrievers, name)
-            if retriever is None:
+            try:
+                self.retriever_map[name].data = value
+            except KeyError:
                 super().__setattr__(name, value)
-            else:
-                retriever.data = value
 
     def _entry_to_string(self, name, data, datatype):
         prefix = "\t"
