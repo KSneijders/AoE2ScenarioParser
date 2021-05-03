@@ -104,7 +104,6 @@ class EffectId(IntEnum):
     - source_player
     - location_x
     - location_y
-    - location_object_reference
     - scroll"""
     UNLOAD = 17
     """Attributes for the **unload** effect are: \n

@@ -964,7 +964,6 @@
             "source_player",
             "location_x",
             "location_y",
-            "location_object_reference",
             "scroll"
         ],
         "default_attributes": {

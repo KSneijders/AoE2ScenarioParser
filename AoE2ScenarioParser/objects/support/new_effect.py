@@ -247,7 +247,6 @@ class NewEffectSupport:
             source_player=None,
             location_x=None,
             location_y=None,
-            location_object_reference=None,
             scroll=None,
     ):
         self.trigger_ref._add_effect(
@@ -255,7 +254,6 @@ class NewEffectSupport:
             source_player=source_player,
             location_x=location_x,
             location_y=location_y,
-            location_object_reference=location_object_reference,
             scroll=scroll,
         )
 
