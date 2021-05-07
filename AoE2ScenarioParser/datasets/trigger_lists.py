@@ -65,6 +65,7 @@ class ButtonLocation(IntEnum):
     r3c2 = 12
     r3c3 = 13
     r3c4 = 14
+
     # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
 
     @classmethod
@@ -882,3 +883,34 @@ class TerrainRestrictions(IntEnum):
     UNKNOWN = 28
     UNKNOWN_2 = 29
     WATER_SMALLEST_TRAIL = 30
+
+
+class HeroStatusFlag(IntEnum):
+    @staticmethod
+    def combine(
+            hero_regeneration=False,
+            cannot_be_converted=False,
+            defensive_stance_by_default=False,
+            protected_formation=False,
+            delete_confirmation=False):
+
+        total = 2 if cannot_be_converted else 0
+        total += 4 if hero_regeneration else 0
+        total += 8 if defensive_stance_by_default else 0
+        total += 16 if protected_formation else 0
+        total += 32 if delete_confirmation else 0
+        return total
+
+    FULL_HERO_STATUS = 1
+    CANNOT_BE_CONVERTED = 2
+    HERO_REGENERATION = 4
+    DEFENSIVE_STANCE_BY_DEFAULT = 8
+    PROTECTED_FORMATION = 16
+    DELETE_CONFIRMATION = 32
+
+
+class BlastLevel(IntEnum):
+    RESOURCES = 0
+    TREES = 1
+    NEARBY_UNITS = 2
+    TARGET_ONLY = 3
