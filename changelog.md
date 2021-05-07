@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.9 - Unreleased
+
+**Support for the new [47820] update!**
+
+[47820]: https://www.ageofempires.com/news/aoe2de-update-47820/
+
+### Added
+
+- `HOTKEY_ID` to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`. Example: `UnitInfo.ARCHER.HOTKEY_ID`.
+- The `HeroStatusFlag` dataset. Use `HeroStatusFlag.combine(...)` for combinations in the dataset.
+- The `BlastLevel` dataset
+
+### Fixed
+
+- Removed `location_object_reference` from the `Change View` effect.
+- Trigger docs not updated with the new `UnitInfo` dataset. 
+
+---
+
 ## 0.1.8 - 2021-May-01
 
 ### Updated
@@ -16,7 +35,7 @@ The format is based on [Keep a Changelog]
 
 - Hint in exception message when it was clearly not the cause of the error.
 - A typo in the condition dataset `OBJECT_IN_AREA` to `OBJECTS_IN_AREA`.
-- Unit dataset not updated with the new `UnitInfo` - [Issue #12].
+- Unit docs not updated with the new `UnitInfo` dataset - [Issue #12].
 
 [issue #12]: https://github.com/KSneijders/AoE2ScenarioParser/issues/12
 
