@@ -77,7 +77,6 @@ class Retriever:
 
     def set_data_from_bytes(self, bytes_list):
         if self.datatype.repeat > 0 and len(bytes_list) == 0:
-            print(type(bytes_list), bytes_list)
             raise ValueError("Unable to set bytes when no bytes are given")
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
             raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")

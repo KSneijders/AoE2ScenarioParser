@@ -19,8 +19,6 @@ class SectionLevel(Enum):
 
 
 class AoE2FileSection:
-    dependencies = {}
-
     def __init__(self, name, retrievers, struct_models=None, level=SectionLevel.TOP_LEVEL):
         if struct_models is None:
             struct_models = {}
@@ -97,7 +95,7 @@ class AoE2FileSection:
         Args:
             igenerator: A generator from a binary scenario file
             sections: A list of sections to reference when the retrievers have
-                dependencies to orf rom them.
+                dependencies to or from them.
         """
         total_length = 0
         for retriever in self.retrievers:
