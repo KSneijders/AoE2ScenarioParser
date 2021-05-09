@@ -23,6 +23,10 @@ The format is based on [Keep a Changelog]
 - Removed `location_object_reference` from the `Change View` effect.
 - Trigger docs not updated with the new `UnitInfo` dataset. 
 
+### Changed
+
+- Renamed ObjectAttribute `ICON_GRAPHICS_ANGLE` to `GRAPHICS_ANGLE` 
+
 ---
 
 ## 0.1.8 - 2021-May-01
