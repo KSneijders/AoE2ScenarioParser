@@ -15,7 +15,7 @@ for name, file in f_dict.items():
     file.write(f"from enum import Enum\n\n\nclass {name.capitalize()}Info(Enum):")
 
     index = 0
-    for id_type in ['ID', 'ICON_ID', 'DEAD_ID', 'HOTKEY_ID', 'IS_GAIA_ONLY']:
+    for id_type in ['ID', 'ICON_ID', 'DEAD_ID', 'IS_GAIA_ONLY']:  # 'HOTKEY_ID', <-- Between Dead & is_GAIA
         if (name == 'hero' and id_type == 'IS_GAIA_ONLY') or (name == 'other' and id_type == 'HOTKEY_ID'):
             continue
         file.write(f"\n    @property\n")
@@ -45,7 +45,7 @@ with open('./../units.json', 'r') as file_content:
         uid = unit['id']
         iid = unit['icon_id']
         did = unit['dead_id']
-        hid = unit['hotkey_id'] if unit.get('type') != 'other' else ""
+        hid = ""  # unit['hotkey_id'] if unit.get('type') != 'other' else ""
         only = unit['gaia_only'] if unit.get('type') != 'hero' else ""
 
         line = map(lambda e: str(e), filter(lambda e: e != "", [uid, iid, did, hid, only]))
