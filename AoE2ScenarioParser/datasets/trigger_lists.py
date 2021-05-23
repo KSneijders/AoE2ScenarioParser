@@ -914,3 +914,47 @@ class BlastLevel(IntEnum):
     TREES = 1
     NEARBY_UNITS = 2
     TARGET_ONLY = 3
+
+
+class DamageClass(IntEnum):
+    UNUSED1 = 0
+    INFANTRY = 1
+    TURTLE_SHIPS = 2
+    BASE_PIERCE = 3
+    BASE_MELEE = 4
+    WAR_ELEPHANTS = 5
+    UNUSED2 = 6
+    UNUSED3 = 7
+    CAVALRY = 8
+    UNUSED4 = 9
+    UNUSED5 = 10
+    ALL_BUILDINGS_EXCEPT_PORT = 11
+    """Port is the building with id 446"""
+    UNUSED6 = 12
+    STONE_DEFENSE = 13
+    PREDATOR_ANIMALS_FE = 14
+    """Only the unit bear with id 486 has this armour class"""
+    ARCHERS = 15
+    BATTLE_SHIPS_AND_SABOTEUR = 16
+    """Camels also had this armour class before AK"""
+    RAMS = 17
+    TREES = 18
+    UNIQUE_UNITS = 19
+    SIEGE_WEAPONS = 20
+    STANDARD_BUILDINGS = 21
+    WALLS_AND_GATES = 22
+    GUNPOWDER_UNITS = 23
+    BOARS = 24
+    MONKS = 25
+    CASTLE = 26
+    SPEARMEN = 27
+    CAVALRY_ARCHERS = 28
+    EAGLE_WARRIORS = 29
+    CAMELS = 30
+    """Camels use this armour class since and after AK"""
+    LEITIS = 31
+    CONDOTTIERO = 32
+    UNUSED = 33
+    FISHING_SHIP = 34
+    MAMELUKES = 35
+    HEROES_AND_KING = 36
