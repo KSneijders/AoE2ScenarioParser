@@ -83,4 +83,13 @@ class Unit(AoE2Object):
 
     @property
     def name(self) -> str:
-        return pretty_format_name(helper.get_enum_from_unit_const(self.unit_const).name)
+        # return pretty_format_name(helper.get_enum_from_unit_const(self.unit_const).name)
+        # Note: This is previous statement↑, which will cause
+        #           AttributeError: 'NoneType' object has no attribute 'name'
+        #       if unit_const (typeId) not registered in UnitInfo
+        #       (such as: internalName='ARROW' typeId=9, get_enum_from_unit_const(self.unit_const) will return None)
+        unit_enum = helper.get_enum_from_unit_const(self.unit_const)
+        if unit_enum:
+            return pretty_format_name(unit_enum.name)
+        else:
+            return pretty_format_name(f"Unknown{self.unit_const}")  # e.g."Unknown411"
