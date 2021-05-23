@@ -6,11 +6,11 @@ from typing import Dict, List
 from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_list, pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicate_retriever_list
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicate_retriever_map, reset_retriever_map
 
 
 class SectionLevel(Enum):
@@ -19,23 +19,16 @@ class SectionLevel(Enum):
 
 
 class AoE2FileSection:
-    def __init__(self, name, retrievers, struct_models=None, level=SectionLevel.TOP_LEVEL):
+    def __init__(self, name, retriever_map, struct_models=None, level=SectionLevel.TOP_LEVEL):
         if struct_models is None:
             struct_models = {}
 
         self.name: str = name
-        self.retrievers: List[Retriever] = retrievers
+        # self.retrievers: List[Retriever] = retrievers
+        self.retriever_map = retriever_map
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
         self.level: SectionLevel = level
-
-        self.retriever_map = {}
-        for retriever in retrievers:
-            self.retriever_map[retriever.name] = retriever
-
-            if retriever.name in self.__class__.dependencies.keys():
-                for key, value in self.__class__.dependencies[retriever.name].items():
-                    setattr(retriever, key, value)
 
     @classmethod
     def from_model(cls, model, set_defaults=False) -> AoE2FileSection:
@@ -49,44 +42,33 @@ class AoE2FileSection:
         Returns:
             An AoE2FileSection instance based on the model
         """
-        # Using pickle.loads(pickle.dumps(...)) instead of copy.deepcopy()
-        # Reason for this is the huge speed difference. Details can be found at:
-        # https://stackoverflow.com/a/29385667/7230293
-        duplicate_list = duplicate_retriever_list(model.retrievers)
+        duplicate_rmap = duplicate_retriever_map(model.retriever_map)
         if set_defaults:
-            for retriever in duplicate_list:
-                retriever.set_data_to_default()
+            reset_retriever_map(duplicate_rmap)
 
         return cls(
             name=model.name,
-            retrievers=duplicate_list,
+            retriever_map=duplicate_rmap,
             struct_models=model.structs,
             level=SectionLevel.STRUCT
         )
 
     @classmethod
     def from_structure(cls, section_name, structure):
-        retrievers = []
+        retriever_map = {}
         for name, attr in structure.get('retrievers').items():
-            retrievers.append(Retriever.from_structure(name, attr))
+            retriever_map[name] = Retriever.from_structure(name, attr)
 
         structs = model_dict_from_structure(structure)
-        return cls(section_name, retrievers, structs)
-
-    @classmethod
-    def from_data(cls, name, retrievers, data, sections):
-        part = cls(name, retrievers)
-        part.set_data(data, sections)
-        return part
+        return cls(section_name, retriever_map, structs)
 
     def get_data_as_bytes(self):
         result = []
-        for retriever in self.retrievers:
+        for retriever in self.retriever_map.values():
             result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
-    def set_data_from_generator(self, igenerator: IncrementalGenerator, sections: Dict[str, AoE2FileSection]) \
-            -> None:
+    def set_data_from_generator(self, igenerator: IncrementalGenerator, sections: Dict[str, AoE2FileSection]) -> None:
         """
         Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
         Bytes will be parsed based on the retrievers. The total length of bytes read to fill this section is also stored
@@ -98,16 +80,17 @@ class AoE2FileSection:
                 dependencies to or from them.
         """
         total_length = 0
-        for retriever in self.retrievers:
+        for retriever in self.retriever_map.values():
             try:
                 handle_retriever_dependency(retriever, "construct", self, sections)
                 if retriever.datatype.type == "struct":
                     retriever.data = []
-                    struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") | Remove struct naming prefix
+                    struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") >> Removing struct naming prefix
                     for _ in range(retriever.datatype.repeat):
                         model = self.struct_models.get(struct_name)
                         if model is None:
                             raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
+
                         struct = AoE2FileSection.from_model(model)
                         struct.set_data_from_generator(igenerator, sections)
                         retriever.data.append(struct)
@@ -127,18 +110,20 @@ class AoE2FileSection:
         self.byte_length = total_length
 
     def set_data(self, data, sections):
-        if len(data) == len(self.retrievers):
-            for i in range(len(data)):
-                self.retrievers[i].data = data[i]
+        retrievers = self.retriever_map.values()
 
-                if hasattr(self.retrievers[i], 'on_construct'):
-                    handle_retriever_dependency(self.retrievers[i], "construct", self, sections)
+        if len(data) == len(retrievers):
+            for i in range(len(data)):
+                retrievers[i].data = data[i]
+
+                if hasattr(retrievers[i], 'on_construct'):
+                    handle_retriever_dependency(retrievers[i], "construct", self, sections)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: (len: {len(data)}) "
                   f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
-            print(f"Retrievers: (len: {len(self.retrievers)}) "
-                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retrievers)])}")
+            print(f"Retrievers: (len: {len(retrievers)}) "
+                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retriever_map.values())])}")
             raise ValueError("Data list isn't the same size as the DataType list")
 
     def __getattr__(self, item):
@@ -182,8 +167,8 @@ class AoE2FileSection:
 
         byte_structure = "\n" + self.get_header_string()
 
-        for retriever in self.retrievers:
-            if retriever.name in skip_retrievers:
+        for key, retriever in self.retriever_map.items():
+            if key in skip_retrievers:
                 continue
             byte_structure += "\n"
 
@@ -192,12 +177,12 @@ class AoE2FileSection:
             for struct in listed_retriever_data:
                 if isinstance(struct, AoE2FileSection):
                     if not struct_header_set:
-                        byte_structure += f"\n{'#' * 27} {retriever.name} ({retriever.datatype.to_simple_string()})"
+                        byte_structure += f"\n{'#' * 27} {key} ({retriever.datatype.to_simple_string()})"
                         struct_header_set = True
                     byte_structure += struct.get_byte_structure_as_string(sections)
             # Struct Header was set. Retriever was struct, data retrieved using recursion. Next retriever.
             if struct_header_set:
-                byte_structure += f"{'#' * 27} End of: {retriever.name} ({retriever.datatype.to_simple_string()})\n"
+                byte_structure += f"{'#' * 27} End of: {key} ({retriever.datatype.to_simple_string()})\n"
                 continue
 
             retriever_data_bytes = retriever.get_data_as_bytes()
@@ -237,25 +222,24 @@ class AoE2FileSection:
     def __str__(self):
         represent = self.name + ": \n"
 
-        for i, val in enumerate(self.retrievers):
-            if type(self.retrievers[i].data) is list and len(self.retrievers[i].data) > 0:
-                if isinstance(self.retrievers[i].data[0], AoE2FileSection):
-                    represent += "\t" + val.name + ": [\n"
-                    for x in self.retrievers[i].data:
+        for retriever in self.retriever_map.values():
+            if type(retriever.data) is list and len(retriever.data) > 0:
+                if isinstance(retriever.data[0], AoE2FileSection):
+                    represent += "\t" + retriever.name + ": [\n"
+                    for x in retriever.data:
                         represent += "\t\t" + str(x)
                     represent += "\t]\n"
                 else:
                     represent += self._entry_to_string(
-                        val.name,
-                        str(self.retrievers[i].data),
-                        str(val.datatype.to_simple_string())
+                        retriever.name,
+                        str(retriever.data),
+                        str(retriever.datatype.to_simple_string())
                     )
             else:
-                if self.retrievers[i].data is not None:
-                    data = self.retrievers[i].data
-                else:
-                    data = "None"
-                represent += self._entry_to_string(val.name, str(data), str(val.datatype.to_simple_string()))
+                data = retriever.data or "None"
+                represent += self._entry_to_string(
+                    retriever.name, str(data), str(retriever.datatype.to_simple_string())
+                )
 
         return represent
 
