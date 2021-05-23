@@ -770,7 +770,7 @@ class Attribute(IntEnum):
     """Number of buildings from which a tech with command type 7 (spawn) will spawn units"""
     FLEMISH_MILITIA_POPULATION = 235
     """Number of Flemish Militia of the Source Player"""
-    FARMING_GOLD_TRICKLE = 235
+    FARMING_GOLD_TRICKLE = 236
     """
     Farming Gold Generation Rate*0.01 of the Source Player:
 
