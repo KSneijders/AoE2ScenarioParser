@@ -104,7 +104,6 @@ class RetrieverObjectLink:
                 file_section = getattr(file_section, item[:-11])[number_hist[index]]
             else:
                 retriever = file_section.retriever_map[item]
-                # retriever = get_retriever_by_name(file_section.retrievers, item)
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to find retriever")

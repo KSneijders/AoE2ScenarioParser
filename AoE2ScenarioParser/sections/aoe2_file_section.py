@@ -24,7 +24,6 @@ class AoE2FileSection:
             struct_models = {}
 
         self.name: str = name
-        # self.retrievers: List[Retriever] = retrievers
         self.retriever_map = retriever_map
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
