@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - ~~The `HOTKEY_ID` property to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`. Example: `UnitInfo.ARCHER.HOTKEY_ID`.~~
+- The `Hotkey` dataset. These values can be used for static key assignments.
 - The `HeroStatusFlag` dataset. Use `HeroStatusFlag.combine(...)` for combinations in the dataset.
 - The `BlastLevel` dataset.
 - The `DamageClass` dataset. (Credits: Alian713)
