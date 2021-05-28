@@ -14,18 +14,25 @@ The format is based on [Keep a Changelog]
 
 ### Added
 
-- `HOTKEY_ID` to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`. Example: `UnitInfo.ARCHER.HOTKEY_ID`.
+- ~~The `HOTKEY_ID` property to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`. Example: `UnitInfo.ARCHER.HOTKEY_ID`.~~
 - The `HeroStatusFlag` dataset. Use `HeroStatusFlag.combine(...)` for combinations in the dataset.
-- The `BlastLevel` dataset
+- The `BlastLevel` dataset.
+- The `DamageClass` dataset. (Credits: Alian713)
 
 ### Fixed
 
 - Removed `location_object_reference` from the `Change View` effect.
 - Trigger docs not updated with the new `UnitInfo` dataset. 
+- `Unit.name()` when a unit wasn't present in the datasets. Thanks **[newtonerdai](https://github.com/KSneijders/AoE2ScenarioParser/pull/13)**!
+- The ID for `FARMING_GOLD_TRICKLE` from 235 to 236.
+- Remove unit looping through all units even though the unit to be removed was already found.
 
 ### Changed
 
-- Renamed ObjectAttribute `ICON_GRAPHICS_ANGLE` to `GRAPHICS_ANGLE` 
+- Renamed ObjectAttribute `ICON_GRAPHICS_ANGLE` to `GRAPHICS_ANGLE` a
+- Renamed all `area_1_x` attributes to `area_x1`. Same goes for: `area_1_y`, `area_2_x`, `area_2_y`.
+- **BACKEND** - retrievers attribute on sections has been swapped out for retriever_map. 
+  (It's a `dict` instead of a `list` with the retriever name as keys). Reason: **Improve performance**.
 
 ---
 
