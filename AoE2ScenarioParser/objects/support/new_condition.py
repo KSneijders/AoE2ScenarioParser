@@ -1,4 +1,6 @@
 # This file was generated based on: versions/DE/v1.41/conditions.json
+from typing import Union
+
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 
 
@@ -15,28 +17,28 @@ class NewConditionSupport:
 
     def bring_object_to_area(
             self,
-            unit_object=None,
-            area_1x=None,
-            area_1y=None,
-            area_2x=None,
-            area_2y=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            area_x1: Union[int, None] = None,
+            area_y1: Union[int, None] = None,
+            area_x2: Union[int, None] = None,
+            area_y2: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.BRING_OBJECT_TO_AREA,
             unit_object=unit_object,
-            area_1x=area_1x,
-            area_1y=area_1y,
-            area_2x=area_2x,
-            area_2y=area_2y,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
             inverted=inverted,
         )
 
     def bring_object_to_object(
             self,
-            unit_object=None,
-            next_object=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            next_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.BRING_OBJECT_TO_OBJECT,
@@ -47,11 +49,11 @@ class NewConditionSupport:
 
     def own_objects(
             self,
-            quantity=None,
-            object_list=None,
-            source_player=None,
-            object_group=None,
-            object_type=None,
+            quantity: Union[int, None] = None,
+            object_list: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            object_group: Union[int, None] = None,
+            object_type: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OWN_OBJECTS,
@@ -64,51 +66,51 @@ class NewConditionSupport:
 
     def own_fewer_objects(
             self,
-            quantity=None,
-            object_list=None,
-            source_player=None,
-            area_1x=None,
-            area_1y=None,
-            area_2x=None,
-            area_2y=None,
-            object_group=None,
-            object_type=None,
+            quantity: Union[int, None] = None,
+            object_list: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            area_x1: Union[int, None] = None,
+            area_y1: Union[int, None] = None,
+            area_x2: Union[int, None] = None,
+            area_y2: Union[int, None] = None,
+            object_group: Union[int, None] = None,
+            object_type: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OWN_FEWER_OBJECTS,
             quantity=quantity,
             object_list=object_list,
             source_player=source_player,
-            area_1x=area_1x,
-            area_1y=area_1y,
-            area_2x=area_2x,
-            area_2y=area_2y,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
             object_group=object_group,
             object_type=object_type,
         )
 
     def objects_in_area(
             self,
-            quantity=None,
-            object_list=None,
-            source_player=None,
-            area_1x=None,
-            area_1y=None,
-            area_2x=None,
-            area_2y=None,
-            object_group=None,
-            object_type=None,
-            inverted=None,
+            quantity: Union[int, None] = None,
+            object_list: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            area_x1: Union[int, None] = None,
+            area_y1: Union[int, None] = None,
+            area_x2: Union[int, None] = None,
+            area_y2: Union[int, None] = None,
+            object_group: Union[int, None] = None,
+            object_type: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECTS_IN_AREA,
             quantity=quantity,
             object_list=object_list,
             source_player=source_player,
-            area_1x=area_1x,
-            area_1y=area_1y,
-            area_2x=area_2x,
-            area_2y=area_2y,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
             object_group=object_group,
             object_type=object_type,
             inverted=inverted,
@@ -116,8 +118,8 @@ class NewConditionSupport:
 
     def destroy_object(
             self,
-            unit_object=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.DESTROY_OBJECT,
@@ -127,9 +129,9 @@ class NewConditionSupport:
 
     def capture_object(
             self,
-            unit_object=None,
-            source_player=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.CAPTURE_OBJECT,
@@ -140,10 +142,10 @@ class NewConditionSupport:
 
     def accumulate_attribute(
             self,
-            quantity=None,
-            attribute=None,
-            source_player=None,
-            inverted=None,
+            quantity: Union[int, None] = None,
+            attribute: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.ACCUMULATE_ATTRIBUTE,
@@ -155,9 +157,9 @@ class NewConditionSupport:
 
     def research_technology(
             self,
-            source_player=None,
-            technology=None,
-            inverted=None,
+            source_player: Union[int, None] = None,
+            technology: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.RESEARCH_TECHNOLOGY,
@@ -168,8 +170,8 @@ class NewConditionSupport:
 
     def timer(
             self,
-            timer=None,
-            inverted=None,
+            timer: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.TIMER,
@@ -179,8 +181,8 @@ class NewConditionSupport:
 
     def object_selected(
             self,
-            unit_object=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_SELECTED,
@@ -190,8 +192,8 @@ class NewConditionSupport:
 
     def ai_signal(
             self,
-            ai_signal=None,
-            inverted=None,
+            ai_signal: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.AI_SIGNAL,
@@ -201,8 +203,8 @@ class NewConditionSupport:
 
     def player_defeated(
             self,
-            source_player=None,
-            inverted=None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.PLAYER_DEFEATED,
@@ -212,12 +214,12 @@ class NewConditionSupport:
 
     def object_has_target(
             self,
-            unit_object=None,
-            next_object=None,
-            object_list=None,
-            object_group=None,
-            object_type=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            next_object: Union[int, None] = None,
+            object_list: Union[int, None] = None,
+            object_group: Union[int, None] = None,
+            object_type: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_HAS_TARGET,
@@ -231,7 +233,7 @@ class NewConditionSupport:
 
     def object_visible(
             self,
-            unit_object=None,
+            unit_object: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_VISIBLE,
@@ -240,7 +242,7 @@ class NewConditionSupport:
 
     def object_not_visible(
             self,
-            unit_object=None,
+            unit_object: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_NOT_VISIBLE,
@@ -249,9 +251,9 @@ class NewConditionSupport:
 
     def researching_tech(
             self,
-            source_player=None,
-            technology=None,
-            inverted=None,
+            source_player: Union[int, None] = None,
+            technology: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.RESEARCHING_TECH,
@@ -262,9 +264,9 @@ class NewConditionSupport:
 
     def units_garrisoned(
             self,
-            quantity=None,
-            unit_object=None,
-            inverted=None,
+            quantity: Union[int, None] = None,
+            unit_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.UNITS_GARRISONED,
@@ -275,8 +277,8 @@ class NewConditionSupport:
 
     def difficulty_level(
             self,
-            quantity=None,
-            inverted=None,
+            quantity: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.DIFFICULTY_LEVEL,
@@ -286,7 +288,7 @@ class NewConditionSupport:
 
     def chance(
             self,
-            quantity=None,
+            quantity: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.CHANCE,
@@ -295,10 +297,10 @@ class NewConditionSupport:
 
     def technology_state(
             self,
-            quantity=None,
-            source_player=None,
-            technology=None,
-            inverted=None,
+            quantity: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            technology: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.TECHNOLOGY_STATE,
@@ -310,10 +312,10 @@ class NewConditionSupport:
 
     def variable_value(
             self,
-            quantity=None,
-            inverted=None,
-            variable=None,
-            comparison=None,
+            quantity: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+            variable: Union[int, None] = None,
+            comparison: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.VARIABLE_VALUE,
@@ -325,10 +327,10 @@ class NewConditionSupport:
 
     def object_hp(
             self,
-            quantity=None,
-            unit_object=None,
-            inverted=None,
-            comparison=None,
+            quantity: Union[int, None] = None,
+            unit_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+            comparison: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_HP,
@@ -340,10 +342,10 @@ class NewConditionSupport:
 
     def diplomacy_state(
             self,
-            quantity=None,
-            source_player=None,
-            inverted=None,
-            target_player=None,
+            quantity: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+            target_player: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.DIPLOMACY_STATE,
@@ -355,7 +357,7 @@ class NewConditionSupport:
 
     def script_call(
             self,
-            xs_function=None,
+            xs_function: Union[str, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.SCRIPT_CALL,
@@ -364,9 +366,9 @@ class NewConditionSupport:
 
     def object_visible_multiplayer(
             self,
-            unit_object=None,
-            source_player=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_VISIBLE_MULTIPLAYER,
@@ -377,9 +379,9 @@ class NewConditionSupport:
 
     def object_selected_multiplayer(
             self,
-            unit_object=None,
-            source_player=None,
-            inverted=None,
+            unit_object: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_SELECTED_MULTIPLAYER,
@@ -390,10 +392,10 @@ class NewConditionSupport:
 
     def object_has_action(
             self,
-            unit_object=None,
-            next_object=None,
-            inverted=None,
-            unit_ai_action=None,
+            unit_object: Union[int, None] = None,
+            next_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+            unit_ai_action: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.OBJECT_HAS_ACTION,
@@ -412,8 +414,8 @@ class NewConditionSupport:
 
     def ai_signal_multiplayer(
             self,
-            ai_signal=None,
-            inverted=None,
+            ai_signal: Union[int, None] = None,
+            inverted: Union[int, None] = None,
     ):
         self.trigger_ref._add_condition(
             ConditionId.AI_SIGNAL_MULTIPLAYER,

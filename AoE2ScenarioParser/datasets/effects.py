@@ -66,10 +66,10 @@ class EffectId(IntEnum):
     - location_x
     - location_y
     - location_object_reference
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -81,10 +81,10 @@ class EffectId(IntEnum):
     """Attributes for the **kill_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -92,10 +92,10 @@ class EffectId(IntEnum):
     """Attributes for the **remove_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -112,10 +112,10 @@ class EffectId(IntEnum):
     - location_x
     - location_y
     - location_object_reference
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -124,10 +124,10 @@ class EffectId(IntEnum):
     - object_list_unit_id
     - source_player
     - target_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - flash_object
@@ -139,10 +139,10 @@ class EffectId(IntEnum):
     - location_x
     - location_y
     - location_object_reference
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -163,10 +163,10 @@ class EffectId(IntEnum):
     """Attributes for the **freeze_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -179,10 +179,10 @@ class EffectId(IntEnum):
     - quantity
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -197,10 +197,10 @@ class EffectId(IntEnum):
     - object_list_unit_id
     - source_player
     - string_id
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - message
     - selected_object_ids"""
     CHANGE_OBJECT_HP = 27
@@ -208,10 +208,10 @@ class EffectId(IntEnum):
     - quantity
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - operation
@@ -222,10 +222,10 @@ class EffectId(IntEnum):
     - armour_attack_class
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - operation
@@ -234,10 +234,10 @@ class EffectId(IntEnum):
     """Attributes for the **stop_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -248,10 +248,10 @@ class EffectId(IntEnum):
     - location_x
     - location_y
     - location_object_reference
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -261,10 +261,10 @@ class EffectId(IntEnum):
     - armour_attack_class
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - operation
@@ -274,10 +274,10 @@ class EffectId(IntEnum):
     - quantity
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - operation
@@ -287,10 +287,10 @@ class EffectId(IntEnum):
     - quantity
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -299,10 +299,10 @@ class EffectId(IntEnum):
     - quantity
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -312,10 +312,10 @@ class EffectId(IntEnum):
     - source_player
     - location_x
     - location_y
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - selected_object_ids"""
@@ -323,10 +323,10 @@ class EffectId(IntEnum):
     """Attributes for the **change_object_stance** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - attack_stance
@@ -367,10 +367,10 @@ class EffectId(IntEnum):
     """Attributes for the **change_object_icon** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - object_list_unit_id_2
@@ -380,10 +380,10 @@ class EffectId(IntEnum):
     - object_list_unit_id
     - source_player
     - target_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_group
     - object_type
     - object_list_unit_id_2
@@ -420,10 +420,10 @@ class EffectId(IntEnum):
     """Attributes for the **create_garrisoned_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - object_list_unit_id_2
     - selected_object_ids"""
     ACKNOWLEDGE_AI_SIGNAL = 50
@@ -457,10 +457,10 @@ class EffectId(IntEnum):
     - source_player
     - location_x
     - location_y
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     SCRIPT_CALL = 55
     """Attributes for the **script_call** effect are: \n
@@ -479,47 +479,47 @@ class EffectId(IntEnum):
     """Attributes for the **change_object_player_color** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - player_color
     - selected_object_ids"""
     CHANGE_OBJECT_CIVILIZATION_NAME = 59
     """Attributes for the **change_object_civilization_name** effect are: \n
     - string_id
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     CHANGE_OBJECT_PLAYER_NAME = 60
     """Attributes for the **change_object_player_name** effect are: \n
     - object_list_unit_id
     - source_player
     - string_id
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     DISABLE_UNIT_TARGETING = 61
     """Attributes for the **disable_unit_targeting** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     ENABLE_UNIT_TARGETING = 62
     """Attributes for the **enable_unit_targeting** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     CHANGE_TECHNOLOGY_COST = 63
     """Attributes for the **change_technology_cost** effect are: \n
@@ -562,19 +562,19 @@ class EffectId(IntEnum):
     """Attributes for the **disable_object_selection** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     ENABLE_OBJECT_SELECTION = 71
     """Attributes for the **enable_object_selection** effect are: \n
     - object_list_unit_id
     - source_player
-    - area_1x
-    - area_1y
-    - area_2x
-    - area_2y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
     - selected_object_ids"""
     # Possibly used for marking when achievements should be achieved. Doesn't seem to work in scenario's. F
     # UNKNOWN_0 = 58  # Was 58... Not anymore (?)
@@ -598,10 +598,10 @@ empty_attributes = {
     "location_x": -1,
     "location_y": -1,
     "location_object_reference": -1,
-    "area_1x": -1,
-    "area_1y": -1,
-    "area_2x": -1,
-    "area_2y": -1,
+    "area_x1": -1,
+    "area_y1": -1,
+    "area_x2": -1,
+    "area_y2": -1,
     "object_group": -1,
     "object_type": -1,
     "instruction_panel_position": -1,

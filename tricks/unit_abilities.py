@@ -32,10 +32,10 @@ trigger.new_condition.objects_in_area(
     quantity=1,
     object_list=unit_to_be_garrisoned,
     source_player=PlayerId.ONE,
-    area_1x=0,
-    area_1y=0,
-    area_2x=10,
-    area_2y=10
+    area_x1=0,
+    area_y1=0,
+    area_x2=10,
+    area_y2=10
 )
 
 trigger.new_effect.display_instructions(
@@ -52,10 +52,10 @@ trigger.new_effect.teleport_object(
     source_player=PlayerId.ONE,
     location_x=100,
     location_y=100,
-    area_1x=0,
-    area_1y=0,
-    area_2x=10,
-    area_2y=10,
+    area_x1=0,
+    area_y1=0,
+    area_x2=10,
+    area_y2=10,
 )
 
 # Works consistently (also with projectiles)
@@ -64,10 +64,10 @@ trigger.new_effect.patrol(
     source_player=PlayerId.ONE,
     location_x=100,
     location_y=100,
-    area_1x=0,
-    area_1y=0,
-    area_2x=10,
-    area_2y=10,
+    area_x1=0,
+    area_y1=0,
+    area_x2=10,
+    area_y2=10,
 )
 
 scenario.write_to_file(write_to_file)
