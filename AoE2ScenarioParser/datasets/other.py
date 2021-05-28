@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class OtherInfo(Enum):
+    # SUGGEST: place the properties together for more convenient management.
     @property
     def ID(self):
         return self.value[0]
@@ -23,6 +24,7 @@ class OtherInfo(Enum):
 
     @classmethod
     def from_icon_id(cls, value: int):
+        # NOTE: Only return the first unit(member) of units who have the same icon id.
         if type(value) is not int:
             raise TypeError(f"from_icon_id expected int, got {type(value)}")
         if value == -1:
@@ -38,6 +40,7 @@ class OtherInfo(Enum):
 
     @classmethod
     def from_dead_id(cls, value: int):
+        # NOTE: Only return the first unit(member) of units who have the same dead id.
         if type(value) is not int:
             raise TypeError(f"from_dead_id expected int, got {type(value)}")
         if value == -1:
@@ -55,7 +58,7 @@ class OtherInfo(Enum):
     def gaia_only():
         result = []
         for x in OtherInfo:
-            if x.IS_GAIA:
+            if x.IS_GAIA_ONLY:
                 result.append(x)
         return result
 
@@ -63,7 +66,7 @@ class OtherInfo(Enum):
     def non_gaia():
         result = []
         for x in OtherInfo:
-            if not x.IS_GAIA:
+            if not x.IS_GAIA_ONLY:
                 result.append(x)
         return result
 

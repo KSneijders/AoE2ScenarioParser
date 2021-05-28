@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class UnitInfo(Enum):
+    # SUGGEST: how about placing the properties together for more convenient management.
     @property
     def ID(self):
         return self.value[0]
@@ -12,7 +13,7 @@ class UnitInfo(Enum):
             raise TypeError(f"from_id expected int, got {type(value)}")
         if value == -1:
             raise ValueError("-1 is not a valid id value")
-        for x in cls._member_map_.values():
+        for x in cls._member_map_.values():    # x: <enum 'UnitInfo'>. "member" will be a more suitable var name.
             if x.value[0] == value:
                 return x
         raise ValueError(f"{value} is not a valid id value")
@@ -23,6 +24,7 @@ class UnitInfo(Enum):
 
     @classmethod
     def from_icon_id(cls, value: int):
+        # NOTE: Only return the first unit(member) of units who have the same icon id.
         if type(value) is not int:
             raise TypeError(f"from_icon_id expected int, got {type(value)}")
         if value == -1:
@@ -38,6 +40,7 @@ class UnitInfo(Enum):
 
     @classmethod
     def from_dead_id(cls, value: int):
+        # NOTE: Only return the first unit(member) of units who have the same dead id.
         if type(value) is not int:
             raise TypeError(f"from_dead_id expected int, got {type(value)}")
         if value == -1:
@@ -55,7 +58,7 @@ class UnitInfo(Enum):
     def gaia_only():
         result = []
         for x in UnitInfo:
-            if x.IS_GAIA:
+            if x.IS_GAIA_ONLY:    # IS_GAIA property had been renamed to IS_GAIA_ONLY.
                 result.append(x)
         return result
 
@@ -63,7 +66,7 @@ class UnitInfo(Enum):
     def non_gaia():
         result = []
         for x in UnitInfo:
-            if not x.IS_GAIA:
+            if not x.IS_GAIA_ONLY:    # IS_GAIA property had been renamed to IS_GAIA_ONLY.
                 result.append(x)
         return result
 
