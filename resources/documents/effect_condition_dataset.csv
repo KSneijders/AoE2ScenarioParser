@@ -58,10 +58,10 @@ object_list_unit_id
 source_player
 location_x
 location_y
-area_1_x
-area_1_y
-area_2_x
-area_2_y
+area_1x
+area_1y
+area_2x
+area_2y
 selected_object_ids",,,,,
 55,Script Call,"number_of_units_selected
 string_id

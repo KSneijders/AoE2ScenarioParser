@@ -13,10 +13,10 @@ class ConditionId(IntEnum):
     """
     Attributes for the **bring_object_to_area** condition are:\n
     - unit_object  
-    - area_1_x
-    - area_1_y
-    - area_2_x
-    - area_2_y
+    - area_1x
+    - area_1y
+    - area_2x
+    - area_2y
     - inverted
     """
     BRING_OBJECT_TO_OBJECT = 2
@@ -41,10 +41,10 @@ class ConditionId(IntEnum):
     - quantity
     - object_list
     - source_player
-    - area_1_x
-    - area_1_y
-    - area_2_x
-    - area_2_y
+    - area_1x
+    - area_1y
+    - area_2x
+    - area_2y
     - object_group
     - object_type
     """
@@ -54,10 +54,10 @@ class ConditionId(IntEnum):
     - quantity
     - object_list
     - source_player
-    - area_1_x
-    - area_1_y
-    - area_2_x
-    - area_2_y
+    - area_1x
+    - area_1y
+    - area_2x
+    - area_2y
     - object_group
     - object_type
     - inverted
@@ -259,10 +259,10 @@ empty_attributes = {
     "source_player": -1,
     "technology": -1,
     "timer": -1,
-    "area_1_x": -1,
-    "area_1_y": -1,
-    "area_2_x": -1,
-    "area_2_y": -1,
+    "area_1x": -1,
+    "area_1y": -1,
+    "area_2x": -1,
+    "area_2y": -1,
     "object_group": -1,
     "object_type": -1,
     "ai_signal": -1,

@@ -39,10 +39,10 @@ class Effect(AoE2Object):
         RetrieverObjectLink("location_y", "Triggers", "trigger_data[__index__].effect_data[__index__].location_y"),
         RetrieverObjectLink("location_object_reference", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].location_object_reference"),
-        RetrieverObjectLink("area_1_x", "Triggers", "trigger_data[__index__].effect_data[__index__].area_1_x"),
-        RetrieverObjectLink("area_1_y", "Triggers", "trigger_data[__index__].effect_data[__index__].area_1_y"),
-        RetrieverObjectLink("area_2_x", "Triggers", "trigger_data[__index__].effect_data[__index__].area_2_x"),
-        RetrieverObjectLink("area_2_y", "Triggers", "trigger_data[__index__].effect_data[__index__].area_2_y"),
+        RetrieverObjectLink("area_1x", "Triggers", "trigger_data[__index__].effect_data[__index__].area_1x"),
+        RetrieverObjectLink("area_1y", "Triggers", "trigger_data[__index__].effect_data[__index__].area_1y"),
+        RetrieverObjectLink("area_2x", "Triggers", "trigger_data[__index__].effect_data[__index__].area_2x"),
+        RetrieverObjectLink("area_2y", "Triggers", "trigger_data[__index__].effect_data[__index__].area_2y"),
         RetrieverObjectLink("object_group", "Triggers", "trigger_data[__index__].effect_data[__index__].object_group"),
         RetrieverObjectLink("object_type", "Triggers", "trigger_data[__index__].effect_data[__index__].object_type"),
         RetrieverObjectLink("instruction_panel_position", "Triggers",
@@ -104,10 +104,10 @@ class Effect(AoE2Object):
                  location_x: int = None,
                  location_y: int = None,
                  location_object_reference: int = None,
-                 area_1_x: int = None,
-                 area_1_y: int = None,
-                 area_2_x: int = None,
-                 area_2_y: int = None,
+                 area_1x: int = None,
+                 area_1y: int = None,
+                 area_2x: int = None,
+                 area_2y: int = None,
                  object_group: int = None,
                  object_type: int = None,
                  instruction_panel_position: int = None,
@@ -159,10 +159,10 @@ class Effect(AoE2Object):
         self.location_x: int = location_x
         self.location_y: int = location_y
         self.location_object_reference: int = location_object_reference
-        self.area_1_x: int = area_1_x
-        self.area_1_y: int = area_1_y
-        self.area_2_x: int = area_2_x
-        self.area_2_y: int = area_2_y
+        self.area_1x: int = area_1x
+        self.area_1y: int = area_1y
+        self.area_2x: int = area_2x
+        self.area_2y: int = area_2y
         self.object_group: int = object_group
         self.object_type: int = object_type
         self.instruction_panel_position: int = instruction_panel_position

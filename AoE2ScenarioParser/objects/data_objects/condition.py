@@ -30,10 +30,10 @@ class Condition(AoE2Object):
         RetrieverObjectLink("technology", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].technology"),
         RetrieverObjectLink("timer", "Triggers", "trigger_data[__index__].condition_data[__index__].timer"),
-        RetrieverObjectLink("area_1_x", "Triggers", "trigger_data[__index__].condition_data[__index__].area_1_x"),
-        RetrieverObjectLink("area_1_y", "Triggers", "trigger_data[__index__].condition_data[__index__].area_1_y"),
-        RetrieverObjectLink("area_2_x", "Triggers", "trigger_data[__index__].condition_data[__index__].area_2_x"),
-        RetrieverObjectLink("area_2_y", "Triggers", "trigger_data[__index__].condition_data[__index__].area_2_y"),
+        RetrieverObjectLink("area_1x", "Triggers", "trigger_data[__index__].condition_data[__index__].area_1x"),
+        RetrieverObjectLink("area_1y", "Triggers", "trigger_data[__index__].condition_data[__index__].area_1y"),
+        RetrieverObjectLink("area_2x", "Triggers", "trigger_data[__index__].condition_data[__index__].area_2x"),
+        RetrieverObjectLink("area_2y", "Triggers", "trigger_data[__index__].condition_data[__index__].area_2y"),
         RetrieverObjectLink("object_group", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].object_group"),
         RetrieverObjectLink("object_type", "Triggers",
@@ -61,10 +61,10 @@ class Condition(AoE2Object):
                  source_player: IntEnum = None,
                  technology: IntEnum = None,
                  timer: int = None,
-                 area_1_x: int = None,
-                 area_1_y: int = None,
-                 area_2_x: int = None,
-                 area_2_y: int = None,
+                 area_1x: int = None,
+                 area_1y: int = None,
+                 area_2x: int = None,
+                 area_2y: int = None,
                  object_group: int = None,
                  object_type: int = None,
                  ai_signal: int = None,
@@ -86,10 +86,10 @@ class Condition(AoE2Object):
         self.source_player: int = source_player
         self.technology: int = technology
         self.timer: int = timer
-        self.area_1_x: int = area_1_x
-        self.area_1_y: int = area_1_y
-        self.area_2_x: int = area_2_x
-        self.area_2_y: int = area_2_y
+        self.area_1x: int = area_1x
+        self.area_1y: int = area_1y
+        self.area_2x: int = area_2x
+        self.area_2y: int = area_2y
         self.object_group: int = object_group
         self.object_type: int = object_type
         self.ai_signal: int = ai_signal
