@@ -1106,5 +1106,9 @@
     "SCUTAGE": {
         "id": 757,
         "icon_id": 107
+    },
+    "CONVERSION_ENABLER": {
+        "id": 243,
+        "icon_id": -1
     }
 }

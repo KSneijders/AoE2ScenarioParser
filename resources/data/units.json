@@ -5472,5 +5472,12 @@
         "type": "unit",
         "dead_id": 572,
         "icon_id": 17      
+    },
+    "MONUMENT_RESOURCE_ENABLER": {
+        "id": 1639,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 572,
+        "icon_id": 17      
     }
 }
