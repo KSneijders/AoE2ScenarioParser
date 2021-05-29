@@ -889,11 +889,14 @@ class TerrainRestrictions(IntEnum):
     """Used by units with wheels, such as Rams and Scorpions."""
     SHALLOW_WATER = 21
     ALL_DART = 22
-    ALL_CHEMISTRY_ARROW = 23
-    """Only used by Arrows with chemical fire. The same below."""
-    ALL_CHEMISTRY_CANNON = 24
-    ALL_CHEMISTRY_SPEAR = 25
-    ALL_CHEMISTRY_DART = 26
+    ALL_ARROW_FIRE = 23
+    """Only used by Arrows with fire (After chemistry)."""
+    ALL_CANNON_FIRE = 24
+    """Only used by Cannon balls (After chemistry)."""
+    ALL_SPEAR_FIRE = 25
+    """Only used by Spears with fire (After chemistry)."""
+    ALL_DART_FIRE = 26
+    """Only used by Darts with fire (After chemistry)."""
     ALL_LASER = 27
     """Only used by Projectile Laser with id 1595"""
     ALL_EXCEPT_WATER_CAVALRY = 28
