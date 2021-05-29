@@ -215,3 +215,4 @@ class BuildingInfo(Enum):
     DONJON = 1665, 84, 1524, False
     TRADE_WORKSHOP_BR = 1647, 17, 1429, False
     TRADE_WORKSHOP_TG = 179, 17, 1429, False
+    TOWN_CENTER_PACKED = 444, 264, 1274, True
