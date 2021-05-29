@@ -4,5480 +4,6263 @@
         "gaia_only": true,
         "type": "unit",
         "dead_id": 489,
-        "icon_id": 151
+        "icon_id": 151,
+        "hotkey_id": 16712
     },
     "BUTTERFLY1": {
         "id": 1608,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16716
     },
     "BUTTERFLY2": {
         "id": 1609,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16716
     },
     "BUTTERFLY3": {
         "id": 1610,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16716
     },
     "CROCODILE": {
         "id": 1031,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1032,
-        "icon_id": 193
+        "icon_id": 193,
+        "hotkey_id": 16060
     },
     "DEER": {
         "id": 65,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 43,
-        "icon_id": 3
+        "icon_id": 3,
+        "hotkey_id": 16071
     },
     "DIRE_WOLF": {
         "id": 89,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 237,
-        "icon_id": 7
+        "icon_id": 7,
+        "hotkey_id": 16553
     },
     "ELEPHANT": {
         "id": 1301,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1332,
-        "icon_id": 179
+        "icon_id": 179,
+        "hotkey_id": 16722
     },
     "FALCON": {
         "id": 1056,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 5
+        "icon_id": 5,
+        "hotkey_id": 16058
     },
     "HAWK": {
         "id": 96,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 283
+        "icon_id": 283,
+        "hotkey_id": 16073
     },
     "IBEX": {
         "id": 1239,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1240,
-        "icon_id": 267
+        "icon_id": 267,
+        "hotkey_id": 16071
     },
     "IRON_BOAR": {
         "id": 810,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 356,
-        "icon_id": 98
+        "icon_id": 98,
+        "hotkey_id": 16710
     },
     "JAGUAR": {
         "id": 812,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 813,
-        "icon_id": 111
+        "icon_id": 111,
+        "hotkey_id": 16712
     },
     "JAVELINA": {
         "id": 822,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 356,
-        "icon_id": 98
+        "icon_id": 98,
+        "hotkey_id": 16722
     },
     "KOMODO_DRAGON": {
         "id": 1135,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1136,
-        "icon_id": 226
+        "icon_id": 226,
+        "hotkey_id": 16163
     },
     "LION": {
         "id": 1029,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1030,
-        "icon_id": 194
+        "icon_id": 194,
+        "hotkey_id": 16059
     },
     "MACAW": {
         "id": 816,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 284
+        "icon_id": 284,
+        "hotkey_id": 16716
     },
     "OSTRICH": {
         "id": 1026,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1027,
-        "icon_id": 196
+        "icon_id": 196,
+        "hotkey_id": 16071
     },
     "RABID_WOLF": {
         "id": 202,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 237,
-        "icon_id": 7
+        "icon_id": 7,
+        "hotkey_id": 16652
     },
     "RHINOCEROS": {
         "id": 1139,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1140,
-        "icon_id": 225
+        "icon_id": 225,
+        "hotkey_id": 16172
     },
     "SEAGULLS": {
         "id": 303,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16716
     },
     "SNOW_LEOPARD": {
         "id": 1241,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1242,
-        "icon_id": 268
+        "icon_id": 268,
+        "hotkey_id": 16060
     },
     "STORK": {
         "id": 1028,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 285
+        "icon_id": 285,
+        "hotkey_id": 16058
     },
     "STORMY_DOG": {
         "id": 862,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 159
+        "icon_id": 159,
+        "hotkey_id": 16764
     },
     "TIGER": {
         "id": 1137,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1138,
-        "icon_id": 227
+        "icon_id": 227,
+        "hotkey_id": 16170
     },
     "VULTURE": {
         "id": 1305,
         "gaia_only": true,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 286
+        "icon_id": 286,
+        "hotkey_id": 16716
     },
     "WILD_BACTRIAN_CAMEL": {
         "id": 1247,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1238,
-        "icon_id": 266
+        "icon_id": 266,
+        "hotkey_id": 16735
     },
     "WILD_BOAR": {
         "id": 48,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 356,
-        "icon_id": 98
+        "icon_id": 98,
+        "hotkey_id": 16406
     },
     "WILD_CAMEL": {
         "id": 884,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 898,
-        "icon_id": 135
+        "icon_id": 135,
+        "hotkey_id": 16735
     },
     "WILD_HORSE": {
         "id": 835,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 815,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 16735
     },
     "WOLF": {
         "id": 126,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 237,
-        "icon_id": 7
+        "icon_id": 7,
+        "hotkey_id": 16075
     },
     "ZEBRA": {
         "id": 1019,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 1020,
-        "icon_id": 192
+        "icon_id": 192,
+        "hotkey_id": 16071
     },
     "MOVEABLE_MAP_REVEALER": {
         "id": 0,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16000
     },
     "ALFRED_THE_ALPACA": {
         "id": 1300,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1331,
-        "icon_id": 177
+        "icon_id": 177,
+        "hotkey_id": 16469
     },
     "AMAZON_ARCHER": {
         "id": 850,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1325,
-        "icon_id": 165
+        "icon_id": 165,
+        "hotkey_id": 16683
     },
     "AMAZON_WARRIOR": {
         "id": 825,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1324,
-        "icon_id": 166
+        "icon_id": 166,
+        "hotkey_id": 16667
     },
     "ARAMBAI": {
         "id": 1126,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1127,
-        "icon_id": 230
+        "icon_id": 230,
+        "hotkey_id": 16101
     },
     "ARBALESTER": {
         "id": 492,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 496,
-        "icon_id": 90
+        "icon_id": 90,
+        "hotkey_id": 16418
     },
     "ARCHER": {
         "id": 4,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 3,
-        "icon_id": 17
+        "icon_id": 17,
+        "hotkey_id": 16083
     },
     "BACTRIAN_CAMEL": {
         "id": 1237,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1238,
-        "icon_id": 266
+        "icon_id": 266,
+        "hotkey_id": 16714
     },
     "BALLISTA_ELEPHANT": {
         "id": 1120,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1121,
-        "icon_id": 231
+        "icon_id": 231,
+        "hotkey_id": 16101
     },
     "BANDIT": {
         "id": 299,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 152,
-        "icon_id": 8
+        "icon_id": 8,
+        "hotkey_id": 16098
     },
     "BATTERING_RAM": {
         "id": 1258,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 23,
-        "icon_id": 74
+        "icon_id": 74,
+        "hotkey_id": 16094
     },
     "BATTLE_ELEPHANT": {
         "id": 1132,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1133,
-        "icon_id": 228
+        "icon_id": 228,
+        "hotkey_id": 16733
     },
     "BERSERK": {
         "id": 692,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 693,
-        "icon_id": 38
+        "icon_id": 38,
+        "hotkey_id": 16574
     },
     "BOMBARD_CANNON": {
         "id": 36,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 16,
-        "icon_id": 30
+        "icon_id": 30,
+        "hotkey_id": 16093
     },
     "BOYAR": {
         "id": 876,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 877,
-        "icon_id": 114
+        "icon_id": 114,
+        "hotkey_id": 16101
     },
     "CAMEL": {
         "id": 897,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 898,
-        "icon_id": 135
+        "icon_id": 135,
+        "hotkey_id": 16714
     },
     "CAMEL_ARCHER": {
         "id": 1007,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1008,
-        "icon_id": 191
+        "icon_id": 191,
+        "hotkey_id": 16101
     },
     "CAMEL_RIDER": {
         "id": 329,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 113,
-        "icon_id": 78
+        "icon_id": 78,
+        "hotkey_id": 16416
     },
     "CANNON_GALLEON": {
         "id": 420,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 55
+        "icon_id": 55,
+        "hotkey_id": 16287
     },
     "CANOE": {
         "id": 778,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 164
+        "icon_id": 164,
+        "hotkey_id": 16106
     },
     "CAPPED_RAM": {
         "id": 422,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 423,
-        "icon_id": 63
+        "icon_id": 63,
+        "hotkey_id": 16289
     },
     "CARAVEL": {
         "id": 1004,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 198
+        "icon_id": 198,
+        "hotkey_id": 16106
     },
     "CART": {
         "id": 1338,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 205,
-        "icon_id": 34
+        "icon_id": 34,
+        "hotkey_id": 16100
     },
     "CATAPHRACT": {
         "id": 40,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 27,
-        "icon_id": 35
+        "icon_id": 35,
+        "hotkey_id": 16101
     },
     "CAVALIER": {
         "id": 283,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 139,
-        "icon_id": 49
+        "icon_id": 49,
+        "hotkey_id": 16070
     },
     "CAVALRY_ARCHER": {
         "id": 39,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 34,
-        "icon_id": 19
+        "icon_id": 19,
+        "hotkey_id": 16085
     },
     "CENTURION": {
         "id": 275,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 277,
-        "icon_id": 138
+        "icon_id": 138,
+        "hotkey_id": 16451
     },
     "CHAMPION": {
         "id": 567,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 568,
-        "icon_id": 72
+        "icon_id": 72,
+        "hotkey_id": 16469
     },
     "CHU_KO_NU": {
         "id": 73,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 28,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16102
     },
     "COBRA_CAR": {
         "id": 748,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 142
+        "icon_id": 142,
+        "hotkey_id": 16658
     },
     "CONDOTTIERO": {
         "id": 882,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 883,
-        "icon_id": 134
+        "icon_id": 134,
+        "hotkey_id": 16679
     },
     "CONQUISTADOR": {
         "id": 771,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 772,
-        "icon_id": 106
+        "icon_id": 106,
+        "hotkey_id": 16687
     },
     "COW_A": {
         "id": 705,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 843,
-        "icon_id": 150
+        "icon_id": 150,
+        "hotkey_id": 16498
     },
     "COW_B": {
         "id": 1596,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1597,
-        "icon_id": 150
+        "icon_id": 150,
+        "hotkey_id": 16498
     },
     "COW_C": {
         "id": 1598,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1599,
-        "icon_id": 150
+        "icon_id": 150,
+        "hotkey_id": 16498
     },
     "COW_D": {
         "id": 1600,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1601,
-        "icon_id": 150
+        "icon_id": 150,
+        "hotkey_id": 16498
     },
     "CROSSBOWMAN": {
         "id": 24,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 26,
-        "icon_id": 18
+        "icon_id": 18,
+        "hotkey_id": 16084
     },
     "DEMOLITION_RAFT": {
         "id": 1104,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 202
+        "icon_id": 202,
+        "hotkey_id": 16424
     },
     "DEMOLITION_SHIP": {
         "id": 527,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 84
+        "icon_id": 84,
+        "hotkey_id": 16424
     },
     "DONKEY": {
         "id": 846,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 848,
-        "icon_id": 158
+        "icon_id": 158,
+        "hotkey_id": 16100
     },
     "DRAGON_SHIP": {
         "id": 1302,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 178
+        "icon_id": 178,
+        "hotkey_id": 16739
     },
     "EAGLE_SCOUT": {
         "id": 751,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 754,
-        "icon_id": 109
+        "icon_id": 109,
+        "hotkey_id": 16671
     },
     "EAGLE_WARRIOR": {
         "id": 753,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1116,
-        "icon_id": 148
+        "icon_id": 148,
+        "hotkey_id": 16671
     },
     "EASTERN_SWORDSMAN": {
         "id": 894,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 895,
-        "icon_id": 186
+        "icon_id": 186,
+        "hotkey_id": 16081
     },
     "ELEPHANT_ARCHER": {
         "id": 873,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 874,
-        "icon_id": 93
+        "icon_id": 93,
+        "hotkey_id": 16101
     },
     "ELITE_ARAMBAI": {
         "id": 1128,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1127,
-        "icon_id": 230
+        "icon_id": 230,
+        "hotkey_id": 16101
     },
     "ELITE_BALLISTA_ELEPHANT": {
         "id": 1122,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1121,
-        "icon_id": 231
+        "icon_id": 231,
+        "hotkey_id": 16101
     },
     "ELITE_BATTLE_ELEPHANT": {
         "id": 1134,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1154,
-        "icon_id": 246
+        "icon_id": 246,
+        "hotkey_id": 16733
     },
     "ELITE_BERSERK": {
         "id": 694,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 695,
-        "icon_id": 38
+        "icon_id": 38,
+        "hotkey_id": 16576
     },
     "ELITE_BOYAR": {
         "id": 878,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 877,
-        "icon_id": 114
+        "icon_id": 114,
+        "hotkey_id": 16101
     },
     "ELITE_CAMEL_ARCHER": {
         "id": 1009,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1008,
-        "icon_id": 191
+        "icon_id": 191,
+        "hotkey_id": 16101
     },
     "ELITE_CANNON_GALLEON": {
         "id": 691,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 298
+        "icon_id": 298,
+        "hotkey_id": 16573
     },
     "ELITE_CARAVEL": {
         "id": 1006,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 198
+        "icon_id": 198,
+        "hotkey_id": 16106
     },
     "ELITE_CATAPHRACT": {
         "id": 553,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 27,
-        "icon_id": 35
+        "icon_id": 35,
+        "hotkey_id": 16451
     },
     "ELITE_CHU_KO_NU": {
         "id": 559,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 28,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16452
     },
     "ELITE_CONQUISTADOR": {
         "id": 773,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 772,
-        "icon_id": 106
+        "icon_id": 106,
+        "hotkey_id": 16689
     },
     "ELITE_EAGLE_WARRIOR": {
         "id": 752,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1117,
-        "icon_id": 149
+        "icon_id": 149,
+        "hotkey_id": 16673
     },
     "ELITE_ELEPHANT_ARCHER": {
         "id": 875,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 874,
-        "icon_id": 93
+        "icon_id": 93,
+        "hotkey_id": 16101
     },
     "ELITE_GBETO": {
         "id": 1015,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1014,
-        "icon_id": 197
+        "icon_id": 197,
+        "hotkey_id": 16101
     },
     "ELITE_GENITOUR": {
         "id": 1012,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1011,
-        "icon_id": 201
+        "icon_id": 201,
+        "hotkey_id": 16417
     },
     "ELITE_GENOESE_CROSSBOWMAN": {
         "id": 868,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 867,
-        "icon_id": 133
+        "icon_id": 133,
+        "hotkey_id": 16101
     },
     "ELITE_HUSKARL": {
         "id": 555,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 62,
-        "icon_id": 50
+        "icon_id": 50,
+        "hotkey_id": 16454
     },
     "ELITE_JAGUAR_WARRIOR": {
         "id": 726,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 750,
-        "icon_id": 110
+        "icon_id": 110,
+        "hotkey_id": 16669
     },
     "ELITE_JANISSARY": {
         "id": 557,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 107,
-        "icon_id": 39
+        "icon_id": 39,
+        "hotkey_id": 16455
     },
     "ELITE_KAMAYUK": {
         "id": 881,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 880,
-        "icon_id": 97
+        "icon_id": 97,
+        "hotkey_id": 16460
     },
     "ELITE_KARAMBIT_WARRIOR": {
         "id": 1125,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1124,
-        "icon_id": 233
+        "icon_id": 233,
+        "hotkey_id": 16101
     },
     "ELITE_KESHIK": {
         "id": 1230,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1229,
-        "icon_id": 251
+        "icon_id": 251,
+        "hotkey_id": 16101
     },
     "ELITE_KIPCHAK": {
         "id": 1233,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1232,
-        "icon_id": 252
+        "icon_id": 252,
+        "hotkey_id": 16108
     },
     "ELITE_KONNIK": {
         "id": 1227,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1253,
-        "icon_id": 249
+        "icon_id": 249,
+        "hotkey_id": 16101
     },
     "ELITE_KONNIK_DISMOUNTED": {
         "id": 1253,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1257,
-        "icon_id": 250
+        "icon_id": 250,
+        "hotkey_id": 16411
     },
     "ELITE_LEITIS": {
         "id": 1236,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1235,
-        "icon_id": 253
+        "icon_id": 253,
+        "hotkey_id": 16101
     },
     "ELITE_LONGBOAT": {
         "id": 533,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 40
+        "icon_id": 40,
+        "hotkey_id": 16457
     },
     "ELITE_LONGBOWMAN": {
         "id": 530,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 115,
-        "icon_id": 41
+        "icon_id": 41,
+        "hotkey_id": 16456
     },
     "ELITE_MAGYAR_HUSZAR": {
         "id": 871,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 870,
-        "icon_id": 99
+        "icon_id": 99,
+        "hotkey_id": 16101
     },
     "ELITE_MAMELUKE": {
         "id": 556,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 44,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16453
     },
     "ELITE_MANGUDAI": {
         "id": 561,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 135,
-        "icon_id": 42
+        "icon_id": 42,
+        "hotkey_id": 16458
     },
     "ELITE_ORGAN_GUN": {
         "id": 1003,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1002,
-        "icon_id": 190
+        "icon_id": 190,
+        "hotkey_id": 16101
     },
     "ELITE_PLUMED_ARCHER": {
         "id": 765,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 764,
-        "icon_id": 108
+        "icon_id": 108,
+        "hotkey_id": 16685
     },
     "ELITE_RATTAN_ARCHER": {
         "id": 1131,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1130,
-        "icon_id": 232
+        "icon_id": 232,
+        "hotkey_id": 16101
     },
     "ELITE_SAMURAI": {
         "id": 560,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 151,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 16460
     },
     "ELITE_SHOTEL_WARRIOR": {
         "id": 1018,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1017,
-        "icon_id": 195
+        "icon_id": 195,
+        "hotkey_id": 16101
     },
     "ELITE_SKIRMISHER": {
         "id": 6,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 100,
-        "icon_id": 21
+        "icon_id": 21,
+        "hotkey_id": 16087
     },
     "ELITE_STEPPE_LANCER": {
         "id": 1372,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1373,
-        "icon_id": 274
+        "icon_id": 274,
+        "hotkey_id": 16746
     },
     "ELITE_TARKAN": {
         "id": 757,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 756,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 16677
     },
     "ELITE_TEUTONIC_KNIGHT": {
         "id": 554,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 181,
-        "icon_id": 45
+        "icon_id": 45,
+        "hotkey_id": 16462
     },
     "ELITE_THROWING_AXEMAN": {
         "id": 531,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 157,
-        "icon_id": 46
+        "icon_id": 46,
+        "hotkey_id": 16461
     },
     "ELITE_TURTLE_SHIP": {
         "id": 832,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 116
+        "icon_id": 116,
+        "hotkey_id": 16106
     },
     "ELITE_WAR_ELEPHANT": {
         "id": 558,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 136,
-        "icon_id": 43
+        "icon_id": 43,
+        "hotkey_id": 16459
     },
     "ELITE_WAR_WAGON": {
         "id": 829,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 828,
-        "icon_id": 117
+        "icon_id": 117,
+        "hotkey_id": 16729
     },
     "ELITE_WOAD_RAIDER": {
         "id": 534,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 233,
-        "icon_id": 47
+        "icon_id": 47,
+        "hotkey_id": 16463
     },
     "FAST_FIRE_SHIP": {
         "id": 532,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 85
+        "icon_id": 85,
+        "hotkey_id": 16429
     },
     "FIRE_GALLEY": {
         "id": 1103,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 203
+        "icon_id": 203,
+        "hotkey_id": 16426
     },
     "FIRE_SHIP": {
         "id": 529,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 86
+        "icon_id": 86,
+        "hotkey_id": 16426
     },
     "FISHING_SHIP": {
         "id": 13,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 24
+        "icon_id": 24,
+        "hotkey_id": 16090
     },
     "FLAMETHROWER": {
         "id": 188,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 189,
-        "icon_id": 144
+        "icon_id": 144,
+        "hotkey_id": 16109
     },
     "FLAMING_CAMEL": {
         "id": 1263,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 270
+        "icon_id": 270,
+        "hotkey_id": 16734
     },
     "FURIOUS_THE_MONKEY_BOY": {
         "id": 860,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 861,
-        "icon_id": 132
+        "icon_id": 132,
+        "hotkey_id": 16763
     },
     "GALLEON": {
         "id": 442,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 60
+        "icon_id": 60,
+        "hotkey_id": 16309
     },
     "GALLEY": {
         "id": 539,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 87
+        "icon_id": 87,
+        "hotkey_id": 16436
     },
     "GBETO": {
         "id": 1013,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1014,
-        "icon_id": 197
+        "icon_id": 197,
+        "hotkey_id": 16101
     },
     "GENITOUR": {
         "id": 1010,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1011,
-        "icon_id": 201
+        "icon_id": 201,
+        "hotkey_id": 16417
     },
     "GENOESE_CROSSBOWMAN": {
         "id": 866,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 867,
-        "icon_id": 133
+        "icon_id": 133,
+        "hotkey_id": 16101
     },
     "GOAT": {
         "id": 1060,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1061,
-        "icon_id": 200
+        "icon_id": 200,
+        "hotkey_id": 16061
     },
     "GOOSE": {
         "id": 1243,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1244,
-        "icon_id": 265
+        "icon_id": 265,
+        "hotkey_id": 16061
     },
     "HALBERDIER": {
         "id": 359,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 502,
-        "icon_id": 104
+        "icon_id": 104,
+        "hotkey_id": 16409
     },
     "HAND_CANNONEER": {
         "id": 5,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 98,
-        "icon_id": 22
+        "icon_id": 22,
+        "hotkey_id": 16086
     },
     "HEAVY_CAMEL_RIDER": {
         "id": 330,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 495,
-        "icon_id": 79
+        "icon_id": 79,
+        "hotkey_id": 16417
     },
     "HEAVY_CAVALRY_ARCHER": {
         "id": 474,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 631,
-        "icon_id": 71
+        "icon_id": 71,
+        "hotkey_id": 16412
     },
     "HEAVY_CROSSBOWMAN": {
         "id": 493,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 867,
-        "icon_id": 133
+        "icon_id": 133,
+        "hotkey_id": 16101
     },
     "HEAVY_DEMOLITION_SHIP": {
         "id": 528,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 83
+        "icon_id": 83,
+        "hotkey_id": 16425
     },
     "HEAVY_PIKEMAN": {
         "id": 892,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 893,
-        "icon_id": 136
+        "icon_id": 136,
+        "hotkey_id": 16410
     },
     "HEAVY_SCORPION": {
         "id": 542,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 543,
-        "icon_id": 89
+        "icon_id": 89,
+        "hotkey_id": 16439
     },
     "HEAVY_SWORDSMAN": {
         "id": 76,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 99,
-        "icon_id": 184
+        "icon_id": 184,
+        "hotkey_id": 16077
     },
     "HORSE_A": {
         "id": 814,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 815,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 16714
     },
     "HORSE_B": {
         "id": 1356,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1357,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 16714
     },
     "HORSE_C": {
         "id": 1602,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1603,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 16714
     },
     "HORSE_D": {
         "id": 1604,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1605,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 16714
     },
     "HORSE_E": {
         "id": 1606,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1607,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 16714
     },
     "HUSKARL": {
         "id": 41,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 62,
-        "icon_id": 50
+        "icon_id": 50,
+        "hotkey_id": 16104
     },
     "HUSSAR": {
         "id": 441,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 480,
-        "icon_id": 103
+        "icon_id": 103,
+        "hotkey_id": 16661
     },
     "IMPERIAL_CAMEL_RIDER": {
         "id": 207,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 300,
-        "icon_id": 185
+        "icon_id": 185,
+        "hotkey_id": 16417
     },
     "IMPERIAL_SKIRMISHER": {
         "id": 1155,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1156,
-        "icon_id": 229
+        "icon_id": 229,
+        "hotkey_id": 16087
     },
     "INVISIBLE_OBJECT": {
         "id": 1291,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16000
     },
     "IROQUOIS_WARRIOR": {
         "id": 1374,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1375,
-        "icon_id": 297
+        "icon_id": 297,
+        "hotkey_id": 16113
     },
     "JAGUAR_WARRIOR": {
         "id": 725,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 750,
-        "icon_id": 110
+        "icon_id": 110,
+        "hotkey_id": 16667
     },
     "JANISSARY": {
         "id": 46,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 107,
-        "icon_id": 39
+        "icon_id": 39,
+        "hotkey_id": 16105
     },
     "JUNK": {
         "id": 15,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 211
+        "icon_id": 211,
+        "hotkey_id": 16092
     },
     "KAMAYUK": {
         "id": 879,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 880,
-        "icon_id": 97
+        "icon_id": 97,
+        "hotkey_id": 16110
     },
     "KARAMBIT_WARRIOR": {
         "id": 1123,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1124,
-        "icon_id": 233
+        "icon_id": 233,
+        "hotkey_id": 16101
     },
     "KESHIK": {
         "id": 1228,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1229,
-        "icon_id": 251
+        "icon_id": 251,
+        "hotkey_id": 16101
     },
     "KHAN": {
         "id": 1275,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1277,
-        "icon_id": 258
+        "icon_id": 258,
+        "hotkey_id": 16458
     },
     "KING": {
         "id": 434,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 435,
-        "icon_id": 48
+        "icon_id": 48,
+        "hotkey_id": 16301
     },
     "KIPCHAK": {
         "id": 1231,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1232,
-        "icon_id": 252
+        "icon_id": 252,
+        "hotkey_id": 16108
     },
     "KNIGHT": {
         "id": 38,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 111,
-        "icon_id": 1
+        "icon_id": 1,
+        "hotkey_id": 16068
     },
     "KONNIK": {
         "id": 1225,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1252,
-        "icon_id": 249
+        "icon_id": 249,
+        "hotkey_id": 16101
     },
     "KONNIK_DISMOUNTED": {
         "id": 1252,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1257,
-        "icon_id": 250
+        "icon_id": 250,
+        "hotkey_id": 16411
     },
     "LEGIONARY": {
         "id": 1,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 2,
-        "icon_id": 139
+        "icon_id": 139,
+        "hotkey_id": 16669
     },
     "LEITIS": {
         "id": 1234,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1235,
-        "icon_id": 253
+        "icon_id": 253,
+        "hotkey_id": 16101
     },
     "LIGHT_CAVALRY": {
         "id": 546,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 547,
-        "icon_id": 91
+        "icon_id": 91,
+        "hotkey_id": 16444
     },
     "LLAMA": {
         "id": 305,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 780,
-        "icon_id": 156
+        "icon_id": 156,
+        "hotkey_id": 16498
     },
     "LONG_SWORDSMAN": {
         "id": 77,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 180,
-        "icon_id": 13
+        "icon_id": 13,
+        "hotkey_id": 16081
     },
     "LONGBOAT": {
         "id": 250,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 40
+        "icon_id": 40,
+        "hotkey_id": 16106
     },
     "LONGBOWMAN": {
         "id": 8,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 115,
-        "icon_id": 41
+        "icon_id": 41,
+        "hotkey_id": 16107
     },
     "MAGYAR_HUSZAR": {
         "id": 869,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 870,
-        "icon_id": 99
+        "icon_id": 99,
+        "hotkey_id": 16101
     },
     "MAMELUKE": {
         "id": 282,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 44,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16103
     },
     "MAN_AT_ARMS": {
         "id": 75,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 154,
-        "icon_id": 10
+        "icon_id": 10,
+        "hotkey_id": 16080
     },
     "MANGONEL": {
         "id": 280,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 121,
-        "icon_id": 27
+        "icon_id": 27,
+        "hotkey_id": 16095
     },
     "MANGUDAI": {
         "id": 11,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 135,
-        "icon_id": 42
+        "icon_id": 42,
+        "hotkey_id": 16108
     },
     "MERCHANT": {
         "id": 1572,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1573,
-        "icon_id": 346
+        "icon_id": 346,
+        "hotkey_id": 16301
     },
     "MILITIA": {
         "id": 74,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 152,
-        "icon_id": 8
+        "icon_id": 8,
+        "hotkey_id": 16079
     },
     "MISSIONARY": {
         "id": 775,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 776,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 16691
     },
     "MONK": {
         "id": 125,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 134,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 16099
     },
     "MONK_WITH_RELIC": {
         "id": 286,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 134,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 16380
     },
     "NINJA": {
         "id": 1145,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1147,
-        "icon_id": 299
+        "icon_id": 299,
+        "hotkey_id": 16110
     },
     "NORSE_WARRIOR": {
         "id": 361,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 362,
-        "icon_id": 140
+        "icon_id": 140,
+        "hotkey_id": 16081
     },
     "ONAGER": {
         "id": 550,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 675,
-        "icon_id": 101
+        "icon_id": 101,
+        "hotkey_id": 16448
     },
     "ORGAN_GUN": {
         "id": 1001,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1002,
-        "icon_id": 190
+        "icon_id": 190,
+        "hotkey_id": 16101
     },
     "OX_CART": {
         "id": 1271,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1272,
-        "icon_id": 263
+        "icon_id": 263,
+        "hotkey_id": 16100
     },
     "OX_WAGON": {
         "id": 1273,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1274,
-        "icon_id": 264
+        "icon_id": 264,
+        "hotkey_id": 16100
     },
     "PALADIN": {
         "id": 569,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 570,
-        "icon_id": 2
+        "icon_id": 2,
+        "hotkey_id": 16471
     },
     "PENGUIN": {
         "id": 639,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 641,
-        "icon_id": 157
+        "icon_id": 157,
+        "hotkey_id": 16469
     },
     "PETARD": {
         "id": 440,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 113
+        "icon_id": 113,
+        "hotkey_id": 16660
     },
     "PHOTONMAN": {
         "id": 1577,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1578,
-        "icon_id": 300
+        "icon_id": 300,
+        "hotkey_id": 16043
     },
     "PIG": {
         "id": 1245,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1246,
-        "icon_id": 269
+        "icon_id": 269,
+        "hotkey_id": 16061
     },
     "PIKEMAN": {
         "id": 358,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 501,
-        "icon_id": 11
+        "icon_id": 11,
+        "hotkey_id": 16408
     },
     "PLUMED_ARCHER": {
         "id": 763,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 764,
-        "icon_id": 108
+        "icon_id": 108,
+        "hotkey_id": 16683
     },
     "PRIEST": {
         "id": 1023,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1024,
-        "icon_id": 294
+        "icon_id": 294,
+        "hotkey_id": 16120
     },
     "PRIEST_WITH_RELIC": {
         "id": 1400,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1024,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 16380
     },
     "QUEEN": {
         "id": 1292,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1328,
-        "icon_id": 168
+        "icon_id": 168,
+        "hotkey_id": 16302
     },
     "RATTAN_ARCHER": {
         "id": 1129,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1130,
-        "icon_id": 232
+        "icon_id": 232,
+        "hotkey_id": 16101
     },
     "RELIC_CART": {
         "id": 1304,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 285,
-        "icon_id": 295
+        "icon_id": 295,
+        "hotkey_id": 16082
     },
     "ROYAL_JANISSARY": {
         "id": 52,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1576,
-        "icon_id": 296
+        "icon_id": 296,
+        "hotkey_id": 16455
     },
     "SAMURAI": {
         "id": 291,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 151,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 16110
     },
     "SCORPION": {
         "id": 279,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 149,
-        "icon_id": 80
+        "icon_id": 80,
+        "hotkey_id": 16096
     },
     "SCOUT_CAVALRY": {
         "id": 448,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 449,
-        "icon_id": 64
+        "icon_id": 64,
+        "hotkey_id": 16326
     },
     "SHARKATZOR": {
         "id": 1222,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 352
+        "icon_id": 352,
+        "hotkey_id": 16458
     },
     "SHEEP": {
         "id": 594,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 595,
-        "icon_id": 96
+        "icon_id": 96,
+        "hotkey_id": 16498
     },
     "SHOTEL_WARRIOR": {
         "id": 1016,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1017,
-        "icon_id": 195
+        "icon_id": 195,
+        "hotkey_id": 16101
     },
     "SIEGE_ONAGER": {
         "id": 588,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 589,
-        "icon_id": 102
+        "icon_id": 102,
+        "hotkey_id": 16493
     },
     "SIEGE_RAM": {
         "id": 548,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 549,
-        "icon_id": 73
+        "icon_id": 73,
+        "hotkey_id": 16446
     },
     "SIEGE_TOWER": {
         "id": 1105,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1107,
-        "icon_id": 212
+        "icon_id": 212,
+        "hotkey_id": 16445
     },
     "SKIRMISHER": {
         "id": 7,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 238,
-        "icon_id": 20
+        "icon_id": 20,
+        "hotkey_id": 16088
     },
     "SLINGER": {
         "id": 185,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 186,
-        "icon_id": 143
+        "icon_id": 143,
+        "hotkey_id": 16743
     },
     "SPEARMAN": {
         "id": 93,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 140,
-        "icon_id": 31
+        "icon_id": 31,
+        "hotkey_id": 16078
     },
     "STEPPE_LANCER": {
         "id": 1370,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1371,
-        "icon_id": 273
+        "icon_id": 273,
+        "hotkey_id": 16746
     },
     "TARKAN": {
         "id": 755,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 756,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 16675
     },
     "TEUTONIC_KNIGHT": {
         "id": 25,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 181,
-        "icon_id": 45
+        "icon_id": 45,
+        "hotkey_id": 16112
     },
     "THROWING_AXEMAN": {
         "id": 281,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 157,
-        "icon_id": 46
+        "icon_id": 46,
+        "hotkey_id": 16111
     },
     "TORCH_A_CONVERTABLE": {
         "id": 854,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16753
     },
     "TORCH_B_CONVERTABLE": {
         "id": 1377,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16753
     },
     "TRADE_CART_EMPTY": {
         "id": 128,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 178,
-        "icon_id": 34
+        "icon_id": 34,
+        "hotkey_id": 16100
     },
     "TRADE_CART_FULL": {
         "id": 204,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 205,
-        "icon_id": 34
+        "icon_id": 34,
+        "hotkey_id": 16100
     },
     "TRADE_COG": {
         "id": 17,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 23
+        "icon_id": 23,
+        "hotkey_id": 16089
     },
     "TRANSPORT_SHIP": {
         "id": 545,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 95
+        "icon_id": 95,
+        "hotkey_id": 16443
     },
     "TREBUCHET": {
         "id": 42,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 194,
-        "icon_id": 28
+        "icon_id": 28,
+        "hotkey_id": 16097
     },
     "TREBUCHET_PACKED": {
         "id": 331,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 735,
-        "icon_id": 29
+        "icon_id": 29,
+        "hotkey_id": 16381
     },
     "TURKEY": {
         "id": 833,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 834,
-        "icon_id": 115
+        "icon_id": 115,
+        "hotkey_id": 16733
     },
     "TURTLE_SHIP": {
         "id": 831,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 116
+        "icon_id": 116,
+        "hotkey_id": 16106
     },
     "TWO_HANDED_SWORDSMAN": {
         "id": 473,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 500,
-        "icon_id": 12
+        "icon_id": 12,
+        "hotkey_id": 16411
     },
     "VILLAGER_MALE": {
         "id": 83,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 224,
-        "icon_id": 15
+        "icon_id": 15,
+        "hotkey_id": 16121
     },
     "VILLAGER_FEMALE": {
         "id": 293,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 211,
-        "icon_id": 16
+        "icon_id": 16,
+        "hotkey_id": 16121
     },
     "VILLAGER_MALE_BUILDER": {
         "id": 118,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 225,
-        "icon_id": 330
+        "icon_id": 330,
+        "hotkey_id": 16122
     },
     "VILLAGER_FEMALE_BUILDER": {
         "id": 212,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 213,
-        "icon_id": 329
+        "icon_id": 329,
+        "hotkey_id": 16122
     },
     "VILLAGER_MALE_FARMER": {
         "id": 259,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 226,
-        "icon_id": 332
+        "icon_id": 332,
+        "hotkey_id": 16123
     },
     "VILLAGER_FEMALE_FARMER": {
         "id": 214,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 215,
-        "icon_id": 331
+        "icon_id": 331,
+        "hotkey_id": 16123
     },
     "VILLAGER_MALE_FISHERMAN": {
         "id": 56,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 58,
-        "icon_id": 332
+        "icon_id": 332,
+        "hotkey_id": 16499
     },
     "VILLAGER_FEMALE_FISHERMAN": {
         "id": 57,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 60,
-        "icon_id": 331
+        "icon_id": 331,
+        "hotkey_id": 16499
     },
     "VILLAGER_MALE_FORAGER": {
         "id": 120,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 353,
-        "icon_id": 332
+        "icon_id": 332,
+        "hotkey_id": 16402
     },
     "VILLAGER_FEMALE_FORAGER": {
         "id": 354,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 355,
-        "icon_id": 331
+        "icon_id": 331,
+        "hotkey_id": 16402
     },
     "VILLAGER_MALE_GOLD_MINER": {
         "id": 579,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 229,
-        "icon_id": 334
+        "icon_id": 334,
+        "hotkey_id": 16482
     },
     "VILLAGER_FEMALE_GOLD_MINER": {
         "id": 581,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 221,
-        "icon_id": 333
+        "icon_id": 333,
+        "hotkey_id": 16482
     },
     "VILLAGER_MALE_HUNTER": {
         "id": 122,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 227,
-        "icon_id": 332
+        "icon_id": 332,
+        "hotkey_id": 16124
     },
     "VILLAGER_FEMALE_HUNTER": {
         "id": 216,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 217,
-        "icon_id": 331
+        "icon_id": 331,
+        "hotkey_id": 16124
     },
     "VILLAGER_MALE_LUMBERJACK": {
         "id": 123,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 228,
-        "icon_id": 339
+        "icon_id": 339,
+        "hotkey_id": 16125
     },
     "VILLAGER_FEMALE_LUMBERJACK": {
         "id": 218,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 219,
-        "icon_id": 338
+        "icon_id": 338,
+        "hotkey_id": 16125
     },
     "VILLAGER_MALE_REPAIRER": {
         "id": 156,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 225,
-        "icon_id": 330
+        "icon_id": 330,
+        "hotkey_id": 16127
     },
     "VILLAGER_FEMALE_REPAIRER": {
         "id": 222,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 213,
-        "icon_id": 329
+        "icon_id": 329,
+        "hotkey_id": 16127
     },
     "VILLAGER_MALE_SHEPHERD": {
         "id": 592,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 593,
-        "icon_id": 332
+        "icon_id": 332,
+        "hotkey_id": 16496
     },
     "VILLAGER_FEMALE_SHEPHERD": {
         "id": 590,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 591,
-        "icon_id": 331
+        "icon_id": 331,
+        "hotkey_id": 16496
     },
     "VILLAGER_MALE_STONE_MINER": {
         "id": 124,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 229,
-        "icon_id": 336
+        "icon_id": 336,
+        "hotkey_id": 16126
     },
     "VILLAGER_FEMALE_STONE_MINER": {
         "id": 220,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 221,
-        "icon_id": 335
+        "icon_id": 335,
+        "hotkey_id": 16126
     },
     "VMDL": {
         "id": 206,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 337
+        "icon_id": 337,
+        "hotkey_id": 16656
     },
     "WAR_ELEPHANT": {
         "id": 239,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 136,
-        "icon_id": 43
+        "icon_id": 43,
+        "hotkey_id": 16109
     },
     "WAR_GALLEY": {
         "id": 21,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 25
+        "icon_id": 25,
+        "hotkey_id": 16091
     },
     "WAR_WAGON": {
         "id": 827,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 828,
-        "icon_id": 117
+        "icon_id": 117,
+        "hotkey_id": 16727
     },
     "WATER_BUFFALO": {
         "id": 1142,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1143,
-        "icon_id": 224
+        "icon_id": 224,
+        "hotkey_id": 16175
     },
     "WOAD_RAIDER": {
         "id": 232,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 233,
-        "icon_id": 47
+        "icon_id": 47,
+        "hotkey_id": 16113
     },
     "XOLOTL_WARRIOR": {
         "id": 1570,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1571,
-        "icon_id": 351
+        "icon_id": 351,
+        "hotkey_id": 16326
     },
     "SMALL_TEMP_MAP_REVEAL": {
         "id": 112,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16316
     },
     "LARGE_TEMP_MAP_REVEAL": {
         "id": 332,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16316
     },
     "BOARDER_GALLEY": {
         "id": 536,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": 82
+        "icon_id": 82,
+        "hotkey_id": 16703
     },
     "HUSKARL_BARRACKS": {
         "id": 759,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 62,
-        "icon_id": 50
+        "icon_id": 50,
+        "hotkey_id": 16748
     },
     "ELITE_HUSKARL_BARRACKS": {
         "id": 761,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 62,
-        "icon_id": 50
+        "icon_id": 50,
+        "hotkey_id": 16748
     },
     "TARKAN_STABLE": {
         "id": 886,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 756,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 16741
     },
     "ELITE_TARKAN_STABLE": {
         "id": 887,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 756,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 16741
     },
     "GENITOUR_ORIGINAL": {
         "id": 583,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 152,
-        "icon_id": 19
+        "icon_id": 19,
+        "hotkey_id": 16663
     },
     "ELITE_GENITOUR_ORIGINAL": {
         "id": 596,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 152,
-        "icon_id": 19
+        "icon_id": 19,
+        "hotkey_id": 16665
     },
     "COUSTILLIER": {
         "id": 1655,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1656,
-        "icon_id": 355
+        "icon_id": 355,
+        "hotkey_id": 16101
     },
     "ELITE_COUSTILLIER": {
         "id": 1657,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1656,
-        "icon_id": 355
+        "icon_id": 355,
+        "hotkey_id": 16101
     },
     "FLEMISH_MILITIA": {
         "id": 1699,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1664,
-        "icon_id": 354
+        "icon_id": 354,
+        "hotkey_id": 16735
     },
     "FLEMISH_MILITIA_MALE": {
         "id": 1663,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1664,
-        "icon_id": 354
+        "icon_id": 354,
+        "hotkey_id": 16469
     },
     "FLEMISH_MILITIA_FEMALE": {
         "id": 1697,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1698,
-        "icon_id": 354
+        "icon_id": 354,
+        "hotkey_id": 16469
     },
     "SERJEANT": {
         "id": 1658,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1662,
-        "icon_id": 356
+        "icon_id": 356,
+        "hotkey_id": 16104
     },
     "ELITE_SERJEANT": {
         "id": 1659,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1662,
-        "icon_id": 356
+        "icon_id": 356,
+        "hotkey_id": 16454
     },
     "SERJEANT_DONJON": {
         "id": 1660,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1662,
-        "icon_id": 356
+        "icon_id": 356,
+        "hotkey_id": 16101
     },
     "ELITE_SERJEANT_DONJON": {
         "id": 1661,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1662,
-        "icon_id": 356
+        "icon_id": 356,
+        "hotkey_id": 16101
     },
     "CONDOTTIERO_PLACEHOLDER": {
         "id": 184,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 883,
-        "icon_id": 134
+        "icon_id": 134,
+        "hotkey_id": 16679
     },
     "KONNIK_KREPOST": {
         "id": 1254,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1252,
-        "icon_id": 249
+        "icon_id": 249,
+        "hotkey_id": 16101
     },
     "ELITE_KONNIK_KREPOST": {
         "id": 1255,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1253,
-        "icon_id": 249
+        "icon_id": 249,
+        "hotkey_id": 16101
     },
     "ELITE_KIPCHAK_CUMAN_MERCENARIES": {
         "id": 1260,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1232,
-        "icon_id": 252
+        "icon_id": 252,
+        "hotkey_id": 16730
     },
     "FOOD_WOOD_GOLD_TRICKLE": {
         "id": 1654,
         "gaia_only": false,
         "type": "unit",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16737
     },
     "RUINS": {
         "id": 345,
         "gaia_only": true,
         "type": "building",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16393
     },
     "AACHEN_CATHEDRAL": {
         "id": 1622,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1517,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16182
     },
     "AMPHITHEATRE": {
         "id": 251,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1514,
-        "icon_id": 58
+        "icon_id": 58,
+        "hotkey_id": 16572
     },
     "AQUEDUCT": {
         "id": 231,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1522,
-        "icon_id": 52
+        "icon_id": 52,
+        "hotkey_id": 16201
     },
     "ARCH_OF_CONSTANTINE": {
         "id": 899,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1485,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16572
     },
     "ARCHERY_RANGE": {
         "id": 87,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1415,
-        "icon_id": 0
+        "icon_id": 0,
+        "hotkey_id": 16128
     },
     "ARMY_TENT_A": {
         "id": 1196,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1467,
-        "icon_id": 76
+        "icon_id": 76,
+        "hotkey_id": 16521
     },
     "ARMY_TENT_B": {
         "id": 1197,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1468,
-        "icon_id": 76
+        "icon_id": 76,
+        "hotkey_id": 16521
     },
     "ARMY_TENT_C": {
         "id": 1198,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1469,
-        "icon_id": 77
+        "icon_id": 77,
+        "hotkey_id": 16522
     },
     "ARMY_TENT_D": {
         "id": 1199,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1470,
-        "icon_id": 77
+        "icon_id": 77,
+        "hotkey_id": 16523
     },
     "ARMY_TENT_E": {
         "id": 1200,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1471,
-        "icon_id": 77
+        "icon_id": 77,
+        "hotkey_id": 16522
     },
     "BARRACKS": {
         "id": 12,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1402,
-        "icon_id": 2
+        "icon_id": 2,
+        "hotkey_id": 16135
     },
     "BLACKSMITH": {
         "id": 103,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1419,
-        "icon_id": 4
+        "icon_id": 4,
+        "hotkey_id": 16131
     },
     "BOMBARD_TOWER": {
         "id": 236,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1439,
-        "icon_id": 42
+        "icon_id": 42,
+        "hotkey_id": 16156
     },
     "BRIDGE_A_BOTTOM": {
         "id": 607,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16513
     },
     "BRIDGE_A_BROKEN_BOTTOM": {
         "id": 740,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16643
     },
     "BRIDGE_A_BROKEN_TOP": {
         "id": 739,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16642
     },
     "BRIDGE_A_CRACKED": {
         "id": 738,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16641
     },
     "BRIDGE_A_MIDDLE": {
         "id": 606,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16512
     },
     "BRIDGE_A_TOP": {
         "id": 605,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16511
     },
     "BRIDGE_B_BOTTOM": {
         "id": 610,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16516
     },
     "BRIDGE_B_BROKEN_BOTTOM": {
         "id": 743,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16646
     },
     "BRIDGE_B_BROKEN_TOP": {
         "id": 742,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16645
     },
     "BRIDGE_B_CRACKED": {
         "id": 741,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16644
     },
     "BRIDGE_B_MIDDLE": {
         "id": 609,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16515
     },
     "BRIDGE_B_TOP": {
         "id": 608,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16514
     },
     "BRIDGE_C_BOTTOM": {
         "id": 1206,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16513
     },
     "BRIDGE_C_BROKEN_BOTTOM": {
         "id": 1212,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16643
     },
     "BRIDGE_C_BROKEN_TOP": {
         "id": 1211,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16642
     },
     "BRIDGE_C_CRACKED": {
         "id": 1210,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16641
     },
     "BRIDGE_C_MIDDLE": {
         "id": 1205,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16512
     },
     "BRIDGE_C_TOP": {
         "id": 1204,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16511
     },
     "BRIDGE_D_BOTTOM": {
         "id": 1209,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16516
     },
     "BRIDGE_D_BROKEN_BOTTOM": {
         "id": 1215,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16646
     },
     "BRIDGE_D_BROKEN_TOP": {
         "id": 1214,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16645
     },
     "BRIDGE_D_CRACKED": {
         "id": 1213,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16644
     },
     "BRIDGE_D_MIDDLE": {
         "id": 1208,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16515
     },
     "BRIDGE_D_TOP": {
         "id": 1207,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16514
     },
     "BRIDGE_E_BOTTOM": {
         "id": 1552,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16513
     },
     "BRIDGE_E_BROKEN_BOTTOM": {
         "id": 1558,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16643
     },
     "BRIDGE_E_BROKEN_TOP": {
         "id": 1557,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16642
     },
     "BRIDGE_E_CRACKED": {
         "id": 1556,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16641
     },
     "BRIDGE_E_MIDDLE": {
         "id": 1551,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16512
     },
     "BRIDGE_E_TOP": {
         "id": 1550,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16511
     },
     "BRIDGE_F_BOTTOM": {
         "id": 1555,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16516
     },
     "BRIDGE_F_BROKEN_BOTTOM": {
         "id": 1561,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16646
     },
     "BRIDGE_F_BROKEN_TOP": {
         "id": 1560,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16645
     },
     "BRIDGE_F_CRACKED": {
         "id": 1559,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16644
     },
     "BRIDGE_F_MIDDLE": {
         "id": 1554,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16515
     },
     "BRIDGE_F_TOP": {
         "id": 1553,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16514
     },
     "CASTLE": {
         "id": 82,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1430,
-        "icon_id": 7
+        "icon_id": 7,
+        "hotkey_id": 16142
     },
     "CATHEDRAL": {
         "id": 599,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1480,
-        "icon_id": 11
+        "icon_id": 11,
+        "hotkey_id": 16505
     },
     "CHAIN_WEST_TO_EAST": {
         "id": 1398,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": 72
+        "icon_id": 72,
+        "hotkey_id": 16186
     },
     "CHAIN_SOUTHWEST_TO_NORTHEAST": {
         "id": 1396,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": 72
+        "icon_id": 72,
+        "hotkey_id": 16186
     },
     "CHAIN_NORTH_TO_SOUTH": {
         "id": 1399,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": 72
+        "icon_id": 72,
+        "hotkey_id": 16186
     },
     "CHAIN_NORTHWEST_TO_SOUTHEAST": {
         "id": 1397,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": 72
+        "icon_id": 72,
+        "hotkey_id": 16186
     },
     "CITY_GATE_WEST_TO_EAST": {
         "id": 1587,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1512,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16044
     },
     "CITY_GATE_SOUTHWEST_TO_NORTHEAST": {
         "id": 1579,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1510,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16044
     },
     "CITY_GATE_NORTH_TO_SOUTH": {
         "id": 1591,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1513,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16044
     },
     "CITY_GATE_NORTHWEST_TO_SOUTHEAST": {
         "id": 1583,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1511,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16044
     },
     "CITY_WALL": {
         "id": 370,
         "gaia_only": false,
         "type": "building",
         "dead_id": 143,
-        "icon_id": 31
+        "icon_id": 31,
+        "hotkey_id": 16201
     },
     "COLOSSEUM": {
         "id": 263,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1520,
-        "icon_id": 58
+        "icon_id": 58,
+        "hotkey_id": 16505
     },
     "DOCK": {
         "id": 45,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 13
+        "icon_id": 13,
+        "hotkey_id": 16144
     },
     "DORMITION_CATHEDRAL": {
         "id": 1369,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1493,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16182
     },
     "FARM": {
         "id": 50,
         "gaia_only": false,
         "type": "building",
         "dead_id": 357,
-        "icon_id": 35
+        "icon_id": 35,
+        "hotkey_id": 16149
     },
     "FEITORIA": {
         "id": 1021,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1446,
-        "icon_id": 53
+        "icon_id": 53,
+        "hotkey_id": 16159
     },
     "FENCE": {
         "id": 1062,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1065,
-        "icon_id": 30
+        "icon_id": 30,
+        "hotkey_id": 16797
     },
     "FIRE_TOWER": {
         "id": 190,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1438,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16158
     },
     "FISH_TRAP": {
         "id": 199,
         "gaia_only": false,
         "type": "building",
         "dead_id": 278,
-        "icon_id": 41
+        "icon_id": 41,
+        "hotkey_id": 16495
     },
     "FORTIFIED_PALISADE_WALL": {
         "id": 119,
         "gaia_only": false,
         "type": "building",
         "dead_id": 143,
-        "icon_id": 30
+        "icon_id": 30,
+        "hotkey_id": 16202
     },
     "FORTIFIED_TOWER": {
         "id": 1102,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1444,
-        "icon_id": 45
+        "icon_id": 45,
+        "hotkey_id": 16231
     },
     "FORTIFIED_WALL": {
         "id": 155,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1509,
-        "icon_id": 31
+        "icon_id": 31,
+        "hotkey_id": 16204
     },
     "FORTRESS": {
         "id": 33,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1486,
-        "icon_id": 8
+        "icon_id": 8,
+        "hotkey_id": 16142
     },
     "GATE_NORTHWEST_TO_SOUTHEAST": {
         "id": 88,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1501,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16185
     },
     "GATE_WEST_TO_EAST": {
         "id": 659,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1502,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16185
     },
     "GATE_SOUTHWEST_TO_NORTHEAST": {
         "id": 64,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1500,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16185
     },
     "GATE_NORTH_TO_SOUTH": {
         "id": 667,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1503,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 16185
     },
     "GOL_GUMBAZ": {
         "id": 1217,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1487,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16578
     },
     "GUARD_TOWER": {
         "id": 234,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1437,
-        "icon_id": 25
+        "icon_id": 25,
+        "hotkey_id": 16154
     },
     "HARBOR": {
         "id": 1189,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 56
+        "icon_id": 56,
+        "hotkey_id": 16144
     },
     "HOUSE": {
         "id": 70,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1403,
-        "icon_id": 34
+        "icon_id": 34,
+        "hotkey_id": 16344
     },
     "HUT_A": {
         "id": 1082,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1455,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16221
     },
     "HUT_B": {
         "id": 1083,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1456,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16221
     },
     "HUT_C": {
         "id": 1084,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1457,
-        "icon_id": 74
+        "icon_id": 74,
+        "hotkey_id": 16221
     },
     "HUT_D": {
         "id": 1085,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1458,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16221
     },
     "HUT_E": {
         "id": 1086,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1459,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16221
     },
     "HUT_F": {
         "id": 1087,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1460,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16221
     },
     "HUT_G": {
         "id": 1088,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1461,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16221
     },
     "KEEP": {
         "id": 235,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1438,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16155
     },
     "KREPOST": {
         "id": 1251,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1479,
-        "icon_id": 55
+        "icon_id": 55,
+        "hotkey_id": 16349
     },
     "LUMBER_CAMP": {
         "id": 562,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1409,
-        "icon_id": 40
+        "icon_id": 40,
+        "hotkey_id": 16464
     },
     "MARKET": {
         "id": 84,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1422,
-        "icon_id": 16
+        "icon_id": 16,
+        "hotkey_id": 16161
     },
     "MILL": {
         "id": 68,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1404,
-        "icon_id": 19
+        "icon_id": 19,
+        "hotkey_id": 16157
     },
     "MINING_CAMP": {
         "id": 584,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1410,
-        "icon_id": 39
+        "icon_id": 39,
+        "hotkey_id": 16487
     },
     "MONASTERY": {
         "id": 104,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1421,
-        "icon_id": 10
+        "icon_id": 10,
+        "hotkey_id": 16138
     },
     "MONUMENT": {
         "id": 826,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16726
     },
     "OUTPOST": {
         "id": 598,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1405,
-        "icon_id": 38
+        "icon_id": 38,
+        "hotkey_id": 16504
     },
     "PALISADE_GATE_SOUTHWEST_TO_NORTHEAST": {
         "id": 793,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1441,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 16186
     },
     "PALISADE_GATE_WEST_TO_EAST": {
         "id": 797,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1442,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 16186
     },
     "PALISADE_GATE_NORTHWEST_TO_SOUTHEAST": {
         "id": 789,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1440,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 16186
     },
     "PALISADE_GATE_NORTH_TO_SOUTH": {
         "id": 801,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1443,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 16186
     },
     "PALISADE_WALL": {
         "id": 72,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1407,
-        "icon_id": 30
+        "icon_id": 30,
+        "hotkey_id": 16202
     },
     "PYRAMID": {
         "id": 689,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1515,
-        "icon_id": 57
+        "icon_id": 57,
+        "hotkey_id": 16571
     },
     "QUIMPER_CATHEDRAL": {
         "id": 872,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1489,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16572
     },
     "RICE_FARM": {
         "id": 1187,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1188,
-        "icon_id": 35
+        "icon_id": 35,
+        "hotkey_id": 16149
     },
     "ROCK_CHURCH": {
         "id": 1378,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 341
+        "icon_id": 341,
+        "hotkey_id": 16182
     },
     "SANCHI_STUPA": {
         "id": 1216,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1490,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16578
     },
     "SANKORE_MADRASAH": {
         "id": 1367,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1491,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16182
     },
     "SEA_GATE_SOUTHWEST_TO_NORTHEAST": {
         "id": 1379,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 71
+        "icon_id": 71,
+        "hotkey_id": 16186
     },
     "SEA_GATE_NORTH_TO_SOUTH": {
         "id": 1391,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 71
+        "icon_id": 71,
+        "hotkey_id": 16186
     },
     "SEA_GATE_WEST_TO_EAST": {
         "id": 1387,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 71
+        "icon_id": 71,
+        "hotkey_id": 16186
     },
     "SEA_GATE_NORTHWEST_TO_SOUTHEAST": {
         "id": 1383,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 71
+        "icon_id": 71,
+        "hotkey_id": 16186
     },
     "SEA_TOWER": {
         "id": 785,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 25
+        "icon_id": 25,
+        "hotkey_id": 16704
     },
     "SEA_WALL": {
         "id": 788,
         "gaia_only": false,
         "type": "building",
         "dead_id": -1,
-        "icon_id": 30
+        "icon_id": 30,
+        "hotkey_id": 16707
     },
     "SHRINE": {
         "id": 1264,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1483,
-        "icon_id": 12
+        "icon_id": 12,
+        "hotkey_id": 16138
     },
     "SIEGE_WORKSHOP": {
         "id": 49,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1425,
-        "icon_id": 22
+        "icon_id": 22,
+        "hotkey_id": 16169
     },
     "STABLE": {
         "id": 101,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1417,
-        "icon_id": 23
+        "icon_id": 23,
+        "hotkey_id": 16171
     },
     "STONE_WALL": {
         "id": 117,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1508,
-        "icon_id": 31
+        "icon_id": 31,
+        "hotkey_id": 16203
     },
     "STORAGE": {
         "id": 1081,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1484,
-        "icon_id": 59
+        "icon_id": 59,
+        "hotkey_id": 16219
     },
     "TEMPLE_OF_HEAVEN": {
         "id": 637,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1481,
-        "icon_id": 11
+        "icon_id": 11,
+        "hotkey_id": 16505
     },
     "TENT_A": {
         "id": 1097,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1462,
-        "icon_id": 78
+        "icon_id": 78,
+        "hotkey_id": 16230
     },
     "TENT_B": {
         "id": 1098,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1463,
-        "icon_id": 83
+        "icon_id": 83,
+        "hotkey_id": 16230
     },
     "TENT_C": {
         "id": 1099,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1464,
-        "icon_id": 83
+        "icon_id": 83,
+        "hotkey_id": 16230
     },
     "TENT_D": {
         "id": 1100,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1465,
-        "icon_id": 83
+        "icon_id": 83,
+        "hotkey_id": 16230
     },
     "TENT_E": {
         "id": 1101,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1466,
-        "icon_id": 83
+        "icon_id": 83,
+        "hotkey_id": 16230
     },
     "TOWER_OF_LONDON": {
         "id": 1368,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1492,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16182
     },
     "TOWN_CENTER": {
         "id": 109,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1408,
-        "icon_id": 28
+        "icon_id": 28,
+        "hotkey_id": 16164
     },
     "KHOSRAU": {
         "id": 1297,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 874,
-        "icon_id": 172
+        "icon_id": 172,
+        "hotkey_id": 16311
     },
     "TRADE_WORKSHOP": {
         "id": 110,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1429,
-        "icon_id": 17
+        "icon_id": 17,
+        "hotkey_id": 16174
     },
     "UNIVERSITY": {
         "id": 209,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1427,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16176
     },
     "WATCH_TOWER": {
         "id": 79,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1436,
-        "icon_id": 25
+        "icon_id": 25,
+        "hotkey_id": 16178
     },
     "WONDER": {
         "id": 276,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1445,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16182
     },
     "WOODEN_BRIDGE_A_BOTTOM": {
         "id": 1311,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16513
     },
     "WOODEN_BRIDGE_A_MIDDLE": {
         "id": 1310,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16512
     },
     "WOODEN_BRIDGE_A_TOP": {
         "id": 1309,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16511
     },
     "WOODEN_BRIDGE_B_BOTTOM": {
         "id": 1314,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16516
     },
     "WOODEN_BRIDGE_B_MIDDLE": {
         "id": 1313,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16515
     },
     "WOODEN_BRIDGE_B_TOP": {
         "id": 1312,
         "gaia_only": false,
         "type": "building",
         "dead_id": 144,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16514
     },
     "YURT_A": {
         "id": 712,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1447,
-        "icon_id": 81
+        "icon_id": 81,
+        "hotkey_id": 16594
     },
     "YURT_B": {
         "id": 713,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1448,
-        "icon_id": 82
+        "icon_id": 82,
+        "hotkey_id": 16595
     },
     "YURT_C": {
         "id": 714,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1449,
-        "icon_id": 82
+        "icon_id": 82,
+        "hotkey_id": 16596
     },
     "YURT_D": {
         "id": 715,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1450,
-        "icon_id": 82
+        "icon_id": 82,
+        "hotkey_id": 16597
     },
     "YURT_E": {
         "id": 716,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1451,
-        "icon_id": 80
+        "icon_id": 80,
+        "hotkey_id": 16598
     },
     "YURT_F": {
         "id": 717,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1452,
-        "icon_id": 80
+        "icon_id": 80,
+        "hotkey_id": 16599
     },
     "YURT_G": {
         "id": 718,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1453,
-        "icon_id": 80
+        "icon_id": 80,
+        "hotkey_id": 16600
     },
     "YURT_H": {
         "id": 719,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1454,
-        "icon_id": 79
+        "icon_id": 79,
+        "hotkey_id": 16601
     },
     "DONJON": {
         "id": 1665,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1524,
-        "icon_id": 84
+        "icon_id": 84,
+        "hotkey_id": 16350
     },
     "TRADE_WORKSHOP_BR": {
         "id": 1647,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1429,
-        "icon_id": 17
+        "icon_id": 17,
+        "hotkey_id": 16174
     },
     "TRADE_WORKSHOP_TG": {
         "id": 179,
         "gaia_only": false,
         "type": "building",
         "dead_id": 1429,
-        "icon_id": 17
+        "icon_id": 17,
+        "hotkey_id": 16174
     },
     "FLARE": {
         "id": 274,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16316
     },
     "FLARE_PERMANENT": {
         "id": 1689,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16316
     },
     "LIEF_ERIKSON": {
         "id": 106,
         "gaia_only": false,
         "type": "hero",
         "dead_id": -1,
-        "icon_id": 118
+        "icon_id": 118,
+        "hotkey_id": 16457
     },
     "RICHARD_THE_LIONHEART": {
         "id": 160,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 570,
-        "icon_id": 92
+        "icon_id": 92,
+        "hotkey_id": 16633
     },
     "THE_BLACK_PRINCE": {
         "id": 161,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 139,
-        "icon_id": 343
+        "icon_id": 343,
+        "hotkey_id": 16622
     },
     "FRIAR_TUCK": {
         "id": 163,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 134,
-        "icon_id": 311
+        "icon_id": 311,
+        "hotkey_id": 16626
     },
     "SHERIFF_OF_NOTTINGHAM": {
         "id": 164,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 180,
-        "icon_id": 182
+        "icon_id": 182,
+        "hotkey_id": 16635
     },
     "CHARLEMAGNE": {
         "id": 165,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 157,
-        "icon_id": 160
+        "icon_id": 160,
+        "hotkey_id": 16623
     },
     "ROLAND": {
         "id": 166,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 111,
-        "icon_id": 320
+        "icon_id": 320,
+        "hotkey_id": 16634
     },
     "BELISARIUS": {
         "id": 167,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 277,
-        "icon_id": 187
+        "icon_id": 187,
+        "hotkey_id": 16621
     },
     "THEODORIC_THE_GOTH": {
         "id": 168,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 62,
-        "icon_id": 163
+        "icon_id": 163,
+        "hotkey_id": 16638
     },
     "AETHELFRITH": {
         "id": 169,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 233,
-        "icon_id": 161
+        "icon_id": 161,
+        "hotkey_id": 16619
     },
     "SIEGFRIED": {
         "id": 170,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 568,
-        "icon_id": 301
+        "icon_id": 301,
+        "hotkey_id": 16636
     },
     "ERIK_THE_RED": {
         "id": 171,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 693,
-        "icon_id": 118
+        "icon_id": 118,
+        "hotkey_id": 16625
     },
     "TAMERLANE": {
         "id": 172,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 135,
-        "icon_id": 261
+        "icon_id": 261,
+        "hotkey_id": 16637
     },
     "KING_ARTHUR": {
         "id": 173,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 568,
-        "icon_id": 301
+        "icon_id": 301,
+        "hotkey_id": 16628
     },
     "LANCELOT": {
         "id": 174,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 570,
-        "icon_id": 305
+        "icon_id": 305,
+        "hotkey_id": 16630
     },
     "GAWAIN": {
         "id": 175,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 139,
-        "icon_id": 343
+        "icon_id": 343,
+        "hotkey_id": 16627
     },
     "MORDRED": {
         "id": 176,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 570,
-        "icon_id": 305
+        "icon_id": 305,
+        "hotkey_id": 16632
     },
     "ARCHBISHOP": {
         "id": 177,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 134,
-        "icon_id": 311
+        "icon_id": 311,
+        "hotkey_id": 16620
     },
     "VLAD_DRACULA": {
         "id": 193,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1617,
-        "icon_id": 147
+        "icon_id": 147,
+        "hotkey_id": 16101
     },
     "KITABATAKE": {
         "id": 195,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 151,
-        "icon_id": 307
+        "icon_id": 307,
+        "hotkey_id": 16629
     },
     "MINAMOTO": {
         "id": 196,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 151,
-        "icon_id": 126
+        "icon_id": 126,
+        "hotkey_id": 16631
     },
     "ALEXANDER_NEVSKI": {
         "id": 197,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 139,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16639
     },
     "EL_CID": {
         "id": 198,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 568,
-        "icon_id": 173
+        "icon_id": 173,
+        "hotkey_id": 16624
     },
     "ROBIN_HOOD": {
         "id": 200,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 115,
-        "icon_id": 326
+        "icon_id": 326,
+        "hotkey_id": 16640
     },
     "VASCO_DA_GAMA": {
         "id": 203,
         "gaia_only": false,
         "type": "hero",
         "dead_id": -1,
-        "icon_id": 167
+        "icon_id": 167,
+        "hotkey_id": 16106
     },
     "ALARIC_THE_GOTH": {
         "id": 223,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1620,
-        "icon_id": 163
+        "icon_id": 163,
+        "hotkey_id": 16638
     },
     "KING_BELA_IV": {
         "id": 230,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 497,
-        "icon_id": 323
+        "icon_id": 323,
+        "hotkey_id": 16738
     },
     "CUAUHTEMOC": {
         "id": 307,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1117,
-        "icon_id": 146
+        "icon_id": 146,
+        "hotkey_id": 16673
     },
     "HENRY_THE_LION": {
         "id": 418,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 111,
-        "icon_id": 328
+        "icon_id": 328,
+        "hotkey_id": 16531
     },
     "CHARLES_MARTEL": {
         "id": 424,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 157,
-        "icon_id": 129
+        "icon_id": 129,
+        "hotkey_id": 16291
     },
     "FRANCISCO_DE_ORELLANA": {
         "id": 425,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 772,
-        "icon_id": 153
+        "icon_id": 153,
+        "hotkey_id": 16689
     },
     "HAROLD_HARDRADA": {
         "id": 426,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 693,
-        "icon_id": 118
+        "icon_id": 118,
+        "hotkey_id": 16293
     },
     "GONZALO_PIZARRO": {
         "id": 427,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 772,
-        "icon_id": 167
+        "icon_id": 167,
+        "hotkey_id": 16689
     },
     "HROLF_THE_GANGER": {
         "id": 428,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 695,
-        "icon_id": 302
+        "icon_id": 302,
+        "hotkey_id": 16295
     },
     "FREDERICK_BARBAROSSA": {
         "id": 429,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 181,
-        "icon_id": 154
+        "icon_id": 154,
+        "hotkey_id": 16462
     },
     "JOAN_THE_MAID": {
         "id": 430,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 431,
-        "icon_id": 52
+        "icon_id": 52,
+        "hotkey_id": 16297
     },
     "WILLIAM_WALLACE": {
         "id": 432,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 433,
-        "icon_id": 363
+        "icon_id": 363,
+        "hotkey_id": 16299
     },
     "PRITHVIRAJ": {
         "id": 437,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1627,
-        "icon_id": 176
+        "icon_id": 176,
+        "hotkey_id": 16412
     },
     "FRANCESCO_SFORZA": {
         "id": 439,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1615,
-        "icon_id": 162
+        "icon_id": 162,
+        "hotkey_id": 16679
     },
     "ATAULF": {
         "id": 453,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1624,
-        "icon_id": 163
+        "icon_id": 163,
+        "hotkey_id": 16638
     },
     "JOAN_OF_ARC": {
         "id": 629,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 630,
-        "icon_id": 76
+        "icon_id": 76,
+        "hotkey_id": 16526
     },
     "FRANKISH_PALADIN": {
         "id": 632,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 62
+        "icon_id": 62,
+        "hotkey_id": 16529
     },
     "SIEUR_DE_METZ": {
         "id": 634,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 111,
-        "icon_id": 59
+        "icon_id": 59,
+        "hotkey_id": 16531
     },
     "SIEUR_BERTRAND": {
         "id": 636,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 111,
-        "icon_id": 61
+        "icon_id": 61,
+        "hotkey_id": 16533
     },
     "DUKE_D_ALENASONN": {
         "id": 638,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 65
+        "icon_id": 65,
+        "hotkey_id": 16535
     },
     "LA_HIRE": {
         "id": 640,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 568,
-        "icon_id": 51
+        "icon_id": 51,
+        "hotkey_id": 16537
     },
     "LORD_DE_GRAVILLE": {
         "id": 642,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 496,
-        "icon_id": 66
+        "icon_id": 66,
+        "hotkey_id": 16539
     },
     "JEAN_DE_LORRAIN": {
         "id": 644,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 16,
-        "icon_id": 67
+        "icon_id": 67,
+        "hotkey_id": 16541
     },
     "CONSTABLE_RICHEMONT": {
         "id": 646,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 343
+        "icon_id": 343,
+        "hotkey_id": 16543
     },
     "GUY_JOSSELYNE": {
         "id": 648,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 570,
-        "icon_id": 56
+        "icon_id": 56,
+        "hotkey_id": 16545
     },
     "JEAN_BUREAU": {
         "id": 650,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 16,
-        "icon_id": 68
+        "icon_id": 68,
+        "hotkey_id": 16547
     },
     "SIR_JOHN_FASTOLF": {
         "id": 652,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 69
+        "icon_id": 69,
+        "hotkey_id": 16549
     },
     "REYNALD_DE_CHATILLON": {
         "id": 678,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 70
+        "icon_id": 70,
+        "hotkey_id": 16560
     },
     "MASTER_OF_THE_TEMPLAR": {
         "id": 680,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 16562
     },
     "BAD_NEIGHBOR": {
         "id": 682,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 194,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": 16564
     },
     "GODS_OWN_SLING": {
         "id": 683,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 194,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": 16565
     },
     "ARCHER_OF_THE_EYES": {
         "id": 686,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 687,
-        "icon_id": 77
+        "icon_id": 77,
+        "hotkey_id": 16568
     },
     "SUBOTAI": {
         "id": 698,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1618,
-        "icon_id": 53
+        "icon_id": 53,
+        "hotkey_id": 16580
     },
     "HUNTING_WOLF": {
         "id": 700,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 237,
-        "icon_id": 340
+        "icon_id": 340,
+        "hotkey_id": 16582
     },
     "KUSHLUK": {
         "id": 702,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1638,
-        "icon_id": 81
+        "icon_id": 81,
+        "hotkey_id": 16584
     },
     "TOPA_YUPANQUI": {
         "id": 703,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 750,
-        "icon_id": 327
+        "icon_id": 327,
+        "hotkey_id": 16669
     },
     "SHAH": {
         "id": 704,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1337,
-        "icon_id": 82
+        "icon_id": 82,
+        "hotkey_id": 16586
     },
     "SABOTEUR": {
         "id": 706,
         "gaia_only": false,
         "type": "hero",
         "dead_id": -1,
-        "icon_id": 58
+        "icon_id": 58,
+        "hotkey_id": 16588
     },
     "ORNLU_THE_WOLF": {
         "id": 707,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 708,
-        "icon_id": 145
+        "icon_id": 145,
+        "hotkey_id": 16589
     },
     "GODS_OWN_SLING_PACKED": {
         "id": 729,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 735,
-        "icon_id": 313
+        "icon_id": 313,
+        "hotkey_id": 16611
     },
     "BAD_NEIGHBOR_PACKED": {
         "id": 730,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 735,
-        "icon_id": 313
+        "icon_id": 313,
+        "hotkey_id": 16612
     },
     "GENGHIS_KHAN": {
         "id": 731,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 135,
-        "icon_id": 54
+        "icon_id": 54,
+        "hotkey_id": 16613
     },
     "EMPEROR_IN_A_BARREL": {
         "id": 733,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 205,
-        "icon_id": 57
+        "icon_id": 57,
+        "hotkey_id": 16615
     },
     "CUSI_YUPANQUI": {
         "id": 749,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1626,
-        "icon_id": 306
+        "icon_id": 306,
+        "hotkey_id": 16671
     },
     "ATTILA_THE_HUN": {
         "id": 777,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1619,
-        "icon_id": 119
+        "icon_id": 119,
+        "hotkey_id": 16695
     },
     "BLEDA_THE_HUN": {
         "id": 779,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1371,
-        "icon_id": 120
+        "icon_id": 120,
+        "hotkey_id": 16697
     },
     "POPE_LEO_I": {
         "id": 781,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 134,
-        "icon_id": 130
+        "icon_id": 130,
+        "hotkey_id": 16699
     },
     "SCYTHIAN_WILD_WOMAN": {
         "id": 783,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 431,
-        "icon_id": 121
+        "icon_id": 121,
+        "hotkey_id": 16701
     },
     "EL_CID_CAMPEADOR": {
         "id": 824,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 173
+        "icon_id": 173,
+        "hotkey_id": 16724
     },
     "KING_SANCHO": {
         "id": 838,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 497,
-        "icon_id": 124
+        "icon_id": 124,
+        "hotkey_id": 16738
     },
     "KING_ALFONSO": {
         "id": 840,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 497,
-        "icon_id": 123
+        "icon_id": 123,
+        "hotkey_id": 16740
     },
     "IMAM": {
         "id": 842,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1326,
-        "icon_id": 324
+        "icon_id": 324,
+        "hotkey_id": 16742
     },
     "ADMIRAL_YI_SUN_SHIN": {
         "id": 844,
         "gaia_only": false,
         "type": "hero",
         "dead_id": -1,
-        "icon_id": 127
+        "icon_id": 127,
+        "hotkey_id": 16744
     },
     "NOBUNAGA": {
         "id": 845,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 151,
-        "icon_id": 126
+        "icon_id": 126,
+        "hotkey_id": 16745
     },
     "HENRY_V": {
         "id": 847,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 570,
-        "icon_id": 125
+        "icon_id": 125,
+        "hotkey_id": 16747
     },
     "WILLIAM_THE_CONQUEROR": {
         "id": 849,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 633,
-        "icon_id": 128
+        "icon_id": 128,
+        "hotkey_id": 16749
     },
     "SCYTHIAN_SCOUT": {
         "id": 852,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 547,
-        "icon_id": 321
+        "icon_id": 321,
+        "hotkey_id": 16752
     },
     "MUSA_IBN_NUSAYR": {
         "id": 1034,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1008,
-        "icon_id": 204
+        "icon_id": 204,
+        "hotkey_id": 16101
     },
     "SUNDJATA": {
         "id": 1035,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1395,
-        "icon_id": 206
+        "icon_id": 206,
+        "hotkey_id": 16777
     },
     "TARIQ_IBN_ZIYAD": {
         "id": 1036,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1616,
-        "icon_id": 207
+        "icon_id": 207,
+        "hotkey_id": 16415
     },
     "RICHARD_DE_CLARE": {
         "id": 1037,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 547,
-        "icon_id": 210
+        "icon_id": 210,
+        "hotkey_id": 16778
     },
     "TRISTAN": {
         "id": 1038,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 870,
-        "icon_id": 322
+        "icon_id": 322,
+        "hotkey_id": 16779
     },
     "PRINCESS_YODIT": {
         "id": 1039,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1328,
-        "icon_id": 216
+        "icon_id": 216,
+        "hotkey_id": 16781
     },
     "HENRY_II": {
         "id": 1040,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 500,
-        "icon_id": 325
+        "icon_id": 325,
+        "hotkey_id": 16780
     },
     "YEKUNA_AMLAK": {
         "id": 1064,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1017,
-        "icon_id": 208
+        "icon_id": 208,
+        "hotkey_id": 16799
     },
     "YODIT": {
         "id": 1066,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1625,
-        "icon_id": 216
+        "icon_id": 216,
+        "hotkey_id": 16220
     },
     "ITZCOATL": {
         "id": 1067,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1221,
-        "icon_id": 317
+        "icon_id": 317,
+        "hotkey_id": 16206
     },
     "MUSTAFA_PASHA": {
         "id": 1068,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 107,
-        "icon_id": 318
+        "icon_id": 318,
+        "hotkey_id": 16207
     },
     "PACAL_II": {
         "id": 1069,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 764,
-        "icon_id": 314
+        "icon_id": 314,
+        "hotkey_id": 16208
     },
     "BABUR": {
         "id": 1070,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 300,
-        "icon_id": 316
+        "icon_id": 316,
+        "hotkey_id": 16209
     },
     "ABRAHA_ELEPHANT": {
         "id": 1071,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 136,
-        "icon_id": 310
+        "icon_id": 310,
+        "hotkey_id": 16210
     },
     "GUGLIELMO_EMBRIACO": {
         "id": 1072,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 867,
-        "icon_id": 312
+        "icon_id": 312,
+        "hotkey_id": 16211
     },
     "SU_DINGFANG": {
         "id": 1073,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 28,
-        "icon_id": 303
+        "icon_id": 303,
+        "hotkey_id": 16212
     },
     "PACHACUTI": {
         "id": 1074,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1633,
-        "icon_id": 319
+        "icon_id": 319,
+        "hotkey_id": 16213
     },
     "HUAYNA_CAPAC": {
         "id": 1075,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 186,
-        "icon_id": 308
+        "icon_id": 308,
+        "hotkey_id": 16214
     },
     "MIKLOS_TOLDI": {
         "id": 1076,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 870,
-        "icon_id": 322
+        "icon_id": 322,
+        "hotkey_id": 16215
     },
     "LITTLE_JOHN": {
         "id": 1077,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 140,
-        "icon_id": 309
+        "icon_id": 309,
+        "hotkey_id": 16216
     },
     "ZAWISZA_THE_BLACK": {
         "id": 1078,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 480,
-        "icon_id": 315
+        "icon_id": 315,
+        "hotkey_id": 16217
     },
     "SUMANGURU": {
         "id": 1080,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1621,
-        "icon_id": 205
+        "icon_id": 205,
+        "hotkey_id": 16218
     },
     "DAGNAJAN": {
         "id": 1106,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1108,
-        "icon_id": 209
+        "icon_id": 209,
+        "hotkey_id": 16232
     },
     "GIDAJAN": {
         "id": 1109,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1110,
-        "icon_id": 245
+        "icon_id": 245,
+        "hotkey_id": 16101
     },
     "GAJAH_MADA": {
         "id": 1157,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1190,
-        "icon_id": 220
+        "icon_id": 220,
+        "hotkey_id": 16469
     },
     "JAYANEGARA": {
         "id": 1158,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 732,
-        "icon_id": 342
+        "icon_id": 342,
+        "hotkey_id": 16301
     },
     "RADEN_WIJAYA": {
         "id": 1159,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 139,
-        "icon_id": 222
+        "icon_id": 222,
+        "hotkey_id": 16070
     },
     "SUNDA_ROYAL_FIGHTER": {
         "id": 1160,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1161,
-        "icon_id": 234
+        "icon_id": 234,
+        "hotkey_id": 16101
     },
     "SURYAVARMAN_I": {
         "id": 1162,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1154,
-        "icon_id": 239
+        "icon_id": 239,
+        "hotkey_id": 16459
     },
     "UDAYADITYAVARMAN_I": {
         "id": 1163,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 732,
-        "icon_id": 241
+        "icon_id": 241,
+        "hotkey_id": 16301
     },
     "JAYAVIRAVARMAN": {
         "id": 1164,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1124,
-        "icon_id": 221
+        "icon_id": 221,
+        "hotkey_id": 16101
     },
     "BAYINNAUNG": {
         "id": 1165,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1637,
-        "icon_id": 219
+        "icon_id": 219,
+        "hotkey_id": 16459
     },
     "TABINSHWEHTI": {
         "id": 1166,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 874,
-        "icon_id": 223
+        "icon_id": 223,
+        "hotkey_id": 16101
     },
     "LE_LOI": {
         "id": 1178,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1623,
-        "icon_id": 243
+        "icon_id": 243,
+        "hotkey_id": 16299
     },
     "LE_LAI": {
         "id": 1180,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1224,
-        "icon_id": 242
+        "icon_id": 242,
+        "hotkey_id": 16633
     },
     "LE_TRIEN": {
         "id": 1181,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 568,
-        "icon_id": 237
+        "icon_id": 237,
+        "hotkey_id": 16299
     },
     "LUU_NHAN_CHU": {
         "id": 1182,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 687,
-        "icon_id": 238
+        "icon_id": 238,
+        "hotkey_id": 16568
     },
     "BUI_BI": {
         "id": 1183,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1329,
-        "icon_id": 235
+        "icon_id": 235,
+        "hotkey_id": 16742
     },
     "DINH_LE": {
         "id": 1184,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1224,
-        "icon_id": 236
+        "icon_id": 236,
+        "hotkey_id": 16633
     },
     "WANG_TONG": {
         "id": 1185,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1224,
-        "icon_id": 240
+        "icon_id": 240,
+        "hotkey_id": 16218
     },
     "ENVOY": {
         "id": 1186,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1636,
-        "icon_id": 244
+        "icon_id": 244,
+        "hotkey_id": 16777
     },
     "TOKHTAMYSH_KHAN": {
         "id": 1262,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1229,
-        "icon_id": 152
+        "icon_id": 152,
+        "hotkey_id": 16101
     },
     "IVAYLO": {
         "id": 1265,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1290,
-        "icon_id": 257
+        "icon_id": 257,
+        "hotkey_id": 16101
     },
     "TSAR_KONSTANTIN": {
         "id": 1266,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1286,
-        "icon_id": 254
+        "icon_id": 254,
+        "hotkey_id": 16101
     },
     "KOTYAN_KHAN": {
         "id": 1267,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1287,
-        "icon_id": 259
+        "icon_id": 259,
+        "hotkey_id": 16580
     },
     "CUMAN_CHIEF": {
         "id": 1268,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1288,
-        "icon_id": 255
+        "icon_id": 255,
+        "hotkey_id": 16533
     },
     "GIRGEN_KHAN": {
         "id": 1269,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1289,
-        "icon_id": 256
+        "icon_id": 256,
+        "hotkey_id": 16085
     },
     "URUS_KHAN": {
         "id": 1276,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1232,
-        "icon_id": 262
+        "icon_id": 262,
+        "hotkey_id": 16108
     },
     "VYTAUTAS_THE_GREAT": {
         "id": 1281,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1278,
-        "icon_id": 260
+        "icon_id": 260,
+        "hotkey_id": 16405
     },
     "IVAYLO_DISMOUNTED": {
         "id": 1290,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1630,
-        "icon_id": 257
+        "icon_id": 257,
+        "hotkey_id": 16101
     },
     "SANYOGITA": {
         "id": 1293,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1328,
-        "icon_id": 170
+        "icon_id": 170,
+        "hotkey_id": 16307
     },
     "PRITHVI": {
         "id": 1294,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 26,
-        "icon_id": 304
+        "icon_id": 304,
+        "hotkey_id": 16308
     },
     "CHAND_BARDAI": {
         "id": 1295,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1329,
-        "icon_id": 171
+        "icon_id": 171,
+        "hotkey_id": 16742
     },
     "SALADIN": {
         "id": 1296,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 44,
-        "icon_id": 175
+        "icon_id": 175,
+        "hotkey_id": 16453
     },
     "JARL": {
         "id": 1298,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1628,
-        "icon_id": 188
+        "icon_id": 188,
+        "hotkey_id": 16416
     },
     "SAVAR": {
         "id": 1299,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1401,
-        "icon_id": 181
+        "icon_id": 181,
+        "hotkey_id": 16451
     },
     "OSMAN": {
         "id": 1303,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1632,
-        "icon_id": 180
+        "icon_id": 180,
+        "hotkey_id": 16412
     },
     "MOUNTED_SAMURAI": {
         "id": 1568,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1569,
-        "icon_id": 103
+        "icon_id": 103,
+        "hotkey_id": 16661
     },
     "SOSSO_GUARD": {
         "id": 1574,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1575,
-        "icon_id": 350
+        "icon_id": 350,
+        "hotkey_id": 16101
     },
     "THE_MIDDLEBROOK": {
         "id": 1631,
         "gaia_only": false,
         "type": "hero",
         "dead_id": -1,
-        "icon_id": 353
+        "icon_id": 353,
+        "hotkey_id": 16457
     },
     "FISH_PERCH": {
         "id": 53,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 276
+        "icon_id": 276,
+        "hotkey_id": 16072
     },
     "FORAGE_BUSH": {
         "id": 59,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 6
+        "icon_id": 6,
+        "hotkey_id": 16401
     },
     "GOLD_MINE": {
         "id": 66,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 14
+        "icon_id": 14,
+        "hotkey_id": 16400
     },
     "SHORE_FISH": {
         "id": 69,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 280
+        "icon_id": 280,
+        "hotkey_id": 16501
     },
     "STONE_MINE": {
         "id": 102,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 9
+        "icon_id": 9,
+        "hotkey_id": 16252
     },
     "CRACKS": {
         "id": 241,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16259
     },
     "TREE_TD": {
         "id": 284,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16348
     },
     "RELIC": {
         "id": 285,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16350
     },
     "BRITISH_RELIC": {
         "id": 287,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16352
     },
     "BYZANTINE_RELIC": {
         "id": 288,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16353
     },
     "CHINESE_RELIC": {
         "id": 289,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16354
     },
     "FRANKISH_RELIC": {
         "id": 290,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16355
     },
     "GOTHIC_RELIC": {
         "id": 292,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16356
     },
     "JAPANESE_RELIC": {
         "id": 294,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16357
     },
     "PERSIAN_RELIC": {
         "id": 295,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16358
     },
     "SARACEN_RELIC": {
         "id": 296,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16359
     },
     "TEUTONIC_RELIC": {
         "id": 297,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16360
     },
     "TURKISH_RELIC": {
         "id": 298,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 26
+        "icon_id": 26,
+        "hotkey_id": 16351
     },
     "GRASS_PATCH_GREEN": {
         "id": 301,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16385
     },
     "BUSH_A": {
         "id": 302,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16398
     },
     "BONFIRE": {
         "id": 304,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16768
     },
     "BLACK_TILE": {
         "id": 306,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16389
     },
     "MOUNTAIN_1": {
         "id": 310,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16342
     },
     "MOUNTAIN_2": {
         "id": 311,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16343
     },
     "FLOWERS_1": {
         "id": 334,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16382
     },
     "FLOWERS_2": {
         "id": 335,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16383
     },
     "FLOWERS_3": {
         "id": 336,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16384
     },
     "FLOWERS_4": {
         "id": 337,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16385
     },
     "PATH_4": {
         "id": 338,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16386
     },
     "PATH_1": {
         "id": 339,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16387
     },
     "PATH_2": {
         "id": 340,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16388
     },
     "PATH_3": {
         "id": 341,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16389
     },
     "TREE_BAMBOO_FOREST": {
         "id": 348,
         "gaia_only": true,
         "type": "other",
         "dead_id": 737,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16396
     },
     "TREE_OAK": {
         "id": 349,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16397
     },
     "TREE_PINE_FOREST": {
         "id": 350,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16399
     },
     "TREE_PALM_FOREST": {
         "id": 351,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16398
     },
     "SEA_ROCKS_1": {
         "id": 389,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16253
     },
     "SEA_ROCKS_2": {
         "id": 396,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16262
     },
     "TREE_A": {
         "id": 399,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16265
     },
     "TREE_B": {
         "id": 400,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16266
     },
     "TREE_C": {
         "id": 401,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16267
     },
     "TREE_D": {
         "id": 402,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16268
     },
     "TREE_E": {
         "id": 403,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16269
     },
     "TREE_F": {
         "id": 404,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16270
     },
     "TREE_G": {
         "id": 405,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16271
     },
     "TREE_H": {
         "id": 406,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16272
     },
     "TREE_I": {
         "id": 407,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16273
     },
     "TREE_J": {
         "id": 408,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16274
     },
     "TREE_K": {
         "id": 409,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16275
     },
     "TREE_L": {
         "id": 410,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16276
     },
     "TREE_OAK_FOREST": {
         "id": 411,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16277
     },
     "TREE_SNOW_PINE": {
         "id": 413,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16694
     },
     "TREE_JUNGLE": {
         "id": 414,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16693
     },
     "TOWN_CENTER_PACKED": {
         "id": 444,
         "gaia_only": true,
         "type": "building",
         "dead_id": 1274,
-        "icon_id": 264
+        "icon_id": 264,
+        "hotkey_id": 16311
     },
     "POENARI_CASTLE": {
         "id": 445,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1488,
-        "icon_id": 7
+        "icon_id": 7,
+        "hotkey_id": 16318
     },
     "GREAT_FISH_MARLIN": {
         "id": 450,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 281
+        "icon_id": 281,
+        "hotkey_id": 16330
     },
     "FISH_DORADO": {
         "id": 455,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 275
+        "icon_id": 275,
+        "hotkey_id": 16335
     },
     "FISH_SALMON": {
         "id": 456,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 277
+        "icon_id": 277,
+        "hotkey_id": 16336
     },
     "FISH_TUNA": {
         "id": 457,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 279
+        "icon_id": 279,
+        "hotkey_id": 16337
     },
     "FISH_SNAPPER": {
         "id": 458,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 278
+        "icon_id": 278,
+        "hotkey_id": 16338
     },
     "TORCH_A": {
         "id": 499,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16423
     },
     "FLAG_A": {
         "id": 600,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16506
     },
     "FLAG_B": {
         "id": 601,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16507
     },
     "FLAG_C": {
         "id": 602,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16508
     },
     "FLAG_D": {
         "id": 603,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16509
     },
     "FLAG_E": {
         "id": 604,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16510
     },
     "ROCK_1": {
         "id": 623,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16520
     },
     "PAVILION_A": {
         "id": 624,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1476,
-        "icon_id": 43
+        "icon_id": 43,
+        "hotkey_id": 16521
     },
     "PAVILION_C": {
         "id": 625,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1478,
-        "icon_id": 43
+        "icon_id": 43,
+        "hotkey_id": 16523
     },
     "PAVILION_B": {
         "id": 626,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1477,
-        "icon_id": 43
+        "icon_id": 43,
+        "hotkey_id": 16522
     },
     "MOSQUE": {
         "id": 655,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1496,
-        "icon_id": 12
+        "icon_id": 12,
+        "hotkey_id": 16552
     },
     "THE_ACCURSED_TOWER": {
         "id": 684,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1494,
-        "icon_id": 45
+        "icon_id": 45,
+        "hotkey_id": 16566
     },
     "THE_TOWER_OF_FLIES": {
         "id": 685,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1495,
-        "icon_id": 45
+        "icon_id": 45,
+        "hotkey_id": 16567
     },
     "PIECE_OF_THE_TRUE_CROSS": {
         "id": 688,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16570
     },
     "DOME_OF_THE_ROCK": {
         "id": 690,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1482,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 16572
     },
     "GREAT_PYRAMID": {
         "id": 696,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1516,
-        "icon_id": 57
+        "icon_id": 57,
+        "hotkey_id": 16578
     },
     "CACTUS": {
         "id": 709,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16591
     },
     "SKELETON": {
         "id": 710,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16592
     },
     "RUGS": {
         "id": 711,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16593
     },
     "NINE_BANDS": {
         "id": 720,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16602
     },
     "SHIPWRECK_A": {
         "id": 721,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16603
     },
     "SHIPWRECK_B": {
         "id": 722,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16604
     },
     "CRATER": {
         "id": 723,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16605
     },
     "ICE_NAVIGABLE": {
         "id": 728,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16610
     },
     "MOUNTAIN_3": {
         "id": 744,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16647
     },
     "MOUNTAIN_4": {
         "id": 745,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16648
     },
     "BURNED_BUILDING": {
         "id": 758,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16393
     },
     "STUMP": {
         "id": 809,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16281
     },
     "PLANT": {
         "id": 818,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "SIGN": {
         "id": 819,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 189
+        "icon_id": 189,
+        "hotkey_id": 16719
     },
     "GRAVE": {
         "id": 820,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16720
     },
     "HEAD": {
         "id": 821,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16721
     },
     "MAP_REVEALER": {
         "id": 837,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16737
     },
     "ES_FLAG": {
         "id": 851,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16751
     },
     "OLD_STONE_HEAD": {
         "id": 855,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "ROMAN_RUINS": {
         "id": 856,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16757
     },
     "HAY_STACK": {
         "id": 857,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16761
     },
     "BROKEN_CART": {
         "id": 858,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16759
     },
     "FLOWER_BED": {
         "id": 859,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16385
     },
     "RUBBLE_1_X_1": {
         "id": 863,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16001
     },
     "RUBBLE_2_X_2": {
         "id": 864,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16002
     },
     "RUBBLE_3_X_3": {
         "id": 865,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16003
     },
     "GRASS_PATCH_DRY": {
         "id": 1033,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16385
     },
     "MOUNTAIN_5": {
         "id": 1041,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16772
     },
     "MOUNTAIN_6": {
         "id": 1042,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16773
     },
     "MOUNTAIN_7": {
         "id": 1043,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16774
     },
     "MOUNTAIN_8": {
         "id": 1044,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16775
     },
     "SNOW_MOUNTAIN_1": {
         "id": 1045,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16776
     },
     "SNOW_MOUNTAIN_2": {
         "id": 1046,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16777
     },
     "SNOW_MOUNTAIN_3": {
         "id": 1047,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16778
     },
     "ROCK_FORMATION_1": {
         "id": 1048,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16789
     },
     "ROCK_FORMATION_2": {
         "id": 1049,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16790
     },
     "ROCK_FORMATION_3": {
         "id": 1050,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16791
     },
     "TREE_DRAGON": {
         "id": 1051,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16792
     },
     "TREE_BAOBAB": {
         "id": 1052,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1634,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16793
     },
     "BUSH_B": {
         "id": 1053,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16794
     },
     "BUSH_C": {
         "id": 1054,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16795
     },
     "FRUIT_BUSH": {
         "id": 1059,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 199
+        "icon_id": 199,
+        "hotkey_id": 16401
     },
     "TREE_ACACIA": {
         "id": 1063,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16798
     },
     "GRANARY": {
         "id": 1089,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1499,
-        "icon_id": 60
+        "icon_id": 60,
+        "hotkey_id": 16222
     },
     "BARRICADE_A": {
         "id": 1090,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1472,
-        "icon_id": 54
+        "icon_id": 54,
+        "hotkey_id": 16223
     },
     "ANIMAL_SKELETON": {
         "id": 1091,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16224
     },
     "STELAE_A": {
         "id": 1092,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16225
     },
     "STELAE_B": {
         "id": 1093,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16226
     },
     "STELAE_C": {
         "id": 1094,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16227
     },
     "GALLOW": {
         "id": 1095,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16228
     },
     "BOX_TURTLES": {
         "id": 1141,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 282
+        "icon_id": 282,
+        "hotkey_id": 16173
     },
     "TREE_MANGROVE": {
         "id": 1144,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16177
     },
     "TREE_RAINFOREST": {
         "id": 1146,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16179
     },
     "ROCK_BEACH": {
         "id": 1148,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16180
     },
     "ROCK_JUNGLE": {
         "id": 1149,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16181
     },
     "FLAG_G": {
         "id": 1150,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16183
     },
     "FLAG_H": {
         "id": 1151,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16184
     },
     "FLAG_I": {
         "id": 1152,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16188
     },
     "FLAG_J": {
         "id": 1153,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16189
     },
     "BUDDHA_STATUE_A": {
         "id": 1171,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "BUDDHA_STATUE_B": {
         "id": 1172,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "BUDDHA_STATUE_C": {
         "id": 1173,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "BUDDHA_STATUE_D": {
         "id": 1174,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "FERN_PATCH": {
         "id": 1175,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16385
     },
     "TROWULAN_GATE": {
         "id": 1176,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "VASES": {
         "id": 1177,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16385
     },
     "STUPA": {
         "id": 1191,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "PAGODA_A": {
         "id": 1201,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "PAGODA_B": {
         "id": 1202,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "PAGODA_C": {
         "id": 1203,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "BARRICADE_B": {
         "id": 1218,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1473,
-        "icon_id": 54
+        "icon_id": 54,
+        "hotkey_id": 16223
     },
     "BARRICADE_C": {
         "id": 1219,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1474,
-        "icon_id": 54
+        "icon_id": 54,
+        "hotkey_id": 16223
     },
     "BARRICADE_D": {
         "id": 1220,
         "gaia_only": true,
         "type": "other",
         "dead_id": 1475,
-        "icon_id": 54
+        "icon_id": 54,
+        "hotkey_id": 16223
     },
     "TREE_OAK_AUTUMN": {
         "id": 1248,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16277
     },
     "TREE_OAK_AUTUMN_SNOW": {
         "id": 1249,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16694
     },
     "TREE_DEAD": {
         "id": 1250,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16694
     },
     "CUMAN_DISABLED": {
         "id": 1261,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 1232,
-        "icon_id": 114
+        "icon_id": 114,
+        "hotkey_id": 16108
     },
     "DISMANTLED_CART": {
         "id": 1270,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": 271
+        "icon_id": 271,
+        "hotkey_id": 16189
     },
     "STATUE_CIVILIZATION": {
         "id": 1279,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16403
     },
     "FLAG_K": {
         "id": 1282,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16183
     },
     "FLAG_L": {
         "id": 1283,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16183
     },
     "FLAG_M": {
         "id": 1284,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16183
     },
     "FE_FLAG": {
         "id": 1285,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16183
     },
     "FLAG_F": {
         "id": 1307,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16517
     },
     "SMOKE": {
         "id": 1308,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16517
     },
     "IMPALED_CORPSE": {
         "id": 1315,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16000
     },
     "STATUE_COLUMN": {
         "id": 1322,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16717
     },
     "ROCK_2": {
         "id": 1323,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16520
     },
     "BARRELS": {
         "id": 1330,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16757
     },
     "STATUE_LEFT": {
         "id": 1343,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16717
     },
     "STATUE_RIGHT": {
         "id": 1345,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16717
     },
     "TREE_CYPRESS": {
         "id": 1347,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16399
     },
     "TREE_ITALIAN_PINE": {
         "id": 1348,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16399
     },
     "TREE_OLIVE": {
         "id": 1349,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16399
     },
     "TREE_REEDS": {
         "id": 1350,
         "gaia_only": true,
         "type": "other",
         "dead_id": 737,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 16396
     },
     "PLANT_JUNGLE": {
         "id": 1351,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_UNDERBRUSH_TROPICAL": {
         "id": 1352,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_UNDERBRUSH": {
         "id": 1353,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_RAINFOREST": {
         "id": 1354,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "GRASS_GREEN": {
         "id": 1358,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "GRASS_DRY": {
         "id": 1359,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_BUSH_GREEN": {
         "id": 1360,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_SHRUB_GREEN": {
         "id": 1362,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_WEEDS": {
         "id": 1364,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_DEAD": {
         "id": 1365,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "PLANT_FLOWERS": {
         "id": 1366,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16718
     },
     "TORCH_B": {
         "id": 1376,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16423
     },
     "RUBBLE_4_X_4": {
         "id": 1497,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16004
     },
     "RUBBLE_8_X_8": {
         "id": 1498,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16006
     },
     "PAIFANG_GATE": {
         "id": 1562,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "NUBIAN_PYRAMID": {
         "id": 1563,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "TARGET_A": {
         "id": 1564,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16000
     },
     "TARGET_B": {
         "id": 1565,
         "gaia_only": false,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16000
     },
     "TEMPLE_RUIN": {
         "id": 1566,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16757
     },
     "WELL": {
         "id": 1567,
         "gaia_only": true,
         "type": "other",
         "dead_id": -1,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 16756
     },
     "EDWARD_LONGSHANKS": {
         "id": 1669,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1670,
-        "icon_id": 358
+        "icon_id": 358,
+        "hotkey_id": 16724
     },
     "GILBERT_DE_CLARE": {
         "id": 1671,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1672,
-        "icon_id": 364
+        "icon_id": 364,
+        "hotkey_id": 16724
     },
     "JOHN_THE_FEARLESS": {
         "id": 1673,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1674,
-        "icon_id": 359
+        "icon_id": 359,
+        "hotkey_id": 16724
     },
     "PHILIP_THE_GOOD": {
         "id": 1675,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1676,
-        "icon_id": 360
+        "icon_id": 360,
+        "hotkey_id": 16724
     },
     "ROBERT_GUISCARD": {
         "id": 1677,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1678,
-        "icon_id": 361
+        "icon_id": 361,
+        "hotkey_id": 16724
     },
     "ROGER_BOSSO": {
         "id": 1679,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1680,
-        "icon_id": 362
+        "icon_id": 362,
+        "hotkey_id": 16724
     },
     "BOHEMOND": {
         "id": 1681,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1682,
-        "icon_id": 357
+        "icon_id": 357,
+        "hotkey_id": 16724
     },
     "LLYWELYN_AP_GRUFFYDD": {
         "id": 1683,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1684,
-        "icon_id": 368
+        "icon_id": 368,
+        "hotkey_id": 16619
     },
     "DAFYDD_AP_GRUFFYDD": {
         "id": 1685,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1686,
-        "icon_id": 366
+        "icon_id": 366,
+        "hotkey_id": 16619
     },
     "BERNARD_D_ARMAGNAC": {
         "id": 1687,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1688,
-        "icon_id": 365
+        "icon_id": 365,
+        "hotkey_id": 16724
     },
     "WARWOLF_TREBUCHET": {
         "id": 1690,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 194,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": 16097
     },
     "WARWOLF_TREBUCHET_PACKED": {
         "id": 1691,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 735,
-        "icon_id": 313
+        "icon_id": 313,
+        "hotkey_id": 16381
     },
     "JACQUELINE_OF_HAINAUT": {
         "id": 1692,
         "gaia_only": false,
         "type": "hero",
         "dead_id": 1328,
-        "icon_id": 367
+        "icon_id": 367,
+        "hotkey_id": 16307
     },
     "OUTLW": {
         "id": 158,
         "gaia_only": true,
         "type": "unit",
         "dead_id": 3,
-        "icon_id": 17
+        "icon_id": 17,
+        "hotkey_id": 16074
     },
     "RFARC": {
         "id": 571,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 572,
-        "icon_id": 17      
+        "icon_id": 17,
+        "hotkey_id": 16474
     },
     "MONUMENT_RESOURCE_ENABLER": {
         "id": 1639,
         "gaia_only": false,
         "type": "unit",
         "dead_id": 572,
-        "icon_id": 17      
+        "icon_id": 17,
+        "hotkey_id": 16464
     }
 }
