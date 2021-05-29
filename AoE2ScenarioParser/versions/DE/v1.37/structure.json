@@ -2023,19 +2023,19 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_1_x": {
+                            "area_x1": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_1_y": {
+                            "area_y1": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_2_x": {
+                            "area_x2": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_2_y": {
+                            "area_y2": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -2216,19 +2216,19 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_1_x": {
+                            "area_x1": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_1_y": {
+                            "area_y1": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_2_x": {
+                            "area_x2": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "area_2_y": {
+                            "area_y2": {
                                 "type": "s32",
                                 "default": -1
                             },

@@ -149,7 +149,7 @@ class Trigger(AoE2Object):
                     armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
                     object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
                     display_time=None, trigger_id=None, location_x=None, location_y=None,
-                    location_object_reference=None, area_1_x=None, area_1_y=None, area_2_x=None, area_2_y=None,
+                    location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
                     object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
                     time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
                     flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
@@ -178,8 +178,8 @@ class Trigger(AoE2Object):
 
     def _add_condition(self, condition_type: ConditionId, quantity=None,
                        attribute=None, unit_object=None, next_object=None, object_list=None,
-                       source_player=None, technology=None, timer=None, area_1_x=None, area_1_y=None, area_2_x=None,
-                       area_2_y=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
+                       source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
+                       area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
                        comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 

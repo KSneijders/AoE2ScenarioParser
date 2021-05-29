@@ -21,10 +21,10 @@ def vorl(retriever, value):
         The given list or the value inside it
     """
     if retriever.datatype.repeat != 1:
-        return listify(value)
+        return value
 
     if retriever.is_list is not None:
-        return listify(value) if retriever.is_list else value[0]
+        return value if retriever.is_list else value[0]
 
     # Fallback to length check
     if len(value) == 1:
@@ -55,7 +55,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
             else:  # String, Stored as: (signed int (n), string (string_length = n))
                 int_bytes = igenerator.get_bytes(var_len)
                 string_length = bytes_to_int(int_bytes, signed=True)
-                string_bytes = b'' if string_length == 0 else igenerator.get_bytes(string_length)
+                string_bytes = igenerator.get_bytes(string_length)
                 retrieved_bytes.append(int_bytes + string_bytes)
     except EndOfFileError:
         if is_end_of_file_mark(retriever):
@@ -64,7 +64,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     except TypeError:
         print(retriever)
         print(retriever.datatype.repeat)
-        exit()
+        exit()  # Todo: Should not exit (?)
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)

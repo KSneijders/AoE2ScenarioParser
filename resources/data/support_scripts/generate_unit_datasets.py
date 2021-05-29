@@ -14,8 +14,9 @@ f_list = f_dict.values()
 for name, file in f_dict.items():
     file.write(f"from enum import Enum\n\n\nclass {name.capitalize()}Info(Enum):")
 
-    for index, id_type in enumerate(['ID', 'ICON_ID', 'DEAD_ID', 'IS_GAIA_ONLY']):
-        if name == 'hero' and id_type == 'IS_GAIA_ONLY':
+    index = 0
+    for id_type in ['ID', 'ICON_ID', 'DEAD_ID', 'IS_GAIA_ONLY']:  # 'HOTKEY_ID', <-- Between Dead & is_GAIA
+        if (name == 'hero' and id_type == 'IS_GAIA_ONLY') or (name == 'other' and id_type == 'HOTKEY_ID'):
             continue
         file.write(f"\n    @property\n")
         file.write(f"    def {id_type}(self):\n")
@@ -23,6 +24,8 @@ for name, file in f_dict.items():
 
         if id_type != 'IS_GAIA_ONLY':
             file.write(from_id.replace('__VALUE__', str(index)).replace('__NAME__', f'{id_type.lower()}'))
+
+        index += 1
 
     if name != 'hero':
         file.write(gaia_only.replace('__CLASSNAME__', name.capitalize()))
@@ -39,7 +42,14 @@ with open('./../units.json', 'r') as file_content:
 
     for name, unit in json_content.items():
         x = f_dict[unit.get('type')]
-        x.write(f"    {name.upper()} = {unit['id']}, {unit['icon_id']}, {unit['dead_id']}, {unit['gaia_only']}\n")
+        uid = unit['id']
+        iid = unit['icon_id']
+        did = unit['dead_id']
+        hid = ""  # unit['hotkey_id'] if unit.get('type') != 'other' else ""
+        only = unit['gaia_only'] if unit.get('type') != 'hero' else ""
+
+        line = map(lambda e: str(e), filter(lambda e: e != "", [uid, iid, did, hid, only]))
+        x.write(f"    {name.upper()} = {', '.join(line)}\n")
 
 for x in f_list:
     x.close()
