@@ -1822,14 +1822,14 @@
     "SMALL_TEMP_MAP_REVEAL": {
         "id": 112,
         "gaia_only": false,
-        "type": "unit",
+        "type": "other",
         "dead_id": -1,
         "icon_id": -1
     },
     "LARGE_TEMP_MAP_REVEAL": {
         "id": 332,
         "gaia_only": false,
-        "type": "unit",
+        "type": "other",
         "dead_id": -1,
         "icon_id": -1
     },
@@ -3030,6 +3030,13 @@
         "dead_id": -1,
         "icon_id": -1
     },
+    "FLARE_PERMANENT": {
+        "id": 1689,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
     "LIEF_ERIKSON": {
         "id": 106,
         "gaia_only": false,
@@ -4023,5 +4030,1447 @@
         "type": "hero",
         "dead_id": -1,
         "icon_id": 353
+    },
+    "FISH_PERCH": {
+        "id": 53,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 276
+    },
+    "FORAGE_BUSH": {
+        "id": 59,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 6
+    },
+    "GOLD_MINE": {
+        "id": 66,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 14
+    },
+    "SHORE_FISH": {
+        "id": 69,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 280
+    },
+    "STONE_MINE": {
+        "id": 102,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 9
+    },
+    "CRACKS": {
+        "id": 241,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TREE_TD": {
+        "id": 284,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "RELIC": {
+        "id": 285,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "BRITISH_RELIC": {
+        "id": 287,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "BYZANTINE_RELIC": {
+        "id": 288,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "CHINESE_RELIC": {
+        "id": 289,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "FRANKISH_RELIC": {
+        "id": 290,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "GOTHIC_RELIC": {
+        "id": 292,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "JAPANESE_RELIC": {
+        "id": 294,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "PERSIAN_RELIC": {
+        "id": 295,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "SARACEN_RELIC": {
+        "id": 296,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "TEUTONIC_RELIC": {
+        "id": 297,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "TURKISH_RELIC": {
+        "id": 298,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 26
+    },
+    "GRASS_PATCH_GREEN": {
+        "id": 301,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BUSH_A": {
+        "id": 302,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "BONFIRE": {
+        "id": 304,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BLACK_TILE": {
+        "id": 306,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_1": {
+        "id": 310,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_2": {
+        "id": 311,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLOWERS_1": {
+        "id": 334,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLOWERS_2": {
+        "id": 335,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLOWERS_3": {
+        "id": 336,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLOWERS_4": {
+        "id": 337,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PATH_4": {
+        "id": 338,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PATH_1": {
+        "id": 339,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PATH_2": {
+        "id": 340,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PATH_3": {
+        "id": 341,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TREE_BAMBOO_FOREST": {
+        "id": 348,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 737,
+        "icon_id": 32
+    },
+    "TREE_OAK": {
+        "id": 349,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_PINE_FOREST": {
+        "id": 350,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_PALM_FOREST": {
+        "id": 351,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "SEA_ROCKS_1": {
+        "id": 389,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SEA_ROCKS_2": {
+        "id": 396,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TREE_A": {
+        "id": 399,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_B": {
+        "id": 400,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_C": {
+        "id": 401,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_D": {
+        "id": 402,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_E": {
+        "id": 403,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_F": {
+        "id": 404,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_G": {
+        "id": 405,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_H": {
+        "id": 406,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_I": {
+        "id": 407,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_J": {
+        "id": 408,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_K": {
+        "id": 409,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_L": {
+        "id": 410,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_OAK_FOREST": {
+        "id": 411,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_SNOW_PINE": {
+        "id": 413,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_JUNGLE": {
+        "id": 414,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TOWN_CENTER_PACKED": {
+        "id": 444,
+        "gaia_only": true,
+        "type": "building",
+        "dead_id": 1274,
+        "icon_id": 264
+    },
+    "POENARI_CASTLE": {
+        "id": 445,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1488,
+        "icon_id": 7
+    },
+    "GREAT_FISH_MARLIN": {
+        "id": 450,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 281
+    },
+    "FISH_DORADO": {
+        "id": 455,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 275
+    },
+    "FISH_SALMON": {
+        "id": 456,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 277
+    },
+    "FISH_TUNA": {
+        "id": 457,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 279
+    },
+    "FISH_SNAPPER": {
+        "id": 458,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 278
+    },
+    "TORCH_A": {
+        "id": 499,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_A": {
+        "id": 600,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_B": {
+        "id": 601,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_C": {
+        "id": 602,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_D": {
+        "id": 603,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_E": {
+        "id": 604,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROCK_1": {
+        "id": 623,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PAVILION_A": {
+        "id": 624,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1476,
+        "icon_id": 43
+    },
+    "PAVILION_C": {
+        "id": 625,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1478,
+        "icon_id": 43
+    },
+    "PAVILION_B": {
+        "id": 626,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1477,
+        "icon_id": 43
+    },
+    "MOSQUE": {
+        "id": 655,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1496,
+        "icon_id": 12
+    },
+    "THE_ACCURSED_TOWER": {
+        "id": 684,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1494,
+        "icon_id": 45
+    },
+    "THE_TOWER_OF_FLIES": {
+        "id": 685,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1495,
+        "icon_id": 45
+    },
+    "PIECE_OF_THE_TRUE_CROSS": {
+        "id": 688,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "DOME_OF_THE_ROCK": {
+        "id": 690,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1482,
+        "icon_id": 37
+    },
+    "GREAT_PYRAMID": {
+        "id": 696,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1516,
+        "icon_id": 57
+    },
+    "CACTUS": {
+        "id": 709,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 32
+    },
+    "SKELETON": {
+        "id": 710,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "RUGS": {
+        "id": 711,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "NINE_BANDS": {
+        "id": 720,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SHIPWRECK_A": {
+        "id": 721,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SHIPWRECK_B": {
+        "id": 722,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "CRATER": {
+        "id": 723,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ICE_NAVIGABLE": {
+        "id": 728,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_3": {
+        "id": 744,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_4": {
+        "id": 745,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BURNED_BUILDING": {
+        "id": 758,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STUMP": {
+        "id": 809,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT": {
+        "id": 818,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SIGN": {
+        "id": 819,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 189
+    },
+    "GRAVE": {
+        "id": 820,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "HEAD": {
+        "id": 821,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MAP_REVEALER": {
+        "id": 837,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ES_FLAG": {
+        "id": 851,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "OLD_STONE_HEAD": {
+        "id": 855,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROMAN_RUINS": {
+        "id": 856,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "HAY_STACK": {
+        "id": 857,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BROKEN_CART": {
+        "id": 858,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLOWER_BED": {
+        "id": 859,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "RUBBLE_1_X_1": {
+        "id": 863,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "RUBBLE_2_X_2": {
+        "id": 864,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "RUBBLE_3_X_3": {
+        "id": 865,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "GRASS_PATCH_DRY": {
+        "id": 1033,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_5": {
+        "id": 1041,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_6": {
+        "id": 1042,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_7": {
+        "id": 1043,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "MOUNTAIN_8": {
+        "id": 1044,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SNOW_MOUNTAIN_1": {
+        "id": 1045,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SNOW_MOUNTAIN_2": {
+        "id": 1046,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SNOW_MOUNTAIN_3": {
+        "id": 1047,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROCK_FORMATION_1": {
+        "id": 1048,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROCK_FORMATION_2": {
+        "id": 1049,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROCK_FORMATION_3": {
+        "id": 1050,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TREE_DRAGON": {
+        "id": 1051,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_BAOBAB": {
+        "id": 1052,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1634,
+        "icon_id": 32
+    },
+    "BUSH_B": {
+        "id": 1053,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "BUSH_C": {
+        "id": 1054,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "FRUIT_BUSH": {
+        "id": 1059,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 199
+    },
+    "TREE_ACACIA": {
+        "id": 1063,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "GRANARY": {
+        "id": 1089,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1499,
+        "icon_id": 60
+    },
+    "BARRICADE_A": {
+        "id": 1090,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1472,
+        "icon_id": 54
+    },
+    "ANIMAL_SKELETON": {
+        "id": 1091,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STELAE_A": {
+        "id": 1092,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STELAE_B": {
+        "id": 1093,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STELAE_C": {
+        "id": 1094,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "GALLOW": {
+        "id": 1095,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BOX_TURTLES": {
+        "id": 1141,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 282
+    },
+    "TREE_MANGROVE": {
+        "id": 1144,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_RAINFOREST": {
+        "id": 1146,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "ROCK_BEACH": {
+        "id": 1148,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROCK_JUNGLE": {
+        "id": 1149,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_G": {
+        "id": 1150,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_H": {
+        "id": 1151,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_I": {
+        "id": 1152,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_J": {
+        "id": 1153,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BUDDHA_STATUE_A": {
+        "id": 1171,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BUDDHA_STATUE_B": {
+        "id": 1172,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BUDDHA_STATUE_C": {
+        "id": 1173,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BUDDHA_STATUE_D": {
+        "id": 1174,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FERN_PATCH": {
+        "id": 1175,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TROWULAN_GATE": {
+        "id": 1176,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "VASES": {
+        "id": 1177,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STUPA": {
+        "id": 1191,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PAGODA_A": {
+        "id": 1201,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PAGODA_B": {
+        "id": 1202,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PAGODA_C": {
+        "id": 1203,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BARRICADE_B": {
+        "id": 1218,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1473,
+        "icon_id": 54
+    },
+    "BARRICADE_C": {
+        "id": 1219,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1474,
+        "icon_id": 54
+    },
+    "BARRICADE_D": {
+        "id": 1220,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 1475,
+        "icon_id": 54
+    },
+    "TREE_OAK_AUTUMN": {
+        "id": 1248,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_OAK_AUTUMN_SNOW": {
+        "id": 1249,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_DEAD": {
+        "id": 1250,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "CUMAN_DISABLED": {
+        "id": 1261,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1232,
+        "icon_id": 114
+    },
+    "DISMANTLED_CART": {
+        "id": 1270,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 271
+    },
+    "STATUE_CIVILIZATION": {
+        "id": 1279,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_K": {
+        "id": 1282,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_L": {
+        "id": 1283,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_M": {
+        "id": 1284,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FE_FLAG": {
+        "id": 1285,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "FLAG_F": {
+        "id": 1307,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "SMOKE": {
+        "id": 1308,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "IMPALED_CORPSE": {
+        "id": 1315,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STATUE_COLUMN": {
+        "id": 1322,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "ROCK_2": {
+        "id": 1323,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "BARRELS": {
+        "id": 1330,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STATUE_LEFT": {
+        "id": 1343,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "STATUE_RIGHT": {
+        "id": 1345,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TREE_CYPRESS": {
+        "id": 1347,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_ITALIAN_PINE": {
+        "id": 1348,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_OLIVE": {
+        "id": 1349,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32
+    },
+    "TREE_REEDS": {
+        "id": 1350,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 737,
+        "icon_id": 32
+    },
+    "PLANT_JUNGLE": {
+        "id": 1351,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_UNDERBRUSH_TROPICAL": {
+        "id": 1352,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_UNDERBRUSH": {
+        "id": 1353,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_RAINFOREST": {
+        "id": 1354,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "GRASS_GREEN": {
+        "id": 1358,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "GRASS_DRY": {
+        "id": 1359,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_BUSH_GREEN": {
+        "id": 1360,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_SHRUB_GREEN": {
+        "id": 1362,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_WEEDS": {
+        "id": 1364,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_DEAD": {
+        "id": 1365,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PLANT_FLOWERS": {
+        "id": 1366,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TORCH_B": {
+        "id": 1376,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "RUBBLE_4_X_4": {
+        "id": 1497,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "RUBBLE_8_X_8": {
+        "id": 1498,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "PAIFANG_GATE": {
+        "id": 1562,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "NUBIAN_PYRAMID": {
+        "id": 1563,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TARGET_A": {
+        "id": 1564,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TARGET_B": {
+        "id": 1565,
+        "gaia_only": false,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "TEMPLE_RUIN": {
+        "id": 1566,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "WELL": {
+        "id": 1567,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1
+    },
+    "EDWARD_LONGSHANKS": {
+        "id": 1669,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1670,
+        "icon_id": 358
+    },
+    "GILBERT_DE_CLARE": {
+        "id": 1671,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1672,
+        "icon_id": 364
+    },
+    "JOHN_THE_FEARLESS": {
+        "id": 1673,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1674,
+        "icon_id": 359
+    },
+    "PHILIP_THE_GOOD": {
+        "id": 1675,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1676,
+        "icon_id": 360
+    },
+    "ROBERT_GUISCARD": {
+        "id": 1677,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1678,
+        "icon_id": 361
+    },
+    "ROGER_BOSSO": {
+        "id": 1679,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1680,
+        "icon_id": 362
+    },
+    "BOHEMOND": {
+        "id": 1681,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1682,
+        "icon_id": 357
+    },
+    "LLYWELYN_AP_GRUFFYDD": {
+        "id": 1683,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1684,
+        "icon_id": 368
+    },
+    "DAFYDD_AP_GRUFFYDD": {
+        "id": 1685,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1686,
+        "icon_id": 366
+    },
+    "BERNARD_D_ARMAGNAC": {
+        "id": 1687,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1688,
+        "icon_id": 365
+    },
+    "WARWOLF_TREBUCHET": {
+        "id": 1690,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 194,
+        "icon_id": 94
+    },
+    "WARWOLF_TREBUCHET_PACKED": {
+        "id": 1691,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 735,
+        "icon_id": 313
+    },
+    "JACQUELINE_OF_HAINAUT": {
+        "id": 1692,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1328,
+        "icon_id": 367
+    },
+    "OUTLW": {
+        "id": 158,
+        "gaia_only": true,
+        "type": "unit",
+        "dead_id": 3,
+        "icon_id": 17
+    },
+    "RFARC": {
+        "id": 571,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 572,
+        "icon_id": 17      
     }
 }
