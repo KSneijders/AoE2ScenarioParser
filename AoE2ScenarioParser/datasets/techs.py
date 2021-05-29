@@ -45,7 +45,7 @@ class TechInfo(Enum):
             TechInfo.DOUBLE_CROSSBOW, TechInfo.THALASSOCRACY, TechInfo.FORCED_LEVY, TechInfo.HOWDAH, 
             TechInfo.MANIPUR_CAVALRY, TechInfo.CHATRAS, TechInfo.PAPER_MONEY, TechInfo.STIRRUPS, TechInfo.BAGAINS, 
             TechInfo.SILK_ARMOR, TechInfo.TIMURID_SIEGECRAFT, TechInfo.STEPPE_HUSBANDRY, TechInfo.CUMAN_MERCENARIES, 
-            TechInfo.HILL_FORTS, TechInfo.TOWER_SHIELDS, TechInfo.BURGUNDIAN_VINEYARDS, TechInfo.FELMISH_REVOLUTION, 
+            TechInfo.HILL_FORTS, TechInfo.TOWER_SHIELDS, TechInfo.BURGUNDIAN_VINEYARDS, TechInfo.FLEMISH_REVOLUTION,
             TechInfo.FIRST_CRUSADE, TechInfo.SCUTAGE,
         ]
 
