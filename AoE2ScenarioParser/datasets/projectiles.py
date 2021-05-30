@@ -1,47 +1,57 @@
-from enum import Enum
-import json
+from __future__ import annotations
 
-with open("./unit_projectile_info.json") as file:
-    unit_projectile_info = json.load(file)
+import json
+from enum import Enum
+from pathlib import Path
+
+with (Path(__file__).parent / 'sources' / f'unit_projectile_info.json').open() as file:
+    # Open projectiles source-file for raw data. Used in `ProjectileInfo.get_unit_projectile(...)`
+    _unit_projectile_info: dict = json.load(file)
+
 
 class ProjectileInfo(Enum):
-
     @property
     def ID(self):
         return self.value[0]
 
     @property
-    def PROJECTILE_OF(self):
+    def USED_BY(self):
         return self.value[1]
 
     @classmethod
-    def from_id(cls, value: int):
-        if type(value) is not int:
-            raise TypeError(f"from_id expected int, got {type(value)}")
-        if value == -1:
-            raise ValueError("-1 is not a valid id value")
-        for x in cls._member_map_.values():
-            if x.value[0] == value:
-                return x
-        raise ValueError(f"{value} is not a valid id value")
+    def from_id(cls, projectile_id: int):
+        if type(projectile_id) is not int:
+            raise TypeError(f"from_id expected int, got {type(projectile_id)}")
+        if projectile_id == -1:
+            raise ValueError("-1 is not a valid projectile ID")
+        for projectile in cls._member_map_.values():
+            if projectile.value[0] == projectile_id:
+                return projectile
+        return None
 
     @staticmethod
-    def get_projectile_of(unit_const: int, has_chemistry: bool = False, secondary: bool = False):
+    def get_unit_projectile(unit_const: int, has_chemistry: bool = False, secondary: bool = False) -> ProjectileInfo:
+        """
+        Get the projectile object based on unit const
+
+        Args:
+            unit_const (int): The unit to find the projectile of
+            has_chemistry (bool): If you want the fire (chemistry) version (if it exists)
+            secondary (bool): If you want the secondary projectile version (if it exists)
+
+        Returns:
+            The ProjectileInfo corresponding to the given unit and params or None if nothing was found
+        """
         if type(unit_const) is not int:
-            raise TypeError(f"unit id expected int, got {type(unit_const)}")
+            raise TypeError(f"unit const expected int, got {type(unit_const)}")
         if unit_const == -1:
             raise ValueError("-1 is not a valid unit constant")
-        
-        if type(has_chemistry) is not bool:
-            raise TypeError(f"has_chemistry expected bool, got {type(has_chemistry)}")
-        
-        if type(secondary) is not bool:
-            raise TypeError(f"has_chemistry expected bool, got {type(secondary)}")
 
-        fire = "_fire" if has_chemistry else ""
         projectile = "secondary" if secondary else "primary"
+        fire = "_fire" if has_chemistry else ""
+        projectile_id = _unit_projectile_info.get(str(unit_const), {}).get(projectile + fire, -1)
 
-        return unit_projectile_info.get(str(unit_const), {}).get(projectile+fire, -1)
+        return ProjectileInfo.from_id(projectile_id) if projectile_id else None
 
     ARROW = 9, ()
     VOL = 54, (71, 109, 141, 142, 484, 597, 617, 621)
