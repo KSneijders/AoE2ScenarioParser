@@ -55,6 +55,10 @@ class InfoDatasetBase(Enum):
         return cls._from_id('dead_id', value)
 
     @classmethod
+    def from_hotkey_id(cls, value: int):
+        return cls._from_id('hotkey_id', value)
+
+    @classmethod
     def gaia_only(cls) -> List:
         return cls._gaia_filter(gaia_only=True)
 
