@@ -38,16 +38,10 @@ class ProjectileInfo(Enum):
         if type(secondary) is not bool:
             raise TypeError(f"has_chemistry expected bool, got {type(secondary)}")
 
-        projectile = {
-            False: "",
-            True: "_fire"
-        }
-        projectile_type = {
-            False: "primary",
-            True: "secondary"
-        }
+        fire = "_fire" if has_chemistry else ""
+        projectile = "secondary" if secondary else "primary"
 
-        return unit_projectile_info.get(str(value), {}).get(projectile_type[secondary]+projectile[has_chemistry], -1)
+        return unit_projectile_info.get(str(value), {}).get(projectile+fire, -1)
 
     ARROW = 9, ()
     VOL = 54, (71, 109, 141, 142, 484, 597, 617, 621)
