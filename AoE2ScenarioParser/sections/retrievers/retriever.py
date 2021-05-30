@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import pickle
+from typing import Dict
+
 from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.list_functions import listify
@@ -77,7 +80,6 @@ class Retriever:
 
     def set_data_from_bytes(self, bytes_list):
         if self.datatype.repeat > 0 and len(bytes_list) == 0:
-            print(type(bytes_list), bytes_list)
             raise ValueError("Unable to set bytes when no bytes are given")
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
             raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
@@ -184,6 +186,15 @@ class Retriever:
 
 def duplicate_retriever_list(retriever_list):
     return [r.duplicate() for r in retriever_list]
+
+
+def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Retriever]:
+    return pickle.loads(pickle.dumps(retriever_map))
+
+
+def reset_retriever_map(retriever_map: Dict[str, Retriever]) -> None:
+    for retriever in retriever_map.values():
+        retriever.set_data_to_default()
 
 
 def _evaluate_is_list_attribute(retriever, dependency):

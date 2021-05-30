@@ -5033,7 +5033,7 @@
     },
     "TOWN_CENTER_PACKED": {
         "id": 444,
-        "gaia_only": true,
+        "gaia_only": false,
         "type": "building",
         "dead_id": 1274,
         "icon_id": 264,

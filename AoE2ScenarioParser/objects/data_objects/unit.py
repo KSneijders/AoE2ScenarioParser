@@ -83,4 +83,8 @@ class Unit(AoE2Object):
 
     @property
     def name(self) -> str:
-        return pretty_format_name(helper.get_enum_from_unit_const(self.unit_const).name)
+        unit_enum = helper.get_enum_from_unit_const(self.unit_const)
+        if unit_enum:
+            return pretty_format_name(unit_enum.name)
+        else:
+            return f"Unknown{self.unit_const}"  # e.g."Unknown411"

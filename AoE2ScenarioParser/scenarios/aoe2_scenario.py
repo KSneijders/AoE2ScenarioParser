@@ -17,26 +17,6 @@ from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
-def initialise_version_dependencies(game_version, scenario_version):
-    condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
-
-    for condition_id, structure in condition_json.items():
-        condition_id = int(condition_id)
-
-        conditions.condition_names[condition_id] = structure['name']
-        conditions.default_attributes[condition_id] = structure['default_attributes']
-        conditions.attributes[condition_id] = structure['attributes']
-
-    effect_json = get_version_dependant_structure_file(game_version, scenario_version, "effects")
-
-    for effect_id, structure in effect_json.items():
-        effect_id = int(effect_id)
-
-        effects.effect_names[effect_id] = structure['name']
-        effects.default_attributes[effect_id] = structure['default_attributes']
-        effects.attributes[effect_id] = structure['attributes']
-
-
 class AoE2Scenario:
     @property
     def trigger_manager(self) -> TriggerManager:
@@ -142,11 +122,20 @@ class AoE2Scenario:
     ####################################### Write functions ######################################
     ########################################################################################## """
 
-    def write_to_file(self, filename):
-        self._write_from_structure(filename)
+    def write_to_file(self, filename, skip_reconstruction=False):
+        """
+        Write the scenario to a new file
 
-    def _write_from_structure(self, filename):
-        self._object_manager.reconstruct()
+        Args:
+            filename (str): The location to write the file to
+            skip_reconstruction (bool): If reconstruction should be skipped. If true, this will ignore all changes made
+                using the managers (For example all changes made using trigger_manager).
+        """
+        self._write_from_structure(filename, skip_reconstruction)
+
+    def _write_from_structure(self, filename, skip_reconstruction=False):
+        if not skip_reconstruction:
+            self._object_manager.reconstruct()
 
         s_print("\nFile writing from structure started...", final=True)
         binary = self._get_file_section_data(self.sections.get('FileHeader'))
@@ -226,6 +215,26 @@ class AoE2Scenario:
 
             f.write(''.join(result))
         s_print("Writing structure to file finished successfully.", final=True)
+
+
+def initialise_version_dependencies(game_version, scenario_version):
+    condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
+
+    for condition_id, structure in condition_json.items():
+        condition_id = int(condition_id)
+
+        conditions.condition_names[condition_id] = structure['name']
+        conditions.default_attributes[condition_id] = structure['default_attributes']
+        conditions.attributes[condition_id] = structure['attributes']
+
+    effect_json = get_version_dependant_structure_file(game_version, scenario_version, "effects")
+
+    for effect_id, structure in effect_json.items():
+        effect_id = int(effect_id)
+
+        effects.effect_names[effect_id] = structure['name']
+        effects.default_attributes[effect_id] = structure['default_attributes']
+        effects.attributes[effect_id] = structure['attributes']
 
 
 def get_file_version(generator: IncrementalGenerator):

@@ -184,7 +184,16 @@ class UnitManager(AoE2Object):
                     highest_id = unit.reference_id
         return highest_id + 1
 
-    def remove_unit(self, reference_id: int = None, unit: Unit = None):
+    def remove_unit(self, reference_id: int = None, unit: Unit = None) -> None:
+        """
+        Removes a unit. Please note that `unit=...` is a lot faster than `reference_id=...` due to reference_id having
+        to search through all units on the map. And unit has an ownership (player) attribute which is used for knowing
+        which list to remove the unit from.
+
+        Args:
+            reference_id (int): The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
+            unit (Unit): The Unit object to be removed.
+        """
         if reference_id is not None and unit is not None:
             raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
         if reference_id is None and unit is None:
@@ -195,5 +204,6 @@ class UnitManager(AoE2Object):
                 for i, unit in enumerate(self.units[player]):
                     if unit.reference_id == reference_id:
                         del self.units[player][i]
+                        return
         elif unit is not None:
             self.units[unit.player.value].remove(unit)
