@@ -26,11 +26,11 @@ class ProjectileInfo(Enum):
         raise ValueError(f"{value} is not a valid id value")
 
     @staticmethod
-    def get_projectile_of(value: int, has_chemistry: bool = False, secondary: bool = False):
-        if type(value) is not int:
-            raise TypeError(f"unit id expected int, got {type(value)}")
-        if value == -1:
-            raise ValueError("-1 is not a valid id value")
+    def get_projectile_of(unit_const: int, has_chemistry: bool = False, secondary: bool = False):
+        if type(unit_const) is not int:
+            raise TypeError(f"unit id expected int, got {type(unit_const)}")
+        if unit_const == -1:
+            raise ValueError("-1 is not a valid unit constant")
         
         if type(has_chemistry) is not bool:
             raise TypeError(f"has_chemistry expected bool, got {type(has_chemistry)}")
@@ -41,7 +41,7 @@ class ProjectileInfo(Enum):
         fire = "_fire" if has_chemistry else ""
         projectile = "secondary" if secondary else "primary"
 
-        return unit_projectile_info.get(str(value), {}).get(projectile+fire, -1)
+        return unit_projectile_info.get(str(unit_const), {}).get(projectile+fire, -1)
 
     ARROW = 9, ()
     VOL = 54, (71, 109, 141, 142, 484, 597, 617, 621)
