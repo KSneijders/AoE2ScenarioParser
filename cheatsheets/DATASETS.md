@@ -60,28 +60,28 @@ Attributes for the **change_diplomacy** effect are:
 
 Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to remember. That's why these datasets have been added:
 
-| Names               | Explanation                                                                   | Example                            |
-| ------------------- | ----------------------------------------------------------------------------- | ---------------------------------- |
-| DiplomacyState      | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.    | `DiplomacyState.ALLY`              |
-| Operation           | Used in many effects. Generally related to variables.                         | `Operator.MULTIPLY`                |
-| ButtonLocation      | Used in the `Change Research Location` and `Change Train Location` effects. * | `ButtonLocation.r2c3`              |
-| PanelLocation       | Used in the `Display Instructions` effect.                                    | `PanelLocation.CENTER`             |
-| TimeUnit            | Used in the `Display Timer` effect.                                           | `TimeUnit.YEARS`                   |
-| VisibilityState     | Used in the `Set Player Visibility` effect.                                   | `VisibilityState.EXPLORED`         |
-| DifficultyLevel     | Used in the `Difficulty Level` condition.                                     | `DifficultyLevel.HARDEST`          |
-| TechnologyState     | Used in the `Technology State` condition.                                     | `TechnologyState.RESEARCHING`      |
-| Comparison          | Used in many effects and conditions. Generally related to variables.          | `Comparison.EQUAL`                 |
-| ObjectAttribute     | Used in the `Modify Attribute` effect.                                        | `ObjectAttribute.CARRY_CAPACITY`   |
-| Attribute           | Used in the `Accumulate Attribute` efect.                                     | `Attribute.ALL_TECHS_ACHIEVED`     |
-| UnitAIAction        | Used in the `Object has Action` condition.                                    | `UnitAIAction.ATTACK`              |
-| AttackStance        | Used in the `Change Object Stance` effect.                                    | `AttackStance.AGGRESSIVE_STANCE`   |
-| ObjectType          | Used in every unit selection effect & condition                               | `ObjectType.DOPPELGANGER`          |
-| ObjectClass         | Used in every unit selection effect & condition                               | `ObjectClass.INFANTRY`             |
-| DamageClass         | Used in the `Change Object Attack/Armour` effects                             | `DamageClass.SPEARMEN`             |
-| HeroStatusFlag      | Can be used for changing the `HERO_STATUS` in `ObjectAttribute`               | `HeroStatusFlag.HERO_REGENERATION` |
-| Hotkey              | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`                 | `Hotkey.SPACE`                     |
-| BlastLevel          | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute` | `BlastLevel.NEARBY_UNITS`          |
-| TerrainRestrictions | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`    | `TerrainRestrictions.LAND`         |
+|        Names        |                                  Explanation                                   |              Example               |
+| ------------------- | ------------------------------------------------------------------------------ | ---------------------------------- |
+| DiplomacyState      | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.     | `DiplomacyState.ALLY`              |
+| Operation           | Used in many effects. Generally related to variables.                          | `Operator.MULTIPLY`                |
+| ButtonLocation *    | Used in the `Change Research Location` and `Change Train Location` effects. *  | `ButtonLocation.r2c3`              |
+| PanelLocation       | Used in the `Display Instructions` effect.                                     | `PanelLocation.CENTER`             |
+| TimeUnit            | Used in the `Display Timer` effect.                                            | `TimeUnit.YEARS`                   |
+| VisibilityState     | Used in the `Set Player Visibility` effect.                                    | `VisibilityState.EXPLORED`         |
+| DifficultyLevel     | Used in the `Difficulty Level` condition.                                      | `DifficultyLevel.HARDEST`          |
+| TechnologyState     | Used in the `Technology State` condition.                                      | `TechnologyState.RESEARCHING`      |
+| Comparison          | Used in many effects and conditions. Generally related to variables.           | `Comparison.EQUAL`                 |
+| ObjectAttribute     | Used in the `Modify Attribute` effect.                                         | `ObjectAttribute.CARRY_CAPACITY`   |
+| Attribute           | Used in the `Accumulate Attribute` effect.                                     | `Attribute.ALL_TECHS_ACHIEVED`     |
+| UnitAIAction        | Used in the `Object has Action` condition.                                     | `UnitAIAction.ATTACK`              |
+| AttackStance        | Used in the `Change Object Stance` effect.                                     | `AttackStance.AGGRESSIVE_STANCE`   |
+| ObjectType          | Used in every unit selection effect & condition.                               | `ObjectType.DOPPELGANGER`          |
+| ObjectClass         | Used in every unit selection effect & condition.                               | `ObjectClass.INFANTRY`             |
+| DamageClass         | Used in the `Change Object Attack/Armour` effects.                             | `DamageClass.SPEARMEN`             |
+| HeroStatusFlag *    | Can be used for changing the `HERO_STATUS` in `ObjectAttribute`. *             | `HeroStatusFlag.HERO_REGENERATION` |
+| Hotkey              | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`.                 | `Hotkey.SPACE`                     |
+| BlastLevel          | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute`. | `BlastLevel.NEARBY_UNITS`          |
+| TerrainRestrictions | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`.    | `TerrainRestrictions.LAND`         |
 
 \*: Means extra functionality listed below.
 
