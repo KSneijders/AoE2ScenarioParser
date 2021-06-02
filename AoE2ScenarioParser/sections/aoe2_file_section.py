@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Dict, List
+from typing import Dict
 
 from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list, pretty_format_dict
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
@@ -63,6 +63,7 @@ class AoE2FileSection:
 
     def get_data_as_bytes(self):
         result = []
+        retriever: Retriever
         for retriever in self.retriever_map.values():
             result.append(retriever.get_data_as_bytes())
         return b''.join(result)
