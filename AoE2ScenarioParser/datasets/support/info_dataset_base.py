@@ -43,20 +43,20 @@ class InfoDatasetBase(Enum):
         return None
 
     @classmethod
-    def from_id(cls, value: int):
-        return cls._from_id('id', value)
+    def from_id(cls, unit_const: int):
+        return cls._from_id('id', unit_const)
 
     @classmethod
-    def from_icon_id(cls, value: int):
-        return cls._from_id('icon_id', value)
+    def from_icon_id(cls, icon_id: int):
+        return cls._from_id('icon_id', icon_id)
 
     @classmethod
-    def from_dead_id(cls, value: int):
-        return cls._from_id('dead_id', value)
+    def from_dead_id(cls, dead_id: int):
+        return cls._from_id('dead_id', dead_id)
 
     @classmethod
-    def from_hotkey_id(cls, value: int):
-        return cls._from_id('hotkey_id', value)
+    def from_hotkey_id(cls, hotkey_id: int):
+        return cls._from_id('hotkey_id', hotkey_id)
 
     @classmethod
     def gaia_only(cls) -> List:
