@@ -6,9 +6,11 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation, \
     TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute, \
-    ObjectType, ObjectClass
+    UnitAIAction, AttackStance, ObjectType, ObjectClass, DamageClass, HeroStatusFlag, Hotkey, BlastLevel, \
+    TerrainRestrictions
 
 # Information of unit/building/hero and tech IDs
+from AoE2ScenarioParser.datasets.projectiles import ProjectileInfo
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
@@ -22,30 +24,8 @@ from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
 ```
 
-Current datasets are:
 
-- conditions
-- effects
-- trigger related items mostly found in dropdown lists (Operation, ButtonLocation, Comparison etc.)
-- Buildings
-  - Gaia & Non gaia building IDs
-  - Building icon IDs
-  - Destroyed (dead) building IDs
-- Units
-  - Gaia & Non gaia unit IDs
-  - Unit icon IDs
-  - Dead unit IDs
-- Heroes
-  - Hero IDs
-  - Hero icon IDs
-  - Dead hero IDs
-- Techs
-  - Tech IDs
-  - Tech icon IDs
-- Players
-- terrain type IDs
-
-A special thanks to **Alian713** for doing almost all the work in contributing the data needed for these datasets. <3
+A special thanks to **Alian713** for doing **A LOT** of the work in contributing the data needed for these datasets. :heart:
 
 ---
 
@@ -80,23 +60,28 @@ Attributes for the **change_diplomacy** effect are:
 
 Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to remember. That's why these datasets have been added:
 
-| Names           | Explanation                                                                   | Example                          |
-| --------------- | ----------------------------------------------------------------------------- | -------------------------------- |
-| DiplomacyState  | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.    | `DiplomacyState.ALLY`            |
-| Operator        | Used in many effects. Generally related to variables.                         | `Operator.MULTIPLY`              |
-| ButtonLocation  | Used in the `Change Research Location` and `Change Train Location` effects. * | `ButtonLocation.r2c3`            |
-| PanelLocation   | Used in the `Display Instructions` effect.                                    | `PanelLocation.CENTER`           |
-| TimeUnit        | Used in the `Display Timer` effect.                                           | `TimeUnit.YEARS`                 |
-| VisibilityState | Used in the `Set Player Visibility` effect.                                   | `VisibilityState.EXPLORED`       |
-| DifficultyLevel | Used in the `Difficulty Level` condition.                                     | `DifficultyLevel.HARDEST`        |
-| TechnologyState | Used in the `Technology State` condition.                                     | `TechnologyState.RESEARCHING`    |
-| Comparison      | Used in many effects and conditions. Generally related to variables.          | `Comparison.EQUAL`               |
-| ObjectAttribute | Used in the `Modify Attribute` effect.                                        | `ObjectAttribute.CARRY_CAPACITY` |
-| Attribute       | Used in the `Accumulate Attribute` efect.                                     | `Attribute.ALL_TECHS_ACHIEVED`   |
-| UnitAIAction    | Used in the `Object has Action` condition.                                    | `UnitAIAction.ATTACK`            |
-| AttackStance    | Used in the `Change Object Stance` effect.                                    | `AttackStance.AGGRESSIVE_STANCE` |
-| ObjectType      | Used in every unit selection effect & condition                               | `ObjectType.DOPPELGANGER`        |
-| ObjectClass     | Used in every unit selection effect & condition                               | `ObjectClass.INFANTRY`           |
+|        Names        |                                  Explanation                                   |              Example               |
+| ------------------- | ------------------------------------------------------------------------------ | ---------------------------------- |
+| DiplomacyState      | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.     | `DiplomacyState.ALLY`              |
+| Operation           | Used in many effects. Generally related to variables.                          | `Operator.MULTIPLY`                |
+| ButtonLocation *    | Used in the `Change Research Location` and `Change Train Location` effects. *  | `ButtonLocation.r2c3`              |
+| PanelLocation       | Used in the `Display Instructions` effect.                                     | `PanelLocation.CENTER`             |
+| TimeUnit            | Used in the `Display Timer` effect.                                            | `TimeUnit.YEARS`                   |
+| VisibilityState     | Used in the `Set Player Visibility` effect.                                    | `VisibilityState.EXPLORED`         |
+| DifficultyLevel     | Used in the `Difficulty Level` condition.                                      | `DifficultyLevel.HARDEST`          |
+| TechnologyState     | Used in the `Technology State` condition.                                      | `TechnologyState.RESEARCHING`      |
+| Comparison          | Used in many effects and conditions. Generally related to variables.           | `Comparison.EQUAL`                 |
+| ObjectAttribute     | Used in the `Modify Attribute` effect.                                         | `ObjectAttribute.CARRY_CAPACITY`   |
+| Attribute           | Used in the `Accumulate Attribute` effect.                                     | `Attribute.ALL_TECHS_ACHIEVED`     |
+| UnitAIAction        | Used in the `Object has Action` condition.                                     | `UnitAIAction.ATTACK`              |
+| AttackStance        | Used in the `Change Object Stance` effect.                                     | `AttackStance.AGGRESSIVE_STANCE`   |
+| ObjectType          | Used in every unit selection effect & condition.                               | `ObjectType.DOPPELGANGER`          |
+| ObjectClass         | Used in every unit selection effect & condition.                               | `ObjectClass.INFANTRY`             |
+| DamageClass         | Used in the `Change Object Attack/Armour` effects.                             | `DamageClass.SPEARMEN`             |
+| HeroStatusFlag *    | Can be used for changing the `HERO_STATUS` in `ObjectAttribute`. *             | `HeroStatusFlag.HERO_REGENERATION` |
+| Hotkey              | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`.                 | `Hotkey.SPACE`                     |
+| BlastLevel          | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute`. | `BlastLevel.NEARBY_UNITS`          |
+| TerrainRestrictions | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`.    | `TerrainRestrictions.LAND`         |
 
 \*: Means extra functionality listed below.
 
@@ -104,6 +89,16 @@ Many conditions and effects have dropdown lists with options. These options are,
 
 ```py
 ButtonLocation.row_col(1, 3)  # ButtonLocation.r1c3
+```
+
+### HeroStatusFlag
+```py
+# Both have the same result
+hsf = HeroStatusFlag.CANNOT_BE_CONVERTED + HeroStatusFlag.DELETE_CONFIRMATION
+hsf = HeroStatusFlag.combine(
+    cannot_be_converted=True,
+    delete_confirmation=True
+)
 ```
 
 ---
@@ -114,12 +109,12 @@ ButtonLocation.row_col(1, 3)  # ButtonLocation.r1c3
 trigger = trigger_manager.add_trigger("Inform Betrayal!")
 condition = trigger.new_condition.diplomacy_state(
     quantity=DiplomacyState.ALLY,  # <-- DiplomacyState dataset
-    player=Player.TWO,
-    target_player=Player.THREE
+    player=PlayerId.TWO,
+    target_player=PlayerId.THREE
 )
 
 effect = trigger.new_effect.display_instructions(
-    player_source=Player.ONE,
+    player_source=PlayerId.ONE,
     message="Spy: Your ally has betrayed you! He allied the enemy!",
     instruction_panel_position=PanelLocation.CENTER,  # <-- PanelLocation dataset
     display_time=10
@@ -128,17 +123,18 @@ effect = trigger.new_effect.display_instructions(
 
 ---
 
-## Unit, Building, Hero and Tech IDs 
+## Unit, Building, Hero, Other and Tech IDs 
 
 The Units and Buildings datasets are very usefull when adding units. They're also, together with the the Techs dataset, very usefull when adding or editing triggers.
 
 For adding units it'll look something like the following:
 
 ```py
-unit_manager.add_unit(Player.ONE,   UnitInfo.CONQUISTADOR.ID,      x=10,   y=20)
-unit_manager.add_unit(Player.TWO,   UnitInfo.PALADIN.ID,           x=20,   y=20)
-unit_manager.add_unit(Player.GAIA,  BuildingInfo.FEITORIA.ID,      x=30,   y=20)
-unit_manager.add_unit(Player.GAIA,  HeroInfo.WILLIAM_WALLACE.ID,   x=40,   y=20)
+unit_manager.add_unit(PlayerId.ONE,    UnitInfo.CONQUISTADOR.ID,      x=10,   y=20)
+unit_manager.add_unit(PlayerId.TWO,    UnitInfo.PALADIN.ID,           x=20,   y=20)
+unit_manager.add_unit(PlayerId.GAIA,   BuildingInfo.FEITORIA.ID,      x=30,   y=20)
+unit_manager.add_unit(PlayerId.GAIA,   HeroInfo.WILLIAM_WALLACE.ID,   x=40,   y=20)
+unit_manager.add_unit(PlayerId.GAIA,   OtherInfo.GOLD_MINE.ID,        x=50,   y=20)
 ```
 
 With the triggers you can do similiar stuff like:
@@ -146,33 +142,33 @@ With the triggers you can do similiar stuff like:
 ```py
 ...
 effect = trigger.new_effect.create_object(
-    object_list_unit_id = Unit.MAN_AT_ARMS.ID  # Or: Building.BLACKSMITH.ID
+    object_list_unit_id = UnitInfo.MAN_AT_ARMS.ID  # Or: BuildingInfo.BLACKSMITH.ID
 )
 ...
 effect = trigger.new_effect.research_technology(
-    player_source = Player.THREE, 
+    player_source = PlayerId.THREE, 
     technology = TechInfo.BLOODLINES.ID
 )
 ...
 ```
 
-## Icon & dead IDs
+## Icon, Dead & Hotkey IDs
 
 Besides normal IDs, you might want to access their icon or dead version. Almost every unit, building, hero and tech has an icon. Most units, buildings and heroes also have a dead unit version to represent the dying animation.  
 You can access these values using the same datasets:
 
 ```py
-archer_id = UnitInfo.ARCHER.ID           # 4
-archer_icon = UnitInfo.ARCHER.ICON_ID    # 17
-archer_death = UnitInfo.ARCHER.DEAD_ID   # 3
-```
+archer_id        = UnitInfo.ARCHER.ID          # 4
+archer_icon      = UnitInfo.ARCHER.ICON_ID     # 17
+archer_death     = UnitInfo.ARCHER.DEAD_ID     # 3
+archer_hotkey_id = UnitInfo.ARCHER.HOTKEY_ID   # 16083
 
-You can also get the datasets from these values:
+# You can also get the datasets from these values
 
-```py
 UnitInfo.from_id(4)             # UnitInfo.ARCHER
 UnitInfo.from_icon_id(17)       # UnitInfo.ARCHER
 UnitInfo.from_dead_id(3)        # UnitInfo.ARCHER
+UnitInfo.from_hotkey_id(16083)  # UnitInfo.ARCHER
 
 # It's also still possible to use the string like normal enums:
 UnitInfo["ARCHER"]              # UnitInfo.ARCHER
@@ -182,30 +178,52 @@ UnitInfo["ARCHER"]              # UnitInfo.ARCHER
 
 ## GAIA
 
-If you want to know if a unit/building/other is a gaia only object you can do:
+If you want to know if a unit etc. is a gaia only object, you can do:
 
 ```py
 UnitInfo.ARCHER.IS_GAIA_ONLY    # False
 UnitInfo.WOLD.IS_GAIA_ONLY      # True
+
+# Or for a list:
+UnitInfo.gaia_only()  # Returns all units which have 'IS_GAIA_ONLY' as True
+UnitInfo.non_gaia()   # Returns all units which have 'IS_GAIA_ONLY' as False
 ```
 
-For `UnitInfo`, `BuildingInfo` and `OtherInfo` you can also use the following functions:
+---
+
+## Projectiles
+
+If you wanted to change a projectile of archers to that of an arambai, you could do:
 
 ```py
-UnitInfo.gaia_only()  # Returns all units have 'IS_GAIA_ONLY' as True
-UnitInfo.non_gaia()   # Returns all units have 'IS_GAIA_ONLY' as False
+trigger.new_effect.modify_attribute(
+    quantity              = ProjectileInfo.ARAMBAI.ID,
+    object_list_unit_id   = UnitInfo.ARCHER.ID,
+    source_player         = PlayerId.ONE,
+    item_id               = UnitInfo.ARCHER.ID,
+    operation             = Operation.SET,
+    object_attributes     = ObjectAttribute.PROJECTILE_UNIT
+)
+```
+Not all projectiles have the most obvious names. So you can use the following to find projectiles easier.
+```py
+# Get the second projectile that a CHU KO NU shoots. (Pre-chemistry arrows)
+ProjectileInfo.get_unit_projectile(UnitInfo.CHU_KO_NU.ID, has_chemistry=False, secondary=True)
 ```
 
 ---
 
 ## Terrains
 
-The Terrain dataset has been added **but it's currently not very usefull** as it's not supported to interact with terrain. It does exist and works as follows:
+The terrain dataset can be used for changing terrain types.
 
 ```py
 Terrain.BEACH               # 2
 Terrain.FOREST_OAK          # 10
 Terrain.UNDERBUSH_LEAVES    # 71
+
+# Changing the terrain could be done like so:
+map_manager.terrain[0].terrain_id = TerrainId.GRASS_1
 ```
 
 ---

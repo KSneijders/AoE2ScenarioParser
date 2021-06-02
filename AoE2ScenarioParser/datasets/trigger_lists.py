@@ -23,6 +23,7 @@ class AttackStance(IntEnum):
 
 
 class UnitAIAction(IntEnum):
+    """Detailed introduction: [https://airef.github.io/parameters/parameters-details.html#ActionId]"""
     ANY = 0
     ATTACK = 1
     BUILD = 3
@@ -65,6 +66,7 @@ class ButtonLocation(IntEnum):
     r3c2 = 12
     r3c3 = 13
     r3c4 = 14
+
     # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
 
     @classmethod
@@ -139,7 +141,7 @@ class ObjectAttribute(IntEnum):
     CARRY_CAPACITY = 14
     BASE_ARMOR = 15
     PROJECTILE_UNIT = 16
-    ICON_GRAPHICS_ANGLE = 17
+    GRAPHICS_ANGLE = 17
     TERRAIN_DEFENSE_BONUS = 18
     ENABLE_SMART_PROJECTILES = 19
     MINIMUM_RANGE = 20
@@ -152,7 +154,8 @@ class ObjectAttribute(IntEnum):
     FRAME_DELAY = 41
     TRAIN_LOCATION = 42
     TRAIN_BUTTON = 43
-    BLAST_LEVEL = 44
+    BLAST_ATTACK_LEVEL = 44
+    BLAST_DEFENSE_LEVEL = 45
     SHOWN_ATTACK = 46
     SHOWN_RANGE = 47
     SHOWN_MELEE_ARMOR = 48
@@ -161,6 +164,7 @@ class ObjectAttribute(IntEnum):
     SHORT_DESCRIPTION_ID = 51
     TERRAIN_RESTRICTION_ID = 53
     DEAD_UNIT_ID = 57
+    HOTKEY_ID = 58
     RESOURCE_COSTS = 100
     TRAIN_TIME = 101
     TOTAL_MISSILES = 102
@@ -767,7 +771,7 @@ class Attribute(IntEnum):
     """Number of buildings from which a tech with command type 7 (spawn) will spawn units"""
     FLEMISH_MILITIA_POPULATION = 235
     """Number of Flemish Militia of the Source Player"""
-    FARMING_GOLD_TRICKLE = 235
+    FARMING_GOLD_TRICKLE = 236
     """
     Farming Gold Generation Rate*0.01 of the Source Player:
 
@@ -850,33 +854,211 @@ class ObjectClass(IntEnum):
 
 class TerrainRestrictions(IntEnum):
     ALL = 0
+    """Used by terrain eyecandy and sundries."""
     LAND_AND_SHALLOWS = 1
+    """Used by part of animals."""
     BEACH = 2
     WATER_SMALL_TRAIL = 3
+    """Used by most ships and sea gate."""
     LAND = 4
+    """Used by most land buildings."""
     NOTHING = 5
     WATER_NO_TRAIL = 6
+    """Used by docks."""
     ALL_EXCEPT_WATER = 7
+    """Used by land troops."""
     LAND_EXCEPT_FARM = 8
+    """Used by land resources."""
     NOTHING_2 = 9
     LAND_AND_BEACH = 10
+    """Used by land walls and gates."""
     LAND_EXCEPT_FARM_2 = 11
+    """Used by trees and mountains."""
     ALL_EXCEPT_WATER_BRIDGE_CANNON = 12
     WATER_MEDIUM_TRAIL = 13
-    ALL_EXCEPT_WATER_BRIDGE = 14
+    """Used by big fish and fishing ship."""
+    ALL_EXCEPT_WATER_BRIDGE_ARROW = 14
     WATER_LARGE_TRAIL = 15
+    """Only used by transport ship."""
     GRASS_AND_BEACH = 16
     WATER_AND_BRIDGE_EXCEPT_BEACH = 17
     ALL_EXCEPT_WATER_BRIDGE_SPEAR = 18
     ONLY_WATER_AND_ICE = 19
-    ALL_EXCEPT_WATER2 = 20
+    """Used by fish."""
+    ALL_EXCEPT_WATER_WHEEL = 20
+    """Used by units with wheels, such as Rams and Scorpions."""
     SHALLOW_WATER = 21
     ALL_DART = 22
-    ALL_ARROW = 23
-    ALL_CANNON = 24
-    ALL_SPEAR = 25
-    ALL_DART2 = 26
-    ALL_EXPLOSION = 27
-    UNKNOWN = 28
-    UNKNOWN_2 = 29
+    ALL_ARROW_FIRE = 23
+    """Only used by Arrows with fire (After chemistry)."""
+    ALL_CANNON_FIRE = 24
+    """Only used by Cannon balls (After chemistry)."""
+    ALL_SPEAR_FIRE = 25
+    """Only used by Spears with fire (After chemistry)."""
+    ALL_DART_FIRE = 26
+    """Only used by Darts with fire (After chemistry)."""
+    ALL_LASER = 27
+    """Only used by Projectile Laser with id 1595"""
+    ALL_EXCEPT_WATER_CAVALRY = 28
+    """Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel."""
+    ALL_EXCEPT_WATER_PACKET_TREBUCHET = 29
+    """All types of Trebuchet(Packed)."""
     WATER_SMALLEST_TRAIL = 30
+    """Used by medium ships, such as Trade Cog, Fire Galley and Longboat."""
+
+
+class HeroStatusFlag(IntEnum):
+    @staticmethod
+    def combine(
+            hero_regeneration=False,
+            cannot_be_converted=False,
+            defensive_stance_by_default=False,
+            protected_formation=False,
+            delete_confirmation=False):
+
+        total = 2 if cannot_be_converted else 0
+        total += 4 if hero_regeneration else 0
+        total += 8 if defensive_stance_by_default else 0
+        total += 16 if protected_formation else 0
+        total += 32 if delete_confirmation else 0
+        return total
+
+    FULL_HERO_STATUS = 1
+    CANNOT_BE_CONVERTED = 2
+    HERO_REGENERATION = 4
+    DEFENSIVE_STANCE_BY_DEFAULT = 8
+    PROTECTED_FORMATION = 16
+    DELETE_CONFIRMATION = 32
+
+
+class BlastLevel(IntEnum):
+    RESOURCES = 0
+    TREES = 1
+    NEARBY_UNITS = 2
+    TARGET_ONLY = 3
+
+
+class DamageClass(IntEnum):
+    WONDER = 0
+    """Since HD. Only wonders has this armour class. However there is no unit having this damage class."""
+    INFANTRY = 1
+    TURTLE_SHIPS = 2
+    BASE_PIERCE = 3
+    BASE_MELEE = 4
+    WAR_ELEPHANTS = 5
+    UNUSED_ID6 = 6
+    UNUSED_ID7 = 7
+    CAVALRY = 8
+    UNUSED_ID9 = 9
+    UNUSED_ID10 = 10
+    ALL_BUILDINGS_EXCEPT_PORT = 11
+    """Port is the building with id 446"""
+    UNUSED_ID12 = 12
+    STONE_DEFENSE = 13
+    PREDATOR_ANIMALS_FE = 14
+    """Wolf, Bear, Jaguar, Tiger, etc. have this armour class"""
+    ARCHERS = 15
+    BATTLE_SHIPS_AND_SABOTEUR = 16
+    """Camels also had this armour class before AK"""
+    RAMS = 17
+    TREES = 18
+    UNIQUE_UNITS = 19
+    SIEGE_WEAPONS = 20
+    STANDARD_BUILDINGS = 21
+    WALLS_AND_GATES = 22
+    GUNPOWDER_UNITS = 23
+    BOARS = 24
+    MONKS = 25
+    CASTLE = 26
+    SPEARMEN = 27
+    CAVALRY_ARCHERS = 28
+    EAGLE_WARRIORS = 29
+    CAMELS = 30
+    """Camels use this armour class since and after AK"""
+    LEITIS = 31
+    CONDOTTIERO = 32
+    ORGAN_GUN_BULLET = 33
+    """Only Projectile Gunpowder (Secondary) with id 1119 has this damage class. No unit has this armour class."""
+    FISHING_SHIP = 34
+    MAMELUKES = 35
+    HEROES_AND_KING = 36
+    UNUSED_ID37 = 37
+    UNUSED_ID38 = 38
+    UNUSED_ID39 = 39
+    UNUSED_ID40 = 40
+    UNUSED_ID41 = 41
+    UNUSED_ID42 = 42
+    UNUSED_ID43 = 43
+    UNUSED_ID44 = 44
+    UNUSED_ID45 = 45
+    UNUSED_ID46 = 46
+    UNUSED_ID47 = 47
+    UNUSED_ID48 = 48
+    UNUSED_ID49 = 49
+
+
+class Hotkey(IntEnum):
+    """
+    Enum for all possible static keys
+
+    Many hotkeys will be missing from this file (Like arrow up). The reason for this is explained in the UGC guide:
+    https://divy1211.github.io/AoE2DE_UGC_Guide/general/hotkeys/hotkeys/
+    We'll try to update this list every update (when new strings are added to the game).
+    """
+
+    SPACE = 10101
+    PAGE_UP = 15000
+    LEFT_ARROW = 2312
+    RIGHT_ARROW = 19707
+    DOWN_ARROW = 19731
+    INSERT = 9025
+    DELETE = 19602
+    ZERO = 99
+    ONE = 98
+    TWO = 10360
+    THREE = 9786
+    FOUR = 10362
+    FIVE = 9785
+    SIX = 213
+    SEVEN = 8828
+    EIGHT = 9448
+    NINE = 9783
+    A = 1001
+    B = 1005
+    C = 1201
+    D = 1151
+    E = 1007
+    F = 4137
+    G = 2012
+    H = 2407
+    I = 1212
+    J = 1222
+    K = 4141
+    L = 1101
+    M = 1006
+    N = 3001
+    O = 214
+    P = 1210
+    Q = 4169
+    R = 1200
+    S = 1102
+    T = 2016
+    U = 1205
+    V = 1150
+    W = 1008
+    X = 1002
+    Y = 2008
+    Z = 4174
+    APPLICATION = 19704
+    NUM_ZERO = 19721
+    NUM_ONE = 4563
+    NUM_FOUR = 19499
+    NUM_FIVE = 5558
+    NUM_SEVEN = 10069
+    NUM_EIGHT = 1011
+    NUM_DELETE = 20123
+    F3 = 9798
+    F4 = 22019
+    F7 = 9840
+    F8 = 1152
+    F15 = 10661

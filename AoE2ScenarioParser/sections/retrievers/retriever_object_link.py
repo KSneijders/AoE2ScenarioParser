@@ -104,8 +104,6 @@ class RetrieverObjectLink:
                 file_section = getattr(file_section, item[:-11])[number_hist[index]]
             else:
                 retriever = file_section.retriever_map[item]
-                # retriever = get_retriever_by_name(file_section.retrievers, item)
-        retriever_list = file_section.retrievers
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to find retriever")
@@ -172,7 +170,7 @@ class RetrieverObjectLink:
     def _commit_special_unit_case(self, sections, value):
         for player, player_unit in enumerate(value):
             player_unit_retriever = sections["Units"].players_units[player]
-            retriever_list = player_unit_retriever.retrievers
+            retriever_list = player_unit_retriever.retriever_map.values()
             units = player_unit_retriever.retriever_map["units"]
             # units = get_retriever_by_name(retriever_list, "units")
             struct_model = player_unit_retriever.struct_models["UnitStruct"]

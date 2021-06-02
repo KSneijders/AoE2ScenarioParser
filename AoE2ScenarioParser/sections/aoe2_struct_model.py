@@ -1,29 +1,28 @@
 from __future__ import annotations
 
-from typing import List, Dict
+from typing import Dict
 
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
 class AoE2StructModel:
-    def __init__(self, name: str, retrievers: List[Retriever], structs: Dict[AoE2StructModel]):
+    def __init__(self, name: str, retriever_map: Dict[str, Retriever], structs: Dict[AoE2StructModel]):
         self.name = name
-        self.retrievers = retrievers
+        self.retriever_map = retriever_map
         self.structs = structs
 
     @classmethod
     def from_structure(cls, name, structure) -> AoE2StructModel:
-        retrievers = []
+        retriever_map = {}
         for retriever_name, attr in structure.get('retrievers').items():
-            retrievers.append(Retriever.from_structure(retriever_name, attr))
+            retriever_map[retriever_name] = Retriever.from_structure(retriever_name, attr)
         structs = model_dict_from_structure(structure)
 
-        return cls(name, retrievers, structs)
+        return cls(name, retriever_map, structs)
 
     def __str__(self):
-        return_string = f"[AoE2StructModel] {self.name} -> retrievers: " + pretty_format_list(self.retrievers)
-        return return_string
+        return f"[AoE2StructModel] {self.name} -> retrievers: " + pretty_format_dict(self.retriever_map)
 
 
 def model_dict_from_structure(structure) -> Dict[AoE2StructModel]:

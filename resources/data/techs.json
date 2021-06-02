@@ -1,1110 +1,1392 @@
 {
     "ANARCHY": {
         "id": 16,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18427
     },
     "ANDEAN_SLING": {
         "id": 516,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18266
     },
     "ARBALESTER": {
         "id": 237,
-        "icon_id": 54
+        "icon_id": 54,
+        "hotkey_id": 18233
     },
     "ARCHITECTURE": {
         "id": 51,
-        "icon_id": 14
+        "icon_id": 14,
+        "hotkey_id": 18051
     },
     "ARQUEBUS": {
         "id": 573,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18251
     },
     "ARROWSLITS": {
         "id": 608,
-        "icon_id": 119
+        "icon_id": 119,
+        "hotkey_id": 18278
     },
     "ARSON": {
         "id": 602,
-        "icon_id": 118
+        "icon_id": 118,
+        "hotkey_id": 18258
     },
     "ARTILLERY": {
         "id": 10,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18425
     },
     "ATHEISM": {
         "id": 21,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18428
     },
     "ATLATL": {
         "id": 460,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18326
     },
     "ATONEMENT": {
         "id": 319,
-        "icon_id": 93
+        "icon_id": 93,
+        "hotkey_id": 18316
     },
     "AZTECS": {
         "id": 543,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BAGAINS": {
         "id": 686,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18308
     },
     "BALLISTICS": {
         "id": 93,
-        "icon_id": 25
+        "icon_id": 25,
+        "hotkey_id": 18093
     },
     "BANKING": {
         "id": 17,
-        "icon_id": 3
+        "icon_id": 3,
+        "hotkey_id": 18017
     },
     "BEARDED_AXE": {
         "id": 83,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18324
     },
     "BERBERS": {
         "id": 583,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BERSERKERGANG": {
         "id": 49,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18431
     },
     "BLAST_FURNACE": {
         "id": 75,
-        "icon_id": 21
+        "icon_id": 21,
+        "hotkey_id": 18075
     },
     "BLOCK_PRINTING": {
         "id": 230,
-        "icon_id": 82
+        "icon_id": 82,
+        "hotkey_id": 18222
     },
     "BLOODLINES": {
         "id": 435,
-        "icon_id": 110
+        "icon_id": 110,
+        "hotkey_id": 18409
     },
     "BODKIN_ARROW": {
         "id": 200,
-        "icon_id": 35
+        "icon_id": 35,
+        "hotkey_id": 18150
     },
     "BOMBARD_CANNON": {
         "id": 188,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BOMBARD_TOWER": {
         "id": 64,
-        "icon_id": 47
+        "icon_id": 47,
+        "hotkey_id": 18320
     },
     "BOW_SAW": {
         "id": 203,
-        "icon_id": 71
+        "icon_id": 71,
+        "hotkey_id": 18190
     },
     "BRACER": {
         "id": 201,
-        "icon_id": 37
+        "icon_id": 37,
+        "hotkey_id": 18151
     },
     "BRITONS": {
         "id": 529,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BULGARIANS": {
         "id": 673,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BURMESE": {
         "id": 652,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BYZANTINES": {
         "id": 535,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "CANNON_GALLEON": {
         "id": 37,
-        "icon_id": 9
+        "icon_id": 9,
+        "hotkey_id": 18037
     },
     "CAPPED_RAM": {
         "id": 96,
-        "icon_id": 27
+        "icon_id": 27,
+        "hotkey_id": 18096
     },
     "CARAVAN": {
         "id": 48,
-        "icon_id": 113
+        "icon_id": 113,
+        "hotkey_id": 18410
     },
     "CAREENING": {
         "id": 374,
-        "icon_id": 98
+        "icon_id": 98,
+        "hotkey_id": 18372
     },
     "CARRACK": {
         "id": 572,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18250
     },
     "CARTOGRAPHY": {
         "id": 19,
-        "icon_id": 4
+        "icon_id": 4,
+        "hotkey_id": 18019
     },
     "CASTLE_AGE": {
         "id": 102,
-        "icon_id": 31
+        "icon_id": 31,
+        "hotkey_id": 18102
     },
     "CAVALIER": {
         "id": 209,
-        "icon_id": 78
+        "icon_id": 78,
+        "hotkey_id": 18207
     },
     "CELTS": {
         "id": 541,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "CHAIN_BARDING_ARMOR": {
         "id": 82,
-        "icon_id": 23
+        "icon_id": 23,
+        "hotkey_id": 18082
     },
     "CHAIN_MAIL_ARMOR": {
         "id": 76,
-        "icon_id": 22
+        "icon_id": 22,
+        "hotkey_id": 18076
     },
     "CHAMPION": {
         "id": 264,
-        "icon_id": 44
+        "icon_id": 44,
+        "hotkey_id": 18260
     },
     "CHATRAS": {
         "id": 628,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18297
     },
     "CHEMISTRY": {
         "id": 47,
-        "icon_id": 12
+        "icon_id": 12,
+        "hotkey_id": 18047
     },
     "CHINESE": {
         "id": 534,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "CHIVALRY": {
         "id": 493,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18287
     },
     "COINAGE": {
         "id": 23,
-        "icon_id": 7
+        "icon_id": 7,
+        "hotkey_id": 18023
     },
     "CONSCRIPTION": {
         "id": 315,
-        "icon_id": 91
+        "icon_id": 91,
+        "hotkey_id": 18319
     },
     "CORVINIAN_ARMY": {
         "id": 514,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18275
     },
     "COURIERS": {
         "id": 517,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18267
     },
     "CRENELLATIONS": {
         "id": 11,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18426
     },
     "CROP_ROTATION": {
         "id": 12,
-        "icon_id": 0
+        "icon_id": 0,
+        "hotkey_id": 18012
     },
     "CROSSBOWMAN": {
         "id": 100,
-        "icon_id": 29
+        "icon_id": 29,
+        "hotkey_id": 18100
     },
     "CHINESE_50_PERCENT_HP_DEMOS": {
         "id": 396,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "CUMAN_MERCENARIES": {
         "id": 690,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18398
     },
     "CUMANS": {
         "id": 675,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "DARK_AGE": {
         "id": 104,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "DOUBLE_CROSSBOW": {
         "id": 623,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18292
     },
     "FRANKS_FREE_FARMING_1": {
         "id": 287,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "DOUBLE_BIT_AXE": {
         "id": 202,
-        "icon_id": 70
+        "icon_id": 70,
+        "hotkey_id": 18189
     },
     "DRILL": {
         "id": 6,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18422
     },
     "DRUZHINA": {
         "id": 513,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18269
     },
     "DRY_DOCK": {
         "id": 375,
-        "icon_id": 99
+        "icon_id": 99,
+        "hotkey_id": 18373
     },
     "EAGLE_WARRIOR": {
         "id": 384,
-        "icon_id": 75
+        "icon_id": 75,
+        "hotkey_id": 18413
     },
     "EL_DORADO": {
         "id": 4,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18420
     },
     "ELITE_ARAMBAI": {
         "id": 619,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18289
     },
     "ELITE_BALLISTA_ELEPHANT": {
         "id": 615,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18247
     },
     "ELITE_BATTLE_ELEPHANT": {
         "id": 631,
-        "icon_id": 121
+        "icon_id": 121,
+        "hotkey_id": 18299
     },
     "ELITE_BERSERK": {
         "id": 398,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18401
     },
     "ELITE_BOYAR": {
         "id": 504,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18264
     },
     "ELITE_CAMEL_ARCHER": {
         "id": 565,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18238
     },
     "ELITE_CANNON_GALLEON": {
         "id": 376,
-        "icon_id": 100
+        "icon_id": 100,
+        "hotkey_id": 18375
     },
     "ELITE_CARAVEL": {
         "id": 597,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18240
     },
     "ELITE_CATAPHRACT": {
         "id": 361,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18382
     },
     "ELITE_CHU_KO_NU": {
         "id": 362,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18384
     },
     "ELITE_CONQUISTADOR": {
         "id": 60,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18317
     },
     "ELITE_EAGLE_WARRIOR": {
         "id": 434,
-        "icon_id": 115
+        "icon_id": 115,
+        "hotkey_id": 18433
     },
     "ELITE_ELEPHANT_ARCHER": {
         "id": 481,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18397
     },
     "ELITE_GBETO": {
         "id": 567,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18241
     },
     "ELITE_GENITOUR": {
         "id": 599,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18239
     },
     "ELITE_GENOESE_CROSSBOWMAN": {
         "id": 468,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18396
     },
     "ELITE_HUSKARL": {
         "id": 365,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18386
     },
     "ELITE_JAGUAR_WARRIOR": {
         "id": 432,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18434
     },
     "ELITE_JANISSARY": {
         "id": 369,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18392
     },
     "ELITE_KAMAYUK": {
         "id": 509,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18265
     },
     "ELITE_KARAMBIT_WARRIOR": {
         "id": 617,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18248
     },
     "ELITE_KESHIK": {
         "id": 680,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18304
     },
     "ELITE_KIPCHAK": {
         "id": 682,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18305
     },
     "CHIEFTAINS": {
         "id": 463,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18312
     },
     "ELITE_KONNIK": {
         "id": 678,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18303
     },
     "ELITE_LEITIS": {
         "id": 684,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18306
     },
     "ELITE_LONGBOAT": {
         "id": 372,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18393
     },
     "ELITE_LONGBOWMAN": {
         "id": 360,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18381
     },
     "ELITE_MAGYAR_HUSZAR": {
         "id": 472,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18395
     },
     "ELITE_MAMELUKE": {
         "id": 368,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18390
     },
     "ELITE_MANGUDAI": {
         "id": 371,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18388
     },
     "ELITE_ORGAN_GUN": {
         "id": 563,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18237
     },
     "ELITE_PLUMED_ARCHER": {
         "id": 27,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18430
     },
     "ELITE_RATTAN_ARCHER": {
         "id": 621,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18290
     },
     "ELITE_SAMURAI": {
         "id": 366,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18387
     },
     "ELITE_SHOTEL_WARRIOR": {
         "id": 569,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18245
     },
     "ELITE_SKIRMISHER": {
         "id": 98,
-        "icon_id": 28
+        "icon_id": 28,
+        "hotkey_id": 18098
     },
     "ELITE_STEPPE_LANCER": {
         "id": 715,
-        "icon_id": 123
+        "icon_id": 123,
+        "hotkey_id": 18402
     },
     "ELITE_TARKAN": {
         "id": 2,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18418
     },
     "ELITE_TEUTONIC_KNIGHT": {
         "id": 364,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18391
     },
     "ELITE_THROWING_AXEMAN": {
         "id": 363,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18394
     },
     "ELITE_TURTLE_SHIP": {
         "id": 448,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18437
     },
     "ELITE_WAR_ELEPHANT": {
         "id": 367,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18389
     },
     "ELITE_WAR_WAGON": {
         "id": 450,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18436
     },
     "ELITE_WOAD_RAIDER": {
         "id": 370,
-        "icon_id": 105
+        "icon_id": 105,
+        "hotkey_id": 18383
     },
     "ENABLE_COWS": {
         "id": 557,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": -1
     },
     "ENABLE_LLAMAS": {
         "id": 556,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": -1
     },
     "ENABLE_SHEEP": {
         "id": 555,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": -1
     },
     "ENABLE_TURKEYS": {
         "id": 558,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": -1
     },
     "ETHIOPIANS": {
         "id": 581,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "FAITH": {
         "id": 45,
-        "icon_id": 11
+        "icon_id": 11,
+        "hotkey_id": 18045
     },
     "FARIMBA": {
         "id": 577,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18255
     },
     "FAST_FIRE_SHIP": {
         "id": 246,
-        "icon_id": 40
+        "icon_id": 40,
+        "hotkey_id": 18243
     },
     "FERVOR": {
         "id": 252,
-        "icon_id": 73
+        "icon_id": 73,
+        "hotkey_id": 18249
     },
     "FEUDAL_AGE": {
         "id": 101,
-        "icon_id": 30
+        "icon_id": 30,
+        "hotkey_id": 18101
     },
     "FIRE_TOWER": {
         "id": 527,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "FLETCHING": {
         "id": 199,
-        "icon_id": 34
+        "icon_id": 34,
+        "hotkey_id": 18172
     },
     "FORCED_LEVY": {
         "id": 625,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18294
     },
     "FORGING": {
         "id": 67,
-        "icon_id": 17
+        "icon_id": 17,
+        "hotkey_id": 18067
     },
     "FORTIFIED_WALL": {
         "id": 194,
-        "icon_id": 46
+        "icon_id": 46,
+        "hotkey_id": 18163
     },
     "FRANKS": {
         "id": 530,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "FREE_CARTOGRAPHY": {
         "id": 600,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "FUROR_CELTICA": {
         "id": 5,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18421
     },
     "GALLEON": {
         "id": 35,
-        "icon_id": 59
+        "icon_id": 59,
+        "hotkey_id": 18035
     },
     "GARLAND_WARS": {
         "id": 24,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18429
     },
     "BONFIRE": {
         "id": 65,
-        "icon_id": 41
+        "icon_id": 41,
+        "hotkey_id": 18314
     },
     "GOLD_MINING": {
         "id": 55,
-        "icon_id": 15
+        "icon_id": 15,
+        "hotkey_id": 18055
     },
     "GOLD_SHAFT_MINING": {
         "id": 182,
-        "icon_id": 62
+        "icon_id": 62,
+        "hotkey_id": 18180
     },
     "GOTHS": {
         "id": 531,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "GREAT_WALL": {
         "id": 462,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18368
     },
     "GREEK_FIRE": {
         "id": 464,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18313
     },
     "GUARD_TOWER": {
         "id": 140,
-        "icon_id": 76
+        "icon_id": 76,
+        "hotkey_id": 18186
     },
     "GUILDS": {
         "id": 15,
-        "icon_id": 58
+        "icon_id": 58,
+        "hotkey_id": 18015
     },
     "HALBERDIER": {
         "id": 429,
-        "icon_id": 106
+        "icon_id": 106,
+        "hotkey_id": 18414
     },
     "HAND_CANNON": {
         "id": 85,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "HAND_CART": {
         "id": 249,
-        "icon_id": 42
+        "icon_id": 42,
+        "hotkey_id": 18246
     },
     "HEATED_SHOT": {
         "id": 380,
-        "icon_id": 104
+        "icon_id": 104,
+        "hotkey_id": 18374
     },
     "HEAVY_CAMEL_RIDER": {
         "id": 236,
-        "icon_id": 55
+        "icon_id": 55,
+        "hotkey_id": 18235
     },
     "HEAVY_CAV_ARCHER": {
         "id": 218,
-        "icon_id": 52
+        "icon_id": 52,
+        "hotkey_id": 18218
     },
     "HEAVY_DEMOLITION_SHIP": {
         "id": 244,
-        "icon_id": 39
+        "icon_id": 39,
+        "hotkey_id": 18242
     },
     "HEAVY_PLOW": {
         "id": 13,
-        "icon_id": 1
+        "icon_id": 1,
+        "hotkey_id": 18013
     },
     "HEAVY_SCORPION": {
         "id": 239,
-        "icon_id": 38
+        "icon_id": 38,
+        "hotkey_id": 18244
     },
     "HERBAL_MEDICINE": {
         "id": 441,
-        "icon_id": 114
+        "icon_id": 114,
+        "hotkey_id": 18435
     },
     "HERESY": {
         "id": 439,
-        "icon_id": 108
+        "icon_id": 108,
+        "hotkey_id": 18412
     },
     "HILL_FORTS_2": {
         "id": 394,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "HILL_FORTS": {
         "id": 691,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18399
     },
     "HOARDINGS": {
         "id": 379,
-        "icon_id": 103
+        "icon_id": 103,
+        "hotkey_id": 18376
     },
     "HORSE_COLLAR": {
         "id": 14,
-        "icon_id": 2
+        "icon_id": 2,
+        "hotkey_id": 18014
     },
     "HOWDAH": {
         "id": 626,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18295
     },
     "HUNS": {
         "id": 545,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "HUNTING_DOGS": {
         "id": 526,
-        "icon_id": 94
+        "icon_id": 94,
+        "hotkey_id": -1
     },
     "HUSBANDRY": {
         "id": 39,
-        "icon_id": 10
+        "icon_id": 10,
+        "hotkey_id": 18039
     },
     "HUSSAR": {
         "id": 428,
-        "icon_id": 122
+        "icon_id": 122,
+        "hotkey_id": 18417
     },
     "ILLUMINATION": {
         "id": 233,
-        "icon_id": 84
+        "icon_id": 84,
+        "hotkey_id": 18220
     },
     "IMPERIAL_AGE": {
         "id": 103,
-        "icon_id": 32
+        "icon_id": 32,
+        "hotkey_id": 18103
     },
     "IMPERIAL_CAMEL_RIDER": {
         "id": 521,
-        "icon_id": 74
+        "icon_id": 74,
+        "hotkey_id": 18236
     },
     "IMPERIAL_SKIRMISHER": {
         "id": 655,
-        "icon_id": 120
+        "icon_id": 120,
+        "hotkey_id": 18300
     },
     "INCAS": {
         "id": 549,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "INDIANS": {
         "id": 548,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "INQUISITION": {
         "id": 492,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18286
     },
     "IRON_CASTING": {
         "id": 68,
-        "icon_id": 18
+        "icon_id": 18,
+        "hotkey_id": 18068
     },
     "IRONCLAD": {
         "id": 489,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18283
     },
     "ITALIANS": {
         "id": 547,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "JAPANESE": {
         "id": 533,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "KAMANDARAN": {
         "id": 488,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18281
     },
     "KASBAH": {
         "id": 578,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18256
     },
     "KATAPARUTO": {
         "id": 59,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18059
     },
     "KEEP": {
         "id": 63,
-        "icon_id": 16
+        "icon_id": 16,
+        "hotkey_id": 18063
     },
     "KHMER": {
         "id": 650,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "KOREANS": {
         "id": 546,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "LEATHER_ARCHER_ARMOR": {
         "id": 212,
-        "icon_id": 50
+        "icon_id": 50,
+        "hotkey_id": 18209
     },
     "LIGHT_CAVALRY": {
         "id": 254,
-        "icon_id": 43
+        "icon_id": 43,
+        "hotkey_id": 18261
     },
     "LITHUANIANS": {
         "id": 676,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "LOGISTICA": {
         "id": 61,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18318
     },
     "LONG_SWORDSMAN": {
         "id": 207,
-        "icon_id": 48
+        "icon_id": 48,
+        "hotkey_id": 18204
     },
     "LOOM": {
         "id": 22,
-        "icon_id": 6
+        "icon_id": 6,
+        "hotkey_id": 18022
     },
     "MADRASAH": {
         "id": 490,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18284
     },
     "MAGHRABI_CAMELS": {
         "id": 579,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18257
     },
     "MAGYARS": {
         "id": 550,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "MAHOUTS": {
         "id": 7,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18423
     },
     "MALAY": {
         "id": 651,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "MALIANS": {
         "id": 582,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "MAN_AT_ARMS": {
         "id": 222,
-        "icon_id": 85
+        "icon_id": 85,
+        "hotkey_id": 18230
     },
     "MANIPUR_CAVALRY": {
         "id": 627,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18296
     },
     "MARAUDERS": {
         "id": 483,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18370
     },
     "MASONRY": {
         "id": 50,
-        "icon_id": 13
+        "icon_id": 13,
+        "hotkey_id": 18050
     },
     "MAYANS": {
         "id": 544,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "MONGOLS": {
         "id": 540,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "MURDER_HOLES": {
         "id": 322,
-        "icon_id": 61
+        "icon_id": 61,
+        "hotkey_id": 18321
     },
     "NOMADS": {
         "id": 487,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18280
     },
     "OBSIDIAN_ARROWS": {
         "id": 485,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18379
     },
     "ONAGER": {
         "id": 257,
-        "icon_id": 57
+        "icon_id": 57,
+        "hotkey_id": 18262
     },
     "ORTHODOXY": {
         "id": 512,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18268
     },
     "PADDED_ARCHER_ARMOR": {
         "id": 211,
-        "icon_id": 49
+        "icon_id": 49,
+        "hotkey_id": 18208
     },
     "PALADIN": {
         "id": 265,
-        "icon_id": 45
+        "icon_id": 45,
+        "hotkey_id": 18259
     },
     "PANOKSEON": {
         "id": 486,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18380
     },
     "PAPER_MONEY": {
         "id": 629,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18298
     },
     "PARTHIAN_TACTICS": {
         "id": 436,
-        "icon_id": 111
+        "icon_id": 111,
+        "hotkey_id": 18415
     },
     "PAVISE": {
         "id": 494,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18272
     },
     "PERFUSION": {
         "id": 457,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18439
     },
     "PERSIANS": {
         "id": 536,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "PIKEMAN": {
         "id": 197,
-        "icon_id": 36
+        "icon_id": 36,
+        "hotkey_id": 18176
     },
     "PLATE_BARDING_ARMOR": {
         "id": 80,
-        "icon_id": 65
+        "icon_id": 65,
+        "hotkey_id": 18080
     },
     "PLATE_MAIL_ARMOR": {
         "id": 77,
-        "icon_id": 64
+        "icon_id": 64,
+        "hotkey_id": 18077
     },
     "PORTUGUESE": {
         "id": 580,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "RECURVE_BOW": {
         "id": 515,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18274
     },
     "REDEMPTION": {
         "id": 316,
-        "icon_id": 92
+        "icon_id": 92,
+        "hotkey_id": 18315
     },
     "REVETMENTS": {
         "id": 525,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "RING_ARCHER_ARMOR": {
         "id": 219,
-        "icon_id": 51
+        "icon_id": 51,
+        "hotkey_id": 18216
     },
     "ROCKETRY": {
         "id": 52,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18432
     },
     "ROYAL_HEIRS": {
         "id": 574,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18252
     },
     "SANCTITY": {
         "id": 231,
-        "icon_id": 83
+        "icon_id": 83,
+        "hotkey_id": 18221
     },
     "SAPPERS": {
         "id": 321,
-        "icon_id": 5
+        "icon_id": 5,
+        "hotkey_id": 18322
     },
     "SARACENS": {
         "id": 537,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "SCALE_BARDING_ARMOR": {
         "id": 81,
-        "icon_id": 66
+        "icon_id": 66,
+        "hotkey_id": 18081
     },
     "SCALE_MAIL_ARMOR": {
         "id": 74,
-        "icon_id": 63
+        "icon_id": 63,
+        "hotkey_id": 18074
     },
     "SCORPION": {
         "id": 94,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": 18094
     },
     "SET_MAXIMUM_POPULATION_NO_HOUSES": {
         "id": 658,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "SHATAGNI": {
         "id": 507,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18271
     },
     "SHINKICHON": {
         "id": 445,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18438
     },
     "SHIPWRIGHT": {
         "id": 373,
-        "icon_id": 97
+        "icon_id": 97,
+        "hotkey_id": 18377
     },
     "SIEGE_ENGINEERS": {
         "id": 377,
-        "icon_id": 101
+        "icon_id": 101,
+        "hotkey_id": 18378
     },
     "SIEGE_ONAGER": {
         "id": 320,
-        "icon_id": 96
+        "icon_id": 96,
+        "hotkey_id": 18323
     },
     "SIEGE_RAM": {
         "id": 255,
-        "icon_id": 86
+        "icon_id": 86,
+        "hotkey_id": 18263
     },
     "SILK_ARMOR": {
         "id": 687,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18309
     },
     "SILK_ROAD": {
         "id": 499,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18273
     },
     "SIPAHI": {
         "id": 491,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18285
     },
     "SLAVS": {
         "id": 551,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "SPANISH": {
         "id": 542,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "SPIES_AND_TREASON": {
         "id": 408,
-        "icon_id": 19
+        "icon_id": 19,
+        "hotkey_id": 18408
     },
     "SQUIRES": {
         "id": 215,
-        "icon_id": 80
+        "icon_id": 80,
+        "hotkey_id": 18210
     },
     "STEPPE_HUSBANDRY": {
         "id": 689,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18311
     },
     "STIRRUPS": {
         "id": 685,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18307
     },
     "STONE_MINING": {
         "id": 278,
-        "icon_id": 87
+        "icon_id": 87,
+        "hotkey_id": 18276
     },
     "STONE_SHAFT_MINING": {
         "id": 279,
-        "icon_id": 88
+        "icon_id": 88,
+        "hotkey_id": 18277
     },
     "STRONGHOLD": {
         "id": 482,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18369
     },
     "SULTANS": {
         "id": 506,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18270
     },
     "SUPPLIES": {
         "id": 716,
-        "icon_id": 124
+        "icon_id": 124,
+        "hotkey_id": 18090
     },
     "SUPREMACY": {
         "id": 440,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18325
     },
     "TATARS": {
         "id": 674,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "TEUTONS": {
         "id": 532,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "THALASSOCRACY": {
         "id": 624,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18293
     },
     "THEOCRACY": {
         "id": 438,
-        "icon_id": 109
+        "icon_id": 109,
+        "hotkey_id": 18416
     },
     "THUMB_RING": {
         "id": 437,
-        "icon_id": 112
+        "icon_id": 112,
+        "hotkey_id": 18411
     },
     "TIGUI": {
         "id": 576,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18254
     },
     "TIMURID_SIEGECRAFT": {
         "id": 688,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18310
     },
     "TORSION_ENGINES": {
         "id": 575,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18253
     },
     "TOWER_SHIELDS": {
         "id": 692,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18400
     },
     "TOWN_CENTER_SPAWN": {
         "id": 639,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "TOWN_PATROL": {
         "id": 280,
-        "icon_id": 89
+        "icon_id": 89,
+        "hotkey_id": 18282
     },
     "TOWN_WATCH": {
         "id": 8,
-        "icon_id": 69
+        "icon_id": 69,
+        "hotkey_id": 18008
     },
     "TRACKING": {
         "id": 90,
-        "icon_id": 67
+        "icon_id": 67,
+        "hotkey_id": 18090
     },
     "TREADMILL_CRANE": {
         "id": 54,
-        "icon_id": 60
+        "icon_id": 60,
+        "hotkey_id": 18054
     },
     "TURKS": {
         "id": 538,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "TUSK_SWORDS": {
         "id": 622,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18291
     },
     "TWO_HANDED_SWORDSMAN": {
         "id": 217,
-        "icon_id": 53
+        "icon_id": 53,
+        "hotkey_id": 18217
     },
     "TWO_MAN_SAW": {
         "id": 221,
-        "icon_id": 81
+        "icon_id": 81,
+        "hotkey_id": 18231
     },
     "VIETNAMESE": {
         "id": 653,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "VIETNAMESE_VISION": {
         "id": 665,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "VIKINGS": {
         "id": 539,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "WAR_GALLEY": {
         "id": 34,
-        "icon_id": 8
+        "icon_id": 8,
+        "hotkey_id": 18034
     },
     "WARWOLF": {
         "id": 461,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18327
     },
     "WHEELBARROW": {
         "id": 213,
-        "icon_id": 79
+        "icon_id": 79,
+        "hotkey_id": 18211
     },
     "YASAMA": {
         "id": 484,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18371
     },
     "YEOMEN": {
         "id": 3,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18419
     },
     "ZEALOTRY": {
         "id": 9,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18424
     },
     "SICILIANS": {
         "id": 749,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BURGUNDIANS": {
         "id": 748,
-        "icon_id": -1
+        "icon_id": -1,
+        "hotkey_id": -1
     },
     "BURGUNDIAN_VINEYARDS": {
         "id": 754,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18442
     },
-    "FELMISH_REVOLUTION": {
+    "FLEMISH_REVOLUTION": {
         "id": 755,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18443
     },
     "FIRST_CRUSADE": {
         "id": 756,
-        "icon_id": 33
+        "icon_id": 33,
+        "hotkey_id": 18444
     },
     "SCUTAGE": {
         "id": 757,
-        "icon_id": 107
+        "icon_id": 107,
+        "hotkey_id": 18445
+    },
+    "CONVERSION_ENABLER": {
+        "id": 243,
+        "icon_id": -1,
+        "hotkey_id": -1
     }
 }

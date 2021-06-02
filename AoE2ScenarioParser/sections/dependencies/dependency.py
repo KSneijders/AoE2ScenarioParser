@@ -1,5 +1,4 @@
 import math
-from typing import List
 
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
@@ -21,7 +20,7 @@ def handle_retriever_dependency(retriever: Retriever, state, section, sections):
     on_x = f'on_{state}'
     if not hasattr(retriever, on_x):
         return
-    self_list: List[Retriever] = section.retrievers
+
     retriever_event = getattr(retriever, on_x)  # construct, commit or refresh
 
     action = retriever_event.dependency_action
