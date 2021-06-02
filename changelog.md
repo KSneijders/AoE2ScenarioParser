@@ -14,11 +14,13 @@ The format is based on [Keep a Changelog]
 
 ### Added
 
-- ~~The `HOTKEY_ID` property to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`. Example: `UnitInfo.ARCHER.HOTKEY_ID`.~~
+- The `HOTKEY_ID` property to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`.  
+  Example: `UnitInfo.ARCHER.HOTKEY_ID`.
 - The `Hotkey` dataset. These values can be used for static key assignments.
 - The `HeroStatusFlag` dataset. Use `HeroStatusFlag.combine(...)` for combinations in the dataset.
 - The `BlastLevel` dataset.
 - The `DamageClass` dataset. (Credits: Alian713)
+- The `ProjectileInfo` dataset. Thanks **[Alian713](https://github.com/KSneijders/AoE2ScenarioParser/pull/16)**!
 
 ### Fixed
 
@@ -26,14 +28,14 @@ The format is based on [Keep a Changelog]
 - Trigger docs not updated with the new `UnitInfo` dataset. 
 - `Unit.name()` when a unit wasn't present in the datasets. Thanks **[newtonerdai](https://github.com/KSneijders/AoE2ScenarioParser/pull/13)**!
 - The ID for `FARMING_GOLD_TRICKLE` from 235 to 236.
-- Remove unit looping through all units even though the unit to be removed was already found.
+- A typo `TechInfo.FELMISH_REVOLUTION` to `TechInfo.FLEMISH_REVOLUTION`
 
 ### Changed
 
-- Renamed ObjectAttribute `ICON_GRAPHICS_ANGLE` to `GRAPHICS_ANGLE` a
+- Renamed ObjectAttribute `ICON_GRAPHICS_ANGLE` to `GRAPHICS_ANGLE`.
 - Renamed all `area_1_x` attributes to `area_x1`. Same goes for: `area_1_y`, `area_2_x`, `area_2_y`.
-- **BACKEND** - retrievers attribute on sections has been swapped out for retriever_map. 
-  (It's a `dict` instead of a `list` with the retriever name as keys). Reason: **Improve performance**.
+- **BACKEND** - retrievers attribute on sections has been swapped out for retriever_map.  
+  It's now a `dict` instead of a `list` with the retriever name as keys. Reason: **Improve performance**.
 
 ---
 

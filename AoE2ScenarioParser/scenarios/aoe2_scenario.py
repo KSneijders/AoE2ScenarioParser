@@ -122,11 +122,20 @@ class AoE2Scenario:
     ####################################### Write functions ######################################
     ########################################################################################## """
 
-    def write_to_file(self, filename):
-        self._write_from_structure(filename)
+    def write_to_file(self, filename, skip_reconstruction=False):
+        """
+        Write the scenario to a new file
 
-    def _write_from_structure(self, filename):
-        self._object_manager.reconstruct()
+        Args:
+            filename (str): The location to write the file to
+            skip_reconstruction (bool): If reconstruction should be skipped. If true, this will ignore all changes made
+                using the managers (For example all changes made using trigger_manager).
+        """
+        self._write_from_structure(filename, skip_reconstruction)
+
+    def _write_from_structure(self, filename, skip_reconstruction=False):
+        if not skip_reconstruction:
+            self._object_manager.reconstruct()
 
         s_print("\nFile writing from structure started...", final=True)
         binary = self._get_file_section_data(self.sections.get('FileHeader'))
