@@ -8,11 +8,14 @@ from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 
+from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager    # TODO: some of attrs are DE-only
+
 managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
     'DE': {
         'Map': MapManagerDE,
         'Unit': UnitManagerDE,
         'Trigger': TriggerManagerDE,
+        'Player': PlayerManager     # TODO: needing PlayerManagerDE ?
     }
 }
 

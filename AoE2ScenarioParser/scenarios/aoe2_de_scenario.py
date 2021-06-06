@@ -19,6 +19,8 @@ class AoE2DEScenario(AoE2Scenario):
     def map_manager(self) -> MapManagerDE:
         return self._object_manager.managers['Map']
 
+    # TODO: needing PlayerManagerDE ?
+
     @classmethod
     def from_file(cls, filename, game_version="DE") -> AoE2DEScenario:
         return super().from_file(filename, game_version)

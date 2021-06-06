@@ -13,7 +13,7 @@ class UnitManager(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
-        RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)
+        RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)   # TODO(newtonerdai): what [] stands for? why not use [__index__]?
     ]
 
     def __init__(self, units: List[List[Unit]]):

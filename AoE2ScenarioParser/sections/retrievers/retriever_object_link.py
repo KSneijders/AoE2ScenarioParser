@@ -153,14 +153,14 @@ class RetrieverObjectLink:
                 retriever._print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
 
     def _is_special_unit_case(self) -> bool:
-        return ("[]" in self.link) if self.link else False
+        return ("[]" in self.link) if self.link else False      # TODO(newtonerdai): will cause "xxx[].yyy" only leads to unit? What if there is others such as player_data?
 
     def _construct_special_unit_case(self, sections, scenario_version):
         units = []
-        value = sections[self.section_name]
+        value = sections[self.section_name]     # value: such as {AoE2FileSection}Units.
         for index, item in enumerate(self.splitted_link):
             if "[]" in item:
-                value = getattr(value, item[:-2])
+                value = getattr(value, item[:-2])       # value: List[AoE2FileSection] = Units.retriever_map.players_units.data
             else:
                 for player, player_units_section in enumerate(value):
                     player_units = getattr(player_units_section, item)

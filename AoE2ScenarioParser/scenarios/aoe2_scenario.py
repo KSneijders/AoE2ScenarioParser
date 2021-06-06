@@ -14,6 +14,7 @@ from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
@@ -29,6 +30,10 @@ class AoE2Scenario:
     @property
     def map_manager(self) -> MapManager:
         return self._object_manager.managers['Map']
+
+    @property
+    def player_manager(self) -> PlayerManager:
+        return self._object_manager.managers['Player']
 
     def __init__(self):
         self.read_mode = None
