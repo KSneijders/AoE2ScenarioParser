@@ -836,7 +836,7 @@
                             "self:disabled_tech_ids_player_7",
                             "self:disabled_tech_ids_player_8"
                         ],
-                        "eval": "[len(x) for x in [disabled_tech_ids_player_1, disabled_tech_ids_player_2, disabled_tech_ids_player_3, disabled_tech_ids_player_4, disabled_tech_ids_player_5, disabled_tech_ids_player_6, disabled_tech_ids_player_7, disabled_tech_ids_player_8]]"
+                        "eval": "[len(x) for x in [disabled_tech_ids_player_1, disabled_tech_ids_player_2, disabled_tech_ids_player_3, disabled_tech_ids_player_4, disabled_tech_ids_player_5, disabled_tech_ids_player_6, disabled_tech_ids_player_7, disabled_tech_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
                     }
                 }
             },
@@ -964,7 +964,7 @@
                             "self:disabled_building_ids_player_7",
                             "self:disabled_building_ids_player_8"
                         ],
-                        "eval": "[len(x) for x in [disabled_building_ids_player_1, disabled_building_ids_player_2, disabled_building_ids_player_3, disabled_building_ids_player_4, disabled_building_ids_player_5, disabled_building_ids_player_6, disabled_building_ids_player_7, disabled_building_ids_player_8]]"
+                        "eval": "[len(x) for x in [disabled_building_ids_player_1, disabled_building_ids_player_2, disabled_building_ids_player_3, disabled_building_ids_player_4, disabled_building_ids_player_5, disabled_building_ids_player_6, disabled_building_ids_player_7, disabled_building_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
                     }
                 }
             },
@@ -1092,7 +1092,7 @@
                             "self:disabled_unit_ids_player_7",
                             "self:disabled_unit_ids_player_8"
                         ],
-                        "eval": "[len(x) for x in [disabled_unit_ids_player_1, disabled_unit_ids_player_2, disabled_unit_ids_player_3, disabled_unit_ids_player_4, disabled_unit_ids_player_5, disabled_unit_ids_player_6, disabled_unit_ids_player_7, disabled_unit_ids_player_8]]"
+                        "eval": "[len(x) for x in [disabled_unit_ids_player_1, disabled_unit_ids_player_2, disabled_unit_ids_player_3, disabled_unit_ids_player_4, disabled_unit_ids_player_5, disabled_unit_ids_player_6, disabled_unit_ids_player_7, disabled_unit_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
                     }
                 }
             },
