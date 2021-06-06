@@ -184,10 +184,6 @@ class Retriever:
         return f"{self.to_simple_string()} >>> {data}"
 
 
-def duplicate_retriever_list(retriever_list):
-    return [r.duplicate() for r in retriever_list]
-
-
 def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Retriever]:
     return pickle.loads(pickle.dumps(retriever_map))
 

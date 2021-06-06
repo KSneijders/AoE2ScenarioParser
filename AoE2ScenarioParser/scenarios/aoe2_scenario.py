@@ -5,7 +5,7 @@ from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
-from  AoE2ScenarioParser.helper.printers import s_print
+from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex

@@ -6,16 +6,16 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.9 - Unreleased
+## 0.1.9 - 2021-June-02
 
-**Support for the new [47820] update!**
+**More datasets! Some from the newest [47820] update!**
 
 [47820]: https://www.ageofempires.com/news/aoe2de-update-47820/
 
 ### Added
 
 - The `HOTKEY_ID` property to the `UnitInfo`, `BuildingInfo`, `HeroInfo` and `TechInfo`.  
-  Example: `UnitInfo.ARCHER.HOTKEY_ID`.
+  Example: `UnitInfo.ARCHER.HOTKEY_ID`. Or: `UnitInfo.from_hotkey_id(...)`
 - The `Hotkey` dataset. These values can be used for static key assignments.
 - The `HeroStatusFlag` dataset. Use `HeroStatusFlag.combine(...)` for combinations in the dataset.
 - The `BlastLevel` dataset.
