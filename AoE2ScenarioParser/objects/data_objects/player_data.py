@@ -5,7 +5,7 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
-class PlayerFeature(AoE2Object):
+class PlayerFeatures(AoE2Object):
 
     _link_list = [
         RetrieverObjectLink("active", "DataHeader", "player_data_1[__index__].active"),
@@ -65,7 +65,7 @@ class PlayerResourcesColor(AoE2Object):
         super().__init__()
 
 
-class PlayerAiFileText(AoE2Object):
+class PlayerAIFileText(AoE2Object):
 
     _link_list = [
         RetrieverObjectLink("ai_per_file_text", "PlayerDataTwo", "ai_files[__index__].ai_per_file_text"),
@@ -121,7 +121,7 @@ class PlayerMiscSettings(AoE2Object):
         super().__init__()
 
 
-class PlayerResourcesPopulation(AoE2Object):
+class PlayerResources2Population(AoE2Object):
 
     _link_list = [
         RetrieverObjectLink("gold_duplicate", "Units", "player_data_4[__index__].gold_duplicate"),
