@@ -16,25 +16,25 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("player_count", "FileHeader", "player_count"),
 
         RetrieverObjectLink("_player_names", "DataHeader", "player_names"),
-        RetrieverObjectLink("_player_names_string_table", "DataHeader", "string_table_player_names"),
+        RetrieverObjectLink("_player_name_string_table_ids", "DataHeader", "string_table_player_names"),
 
-        RetrieverObjectLink("_players_features", "DataHeader", "player_data_1", process_as_object=PlayerFeatures),
+        RetrieverObjectLink("players_features", "DataHeader", "player_data_1", process_as_object=PlayerFeatures),
         RetrieverObjectLink("players_misc_settings", "Units", "player_data_3", process_as_object=PlayerMiscSettings),
 
-        RetrieverObjectLink("_players_resources_color", "PlayerDataTwo", "resources",
+        RetrieverObjectLink("players_resources_color", "PlayerDataTwo", "resources",
                             process_as_object=PlayerResourcesColor),
         RetrieverObjectLink("players_resources2_population", "Units", "player_data_4",
                             process_as_object=PlayerResources2Population),
 
-        RetrieverObjectLink("_ai_files_names", "PlayerDataTwo", "ai_names"),
-        RetrieverObjectLink("_ai_files_texts", "PlayerDataTwo", "ai_files", process_as_object=PlayerAIFileText),
-        RetrieverObjectLink("_ai_types", "PlayerDataTwo", "ai_type"),
+        RetrieverObjectLink("ai_files_names", "PlayerDataTwo", "ai_names"),
+        RetrieverObjectLink("ai_files_texts", "PlayerDataTwo", "ai_files", process_as_object=PlayerAIFileText),
+        RetrieverObjectLink("ai_types", "PlayerDataTwo", "ai_type"),
 
-        RetrieverObjectLink("_diplomacies", "Diplomacy", "per_player_diplomacy",
+        RetrieverObjectLink("diplomacies", "Diplomacy", "per_player_diplomacy",
                             process_as_object=PlayerDiplomacy),
-        RetrieverObjectLink("_allied_victories", "Diplomacy", "per_player_allied_victory"),
-        RetrieverObjectLink("_starting_ages", "Options", "per_player_starting_age"),
-        RetrieverObjectLink("_individual_victories", "Diplomacy", "individual_victories"),
+        RetrieverObjectLink("allied_victories", "Diplomacy", "per_player_allied_victory"),
+        RetrieverObjectLink("starting_ages", "Options", "per_player_starting_age"),
+        RetrieverObjectLink("individual_victories", "Diplomacy", "individual_victories"),
 
         RetrieverObjectLink("_disabled_techs_p1", "Options", "disabled_tech_ids_player_1"),
         RetrieverObjectLink("_disabled_techs_p2", "Options", "disabled_tech_ids_player_2"),
@@ -65,18 +65,18 @@ class PlayerManager(AoE2Object):
     def __init__(self,
                  player_count: int,
                  _player_names: List[str],
-                 _player_names_string_table: List[int],
-                 _players_features: List[PlayerFeatures],
+                 _player_name_string_table_ids: List[int],
+                 players_features: List[PlayerFeatures],
                  players_misc_settings: List[PlayerMiscSettings],
-                 _players_resources_color: List[PlayerResourcesColor],
+                 players_resources_color: List[PlayerResourcesColor],
                  players_resources2_population: List[PlayerResources2Population],
-                 _ai_files_names: List[str],
-                 _ai_files_texts: List[PlayerAIFileText],
-                 _ai_types: List[int],
-                 _diplomacies: List[PlayerDiplomacy],
-                 _allied_victories: List[int],
-                 _starting_ages: List[int],
-                 _individual_victories: List[bytes],
+                 ai_files_names: List[str],
+                 ai_files_texts: List[PlayerAIFileText],
+                 ai_types: List[int],
+                 diplomacies: List[PlayerDiplomacy],
+                 allied_victories: List[int],
+                 starting_ages: List[int],
+                 individual_victories: List[bytes],
                  _disabled_techs_p1, _disabled_techs_p2, _disabled_techs_p3, _disabled_techs_p4,    # List
                  _disabled_techs_p5, _disabled_techs_p6, _disabled_techs_p7, _disabled_techs_p8,    # List
                  _disabled_buildings_p1, _disabled_buildings_p2, _disabled_buildings_p3, _disabled_buildings_p4,  # List
@@ -87,18 +87,18 @@ class PlayerManager(AoE2Object):
 
         self.player_count = player_count
         self._player_names = _player_names
-        self._player_names_string_table = _player_names_string_table
-        self._players_features = _players_features
+        self._player_name_string_table_ids = _player_name_string_table_ids
+        self.players_features = players_features
         self.players_misc_settings = players_misc_settings
-        self._ai_files_names = _ai_files_names
-        self._ai_files_texts = _ai_files_texts
-        self._ai_types = _ai_types
-        self._players_resources_color = _players_resources_color
+        self.ai_files_names = ai_files_names
+        self.ai_files_texts = ai_files_texts
+        self.ai_types = ai_types
+        self.players_resources_color = players_resources_color
         self.players_resources2_population = players_resources2_population
-        self._diplomacies = _diplomacies
-        self._allied_victories = _allied_victories
-        self._starting_ages = _starting_ages
-        self._individual_victories = _individual_victories
+        self.diplomacies = diplomacies
+        self.allied_victories = allied_victories
+        self.starting_ages = starting_ages   # TODO: 2: DarkAge, 6: PostImp | 1st-8th players, 9th GAIA
+        self.individual_victories = individual_victories
         self._disabled_techs_p1 = _disabled_techs_p1
         self._disabled_techs_p2 = _disabled_techs_p2
         self._disabled_techs_p3 = _disabled_techs_p3
@@ -126,93 +126,52 @@ class PlayerManager(AoE2Object):
 
         super().__init__()
 
+
     # region ===== Properties =====
 
     @property
     def player_names(self):
-        names = [name.replace("\x00", "") for name in self._player_names]    # remove all NUL chars for purer view.
-        return names[0:8]
+        """Read-Only. To change these, please refer to change_player_name()."""
+        # Remove all NUL chars for purer view.
+        return [self._purify_player_name(name) for name in self._player_names]
 
     @property
-    def player_names_string_table(self):
+    def player_name_string_table_ids(self):
+        """Read-Only. To change these, please refer to change_player_name()."""
+        # Convert large numbers to negative numbers for purer view.
         names_stids = []
-        for stid in self._player_names_string_table[0:8]:       # u32. 4294967294 => -2, 10020 => 10020
-            if stid >= 4294967296/2:
-                names_stids.append(stid - 4294967296)
-            else:
-                names_stids.append(stid)
+        for stid in self._player_name_string_table_ids:
+            names_stids.append(self._purify_player_name_stid(stid))
         return names_stids
 
     @property
-    def players_features(self):
-        return self._players_features[0:8]
-
-    # @property
-    # def players_misc_settings(self):
-
-    @property
-    def players_resources_color(self):
-        return self._players_resources_color[0:8]
-
-    # @property
-    # def players_resources2_population(self):
-
-    @property
-    def ai_files_names(self):
-        return self._ai_files_names[0:8]
-
-    @property
-    def ai_files_texts(self):
-        return self._ai_files_texts[0:8]
-
-    @property
-    def ai_types(self):
-        return self._ai_types[0:8]
-
-    @property
-    def diplomacies(self):
-        return self._diplomacies[0:8]
-    
-    @property
-    def allied_victories(self):
-        return self._allied_victories[0:8]
-    
-    @property
-    def starting_ages(self):
-        return self._starting_ages[0:8]
-    
-    @property
-    def individual_victories(self):
-        return self._individual_victories
-
-    @property
     def per_player_disabled_techs(self):
-        all_players_list = [
+        return [
             self._disabled_techs_p1, self._disabled_techs_p2, self._disabled_techs_p3, self._disabled_techs_p4,
             self._disabled_techs_p5, self._disabled_techs_p6, self._disabled_techs_p7, self._disabled_techs_p8
         ]
-        return all_players_list
 
     @property
     def per_player_disabled_buildings(self):
-        all_players_list = [
-            self._disabled_buildings_p1, self._disabled_buildings_p2, self._disabled_buildings_p3, self._disabled_buildings_p4,
-            self._disabled_buildings_p5, self._disabled_buildings_p6, self._disabled_buildings_p7, self._disabled_buildings_p8
+        return [
+            self._disabled_buildings_p1, self._disabled_buildings_p2, self._disabled_buildings_p3,
+            self._disabled_buildings_p4, self._disabled_buildings_p5, self._disabled_buildings_p6,
+            self._disabled_buildings_p7, self._disabled_buildings_p8
         ]
-        return all_players_list
 
     @property
     def per_player_disabled_units(self):
-        all_players_list = [
+        return [
             self._disabled_units_p1, self._disabled_units_p2, self._disabled_units_p3, self._disabled_units_p4,
             self._disabled_units_p5, self._disabled_units_p6, self._disabled_units_p7, self._disabled_units_p8
         ]
-        return all_players_list
 
     # endregion ===== Properties =====
 
+
     # region ===== Setters =====
     # endregion ===== Setters =====
+
 
     # region ===== Methods =====
 
@@ -224,13 +183,53 @@ class PlayerManager(AoE2Object):
             new_name_stid: String Table Id which you want to reference. If set to -2, Game Editor will ingnore it.
         """
         if player == PlayerId.GAIA:
-            raise ValueError("Cannot change Gaia's name.")
+            raise ValueError("Can not change Gaia's name.")
         else:
-            name_bytes = new_name.encode('utf-8') + b"\x00" * 256  # Refill with plenty NUL
-            limited_name = name_bytes[0:256].decode('utf-8')  # Limit to 256 bytes (in UTF-8)
-            unsigned_name_stid = (new_name_stid + 4294967296) % 4294967296   # u32. -2 => 4294967294, 10020 => 10020
-            self._player_names[player.value - 1] = limited_name
-            self._player_names_string_table[player.value - 1] = unsigned_name_stid
+            new_name_standard = self._standardize_player_name(new_name)
+            unsigned_name_stid = self._standardize_player_name_stid(new_name_stid)
+            self._player_names[player.value - 1] = new_name_standard
+            self._player_name_string_table_ids[player.value - 1] = unsigned_name_stid
 
     # endregion ===== Methods =====
+
+
+    # region ===== Static Methods =====
+
+    @staticmethod
+    def _purify_player_name(name_with_x00: str):
+        """Returns a new player names with all NUL chars removed.
+         - Such as: 'William\x00...\x00' => 'William'
+        """
+        return name_with_x00.replace('\x00', '')
+
+    @staticmethod
+    def _standardize_player_name(name: str):
+        """Returns the player name standardized to 256 bytes/chars in UTF-8.
+         - Such as: 'William' => 'William\x00...\x00'.
+         - Such as: 'Ａ..Ａ..Ａ..Ａ..ＦＧＨＩ' => 'Ａ..Ａ..Ａ..Ａ..ＦＧ\x00'
+        """
+        name_bytes = name.encode('utf-8')
+        name_bytes += b'\x00' * (256 - len(name_bytes))  # Fill with plenty NUL, or no filling when len>=256
+        # Wrong slice will cause decode error.
+        # Since each non-ASCII char occupies 3 bytes in UTF-8, there are only 3 cases:
+        try:
+            limited_name = name_bytes[0:256].decode('utf-8')
+        except UnicodeDecodeError:
+            try:
+                limited_name = (name_bytes[0:255] + b'\x00').decode('utf-8')
+            except UnicodeDecodeError:
+                limited_name = (name_bytes[0:254] + b'\x00\x00').decode('utf-8')
+        return limited_name
+
+    @staticmethod
+    def _purify_player_name_stid(name_stid: int):
+        """Such as: 4294967294 => -2    Such as: 10020 => 10020"""
+        return (name_stid - 4294967296) if (name_stid >= 4294967296/2) else name_stid
+
+    @staticmethod
+    def _standardize_player_name_stid(name_stid: int):
+        """Such as: -2 => 4294967294    Such as: 10020 => 10020"""
+        return (name_stid + 4294967296) % 4294967296
+
+    # endregion ===== Static Methods =====
 

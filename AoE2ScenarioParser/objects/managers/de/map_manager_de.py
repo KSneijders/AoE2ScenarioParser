@@ -9,16 +9,14 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 class MapManagerDE(MapManager):
 
     _link_list = [
-        RetrieverObjectLink("water_definition", "Map", "water_definition"),     # TODO(newtonerdai): check relative place such as guide of MapManager
+        RetrieverObjectLink("water_definition", "Map", "water_definition"),
         RetrieverObjectLink("map_color_mood", "Map", "map_color_mood"),
         RetrieverObjectLink("block_humanity_team_change", "Map", "block_humanity_team_change", Support(since=1.41)),
         RetrieverObjectLink("collide_and_correct", "Map", "collide_and_correct"),
         RetrieverObjectLink("villager_force_drop", "Map", "villager_force_drop"),
-        # RetrieverObjectLink("scenario_camera_x", "Map", "player_1_camera_x"),
-        # RetrieverObjectLink("scenario_camera_y", "Map", "player_1_camera_y"),
         RetrieverObjectLink("map_width", "Map", "map_width"),
         RetrieverObjectLink("map_height", "Map", "map_height"),
-        RetrieverObjectLink("no_waves_on_shore", "Map", "no_waves_on_shore"),
+        RetrieverObjectLink("no_waves_on_shore", "Map", "no_waves_on_shore"),   # TODO: Or `AI Type` of the map?
         RetrieverObjectLink("terrain", "Map", "terrain_data", process_as_object=TerrainTile),
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
     ]
