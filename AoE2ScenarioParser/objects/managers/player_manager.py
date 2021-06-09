@@ -28,13 +28,16 @@ class PlayerManager(AoE2Object):
 
         RetrieverObjectLink("ai_files_names", "PlayerDataTwo", "ai_names"),
         RetrieverObjectLink("ai_files_texts", "PlayerDataTwo", "ai_files", process_as_object=PlayerAIFileText),
-        RetrieverObjectLink("ai_types", "PlayerDataTwo", "ai_type"),
+        RetrieverObjectLink("ai_types", "PlayerDataTwo", "ai_types"),
 
         RetrieverObjectLink("diplomacies", "Diplomacy", "per_player_diplomacy",
                             process_as_object=PlayerDiplomacy),
         RetrieverObjectLink("allied_victories", "Diplomacy", "per_player_allied_victory"),
         RetrieverObjectLink("starting_ages", "Options", "per_player_starting_age"),
         RetrieverObjectLink("individual_victories", "Diplomacy", "individual_victories"),
+
+        RetrieverObjectLink("per_player_lock_civilization", "DataHeader", "per_player_lock_civilization"),
+        RetrieverObjectLink("per_player_base_priority", "Options", "per_player_base_priority"),
 
         RetrieverObjectLink("_disabled_techs_p1", "Options", "disabled_tech_ids_player_1"),
         RetrieverObjectLink("_disabled_techs_p2", "Options", "disabled_tech_ids_player_2"),
@@ -59,7 +62,16 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_disabled_units_p5", "Options", "disabled_unit_ids_player_5"),
         RetrieverObjectLink("_disabled_units_p6", "Options", "disabled_unit_ids_player_6"),
         RetrieverObjectLink("_disabled_units_p7", "Options", "disabled_unit_ids_player_7"),
-        RetrieverObjectLink("_disabled_units_p8", "Options", "disabled_unit_ids_player_8")
+        RetrieverObjectLink("_disabled_units_p8", "Options", "disabled_unit_ids_player_8"),
+
+        RetrieverObjectLink("_player_1_initial_camera_xy", "Map", "player_1_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_2_initial_camera_xy", "Map", "player_2_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_3_initial_camera_xy", "Map", "player_3_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_4_initial_camera_xy", "Map", "player_4_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_5_initial_camera_xy", "Map", "player_5_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_6_initial_camera_xy", "Map", "player_6_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_7_initial_camera_xy", "Map", "player_7_initial_camera_xy"),  # Since version 1.40?
+        RetrieverObjectLink("_player_8_initial_camera_xy", "Map", "player_8_initial_camera_xy"),  # Since version 1.40?
     ]
 
     def __init__(self,
@@ -77,12 +89,18 @@ class PlayerManager(AoE2Object):
                  allied_victories: List[int],
                  starting_ages: List[int],
                  individual_victories: List[bytes],
+                 per_player_lock_civilization: List[int],
+                 per_player_base_priority: List[int],
                  _disabled_techs_p1, _disabled_techs_p2, _disabled_techs_p3, _disabled_techs_p4,    # List
                  _disabled_techs_p5, _disabled_techs_p6, _disabled_techs_p7, _disabled_techs_p8,    # List
                  _disabled_buildings_p1, _disabled_buildings_p2, _disabled_buildings_p3, _disabled_buildings_p4,  # List
                  _disabled_buildings_p5, _disabled_buildings_p6, _disabled_buildings_p7, _disabled_buildings_p8,  # List
                  _disabled_units_p1, _disabled_units_p2, _disabled_units_p3, _disabled_units_p4,    # List
-                 _disabled_units_p5, _disabled_units_p6, _disabled_units_p7, _disabled_units_p8     # List
+                 _disabled_units_p5, _disabled_units_p6, _disabled_units_p7, _disabled_units_p8,    # List
+                 _player_1_initial_camera_xy, _player_2_initial_camera_xy,
+                 _player_3_initial_camera_xy, _player_4_initial_camera_xy,
+                 _player_5_initial_camera_xy, _player_6_initial_camera_xy,
+                 _player_7_initial_camera_xy, _player_8_initial_camera_xy
                  ):
 
         self.player_count = player_count
@@ -99,6 +117,8 @@ class PlayerManager(AoE2Object):
         self.allied_victories = allied_victories
         self.starting_ages = starting_ages   # TODO: 2: DarkAge, 6: PostImp | 1st-8th players, 9th GAIA
         self.individual_victories = individual_victories
+        self.per_player_lock_civilization = per_player_lock_civilization
+        self.per_player_base_priority = per_player_base_priority
         self._disabled_techs_p1 = _disabled_techs_p1
         self._disabled_techs_p2 = _disabled_techs_p2
         self._disabled_techs_p3 = _disabled_techs_p3
@@ -123,6 +143,15 @@ class PlayerManager(AoE2Object):
         self._disabled_units_p6 = _disabled_units_p6
         self._disabled_units_p7 = _disabled_units_p7
         self._disabled_units_p8 = _disabled_units_p8
+
+        self._player_1_initial_camera_xy = _player_1_initial_camera_xy
+        self._player_2_initial_camera_xy = _player_2_initial_camera_xy
+        self._player_3_initial_camera_xy = _player_3_initial_camera_xy
+        self._player_4_initial_camera_xy = _player_4_initial_camera_xy
+        self._player_5_initial_camera_xy = _player_5_initial_camera_xy
+        self._player_6_initial_camera_xy = _player_6_initial_camera_xy
+        self._player_7_initial_camera_xy = _player_7_initial_camera_xy
+        self._player_8_initial_camera_xy = _player_8_initial_camera_xy
 
         super().__init__()
 
@@ -164,6 +193,15 @@ class PlayerManager(AoE2Object):
         return [
             self._disabled_units_p1, self._disabled_units_p2, self._disabled_units_p3, self._disabled_units_p4,
             self._disabled_units_p5, self._disabled_units_p6, self._disabled_units_p7, self._disabled_units_p8
+        ]
+
+    @property
+    def per_player_initial_camera_xy(self):
+        return [
+            self._player_1_initial_camera_xy, self._player_2_initial_camera_xy,
+            self._player_3_initial_camera_xy, self._player_4_initial_camera_xy,
+            self._player_5_initial_camera_xy, self._player_6_initial_camera_xy,
+            self._player_7_initial_camera_xy, self._player_8_initial_camera_xy
         ]
 
     # endregion ===== Properties =====

@@ -80,10 +80,10 @@ class PlayerMiscSettings(AoE2Object):
 
     _link_list = [
         RetrieverObjectLink("constant_name", "Units", "player_data_3[__index__].constant_name"),
+        RetrieverObjectLink("editor_camera_x", "Units", "player_data_3[__index__].editor_camera_x"),
+        RetrieverObjectLink("editor_camera_y", "Units", "player_data_3[__index__].editor_camera_y"),
         RetrieverObjectLink("initial_camera_x", "Units", "player_data_3[__index__].initial_camera_x"),
         RetrieverObjectLink("initial_camera_y", "Units", "player_data_3[__index__].initial_camera_y"),
-        RetrieverObjectLink("unknown_similar_to_camera_x", "Units", "player_data_3[__index__].unknown_similar_to_camera_x"),
-        RetrieverObjectLink("unknown_similar_to_camera_y", "Units", "player_data_3[__index__].unknown_similar_to_camera_y"),
         RetrieverObjectLink("aok_allied_victory", "Units", "player_data_3[__index__].aok_allied_victory"),
         RetrieverObjectLink("player_count_for_diplomacy", "Units", "player_data_3[__index__].player_count_for_diplomacy"),
         RetrieverObjectLink("diplomacy_for_interaction", "Units", "player_data_3[__index__].diplomacy_for_interaction"),
@@ -94,10 +94,10 @@ class PlayerMiscSettings(AoE2Object):
 
     def __init__(self,
                  constant_name: str,
-                 initial_camera_x: float,
-                 initial_camera_y: float,
-                 unknown_similar_to_camera_x: int,
-                 unknown_similar_to_camera_y: int,
+                 editor_camera_x: float,
+                 editor_camera_y: float,
+                 initial_camera_x: int,
+                 initial_camera_y: int,
                  aok_allied_victory: int,
                  player_count_for_diplomacy: int,
                  diplomacy_for_interaction: int,
@@ -107,10 +107,10 @@ class PlayerMiscSettings(AoE2Object):
                  ):
 
         self.constant_name = constant_name
+        self.editor_camera_x = editor_camera_x
+        self.editor_camera_y = editor_camera_y
         self.initial_camera_x = initial_camera_x
         self.initial_camera_y = initial_camera_y
-        self.unknown_similar_to_camera_x = unknown_similar_to_camera_x
-        self.unknown_similar_to_camera_y = unknown_similar_to_camera_y
         self.aok_allied_victory = aok_allied_victory
         self.player_count_for_diplomacy = player_count_for_diplomacy
         self.diplomacy_for_interaction = diplomacy_for_interaction
