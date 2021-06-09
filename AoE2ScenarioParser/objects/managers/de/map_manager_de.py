@@ -16,7 +16,7 @@ class MapManagerDE(MapManager):
         RetrieverObjectLink("villager_force_drop", "Map", "villager_force_drop"),
         RetrieverObjectLink("map_width", "Map", "map_width"),
         RetrieverObjectLink("map_height", "Map", "map_height"),
-        RetrieverObjectLink("no_waves_on_shore", "Map", "no_waves_on_shore"),   # TODO: Or `AI Type` of the map?
+        RetrieverObjectLink("no_waves_on_shore", "Map", "no_waves_on_shore"),
         RetrieverObjectLink("terrain", "Map", "terrain_data", process_as_object=TerrainTile),
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
     ]
