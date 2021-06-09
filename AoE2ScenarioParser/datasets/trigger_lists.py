@@ -4,6 +4,8 @@ from enum import IntEnum
 class DiplomacyState(IntEnum):
     ALLY = 0
     NEUTRAL = 1
+    UNKNOWN = 2
+    """Never seen in scenario structure, not sure whether it makes sense or not."""
     ENEMY = 3
 
 
