@@ -481,42 +481,13 @@
 					<td>First part of player data</td>
 				</tr>
 				<tr>
-					<td>u8</td>
-					<td>1x</td>
-					<td>Conquest mode<uk title="Doesn't change if victory is set to conqest?"></uk>
-					</td>
-					<td><code>boolean</code></td>
+					<td>u32</td>
+					<td>16x</td>
+					<td>Per-player Lock Civilization</td>
+					<td><code>boolean</code> - Discoverd on 2021.6.9, version 1.41.</td>
 				</tr>
 				<tr>
-					<td>u16</td>
-					<td>1x</td>
-					<td>Mission items counter<uk title="What are missions?"></uk>
-					</td>
-					<td>Save as <code>MIC</code></td>
-				</tr>
-				<tr>
-					<td>u16</td>
-					<td>1x</td>
-					<td>Mission available<uk title="What are missions?"></uk>
-					</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>f32</td>
-					<td>1x</td>
-					<td>Mission timeline<uk title="What are missions?"></uk>
-					</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>30</td>
-					<td><code>MIC</code></td>
-					<td>Mission item<uk title="What are missions?"></uk>
-					</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>64</td>
+					<td>9</td>
 					<td>1x</td>
 					<td>Data<tbd></tbd>
 					</td>
@@ -763,7 +734,9 @@
 					<td>str16</td>
 					<td>16x</td>
 					<td>AI names</td>
-					<td></td>
+					<td>Custom="xxx.ai", HD version="AI (HD version).ai",
+						Standard="PromiDE", None="NoneAi", CD version="RandomGame".
+					</td>
 				</tr>
 				<tr>
 					<td><a href="#ai-struct">AIStruct</a></td>
@@ -774,8 +747,9 @@
 				<tr>
 					<td>u8</td>
 					<td>16x</td>
-					<td>AI type</td>
-					<td></td>
+					<td>AI types</td>
+					<td>0=Custom (AI file name with ".ai", including "AI (HD version).ai" ),
+						1=Standard, 2=None, 3=AI (CD version)</td>
 				</tr>
 				<tr>
 					<td>u32</td>
@@ -787,7 +761,7 @@
 					<td><a href="#resources-struct">ResourcesStruct</a></td>
 					<td>16x</td>
 					<td>Resources</td>
-					<td>Resources per player</td>
+					<td>Resources per player. 1st-8th players, 9th GAIA</td>
 				</tr>
 			</table>
 		</div>
@@ -874,7 +848,9 @@
 					<td>u32</td>
 					<td>1x</td>
 					<td>Player color</td>
-					<td>0: <code>blue</code>, ..., 7: <code>orange</code></td>
+					<td>0: <code>blue</code>, ..., 7: <code>orange</code>, 8: <code>white(gaia)</code>.<br>
+						Different from <code>Player Color</code> in <a href="#effect-struct">EffectDataStruct</a>.
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -898,7 +874,7 @@
 					<td>u32</td>
 					<td>1x</td>
 					<td>Conquest required</td>
-					<td><code>boolean</code></td>
+					<td><code>boolean</code> - Used in Custom mode. </td>
 				</tr>
 				<tr>
 					<td>u32</td>
@@ -910,9 +886,8 @@
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>Artifacts<uk title="Artifacts?"></uk>
-					</td>
-					<td></td>
+					<td>Artifacts required</td>
+					<td>0 to 99. Number of owning relics. Used in Custom mode. </td>
 				</tr>
 				<tr>
 					<td>u32</td>
@@ -925,32 +900,31 @@
 					<td>u32</td>
 					<td>1x</td>
 					<td>Explored % of map required</td>
+					<td>0 to 100. Used in Custom mode. </td>
+				</tr>
+				<tr>
+					<td>u32</td>
+					<td>1x</td>
+					<td>Gold required</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
-					<td>Gold</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>u32</td>
-					<td>1x</td>
-					<td>All custom conditions required<uk title="????"></uk>
-					</td>
-					<td></td>
+					<td>All custom conditions required</td>
+					<td><code>boolean</code> - Used in Custom mode. </td>
 				</tr>
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
 					<td>Mode</td>
-					<td></td>
+					<td>0=Standard, 1=Conquest, 2=Score, 3=Time Limit, 4=Custom</td>
 				</tr>
 				<tr>
 					<td>u32</td>
 					<td>1x</td>
 					<td>Required score</td>
-					<td>For Score win condition</td>
+					<td>For Score win condition. Standard=900, Conquest=4294967295(-1)</td>
 				</tr>
 				<tr>
 					<td>u32</td>
@@ -993,15 +967,33 @@
 					<td>u32</td>
 					<td>16x</td>
 					<td>Per-player allied victory</td>
-					<td><code>boolean</code> - ignored. Saved in <a href="#player-data-three-struct">Player data three
+					<td><code>boolean</code> - ignored.
+						Saved in <a href="#player-data-three-struct">Player data three</a>
 					</td>
 				</tr>
 				<tr>
-					<td>4</td>
+					<td>u8</td>
 					<td>1x</td>
-					<td>Data<tbd></tbd>
-					</td>
-					<td></td>
+					<td>Lock Teams</td>
+					<td><code>boolean</code></td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td>1x</td>
+					<td>Allow Players Choose Teams</td>
+					<td><code>boolean</code></td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td>1x</td>
+					<td>Random Start Points</td>
+					<td><code>boolean</code></td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td>1x</td>
+					<td>Max Number Of Teams</td>
+					<td>2 to 4.</td>
 				</tr>
 			</table>
 		</div>
@@ -1096,7 +1088,21 @@
 					<td>2: DarkAge, 6: PostImp | 1st-8th players, 9th GAIA</td>
 				</tr>
 				<tr>
-					<td>32</td>
+					<td>17</td>
+					<td>1x</td>
+					<td>
+						Data<tbd></tbd>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td>8x</td>
+					<td>Per-player Base Priority</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>7</td>
 					<td>1x</td>
 					<td>
 						Data<tbd></tbd>
@@ -1164,12 +1170,6 @@
 					<td>name of xs file (.xs not included) - Newly introduced in version 1.40 (Game update: 42848)</td>
 				</tr>
 				<tr>
-					<td>str16</td>
-					<td>1x</td>
-					<td>Block humanity team change</td>
-					<td> - Newly introduced in version 1.41 (Game update: 44725)</td>
-				</tr>
-				<tr>
 					<td>u8</td>
 					<td>1x</td>
 					<td>Collide and Correcting</td>
@@ -1182,33 +1182,96 @@
 					<td><code>boolean</code> - Newly introduced in version 1.37 (Game update: 35584)</td>
 				</tr>
 				<tr>
-					<td>128</td>
+					<td>8</td>
+					<td>1x</td>
+					<td>Data<tbd></tbd></td>
+					<td>2 * 0xFFFFFFFF</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 1 Initial Camera X&Y</td>
+					<td>Default=0xFFFFFFFF ([-1, -1]).<br>
+						Changed after clicking button "Set View" in Editor.<br>
+						It seems to be dominant than <code>player_initial_camera_x</code> in
+						<a href="#player-data-three-struct">Player data three</a>.
+					</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 2 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 3 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 4 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 5 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 6 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 7 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>s32</td>
+					<td>2x</td>
+					<td>Player 8 Initial Camera X&Y</td>
+					<td>Same as above.</td>
+				</tr>
+				<tr>
+					<td>56</td>
 					<td>1x</td>
 					<td>
 						Data<tbd></tbd>
 					</td>
-					<td></td>
+					<td>14 * 0xFFFFFFFF</td>
+				</tr>
+				<tr>
+					<td>u8</td>
+					<td>1x</td>
+					<td>Block humanity team change</td>
+					<td><code>boolean</code> - Newly introduced in version 1.41 (Game update: 44725)</td>
 				</tr>
 				<tr>
 					<td>s32</td>
 					<td>1x</td>
-					<td>Player 1 camera X<uk title="Unrealistic values (Example: -559026163)"></uk>
+					<td>Data<uk title="Unrealistic values (Example: -559026163)"></uk>
 					</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>s32</td>
 					<td>1x</td>
-					<td>Player 1 camera Y<uk title="Unrealistic values (Example: -559026163)"></uk>
+					<td>Data<uk title="Unrealistic values (Example: 2)"></uk>
 					</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>s8</td>
 					<td>1x</td>
-					<td>AI Type<uk title="No waves on shore?"></uk>
-					</td>
-					<td></td>
+					<td>No waves on shore</td>
+					<td><code>boolean</code> - Newly introduced in version 1.37 (Game update: 35584)</td>
 				</tr>
 				<tr>
 					<td>s32</td>
@@ -1397,28 +1460,33 @@
 				<tr>
 					<td>f32</td>
 					<td>1x</td>
-					<td>Initial Camera, X</td>
-					<td></td>
+					<td>Editor Camera, X<uk title="Not only used in testing?"></uk></td>
+					<td>In Editor, if current player is N, the coordinate will be saved in player N's struct.<br>
+						But unknown whose coordinate makes sense when loading scenario in Editor,
+						seems not to be player 1?<br>
+						Seems that it will be disturbed by legacy memory of DE program when saving scenario in Editor?
+					</td>
 				</tr>
 				<tr>
 					<td>f32</td>
 					<td>1x</td>
-					<td>Initial Camera, Y</td>
-					<td></td>
+					<td>Editor Camera, Y<uk title="Not only used in testing?"></uk></td>
+					<td>Same as above.</td>
 				</tr>
 				<tr>
 					<td>s16</td>
 					<td>1x</td>
-					<td>Unknown<uk title="Not similar"></uk>
+					<td>Initial Camera, X <uk title="Used in game-play?"></uk></td>
+					<td>Default=72(middle of 144*144 map).<br>
+						Changed after clicking button "Set View" in Editor (player 1, 2 only?).<br>
+						Also changed after generating a random map with units (all player).
 					</td>
-					<td>Similar to camera X</td>
 				</tr>
 				<tr>
 					<td>s16</td>
 					<td>1x</td>
-					<td>Unknown<uk title="Not similar"></uk>
-					</td>
-					<td>Similar to camera Y</td>
+					<td>Initial Camera, Y <uk title="Used in game-play?"></uk></td>
+					<td>Same as above.</td>
 				</tr>
 				<tr>
 					<td>u8</td>
@@ -2362,11 +2430,9 @@
 					<td>Path to <code>xs</code> file. Includes the '.xs'</td>
 				</tr>
 				<tr>
-					<td>4</td>
+					<td>str16</td>
 					<td>1x</td>
-					<td>
-						Unknown<tbd></tbd>
-					</td>
+					<td>Script File Content</td>
 					<td></td>
 				</tr>
 				<tr>
