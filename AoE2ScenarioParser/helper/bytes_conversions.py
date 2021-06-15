@@ -107,8 +107,9 @@ def parse_val_to_bytes(retriever, val):
         raise ValueError(f"Unable to parse value to bytes with unknown type: ({var_type})")
 
 
-def parse_bytes_to_val(retriever, byte_elements):
-    var_type, var_len = retriever.datatype.type_and_length
+def parse_bytes_to_val(retriever, byte_elements, var_type='', var_len=0):
+    if retriever:       # retriever=None => use type and length that are from parameters.
+        var_type, var_len = retriever.datatype.type_and_length
 
     if var_type == "u" or var_type == "s":
         return bytes_to_int(byte_elements, signed=(var_type == "s"))
