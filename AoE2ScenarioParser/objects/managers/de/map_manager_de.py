@@ -1,7 +1,7 @@
 from typing import List
 
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
-from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
+from AoE2ScenarioParser.sections.terrain_struct import TerrainStruct
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
@@ -17,7 +17,7 @@ class MapManagerDE(MapManager):
         RetrieverObjectLink("map_width", "Map", "map_width"),
         RetrieverObjectLink("map_height", "Map", "map_height"),
         RetrieverObjectLink("no_waves_on_shore", "Map", "no_waves_on_shore"),
-        RetrieverObjectLink("terrain", "Map", "terrain_data", process_as_object=TerrainTile),
+        RetrieverObjectLink("terrain", "Map", "terrain_data"),
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
     ]
 
@@ -30,7 +30,7 @@ class MapManagerDE(MapManager):
                  no_waves_on_shore: bool,
                  map_width: int,
                  map_height: int,
-                 terrain: List[TerrainTile],
+                 terrain: TerrainStruct,
                  script_name: str
                  ):
 

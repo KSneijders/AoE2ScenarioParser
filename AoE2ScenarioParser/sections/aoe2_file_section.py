@@ -11,7 +11,7 @@ from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, i
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicate_retriever_map, reset_retriever_map
-
+from AoE2ScenarioParser.sections.terrain_struct import TerrainStruct
 
 class SectionLevel(Enum):
     TOP_LEVEL = 0
@@ -86,16 +86,23 @@ class AoE2FileSection:
                 if retriever.datatype.type == "struct":
                     retriever.data = []
                     struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") >> Removing struct naming prefix
-                    for _ in range(retriever.datatype.repeat):
-                        model = self.struct_models.get(struct_name)
-                        if model is None:
-                            raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
+                    model = self.struct_models.get(struct_name)
+                    if model is None:
+                        raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
 
-                        struct = AoE2FileSection.from_model(model)
-                        struct.set_data_from_generator(igenerator, sections)
-                        retriever.data.append(struct)
+                    if struct_name == 'TerrainStruct':
+                        struct = TerrainStruct(tiles_count=retriever.datatype.repeat, struct_model=model)
+                        struct.set_data_from_generator(igenerator)
+                        retriever.data = struct
+                        retriever.is_list = False
+                        total_length = struct.byte_length
+                    else:
+                        for _ in range(retriever.datatype.repeat):
+                            struct = AoE2FileSection.from_model(model)
+                            struct.set_data_from_generator(igenerator, sections)
+                            retriever.data.append(struct)
 
-                        total_length += struct.byte_length
+                            total_length += struct.byte_length
                 else:
                     retrieved_bytes = bytes_parser.retrieve_bytes(igenerator, retriever)
                     retriever.set_data_from_bytes(retrieved_bytes)

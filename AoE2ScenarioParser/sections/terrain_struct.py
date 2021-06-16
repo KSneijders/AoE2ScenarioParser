@@ -1,4 +1,5 @@
 import re
+from math import sqrt
 from typing import List, Tuple, Union, Dict
 from pandas import Series, DataFrame   # TODO: add to requirements.txt
 
@@ -7,11 +8,27 @@ from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel
 
+
+DTypeMap = {
+    'c': '|S',
+    'u': 'uint',
+    's': 'int',
+    'str': 'str',
+    'data': '|S',   # numpy.bytes_, A byte string. (When used in arrays, this type strips trailing null bytes)
+    'f': 'float',
+}
+"""Custom data types -> pandas.dtype or numpy.dtype (prefix only)"""
+
+
 class TerrainStruct:
-    def __init__(self, map_size, struct_model: AoE2StructModel):
-        self.map_size = map_size
-        self.tiles_count = map_size * map_size
+    def __init__(self, tiles_count, struct_model: AoE2StructModel):
+        self.map_size = int(sqrt(tiles_count))
+        self.tiles_count = tiles_count
+        assert (self.map_size ** 2 == tiles_count), \
+            f"Square of map_size {self.map_size} not equals to tiles_count {tiles_count}."
         self.struct_model = struct_model
+        self.byte_length: int = -1
+
         # Prepare attrs lists.
         self.attrs_names = []       # ['terrain_id', 'elevation', 'unused', 'layer']
         self.attrs_types = []       # ['u', 'u', 'data', 's']
@@ -22,31 +39,38 @@ class TerrainStruct:
             self.attrs_types.append(var_type)
             self.attrs_lengths.append(var_len)
         self.each_tile_length = sum(self.attrs_lengths)      # Each tile's bytes length. Normally is 7.
+
         self.data = DataFrame()
         """You can locate one tile by `get_tile_by_xy(x, y)`, or by `data.loc[index]`."""
 
+    # --------------------------------------------------------
+    #                     Internal Methods
+    # --------------------------------------------------------
 
     def set_data_from_generator(self, igenerator: IncrementalGenerator):
         """Read, parse and store all Tiles data from igenerator into a DataFrame in one time."""
-        bytes_list = self.read_and_parse_content(igenerator)
+        bytes_list, bytes_length = self.read_and_split_content(igenerator)
         all_tiles_df = DataFrame(bytes_list, columns=self.attrs_names)
         #    terrain_id elevation           unused        layer
         # 0     b'\x0f'   b'\x1a'  b'\xc6\xee\xcc'  b'\x10\x00'
         # 1     b'\x0f'   b'\x1a'  b'\xc6\xee\xcc'  b'\x10\x00'
 
-        # For each Tile attribute column, execute the conversion of bytes→value
         for i, attr_name in enumerate(self.attrs_names):
             attr_type = self.attrs_types[i]
             attr_length = self.attrs_lengths[i]
-            if attr_type == "data":
-                continue
             # Select each column, and convert each cell within the column into a corresponding value
             all_tiles_df[attr_name] = all_tiles_df[attr_name].apply(self.bytes_to_value, args=(attr_type, attr_length))
             #    terrain_id  elevation           unused  layer
             # 0          15         26  b'\xc6\xee\xcc'     16
             # 1          15         26  b'\xc6\xee\xcc'     16
 
+            # Limit values to fixed type and length (currently useless because it can't lock type when editing value).
+            # all_tiles_df[attr_name] = all_tiles_df[attr_name].astype(self.type_to_dtype(attr_type, attr_length))
         self.data = all_tiles_df
+        self.byte_length = bytes_length
+
+
+    # TODO: Write methods, to be compatible with AoE2Scenario.write_to_file()
 
 
     # --------------------------------------------------------
@@ -79,11 +103,14 @@ class TerrainStruct:
         for attr_name, value in attrs_values.items():
             if attr_name not in self.attrs_names:
                 raise KeyError(f"The given attribute '{attr_name}'  is not existed in tile's attributes.")
-            if type(value) is not type(self.data.at[index, attr_name]):
-                raise ValueError(f"The given value's type {type(value)} is not in line with norm.")
             # TODO: verify datatype (int vs u8, etc.)
+            previous_type = type(self.data.at[index, attr_name])
 
             self.data.at[index, attr_name] = value      # at[row_index, column_title]
+
+            new_type = type(self.data.at[index, attr_name])
+            if new_type != previous_type:
+                raise TypeError(f"The type of new value should be {previous_type}, but got: {new_type}.")
 
 
     # TODO: Expand or shrink map size
@@ -95,13 +122,17 @@ class TerrainStruct:
     #                     Helper Functions
     # --------------------------------------------------------
 
-    def read_and_parse_content(self, igenerator: IncrementalGenerator) -> List[Tuple]:
+    def read_and_split_content(self, igenerator: IncrementalGenerator) -> Tuple[List[Tuple], int]:
+        """Read all bytes of all tiles, split them into List[(attr1, attr2 ...)], and returns the length of all
+        bytes by the way."""
         section_bytes = igenerator.get_bytes(self.tiles_count * self.each_tile_length)
         # 7 bytes as one Tile, split the data, make a DataFrame table
         re_rule = b""
         for length in self.attrs_lengths:
             re_rule += b"(.{%d})" % length      # b"(.{1})(.{1})(.{3})(.{2})"
-        return re.findall(re_rule, section_bytes)
+        bytes_list = re.findall(re_rule, section_bytes)
+        bytes_length = len(section_bytes)
+        return bytes_list, bytes_length
 
     def chech_if_xy_outside_map(self, x, y) -> int:
         index = xy_to_i(x, y, self.map_size)
@@ -110,10 +141,6 @@ class TerrainStruct:
         else:
             return index
 
-
-    # --------------------------------------------------------
-    #                     Static Methods
-    # --------------------------------------------------------
 
     @staticmethod
     def bytes_to_value(cell_data, type_, length_):
@@ -130,3 +157,23 @@ class TerrainStruct:
         #     return cell_data
         else:
             return parse_bytes_to_val(None, cell_data, type_, length_)
+
+    @staticmethod
+    def type_to_dtype(type_, length_) -> str:
+        """Custom data type -> pandas.dtype / numpy.dtype"""
+        if type_ in ['u', 's', 'f']:
+            dtype_prefix = DTypeMap[type_]
+            return dtype_prefix + str(length_ * 8)
+        elif type_ in ['data', 'c']:
+            return 'bytes'
+        elif type_ == 'str':
+            return type_
+        else:
+            raise ValueError(f"Unknown type: ({type_})")
+
+
+    # --------------------------------------------------------
+    #                     Debug Methods
+    # --------------------------------------------------------
+
+    # TODO: Write debug methods according to AoE2FileSection.get_byte_structure_as_string() and
