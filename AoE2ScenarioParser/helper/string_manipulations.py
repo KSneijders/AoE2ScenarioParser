@@ -36,6 +36,8 @@ def add_suffix_chars(string, char, total_length):
 def q_str(value: any) -> str:
     if type(value) is str:
         return f"'{value}'"
+    if type(value) is bytes:
+        return f"b'{value.hex()}'"
     return str(value)
 
 
