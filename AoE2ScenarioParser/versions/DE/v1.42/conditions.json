@@ -190,7 +190,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "inverted"
+            "inverted",
+            "object_state"
         ],
         "default_attributes": {
             "condition_type": 5,
