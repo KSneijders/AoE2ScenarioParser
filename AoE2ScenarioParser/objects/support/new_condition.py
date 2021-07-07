@@ -102,6 +102,7 @@ class NewConditionSupport:
             object_group: Union[int, None] = None,
             object_type: Union[int, None] = None,
             inverted: Union[int, None] = None,
+            object_state: Union[int, None] = None,
     ) -> Condition:
         return self.trigger_ref._add_condition(
             ConditionId.OBJECTS_IN_AREA,
@@ -115,6 +116,7 @@ class NewConditionSupport:
             object_group=object_group,
             object_type=object_type,
             inverted=inverted,
+            object_state=object_state,
         )
 
     def destroy_object(

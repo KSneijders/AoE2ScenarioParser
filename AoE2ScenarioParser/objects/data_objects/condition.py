@@ -45,6 +45,8 @@ class Condition(AoE2Object):
                             "trigger_data[__index__].condition_data[__index__].comparison"),
         RetrieverObjectLink("target_player", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].target_player"),
+        RetrieverObjectLink("object_state", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].object_state", Support(since=1.42)),
         RetrieverObjectLink("xs_function", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].xs_function", Support(since=1.40)),
         RetrieverObjectLink("unit_ai_action", "Triggers",
@@ -73,6 +75,7 @@ class Condition(AoE2Object):
                  comparison: int = None,
                  target_player: IntEnum = None,
                  unit_ai_action: int = None,
+                 object_state: int = None,
                  xs_function: str = None,
                  ):
         raise_if_not_int_subclass([object_list, technology])
@@ -98,6 +101,7 @@ class Condition(AoE2Object):
         self.comparison: int = comparison
         self.target_player: int = target_player
         self.unit_ai_action: int = unit_ai_action
+        self.object_state: int = object_state
         self.xs_function: str = xs_function
 
         super().__init__()
