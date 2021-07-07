@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.10 - 2021-July-08
+
+**Support for the new 50292 update!**
+
+### Added 
+
+- Support for the new `1.42` scenario file version.
+- The new attribute for conditions: `object_state` (Used in `objects_in_area`)
+- The new `ChangeColorMood` effect (`trigger.new_effect.change_color_mood(...)`).
+- The `ColorMood` and `ObjectState` dataset. 
+
+---
+
 ## 0.1.9 - 2021-June-02
 
 **More datasets! Some from the newest [47820] update!**
