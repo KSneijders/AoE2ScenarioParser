@@ -80,6 +80,8 @@ class Effect(AoE2Object):
         RetrieverObjectLink("play_sound", "Triggers", "trigger_data[__index__].effect_data[__index__].play_sound"),
         RetrieverObjectLink("player_color", "Triggers", "trigger_data[__index__].effect_data[__index__].player_color",
                             Support(since=1.40)),
+        RetrieverObjectLink("color_mood", "Triggers", "trigger_data[__index__].effect_data[__index__].color_mood",
+                            Support(since=1.42)),
         RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message"),
         RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name"),
         RetrieverObjectLink("selected_object_ids", "Triggers",
@@ -133,6 +135,7 @@ class Effect(AoE2Object):
                  facet: int = None,
                  play_sound: int = None,
                  player_color: int = None,
+                 color_mood: int = None,
                  message: str = None,
                  sound_name: str = None,
                  selected_object_ids: List[int] = None,
@@ -188,6 +191,7 @@ class Effect(AoE2Object):
         self.facet: int = facet
         self.play_sound: int = play_sound
         self.player_color: int = player_color
+        self.color_mood: int = color_mood
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids

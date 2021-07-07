@@ -7,7 +7,7 @@ from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, ButtonLocation, PanelLocation, \
     TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, ObjectAttribute, Attribute, \
     UnitAIAction, AttackStance, ObjectType, ObjectClass, DamageClass, HeroStatusFlag, Hotkey, BlastLevel, \
-    TerrainRestrictions
+    TerrainRestrictions, ColorMood, ObjectState
 
 # Information of unit/building/hero and tech IDs
 from AoE2ScenarioParser.datasets.projectiles import ProjectileInfo
@@ -82,6 +82,8 @@ Many conditions and effects have dropdown lists with options. These options are,
 | Hotkey              | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`.                 | `Hotkey.SPACE`                     |
 | BlastLevel          | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute`. | `BlastLevel.NEARBY_UNITS`          |
 | TerrainRestrictions | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`.    | `TerrainRestrictions.LAND`         |
+| ColorMood           | Used in the `Change Color Mood` effect.                                        | `ColorMood.WINTER`                 |
+| ObjectState         | Used in the `Objects in area` condition.                                       | `ObjectState.DEAD`                 |
 
 \*: Means extra functionality listed below.
 

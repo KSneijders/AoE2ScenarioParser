@@ -155,7 +155,7 @@ class Trigger(AoE2Object):
                     flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
                     operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
                     object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-                    player_color=None, sound_name=None, selected_object_ids=None) -> Effect:
+                    player_color=None, sound_name=None, selected_object_ids=None, color_mood=None) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
@@ -180,7 +180,8 @@ class Trigger(AoE2Object):
                        attribute=None, unit_object=None, next_object=None, object_list=None,
                        source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
                        area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None) -> Condition:
+                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None
+                       ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):

@@ -1062,3 +1062,22 @@ class Hotkey(IntEnum):
     F7 = 9840
     F8 = 1152
     F15 = 10661
+
+
+class ColorMood(IntEnum):
+    DEFAULT = 0
+    AUTUMN = 1
+    WINTER = 2
+    JUNGLE = 3
+    DESERT = 4
+
+
+class ObjectState(IntEnum):
+    FOUNDATION = 0
+    ALMOST_ALIVE = 1
+    ALIVE = 2
+    RESOURCE = 3
+    DYING = 4
+    DEAD = 5
+    UNDEAD = 6
+    REMOVE = 7

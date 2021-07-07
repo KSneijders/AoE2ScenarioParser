@@ -1358,3 +1358,13 @@ class NewEffectSupport:
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
         )
+
+    def change_color_mood(
+            self,
+            quantity: Union[int, None] = None,
+            color_mood: Union[int, None] = None):
+        return self.trigger_ref._add_effect(
+            EffectId.CHANGE_COLOR_MOOD,
+            quantity=quantity,
+            color_mood=color_mood
+        )

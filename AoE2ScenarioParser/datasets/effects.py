@@ -576,6 +576,10 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids"""
+    CHANGE_COLOR_MOOD = 72
+    """Attributes for the **change_color_mood** effect are: \n
+    - quantity
+    - color_mood"""
     # Possibly used for marking when achievements should be achieved. Doesn't seem to work in scenario's. F
     # UNKNOWN_0 = 58  # Was 58... Not anymore (?)
 
