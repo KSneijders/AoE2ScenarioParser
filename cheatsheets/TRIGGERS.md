@@ -11,7 +11,7 @@ and effect to it:
 ```py
 from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.datasets.units import UnitId
+from AoE2ScenarioParser.datasets.units import UnitInfo
 
 # File & Folder setup
 # Define paths to scenario, you can find this folder by opening AoE2:DE and going to scenarios and clicking on 'open folder'
@@ -30,11 +30,13 @@ timer_condition = trigger.new_condition.timer(timer=20)
 
 # Add Create Object Effect
 create_paladin_effect = trigger.new_effect.create_object(
-    object_list_unit_id=UnitId.PALADIN,
+    object_list_unit_id=UnitInfo.PALADIN.ID,
     source_player=PlayerId.ONE,
     location_x=5,
     location_y=4,
 )
+
+scenario.write_to_file(scenario_folder + "OUTPUT_NAME_TO_BE_WRITTEN.aoe2scenario")
 ```
 
 ## Select existing Triggers
@@ -122,7 +124,7 @@ Triggers:
                 inverted: 0
         effects:
             create_object [Index: 0, Display: 0]:
-                object_list_unit_id: UnitId.PALADIN
+                object_list_unit_id: UnitInfo.PALADIN.ID
                 source_player: PlayerId.ONE
                 location_x: 5
                 location_y: 4
