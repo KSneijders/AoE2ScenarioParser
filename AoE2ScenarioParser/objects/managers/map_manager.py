@@ -58,7 +58,7 @@ class MapManager(AoE2Object):
                 self.terrain.append(
                     TerrainTile(
                         TerrainId.GRASS_1,
-                        elevation=1,
+                        elevation=0,
                         layer=-1
                     )
                 )
