@@ -719,6 +719,7 @@
             "facet": 0,
             "play_sound": -1,
             "player_color": -1,
+            "color_mood": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1319,6 +1320,7 @@
             "facet": -1,
             "play_sound": 0,
             "player_color": -1,
+            "color_mood": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2450,6 +2452,7 @@
             "facet": -1,
             "play_sound": -1,
             "player_color": -1,
+            "color_mood": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3704,6 +3707,7 @@
             "facet": -1,
             "play_sound": -1,
             "player_color": -1,
+            "color_mood": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3767,6 +3771,7 @@
             "facet": -1,
             "play_sound": -1,
             "player_color": 0,
+            "color_mood": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4630,7 +4635,7 @@
             "facet": -1,
             "play_sound": -1,
             "player_color": -1,
-            "color_mood": -1,
+            "color_mood": 0,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []

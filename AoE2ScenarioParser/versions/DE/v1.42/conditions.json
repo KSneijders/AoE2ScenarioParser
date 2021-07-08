@@ -988,6 +988,7 @@
             "comparison": -1,
             "target_player": -1,
             "unit_ai_action": 0,
+            "object_state": -1,
             "xs_function": ""
         }
     },
