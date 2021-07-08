@@ -694,7 +694,7 @@
             "object_attributes": -1,
             "variable": -1,
             "timer": -1,
-            "facet": 0,
+            "facet": -1,
             "play_sound": -1,
             "message": "",
             "sound_name": "",
