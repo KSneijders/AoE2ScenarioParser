@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.11 - 2021-July-08
+
+### Fixed
+
+- Issue with adding effects to any trigger [Issue #21].
+
+[issue #21]: https://github.com/KSneijders/AoE2ScenarioParser/issues/21
+
+---
+
 ## 0.1.10 - 2021-July-08
 
 **Support for the new 50292 update!**
@@ -21,7 +31,7 @@ The format is based on [Keep a Changelog]
 
 ## 0.1.9 - 2021-June-02
 
-**More datasets! Some from the newest [47820] update!**
+**More datasets! Including some from the newest [47820] update!**
 
 [47820]: https://www.ageofempires.com/news/aoe2de-update-47820/
 
