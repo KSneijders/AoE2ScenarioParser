@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class AoE2Object:
     _link_list: List[RetrieverObjectLink] = []
-    _overwritten_attributes = []
+    # _overwritten_attributes = []
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
@@ -43,10 +43,7 @@ class AoE2Object:
 
         object_parameters = {}
         for link in cls._link_list:
-            object_parameters[link.name] = link.construct(sections, scenario_version, number_hist=number_hist)
-
-            if link.support is not None and not link.support.supports(scenario_version) and \
-                    link.name not in AoE2Object._overwritten_attributes:
+            if link.support is not None and not link.support.supports(scenario_version):
                 error_msg = f_unsupported_string(link, scenario_version)
 
                 def _get(self):
@@ -57,7 +54,9 @@ class AoE2Object:
                         raise UnsupportedAttributeError(error_msg)
 
                 setattr(cls, link.name, property(_get, _set))
-                AoE2Object._overwritten_attributes.append(link.name)
+                object_parameters[link.name] = None
+            else:
+                object_parameters[link.name] = link.construct(sections, scenario_version, number_hist=number_hist)
 
         obj = cls(**object_parameters)
         obj._sections = sections

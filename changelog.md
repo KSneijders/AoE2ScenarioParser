@@ -10,7 +10,11 @@ The format is based on [Keep a Changelog]
 
 ### Added
 
-- Support for the old `1.36` scenario file version (Used for many campaign scenarios)
+- Support for the old `1.36` scenario file version. (Used for many campaign scenarios)
+
+### Fixed
+
+- Issue in manager construction phase while loading older scenarios.
 
 ---
 
