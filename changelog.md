@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.12 - Unreleased
+
+### Added
+
+- Support for the old `1.36` scenario file version (Used for many campaign scenarios)
+
+---
+
 ## 0.1.11 - 2021-July-08
 
 ### Fixed

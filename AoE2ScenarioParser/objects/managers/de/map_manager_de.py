@@ -11,7 +11,7 @@ class MapManagerDE(MapManager):
     _link_list = [
         RetrieverObjectLink("map_color_mood", "Map", "map_color_mood"),
         RetrieverObjectLink("collide_and_correct", "Map", "collide_and_correct"),
-        RetrieverObjectLink("villager_force_drop", "Map", "villager_force_drop"),
+        RetrieverObjectLink("villager_force_drop", "Map", "villager_force_drop", Support(since=1.37)),
         RetrieverObjectLink("map_width", "Map", "map_width"),
         RetrieverObjectLink("map_height", "Map", "map_height"),
         RetrieverObjectLink("terrain", "Map", "terrain_data", process_as_object=TerrainTile),
