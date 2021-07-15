@@ -12,7 +12,7 @@ Contents
 
    install
    getting_started
-   examples/triggers
-   examples/units
-   examples/datasets
+   cheatsheets/triggers
+   cheatsheets/units
+   cheatsheets/datasets
    support
