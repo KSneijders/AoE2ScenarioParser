@@ -18,7 +18,7 @@ class RetrieverObjectLink:
                  retrieve_history_number: int = -1
                  ):
         if sum([link is not None, retrieve_instance_number, (retrieve_history_number != -1)]) != 1:
-            raise ValueError("You must use one parameter from 'link' and the two 'retrieve...number' parameters.")
+            raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
 
         self.name: str = variable_name
         self.section_name = section_name
@@ -53,7 +53,7 @@ class RetrieverObjectLink:
                     else:
                         value = getattr(value, item)
                 except AttributeError as e:
-                    # Maybe not supported in current version. if not supported has been defined -> ignore
+                    # Maybe not supported in current version. if actually not supported -> ignore
                     if self.support is not None:
                         if not self.support.supports(scenario_version):
                             value = None
@@ -68,15 +68,11 @@ class RetrieverObjectLink:
         object_list = []
         for index, struct in enumerate(value_list):
             object_list.append(
-                self.process_as_object._construct(
-                    sections,
-                    scenario_version,
-                    number_hist=instance_number_history + [index]
-                )
+                self.process_as_object._construct(scenario_version, sections, instance_number_history + [index])
             )
         return object_list
 
-    def commit(self, sections, host_obj: AoE2Object):
+    def commit(self, sections, scenario_version, host_obj: AoE2Object):
         # Object-only attributes for the ease of access of information.
         # Not actually representing a value in the scenario file.
         if self.retrieve_instance_number or self.retrieve_history_number >= 0:
@@ -93,17 +89,24 @@ class RetrieverObjectLink:
         section: AoE2FileSection = sections[self.section_name]
 
         if self.is_special_unit_case:
-            self._commit_special_unit_case(sections, value)
+            self._commit_special_unit_case(sections, value, scenario_version)
             return
 
         # Retrieve value without using eval() -- Eval is slow
         retriever = None
         file_section = section
         for index, item in enumerate(self.splitted_link):
-            if "[" in item:
-                file_section = getattr(file_section, item[:-11])[number_hist[index]]
-            else:
-                retriever = file_section.retriever_map[item]
+            try:
+                if "[" in item:
+                    file_section = getattr(file_section, item[:-11])[number_hist[index]]
+                else:
+                    retriever = file_section.retriever_map[item]
+            except KeyError as e:
+                # Maybe not supported in current version. if actually not supported -> ignore
+                if self.support is not None:
+                    if not self.support.supports(scenario_version):
+                        return
+                raise e
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to find retriever")
@@ -121,7 +124,7 @@ class RetrieverObjectLink:
             struct_model = file_section.struct_models[struct_name]
 
             RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value))
-            RetrieverObjectLink.commit_object_list(value, sections, host_obj._instance_number_history)
+            RetrieverObjectLink.commit_object_list(value, sections, host_obj._instance_number_history, scenario_version)
         else:
             retriever.data = value
 
@@ -129,12 +132,12 @@ class RetrieverObjectLink:
             handle_retriever_dependency(retriever, "commit", file_section, sections)
 
     @staticmethod
-    def commit_object_list(object_list, sections, instance_number_history):
+    def commit_object_list(object_list, sections, instance_number_history, scenario_version):
         obj: AoE2Object
         for index, obj in enumerate(object_list):
             obj._sections = sections
             obj._instance_number_history = instance_number_history + [index]
-            obj.commit()
+            obj.commit(scenario_version)
 
     @staticmethod
     def update_retriever_length(retriever, model, new_len):
@@ -167,7 +170,7 @@ class RetrieverObjectLink:
                     units.append(self.process_object_list(player_units, [player], sections, scenario_version))
         return units
 
-    def _commit_special_unit_case(self, sections, value):
+    def _commit_special_unit_case(self, sections, value, scenario_version):
         for player, player_unit in enumerate(value):
             player_unit_retriever = sections["Units"].players_units[player]
             retriever_list = player_unit_retriever.retriever_map.values()
@@ -176,7 +179,7 @@ class RetrieverObjectLink:
             struct_model = player_unit_retriever.struct_models["UnitStruct"]
 
             RetrieverObjectLink.update_retriever_length(units, struct_model, len(value[player]))
-            RetrieverObjectLink.commit_object_list(player_unit, sections, [player])
+            RetrieverObjectLink.commit_object_list(player_unit, sections, [player], scenario_version)
 
             for retriever in retriever_list:
                 if hasattr(retriever, 'on_commit'):

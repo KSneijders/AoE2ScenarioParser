@@ -37,7 +37,7 @@ class AoE2Object:
         return val
 
     @classmethod
-    def _construct(cls, sections: Dict[str, AoE2FileSection], scenario_version, number_hist=None):
+    def _construct(cls, scenario_version, sections: Dict[str, AoE2FileSection], number_hist=None):
         if number_hist is None:
             number_hist = []
 
@@ -64,18 +64,21 @@ class AoE2Object:
 
         return obj
 
-    def commit(self, sections=None, local_link_list=None):
+    def commit(self, scenario_version, sections=None, local_link_list=None):
         """
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
             sections (Dict[str, AoE2FileSection]): A list of sections to reference where to commit to.
                 If left empty, the sections default to the sections where this object was constructed from.
+            scenario_version (str): The current scenario version
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
         """
         if self._sections == {} and sections is None:
             raise ValueError("Unable to commit object. No reference to sections set.")
+        if scenario_version is None:
+            raise ValueError("Scenario version cannot be None.")
 
         if local_link_list is None:
             local_link_list = self._link_list
@@ -83,7 +86,7 @@ class AoE2Object:
             sections = self._sections
 
         for link in local_link_list[::-1]:
-            link.commit(sections, host_obj=self)
+            link.commit(sections, scenario_version, host_obj=self)
 
     @staticmethod
     def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:
