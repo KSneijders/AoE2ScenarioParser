@@ -3282,6 +3282,8 @@
         "attributes": [
             "effect_type",
             "quantity",
+            "armour_attack_quantity",
+            "armour_attack_class",
             "object_list_unit_id",
             "source_player",
             "item_id",

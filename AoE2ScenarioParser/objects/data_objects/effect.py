@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import List
+from typing import List, Tuple
 
 from AoE2ScenarioParser.datasets import effects
+from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.helper.bytes_conversions import int_to_bytes, bytes_to_int
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -142,6 +144,14 @@ class Effect(AoE2Object):
                  ):
         raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
 
+        # In DE a specific rule for saving Modify Attribute with attribute 8 or 9 is used where quantity is not used.
+        self._modify_attribute_armour_attack_flag = \
+            effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [8, 9]
+
+        if self._modify_attribute_armour_attack_flag:
+            armour_attack_quantity, armour_attack_class = _quantity_to_qaa(quantity)
+            quantity = None
+
         if selected_object_ids is None:
             selected_object_ids = []
 
@@ -199,6 +209,19 @@ class Effect(AoE2Object):
         super().__init__()
 
     @property
+    def quantity(self):
+        if self._modify_attribute_armour_attack_flag:
+            return _qaa_to_quantity(self.armour_attack_quantity, self.armour_attack_class)
+        return self._quantity
+
+    @quantity.setter
+    def quantity(self, value):
+        if value is not None and self._modify_attribute_armour_attack_flag:
+            raise ValueError("Cannot set quantity when using Modify Attribute effect with armor or attack attribute. "
+                             "Use the 'armour_attack_class' and 'armour_attack_quantity' attributes instead.")
+        self._quantity = value
+
+    @property
     def selected_object_ids(self) -> List[int]:
         return self._selected_object_ids
 
@@ -218,9 +241,45 @@ class Effect(AoE2Object):
             attribute_value = getattr(self, attribute)
             if attribute == "effect_type" or attribute_value in [[], [-1], "", " ", -1]:
                 continue
+            # Ignore the quantity value in the print statement when flag is True.
+            if self._modify_attribute_armour_attack_flag and attribute == "quantity":
+                continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"
 
         if return_string == "":
             return "\t\t\t\t<< No Attributes >>\n"
 
         return return_string
+
+
+def _quantity_to_qaa(quantity: int) -> Tuple[int, int]:
+    """
+    A function to convert the initial quantity value to the quantity and armor/attack values.
+    Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
+
+    Args:
+        quantity (int): the initial quantity value
+
+    Returns:
+        The one byte quantity as int and one byte armor/attack value as int
+    """
+    one_byte_quantity, one_byte_aa, _, _ = int_to_bytes(quantity, 4)
+    # Parsing to int is redundant atm, splitting bytes into len == 1 automagically converts it to an int.
+    return one_byte_quantity, one_byte_aa
+
+def _qaa_to_quantity(q: int, aa: int) -> int:
+    """
+    A function to convert the quantity and armor/attack field to a quantity value.
+    Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
+
+
+    Args:
+        q (int): the armor quantity value
+        aa (int): the armor/attack value
+
+    Returns:
+        The one byte quantity and one byte armor/attack value
+    """
+    q_bytes = int_to_bytes(q, 1)
+    aa_bytes = int_to_bytes(aa, 1)
+    return bytes_to_int(q_bytes + aa_bytes + b'\x00\x00')

@@ -14,7 +14,9 @@ The format is based on [Keep a Changelog]
 
 ### Fixed
 
+- Issue with the `quantity` field with the effect `Modify Attribute` when choosing attribute `Attack` or `Armor`.
 - Issue in manager construction phase while loading older scenarios.
+- Issue with when committing `RetrieverObjectLink` with `support` attribute.
 
 ---
 
