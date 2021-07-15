@@ -15,4 +15,5 @@ Contents
    cheatsheets/triggers
    cheatsheets/units
    cheatsheets/datasets
+   questions/trigger_related
    support
