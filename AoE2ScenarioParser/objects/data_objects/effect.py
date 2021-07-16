@@ -144,7 +144,7 @@ class Effect(AoE2Object):
         # Set flags
         self._armour_attack_flag = _set_armour_attack_flag(effect_type, object_attributes)
 
-        if self._armour_attack_flag and quantity:
+        if self._armour_attack_flag and quantity is not None:
             armour_attack_quantity, armour_attack_class = _quantity_to_aa(quantity)
             quantity = None
 
