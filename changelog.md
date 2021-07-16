@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.12 - 2021-July-16
+
+### Added
+
+- Support for the old `1.36` scenario file version. (Used for many campaign scenarios)
+- Colourful print statements!
+- Warnings for certain situations.
+
+### Fixed
+
+- Issue with the `quantity` field with the effect `Modify Attribute` when choosing attribute `Attack` or `Armor`.
+- Issue in manager construction phase while loading older scenarios.
+- Issue with when committing `RetrieverObjectLink` with `support` attribute.
+
+### Reworked (backend)
+
+Only useful if you're working with the 'sections' parts of the parser:
+
+- The `armour_attack_quantity` and `armour_attack_class` fields have been removed from the sections (structure file). 
+They are still available in the effect object, and are split using bitwise operations in the `Effect` object itself.
+
+---
+
 ## 0.1.11 - 2021-July-08
 
 ### Fixed

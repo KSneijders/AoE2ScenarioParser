@@ -257,3 +257,25 @@ All changes made to the scenario file will be documented in this file.
           "default": 0
         },
         ```
+
+---
+
+## Scenario v1.37
+
+### Added
+
+-   Map:
+
+    -   Between `collide_and_correct` and `player_1_camera_y`
+        ```json
+        "villager_force_drop": {
+                "type": "u8",
+                "default": 0
+            },
+        ```
+
+---
+
+## Scenario v1.36
+
+> First DE scenario file version.

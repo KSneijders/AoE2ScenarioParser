@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.42"
+                "default": "1.37"
             },
             "header_length": {
                 "type": "u32",
@@ -20,6 +20,10 @@
             "scenario_instructions": {
                 "type": "str32",
                 "default": ""
+            },
+            "individual_victories_used": {
+                "type": "u32",
+                "default": 0
             },
             "player_count": {
                 "type": "u32",
@@ -88,7 +92,7 @@
             },
             "version": {
                 "type": "f32",
-                "default": 1.42
+                "default": 1.3700000047683716
             },
             "player_names": {
                 "type": "c256",
@@ -201,11 +205,7 @@
                     },
                     "civilization": {
                         "type": "u32",
-                        "default": 38
-                    },
-                    "architecture_set": {
-                        "type": "u32",
-                        "default": 38
+                        "default": 36
                     },
                     "cty_mode": {
                         "type": "u32",
@@ -1250,46 +1250,16 @@
                 "type": "str16",
                 "default": "Empty"
             },
-            "separator_3": {
-                "type": "2",
-                "default": "600a"
-            },
-            "script_name": {
-                "type": "str16",
-                "default": "",
-                "dependencies": {
-                    "on_commit": {
-                        "action": "REFRESH",
-                        "target": "Files:script_file_path"
-                    }
-                }
-            },
             "collide_and_correct": {
                 "type": "u8",
                 "default": 0
             },
-            "villager_force_drop": {
-                "type": "u8",
-                "default": 0
-            },
-            "unknown": {
-                "type": "128",
-                "default": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-            },
-            "lock_coop_alliances": {
-                "type": "u8",
-                "default": 0
-            },
-            "ai_map_type": {
-                "type": "s32",
-                "default": 0
-            },
             "player_1_camera_y": {
-                "type": "4",
+                "type": "s32",
                 "default": -559026163
             },
             "player_1_camera_x": {
-                "type": "4",
+                "type": "s32",
                 "default": 2
             },
             "no_waves_on_shore": {
@@ -1774,7 +1744,7 @@
                     },
                     "description_string_table_id": {
                         "type": "s32",
-                        "default": 0
+                        "default": -1
                     },
                     "display_as_objective": {
                         "type": "u8",
@@ -1790,7 +1760,7 @@
                     },
                     "short_description_string_table_id": {
                         "type": "s32",
-                        "default": 0
+                        "default": -1
                     },
                     "display_on_screen": {
                         "type": "u8",
@@ -1908,7 +1878,7 @@
                             },
                             "static_value_46": {
                                 "type": "s32",
-                                "default": 49
+                                "default": 48
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2101,18 +2071,6 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "player_color": {
-                                "type": "s32",
-                                "default": -1
-                            },
-                            "unknown_4": {
-                                "type": "s32",
-                                "default": -1
-                            },
-                            "color_mood": {
-                                "type": "s32",
-                                "default": -1
-                            },
                             "message": {
                                 "type": "str32",
                                 "default": ""
@@ -2148,7 +2106,7 @@
                             },
                             "static_value_21": {
                                 "type": "s32",
-                                "default": 24
+                                "default": 23
                             },
                             "quantity": {
                                 "type": "s32",
@@ -2233,22 +2191,6 @@
                             "target_player": {
                                 "type": "s32",
                                 "default": -1
-                            },
-                            "unit_ai_action": {
-                                "type": "s32",
-                                "default": -1
-                            },
-                            "unknown_4": {
-                                "type": "s32",
-                                "default": -1
-                            },
-                            "object_state": {
-                                "type": "s32",
-                                "default": -1
-                            },
-                            "xs_function": {
-                                "type": "str32",
-                                "default": ""
                             }
                         }
                     }
@@ -2263,107 +2205,6 @@
                     "variable_name": {
                         "type": "str32",
                         "default": "_Variable0"
-                    }
-                }
-            }
-        }
-    },
-    "Files": {
-        "retrievers": {
-            "unknown_2": {
-                "type": "4",
-                "default": "00000000"
-            },
-            "script_file_path": {
-                "type": "str16",
-                "default": null,
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_VALUE",
-                        "target": "Map:script_name",
-                        "eval": "script_name + ('.xs' if len(script_name) > 0 else '')"
-                    }
-                }
-            },
-            "script_file_content": {
-                "type": "str32",
-                "default": ""
-            },
-            "ai_files_present": {
-                "type": "u32",
-                "default": 0,
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_VALUE",
-                        "target": "self:number_of_ai_files",
-                        "eval": "0 if number_of_ai_files == 0 else 1"
-                    }
-                }
-            },
-            "unknown_4": {
-                "type": "4",
-                "default": "00000000"
-            },
-            "number_of_ai_files": {
-                "type": "u32",
-                "default": [],
-                "is_list": false,
-                "dependencies": {
-                    "on_construct": {
-                        "action": "SET_REPEAT",
-                        "target": "self:ai_files_present"
-                    },
-                    "on_refresh": [
-                        {
-                            "action": "SET_VALUE",
-                            "target": "self:ai_files",
-                            "eval": "len(ai_files)"
-                        },
-                        {
-                            "action": "SET_REPEAT",
-                            "target": "self:ai_files",
-                            "eval": "1 if len(ai_files) > 0 else 0"
-                        }
-                    ],
-                    "on_commit": {
-                        "action": "REFRESH",
-                        "target": "self:ai_files_present"
-                    }
-                }
-            },
-            "ai_files": {
-                "type": "struct:AI2Struct",
-                "default": [],
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:number_of_ai_files",
-                        "eval": "number_of_ai_files if number_of_ai_files != [] else 0"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    },
-                    "on_commit": {
-                        "action": "REFRESH",
-                        "target": "self:number_of_ai_files"
-                    }
-                }
-            },
-            "__END_OF_FILE_MARK__": {
-                "type": "1",
-                "default": ""
-            }
-        },
-        "structs": {
-            "AI2Struct": {
-                "retrievers": {
-                    "ai_file_name": {
-                        "type": "str32",
-                        "default": ""
-                    },
-                    "ai_file": {
-                        "type": "str32",
-                        "default": ""
                     }
                 }
             }

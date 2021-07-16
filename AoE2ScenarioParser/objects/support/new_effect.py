@@ -1009,15 +1009,23 @@ class NewEffectSupport:
     def modify_attribute(
             self,
             quantity: Union[int, None] = None,
+            armour_attack_quantity: Union[int, None] = None,
+            armour_attack_class: Union[int, None] = None,
             object_list_unit_id: Union[int, None] = None,
             source_player: Union[int, None] = None,
             item_id: Union[int, None] = None,
             operation: Union[int, None] = None,
             object_attributes: Union[int, None] = None,
     ) -> Effect:
+        """
+        The parameters 'armour_attack_quantity' and 'armour_attack_class' are only used when object_attributes is Armor
+        or Attack (8 or 9). Use, 'quantity' otherwise.
+        """
         return self.trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE,
             quantity=quantity,
+            armour_attack_quantity=armour_attack_quantity,
+            armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             item_id=item_id,
