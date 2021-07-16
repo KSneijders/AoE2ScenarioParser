@@ -28,9 +28,9 @@ class AoE2ObjectManager:
         s_print(f"\nSetting up managers ...", final=True)
 
         for name, manager in managers[self.game_version].items():
-            s_print(f"\t🔄 Setting up {name}Manager...")
+            s_print(f"\t🔄 Setting up {name}Manager...", color="yellow")
             self.managers[name] = manager._construct(self.scenario_version, self.sections)
-            s_print(f"\t✔ {name}Manager", final=True)
+            s_print(f"\t✔ {name}Manager", final=True, color="green")
 
         s_print(f"Setting up managers finished successfully.", final=True)
 
@@ -39,8 +39,8 @@ class AoE2ObjectManager:
 
         manager: AoE2Object
         for name, manager in self.managers.items():
-            s_print(f"\t🔄 Reconstructing {name}Manager...")
+            s_print(f"\t🔄 Reconstructing {name}Manager...", color="yellow")
             manager.commit(self.scenario_version, self.sections)
-            s_print(f"\t✔ {name}Manager", final=True)
+            s_print(f"\t✔ {name}Manager", final=True, color="green")
 
         s_print("Reconstruction finished successfully.", final=True)

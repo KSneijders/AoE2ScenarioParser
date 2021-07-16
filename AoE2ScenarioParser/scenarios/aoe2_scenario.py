@@ -45,7 +45,7 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(cls, filename, game_version):
-        print(f"\nReading file: '{filename}'")
+        s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
         s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
         s_print("Reading scenario file finished successfully.", final=True)
@@ -56,10 +56,10 @@ class AoE2Scenario:
         scenario.scenario_version = get_file_version(igenerator)
 
         # Log game and scenario version
-        print("\n############### Attributes ###############")
-        print(f">>> Game version: '{scenario.game_version}'")
-        print(f">>> Scenario version: {scenario.scenario_version}")
-        print("##########################################")
+        s_print("\n############### Attributes ###############", final=True, color="blue")
+        s_print(f">>> Game version: '{scenario.game_version}'", final=True, color="blue")
+        s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
+        s_print("##########################################", final=True, color="blue")
 
         s_print(f"\nLoading scenario structure...")
         initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
@@ -108,11 +108,11 @@ class AoE2Scenario:
                 raise e
 
     def _create_and_load_section(self, name, igenerator):
-        s_print(f"\t🔄 Parsing {name}...")
+        s_print(f"\t🔄 Parsing {name}...", color="yellow")
         section = AoE2FileSection.from_structure(name, self.structure.get(name))
-        s_print(f"\t🔄 Gathering {name} data...")
+        s_print(f"\t🔄 Gathering {name} data...", color="yellow")
         section.set_data_from_generator(igenerator, self.sections)
-        s_print(f"\t✔ {name}", final=True)
+        s_print(f"\t✔ {name}", final=True, color="green")
         return section
 
     def _add_to_sections(self, section):
@@ -151,12 +151,12 @@ class AoE2Scenario:
             f.write(binary + compressed)
 
         s_print("File writing finished successfully.", final=True)
-        print(f"File successfully written to: '{filename}'")
+        s_print(f"File successfully written to: '{filename}'", color="magenta")
 
     def _get_file_section_data(self, file_section: AoE2FileSection):
-        s_print(f"\t🔄 Reconstructing {file_section.name}...")
+        s_print(f"\t🔄 Reconstructing {file_section.name}...", color="yellow")
         value = file_section.get_data_as_bytes()
-        s_print(f"\t✔ {file_section.name}", final=True)
+        s_print(f"\t✔ {file_section.name}", final=True, color="green")
         return value
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):

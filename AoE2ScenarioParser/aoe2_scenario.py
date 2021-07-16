@@ -1,7 +1,7 @@
 import time
 
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
-from warnings import warn
 
 _deprecation_msg = '\n'.join([
     "", "",
@@ -11,7 +11,7 @@ _deprecation_msg = '\n'.join([
     "Using:",
     "\tfrom AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario",
     "\tscenario = AoE2DEScenario.from_file(...)",
-    "From:"
+    ""
 ])
 
 

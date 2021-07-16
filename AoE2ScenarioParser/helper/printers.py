@@ -1,6 +1,29 @@
 import sys
 
 from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.helper.exceptions import WarningToError
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+
+
+_color = {
+    'end': '\033[0m',
+    'black': '\033[30m',
+    "red": "\033[31m",
+    "green": "\033[32m",
+    "yellow": "\033[33m",
+    "blue": "\033[34m",
+    "magenta": "\033[35m",
+    "cyan": "\033[36m",
+    "white": "\033[37m",
+    "bright_black": "\033[90m",
+    "bright_red": "\033[91m",
+    "bright_green": "\033[92m",
+    "bright_yellow": "\033[93m",
+    "bright_blue": "\033[94m",
+    "bright_magenta": "\033[95m",
+    "bright_cyan": "\033[96m",
+    "bright_white": "\033[97m",
+}
 
 
 def rprint(string="", replace=True, final=False) -> None:
@@ -24,10 +47,24 @@ def rprint(string="", replace=True, final=False) -> None:
         print(string)
 
 
-def s_print(string="", replace=True, final=False) -> None:
+def s_print(string="", replace=True, final=False, color=None) -> None:
     """
     Status print, read rprint docstring for more info.
     Simple rprint wrapper with a check for the PRINT_STATUS_UPDATES setting.
     """
+    if color is not None:
+        string = color_string(string, color)
     if settings.PRINT_STATUS_UPDATES:
         rprint(string, replace, final)
+
+
+def color_string(string: str, color: str) -> str:
+    return _color[color] + string + _color['end']
+
+
+def warn(string="") -> None:
+    if settings.RAISE_ERROR_ON_WARNING:
+        raise WarningToError(
+            f"\n\nWarning Occurred with 'settings.THROW_ERROR_ON_WARNING' is True. \nWarning:\n{add_tabs(string, 1)}\n")
+    if not settings.DISABLE_WARNINGS:
+        print('\n' + _color['bright_yellow'] + string + _color['end'] + '\n')
