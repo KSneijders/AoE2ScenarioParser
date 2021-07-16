@@ -280,6 +280,8 @@ class Effect(AoE2Object):
             # Ignore the quantity value in the print statement when flag is True.
             if self._armour_attack_flag and attribute == "quantity":
                 continue
+            if attribute in ["armour_attack_quantity", "armour_attack_class"] and not self._armour_attack_flag:
+                continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"
 
         if return_string == "":
