@@ -1874,18 +1874,7 @@
                         "retrievers": {
                             "effect_type": {
                                 "type": "s32",
-                                "default": 0,
-                                "dependencies": {
-                                    "on_commit": {
-                                        "action": "REFRESH",
-                                        "target": [
-                                            "self:armour_attack_quantity",
-                                            "self:armour_attack_class",
-                                            "self:armour_attack_unused",
-                                            "self:quantity"
-                                        ]
-                                    }
-                                }
+                                "default": 0
                             },
                             "static_value_46": {
                                 "type": "s32",
@@ -1895,66 +1884,9 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "armour_attack_quantity": {
-                                "type": "u8",
-                                "default": -1,
-                                "is_list": false,
-                                "dependencies": {
-                                    "on_refresh": {
-                                        "action": "SET_REPEAT",
-                                        "target": "self:effect_type",
-                                        "eval": "1 if effect_type in [28, 31] else 0"
-                                    },
-                                    "on_construct": {
-                                        "action": "REFRESH_SELF"
-                                    }
-                                }
-                            },
-                            "armour_attack_class": {
-                                "type": "u8",
-                                "default": -1,
-                                "is_list": false,
-                                "dependencies": {
-                                    "on_refresh": {
-                                        "action": "SET_REPEAT",
-                                        "target": "self:effect_type",
-                                        "eval": "1 if effect_type in [28, 31] else 0"
-                                    },
-                                    "on_construct": {
-                                        "action": "REFRESH_SELF"
-                                    }
-                                }
-                            },
-                            "armour_attack_unused": {
-                                "comment": "These 2 bytes are unused but present when armour_attack is used.",
-                                "type": "u16",
-                                "default": -1,
-                                "is_list": false,
-                                "dependencies": {
-                                    "on_refresh": {
-                                        "action": "SET_REPEAT",
-                                        "target": "self:effect_type",
-                                        "eval": "1 if effect_type in [28, 31] else 0"
-                                    },
-                                    "on_construct": {
-                                        "action": "REFRESH_SELF"
-                                    }
-                                }
-                            },
                             "quantity": {
                                 "type": "s32",
-                                "default": -1,
-                                "is_list": false,
-                                "dependencies": {
-                                    "on_refresh": {
-                                        "action": "SET_REPEAT",
-                                        "target": "self:effect_type",
-                                        "eval": "1 if effect_type not in [28, 31] else 0"
-                                    },
-                                    "on_construct": {
-                                        "action": "REFRESH_SELF"
-                                    }
-                                }
+                                "default": -1
                             },
                             "tribute_list": {
                                 "type": "s32",
