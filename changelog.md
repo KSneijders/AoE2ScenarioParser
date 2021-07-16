@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.13 - 2021-July-17
+
+### Fixed
+
+- Issue with displaying `armour_attack_quantity` and `armour_attack_class` as `None` in `get_content_as_string()`.
+- Issue with writing scenarios where `quality` was non truthy but not `None`.
+
+---
+
 ## 0.1.12 - 2021-July-16
 
 ### Added
