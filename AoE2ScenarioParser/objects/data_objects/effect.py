@@ -144,7 +144,7 @@ class Effect(AoE2Object):
         # Set flags
         self._armour_attack_flag = _set_armour_attack_flag(effect_type, object_attributes)
 
-        if self._armour_attack_flag and quantity:
+        if self._armour_attack_flag and quantity is not None:
             armour_attack_quantity, armour_attack_class = _quantity_to_aa(quantity)
             quantity = None
 
@@ -279,6 +279,8 @@ class Effect(AoE2Object):
                 continue
             # Ignore the quantity value in the print statement when flag is True.
             if self._armour_attack_flag and attribute == "quantity":
+                continue
+            if attribute in ["armour_attack_quantity", "armour_attack_class"] and not self._armour_attack_flag:
                 continue
             return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"
 
