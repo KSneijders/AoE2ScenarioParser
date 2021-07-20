@@ -631,6 +631,7 @@ empty_attributes = {
     "facet": -1,
     "play_sound": -1,
     "player_color": -1,
+    "color_mood": -1,
     "message": '',
     "sound_name": '',
     "selected_object_ids": -1,
