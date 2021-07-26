@@ -73,13 +73,13 @@ class UnitInfo(InfoDatasetBase):
 
         """
 
-        if type(elite) != bool:
+        if type(elite) is not bool:
             raise TypeError(f"Parameter 'elite' can only be of type bool but provided type: {type(elite)}")
-        if type(standard) != bool:
+        if type(standard) is not bool:
             raise TypeError(f"Parameter 'standard' can only be of type bool but provided type: {type(standard)}")
-        if type(castle) != bool:
+        if type(castle) is not bool:
             raise TypeError(f"Parameter 'castle' can only be of type bool but provided type: {type(castle)}")
-        if type(imperial) != bool:
+        if type(imperial) is not bool:
             raise TypeError(f"Parameter 'imperial' can only be of type bool but provided type: {type(imperial)}")
 
         unique_units = {

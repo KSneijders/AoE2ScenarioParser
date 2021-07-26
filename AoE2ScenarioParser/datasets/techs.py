@@ -121,9 +121,9 @@ class TechInfo(Enum):
 
         """
 
-        if type(castle) != bool:
+        if type(castle) is bool:
             raise TypeError(f"Parameter 'castle' can only be of type bool but provided type: {type(castle)}")
-        if type(other) != bool:
+        if type(other) is bool:
             raise TypeError(f"Parameter 'other' can only be of type bool but provided type: {type(other)}")
 
         unique_techs = {
