@@ -5,7 +5,6 @@ from typing import List, Tuple
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.helper.bytes_conversions import int_to_bytes, bytes_to_int
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
@@ -145,7 +144,7 @@ class Effect(AoE2Object):
         self._armour_attack_flag = _set_armour_attack_flag(effect_type, object_attributes)
 
         if self._armour_attack_flag and quantity is not None:
-            armour_attack_quantity, armour_attack_class = _quantity_to_aa(quantity)
+            armour_attack_class, armour_attack_quantity = _quantity_to_aa(quantity)
             quantity = None
 
         if selected_object_ids is None:
@@ -313,7 +312,7 @@ def _quantity_to_aa(quantity: int) -> Tuple[int, int]:
         quantity (int): the initial quantity value
 
     Returns:
-        The one byte armor/attack quantity as int and one byte armor/attack class as int
+        The one byte armor/attack class as int and one byte armor/attack quantity as int
     """
     return quantity >> 8, quantity & 255
 
@@ -330,5 +329,5 @@ def _aa_to_quantity(aa_quantity: int, aa_class: int) -> int:
     Returns:
         The one byte quantity and one byte armor/attack value
     """
-    # Would use `aa_quantity << 8` - but apparently multiplication is faster
-    return aa_quantity * 256 + aa_class
+    # Would use `aa_class << 8` - but apparently multiplication is faster
+    return aa_class * 256 + aa_quantity
