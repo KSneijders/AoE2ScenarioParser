@@ -31,23 +31,159 @@ class TechInfo(Enum):
     @staticmethod
     def unique_techs():
         return [
-            TechInfo.YEOMEN, TechInfo.EL_DORADO, TechInfo.FUROR_CELTICA, TechInfo.DRILL, TechInfo.MAHOUTS,
-            TechInfo.ZEALOTRY, TechInfo.ARTILLERY, TechInfo.CRENELLATIONS, TechInfo.ANARCHY, TechInfo.ATHEISM,
-            TechInfo.GARLAND_WARS, TechInfo.BERSERKERGANG, TechInfo.ROCKETRY, TechInfo.KATAPARUTO, TechInfo.LOGISTICA,
-            TechInfo.BEARDED_AXE, TechInfo.SUPREMACY, TechInfo.SHINKICHON, TechInfo.PERFUSION, TechInfo.ATLATL,
-            TechInfo.WARWOLF, TechInfo.GREAT_WALL, TechInfo.CHIEFTAINS, TechInfo.GREEK_FIRE, TechInfo.STRONGHOLD,
-            TechInfo.MARAUDERS, TechInfo.YASAMA, TechInfo.OBSIDIAN_ARROWS, TechInfo.PANOKSEON, TechInfo.NOMADS,
-            TechInfo.KAMANDARAN, TechInfo.IRONCLAD, TechInfo.MADRASAH, TechInfo.SIPAHI, TechInfo.INQUISITION,
-            TechInfo.CHIVALRY, TechInfo.PAVISE, TechInfo.SILK_ROAD, TechInfo.SULTANS, TechInfo.SHATAGNI, 
-            TechInfo.ORTHODOXY, TechInfo.DRUZHINA, TechInfo.CORVINIAN_ARMY, TechInfo.RECURVE_BOW, TechInfo.ANDEAN_SLING, 
-            TechInfo.COURIERS, TechInfo.CARRACK, TechInfo.ARQUEBUS, TechInfo.ROYAL_HEIRS, TechInfo.TORSION_ENGINES, 
-            TechInfo.TIGUI, TechInfo.FARIMBA, TechInfo.KASBAH, TechInfo.MAGHRABI_CAMELS, TechInfo.TUSK_SWORDS, 
-            TechInfo.DOUBLE_CROSSBOW, TechInfo.THALASSOCRACY, TechInfo.FORCED_LEVY, TechInfo.HOWDAH, 
-            TechInfo.MANIPUR_CAVALRY, TechInfo.CHATRAS, TechInfo.PAPER_MONEY, TechInfo.STIRRUPS, TechInfo.BAGAINS, 
-            TechInfo.SILK_ARMOR, TechInfo.TIMURID_SIEGECRAFT, TechInfo.STEPPE_HUSBANDRY, TechInfo.CUMAN_MERCENARIES, 
-            TechInfo.HILL_FORTS, TechInfo.TOWER_SHIELDS, TechInfo.BURGUNDIAN_VINEYARDS, TechInfo.FLEMISH_REVOLUTION,
-            TechInfo.FIRST_CRUSADE, TechInfo.SCUTAGE,
+            TechInfo.ANARCHY,
+            TechInfo.ANDEAN_SLING,
+            TechInfo.ARQUEBUS,
+            TechInfo.ARTILLERY,
+            TechInfo.ATHEISM,
+            TechInfo.ATLATL,
+            TechInfo.BAGAINS,
+            TechInfo.BEARDED_AXE,
+            TechInfo.BERSERKERGANG,
+            TechInfo.BURGUNDIAN_VINEYARDS,
+            TechInfo.CARRACK,
+            TechInfo.CHATRAS,
+            TechInfo.CHIEFTAINS,
+            TechInfo.CHIVALRY,
+            TechInfo.CORVINIAN_ARMY,
+            TechInfo.COURIERS,
+            TechInfo.CRENELLATIONS,
+            TechInfo.CUMAN_MERCENARIES,
+            TechInfo.DOUBLE_CROSSBOW,
+            TechInfo.DRILL,
+            TechInfo.DRUZHINA,
+            TechInfo.EL_DORADO,
+            TechInfo.FARIMBA,
+            TechInfo.FIRST_CRUSADE,
+            TechInfo.FLEMISH_REVOLUTION,
+            TechInfo.FORCED_LEVY,
+            TechInfo.FUROR_CELTICA,
+            TechInfo.GARLAND_WARS,
+            TechInfo.GREAT_WALL,
+            TechInfo.GREEK_FIRE,
+            TechInfo.HILL_FORTS,
+            TechInfo.HOWDAH,
+            TechInfo.INQUISITION,
+            TechInfo.IRONCLAD,
+            TechInfo.KAMANDARAN,
+            TechInfo.KASBAH,
+            TechInfo.KATAPARUTO,
+            TechInfo.LOGISTICA,
+            TechInfo.MADRASAH,
+            TechInfo.MAGHRABI_CAMELS,
+            TechInfo.MAHOUTS,
+            TechInfo.MANIPUR_CAVALRY,
+            TechInfo.MARAUDERS,
+            TechInfo.NOMADS,
+            TechInfo.OBSIDIAN_ARROWS,
+            TechInfo.ORTHODOXY,
+            TechInfo.PANOKSEON,
+            TechInfo.PAPER_MONEY,
+            TechInfo.PAVISE,
+            TechInfo.PERFUSION,
+            TechInfo.RECURVE_BOW,
+            TechInfo.ROCKETRY,
+            TechInfo.ROYAL_HEIRS,
+            TechInfo.SCUTAGE,
+            TechInfo.SHATAGNI,
+            TechInfo.SHINKICHON,
+            TechInfo.SILK_ARMOR,
+            TechInfo.SILK_ROAD,
+            TechInfo.SIPAHI,
+            TechInfo.STEPPE_HUSBANDRY,
+            TechInfo.STIRRUPS,
+            TechInfo.STRONGHOLD,
+            TechInfo.SULTANS,
+            TechInfo.SUPREMACY,
+            TechInfo.THALASSOCRACY,
+            TechInfo.TIGUI,
+            TechInfo.TIMURID_SIEGECRAFT,
+            TechInfo.TORSION_ENGINES,
+            TechInfo.TOWER_SHIELDS,
+            TechInfo.TUSK_SWORDS,
+            TechInfo.WARWOLF,
+            TechInfo.YASAMA,
+            TechInfo.YEOMEN,
+            TechInfo.ZEALOTRY
         ]
+
+    @staticmethod
+    def unique_unit_upgrades(castle: bool = True, other: bool = True):
+
+        """
+
+        Args:
+            castle: if set to false, excludes the castle unique unit techs from the list of techs returned
+            other: if set to false, excludes the non castle unique unit techs from the list of techs returned
+
+        Returns:
+            A list of unique unite upgrade tech IDs
+
+        """
+
+        if type(castle) != bool:
+            raise TypeError(f"Parameter 'castle' can only be of type bool but provided type {type(castle)}")
+        if type(other) != bool:
+            raise TypeError(f"Parameter 'other' can only be of type bool but provided type {type(other)}")
+
+        unique_techs = {
+            "castle": [
+                TechInfo.ELITE_ARAMBAI,
+                TechInfo.ELITE_BALLISTA_ELEPHANT,
+                TechInfo.ELITE_BERSERK,
+                TechInfo.ELITE_BOYAR,
+                TechInfo.ELITE_CAMEL_ARCHER,
+                TechInfo.ELITE_CATAPHRACT,
+                TechInfo.ELITE_CHU_KO_NU,
+                TechInfo.ELITE_CONQUISTADOR,
+                TechInfo.ELITE_COUSTILLIER,
+                TechInfo.ELITE_ELEPHANT_ARCHER,
+                TechInfo.ELITE_GBETO,
+                TechInfo.ELITE_GENOESE_CROSSBOWMAN,
+                TechInfo.ELITE_HUSKARL,
+                TechInfo.ELITE_JAGUAR_WARRIOR,
+                TechInfo.ELITE_JANISSARY,
+                TechInfo.ELITE_KAMAYUK,
+                TechInfo.ELITE_KARAMBIT_WARRIOR,
+                TechInfo.ELITE_KESHIK,
+                TechInfo.ELITE_KIPCHAK,
+                TechInfo.ELITE_KONNIK,
+                TechInfo.ELITE_LEITIS,
+                TechInfo.ELITE_LONGBOWMAN,
+                TechInfo.ELITE_MAGYAR_HUSZAR,
+                TechInfo.ELITE_MAMELUKE,
+                TechInfo.ELITE_MANGUDAI,
+                TechInfo.ELITE_ORGAN_GUN,
+                TechInfo.ELITE_PLUMED_ARCHER,
+                TechInfo.ELITE_RATTAN_ARCHER,
+                TechInfo.ELITE_SAMURAI,
+                TechInfo.ELITE_SERJEANT,
+                TechInfo.ELITE_SHOTEL_WARRIOR,
+                TechInfo.ELITE_TARKAN,
+                TechInfo.ELITE_TEUTONIC_KNIGHT,
+                TechInfo.ELITE_THROWING_AXEMAN,
+                TechInfo.ELITE_WAR_ELEPHANT,
+                TechInfo.ELITE_WAR_WAGON,
+                TechInfo.ELITE_WOAD_RAIDER
+            ],
+            "other": [
+                TechInfo.ELITE_CARAVEL,
+                TechInfo.ELITE_GENITOUR,
+                TechInfo.ELITE_LONGBOAT,
+                TechInfo.ELITE_TURTLE_SHIP,
+                TechInfo.IMPERIAL_CAMEL_RIDER,
+                TechInfo.IMPERIAL_SKIRMISHER
+            ]
+        }
+
+        techs_to_return = []
+
+        if castle:
+            techs_to_return.extend(unique_techs["castle"])
+        if other:
+            techs_to_return.extend(unique_techs["other"])
+
+        return techs_to_return
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33
@@ -123,6 +259,7 @@ class TechInfo(Enum):
     ELITE_CANNON_GALLEON = 376, 100
     ELITE_CARAVEL = 597, 105
     ELITE_CATAPHRACT = 361, 105
+    ELITE_COUSTILLIER = 751, 105
     ELITE_CHU_KO_NU = 362, 105
     ELITE_CONQUISTADOR = 60, 105
     ELITE_EAGLE_WARRIOR = 434, 115
@@ -149,6 +286,7 @@ class TechInfo(Enum):
     ELITE_PLUMED_ARCHER = 27, 105
     ELITE_RATTAN_ARCHER = 621, 105
     ELITE_SAMURAI = 366, 105
+    ELITE_SERJEANT = 753, 105
     ELITE_SHOTEL_WARRIOR = 569, 105
     ELITE_SKIRMISHER = 98, 28
     ELITE_STEPPE_LANCER = 715, 123
