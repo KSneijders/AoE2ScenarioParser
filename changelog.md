@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.14 - 2021-July-26
+
+### Fixed
+
+- Issue with converting `armour_attack_quantity` and `armour_attack_class` inside the parser.
+- Some missing attributes for the newly added effect and condition attribute. 
+
+---
+
 ## 0.1.13 - 2021-July-17
 
 ### Fixed
