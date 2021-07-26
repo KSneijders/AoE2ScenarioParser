@@ -8,12 +8,17 @@ class UnitInfo(InfoDatasetBase):
         """
 
         Args:
-            sex: filter the sex of the villagers returned using "all", "male" or "female"
+            sex: filter the sex of the villagers returned using "all", "female" or "male"
 
         Returns:
             A list of villager unit IDs
 
         """
+
+        if type(sex) is str:
+            raise TypeError(f"Parameter 'sex' can only be of type bool but provided type: {type(sex)}")
+        if sex not in ["all", "female", "male"]:
+            raise ValueError(f"Parameter 'sex' can only be 'all' or 'female' or 'male' but provided value: '{sex}'")
 
         villagers = {
             "male": [
@@ -69,13 +74,13 @@ class UnitInfo(InfoDatasetBase):
         """
 
         if type(elite) != bool:
-            raise TypeError(f"Parameter 'elite' can only be of type bool but provided type {type(elite)}")
+            raise TypeError(f"Parameter 'elite' can only be of type bool but provided type: {type(elite)}")
         if type(standard) != bool:
-            raise TypeError(f"Parameter 'standard' can only be of type bool but provided type {type(standard)}")
+            raise TypeError(f"Parameter 'standard' can only be of type bool but provided type: {type(standard)}")
         if type(castle) != bool:
-            raise TypeError(f"Parameter 'castle' can only be of type bool but provided type {type(castle)}")
+            raise TypeError(f"Parameter 'castle' can only be of type bool but provided type: {type(castle)}")
         if type(imperial) != bool:
-            raise TypeError(f"Parameter 'imperial' can only be of type bool but provided type {type(imperial)}")
+            raise TypeError(f"Parameter 'imperial' can only be of type bool but provided type: {type(imperial)}")
 
         unique_units = {
             "castle": {
