@@ -60,6 +60,7 @@ class ConditionId(IntEnum):
     - area_y2
     - object_group
     - object_type
+    - object_state
     - inverted
     """
     DESTROY_OBJECT = 6
@@ -271,6 +272,7 @@ empty_attributes = {
     "comparison": -1,
     "target_player": -1,
     "unit_ai_action": -1,
+    "object_state": -1,
     "xs_function": ""
 }
 
