@@ -1,3 +1,4 @@
+from __future__ import annotations
 from enum import Enum
 
 
@@ -108,7 +109,7 @@ class TechInfo(Enum):
         ]
 
     @staticmethod
-    def unique_unit_upgrades(castle: bool = True, other: bool = True):
+    def unique_unit_upgrades(castle: bool = True, other: bool = True) -> list[TechInfo]:
 
         """
 
@@ -116,7 +117,7 @@ class TechInfo(Enum):
             castle: if set to false, excludes the castle unique unit techs from the list of techs returned
             other: if set to false, excludes the non castle unique unit techs from the list of techs returned
 
-        Returns (list[TechInfo]):
+        Returns:
             A list of unique unite upgrade tech IDs
 
         """

@@ -1,16 +1,16 @@
+from __future__ import annotations
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
-
 
 class UnitInfo(InfoDatasetBase):
 
     @staticmethod
-    def vils(sex: str = "all"):
+    def vils(sex: str = "all") -> list[UnitInfo]:
         """
 
         Args:
             sex: filter the sex of the villagers returned using "all", "female" or "male"
 
-        Returns (list[UnitInfo]):
+        Returns:
             A list of villager unit IDs
 
         """
@@ -56,16 +56,16 @@ class UnitInfo(InfoDatasetBase):
             return villagers["female"]
 
     @staticmethod
-    def unique_units(elite: str = "all", castle: str = "all", imperial: bool = True):
+    def unique_units(elite: str = "all", castle: str = "all", imperial: bool = True) -> list[UnitInfo]:
 
         """
 
         Args:
-            elite: filter the units returned using "all", "standard" or "elite"
+            elite: filter the units returned using "all", "standard" (non elite units) or "elite"
             castle: filter the units returned using "all", "castle" or "others"
             imperial: if set to false, excludes the imperial skirm and camel units from the list of units returned
 
-        Returns (list[UnitInfo]):
+        Returns:
             A list of unique unit IDs
 
         """
