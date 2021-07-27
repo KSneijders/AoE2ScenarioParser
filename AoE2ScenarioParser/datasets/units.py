@@ -4,19 +4,24 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 class UnitInfo(InfoDatasetBase):
 
     @staticmethod
-    def vils(sex: str = "all") -> list[UnitInfo]:
+    def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
         """
 
         Args:
-            sex: filter the sex of the villagers returned using "all", "female" or "male"
+            exclude_female: if set to true, exclude the female villagers
+            exclude_male: if set to true, exclude the male villagers
 
         Returns:
             A list of villager unit IDs
 
         """
-
-        if sex not in ["all", "female", "male"]:
-            raise ValueError(f"Parameter 'sex' can only be 'all' or 'female' or 'male' but provided value: '{sex}'")
+        args = locals()
+        params = UnitInfo.vils.__annotations__
+        params.pop("return")
+        for param, param_type in params.items():
+            provided = type(args[param])
+            if provided is not param_type:
+                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         villagers = {
             "male": [
@@ -47,39 +52,47 @@ class UnitInfo(InfoDatasetBase):
             ]
         }
 
+        units_to_return = []
 
-        if sex == "all":
-            return villagers["female"]+villagers["male"]
-        elif sex == "male":
-            return villagers["male"]
-        elif sex == "female":
-            return villagers["female"]
+        if not exclude_female:
+            units_to_return.extend(villagers["female"])
+        if not exclude_male:
+            units_to_return.extend(villagers["male"])
+
+        return units_to_return
 
     @staticmethod
-    def unique_units(elite: str = "all", castle: str = "all", imperial: bool = True) -> list[UnitInfo]:
+    def unique_units(
+        exclude_elite_units: bool = False,
+        exclude_non_elite_units: bool = False,
+        exclude_castle_units: bool = False,
+        exclude_non_castle_units: bool = False
+    ) -> list[UnitInfo]:
 
         """
 
         Args:
-            elite: filter the units returned using "all", "standard" (non elite units) or "elite"
-            castle: filter the units returned using "all", "castle" or "others"
-            imperial: if set to false, excludes the imperial skirm and camel units from the list of units returned
+            exclude_elite_units: if set to false, exclude the elite unique units
+            exclude_non_elite_units: if set to false, exclude the non elite unique units
+            exclude_castle_units: if set to false, exclude the castle unique units
+            exclude_non_castle_units: if set to false, excludes the unique units not trained at the castle
 
         Returns:
             A list of unique unit IDs
 
         """
 
-        if elite not in ["all", "standard", "elite"]:
-            raise ValueError(f"Parameter 'elite' can only be 'all' or 'standard' or 'elite' but provided value: {elite}")
-        if castle not in ["all", "castle", "others"]:
-            raise ValueError(f"Parameter 'castle' can only be 'all' or 'caslte' or 'others' but provided value: {castle}")
-        if type(imperial) is not bool:
-            raise TypeError(f"Parameter 'imperial' can only be of type bool but provided type: {type(imperial)}")
+        args = locals()
+        params = UnitInfo.unique_units.__annotations__
+        params.pop("return")
+        for param, param_type in params.items():
+            provided = type(args[param])
+            if provided is not param_type:
+                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         unique_units = {
             "castle": {
-                "standard": [
+                "non_elite": [
                     UnitInfo.ARAMBAI,
                     UnitInfo.BALLISTA_ELEPHANT,
                     UnitInfo.BERSERK,
@@ -159,7 +172,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_WOAD_RAIDER
                 ]
             },
-            "standard": [
+            "non_elite": [
                 UnitInfo.CARAVEL,
                 UnitInfo.CONDOTTIERO,
                 UnitInfo.CONDOTTIERO_PLACEHOLDER,
@@ -176,6 +189,8 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.SLINGER,
                 UnitInfo.TARKAN_STABLE,
                 UnitInfo.TURTLE_SHIP,
+                UnitInfo.IMPERIAL_CAMEL_RIDER,
+                UnitInfo.IMPERIAL_SKIRMISHER
             ],
             "elite": [
                 UnitInfo.ELITE_CARAVEL,
@@ -188,27 +203,21 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.ELITE_SERJEANT_DONJON,
                 UnitInfo.ELITE_TARKAN_STABLE,
                 UnitInfo.ELITE_TURTLE_SHIP,
-            ],
-            "imperial": [
-                UnitInfo.IMPERIAL_CAMEL_RIDER,
-                UnitInfo.IMPERIAL_SKIRMISHER
             ]
         }
 
         units_to_return = []
 
-        if elite in ["all", "standard"]:
-            if castle in ["all", "others"]:
-                units_to_return.extend(unique_units["standard"])
-            if castle in ["all", "castle"]:
-                units_to_return.extend(unique_units["castle"]["standard"])
-        if elite in ["all", "elite"]:
-            if castle in ["all", "others"]:
+        if exclude_non_elite_units:
+            if exclude_non_castle_units:
+                units_to_return.extend(unique_units["non_elite"])
+            if exclude_castle_units:
+                units_to_return.extend(unique_units["castle"]["non_elite"])
+        if exclude_elite_units:
+            if exclude_non_castle_units:
                 units_to_return.extend(unique_units["elite"])
-            if castle in ["all", "castle"]:
+            if exclude_castle_units:
                 units_to_return.extend(unique_units["castle"]["elite"])
-        if imperial:
-            units_to_return.extend(unique_units["imperial"])
 
         return units_to_return
 

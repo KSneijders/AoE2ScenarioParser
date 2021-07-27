@@ -109,23 +109,29 @@ class TechInfo(Enum):
         ]
 
     @staticmethod
-    def unique_unit_upgrades(castle: bool = True, other: bool = True) -> list[TechInfo]:
+    def unique_unit_upgrades(
+        exclude_castle_techs: bool = False,
+        exclude_non_castle_techs: bool = False
+    ) -> list[TechInfo]:
 
         """
 
         Args:
-            castle: if set to false, excludes the castle unique unit techs from the list of techs returned
-            other: if set to false, excludes the non castle unique unit techs from the list of techs returned
+            exclude_castle_techs: if set to false, excludes the castle unique unit techs from the list of techs returned
+            exclude_non_castle_techs: if set to false, excludes the non castle unique unit techs from the list of techs returned
 
         Returns:
             A list of unique unite upgrade tech IDs
 
         """
 
-        if type(castle) is not bool:
-            raise TypeError(f"Parameter 'castle' can only be of type bool but provided type: {type(castle)}")
-        if type(other) is not bool:
-            raise TypeError(f"Parameter 'other' can only be of type bool but provided type: {type(other)}")
+        args = locals()
+        params = TechInfo.unique_unit_upgrades.__annotations__
+        params.pop("return")
+        for param, param_type in params.items():
+            provided = type(args[param])
+            if provided is not param_type:
+                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         unique_techs = {
             "castle": [
@@ -167,7 +173,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_WAR_WAGON,
                 TechInfo.ELITE_WOAD_RAIDER
             ],
-            "other": [
+            "non_castle": [
                 TechInfo.ELITE_CARAVEL,
                 TechInfo.ELITE_GENITOUR,
                 TechInfo.ELITE_LONGBOAT,
@@ -179,10 +185,10 @@ class TechInfo(Enum):
 
         techs_to_return = []
 
-        if castle:
+        if not exclude_castle_techs:
             techs_to_return.extend(unique_techs["castle"])
-        if other:
-            techs_to_return.extend(unique_techs["other"])
+        if not exclude_non_castle_techs:
+            techs_to_return.extend(unique_techs["non_castle"])
 
         return techs_to_return
 
