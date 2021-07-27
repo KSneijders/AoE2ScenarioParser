@@ -10,13 +10,11 @@ class UnitInfo(InfoDatasetBase):
         Args:
             sex: filter the sex of the villagers returned using "all", "female" or "male"
 
-        Returns:
+        Returns (list[UnitInfo]):
             A list of villager unit IDs
 
         """
 
-        if type(sex) is str:
-            raise TypeError(f"Parameter 'sex' can only be of type bool but provided type: {type(sex)}")
         if sex not in ["all", "female", "male"]:
             raise ValueError(f"Parameter 'sex' can only be 'all' or 'female' or 'male' but provided value: '{sex}'")
 
@@ -58,27 +56,24 @@ class UnitInfo(InfoDatasetBase):
             return villagers["female"]
 
     @staticmethod
-    def unique_units(elite: bool = True, standard: bool = True, castle: bool = True, imperial: bool = True):
+    def unique_units(elite: str = "all", castle: str = "all", imperial: bool = True):
 
         """
 
         Args:
-            elite: if set to false, excludes the elite units from the list of units returned
-            standard: if set to false, excludes the non elite units from the list of units returned
-            castle: if set to false, excludes the castle units from the list of units returned
+            elite: filter the units returned using "all", "standard" or "elite"
+            castle: filter the units returned using "all", "castle" or "others"
             imperial: if set to false, excludes the imperial skirm and camel units from the list of units returned
 
-        Returns:
+        Returns (list[UnitInfo]):
             A list of unique unit IDs
 
         """
 
-        if type(elite) is not bool:
-            raise TypeError(f"Parameter 'elite' can only be of type bool but provided type: {type(elite)}")
-        if type(standard) is not bool:
-            raise TypeError(f"Parameter 'standard' can only be of type bool but provided type: {type(standard)}")
-        if type(castle) is not bool:
-            raise TypeError(f"Parameter 'castle' can only be of type bool but provided type: {type(castle)}")
+        if elite not in ["all", "standard", "elite"]:
+            raise ValueError(f"Parameter 'elite' can only be 'all' or 'standard' or 'elite' but provided value: {elite}")
+        if castle not in ["all", "castle", "others"]:
+            raise ValueError(f"Parameter 'castle' can only be 'all' or 'caslte' or 'others' but provided value: {castle}")
         if type(imperial) is not bool:
             raise TypeError(f"Parameter 'imperial' can only be of type bool but provided type: {type(imperial)}")
 
@@ -202,13 +197,15 @@ class UnitInfo(InfoDatasetBase):
 
         units_to_return = []
 
-        if standard:
-            units_to_return.extend(unique_units["standard"])
-            if castle:
+        if elite in ["all", "standard"]:
+            if castle in ["all", "others"]:
+                units_to_return.extend(unique_units["standard"])
+            if castle in ["all", "castle"]:
                 units_to_return.extend(unique_units["castle"]["standard"])
-        if elite:
-            units_to_return.extend(unique_units["elite"])
-            if castle:
+        if elite in ["all", "elite"]:
+            if castle in ["all", "others"]:
+                units_to_return.extend(unique_units["elite"])
+            if castle in ["all", "castle"]:
                 units_to_return.extend(unique_units["castle"]["elite"])
         if imperial:
             units_to_return.extend(unique_units["imperial"])

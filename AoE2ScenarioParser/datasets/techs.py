@@ -116,14 +116,14 @@ class TechInfo(Enum):
             castle: if set to false, excludes the castle unique unit techs from the list of techs returned
             other: if set to false, excludes the non castle unique unit techs from the list of techs returned
 
-        Returns:
+        Returns (list[TechInfo]):
             A list of unique unite upgrade tech IDs
 
         """
 
-        if type(castle) is bool:
+        if type(castle) is not bool:
             raise TypeError(f"Parameter 'castle' can only be of type bool but provided type: {type(castle)}")
-        if type(other) is bool:
+        if type(other) is not bool:
             raise TypeError(f"Parameter 'other' can only be of type bool but provided type: {type(other)}")
 
         unique_techs = {
