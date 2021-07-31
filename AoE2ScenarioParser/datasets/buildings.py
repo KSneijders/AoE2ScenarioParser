@@ -15,6 +15,15 @@ class BuildingInfo(InfoDatasetBase):
      - HotKey ID
      - If the building is a gaia only unit (eg. ruins)
 
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
     **Examples**
 
     >>> BuildingInfo.RUINS.ID

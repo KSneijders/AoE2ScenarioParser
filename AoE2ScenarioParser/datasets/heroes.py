@@ -14,6 +14,15 @@ class HeroInfo(InfoDatasetBase):
      - HotKey ID
      - If the hero is a gaia only unit
 
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
     **Examples**
 
     >>> HeroInfo.WILLIAM_WALLACE.ID

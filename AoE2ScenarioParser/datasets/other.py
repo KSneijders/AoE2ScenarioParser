@@ -14,6 +14,15 @@ class OtherInfo(InfoDatasetBase):
      - HotKey ID
      - If the unit is a gaia only unit (eg. deer, boar, etc.)
 
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
     **Examples**
 
     >>> OtherInfo.FLARE.ID

@@ -19,6 +19,15 @@ class UnitInfo(InfoDatasetBase):
     >>> UnitInfo.vils()
     >>> UnitInfo.unique_units()
 
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
     **Examples**
 
     >>> UnitInfo.VILLAGER_FEMALE.ID
