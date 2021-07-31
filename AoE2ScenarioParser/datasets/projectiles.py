@@ -108,12 +108,7 @@ class ProjectileInfo(Enum):
         fire = "_fire" if has_chemistry else ""
         projectile_id = _unit_projectile_info.get(str(unit_const), {}).get(projectile + fire, -1)
 
-        if projectile_id != -1:
-            return ProjectileInfo.from_id(projectile_id)
-
-        raise KeyError(
-            f"The unit with ID '{unit_const}' does not use a {projectile} projectile{' with fire' if fire else ''}"
-        )
+        return ProjectileInfo.from_id(projectile_id) if projectile_id != -1 else None
 
     ARROW = 9, ()
     VOL = 54, (71, 109, 141, 142, 484, 597, 617, 621)

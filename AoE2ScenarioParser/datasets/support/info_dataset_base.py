@@ -25,7 +25,7 @@ class InfoDatasetBase(Enum):
 
         """
 
-        PRIVATE METHOD!
+        **Private Method**
 
         Returns:
             A dict that maps the names of the properties to their index in the info tuple
@@ -38,7 +38,7 @@ class InfoDatasetBase(Enum):
 
         """
 
-        PRIVATE METHOD!
+        **Private Method**
 
         Get the specified property by its name from an object of this (or its derived) class
 
@@ -116,7 +116,7 @@ class InfoDatasetBase(Enum):
 
         """
 
-        PRIVATE METHOD!
+        **Private Method**
 
         This function finds and returns the member object that uses the given value for the specified property (id_type)
 
@@ -239,7 +239,7 @@ class InfoDatasetBase(Enum):
 
         """
 
-        PRIVATE METHOD!
+        **Private Method**
 
         Args:
             gaia_only: if set to true, lists all gaia only units. If set to false, lists all units except gaia only units
