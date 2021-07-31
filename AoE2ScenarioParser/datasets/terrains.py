@@ -2,6 +2,19 @@ from enum import IntEnum
 
 
 class TerrainId(IntEnum):
+    """
+
+    This enum class provides information about most of the terrains in the game. Information about the
+    following properties of a terrain is found in this class:
+     - Terrain ID
+
+    **Examples**
+
+    >>> TerrainId.FARM
+    >>> 7
+
+    """
+
     BEACH = 2
     BEACH_NON_NAVIGABLE = 79
     BEACH_NON_NAVIGABLE_WET_GRAVEL = 81
@@ -15,6 +28,7 @@ class TerrainId(IntEnum):
     BEACH_WHITE = 53
     BEACH_WHITE_VEGETATION = 51
     BLACK = 47
+    CORRUPTION = 69
     DESERT_CRACKED = 45
     DESERT_QUICKSAND = 46
     DESERT_SAND = 14
@@ -61,6 +75,24 @@ class TerrainId(IntEnum):
     GRAVEL_DESERT = 102
     ICE = 35
     ICE_NAVIGABLE = 26
+    MODDABLE_GRASS_1 = 84
+    MODDABLE_GRASS_2 = 85
+    MODDABLE_GRASS_3 = 86
+    MODDABLE_GRASS_4 = 87
+    MODDABLE_DEEP_WATER = 99
+    MODDABLE_NORMAL_WATER_1 = 97
+    MODDABLE_NORMAL_WATER_2 = 98
+    MODDABLE_SHALLOWS_1 = 93
+    MODDABLE_SHALLOWS_2 = 94
+    OBSOLETE_LEAVES_JUNGLE = 62
+    OBSOLETE_ROAD_DESERT = 43
+    OBSOLETE_ROAD_FUNGUS = 39
+    OBSOLETE_ROAD_GRAVEL = 103
+    OBSOLETE_ROAD_JUNGLE = 61
+    OBSOLETE_ROAD_SNOW = 38
+    OBSOLETE_SNOW_DIRT = 33
+    OBSOLETE_SNOW_GRASS = 34
+    RESERVED = 68
     RICE_FARM = 63
     RICE_FARM_0 = 65
     RICE_FARM_33 = 66

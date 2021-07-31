@@ -1,13 +1,39 @@
+from __future__ import annotations
 from enum import IntEnum
 
 
 class DiplomacyState(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the diplomacy states in the game. Used in the 'Change
+    Diplomacy' effect and the 'Diplomacy State' condition
+
+    **Examples**
+
+    >>> DiplomacyState.ALLY
+    >>> 0
+
+    """
+
     ALLY = 0
     NEUTRAL = 1
     ENEMY = 3
 
 
 class Operation(IntEnum):
+    """
+
+    This enum class provides the integer values used to reference the operations in the game. Used in a lot of effects
+    like 'Modify Attribute' to control whether an attribute is set, added to, multiplied or divided by a value.
+
+    **Examples**
+
+    >>> Operation.MULTIPLY
+    >>> 4
+
+    """
+
     SET = 1
     ADD = 2
     SUBTRACT = 3
@@ -16,6 +42,18 @@ class Operation(IntEnum):
 
 
 class AttackStance(IntEnum):
+    """
+
+    This enum class provides the integer values used to reference the different unit stances in the game. Used in the
+    'Change Object Stance' effect
+
+    **Examples**
+
+    >>> AttackStance.AGGRESSIVE_STANCE
+    >>> 0
+
+    """
+
     AGGRESSIVE_STANCE = 0
     DEFENSIVE_STANCE = 1
     STAND_GROUND = 2
@@ -23,35 +61,88 @@ class AttackStance(IntEnum):
 
 
 class UnitAIAction(IntEnum):
-    """Detailed introduction: [https://airef.github.io/parameters/parameters-details.html#ActionId]"""
+    """
+
+    This enum class provides the integer values used to reference the unit AI actions in the game. Used in the 'Object
+    Has Action' condition.
+
+    **Examples**
+
+    >>> UnitAIAction.ATTACK
+    >>> 1
+
+    """
+
     ANY = 0
+    """Fires if the unit has any action"""
     ATTACK = 1
+    """Fires when the unit is attacking any unit"""
     BUILD = 3
+    """Unknown"""
     CONVERT = 5
+    """Fires when a monk or missionary is converting any unit"""
     DEFEND = 2
+    """Unknown"""
     ENTER = 18
+    """Unknown"""
     EVADE = 17
+    """Unknown"""
     EXPLORE = 6
+    """Unknown"""
     FOLLOW = 13
+    """Fires when a unit is following any unit"""
     GATHER = 10
+    """Fires when a villager or fishing ship is gathering resources"""
     HEAL = 4
+    """Fires when a monk or missionary is healing another unit"""
     HUNT = 14
+    """
+    Fires when a hunter is gathering from a corpse of a hunted animal. Does **NOT** fire when the hunter is chasing the
+    animal
+    """
     IDLE = 24
+    """Fires when a unit is standing still"""
     MOVE = 11
+    """Fires when a unit is moving"""
     PATROL = 12
+    """Fires when a unit is patrolling"""
     RELIC = 23
+    """Unknown"""
     REPAIR = 19
+    """Fires when a villager is repairing any other unit"""
     RESEARCH = 21
+    """Unknown"""
     RETREAT = 9
+    """Unknown"""
     RUNAWAY = 8
+    """Unknown"""
     STOP = 7
+    """Unknown"""
     TRADE = 16
+    """Fires when a trade cart is returning to any of its own player's markets"""
     TRAIN = 20
+    """Unknown"""
     TRANSPORT = 15
+    """Unknown"""
     UNLOAD = 22
+    """Fires when a transport ship is tasked to unload objects. Note that the transport gets stuck in this state!"""
 
 
 class ButtonLocation(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the button locations in the game. These button
+    locations are what determines where a unit's train button or a research's research button appears in a building's
+    UI
+
+    **Examples**
+
+    >>> ButtonLocation.r2c2
+    >>> 7
+
+    """
+
     r1c1 = 1
     r1c2 = 2
     r1c3 = 3
@@ -70,11 +161,38 @@ class ButtonLocation(IntEnum):
     # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
 
     @classmethod
-    def row_col(cls, row, col):
+    def row_col(cls, row: int, col: int) -> int:
+
+        """
+
+        Get the button location ID of the row, column specified
+
+        Args:
+            row: The number of the row starting from the top (1-5)
+            col: The number of the column starting from the left (1-3)
+
+        Returns:
+            The button location ID of the (row, column) location specified
+
+        """
+
         return cls((row - 1) * 5 + col)
 
 
 class PanelLocation(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the panel positons in the game. Used in the 'Display
+    Information' effect.
+
+    **Examples**
+
+    >>> PanelLocation.TOP
+    >>> 0
+
+    """
+
     TOP = 0
     """Panel at the top of the screen. ~13% from the top"""
     BETWEEN = 1
@@ -84,6 +202,19 @@ class PanelLocation(IntEnum):
 
 
 class TimeUnit(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the unit of time used in an effect. Used in the
+    'Display Timer' effect.
+
+    **Examples**
+
+    >>> TimeUnit.YEARS
+    >>> 1
+
+    """
+
     YEARS = 2
     """In-Game years. A year is 5 seconds in-game time."""
     MINUTES = 1
@@ -93,12 +224,38 @@ class TimeUnit(IntEnum):
 
 
 class VisibilityState(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference visibility state of a player for another player in the
+    game. Used in the 'Set Visibility State' effect.
+
+    **Examples**
+
+    >>> VisibilityState.EXPLORED
+    >>> 1
+
+    """
+
     VISIBLE = 0
     EXPLORED = 1
     INVISIBLE = 2
 
 
 class DifficultyLevel(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference difficulty level of the game. Used in the 'Difficulty
+    Level' condition.
+
+    **Examples**
+
+    >>> DifficultyLevel.HARD
+    >>> 0
+
+    """
+
     EASIEST = 4
     STANDARD = 3
     MODERATE = 2
@@ -108,15 +265,46 @@ class DifficultyLevel(IntEnum):
 
 
 class TechnologyState(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference technology state of a technology in the game. Used in
+    the 'Technology State' condition.
+
+    **Examples**
+
+    >>> TechnologyState.NOT_READY
+    >>> 0
+
+    """
+
     DISABLED = -1
     NOT_READY = 0
+    """A tech that is not available to be researched (Bombard Tower is not ready before chemistry is researched)"""
     READY = 1
+    """A tech that is available to be researched (Bombard Tower is ready after chemistry is researched)"""
     RESEARCHING = 2
+    """A tech that is currently being researched"""
     DONE = 3
+    """A Tech that has already been researched"""
     QUEUED = 4
+    """A tech that is waiting in queue to be researched"""
 
 
 class Comparison(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the comparisons in the game. Used in a lot of
+    conditions like 'Accumulate Attribute' to perform logical operations on the attribute values
+
+    **Examples**
+
+    >>> Comparison.EQUAL
+    >>> 4
+
+    """
+
     EQUAL = 0
     LESS = 1
     LARGER = 2
@@ -125,6 +313,19 @@ class Comparison(IntEnum):
 
 
 class ObjectAttribute(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference all the different object attributes in the game. Used
+    in the 'Modify Attribute' effect to control which attribute of an object is modified.
+
+    **Examples**
+
+    >>> ObjectAttribute.LINE_OF_SIGHT
+    >>> 1
+
+    """
+
     HIT_POINTS = 0
     LINE_OF_SIGHT = 1
     GARRISON_CAPACITY = 2
@@ -174,11 +375,24 @@ class ObjectAttribute(IntEnum):
     STONE_COSTS = 106
     MAX_TOTAL_MISSILES = 107
     GARRISON_HEAL_RATE = 108
-    """Hidden in the editor, but does work! Do not open effect in editor. Will cause it to reset"""
+    """Hidden in the editor, but does work! Do not open effect in editor, will cause it to reset"""
     REGENERATION_RATE = 109
 
 
 class Attribute(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference all the player resources in the game. Used in effects
+    and conditions like 'Accumulate Attribute' and 'Modify Resource'
+
+    **Examples**
+
+    >>> Attribute.FOOD
+    >>> 0
+
+    """
+
     FOOD = 0
     """Food Amount of the Source Player"""
     WOOD = 1
@@ -781,6 +995,19 @@ class Attribute(IntEnum):
 
 
 class ObjectType(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the object types in the game. Used in a lot of effects
+    and conditions, like 'Kill Object', 'Objects in Area'.
+
+    **Examples**
+
+    >>> ObjectType.OTHER
+    >>> 1
+
+    """
+
     OTHER = 1
     BUILDING = 2
     CIVILIAN = 3
@@ -788,6 +1015,19 @@ class ObjectType(IntEnum):
 
 
 class ObjectClass(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the object class in the game. Used in a lot of effects
+    and conditions, like 'Kill Object', 'Objects in Area' under the name 'Object Group'.
+
+    **Examples**
+
+    >>> ObjectType.OTHER
+    >>> 1
+
+    """
+
     ARCHER = 0
     ARTIFACT = 1
     TRADE_BOAT = 2
@@ -853,75 +1093,153 @@ class ObjectClass(IntEnum):
 
 
 class TerrainRestrictions(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the terrain restriction IDs in the game. Used in the
+    'Modify Attribute' effects
+
+    **Examples**
+
+    >>> TerrainRestrictions.LAND_AND_SHALLOWS
+    >>> 1
+
+    """
+
     ALL = 0
-    """Used by terrain eyecandy and sundries."""
+    """Used by terrain eyecandy and sundries"""
     LAND_AND_SHALLOWS = 1
-    """Used by part of animals."""
+    """Used by part of animals"""
     BEACH = 2
     WATER_SMALL_TRAIL = 3
-    """Used by most ships and sea gate."""
+    """Used by most ships and sea gate"""
     LAND = 4
-    """Used by most land buildings."""
+    """Used by most land buildings"""
     NOTHING = 5
     WATER_NO_TRAIL = 6
-    """Used by docks."""
+    """Used by docks"""
     ALL_EXCEPT_WATER = 7
-    """Used by land troops."""
+    """Used by land troops"""
     LAND_EXCEPT_FARM = 8
-    """Used by land resources."""
+    """Used by land resources"""
     NOTHING_2 = 9
     LAND_AND_BEACH = 10
-    """Used by land walls and gates."""
+    """Used by land walls and gates"""
     LAND_EXCEPT_FARM_2 = 11
-    """Used by trees and mountains."""
+    """Used by trees and mountains"""
     ALL_EXCEPT_WATER_BRIDGE_CANNON = 12
     WATER_MEDIUM_TRAIL = 13
-    """Used by big fish and fishing ship."""
+    """Used by big fish and fishing ship"""
     ALL_EXCEPT_WATER_BRIDGE_ARROW = 14
     WATER_LARGE_TRAIL = 15
-    """Only used by transport ship."""
+    """Only used by transport ship"""
     GRASS_AND_BEACH = 16
     WATER_AND_BRIDGE_EXCEPT_BEACH = 17
     ALL_EXCEPT_WATER_BRIDGE_SPEAR = 18
     ONLY_WATER_AND_ICE = 19
-    """Used by fish."""
+    """Used by fish"""
     ALL_EXCEPT_WATER_WHEEL = 20
-    """Used by units with wheels, such as Rams and Scorpions."""
+    """Used by units with wheels, such as Rams and Scorpions"""
     SHALLOW_WATER = 21
     ALL_DART = 22
     ALL_ARROW_FIRE = 23
-    """Only used by Arrows with fire (After chemistry)."""
+    """Only used by Arrows with fire (After chemistry)"""
     ALL_CANNON_FIRE = 24
-    """Only used by Cannon balls (After chemistry)."""
+    """Only used by Cannon balls (After chemistry)"""
     ALL_SPEAR_FIRE = 25
-    """Only used by Spears with fire (After chemistry)."""
+    """Only used by Spears with fire (After chemistry)"""
     ALL_DART_FIRE = 26
-    """Only used by Darts with fire (After chemistry)."""
+    """Only used by Darts with fire (After chemistry)"""
     ALL_LASER = 27
     """Only used by Projectile Laser with id 1595"""
     ALL_EXCEPT_WATER_CAVALRY = 28
-    """Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel."""
+    """Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel"""
     ALL_EXCEPT_WATER_PACKET_TREBUCHET = 29
-    """All types of Trebuchet(Packed)."""
+    """All types of Trebuchet(Packed)"""
     WATER_SMALLEST_TRAIL = 30
-    """Used by medium ships, such as Trade Cog, Fire Galley and Longboat."""
-
+    """Used by medium ships, such as Trade Cog, Fire Galley and Longboat"""
 
 class HeroStatusFlag(IntEnum):
+
+    """
+
+    This enum class provides the integer values for the different hero status flags that can be used in the 'Modify
+    Attribute' effect with the 'Hero Status' attribute.
+
+    **Methods**
+
+    >>> HeroStatusFlag.combine()
+    >>> HeroStatusFlag.split_flags()
+
+    **Examples**
+
+    >>> ObjectType.OTHER
+    >>> 1
+
+    """
+
     @staticmethod
     def combine(
-            hero_regeneration=False,
-            cannot_be_converted=False,
-            defensive_stance_by_default=False,
-            protected_formation=False,
-            delete_confirmation=False):
+            full_hero_status: bool = False,
+            cannot_be_converted: bool = False,
+            hero_regeneration: bool = False,
+            defensive_stance_by_default: bool = False,
+            protected_formation: bool = False,
+            delete_confirmation: bool = False,
+            hero_glow: bool = False,
+            invert_all_flags: bool = False
+    ) -> int:
 
-        total = 2 if cannot_be_converted else 0
+        """
+
+        This method combines the given hero status flags into an integer value
+
+        Args:
+            full_hero_status: Enabling this for a unit grants all the flags mentioned below except invert_all_flags
+            cannot_be_converted: Enabling this for a unit makes it un-convertable
+            hero_regeneration: Enabling this for a unit grants 0.5 HP/s heal rate to the unit
+            defensive_stance_by_default: Enabling this for a unit makes it be on defensive stance by default
+            protected_formation: Enabling this for a unit makes it be in protected formation by default
+            delete_confirmation: Enabling this for a unit will bring up a delete confirmation for the unit when trying
+            to delete it IF the player has them enabled
+            hero_glow: Enabling this for a unit grants it the golden hero glow effect
+            invert_all_flags: Enabling this for a unit will invert all the above flags except full_hero_status
+
+        Returns:
+            An integer combining all the different hero status flags into one value
+
+        """
+
+        total = 1 if full_hero_status else 0
+        total += 2 if cannot_be_converted else 0
         total += 4 if hero_regeneration else 0
         total += 8 if defensive_stance_by_default else 0
         total += 16 if protected_formation else 0
         total += 32 if delete_confirmation else 0
+        total += 64 if hero_glow else 0
+        total += 128 if invert_all_flags else 0
         return total
+
+    @staticmethod
+    def split_flags(value: int) -> dict[HeroStatusFlag, bool]:
+        """
+
+        Split the Hero Status flags into boolean variables related to their effects
+
+        Args:
+            value: An integer value representing all the hero status flags set
+
+        Returns:
+            A dict with all the flags values as keys and a bool as their value
+
+        """
+
+        flags = {}
+        for flag in HeroStatusFlag:
+            flags[flag] = bool(flag & value)
+
+        return flags
+
 
     FULL_HERO_STATUS = 1
     CANNOT_BE_CONVERTED = 2
@@ -929,18 +1247,51 @@ class HeroStatusFlag(IntEnum):
     DEFENSIVE_STANCE_BY_DEFAULT = 8
     PROTECTED_FORMATION = 16
     DELETE_CONFIRMATION = 32
+    HERO_GLOW = 64
+    INVERT_FLAGS = 128
 
 
 class BlastLevel(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the blast level values used in the game. Used in the
+    'Modify Attribute' effect with the 'Blast Attack/Defense Level' attributes
+
+    **Examples**
+
+    >>> BlastLevel.TREES
+    >>> 1
+
+    """
+
     RESOURCES = 0
     TREES = 1
     NEARBY_UNITS = 2
     TARGET_ONLY = 3
+    FIXED_INFANTRY_TRAMPLE = 6
+    """
+    If an infantry unit is given this along with non 0 blast radius, it does a fixed 5 HP damage ignoring armour to all
+    adjacent units
+    """
 
 
 class DamageClass(IntEnum):
+
+    """
+
+    This enum class provides the integer values that represent the damage classes in the game. Used in the 'Chnage
+    Object Attack/Armour' and 'Modify Attribute' with the 'Attack/Armour' attibutes
+
+    **Examples**
+
+    >>> DamageClass.INFANTRY
+    >>> 1
+
+    """
+
     WONDER = 0
-    """Since HD. Only wonders has this armour class. However there is no unit having this damage class."""
+    """Since HD. Only wonders has this armour class. However there is no unit that has this attack class."""
     INFANTRY = 1
     TURTLE_SHIPS = 2
     BASE_PIERCE = 3
@@ -999,11 +1350,18 @@ class DamageClass(IntEnum):
 
 class Hotkey(IntEnum):
     """
-    Enum for all possible static keys
 
-    Many hotkeys will be missing from this file (Like arrow up). The reason for this is explained in the UGC guide:
+    This enum class provides the integer values used to reference the blast level values used in the game. Used in the
+    'Modify Attribute' effect with the 'HotKey ID' attribute
+
+    Many hotkeys are missing from this file (Like arrow up). The reason for this is explained in the UGC guide:
     https://divy1211.github.io/AoE2DE_UGC_Guide/general/hotkeys/hotkeys/
-    We'll try to update this list every update (when new strings are added to the game).
+
+    **Examples**
+
+    >>> Hotkey.SPACE
+    >>> 10101
+
     """
 
     SPACE = 10101
@@ -1065,6 +1423,19 @@ class Hotkey(IntEnum):
 
 
 class ColorMood(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the colour mood values used in the game. Used in the
+    'Change Colour Mood' effect
+
+    **Examples**
+
+    >>> ColorMood.AUTUMN
+    >>> 1
+
+    """
+
     DEFAULT = 0
     AUTUMN = 1
     WINTER = 2
@@ -1073,6 +1444,19 @@ class ColorMood(IntEnum):
 
 
 class ObjectState(IntEnum):
+
+    """
+
+    This enum class provides the integer values used to reference the object state values used in the game. Used in the
+    'Object in Area' condition
+
+    **Examples**
+
+    >>> BlastLevel.TREES
+    >>> 1
+
+    """
+
     FOUNDATION = 0
     ALMOST_ALIVE = 1
     ALIVE = 2

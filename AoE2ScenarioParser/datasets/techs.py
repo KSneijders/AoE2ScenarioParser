@@ -3,110 +3,206 @@ from enum import Enum
 
 
 class TechInfo(Enum):
+
+    """
+
+    This enum class provides information about most of the techs in the game. Information about the
+    following properties of a tech is found in this class:
+     - Tech ID
+     - Icon ID
+
+    **Methods**
+
+    >>> TechInfo.from_id()
+    >>> TechInfo.from_icon_id()
+    >>> TechInfo.unique_techs()
+    >>> TechInfo.unique_unit_upgrades()
+
+    **Examples**
+
+    >>> TechInfo.LOOM.ID
+    >>> 22
+
+    >>> TechInfo.LOOM.ICON_ID
+    >>> 6
+
+    """
+
     @property
     def ID(self):
+
+        """
+
+        Returns:
+            The ID of the specified tech
+
+        """
+
         return self.value[0]
 
     @classmethod
-    def from_id(cls, value):
-        if value == -1:
-            raise ValueError("-1 is not a valid id value")
+    def from_id(cls, tech_id: int) -> TechInfo:
+
+        """
+
+        Get the TechInfo object from its ID
+
+        Args:
+            tech_id: The ID of the tech to get the TechInfo of
+
+        Returns:
+            A TechInfo object of the specified tech ID
+
+        """
+
+        if tech_id < 0:
+            raise ValueError(f"{tech_id} is not a valid tech id value")
         for x in cls._member_map_.values():
-            if x.value[0] == value:
+            if x.value[0] == tech_id:
                 return x
-        raise ValueError(f"{value} is not a valid id value")
+
+        raise KeyError(f"A technology with ID '{tech_id}' was not found in the dataset")
 
     @property
     def ICON_ID(self):
+
+        """
+
+        Returns:
+            The icon ID of the specified tech
+
+        """
+
         return self.value[1]
 
     @classmethod
-    def from_icon_id(cls, value):
-        if value == -1:
+    def from_icon_id(cls, tech_icon_id):
+
+        """
+
+        Get the TechInfo object from its icon ID
+
+        Args:
+            tech_icon_id: The icon ID of the tech to get the TechInfo of
+
+        Returns:
+            A TechInfo object of the tech with the specified icon ID
+
+        """
+
+        if tech_icon_id == -1:
             raise ValueError("-1 is not a valid icon_id value")
         for x in cls._member_map_.values():
-            if x.value[1] == value:
+            if x.value[1] == tech_icon_id:
                 return x
-        raise ValueError(f"{value} is not a valid icon_id value")
+
+        raise KeyError(f"A technology with icon id '{tech_icon_id}' was not found in the dataset")
 
     @staticmethod
-    def unique_techs():
-        return [
-            TechInfo.ANARCHY,
-            TechInfo.ANDEAN_SLING,
-            TechInfo.ARQUEBUS,
-            TechInfo.ARTILLERY,
-            TechInfo.ATHEISM,
-            TechInfo.ATLATL,
-            TechInfo.BAGAINS,
-            TechInfo.BEARDED_AXE,
-            TechInfo.BERSERKERGANG,
-            TechInfo.BURGUNDIAN_VINEYARDS,
-            TechInfo.CARRACK,
-            TechInfo.CHATRAS,
-            TechInfo.CHIEFTAINS,
-            TechInfo.CHIVALRY,
-            TechInfo.CORVINIAN_ARMY,
-            TechInfo.COURIERS,
-            TechInfo.CRENELLATIONS,
-            TechInfo.CUMAN_MERCENARIES,
-            TechInfo.DOUBLE_CROSSBOW,
-            TechInfo.DRILL,
-            TechInfo.DRUZHINA,
-            TechInfo.EL_DORADO,
-            TechInfo.FARIMBA,
-            TechInfo.FIRST_CRUSADE,
-            TechInfo.FLEMISH_REVOLUTION,
-            TechInfo.FORCED_LEVY,
-            TechInfo.FUROR_CELTICA,
-            TechInfo.GARLAND_WARS,
-            TechInfo.GREAT_WALL,
-            TechInfo.GREEK_FIRE,
-            TechInfo.HILL_FORTS,
-            TechInfo.HOWDAH,
-            TechInfo.INQUISITION,
-            TechInfo.IRONCLAD,
-            TechInfo.KAMANDARAN,
-            TechInfo.KASBAH,
-            TechInfo.KATAPARUTO,
-            TechInfo.LOGISTICA,
-            TechInfo.MADRASAH,
-            TechInfo.MAGHRABI_CAMELS,
-            TechInfo.MAHOUTS,
-            TechInfo.MANIPUR_CAVALRY,
-            TechInfo.MARAUDERS,
-            TechInfo.NOMADS,
-            TechInfo.OBSIDIAN_ARROWS,
-            TechInfo.ORTHODOXY,
-            TechInfo.PANOKSEON,
-            TechInfo.PAPER_MONEY,
-            TechInfo.PAVISE,
-            TechInfo.PERFUSION,
-            TechInfo.RECURVE_BOW,
-            TechInfo.ROCKETRY,
-            TechInfo.ROYAL_HEIRS,
-            TechInfo.SCUTAGE,
-            TechInfo.SHATAGNI,
-            TechInfo.SHINKICHON,
-            TechInfo.SILK_ARMOR,
-            TechInfo.SILK_ROAD,
-            TechInfo.SIPAHI,
-            TechInfo.STEPPE_HUSBANDRY,
-            TechInfo.STIRRUPS,
-            TechInfo.STRONGHOLD,
-            TechInfo.SULTANS,
-            TechInfo.SUPREMACY,
-            TechInfo.THALASSOCRACY,
-            TechInfo.TIGUI,
-            TechInfo.TIMURID_SIEGECRAFT,
-            TechInfo.TORSION_ENGINES,
-            TechInfo.TOWER_SHIELDS,
-            TechInfo.TUSK_SWORDS,
-            TechInfo.WARWOLF,
-            TechInfo.YASAMA,
-            TechInfo.YEOMEN,
-            TechInfo.ZEALOTRY
-        ]
+    def unique_techs(exclude_castle_techs: bool = True, exclude_imp_techs: bool = True) -> list[TechInfo]:
+
+        """
+
+        Get the list of all the unique techs in the game
+
+        Args:
+            exclude_castle_techs: if set to True, exclude the castle age techs
+            exclude_imp_techs: if set to True, exclude the imperial age techs
+
+        Returns:
+            A list of TechInfo objects which are all the unique techs in the game
+
+        """
+
+        unique_techs = {
+            "castle_age": [
+                TechInfo.ANARCHY,
+                TechInfo.ANDEAN_SLING,
+                TechInfo.ATLATL,
+                TechInfo.BEARDED_AXE,
+                TechInfo.CARRACK,
+                TechInfo.CHATRAS,
+                TechInfo.CHIEFTAINS,
+                TechInfo.CORVINIAN_ARMY,
+                TechInfo.FIRST_CRUSADE,
+                TechInfo.GREAT_WALL,
+                TechInfo.GREEK_FIRE,
+                TechInfo.HILL_FORTS,
+                TechInfo.HOWDAH,
+                TechInfo.HULCHE_JAVELINEERS,
+                TechInfo.INQUISITION,
+                TechInfo.IRONCLAD,
+                TechInfo.KAMANDARAN,
+                TechInfo.KASBAH,
+                TechInfo.NOMADS,
+                TechInfo.MADRASAH,
+                TechInfo.MARAUDERS,
+                TechInfo.ORTHODOXY,
+                TechInfo.PANOKSEON,
+                TechInfo.PAVISE,
+                TechInfo.ROYAL_HEIRS,
+                TechInfo.SHATAGNI,
+                TechInfo.SILK_ARMOR,
+                TechInfo.SIPAHI,
+                TechInfo.STEPPE_HUSBANDRY,
+                TechInfo.STIRRUPS,
+                TechInfo.STRONGHOLD,
+                TechInfo.SULTANS,
+                TechInfo.THALASSOCRACY,
+                TechInfo.TIGUI,
+                TechInfo.TUSK_SWORDS,
+                TechInfo.YASAMA,
+                TechInfo.YEOMEN,
+            ],
+            "imp_age": [
+                TechInfo.ARQUEBUS,
+                TechInfo.ARTILLERY,
+                TechInfo.ATHEISM,
+                TechInfo.BAGAINS,
+                TechInfo.BERSERKERGANG,
+                TechInfo.BURGUNDIAN_VINEYARDS,
+                TechInfo.CHIVALRY,
+                TechInfo.CRENELLATIONS,
+                TechInfo.COURIERS,
+                TechInfo.CUMAN_MERCENARIES,
+                TechInfo.DOUBLE_CROSSBOW,
+                TechInfo.DRILL,
+                TechInfo.DRUZHINA,
+                TechInfo.EL_DORADO,
+                TechInfo.FARIMBA,
+                TechInfo.FLEMISH_REVOLUTION,
+                TechInfo.FORCED_LEVY,
+                TechInfo.FUROR_CELTICA,
+                TechInfo.GARLAND_WARS,
+                TechInfo.KATAPARUTO,
+                TechInfo.LOGISTICA,
+                TechInfo.MAGHRABI_CAMELS,
+                TechInfo.MAHOUTS,
+                TechInfo.MANIPUR_CAVALRY,
+                TechInfo.PAPER_MONEY,
+                TechInfo.PERFUSION,
+                TechInfo.RECURVE_BOW,
+                TechInfo.ROCKETRY,
+                TechInfo.SCUTAGE,
+                TechInfo.SHINKICHON,
+                TechInfo.SILK_ROAD,
+                TechInfo.SUPREMACY,
+                TechInfo.TIMURID_SIEGECRAFT,
+                TechInfo.TORSION_ENGINES,
+                TechInfo.TOWER_SHIELDS,
+                TechInfo.WARWOLF,
+                TechInfo.ZEALOTRY
+            ]
+        }
+
+        techs_to_return = []
+
+        if not exclude_castle_techs:
+            techs_to_return.extend(unique_techs["castle_age"])
+        if not exclude_imp_techs:
+            techs_to_return.extend(unique_techs["imp_age"])
+
+        return techs_to_return
 
     @staticmethod
     def unique_unit_upgrades(
@@ -389,7 +485,7 @@ class TechInfo(Enum):
     MONGOLS = 540, -1
     MURDER_HOLES = 322, 61
     NOMADS = 487, 33
-    OBSIDIAN_ARROWS = 485, 33
+    HULCHE_JAVELINEERS = 485, 33
     ONAGER = 257, 57
     ORTHODOXY = 512, 33
     PADDED_ARCHER_ARMOR = 211, 49
