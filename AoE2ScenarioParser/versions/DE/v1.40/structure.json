@@ -1897,6 +1897,7 @@
                             "effect_type": {
                                 "type": "s32",
                                 "default": 0
+                            },
                             "static_value_46": {
                                 "type": "s32",
                                 "default": 48
