@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.15 - Unreleased
+
+### Added
+
+- Alian713 as an author! **The dataset wizard!**
+
+### Improved
+
+- Doc strings, error messages and type annotations for datasets. (Credits: Alian713) [Pull Request #22]
+
+### Fixed
+
+- Issue with order lists updating when directly removing items from the list (using `.pop()` or `.remove()`)
+- Issue with reading `1.40` maps.
+
+[Pull Request #22]: (https://github.com/KSneijders/AoE2ScenarioParser/pull/22)
+
+---
+
 ## 0.1.14 - 2021-July-26
 
 ### Fixed
