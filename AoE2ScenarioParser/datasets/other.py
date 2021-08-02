@@ -3,7 +3,6 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class OtherInfo(InfoDatasetBase):
     """
-
     **Description**
 
     This enum class provides information about the 'Other' units in the game in the game. Information about the
@@ -39,7 +38,6 @@ class OtherInfo(InfoDatasetBase):
 
     >>> OtherInfo.FLARE.IS_GAIA_ONLY
     >>> False
-
     """
 
     SMALL_TEMP_MAP_REVEAL = 112, -1, -1, 16316, False

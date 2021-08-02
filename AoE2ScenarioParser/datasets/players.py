@@ -5,10 +5,8 @@ from enum import IntEnum
 
 class PlayerId(IntEnum):
     """
-
     This enum class provides the integer values used to reference each player in the game. Use these over specifying
     player number directly to improve code readability
-
     """
 
     GAIA = 0
@@ -24,10 +22,8 @@ class PlayerId(IntEnum):
 
 class PlayerColorId(IntEnum):
     """
-
     This enum class provides the integer values used to reference the colours in-game. These are used in the 'Change Object
     Color', etc. effects
-
     """
 
     BLUE = 1

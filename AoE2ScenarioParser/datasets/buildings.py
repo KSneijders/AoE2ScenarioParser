@@ -2,9 +2,7 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 
 class BuildingInfo(InfoDatasetBase):
-
     """
-
     **Description**
 
     This is an enum class which provides information about most of the buildings in the game. Information about the
@@ -40,7 +38,6 @@ class BuildingInfo(InfoDatasetBase):
 
     >>> BuildingInfo.RUINS.IS_GAIA_ONLY
     >>> True
-
     """
 
     RUINS = 345, -1, -1, 16393, True

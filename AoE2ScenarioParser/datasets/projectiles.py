@@ -10,9 +10,7 @@ with (Path(__file__).parent / 'sources' / f'unit_projectile_info.json').open() a
 
 
 class ProjectileInfo(Enum):
-
     """
-
     **Description**
 
     This enum class provides information about the projectiles in the game. Information about the following properties
@@ -31,38 +29,27 @@ class ProjectileInfo(Enum):
 
     >>> ProjectileInfo.SCORPION_FIRE.USED_BY
     >>> (542,)
-
     """
 
     @property
     def ID(self) -> int:
-
         """
-
         Returns:
             The ID of the specified projectile unit
-
         """
-
         return self.value[0]
 
     @property
     def USED_BY(self) -> tuple[int]:
-
         """
-
         Returns:
             A tuple of unit IDs that use the specified projectile unit
-
         """
-
         return self.value[1]
 
     @classmethod
     def from_id(cls, projectile_id: int) -> ProjectileInfo:
-
         """
-
         Get the ProjectileInfo object from its ID
 
         Args:
@@ -70,9 +57,7 @@ class ProjectileInfo(Enum):
 
         Returns:
             A ProjectileInfo object of the specified projectile ID
-
         """
-
         if type(projectile_id) is not int:
             raise TypeError(f"from_id expected int, got {type(projectile_id)}")
         if projectile_id == -1:

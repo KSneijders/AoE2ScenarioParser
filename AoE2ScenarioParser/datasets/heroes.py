@@ -3,7 +3,6 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class HeroInfo(InfoDatasetBase):
     """
-
     **Description**
 
     This enum class provides information about most of the heroes in the game. Information about the following
@@ -39,7 +38,6 @@ class HeroInfo(InfoDatasetBase):
 
     >>> HeroInfo.WILLIAM_WALLACE.IS_GAIA_ONLY
     >>> False
-
     """
 
     KHOSRAU = 1297, 172, 874, 16311, False

@@ -3,9 +3,7 @@ from enum import Enum
 
 
 class TechInfo(Enum):
-
     """
-
     This enum class provides information about most of the techs in the game. Information about the
     following properties of a tech is found in this class:
      - Tech ID
@@ -25,26 +23,20 @@ class TechInfo(Enum):
 
     >>> TechInfo.LOOM.ICON_ID
     >>> 6
-
     """
 
     @property
     def ID(self):
-
         """
-
         Returns:
             The ID of the specified tech
-
         """
 
         return self.value[0]
 
     @classmethod
     def from_id(cls, tech_id: int) -> TechInfo:
-
         """
-
         Get the TechInfo object from its ID
 
         Args:
@@ -52,7 +44,6 @@ class TechInfo(Enum):
 
         Returns:
             A TechInfo object of the specified tech ID
-
         """
 
         if tech_id < 0:
@@ -65,21 +56,16 @@ class TechInfo(Enum):
 
     @property
     def ICON_ID(self):
-
         """
-
         Returns:
             The icon ID of the specified tech
-
         """
 
         return self.value[1]
 
     @classmethod
     def from_icon_id(cls, tech_icon_id):
-
         """
-
         Get the TechInfo object from its icon ID
 
         Args:
@@ -87,7 +73,6 @@ class TechInfo(Enum):
 
         Returns:
             A TechInfo object of the tech with the specified icon ID
-
         """
 
         if tech_icon_id == -1:
@@ -100,9 +85,7 @@ class TechInfo(Enum):
 
     @staticmethod
     def unique_techs(exclude_castle_techs: bool = True, exclude_imp_techs: bool = True) -> list[TechInfo]:
-
         """
-
         Get the list of all the unique techs in the game
 
         Args:
@@ -111,7 +94,6 @@ class TechInfo(Enum):
 
         Returns:
             A list of TechInfo objects which are all the unique techs in the game
-
         """
 
         unique_techs = {
@@ -209,16 +191,13 @@ class TechInfo(Enum):
         exclude_castle_techs: bool = False,
         exclude_non_castle_techs: bool = False
     ) -> list[TechInfo]:
-
         """
-
         Args:
             exclude_castle_techs: if set to false, excludes the castle unique unit techs from the list of techs returned
             exclude_non_castle_techs: if set to false, excludes the non castle unique unit techs from the list of techs returned
 
         Returns:
             A list of unique unite upgrade tech IDs
-
         """
 
         args = locals()

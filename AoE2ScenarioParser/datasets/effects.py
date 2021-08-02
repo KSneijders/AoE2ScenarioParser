@@ -4,9 +4,7 @@ from bidict import bidict
 
 
 class EffectId(IntEnum):
-
     """
-
     This enum class provides the integer values used to reference the effects in the game. Used in every effect to
     indicate which type of effect it is
 
@@ -14,7 +12,6 @@ class EffectId(IntEnum):
 
     >>> EffectId.RESEARCH_TECHNOLOGY
     >>> 2
-
     """
 
     NONE = 0
@@ -592,7 +589,10 @@ class EffectId(IntEnum):
     CHANGE_COLOR_MOOD = 72
     """Attributes for the **change_color_mood** effect are: \n
     - quantity
-    - color_mood"""
+    - color_mood
+    
+    **Version notice**: \n
+    This condition is supported since: 1.42"""
     # Possibly used for marking when achievements should be achieved. Doesn't seem to work in scenario's. F
     # UNKNOWN_0 = 58  # Was 58... Not anymore (?)
 
