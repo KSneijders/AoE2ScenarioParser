@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.15 - 2021-08-02
+
+### Added
+
+- **Alian713** as an author! **The dataset wizard!**
+- Filters to dataset functions -- [Pull Request #22 (Alian713)]
+- `CORRUPTION` and many `MODDABLE...` to the `TerrainId` dataset -- [Pull Request #24 (Alian713)]
+
+### Improved
+
+- Doc strings, error messages and type annotations for datasets. -- [Pull Request #24 (Alian713)]
+
+### Fixed
+
+- Issue with order lists updating when directly removing items from the list (using `.pop()` or `.remove()`)
+- Issue with reading `1.40` maps.
+
+[Pull Request #22 (Alian713)]: (https://github.com/KSneijders/AoE2ScenarioParser/pull/22)
+[Pull Request #24 (Alian713)]: (https://github.com/KSneijders/AoE2ScenarioParser/pull/24)
+
+---
+
 ## 0.1.14 - 2021-July-26
 
 ### Fixed

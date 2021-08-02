@@ -69,6 +69,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 # Authors
 
 - Kerwin Sneijders (Main Author)
+- Alian713 (Dataset Wizard)
 
 # License
 

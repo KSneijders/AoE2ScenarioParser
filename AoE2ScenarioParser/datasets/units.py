@@ -1,52 +1,269 @@
+from __future__ import annotations
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
-
 class UnitInfo(InfoDatasetBase):
+    """
+
+    **Description**
+
+    This class provides information about most of the units in the game. Information about the following properties of
+    a unit is found in this class:
+     - Unit ID
+     - Icon ID
+     - Dead Unit ID
+     - HotKey ID
+     - If the unit is a gaia only unit (eg. deer, boar, etc.)
+
+    **Methods**
+
+    >>> UnitInfo.vils()
+    >>> UnitInfo.unique_units()
+
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
+    **Examples**
+
+    >>> UnitInfo.VILLAGER_FEMALE.ID
+    >>> 293
+
+    >>> UnitInfo.PETARD.ICON_ID
+    >>> 113
+
+    >>> UnitInfo.PALADIN.DEAD_ID
+    >>> 570
+
+    >>> UnitInfo.VILLAGER_MALE.HOTKEY_ID
+    >>> 16121
+
+    >>> UnitInfo.DEER.IS_GAIA_ONLY
+    >>> True
+
+    """
 
     @staticmethod
-    def vils():
-        return [
-            UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE, UnitInfo.VILLAGER_MALE_BUILDER,
-            UnitInfo.VILLAGER_FEMALE_BUILDER, UnitInfo.VILLAGER_MALE_FARMER, UnitInfo.VILLAGER_FEMALE_FARMER,
-            UnitInfo.VILLAGER_MALE_FISHERMAN, UnitInfo.VILLAGER_FEMALE_FISHERMAN, UnitInfo.VILLAGER_MALE_FORAGER,
-            UnitInfo.VILLAGER_FEMALE_FORAGER, UnitInfo.VILLAGER_MALE_GOLD_MINER, UnitInfo.VILLAGER_FEMALE_GOLD_MINER,
-            UnitInfo.VILLAGER_MALE_HUNTER, UnitInfo.VILLAGER_FEMALE_HUNTER, UnitInfo.VILLAGER_MALE_LUMBERJACK,
-            UnitInfo.VILLAGER_FEMALE_LUMBERJACK, UnitInfo.VILLAGER_MALE_REPAIRER, UnitInfo.VILLAGER_FEMALE_REPAIRER,
-            UnitInfo.VILLAGER_MALE_SHEPHERD, UnitInfo.VILLAGER_FEMALE_SHEPHERD, UnitInfo.VILLAGER_MALE_STONE_MINER,
-            UnitInfo.VILLAGER_FEMALE_STONE_MINER,
-        ]
+    def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
+        """
+
+        Args:
+            exclude_female: if set to true, exclude the female villagers
+            exclude_male: if set to true, exclude the male villagers
+
+        Returns:
+            A list of villager UnitInfo objects
+
+        """
+        args = locals()
+        params = UnitInfo.vils.__annotations__
+        params.pop("return")
+        for param, param_type in params.items():
+            provided = type(args[param])
+            if provided is not param_type:
+                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
+
+        villagers = {
+            "male": [
+                UnitInfo.VILLAGER_MALE,
+                UnitInfo.VILLAGER_MALE_BUILDER,
+                UnitInfo.VILLAGER_MALE_FARMER,
+                UnitInfo.VILLAGER_MALE_FISHERMAN,
+                UnitInfo.VILLAGER_MALE_FORAGER,
+                UnitInfo.VILLAGER_MALE_GOLD_MINER,
+                UnitInfo.VILLAGER_MALE_HUNTER,
+                UnitInfo.VILLAGER_MALE_LUMBERJACK,
+                UnitInfo.VILLAGER_MALE_REPAIRER,
+                UnitInfo.VILLAGER_MALE_SHEPHERD,
+                UnitInfo.VILLAGER_MALE_STONE_MINER,
+            ],
+            "female": [
+                UnitInfo.VILLAGER_FEMALE,
+                UnitInfo.VILLAGER_FEMALE_BUILDER,
+                UnitInfo.VILLAGER_FEMALE_FARMER,
+                UnitInfo.VILLAGER_FEMALE_FISHERMAN,
+                UnitInfo.VILLAGER_FEMALE_FORAGER,
+                UnitInfo.VILLAGER_FEMALE_GOLD_MINER,
+                UnitInfo.VILLAGER_FEMALE_HUNTER,
+                UnitInfo.VILLAGER_FEMALE_LUMBERJACK,
+                UnitInfo.VILLAGER_FEMALE_REPAIRER,
+                UnitInfo.VILLAGER_FEMALE_SHEPHERD,
+                UnitInfo.VILLAGER_FEMALE_STONE_MINER,
+            ]
+        }
+
+        units_to_return = []
+
+        if not exclude_female:
+            units_to_return.extend(villagers["female"])
+        if not exclude_male:
+            units_to_return.extend(villagers["male"])
+
+        return units_to_return
 
     @staticmethod
-    def unique_units():
-        return [
-            UnitInfo.LONGBOWMAN, UnitInfo.MANGUDAI, UnitInfo.TEUTONIC_KNIGHT, UnitInfo.CATAPHRACT, UnitInfo.HUSKARL,
-            UnitInfo.JANISSARY, UnitInfo.ROYAL_JANISSARY, UnitInfo.CHU_KO_NU, UnitInfo.CONDOTTIERO_PLACEHOLDER,
-            UnitInfo.SLINGER, UnitInfo.WOAD_RAIDER, UnitInfo.WAR_ELEPHANT, UnitInfo.LONGBOAT, UnitInfo.THROWING_AXEMAN,
-            UnitInfo.MAMELUKE, UnitInfo.SAMURAI, UnitInfo.ELITE_LONGBOWMAN, UnitInfo.ELITE_THROWING_AXEMAN,
-            UnitInfo.ELITE_LONGBOAT, UnitInfo.ELITE_WOAD_RAIDER, UnitInfo.ELITE_CATAPHRACT,
-            UnitInfo.ELITE_TEUTONIC_KNIGHT, UnitInfo.ELITE_HUSKARL, UnitInfo.ELITE_MAMELUKE, UnitInfo.ELITE_JANISSARY,
-            UnitInfo.ELITE_WAR_ELEPHANT, UnitInfo.ELITE_CHU_KO_NU, UnitInfo.ELITE_SAMURAI, UnitInfo.ELITE_MANGUDAI,
-            UnitInfo.BERSERK, UnitInfo.ELITE_BERSERK, UnitInfo.JAGUAR_WARRIOR, UnitInfo.ELITE_JAGUAR_WARRIOR,
-            UnitInfo.TARKAN, UnitInfo.ELITE_TARKAN, UnitInfo.HUSKARL_BARRACKS, UnitInfo.ELITE_HUSKARL_BARRACKS,
-            UnitInfo.PLUMED_ARCHER, UnitInfo.ELITE_PLUMED_ARCHER, UnitInfo.CONQUISTADOR, UnitInfo.ELITE_CONQUISTADOR,
-            UnitInfo.MISSIONARY, UnitInfo.WAR_WAGON, UnitInfo.ELITE_WAR_WAGON, UnitInfo.TURTLE_SHIP,
-            UnitInfo.ELITE_TURTLE_SHIP, UnitInfo.GENOESE_CROSSBOWMAN, UnitInfo.ELITE_GENOESE_CROSSBOWMAN,
-            UnitInfo.MAGYAR_HUSZAR, UnitInfo.ELITE_MAGYAR_HUSZAR, UnitInfo.ELEPHANT_ARCHER,
-            UnitInfo.ELITE_ELEPHANT_ARCHER, UnitInfo.BOYAR, UnitInfo.ELITE_BOYAR, UnitInfo.KAMAYUK,
-            UnitInfo.ELITE_KAMAYUK, UnitInfo.CONDOTTIERO, UnitInfo.TARKAN_STABLE, UnitInfo.ELITE_TARKAN_STABLE,
-            UnitInfo.ORGAN_GUN, UnitInfo.ELITE_ORGAN_GUN, UnitInfo.CARAVEL, UnitInfo.ELITE_CARAVEL,
-            UnitInfo.CAMEL_ARCHER, UnitInfo.ELITE_CAMEL_ARCHER, UnitInfo.GENITOUR, UnitInfo.ELITE_GENITOUR,
-            UnitInfo.GBETO, UnitInfo.ELITE_GBETO, UnitInfo.SHOTEL_WARRIOR, UnitInfo.ELITE_SHOTEL_WARRIOR,
-            UnitInfo.BALLISTA_ELEPHANT, UnitInfo.ELITE_BALLISTA_ELEPHANT, UnitInfo.KARAMBIT_WARRIOR,
-            UnitInfo.ELITE_KARAMBIT_WARRIOR, UnitInfo.ARAMBAI, UnitInfo.ELITE_ARAMBAI, UnitInfo.RATTAN_ARCHER,
-            UnitInfo.ELITE_RATTAN_ARCHER, UnitInfo.KONNIK, UnitInfo.ELITE_KONNIK, UnitInfo.KESHIK,
-            UnitInfo.ELITE_KESHIK, UnitInfo.KIPCHAK, UnitInfo.ELITE_KIPCHAK, UnitInfo.LEITIS, UnitInfo.ELITE_LEITIS,
-            UnitInfo.KONNIK_DISMOUNTED, UnitInfo.ELITE_KONNIK_DISMOUNTED, UnitInfo.KONNIK_KREPOST,
-            UnitInfo.ELITE_KONNIK_KREPOST, UnitInfo.ELITE_KIPCHAK_CUMAN_MERCENARIES, UnitInfo.FLAMING_CAMEL,
-            UnitInfo.COUSTILLIER, UnitInfo.ELITE_COUSTILLIER, UnitInfo.SERJEANT, UnitInfo.ELITE_SERJEANT,
-            UnitInfo.SERJEANT_DONJON, UnitInfo.ELITE_SERJEANT_DONJON, UnitInfo.FLEMISH_MILITIA_MALE,
-            UnitInfo.FLEMISH_MILITIA_FEMALE, UnitInfo.FLEMISH_MILITIA,
-        ]
+    def unique_units(
+        exclude_elite_units: bool = False,
+        exclude_non_elite_units: bool = False,
+        exclude_castle_units: bool = False,
+        exclude_non_castle_units: bool = False
+    ) -> list[UnitInfo]:
+
+        """
+
+        Args:
+            exclude_elite_units: if set to false, exclude the elite unique units
+            exclude_non_elite_units: if set to false, exclude the non elite unique units
+            exclude_castle_units: if set to false, exclude the castle unique units
+            exclude_non_castle_units: if set to false, excludes the unique units not trained at the castle
+
+        Returns:
+            A list of unique unit UniInfo objects
+
+        """
+
+        args = locals()
+        params = UnitInfo.unique_units.__annotations__
+        params.pop("return")
+        for param, param_type in params.items():
+            provided = type(args[param])
+            if provided is not param_type:
+                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
+
+        unique_units = {
+            "castle": {
+                "non_elite": [
+                    UnitInfo.ARAMBAI,
+                    UnitInfo.BALLISTA_ELEPHANT,
+                    UnitInfo.BERSERK,
+                    UnitInfo.BOYAR,
+                    UnitInfo.CAMEL_ARCHER,
+                    UnitInfo.CATAPHRACT,
+                    UnitInfo.CHU_KO_NU,
+                    UnitInfo.CONQUISTADOR,
+                    UnitInfo.COUSTILLIER,
+                    UnitInfo.ELEPHANT_ARCHER,
+                    UnitInfo.FLAMING_CAMEL,
+                    UnitInfo.GBETO,
+                    UnitInfo.GENOESE_CROSSBOWMAN,
+                    UnitInfo.HUSKARL,
+                    UnitInfo.JAGUAR_WARRIOR,
+                    UnitInfo.JANISSARY,
+                    UnitInfo.KAMAYUK,
+                    UnitInfo.KARAMBIT_WARRIOR,
+                    UnitInfo.KESHIK,
+                    UnitInfo.KIPCHAK,
+                    UnitInfo.KONNIK,
+                    UnitInfo.LEITIS,
+                    UnitInfo.LONGBOWMAN,
+                    UnitInfo.MAGYAR_HUSZAR,
+                    UnitInfo.MAMELUKE,
+                    UnitInfo.MANGUDAI,
+                    UnitInfo.ORGAN_GUN,
+                    UnitInfo.PLUMED_ARCHER,
+                    UnitInfo.RATTAN_ARCHER,
+                    UnitInfo.SAMURAI,
+                    UnitInfo.SERJEANT,
+                    UnitInfo.SHOTEL_WARRIOR,
+                    UnitInfo.TARKAN,
+                    UnitInfo.TEUTONIC_KNIGHT,
+                    UnitInfo.THROWING_AXEMAN,
+                    UnitInfo.WAR_ELEPHANT,
+                    UnitInfo.WAR_WAGON,
+                    UnitInfo.WOAD_RAIDER
+                ],
+                "elite": [
+                    UnitInfo.ELITE_ARAMBAI,
+                    UnitInfo.ELITE_BALLISTA_ELEPHANT,
+                    UnitInfo.ELITE_BERSERK,
+                    UnitInfo.ELITE_BOYAR,
+                    UnitInfo.ELITE_CAMEL_ARCHER,
+                    UnitInfo.ELITE_CATAPHRACT,
+                    UnitInfo.ELITE_CHU_KO_NU,
+                    UnitInfo.ELITE_CONQUISTADOR,
+                    UnitInfo.ELITE_COUSTILLIER,
+                    UnitInfo.ELITE_ELEPHANT_ARCHER,
+                    UnitInfo.ELITE_GBETO,
+                    UnitInfo.ELITE_GENOESE_CROSSBOWMAN,
+                    UnitInfo.ELITE_HUSKARL,
+                    UnitInfo.ELITE_JAGUAR_WARRIOR,
+                    UnitInfo.ELITE_JANISSARY,
+                    UnitInfo.ELITE_KAMAYUK,
+                    UnitInfo.ELITE_KARAMBIT_WARRIOR,
+                    UnitInfo.ELITE_KESHIK,
+                    UnitInfo.ELITE_KIPCHAK,
+                    UnitInfo.ELITE_KONNIK,
+                    UnitInfo.ELITE_LEITIS,
+                    UnitInfo.ELITE_LONGBOWMAN,
+                    UnitInfo.ELITE_MAGYAR_HUSZAR,
+                    UnitInfo.ELITE_MAMELUKE,
+                    UnitInfo.ELITE_MANGUDAI,
+                    UnitInfo.ELITE_ORGAN_GUN,
+                    UnitInfo.ELITE_PLUMED_ARCHER,
+                    UnitInfo.ELITE_RATTAN_ARCHER,
+                    UnitInfo.ELITE_SAMURAI,
+                    UnitInfo.ELITE_SERJEANT,
+                    UnitInfo.ELITE_SHOTEL_WARRIOR,
+                    UnitInfo.ELITE_TARKAN,
+                    UnitInfo.ELITE_TEUTONIC_KNIGHT,
+                    UnitInfo.ELITE_THROWING_AXEMAN,
+                    UnitInfo.ELITE_WAR_ELEPHANT,
+                    UnitInfo.ELITE_WAR_WAGON,
+                    UnitInfo.ELITE_WOAD_RAIDER
+                ]
+            },
+            "non_elite": [
+                UnitInfo.CARAVEL,
+                UnitInfo.CONDOTTIERO,
+                UnitInfo.CONDOTTIERO_PLACEHOLDER,
+                UnitInfo.FLEMISH_MILITIA,
+                UnitInfo.FLEMISH_MILITIA_FEMALE,
+                UnitInfo.FLEMISH_MILITIA_MALE,
+                UnitInfo.GENITOUR,
+                UnitInfo.HUSKARL_BARRACKS,
+                UnitInfo.KONNIK_DISMOUNTED,
+                UnitInfo.KONNIK_KREPOST,
+                UnitInfo.LONGBOAT,
+                UnitInfo.MISSIONARY,
+                UnitInfo.SERJEANT_DONJON,
+                UnitInfo.SLINGER,
+                UnitInfo.TARKAN_STABLE,
+                UnitInfo.TURTLE_SHIP,
+                UnitInfo.IMPERIAL_CAMEL_RIDER,
+                UnitInfo.IMPERIAL_SKIRMISHER
+            ],
+            "elite": [
+                UnitInfo.ELITE_CARAVEL,
+                UnitInfo.ELITE_GENITOUR,
+                UnitInfo.ELITE_HUSKARL_BARRACKS,
+                UnitInfo.ELITE_KIPCHAK_CUMAN_MERCENARIES,
+                UnitInfo.ELITE_KONNIK_DISMOUNTED,
+                UnitInfo.ELITE_KONNIK_KREPOST,
+                UnitInfo.ELITE_LONGBOAT,
+                UnitInfo.ELITE_SERJEANT_DONJON,
+                UnitInfo.ELITE_TARKAN_STABLE,
+                UnitInfo.ELITE_TURTLE_SHIP,
+            ]
+        }
+
+        units_to_return = []
+
+        if exclude_non_elite_units:
+            if exclude_non_castle_units:
+                units_to_return.extend(unique_units["non_elite"])
+            if exclude_castle_units:
+                units_to_return.extend(unique_units["castle"]["non_elite"])
+        if exclude_elite_units:
+            if exclude_non_castle_units:
+                units_to_return.extend(unique_units["elite"])
+            if exclude_castle_units:
+                units_to_return.extend(unique_units["castle"]["elite"])
+
+        return units_to_return
 
     BEAR = 486, 151, 489, 16712, True
     BUTTERFLY1 = 1608, -1, -1, 16716, True
