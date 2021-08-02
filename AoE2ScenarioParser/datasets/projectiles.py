@@ -10,27 +10,83 @@ with (Path(__file__).parent / 'sources' / f'unit_projectile_info.json').open() a
 
 
 class ProjectileInfo(Enum):
+
+    """
+
+    **Description**
+
+    This enum class provides information about the projectiles in the game. Information about the following properties
+    of a projectile is found in this class:
+     - Projectile ID
+     - The units that use the projectile
+
+    **Methods**
+    >>> ProjectileInfo.from_id()
+    >>> ProjectileInfo.get_unit_projectile()
+
+    **Examples**
+
+    >>> ProjectileInfo.SCORPION_FIRE.ID
+    >>> 628
+
+    >>> ProjectileInfo.SCORPION_FIRE.USED_BY
+    >>> (542,)
+
+    """
+
     @property
-    def ID(self):
+    def ID(self) -> int:
+
+        """
+
+        Returns:
+            The ID of the specified projectile unit
+
+        """
+
         return self.value[0]
 
     @property
-    def USED_BY(self):
+    def USED_BY(self) -> tuple[int]:
+
+        """
+
+        Returns:
+            A tuple of unit IDs that use the specified projectile unit
+
+        """
+
         return self.value[1]
 
     @classmethod
-    def from_id(cls, projectile_id: int):
+    def from_id(cls, projectile_id: int) -> ProjectileInfo:
+
+        """
+
+        Get the ProjectileInfo object from its ID
+
+        Args:
+            projectile_id: The ID of the projectile to get the ProjectileInfo of
+
+        Returns:
+            A ProjectileInfo object of the specified projectile ID
+
+        """
+
         if type(projectile_id) is not int:
             raise TypeError(f"from_id expected int, got {type(projectile_id)}")
         if projectile_id == -1:
             raise ValueError("-1 is not a valid projectile ID")
+
         for projectile in cls._member_map_.values():
             if projectile.value[0] == projectile_id:
                 return projectile
-        return None
+
+        raise KeyError(f"A projectile unit with ID '{projectile_id}' was not found in the dataset")
 
     @staticmethod
     def get_unit_projectile(unit_const: int, has_chemistry: bool = False, secondary: bool = False) -> ProjectileInfo:
+
         """
         Get the projectile object based on unit const
 
@@ -42,16 +98,17 @@ class ProjectileInfo(Enum):
         Returns:
             The ProjectileInfo corresponding to the given unit and params or None if nothing was found
         """
+
         if type(unit_const) is not int:
             raise TypeError(f"unit const expected int, got {type(unit_const)}")
-        if unit_const == -1:
-            raise ValueError("-1 is not a valid unit constant")
+        if unit_const < 0:
+            raise ValueError(f"{unit_const} is not a valid unit constant")
 
         projectile = "secondary" if secondary else "primary"
         fire = "_fire" if has_chemistry else ""
         projectile_id = _unit_projectile_info.get(str(unit_const), {}).get(projectile + fire, -1)
 
-        return ProjectileInfo.from_id(projectile_id) if projectile_id else None
+        return ProjectileInfo.from_id(projectile_id) if projectile_id != -1 else None
 
     ARROW = 9, ()
     VOL = 54, (71, 109, 141, 142, 484, 597, 617, 621)

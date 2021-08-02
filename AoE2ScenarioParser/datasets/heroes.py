@@ -2,6 +2,46 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 
 class HeroInfo(InfoDatasetBase):
+    """
+
+    **Description**
+
+    This enum class provides information about most of the heroes in the game. Information about the following
+    properties of a hero is found in this class:
+     - Unit ID
+     - Icon ID
+     - Dead Unit ID
+     - HotKey ID
+     - If the hero is a gaia only unit
+
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
+    **Examples**
+
+    >>> HeroInfo.WILLIAM_WALLACE.ID
+    >>> 432
+
+    >>> HeroInfo.WILLIAM_WALLACE.ICON_ID
+    >>> 363
+
+    >>> HeroInfo.WILLIAM_WALLACE.DEAD_ID
+    >>> 433
+
+    >>> HeroInfo.WILLIAM_WALLACE.HOTKEY_ID
+    >>> 16299
+
+    >>> HeroInfo.WILLIAM_WALLACE.IS_GAIA_ONLY
+    >>> False
+
+    """
+
     KHOSRAU = 1297, 172, 874, 16311, False
     LIEF_ERIKSON = 106, 118, -1, 16457, False
     RICHARD_THE_LIONHEART = 160, 92, 570, 16633, False

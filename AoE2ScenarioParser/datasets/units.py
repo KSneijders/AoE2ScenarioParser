@@ -2,6 +2,50 @@ from __future__ import annotations
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 class UnitInfo(InfoDatasetBase):
+    """
+
+    **Description**
+
+    This class provides information about most of the units in the game. Information about the following properties of
+    a unit is found in this class:
+     - Unit ID
+     - Icon ID
+     - Dead Unit ID
+     - HotKey ID
+     - If the unit is a gaia only unit (eg. deer, boar, etc.)
+
+    **Methods**
+
+    >>> UnitInfo.vils()
+    >>> UnitInfo.unique_units()
+
+    **Inherited Methods from class InfoDatasetBase**
+
+    >>> InfoDatasetBase.from_id()
+    >>> InfoDatasetBase.from_dead_id()
+    >>> InfoDatasetBase.from_icon_id()
+    >>> InfoDatasetBase.from_hotkey_id()
+    >>> InfoDatasetBase.gaia_only()
+    >>> InfoDatasetBase.non_gaia()
+
+    **Examples**
+
+    >>> UnitInfo.VILLAGER_FEMALE.ID
+    >>> 293
+
+    >>> UnitInfo.PETARD.ICON_ID
+    >>> 113
+
+    >>> UnitInfo.PALADIN.DEAD_ID
+    >>> 570
+
+    >>> UnitInfo.VILLAGER_MALE.HOTKEY_ID
+    >>> 16121
+
+    >>> UnitInfo.DEER.IS_GAIA_ONLY
+    >>> True
+
+    """
 
     @staticmethod
     def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
@@ -12,7 +56,7 @@ class UnitInfo(InfoDatasetBase):
             exclude_male: if set to true, exclude the male villagers
 
         Returns:
-            A list of villager unit IDs
+            A list of villager UnitInfo objects
 
         """
         args = locals()
@@ -78,7 +122,7 @@ class UnitInfo(InfoDatasetBase):
             exclude_non_castle_units: if set to false, excludes the unique units not trained at the castle
 
         Returns:
-            A list of unique unit IDs
+            A list of unique unit UniInfo objects
 
         """
 
