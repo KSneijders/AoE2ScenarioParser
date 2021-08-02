@@ -69,7 +69,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 # Authors
 
 - Kerwin Sneijders (Main Author)
-- Alian713 (Dataset Wizard)
+- [Alian713](https://github.com/Divy1211) (Dataset Wizard)
 
 # License
 
