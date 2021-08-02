@@ -11,6 +11,7 @@ class InfoDatasetBase(Enum):
     properties and functions common to all the mentioned classes
 
     **Methods**
+
     >>> InfoDatasetBase.from_id()
     >>> InfoDatasetBase.from_dead_id()
     >>> InfoDatasetBase.from_icon_id()
