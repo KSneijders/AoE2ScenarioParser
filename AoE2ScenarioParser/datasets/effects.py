@@ -4,9 +4,7 @@ from bidict import bidict
 
 
 class EffectId(IntEnum):
-
     """
-
     This enum class provides the integer values used to reference the effects in the game. Used in every effect to
     indicate which type of effect it is
 
@@ -14,9 +12,7 @@ class EffectId(IntEnum):
 
     >>> EffectId.RESEARCH_TECHNOLOGY
     >>> 2
-
     """
-
     NONE = 0
     """Attributes for the **none** effect are: \n
     ... none... Just like Conditions... People these days... """

@@ -4,9 +4,7 @@ from bidict import bidict
 
 
 class ConditionId(IntEnum):
-
     """
-
     This enum class provides the integer values used to reference the conditions in the game. Used in every condition
     to indicate which type of condition it is
 
@@ -14,9 +12,7 @@ class ConditionId(IntEnum):
 
     >>> ConditionId.BRING_OBJECT_TO_AREA
     >>> 1
-
     """
-
     NONE = 0
     """
     Attributes for the **none**  condition are:\n

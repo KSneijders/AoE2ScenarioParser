@@ -3,7 +3,6 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class UnitInfo(InfoDatasetBase):
     """
-
     **Description**
 
     This class provides information about most of the units in the game. Information about the following properties of
@@ -44,27 +43,23 @@ class UnitInfo(InfoDatasetBase):
 
     >>> UnitInfo.DEER.IS_GAIA_ONLY
     >>> True
-
     """
-
     @staticmethod
     def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
         """
-
         Args:
             exclude_female: if set to true, exclude the female villagers
             exclude_male: if set to true, exclude the male villagers
 
         Returns:
             A list of villager UnitInfo objects
-
         """
         args = locals()
         params = UnitInfo.vils.__annotations__
         params.pop("return")
         for param, param_type in params.items():
-            provided = type(args[param])
-            if provided is not param_type:
+            provided = type(args[param]).__name__
+            if provided != param_type:
                 raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         villagers = {
@@ -112,9 +107,7 @@ class UnitInfo(InfoDatasetBase):
         exclude_castle_units: bool = False,
         exclude_non_castle_units: bool = False
     ) -> list[UnitInfo]:
-
         """
-
         Args:
             exclude_elite_units: if set to false, exclude the elite unique units
             exclude_non_elite_units: if set to false, exclude the non elite unique units
@@ -123,15 +116,13 @@ class UnitInfo(InfoDatasetBase):
 
         Returns:
             A list of unique unit UniInfo objects
-
         """
-
         args = locals()
         params = UnitInfo.unique_units.__annotations__
         params.pop("return")
         for param, param_type in params.items():
-            provided = type(args[param])
-            if provided is not param_type:
+            provided = type(args[param]).__name__
+            if provided != param_type:
                 raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         unique_units = {
