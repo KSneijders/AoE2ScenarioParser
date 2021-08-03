@@ -12,7 +12,6 @@ class TerrainId(IntEnum):
     >>> TerrainId.FARM
     >>> 7
     """
-
     BEACH = 2
     BEACH_NON_NAVIGABLE = 79
     BEACH_NON_NAVIGABLE_WET_GRAVEL = 81

@@ -13,7 +13,6 @@ class ConditionId(IntEnum):
     >>> ConditionId.BRING_OBJECT_TO_AREA
     >>> 1
     """
-
     NONE = 0
     """
     Attributes for the **none**  condition are:\n

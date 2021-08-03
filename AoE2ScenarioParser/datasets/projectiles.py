@@ -30,7 +30,6 @@ class ProjectileInfo(Enum):
     >>> ProjectileInfo.SCORPION_FIRE.USED_BY
     >>> (542,)
     """
-
     @property
     def ID(self) -> int:
         """

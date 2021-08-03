@@ -45,7 +45,6 @@ class UnitInfo(InfoDatasetBase):
     >>> UnitInfo.DEER.IS_GAIA_ONLY
     >>> True
     """
-
     @staticmethod
     def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
         """
@@ -60,8 +59,8 @@ class UnitInfo(InfoDatasetBase):
         params = UnitInfo.vils.__annotations__
         params.pop("return")
         for param, param_type in params.items():
-            provided = type(args[param])
-            if provided is not param_type:
+            provided = type(args[param]).__name__
+            if provided != param_type:
                 raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         villagers = {
@@ -119,13 +118,12 @@ class UnitInfo(InfoDatasetBase):
         Returns:
             A list of unique unit UniInfo objects
         """
-
         args = locals()
         params = UnitInfo.unique_units.__annotations__
         params.pop("return")
         for param, param_type in params.items():
-            provided = type(args[param])
-            if provided is not param_type:
+            provided = type(args[param]).__name__
+            if provided != param_type:
                 raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         unique_units = {

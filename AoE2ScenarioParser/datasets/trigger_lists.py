@@ -1110,7 +1110,6 @@ class HeroStatusFlag(IntEnum):
     >>> ObjectType.OTHER
     >>> 1
     """
-
     @staticmethod
     def combine(
             full_hero_status: bool = False,
@@ -1123,7 +1122,6 @@ class HeroStatusFlag(IntEnum):
             invert_all_flags: bool = False
     ) -> int:
         """
-
         This method combines the given hero status flags into an integer value
 
         Args:
@@ -1140,7 +1138,6 @@ class HeroStatusFlag(IntEnum):
         Returns:
             An integer combining all the different hero status flags into one value
         """
-
         total = 1 if full_hero_status else 0
         total += 2 if cannot_be_converted else 0
         total += 4 if hero_regeneration else 0
@@ -1163,7 +1160,6 @@ class HeroStatusFlag(IntEnum):
         Returns:
             A dict with all the flags values as keys and a bool as their value
         """
-
         flags = {}
         for flag in HeroStatusFlag:
             flags[flag] = bool(flag & value)
@@ -1190,7 +1186,6 @@ class BlastLevel(IntEnum):
     >>> BlastLevel.TREES
     >>> 1
     """
-
     RESOURCES = 0
     TREES = 1
     NEARBY_UNITS = 2

@@ -5,21 +5,18 @@ from typing import Union
 
 class InfoDatasetBase(Enum):
     """
-
     This enum class is the base class for the UnitInfo, BuildingInfo, HeroInfo and OtherInfo datasets. It provides the
     properties and functions common to all the mentioned classes
 
     **Methods**
-
+    
     >>> InfoDatasetBase.from_id()
     >>> InfoDatasetBase.from_dead_id()
     >>> InfoDatasetBase.from_icon_id()
     >>> InfoDatasetBase.from_hotkey_id()
     >>> InfoDatasetBase.gaia_only()
     >>> InfoDatasetBase.non_gaia()
-
     """
-
     @staticmethod
     def _id_map() -> dict:
         """
@@ -132,7 +129,7 @@ class InfoDatasetBase(Enum):
             icon_id: the icon ID to search for
 
         Returns:
-            A unit with the given icon I
+            A unit with the given icon ID
         """
         return cls._from_id('icon_id', icon_id)
 

@@ -39,7 +39,6 @@ class OtherInfo(InfoDatasetBase):
     >>> OtherInfo.FLARE.IS_GAIA_ONLY
     >>> False
     """
-
     SMALL_TEMP_MAP_REVEAL = 112, -1, -1, 16316, False
     LARGE_TEMP_MAP_REVEAL = 332, -1, -1, 16316, False
     FLARE = 274, -1, -1, 16316, False

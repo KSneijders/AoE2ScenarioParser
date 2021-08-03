@@ -24,14 +24,12 @@ class TechInfo(Enum):
     >>> TechInfo.LOOM.ICON_ID
     >>> 6
     """
-
     @property
     def ID(self):
         """
         Returns:
             The ID of the specified tech
         """
-
         return self.value[0]
 
     @classmethod
@@ -45,7 +43,6 @@ class TechInfo(Enum):
         Returns:
             A TechInfo object of the specified tech ID
         """
-
         if tech_id < 0:
             raise ValueError(f"{tech_id} is not a valid tech id value")
         for x in cls._member_map_.values():
@@ -60,7 +57,6 @@ class TechInfo(Enum):
         Returns:
             The icon ID of the specified tech
         """
-
         return self.value[1]
 
     @classmethod
@@ -74,7 +70,6 @@ class TechInfo(Enum):
         Returns:
             A TechInfo object of the tech with the specified icon ID
         """
-
         if tech_icon_id == -1:
             raise ValueError("-1 is not a valid icon_id value")
         for x in cls._member_map_.values():
@@ -95,7 +90,6 @@ class TechInfo(Enum):
         Returns:
             A list of TechInfo objects which are all the unique techs in the game
         """
-
         unique_techs = {
             "castle_age": [
                 TechInfo.ANARCHY,
@@ -199,13 +193,12 @@ class TechInfo(Enum):
         Returns:
             A list of unique unite upgrade tech IDs
         """
-
         args = locals()
         params = TechInfo.unique_unit_upgrades.__annotations__
         params.pop("return")
         for param, param_type in params.items():
-            provided = type(args[param])
-            if provided is not param_type:
+            provided = type(args[param]).__name__
+            if provided != param_type:
                 raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
 
         unique_techs = {
