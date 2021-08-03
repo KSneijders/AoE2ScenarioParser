@@ -4,7 +4,6 @@ from typing import Union
 
 
 class InfoDatasetBase(Enum):
-
     """
     This enum class is the base class for the UnitInfo, BuildingInfo, HeroInfo and OtherInfo datasets. It provides the
     properties and functions common to all the mentioned classes
@@ -93,9 +92,8 @@ class InfoDatasetBase(Enum):
             value: the value of the property to search for
 
         Returns:
-            An InfoDatasetBase member object which uses the given value for the specified property (id_type)
+            An InfoDatasetBase member object which uses the given value for the specified property (id_type
         """
-
         index = cls._id_map()[id_type]
 
         if type(value) is not int:
@@ -118,9 +116,8 @@ class InfoDatasetBase(Enum):
             unit_id: the unit ID to search for
 
         Returns:
-            A unit with the given unit ID
+            A unit with the given unit I
         """
-
         return cls._from_id('id', unit_id)
 
     @classmethod
@@ -147,7 +144,6 @@ class InfoDatasetBase(Enum):
         Returns:
             A unit with the given dead unit ID
         """
-
         return cls._from_id('dead_id', dead_id)
 
     @classmethod

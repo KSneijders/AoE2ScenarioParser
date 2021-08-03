@@ -1094,6 +1094,7 @@ class TerrainRestrictions(IntEnum):
     WATER_SMALLEST_TRAIL = 30
     """Used by medium ships, such as Trade Cog, Fire Galley and Longboat"""
 
+
 class HeroStatusFlag(IntEnum):
     """
     This enum class provides the integer values for the different hero status flags that can be used in the 'Modify
@@ -1164,7 +1165,6 @@ class HeroStatusFlag(IntEnum):
             flags[flag] = bool(flag & value)
 
         return flags
-
 
     FULL_HERO_STATUS = 1
     CANNOT_BE_CONVERTED = 2

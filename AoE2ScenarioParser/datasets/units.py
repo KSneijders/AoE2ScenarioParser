@@ -1,6 +1,7 @@
 from __future__ import annotations
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
+
 class UnitInfo(InfoDatasetBase):
     """
     **Description**
@@ -102,10 +103,10 @@ class UnitInfo(InfoDatasetBase):
 
     @staticmethod
     def unique_units(
-        exclude_elite_units: bool = False,
-        exclude_non_elite_units: bool = False,
-        exclude_castle_units: bool = False,
-        exclude_non_castle_units: bool = False
+            exclude_elite_units: bool = False,
+            exclude_non_elite_units: bool = False,
+            exclude_castle_units: bool = False,
+            exclude_non_castle_units: bool = False
     ) -> list[UnitInfo]:
         """
         Args:
