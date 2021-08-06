@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.16 - 2021-August-06
+
+### Fixed
+
+- Type validation in dataset functions -- [Pull Request #25] (Alian713)
+- Issue with creating modify_attribute effect
+
+[Pull Request #25]: https://github.com/KSneijders/AoE2ScenarioParser/pull/25
+
+---
+
 ## 0.1.15 - 2021-August-02
 
 ### Added
