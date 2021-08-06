@@ -3231,6 +3231,8 @@
         "attributes": [
             "effect_type",
             "quantity",
+            "armour_attack_quantity",
+            "armour_attack_class",
             "object_list_unit_id",
             "source_player",
             "item_id",
@@ -3240,8 +3242,8 @@
         "default_attributes": {
             "effect_type": 51,
             "ai_script_goal": -1,
-            "armour_attack_quantity": [],
-            "armour_attack_class": [],
+            "armour_attack_quantity": -1,
+            "armour_attack_class": -1,
             "quantity": -1,
             "tribute_list": -1,
             "diplomacy": -1,
