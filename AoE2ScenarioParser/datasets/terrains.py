@@ -3,7 +3,6 @@ from enum import IntEnum
 
 class TerrainId(IntEnum):
     """
-
     This enum class provides information about most of the terrains in the game. Information about the
     following properties of a terrain is found in this class:
      - Terrain ID
@@ -12,9 +11,7 @@ class TerrainId(IntEnum):
 
     >>> TerrainId.FARM
     >>> 7
-
     """
-
     BEACH = 2
     BEACH_NON_NAVIGABLE = 79
     BEACH_NON_NAVIGABLE_WET_GRAVEL = 81

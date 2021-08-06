@@ -4,40 +4,31 @@ from typing import Union
 
 
 class InfoDatasetBase(Enum):
-
     """
-
     This enum class is the base class for the UnitInfo, BuildingInfo, HeroInfo and OtherInfo datasets. It provides the
     properties and functions common to all the mentioned classes
 
     **Methods**
+    
     >>> InfoDatasetBase.from_id()
     >>> InfoDatasetBase.from_dead_id()
     >>> InfoDatasetBase.from_icon_id()
     >>> InfoDatasetBase.from_hotkey_id()
     >>> InfoDatasetBase.gaia_only()
     >>> InfoDatasetBase.non_gaia()
-
     """
-
     @staticmethod
     def _id_map() -> dict:
-
         """
-
         **Private Method**
 
         Returns:
             A dict that maps the names of the properties to their index in the info tuple
-
         """
-
         return {'id': 0, 'icon_id': 1, 'dead_id': 2, 'hotkey_id': 3, 'gaia_only': 4}
 
     def _get_property(self, name: str) -> Union[int, bool]:
-
         """
-
         **Private Method**
 
         Get the specified property by its name from an object of this (or its derived) class
@@ -46,76 +37,52 @@ class InfoDatasetBase(Enum):
             name: the name of the property to get
 
         Returns:
-
         """
-
         return self.value[self._id_map()[name]]
 
     @property
     def ID(self) -> int:
-
         """
-
         Returns:
             The ID of the specified unit
-
         """
-
         return self._get_property('id')
 
     @property
     def ICON_ID(self) -> int:
-
         """
-
         Returns:
             The Icon ID of the specified unit
-
         """
-
         return self._get_property('icon_id')
 
     @property
     def DEAD_ID(self) -> int:
-
         """
-
         Returns:
             The Dead Unit ID of the specified unit
-
         """
-
         return self._get_property('dead_id')
 
     @property
     def HOTKEY_ID(self) -> int:
-
         """
-
         Returns:
             The HotKey ID of the specified unit
-
         """
-
         return self._get_property('hotkey_id')
 
     @property
     def IS_GAIA_ONLY(self) -> bool:
-
         """
-
         Returns:
             A boolean value indicating if the specified unit is a gaia only unit (eg. Deer)
-
         """
-
         return self._get_property('gaia_only')
 
     @classmethod
     def _from_id(cls, id_type: str, value: int) -> InfoDatasetBase:
-
         """
-
         **Private Method**
 
         This function finds and returns the member object that uses the given value for the specified property (id_type)
@@ -125,9 +92,8 @@ class InfoDatasetBase(Enum):
             value: the value of the property to search for
 
         Returns:
-            An InfoDatasetBase member object which uses the given value for the specified property (id_type)
+            An InfoDatasetBase member object which uses the given value for the specified property (id_type
         """
-
         index = cls._id_map()[id_type]
 
         if type(value) is not int:
@@ -143,25 +109,20 @@ class InfoDatasetBase(Enum):
 
     @classmethod
     def from_id(cls, unit_id: int) -> InfoDatasetBase:
-
         """
-
         This function finds and returns the unit with the given unit ID
 
         Args:
             unit_id: the unit ID to search for
 
         Returns:
-            A unit with the given unit ID
+            A unit with the given unit I
         """
-
         return cls._from_id('id', unit_id)
 
     @classmethod
     def from_icon_id(cls, icon_id: int) -> InfoDatasetBase:
-
         """
-
         This function finds and returns the unit with the given icon ID
 
         Args:
@@ -169,16 +130,12 @@ class InfoDatasetBase(Enum):
 
         Returns:
             A unit with the given icon ID
-
         """
-
         return cls._from_id('icon_id', icon_id)
 
     @classmethod
     def from_dead_id(cls, dead_id: int) -> InfoDatasetBase:
-
         """
-
         This function finds and returns the unit with the given dead unit ID
 
         Args:
@@ -186,17 +143,12 @@ class InfoDatasetBase(Enum):
 
         Returns:
             A unit with the given dead unit ID
-
         """
-
-
         return cls._from_id('dead_id', dead_id)
 
     @classmethod
     def from_hotkey_id(cls, hotkey_id: int) -> InfoDatasetBase:
-
         """
-
         This function finds and returns the unit with the given hotkey ID. Note that there may be multiple units that
         use the same hotkey ID, currently only one is returned!
 
@@ -205,40 +157,28 @@ class InfoDatasetBase(Enum):
 
         Returns:
             A unit with the given hotkey ID
-
         """
-
         return cls._from_id('hotkey_id', hotkey_id)
 
     @classmethod
     def gaia_only(cls) -> list[InfoDatasetBase]:
-
         """
-
         Returns:
             A list of all the gaia only units (eg. Deer)
-
         """
-
         return cls._gaia_filter(gaia_only=True)
 
     @classmethod
     def non_gaia(cls) -> list[InfoDatasetBase]:
-
         """
-
         Returns:
             A list of all the units excluding gaia only units (eg. Deer)
-
         """
-
         return cls._gaia_filter(gaia_only=False)
 
     @classmethod
     def _gaia_filter(cls, gaia_only: bool) -> list[InfoDatasetBase]:
-
         """
-
         **Private Method**
 
         Args:
@@ -246,9 +186,7 @@ class InfoDatasetBase(Enum):
 
         Returns:
             A list of either all gaia only units or a list of all units excluding gaia only units
-
         """
-
         result = []
         for x in cls:
             if x.IS_GAIA_ONLY == gaia_only:

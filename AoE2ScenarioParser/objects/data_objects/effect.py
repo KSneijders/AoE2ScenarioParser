@@ -140,15 +140,23 @@ class Effect(AoE2Object):
                  ):
         raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
 
+        if selected_object_ids is None:
+            selected_object_ids = []
+
         # Set flags
         self._armour_attack_flag = _set_armour_attack_flag(effect_type, object_attributes)
 
-        if self._armour_attack_flag and quantity is not None:
-            armour_attack_class, armour_attack_quantity = _quantity_to_aa(quantity)
-            quantity = None
-
-        if selected_object_ids is None:
-            selected_object_ids = []
+        # HANDLE ARMOUR EFFECT ATTRIBUTES
+        if self._armour_attack_flag:
+            # If effect created through new_effect
+            if armour_attack_class != -1 or armour_attack_quantity != -1:
+                quantity = None
+            # If effect created through reading
+            elif quantity is not None:
+                armour_attack_class, armour_attack_quantity = _quantity_to_aa(quantity)
+                quantity = None
+        else:
+            armour_attack_class = armour_attack_quantity = None
 
         # Bypass the @property which causes: self._update_armour_attack_flag()
         self._effect_type: int = effect_type
@@ -229,7 +237,8 @@ class Effect(AoE2Object):
     @armour_attack_quantity.setter
     def armour_attack_quantity(self, value):
         if value is not None and value != [] and not self._armour_attack_flag:
-            warn("Setting 'armour_attack_quantity' when the effect doesn't use armour/attack attributes might result in unintended behaviour.")
+            warn("Setting 'effect.armour_attack_quantity' when the effect doesn't use armour/attack attributes "
+                 "might result in unintended behaviour.")
         self._armour_attack_quantity = value
 
     @property
@@ -239,7 +248,8 @@ class Effect(AoE2Object):
     @armour_attack_class.setter
     def armour_attack_class(self, value):
         if value is not None and value != [] and not self._armour_attack_flag:
-            warn("Setting 'armour_attack_class' when the effect doesn't use armour/attack attributes might result in unintended behaviour.")
+            warn("Setting 'effect.armour_attack_class' when the effect doesn't use armour/attack attributes "
+                 "might result in unintended behaviour.")
         self._armour_attack_class = value
 
     @property
@@ -252,8 +262,9 @@ class Effect(AoE2Object):
     def quantity(self, value):
         # Quantity by default, when unused is []
         if value is not None and value != [] and self._armour_attack_flag:
-            warn("Setting 'effect.quantity' directly in an effect that uses armour/attack attributes might result in unintended behaviour.\n"
-                 "Please use the 'effect.armour_attack_quantity' and 'effect.armour_attack_class' attributes instead.")
+            warn("Setting 'effect.quantity' directly in an effect that uses armour/attack attributes "
+                 "might result in unintended behaviour.\nPlease use the 'effect.armour_attack_quantity' "
+                 "and 'effect.armour_attack_class' attributes instead.")
         self._quantity = value
 
     @property
@@ -294,9 +305,9 @@ class Effect(AoE2Object):
 
 def _set_armour_attack_flag(effect_type, object_attributes) -> bool:
     return (effect_type in [EffectId.CHANGE_OBJECT_ATTACK, EffectId.CHANGE_OBJECT_ARMOR]) or \
-    (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
-        ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
-    ])
+           (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
+               ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
+           ])
 
 
 def _quantity_to_aa(quantity: int) -> Tuple[int, int]:
@@ -315,6 +326,7 @@ def _quantity_to_aa(quantity: int) -> Tuple[int, int]:
         The one byte armor/attack class as int and one byte armor/attack quantity as int
     """
     return quantity >> 8, quantity & 255
+
 
 def _aa_to_quantity(aa_quantity: int, aa_class: int) -> int:
     """

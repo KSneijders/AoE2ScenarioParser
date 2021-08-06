@@ -1021,6 +1021,9 @@ class NewEffectSupport:
         The parameters 'armour_attack_quantity' and 'armour_attack_class' are only used when object_attributes is Armor
         or Attack (8 or 9). Use, 'quantity' otherwise.
         """
+        if (armour_attack_quantity is not None or armour_attack_class is not None) and quantity is not None:
+            raise ValueError("Cannot use 'armour_attack' attributes together with the 'quantity' attribute.")
+
         return self.trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE,
             quantity=quantity,
