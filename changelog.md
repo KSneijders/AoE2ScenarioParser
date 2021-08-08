@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.17 - 2021-August-08
+
+### Added
+
+- `filter_units_by_const()` function to the unit_manager ([check the docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/units.html#select-existing-units))
+- `PlayerId.all()` function ([check these docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/datasets.html#players))
+
+### Updated
+
+- All `TriggerManager` functions now accept an `int` as well as `TriggerSelect`
+  - `get_trigger(TS.index(i))` is now equal to: `get_trigger(i)`
+- Docs with a link to the newly created Discord server!
+
+### Fixed
+
+- Fixed issue with `remove_effect` and `remove_condition` in display order arrays
+- Fixed issue with specific `modify_attribute` effect combination
+
+---
+
 ## 0.1.16 - 2021-August-06
 
 ### Fixed
