@@ -45,6 +45,7 @@ class UnitInfo(InfoDatasetBase):
     >>> UnitInfo.DEER.IS_GAIA_ONLY
     >>> True
     """
+
     @staticmethod
     def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
         """
@@ -244,15 +245,15 @@ class UnitInfo(InfoDatasetBase):
 
         units_to_return = []
 
-        if exclude_non_elite_units:
-            if exclude_non_castle_units:
+        if not exclude_non_elite_units:
+            if not exclude_non_castle_units:
                 units_to_return.extend(unique_units["non_elite"])
-            if exclude_castle_units:
+            if not exclude_castle_units:
                 units_to_return.extend(unique_units["castle"]["non_elite"])
-        if exclude_elite_units:
-            if exclude_non_castle_units:
+        if not exclude_elite_units:
+            if not exclude_non_castle_units:
                 units_to_return.extend(unique_units["elite"])
-            if exclude_castle_units:
+            if not exclude_castle_units:
                 units_to_return.extend(unique_units["castle"]["elite"])
 
         return units_to_return
