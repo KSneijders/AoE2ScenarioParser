@@ -149,7 +149,7 @@ class Effect(AoE2Object):
         # HANDLE ARMOUR EFFECT ATTRIBUTES
         if self._armour_attack_flag:
             # If effect created through new_effect
-            if armour_attack_class != -1 or armour_attack_quantity != -1:
+            if armour_attack_class not in [-1, None] or armour_attack_quantity not in [None, -1]:
                 quantity = None
             # If effect created through reading
             elif quantity is not None:
