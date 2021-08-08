@@ -98,6 +98,34 @@ class UnitManager(AoE2Object):
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
 
+    def filter_units_by_const(self,
+                              unit_consts: List[int],
+                              blacklist: bool = False,
+                              player_list: List[int] = None,
+                              unit_list: List[Unit] = None) -> List[Unit]:
+        """
+        Filter unit on their unit_const value.
+
+        Args:
+            unit_consts (List[int]): The constants to filter with
+            blacklist (bool): Use the given constant list as blacklist instead of whitelist
+            player_list (List[int]): A list of players to filter from. If not used, all players are used.
+            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+
+        Returns:
+            A list of units
+        """
+        if unit_list is None:
+            unit_list = self.get_all_units()
+        if player_list is not None:
+            unit_list = [unit for unit in unit_list if unit.player in player_list]
+
+        # Both return statements can be combined using: ((unit.unit_const in unit_consts) != blacklist)
+        # But splitting them helps performance (not checking against blacklist for each entry)
+        if not blacklist:
+            return [unit for unit in unit_list if unit.unit_const in unit_consts]
+        return [unit for unit in unit_list if unit.unit_const not in unit_consts]
+
     def get_units_in_area(self,
                           x1: float = None,
                           y1: float = None,

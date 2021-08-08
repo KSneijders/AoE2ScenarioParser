@@ -167,9 +167,12 @@ General usage examples:
 Unit, Building, Hero, Other and Tech IDs 
 ----------------------------------------
 
-The Units and Buildings datasets are very usefull when adding units.
-They’re also, together with the the Techs dataset, very usefull when
+The Units and Buildings datasets are very useful when adding units.
+They’re also, together with the ``Tech`` dataset, very useful when
 adding or editing triggers.
+
+General usage:
+~~~~~~~~~~~~~~
 
 For adding units it’ll look something like the following:
 
@@ -181,7 +184,7 @@ For adding units it’ll look something like the following:
    unit_manager.add_unit(PlayerId.GAIA,  HeroInfo.WILLIAM_WALLACE.ID,   x=40,   y=20)
    unit_manager.add_unit(PlayerId.GAIA,  OtherInfo.GOLD_MINE.ID,        x=50,   y=20)
 
-With the triggers you can do similiar stuff like:
+With the triggers you can do similar stuff like:
 
 .. code:: py
 
@@ -195,6 +198,54 @@ With the triggers you can do similiar stuff like:
        technology = TechInfo.BLOODLINES.ID
    )
    ...
+
+UnitInfo functions
+~~~~~~~~~~~~~~~~~~
+
+Some extra useful functions for the `UnitInfo` dataset is `vils()` and `unique_units()`
+
+.. code:: py
+
+   # Get all villager units (e.g. FARMER, HUNTER, LUMBERJACK etc.) 
+   # You can disable certain categories like:
+   # - exclude_male
+   # - exclude_female
+   # Example:
+   male_vils = UnitInfo.vils(exclude_female=True)  
+
+
+.. code:: py
+
+   # Get all unique units (e.g. HUSKARL, CONQUISTADOR, LONGBOAT, SLINGER etc.)
+   # You can disable certain categories like:
+   # - exclude_elite_units
+   # - exclude_non_elite_units
+   # - exclude_castle_units  (From the castle building)
+   # - exclude_non_castle_units  (From anything but the castle building)
+   # Example:
+   all_unique_non_castle_non_elite_units = UnitInfo.unique_units(exclude_elite_units=True, exclude_castle_units=True)
+
+### TechInfo functions
+
+Some extra useful functions for the `TechInfo` dataset is `unique_techs()` and `unique_unit_upgrades()`
+
+```py
+# Get all unique techs (e.g. BEARDED_AXE, CHIEFTAINS, FIRST_CRUSADE etc.)
+# You can disable certain categories like:
+# - exclude_castle_techs
+# - exclude_imp_techs
+# Example:
+imp_unique_techs = TechInfo.unique_techs(exclude_castle_techs=True)  
+```
+
+```py
+# Get all unique unit techs (e.g. ELITE_LONGBOWMAN, ELITE_TEUTONIC_KNIGHT etc.)
+# You can disable certain categories like:
+# - exclude_castle_techs
+# - exclude_non_castle_techs  (Excludes stuff like: ELITE_LONGBOAT, IMPERIAL_SKIRMISHER)
+# Example:
+uu_castle_upgrades = TechInfo.unique_unit_upgrades(exclude_non_castle_techs=True)  
+```
 
 Icon, Dead & Hotkey IDs
 -----------------------
@@ -275,9 +326,9 @@ The terrain dataset can be used for changing terrain types.
 
 .. code:: py
 
-   Terrain.BEACH               # 2
-   Terrain.FOREST_OAK          # 10
-   Terrain.UNDERBUSH_LEAVES    # 71
+   TerrainId.BEACH               # 2
+   TerrainId.FOREST_OAK          # 10
+   TerrainId.UNDERBUSH_LEAVES    # 71
    
    # Changing the terrain could be done like so:
    map_manager.terrain[0].terrain_id = TerrainId.GRASS_1
@@ -287,34 +338,37 @@ The terrain dataset can be used for changing terrain types.
 Players
 -------
 
-For selecting players it can be as easy as typing ``1``. Unfortunately
-not all parts of the scenario file are structured like:
+For selecting players it can be as easy as typing ``1``. 
+Unfortunately not all parts of the scenario file are structured like:
 ``0: Gaia, 1: Player1 ... 8: Player8``. So because of this a
 representation layer has been added. It’s a simple Enum which looks like
 this:
 
 .. code:: py
 
-   class Player(Enum):
-       GAIA = 0
-       ONE = 1
-       TWO = 2
-       THREE = 3
-       FOUR = 4
-       FIVE = 5
-       SIX = 6
-       SEVEN = 7
-       EIGHT = 8
+   PlayerId.GAIA, 
+   PlayerId.ONE, PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR, 
+   PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
 
-   class PlayerColor(Enum):
-       BLUE = 1
-       RED = 2
-       GREEN = 3
-       YELLOW = 4
-       AQUA = 5
-       PURPLE = 6
-       GREY = 7
-       ORANGE = 8
+
+If you want to loop through players, you have 2 options:
+
+.. code:: py
+
+   # Python built-in range function:
+   for player in range(9):  # Or range(1, 9) if you want to exclude GAIA
+      # ... code...
+
+   # The PlayerId function:
+   for player in PlayerId.all(): # Or PlayerId.all(exclude_gaia=True) if you want to exclude GAIA
+      # ... code...    
+
+You can also address the players by color if you prefer it:
+
+.. code:: py
+
+   PlayerColorId.BLUE, PlayerColorId.RED, PlayerColorId.GREEN, PlayerColorId.YELLOW, 
+   PlayerColorId.AQUA, PlayerColorId.PURPLE, PlayerColorId.GREY, PlayerColorId.ORANGE
 
 --------------
 

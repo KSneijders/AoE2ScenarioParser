@@ -226,16 +226,10 @@ class Trigger(AoE2Object):
 
         if effect is not None:
             effect_index = self.effects.index(effect)
-
         if effect_index is None:
             effect_index = self.effect_order[display_index]
-        else:
-            display_index = self.effect_order.index(effect_index)
 
         del self.effects[effect_index]
-        del self.effect_order[display_index]
-
-        self.effect_order = [x - 1 if x > effect_index else x for x in self.effect_order]
 
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
@@ -247,13 +241,8 @@ class Trigger(AoE2Object):
 
         if condition_index is None:
             condition_index = self.condition_order[display_index]
-        else:
-            display_index = self.condition_order.index(condition_index)
 
         del self.conditions[condition_index]
-        del self.condition_order[display_index]
-
-        self.condition_order = [x - 1 if x > condition_index else x for x in self.condition_order]
 
     def get_content_as_string(self) -> str:
         return_string = ""
