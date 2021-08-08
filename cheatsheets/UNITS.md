@@ -90,6 +90,28 @@ unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], 
 # Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
 ```
 
+You can also filter certain units based on their `unit_const` value.  
+For this you can use the `filter_units_by_const` function.
+
+```py
+# Get TC object of all players
+unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID])
+# Get TC object of only player one and two
+unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID], player_list=[PlayerId.ONE, PlayerId.TWO])
+# Get all objects of player one except for the villagers
+unit_manager.filter_units_by_const(
+    unit_consts=[UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
+    blacklist=True,  # <-- When True, everything in the unit_consts list will be excluded instead of included
+    player_list=[PlayerId.ONE],
+)
+# Exclude all unique units from a given list
+unit_manager.filter_units_by_const(
+    unit_consts=UnitInfo.unique_units(),
+    blacklist=True,
+    unit_list=[some_list_with_Unit_objects]
+)
+```
+
 ## Edit Units
 
 While adding units is fun, you might want to change existing units. You

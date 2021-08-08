@@ -7,7 +7,9 @@ Adding Units
 ^^^^^^^^^^^^
 
 Below you can find examples on how to add units to the scenario.  
-This will add a conquistador for player 1 at (0, 0) which is the West corner of the map::
+This will add a conquistador for player 1 at (0, 0) which is the West corner of the map:
+
+.. code:: py
 
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
     from AoE2ScenarioParser.datasets.players import PlayerId
@@ -37,18 +39,24 @@ This will add a conquistador for player 1 at (0, 0) which is the West corner of 
 Select existing Units
 ^^^^^^^^^^^^^^^^^^^^^
 
-To select the units you want there are a couple options. You can select all the units from a certain player::
+To select the units you want there are a couple options. You can select all the units from a certain player:
+
+.. code:: py
 
     gaia_units = unit_manager.get_player_units(PlayerId.GAIA)
 
-Or, get all units::
+Or, get all units:
+
+.. code:: py
 
     all_units = unit_manager.get_all_units()
 
 If you want a more specific search, you can use the ``get_units_in_area`` function.
 This function is quite powerfull. You can select an area using coordinates or using tiles. 
 You can also use a whitelist of players or a blacklist of players to (not) select the units from. 
-And, if you have, hand it your own list of units to filter through. You can see a couple examples below::
+And, if you have, hand it your own list of units to filter through. You can see a couple examples below:
+
+.. code:: py
 
     unit_manager.get_units_in_area(x1=0, y1=0, x2=10, y2=10)
     # Any unit within 0,0 => 10,10
@@ -59,7 +67,9 @@ And, if you have, hand it your own list of units to filter through. You can see 
     #    Tile(0,0).x1 == 0  # True  
     #    Tile(0,0).x2 == 1  # True
 
-For all other examples we'll be using the ``x, y`` notation. But you can use the ``Tile`` notation interchangably::
+For all other examples we'll be using the ``x, y`` notation. But you can use the ``Tile`` notation interchangably:
+
+.. code:: py
 
     unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, players=[
         PlayerId.ONE, PlayerId.TWO
@@ -76,6 +86,28 @@ For all other examples we'll be using the ``x, y`` notation. But you can use the
 
     unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[PlayerId.ONE])
     # Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
+
+You can also filter certain units based on their ``unit_const`` value.  
+For this you can use the ``filter_units_by_const`` function.
+
+.. code:: py
+    
+    # Get TC object of all players
+    unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID])
+    # Get TC object of only player one and two
+    unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID], player_list=[PlayerId.ONE, PlayerId.TWO])
+    # Get all objects of player one except for the villagers
+    unit_manager.filter_units_by_const(
+        unit_consts=[UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
+        blacklist=True,  # <-- When True, everything in the unit_consts list will be excluded instead of included
+        player_list=[PlayerId.ONE],
+    )
+    # Exclude all unique units from a given list
+    unit_manager.filter_units_by_const(
+        unit_consts=UnitInfo.unique_units(),
+        blacklist=True,
+        unit_list=[some_list_with_Unit_objects]
+    )
 
 Edit Units
 ^^^^^^^^^^
