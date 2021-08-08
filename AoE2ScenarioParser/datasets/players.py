@@ -1,9 +1,26 @@
 from __future__ import annotations
 
 from enum import IntEnum
+from typing import List
 
 
 class PlayerId(IntEnum):
+    @staticmethod
+    def all(include_gaia: bool = True) -> List[PlayerId]:
+        """
+        Return a list of all players
+
+        Args:
+            include_gaia (bool): if the GAIA player should be included
+
+        Returns:
+            The list of playerIds
+        """
+        return ([PlayerId.GAIA] if include_gaia else []) + [
+            PlayerId.ONE, PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR,
+            PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
+        ]
+
     """
     This enum class provides the integer values used to reference each player in the game. Use these over specifying
     player number directly to improve code readability
