@@ -1,7 +1,9 @@
 Support
 =======
 
-If you find a bug please report it to the `github issue board`_. If you have any other questions you can ask me 
-on Discord (MrKirby#5063) or tag me in the `SiegeEngineers` or the `AOE2 Mapmakers & Modding` discord servers.
+If you find a bug please report it to the `github issue board`_. 
 
+If you have any questions regarding the parser, `join the discord`_!
+
+.. _`join the discord`: https://discord.com/channels/866955546182942740/866955984526508052/872462544273567744
 .. _`github issue board`: https://github.com/KSneijders/AoE2ScenarioParser/issues

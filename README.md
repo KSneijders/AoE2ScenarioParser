@@ -5,7 +5,7 @@ the in-game editor.
 
 Documentation can be found on the [readthedocs] page.
 
-**For now**, some of the documentation can also be found here on github:
+**For now**, some documentation can also be found here on github:
 
 - [Triggers Cheatsheet]
 - [Units Cheatsheet]
@@ -18,6 +18,12 @@ Documentation can be found on the [readthedocs] page.
 [units cheatsheet]: ./cheatsheets/UNITS.md
 
 [datasets cheatsheet]: ./cheatsheets/DATASETS.md
+
+# Discord
+
+If you have any questions regarding the parser, [join the discord]!
+
+[join the discord]: https://discord.com/channels/866955546182942740/866955984526508052/872462544273567744
 
 # Progress
 
