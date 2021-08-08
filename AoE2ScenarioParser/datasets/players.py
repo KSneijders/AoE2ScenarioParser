@@ -6,17 +6,17 @@ from typing import List
 
 class PlayerId(IntEnum):
     @staticmethod
-    def all(include_gaia: bool = True) -> List[PlayerId]:
+    def all(exclude_gaia: bool = False) -> List[PlayerId]:
         """
         Return a list of all players
 
         Args:
-            include_gaia (bool): if the GAIA player should be included
+            exclude_gaia (bool): if the GAIA player should be excluded from the list or not
 
         Returns:
             The list of playerIds
         """
-        return ([PlayerId.GAIA] if include_gaia else []) + [
+        return ([] if exclude_gaia else [PlayerId.GAIA]) + [
             PlayerId.ONE, PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR,
             PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
         ]
