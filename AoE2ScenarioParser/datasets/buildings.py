@@ -188,3 +188,5 @@ class BuildingInfo(InfoDatasetBase):
     TRADE_WORKSHOP_BR = 1647, 17, 1429, 16174, False
     TRADE_WORKSHOP_TG = 179, 17, 1429, 16174, False
     TOWN_CENTER_PACKED = 444, 264, 1274, 16311, False
+    FOLWARK =  1734, 86, 1528, 16157, False
+    

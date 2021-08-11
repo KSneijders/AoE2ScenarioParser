@@ -124,6 +124,7 @@ class TechInfo(Enum):
                 TechInfo.STIRRUPS,
                 TechInfo.STRONGHOLD,
                 TechInfo.SULTANS,
+                TechInfo.SZLACHTA_PRIVILEGES,
                 TechInfo.THALASSOCRACY,
                 TechInfo.TIGUI,
                 TechInfo.TUSK_SWORDS,
@@ -150,7 +151,9 @@ class TechInfo(Enum):
                 TechInfo.FORCED_LEVY,
                 TechInfo.FUROR_CELTICA,
                 TechInfo.GARLAND_WARS,
+                TechInfo.HUSSITE_REFORMS,
                 TechInfo.KATAPARUTO,
+                TechInfo.LECHITIC_LEGACY,
                 TechInfo.LOGISTICA,
                 TechInfo.MAGHRABI_CAMELS,
                 TechInfo.MAHOUTS,
@@ -159,13 +162,14 @@ class TechInfo(Enum):
                 TechInfo.PERFUSION,
                 TechInfo.RECURVE_BOW,
                 TechInfo.ROCKETRY,
-                TechInfo.SCUTAGE,
+                TechInfo.HAUBERK,
                 TechInfo.SHINKICHON,
                 TechInfo.SILK_ROAD,
                 TechInfo.SUPREMACY,
                 TechInfo.TIMURID_SIEGECRAFT,
                 TechInfo.TORSION_ENGINES,
                 TechInfo.TOWER_SHIELDS,
+                TechInfo.WAGENBURG_TACTICS,
                 TechInfo.WARWOLF,
                 TechInfo.ZEALOTRY
             ]
@@ -239,15 +243,19 @@ class TechInfo(Enum):
                 TechInfo.ELITE_THROWING_AXEMAN,
                 TechInfo.ELITE_WAR_ELEPHANT,
                 TechInfo.ELITE_WAR_WAGON,
-                TechInfo.ELITE_WOAD_RAIDER
+                TechInfo.ELITE_WOAD_RAIDER,
+                TechInfo.ELITE_HUSSITE_WAGON,
+                TechInfo.ELITE_OBUCH
             ],
             "non_castle": [
                 TechInfo.ELITE_CARAVEL,
                 TechInfo.ELITE_GENITOUR,
                 TechInfo.ELITE_LONGBOAT,
                 TechInfo.ELITE_TURTLE_SHIP,
+                TechInfo.HOUFNICE,
                 TechInfo.IMPERIAL_CAMEL_RIDER,
-                TechInfo.IMPERIAL_SKIRMISHER
+                TechInfo.IMPERIAL_SKIRMISHER,
+                TechInfo.WINGED_HUSSAR
             ]
         }
 
@@ -538,5 +546,24 @@ class TechInfo(Enum):
     BURGUNDIAN_VINEYARDS = 754, 33
     FLEMISH_REVOLUTION = 755, 107
     FIRST_CRUSADE = 756, 33
-    SCUTAGE = 757, 107
+    HAUBERK = 757, 107
     CONVERSION_ENABLER = 243, -1
+    POLES = 776, -1
+    SZLACHTA_PRIVILEGES = 782, 33
+    LECHITIC_LEGACY = 783, 107
+    FOLWARK = 793, -1
+    FOLWARK_FEUDAL = 794, -1
+    FOLWARK_CASTLE = 795, -1
+    FOLWARK_IMPERIAL = 796, -1
+    FOLWARK_HORSE_COLLAR_EXTRA = 797, -1
+    FOLWARK_HEAVY_PLOW_EXTRA = 797, -1
+    FOLWARK_CROP_ROTATION_EXTRA = 797, -1
+    STONE_MINING_GOLD_GENERATION_INCREASE = 806, -1
+    STONE_SHADT_MINING_GOLD_GENERATION_INCREASE = 807, -1
+    BOHEMIANS = 776, -1
+    WAGENBURG_TACTICS = 784, 33
+    HUSSITE_REFORMS = 785, 107
+    WINGED_HUSSAR = 786, 125
+    HOUFNICE = 787, 126
+    ELITE_HUSSITE_WAGON = 781, 105
+    ELITE_OBUCH = 779, 105

@@ -23,7 +23,7 @@ Documentation can be found on the [readthedocs] page.
 
 If you have any questions regarding the parser, [join the discord]!
 
-[join the discord]: https://discord.com/channels/866955546182942740/866955984526508052/872462544273567744
+[join the discord]: https://discord.gg/DRUtmugXT3
 
 # Progress
 

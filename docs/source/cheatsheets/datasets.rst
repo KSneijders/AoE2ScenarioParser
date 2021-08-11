@@ -213,7 +213,6 @@ Some extra useful functions for the `UnitInfo` dataset is `vils()` and `unique_u
    # Example:
    male_vils = UnitInfo.vils(exclude_female=True)  
 
-
 .. code:: py
 
    # Get all unique units (e.g. HUSKARL, CONQUISTADOR, LONGBOAT, SLINGER etc.)
@@ -225,27 +224,31 @@ Some extra useful functions for the `UnitInfo` dataset is `vils()` and `unique_u
    # Example:
    all_unique_non_castle_non_elite_units = UnitInfo.unique_units(exclude_elite_units=True, exclude_castle_units=True)
 
-### TechInfo functions
+TechInfo functions
+~~~~~~~~~~~~~~~~~~
 
 Some extra useful functions for the `TechInfo` dataset is `unique_techs()` and `unique_unit_upgrades()`
 
-```py
-# Get all unique techs (e.g. BEARDED_AXE, CHIEFTAINS, FIRST_CRUSADE etc.)
-# You can disable certain categories like:
-# - exclude_castle_techs
-# - exclude_imp_techs
-# Example:
-imp_unique_techs = TechInfo.unique_techs(exclude_castle_techs=True)  
-```
+.. code:: py
 
-```py
-# Get all unique unit techs (e.g. ELITE_LONGBOWMAN, ELITE_TEUTONIC_KNIGHT etc.)
-# You can disable certain categories like:
-# - exclude_castle_techs
-# - exclude_non_castle_techs  (Excludes stuff like: ELITE_LONGBOAT, IMPERIAL_SKIRMISHER)
-# Example:
-uu_castle_upgrades = TechInfo.unique_unit_upgrades(exclude_non_castle_techs=True)  
-```
+   # Get all unique techs (e.g. BEARDED_AXE, CHIEFTAINS, FIRST_CRUSADE etc.)
+   # You can disable certain categories like:
+   # - exclude_castle_techs
+   # - exclude_imp_techs
+   # Example:
+   imp_unique_techs = TechInfo.unique_techs(exclude_castle_techs=True)  
+
+
+
+.. code:: py
+
+   # Get all unique unit techs (e.g. ELITE_LONGBOWMAN, ELITE_TEUTONIC_KNIGHT etc.)
+   # You can disable certain categories like:
+   # - exclude_castle_techs
+   # - exclude_non_castle_techs  (Excludes stuff like: ELITE_LONGBOAT, IMPERIAL_SKIRMISHER)
+   # Example:
+   uu_castle_upgrades = TechInfo.unique_unit_upgrades(exclude_non_castle_techs=True)  
+
 
 Icon, Dead & Hotkey IDs
 -----------------------
