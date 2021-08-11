@@ -6,13 +6,18 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.18 - 2021-August-11
+## 0.1.18 - 2021-August-12
 
-**Support for the new 51737 update!**
+**Support for the new 51737 update!**   
+Special thanks to **Alian** for his contribution with the datasets! <3
 
 ### Added
 
 - Support for the new `1.43` scenario file version.
+- New Units, Buildings, Heroes etc. from the `51737` patch! -- [Pull Request #28] (Alian713)
+- Added `append_after_source` parameter to `copy_trigger` function
+
+[Pull Request #28]: https://github.com/KSneijders/AoE2ScenarioParser/pull/28
 
 ---
 
