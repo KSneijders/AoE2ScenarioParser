@@ -205,3 +205,5 @@ class ProjectileInfo(Enum):
     ARAMBAI_FIRE = 1170, (1126, 1128)
     SHCOW = 1223, ()
     LASER = 1595, (1222, 1577)
+    HUSSITE_WAGON = 1733, (1704, 1706)
+    

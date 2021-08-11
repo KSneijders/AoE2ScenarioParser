@@ -156,6 +156,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.MAGYAR_HUSZAR,
                     UnitInfo.MAMELUKE,
                     UnitInfo.MANGUDAI,
+                    UnitInfo.OBUCH,
                     UnitInfo.ORGAN_GUN,
                     UnitInfo.PLUMED_ARCHER,
                     UnitInfo.RATTAN_ARCHER,
@@ -195,6 +196,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_MAGYAR_HUSZAR,
                     UnitInfo.ELITE_MAMELUKE,
                     UnitInfo.ELITE_MANGUDAI,
+                    UnitInfo.ELITE_OBUCH,
                     UnitInfo.ELITE_ORGAN_GUN,
                     UnitInfo.ELITE_PLUMED_ARCHER,
                     UnitInfo.ELITE_RATTAN_ARCHER,
@@ -217,7 +219,10 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.FLEMISH_MILITIA_FEMALE,
                 UnitInfo.FLEMISH_MILITIA_MALE,
                 UnitInfo.GENITOUR,
+                UnitInfo.HOUFNICE,
                 UnitInfo.HUSKARL_BARRACKS,
+                UnitInfo.IMPERIAL_CAMEL_RIDER,
+                UnitInfo.IMPERIAL_SKIRMISHER,
                 UnitInfo.KONNIK_DISMOUNTED,
                 UnitInfo.KONNIK_KREPOST,
                 UnitInfo.LONGBOAT,
@@ -226,8 +231,7 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.SLINGER,
                 UnitInfo.TARKAN_STABLE,
                 UnitInfo.TURTLE_SHIP,
-                UnitInfo.IMPERIAL_CAMEL_RIDER,
-                UnitInfo.IMPERIAL_SKIRMISHER
+                UnitInfo.WINGED_HUSSAR
             ],
             "elite": [
                 UnitInfo.ELITE_CARAVEL,
@@ -543,3 +547,10 @@ class UnitInfo(InfoDatasetBase):
     OUTLW = 158, 17, 3, 16074, True
     RFARC = 571, 17, 572, 16474, False
     MONUMENT_RESOURCE_ENABLER = 1639, 17, 572, 16464, False
+    HUSSITE_WAGON =  1704, 370, 1705, 16101, False
+    ELITE_HUSSITE_WAGON =  1706, 370, 1705, 16101, False
+    OBUCH =  1701, 369, 1702, 16104, False
+    ELITE_OBUCH =  1703, 369, 1702, 16104, False
+    WINGED_HUSSAR =  1707, 371, 1708, 16661, False
+    HOUFNICE =  1709, 372, 1710, 16093, False
+    

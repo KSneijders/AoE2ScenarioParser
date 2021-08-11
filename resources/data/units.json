@@ -6262,5 +6262,157 @@
         "dead_id": 572,
         "icon_id": 17,
         "hotkey_id": 16464
+    },
+    "HUSSITE_WAGON": {
+        "id": 1704,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1705,
+        "icon_id": 370,
+        "hotkey_id": 16101
+    },
+    "ELITE_HUSSITE_WAGON": {
+        "id": 1706,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1705,
+        "icon_id": 370,
+        "hotkey_id": 16101
+    },
+    "OBUCH": {
+        "id": 1701,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1702,
+        "icon_id": 369,
+        "hotkey_id": 16104
+    },
+    "ELITE_OBUCH": {
+        "id": 1703,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1702,
+        "icon_id": 369,
+        "hotkey_id": 16104
+    },
+    "WINGED_HUSSAR": {
+        "id": 1707,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1708,
+        "icon_id": 371,
+        "hotkey_id": 16661
+    },
+    "HOUFNICE": {
+        "id": 1709,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 1710,
+        "icon_id": 372,
+        "hotkey_id": 16093
+    },
+    "FOLWARK": {
+        "id": 1734,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1528,
+        "icon_id": 86,
+        "hotkey_id": 16157
+    },
+    "STOERTEBEKER": {
+        "id": 114,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": -1,
+        "icon_id": 88,
+        "hotkey_id": 16703
+    },
+    "JAN_ZIZKA": {
+        "id": 1713,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1714,
+        "icon_id": 373,
+        "hotkey_id": 16724
+    },
+    "JADWIGA": {
+        "id": 1715,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1716,
+        "icon_id": 374,
+        "hotkey_id": 16691
+    },
+    "JOGAILA": {
+        "id": 1718,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1719,
+        "icon_id": 375,
+        "hotkey_id": 16724
+    },
+    "KESTUTIS": {
+        "id": 1721,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1722,
+        "icon_id": 376,
+        "hotkey_id": 16724
+    },
+    "CRUSADER_KNIGHT": {
+        "id": 1723,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1724,
+        "icon_id": 377,
+        "hotkey_id": 16730
+    },
+    "ALGIRDAS": {
+        "id": 1725,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1726,
+        "icon_id": 378,
+        "hotkey_id": 16724
+    },
+    "ULRICH_VON_JUNGINGEN": {
+        "id": 1727,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 1728,
+        "icon_id": 379,
+        "hotkey_id": 16562
+    },
+    "EMPEROR_SIGISMUND": {
+        "id": 1729,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 633,
+        "icon_id": 380,
+        "hotkey_id": 16562
+    },
+    "DMITRY_OF_MOSCOW": {
+        "id": 1730,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 139,
+        "icon_id": 381,
+        "hotkey_id": 16639
+    },
+    "MIKHAIL_OF_TVER": {
+        "id": 1731,
+        "gaia_only": false,
+        "type": "hero",
+        "dead_id": 877,
+        "icon_id": 382,
+        "hotkey_id": 16639
+    },
+    "1717": {
+        "id": 1717,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": 415,
+        "icon_id": 32,
+        "hotkey_id": 16399
     }
 }

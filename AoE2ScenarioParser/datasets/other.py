@@ -232,3 +232,4 @@ class OtherInfo(InfoDatasetBase):
     TARGET_B = 1565, -1, -1, 16000, False
     TEMPLE_RUIN = 1566, -1, -1, 16757, True
     WELL = 1567, -1, -1, 16756, True
+    TREE_BIRCH = 1717, 32, 415, 16399, True
