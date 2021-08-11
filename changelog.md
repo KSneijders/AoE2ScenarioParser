@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.18 - 2021-August-11
+
+**Support for the new 51737 update!**
+
+### Added
+
+- Support for the new `1.43` scenario file version.
+
+---
+
 ## 0.1.17 - 2021-August-08
 
 ### Added
