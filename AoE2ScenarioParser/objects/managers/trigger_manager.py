@@ -115,41 +115,43 @@ class TriggerManager(AoE2Object):
 
         return_dict: Dict[PlayerId, Trigger] = {}
         for player in create_copy_for_players:
-            if not player == from_player:
-                new_trigger = self.copy_trigger(TS.trigger(trigger))
-                new_trigger.name += f" (p{player})"
-                return_dict[player] = new_trigger
+            if player == from_player:
+                continue
 
-                for cond_x in alter_conditions:
-                    cond = new_trigger.conditions[cond_x]
-                    # Player not set
-                    if cond.source_player == -1:
+            new_trigger = self.copy_trigger(TS.trigger(trigger), append_after_source=False)
+            new_trigger.name += f" (p{player})"
+            return_dict[player] = new_trigger
+
+            for cond_x in alter_conditions:
+                cond = new_trigger.conditions[cond_x]
+                # Player not set
+                if cond.source_player == -1:
+                    continue
+                # Player not equal to 'from_player'
+                if change_from_player_only:
+                    if not cond.source_player == from_player:
                         continue
-                    # Player not equal to 'from_player'
-                    if change_from_player_only:
-                        if not cond.source_player == from_player:
-                            continue
-                    # Change source player
-                    if include_player_source:
-                        cond.source_player = PlayerId(player)
-                    # Change target player
-                    if include_player_target:
-                        cond.target_player = PlayerId(player)
-                for effect_x in alter_effects:
-                    effect = new_trigger.effects[effect_x]
-                    # Player not set
-                    if effect.source_player == -1:
+                # Change source player
+                if include_player_source:
+                    cond.source_player = PlayerId(player)
+                # Change target player
+                if include_player_target:
+                    cond.target_player = PlayerId(player)
+            for effect_x in alter_effects:
+                effect = new_trigger.effects[effect_x]
+                # Player not set
+                if effect.source_player == -1:
+                    continue
+                # Player not equal to 'from_player'
+                if change_from_player_only:
+                    if not effect.source_player == from_player:
                         continue
-                    # Player not equal to 'from_player'
-                    if change_from_player_only:
-                        if not effect.source_player == from_player:
-                            continue
-                    # Change source player
-                    if include_player_source:
-                        effect.source_player = PlayerId(player)
-                    # Change target player
-                    if include_player_target:
-                        effect.target_player = PlayerId(player)
+                # Change source player
+                if include_player_source:
+                    effect.source_player = PlayerId(player)
+                # Change target player
+                if include_player_target:
+                    effect.target_player = PlayerId(player)
 
         return return_dict
 
@@ -310,7 +312,7 @@ class TriggerManager(AoE2Object):
         new_triggers = []
         id_swap = {}
         for index in known_node_indexes:
-            trigger = self.copy_trigger(index)
+            trigger = self.copy_trigger(index, False)
             new_triggers.append(trigger)
             id_swap[index] = trigger.trigger_id
 

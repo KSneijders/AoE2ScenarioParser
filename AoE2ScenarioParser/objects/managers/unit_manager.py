@@ -84,7 +84,7 @@ class UnitManager(AoE2Object):
         Raises:
             ValueError: If player is not between 0 (GAIA) and 8 (EIGHT)
         """
-        if not 0 <= player.value <= 8:
+        if not 0 <= player <= 8:
             raise ValueError("Player must have a value between 0 and 8")
         return self.units[player.value]
 
