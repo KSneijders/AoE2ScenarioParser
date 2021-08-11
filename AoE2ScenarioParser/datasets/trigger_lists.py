@@ -293,7 +293,7 @@ class ObjectAttribute(IntEnum):
     CARRY_CAPACITY = 14
     BASE_ARMOR = 15
     PROJECTILE_UNIT = 16
-    GRAPHICS_ANGLE = 17
+    BUILDING_ICON_OVERRIDE = 17
     TERRAIN_DEFENSE_BONUS = 18
     ENABLE_SMART_PROJECTILES = 19
     MINIMUM_RANGE = 20
@@ -936,8 +936,38 @@ class Attribute(IntEnum):
     """
     Farming Gold Generation Rate*0.01 of the Source Player:
 
-    - Burgundian Vineyards set this to 1.5 => 0.015g/s for One Farmer Continuously Farming.
+    - Burgundian Vineyards set this to 2 => 0.02g/s for One Farmer Continuously Farming.
     - in Practise, Its Closer to 0.01g/s Factoring in Walking Times
+    """
+    FOLWARK_COLLECTION_AMOUNT = 237
+    """
+    The amount of food that is collected from farms on construction near a Folwark.
+    - Poles set this value to 17.5
+    - Horse Collar for the Poles adds 7.5 to
+    - Heavy Plow for the Poles adds 12.5
+    - Crop Rotation for the Poles adds 17.5
+    """
+    FOLWARK_ATTRIBUTE_TYPE = 238
+    """
+    The ID of the resource that is given to the player from the Folwark collection ability. The farm still loses food, but the resource given can be changed
+    - 0 (Food) for the Poles
+    - -1 for other civs by default
+    """
+    FOLWARK_BUILDING_TYPE = 239
+    """
+    The ID of the building that the Folwark needs to be upgraded from for its ability to work
+    - 68 (Mill) for the Poles
+    - -1 for other civs by default
+    """
+    UNITS_CONVERTED = 240
+    """
+    Unknown: Amount of the Source Player
+    """
+    STONE_MINING_GOLD_PRODUCTIVITY = 241
+    """
+    The amount of gold produced every second form mining stone * 100.
+    - Set to 18 (0.18 g/s) for the Poles.
+    - 0 for other civs by default
     """
 
 
@@ -1187,15 +1217,54 @@ class BlastLevel(IntEnum):
     >>> 1
     """
     RESOURCES = 0
-    TREES = 1
-    NEARBY_UNITS = 2
-    TARGET_ONLY = 3
-    FIXED_INFANTRY_TRAMPLE = 6
     """
-    If an infantry unit is given this along with non 0 blast radius, it does a fixed 5 HP damage ignoring armour to all
-    adjacent units
+    Damage Resources
+    """
+    TREES = 1
+    """
+    Damage Trees
+    """
+    NEARBY_UNITS = 2
+    """
+    Damage surrounding units
+    """
+    TARGET_ONLY = 3
+    """
+    Damage targetted unit only
+    """
+    FIXED_FIVE = 4
+    """
+    Deal a fixed, 5 HP of damage to surrounding units
+    """
+    FIFTY_PERCENT = 8
+    """
+    Deal 50% damage to surrounding units
+    """
+    TWNETY_FIVE_PERCENT = 16
+    """
+    Deal 25% damage to surrounding units
+    """
+    THIRTY_THREE_PERCENT = 32
+    """
+    Deal 33% damage to surrounding units
+    """
+    DISTANCE_ATTENUATION = 64
+    """
+    Only works for infantry units, reduces blast damage done based on distance
     """
 
+class SmartPorjectile(IntEnum):
+    """
+    This enum class provides the integer values used to reference the smart projectile flag values used in the game. Used in the
+    'Modify Attribute' effect with the 'Enable Smart Projectile' attribute
+
+    **Examples**
+
+    >>> SmartProjectile.ENABLED
+    >>> 1
+    """
+    ENABLED = 1
+    FULL_DAMAGE_ON_MISSED_HIT = 2
 
 class DamageClass(IntEnum):
     """
@@ -1351,6 +1420,7 @@ class ColorMood(IntEnum):
     WINTER = 2
     JUNGLE = 3
     DESERT = 4
+    NIGHT = 5
 
 
 class ObjectState(IntEnum):

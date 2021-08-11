@@ -974,7 +974,7 @@
         "icon_id": 33,
         "hotkey_id": 18280
     },
-    "OBSIDIAN_ARROWS": {
+    "HULCHE_JAVELINEERS": {
         "id": 485,
         "icon_id": 33,
         "hotkey_id": 18379
@@ -1379,7 +1379,7 @@
         "icon_id": 33,
         "hotkey_id": 18444
     },
-    "SCUTAGE": {
+    "HAUBERK": {
         "id": 757,
         "icon_id": 107,
         "hotkey_id": 18445
@@ -1388,5 +1388,100 @@
         "id": 243,
         "icon_id": -1,
         "hotkey_id": -1
+    },
+    "POLES": {
+        "id": 776,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "SZLACHTA_PRIVILEGES": {
+        "id": 782,
+        "icon_id": 33,
+        "hotkey_id": 18444
+    },
+    "LECHITIC_LEGACY": {
+        "id": 783,
+        "icon_id": 107,
+        "hotkey_id": 18445
+    },
+    "FOLWARK": {
+        "id": 793,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "FOLWARK_FEUDAL": {
+        "id": 794,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "FOLWARK_CASTLE": {
+        "id": 795,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "FOLWARK_IMPERIAL": {
+        "id": 796,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "FOLWARK_HORSE_COLLAR_EXTRA": {
+        "id": 797,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "FOLWARK_HEAVY_PLOW_EXTRA": {
+        "id": 797,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "FOLWARK_CROP_ROTATION_EXTRA": {
+        "id": 797,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "ELITE_OBUCH": {
+        "id": 779,
+        "icon_id": 105,
+        "hotkey_id": 18440
+    },
+    "BOHEMIANS": {
+        "id": 776,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "STONE_MINING_GOLD_GENERATION_INCREASE": {
+        "id": 806,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "STONE_SHAFT_MINING_GOLD_GENERATION_INCREASE": {
+        "id": 807,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "WAGENBURG_TACTICS": {
+        "id": 784,
+        "icon_id": 33,
+        "hotkey_id": 18442
+    },
+    "HUSSITE_REFORMS": {
+        "id": 785,
+        "icon_id": 107,
+        "hotkey_id": 18443
+    },
+    "WINGED_HUSSAR": {
+        "id": 786,
+        "icon_id": 125,
+        "hotkey_id": 18417
+    },
+    "HOUFNICE": {
+        "id": 787,
+        "icon_id": 126,
+        "hotkey_id": 18244
+    },
+    "ELITE_HUSSITE_WAGON": {
+        "id": 781,
+        "icon_id": 105,
+        "hotkey_id": 18441
     }
 }

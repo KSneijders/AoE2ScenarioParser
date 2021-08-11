@@ -35,7 +35,7 @@ class TriggerManager(AoE2Object):
         super().__init__()
 
     @property
-    def triggers(self):
+    def triggers(self) -> List[Trigger]:
         return self._triggers
 
     @triggers.setter
@@ -45,7 +45,7 @@ class TriggerManager(AoE2Object):
         self.trigger_display_order = list(range(len(value)))
 
     @property
-    def trigger_display_order(self):
+    def trigger_display_order(self) -> List[int]:
         if list_changed(self.triggers, self._trigger_hash):
             update_order_array(self._trigger_display_order, len(self.triggers))
             self._trigger_hash = hash_list(self.triggers)
@@ -115,60 +115,80 @@ class TriggerManager(AoE2Object):
 
         return_dict: Dict[PlayerId, Trigger] = {}
         for player in create_copy_for_players:
-            if not player == from_player:
-                new_trigger = self.copy_trigger(TS.trigger(trigger))
-                new_trigger.name += f" (p{player})"
-                return_dict[player] = new_trigger
+            if player == from_player:
+                continue
 
-                for cond_x in alter_conditions:
-                    cond = new_trigger.conditions[cond_x]
-                    # Player not set
-                    if cond.source_player == -1:
+            new_trigger = self.copy_trigger(TS.trigger(trigger), append_after_source=False)
+            new_trigger.name += f" (p{player})"
+            return_dict[player] = new_trigger
+
+            for cond_x in alter_conditions:
+                cond = new_trigger.conditions[cond_x]
+                # Player not set
+                if cond.source_player == -1:
+                    continue
+                # Player not equal to 'from_player'
+                if change_from_player_only:
+                    if not cond.source_player == from_player:
                         continue
-                    # Player not equal to 'from_player'
-                    if change_from_player_only:
-                        if not cond.source_player == from_player:
-                            continue
-                    # Change source player
-                    if include_player_source:
-                        cond.source_player = PlayerId(player)
-                    # Change target player
-                    if include_player_target:
-                        cond.target_player = PlayerId(player)
-                for effect_x in alter_effects:
-                    effect = new_trigger.effects[effect_x]
-                    # Player not set
-                    if effect.source_player == -1:
+                # Change source player
+                if include_player_source:
+                    cond.source_player = PlayerId(player)
+                # Change target player
+                if include_player_target:
+                    cond.target_player = PlayerId(player)
+            for effect_x in alter_effects:
+                effect = new_trigger.effects[effect_x]
+                # Player not set
+                if effect.source_player == -1:
+                    continue
+                # Player not equal to 'from_player'
+                if change_from_player_only:
+                    if not effect.source_player == from_player:
                         continue
-                    # Player not equal to 'from_player'
-                    if change_from_player_only:
-                        if not effect.source_player == from_player:
-                            continue
-                    # Change source player
-                    if include_player_source:
-                        effect.source_player = PlayerId(player)
-                    # Change target player
-                    if include_player_target:
-                        effect.target_player = PlayerId(player)
+                # Change source player
+                if include_player_source:
+                    effect.source_player = PlayerId(player)
+                # Change target player
+                if include_player_target:
+                    effect.target_player = PlayerId(player)
 
         return return_dict
 
-    def copy_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
+    def copy_trigger(self, trigger_select: Union[int, TriggerSelect], append_after_source=True) -> Trigger:
         """
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
             trigger_select (Union[int, TriggerSelect]): An object used to identify which trigger to select.
+            append_after_source (bool): If the new trigger should be appended below the source trigger
 
         Returns:
             The newly copied trigger
         """
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
+        new_index = trigger_index + 1
         deepcopy_trigger = copy.deepcopy(trigger)
         deepcopy_trigger.name += " (copy)"
-        deepcopy_trigger.trigger_id = len(self.triggers)
-        self.triggers.append(deepcopy_trigger)
+
+        if append_after_source:
+            deepcopy_trigger.trigger_id = new_index
+
+            # Update internal trigger IDs
+            for index, trigger in enumerate(self.triggers):
+                if index >= new_index:
+                    trigger.trigger_id += 1
+
+            # Insert new trigger, update trigger_hash
+            self.triggers.insert(new_index, deepcopy_trigger)
+            self._trigger_hash = hash_list(self.triggers)
+            # Update display order numbers to make room for the new trigger and insert the new value
+            self.trigger_display_order = [doi + 1 if doi >= new_index else doi for doi in self.trigger_display_order]
+            self.trigger_display_order.insert(display_index + 1, new_index)
+        else:
+            deepcopy_trigger.trigger_id = len(self.triggers)
+            self.triggers.append(deepcopy_trigger)
 
         return deepcopy_trigger
 
@@ -292,7 +312,7 @@ class TriggerManager(AoE2Object):
         new_triggers = []
         id_swap = {}
         for index in known_node_indexes:
-            trigger = self.copy_trigger(index)
+            trigger = self.copy_trigger(index, False)
             new_triggers.append(trigger)
             id_swap[index] = trigger.trigger_id
 
