@@ -32,6 +32,11 @@ _no_string_trail = [
     "unknown_string",  # in Map
     "map_color_mood",  # in Map
     "script_name",  # in Map
+    "water_definition",  # in Map
+    "message",  # in Trigger
+    "sound_name",  # in Trigger
+    "script_file_path",  # in Files
+    "script_file_content",  # in Files
 ]
 
 
