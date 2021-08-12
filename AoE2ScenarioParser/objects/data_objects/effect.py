@@ -13,6 +13,12 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
+def _add_trail_if_string_attr_is_used_in_effect(obj: Effect, attr_name, val):
+    if attr_name in effects.attributes[obj.effect_type]:
+        return val + "\x00"
+    return val
+
+
 class Effect(AoE2Object):
     """Object for handling an effect."""
 
@@ -80,8 +86,10 @@ class Effect(AoE2Object):
                             Support(since=1.40)),
         RetrieverObjectLink("color_mood", "Triggers", "trigger_data[__index__].effect_data[__index__].color_mood",
                             Support(since=1.42)),
-        RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message"),
-        RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name"),
+        RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message",
+                            commit_callback=_add_trail_if_string_attr_is_used_in_effect),
+        RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name",
+                            commit_callback=_add_trail_if_string_attr_is_used_in_effect),
         RetrieverObjectLink("selected_object_ids", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].selected_object_ids"),
     ]
