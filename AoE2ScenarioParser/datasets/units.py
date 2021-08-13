@@ -56,14 +56,6 @@ class UnitInfo(InfoDatasetBase):
         Returns:
             A list of villager UnitInfo objects
         """
-        args = locals()
-        params = UnitInfo.vils.__annotations__
-        params.pop("return")
-        for param, param_type in params.items():
-            provided = type(args[param]).__name__
-            if provided != param_type:
-                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
-
         villagers = {
             "male": [
                 UnitInfo.VILLAGER_MALE,
@@ -119,14 +111,6 @@ class UnitInfo(InfoDatasetBase):
         Returns:
             A list of unique unit UniInfo objects
         """
-        args = locals()
-        params = UnitInfo.unique_units.__annotations__
-        params.pop("return")
-        for param, param_type in params.items():
-            provided = type(args[param]).__name__
-            if provided != param_type:
-                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
-
         unique_units = {
             "castle": {
                 "non_elite": [

@@ -197,14 +197,6 @@ class TechInfo(Enum):
         Returns:
             A list of unique unite upgrade tech IDs
         """
-        args = locals()
-        params = TechInfo.unique_unit_upgrades.__annotations__
-        params.pop("return")
-        for param, param_type in params.items():
-            provided = type(args[param]).__name__
-            if provided != param_type:
-                raise TypeError(f"Parameter '{param}' can only be of type {param_type} but provided type: {provided}")
-
         unique_techs = {
             "castle": [
                 TechInfo.ELITE_ARAMBAI,
