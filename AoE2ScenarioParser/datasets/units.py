@@ -128,6 +128,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.GBETO,
                     UnitInfo.GENOESE_CROSSBOWMAN,
                     UnitInfo.HUSKARL,
+                    UnitInfo.HUSSITE_WAGON,
                     UnitInfo.JAGUAR_WARRIOR,
                     UnitInfo.JANISSARY,
                     UnitInfo.KAMAYUK,
@@ -168,6 +169,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_GBETO,
                     UnitInfo.ELITE_GENOESE_CROSSBOWMAN,
                     UnitInfo.ELITE_HUSKARL,
+                    UnitInfo.ELITE_HUSSITE_WAGON,
                     UnitInfo.ELITE_JAGUAR_WARRIOR,
                     UnitInfo.ELITE_JANISSARY,
                     UnitInfo.ELITE_KAMAYUK,
@@ -531,10 +533,9 @@ class UnitInfo(InfoDatasetBase):
     OUTLW = 158, 17, 3, 16074, True
     RFARC = 571, 17, 572, 16474, False
     MONUMENT_RESOURCE_ENABLER = 1639, 17, 572, 16464, False
-    HUSSITE_WAGON =  1704, 370, 1705, 16101, False
-    ELITE_HUSSITE_WAGON =  1706, 370, 1705, 16101, False
-    OBUCH =  1701, 369, 1702, 16104, False
-    ELITE_OBUCH =  1703, 369, 1702, 16104, False
-    WINGED_HUSSAR =  1707, 371, 1708, 16661, False
-    HOUFNICE =  1709, 372, 1710, 16093, False
-    
+    HUSSITE_WAGON = 1704, 370, 1705, 16101, False
+    ELITE_HUSSITE_WAGON = 1706, 370, 1705, 16101, False
+    OBUCH = 1701, 369, 1702, 16104, False
+    ELITE_OBUCH = 1703, 369, 1702, 16104, False
+    WINGED_HUSSAR = 1707, 371, 1708, 16661, False
+    HOUFNICE = 1709, 372, 1710, 16093, False

@@ -128,6 +128,7 @@ class TechInfo(Enum):
                 TechInfo.THALASSOCRACY,
                 TechInfo.TIGUI,
                 TechInfo.TUSK_SWORDS,
+                TechInfo.WAGENBURG_TACTICS,
                 TechInfo.YASAMA,
                 TechInfo.YEOMEN,
             ],
@@ -169,7 +170,6 @@ class TechInfo(Enum):
                 TechInfo.TIMURID_SIEGECRAFT,
                 TechInfo.TORSION_ENGINES,
                 TechInfo.TOWER_SHIELDS,
-                TechInfo.WAGENBURG_TACTICS,
                 TechInfo.WARWOLF,
                 TechInfo.ZEALOTRY
             ]
@@ -212,6 +212,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_GBETO,
                 TechInfo.ELITE_GENOESE_CROSSBOWMAN,
                 TechInfo.ELITE_HUSKARL,
+                TechInfo.ELITE_HUSSITE_WAGON,
                 TechInfo.ELITE_JAGUAR_WARRIOR,
                 TechInfo.ELITE_JANISSARY,
                 TechInfo.ELITE_KAMAYUK,
@@ -224,6 +225,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_MAGYAR_HUSZAR,
                 TechInfo.ELITE_MAMELUKE,
                 TechInfo.ELITE_MANGUDAI,
+                TechInfo.ELITE_OBUCH,
                 TechInfo.ELITE_ORGAN_GUN,
                 TechInfo.ELITE_PLUMED_ARCHER,
                 TechInfo.ELITE_RATTAN_ARCHER,
@@ -236,8 +238,6 @@ class TechInfo(Enum):
                 TechInfo.ELITE_WAR_ELEPHANT,
                 TechInfo.ELITE_WAR_WAGON,
                 TechInfo.ELITE_WOAD_RAIDER,
-                TechInfo.ELITE_HUSSITE_WAGON,
-                TechInfo.ELITE_OBUCH
             ],
             "non_castle": [
                 TechInfo.ELITE_CARAVEL,
@@ -552,7 +552,7 @@ class TechInfo(Enum):
     FOLWARK_CROP_ROTATION_EXTRA = 797, -1
     STONE_MINING_GOLD_GENERATION_INCREASE = 806, -1
     STONE_SHADT_MINING_GOLD_GENERATION_INCREASE = 807, -1
-    BOHEMIANS = 776, -1
+    BOHEMIANS = 777, -1
     WAGENBURG_TACTICS = 784, 33
     HUSSITE_REFORMS = 785, 107
     WINGED_HUSSAR = 786, 125
