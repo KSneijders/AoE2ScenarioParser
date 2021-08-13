@@ -100,8 +100,6 @@ class TriggerManager(AoE2Object):
 
         """
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
-        if not include_player_source and not include_player_target:
-            raise ValueError("Cannot exclude player source and target.")
 
         if create_copy_for_players is None:
             create_copy_for_players = [
@@ -118,7 +116,7 @@ class TriggerManager(AoE2Object):
             if player == from_player:
                 continue
 
-            new_trigger = self.copy_trigger(TS.trigger(trigger), append_after_source=False)
+            new_trigger = self.copy_trigger(TS.trigger(trigger), append_after_source=False, add_suffix=False)
             new_trigger.name += f" (p{player})"
             return_dict[player] = new_trigger
 
@@ -153,15 +151,24 @@ class TriggerManager(AoE2Object):
                 if include_player_target:
                     effect.target_player = PlayerId(player)
 
+        # After copies have been made
+        trigger.name += f" (p{from_player})"
+
         return return_dict
 
-    def copy_trigger(self, trigger_select: Union[int, TriggerSelect], append_after_source=True) -> Trigger:
+    def copy_trigger(
+            self,
+            trigger_select: Union[int, TriggerSelect],
+            append_after_source=True,
+            add_suffix=True
+    ) -> Trigger:
         """
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
             trigger_select (Union[int, TriggerSelect]): An object used to identify which trigger to select.
             append_after_source (bool): If the new trigger should be appended below the source trigger
+            add_suffix (bool): If the text ' (copy)' should be added after the trigger
 
         Returns:
             The newly copied trigger
@@ -170,7 +177,8 @@ class TriggerManager(AoE2Object):
 
         new_index = trigger_index + 1
         deepcopy_trigger = copy.deepcopy(trigger)
-        deepcopy_trigger.name += " (copy)"
+        if add_suffix:
+            deepcopy_trigger.name += " (copy)"
 
         if append_after_source:
             deepcopy_trigger.trigger_id = new_index
@@ -263,45 +271,47 @@ class TriggerManager(AoE2Object):
                 for effect in activation_effects:
                     effect.trigger_id = id_swap[effect.trigger_id][player]
 
-        # Group by logic
+        # -------------- Group by logic -------------- #
+        new_trigger_ids = []
         if group_triggers_by == GroupBy.TRIGGER:
-            for index, source_trigger_id in enumerate(known_node_indexes):
-                for player, trigger in [(player, triggers[index]) for player, triggers in new_triggers.items()]:
-                    # When going negative (going 'below' the source already happens at insert @ 0
-                    display_index_offset = player - from_player if from_player <= player else 0
-                    source_trigger_display_index = self.trigger_display_order.index(source_trigger_id)
-                    self.trigger_display_order.remove(trigger.trigger_id)
-                    new_display_index = max(0, source_trigger_display_index + display_index_offset)
-                    self.trigger_display_order.insert(
-                        new_display_index,
-                        trigger.trigger_id
-                    )
+            for i in range(len(known_node_indexes)):
+                for player in PlayerId.all():
+                    if player == from_player:
+                        new_trigger_ids.append(known_node_indexes[i])
+                    if player not in new_triggers:
+                        continue
+                    new_trigger_ids.append(new_triggers[player][i].trigger_id)
         elif group_triggers_by == GroupBy.PLAYER:
-            source_trigger_display_index = display_index
-            source_trigger_offset = 0
-            # Group known tree nodes
-            for tree_trigger_id in known_node_indexes:
-                self.trigger_display_order.remove(tree_trigger_id)
-                self.trigger_display_order.insert(
-                    source_trigger_display_index + source_trigger_offset,
-                    tree_trigger_id
-                )
-                source_trigger_offset += 1
-            # Group copied triggers
-            for player, triggers in new_triggers.items():
-                source_trigger_display_index = self.trigger_display_order.index(source_trigger.trigger_id)
-                source_trigger_offset = 0
-                display_index_offset = (player - from_player if from_player <= player else 0) * len(known_node_indexes)
-                for trigger in triggers:
-                    final_offset = max(source_trigger_display_index + display_index_offset + source_trigger_offset, 0)
-                    self.trigger_display_order.remove(trigger.trigger_id)
-                    self.trigger_display_order.insert(
-                        final_offset,
-                        trigger.trigger_id
-                    )
-                    source_trigger_offset += 1
+            for player in PlayerId.all():
+                if player == from_player:
+                    new_trigger_ids.extend(known_node_indexes)
+                    continue
+                if player not in new_triggers:
+                    continue
+
+                new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
+
+        self._reformat_section_triggers(new_trigger_ids, display_index)
 
         return new_triggers
+
+    def _reformat_section_triggers(self, new_trigger_ids, split_index):
+        other_triggers = [
+            i for i in self.trigger_display_order if i not in new_trigger_ids or i == split_index
+        ]
+        insert_index = other_triggers.index(split_index)
+        new_trigger_id_order = other_triggers[:insert_index] + new_trigger_ids + other_triggers[insert_index + 1:]
+
+        self._reformat_triggers(new_trigger_id_order)
+
+    def _reformat_triggers(self, new_id_order):
+        self.trigger_display_order = new_id_order
+        new_triggers_list = []
+        for index in new_id_order:
+            trigger = self.triggers[index]
+            trigger.trigger_id = index
+            new_triggers_list.append(trigger)
+        self.triggers = new_triggers_list
 
     def copy_trigger_tree(self, trigger_select: Union[int, TriggerSelect]) -> List[Trigger]:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
@@ -312,7 +322,7 @@ class TriggerManager(AoE2Object):
         new_triggers = []
         id_swap = {}
         for index in known_node_indexes:
-            trigger = self.copy_trigger(index, False)
+            trigger = self.copy_trigger(index, append_after_source=False)
             new_triggers.append(trigger)
             id_swap[index] = trigger.trigger_id
 
