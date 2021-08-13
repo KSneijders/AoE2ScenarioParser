@@ -1,6 +1,6 @@
 from __future__ import annotations
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
-
+import copy
 
 class UnitInfo(InfoDatasetBase):
     """
@@ -57,7 +57,7 @@ class UnitInfo(InfoDatasetBase):
             A list of villager UnitInfo objects
         """
         args = locals()
-        params = UnitInfo.vils.__annotations__
+        params = copy.deepcopy(UnitInfo.vils.__annotations__)
         params.pop("return")
         for param, param_type in params.items():
             provided = type(args[param]).__name__
@@ -120,7 +120,7 @@ class UnitInfo(InfoDatasetBase):
             A list of unique unit UniInfo objects
         """
         args = locals()
-        params = UnitInfo.unique_units.__annotations__
+        params = copy.deepcopy(UnitInfo.unique_units.__annotations__)
         params.pop("return")
         for param, param_type in params.items():
             provided = type(args[param]).__name__

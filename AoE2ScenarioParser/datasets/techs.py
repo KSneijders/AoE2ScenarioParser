@@ -1,5 +1,6 @@
 from __future__ import annotations
 from enum import Enum
+import copy
 
 
 class TechInfo(Enum):
@@ -198,7 +199,7 @@ class TechInfo(Enum):
             A list of unique unite upgrade tech IDs
         """
         args = locals()
-        params = TechInfo.unique_unit_upgrades.__annotations__
+        params = copy.deepcopy(TechInfo.unique_unit_upgrades.__annotations__)
         params.pop("return")
         for param, param_type in params.items():
             provided = type(args[param]).__name__
