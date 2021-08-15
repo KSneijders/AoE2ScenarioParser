@@ -696,5 +696,12 @@
     "1690": {
         "primary": 371,
         "primary_fire": 469
+    },
+    "1733": {
+        "primary": 1733,
+        "secondary": 1119
+    },
+    "1709": {
+        "primary": 368
     }
 }
