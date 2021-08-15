@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import List
+
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -12,6 +16,10 @@ class OtherInfo(InfoDatasetBase):
      - Dead Unit ID
      - HotKey ID
      - If the unit is a gaia only unit (eg. deer, boar, etc.)
+
+    **Methods**
+
+    >>> OtherInfo.trees()
 
     **Inherited Methods from class InfoDatasetBase**
 
@@ -39,6 +47,52 @@ class OtherInfo(InfoDatasetBase):
     >>> OtherInfo.FLARE.IS_GAIA_ONLY
     >>> False
     """
+
+    @staticmethod
+    def trees() -> List[OtherInfo]:
+        """
+        Returns:
+            A list of all tree objects
+        """
+        return [
+            OtherInfo.BLUE_TREE,
+            OtherInfo.TREE_TD,
+            OtherInfo.BUSH_A,
+            OtherInfo.TREE_BAMBOO_FOREST,
+            OtherInfo.TREE_OAK,
+            OtherInfo.TREE_PINE_FOREST,
+            OtherInfo.TREE_PALM_FOREST,
+            OtherInfo.TREE_A,
+            OtherInfo.TREE_B,
+            OtherInfo.TREE_C,
+            OtherInfo.TREE_D,
+            OtherInfo.TREE_E,
+            OtherInfo.TREE_F,
+            OtherInfo.TREE_G,
+            OtherInfo.TREE_H,
+            OtherInfo.TREE_I,
+            OtherInfo.TREE_J,
+            OtherInfo.TREE_K,
+            OtherInfo.TREE_L,
+            OtherInfo.TREE_OAK_FOREST,
+            OtherInfo.TREE_SNOW_PINE,
+            OtherInfo.TREE_JUNGLE,
+            OtherInfo.TREE_DRAGON,
+            OtherInfo.TREE_BAOBAB,
+            OtherInfo.BUSH_B,
+            OtherInfo.BUSH_C,
+            OtherInfo.TREE_ACACIA,
+            OtherInfo.TREE_MANGROVE,
+            OtherInfo.TREE_RAINFOREST,
+            OtherInfo.TREE_OAK_AUTUMN,
+            OtherInfo.TREE_OAK_AUTUMN_SNOW,
+            OtherInfo.TREE_DEAD,
+            OtherInfo.TREE_CYPRESS,
+            OtherInfo.TREE_ITALIAN_PINE,
+            OtherInfo.TREE_OLIVE,
+            OtherInfo.TREE_REEDS,
+        ]
+
     SMALL_TEMP_MAP_REVEAL = 112, -1, -1, 16316, False
     LARGE_TEMP_MAP_REVEAL = 332, -1, -1, 16316, False
     FLARE = 274, -1, -1, 16316, False
@@ -63,6 +117,7 @@ class OtherInfo(InfoDatasetBase):
     TURKISH_RELIC = 298, 26, -1, 16351, True
     GRASS_PATCH_GREEN = 301, -1, -1, 16385, True
     BUSH_A = 302, 32, 415, 16398, True
+    BLUE_TREE = 768, 32, 415, 16277, True
     BONFIRE = 304, -1, -1, 16768, False
     BLACK_TILE = 306, -1, -1, 16389, True
     MOUNTAIN_1 = 310, -1, -1, 16342, True
