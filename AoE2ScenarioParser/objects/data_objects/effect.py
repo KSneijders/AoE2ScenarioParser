@@ -166,6 +166,12 @@ class Effect(AoE2Object):
         else:
             armour_attack_class = armour_attack_quantity = None
 
+        # QoL addition. When selecting a singular tile, no need for the second coords.
+        if area_x2 == -1 and area_x1 != -1:
+            area_x2 = area_x1
+        if area_y2 == -1 and area_y1 != -1:
+            area_y2 = area_y1
+
         # Bypass the @property which causes: self._update_armour_attack_flag()
         self._effect_type: int = effect_type
         self.ai_script_goal: int = ai_script_goal
