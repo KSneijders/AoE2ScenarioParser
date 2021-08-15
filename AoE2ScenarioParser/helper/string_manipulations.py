@@ -3,7 +3,9 @@ from typing import Union
 
 def add_str_trail(string) -> str:
     if len(string) > 0:
-        string = string + ("\x00" if string[-1] != "\x00" else "")
+        string += ("\x00" if string[-1] != "\x00" else "")
+    else:
+        return "\x00"
     return string
 
 

@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.19 - 2021-August-16
+
+### Added
+
+- The `append_after_source` parameter to the `copy_trigger` function.
+- The `add_suffix` parameter to the `copy_trigger` function. Decides if `" (copy)"` id added to the name.
+- QOL feature for the creation of `Effects` and `Conditions`.
+  - When not using `area_x2` and `area_y2`, they are set to the values of `area_x1` and `area_y1` respectively.
+    This makes selecting a single tile a little easier.
+- A list functions to the `TerrainId` dataset.
+  - `water_terrains()` for all water terrains.
+  - `beach_terrains()` for all beach terrains.
+  - `tree_terrains()` for all tree terrains.
+- A list function to the `OtherInfo` dataset.
+  - `OtherInfo.trees()` for all tree objects.
+
+### Updated
+
+- Projectiles dataset with `houfnice` and `hussite wagon` projectiles.
+
+### Fixed
+
+- Multiple new issues with the famous `\x00` (end of line) character.
+- The `copy_trigger_per_player` and `copy_trigger_tree_per_player` functions.
+- Units and Techs in `UnitInfo` and `TechInfo` dataset.
+
+### Removed
+
+- Type checks from `UnitInfo` and `TechInfo` filter functions.
+- The parameter `item_id` from the `new_effect` functions as it's unused in the editor.
+
+---
+
 ## 0.1.18 - 2021-August-12
 
 **Support for the new 51737 update!**   
@@ -15,7 +48,7 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 
 - Support for the new `1.43` scenario file version.
 - New Units, Buildings, Heroes etc. from the `51737` patch! -- [Pull Request #28] (Alian713)
-- Added `append_after_source` parameter to `copy_trigger` function
+- Added `append_after_source` parameter to `copy_trigger` function.
 
 [Pull Request #28]: https://github.com/KSneijders/AoE2ScenarioParser/pull/28
 
@@ -25,19 +58,19 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 
 ### Added
 
-- `filter_units_by_const()` function to the unit_manager ([check the docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/units.html#select-existing-units))
-- `PlayerId.all()` function ([check these docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/datasets.html#players))
+- `filter_units_by_const()` function to the unit_manager. ([check the docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/units.html#select-existing-units))
+- `PlayerId.all()` function. ([check these docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/datasets.html#players))
 
 ### Updated
 
-- All `TriggerManager` functions now accept an `int` as well as `TriggerSelect`
-  - `get_trigger(TS.index(i))` is now equal to: `get_trigger(i)`
+- All `TriggerManager` functions now accept an `int` as well as `TriggerSelect`.
+  - `get_trigger(TS.index(i))` is now equal to: `get_trigger(i)`.
 - Docs with a link to the newly created Discord server!
 
 ### Fixed
 
-- Fixed issue with `remove_effect` and `remove_condition` in display order arrays
-- Fixed issue with specific `modify_attribute` effect combination
+- Fixed issue with `remove_effect` and `remove_condition` in display order arrays.
+- Fixed issue with specific `modify_attribute` effect combination.
 
 ---
 
@@ -45,8 +78,8 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 
 ### Fixed
 
-- Type validation in dataset functions -- [Pull Request #25] (Alian713)
-- Issue with creating modify_attribute effect
+- Type validation in dataset functions. -- [Pull Request #25] (Alian713)
+- Issue with creating modify_attribute effect.
 
 [Pull Request #25]: https://github.com/KSneijders/AoE2ScenarioParser/pull/25
 
@@ -57,8 +90,8 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 ### Added
 
 - **Alian713** as an author! **The dataset wizard!**
-- Filters to dataset functions -- [Pull Request #22] (Alian713)
-- `CORRUPTION` and many `MODDABLE...` to the `TerrainId` dataset -- [Pull Request #24] (Alian713)
+- Filters to dataset functions. -- [Pull Request #22] (Alian713)
+- `CORRUPTION` and many `MODDABLE...` to the `TerrainId` dataset. -- [Pull Request #24] (Alian713)
 
 ### Improved
 

@@ -91,10 +91,9 @@ class AoE2Scenario:
         self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
-        data_igenerator = IncrementalGenerator(
-            name='Scenario Data',
-            file_content=decompress_bytes(raw_file_igenerator.get_remaining_bytes())
-        )
+        self._decompressed_file_data = decompress_bytes(raw_file_igenerator.get_remaining_bytes())
+
+        data_igenerator = IncrementalGenerator(name='Scenario Data', file_content=self._decompressed_file_data)
 
         for section_name in self.structure.keys():
             if section_name == "FileHeader":

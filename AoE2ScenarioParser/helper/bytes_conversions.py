@@ -15,23 +15,28 @@ def fixed_chars_to_bytes(string, codec="utf-8"):
 # Update tests if this changes
 # Tests *should* fail - but just to be sure
 _no_string_trail = [
-    "filename",  # Scenario filename
-    "ascii_instructions",  # Messages
-    "ascii_hints",  # Messages
-    "ascii_victory",  # Messages
-    "ascii_loss",  # Messages
-    "ascii_history",  # Messages
-    "ascii_scouts",  # Messages
-    "ascii_pregame",  # Cinematics
-    "ascii_victory",  # Cinematics
-    "ascii_loss",  # Cinematics
-    "ascii_filename",  # Cinematics
-    "strings",  # in PlayerDataTwo
-    "ai_names",  # in PlayerDataTwo
-    "ai_per_file_text",  # in AIStruct
-    "unknown_string",  # in Map
-    "map_color_mood",  # in Map
-    "script_name",  # in Map
+    "filename",                 # Scenario filename
+    "ascii_instructions",       # Messages
+    "ascii_hints",              # Messages
+    "ascii_victory",            # Messages
+    "ascii_loss",               # Messages
+    "ascii_history",            # Messages
+    "ascii_scouts",             # Messages
+    "ascii_pregame",            # Cinematics
+    "ascii_victory",            # Cinematics
+    "ascii_loss",               # Cinematics
+    "ascii_filename",           # Cinematics
+    "strings",                  # in PlayerDataTwo
+    "ai_names",                 # in PlayerDataTwo
+    "ai_per_file_text",         # in AIStruct
+    "unknown_string",           # in Map
+    "map_color_mood",           # in Map
+    "script_name",              # in Map
+    "water_definition",         # in Map
+    "message",                  # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
+    "sound_name",               # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
+    "script_file_path",         # in Files
+    "script_file_content",      # in Files
 ]
 
 

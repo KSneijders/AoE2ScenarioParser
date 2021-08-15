@@ -15,7 +15,8 @@ class RetrieverObjectLink:
                  support: Support = None,
                  process_as_object: Type[AoE2Object] = None,
                  retrieve_instance_number: bool = False,
-                 retrieve_history_number: int = -1
+                 retrieve_history_number: int = -1,
+                 commit_callback=None,
                  ):
         if sum([link is not None, retrieve_instance_number, (retrieve_history_number != -1)]) != 1:
             raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
@@ -28,6 +29,7 @@ class RetrieverObjectLink:
         self.process_as_object: Type[AoE2Object] = process_as_object
         self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
+        self.commit_callback = commit_callback
 
         self.splitted_link: List[str] = link.split('.') if link is not None else []
 
@@ -85,6 +87,9 @@ class RetrieverObjectLink:
             value = getattr(host_obj, self.name)
         except UnsupportedAttributeError:
             return  # Not supported in current version.
+
+        if self.commit_callback is not None:
+            value = self.commit_callback(host_obj, self.name, value)
 
         section: AoE2FileSection = sections[self.section_name]
 

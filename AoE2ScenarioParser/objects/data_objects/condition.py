@@ -80,6 +80,12 @@ class Condition(AoE2Object):
                  ):
         raise_if_not_int_subclass([object_list, technology])
 
+        # QoL addition. When selecting a singular tile, no need for the second coords.
+        if area_x2 == -1 and area_x1 != -1:
+            area_x2 = area_x1
+        if area_y2 == -1 and area_y1 != -1:
+            area_y2 = area_y1
+
         self.condition_type: int = condition_type
         self.quantity: int = quantity
         self.attribute: int = attribute
