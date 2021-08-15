@@ -140,7 +140,6 @@ class NewEffectSupport:
             source_player: Union[int, None] = None,
             location_x: Union[int, None] = None,
             location_y: Union[int, None] = None,
-            item_id: Union[int, None] = None,
             facet: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -149,7 +148,6 @@ class NewEffectSupport:
             source_player=source_player,
             location_x=location_x,
             location_y=location_y,
-            item_id=item_id,
             facet=facet,
         )
 
@@ -790,14 +788,12 @@ class NewEffectSupport:
             object_list_unit_id: Union[int, None] = None,
             source_player: Union[int, None] = None,
             enabled: Union[int, None] = None,
-            item_id: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
             EffectId.ENABLE_DISABLE_OBJECT,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             enabled=enabled,
-            item_id=item_id,
         )
 
     def enable_disable_technology(
@@ -805,14 +801,12 @@ class NewEffectSupport:
             source_player: Union[int, None] = None,
             technology: Union[int, None] = None,
             enabled: Union[int, None] = None,
-            item_id: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
             EffectId.ENABLE_DISABLE_TECHNOLOGY,
             source_player=source_player,
             technology=technology,
             enabled=enabled,
-            item_id=item_id,
         )
 
     def change_object_cost(
@@ -1013,7 +1007,6 @@ class NewEffectSupport:
             armour_attack_class: Union[int, None] = None,
             object_list_unit_id: Union[int, None] = None,
             source_player: Union[int, None] = None,
-            item_id: Union[int, None] = None,
             operation: Union[int, None] = None,
             object_attributes: Union[int, None] = None,
     ) -> Effect:
@@ -1031,7 +1024,6 @@ class NewEffectSupport:
             armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
-            item_id=item_id,
             operation=operation,
             object_attributes=object_attributes,
         )
@@ -1041,7 +1033,6 @@ class NewEffectSupport:
             quantity: Union[int, None] = None,
             tribute_list: Union[int, None] = None,
             source_player: Union[int, None] = None,
-            item_id: Union[int, None] = None,
             operation: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -1049,7 +1040,6 @@ class NewEffectSupport:
             quantity=quantity,
             tribute_list=tribute_list,
             source_player=source_player,
-            item_id=item_id,
             operation=operation,
         )
 
@@ -1057,7 +1047,6 @@ class NewEffectSupport:
             self,
             tribute_list: Union[int, None] = None,
             source_player: Union[int, None] = None,
-            item_id: Union[int, None] = None,
             operation: Union[int, None] = None,
             variable: Union[int, None] = None,
     ) -> Effect:
@@ -1065,7 +1054,6 @@ class NewEffectSupport:
             EffectId.MODIFY_RESOURCE_BY_VARIABLE,
             tribute_list=tribute_list,
             source_player=source_player,
-            item_id=item_id,
             operation=operation,
             variable=variable,
         )

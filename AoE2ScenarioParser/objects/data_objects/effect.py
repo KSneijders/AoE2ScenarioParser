@@ -126,7 +126,7 @@ class Effect(AoE2Object):
                  wood: int = None,
                  stone: int = None,
                  gold: int = None,
-                 item_id: int = None,
+                 item_id: int = None,  # Unused (?)
                  flash_object: int = None,
                  force_research_technology: int = None,
                  visibility_state: int = None,
@@ -198,7 +198,7 @@ class Effect(AoE2Object):
         self.wood: int = wood
         self.stone: int = stone
         self.gold: int = gold
-        self.item_id: int = item_id
+        # self.item_id: int = item_id  # Unused (?)
         self.flash_object: int = flash_object
         self.force_research_technology: int = force_research_technology
         self.visibility_state: int = visibility_state
@@ -219,6 +219,15 @@ class Effect(AoE2Object):
         self.selected_object_ids: List[int] = selected_object_ids
 
         super().__init__()
+
+    @property
+    def item_id(self):
+        return self.object_list_unit_id
+
+    @item_id.setter
+    def item_id(self, value):
+        raise ValueError("The `item_id` attribute isn't used in scenario's. Please use `object_list_unit_id`.\n"
+                         "If you believe this is an error, please create a report at GitHub.")
 
     @property
     def effect_type(self):

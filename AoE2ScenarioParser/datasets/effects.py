@@ -66,7 +66,6 @@ class EffectId(IntEnum):
     - source_player
     - location_x
     - location_y
-    - item_id
     - facet"""
     TASK_OBJECT = 12
     """Attributes for the **task_object** effect are: \n
@@ -351,14 +350,12 @@ class EffectId(IntEnum):
     """Attributes for the **enable_disable_object** effect are: \n
     - object_list_unit_id
     - source_player
-    - enabled
-    - item_id"""
+    - enabled"""
     ENABLE_DISABLE_TECHNOLOGY = 39
     """Attributes for the **enable_disable_technology** effect are: \n
     - source_player
     - technology
-    - enabled
-    - item_id"""
+    - enabled"""
     CHANGE_OBJECT_COST = 40
     """Attributes for the **change_object_cost** effect are: \n
     - object_list_unit_id
@@ -443,7 +440,6 @@ class EffectId(IntEnum):
     - quantity
     - object_list_unit_id
     - source_player
-    - item_id
     - operation
     - object_attributes"""
     MODIFY_RESOURCE = 52
@@ -451,13 +447,11 @@ class EffectId(IntEnum):
     - quantity
     - tribute_list
     - source_player
-    - item_id
     - operation"""
     MODIFY_RESOURCE_BY_VARIABLE = 53
     """Attributes for the **modify_resource_by_variable** effect are: \n
     - tribute_list
     - source_player
-    - item_id
     - operation
     - variable"""
     SET_BUILDING_GATHER_POINT = 54
