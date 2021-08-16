@@ -4,8 +4,6 @@ import copy
 from enum import IntEnum
 from typing import List, Dict, Union
 
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
-
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
@@ -273,6 +271,7 @@ class TriggerManager(AoE2Object):
                 for player in PlayerId.all():
                     if player == from_player:
                         new_trigger_ids.append(known_node_indexes[i])
+                        continue
                     if player not in new_triggers:
                         continue
                     new_trigger_ids.append(new_triggers[player][i].trigger_id)
