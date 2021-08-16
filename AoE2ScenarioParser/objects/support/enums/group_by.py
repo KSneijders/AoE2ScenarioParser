@@ -17,6 +17,9 @@ class GroupBy(IntEnum):
     Example: If the 'source' trigger has display_index of 3, and another trigger in it's tree has 5. Assuming the 
     triggers were copied for all players, display indexes of the copies from the first trigger would be 4-10. The second
     trigger in the tree would be bumped up to 12 (from 5) and it's copies would use: 13-19. 
+    
+    Orders the given trigger on top with the child triggers after. Child triggers are ordered in the order they were
+    found in (Depth-first).
     """
     PLAYER = 1
     """

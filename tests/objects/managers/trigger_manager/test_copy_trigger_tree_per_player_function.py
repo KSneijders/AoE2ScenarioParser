@@ -153,7 +153,10 @@ class Test(TestCase):
 
         # Verify if triggers still link to their new copy
         for player, triggers in new_triggers.items():
-            self.assertEqual(triggers[0].effects[0].trigger_id, triggers[1].trigger_id)
+            activate_id0 = triggers[0].effects[0].trigger_id
+
+            self.assertEqual(activate_id0, triggers[1].trigger_id)
+            self.assertIs(self.tm.triggers[activate_id0], triggers[1])
 
     def test_copy_trigger_tree_per_player_groupby_player_extended(self):
         self.tm.add_trigger("Trigger0")
