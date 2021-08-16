@@ -117,39 +117,32 @@ class TriggerManager(AoE2Object):
                 continue
 
             new_trigger = self.copy_trigger(TS.trigger(trigger), append_after_source=False, add_suffix=False)
-            new_trigger.name += f" (p{player})"
+            new_trigger.name += " (GAIA)" if player == PlayerId.GAIA else f" (p{player})"
             return_dict[player] = new_trigger
 
             for cond_x in alter_conditions:
                 cond = new_trigger.conditions[cond_x]
-                # Player not set
                 if cond.source_player == -1:
                     continue
-                # Player not equal to 'from_player'
-                if change_from_player_only:
-                    if not cond.source_player == from_player:
-                        continue
-                # Change source player
+
                 if include_player_source:
-                    cond.source_player = PlayerId(player)
-                # Change target player
+                    if not change_from_player_only or (change_from_player_only and cond.source_player == from_player):
+                        cond.source_player = PlayerId(player)
                 if include_player_target:
-                    cond.target_player = PlayerId(player)
+                    if not change_from_player_only or (change_from_player_only and cond.target_player == from_player):
+                        cond.target_player = PlayerId(player)
+
             for effect_x in alter_effects:
                 effect = new_trigger.effects[effect_x]
-                # Player not set
                 if effect.source_player == -1:
                     continue
-                # Player not equal to 'from_player'
-                if change_from_player_only:
-                    if not effect.source_player == from_player:
-                        continue
-                # Change source player
+
                 if include_player_source:
-                    effect.source_player = PlayerId(player)
-                # Change target player
+                    if not change_from_player_only or (change_from_player_only and effect.source_player == from_player):
+                        effect.source_player = PlayerId(player)
                 if include_player_target:
-                    effect.target_player = PlayerId(player)
+                    if not change_from_player_only or (change_from_player_only and effect.target_player == from_player):
+                        effect.target_player = PlayerId(player)
 
         # After copies have been made
         trigger.name += f" (p{from_player})"
@@ -240,13 +233,26 @@ class TriggerManager(AoE2Object):
         if group_triggers_by is None:
             group_triggers_by = GroupBy.NONE
 
+        def get_activation_effects(t: Trigger):
+            return [eff for eff in t.effects if eff.effect_type in [
+                EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
+            ]]
+
         trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = [trigger_index]
         self._find_trigger_tree_nodes_recursively(source_trigger, known_node_indexes)
 
         new_triggers = {}
-        id_swap = {}
+        trigger_index_swap = {}
+
+        # Set values for from_player
+        new_triggers[from_player] = [self.triggers[i] for i in known_node_indexes]
+        for index in known_node_indexes:
+            trigger = self.triggers[index]
+            trigger_index_swap.setdefault(index, {})[from_player] = trigger.trigger_id
+
+        # Copy for all other players
         for index in known_node_indexes:
             triggers = self.copy_trigger_per_player(
                 from_player,
@@ -259,17 +265,14 @@ class TriggerManager(AoE2Object):
                 create_copy_for_players,
             )
             for player, trigger in triggers.items():
-                id_swap.setdefault(index, {})[player] = trigger.trigger_id
+                trigger_index_swap.setdefault(index, {})[player] = trigger.trigger_id
                 new_triggers.setdefault(player, []).append(trigger)
 
+        # Set trigger_id's in activation effects to the new player copied trigger ID
         for player, triggers in new_triggers.items():
             for trigger in triggers:
-                activation_effects = [
-                    effect for effect in trigger.effects if
-                    effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
-                ]
-                for effect in activation_effects:
-                    effect.trigger_id = id_swap[effect.trigger_id][player]
+                for effect in get_activation_effects(trigger):
+                    effect.trigger_id = trigger_index_swap[effect.trigger_id][player]
 
         # -------------- Group by logic -------------- #
         new_trigger_ids = []
@@ -278,6 +281,7 @@ class TriggerManager(AoE2Object):
                 for player in PlayerId.all():
                     if player == from_player:
                         new_trigger_ids.append(known_node_indexes[i])
+                        continue
                     if player not in new_triggers:
                         continue
                     new_trigger_ids.append(new_triggers[player][i].trigger_id)
@@ -291,7 +295,14 @@ class TriggerManager(AoE2Object):
 
                 new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
 
-        self._reformat_section_triggers(new_trigger_ids, display_index)
+        if group_triggers_by != GroupBy.NONE:
+            index_changes = self._reformat_section_triggers(new_trigger_ids, display_index)
+
+            # Update IDs based on the changes using reformat
+            for player, triggers in new_triggers.items():
+                for trigger in triggers:
+                    for effect in get_activation_effects(trigger):
+                        effect.trigger_id = index_changes[effect.trigger_id]
 
         return new_triggers
 
@@ -302,16 +313,20 @@ class TriggerManager(AoE2Object):
         insert_index = other_triggers.index(split_index)
         new_trigger_id_order = other_triggers[:insert_index] + new_trigger_ids + other_triggers[insert_index + 1:]
 
-        self._reformat_triggers(new_trigger_id_order)
+        return self._reformat_triggers(new_trigger_id_order)
 
     def _reformat_triggers(self, new_id_order):
         self.trigger_display_order = new_id_order
         new_triggers_list = []
-        for index in new_id_order:
+        index_changes = {}
+        for new_index, index in enumerate(new_id_order):
             trigger = self.triggers[index]
-            trigger.trigger_id = index
+            index_changes[trigger.trigger_id] = new_index
+
+            trigger.trigger_id = new_index
             new_triggers_list.append(trigger)
         self.triggers = new_triggers_list
+        return index_changes
 
     def copy_trigger_tree(self, trigger_select: Union[int, TriggerSelect]) -> List[Trigger]:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
@@ -362,21 +377,21 @@ class TriggerManager(AoE2Object):
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
-            if not cond.source_player == -1 and include_player_source:
+            if cond.source_player not in [-1, None] and include_player_source:
                 if only_change_from is not None and only_change_from != cond.source_player:
                     continue
                 cond.source_player = PlayerId(to_player)
-            if not cond.target_player == -1 and include_player_target:
+            if cond.target_player not in [-1, None] and include_player_target:
                 if only_change_from is not None and only_change_from != cond.target_player:
                     continue
                 cond.target_player = PlayerId(to_player)
         for effect_x in alter_effects:
             effect = trigger.effects[effect_x]
-            if not effect.source_player == -1 and include_player_source:
+            if effect.source_player not in [-1, None] and include_player_source:
                 if only_change_from is not None and only_change_from != effect.source_player:
                     continue
                 effect.source_player = PlayerId(to_player)
-            if not effect.target_player == -1 and include_player_target:
+            if effect.target_player not in [-1, None] and include_player_target:
                 if only_change_from is not None and only_change_from != effect.target_player:
                     continue
                 effect.target_player = PlayerId(to_player)

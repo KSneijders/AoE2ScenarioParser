@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.20 - 2021-August-17
+
+### Fixed
+
+-  `GroupBy` mechanics when using `copy_trigger_tree_per_player` function.
+
+---
+
 ## 0.1.19 - 2021-August-16
 
 ### Added

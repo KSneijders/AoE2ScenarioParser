@@ -1,6 +1,6 @@
 from typing import List, Dict
 
-from AoE2ScenarioParser.helper.string_manipulations import create_inline_line
+from AoE2ScenarioParser.helper.string_manipulations import create_inline_line, add_tabs
 
 _default_inline_types = {
     'int': 8,
@@ -34,6 +34,10 @@ def pretty_format_list(plist: List, inline_types: Dict[str, int] = None):
 def pretty_format_dict(pdict: dict):
     return_string = "{\n"
     for key, value in pdict.items():
+        if type(value) is dict:
+            value = add_tabs(pretty_format_dict(value), 1)
+        if type(value) is list:
+            value = add_tabs(pretty_format_list(value), 1)
         newline = f"\t{key}: {value}"
         if newline[::-2] != "\n":
             newline += "\n"
