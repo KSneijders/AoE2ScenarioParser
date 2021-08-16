@@ -1,9 +1,6 @@
 from unittest import TestCase
 
 from AoE2ScenarioParser.helper.bytes_parser import *
-from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
-from AoE2ScenarioParser.sections.dependencies.dependency_target import DependencyTarget
-from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.sections.retrievers.datatype import DataType
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
