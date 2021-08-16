@@ -233,13 +233,26 @@ class TriggerManager(AoE2Object):
         if group_triggers_by is None:
             group_triggers_by = GroupBy.NONE
 
+        def get_activation_effects(t: Trigger):
+            return [eff for eff in t.effects if eff.effect_type in [
+                EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
+            ]]
+
         trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = [trigger_index]
         self._find_trigger_tree_nodes_recursively(source_trigger, known_node_indexes)
 
         new_triggers = {}
-        id_swap = {}
+        trigger_index_swap = {}
+
+        # Set values for from_player
+        new_triggers[from_player] = [self.triggers[i] for i in known_node_indexes]
+        for index in known_node_indexes:
+            trigger = self.triggers[index]
+            trigger_index_swap.setdefault(index, {})[from_player] = trigger.trigger_id
+
+        # Copy for all other players
         for index in known_node_indexes:
             triggers = self.copy_trigger_per_player(
                 from_player,
@@ -252,17 +265,14 @@ class TriggerManager(AoE2Object):
                 create_copy_for_players,
             )
             for player, trigger in triggers.items():
-                id_swap.setdefault(index, {})[player] = trigger.trigger_id
+                trigger_index_swap.setdefault(index, {})[player] = trigger.trigger_id
                 new_triggers.setdefault(player, []).append(trigger)
 
+        # Set trigger_id's in activation effects to the new player copied trigger ID
         for player, triggers in new_triggers.items():
             for trigger in triggers:
-                activation_effects = [
-                    effect for effect in trigger.effects if
-                    effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
-                ]
-                for effect in activation_effects:
-                    effect.trigger_id = id_swap[effect.trigger_id][player]
+                for effect in get_activation_effects(trigger):
+                    effect.trigger_id = trigger_index_swap[effect.trigger_id][player]
 
         # -------------- Group by logic -------------- #
         new_trigger_ids = []
@@ -286,7 +296,13 @@ class TriggerManager(AoE2Object):
                 new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
 
         if group_triggers_by != GroupBy.NONE:
-            self._reformat_section_triggers(new_trigger_ids, display_index)
+            index_changes = self._reformat_section_triggers(new_trigger_ids, display_index)
+
+            # Update IDs based on the changes using reformat
+            for player, triggers in new_triggers.items():
+                for trigger in triggers:
+                    for effect in get_activation_effects(trigger):
+                        effect.trigger_id = index_changes[effect.trigger_id]
 
         return new_triggers
 
@@ -297,16 +313,20 @@ class TriggerManager(AoE2Object):
         insert_index = other_triggers.index(split_index)
         new_trigger_id_order = other_triggers[:insert_index] + new_trigger_ids + other_triggers[insert_index + 1:]
 
-        self._reformat_triggers(new_trigger_id_order)
+        return self._reformat_triggers(new_trigger_id_order)
 
     def _reformat_triggers(self, new_id_order):
         self.trigger_display_order = new_id_order
         new_triggers_list = []
-        for index in new_id_order:
+        index_changes = {}
+        for new_index, index in enumerate(new_id_order):
             trigger = self.triggers[index]
-            trigger.trigger_id = index
+            index_changes[trigger.trigger_id] = new_index
+
+            trigger.trigger_id = new_index
             new_triggers_list.append(trigger)
         self.triggers = new_triggers_list
+        return index_changes
 
     def copy_trigger_tree(self, trigger_select: Union[int, TriggerSelect]) -> List[Trigger]:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
