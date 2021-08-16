@@ -641,7 +641,7 @@
             "unit_object": -1,
             "next_object": -1,
             "object_list": -1,
-            "source_player": 1,
+            "source_player": -1,
             "technology": -1,
             "timer": -1,
             "area_x1": -1,
