@@ -6407,12 +6407,156 @@
         "icon_id": 382,
         "hotkey_id": 16639
     },
-    "1717": {
+    "TREE_BIRCH": {
         "id": 1717,
         "gaia_only": true,
         "type": "other",
         "dead_id": 415,
         "icon_id": 32,
         "hotkey_id": 16399
+    },
+        "DOLPHIN": {
+        "id": 61,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": 141,
+        "hotkey_id": 16330
+    },
+    "FORTIFIED_GATE_SOUTHWEST_TO_NORTHEAST": {
+        "id": 63,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1504,
+        "icon_id": 36,
+        "hotkey_id": 16185
+    },
+    "FORTIFIED_GATE_NORTHWEST_TO_SOUTHEAST": {
+        "id": 85,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1505,
+        "icon_id": 36,
+        "hotkey_id": 16185
+    },
+    "LOOT": {
+        "id": 472,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16717
+    },
+    "FORTIFIED_GATE_WEST_TO_EAST": {
+        "id": 660,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1506,
+        "icon_id": 36,
+        "hotkey_id": 16185
+    },
+    "FORTIFIED_GATE_NORTH_TO_SOUTH": {
+        "id": 668,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1507,
+        "icon_id": 36,
+        "hotkey_id": 16185
+    },
+    "WATERFALL_OVERLAY": {
+        "id": 896,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16756
+    },
+    "QUARRY": {
+        "id": 1319,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16717
+    },
+    "LUMBER": {
+        "id": 1320,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16717
+    },
+    "GOODS": {
+        "id": 1321,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16717
+    },
+    "FLAME1": {
+        "id": 1333,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16517
+    },
+    "FLAME2": {
+        "id": 1334,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16517
+    },
+    "FLAME3": {
+        "id": 1335,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16517
+    },
+    "FLAME4": {
+        "id": 1336,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16517
+    },
+    "WATERFALL_BACKGROUND": {
+        "id": 1635,
+        "gaia_only": true,
+        "type": "other",
+        "dead_id": -1,
+        "icon_id": -1,
+        "hotkey_id": 16756
+    },
+    "PAGAN_SHRINE": {
+        "id": 1712,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1526,
+        "icon_id": 85,
+        "hotkey_id": 16159
+    },
+    "FREE_TRANSPORT_SHIP": {
+        "id": 1735,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": -1,
+        "icon_id": 95,
+        "hotkey_id": 16443
+    },
+    "MONK_WITH_TURKISH_RELIC": {
+        "id": 309,
+        "gaia_only": false,
+        "type": "unit",
+        "dead_id": 134,
+        "icon_id": 33,
+        "hotkey_id": 16361
     }
 }

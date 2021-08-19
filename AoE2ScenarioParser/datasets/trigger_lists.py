@@ -961,13 +961,18 @@ class Attribute(IntEnum):
     """
     UNITS_CONVERTED = 240
     """
-    Unknown: Amount of the Source Player
+    The amount of units the source player has lost to enemy conversions
     """
     STONE_MINING_GOLD_PRODUCTIVITY = 241
     """
     The amount of gold produced every second form mining stone * 100.
     - Set to 18 (0.18 g/s) for the Poles.
     - 0 for other civs by default
+    """
+    FREE_TRANSPORT_SHIP_COST = 242
+    """
+    1 unit of this resource is used as cost for unit 1735 (Free Transport Ship).
+    - Each Civ has 1 of this resource, which allows them to build the unit 1735 (Free Transport Ship) only once, if they have a Sicilian Ally
     """
 
 

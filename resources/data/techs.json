@@ -244,7 +244,7 @@
         "icon_id": 33,
         "hotkey_id": 18275
     },
-    "COURIERS": {
+    "FABRIC_SHIELDS": {
         "id": 517,
         "icon_id": 107,
         "hotkey_id": 18267
@@ -649,7 +649,7 @@
         "icon_id": 107,
         "hotkey_id": 18429
     },
-    "BONFIRE": {
+    "GILLNETS": {
         "id": 65,
         "icon_id": 41,
         "hotkey_id": 18314
@@ -909,7 +909,7 @@
         "icon_id": 33,
         "hotkey_id": 18284
     },
-    "MAGHRABI_CAMELS": {
+    "MAGHREBI_CAMELS": {
         "id": 579,
         "icon_id": 107,
         "hotkey_id": 18257
@@ -999,7 +999,7 @@
         "icon_id": 45,
         "hotkey_id": 18259
     },
-    "PANOKSEON": {
+    "EUPSEONG": {
         "id": 486,
         "icon_id": 33,
         "hotkey_id": 18380
@@ -1483,5 +1483,70 @@
         "id": 781,
         "icon_id": 105,
         "hotkey_id": 18441
+    },
+    "SET_MAX_POP": {
+        "id": 658,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "ENABLE_MONUMENT_RES_TRICKLE": {
+        "id": 729,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_15": {
+        "id": 737,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_30": {
+        "id": 738,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_40": {
+        "id": 739,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_50": {
+        "id": 740,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_75": {
+        "id": 741,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_100": {
+        "id": 742,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_125": {
+        "id": 743,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_150": {
+        "id": 744,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_175": {
+        "id": 745,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_200": {
+        "id": 746,
+        "icon_id": -1,
+        "hotkey_id": -1
+    },
+    "RESOURCES_LAST_LONGER_300": {
+        "id": 747,
+        "icon_id": -1,
+        "hotkey_id": -1
     }
 }
