@@ -1548,5 +1548,10 @@
         "id": 747,
         "icon_id": -1,
         "hotkey_id": -1
+    },
+    "DISABLE_FREE_TRANSPORT": {
+        "id": 229,
+        "icon_id": -1,
+        "hotkey_id": -1
     }
 }
