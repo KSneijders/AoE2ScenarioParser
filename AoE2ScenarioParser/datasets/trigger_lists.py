@@ -340,7 +340,7 @@ class Attribute(IntEnum):
     >>> Attribute.FOOD
     >>> 0
     """
-    
+
     FOOD = 0
     """
     Food amount of the source player
@@ -1659,8 +1659,13 @@ class Attribute(IntEnum):
     """
     NUMBER_OF_FREE_TRANSPORTS = 242
     """
-    1 unit of this resource is used as cost for unit 1735 (Free Transport Ship).
-    - Each Civ has 1 of this resource, which allows them to build the unit 1735 (Free Transport Ship) only once, if they have a Sicilian Ally
+    This is the number of free transport ships trainable by having a Sicilian ally to the source player
+
+    - Default Values:
+
+    	- 1:  Generic
+
+    - Additional Information: One unit of this resource is required to be able to train the free transport ship granted by having a Sicilian ally. This seemingly useless cost is necessary to prevent shift queuing multiple of the free transport ship unit. Note that as soon as at least one free transport ship is created, the unit disables itself, no matter how much of this resource is left. It is possible to change this by disabling technology 229, but then keep in mind that regular transport ships won't be trainable once this resource runs out
     """
 
 
