@@ -6362,7 +6362,7 @@
     "CRUSADER_KNIGHT": {
         "id": 1723,
         "gaia_only": false,
-        "type": "hero",
+        "type": "unit",
         "dead_id": 1724,
         "icon_id": 377,
         "hotkey_id": 16730
@@ -6415,7 +6415,7 @@
         "icon_id": 32,
         "hotkey_id": 16399
     },
-        "DOLPHIN": {
+    "DOLPHIN": {
         "id": 61,
         "gaia_only": true,
         "type": "other",
