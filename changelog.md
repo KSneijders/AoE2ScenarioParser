@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.20 - 2021-August-17
+## 0.1.21 - Unreleased
 
 Special thanks to **Alian** for his contribution to the datasets! <3
 
@@ -18,6 +18,10 @@ Special thanks to **Alian** for his contribution to the datasets! <3
 
 - Tech & Unit datasets -- [#30] (Alian713)
 - Docstrings for all Attribute resources -- [#30] (Alian713)
+
+---
+
+## 0.1.20 - 2021-August-17
 
 ### Fixed
 
