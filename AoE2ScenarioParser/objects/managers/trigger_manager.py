@@ -4,6 +4,10 @@ import copy
 from enum import IntEnum
 from typing import List, Dict, Union
 
+from AoE2ScenarioParser.objects.data_objects.effect import Effect
+
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
+
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
@@ -233,11 +237,6 @@ class TriggerManager(AoE2Object):
         if group_triggers_by is None:
             group_triggers_by = GroupBy.NONE
 
-        def get_activation_effects(t: Trigger):
-            return [eff for eff in t.effects if eff.effect_type in [
-                EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
-            ]]
-
         trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = [trigger_index]
@@ -296,24 +295,40 @@ class TriggerManager(AoE2Object):
                 new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
 
         if group_triggers_by != GroupBy.NONE:
-            index_changes = self._reformat_section_triggers(new_trigger_ids, display_index)
-
-            # Update IDs based on the changes using reformat
-            for player, triggers in new_triggers.items():
-                for trigger in triggers:
-                    for effect in get_activation_effects(trigger):
-                        effect.trigger_id = index_changes[effect.trigger_id]
+            self._reformat_section_triggers(new_trigger_ids, display_index)
 
         return new_triggers
 
     def _reformat_section_triggers(self, new_trigger_ids, split_index):
-        other_triggers = [
+        other_trigger_ids = [
             i for i in self.trigger_display_order if i not in new_trigger_ids or i == split_index
         ]
-        insert_index = other_triggers.index(split_index)
-        new_trigger_id_order = other_triggers[:insert_index] + new_trigger_ids + other_triggers[insert_index + 1:]
+        insert_index = other_trigger_ids.index(split_index)
+        new_trigger_id_order = other_trigger_ids[:insert_index] + new_trigger_ids + other_trigger_ids[insert_index + 1:]
 
-        return self._reformat_triggers(new_trigger_id_order)
+        # print("trigger_display_order:")
+        # print(self.trigger_display_order)
+        # print(new_trigger_ids, split_index, len(new_trigger_ids))
+        # print(other_trigger_ids, len(other_trigger_ids))
+        # print()
+        # print(new_trigger_id_order, len(new_trigger_id_order))
+        # print()
+        # yy = [[e.trigger_id for e in t.effects] for t in self.triggers]
+        # print(yy, len(yy))
+        swapped_indexes = self._reformat_triggers(new_trigger_id_order)
+        # yy = [[e.trigger_id for e in t.effects] for t in self.triggers]
+        # print(yy, len(yy))
+
+        # Find and update all (de)activation effect trigger references
+        for trigger in self.triggers:
+            for effect in get_activation_effects(trigger):
+                if effect.trigger_id in swapped_indexes:
+                    effect.trigger_id = swapped_indexes[effect.trigger_id]
+
+        # yy = [[e.trigger_id for e in t.effects] for t in self.triggers]
+        # print(yy, len(yy))
+        #
+        # print(pretty_format_dict(swapped_indexes), len(swapped_indexes))
 
     def _reformat_triggers(self, new_id_order):
         self.trigger_display_order = new_id_order
@@ -573,3 +588,18 @@ class TriggerManager(AoE2Object):
             effect.trigger_id for effect in trigger.effects if
             effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
         ]
+
+
+def get_activation_effects(trigger: Trigger) -> List[Effect]:
+    """
+    Get all activation effects in a Trigger]
+
+    Args:
+        trigger (Trigger): The trigger object
+
+    Returns:
+        A list with (de)activation effects
+    """
+    return [eff for eff in trigger.effects if eff.effect_type in [
+        EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
+    ]]
