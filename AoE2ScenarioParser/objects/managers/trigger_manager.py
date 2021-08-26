@@ -172,28 +172,15 @@ class TriggerManager(AoE2Object):
         """
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
-        new_index = trigger_index + 1
         deepcopy_trigger = copy.deepcopy(trigger)
+        deepcopy_trigger.trigger_id = len(self.triggers)
         if add_suffix:
             deepcopy_trigger.name += " (copy)"
 
+        self.triggers.append(deepcopy_trigger)
+
         if append_after_source:
-            deepcopy_trigger.trigger_id = new_index
-
-            # Update internal trigger IDs
-            for index, trigger in enumerate(self.triggers):
-                if index >= new_index:
-                    trigger.trigger_id += 1
-
-            # Insert new trigger, update trigger_hash
-            self.triggers.insert(new_index, deepcopy_trigger)
-            self._trigger_hash = hash_list(self.triggers)
-            # Update display order numbers to make room for the new trigger and insert the new value
-            self.trigger_display_order = [doi + 1 if doi >= new_index else doi for doi in self.trigger_display_order]
-            self.trigger_display_order.insert(display_index + 1, new_index)
-        else:
-            deepcopy_trigger.trigger_id = len(self.triggers)
-            self.triggers.append(deepcopy_trigger)
+            self._reformat_section_triggers([trigger_index, deepcopy_trigger.trigger_id], trigger_index)
 
         return deepcopy_trigger
 
@@ -306,29 +293,13 @@ class TriggerManager(AoE2Object):
         insert_index = other_trigger_ids.index(split_index)
         new_trigger_id_order = other_trigger_ids[:insert_index] + new_trigger_ids + other_trigger_ids[insert_index + 1:]
 
-        # print("trigger_display_order:")
-        # print(self.trigger_display_order)
-        # print(new_trigger_ids, split_index, len(new_trigger_ids))
-        # print(other_trigger_ids, len(other_trigger_ids))
-        # print()
-        # print(new_trigger_id_order, len(new_trigger_id_order))
-        # print()
-        # yy = [[e.trigger_id for e in t.effects] for t in self.triggers]
-        # print(yy, len(yy))
         swapped_indexes = self._reformat_triggers(new_trigger_id_order)
-        # yy = [[e.trigger_id for e in t.effects] for t in self.triggers]
-        # print(yy, len(yy))
 
         # Find and update all (de)activation effect trigger references
         for trigger in self.triggers:
             for effect in get_activation_effects(trigger):
                 if effect.trigger_id in swapped_indexes:
                     effect.trigger_id = swapped_indexes[effect.trigger_id]
-
-        # yy = [[e.trigger_id for e in t.effects] for t in self.triggers]
-        # print(yy, len(yy))
-        #
-        # print(pretty_format_dict(swapped_indexes), len(swapped_indexes))
 
     def _reformat_triggers(self, new_id_order):
         self.trigger_display_order = new_id_order
