@@ -56,41 +56,42 @@ class OtherInfo(InfoDatasetBase):
         """
         return [
             OtherInfo.BLUE_TREE,
-            OtherInfo.TREE_TD,
             OtherInfo.BUSH_A,
-            OtherInfo.TREE_BAMBOO_FOREST,
-            OtherInfo.TREE_OAK,
-            OtherInfo.TREE_PINE_FOREST,
-            OtherInfo.TREE_PALM_FOREST,
+            OtherInfo.BUSH_B,
+            OtherInfo.BUSH_C,
             OtherInfo.TREE_A,
+            OtherInfo.TREE_ACACIA,
             OtherInfo.TREE_B,
+            OtherInfo.TREE_BAMBOO_FOREST,
+            OtherInfo.TREE_BAOBAB,
+            OtherInfo.TREE_BIRCH,
             OtherInfo.TREE_C,
+            OtherInfo.TREE_CYPRESS,
             OtherInfo.TREE_D,
+            OtherInfo.TREE_DEAD,
+            OtherInfo.TREE_DRAGON,
             OtherInfo.TREE_E,
             OtherInfo.TREE_F,
             OtherInfo.TREE_G,
             OtherInfo.TREE_H,
             OtherInfo.TREE_I,
+            OtherInfo.TREE_ITALIAN_PINE,
             OtherInfo.TREE_J,
+            OtherInfo.TREE_JUNGLE,
             OtherInfo.TREE_K,
             OtherInfo.TREE_L,
-            OtherInfo.TREE_OAK_FOREST,
-            OtherInfo.TREE_SNOW_PINE,
-            OtherInfo.TREE_JUNGLE,
-            OtherInfo.TREE_DRAGON,
-            OtherInfo.TREE_BAOBAB,
-            OtherInfo.BUSH_B,
-            OtherInfo.BUSH_C,
-            OtherInfo.TREE_ACACIA,
             OtherInfo.TREE_MANGROVE,
-            OtherInfo.TREE_RAINFOREST,
+            OtherInfo.TREE_OAK,
             OtherInfo.TREE_OAK_AUTUMN,
             OtherInfo.TREE_OAK_AUTUMN_SNOW,
-            OtherInfo.TREE_DEAD,
-            OtherInfo.TREE_CYPRESS,
-            OtherInfo.TREE_ITALIAN_PINE,
+            OtherInfo.TREE_OAK_FOREST,
             OtherInfo.TREE_OLIVE,
+            OtherInfo.TREE_PALM_FOREST,
+            OtherInfo.TREE_PINE_FOREST,
+            OtherInfo.TREE_RAINFOREST,
             OtherInfo.TREE_REEDS,
+            OtherInfo.TREE_SNOW_PINE,
+            OtherInfo.TREE_TD
         ]
 
     ANIMAL_SKELETON = 1091, -1, -1, 16224, True
@@ -288,4 +289,14 @@ class OtherInfo(InfoDatasetBase):
     TURKISH_RELIC = 298, 26, -1, 16351, True
     VASES = 1177, -1, -1, 16385, True
     WELL = 1567, -1, -1, 16756, True
-
+    DOLPHIN = 61, 141, -1, 16330, True
+    LOOT = 472, -1, -1, 16717, True
+    WATERFALL_OVERLAY = 896, -1, -1, 16756, True
+    QUARRY = 1319, -1, -1, 16717, True
+    LUMBER = 1320, -1, -1, 16717, True
+    GOODS = 1321, -1, -1, 16717, True
+    FLAME1 = 1333, -1, -1, 16517, True
+    FLAME2 = 1334, -1, -1, 16517, True
+    FLAME3 = 1335, -1, -1, 16517, True
+    FLAME4 = 1336, -1, -1, 16517, True
+    WATERFALL_BACKGROUND = 1635, -1, -1, 16756, True

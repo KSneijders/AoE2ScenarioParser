@@ -39,6 +39,31 @@ create_paladin_effect = trigger.new_effect.create_object(
 scenario.write_to_file(scenario_folder + "OUTPUT_NAME_TO_BE_WRITTEN.aoe2scenario")
 ```
 
+### Importing Triggers
+
+Instead of directly adding triggers you can also import triggers from another scenario:
+
+```py
+from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+
+# Define Scenario files
+source_scenario = AoE2DEScenario.from_file(path_to_the_source_file)
+target_scenario = AoE2DEScenario.from_file(path_to_the_target_file)
+
+# Define Trigger Managers
+source_trigger_manager = source_scenario.trigger_manager
+target_trigger_manager = target_scenario.trigger_manager
+
+# Import the triggers
+# In this case all triggers from the source scenario are copied
+# You can optionally set the index to which the imported triggers are set at
+# Leaving this out will add the imported triggers to the end of the target scenario
+# In the example below, the source triggers will be added BEFORE the target triggers due to the 0
+target_trigger_manager.import_triggers(source_trigger_manager.triggers, 0)
+
+target_scenario.write_to_file(path_to_output_file)
+```
+
 ## Select existing Triggers
 
 Selecting a trigger can be done using the `get_trigger` function. The

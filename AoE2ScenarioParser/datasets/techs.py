@@ -114,7 +114,7 @@ class TechInfo(Enum):
                 TechInfo.MADRASAH,
                 TechInfo.MARAUDERS,
                 TechInfo.ORTHODOXY,
-                TechInfo.PANOKSEON,
+                TechInfo.EUPSEONG,
                 TechInfo.PAVISE,
                 TechInfo.ROYAL_HEIRS,
                 TechInfo.SHATAGNI,
@@ -141,7 +141,7 @@ class TechInfo(Enum):
                 TechInfo.BURGUNDIAN_VINEYARDS,
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
-                TechInfo.COURIERS,
+                TechInfo.FABRIC_SHIEDS,
                 TechInfo.CUMAN_MERCENARIES,
                 TechInfo.DOUBLE_CROSSBOW,
                 TechInfo.DRILL,
@@ -156,7 +156,7 @@ class TechInfo(Enum):
                 TechInfo.KATAPARUTO,
                 TechInfo.LECHITIC_LEGACY,
                 TechInfo.LOGISTICA,
-                TechInfo.MAGHRABI_CAMELS,
+                TechInfo.MAGHREBI_CAMELS,
                 TechInfo.MAHOUTS,
                 TechInfo.MANIPUR_CAVALRY,
                 TechInfo.PAPER_MONEY,
@@ -309,7 +309,7 @@ class TechInfo(Enum):
     COINAGE = 23, 7
     CONSCRIPTION = 315, 91
     CORVINIAN_ARMY = 514, 33
-    COURIERS = 517, 107
+    FABRIC_SHIEDS = 517, 107
     CRENELLATIONS = 11, 107
     CROP_ROTATION = 12, 0
     CROSSBOWMAN = 100, 29
@@ -392,7 +392,7 @@ class TechInfo(Enum):
     FUROR_CELTICA = 5, 107
     GALLEON = 35, 59
     GARLAND_WARS = 24, 107
-    BONFIRE = 65, 41
+    GILLNETS = 65, 41
     GOLD_MINING = 55, 15
     GOLD_SHAFT_MINING = 182, 62
     GOTHS = 531, -1
@@ -444,7 +444,7 @@ class TechInfo(Enum):
     LONG_SWORDSMAN = 207, 48
     LOOM = 22, 6
     MADRASAH = 490, 33
-    MAGHRABI_CAMELS = 579, 107
+    MAGHREBI_CAMELS = 579, 107
     MAGYARS = 550, -1
     MAHOUTS = 7, 107
     MALAY = 651, -1
@@ -462,7 +462,7 @@ class TechInfo(Enum):
     ORTHODOXY = 512, 33
     PADDED_ARCHER_ARMOR = 211, 49
     PALADIN = 265, 45
-    PANOKSEON = 486, 33
+    EUPSEONG = 486, 33
     PAPER_MONEY = 629, 107
     PARTHIAN_TACTICS = 436, 111
     PAVISE = 494, 33
@@ -559,3 +559,17 @@ class TechInfo(Enum):
     HOUFNICE = 787, 126
     ELITE_HUSSITE_WAGON = 781, 105
     ELITE_OBUCH = 779, 105
+    SET_MAX_POP = 658, -1
+    ENABLE_MONUMENT_RES_TRICKLE = 729, -1
+    RESOURCES_LAST_LONGER_15 = 737, -1
+    RESOURCES_LAST_LONGER_30 = 738, -1
+    RESOURCES_LAST_LONGER_40 = 739, -1
+    RESOURCES_LAST_LONGER_50 = 740, -1
+    RESOURCES_LAST_LONGER_75 = 741, -1
+    RESOURCES_LAST_LONGER_100 = 742, -1
+    RESOURCES_LAST_LONGER_125 = 743, -1
+    RESOURCES_LAST_LONGER_150 = 744, -1
+    RESOURCES_LAST_LONGER_175 = 745, -1
+    RESOURCES_LAST_LONGER_200 = 746, -1
+    RESOURCES_LAST_LONGER_300 = 747, -1
+    DISABLE_FREE_TRANSPORT = 229, -1

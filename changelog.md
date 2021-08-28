@@ -6,11 +6,39 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.21 - 2021-August-28
+
+Special thanks to **Alian** for his contribution to the datasets! <3
+
+### Added
+
+- Units, Buildings and Techs to the datasets. -- [#30] (Alian713)
+- Three new functions (**Which all keep `(de)activate trigger` effects synced!**)
+  - `move_triggers(trigger_ids, insert_index)` function to the `Trigger Manager`.
+  - `reorder_triggers(new_id_order)` function to the `Trigger Manager`.
+  - `import_triggers(triggers, index)` function to the `Trigger Manager`.
+
+### Updated
+
+- Tech & Unit datasets -- [#30] (Alian713)
+- Docstrings for all Attribute resources. -- [#30] (Alian713)
+
+### Fixed
+
+- Desync issues with `(de)activate trigger` effects when using any of the following functions:
+  - `group_triggers_by` parameter in `copy_trigger_tree_per_player`,
+  - `append_after_source` parameter in `copy_trigger`,
+  - `remove_trigger` function.
+
+---
+
 ## 0.1.20 - 2021-August-17
 
 ### Fixed
 
 -  `GroupBy` mechanics when using `copy_trigger_tree_per_player` function.
+
+[#30]: https://github.com/KSneijders/AoE2ScenarioParser/pull/30
 
 ---
 
@@ -19,7 +47,7 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - The `append_after_source` parameter to the `copy_trigger` function.
-- The `add_suffix` parameter to the `copy_trigger` function. Decides if `" (copy)"` id added to the name.
+- The `add_suffix` parameter to the `copy_trigger` function. Decides if `" (copy)"` is added to the name.
 - QOL feature for the creation of `Effects` and `Conditions`.
   - When not using `area_x2` and `area_y2`, they are set to the values of `area_x1` and `area_y1` respectively.
     This makes selecting a single tile a little easier.
@@ -55,10 +83,10 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 ### Added
 
 - Support for the new `1.43` scenario file version.
-- New Units, Buildings, Heroes etc. from the `51737` patch! -- [Pull Request #28] (Alian713)
+- New Units, Buildings, Heroes etc. from the `51737` patch! -- [#28] (Alian713)
 - Added `append_after_source` parameter to `copy_trigger` function.
 
-[Pull Request #28]: https://github.com/KSneijders/AoE2ScenarioParser/pull/28
+[#28]: https://github.com/KSneijders/AoE2ScenarioParser/pull/28
 
 ---
 
@@ -86,10 +114,10 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 
 ### Fixed
 
-- Type validation in dataset functions. -- [Pull Request #25] (Alian713)
+- Type validation in dataset functions. -- [#25] (Alian713)
 - Issue with creating modify_attribute effect.
 
-[Pull Request #25]: https://github.com/KSneijders/AoE2ScenarioParser/pull/25
+[#25]: https://github.com/KSneijders/AoE2ScenarioParser/pull/25
 
 ---
 
@@ -98,20 +126,20 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 ### Added
 
 - **Alian713** as an author! **The dataset wizard!**
-- Filters to dataset functions. -- [Pull Request #22] (Alian713)
-- `CORRUPTION` and many `MODDABLE...` to the `TerrainId` dataset. -- [Pull Request #24] (Alian713)
+- Filters to dataset functions. -- [#22] (Alian713)
+- `CORRUPTION` and many `MODDABLE...` to the `TerrainId` dataset. -- [#24] (Alian713)
 
 ### Improved
 
-- Doc strings, error messages and type annotations for datasets. -- [Pull Request #24] (Alian713)
+- Doc strings, error messages and type annotations for datasets. -- [#24] (Alian713)
 
 ### Fixed
 
 - Issue with order lists updating when directly removing items from the list (using `.pop()` or `.remove()`)
 - Issue with reading `1.40` maps.
 
-[Pull Request #22]: https://github.com/KSneijders/AoE2ScenarioParser/pull/22
-[Pull Request #24]: https://github.com/KSneijders/AoE2ScenarioParser/pull/24
+[#22]: https://github.com/KSneijders/AoE2ScenarioParser/pull/22
+[#24]: https://github.com/KSneijders/AoE2ScenarioParser/pull/24
 
 ---
 

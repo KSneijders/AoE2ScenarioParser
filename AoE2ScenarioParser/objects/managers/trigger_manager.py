@@ -4,6 +4,10 @@ import copy
 from enum import IntEnum
 from typing import List, Dict, Union
 
+from AoE2ScenarioParser.objects.data_objects.effect import Effect
+
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
+
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
@@ -168,28 +172,15 @@ class TriggerManager(AoE2Object):
         """
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
-        new_index = trigger_index + 1
         deepcopy_trigger = copy.deepcopy(trigger)
+        deepcopy_trigger.trigger_id = len(self.triggers)
         if add_suffix:
             deepcopy_trigger.name += " (copy)"
 
+        self.triggers.append(deepcopy_trigger)
+
         if append_after_source:
-            deepcopy_trigger.trigger_id = new_index
-
-            # Update internal trigger IDs
-            for index, trigger in enumerate(self.triggers):
-                if index >= new_index:
-                    trigger.trigger_id += 1
-
-            # Insert new trigger, update trigger_hash
-            self.triggers.insert(new_index, deepcopy_trigger)
-            self._trigger_hash = hash_list(self.triggers)
-            # Update display order numbers to make room for the new trigger and insert the new value
-            self.trigger_display_order = [doi + 1 if doi >= new_index else doi for doi in self.trigger_display_order]
-            self.trigger_display_order.insert(display_index + 1, new_index)
-        else:
-            deepcopy_trigger.trigger_id = len(self.triggers)
-            self.triggers.append(deepcopy_trigger)
+            self.move_triggers([trigger_index, deepcopy_trigger.trigger_id], trigger_index)
 
         return deepcopy_trigger
 
@@ -232,11 +223,6 @@ class TriggerManager(AoE2Object):
         """
         if group_triggers_by is None:
             group_triggers_by = GroupBy.NONE
-
-        def get_activation_effects(t: Trigger):
-            return [eff for eff in t.effects if eff.effect_type in [
-                EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
-            ]]
 
         trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
@@ -296,39 +282,96 @@ class TriggerManager(AoE2Object):
                 new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
 
         if group_triggers_by != GroupBy.NONE:
-            index_changes = self._reformat_section_triggers(new_trigger_ids, display_index)
-
-            # Update IDs based on the changes using reformat
-            for player, triggers in new_triggers.items():
-                for trigger in triggers:
-                    for effect in get_activation_effects(trigger):
-                        effect.trigger_id = index_changes[effect.trigger_id]
+            self.move_triggers(new_trigger_ids, display_index)
 
         return new_triggers
 
-    def _reformat_section_triggers(self, new_trigger_ids, split_index):
-        other_triggers = [
-            i for i in self.trigger_display_order if i not in new_trigger_ids or i == split_index
-        ]
-        insert_index = other_triggers.index(split_index)
-        new_trigger_id_order = other_triggers[:insert_index] + new_trigger_ids + other_triggers[insert_index + 1:]
+    def move_triggers(self, trigger_ids: List[int], insert_index: int) -> None:
+        """
+        Function to move triggers. Moves the given IDs from anywhere to the split index. This function reorders triggers
+        BUT keeps ``(de)activate trigger`` effects linked properly!
 
-        return self._reformat_triggers(new_trigger_id_order)
+        As an example:
 
-    def _reformat_triggers(self, new_id_order):
-        self.trigger_display_order = new_id_order
+        >>> [0,1,2,3,4,5,6,7,8]  # Current index order
+        >>> # Let's move trigger 1, 4, 5 and 6 to location 2
+        >>> self.move_triggers([1, 4, 5, 6], 2)  # << 2 is an INDEX, not the value
+        >>> [0,1,4,5,6,2,3,7,8]  # New index order
+
+        Args:
+            trigger_ids: The trigger IDs to move
+            insert_index: The index that defines where to insert the triggers
+        """
+        if min(trigger_ids) < 0:
+            raise ValueError(f"Trigger IDs cannot be negative")
+
+        if insert_index >= len(self.trigger_display_order):
+            # Add to the end of the list
+            new_trigger_id_order = [n for n in self.trigger_display_order if n not in trigger_ids]
+            new_trigger_id_order += trigger_ids
+        else:
+            insert_num = self.trigger_display_order[insert_index]
+            new_trigger_id_order = [n for n in self.trigger_display_order if n not in trigger_ids or n == insert_num]
+
+            split_index = new_trigger_id_order.index(insert_num)
+
+            if insert_num in trigger_ids:
+                new_trigger_id_order.remove(insert_num)
+
+            new_trigger_id_order = new_trigger_id_order[:split_index] + trigger_ids + new_trigger_id_order[split_index:]
+        self.reorder_triggers(new_trigger_id_order)
+
+    def reorder_triggers(self, new_id_order: List[int] = None):
+        """
+        Reorder all triggers to a given order of IDs. This function reorders triggers BUT keeps ``(de)activate trigger``
+        effects linked properly!
+
+        As an example:
+
+        >>> [0,1,2,3,4,5,6,7,8]  # Current index order
+        >>> self.reorder_triggers([0,1,2,3,5,4,7,8,6])
+        >>> [0,1,2,3,5,4,7,8,6]  # New index order
+
+        Keep in mind that all trigger IDs will get remapped with this function. So ``trigger_manager.triggers[4]`` might
+        result in a different trigger after this function is called in comparison to before.
+
+        Args:
+            new_id_order: The new trigger order. Uses the current display order when left unused
+        """
+        if new_id_order is not None:
+            if min(new_id_order) < 0:
+                raise ValueError(f"Trigger IDs cannot be negative")
+            self.trigger_display_order = new_id_order
+
         new_triggers_list = []
         index_changes = {}
-        for new_index, index in enumerate(new_id_order):
-            trigger = self.triggers[index]
+        for new_index, index in enumerate(self.trigger_display_order):
+            try:
+                trigger = self.triggers[index]
+            except IndexError:
+                raise ValueError(f"The trigger ID {index} doesn't exist") from None
             index_changes[trigger.trigger_id] = new_index
 
             trigger.trigger_id = new_index
             new_triggers_list.append(trigger)
         self.triggers = new_triggers_list
-        return index_changes
+
+        # Find and update all (de)activation effect trigger references
+        for trigger in self.triggers:
+            for effect in get_activation_effects(trigger):
+                if effect.trigger_id in index_changes:
+                    effect.trigger_id = index_changes[effect.trigger_id]
 
     def copy_trigger_tree(self, trigger_select: Union[int, TriggerSelect]) -> List[Trigger]:
+        """
+        Copies an entire trigger tree. Trigger trees are triggers linked together using EffectId.(DE)ACTIVATE_TRIGGER.
+
+        Args:
+            trigger_select: An object used to identify which trigger to select
+
+        Returns:
+            The newly created triggers in a list
+        """
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         known_node_indexes = [trigger_index]
@@ -423,7 +466,6 @@ class TriggerManager(AoE2Object):
 
         Returns:
             The newly created trigger
-
         """
         keys = [
             'description', 'description_stid', 'display_as_objective', 'short_description',
@@ -438,6 +480,33 @@ class TriggerManager(AoE2Object):
         self.triggers.append(new_trigger)
         return new_trigger
 
+    def import_triggers(self, triggers: List[Trigger], index: int = -1) -> List[Trigger]:
+        """
+        Adds existing trigger objects (from another scenario) to this scenario. Keeping all ``(de)activate trigger``
+        effects linked!
+
+        Args:
+            triggers: The list of Trigger objects to be added
+            index: The index where to insert the new triggers, will be added at the end when left unused.
+
+        Returns:
+            The newly added triggers (with the new IDs and activation links etc.)
+        """
+        index_changes = {}
+
+        for offset, trigger in enumerate(triggers):
+            new_index = len(self.triggers) + offset
+            index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
+
+        for trigger in triggers:
+            for effect in get_activation_effects(trigger):
+                effect.trigger_id = index_changes[effect.trigger_id]
+
+        self.triggers += triggers
+        if index != -1:
+            self.move_triggers([t.trigger_id for t in triggers], index)
+        return triggers
+
     def get_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         return trigger
@@ -445,14 +514,9 @@ class TriggerManager(AoE2Object):
     def remove_trigger(self, trigger_select: Union[int, TriggerSelect]) -> None:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
-        for x in self.trigger_display_order:
-            if x > trigger_index:
-                self.get_trigger(x).trigger_id -= 1
-
         del self.triggers[trigger_index]
-        del self.trigger_display_order[display_index]
 
-        self.trigger_display_order = [x - 1 if x > trigger_index else x for x in self.trigger_display_order]
+        self.reorder_triggers()
 
     def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
         found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
@@ -475,15 +539,21 @@ class TriggerManager(AoE2Object):
             trigger_index = trigger_select.trigger_index
             display_index = trigger_select.display_index
 
-        if trigger is not None:
-            trigger_index = trigger.trigger_id
-            display_index = self.trigger_display_order.index(trigger_index)
-        elif trigger_index is not None:
-            trigger = self.triggers[trigger_index]
-            display_index = self.trigger_display_order.index(trigger_index)
-        elif display_index is not None:
-            trigger_index = self.trigger_display_order[display_index]
-            trigger = self.triggers[trigger_index]
+        try:
+            if trigger is not None:
+                trigger_index = trigger.trigger_id
+                display_index = self.trigger_display_order.index(trigger_index)
+            elif trigger_index is not None:
+                trigger = self.triggers[trigger_index]
+                display_index = self.trigger_display_order.index(trigger_index)
+            elif display_index is not None:
+                trigger_index = self.trigger_display_order[display_index]
+                trigger = self.triggers[trigger_index]
+        except IndexError:
+            if trigger_index:
+                raise ValueError(f"No trigger with index {trigger_index}") from None
+            if display_index:
+                raise ValueError(f"No Trigger with display index {display_index}") from None
 
         return trigger_index, display_index, trigger
 
@@ -573,3 +643,18 @@ class TriggerManager(AoE2Object):
             effect.trigger_id for effect in trigger.effects if
             effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
         ]
+
+
+def get_activation_effects(trigger: Trigger) -> List[Effect]:
+    """
+    Get all activation effects in a Trigger]
+
+    Args:
+        trigger (Trigger): The trigger object
+
+    Returns:
+        A list with (de)activation effects
+    """
+    return [eff for eff in trigger.effects if eff.effect_type in [
+        EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
+    ]]

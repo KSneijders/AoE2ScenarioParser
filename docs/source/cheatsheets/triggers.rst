@@ -6,7 +6,9 @@ You can use the trigger manager to add, remove edit and view triggers and variab
 Adding Triggers
 ^^^^^^^^^^^^^^^
 
-Here's an example of how to create (add) a trigger and add a condition and effect to it::
+Here's an example of how to create (add) a trigger and add a condition and effect to it:
+
+.. code:: py
 
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
     from AoE2ScenarioParser.datasets.players import PlayerId
@@ -37,6 +39,32 @@ Here's an example of how to create (add) a trigger and add a condition and effec
 
     scenario.write_to_file(scenario_folder + "OUTPUT_NAME_TO_BE_WRITTEN.aoe2scenario")
 
+Importing Triggers
+~~~~~~~~~~~~~~~~~~
+
+Instead of directly adding triggers you can also import triggers from another scenario:
+
+.. code:: py
+
+    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+
+    # Define Scenario files
+    source_scenario = AoE2DEScenario.from_file(path_to_the_source_file)
+    target_scenario = AoE2DEScenario.from_file(path_to_the_target_file)
+
+    # Define Trigger Managers
+    source_trigger_manager = source_scenario.trigger_manager
+    target_trigger_manager = target_scenario.trigger_manager
+
+    # Import the triggers
+    # In this case all triggers from the source scenario are copied
+    # You can optionally set the index to which the imported triggers are set at
+    # Leaving this out will add the imported triggers to the end of the target scenario
+    # In the example below, the source triggers will be added BEFORE the target triggers due to the 0
+    target_trigger_manager.import_triggers(source_trigger_manager.triggers, 0)
+
+    target_scenario.write_to_file(path_to_output_file)
+
 Select existing Triggers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -61,7 +89,9 @@ The constructor of ``TriggerSelect`` accepts 3 arguments,
 
 You can use the ``get_summary_as_string`` function to view these values
 without opening the in-game editor. The code below includes the code
-above::
+above:
+
+.. code:: py
 
     print(trigger_manager.get_summary_as_string())
 
@@ -75,7 +105,9 @@ above::
     """
 
 As you can see, the trigger and display index can be seen in the ``[Index: x, Display: x]`` part. 
-These are the numbers you can use to select triggers. Which would look like::
+These are the numbers you can use to select triggers. Which would look like:
+
+.. code:: py
 
     # Define Scenario file
     scenario = AoE2DEScenario.from_file(read_file)
@@ -85,7 +117,9 @@ These are the numbers you can use to select triggers. Which would look like::
     trigger = trigger_manager.get_trigger(TS.index(0))  # TS is an alias for the TriggerSelect object
 
 If you want to see the contents of the trigger you can do so by running the ``get_content_as_string`` function.
-This will result in the following (with the ``create trigger`` code)::
+This will result in the following (with the ``create trigger`` code):
+
+.. code:: py
 
     print(trigger_manager.get_content_as_string())
     
@@ -116,7 +150,9 @@ Editing triggers, conditions or effects
 
 When opening a file that already contains triggers you might want to edit or even remove said triggers.
 
-You can edit a trigger like so::
+You can edit a trigger like so:
+
+.. code:: py
 
     # Get the trigger_index or display_index using the content or summary methods above
     trigger = trigger_manager.get_trigger(TS.index(0))
@@ -130,7 +166,9 @@ Copy Triggers function
 
 Pretty simple and straigtforward. It copies a trigger adding it at the end of the trigger list. 
 Selecting a trigger is done using the standard trigger_index, display_index and trigger reference. 
-You can use it as follows::
+You can use it as follows:
+
+.. code:: py
 
     copied_trigger = trigger_manager.copy_trigger(TS.index(0))
 
@@ -142,7 +180,9 @@ Copy trigger per player function
 
 Just like the ``copy_trigger`` function, this trigger makes a (deep) copy of the given function. 
 But, while copying, it'll change the everything player related.
-With this function comes great control. Below the usage is shown::
+With this function comes great control. Below the usage is shown:
+
+.. code:: py
 
     copied_triggers = trigger_manager.copy_trigger_per_player(
         from_player=PlayerId.ONE,
@@ -159,7 +199,9 @@ Copy trigger tree
 This function copies the given trigger and all that are linked to this one. 
 The function searches all effects in the given trigger and selects all triggers linked to it.
 It gets all triggers by taking the ids from (DE)ACTIVATE_TRIGGER effects. 
-This will result in the entire tree being copied::
+This will result in the entire tree being copied:
+
+.. code:: py
 
     trigger_manager.copy_trigger_tree(TS.index(0))
 
@@ -169,7 +211,9 @@ Copy trigger tree per player function
 A combination of the ``copy_trigger_per_player`` and ``copy_trigger_tree`` functions. 
 This function copies the entire tree per player. Besides the parameters that can be given to 
 ``copy_trigger_per_player`` function, an additional ``group_triggers_by`` parameter is included. 
-This way you can select in which order all the new triggers should be placed::
+This way you can select in which order all the new triggers should be placed:
+
+.. code:: py
 
     trigger_manager.copy_trigger_tree_per_player(
         from_player=PlayerId.ONE,
@@ -177,12 +221,13 @@ This way you can select in which order all the new triggers should be placed::
         group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.NONE and GroupBy.TRIGGER
     )
 
-
 Removing triggers, conditions or effects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When removing a trigger you can select it the same way as when getting a trigger using the `get_trigger` function. 
-But on top of that you can also use it's reference::
+But on top of that you can also use it's reference:
+
+.. code:: py
 
     trigger_manager.remove_trigger(TS.index(0))
     trigger_manager.remove_trigger(TS.display(0))
@@ -195,7 +240,7 @@ You can select the effect or condition you want to remove using:
 - display index (the order like the in-game editor)
 - reference (the reference to that effect/condition object)
 
-::
+.. code:: py
 
     trigger = trigger_manager.get_trigger(0)
     trigger.remove_effect(effect_index=0)
