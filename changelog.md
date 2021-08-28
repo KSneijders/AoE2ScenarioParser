@@ -12,12 +12,23 @@ Special thanks to **Alian** for his contribution to the datasets! <3
 
 ### Added
 
-- Units, Buildings and Techs to the datasets -- [#30] (Alian713)
+- Units, Buildings and Techs to the datasets. -- [#30] (Alian713)
+- Three new functions (**Which all keep `(de)activate trigger` effects synced!**)
+  - `move_triggers(trigger_ids, insert_index)` function to the `Trigger Manager`.
+  - `reorder_triggers(new_id_order)` function to the `Trigger Manager`.
+  - `import_triggers(triggers, index)` function to the `Trigger Manager`.
 
 ### Updated
 
 - Tech & Unit datasets -- [#30] (Alian713)
-- Docstrings for all Attribute resources -- [#30] (Alian713)
+- Docstrings for all Attribute resources. -- [#30] (Alian713)
+
+### Fixed
+
+- Desync issues with `(de)activate trigger` effects when using any of the following functions:
+  - `group_triggers_by` parameter in `copy_trigger_tree_per_player`,
+  - `append_after_source` parameter in `copy_trigger`,
+  - `remove_trigger` function.
 
 ---
 
