@@ -22,7 +22,7 @@ class Test(TestCase):
             [f"Trigger{i}" for i in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]]
         )
 
-    def test_reorder_triggers_keeping_activation_effects_linked(self):
+    def test_reorder_triggers_verify_activation_effects(self):
         t0 = self.tm.add_trigger("Trigger0")
         t0.new_effect.activate_trigger(2)
         self.tm.add_trigger("Trigger1")
