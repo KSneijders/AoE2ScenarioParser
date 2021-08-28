@@ -480,6 +480,33 @@ class TriggerManager(AoE2Object):
         self.triggers.append(new_trigger)
         return new_trigger
 
+    def import_triggers(self, triggers: List[Trigger], index: int = -1) -> List[Trigger]:
+        """
+        Adds existing trigger objects (from another scenario) to this scenario. Keeping all ``(de)activate trigger``
+        effects linked!
+
+        Args:
+            triggers: The list of Trigger objects to be added
+            index: The index where to insert the new triggers, will be added at the end when left unused.
+
+        Returns:
+            The newly added triggers (with the new IDs and activation links etc.)
+        """
+        index_changes = {}
+
+        for offset, trigger in enumerate(triggers):
+            new_index = len(self.triggers) + offset
+            index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
+
+        for trigger in triggers:
+            for effect in get_activation_effects(trigger):
+                effect.trigger_id = index_changes[effect.trigger_id]
+
+        self.triggers += triggers
+        if index != -1:
+            self.move_triggers([t.trigger_id for t in triggers], index)
+        return triggers
+
     def get_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         return trigger
