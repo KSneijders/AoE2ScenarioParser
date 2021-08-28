@@ -1,0 +1,74 @@
+site_name: AoE2 Scenario Parser Documentation
+site_url: https://ksneijders.github.io/AoE2ScenarioParser/
+docs_dir: docs/
+repo_name: "AoE2ScenarioParser"
+repo_url: "https://github.com/KSneijders/AoE2ScenarioParser"
+use_directory_urls: true
+
+plugins:
+    - search
+#    - awesome-pages
+
+nav:
+  - AoE2SP:
+    - About: "index.md"
+    - Installation: "installation.md"
+    - Getting Started: "getting_started.md"
+    - Support: "support.md"
+  - Cheatsheets:
+    - Triggers: "cheatsheets/triggers.md"
+    - Units: "cheatsheets/units.md"
+    - Datasets: "cheatsheets/datasets.md"
+  - Examples:
+    - Intro: "examples/examples.md"
+    - Triggers: "examples/triggers.md"
+
+#  - API Docs: "api-doc.md"
+
+
+
+markdown_extensions:
+  - admonition                # Create not and warning boxes        https://squidfunk.github.io/mkdocs-material/reference/admonitions/#admonition
+  - pymdownx.caret            # Handling sub- and superscripts      https://facelessuser.github.io/pymdown-extensions/extensions/caret/
+  - pymdownx.mark             # Highlighting of text                https://facelessuser.github.io/pymdown-extensions/extensions/mark/
+  - pymdownx.tilde            # Strikethrough of text               https://facelessuser.github.io/pymdown-extensions/extensions/tilde/
+# - pymdownx.keys             # Add styling keyboard keys           https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+  - pymdownx.tabbed           # Tabs                                https://facelessuser.github.io/pymdown-extensions/extensions/tabbed/
+  - pymdownx.details          # Collapsable elements                https://facelessuser.github.io/pymdown-extensions/extensions/details/
+  - pymdownx.highlight:       # Highlighting code blocks            https://facelessuser.github.io/pymdown-extensions/extensions/highlight/
+      linenums: true
+  - pymdownx.emoji:           # Emojis                              https://facelessuser.github.io/pymdown-extensions/extensions/emoji/
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite     # Inline code highlighting            https://facelessuser.github.io/pymdown-extensions/extensions/inlinehilite/
+  - pymdownx.superfences      # Complicated code fences             https://facelessuser.github.io/pymdown-extensions/extensions/superfences/
+  - pymdownx.smartsymbols     # Creating special characters         https://facelessuser.github.io/pymdown-extensions/extensions/smartsymbols/
+  - pymdownx.arithmatex:      # Preserve LaTeX math equations       https://facelessuser.github.io/pymdown-extensions/extensions/arithmatex/
+      generic: true
+  - pymdownx.tasklist:        # Creating Check-able tasklist        https://facelessuser.github.io/pymdown-extensions/extensions/tasklist/
+      custom_checkbox: true
+      clickable_checkbox: true
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+theme:
+  name: material
+  language: en
+#  favicon: imgs/code.svg
+#  icon:
+#    logo: fontawesome/solid/code
+  features:
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.expand
+    # - navigation.sections
+#  palette:
+#    scheme: slate
+#    primary: red
+#    accent: red
