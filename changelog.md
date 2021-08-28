@@ -30,6 +30,8 @@ Special thanks to **Alian** for his contribution to the datasets! <3
   - `append_after_source` parameter in `copy_trigger`,
   - `remove_trigger` function.
 
+[#30]: https://github.com/KSneijders/AoE2ScenarioParser/pull/30
+
 ---
 
 ## 0.1.20 - 2021-August-17
@@ -37,8 +39,6 @@ Special thanks to **Alian** for his contribution to the datasets! <3
 ### Fixed
 
 -  `GroupBy` mechanics when using `copy_trigger_tree_per_player` function.
-
-[#30]: https://github.com/KSneijders/AoE2ScenarioParser/pull/30
 
 ---
 
