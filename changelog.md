@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.21 - Unreleased
+## 0.1.21 - 2021-August-28
 
 Special thanks to **Alian** for his contribution to the datasets! <3
 
