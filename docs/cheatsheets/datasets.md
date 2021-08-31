@@ -256,7 +256,7 @@ UnitInfo["ARCHER"]  # UnitInfo.ARCHER
 
 ---
 
-## GAIA
+### GAIA
 
 If you want to know if a unit etc. is a gaia only object, you can do:
 
