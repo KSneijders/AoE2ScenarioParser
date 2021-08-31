@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List
+from typing import List, Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.support.tile import Tile
@@ -37,8 +37,16 @@ class UnitManager(AoE2Object):
 
         self._units = value
 
-    def add_unit(self, player: PlayerId, unit_const: int, x: float, y: float, z: float = 0, rotation: float = 0,
-                 garrisoned_in_id: int = -1, animation_frame: int = 0, status: int = 2,
+    def add_unit(self,
+                 player: Union[int, PlayerId],
+                 unit_const: int,
+                 x: float,
+                 y: float,
+                 z: float = 0,
+                 rotation: float = 0,
+                 garrisoned_in_id: int = -1,
+                 animation_frame: int = 0,
+                 status: int = 2,
                  reference_id: int = None, ) -> Unit:
         """
         Adds a unit to the scenario.
@@ -77,7 +85,7 @@ class UnitManager(AoE2Object):
         self.units[player.value].append(unit)
         return unit
 
-    def get_player_units(self, player: PlayerId) -> List[Unit]:
+    def get_player_units(self, player: Union[int, PlayerId]) -> List[Unit]:
         """
         Returns a list of UnitObjects for the given player.
 
@@ -94,14 +102,10 @@ class UnitManager(AoE2Object):
             units += player_units
         return units
 
-    def remove_eye_candy(self) -> None:
-        eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
-        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
-
     def filter_units_by_const(self,
                               unit_consts: List[int],
                               blacklist: bool = False,
-                              player_list: List[int] = None,
+                              player_list: List[Union[int, PlayerId]] = None,
                               unit_list: List[Unit] = None) -> List[Unit]:
         """
         Filter unit on their unit_const value.
@@ -134,7 +138,7 @@ class UnitManager(AoE2Object):
                           tile1: Tile = None,
                           tile2: Tile = None,
                           unit_list: List[Unit] = None,
-                          players: List[PlayerId] = None,
+                          players: List[Union[int, PlayerId]] = None,
                           ignore_players: List[PlayerId] = None):
         """
         Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
@@ -189,7 +193,7 @@ class UnitManager(AoE2Object):
         return [unit for unit in unit_list
                 if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
-    def change_ownership(self, unit: Unit, to_player: PlayerId) -> None:
+    def change_ownership(self, unit: Unit, to_player: Union[int, PlayerId]) -> None:
         """
         Changes a unit's ownership to the given player.
 
@@ -235,3 +239,7 @@ class UnitManager(AoE2Object):
                         return
         elif unit is not None:
             self.units[unit.player.value].remove(unit)
+
+    def remove_eye_candy(self) -> None:
+        eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
+        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
