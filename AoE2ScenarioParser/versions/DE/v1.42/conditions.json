@@ -1,4 +1,32 @@
 {
+    "-1": {
+        "name": "default attribute value presentation",
+        "attribute_presentation": {
+            "condition_type": "",
+            "quantity": "",
+            "attribute": "Attribute",
+            "unit_object": "",
+            "next_object": "",
+            "object_list": "UnitInfo",
+            "source_player": "PlayerId",
+            "technology": "TechInfo",
+            "timer": "",
+            "area_x1": "",
+            "area_y1": "",
+            "area_x2": "",
+            "area_y2": "",
+            "object_group": "ObjectClass",
+            "object_type": "ObjectType",
+            "ai_signal": "",
+            "inverted": "bool",
+            "variable": "",
+            "comparison": "Comparison",
+            "target_player": "PlayerId",
+            "unit_ai_action": "UnitAIAction",
+            "object_state": "ObjectState",
+            "xs_function": "str"
+        }
+    },
     "0": {
         "name": "none",
         "attributes": [
@@ -663,6 +691,9 @@
             "quantity",
             "inverted"
         ],
+        "attribute_presentation": {
+            "quantity": "DifficultyLevel"
+        },
         "default_attributes": {
             "condition_type": 19,
             "quantity": 3,
@@ -730,6 +761,9 @@
             "technology",
             "inverted"
         ],
+        "attribute_presentation": {
+            "quantity": "TechnologyState"
+        },
         "default_attributes": {
             "condition_type": 21,
             "quantity": 3,
@@ -835,6 +869,9 @@
             "inverted",
             "target_player"
         ],
+        "attribute_presentation": {
+            "quantity": "DiplomacyState"
+        },
         "default_attributes": {
             "condition_type": 24,
             "quantity": 0,

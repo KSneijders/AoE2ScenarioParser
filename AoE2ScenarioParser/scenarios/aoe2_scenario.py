@@ -222,18 +222,28 @@ def initialise_version_dependencies(game_version, scenario_version):
     for condition_id, structure in condition_json.items():
         condition_id = int(condition_id)
 
+        if condition_id == -1:
+            conditions.attribute_presentation[condition_id] = structure['attribute_presentation']
+            continue
+
         conditions.condition_names[condition_id] = structure['name']
         conditions.default_attributes[condition_id] = structure['default_attributes']
         conditions.attributes[condition_id] = structure['attributes']
+        conditions.attribute_presentation[condition_id] = structure.get('attribute_presentation', {})
 
     effect_json = get_version_dependant_structure_file(game_version, scenario_version, "effects")
 
     for effect_id, structure in effect_json.items():
         effect_id = int(effect_id)
 
+        if effect_id == -1:
+            effects.attribute_presentation[effect_id] = structure['attribute_presentation']
+            continue
+
         effects.effect_names[effect_id] = structure['name']
         effects.default_attributes[effect_id] = structure['default_attributes']
         effects.attributes[effect_id] = structure['attributes']
+        effects.attribute_presentation[effect_id] = structure.get('attribute_presentation', {})
 
 
 def get_file_version(generator: IncrementalGenerator):
