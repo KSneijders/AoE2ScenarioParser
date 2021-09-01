@@ -1951,7 +1951,8 @@ class BlastLevel(IntEnum):
     Only works for infantry units, reduces blast damage done based on distance
     """
 
-class SmartPorjectile(IntEnum):
+
+class SmartProjectile(IntEnum):
     """
     This enum class provides the integer values used to reference the smart projectile flag values used in the game. Used in the
     'Modify Attribute' effect with the 'Enable Smart Projectile' attribute

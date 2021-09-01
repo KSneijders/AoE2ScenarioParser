@@ -90,6 +90,7 @@ remember. That's why these datasets have been added:
 | Hotkey              | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`.                 | `Hotkey.SPACE`                     |
 | BlastLevel          | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute`. | `BlastLevel.NEARBY_UNITS`          |
 | TerrainRestrictions | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`.    | `TerrainRestrictions.LAND`         |
+| SmartProjectile     | Can be used for changing the `ENABLE_SMART_PROJECTILES` in `ObjectAttribute`.  | `SmartProjectile.ENABLED`          |
 | ColorMood           | Used in the `Change Color Mood` effect.                                        | `ColorMood.WINTER`                 |
 | ObjectState         | Used in the `Objects in area` condition.                                       | `ObjectState.DEAD`                 |
 
