@@ -1,6 +1,8 @@
 from copy import deepcopy
 from typing import List
 
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
@@ -244,8 +246,9 @@ class Trigger(AoE2Object):
 
         del self.conditions[condition_index]
 
-    def get_content_as_string(self) -> str:
+    def get_content_as_string(self, include_trigger_definition=False) -> str:
         return_string = ""
+
         data_tba = {
             'enabled': self.enabled != 0,
             'looping': self.looping != 0
@@ -271,24 +274,29 @@ class Trigger(AoE2Object):
             data_tba['mute_objectives'] = (self.mute_objectives != 0)
 
         for key, value in data_tba.items():
-            return_string += f"\t\t{key}: {value}\n"
+            return_string += f"{key}: {value}\n"
 
         if len(self.condition_order) > 0:
-            return_string += "\t\tconditions:\n"
+            return_string += "conditions:\n"
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                return_string += f"\t\t\t{condition_dataset.condition_names[condition.condition_type]} " \
+                return_string += f"\t{condition_dataset.condition_names[condition.condition_type]} " \
                                  f"[Index: {condition_id}, Display: {c_display_order}]:\n"
-                return_string += condition.get_content_as_string()
+                return_string += add_tabs(condition.get_content_as_string(), 2)
 
         if len(self.effect_order) > 0:
-            return_string += "\t\teffects:\n"
+            return_string += "effects:\n"
             for e_display_order, effect_id in enumerate(self.effect_order):
                 effect = self.effects[effect_id]
 
-                return_string += f"\t\t\t{effect_dataset.effect_names[effect.effect_type]}" \
+                return_string += f"\t{effect_dataset.effect_names[effect.effect_type]}" \
                                  f" [Index: {effect_id}, Display: {e_display_order}]:\n"
-                return_string += effect.get_content_as_string()
+                return_string += add_tabs(effect.get_content_as_string(), 2)
 
+        if include_trigger_definition:
+            return f"\"{self.name}\" [Index: {self.trigger_id}]\n" + add_tabs(return_string, 1)
         return return_string
+
+    def __str__(self) -> str:
+        return f"[Trigger] {self.get_content_as_string(include_trigger_definition=True)}"

@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import List, Tuple
 
+from AoE2ScenarioParser.helper.attr_presentation import transform_condition_attr_value, transform_effect_attr_value
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
@@ -157,7 +160,7 @@ class Effect(AoE2Object):
         # HANDLE ARMOUR EFFECT ATTRIBUTES
         if self._armour_attack_flag:
             # If effect created through new_effect
-            if armour_attack_class not in [-1, None] or armour_attack_quantity not in [None, -1]:
+            if armour_attack_class not in [-1, None] or armour_attack_quantity not in [-1, None]:
                 quantity = None
             # If effect created through reading
             elif quantity is not None:
@@ -299,7 +302,7 @@ class Effect(AoE2Object):
         val = listify(val)
         self._selected_object_ids = val
 
-    def get_content_as_string(self) -> str:
+    def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.effect_type not in effects.attributes:  # Unknown effect
             attributes_list = effects.empty_attributes
         else:
@@ -307,23 +310,29 @@ class Effect(AoE2Object):
 
         return_string = ""
         for attribute in attributes_list:
-            attribute_value = getattr(self, attribute)
-            if attribute == "effect_type" or attribute_value in [[], [-1], "", " ", -1]:
+            val = getattr(self, attribute)
+            if attribute == "effect_type" or val in [[], [-1], "", " ", -1]:
                 continue
             # Ignore the quantity value in the print statement when flag is True.
             if self._armour_attack_flag and attribute == "quantity":
                 continue
             if attribute in ["armour_attack_quantity", "armour_attack_class"] and not self._armour_attack_flag:
                 continue
-            return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"
+            # return_string += "" + attribute + ": " + str(val) + "\n"
+            return_string += f"{attribute}: {transform_effect_attr_value(self.effect_type, attribute, val)}\n"
 
         if return_string == "":
-            return "\t\t\t\t<< No Attributes >>\n"
+            return "<< No Attributes >>\n"
 
+        if include_effect_definition:
+            return f"{effects.effect_names[self.effect_type]}:\n{add_tabs(return_string, 1)}"
         return return_string
 
     def _update_armour_attack_flag(self):
         self._armour_attack_flag = _set_armour_attack_flag(self.effect_type, self.object_attributes)
+
+    def __str__(self):
+        return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"
 
 
 def _set_armour_attack_flag(effect_type, object_attributes) -> bool:
