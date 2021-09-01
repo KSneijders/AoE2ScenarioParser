@@ -196,8 +196,8 @@
             "ai_signal": -1,
             "inverted": 0,
             "variable": -1,
-            "comparison": 0,
-            "target_player": 1
+            "comparison": -1,
+            "target_player": -1
         }
     },
     "6": {

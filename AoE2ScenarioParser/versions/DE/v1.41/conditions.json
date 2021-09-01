@@ -206,8 +206,8 @@
             "ai_signal": -1,
             "inverted": 0,
             "variable": -1,
-            "comparison": 0,
-            "target_player": 1,
+            "comparison": -1,
+            "target_player": -1,
             "unit_ai_action": -1,
             "xs_function": ""
         }
@@ -934,6 +934,9 @@
         "attributes": [
             "unit_object",
             "next_object",
+            "object_list",
+            "object_group",
+            "object_type",
             "inverted",
             "unit_ai_action"
         ],

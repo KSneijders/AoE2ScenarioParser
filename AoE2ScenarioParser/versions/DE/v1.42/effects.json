@@ -3724,6 +3724,7 @@
             "area_y1",
             "area_x2",
             "area_y2",
+            "player_color",
             "selected_object_ids"
         ],
         "default_attributes": {
@@ -3787,6 +3788,7 @@
             "area_y1",
             "area_x2",
             "area_y2",
+            "message",
             "selected_object_ids"
         ],
         "default_attributes": {
@@ -3852,6 +3854,7 @@
             "area_y1",
             "area_x2",
             "area_y2",
+            "message",
             "selected_object_ids"
         ],
         "default_attributes": {
