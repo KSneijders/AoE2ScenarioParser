@@ -33,16 +33,11 @@ def get_enum_from_unit_const(const: int) -> InfoDatasetBase:
     Arguments:
         const: The constant representing a unit
     """
-    enums = [
-        UnitInfo,
-        BuildingInfo,
-        HeroInfo,
-        OtherInfo
-    ]
+    enums = [UnitInfo, BuildingInfo, HeroInfo, OtherInfo]
     for enum in enums:
         try:
             return enum.from_id(const)
-        except ValueError:
+        except (ValueError, KeyError):
             continue
 
 
