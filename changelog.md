@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.22 - UNRELEASED
+
+### Added
+
+- `__str__` functions to `TriggerManaer`, `Trigger`, `Effect` and `Condition` (output = `.get_content_as_string()`)
+- Value representations in `get_content_as_string()` (and `__str__`). Shows dataset numerical values as dataset names.
+  - `object_list_unit_id: 4` now shows as: `object_list_unit_id: Archer (4)`
+  - `technology: 12` now shows as: `technology: Crop Rotation (12)`
+  - `operation: 3` now shows as: `operation: Subtract (3)`
+- Warning with swap when adding effects/conditions with `x1`>`x2` or `y1`>`y2`.
+
+### Fixed
+
+- Typo - `SmartPorjectile` to `SmartProjectile`
+- Missing several parameters for specific effects and conditions in `new_effect` and `new_condition`
+- Missing several attributes for specific effects and conditions when using `get_content_as_string()`
+- `effect.player_color` resulting in the wrong color when assigned using `PlayerId` or `PlayerColorId`
+
+### Removed
+
+- The `BiDict` dependency from the entire project
+
+---
+
 ## 0.1.21 - 2021-August-28
 
 Special thanks to **Alian** for his contribution to the datasets! <3
