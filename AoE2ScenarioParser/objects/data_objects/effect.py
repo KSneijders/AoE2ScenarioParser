@@ -4,7 +4,7 @@ from typing import List, Tuple
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.datasets.players import PlayerColorId
+from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
 from AoE2ScenarioParser.helper.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
@@ -236,6 +236,16 @@ class Effect(AoE2Object):
         self.selected_object_ids: List[int] = selected_object_ids
 
         super().__init__()
+
+    @property
+    def player_color(self):
+        return self._player_color
+
+    @player_color.setter
+    def player_color(self, value):
+        if type(value) in [PlayerColorId, PlayerId]:
+            value -= 1
+        self._player_color = value
 
     @property
     def item_id(self):
