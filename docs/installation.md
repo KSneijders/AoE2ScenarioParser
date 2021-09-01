@@ -17,13 +17,11 @@ git clone https://github.com/KSneijders/AoE2ScenarioParser.git
 
 This project is made in Python 3. You'll need **Python 3.6** or newer to be able to run it properly.
 
-The project uses [bidict] for bidirectional  mapping.  
 The project uses [deprecation] for deprecation warnings.
 
 !!! type "Note"
     All these dependencies should install automatically when using the above **pip** command.
 
-[bidict]: https://pypi.org/project/bidict/
 [deprecation]: https://pypi.org/project/deprecation/
 
 ## Updating

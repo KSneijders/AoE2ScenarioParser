@@ -644,6 +644,7 @@ empty_attributes = {
 }
 
 # Set using the version json files
-effect_names = bidict()
+effect_names = {}
 default_attributes = {}
 attributes = {}
+attribute_presentation = {}
