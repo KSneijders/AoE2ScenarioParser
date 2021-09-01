@@ -82,7 +82,7 @@ class UnitManager(AoE2Object):
             garrisoned_in_id=garrisoned_in_id,
         )
 
-        self.units[player.value].append(unit)
+        self.units[player].append(unit)
         return unit
 
     def get_player_units(self, player: Union[int, PlayerId]) -> List[Unit]:
@@ -94,7 +94,7 @@ class UnitManager(AoE2Object):
         """
         if not 0 <= player <= 8:
             raise ValueError("Player must have a value between 0 and 8")
-        return self.units[player.value]
+        return self.units[player]
 
     def get_all_units(self) -> List[Unit]:
         units = []
@@ -201,10 +201,10 @@ class UnitManager(AoE2Object):
             unit: The unit object which ownership will be changed
             to_player: The player that'll get ownership over the unit (using PlayerId enum)
         """
-        for i, player_unit in enumerate(self.units[unit.player.value]):
+        for i, player_unit in enumerate(self.units[unit.player]):
             if player_unit == unit:
-                del self.units[unit.player.value][i]
-                self.units[to_player.value].append(unit)
+                del self.units[unit.player][i]
+                self.units[to_player].append(unit)
                 unit._player = PlayerId(to_player)
                 return
 
@@ -238,7 +238,7 @@ class UnitManager(AoE2Object):
                         del self.units[player][i]
                         return
         elif unit is not None:
-            self.units[unit.player.value].remove(unit)
+            self.units[unit.player].remove(unit)
 
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
