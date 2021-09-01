@@ -67,4 +67,4 @@ def warn(string="") -> None:
         raise WarningToError(
             f"\n\nWarning Occurred with 'settings.THROW_ERROR_ON_WARNING' is True. \nWarning:\n{add_tabs(string, 1)}\n")
     if not settings.DISABLE_WARNINGS:
-        print('\n' + _color['bright_yellow'] + string + _color['end'] + '\n')
+        print('\n' + color_string(string, 'bright_yellow'))

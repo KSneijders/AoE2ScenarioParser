@@ -1838,6 +1838,7 @@ class HeroStatusFlag(IntEnum):
     >>> ObjectType.OTHER
     >>> 1
     """
+
     @staticmethod
     def combine(
             full_hero_status: bool = False,
@@ -1964,6 +1965,7 @@ class SmartProjectile(IntEnum):
     """
     ENABLED = 1
     FULL_DAMAGE_ON_MISSED_HIT = 2
+
 
 class DamageClass(IntEnum):
     """
