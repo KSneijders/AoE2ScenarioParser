@@ -11,10 +11,7 @@ def list_changed(lst, lst_hash):
 
 def listify(var) -> list:
     """Always return item as list"""
-    if type(var) is list:
-        return var
-    else:
-        return [var]
+    return var if type(var) is list else [var]
 
 
 def update_order_array(order_array: List[int], supposed_length: int) -> None:
