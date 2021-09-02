@@ -302,7 +302,7 @@ class TechInfo(Enum):
         techs_to_return = []
 
         for age in ages:
-            techs_to_return.extend(upgrades["1"])
+            techs_to_return.extend(upgrades[age])
         
         return techs_to_return
 
@@ -340,10 +340,7 @@ class TechInfo(Enum):
 
         techs_to_return = []
         for age in ages:
-            if age in [-1, 2]:
-                techs_to_return.extend(upgrades["2"])
-            if age in [-1, 3]:
-                techs_to_return.extend(upgrades["3"])
+            techs_to_return.extend(upgrades[age])
         
         return techs_to_return
 
@@ -384,10 +381,7 @@ class TechInfo(Enum):
 
         techs_to_return = []
         for age in ages:
-            if age in [-1, 2]:
-                techs_to_return.extend(upgrades["2"])
-            if age in [-1, 3]:
-                techs_to_return.extend(upgrades["3"])
+            techs_to_return.extend(upgrades[age])
         
         return techs_to_return
 
