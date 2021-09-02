@@ -6558,5 +6558,21 @@
         "dead_id": 134,
         "icon_id": 33,
         "hotkey_id": 16361
+    },
+    "GATE": {
+        "id": 487,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1406,
+        "icon_id": 36,
+        "hotkey_id": 16185
+    },
+    "FORTIFIED_GATE": {
+        "id": 488,
+        "gaia_only": false,
+        "type": "building",
+        "dead_id": 1406,
+        "icon_id": 36,
+        "hotkey_id": 16185
     }
 }

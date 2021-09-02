@@ -1,6 +1,7 @@
 from __future__ import annotations
 from enum import Enum
-
+from typing import Union
+from buildings import BuildingInfo
 
 class TechInfo(Enum):
     """
@@ -25,7 +26,7 @@ class TechInfo(Enum):
     >>> 6
     """
     @property
-    def ID(self):
+    def ID(self) -> int:
         """
         Returns:
             The ID of the specified tech
@@ -52,7 +53,7 @@ class TechInfo(Enum):
         raise KeyError(f"A technology with ID '{tech_id}' was not found in the dataset")
 
     @property
-    def ICON_ID(self):
+    def ICON_ID(self) -> int:
         """
         Returns:
             The icon ID of the specified tech
@@ -60,7 +61,7 @@ class TechInfo(Enum):
         return self.value[1]
 
     @classmethod
-    def from_icon_id(cls, tech_icon_id):
+    def from_icon_id(cls, tech_icon_id) -> TechInfo:
         """
         Get the TechInfo object from its icon ID
 
@@ -258,6 +259,200 @@ class TechInfo(Enum):
         if not exclude_non_castle_techs:
             techs_to_return.extend(unique_techs["non_castle"])
 
+        return techs_to_return
+    
+    @staticmethod
+    def blacksmith_upgrades(ages: Union[int, list[int]] = None) -> list[TechInfo]:
+        """
+        Args:
+            age: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from this age are returned. If unspecified, all ages' techs are returned
+
+        Returns:
+            A list of TechInfo objects which are the blacksmith upgrade techs for the given age
+        """
+        if ages is None:
+            ages = [0, 1, 2, 3]
+        else:
+            ages = [ages] if type(ages) is int else ages
+        upgrades = {
+            0: [],
+            1: [
+                TechInfo.FORGING,
+                TechInfo.SCALE_MAIL_ARMOR,
+                TechInfo.SCALE_BARDING_ARMOR,
+                TechInfo.FLETCHING,
+                TechInfo.PADDED_ARCHER_ARMOR
+            ],
+            2: [
+                TechInfo.IRON_CASTING,
+                TechInfo.CHAIN_MAIL_ARMOR,
+                TechInfo.CHAIN_BARDING_ARMOR,
+                TechInfo.BODKIN_ARROW,
+                TechInfo.LEATHER_ARCHER_ARMOR
+            ],
+            3: [
+                TechInfo.BLAST_FURNACE,
+                TechInfo.PLATE_MAIL_ARMOR,
+                TechInfo.PLATE_BARDING_ARMOR,
+                TechInfo.BRACER,
+                TechInfo.RING_ARCHER_ARMOR
+            ],
+        }
+
+        techs_to_return = []
+
+        for age in ages:
+            techs_to_return.extend(upgrades["1"])
+        
+        return techs_to_return
+
+    @staticmethod
+    def monastery_upgrades(ages: Union[int, list[int]] = None) -> list[TechInfo]:
+        """
+        Args:
+            age: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from this age are returned. If unspecified, all ages' techs are returned
+
+        Returns:
+            A list of TechInfo objects which are the monastery upgrade techs for the given age
+        """
+        if ages is None:
+            ages = [0, 1, 2, 3]
+        else:
+            ages = [ages] if type(ages) is int else ages
+        upgrades = {
+            0: [],
+            1: [],
+            2: [
+                TechInfo.REDEMPTION,
+                TechInfo.ATONEMENT,
+                TechInfo.HERBAL_MEDICINE,
+                TechInfo.HERESY,
+                TechInfo.SANCTITY,
+                TechInfo.FERVOR,
+            ],
+            3: [
+                TechInfo.FAITH,
+                TechInfo.ILLUMINATION,
+                TechInfo.BLOCK_PRINTING,
+                TechInfo.THEOCRACY
+            ],
+        }
+
+        techs_to_return = []
+        for age in ages:
+            if age in [-1, 2]:
+                techs_to_return.extend(upgrades["2"])
+            if age in [-1, 3]:
+                techs_to_return.extend(upgrades["3"])
+        
+        return techs_to_return
+
+    @staticmethod
+    def university_upgrades(ages: Union[int, list[int]] = None) -> list[TechInfo]:
+        """
+        Args:
+            age: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from this age are returned. If unspecified, all ages' techs are returned
+
+        Returns:
+            A list of TechInfo objects which are the university upgrade techs for the given age
+        """
+        if ages is None:
+            ages = [0, 1, 2, 3]
+        else:
+            ages = [ages] if type(ages) is int else ages
+        upgrades = {
+            0: [],
+            1: [],
+            2: [
+                TechInfo.MASONRY,
+                TechInfo.FORTIFIED_WALL,
+                TechInfo.BALLISTICS,
+                TechInfo.GUARD_TOWER,
+                TechInfo.HEATED_SHOT,
+                TechInfo.MURDER_HOLES,
+                TechInfo.TREADMILL_CRANE,
+            ],
+            3: [
+                TechInfo.ARCHITECTURE,
+                TechInfo.CHEMISTRY,
+                TechInfo.SIEGE_ENGINEERS,
+                TechInfo.KEEP,
+                TechInfo.ARROWSLITS,
+                TechInfo.BOMBARD_TOWER
+            ],
+        }
+
+        techs_to_return = []
+        for age in ages:
+            if age in [-1, 2]:
+                techs_to_return.extend(upgrades["2"])
+            if age in [-1, 3]:
+                techs_to_return.extend(upgrades["3"])
+        
+        return techs_to_return
+
+    @staticmethod
+    def eco_upgrades(ages: Union[int, list[int]] = None, buildings: Union[int, list[int]] = None) -> list[TechInfo]:
+        """
+        Args:
+            age: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from this age are returned. If unspecified, all ages' techs are returned
+            building: The building ID for which the upgrades are needed. If unspecified, eco upgrades from all buildings are returned
+
+        Returns:
+            A list of TechInfo objects which are the university upgrade techs for the given age
+        """
+        if ages is None:
+            ages = [0, 1, 2, 3]
+        else:
+            ages = [ages] if type(ages) is int else ages
+
+        if buildings is None:
+            buildings = [
+                BuildingInfo.MILL.ID,
+                BuildingInfo.MINING_CAMP.ID,
+                BuildingInfo.LUMBER_CAMP.ID,
+                BuildingInfo.TOWN_CENTER.ID,
+                BuildingInfo.MARKET.ID
+            ]
+        else:
+            buildings = [buildings] if type(buildings) is int else buildings
+
+        upgrades = {
+            0: {
+                BuildingInfo.MILL.ID: [],
+                BuildingInfo.MINING_CAMP.ID: [],
+                BuildingInfo.LUMBER_CAMP.ID: [],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.LOOM],
+                BuildingInfo.MARKET.ID: [],
+            },
+            1: {
+                BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR],
+                BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_MINING, TechInfo.STONE_MINING],
+                BuildingInfo.LUMBER_CAMP.ID: [TechInfo.DOUBLE_BIT_AXE],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW, TechInfo.TOWN_WATCH],
+                BuildingInfo.MARKET.ID: [],
+            },
+            2: {
+                BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW],
+                BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_SHAFT_MINING, TechInfo.STONE_SHAFT_MINING],
+                BuildingInfo.LUMBER_CAMP.ID: [TechInfo.BOW_SAW],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART, TechInfo.TOWN_PATROL],
+                BuildingInfo.MARKET.ID: [TechInfo.COINAGE, TechInfo.CARAVAN]
+            },
+            3: {
+                BuildingInfo.MILL.ID: [TechInfo.CROP_ROTATION],
+                BuildingInfo.MINING_CAMP.ID: [],
+                BuildingInfo.LUMBER_CAMP.ID: [TechInfo.TWO_MAN_SAW],
+                BuildingInfo.TOWN_CENTER.ID: [],
+                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS]
+            },
+        }
+
+        techs_to_return = []
+        for age in ages:
+            for building in buildings:
+                techs_to_return.extend(upgrades[age][building])
+        
         return techs_to_return
 
     ANARCHY = 16, 33
