@@ -4,6 +4,7 @@ from typing import List
 
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -44,24 +45,30 @@ class MapManager(AoE2Object):
             raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
 
     @map_size.setter
-    def map_size(self, size: int):
-        new_length = size * size
-        difference = new_length - len(self.terrain)
+    def map_size(self, new_size: int):
+        old_size = self._map_width
+        difference = new_size - old_size
 
-        self._map_width = size
-        self._map_height = size
+        self._map_width = new_size
+        self._map_height = new_size
 
+        new_terrain = []
         if difference < 0:
-            self.terrain = self.terrain[:new_length]
+            # Remove ends of rows (x) & remove final rows entirely (y)
+            for index, chunck in enumerate(list_chuncks(self.terrain, old_size)):
+                if index == new_size:
+                    break
+                new_terrain.extend(chunck[:new_size])
         elif difference > 0:
-            for _ in range(difference):
-                self.terrain.append(
-                    TerrainTile(
-                        TerrainId.GRASS_1,
-                        elevation=0,
-                        layer=-1
-                    )
-                )
+            # Add ends to rows (x) & add entirely new rows  (y)
+            chunck_gen = list_chuncks(self.terrain, old_size)
+            for index in range(new_size):
+                if index < old_size:
+                    row = next(chunck_gen) + ([TerrainTile()] * difference)
+                else:
+                    row = [TerrainTile()] * new_size
+                new_terrain.extend(row)
+        self.terrain = new_terrain
 
     def create_hill(self, x1, y1, x2, y2, elevation) -> None:
         """
