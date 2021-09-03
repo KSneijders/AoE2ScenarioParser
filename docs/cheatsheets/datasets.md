@@ -202,7 +202,9 @@ all_unique_non_castle_non_elite_units = UnitInfo.unique_units(exclude_elite_unit
 
 ### TechInfo functions
 
-Some useful functions for the `TechInfo` dataset is `unique_techs()` and `unique_unit_upgrades()`
+Some useful functions for the `TechInfo` dataset are:
+
+- `unique_techs()`
 
 ```py
 # Get all unique techs (e.g. BEARDED_AXE, CHIEFTAINS, FIRST_CRUSADE etc.)
@@ -213,6 +215,8 @@ Some useful functions for the `TechInfo` dataset is `unique_techs()` and `unique
 imp_unique_techs = TechInfo.unique_techs(exclude_castle_techs=True)  
 ```
 
+- `unique_unit_upgrades()`
+
 ```py
 # Get all unique unit techs (e.g. ELITE_LONGBOWMAN, ELITE_TEUTONIC_KNIGHT etc.)
 # You can disable certain categories like:
@@ -220,6 +224,41 @@ imp_unique_techs = TechInfo.unique_techs(exclude_castle_techs=True)
 # - exclude_non_castle_techs  (Excludes stuff like: ELITE_LONGBOAT, IMPERIAL_SKIRMISHER)
 # Example:
 uu_castle_upgrades = TechInfo.unique_unit_upgrades(exclude_non_castle_techs=True)  
+```
+
+- `blacksmith_techs()`
+- `monastery_techs()`
+- `university_techs()`
+- `town_center_techs()`
+
+```py
+# Get all blacksmith/monastery/university techs
+# You can filter on ages, like so:
+all_blacksmith_techs = TechInfo.blacksmith_techs()
+feudal_blacksmith_techs = TechInfo.blacksmith_techs(Age.FEUDAL_AGE)
+non_imp_blacksmith_techs = TechInfo.blacksmith_techs([Age.FEUDAL_AGE, Age.CASTLE_AGE])
+# Same goes for:
+#   - TechInfo.monastery_techs(...)
+#   - TechInfo.university_techs(...)
+#   - TechInfo.town_center_techs(...)
+```
+
+- `eco_techs()`
+
+```py
+# Get all economic techs
+all_eco_techs = TechInfo.eco_techs()
+# You can filter on ages (like with blacksmith_techs etc.):
+dark_age_eco_techs = TechInfo.eco_techs(ages=Age.DARK_AGE)  # Only returns LOOM
+# Or filter on buildings
+mining_and_lumber_upgrades = TechInfo.eco_techs(
+    buildings=[BuildingInfo.MINING_CAMP.ID, BuildingInfo.LUMBER_CAMP.ID]
+)
+# Or both:
+imp_tc_upgrades = TechInfo.eco_techs(
+    ages=Age.IMPERIAL_AGE,
+    buildings=BuildingInfo.TOWN_CENTER.ID,
+)
 ```
 
 ### OtherInfo functions
