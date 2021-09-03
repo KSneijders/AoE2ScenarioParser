@@ -6,7 +6,7 @@ You can install the project using **pip**:
 
 Or install it manually by cloning the **git** repo.
 
-!!! type "Note"
+!!! note
     This method requires you to install the dependencies and all updates manually too.
 
 ```
@@ -19,7 +19,7 @@ This project is made in Python 3. You'll need **Python 3.6** or newer to be able
 
 The project uses [deprecation] for deprecation warnings.
 
-!!! type "Note"
+!!! note
     All these dependencies should install automatically when using the above **pip** command.
 
 [deprecation]: https://pypi.org/project/deprecation/

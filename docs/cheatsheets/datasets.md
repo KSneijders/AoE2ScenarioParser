@@ -30,8 +30,7 @@ from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
 ```
 
-A special thanks to **Alian713** for doing **A LOT** of the work in contributing the data needed for these datasets. :
-heart:
+A special thanks to **Alian713** for doing **A LOT** of the work in contributing the data needed for these datasets. :heart:
 
 ---
 

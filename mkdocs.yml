@@ -14,6 +14,7 @@ nav:
     - About: "index.md"
     - Installation: "installation.md"
     - Getting Started: "getting_started.md"
+    - Hello World: "hello_world.md"
     - Support: "support.md"
   - Cheatsheets:
     - Triggers: "cheatsheets/triggers.md"
@@ -32,7 +33,7 @@ markdown_extensions:
   - pymdownx.caret            # Handling sub- and superscripts      https://facelessuser.github.io/pymdown-extensions/extensions/caret/
   - pymdownx.mark             # Highlighting of text                https://facelessuser.github.io/pymdown-extensions/extensions/mark/
   - pymdownx.tilde            # Strikethrough of text               https://facelessuser.github.io/pymdown-extensions/extensions/tilde/
-# - pymdownx.keys             # Add styling keyboard keys           https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+  - pymdownx.keys             # Add styling keyboard keys           https://facelessuser.github.io/pymdown-extensions/extensions/keys/
   - pymdownx.tabbed           # Tabs                                https://facelessuser.github.io/pymdown-extensions/extensions/tabbed/
   - pymdownx.details          # Collapsable elements                https://facelessuser.github.io/pymdown-extensions/extensions/details/
   - pymdownx.highlight:       # Highlighting code blocks            https://facelessuser.github.io/pymdown-extensions/extensions/highlight/

@@ -9,15 +9,20 @@ from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
 Define the file you will be reading from and where you will be writing your new file to.  
 
-!!! type "Note"
-    It is recommended to not overwrite the file you will be reading for backup reasons.
+!!! Note "Where to find your scenario files"
+    The scenarios can usually be found here:  
+    `C:\Users\<USERNAME>\Games\Age of Empires 2 DE\<STEAMID>\resources\_common\scenario`  
+    The `STEAMID` folder is your steam ID and looks something like: `12345678901234567`
 
 ```py
 input_path = "File/Path/To/Your/Input/kFile.aoe2scenario"
 output_path = "File/Path/To/Your/Output/File.aoe2scenario"
 ```
 
-Now create the `Scenario` object with the filename as parameter. Or create a default scenario:
+!!! warning "Do not overwrite your source scenario"
+    It is recommended to not overwrite the file you will be reading for backup reasons.
+
+Now create the `Scenario` object with the filename as parameter.
 
 ```py
 scenario = AoE2DEScenario.from_file(input_path)
@@ -38,6 +43,8 @@ all available managers:
 You can access all managers like so:
 
 ```py
+scenario = AoE2DEScenario.from_file(input_path)
+
 trigger_manager = scenario.trigger_manager
 unit_manager = scenario.unit_manager
 # etc...
