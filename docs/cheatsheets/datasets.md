@@ -230,6 +230,7 @@ uu_castle_upgrades = TechInfo.unique_unit_upgrades(exclude_non_castle_techs=True
 - `blacksmith_techs()`
 - `monastery_techs()`
 - `university_techs()`
+- `town_center_techs()`
 
 ```py
 # Get all blacksmith/monastery/university techs
@@ -237,7 +238,10 @@ uu_castle_upgrades = TechInfo.unique_unit_upgrades(exclude_non_castle_techs=True
 all_blacksmith_techs = TechInfo.blacksmith_techs()
 feudal_blacksmith_techs = TechInfo.blacksmith_techs(Age.FEUDAL_AGE)
 non_imp_blacksmith_techs = TechInfo.blacksmith_techs([Age.FEUDAL_AGE, Age.CASTLE_AGE])
-# Same goes for TechInfo.monastery_techs(...) & TechInfo.university_techs(...)
+# Same goes for:
+#   - TechInfo.monastery_techs(...)
+#   - TechInfo.university_techs(...)
+#   - TechInfo.town_center_techs(...)
 ```
 
 - `eco_techs()`

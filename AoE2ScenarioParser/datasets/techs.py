@@ -273,7 +273,39 @@ class TechInfo(Enum):
 
     @staticmethod
     def town_center_techs(ages: Union[int, list[int]] = None):
-        pass
+        """
+        Args:
+            ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
+                ages are returned. If unspecified, all ages' techs are returned
+
+        Returns:
+            A list of TechInfo objects which are the blacksmith upgrade techs for the given age
+        """
+        ages = list(Age) if ages is None else listify(ages)
+
+        upgrades = {
+            Age.DARK_AGE: [
+                TechInfo.LOOM,
+                TechInfo.FEUDAL_AGE
+            ],
+            Age.FEUDAL_AGE: [
+                TechInfo.WHEELBARROW,
+                TechInfo.TOWN_WATCH,
+                TechInfo.CASTLE_AGE
+            ],
+            Age.CASTLE_AGE: [
+                TechInfo.HAND_CART,
+                TechInfo.TOWN_PATROL,
+                TechInfo.IMPERIAL_AGE
+            ],
+            Age.IMPERIAL_AGE: [],
+        }
+
+        techs_to_return = []
+        for age in ages:
+            techs_to_return.extend(upgrades[age])
+
+        return techs_to_return
 
     @staticmethod
     def blacksmith_techs(ages: Union[int, list[int]] = None) -> list[TechInfo]:
