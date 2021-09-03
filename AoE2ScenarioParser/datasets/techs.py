@@ -21,10 +21,10 @@ class TechInfo(Enum):
     >>> TechInfo.from_icon_id()
     >>> TechInfo.unique_techs()
     >>> TechInfo.unique_unit_upgrades()
-    >>> TechInfo.blacksmith_upgrades()
-    >>> TechInfo.monastery_upgrades()
-    >>> TechInfo.university_upgrades()
-    >>> TechInfo.eco_upgrades()
+    >>> TechInfo.blacksmith_techs()
+    >>> TechInfo.monastery_techs()
+    >>> TechInfo.university_techs()
+    >>> TechInfo.eco_techs()
 
     **Examples**
 
@@ -272,7 +272,11 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def blacksmith_upgrades(ages: Union[int, list[int]] = None) -> list[TechInfo]:
+    def town_center_techs(ages: Union[int, list[int]] = None):
+        pass
+
+    @staticmethod
+    def blacksmith_techs(ages: Union[int, list[int]] = None) -> list[TechInfo]:
         """
         Args:
             ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -315,7 +319,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def monastery_upgrades(ages: Union[int, list[int]] = None) -> list[TechInfo]:
+    def monastery_techs(ages: Union[int, list[int]] = None) -> list[TechInfo]:
         """
         Args:
             ages: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -352,7 +356,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def university_upgrades(ages: Union[int, list[int]] = None) -> list[TechInfo]:
+    def university_techs(ages: Union[int, list[int]] = None) -> list[TechInfo]:
         """
         Args:
             ages: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -392,7 +396,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def eco_upgrades(ages: Union[int, list[int]] = None, buildings: Union[int, list[int]] = None) -> list[TechInfo]:
+    def eco_techs(ages: Union[int, list[int]] = None, buildings: Union[int, list[int]] = None) -> list[TechInfo]:
         """
         Args:
             ages: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from these
