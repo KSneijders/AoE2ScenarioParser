@@ -1,5 +1,7 @@
-from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.datasets.terrains import TerrainId
+
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class TerrainTile(AoE2Object):
@@ -11,7 +13,7 @@ class TerrainTile(AoE2Object):
         RetrieverObjectLink("layer", "Map", "terrain_data[__index__].layer"),
     ]
 
-    def __init__(self, terrain_id: int, elevation: int, layer: int):
+    def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1):
         self.terrain_id = terrain_id
         self.elevation = elevation
         self.layer = layer
