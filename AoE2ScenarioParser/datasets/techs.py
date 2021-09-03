@@ -421,21 +421,21 @@ class TechInfo(Enum):
                 BuildingInfo.MILL.ID: [],
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [],
-                BuildingInfo.TOWN_CENTER.ID: [TechInfo.LOOM],
+                BuildingInfo.TOWN_CENTER.ID: [],
                 BuildingInfo.MARKET.ID: [],
             },
             Age.FEUDAL_AGE: {
                 BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_MINING, TechInfo.STONE_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.DOUBLE_BIT_AXE],
-                BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW, TechInfo.TOWN_WATCH],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW],
                 BuildingInfo.MARKET.ID: [],
             },
             Age.CASTLE_AGE: {
                 BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_SHAFT_MINING, TechInfo.STONE_SHAFT_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.BOW_SAW],
-                BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART, TechInfo.TOWN_PATROL],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART],
                 BuildingInfo.MARKET.ID: [TechInfo.COINAGE, TechInfo.CARAVAN]
             },
             Age.IMPERIAL_AGE: {
