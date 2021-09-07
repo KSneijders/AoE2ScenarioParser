@@ -9,13 +9,11 @@ def add_str_trail(string) -> str:
     return string
 
 
-def has_str_trail(string) -> bool:
-    if len(string) > 0 and string[-1] == 0:
-        return True
-    return False
+def has_str_trail(string: bytes) -> bool:
+    return len(string) > 0 and string[-1] == 0
 
 
-def del_str_trail(string) -> Union[str, bytes]:
+def del_str_trail(string: Union[str, bytes]) -> Union[str, bytes]:
     if has_str_trail(string):
         string = string[:-1]
     return string

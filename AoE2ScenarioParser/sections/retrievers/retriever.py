@@ -34,7 +34,7 @@ class Retriever:
     on_commit: RetrieverDependency
     on_refresh: RetrieverDependency
 
-    def __init__(self, name, default_value, datatype=DataType(), is_list=None, log_value=False):
+    def __init__(self, name, default_value=None, datatype=DataType(), is_list=None, log_value=False):
         """
         Args:
             name (str): The name of the item. Has to be unique within the Section or Struct
