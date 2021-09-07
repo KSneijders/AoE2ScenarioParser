@@ -2,10 +2,10 @@ from __future__ import annotations
 from enum import Enum
 from typing import Union
 
+from AoE2ScenarioParser.datasets.buildings import BuildingInfo
+
 from AoE2ScenarioParser.datasets.trigger_lists import Age
 from AoE2ScenarioParser.helper.list_functions import listify
-
-from buildings import BuildingInfo
 
 
 class TechInfo(Enum):
