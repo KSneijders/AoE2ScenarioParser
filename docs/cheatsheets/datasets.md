@@ -1,7 +1,6 @@
 # Datasets
 
-The project currently contains multiple datasets. These are currently pretty basic and only contain the in-editor
-options. You can retrieve access to the datasets by importing them.
+The project currently contains multiple datasets. You can get access to the datasets by importing them.
 
 ```py
 # Information about the conditions & effects and their attributes
