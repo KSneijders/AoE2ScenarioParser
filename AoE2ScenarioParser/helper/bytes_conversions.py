@@ -1,6 +1,10 @@
 import struct
+from typing import Union, TYPE_CHECKING
 
-from AoE2ScenarioParser.helper.string_manipulations import has_str_trail, del_str_trail, add_str_trail
+from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.helper.string_manipulations import has_str_trail, del_str_trail, q_str, \
+    trunc_bytes, add_str_trail
 
 
 def bytes_to_fixed_chars(byte_elements, codec="utf-8"):
@@ -40,21 +44,58 @@ _no_string_trail = [
 ]
 
 
-def bytes_to_str(byte_elements, codec="utf-8"):  # Removed param: retriever
-    if has_str_trail(byte_elements):
-        byte_elements = del_str_trail(byte_elements)
-        # retriever.string_end_char = True
-    try:
-        return byte_elements.decode(codec)
-    except UnicodeDecodeError:
-        return byte_elements.decode('latin-1')
+def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET)\
+        -> Union[str, bytes]:
+    """
+    Converts bytes to string based on given charset.
+
+    Args:
+        byte_elements (bytes): Bytes to be decoded to string.
+        charset (str): Main charset used to decode the bytes. Defaults settings.MAIN_CHARSET.
+        fallback_charset (str): Fallback charset used to decode the bytes when the main fails. Defaults settings.FALLBACK_CHARSET.
+
+    Returns:
+        The decoded string or the byte elements when the string cannot be decoded
+    """
+    trailless_elements = del_str_trail(byte_elements) if has_str_trail(byte_elements) else byte_elements
+
+    for c in [charset, fallback_charset]:
+        try:
+            return trailless_elements.decode(c)
+        except ValueError:
+            continue
+
+    # Return the string as bytes when it cannot be decoded.
+    # This will leave the string as-is.
+    warn(f"Unable to decode bytes using '{charset}' and '{fallback_charset}', bytes: \n\t{trunc_bytes(byte_elements, 25)}")
+    return byte_elements
 
 
-def str_to_bytes(string, retriever, codec="utf-8"):
-    # if retriever.string_end_char:
-    if retriever.name not in _no_string_trail:
-        return add_str_trail(string).encode(codec)
-    return string.encode(codec)
+def str_to_bytes(
+        string: str,
+        charset=settings.MAIN_CHARSET,
+        fallback_charset=settings.FALLBACK_CHARSET
+):
+    """
+    Converts string to bytes based on given charsets
+
+    Args:
+        string: The string to convert
+        charset: The main charset used while encoding
+        fallback_charset: The fallback charset when the main fails
+
+    Returns:
+        The converted string
+
+    Raises:
+        ValueError: When the string cannot be decoded with either of the charsets
+    """
+    for c in [charset, fallback_charset]:
+        try:
+            return string.encode(c)
+        except ValueError:
+            continue
+    raise ValueError(f"Unable to encode string using '{charset}' and '{fallback_charset}'. String:\n\t{q_str(string)}")
 
 
 def bytes_to_int(byte_elements, endian="little", signed=False):
@@ -81,22 +122,23 @@ def double_to_bytes(d):
     return struct.pack('d', d)
 
 
-# var_type_to_func = {
-#     'u': lambda val, vlen: int_to_bytes(val, vlen, signed=False),
-#     's': lambda val, vlen: int_to_bytes(val, vlen, signed=True),
-#     'c': lambda val, vlen: fixed_chars_to_bytes(val),
-#     'data': lambda val, vlen: val,
-#     'f': lambda val, vlen:  float_to_bytes(val) if vlen == 4 else double_to_bytes(val)
-# }
-
-
 def parse_val_to_bytes(retriever, val):
     var_type, var_len = retriever.datatype.type_and_length
 
     if var_type == "u" or var_type == "s":  # int
         return int_to_bytes(val, var_len, signed=(var_type == "s"))
     elif var_type == "str":  # str
-        byte_string = str_to_bytes(val, retriever)
+        try:
+            byte_string = str_to_bytes(val)
+        except AttributeError as e:
+            if type(val) is bytes:
+                byte_string = val
+            else:
+                raise e from None
+
+        if retriever.name not in _no_string_trail:
+            byte_string = add_str_trail(byte_string)
+
         return int_to_bytes(len(byte_string), var_len, endian="little", signed=True) + byte_string
     elif var_type == "c":  # str
         return fixed_chars_to_bytes(val)
@@ -118,7 +160,7 @@ def parse_bytes_to_val(retriever, byte_elements):
     if var_type == "u" or var_type == "s":
         return bytes_to_int(byte_elements, signed=(var_type == "s"))
     elif var_type == "str":
-        return bytes_to_str(byte_elements[var_len:])  # Note: Removed param 'retriever'
+        return bytes_to_str(byte_elements[var_len:])
     elif var_type == "c":
         return bytes_to_fixed_chars(byte_elements)
     elif var_type == "data":

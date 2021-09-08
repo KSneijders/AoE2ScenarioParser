@@ -1,11 +1,11 @@
-from typing import Union
+from typing import Union, Any, List
 
 
-def add_str_trail(string) -> str:
+def add_str_trail(string: bytes) -> bytes:
     if len(string) > 0:
-        string += ("\x00" if string[-1] != "\x00" else "")
+        string += (b"\x00" if string[-1] != 0 else "")
     else:
-        return "\x00"
+        return b"\x00"
     return string
 
 

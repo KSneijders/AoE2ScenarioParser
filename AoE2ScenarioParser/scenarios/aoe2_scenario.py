@@ -3,6 +3,8 @@ import zlib
 from pathlib import Path
 from typing import Union, Dict
 
+from AoE2ScenarioParser import settings
+
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser.helper.printers import s_print
@@ -144,6 +146,7 @@ class AoE2Scenario:
             if file_part.name == "FileHeader":
                 continue
             binary_list_to_be_compressed.append(self._get_file_section_data(file_part))
+
         compressed = compress_bytes(b''.join(binary_list_to_be_compressed))
 
         with open(filename, 'wb') as f:
@@ -199,7 +202,7 @@ class AoE2Scenario:
             self._object_manager.reconstruct()
 
         s_print("\nWriting structure to file...", final=True)
-        with open(filename, 'w', encoding="utf-8") as f:
+        with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:
             result = []
             for section in self.sections.values():
                 result.append(self._retrieve_byte_structure(section))

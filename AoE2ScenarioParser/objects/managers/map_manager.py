@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
