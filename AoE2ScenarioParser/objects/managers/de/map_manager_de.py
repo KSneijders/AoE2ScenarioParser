@@ -1,5 +1,7 @@
 from typing import List
 
+from deprecation import deprecated
+
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -15,7 +17,6 @@ class MapManagerDE(MapManager):
         RetrieverObjectLink("map_width", "Map", "map_width"),
         RetrieverObjectLink("map_height", "Map", "map_height"),
         RetrieverObjectLink("terrain", "Map", "terrain_data", process_as_object=TerrainTile),
-        RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
     ]
 
     def __init__(self,
@@ -25,12 +26,20 @@ class MapManagerDE(MapManager):
                  map_width: int,
                  map_height: int,
                  terrain: List[TerrainTile],
-                 script_name: str
                  ):
 
         self.map_color_mood = map_color_mood
         self.collide_and_correct = collide_and_correct
         self.villager_force_drop = villager_force_drop
-        self.script_name = script_name
 
         super().__init__(map_width, map_height, terrain)
+
+    @property
+    def script_name(self):
+        raise DeprecationWarning("The attribute script_name is handled through the xs_manager. "
+                                 "scenario.xs_manager.script_name")
+
+    @script_name.setter
+    def script_name(self, val):
+        raise DeprecationWarning("The attribute script_name is handled through the xs_manager. "
+                                 "scenario.xs_manager.script_name")
