@@ -44,8 +44,8 @@ Create a new project and file (in PyCharm). Name the file `hello_world.py`, and 
 
 Run the python code by pressing ++ctrl+shift+f10++
 
-    !!! tip "Executing python code in PyCharm"
-        ++ctrl+shift+f10++ executes the current file in PyCharm. [More info here](https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html#run).
+!!! tip "Executing python code in PyCharm"
+    ++ctrl+shift+f10++ executes the current file in PyCharm. [More info here](https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html#run).
     
     You should get a console output that looks like this:
 
