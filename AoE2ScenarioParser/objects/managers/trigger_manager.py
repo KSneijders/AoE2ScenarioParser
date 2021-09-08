@@ -4,6 +4,8 @@ import copy
 from enum import IntEnum
 from typing import List, Dict, Union
 
+from AoE2ScenarioParser.helper.printers import warn
+
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
@@ -501,8 +503,13 @@ class TriggerManager(AoE2Object):
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
         for trigger in triggers:
-            for effect in get_activation_effects(trigger):
-                effect.trigger_id = index_changes[effect.trigger_id]
+            for i, effect in enumerate(get_activation_effects(trigger)):
+                try:
+                    effect.trigger_id = index_changes[effect.trigger_id]
+                except KeyError:
+                    warn(f"(De)Activation effect {i} in trigger '{trigger.name}' refers to a trigger that wasn't included "
+                         f"in the imported triggers. Effect will be reset")
+                    effect.trigger_id = -1
 
         self.triggers += triggers
         if index != -1:
