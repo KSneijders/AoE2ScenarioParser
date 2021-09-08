@@ -1126,6 +1126,7 @@ class NewEffectSupport:
             area_y1: Union[int, None] = None,
             area_x2: Union[int, None] = None,
             area_y2: Union[int, None] = None,
+            player_color: Union[int, None] = None,
             selected_object_ids: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -1136,6 +1137,7 @@ class NewEffectSupport:
             area_y1=area_y1,
             area_x2=area_x2,
             area_y2=area_y2,
+            player_color=player_color,
             selected_object_ids=selected_object_ids,
         )
 
@@ -1146,6 +1148,7 @@ class NewEffectSupport:
             area_y1: Union[int, None] = None,
             area_x2: Union[int, None] = None,
             area_y2: Union[int, None] = None,
+            message: Union[str, None] = None,
             selected_object_ids: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -1155,6 +1158,7 @@ class NewEffectSupport:
             area_y1=area_y1,
             area_x2=area_x2,
             area_y2=area_y2,
+            message=message,
             selected_object_ids=selected_object_ids,
         )
 
@@ -1167,6 +1171,7 @@ class NewEffectSupport:
             area_y1: Union[int, None] = None,
             area_x2: Union[int, None] = None,
             area_y2: Union[int, None] = None,
+            message: Union[str, None] = None,
             selected_object_ids: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -1178,6 +1183,7 @@ class NewEffectSupport:
             area_y1=area_y1,
             area_x2=area_x2,
             area_y2=area_y2,
+            message=message,
             selected_object_ids=selected_object_ids,
         )
 

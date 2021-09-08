@@ -1838,6 +1838,7 @@ class HeroStatusFlag(IntEnum):
     >>> ObjectType.OTHER
     >>> 1
     """
+
     @staticmethod
     def combine(
             full_hero_status: bool = False,
@@ -1951,7 +1952,8 @@ class BlastLevel(IntEnum):
     Only works for infantry units, reduces blast damage done based on distance
     """
 
-class SmartPorjectile(IntEnum):
+
+class SmartProjectile(IntEnum):
     """
     This enum class provides the integer values used to reference the smart projectile flag values used in the game. Used in the
     'Modify Attribute' effect with the 'Enable Smart Projectile' attribute
@@ -1963,6 +1965,7 @@ class SmartPorjectile(IntEnum):
     """
     ENABLED = 1
     FULL_DAMAGE_ON_MISSED_HIT = 2
+
 
 class DamageClass(IntEnum):
     """
@@ -2139,3 +2142,20 @@ class ObjectState(IntEnum):
     DEAD = 5
     UNDEAD = 6
     REMOVE = 7
+
+
+class Age(IntEnum):
+    """
+    This enum class provides the integer values used to reference the different ages in the game. These values are
+    used by the 'Current Age' player resource
+
+    **Examples**
+
+    >>> Age.IMPERIAL_AGE
+    >>> 3
+    """
+
+    DARK_AGE = 0
+    FEUDAL_AGE = 1
+    CASTLE_AGE = 2
+    IMPERIAL_AGE = 3

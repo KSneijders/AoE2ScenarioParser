@@ -4,6 +4,10 @@ import copy
 from enum import IntEnum
 from typing import List, Dict, Union
 
+from AoE2ScenarioParser.helper.printers import warn
+
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
@@ -499,8 +503,13 @@ class TriggerManager(AoE2Object):
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
         for trigger in triggers:
-            for effect in get_activation_effects(trigger):
-                effect.trigger_id = index_changes[effect.trigger_id]
+            for i, effect in enumerate(get_activation_effects(trigger)):
+                try:
+                    effect.trigger_id = index_changes[effect.trigger_id]
+                except KeyError:
+                    warn(f"(De)Activation effect {i} in trigger '{trigger.name}' refers to a trigger that wasn't included "
+                         f"in the imported triggers. Effect will be reset")
+                    effect.trigger_id = -1
 
         self.triggers += triggers
         if index != -1:
@@ -601,8 +610,6 @@ class TriggerManager(AoE2Object):
         for trigger_index in self.trigger_display_order:
             return_string += self.get_trigger_as_string(trigger_index) + "\n"
 
-        return_string += "Variables:\n"
-
         return return_string
 
     def get_trigger_as_string(self, trigger_select: Union[int, TriggerSelect]) -> str:
@@ -611,7 +618,7 @@ class TriggerManager(AoE2Object):
         return_string = "\t'" + trigger.name + "'"
         return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display_index) + "]" + ":\n"
 
-        return_string += trigger.get_content_as_string()
+        return_string += add_tabs(trigger.get_content_as_string(include_trigger_definition=False), 2)
 
         return return_string
 
@@ -643,6 +650,9 @@ class TriggerManager(AoE2Object):
             effect.trigger_id for effect in trigger.effects if
             effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
         ]
+
+    def __str__(self) -> str:
+        return self.get_content_as_string()
 
 
 def get_activation_effects(trigger: Trigger) -> List[Effect]:

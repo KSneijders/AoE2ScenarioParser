@@ -11,10 +11,7 @@ def list_changed(lst, lst_hash):
 
 def listify(var) -> list:
     """Always return item as list"""
-    if type(var) is list:
-        return var
-    else:
-        return [var]
+    return var if type(var) is list else [var]
 
 
 def update_order_array(order_array: List[int], supposed_length: int) -> None:
@@ -35,3 +32,10 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
         for i in range(supposed_length):
             if i not in order_array:
                 order_array.append(i)
+
+
+# Written by: Ned Batchelder @ https://stackoverflow.com/a/312464/7230293
+def list_chuncks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]

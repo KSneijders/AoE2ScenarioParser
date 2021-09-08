@@ -9,3 +9,9 @@ DISABLE_WARNINGS = False
 """Disable all warnings thrown by the printers.warn function."""
 RAISE_ERROR_ON_WARNING = False
 """Raise an error when a warning should be shown. Handy for debugging, shows you the stacktrace."""
+
+# Charset settings
+MAIN_CHARSET = "utf-8"
+"""The charset used to decode the test in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""
+FALLBACK_CHARSET = "latin-1"
+"""The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails."""

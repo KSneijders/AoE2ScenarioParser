@@ -397,6 +397,9 @@ class NewConditionSupport:
             self,
             unit_object: Union[int, None] = None,
             next_object: Union[int, None] = None,
+            object_list: Union[int, None] = None,
+            object_group: Union[int, None] = None,
+            object_type: Union[int, None] = None,
             inverted: Union[int, None] = None,
             unit_ai_action: Union[int, None] = None,
     ) -> Condition:
@@ -404,6 +407,9 @@ class NewConditionSupport:
             ConditionId.OBJECT_HAS_ACTION,
             unit_object=unit_object,
             next_object=next_object,
+            object_list=object_list,
+            object_group=object_group,
+            object_type=object_type,
             inverted=inverted,
             unit_ai_action=unit_ai_action,
         )

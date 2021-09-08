@@ -3,7 +3,10 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
+from AoE2ScenarioParser.helper.attr_presentation import transform_condition_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
+from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -86,6 +89,14 @@ class Condition(AoE2Object):
         if area_y2 == -1 and area_y1 != -1:
             area_y2 = area_y1
 
+        # Fix, not allowed for x1 > x2 & y1 > y2
+        if area_x1 > area_x2:
+            area_x1, area_x2 = area_x2, area_x1
+            warn("Swapping 'area_x1' and 'area_x2' values. Attribute 'area_x1' cannot be higher than 'area_x2'")
+        if area_y1 > area_y2:
+            area_y1, area_y2 = area_y2, area_y1
+            warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
+
         self.condition_type: int = condition_type
         self.quantity: int = quantity
         self.attribute: int = attribute
@@ -112,7 +123,7 @@ class Condition(AoE2Object):
 
         super().__init__()
 
-    def get_content_as_string(self) -> str:
+    def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.condition_type not in conditions.attributes:
             attributes_list = conditions.empty_attributes
         else:
@@ -120,12 +131,18 @@ class Condition(AoE2Object):
 
         return_string = ""
         for attribute in attributes_list:
-            attr = getattr(self, attribute)
-            if attribute == "condition_type" or attr in [[], [-1], [''], "", " ", -1]:
+            val = getattr(self, attribute)
+            if attribute == "condition_type" or val in [[], [-1], [''], "", " ", -1]:
                 continue
-            return_string += "\t\t\t\t" + attribute + ": " + str(attr) + "\n"
+            return_string += f"{attribute}: {transform_condition_attr_value(self.condition_type, attribute, val)}\n"
 
         if return_string == "":
-            return "\t\t\t\t<< No Attributes >>\n"
+            return "<< No Attributes >>\n"
+
+        if include_effect_definition:
+            return f"{conditions.condition_names[self.condition_type]}:\n{add_tabs(return_string, 1)}"
 
         return return_string
+
+    def __str__(self):
+        return f"[Condition] {self.get_content_as_string(include_effect_definition=True)}"

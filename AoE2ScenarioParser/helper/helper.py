@@ -1,9 +1,10 @@
 import math
-from enum import IntEnum, Enum
+from enum import Enum
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
+from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.helper import exceptions
 
@@ -25,23 +26,18 @@ def i_to_xy(i, map_size):
 =============================================================="""
 
 
-def get_enum_from_unit_const(const: int) -> IntEnum:
+def get_enum_from_unit_const(const: int) -> InfoDatasetBase:
     """
     Returns an Enum corresponding with the given Const.
 
     Arguments:
         const: The constant representing a unit
     """
-    enums = [
-        UnitInfo,
-        BuildingInfo,
-        HeroInfo,
-        OtherInfo
-    ]
+    enums = [UnitInfo, BuildingInfo, HeroInfo, OtherInfo]
     for enum in enums:
         try:
             return enum.from_id(const)
-        except ValueError:
+        except (ValueError, KeyError):
             continue
 
 

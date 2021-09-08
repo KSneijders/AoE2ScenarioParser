@@ -4,7 +4,6 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.helper.exceptions import EndOfFileError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.list_functions import listify
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
@@ -105,7 +104,7 @@ def handle_end_of_file_mark(igenerator, retriever) -> None:
             ">>> from AoE2ScenarioParser import settings",
             ">>> settings.NOTIFY_UNKNOWN_BYTES = False",
             "",
-            "Please be so kind and include the map in question. Thanks again!\n\n",
+            "Please be so kind and include the map in question. Thanks again!",
             "",
             "Extra data found in the file:",
             f"\t'{retrieved_bytes}'"

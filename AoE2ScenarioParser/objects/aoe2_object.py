@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 
 class AoE2Object:
     _link_list: List[RetrieverObjectLink] = []
-    # _overwritten_attributes = []
 
     def __init__(self, **kwargs):
         self._instance_number_history = []

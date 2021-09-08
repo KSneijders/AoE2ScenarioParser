@@ -27,13 +27,16 @@ class Test(TestCase):
         self.assertEqual(bytes_to_str(latin1_zero_char), 'latin-1 encoded string > éáû')
         self.assertEqual(bytes_to_str(utf8_zero_char), 'utf-8 encoded string > éáû')
 
-    def test_str_to_bytes(self):
-        with_char = Retriever('not-a-filename', '', DataType('str16'))  # Should get \x00 trail
-        without_char = Retriever('filename', '', DataType('str16'))  # Should not get \x00 trail
+        # When not able to decode using a given charset, it *should* give the input back as-is.
+        settings.DISABLE_WARNINGS = True
+        self.assertEqual(bytes_to_str(latin1, charset='ascii', fallback_charset='ascii'), latin1)
+        self.assertEqual(bytes_to_str(utf8_zero_char, charset='ascii', fallback_charset='ascii'), utf8_zero_char)
+        settings.DISABLE_WARNINGS = False
 
-        s = 'Test String'
-        self.assertEqual(str_to_bytes(s, with_char), b'Test String\x00')
-        self.assertEqual(str_to_bytes(s, without_char), b'Test String')
+    def test_str_to_bytes(self):
+        self.assertEqual(str_to_bytes('Test String'), b'Test String')
+
+        self.assertRaises(AttributeError, lambda x: str_to_bytes(x), b'Test String')
 
     def test_bytes_to_int(self):
         self.assertEqual(bytes_to_int(b'\x20\x81', signed=True), -32480)
@@ -74,6 +77,7 @@ class Test(TestCase):
         self.assertEqual(parse_val_to_bytes(retriever, -1), b'\xff\xff')
         retriever.datatype = DataType("str16")
         self.assertEqual(parse_val_to_bytes(retriever, "Hello World"), b'\x0c\x00Hello World\x00')
+        self.assertEqual(parse_val_to_bytes(retriever, b"Hello World"), b'\x0c\x00Hello World\x00')
         retriever.datatype = DataType("c20")
         self.assertEqual(parse_val_to_bytes(retriever, "Hello World"), b'Hello World')
         retriever.datatype = DataType("20")

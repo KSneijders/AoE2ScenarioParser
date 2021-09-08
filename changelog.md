@@ -6,6 +6,53 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.22 - 2021-September-08
+
+### Added
+
+- The **XS Manager**.
+  - Can be used to add XS to a script call effect. This way XS can be transfered between lobbies.
+  - Check out the XS cheatsheet [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs/)!
+- A **Hello World** example for the parser. You can find it [here](https://ksneijders.github.io/AoE2ScenarioParser/hello_world/).
+- `__str__` functions to `TriggerManaer`, `Trigger`, `Effect` and `Condition`
+  - You can now do: `print(trigger_manager)` instead of `print(trigger_manager.get_content_as_string())`
+- Value representations in `get_content_as_string()`. Shows dataset numerical values as dataset names.
+  - `object_list_unit_id: 4` now shows as: `object_list_unit_id: Archer (4)`
+  - `technology: 12` now shows as: `technology: Crop Rotation (12)`
+  - `operation: 3` now shows as: `operation: Subtract (3)`
+- Swapping coords when adding effects/conditions with `x1`>`x2` or `y1`>`y2` + warning about it.
+- 5 New functions to `TechInfo` (all with filter params). -- [#31] (Alian713)
+  - `blacksmith_techs()`
+  - `university_techs()`
+  - `monastery_techs()`
+  - `town_center_techs()`
+  - `eco_techs()`
+- `Age` dataset to `trigger_lists`. -- [#31] (Alian713)
+- `MAIN_CHARSET` and `FALLBACK_CHARSET` to the settings.
+  - Can be used to read scenario text in other charsets than the default `utf-8` and `latin-1` fallback.
+
+[#31]: https://github.com/KSneijders/AoE2ScenarioParser/pull/31
+
+### Fixed
+
+- Typo - `SmartPorjectile` to `SmartProjectile`
+- Missing several parameters for specific effects and conditions in `new_effect` and `new_condition`
+- Missing several attributes for specific effects and conditions when using `get_content_as_string()`
+- `effect.player_color` resulting in the wrong color when assigned using `PlayerId` or `PlayerColorId`
+- Functions in `unit_manager` requiring `PlayerId`. Just an `int` is also possible now.
+- Issue with resizing the map.
+- Issue with importing triggers that had activation effects referencing triggers that were not imported.
+
+### Moved
+
+- The `script_name` (for XS scripts) attribute from the `MapManager` to the `XsManager`
+
+### Removed
+
+- The `BiDict` dependency from the entire project
+
+---
+
 ## 0.1.21 - 2021-August-28
 
 Special thanks to **Alian** for his contribution to the datasets! <3

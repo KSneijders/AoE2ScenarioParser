@@ -4,10 +4,13 @@ from typing import List, Tuple
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
+from AoE2ScenarioParser.helper.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -157,7 +160,7 @@ class Effect(AoE2Object):
         # HANDLE ARMOUR EFFECT ATTRIBUTES
         if self._armour_attack_flag:
             # If effect created through new_effect
-            if armour_attack_class not in [-1, None] or armour_attack_quantity not in [None, -1]:
+            if armour_attack_class not in [-1, None] or armour_attack_quantity not in [-1, None]:
                 quantity = None
             # If effect created through reading
             elif quantity is not None:
@@ -171,6 +174,14 @@ class Effect(AoE2Object):
             area_x2 = area_x1
         if area_y2 == -1 and area_y1 != -1:
             area_y2 = area_y1
+
+        # Fix, not allowed for x1 > x2 & y1 > y2
+        if area_x1 > area_x2:
+            area_x1, area_x2 = area_x2, area_x1
+            warn("Swapping 'area_x1' and 'area_x2' values. Attribute 'area_x1' cannot be higher than 'area_x2'")
+        if area_y1 > area_y2:
+            area_y1, area_y2 = area_y2, area_y1
+            warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
 
         # Bypass the @property which causes: self._update_armour_attack_flag()
         self._effect_type: int = effect_type
@@ -225,6 +236,16 @@ class Effect(AoE2Object):
         self.selected_object_ids: List[int] = selected_object_ids
 
         super().__init__()
+
+    @property
+    def player_color(self):
+        return self._player_color
+
+    @player_color.setter
+    def player_color(self, value):
+        if type(value) in [PlayerColorId, PlayerId]:
+            value -= 1
+        self._player_color = value
 
     @property
     def item_id(self):
@@ -299,7 +320,7 @@ class Effect(AoE2Object):
         val = listify(val)
         self._selected_object_ids = val
 
-    def get_content_as_string(self) -> str:
+    def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.effect_type not in effects.attributes:  # Unknown effect
             attributes_list = effects.empty_attributes
         else:
@@ -307,23 +328,29 @@ class Effect(AoE2Object):
 
         return_string = ""
         for attribute in attributes_list:
-            attribute_value = getattr(self, attribute)
-            if attribute == "effect_type" or attribute_value in [[], [-1], "", " ", -1]:
+            val = getattr(self, attribute)
+            if attribute == "effect_type" or val in [[], [-1], "", " ", -1]:
                 continue
             # Ignore the quantity value in the print statement when flag is True.
             if self._armour_attack_flag and attribute == "quantity":
                 continue
             if attribute in ["armour_attack_quantity", "armour_attack_class"] and not self._armour_attack_flag:
                 continue
-            return_string += "\t\t\t\t" + attribute + ": " + str(attribute_value) + "\n"
+            # return_string += "" + attribute + ": " + str(val) + "\n"
+            return_string += f"{attribute}: {transform_effect_attr_value(self.effect_type, attribute, val)}\n"
 
         if return_string == "":
-            return "\t\t\t\t<< No Attributes >>\n"
+            return "<< No Attributes >>\n"
 
+        if include_effect_definition:
+            return f"{effects.effect_names[self.effect_type]}:\n{add_tabs(return_string, 1)}"
         return return_string
 
     def _update_armour_attack_flag(self):
         self._armour_attack_flag = _set_armour_attack_flag(self.effect_type, self.object_attributes)
+
+    def __str__(self):
+        return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"
 
 
 def _set_armour_attack_flag(effect_type, object_attributes) -> bool:

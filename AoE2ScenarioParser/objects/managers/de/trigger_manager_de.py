@@ -76,6 +76,8 @@ class TriggerManagerDE(TriggerManager):
     def get_content_as_string(self) -> str:
         return_string = super().get_content_as_string()
 
+        return_string += "Variables:\n"
+
         if len(self.variables) == 0:
             return_string += "\t<<No Variables>>\n"
 

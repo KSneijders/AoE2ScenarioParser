@@ -3,6 +3,8 @@ import zlib
 from pathlib import Path
 from typing import Union, Dict
 
+from AoE2ScenarioParser import settings
+
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser.helper.printers import s_print
@@ -144,6 +146,7 @@ class AoE2Scenario:
             if file_part.name == "FileHeader":
                 continue
             binary_list_to_be_compressed.append(self._get_file_section_data(file_part))
+
         compressed = compress_bytes(b''.join(binary_list_to_be_compressed))
 
         with open(filename, 'wb') as f:
@@ -199,7 +202,7 @@ class AoE2Scenario:
             self._object_manager.reconstruct()
 
         s_print("\nWriting structure to file...", final=True)
-        with open(filename, 'w', encoding="utf-8") as f:
+        with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:
             result = []
             for section in self.sections.values():
                 result.append(self._retrieve_byte_structure(section))
@@ -222,18 +225,28 @@ def initialise_version_dependencies(game_version, scenario_version):
     for condition_id, structure in condition_json.items():
         condition_id = int(condition_id)
 
+        if condition_id == -1:
+            conditions.attribute_presentation[condition_id] = structure['attribute_presentation']
+            continue
+
         conditions.condition_names[condition_id] = structure['name']
         conditions.default_attributes[condition_id] = structure['default_attributes']
         conditions.attributes[condition_id] = structure['attributes']
+        conditions.attribute_presentation[condition_id] = structure.get('attribute_presentation', {})
 
     effect_json = get_version_dependant_structure_file(game_version, scenario_version, "effects")
 
     for effect_id, structure in effect_json.items():
         effect_id = int(effect_id)
 
+        if effect_id == -1:
+            effects.attribute_presentation[effect_id] = structure['attribute_presentation']
+            continue
+
         effects.effect_names[effect_id] = structure['name']
         effects.default_attributes[effect_id] = structure['default_attributes']
         effects.attributes[effect_id] = structure['attributes']
+        effects.attribute_presentation[effect_id] = structure.get('attribute_presentation', {})
 
 
 def get_file_version(generator: IncrementalGenerator):

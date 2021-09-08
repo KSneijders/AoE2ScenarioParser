@@ -1,11 +1,22 @@
 # AoE2ScenarioParser
 
-This is a project for editing parts of an `aoe2scenario` file from **Age of Empires 2 Definitive Edition** outside of
+This is a project for editing parts of an `aoe2scenario` file from **Age of Empires 2 Definitive Edition** outside
 the in-game editor.
 
-Documentation can be found on [GitHub Pages].
+# Getting started
+
+## Documentation
+
+Documentation can be found on **[GitHub Pages]**.
 
 [GitHub Pages]: https://ksneijders.github.io/AoE2ScenarioParser/
+
+## Quick links
+
+- [Installing AoE2ScenarioParser](https://ksneijders.github.io/AoE2ScenarioParser/installation/)
+- [Getting Started](https://ksneijders.github.io/AoE2ScenarioParser/getting_started/)
+- [Hello World Example](https://ksneijders.github.io/AoE2ScenarioParser/hello_world/)
+- [Discord Server](https://discord.gg/DRUtmugXT3)
 
 # Discord
 

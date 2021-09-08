@@ -7,12 +7,14 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
+from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
 
 managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
     'DE': {
         'Map': MapManagerDE,
         'Unit': UnitManagerDE,
         'Trigger': TriggerManagerDE,
+        'Xs': XsManagerDE,
     }
 }
 
@@ -31,6 +33,8 @@ class AoE2ObjectManager:
             s_print(f"\t🔄 Setting up {name}Manager...", color="yellow")
             self.managers[name] = manager._construct(self.scenario_version, self.sections)
             s_print(f"\t✔ {name}Manager", final=True, color="green")
+
+        self.managers['Xs']._tm = self.managers['Trigger']
 
         s_print(f"Setting up managers finished successfully.", final=True)
 

@@ -1,7 +1,5 @@
 from enum import IntEnum
 
-from bidict import bidict
-
 
 class ConditionId(IntEnum):
     """
@@ -286,6 +284,7 @@ empty_attributes = {
 }
 
 # Set using the version json files
-condition_names = bidict()
+condition_names = {}
 default_attributes = {}
 attributes = {}
+attribute_presentation = {}
