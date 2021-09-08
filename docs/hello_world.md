@@ -46,7 +46,6 @@ Run the python code by pressing ++ctrl+shift+f10++
 
 !!! tip "Executing python code in PyCharm"
     ++ctrl+shift+f10++ executes the current file in PyCharm. [More info here](https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html#run).
-    
 
 You should get a console output that looks like this:
 
@@ -200,7 +199,7 @@ from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
 # The path to your scenario folder
-input_folder = "C:\\Users\\Kerwin Sneijders\\Games\\Age of Empires 2 DE\\76561198140740017\\resources\\_common\\scenario\\"
+input_folder = "C:/path/to/your/scenario/folder/"
 
 # The scenario object.
 scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
