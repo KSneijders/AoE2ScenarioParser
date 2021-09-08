@@ -21,6 +21,7 @@ class TechInfo(Enum):
     >>> TechInfo.from_icon_id()
     >>> TechInfo.unique_techs()
     >>> TechInfo.unique_unit_upgrades()
+    >>> TechInfo.town_center_techs()
     >>> TechInfo.blacksmith_techs()
     >>> TechInfo.monastery_techs()
     >>> TechInfo.university_techs()
