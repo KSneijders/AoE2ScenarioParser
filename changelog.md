@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.23 - 2021-September-09
+
+### Added
+
+- Warning about python minimum requirement being moved from `3.6` to `3.8`.
+- Setting to disable the python minimum requirement warning.
+
+### Fixed
+
+- Issue caused by referencing unit IDs not included in the datasets
+
+---
+
 ## 0.1.22 - 2021-September-08
 
 ### Added
