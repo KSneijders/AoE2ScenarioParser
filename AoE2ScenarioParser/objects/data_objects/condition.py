@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.attr_presentation import transform_condition_attr_value
+from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
