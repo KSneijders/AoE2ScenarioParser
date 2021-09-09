@@ -3,15 +3,15 @@ import zlib
 from pathlib import Path
 from typing import Union, Dict
 
-from AoE2ScenarioParser import settings
-
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
-from AoE2ScenarioParser.helper.printers import s_print
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+from AoE2ScenarioParser.helper.printers import s_print
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
+from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
@@ -47,6 +47,8 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(cls, filename, game_version):
+        python_version_check()
+
         s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
         s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
