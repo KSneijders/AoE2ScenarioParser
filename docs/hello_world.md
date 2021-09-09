@@ -18,15 +18,15 @@ Create an empty scenario in the editor and save it as "hello world"
 
 Create a new project and file (in PyCharm). Name the file `hello_world.py`, and copy the code below into `hello_world.py`
 
-    ```py
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+```py
+from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
-    # The path to your scenario folder
-    input_folder = "C:/path/to/your/scenario/folder/"
+# The path to your scenario folder
+input_folder = "C:/path/to/your/scenario/folder/"
 
-    # The scenario object. 
-    scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
-    ```
+# The scenario object. 
+scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
+```
 
 ### 3. Getting the scenario path
 
@@ -49,19 +49,19 @@ Run the python code by pressing ++ctrl+shift+f10++
 
 You should get a console output that looks like this:
 
-    ```md
-    Reading file: 'YOUR FILE PATH' 
-    Reading scenario file finished successfully.
-    ############### Attributes ###############
-    >>> Game version: 'DE'
-    >>> Scenario version: 1.43
-    ##########################################
-    Loading scenario structure finished successfully.
-    Parsing scenario file...
-        ✔ FileHeader
-        ✔ DataHeader
-    ...
-    ```
+```md
+Reading file: 'YOUR FILE PATH' 
+Reading scenario file finished successfully.
+############### Attributes ###############
+>>> Game version: 'DE'
+>>> Scenario version: 1.43
+##########################################
+Loading scenario structure finished successfully.
+Parsing scenario file...
+    ✔ FileHeader
+    ✔ DataHeader
+...
+```
 
 ### 5. Adding a trigger
 
