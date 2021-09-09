@@ -86,15 +86,11 @@ def transform_value_by_representation(representation, value):
     try:
         if representation in _datasets:
             return _datasets[representation](value).name, True
-        elif representation in _combined_info_datasets:
-            enum_entry = get_enum_from_unit_const(value)
-            if enum_entry is not None:
-                return enum_entry.name, True
-            return f"Unknown", False
-        elif representation in _other_info_datasets:
+        if representation in _combined_info_datasets:
+            return get_enum_from_unit_const(value).from_id(value).name, True
+        if representation in _other_info_datasets:
             return _other_info_datasets[representation].from_id(value).name, True
-        elif representation in _other:
+        if representation in _other:
             return _other[representation](value), False
     except KeyError:
-        return f"Unknown", False
-    return None
+        return f"Unknown{value}", False

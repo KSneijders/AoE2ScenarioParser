@@ -1,6 +1,5 @@
 import math
 from enum import Enum
-from typing import Union
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
@@ -27,7 +26,7 @@ def i_to_xy(i, map_size):
 =============================================================="""
 
 
-def get_enum_from_unit_const(const: int) -> Union[InfoDatasetBase, None]:
+def get_enum_from_unit_const(const: int) -> InfoDatasetBase:
     """
     Returns an Enum corresponding with the given Const.
 
@@ -40,7 +39,6 @@ def get_enum_from_unit_const(const: int) -> Union[InfoDatasetBase, None]:
             return enum.from_id(const)
         except (ValueError, KeyError):
             continue
-    return None
 
 
 def get_int_len(num):

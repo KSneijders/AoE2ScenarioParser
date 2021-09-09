@@ -4,14 +4,19 @@ import copy
 from enum import IntEnum
 from typing import List, Dict, Union
 
+from AoE2ScenarioParser.helper.printers import warn
+
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+
+from AoE2ScenarioParser.objects.data_objects.effect import Effect
+
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
+
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.list_functions import hash_list, list_changed, update_order_array
-from AoE2ScenarioParser.helper.printers import warn
-from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect, TS
