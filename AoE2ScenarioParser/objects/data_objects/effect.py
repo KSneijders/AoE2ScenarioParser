@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.helper.attr_presentation import transform_effect_attr_value
+from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
@@ -334,9 +334,9 @@ class Effect(AoE2Object):
             # Ignore the quantity value in the print statement when flag is True.
             if self._armour_attack_flag and attribute == "quantity":
                 continue
-            if attribute in ["armour_attack_quantity", "armour_attack_class"] and not self._armour_attack_flag:
+            if not self._armour_attack_flag and attribute in ["armour_attack_quantity", "armour_attack_class"]:
                 continue
-            # return_string += "" + attribute + ": " + str(val) + "\n"
+
             return_string += f"{attribute}: {transform_effect_attr_value(self.effect_type, attribute, val)}\n"
 
         if return_string == "":
