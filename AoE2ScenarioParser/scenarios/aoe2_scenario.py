@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 import zlib
 from pathlib import Path
@@ -20,6 +21,9 @@ from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Scenario:
+    """
+    All scenario objects are derived from this class
+    """
     @property
     def trigger_manager(self) -> TriggerManager:
         return self._object_manager.managers['Trigger']
@@ -47,6 +51,16 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(cls, filename, game_version):
+        """
+        This function creates and returns an instance of the AoE2Scenario class from the given scenario file
+
+        Args:
+            filename (str): The path to the scenario file to create the object from
+            game_version (str): Currently, only 'DE' can be used as no other game version is supported
+
+        Returns:
+            An instance of the AoE2Scenario class which is the object representation of the given scenario file
+        """
         python_version_check()
 
         s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
@@ -251,8 +265,16 @@ def initialise_version_dependencies(game_version, scenario_version):
         effects.attribute_presentation[effect_id] = structure.get('attribute_presentation', {})
 
 
-def get_file_version(generator: IncrementalGenerator):
-    """Get first 4 bytes of a file, which contains the version of the scenario"""
+def get_file_version(generator: IncrementalGenerator) -> str:
+    """
+    Get first 4 bytes of a file, which contains the version of the scenario
+
+    Args:
+        generator: An IncrementalGenerator object of a scenario file
+
+    Returns: A string which is the version of the scenario file
+
+    """
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
 
