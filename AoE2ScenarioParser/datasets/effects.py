@@ -1,7 +1,5 @@
 from enum import IntEnum
 
-from bidict import bidict
-
 
 class EffectId(IntEnum):
     """
