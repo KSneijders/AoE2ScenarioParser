@@ -63,9 +63,9 @@ class MapManager(AoE2Object):
             chunck_gen = list_chuncks(self.terrain, old_size)
             for index in range(new_size):
                 if index < old_size:
-                    row = next(chunck_gen) + ([TerrainTile()] * difference)
+                    row = next(chunck_gen) + [TerrainTile() for _ in range(difference)]
                 else:
-                    row = [TerrainTile()] * new_size
+                    row = [TerrainTile() for _ in range(new_size)]
                 new_terrain.extend(row)
         self.terrain = new_terrain
 
