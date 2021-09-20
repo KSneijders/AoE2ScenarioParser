@@ -14,6 +14,15 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/KSneijders/AoE2ScenarioParser",
     packages=setuptools.find_namespace_packages(),
+
+    # According to the docs glob patterns are allowed.
+    # But when using: "versions/**/*.json", it does not work.
+    package_data={
+        'AoE2ScenarioParser': [
+            'datasets/sources/*.json',
+            'versions/*/*/*.json'
+        ],
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
