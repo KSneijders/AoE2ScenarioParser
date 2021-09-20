@@ -1,5 +1,6 @@
 import json
 import zlib
+import uuid
 from pathlib import Path
 from typing import Union, Dict
 
@@ -16,6 +17,7 @@ from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.scenarios import scenario_store
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
@@ -44,6 +46,9 @@ class AoE2Scenario:
         self._file = None
         self._file_header = None
         self._decompressed_file_data = None
+
+        self.uuid = uuid.uuid4()
+        scenario_store.register_scenario(self)
 
     @classmethod
     def from_file(cls, filename, game_version):
@@ -76,11 +81,7 @@ class AoE2Scenario:
         scenario._load_content_sections(igenerator)
         s_print(f"Parsing scenario file finished successfully.", final=True)
 
-        scenario._object_manager = AoE2ObjectManager(
-            sections=scenario.sections,
-            game_version=scenario.game_version,
-            scenario_version=scenario.scenario_version
-        )
+        scenario._object_manager = AoE2ObjectManager(scenario.uuid)
         scenario._object_manager.setup()
 
         return scenario
@@ -112,7 +113,7 @@ class AoE2Scenario:
 
     def _create_and_load_section(self, name, igenerator):
         s_print(f"\t🔄 Parsing {name}...", color="yellow")
-        section = AoE2FileSection.from_structure(name, self.structure.get(name))
+        section = AoE2FileSection.from_structure(name, self.structure.get(name), self.uuid)
         s_print(f"\t🔄 Gathering {name} data...", color="yellow")
         section.set_data_from_generator(igenerator, self.sections)
         s_print(f"\t✔ {name}", final=True, color="green")
