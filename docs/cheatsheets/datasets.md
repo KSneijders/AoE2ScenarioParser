@@ -69,7 +69,7 @@ remember. That's why these datasets have been added:
 |        Names        |                                  Explanation                                   |              Example               |
 | ------------------- | ------------------------------------------------------------------------------ | ---------------------------------- |
 | DiplomacyState      | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.     | `DiplomacyState.ALLY`              |
-| Operation           | Used in many effects. Generally related to variables.                          | `Operator.MULTIPLY`                |
+| Operation           | Used in many effects. Generally related to variables.                          | `Operation.MULTIPLY`               |
 | ButtonLocation *    | Used in the `Change Research Location` and `Change Train Location` effects. *  | `ButtonLocation.r2c3`              |
 | PanelLocation       | Used in the `Display Instructions` effect.                                     | `PanelLocation.CENTER`             |
 | TimeUnit            | Used in the `Display Timer` effect.                                            | `TimeUnit.YEARS`                   |
