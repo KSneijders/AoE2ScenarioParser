@@ -36,7 +36,8 @@ class Unit(AoE2Object):
                  status: int,
                  rotation: float,
                  initial_animation_frame: int,
-                 garrisoned_in_id: int
+                 garrisoned_in_id: int,
+                 **kwargs
                  ):
         raise_if_not_int_subclass([unit_const])
 
@@ -58,7 +59,7 @@ class Unit(AoE2Object):
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def player(self) -> PlayerId:

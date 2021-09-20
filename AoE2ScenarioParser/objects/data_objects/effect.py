@@ -148,6 +148,7 @@ class Effect(AoE2Object):
                  message: str = None,
                  sound_name: str = None,
                  selected_object_ids: List[int] = None,
+                 **kwargs
                  ):
         raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
 
@@ -235,7 +236,7 @@ class Effect(AoE2Object):
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def player_color(self):

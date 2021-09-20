@@ -16,10 +16,10 @@ class UnitManager(AoE2Object):
         RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)
     ]
 
-    def __init__(self, units: List[List[Unit]]):
+    def __init__(self, units: List[List[Unit]], **kwargs):
         self.units = units
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def units(self):

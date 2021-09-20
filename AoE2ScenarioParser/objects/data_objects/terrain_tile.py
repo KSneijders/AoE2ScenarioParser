@@ -13,9 +13,9 @@ class TerrainTile(AoE2Object):
         RetrieverObjectLink("layer", "Map", "terrain_data[__index__].layer"),
     ]
 
-    def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1):
+    def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1, **kwargs):
         self.terrain_id = terrain_id
         self.elevation = elevation
         self.layer = layer
 
-        super().__init__()
+        super().__init__(**kwargs)

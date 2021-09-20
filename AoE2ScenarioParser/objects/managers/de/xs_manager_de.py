@@ -19,14 +19,14 @@ class XsManagerDE(AoE2Object):
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
     ]
 
-    def __init__(self, script_name: str):
+    def __init__(self, script_name: str, **kwargs):
         self._script_name = script_name
 
         # Reference to the trigger manager. Injected by the object manager.
         self._trigger_manager: Union[TriggerManagerDE, None] = None
         self.xs_trigger: Union[Trigger, None] = None
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def script_name(self):

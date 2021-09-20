@@ -21,12 +21,13 @@ class MapManager(AoE2Object):
     def __init__(self,
                  map_width: int,
                  map_height: int,
-                 terrain: List[TerrainTile]
+                 terrain: List[TerrainTile],
+                 **kwargs
                  ):
         self._map_width = map_width
         self._map_height = map_height
         self.terrain = terrain
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def map_width(self) -> int:

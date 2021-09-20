@@ -10,5 +10,5 @@ class UnitManagerDE(UnitManager):
         RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)
     ]
 
-    def __init__(self, units: List[List[Unit]]):
-        super().__init__(units)
+    def __init__(self, units: List[List[Unit]], **kwargs):
+        super().__init__(units, **kwargs)

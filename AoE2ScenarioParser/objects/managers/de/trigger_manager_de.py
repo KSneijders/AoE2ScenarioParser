@@ -14,10 +14,10 @@ class TriggerManagerDE(TriggerManager):
         RetrieverObjectLink("variables", "Triggers", "variable_data", process_as_object=Variable),
     ]
 
-    def __init__(self, triggers: List[Trigger], trigger_display_order: List[int], variables: List[Variable]):
+    def __init__(self, triggers: List[Trigger], trigger_display_order: List[int], variables: List[Variable], **kwargs):
         self.variables: List[Variable] = variables
 
-        super().__init__(triggers, trigger_display_order)
+        super().__init__(triggers, trigger_display_order, **kwargs)
 
     def add_variable(self, name: str, variable_id: int = -1) -> Variable:
         """

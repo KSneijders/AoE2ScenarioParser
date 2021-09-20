@@ -62,6 +62,7 @@ class Trigger(AoE2Object):
                  effects: List[Effect] = None,
                  effect_order: List[int] = None,
                  trigger_id: int = -1,
+                 **kwargs
                  ):
         if conditions is None:
             conditions = []
@@ -95,7 +96,7 @@ class Trigger(AoE2Object):
         self.new_effect = NewEffectSupport(self)
         self.new_condition = NewConditionSupport(self)
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __deepcopy__(self, memo):
         cls = self.__class__

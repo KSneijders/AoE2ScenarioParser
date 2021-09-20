@@ -80,6 +80,7 @@ class Condition(AoE2Object):
                  unit_ai_action: int = None,
                  object_state: int = None,
                  xs_function: str = None,
+                 **kwargs
                  ):
         raise_if_not_int_subclass([object_list, technology])
 
@@ -121,7 +122,7 @@ class Condition(AoE2Object):
         self.object_state: int = object_state
         self.xs_function: str = xs_function
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.condition_type not in conditions.attributes:

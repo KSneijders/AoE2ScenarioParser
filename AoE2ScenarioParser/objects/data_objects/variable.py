@@ -12,8 +12,8 @@ class Variable(AoE2Object):
         RetrieverObjectLink("name", "Triggers", "variable_data[__index__].variable_name"),
     ]
 
-    def __init__(self, variable_id: int, name: str):
+    def __init__(self, variable_id: int, name: str, **kwargs):
         self.variable_id = variable_id
         self.name = name
 
-        super().__init__()
+        super().__init__(**kwargs)
