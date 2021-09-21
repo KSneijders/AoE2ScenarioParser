@@ -43,7 +43,7 @@ class TriggerManagerDE(TriggerManager):
         if variable_id in list_of_var_ids:
             raise ValueError("Variable ID already in use.")
 
-        new_variable = Variable(variable_id=variable_id, name=name)
+        new_variable = Variable(variable_id=variable_id, name=name, host_uuid=self._host_uuid)
         self.variables.append(new_variable)
         return new_variable
 

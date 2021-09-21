@@ -476,7 +476,7 @@ class TriggerManager(AoE2Object):
         for key in keys:
             if locals()[key] is not None:
                 trigger_attr[key] = locals()[key]
-        new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr)
+        new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr, host_uuid=self._host_uuid)
         self.triggers.append(new_trigger)
         return new_trigger
 
@@ -498,6 +498,7 @@ class TriggerManager(AoE2Object):
             new_index = len(self.triggers) + offset
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
+        self._update_triggers_uuid(triggers)
         for trigger in triggers:
             for i, effect in enumerate(get_activation_effects(trigger)):
                 try:
@@ -511,6 +512,14 @@ class TriggerManager(AoE2Object):
         if index != -1:
             self.move_triggers([t.trigger_id for t in triggers], index)
         return triggers
+
+    def _update_triggers_uuid(self, triggers):
+        for trigger in triggers:
+            trigger._host_uuid = self._host_uuid
+            for effect in trigger.effects:
+                effect._host_uuid = self._host_uuid
+            for condition in trigger.conditions:
+                condition._host_uuid = self._host_uuid
 
     def get_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)

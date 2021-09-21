@@ -78,7 +78,9 @@ class XsManagerDE(AoE2Object):
             name="XS SCRIPT", enabled=False,
             description="Due to the lack of support for transferring XS files between systems in Age of Empires II:DE, "
                         "this trigger adds the entire script to an effect script call. This will add the script to"
-                        "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser")
+                        "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser",
+            host_uuid=self._host_uuid
+        )
         self.xs_trigger.new_effect.script_call(message="")
         self._trigger_manager.import_triggers([self.xs_trigger], insert_index)
 

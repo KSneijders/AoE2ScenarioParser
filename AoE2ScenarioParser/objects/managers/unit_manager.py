@@ -66,6 +66,8 @@ class UnitManager(AoE2Object):
         Returns:
             The Unit created
         """
+        # Todo: Add reference_id to manager and use store to request and keep track.
+        #  No need to search for each for each unit
         if reference_id is None:
             reference_id = self.get_new_reference_id()
 
@@ -80,6 +82,7 @@ class UnitManager(AoE2Object):
             rotation=rotation,
             initial_animation_frame=animation_frame,
             garrisoned_in_id=garrisoned_in_id,
+            host_uuid=self._host_uuid
         )
 
         self.units[player].append(unit)

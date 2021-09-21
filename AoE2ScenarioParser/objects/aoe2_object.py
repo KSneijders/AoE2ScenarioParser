@@ -3,6 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import List, Type, TYPE_CHECKING
 
+from AoE2ScenarioParser import settings
+
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.scenarios import scenario_store
@@ -15,8 +17,24 @@ class AoE2Object:
     _link_list: List[RetrieverObjectLink] = []
 
     def __init__(self, **kwargs):
-        self._host_uuid = kwargs['host_uuid']
         self._instance_number_history = []
+
+        try:
+            self._host_uuid = kwargs['host_uuid']
+        except KeyError as e:
+            if not settings.IGNORE_UUID:
+                raise e
+
+    @property
+    def _host_uuid(self):
+        if settings.IGNORE_UUID:
+            return "<UUID_IGNORED>"
+        return self._host_uuid_
+
+    @_host_uuid.setter
+    def _host_uuid(self, value):
+        if value != "<UUID_IGNORED>":
+            self._host_uuid_ = value
 
     def __deepcopy__(self, memo):
         cls = self.__class__
