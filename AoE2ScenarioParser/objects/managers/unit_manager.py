@@ -18,6 +18,8 @@ class UnitManager(AoE2Object):
 
     def __init__(self, units: List[List[Unit]], **kwargs):
         self.units = units
+        # `self.find_highest_reference_id()` can be replaced by the value for next_unit_id_to_place in retrievers
+        self.reference_id_generator = create_id_generator(self.find_highest_reference_id() + 1)
 
         super().__init__(**kwargs)
 
@@ -66,8 +68,6 @@ class UnitManager(AoE2Object):
         Returns:
             The Unit created
         """
-        # Todo: Add reference_id to manager and use store to request and keep track.
-        #  No need to search for each for each unit
         if reference_id is None:
             reference_id = self.get_new_reference_id()
 
@@ -212,11 +212,26 @@ class UnitManager(AoE2Object):
                 return
 
     def get_new_reference_id(self) -> int:
+        """
+        Get a new ID each time the function is called. Starting from the current highest ID.
+
+        Returns:
+            The newly generator ID
+        """
+        return next(self.reference_id_generator)
+
+    def find_highest_reference_id(self) -> int:
+        """
+        Find the highest ID in the map. Searches through all units for the highest ID.
+
+        Returns:
+            The highest ID in the map
+        """
         highest_id = 0  # If no units, default to 0
         for player in PlayerId.all():
             for unit in self.units[player]:
                 highest_id = max(highest_id, unit.reference_id)
-        return highest_id + 1
+        return highest_id
 
     def remove_unit(self, reference_id: int = None, unit: Unit = None) -> None:
         """
@@ -245,3 +260,18 @@ class UnitManager(AoE2Object):
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
+
+
+def create_id_generator(start_id: int):
+    """
+    Create generator for increasing value
+
+    Args:
+        start_id (int): The id to start returning
+
+    Returns:
+        A generator which will return a +1 ID value for each time called with next.
+    """
+    while True:
+        yield start_id
+        start_id += 1
