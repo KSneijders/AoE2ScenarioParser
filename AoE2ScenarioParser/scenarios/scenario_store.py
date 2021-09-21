@@ -1,8 +1,9 @@
-from typing import TYPE_CHECKING, Dict
+from typing import TYPE_CHECKING, Dict, Optional
 
 from AoE2ScenarioParser import settings
 
 if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
@@ -117,3 +118,19 @@ def get_trigger_name(uuid: str, trigger_index: int) -> str:
     if scenario:
         return scenario.trigger_manager.triggers[trigger_index].name
     return "INVALID_UUID"
+
+
+def get_trigger_manager(uuid: str) -> Optional['TriggerManager']:
+    """
+    Get the trigger manager of a scenario.
+
+    Args:
+        uuid (str): The UUID of the scenario
+
+    Returns:
+        The trigger manager of a scenario.
+    """
+    scenario = _get_scenario(uuid)
+    if scenario:
+        return scenario.trigger_manager
+    return None

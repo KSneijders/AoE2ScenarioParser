@@ -34,8 +34,6 @@ class AoE2ObjectManager:
             self.managers[name] = manager._construct(self.scenario_uuid)
             s_print(f"\t✔ {name}Manager", final=True, color="green")
 
-        self.managers['Xs']._tm = self.managers['Trigger']
-
         s_print(f"Setting up managers finished successfully.", final=True)
 
     def reconstruct(self):
