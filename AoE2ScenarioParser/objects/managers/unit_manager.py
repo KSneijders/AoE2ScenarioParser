@@ -213,10 +213,9 @@ class UnitManager(AoE2Object):
 
     def get_new_reference_id(self) -> int:
         highest_id = 0  # If no units, default to 0
-        for player in range(0, 9):
+        for player in PlayerId.all():
             for unit in self.units[player]:
-                if highest_id < unit.reference_id:
-                    highest_id = unit.reference_id
+                highest_id = max(highest_id, unit.reference_id)
         return highest_id + 1
 
     def remove_unit(self, reference_id: int = None, unit: Unit = None) -> None:
