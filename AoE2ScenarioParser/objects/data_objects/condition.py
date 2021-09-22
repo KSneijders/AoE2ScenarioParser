@@ -135,7 +135,9 @@ class Condition(AoE2Object):
             val = getattr(self, attribute)
             if attribute == "condition_type" or val in [[], [-1], [''], "", " ", -1]:
                 continue
-            return_string += f"{attribute}: {transform_condition_attr_value(self.condition_type, attribute, val)}\n"
+
+            value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._host_uuid)
+            return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":
             return "<< No Attributes >>\n"

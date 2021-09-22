@@ -15,10 +15,10 @@
             "technology": "TechInfo",
             "string_id": "",
             "display_time": "",
-            "trigger_id": "",
+            "trigger_id": "TriggerId",
             "location_x": "",
             "location_y": "",
-            "location_object_reference": "",
+            "location_object_reference": "Unit",
             "area_x1": "",
             "area_y1": "",
             "area_x2": "",
@@ -51,7 +51,7 @@
             "color_mood": "ColorMood",
             "message": "str",
             "sound_name": "str",
-            "selected_object_ids": ""
+            "selected_object_ids": "Unit[]"
         }
     },
     "0": {

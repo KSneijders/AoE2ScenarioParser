@@ -338,7 +338,8 @@ class Effect(AoE2Object):
             if not self._armour_attack_flag and attribute in ["armour_attack_quantity", "armour_attack_class"]:
                 continue
 
-            return_string += f"{attribute}: {transform_effect_attr_value(self.effect_type, attribute, val)}\n"
+            value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._host_uuid)
+            return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":
             return "<< No Attributes >>\n"
