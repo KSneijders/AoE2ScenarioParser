@@ -115,7 +115,7 @@ class AoE2Scenario:
         s_print(f"\t🔄 Parsing {name}...", color="yellow")
         section = AoE2FileSection.from_structure(name, self.structure.get(name), self.uuid)
         s_print(f"\t🔄 Gathering {name} data...", color="yellow")
-        section.set_data_from_generator(igenerator, self.sections)
+        section.set_data_from_generator(igenerator)
         s_print(f"\t✔ {name}", final=True, color="green")
         return section
 
