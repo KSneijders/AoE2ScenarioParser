@@ -87,8 +87,9 @@ class AoE2FileSection:
             try:
                 handle_retriever_dependency(retriever, "construct", self, self._host_uuid)
                 if retriever.datatype.type == "struct":
+                    struct_name = retriever.datatype.get_struct_name()
+
                     retriever.data = []
-                    struct_name = retriever.datatype.var[7:]  # 7 == len("struct:") >> Removing struct naming prefix
                     for _ in range(retriever.datatype.repeat):
                         model = self.struct_models.get(struct_name)
                         if model is None:
