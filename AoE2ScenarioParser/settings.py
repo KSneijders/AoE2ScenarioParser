@@ -17,10 +17,3 @@ MAIN_CHARSET = "utf-8"
 """The charset used to decode the test in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""
 FALLBACK_CHARSET = "latin-1"
 """The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails."""
-
-# Ignore UUID
-IGNORE_UUID = False
-"""
-Used to disable saving the host scenario UUID value when creating any object. Recommended to not change this value
-If you don't understand what it is used for. Setting mainly used for running tests on objects without scenario host.
-"""

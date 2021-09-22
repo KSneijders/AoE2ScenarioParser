@@ -18,23 +18,7 @@ class AoE2Object:
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-
-        try:
-            self._host_uuid = kwargs['host_uuid']
-        except KeyError as e:
-            if not settings.IGNORE_UUID:
-                raise e
-
-    @property
-    def _host_uuid(self):
-        if settings.IGNORE_UUID:
-            return "<UUID_IGNORED>"
-        return self._host_uuid_
-
-    @_host_uuid.setter
-    def _host_uuid(self, value):
-        if value != "<UUID_IGNORED>":
-            self._host_uuid_ = value
+        self._host_uuid = kwargs.get('host_uuid', "<<NO_HOST_UUID>>")
 
     def __deepcopy__(self, memo):
         cls = self.__class__

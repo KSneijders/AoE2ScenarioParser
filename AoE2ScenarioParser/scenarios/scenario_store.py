@@ -1,7 +1,5 @@
 from typing import TYPE_CHECKING, Dict, Optional
 
-from AoE2ScenarioParser import settings
-
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
@@ -20,11 +18,9 @@ def _get_scenario(uuid: str) -> 'AoE2Scenario':
     Returns:
         The scenario based on it's uuid
     """
-    try:
-        return _scenarios[uuid]
-    except KeyError as e:
-        if not settings.IGNORE_UUID:
-            raise e
+    if uuid == "<<NO_HOST_UUID>>":
+        return None
+    return _scenarios[uuid]
 
 
 def register_scenario(scenario: 'AoE2Scenario') -> None:
