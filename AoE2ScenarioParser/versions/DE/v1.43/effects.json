@@ -1253,7 +1253,6 @@
             "source_player",
             "location_x",
             "location_y",
-            "location_object_reference",
             "area_x1",
             "area_y1",
             "area_x2",
