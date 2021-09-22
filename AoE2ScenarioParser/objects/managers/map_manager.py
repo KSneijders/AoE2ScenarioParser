@@ -80,9 +80,9 @@ class MapManager(AoE2Object):
             y1 (int): The y coordinate of the west corner
             x2 (int): The x coordinate of the east corner
             y2 (int): The y coordinate of the east corner
-            elevation (int): The elevation of the map. Default in-game = 1, in-game max = 7. If the given value is over
-                20 the game camera will 'clip' into the hill. So the in-game camera hovers around the height of 20/21
-                when fully zoomed in, without Ultra Graphics.
+            elevation (int): The elevation of the map. Default in-game = 0 (called 1 in the game), in-game max = 6
+                (called 7 in game). If the given value is over 20 the game camera will 'clip' into the hill.
+                So the in-game camera hovers around the height of 20/21 when fully zoomed in, without Ultra Graphics.
 
         :Author:
             pvallet

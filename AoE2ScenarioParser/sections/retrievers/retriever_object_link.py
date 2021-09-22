@@ -95,7 +95,8 @@ class RetrieverObjectLink:
         if self.commit_callback is not None:
             value = self.commit_callback(host_obj, self.name, value)
 
-        section = scenario_store.get_sections(host_uuid)[self.section_name]
+        sections = scenario_store.get_sections(host_uuid)
+        section = sections[self.section_name]
 
         if self.is_special_unit_case:
             self._commit_special_unit_case(host_uuid, value)
