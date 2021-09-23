@@ -55,6 +55,9 @@ class AoE2Object:
                     if val is not None:
                         raise UnsupportedAttributeError(error_msg)
 
+                # Todo: Runs for each _construct() -- A LOT of overhead
+                #  Doesn't work properly when reading an older scenario first, and a newer one later
+                #  Properties don't get reset!
                 setattr(cls, link.name, property(_get, _set))
                 object_parameters[link.name] = None
             else:
