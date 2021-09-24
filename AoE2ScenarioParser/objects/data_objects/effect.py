@@ -89,6 +89,12 @@ class Effect(AoE2Object):
                             Support(since=1.40)),
         RetrieverObjectLink("color_mood", "Triggers", "trigger_data[__index__].effect_data[__index__].color_mood",
                             Support(since=1.42)),
+        RetrieverObjectLink("reset_timer", "Triggers", "trigger_data[__index__].effect_data[__index__].reset_timer",
+                            Support(since=1.44)),
+        RetrieverObjectLink("object_state", "Triggers", "trigger_data[__index__].effect_data[__index__].object_state",
+                            Support(since=1.44)),
+        RetrieverObjectLink("action_type", "Triggers", "trigger_data[__index__].effect_data[__index__].action_type",
+                            Support(since=1.44)),
         RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message",
                             commit_callback=_add_trail_if_string_attr_is_used_in_effect),
         RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name",
@@ -145,6 +151,9 @@ class Effect(AoE2Object):
                  play_sound: int = None,
                  player_color: int = None,
                  color_mood: int = None,
+                 reset_timer: int = None,
+                 object_state: int = None,
+                 action_type: int = None,
                  message: str = None,
                  sound_name: str = None,
                  selected_object_ids: List[int] = None,
@@ -232,6 +241,9 @@ class Effect(AoE2Object):
         self.play_sound: int = play_sound
         self.player_color: int = player_color
         self.color_mood: int = color_mood
+        self.reset_timer = reset_timer
+        self.object_state = object_state
+        self.action_type = action_type
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids

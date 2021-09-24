@@ -43,12 +43,15 @@
             "button_location": "ButtonLocation",
             "ai_signal_value": "",
             "object_attributes": "ObjectAttribute",
-            "variable": "",
+            "variable": "VariableId",
             "timer": "",
             "facet": "",
             "play_sound": "bool",
             "player_color": "PlayerColorId",
             "color_mood": "ColorMood",
+            "reset_timer": "bool",
+            "object_state": "ObjectState",
+            "action_type":  "ActionType",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]"
@@ -107,6 +110,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -168,6 +174,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -229,6 +238,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -291,6 +303,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -354,6 +369,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -416,6 +434,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -475,6 +496,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -534,6 +558,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -593,6 +620,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -652,6 +682,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -711,6 +744,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -775,6 +811,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -795,6 +834,7 @@
             "area_y2",
             "object_group",
             "object_type",
+            "action_type",
             "selected_object_ids"
         ],
         "default_attributes": {
@@ -845,6 +885,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": 0,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -905,6 +948,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -972,6 +1018,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -989,6 +1038,7 @@
             "area_y2",
             "object_group",
             "object_type",
+            "object_state",
             "selected_object_ids"
         ],
         "default_attributes": {
@@ -1039,6 +1089,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": 2,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1101,6 +1154,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1171,6 +1227,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1240,6 +1299,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1309,6 +1371,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1375,6 +1440,9 @@
             "play_sound": 0,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1434,6 +1502,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1501,6 +1572,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1559,6 +1633,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1627,6 +1704,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1689,6 +1769,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1756,6 +1839,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1825,6 +1911,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1895,6 +1984,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -1962,6 +2054,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2032,6 +2127,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2102,6 +2200,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2171,6 +2272,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2239,6 +2343,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2307,6 +2414,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2376,6 +2486,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2444,6 +2557,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2457,6 +2573,7 @@
             "display_time",
             "time_unit",
             "timer",
+            "reset_timer",
             "message"
         ],
         "default_attributes": {
@@ -2507,6 +2624,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": 0,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2569,6 +2689,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2631,6 +2754,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2695,6 +2821,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2756,6 +2885,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2824,6 +2956,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2893,6 +3028,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -2955,6 +3093,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3016,6 +3157,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3078,6 +3222,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3140,6 +3287,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3201,6 +3351,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3267,6 +3420,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3326,6 +3482,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3392,6 +3551,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3455,6 +3617,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3518,6 +3683,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3584,6 +3752,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3643,6 +3814,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3705,6 +3879,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3764,6 +3941,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3829,6 +4009,9 @@
             "play_sound": -1,
             "player_color": 0,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3893,6 +4076,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -3959,6 +4145,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4023,6 +4212,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4087,6 +4279,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4150,6 +4345,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4210,6 +4408,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4271,6 +4472,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4332,6 +4536,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4391,6 +4598,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4450,6 +4660,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4508,6 +4721,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4572,6 +4788,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4636,6 +4855,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": -1,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
@@ -4695,6 +4917,9 @@
             "play_sound": -1,
             "player_color": -1,
             "color_mood": 0,
+            "reset_timer": -1,
+            "object_state": -1,
+            "action_type": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
