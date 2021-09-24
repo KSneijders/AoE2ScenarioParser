@@ -187,11 +187,11 @@ class TimeUnit(IntEnum):
     >>> TimeUnit.YEARS
     >>> 1
     """
-    YEARS = 2
+    YEARS = 0
     """In-Game years. A year is 5 seconds in-game time."""
     MINUTES = 1
     """In-Game minutes."""
-    SECONDS = 0
+    SECONDS = 2
     """In-Game seconds."""
 
 

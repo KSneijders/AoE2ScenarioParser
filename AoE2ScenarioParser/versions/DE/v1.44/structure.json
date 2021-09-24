@@ -2058,7 +2058,7 @@
                             },
                             "static_value_46": {
                                 "type": "s32",
-                                "default": 49
+                                "default": 52
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2263,7 +2263,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "reset_timer_id": {
+                            "reset_timer": {
                                 "type": "s32",
                                 "default": -1
                             },

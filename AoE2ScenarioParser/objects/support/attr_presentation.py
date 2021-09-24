@@ -1,4 +1,4 @@
-from typing import Dict, TYPE_CHECKING
+from typing import Dict, TYPE_CHECKING, List, Union
 
 from AoE2ScenarioParser.datasets.conditions import attribute_presentation as condition_attribute_presentation
 from AoE2ScenarioParser.datasets.effects import attribute_presentation as effect_attribute_presentation
@@ -8,7 +8,7 @@ from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, AttackStance, UnitAIAction, \
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
     ObjectAttribute, Attribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
-    SmartProjectile, DamageClass, Hotkey, ColorMood, ObjectState
+    SmartProjectile, DamageClass, Hotkey, ColorMood, ObjectState, ActionType
 from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
@@ -18,12 +18,17 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
 
 
-def _format_trigger_id_representation(id_, uuid) -> str:
+def _format_trigger_id_representation(id_: int, uuid: str) -> str:
     name = trunc_string(scenario_store.get_trigger_name(uuid, id_))
     return f"\"{name}\""
 
 
-def _format_unit_reference_representation(ref_id, uuid) -> str:
+def _format_variable_id_representation(id_: int, uuid: str) -> str:
+    name = trunc_string(scenario_store.get_variable_name(uuid, id_))
+    return f"\"{name}\""
+
+
+def _format_unit_reference_representation(ref_id: Union[int, List[int]], uuid: str) -> str:
     def format_unit(u: 'Unit') -> str:
         enum_entry = u.unit_const
         if not issubclass(u.unit_const.__class__, InfoDatasetBase):
@@ -66,6 +71,7 @@ _datasets = {
     "Hotkey": Hotkey,
     "ColorMood": ColorMood,
     "ObjectState": ObjectState,
+    "ActionType": ActionType,
 }
 
 _other = {
@@ -88,6 +94,7 @@ _store_references = {
     "TriggerId": _format_trigger_id_representation,
     "Unit": _format_unit_reference_representation,
     "Unit[]": _format_unit_reference_representation,
+    "VariableId": _format_variable_id_representation,
 }
 
 
