@@ -31,12 +31,11 @@ class TriggerManager(AoE2Object):
                  trigger_display_order: List[int],
                  **kwargs
                  ):
+        super().__init__(**kwargs)
 
         self._trigger_hash = hash_list(triggers)
         self.triggers: List[Trigger] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
-
-        super().__init__(**kwargs)
 
     @property
     def triggers(self) -> List[Trigger]:
@@ -44,6 +43,7 @@ class TriggerManager(AoE2Object):
 
     @triggers.setter
     def triggers(self, value):
+        self._update_triggers_uuid(value)
         self._trigger_hash = hash_list(value)
         self._triggers = value
         self.trigger_display_order = list(range(len(value)))
