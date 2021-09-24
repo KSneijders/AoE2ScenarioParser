@@ -94,7 +94,7 @@ To get a tile based on it's XY coordinate (like `(5,8)`, as highlighted in the a
 
 ```py
 map_manager.get_tile(x=5, y=8)  # Get tile at x5,y8
-map_manager.get_tile(i=30)      # Get the 31st tile (0 based, 0 is the 1st tile, 1 is the second tile etc.)
+map_manager.get_tile(i=85)      # Get the 86th tile (0 based, 0 is the 1st tile, 1 is the second tile etc.)
 ```
 
 You can also get a square of tiles from the map. For this you can use the function `get_square_1d()` or 
