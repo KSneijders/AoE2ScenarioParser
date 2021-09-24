@@ -36,6 +36,10 @@ class TerrainTile(AoE2Object):
         return self.xy[1]
 
     @property
+    def i(self) -> int:
+        return self._index
+
+    @property
     def xy(self) -> Tuple[int, int]:
         if not self._xy:
             self._xy = i_to_xy(self._index, scenario_store.get_map_size(self._host_uuid))
