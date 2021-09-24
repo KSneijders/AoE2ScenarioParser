@@ -1,6 +1,6 @@
 import math
 from enum import Enum
-from typing import Union
+from typing import Union, Tuple
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
@@ -14,16 +14,16 @@ from AoE2ScenarioParser.helper import exceptions
 =============================================================="""
 
 
-def xy_to_i(x, y, map_size):
+def xy_to_i(x, y, map_size) -> int:
     if max(x, y) >= map_size or min(x, y) < 0:
         raise ValueError("X and Y need to be: 0 <= n < map_size")
     return x + y * map_size
 
 
-def i_to_xy(i, map_size):
+def i_to_xy(i, map_size) -> Tuple[int, int]:
     if i < 0 or i >= pow(map_size, 2):
         raise ValueError(f"X and Y need to be: 0 <= n ({i}) < map_size ({map_size})")
-    return i % map_size, int(i / map_size)
+    return int(i % map_size), int(i / map_size)
 
 
 """ =============================================================
