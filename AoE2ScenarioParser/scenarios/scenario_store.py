@@ -151,7 +151,7 @@ def get_trigger_name(uuid: str, trigger_index: int) -> Optional[str]:
         The name of the trigger with the given ID
     """
     scenario = _get_scenario(uuid)
-    if scenario:
+    if scenario and trigger_index < len(scenario.trigger_manager.triggers):
         return scenario.trigger_manager.triggers[trigger_index].name
     return None
 

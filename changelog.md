@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.24 - 2021-September-24
+## 0.1.24 - 2021-September-25
 
 **Updated the minimum requirements to python 3.8 & Support for the new PUP September Scenarios!!**
 
@@ -17,10 +17,14 @@ The format is based on [Keep a Changelog]
 This allowed the following:
   - `variable: 0` now shows as: `variable: "NumberOfAttempts" (0)`
   - `trigger_id: 1` now shows as: `trigger_id: "Move units" (1)`
-  - `location_object_reference: 222` now shows as: `location_object_reference: Camel Rider [P1, X50.5, Y67.5] (222)`
+  - `location_object_reference: 222` now shows as:
+    ```
+    location_object_reference: 1 unit:
+        0: Camel Rider [P1, X50.5, Y67.5] (222)
+    ```
   - `selected_object_ids: [21, 22]` now shows as: 
     ```
-    selected_object_ids: 2 unit(s):
+    selected_object_ids: 2 units:
         0: Berserk [P1, X65.5, Y74.5] (21)
         1: Berserk [P1, X66.5, Y75.5] (22)
     ```
@@ -48,7 +52,7 @@ This allowed the following:
 
 ### Removed
 
-- `object_location_reference` attribute from the `patrol` effect as it didn't work in game.
+- `object_location_reference` attribute from the `patrol` effect as it doesn't work in game.
 
 ---
 

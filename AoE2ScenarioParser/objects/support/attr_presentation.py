@@ -10,6 +10,7 @@ from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation,
     ObjectAttribute, Attribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
     SmartProjectile, DamageClass, Hotkey, ColorMood, ObjectState, ActionType
 from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
+from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
 from AoE2ScenarioParser.scenarios import scenario_store
@@ -19,13 +20,15 @@ if TYPE_CHECKING:
 
 
 def _format_trigger_id_representation(id_: int, uuid: str) -> str:
-    name = trunc_string(scenario_store.get_trigger_name(uuid, id_))
-    return f"\"{name}\""
+    if (name := scenario_store.get_trigger_name(uuid, id_)) is not None:
+        return f"\"{trunc_string(name)}\""
+    return "<<INVALID TRIGGER>>"
 
 
 def _format_variable_id_representation(id_: int, uuid: str) -> str:
-    name = trunc_string(scenario_store.get_variable_name(uuid, id_))
-    return f"\"{name}\""
+    if (name := scenario_store.get_variable_name(uuid, id_)) is not None:
+        return f"\"{trunc_string(name)}\""
+    return "<<INVALID VARIABLE>>"
 
 
 def _format_unit_reference_representation(ref_id: Union[int, List[int]], uuid: str) -> str:
@@ -36,15 +39,12 @@ def _format_unit_reference_representation(ref_id: Union[int, List[int]], uuid: s
         name = pretty_format_name(enum_entry.name)
         return f"{name} [P{u.player}, X{u.x}, Y{u.y}]"
 
-    if type(ref_id) is list:
-        units = scenario_store.get_units(uuid, ref_id)
+    units = scenario_store.get_units(uuid, listify(ref_id))
+    if units is not None:
         formatted = '\n\t'.join([f"{i}: {format_unit(unit)} ({unit.reference_id})" for i, unit in enumerate(units)])
-        return f"{len(units)} unit(s):\n\t{formatted}"
-    else:
-        unit = scenario_store.get_unit(uuid, ref_id)
-        if unit:
-            return format_unit(unit)
-    return ""
+        s = "s" if len(units) != 1 else ""
+        return f"{len(units)} unit{s}:\n\t{formatted}"
+    return f"<<INVALID UNITS>> ({ref_id})"
 
 
 _datasets = {
@@ -149,7 +149,7 @@ def transform_value_by_representation(representation, value, uuid):
             value_representation = _store_references[representation](value, uuid)
             format_value_repr = False
 
-            if representation in ["Unit[]"]:
+            if representation in ["Unit", "Unit[]"]:
                 suffix_original_value = False
 
         elif representation in _other:
