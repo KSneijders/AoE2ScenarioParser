@@ -14,10 +14,10 @@ class TriggerManagerDE(TriggerManager):
         RetrieverObjectLink("variables", "Triggers", "variable_data", process_as_object=Variable),
     ]
 
-    def __init__(self, triggers: List[Trigger], trigger_display_order: List[int], variables: List[Variable]):
+    def __init__(self, triggers: List[Trigger], trigger_display_order: List[int], variables: List[Variable], **kwargs):
         self.variables: List[Variable] = variables
 
-        super().__init__(triggers, trigger_display_order)
+        super().__init__(triggers, trigger_display_order, **kwargs)
 
     def add_variable(self, name: str, variable_id: int = -1) -> Variable:
         """
@@ -43,7 +43,7 @@ class TriggerManagerDE(TriggerManager):
         if variable_id in list_of_var_ids:
             raise ValueError("Variable ID already in use.")
 
-        new_variable = Variable(variable_id=variable_id, name=name)
+        new_variable = Variable(variable_id=variable_id, name=name, host_uuid=self._host_uuid)
         self.variables.append(new_variable)
         return new_variable
 

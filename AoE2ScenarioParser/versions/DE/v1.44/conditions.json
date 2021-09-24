@@ -5,8 +5,8 @@
             "condition_type": "",
             "quantity": "",
             "attribute": "Attribute",
-            "unit_object": "",
-            "next_object": "",
+            "unit_object": "Unit",
+            "next_object": "Unit",
             "object_list": "UnitInfo",
             "source_player": "PlayerId",
             "technology": "TechInfo",
@@ -52,7 +52,10 @@
             "inverted": -1,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "1": {
@@ -86,7 +89,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "2": {
@@ -117,7 +123,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "3": {
@@ -150,7 +159,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": 0,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "4": {
@@ -187,7 +199,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": 0,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "5": {
@@ -203,7 +218,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "inverted"
+            "inverted",
+            "object_state"
         ],
         "default_attributes": {
             "condition_type": 5,
@@ -224,8 +240,11 @@
             "ai_signal": -1,
             "inverted": 0,
             "variable": -1,
-            "comparison": 0,
-            "target_player": 1
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": 2,
+            "xs_function": ""
         }
     },
     "6": {
@@ -255,7 +274,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "7": {
@@ -286,7 +308,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "8": {
@@ -318,7 +343,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "9": {
@@ -349,7 +377,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "10": {
@@ -379,7 +410,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "11": {
@@ -409,7 +443,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": 0,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "12": {
@@ -439,7 +476,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "13": {
@@ -469,7 +509,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "14": {
@@ -503,7 +546,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "15": {
@@ -532,7 +578,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": 0,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "16": {
@@ -561,7 +610,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": 0,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "17": {
@@ -592,7 +644,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "18": {
@@ -623,7 +678,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "19": {
@@ -656,7 +714,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "20": {
@@ -685,7 +746,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "21": {
@@ -720,7 +784,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "22": {
@@ -752,7 +819,10 @@
             "inverted": 0,
             "variable": 0,
             "comparison": 0,
-            "target_player": -1
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "23": {
@@ -784,7 +854,10 @@
             "inverted": 0,
             "variable": -1,
             "comparison": 0,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     },
     "24": {
@@ -819,7 +892,205 @@
             "inverted": 0,
             "variable": -1,
             "comparison": -1,
-            "target_player": 1
+            "target_player": 1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
+        }
+    },
+    "25": {
+        "name": "script_call",
+        "attributes": [
+            "xs_function"
+        ],
+        "default_attributes": {
+            "condition_type": 25,
+            "quantity": -1,
+            "attribute": -1,
+            "unit_object": -1,
+            "next_object": -1,
+            "object_list": -1,
+            "source_player": -1,
+            "technology": -1,
+            "timer": -1,
+            "area_x1": -1,
+            "area_y1": -1,
+            "area_x2": -1,
+            "area_y2": -1,
+            "object_group": -1,
+            "object_type": -1,
+            "ai_signal": -1,
+            "inverted": -1,
+            "variable": -1,
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
+        }
+    },
+    "26": {
+        "name": "object_visible_multiplayer",
+        "attributes": [
+            "unit_object",
+            "source_player",
+            "inverted"
+        ],
+        "default_attributes": {
+            "condition_type": 26,
+            "quantity": -1,
+            "attribute": -1,
+            "unit_object": -1,
+            "next_object": -1,
+            "object_list": -1,
+            "source_player": 1,
+            "technology": -1,
+            "timer": -1,
+            "area_x1": -1,
+            "area_y1": -1,
+            "area_x2": -1,
+            "area_y2": -1,
+            "object_group": -1,
+            "object_type": -1,
+            "ai_signal": -1,
+            "inverted": 0,
+            "variable": -1,
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
+        }
+    },
+    "27": {
+        "name": "object_selected_multiplayer",
+        "attributes": [
+            "unit_object",
+            "source_player",
+            "inverted"
+        ],
+        "default_attributes": {
+            "condition_type": 27,
+            "quantity": -1,
+            "attribute": -1,
+            "unit_object": -1,
+            "next_object": -1,
+            "object_list": -1,
+            "source_player": 1,
+            "technology": -1,
+            "timer": -1,
+            "area_x1": -1,
+            "area_y1": -1,
+            "area_x2": -1,
+            "area_y2": -1,
+            "object_group": -1,
+            "object_type": -1,
+            "ai_signal": -1,
+            "inverted": 0,
+            "variable": -1,
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
+        }
+    },
+    "28": {
+        "name": "object_has_action",
+        "attributes": [
+            "unit_object",
+            "next_object",
+            "object_list",
+            "object_group",
+            "object_type",
+            "inverted",
+            "unit_ai_action"
+        ],
+        "default_attributes": {
+            "condition_type": 28,
+            "quantity": -1,
+            "attribute": -1,
+            "unit_object": -1,
+            "next_object": -1,
+            "object_list": -1,
+            "source_player": -1,
+            "technology": -1,
+            "timer": -1,
+            "area_x1": -1,
+            "area_y1": -1,
+            "area_x2": -1,
+            "area_y2": -1,
+            "object_group": -1,
+            "object_type": -1,
+            "ai_signal": -1,
+            "inverted": 0,
+            "variable": -1,
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": 0,
+            "object_state": -1,
+            "xs_function": ""
+        }
+    },
+    "29": {
+        "name": "or",
+        "attributes": [],
+        "default_attributes": {
+            "condition_type": 29,
+            "quantity": -1,
+            "attribute": -1,
+            "unit_object": -1,
+            "next_object": -1,
+            "object_list": -1,
+            "source_player": -1,
+            "technology": -1,
+            "timer": -1,
+            "area_x1": -1,
+            "area_y1": -1,
+            "area_x2": -1,
+            "area_y2": -1,
+            "object_group": -1,
+            "object_type": -1,
+            "ai_signal": -1,
+            "inverted": -1,
+            "variable": -1,
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
+        }
+    },
+    "30": {
+        "name": "ai_signal_multiplayer",
+        "attributes": [
+            "ai_signal",
+            "inverted"
+        ],
+        "default_attributes": {
+            "condition_type": 30,
+            "quantity": -1,
+            "attribute": -1,
+            "unit_object": -1,
+            "next_object": -1,
+            "object_list": -1,
+            "source_player": -1,
+            "technology": -1,
+            "timer": -1,
+            "area_x1": -1,
+            "area_y1": -1,
+            "area_x2": -1,
+            "area_y2": -1,
+            "object_group": -1,
+            "object_type": -1,
+            "ai_signal": 0,
+            "inverted": 0,
+            "variable": -1,
+            "comparison": -1,
+            "target_player": -1,
+            "unit_ai_action": -1,
+            "object_state": -1,
+            "xs_function": ""
         }
     }
 }

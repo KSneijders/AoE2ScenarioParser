@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 

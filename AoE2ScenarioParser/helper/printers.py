@@ -4,7 +4,6 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import WarningToError
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
-
 _color = {
     'end': '\033[0m',
     'black': '\033[30m',

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from enum import IntEnum
 
 
@@ -186,11 +187,11 @@ class TimeUnit(IntEnum):
     >>> TimeUnit.YEARS
     >>> 1
     """
-    YEARS = 2
+    YEARS = 0
     """In-Game years. A year is 5 seconds in-game time."""
     MINUTES = 1
     """In-Game minutes."""
-    SECONDS = 0
+    SECONDS = 2
     """In-Game seconds."""
 
 
@@ -2159,3 +2160,33 @@ class Age(IntEnum):
     FEUDAL_AGE = 1
     CASTLE_AGE = 2
     IMPERIAL_AGE = 3
+
+
+class ActionType(IntEnum):
+    """
+    This enum class provides the integer values used to reference the different action types in the game.
+    These values are used in the Task Object effect
+
+    **Examples**
+
+    >>> ActionType.DROP_RELIC
+    >>> 14
+    """
+    DEFAULT = 0
+    MOVE = 1
+    PATROL = 2
+    GUARD = 3
+    FOLLOW = 4
+    STOP = 5
+    ATTACK_GROUND = 6
+    GARRISON = 7
+    KILL = 8
+    UNLOAD = 9
+    GATHER_POINT = 10
+    LOCK_UNLOCK = 11
+    WORK = 12
+    UNGARRISON = 13
+    DROP_RELIC = 14
+    PACK = 15
+    UNPACK = 16
+    ATTACK_MOVE = 17

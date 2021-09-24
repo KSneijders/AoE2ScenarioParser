@@ -6,6 +6,56 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.24 - 2021-September-25
+
+**Updated the minimum requirements to python 3.8 & Support for the new PUP September Scenarios!!**
+
+### Added
+
+- Support for the new `1.44` scenario version in the current September PUP beta on steam. **(Work in Progress)**
+- Scenarios now have a `UUID`. This is used for easy access to information through the entire library.  
+This allowed the following:
+  - `variable: 0` now shows as: `variable: "NumberOfAttempts" (0)`
+  - `trigger_id: 1` now shows as: `trigger_id: "Move units" (1)`
+  - `location_object_reference: 222` now shows as:
+    ```
+    location_object_reference: 1 unit:
+        0: Camel Rider [P1, X50.5, Y67.5] (222)
+    ```
+  - `selected_object_ids: [21, 22]` now shows as: 
+    ```
+    selected_object_ids: 2 units:
+        0: Berserk [P1, X65.5, Y74.5] (21)
+        1: Berserk [P1, X66.5, Y75.5] (22)
+    ```
+- New properties to the `TerrainTile` object
+  - `x`:  Get it's X coordinate
+  - `y`:  Get it's Y coordinate
+  - `xy`:  Get a tuple of it's XY coordinates
+  - `i`:  Get it's index
+- New functions to the map manager:
+  - `get_tile(x=.., y=..)` or `get_tile(i=..)`
+  - `get_square_1d(x1, y1, x2, y2)` and `get_square_2d(x1, y1, x2, y2)`  
+  Get a square of tiles in a 1D or 2D list.
+
+### Updated
+
+- `unit_manager.get_new_reference_id()` will now pull from a number generator instead of searching the entire unit list.
+
+### Fixed
+
+- Functions `xy_to_i` and `i_to_xy` having the x and y coordinate reversed.
+- `bidict` still being imported while not being a dependency anymore
+- Changing the map size linked all new terrain tiles to the same object
+- Error being raised when importing `ProjectileInfo`
+- `TimeUnit` dataset values `Years` and `Seconds` being the wrong way around.
+
+### Removed
+
+- `object_location_reference` attribute from the `patrol` effect as it doesn't work in game.
+
+---
+
 ## 0.1.23 - 2021-September-09
 
 ### Added

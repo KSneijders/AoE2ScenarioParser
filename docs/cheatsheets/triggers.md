@@ -14,12 +14,13 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.units import UnitInfo
 
 # File & Folder setup
-# Define paths to scenario, you can find this folder by opening AoE2:DE and going to scenarios and clicking on 'open folder'
-scenario_folder = "YOUR_PATH_TO_THE_SCENARIO_FOLDER"
-read_file = scenario_folder + "MAP_NAME_TO_BE_READ.aoe2scenario"
+# Define paths to the scenario folder.
+# You can find this folder by opening AoE2:DE and going to scenarios and clicking on 'open folder'
+scenario_folder = "your/path/to/the/scenario/folder/"  # <-- Final slash is important
+scenario_name = "name_of_your_scenario"
 
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(read_file)
+scenario = AoE2DEScenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
 
 # Add Trigger
 trigger_manager = scenario.trigger_manager
@@ -36,7 +37,8 @@ create_paladin_effect = trigger.new_effect.create_object(
     location_y=4,
 )
 
-scenario.write_to_file(scenario_folder + "OUTPUT_NAME_TO_BE_WRITTEN.aoe2scenario")
+# Write to same folder with name + '_output'
+scenario.write_to_file(f"{scenario_folder}{scenario_name}_output.aoe2scenario")
 ```
 
 ### Importing

@@ -1,15 +1,12 @@
 from typing import List
 
-from deprecation import deprecated
-
-from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class MapManagerDE(MapManager):
-
     _link_list = [
         RetrieverObjectLink("map_color_mood", "Map", "map_color_mood"),
         RetrieverObjectLink("collide_and_correct", "Map", "collide_and_correct"),
@@ -26,13 +23,13 @@ class MapManagerDE(MapManager):
                  map_width: int,
                  map_height: int,
                  terrain: List[TerrainTile],
+                 **kwargs,
                  ):
-
         self.map_color_mood = map_color_mood
         self.collide_and_correct = collide_and_correct
         self.villager_force_drop = villager_force_drop
 
-        super().__init__(map_width, map_height, terrain)
+        super().__init__(map_width, map_height, terrain, **kwargs)
 
     @property
     def script_name(self):

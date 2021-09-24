@@ -1,7 +1,4 @@
-from copy import deepcopy
 from typing import List
-
-from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
@@ -10,11 +7,13 @@ from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.helper import exclusive_if
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
+from AoE2ScenarioParser.scenarios import scenario_store
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -62,6 +61,7 @@ class Trigger(AoE2Object):
                  effects: List[Effect] = None,
                  effect_order: List[int] = None,
                  trigger_id: int = -1,
+                 **kwargs
                  ):
         if conditions is None:
             conditions = []
@@ -95,7 +95,7 @@ class Trigger(AoE2Object):
         self.new_effect = NewEffectSupport(self)
         self.new_condition = NewConditionSupport(self)
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -157,24 +157,26 @@ class Trigger(AoE2Object):
                     flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
                     operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
                     object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-                    player_color=None, sound_name=None, selected_object_ids=None, color_mood=None) -> Effect:
+                    player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
+                    object_state=None, action_type=None, ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
+            sv = scenario_store.get_scenario_version(self._host_uuid)
             try:
                 return effect_dataset.default_attributes[eff_type]
             except KeyError:
                 effect = EffectId(eff_type)
                 raise UnsupportedAttributeError(
-                    f"The effect {effect.name} is not supported in scenario version {self._scenario_version}"
+                    f"The effect {effect.name} is not supported in scenario version {sv}"
                 ) from None
 
         effect_defaults = get_default_effect_attributes(effect_type)
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_effect = Effect(**effect_attr)
+        new_effect = Effect(**effect_attr, host_uuid=self._host_uuid)
         self.effects.append(new_effect)
         return new_effect
 
@@ -188,19 +190,20 @@ class Trigger(AoE2Object):
 
         def get_default_condition_attributes(cond_type):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
+            sv = scenario_store.get_scenario_version(self._host_uuid)
             try:
                 return condition_dataset.default_attributes[cond_type]
             except KeyError:
                 condition = ConditionId(cond_type)
                 raise UnsupportedAttributeError(
-                    f"The condition {condition.name} is not supported in scenario version {self._scenario_version}"
+                    f"The condition {condition.name} is not supported in scenario version {sv}"
                 ) from None
 
         condition_defaults = get_default_condition_attributes(condition_type)
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_condition = Condition(**condition_attr)
+        new_condition = Condition(**condition_attr, host_uuid=self._host_uuid)
         self.conditions.append(new_condition)
         return new_condition
 

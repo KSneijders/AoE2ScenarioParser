@@ -50,6 +50,11 @@ class DataType:
         else:
             self.type, self.length = datatype_to_type_length(self.var)
 
+    def get_struct_name(self) -> str:
+        if self.var.startswith("struct:"):
+            return self.var[7:]
+        raise ValueError("Datatype var is not a struct")
+
     @property
     def type_and_length(self):
         return self.type, self.length

@@ -1,10 +1,9 @@
 import sys
 
 from AoE2ScenarioParser import settings
-
 from AoE2ScenarioParser.helper.printers import warn
 
-_block_below_minor = 6
+_block_below_minor = 8
 _notify_below_minor = 8
 _py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
 

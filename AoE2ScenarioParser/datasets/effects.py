@@ -1,7 +1,5 @@
 from enum import IntEnum
 
-from bidict import bidict
-
 
 class EffectId(IntEnum):
     """
@@ -80,6 +78,7 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
+    - action_type
     - selected_object_ids"""
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
@@ -106,6 +105,7 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
+    - object_state
     - selected_object_ids"""
     CHANGE_VIEW = 16
     """Attributes for the **change_view** effect are: \n
@@ -345,6 +345,7 @@ class EffectId(IntEnum):
     - display_time
     - time_unit
     - timer
+    - reset_timer
     - message"""
     ENABLE_DISABLE_OBJECT = 38
     """Attributes for the **enable_disable_object** effect are: \n
@@ -638,8 +639,11 @@ empty_attributes = {
     "play_sound": -1,
     "player_color": -1,
     "color_mood": -1,
-    "message": '',
-    "sound_name": '',
+    "reset_timer": -1,
+    "object_state": -1,
+    "action_type": -1,
+    "message": "",
+    "sound_name": "",
     "selected_object_ids": -1,
 }
 

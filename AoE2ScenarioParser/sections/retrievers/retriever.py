@@ -169,9 +169,9 @@ class Retriever:
                 data = pretty_format_list(self.data)
             else:
                 data = string_manipulations.q_str(self.data)
-            return self.name + " (" + self.datatype.to_simple_string() + "): " + data
         else:
-            return "<None>"
+            data = "<None>"
+        return f"{self.name} ({self.datatype.to_simple_string()}): {data}"
 
     def to_simple_string(self):
         return f"[Retriever] {self.name}: {self.datatype} (Default: {string_manipulations.q_str(self.default_value)})"

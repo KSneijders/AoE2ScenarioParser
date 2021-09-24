@@ -4,6 +4,12 @@ All changes made to the scenario file will be documented in this file.
 
 ---
 
+## Scenario v1.43
+
+No changes except for default civilization changed to 38 (from 36) because of the 2 new civs (DotD)
+
+---
+
 ## Scenario v1.42
 
 ### Added
