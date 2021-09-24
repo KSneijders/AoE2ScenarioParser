@@ -52,6 +52,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | 1.41          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [44725] (January 25th, 2021) <br> **Unchanged in**: <br> - Hotfix [44834] (January 28th, 2021)<br> - Hotfix [45185] (February 11th, 2021)<br> - Update [46265] (March 24th, 2021)<br> - Update [47820] (May 3rd, 2021)                                                                                                                                                                                                                                                                                             |
 | 1.42          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [50292] (July 6th, 2021) <br> **Unchanged in**: <br> - Hotfix [50700] (July 13th, 2021)
 | 1.43          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [51737] (August 10th, 2021)
+| 1.44          | :heavy_check_mark: | :heavy_check_mark: | PUP September BETA (Work in Progress) |
 
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
