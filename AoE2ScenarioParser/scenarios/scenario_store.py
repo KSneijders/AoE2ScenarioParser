@@ -1,15 +1,16 @@
-from typing import TYPE_CHECKING, Dict, Optional, List
+from typing import TYPE_CHECKING, Dict, Optional, List, Union, Type
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
     from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 _scenarios: Dict[str, 'AoE2Scenario'] = {}
 
 
-def _get_scenario(uuid: str) -> Optional['AoE2Scenario']:
+def _get_scenario(uuid: str) -> Optional[Union['AoE2Scenario', Type['AoE2Scenario']]]:
     """
     Get scenario through uuid. Not intended to be called outside of the store itself.
 
@@ -147,11 +148,35 @@ def get_trigger_name(uuid: str, trigger_index: int) -> Optional[str]:
         trigger_index (int): The index of the trigger
 
     Returns:
-        A list of all names in order of trigger_manager.triggers
+        The name of the trigger with the given ID
     """
     scenario = _get_scenario(uuid)
     if scenario:
         return scenario.trigger_manager.triggers[trigger_index].name
+    return None
+
+
+def get_variable_name(uuid: str, variable_index: int) -> Optional[str]:
+    """
+    Get the variable name in a scenario.
+
+    Args:
+        uuid (str): The UUID of the scenario
+        variable_index (int): The index of the variable
+
+    Returns:
+        The name of the variable with the given ID
+    """
+    scenario: 'AoE2DEScenario' = _get_scenario(uuid)
+    if scenario:
+        if gv := get_game_version(uuid) == "DE":
+            variable = scenario.trigger_manager.get_variable(variable_index)
+            if variable:
+                return variable.name
+            else:
+                return f"Variable {variable_index}"
+        else:
+            raise ValueError(f"Scenarios with the game version: {gv} do not support variables.")
     return None
 
 
