@@ -19,6 +19,7 @@ nav:
   - Cheatsheets:
     - Triggers: "cheatsheets/triggers.md"
     - Units: "cheatsheets/units.md"
+    - Map: "cheatsheets/map.md"
     - Datasets: "cheatsheets/datasets.md"
     - XS Script: "cheatsheets/xs.md"
   - Examples:
