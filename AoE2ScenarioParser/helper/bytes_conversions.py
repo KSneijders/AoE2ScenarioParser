@@ -1,5 +1,5 @@
 import struct
-from typing import Union, TYPE_CHECKING
+from typing import Union
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.printers import warn
@@ -44,7 +44,7 @@ _no_string_trail = [
 ]
 
 
-def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET)\
+def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET) \
         -> Union[str, bytes]:
     """
     Converts bytes to string based on given charset.

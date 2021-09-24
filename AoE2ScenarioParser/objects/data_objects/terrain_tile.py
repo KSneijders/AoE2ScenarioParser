@@ -2,7 +2,6 @@ from typing import Optional, Tuple
 
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.helper.helper import i_to_xy
-
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.scenarios import scenario_store
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink

@@ -3,8 +3,6 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import List, Type, TYPE_CHECKING
 
-from AoE2ScenarioParser import settings
-
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.scenarios import scenario_store

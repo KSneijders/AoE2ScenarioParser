@@ -1,7 +1,6 @@
 import sys
 
 from AoE2ScenarioParser import settings
-
 from AoE2ScenarioParser.helper.printers import warn
 
 _block_below_minor = 8

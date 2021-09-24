@@ -1,11 +1,9 @@
-from typing import Dict, TYPE_CHECKING, Type
-
-from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
-from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
+from typing import Dict, TYPE_CHECKING
 
 from AoE2ScenarioParser.datasets.conditions import attribute_presentation as condition_attribute_presentation
 from AoE2ScenarioParser.datasets.effects import attribute_presentation as effect_attribute_presentation
 from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
+from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, AttackStance, UnitAIAction, \
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
@@ -13,6 +11,7 @@ from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation,
     SmartProjectile, DamageClass, Hotkey, ColorMood, ObjectState
 from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
+from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
 from AoE2ScenarioParser.scenarios import scenario_store
 
 if TYPE_CHECKING:

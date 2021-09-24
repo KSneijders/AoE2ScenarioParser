@@ -6,12 +6,12 @@ from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 

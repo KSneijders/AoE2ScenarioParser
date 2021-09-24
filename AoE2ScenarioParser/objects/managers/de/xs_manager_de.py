@@ -2,12 +2,8 @@ from pathlib import Path
 from typing import Union
 
 from AoE2ScenarioParser.helper.printers import warn
-
-from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
-
-from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
-
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.scenarios import scenario_store
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
