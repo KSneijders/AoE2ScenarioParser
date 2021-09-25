@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - Support for the new `1.44` scenario version in the current September PUP beta on steam. **(Work in Progress)**
+- A cheatsheet for the Map Manager [link](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/map/)!
 - Scenarios now have a `UUID`. This is used for easy access to information through the entire library.  
 This allowed the following:
   - `variable: 0` now shows as: `variable: "NumberOfAttempts" (0)`
