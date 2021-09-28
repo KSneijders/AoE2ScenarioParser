@@ -311,8 +311,11 @@
                 "dependencies": {
                     "on_construct": {
                         "action": "SET_REPEAT",
-                        "target": "self:picture_orientation",
-                        "eval": "1 if picture_orientation in [-1, 2] else 0"
+                        "target": [
+                            "self:bitmap_width",
+                            "self:bitmap_height"
+                        ],
+                        "eval": "1 if bitmap_width * bitmap_height else 0"
                     }
                 }
             }
@@ -475,11 +478,7 @@
             "AIStruct": {
                 "retrievers": {
                     "unknown": {
-                        "type": "u32",
-                        "default": 0
-                    },
-                    "unknown_2": {
-                        "type": "u32",
+                        "type": "8",
                         "default": 0
                     },
                     "ai_per_file_text": {
