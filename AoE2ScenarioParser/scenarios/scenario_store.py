@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Dict, Optional, List, Union, Type
+from typing import TYPE_CHECKING, Dict, Optional, List, Union, Type, Tuple
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
@@ -48,13 +48,13 @@ def get_unit(uuid: str, unit_reference_id: int) -> Optional['Unit']:
     Returns:
         The Unit Object
     """
-    units = get_units(uuid, [unit_reference_id])
+    units, _ = get_units(uuid, [unit_reference_id])
     if units:
         return units[0]
     return None
 
 
-def get_units(uuid: str, unit_reference_ids: List[int]) -> Optional[List['Unit']]:
+def get_units(uuid: str, unit_reference_ids: List[int]) -> Optional[Tuple[List['Unit'], List[int]]]:
     """
     Get a placed unit based on it's reference id in a scenario.
 
@@ -63,15 +63,16 @@ def get_units(uuid: str, unit_reference_ids: List[int]) -> Optional[List['Unit']
         unit_reference_ids (List[int]): The reference_ids of the units
 
     Returns:
-        The Unit Object
+        A tuple with a list of the found unit objects and a list of the IDs that weren't found.
     """
     scenario = _get_scenario(uuid)
     if scenario:
         result = []
         for unit in scenario.unit_manager.get_all_units():
             if unit.reference_id in unit_reference_ids:
+                unit_reference_ids.remove(unit.reference_id)
                 result.append(unit)
-        return result
+        return result, unit_reference_ids
     return None
 
 
@@ -173,7 +174,7 @@ def get_variable_name(uuid: str, variable_index: int) -> Optional[str]:
             variable = scenario.trigger_manager.get_variable(variable_index)
             if variable:
                 return variable.name
-            else:
+            elif 0 <= variable_index <= 255:
                 return f"Variable {variable_index}"
         else:
             raise ValueError(f"Scenarios with the game version: {gv} do not support variables.")

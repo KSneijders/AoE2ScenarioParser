@@ -330,7 +330,8 @@ class Effect(AoE2Object):
 
     @selected_object_ids.setter
     def selected_object_ids(self, val: List[int]):
-        val = listify(val)
+        if type(val) is int:
+            val = [val]
         self._selected_object_ids = val
 
     def get_content_as_string(self, include_effect_definition=False) -> str:
