@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.25 - 2021-September-29
+
+### Fixed
+
+- Issue with reading certain scenarios which contained legacy bitmap images
+- Issue where requesting TriggerManager content string would crash due to an unknown unit
+
+---
+
 ## 0.1.24 - 2021-September-25
 
 **Updated the minimum requirements to python 3.8 & Support for the new PUP September Scenarios!!**

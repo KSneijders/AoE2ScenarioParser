@@ -1,5 +1,6 @@
 from typing import Type, List
 
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.scenarios import scenario_store
@@ -116,6 +117,8 @@ class RetrieverObjectLink:
                 if self.support is not None:
                     if not self.support.supports(scenario_store.get_scenario_version(host_uuid)):
                         return
+                if settings.IGNORE_WRITING_ERRORS:
+                    return
                 raise e
 
         if retriever is None:

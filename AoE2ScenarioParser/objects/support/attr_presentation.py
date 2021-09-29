@@ -1,4 +1,4 @@
-from typing import Dict, TYPE_CHECKING, List, Union
+from typing import Dict, TYPE_CHECKING, List, Union, Callable, Optional
 
 from AoE2ScenarioParser.datasets.conditions import attribute_presentation as condition_attribute_presentation
 from AoE2ScenarioParser.datasets.effects import attribute_presentation as effect_attribute_presentation
@@ -19,16 +19,30 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
 
 
+_store_error_displays: Dict[str, Dict[str, Callable[..., str]]] = {
+    'triggers': {
+        'invalid_reference': lambda id_=None: f"<<INVALID TRIGGER>>"
+    },
+    'variables': {
+        'invalid_reference': lambda id_=None: f"<<INVALID VARIABLE>>"
+    },
+    'units': {
+        'invalid_reference': lambda id_: f"<<INVALID UNIT>> ({id_})",
+        'unknown': lambda const_: f"Unknown"
+    }
+}
+
+
 def _format_trigger_id_representation(id_: int, uuid: str) -> str:
     if (name := scenario_store.get_trigger_name(uuid, id_)) is not None:
         return f"\"{trunc_string(name)}\""
-    return "<<INVALID TRIGGER>>"
+    return _store_error_displays['triggers']['invalid_reference']()
 
 
 def _format_variable_id_representation(id_: int, uuid: str) -> str:
     if (name := scenario_store.get_variable_name(uuid, id_)) is not None:
         return f"\"{trunc_string(name)}\""
-    return "<<INVALID VARIABLE>>"
+    return _store_error_displays['variables']['invalid_reference']()
 
 
 def _format_unit_reference_representation(ref_id: Union[int, List[int]], uuid: str) -> str:
@@ -36,14 +50,27 @@ def _format_unit_reference_representation(ref_id: Union[int, List[int]], uuid: s
         enum_entry = u.unit_const
         if not issubclass(u.unit_const.__class__, InfoDatasetBase):
             enum_entry = get_enum_from_unit_const(u.unit_const)
-        name = pretty_format_name(enum_entry.name)
-        return f"{name} [P{u.player}, X{u.x}, Y{u.y}]"
 
-    units = scenario_store.get_units(uuid, listify(ref_id))
-    if units is not None:
-        formatted = '\n\t'.join([f"{i}: {format_unit(unit)} ({unit.reference_id})" for i, unit in enumerate(units)])
-        s = "s" if len(units) != 1 else ""
-        return f"{len(units)} unit{s}:\n\t{formatted}"
+        if enum_entry:
+            name = pretty_format_name(enum_entry.name)
+        else:
+            name = _store_error_displays['units']['unknown'](u.unit_const)
+
+        return f"{name} ({u.unit_const}) [P{u.player}, X{u.x}, Y{u.y}]"
+
+    ids = listify(ref_id)
+    retrieved_units = scenario_store.get_units(uuid, ids)
+    if retrieved_units is not None:
+        units, invalids = retrieved_units
+        unit_count = len(units) + len(invalids)
+        formatted = '\n\t'.join([
+            f"{i}: {format_unit(unit)} ({unit.reference_id})" for i, unit in enumerate(units)
+        ])
+        formatted += '\n\t'.join([
+            _store_error_displays['units']['invalid_reference'](invalid_id) for invalid_id in invalids
+        ])
+        s = "s" if unit_count != 1 else ""
+        return f"{unit_count} unit{s}:\n\t{formatted}"
     return f"<<INVALID UNITS>> ({ref_id})"
 
 
