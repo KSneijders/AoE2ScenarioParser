@@ -3,11 +3,11 @@ from __future__ import annotations
 from enum import IntEnum
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
@@ -80,6 +80,7 @@ class Condition(AoE2Object):
                  unit_ai_action: int = None,
                  object_state: int = None,
                  xs_function: str = None,
+                 **kwargs
                  ):
         raise_if_not_int_subclass([object_list, technology])
 
@@ -121,7 +122,7 @@ class Condition(AoE2Object):
         self.object_state: int = object_state
         self.xs_function: str = xs_function
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.condition_type not in conditions.attributes:
@@ -134,7 +135,9 @@ class Condition(AoE2Object):
             val = getattr(self, attribute)
             if attribute == "condition_type" or val in [[], [-1], [''], "", " ", -1]:
                 continue
-            return_string += f"{attribute}: {transform_condition_attr_value(self.condition_type, attribute, val)}\n"
+
+            value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._host_uuid)
+            return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":
             return "<< No Attributes >>\n"

@@ -48,7 +48,14 @@
             },
             "unknown_numbers": {
                 "type": "u32",
-                "default": [2, 3, 4, 5, 6, 7],
+                "default": [
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                ],
                 "dependencies": {
                     "on_refresh": {
                         "action": "SET_REPEAT",
@@ -201,11 +208,11 @@
                     },
                     "civilization": {
                         "type": "u32",
-                        "default": 38
+                        "default": 40
                     },
                     "architecture_set": {
                         "type": "u32",
-                        "default": 38
+                        "default": 40
                     },
                     "cty_mode": {
                         "type": "u32",
@@ -383,7 +390,10 @@
                         "dependencies": {
                             "on_construct": {
                                 "action": "SET_REPEAT",
-                                "target": ["self:width", "self:height"],
+                                "target": [
+                                    "self:width",
+                                    "self:height"
+                                ],
                                 "eval": "width * height"
                             }
                         }
@@ -462,7 +472,24 @@
             "ai_type": {
                 "type": "u8",
                 "repeat": 16,
-                "default": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                "default": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ]
             },
             "separator": {
                 "type": "u32",
@@ -781,7 +808,24 @@
             "per_player_allied_victory": {
                 "type": "u32",
                 "repeat": 16,
-                "default": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                "default": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             },
             "unknown": {
                 "type": "4",
@@ -1283,6 +1327,70 @@
                 "type": "s32",
                 "default": 0
             },
+            "???": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???2": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???3": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???4": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???5": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???6": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???7": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???8": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???9": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???10": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???11": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???12": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???13": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???14": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???15": {
+                "default": "c8000000",
+                "type": "4"
+            },
+            "???16": {
+                "default": "c8000000",
+                "type": "4"
+            },
             "player_1_camera_y": {
                 "type": "4",
                 "default": -559026163
@@ -1323,7 +1431,10 @@
                 "dependencies": {
                     "on_refresh": {
                         "action": "SET_REPEAT",
-                        "target": ["self:map_width", "self:map_height"],
+                        "target": [
+                            "self:map_width",
+                            "self:map_height"
+                        ],
                         "eval": "map_width * map_height"
                     },
                     "on_construct": {
@@ -1331,7 +1442,10 @@
                     },
                     "on_commit": {
                         "action": "REFRESH",
-                        "target": ["self:map_width", "self:map_height"]
+                        "target": [
+                            "self:map_width",
+                            "self:map_height"
+                        ]
                     }
                 }
             }
@@ -1476,7 +1590,17 @@
                     },
                     "diplomacy_for_interaction": {
                         "type": "u8",
-                        "default": [3, 0, 3, 3, 3, 3, 3, 3, 3],
+                        "default": [
+                            3,
+                            0,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3,
+                            3
+                        ],
                         "dependencies": {
                             "on_refresh": {
                                 "action": "SET_REPEAT",
@@ -1494,7 +1618,17 @@
                     "diplomacy_for_ai_system": {
                         "type": "u32",
                         "repeat": 9,
-                        "default": [0, 1, 4, 4, 4, 4, 4, 4, 4]
+                        "default": [
+                            0,
+                            1,
+                            4,
+                            4,
+                            4,
+                            4,
+                            4,
+                            4,
+                            4
+                        ]
                     },
                     "color": {
                         "type": "u32",
@@ -1524,7 +1658,15 @@
                     },
                     "unknown_2": {
                         "type": "u8",
-                        "default": [0, 0, 0, 0, 0, 0, 0],
+                        "default": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
                         "dependencies": {
                             "on_refresh": {
                                 "action": "SET_REPEAT",
@@ -1575,7 +1717,15 @@
                     "unknown_3": {
                         "type": "u8",
                         "repeat": 7,
-                        "default": [0, 0, 0, 0, 0, 0, 0]
+                        "default": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
                     },
                     "unknown_structure_ww_campaign_2": {
                         "type": "32",
@@ -1907,7 +2057,7 @@
                             },
                             "static_value_46": {
                                 "type": "s32",
-                                "default": 49
+                                "default": 52
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2109,6 +2259,18 @@
                                 "default": -1
                             },
                             "color_mood": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "reset_timer": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_state": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "action_type": {
                                 "type": "s32",
                                 "default": -1
                             },

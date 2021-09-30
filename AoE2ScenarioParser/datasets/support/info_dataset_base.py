@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from enum import Enum
 from typing import Union
 
@@ -17,6 +18,7 @@ class InfoDatasetBase(Enum):
     >>> InfoDatasetBase.gaia_only()
     >>> InfoDatasetBase.non_gaia()
     """
+
     @staticmethod
     def _id_map() -> dict:
         """

@@ -2,12 +2,9 @@ from pathlib import Path
 from typing import Union
 
 from AoE2ScenarioParser.helper.printers import warn
-
-from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
-
-from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
-
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+from AoE2ScenarioParser.scenarios import scenario_store
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
@@ -19,14 +16,11 @@ class XsManagerDE(AoE2Object):
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
     ]
 
-    def __init__(self, script_name: str):
+    def __init__(self, script_name: str, **kwargs):
         self._script_name = script_name
-
-        # Reference to the trigger manager. Injected by the object manager.
-        self._trigger_manager: Union[TriggerManagerDE, None] = None
         self.xs_trigger: Union[Trigger, None] = None
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def script_name(self):
@@ -50,16 +44,6 @@ class XsManagerDE(AoE2Object):
     def xs_trigger(self, value):
         self._xs_trigger = value
 
-    @property
-    def _trigger_manager(self):
-        if self._tm_reference is not None:
-            return self._tm_reference
-        raise ValueError("Trigger Manager not properly injected by object manager")
-
-    @_trigger_manager.setter
-    def _trigger_manager(self, value):
-        self._tm_reference = value
-
     def initialise_xs_trigger(self, insert_index: int = -1) -> None:
         """
         Creates the XS trigger on a desired location. If you don't care about the location, the `add_script()` function
@@ -78,9 +62,13 @@ class XsManagerDE(AoE2Object):
             name="XS SCRIPT", enabled=False,
             description="Due to the lack of support for transferring XS files between systems in Age of Empires II:DE, "
                         "this trigger adds the entire script to an effect script call. This will add the script to"
-                        "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser")
+                        "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser",
+            host_uuid=self._host_uuid
+        )
         self.xs_trigger.new_effect.script_call(message="")
-        self._trigger_manager.import_triggers([self.xs_trigger], insert_index)
+
+        trigger_manager = scenario_store.get_trigger_manager(self._host_uuid)
+        trigger_manager.import_triggers([self.xs_trigger], insert_index)
 
     def _append_to_xs(self, title, string) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{string}\n\n"

@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from typing import List, Type, TYPE_CHECKING, Dict
+from typing import List, Type, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
+from AoE2ScenarioParser.scenarios import scenario_store
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
-    from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Object:
@@ -16,8 +16,7 @@ class AoE2Object:
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-        self._sections: Dict[str, AoE2FileSection] = {}
-        self._scenario_version = None
+        self._host_uuid = kwargs.get('host_uuid', "<<NO_HOST_UUID>>")
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -36,9 +35,11 @@ class AoE2Object:
         return val
 
     @classmethod
-    def _construct(cls, scenario_version, sections: Dict[str, AoE2FileSection], number_hist=None):
+    def _construct(cls, host_uuid, number_hist=None):
         if number_hist is None:
             number_hist = []
+
+        scenario_version = scenario_store.get_scenario_version(host_uuid)
 
         object_parameters = {}
         for link in cls._link_list:
@@ -52,40 +53,32 @@ class AoE2Object:
                     if val is not None:
                         raise UnsupportedAttributeError(error_msg)
 
+                # Todo: Runs for each _construct() -- A LOT of overhead
+                #  Doesn't work properly when reading an older scenario first, and a newer one later
+                #  Properties don't get reset!
                 setattr(cls, link.name, property(_get, _set))
                 object_parameters[link.name] = None
             else:
-                object_parameters[link.name] = link.construct(sections, scenario_version, number_hist=number_hist)
+                object_parameters[link.name] = link.construct(host_uuid, number_hist=number_hist)
 
+        object_parameters['host_uuid'] = host_uuid
         obj = cls(**object_parameters)
-        obj._sections = sections
-        obj._scenario_version = scenario_version
 
         return obj
 
-    def commit(self, scenario_version, sections=None, local_link_list=None):
+    def commit(self, local_link_list=None):
         """
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            sections (Dict[str, AoE2FileSection]): A list of sections to reference where to commit to.
-                If left empty, the sections default to the sections where this object was constructed from.
-            scenario_version (str): The current scenario version
             local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
         """
-        if self._sections == {} and sections is None:
-            raise ValueError("Unable to commit object. No reference to sections set.")
-        if scenario_version is None:
-            raise ValueError("Scenario version cannot be None.")
-
         if local_link_list is None:
             local_link_list = self._link_list
-        if sections is None:
-            sections = self._sections
 
         for link in local_link_list[::-1]:
-            link.commit(sections, scenario_version, host_obj=self)
+            link.commit(self._host_uuid, host_obj=self)
 
     @staticmethod
     def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:

@@ -30,6 +30,7 @@ class ProjectileInfo(Enum):
     >>> ProjectileInfo.SCORPION_FIRE.USED_BY
     >>> (542,)
     """
+
     @property
     def ID(self) -> int:
         """
@@ -206,4 +207,3 @@ class ProjectileInfo(Enum):
     SHCOW = 1223, ()
     LASER = 1595, (1222, 1577)
     HUSSITE_WAGON = 1733, (1704, 1706)
-    

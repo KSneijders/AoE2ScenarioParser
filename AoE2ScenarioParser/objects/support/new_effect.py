@@ -164,6 +164,7 @@ class NewEffectSupport:
             area_y2: Union[int, None] = None,
             object_group: Union[int, None] = None,
             object_type: Union[int, None] = None,
+            action_type: Union[int, None] = None,
             selected_object_ids: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -179,6 +180,7 @@ class NewEffectSupport:
             area_y2=area_y2,
             object_group=object_group,
             object_type=object_type,
+            action_type=action_type,
             selected_object_ids=selected_object_ids,
         )
 
@@ -228,6 +230,7 @@ class NewEffectSupport:
             area_y2: Union[int, None] = None,
             object_group: Union[int, None] = None,
             object_type: Union[int, None] = None,
+            object_state: Union[int, None] = None,
             selected_object_ids: Union[int, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -240,6 +243,7 @@ class NewEffectSupport:
             area_y2=area_y2,
             object_group=object_group,
             object_type=object_type,
+            object_state=object_state,
             selected_object_ids=selected_object_ids,
         )
 
@@ -324,7 +328,6 @@ class NewEffectSupport:
             source_player: Union[int, None] = None,
             location_x: Union[int, None] = None,
             location_y: Union[int, None] = None,
-            location_object_reference: Union[int, None] = None,
             area_x1: Union[int, None] = None,
             area_y1: Union[int, None] = None,
             area_x2: Union[int, None] = None,
@@ -339,7 +342,6 @@ class NewEffectSupport:
             source_player=source_player,
             location_x=location_x,
             location_y=location_y,
-            location_object_reference=location_object_reference,
             area_x1=area_x1,
             area_y1=area_y1,
             area_x2=area_x2,
@@ -772,6 +774,7 @@ class NewEffectSupport:
             display_time: Union[int, None] = None,
             time_unit: Union[int, None] = None,
             timer: Union[int, None] = None,
+            reset_timer: Union[int, None] = None,
             message: Union[str, None] = None,
     ) -> Effect:
         return self.trigger_ref._add_effect(
@@ -780,6 +783,7 @@ class NewEffectSupport:
             display_time=display_time,
             time_unit=time_unit,
             timer=timer,
+            reset_timer=reset_timer,
             message=message,
         )
 

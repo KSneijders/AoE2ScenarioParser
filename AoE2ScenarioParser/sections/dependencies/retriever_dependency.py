@@ -40,5 +40,3 @@ class RetrieverDependency:
         if self.dependency_eval:
             repr_string += f"\n\tEval: {self.dependency_eval.eval_code}"
         return repr_string
-
-

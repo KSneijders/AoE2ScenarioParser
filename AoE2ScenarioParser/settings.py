@@ -17,3 +17,7 @@ MAIN_CHARSET = "utf-8"
 """The charset used to decode the test in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""
 FALLBACK_CHARSET = "latin-1"
 """The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails."""
+
+# Scenario construction
+IGNORE_WRITING_ERRORS = False
+"""Ignore possible errors raised while writing, useful for doing scenario debugging"""

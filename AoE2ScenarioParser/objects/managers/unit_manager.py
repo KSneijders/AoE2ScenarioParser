@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import List, Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
+from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -16,10 +16,12 @@ class UnitManager(AoE2Object):
         RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)
     ]
 
-    def __init__(self, units: List[List[Unit]]):
-        self.units = units
+    def __init__(self, units: List[List[Unit]], **kwargs):
+        super().__init__(**kwargs)
 
-        super().__init__()
+        self.units = units
+        # `self.find_highest_reference_id()` can be replaced by the value for next_unit_id_to_place in retrievers
+        self.reference_id_generator = create_id_generator(self.find_highest_reference_id() + 1)
 
     @property
     def units(self):
@@ -35,7 +37,13 @@ class UnitManager(AoE2Object):
         elif len(value) < 9:
             value.extend([[] for _ in range(9 - len(value))])
 
+        self._update_units_uuid(value)
         self._units = value
+
+    def _update_units_uuid(self, units: List[List[Unit]]):
+        for unit_list in units:
+            for unit in unit_list:
+                unit._host_uuid = self._host_uuid
 
     def add_unit(self,
                  player: Union[int, PlayerId],
@@ -80,6 +88,7 @@ class UnitManager(AoE2Object):
             rotation=rotation,
             initial_animation_frame=animation_frame,
             garrisoned_in_id=garrisoned_in_id,
+            host_uuid=self._host_uuid
         )
 
         self.units[player].append(unit)
@@ -209,12 +218,26 @@ class UnitManager(AoE2Object):
                 return
 
     def get_new_reference_id(self) -> int:
+        """
+        Get a new ID each time the function is called. Starting from the current highest ID.
+
+        Returns:
+            The newly generator ID
+        """
+        return next(self.reference_id_generator)
+
+    def find_highest_reference_id(self) -> int:
+        """
+        Find the highest ID in the map. Searches through all units for the highest ID.
+
+        Returns:
+            The highest ID in the map
+        """
         highest_id = 0  # If no units, default to 0
-        for player in range(0, 9):
+        for player in PlayerId.all():
             for unit in self.units[player]:
-                if highest_id < unit.reference_id:
-                    highest_id = unit.reference_id
-        return highest_id + 1
+                highest_id = max(highest_id, unit.reference_id)
+        return highest_id
 
     def remove_unit(self, reference_id: int = None, unit: Unit = None) -> None:
         """
@@ -243,3 +266,18 @@ class UnitManager(AoE2Object):
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
+
+
+def create_id_generator(start_id: int):
+    """
+    Create generator for increasing value
+
+    Args:
+        start_id (int): The id to start returning
+
+    Returns:
+        A generator which will return a +1 ID value for each time called with next.
+    """
+    while True:
+        yield start_id
+        start_id += 1

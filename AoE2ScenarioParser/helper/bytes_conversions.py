@@ -7,6 +7,10 @@ from AoE2ScenarioParser.helper.string_manipulations import has_str_trail, del_st
     trunc_bytes, add_str_trail
 
 
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+
+
 def bytes_to_fixed_chars(byte_elements, codec="utf-8"):
     return byte_elements.decode(codec)
 
@@ -44,7 +48,7 @@ _no_string_trail = [
 ]
 
 
-def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET)\
+def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET) \
         -> Union[str, bytes]:
     """
     Converts bytes to string based on given charset.
@@ -122,7 +126,7 @@ def double_to_bytes(d):
     return struct.pack('d', d)
 
 
-def parse_val_to_bytes(retriever, val):
+def parse_val_to_bytes(retriever: 'Retriever', val):
     var_type, var_len = retriever.datatype.type_and_length
 
     if var_type == "u" or var_type == "s":  # int
@@ -139,7 +143,7 @@ def parse_val_to_bytes(retriever, val):
         if retriever.name not in _no_string_trail:
             byte_string = add_str_trail(byte_string)
 
-        return int_to_bytes(len(byte_string), var_len, endian="little", signed=True) + byte_string
+        return _combine_int_str(byte_string, var_len, endian="little", signed=True, retriever=retriever)
     elif var_type == "c":  # str
         return fixed_chars_to_bytes(val)
     elif var_type == "data":  # bytes
@@ -172,3 +176,14 @@ def parse_bytes_to_val(retriever, byte_elements):
             return bytes_to_double(byte_elements)
     else:
         raise ValueError(f"Unable to parse bytes with unknown type: ({var_type})")
+
+
+def _combine_int_str(byte_string, length, endian, signed, retriever: 'Retriever' = None) -> bytes:
+    try:
+        return int_to_bytes(len(byte_string), length, endian=endian, signed=signed) + byte_string
+    except OverflowError as e:
+        if str(e) == "int too big to convert":
+            name: str = retriever.name if retriever else ""
+            raise OverflowError(
+                f"{name.capitalize()} is too long. Length must be below {pow(2, length*8-1)}, but is: {len(byte_string)}"
+            ) from None

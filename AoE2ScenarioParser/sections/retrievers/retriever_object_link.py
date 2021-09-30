@@ -1,7 +1,9 @@
 from typing import Type, List
 
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.scenarios import scenario_store
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -33,7 +35,7 @@ class RetrieverObjectLink:
 
         self.splitted_link: List[str] = link.split('.') if link is not None else []
 
-    def construct(self, sections, scenario_version, number_hist=None):
+    def construct(self, host_uuid, number_hist=None):
         if number_hist is None:
             number_hist = []
         instance_number = AoE2Object.get_instance_number(number_hist=number_hist)
@@ -44,7 +46,10 @@ class RetrieverObjectLink:
             return number_hist[self.retrieve_history_number]
         else:
             if self.is_special_unit_case:
-                return self._construct_special_unit_case(sections, scenario_version)
+                return self._construct_special_unit_case(host_uuid)
+
+            sections = scenario_store.get_sections(host_uuid)
+            scenario_version = scenario_store.get_scenario_version(host_uuid)
 
             # Retrieve value without using eval() -- Eval is slow
             value = sections[self.section_name]
@@ -63,18 +68,18 @@ class RetrieverObjectLink:
                     raise e
 
             if self.process_as_object:
-                return self.process_object_list(value, number_hist, sections, scenario_version)
+                return self.process_object_list(value, number_hist, host_uuid)
             return value
 
-    def process_object_list(self, value_list, instance_number_history, sections, scenario_version):
+    def process_object_list(self, value_list, instance_number_history, host_uuid):
         object_list = []
         for index, struct in enumerate(value_list):
             object_list.append(
-                self.process_as_object._construct(scenario_version, sections, instance_number_history + [index])
+                self.process_as_object._construct(host_uuid, instance_number_history + [index])
             )
         return object_list
 
-    def commit(self, sections, scenario_version, host_obj: AoE2Object):
+    def commit(self, host_uuid, host_obj: AoE2Object):
         # Object-only attributes for the ease of access of information.
         # Not actually representing a value in the scenario file.
         if self.retrieve_instance_number or self.retrieve_history_number >= 0:
@@ -91,10 +96,11 @@ class RetrieverObjectLink:
         if self.commit_callback is not None:
             value = self.commit_callback(host_obj, self.name, value)
 
-        section: AoE2FileSection = sections[self.section_name]
+        sections = scenario_store.get_sections(host_uuid)
+        section = sections[self.section_name]
 
         if self.is_special_unit_case:
-            self._commit_special_unit_case(sections, value, scenario_version)
+            self._commit_special_unit_case(host_uuid, value)
             return
 
         # Retrieve value without using eval() -- Eval is slow
@@ -109,8 +115,10 @@ class RetrieverObjectLink:
             except KeyError as e:
                 # Maybe not supported in current version. if actually not supported -> ignore
                 if self.support is not None:
-                    if not self.support.supports(scenario_version):
+                    if not self.support.supports(scenario_store.get_scenario_version(host_uuid)):
                         return
+                if settings.IGNORE_WRITING_ERRORS:
+                    return
                 raise e
 
         if retriever is None:
@@ -128,24 +136,23 @@ class RetrieverObjectLink:
             struct_name = struct_datatype[len(prefix):]
             struct_model = file_section.struct_models[struct_name]
 
-            RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value))
-            RetrieverObjectLink.commit_object_list(value, sections, host_obj._instance_number_history, scenario_version)
+            RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), host_uuid)
+            RetrieverObjectLink.commit_object_list(value, host_obj._instance_number_history)
         else:
             retriever.data = value
 
         if hasattr(retriever, 'on_commit'):
-            handle_retriever_dependency(retriever, "commit", file_section, sections)
+            handle_retriever_dependency(retriever, "commit", file_section, host_uuid)
 
     @staticmethod
-    def commit_object_list(object_list, sections, instance_number_history, scenario_version):
+    def commit_object_list(object_list, instance_number_history):
         obj: AoE2Object
         for index, obj in enumerate(object_list):
-            obj._sections = sections
             obj._instance_number_history = instance_number_history + [index]
-            obj.commit(scenario_version)
+            obj.commit()
 
     @staticmethod
-    def update_retriever_length(retriever, model, new_len):
+    def update_retriever_length(retriever, model, new_len, host_uuid):
         try:
             old_len = len(retriever.data)
         except TypeError:  # retriever.data was not set before (list of 0 -> None)
@@ -155,7 +162,10 @@ class RetrieverObjectLink:
         if new_len < old_len:
             retriever.data = retriever.data[:new_len]
         elif new_len > old_len:
-            retriever.data += [AoE2FileSection.from_model(model, set_defaults=True) for _ in range(new_len - old_len)]
+            retriever.data += [
+                AoE2FileSection.from_model(model, host_uuid, set_defaults=True)
+                for _ in range(new_len - old_len)
+            ]
 
             if retriever.log_value:
                 retriever._print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
@@ -163,8 +173,9 @@ class RetrieverObjectLink:
     def _is_special_unit_case(self) -> bool:
         return ("[]" in self.link) if self.link else False
 
-    def _construct_special_unit_case(self, sections, scenario_version):
+    def _construct_special_unit_case(self, host_uuid):
         units = []
+        sections = scenario_store.get_sections(host_uuid)
         value = sections[self.section_name]
         for index, item in enumerate(self.splitted_link):
             if "[]" in item:
@@ -172,10 +183,12 @@ class RetrieverObjectLink:
             else:
                 for player, player_units_section in enumerate(value):
                     player_units = getattr(player_units_section, item)
-                    units.append(self.process_object_list(player_units, [player], sections, scenario_version))
+                    units.append(self.process_object_list(player_units, [player], host_uuid))
         return units
 
-    def _commit_special_unit_case(self, sections, value, scenario_version):
+    def _commit_special_unit_case(self, host_uuid, value):
+        sections = scenario_store.get_sections(host_uuid)
+
         for player, player_unit in enumerate(value):
             player_unit_retriever = sections["Units"].players_units[player]
             retriever_list = player_unit_retriever.retriever_map.values()
@@ -183,12 +196,12 @@ class RetrieverObjectLink:
             # units = get_retriever_by_name(retriever_list, "units")
             struct_model = player_unit_retriever.struct_models["UnitStruct"]
 
-            RetrieverObjectLink.update_retriever_length(units, struct_model, len(value[player]))
-            RetrieverObjectLink.commit_object_list(player_unit, sections, [player], scenario_version)
+            RetrieverObjectLink.update_retriever_length(units, struct_model, len(value[player]), host_uuid)
+            RetrieverObjectLink.commit_object_list(player_unit, [player])
 
             for retriever in retriever_list:
                 if hasattr(retriever, 'on_commit'):
-                    handle_retriever_dependency(retriever, "commit", player_unit_retriever, sections)
+                    handle_retriever_dependency(retriever, "commit", player_unit_retriever, host_uuid)
 
     def __repr__(self):
         return f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}" + \

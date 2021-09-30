@@ -1,24 +1,24 @@
 from __future__ import annotations
 
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
-def _add_trail_if_string_attr_is_used_in_effect(obj: Effect, attr_name, val):
+def _add_trail_if_string_attr_is_used_in_effect(obj: Effect, attr_name, val: Union[bytes, str]):
     if attr_name in effects.attributes[obj.effect_type]:
-        return val + "\x00"
+        return val + (b"\x00" if type(val) is bytes else "\x00")
     return val
 
 
@@ -89,6 +89,12 @@ class Effect(AoE2Object):
                             Support(since=1.40)),
         RetrieverObjectLink("color_mood", "Triggers", "trigger_data[__index__].effect_data[__index__].color_mood",
                             Support(since=1.42)),
+        RetrieverObjectLink("reset_timer", "Triggers", "trigger_data[__index__].effect_data[__index__].reset_timer",
+                            Support(since=1.44)),
+        RetrieverObjectLink("object_state", "Triggers", "trigger_data[__index__].effect_data[__index__].object_state",
+                            Support(since=1.44)),
+        RetrieverObjectLink("action_type", "Triggers", "trigger_data[__index__].effect_data[__index__].action_type",
+                            Support(since=1.44)),
         RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message",
                             commit_callback=_add_trail_if_string_attr_is_used_in_effect),
         RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name",
@@ -145,9 +151,13 @@ class Effect(AoE2Object):
                  play_sound: int = None,
                  player_color: int = None,
                  color_mood: int = None,
+                 reset_timer: int = None,
+                 object_state: int = None,
+                 action_type: int = None,
                  message: str = None,
                  sound_name: str = None,
                  selected_object_ids: List[int] = None,
+                 **kwargs
                  ):
         raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
 
@@ -231,11 +241,14 @@ class Effect(AoE2Object):
         self.play_sound: int = play_sound
         self.player_color: int = player_color
         self.color_mood: int = color_mood
+        self.reset_timer = reset_timer
+        self.object_state = object_state
+        self.action_type = action_type
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
 
-        super().__init__()
+        super().__init__(**kwargs)
 
     @property
     def player_color(self):
@@ -317,7 +330,8 @@ class Effect(AoE2Object):
 
     @selected_object_ids.setter
     def selected_object_ids(self, val: List[int]):
-        val = listify(val)
+        if type(val) is int:
+            val = [val]
         self._selected_object_ids = val
 
     def get_content_as_string(self, include_effect_definition=False) -> str:
@@ -337,7 +351,8 @@ class Effect(AoE2Object):
             if not self._armour_attack_flag and attribute in ["armour_attack_quantity", "armour_attack_class"]:
                 continue
 
-            return_string += f"{attribute}: {transform_effect_attr_value(self.effect_type, attribute, val)}\n"
+            value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._host_uuid)
+            return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":
             return "<< No Attributes >>\n"

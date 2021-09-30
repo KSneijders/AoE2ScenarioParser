@@ -15,7 +15,7 @@ git clone https://github.com/KSneijders/AoE2ScenarioParser.git
 
 ## Dependencies
 
-This project is made in Python 3. You'll need **Python 3.6** or newer to be able to run it properly.
+This project is made in Python 3. You'll need **Python 3.8** or newer to be able to run it properly.
 
 The project uses [deprecation] for deprecation warnings.
 
