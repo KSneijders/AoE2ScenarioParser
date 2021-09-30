@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.26 - 2021-October-01
+
+### Fixed
+
+- `effect.selected_object_ids` got reset when using `trigger_manager.get_content_as_string()`
+
+---
+
 ## 0.1.25 - 2021-September-29
 
 ### Fixed

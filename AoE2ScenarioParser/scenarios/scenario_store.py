@@ -65,6 +65,7 @@ def get_units(uuid: str, unit_reference_ids: List[int]) -> Optional[Tuple[List['
     Returns:
         A tuple with a list of the found unit objects and a list of the IDs that weren't found.
     """
+    unit_reference_ids = unit_reference_ids.copy()
     scenario = _get_scenario(uuid)
     if scenario:
         result = []
