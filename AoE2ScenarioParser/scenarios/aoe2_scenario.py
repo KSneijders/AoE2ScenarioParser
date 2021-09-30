@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 import uuid
 import zlib
@@ -22,6 +23,9 @@ from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Scenario:
+    """
+    All scenario objects are derived from this class
+    """
     @property
     def trigger_manager(self) -> TriggerManager:
         return self._object_manager.managers['Trigger']
@@ -52,6 +56,16 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(cls, filename, game_version):
+        """
+        This function creates and returns an instance of the AoE2Scenario class from the given scenario file
+
+        Args:
+            filename (str): The path to the scenario file to create the object from
+            game_version (str): The version of the game to create the object for
+
+        Returns:
+            An instance of the AoE2Scenario class which is the object representation of the given scenario file
+        """
         python_version_check()
 
         s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
@@ -87,6 +101,12 @@ class AoE2Scenario:
         return scenario
 
     def _load_structure(self):
+        """
+        Load the structure json for the scenario and game version specified into self.structure
+
+        Returns:
+            This function does not return anything
+        """
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
         self.structure = get_structure(self.game_version, self.scenario_version)
@@ -213,6 +233,18 @@ class AoE2Scenario:
 
 
 def initialise_version_dependencies(game_version, scenario_version):
+    """
+    This function initialises the data for the condition and effect objects (IDs, defaults, etc.) for the given scenario
+    and game versions
+
+    Args:
+        game_version: The version of the game to initialise the dependencies for
+        scenario_version: The version of the scenario to initialise the dependencies for
+
+    Returns:
+        This function does not return anything, it initialises the conditions and effects
+    """
+
     condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
 
     for condition_id, structure in condition_json.items():
@@ -248,9 +280,16 @@ def _get_file_section_data(file_section: AoE2FileSection):
     s_print(f"\t✔ {file_section.name}", final=True, color="green")
     return value
 
+def get_file_version(generator: IncrementalGenerator) -> str:
+    """
+    Get first 4 bytes of a file, which contains the version of the scenario
 
-def get_file_version(generator: IncrementalGenerator):
-    """Get first 4 bytes of a file, which contains the version of the scenario"""
+    Args:
+        generator: An IncrementalGenerator object of a scenario file
+
+    Returns: A string which is the version of the scenario file
+
+    """
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
 
@@ -266,10 +305,29 @@ def compress_bytes(file_content):
 
 
 def get_version_directory_path() -> Path:
+    """
+
+    Returns:
+        The full path of the AoE2ScenarioParser/versions directory. Simply '../../versions' is not used because that is not OS friendly.
+
+    """
     return Path(__file__).parent.parent / 'versions'
 
 
 def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
+    """
+
+    This function returns the structure file (conditions, effects and structure) requested for the game and scenario
+    version specified. A FileNotFoundError is raised if a json associated with the name given isn't found
+
+    Args:
+        game_version: The version of the game to return the structure file for
+        scenario_version: The scenario version to return the structure file for
+        name: The name of the structure file being requested
+
+    Returns:
+
+    """
     try:
         vdir = get_version_directory_path()
         with (vdir / game_version / f'v{scenario_version}' / f'{name}.json').open() as structure_file:
@@ -280,6 +338,18 @@ def get_version_dependant_structure_file(game_version: str, scenario_version: st
 
 
 def get_structure(game_version, scenario_version) -> dict:
+    """
+
+    Get the structure file of the given game and scenario versions
+
+    Args:
+        game_version: The game version to get the structure file for
+        scenario_version: The scenario version to get the structure file for
+
+    Returns:
+        The dictionary representation of the scenario for the specified versions
+
+    """
     try:
         vdir = get_version_directory_path()
         with (vdir / game_version / f'v{scenario_version}' / 'structure.json').open() as structure_file:

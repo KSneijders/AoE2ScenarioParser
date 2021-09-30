@@ -3,12 +3,19 @@ import sys
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.printers import warn
 
+
+# remember to change the docstring for python_version_check when changing these.
 _block_below_minor = 8
 _notify_below_minor = 8
 _py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
 
 
 def python_version_check():
+    """
+    Raises an error if user's python version is < 3.8
+    
+    Raises a warning if user's python version is < 3.8
+    """
     if sys.version_info[0] < 3:
         raise Exception("AoE2ScenarioParser requires the use of Python 3")
 
