@@ -33,8 +33,8 @@ class IncrementalGenerator:
 
         Args:
             n (int): The number of bytes to get
-            update_progress (bool): (Default: True) If set to False, the pointer for where to read the next set of bytes from
-            won't be moved forward
+            update_progress (bool): (Default: True) If set to False, the pointer for where to read the next set of bytes
+            from won't be moved forward
 
         Returns:
             The specified number of bytes

@@ -35,7 +35,7 @@ class AoE2DEScenario(AoE2Scenario):
 
         Args:
             filename (str): The path to the scenario file to create the object from
-            game_version (str): (Default: 'DE') Do not modify this, as no other game version is currently supported
+            game_version (str): (Default: 'DE') The version of the game to create the object for
 
         Returns:
             An instance of the AoE2DEScenario class which is the object representation of the given scenario file
