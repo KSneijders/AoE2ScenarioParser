@@ -34,7 +34,9 @@ class AoE2Scenario:
     def map_manager(self) -> MapManager:
         return self._object_manager.managers['Map']
 
-    def __init__(self):
+    def __init__(self, source_location):
+        self.source_location = source_location
+
         self.read_mode = None
         self.scenario_version = "???"
         self.game_version = "???"
@@ -59,7 +61,7 @@ class AoE2Scenario:
         igenerator = IncrementalGenerator.from_file(filename)
         s_print("Reading scenario file finished successfully.", final=True)
 
-        scenario = cls()
+        scenario = cls(filename)
         scenario.read_mode = "from_file"
         scenario.game_version = game_version
         scenario.scenario_version = get_file_version(igenerator)
@@ -138,6 +140,8 @@ class AoE2Scenario:
         self._write_from_structure(filename, skip_reconstruction)
 
     def _write_from_structure(self, filename, skip_reconstruction=False):
+        if filename == self.source_location and not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE:
+            raise ValueError("Cannot write scenario over source scenario. Please use a different filename")
         if not skip_reconstruction:
             self._object_manager.reconstruct()
 
