@@ -160,7 +160,7 @@ def transform_value_by_representation(representation, value, uuid):
 
     try:
         if representation in _datasets:
-            value_representation = _datasets[representation](value).name
+            value_representation = _datasets[representation](value).attribute_presentation()
 
         elif representation in _combined_info_datasets:
             enum_entry = get_enum_from_unit_const(value)

@@ -51,9 +51,9 @@ def s_print(string="", replace=True, final=False, color=None) -> None:
     Status print, read rprint docstring for more info.
     Simple rprint wrapper with a check for the PRINT_STATUS_UPDATES setting.
     """
-    if color is not None:
-        string = color_string(string, color)
     if settings.PRINT_STATUS_UPDATES:
+        if color is not None:
+            string = color_string(string, color)
         rprint(string, replace, final)
 
 
