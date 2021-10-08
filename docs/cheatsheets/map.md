@@ -134,9 +134,13 @@ map_manager.create_hill(
 )
 ```
 
+!!! tip "Elevation is also zero based"
+    Elevation is zero based, 0 represents what Age2 calls elevation 1, 1 represents elevation 2 etc.
+
 This will create a hill of elevation **3** in the game. The top square of the hill will be 3x3 tiles. Because (3,3) to
 (5,5) shown in the function above represents the top of the hill. The entire hill, including the slopes, will start on:
 (1,1) to (7,7).
 
-!!! tip "Elevation is also zero based"
-    Elevation is zero based, 0 represents what Age2 calls elevation 1, 1 represents elevation 2 etc.
+!!! warning "Don't go too high!"
+    Using the parser you can basically go as high as you want, **BUT** above ~20 without UHD and ~15 with UHD the 
+    camera starts clipping into the hill. 
