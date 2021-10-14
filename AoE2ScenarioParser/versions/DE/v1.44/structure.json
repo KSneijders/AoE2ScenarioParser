@@ -97,7 +97,7 @@
                 "type": "f32",
                 "default": 1.42
             },
-            "player_names": {
+            "tribe_names": {
                 "type": "c256",
                 "repeat": 16,
                 "default": [
