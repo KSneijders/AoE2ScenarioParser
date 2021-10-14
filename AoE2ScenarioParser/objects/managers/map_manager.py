@@ -3,6 +3,8 @@ from __future__ import annotations
 import itertools
 from typing import List, Union, Tuple, Set, Optional
 
+from deprecation import deprecated
+
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
@@ -210,6 +212,8 @@ class MapManager(AoE2Object):
                     other.elevation = source_tile.elevation + int(sign(other.elevation, source_tile.elevation))
                     self._elevation_tile_recursion(other, xys, visited)
 
+    @deprecated("0.1.27", details="This function is now redundant, it will be removed in the future. Please use "
+                                  "map_manager.set_elevation()")
     def create_hill(self, x1, y1, x2, y2, elevation) -> None:
         """
         Function that takes the coordinates and the height of a plateau and applies it to the map
