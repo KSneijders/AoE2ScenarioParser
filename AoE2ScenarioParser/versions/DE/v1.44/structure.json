@@ -1314,7 +1314,7 @@
                 "type": "s32",
                 "default": 0
             },
-            "population_cap": {
+            "per_player_population_cap": {
                 "repeat": 16,
                 "type": "u32",
                 "default": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
