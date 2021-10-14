@@ -9,6 +9,7 @@ from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.helper.maffs import sign
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile, reset_terrain_index
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -212,8 +213,6 @@ class MapManager(AoE2Object):
                     other.elevation = source_tile.elevation + int(sign(other.elevation, source_tile.elevation))
                     self._elevation_tile_recursion(other, xys, visited)
 
-    @deprecated("0.1.27", details="This function is now redundant, it will be removed in the future. Please use "
-                                  "map_manager.set_elevation()")
     def create_hill(self, x1, y1, x2, y2, elevation) -> None:
         """
         Function that takes the coordinates and the height of a plateau and applies it to the map
@@ -234,6 +233,9 @@ class MapManager(AoE2Object):
         :Author:
             pvallet
         """
+        warn(f"The function `MapManager.create_hill()` is deprecated as of 0.1.27. "
+             f"It will be removed in the future. Please use map_manager.set_elevation() instead.")
+
         for x in range(max(0, x1 - elevation), min(self.map_size, x2 + elevation)):
             for y in range(max(0, y1 - elevation), min(self.map_size, y2 + elevation)):
                 if x1 <= x <= x2 and y1 <= y <= y2:
