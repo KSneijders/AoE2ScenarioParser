@@ -3,8 +3,6 @@ from __future__ import annotations
 import itertools
 from typing import List, Union, Tuple, Set, Optional
 
-from deprecation import deprecated
-
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
