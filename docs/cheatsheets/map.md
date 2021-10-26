@@ -122,15 +122,15 @@ This will turn the above map into:
 
 ## Elevation
 
-You can also add hills to the map by using the `create_hill` function. 
+You can also add hills to the map by using the `set_elevation` function. 
 
 ```py
-map_manager.create_hill(
+map_manager.set_elevation(
+    elevation=2,
     x1=3, 
     y1=3, 
     x2=5, 
-    y2=5, 
-    elevation=2
+    y2=5,
 )
 ```
 
