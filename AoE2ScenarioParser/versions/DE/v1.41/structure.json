@@ -1919,7 +1919,7 @@
                                     }
                                 }
                             },
-                            "unknown": {
+                            "legacy_location_object_reference": {
                                 "type": "s32",
                                 "default": -1
                             },
