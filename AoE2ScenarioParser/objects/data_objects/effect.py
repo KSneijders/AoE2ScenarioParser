@@ -32,6 +32,8 @@ class Effect(AoE2Object):
         RetrieverObjectLink("quantity", "Triggers", "trigger_data[__index__].effect_data[__index__].quantity"),
         RetrieverObjectLink("tribute_list", "Triggers", "trigger_data[__index__].effect_data[__index__].tribute_list"),
         RetrieverObjectLink("diplomacy", "Triggers", "trigger_data[__index__].effect_data[__index__].diplomacy"),
+        RetrieverObjectLink("legacy_location_object_reference", "Triggers",
+                            "trigger_data[__index__].effect_data[__index__].legacy_location_object_reference"),
         RetrieverObjectLink("object_list_unit_id", "Triggers",
                             "trigger_data[__index__].effect_data[__index__].object_list_unit_id"),
         RetrieverObjectLink("source_player", "Triggers",
@@ -111,6 +113,7 @@ class Effect(AoE2Object):
                  quantity: int = None,
                  tribute_list: int = None,
                  diplomacy: int = None,
+                 legacy_location_object_reference: int = None,
                  object_list_unit_id: int = None,
                  source_player: int = None,
                  target_player: int = None,
@@ -193,6 +196,9 @@ class Effect(AoE2Object):
             area_y1, area_y2 = area_y2, area_y1
             warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
 
+        if legacy_location_object_reference != -1:
+            location_object_reference = legacy_location_object_reference
+
         # Bypass the @property which causes: self._update_armour_attack_flag()
         self._effect_type: int = effect_type
         self.ai_script_goal: int = ai_script_goal
@@ -249,6 +255,10 @@ class Effect(AoE2Object):
         self.selected_object_ids: List[int] = selected_object_ids
 
         super().__init__(**kwargs)
+
+    @property
+    def legacy_location_object_reference(self) -> int:
+        return -1
 
     @property
     def player_color(self):

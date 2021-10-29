@@ -6,6 +6,54 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.27 - UNRELEASED
+
+### Added
+
+- Error when overwriting the source scenario (with a setting to disable this behaviour)
+- `map_manager.set_elevation()`
+  - A new function which superseeds the `create_hill` function as it can create hills and holes
+  - **Note:** `elevation` is now the first argument, instead of the last
+  - Deprecation warning to the `create_hill` function
+- `map_manager.terrain_2d`
+  - A property which returns the map in a 2D list.
+  - **Note:** This is calculated for each request so it's recommended to call it once and store it
+- `map_manager.get_tile_safe()`
+  - Same as `get_tile` except it won't throw an `IndexError` when the tile cannot be found.  
+  Instead, it returns `None`
+- Many structures into the structure files for future use. Nitpicked from pull: [#18] (newtonerdai)
+  - `per_player_lock_civilization`
+  - `lock_teams`
+  - `allow_players_choose_teams`
+  - `random_start_points`
+  - `max_number_of_teams`
+  - `per_player_base_priority`
+  - `editor_camera_x & y`
+  - `initial_camera_x & y`
+- Properly added a new structure from the 1.44 version update
+  - `per_player_population_cap`
+- Datasets from the nitpicked pull: [#18] (newtonerdai). (Cannot really be used **yet**)
+  - `StartingAge`
+  - `Civilization`
+- 
+
+### Improved 
+
+- Datasets printed through a trigger content string can be individually customized
+
+### Fixed
+
+- Swapped incorrect `object_visible_multiplayer` and `object_selected_multiplayer` effect IDs
+
+### Changed
+
+- Renamed the `TerrainId.CORRUPTION` to `TerrainId.VERY_EVIL_FOG` to resemble the actual in-game name.
+- **BackEnd**: Renamed the retriever: `player_names` to `tribe_names` to resemble the in-game input field label.
+
+[#18]: https://github.com/KSneijders/AoE2ScenarioParser/pull/18
+
+---
+
 ## 0.1.26 - 2021-October-01
 
 ### Fixed

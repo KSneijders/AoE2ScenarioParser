@@ -208,9 +208,9 @@ class ConditionId(IntEnum):
     **Version notice**: \n
     This condition is supported since: 1.40
     """
-    OBJECT_VISIBLE_MULTIPLAYER = 26
+    OBJECT_SELECTED_MULTIPLAYER = 26
     """
-    Attributes for the **object_visible_multiplayer** condition are:\n
+    Attributes for the **object_selected_multiplayer** condition are:\n
     - unit_object
     - source_player
     - inverted
@@ -218,9 +218,9 @@ class ConditionId(IntEnum):
     **Version notice**: \n
     This condition is supported since: 1.40
     """
-    OBJECT_SELECTED_MULTIPLAYER = 27
+    OBJECT_VISIBLE_MULTIPLAYER = 27
     """
-    Attributes for the **object_selected_multiplayer** condition are:\n
+    Attributes for the **object_visible_multiplayer** condition are:\n
     - unit_object
     - source_player
     - inverted
