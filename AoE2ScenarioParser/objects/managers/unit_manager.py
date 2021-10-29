@@ -6,6 +6,7 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -30,15 +31,19 @@ class UnitManager(AoE2Object):
     @units.setter
     def units(self, value: List[List[Unit]]):
         def _raise():
-            raise ValueError("Units should be list with 9 sub lists, example: [[Unit], [Unit, Unit], ...]")
+            raise ValueError("Units should be list with a maximum of 9 sub lists, example: [[Unit], [Unit, Unit], ...]")
 
         if len(value) > 9:
             _raise()
         elif len(value) < 9:
             value.extend([[] for _ in range(9 - len(value))])
 
-        self._update_units_uuid(value)
-        self._units = value
+        for index, lst in enumerate(value):
+            value[index] = UuidList(
+                self._host_uuid, lst,
+                callable_=lambda u: setattr(u, '_player', index)
+            )
+        self._units = UuidList(self._host_uuid, value)
 
     def _update_units_uuid(self, units: List[List[Unit]]):
         for unit_list in units:

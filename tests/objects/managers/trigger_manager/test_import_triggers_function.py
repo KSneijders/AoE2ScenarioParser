@@ -1,7 +1,6 @@
 from unittest import TestCase
 
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
-
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.scenarios.aoe2_scenario import initialise_version_dependencies
 
