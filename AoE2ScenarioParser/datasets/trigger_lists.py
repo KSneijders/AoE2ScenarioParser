@@ -1,9 +1,35 @@
 from __future__ import annotations
 
-from enum import IntEnum
+import math
+from enum import IntEnum, IntFlag
 
 
-class DiplomacyState(IntEnum):
+class _TriggerList:
+    def attribute_presentation(self) -> str:
+        raise NotImplemented("_TriggerList.attribute_presentation has to be implemented")
+
+
+class _TriggerListIntEnums(_TriggerList, IntEnum):
+    def attribute_presentation(self) -> str:
+        """
+        Get the string representation of an enum entry. Uses `.name` when not overridden.
+        Returns:
+            The string representation of an enum entry.
+        """
+        return super().name
+
+
+class _TriggerListIntFlags(_TriggerList, IntFlag):
+    def attribute_presentation(self) -> str:
+        """
+        Get the string representation of an enum entry. Uses `.name` when not overridden.
+        Returns:
+            The string representation of an enum entry.
+        """
+        return super().name
+
+
+class DiplomacyState(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the diplomacy states in the game. Used in the 'Change
     Diplomacy' effect and the 'Diplomacy State' condition
@@ -11,14 +37,14 @@ class DiplomacyState(IntEnum):
     **Examples**
 
     >>> DiplomacyState.ALLY
-    >>> 0
+    <DiplomacyState.ALLY: 0>
     """
     ALLY = 0
     NEUTRAL = 1
     ENEMY = 3
 
 
-class Operation(IntEnum):
+class Operation(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the operations in the game. Used in a lot of effects
     like 'Modify Attribute' to control whether an attribute is set, added to, multiplied or divided by a value.
@@ -26,7 +52,7 @@ class Operation(IntEnum):
     **Examples**
 
     >>> Operation.MULTIPLY
-    >>> 4
+    <Operation.MULTIPLY: 4>
     """
     SET = 1
     ADD = 2
@@ -35,7 +61,7 @@ class Operation(IntEnum):
     DIVIDE = 5
 
 
-class AttackStance(IntEnum):
+class AttackStance(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the different unit stances in the game. Used in the
     'Change Object Stance' effect
@@ -43,7 +69,7 @@ class AttackStance(IntEnum):
     **Examples**
 
     >>> AttackStance.AGGRESSIVE_STANCE
-    >>> 0
+    <AttackStance.AGGRESSIVE_STANCE: 0>
     """
     AGGRESSIVE_STANCE = 0
     DEFENSIVE_STANCE = 1
@@ -51,7 +77,7 @@ class AttackStance(IntEnum):
     NO_ATTACK_STANCE = 3
 
 
-class UnitAIAction(IntEnum):
+class UnitAIAction(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the unit AI actions in the game. Used in the 'Object
     Has Action' condition.
@@ -59,7 +85,7 @@ class UnitAIAction(IntEnum):
     **Examples**
 
     >>> UnitAIAction.ATTACK
-    >>> 1
+    <UnitAIAction.ATTACK: 1>
     """
     ANY = 0
     """Fires if the unit has any action"""
@@ -116,7 +142,7 @@ class UnitAIAction(IntEnum):
     """Fires when a transport ship is tasked to unload objects. Note that the transport gets stuck in this state!"""
 
 
-class ButtonLocation(IntEnum):
+class ButtonLocation(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the button locations in the game. These button
     locations are what determines where a unit's train button or a research's research button appears in a building's
@@ -125,8 +151,11 @@ class ButtonLocation(IntEnum):
     **Examples**
 
     >>> ButtonLocation.r2c2
-    >>> 7
+    <ButtonLocation.r2c2: 7>
+    >>> ButtonLocation.r3c1.attribute_presentation()
+    'row_3_col_1'
     """
+    _r1c1 = 0
     r1c1 = 1
     r1c2 = 2
     r1c3 = 3
@@ -144,6 +173,12 @@ class ButtonLocation(IntEnum):
 
     # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
 
+    def attribute_presentation(self):
+        val = self.value or 1  # Change VAL 0 to 1
+        row = math.ceil(val / 5)
+        col = val - (row - 1) * 5
+        return f"row_{row}_col_{col}"
+
     @classmethod
     def row_col(cls, row: int, col: int) -> int:
         """
@@ -159,7 +194,7 @@ class ButtonLocation(IntEnum):
         return cls((row - 1) * 5 + col)
 
 
-class PanelLocation(IntEnum):
+class PanelLocation(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the panel positons in the game. Used in the 'Display
     Information' effect.
@@ -167,7 +202,7 @@ class PanelLocation(IntEnum):
     **Examples**
 
     >>> PanelLocation.TOP
-    >>> 0
+    <PanelLocation.TOP: 0>
     """
     TOP = 0
     """Panel at the top of the screen. ~13% from the top"""
@@ -177,7 +212,7 @@ class PanelLocation(IntEnum):
     """Panel close to the center of the screen. ~45% from the top"""
 
 
-class TimeUnit(IntEnum):
+class TimeUnit(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the unit of time used in an effect. Used in the
     'Display Timer' effect.
@@ -185,7 +220,7 @@ class TimeUnit(IntEnum):
     **Examples**
 
     >>> TimeUnit.YEARS
-    >>> 1
+    <TimeUnit.YEARS: 0>
     """
     YEARS = 0
     """In-Game years. A year is 5 seconds in-game time."""
@@ -195,7 +230,7 @@ class TimeUnit(IntEnum):
     """In-Game seconds."""
 
 
-class VisibilityState(IntEnum):
+class VisibilityState(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference visibility state of a player for another player in the
     game. Used in the 'Set Visibility State' effect.
@@ -203,14 +238,14 @@ class VisibilityState(IntEnum):
     **Examples**
 
     >>> VisibilityState.EXPLORED
-    >>> 1
+    <VisibilityState.EXPLORED: 1>
     """
     VISIBLE = 0
     EXPLORED = 1
     INVISIBLE = 2
 
 
-class DifficultyLevel(IntEnum):
+class DifficultyLevel(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference difficulty level of the game. Used in the 'Difficulty
     Level' condition.
@@ -218,7 +253,7 @@ class DifficultyLevel(IntEnum):
     **Examples**
 
     >>> DifficultyLevel.HARD
-    >>> 0
+    <DifficultyLevel.HARD: 1>
     """
     EASIEST = 4
     STANDARD = 3
@@ -228,7 +263,7 @@ class DifficultyLevel(IntEnum):
     # EXTREME = 5  # ???
 
 
-class TechnologyState(IntEnum):
+class TechnologyState(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference technology state of a technology in the game. Used in
     the 'Technology State' condition.
@@ -236,7 +271,7 @@ class TechnologyState(IntEnum):
     **Examples**
 
     >>> TechnologyState.NOT_READY
-    >>> 0
+    <TechnologyState.NOT_READY: 0>
     """
     DISABLED = -1
     NOT_READY = 0
@@ -251,7 +286,7 @@ class TechnologyState(IntEnum):
     """A tech that is waiting in queue to be researched"""
 
 
-class Comparison(IntEnum):
+class Comparison(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the comparisons in the game. Used in a lot of
     conditions like 'Accumulate Attribute' to perform logical operations on the attribute values
@@ -259,7 +294,7 @@ class Comparison(IntEnum):
     **Examples**
 
     >>> Comparison.EQUAL
-    >>> 4
+    <Comparison.EQUAL: 0>
     """
     EQUAL = 0
     LESS = 1
@@ -268,7 +303,7 @@ class Comparison(IntEnum):
     LARGER_OR_EQUAL = 4
 
 
-class ObjectAttribute(IntEnum):
+class ObjectAttribute(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference all the different object attributes in the game. Used
     in the 'Modify Attribute' effect to control which attribute of an object is modified.
@@ -276,7 +311,7 @@ class ObjectAttribute(IntEnum):
     **Examples**
 
     >>> ObjectAttribute.LINE_OF_SIGHT
-    >>> 1
+    <ObjectAttribute.LINE_OF_SIGHT: 1>
     """
     HIT_POINTS = 0
     LINE_OF_SIGHT = 1
@@ -331,7 +366,7 @@ class ObjectAttribute(IntEnum):
     REGENERATION_RATE = 109
 
 
-class Attribute(IntEnum):
+class Attribute(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference all the player resources in the game. Used in effects
     and conditions like 'Accumulate Attribute' and 'Modify Resource'
@@ -339,7 +374,7 @@ class Attribute(IntEnum):
     **Examples**
 
     >>> Attribute.FOOD
-    >>> 0
+    <Attribute.FOOD: 0>
     """
 
     FOOD = 0
@@ -1670,7 +1705,7 @@ class Attribute(IntEnum):
     """
 
 
-class ObjectType(IntEnum):
+class ObjectType(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the object types in the game. Used in a lot of effects
     and conditions, like 'Kill Object', 'Objects in Area'.
@@ -1678,7 +1713,7 @@ class ObjectType(IntEnum):
     **Examples**
 
     >>> ObjectType.OTHER
-    >>> 1
+    <ObjectType.OTHER: 1>
     """
     OTHER = 1
     BUILDING = 2
@@ -1686,7 +1721,7 @@ class ObjectType(IntEnum):
     MILITARY = 4
 
 
-class ObjectClass(IntEnum):
+class ObjectClass(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the object class in the game. Used in a lot of effects
     and conditions, like 'Kill Object', 'Objects in Area' under the name 'Object Group'.
@@ -1694,7 +1729,7 @@ class ObjectClass(IntEnum):
     **Examples**
 
     >>> ObjectType.OTHER
-    >>> 1
+    <ObjectType.OTHER: 1>
     """
     ARCHER = 0
     ARTIFACT = 1
@@ -1760,7 +1795,7 @@ class ObjectClass(IntEnum):
     CONTROLLED_ANIMAL = 61
 
 
-class TerrainRestrictions(IntEnum):
+class TerrainRestrictions(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the terrain restriction IDs in the game. Used in the
     'Modify Attribute' effects
@@ -1768,7 +1803,7 @@ class TerrainRestrictions(IntEnum):
     **Examples**
 
     >>> TerrainRestrictions.LAND_AND_SHALLOWS
-    >>> 1
+    <TerrainRestrictions.LAND_AND_SHALLOWS: 1>
     """
     ALL = 0
     """Used by terrain eyecandy and sundries"""
@@ -1824,20 +1859,25 @@ class TerrainRestrictions(IntEnum):
     """Used by medium ships, such as Trade Cog, Fire Galley and Longboat"""
 
 
-class HeroStatusFlag(IntEnum):
+class HeroStatusFlag(_TriggerListIntFlags):
     """
     This enum class provides the integer values for the different hero status flags that can be used in the 'Modify
     Attribute' effect with the 'Hero Status' attribute.
 
     **Methods**
 
-    >>> HeroStatusFlag.combine()
-    >>> HeroStatusFlag.split_flags()
+    - ``HeroStatusFlag.combine()``
+    - ``HeroStatusFlag.split_flags()``
+
 
     **Examples**
 
-    >>> ObjectType.OTHER
-    >>> 1
+    >>> HeroStatusFlag.HERO_REGENERATION
+    <HeroStatusFlag.HERO_REGENERATION: 4>
+    >>> HeroStatusFlag.HERO_REGENERATION | HeroStatusFlag.HERO_GLOW
+    <HeroStatusFlag.HERO_GLOW|HERO_REGENERATION: 68>
+    >>> HeroStatusFlag.combine(hero_regeneration=True, hero_glow=True)
+    <HeroStatusFlag.HERO_GLOW|HERO_REGENERATION: 68>
     """
 
     @staticmethod
@@ -1850,7 +1890,7 @@ class HeroStatusFlag(IntEnum):
             delete_confirmation: bool = False,
             hero_glow: bool = False,
             invert_all_flags: bool = False
-    ) -> int:
+    ) -> HeroStatusFlag:
         """
         This method combines the given hero status flags into an integer value
 
@@ -1876,12 +1916,11 @@ class HeroStatusFlag(IntEnum):
         total += 32 if delete_confirmation else 0
         total += 64 if hero_glow else 0
         total += 128 if invert_all_flags else 0
-        return total
+        return HeroStatusFlag(total)
 
     @staticmethod
     def split_flags(value: int) -> dict[HeroStatusFlag, bool]:
         """
-
         Split the Hero Status flags into boolean variables related to their effects
 
         Args:
@@ -1906,7 +1945,7 @@ class HeroStatusFlag(IntEnum):
     INVERT_FLAGS = 128
 
 
-class BlastLevel(IntEnum):
+class BlastLevel(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the blast level values used in the game. Used in the
     'Modify Attribute' effect with the 'Blast Attack/Defense Level' attributes
@@ -1914,7 +1953,7 @@ class BlastLevel(IntEnum):
     **Examples**
 
     >>> BlastLevel.TREES
-    >>> 1
+    <BlastLevel.TREES: 1>
     """
     RESOURCES = 0
     """
@@ -1954,7 +1993,7 @@ class BlastLevel(IntEnum):
     """
 
 
-class SmartProjectile(IntEnum):
+class SmartProjectile(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the smart projectile flag values used in the game. Used in the
     'Modify Attribute' effect with the 'Enable Smart Projectile' attribute
@@ -1962,13 +2001,13 @@ class SmartProjectile(IntEnum):
     **Examples**
 
     >>> SmartProjectile.ENABLED
-    >>> 1
+    <SmartProjectile.ENABLED: 1>
     """
     ENABLED = 1
     FULL_DAMAGE_ON_MISSED_HIT = 2
 
 
-class DamageClass(IntEnum):
+class DamageClass(_TriggerListIntEnums):
     """
     This enum class provides the integer values that represent the damage classes in the game. Used in the 'Chnage
     Object Attack/Armour' and 'Modify Attribute' with the 'Attack/Armour' attibutes
@@ -1976,7 +2015,7 @@ class DamageClass(IntEnum):
     **Examples**
 
     >>> DamageClass.INFANTRY
-    >>> 1
+    <DamageClass.INFANTRY: 1>
     """
     WONDER = 0
     """Since HD. Only wonders has this armour class. However there is no unit that has this attack class."""
@@ -2036,7 +2075,7 @@ class DamageClass(IntEnum):
     UNUSED_ID49 = 49
 
 
-class Hotkey(IntEnum):
+class Hotkey(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the blast level values used in the game. Used in the
     'Modify Attribute' effect with the 'HotKey ID' attribute
@@ -2047,7 +2086,7 @@ class Hotkey(IntEnum):
     **Examples**
 
     >>> Hotkey.SPACE
-    >>> 10101
+    <Hotkey.SPACE: 10101>
     """
     SPACE = 10101
     PAGE_UP = 15000
@@ -2107,7 +2146,7 @@ class Hotkey(IntEnum):
     F15 = 10661
 
 
-class ColorMood(IntEnum):
+class ColorMood(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the colour mood values used in the game. Used in the
     'Change Colour Mood' effect
@@ -2115,7 +2154,7 @@ class ColorMood(IntEnum):
     **Examples**
 
     >>> ColorMood.AUTUMN
-    >>> 1
+    <ColorMood.AUTUMN: 1>
     """
     DEFAULT = 0
     AUTUMN = 1
@@ -2125,7 +2164,7 @@ class ColorMood(IntEnum):
     NIGHT = 5
 
 
-class ObjectState(IntEnum):
+class ObjectState(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the object state values used in the game. Used in the
     'Object in Area' condition
@@ -2133,7 +2172,7 @@ class ObjectState(IntEnum):
     **Examples**
 
     >>> BlastLevel.TREES
-    >>> 1
+    <BlastLevel.TREES: 1>
     """
     FOUNDATION = 0
     ALMOST_ALIVE = 1
@@ -2145,7 +2184,7 @@ class ObjectState(IntEnum):
     REMOVE = 7
 
 
-class Age(IntEnum):
+class Age(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the different ages in the game. These values are
     used by the 'Current Age' player resource
@@ -2153,7 +2192,7 @@ class Age(IntEnum):
     **Examples**
 
     >>> Age.IMPERIAL_AGE
-    >>> 3
+    <Age.IMPERIAL_AGE: 3>
     """
 
     DARK_AGE = 0
@@ -2162,7 +2201,7 @@ class Age(IntEnum):
     IMPERIAL_AGE = 3
 
 
-class ActionType(IntEnum):
+class ActionType(_TriggerListIntEnums):
     """
     This enum class provides the integer values used to reference the different action types in the game.
     These values are used in the Task Object effect
@@ -2170,7 +2209,7 @@ class ActionType(IntEnum):
     **Examples**
 
     >>> ActionType.DROP_RELIC
-    >>> 14
+    <ActionType.DROP_RELIC: 14>
     """
     DEFAULT = 0
     MOVE = 1
