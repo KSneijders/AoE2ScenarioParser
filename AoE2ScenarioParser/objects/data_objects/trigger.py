@@ -64,12 +64,14 @@ class Trigger(AoE2Object):
                  trigger_id: int = -1,
                  **kwargs
                  ):
+        super().__init__(**kwargs)
+
         if conditions is None:
-            conditions = []
+            conditions = UuidList(self._host_uuid)
         if condition_order is None:
             condition_order = []
         if effects is None:
-            effects = []
+            effects = UuidList(self._host_uuid)
         if effect_order is None:
             effect_order = []
 
@@ -95,8 +97,6 @@ class Trigger(AoE2Object):
 
         self.new_effect = NewEffectSupport(self)
         self.new_condition = NewConditionSupport(self)
-
-        super().__init__(**kwargs)
 
     def __deepcopy__(self, memo):
         cls = self.__class__
