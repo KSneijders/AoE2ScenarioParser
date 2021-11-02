@@ -5,6 +5,7 @@ from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 
 class U:
     """Mock object like AoE2Object"""
+
     def __init__(self):
         self._host_uuid = ''
 
@@ -19,9 +20,17 @@ class TestUuidList(TestCase):
         self.lst = UuidList("uuid")
 
     def test_uuid_transfer_init(self):
-        lst = UuidList("uuid", (U(),))
+        self.lst = UuidList("uuid", (U(),))
 
-        self.assertEqual(lst[0]._host_uuid, "uuid")
+        self.assertEqual(self.lst[0]._host_uuid, "uuid")
+
+    def test_uuid_transfer_init_nested(self):
+        self.lst = UuidList("uuid", ((U(), U(),), (U(), U(),)))
+
+        for lst in self.lst:
+            self.assertEqual(lst.uuid, "uuid")
+            for e in lst:
+                self.assertEqual(e._host_uuid, "uuid")
 
     # ################## Append ##################
 

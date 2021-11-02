@@ -10,6 +10,7 @@ class UuidList(list):
         self.callable_ = callable_
         self._uuid = uuid
 
+        seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
         self._update(seq)
         super().__init__(seq)
 
