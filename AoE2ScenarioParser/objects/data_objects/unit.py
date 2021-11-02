@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from typing import Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
@@ -27,7 +28,7 @@ class Unit(AoE2Object):
     ]
 
     def __init__(self,
-                 player: PlayerId,
+                 player: Union[int, PlayerId],
                  x: float,
                  y: float,
                  z: float,
@@ -40,6 +41,8 @@ class Unit(AoE2Object):
                  **kwargs
                  ):
         raise_if_not_int_subclass([unit_const])
+
+        super().__init__(**kwargs)
 
         self._player: PlayerId = PlayerId(player)
         """
@@ -58,8 +61,6 @@ class Unit(AoE2Object):
         self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
-
-        super().__init__(**kwargs)
 
     @property
     def player(self) -> PlayerId:
