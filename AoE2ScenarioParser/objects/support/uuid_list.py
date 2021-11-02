@@ -6,10 +6,9 @@ T = TypeVar('T')
 
 
 class UuidList(list):
-    def __init__(self, uuid: str, seq: Sequence[T] = (), callable_: Callable = None, uuid_list_depth=1) -> None:
+    def __init__(self, uuid: str, seq: Sequence[T] = (), callable_: Callable = None) -> None:
         self.callable_ = callable_
         self._uuid = uuid
-        self.uuid_list_depth = uuid_list_depth
 
         self._update(seq)
         super().__init__(seq)
@@ -31,7 +30,7 @@ class UuidList(list):
 
     def extend(self, __iterable: Iterable[T]) -> None:
         """Extend list by appending elements from the iterable."""
-        __iterable = self._iter_to_uuid_list(__iterable, normal_top_iter=True)
+        __iterable = self._iter_to_uuid_list(__iterable, ignore_root_iter=True)
         self._update(__iterable)
         super().extend(__iterable)
 
@@ -46,23 +45,22 @@ class UuidList(list):
         Set self[key] to value or set self[i:j] to slice.
 
         Args:
-            i: The index
+            i: The index or slice object
             o: The object to set or iterable with objects when slicing is used
         """
-        o = self._iter_to_uuid_list(o, normal_top_iter=True)
+        o = self._iter_to_uuid_list(o, ignore_root_iter=isinstance(i, slice))
         self._update(o)
         super().__setitem__(i, o)
 
-    def _iter_to_uuid_list(self, iterable: Union[T, Iterable[T]], normal_top_iter=False) -> Union[T, Iterable[T]]:
-        if normal_top_iter:
+    def _iter_to_uuid_list(self, iterable: Union[T, Iterable[T]], ignore_root_iter=False) -> Union[T, Iterable[T]]:
+        if ignore_root_iter:
             return list(map(self._iter_to_uuid_list, iterable))
 
-        if not issubclass(iterable.__class__, Iterable) or self.uuid_list_depth == 1:
+        if not issubclass(iterable.__class__, Iterable):
             return iterable
         return UuidList(
             uuid=self.uuid,
-            seq=iterable,
-            uuid_list_depth=self.uuid_list_depth - 1
+            seq=iterable
         )
 
     def _update(self, o: Union[T, Iterable[T]]):
