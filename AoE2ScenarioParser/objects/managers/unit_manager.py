@@ -38,17 +38,13 @@ class UnitManager(AoE2Object):
         elif len(value) < 9:
             value.extend([[] for _ in range(9 - len(value))])
 
-        for index, lst in enumerate(value):
-            value[index] = UuidList(
-                self._host_uuid, lst,
-                callable_=lambda u: setattr(u, '_player', index)
-            )
         self._units = UuidList(self._host_uuid, value)
 
-    def _update_units_uuid(self, units: List[List[Unit]]):
-        for unit_list in units:
-            for unit in unit_list:
-                unit._host_uuid = self._host_uuid
+    def update_unit_player_values(self):
+        """Function to update all player values in all units. Useful when units are moved manually (in mass)."""
+        for player in PlayerId.all():
+            for unit in self.units[player]:
+                unit._player = player
 
     def add_unit(self,
                  player: Union[int, PlayerId],

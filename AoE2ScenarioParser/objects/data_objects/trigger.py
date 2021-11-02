@@ -67,11 +67,11 @@ class Trigger(AoE2Object):
         super().__init__(**kwargs)
 
         if conditions is None:
-            conditions = UuidList(self._host_uuid)
+            conditions = []
         if condition_order is None:
             condition_order = []
         if effects is None:
-            effects = UuidList(self._host_uuid)
+            effects = []
         if effect_order is None:
             effect_order = []
 
