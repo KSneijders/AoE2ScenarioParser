@@ -1,4 +1,4 @@
-from typing import Iterable, Sequence, Callable, Union, TypeVar
+from typing import Iterable, Sequence, Union, TypeVar
 
 from typing_extensions import SupportsIndex
 
@@ -6,12 +6,12 @@ T = TypeVar('T')
 
 
 class UuidList(list):
-    def __init__(self, uuid: str, seq: Sequence[T] = (), callable_: Callable = None) -> None:
-        self.callable_ = callable_
+    def __init__(self, uuid: str, seq: Sequence[T] = ()) -> None:
         self._uuid = uuid
 
-        seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
-        self._update(seq)
+        if seq:
+            seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
+            self._update(seq)
         super().__init__(seq)
 
     @property
@@ -77,11 +77,9 @@ class UuidList(list):
 
     def _update_object(self, o: T):
         """
-        Update the UUID of the object and call a custom function if the callable has been set
+        Update the UUID of the object
 
         Args:
             o (T): an object to update
         """
         o._host_uuid = self.uuid
-        if self.callable_ is not None:
-            self.callable_(o)
