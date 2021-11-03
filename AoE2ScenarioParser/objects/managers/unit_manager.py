@@ -14,15 +14,19 @@ class UnitManager(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
-        RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit)
+        RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit),
+        RetrieverObjectLink("next_unit_id", "DataHeader", "next_unit_id_to_place")
     ]
 
-    def __init__(self, units: List[List[Unit]], **kwargs):
+    def __init__(self, units: List[List[Unit]], next_unit_id: int, **kwargs):
         super().__init__(**kwargs)
 
         self.units = units
-        # `self.find_highest_reference_id()` can be replaced by the value for next_unit_id_to_place in retrievers
-        self.reference_id_generator = create_id_generator(self.find_highest_reference_id() + 1)
+        self.reference_id_generator = create_id_generator(next_unit_id)
+
+    @property
+    def next_unit_id(self):
+        return self.get_new_reference_id()
 
     @property
     def units(self):
