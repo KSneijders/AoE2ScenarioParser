@@ -2148,8 +2148,8 @@ class Hotkey(_TriggerListIntEnums):
 
 class ColorMood(_TriggerListIntEnums):
     """
-    This enum class provides the integer values used to reference the colour mood values used in the game. Used in the
-    'Change Colour Mood' effect
+    This enum class provides the integer values used to reference the color mood values used in the game. Used in the
+    'Change Color Mood' effect
 
     **Examples**
 
