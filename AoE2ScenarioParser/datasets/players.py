@@ -64,6 +64,7 @@ class ColorId(IntEnum):
     PURPLE = 5
     GRAY = 6
     ORANGE = 7
+    INVALID_8 = 8
     INVALID_9 = 9
     INVALID_10 = 10
     INVALID_11 = 11
