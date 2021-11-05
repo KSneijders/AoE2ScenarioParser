@@ -1,31 +1,31 @@
-from typing import List, Dict
+from typing import List, Dict, Type, Tuple
 
 from AoE2ScenarioParser.helper.string_manipulations import create_inline_line, add_tabs
 
-_default_inline_types = {
-    'int': 8,
-    'float': 8
-}
+_default_inline_types: List[Tuple[Type, int]] = [
+    (int, 8),
+    (float, 8)
+]
 
 
-def pretty_format_list(plist: List, inline_types: Dict[str, int] = None):
+def pretty_format_list(plist: List, inline_types: List[Tuple[Type, int]] = None):
     if len(plist) == 0:
         return "[]"
     if inline_types is None:
         inline_types = _default_inline_types
-    entry_type = type(plist[0]).__name__  # Get entry type
 
     return_string = "[\r\n"
     line_items = []
     for index, entry in enumerate(plist):
-        if entry_type in inline_types.keys():
-            line_items.append(entry)
-            if index % inline_types[entry_type] == inline_types[entry_type] - 1:
-                return_string += create_inline_line(line_items)
-                line_items = []
-            continue
-        else:
-            return_string += f"\t{entry}\r\n"
+        for type_, n in inline_types:
+            if isinstance(entry, type_):
+                line_items.append(entry)
+                if index % n == n - 1:
+                    return_string += create_inline_line(line_items)
+                    line_items = []
+                break
+            else:
+                return_string += f"\t{entry}\r\n"
     if len(line_items) != 0:
         return_string += create_inline_line(line_items)
     return return_string + "]\r\n"

@@ -150,7 +150,7 @@ class PlayerManager(AoE2Object):
     @property
     def _string_table_player_names(self) -> List[int]:
         """Returns the string table player names of all players"""
-        return self._player_attributes_to_list("string_table_name_id", None, default=0, fill_empty=8)
+        return self._player_attributes_to_list("string_table_name_id", None, default=4294967294, fill_empty=8)
 
     def _player_attributes_to_list(
             self,
