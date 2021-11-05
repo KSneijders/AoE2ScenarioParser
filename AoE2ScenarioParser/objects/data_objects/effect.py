@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -172,7 +172,7 @@ class Effect(AoE2Object):
         # HANDLE ARMOUR EFFECT ATTRIBUTES
         if self._armour_attack_flag:
             # If effect created through new_effect
-            if armour_attack_class not in [-1, None] or armour_attack_quantity not in [-1, None]:
+            if value_is_valid(armour_attack_class) or value_is_valid(armour_attack_quantity):
                 quantity = None
             # If effect created through reading
             elif quantity is not None:
@@ -195,7 +195,7 @@ class Effect(AoE2Object):
             area_y1, area_y2 = area_y2, area_y1
             warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
 
-        if legacy_location_object_reference != -1:
+        if value_is_valid(legacy_location_object_reference):
             location_object_reference = legacy_location_object_reference
 
         # Bypass the @property which causes: self._update_armour_attack_flag()
