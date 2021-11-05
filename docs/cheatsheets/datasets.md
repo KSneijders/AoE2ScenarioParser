@@ -375,7 +375,7 @@ You can also address the players by color if you prefer it:
 
 ```py
 PlayerColorId.BLUE, PlayerColorId.RED, PlayerColorId.GREEN, PlayerColorId.YELLOW,
-PlayerColorId.AQUA, PlayerColorId.PURPLE, PlayerColorId.GREY, PlayerColorId.ORANGE
+PlayerColorId.AQUA, PlayerColorId.PURPLE, PlayerColorId.GRAY, PlayerColorId.ORANGE
 ```
 
 ---
