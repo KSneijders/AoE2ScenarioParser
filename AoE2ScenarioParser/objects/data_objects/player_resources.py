@@ -17,8 +17,8 @@ class PlayerResources(AoE2Object):
     def __init__(self, food: int, wood: int, gold: int, stone: int, color: int, **kwargs):
         super().__init__(**kwargs)
 
-        self.food = food
-        self.wood = wood
-        self.gold = gold
-        self.stone = stone
-        self.color = ColorId(color)
+        self.food: int = food
+        self.wood: int = wood
+        self.gold: int = gold
+        self.stone: int = stone
+        self.color: ColorId = ColorId(color)
