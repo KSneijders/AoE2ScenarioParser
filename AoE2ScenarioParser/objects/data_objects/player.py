@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from AoE2ScenarioParser.datasets.object_support import StartingAge
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -27,9 +27,14 @@ class Player(AoE2Object):
             human: bool,
             civilization: int,
             architecture_set: int,
-            tribe_name: Optional[str] = None,  # Optional due to GAIA not having such value
-            base_priority: Optional[int] = None,  # Optional due to GAIA not having such value
-            string_table_name_id: Optional[int] = None,  # Optional due to GAIA not having such value
+
+            # Optionals due to GAIA not having such value
+            disabled_techs: Optional[List[int]] = None,
+            disabled_buildings: Optional[List[int]] = None,
+            disabled_units: Optional[List[int]] = None,
+            tribe_name: Optional[str] = None,
+            base_priority: Optional[int] = None,
+            string_table_name_id: Optional[int] = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -47,8 +52,13 @@ class Player(AoE2Object):
         self.human: bool = human
         self.civilization = civilization
         self.architecture_set = architecture_set
-        self.base_priority: int = base_priority
+
+        # Optionals due to GAIA not having such value
+        self.disabled_techs: Optional[List[int]] = disabled_techs
+        self.disabled_buildings: Optional[List[int]] = disabled_buildings
+        self.disabled_units: Optional[List[int]] = disabled_units
         self.tribe_name: Optional[str] = tribe_name
+        self.base_priority: int = base_priority
         self.string_table_name_id: Optional[int] = string_table_name_id
 
     def _get_object_attrs(self):

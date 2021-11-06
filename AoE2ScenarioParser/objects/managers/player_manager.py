@@ -1,6 +1,7 @@
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player import Player
 from AoE2ScenarioParser.objects.data_objects.player_meta_data import PlayerMetaData
@@ -12,6 +13,9 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 class PlayerManager(AoE2Object):
     """Manager of the everything player related."""
 
+    # Todo: Implement a DE version separate of this.
+    #  I'll be dealing with this IF support for other game versions will ever happen.
+
     _link_list = [
         RetrieverObjectLink("_starting_ages", "Options", "per_player_starting_age"),
         RetrieverObjectLink("_lock_civilizations", "DataHeader", "per_player_lock_civilization"),
@@ -21,6 +25,33 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap"),
         RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
         RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
+
+        RetrieverObjectLink("_disabled_tech_ids_player_1", "Options", "disabled_tech_ids_player_1"),
+        RetrieverObjectLink("_disabled_tech_ids_player_2", "Options", "disabled_tech_ids_player_2"),
+        RetrieverObjectLink("_disabled_tech_ids_player_3", "Options", "disabled_tech_ids_player_3"),
+        RetrieverObjectLink("_disabled_tech_ids_player_4", "Options", "disabled_tech_ids_player_4"),
+        RetrieverObjectLink("_disabled_tech_ids_player_5", "Options", "disabled_tech_ids_player_5"),
+        RetrieverObjectLink("_disabled_tech_ids_player_6", "Options", "disabled_tech_ids_player_6"),
+        RetrieverObjectLink("_disabled_tech_ids_player_7", "Options", "disabled_tech_ids_player_7"),
+        RetrieverObjectLink("_disabled_tech_ids_player_8", "Options", "disabled_tech_ids_player_8"),
+
+        RetrieverObjectLink("_disabled_building_ids_player_1", "Options", "disabled_building_ids_player_1"),
+        RetrieverObjectLink("_disabled_building_ids_player_2", "Options", "disabled_building_ids_player_2"),
+        RetrieverObjectLink("_disabled_building_ids_player_3", "Options", "disabled_building_ids_player_3"),
+        RetrieverObjectLink("_disabled_building_ids_player_4", "Options", "disabled_building_ids_player_4"),
+        RetrieverObjectLink("_disabled_building_ids_player_5", "Options", "disabled_building_ids_player_5"),
+        RetrieverObjectLink("_disabled_building_ids_player_6", "Options", "disabled_building_ids_player_6"),
+        RetrieverObjectLink("_disabled_building_ids_player_7", "Options", "disabled_building_ids_player_7"),
+        RetrieverObjectLink("_disabled_building_ids_player_8", "Options", "disabled_building_ids_player_8"),
+
+        RetrieverObjectLink("_disabled_unit_ids_player_1", "Options", "disabled_unit_ids_player_1"),
+        RetrieverObjectLink("_disabled_unit_ids_player_2", "Options", "disabled_unit_ids_player_2"),
+        RetrieverObjectLink("_disabled_unit_ids_player_3", "Options", "disabled_unit_ids_player_3"),
+        RetrieverObjectLink("_disabled_unit_ids_player_4", "Options", "disabled_unit_ids_player_4"),
+        RetrieverObjectLink("_disabled_unit_ids_player_5", "Options", "disabled_unit_ids_player_5"),
+        RetrieverObjectLink("_disabled_unit_ids_player_6", "Options", "disabled_unit_ids_player_6"),
+        RetrieverObjectLink("_disabled_unit_ids_player_7", "Options", "disabled_unit_ids_player_7"),
+        RetrieverObjectLink("_disabled_unit_ids_player_8", "Options", "disabled_unit_ids_player_8"),
     ]
 
     def __init__(self,
@@ -36,11 +67,18 @@ class PlayerManager(AoE2Object):
                  ):
         super().__init__(**kwargs)
 
+        disables = {}
+        for type_ in ['tech', 'building', 'unit']:
+            disables[type_] = [kwargs[f'_disabled_{type_}_ids_player_{p}'] for p in range(1, 9)]
+
         gaia_first_params = {}
         no_gaia_params = {
             'tribe_name': _tribe_names,
             'string_table_name_id': _string_table_player_names,
             'base_priority': _base_priorities,
+            'disabled_techs': disables['tech'],
+            'disabled_buildings': disables['building'],
+            'disabled_units': disables['unit'],
         }
         gaia_last_params = {
             'starting_age': _starting_ages,
@@ -98,6 +136,13 @@ class PlayerManager(AoE2Object):
     # ###############################################################################################
     # ################################# Functions for reconstruction ################################
     # ###############################################################################################
+
+    def __getattribute__(self, name: str) -> Any:
+        if name.startswith('_disabled_'):
+            type_ = name.split('_')[2]
+            return getattr(self.players[int(name[-1])], f"disabled_{type_}s")
+
+        return super().__getattribute__(name)
 
     @property
     def _starting_ages(self):
