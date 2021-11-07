@@ -1,7 +1,9 @@
-from typing import Optional, List
+from typing import Optional, List, Union, overload
 
 from AoE2ScenarioParser.datasets.object_support import StartingAge
 from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
+from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
@@ -92,6 +94,24 @@ class Player(AoE2Object):
         self.tribe_name: Optional[str] = tribe_name
         self.base_priority: int = base_priority
         self.string_table_name_id: Optional[int] = string_table_name_id
+
+    @overload
+    def set_player_diplomacy(self, players: List[Union[PlayerId, int]], diplomacy: DiplomacyState):
+        ...
+
+    @overload
+    def set_player_diplomacy(self, player: Union[PlayerId, int], diplomacy: DiplomacyState):
+        ...
+
+    def set_player_diplomacy(self, *args):
+        players: List[Union[PlayerId, int]] = listify(args[0])
+        diplomacy: DiplomacyState = args[1]
+
+        if self.player_id in players:
+            raise ValueError("Cannot set diplomacy from and to the same player")
+
+        for player in players:
+            self.diplomacy[player - 1] = diplomacy
 
     def _get_object_attrs(self):
         attrs = self._object_attributes

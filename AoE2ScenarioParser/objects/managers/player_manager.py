@@ -1,6 +1,7 @@
-from typing import List, Dict, Union, Any
+from typing import List, Dict, Union, Any, Type
 
 from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player import Player
 from AoE2ScenarioParser.objects.data_objects.player_data_three import PlayerDataThree
@@ -139,6 +140,23 @@ class PlayerManager(AoE2Object):
             self.players[player].gold = 100
             self.players[player].stone = 200
 
+    def create_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY):
+        """
+        Sets all players in list allied with all others in the same list. Accepts
+
+        Args:
+            args: list of player IDs or list of list of player IDs
+            diplomacy: The diplomacy to set the teams to. Defaults to ally.
+
+        Returns:
+            This function does not return anything
+        """
+        for team in args:
+            for player in team:
+                if player == PlayerId.GAIA:
+                    raise ValueError("Gaia cannot be in a team")
+                self.players[player].set_player_diplomacy([p for p in team if p != player], diplomacy)
+
     # ###############################################################################################
     # ################################# Functions for reconstruction ################################
     # ###############################################################################################
@@ -189,7 +207,7 @@ class PlayerManager(AoE2Object):
         original_map: Dict[int, str] = {0: 'ally', 1: 'neutral', 3: 'enemy'}
         mappings: Dict[str, Dict[str, int]] = {
             'diplomacy_for_interaction': {'self': 0, 'ally': 0, 'neutral': 1, 'enemy': 3, 'gaia': 3},
-            'diplomacy_for_ai_system':   {'self': 1, 'ally': 2, 'neutral': 3, 'enemy': 4, 'gaia': 0},
+            'diplomacy_for_ai_system': {'self': 1, 'ally': 2, 'neutral': 3, 'enemy': 4, 'gaia': 0},
         }
 
         initial_camera_x = self._player_attributes_to_list("initial_camera_x", None, default=72)
@@ -203,9 +221,7 @@ class PlayerManager(AoE2Object):
             diplomacy = diplomacies[player][:8]
             for key, mapping in mappings.items():
                 lst = other_diplomacies.setdefault(key, [])
-                temp_lst = [mapping['gaia']] + [
-                    mapping[original_map[n]] for n in diplomacy
-                ]
+                temp_lst = [mapping['gaia']] + [mapping[original_map[n]] for n in diplomacy]
                 temp_lst[player + 1] = mapping['self']
                 lst.append(temp_lst)
 
