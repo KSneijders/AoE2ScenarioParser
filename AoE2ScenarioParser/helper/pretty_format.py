@@ -28,7 +28,7 @@ def pretty_format_list(plist: List, inline_types: List[Tuple[Type, int]] = None)
             return_string += f"\t{entry}\r\n"
     if len(line_items) != 0:
         return_string += create_inline_line(line_items)
-    return return_string + "]\r\n"
+    return return_string + "]"
 
 
 def pretty_format_dict(pdict: dict):

@@ -1,9 +1,10 @@
 from typing import List, Dict, Union, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player import Player
+from AoE2ScenarioParser.objects.data_objects.player_data_three import PlayerDataThree
+from AoE2ScenarioParser.objects.data_objects.player_diplomacy import PlayerDiplomacy
 from AoE2ScenarioParser.objects.data_objects.player_meta_data import PlayerMetaData
 from AoE2ScenarioParser.objects.data_objects.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
@@ -21,7 +22,10 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_lock_civilizations", "DataHeader", "per_player_lock_civilization"),
         RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
         RetrieverObjectLink("_metadata", "DataHeader", "player_data_1", process_as_object=PlayerMetaData),
+        RetrieverObjectLink("_player_data_3", "Units", "player_data_3", process_as_object=PlayerDataThree),
+        RetrieverObjectLink("_diplomacy", "Diplomacy", "per_player_diplomacy", process_as_object=PlayerDiplomacy),
         RetrieverObjectLink("_base_priorities", "Options", "per_player_base_priority"),
+        RetrieverObjectLink("_allied_victories", "Diplomacy", "per_player_allied_victory"),
         RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap"),
         RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
         RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
@@ -59,7 +63,10 @@ class PlayerManager(AoE2Object):
                  _lock_civilizations: List[int],
                  _resources: List[PlayerResources],
                  _metadata: List[PlayerMetaData],
+                 _player_data_3: List[PlayerDataThree],
+                 _diplomacy: List[PlayerDiplomacy],
                  _base_priorities: List[int],
+                 _allied_victories: List[int],
                  _pop_caps: List[int],
                  _tribe_names: List[str],
                  _string_table_player_names: List[int],
@@ -76,9 +83,13 @@ class PlayerManager(AoE2Object):
             'tribe_name': _tribe_names,
             'string_table_name_id': _string_table_player_names,
             'base_priority': _base_priorities,
+            'allied_victory': _allied_victories,
             'disabled_techs': disables['tech'],
             'disabled_buildings': disables['building'],
             'disabled_units': disables['unit'],
+            'initial_camera_x': [pd.initial_camera_x for pd in _player_data_3],
+            'initial_camera_y': [pd.initial_camera_y for pd in _player_data_3],
+            'diplomacy': [d.diplomacy_stance for d in _diplomacy],
         }
         gaia_last_params = {
             'starting_age': _starting_ages,
@@ -101,12 +112,7 @@ class PlayerManager(AoE2Object):
             for key, lst in param_set.items():
                 spread_player_attributes(player_attributes, key, lst, gaia_first)
 
-        player_objects = []
-        for p in PlayerId.all():
-            player_objects.append(
-                Player(**player_attributes[p])
-            )
-        self.players = player_objects
+        self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
 
     @property
     def players(self) -> List[Player]:
@@ -145,6 +151,11 @@ class PlayerManager(AoE2Object):
         return super().__getattribute__(name)
 
     @property
+    def _allied_victories(self):
+        """Returns the allied victory of all players"""
+        return self._player_attributes_to_list("allied_victory", None, default=0, fill_empty=8)
+
+    @property
     def _starting_ages(self):
         """Returns the starting age of all players"""
         return self._player_attributes_to_list("starting_age", False, default=2, fill_empty=7)
@@ -158,6 +169,56 @@ class PlayerManager(AoE2Object):
     def _pop_caps(self):
         """Returns the population cap of all players"""
         return self._player_attributes_to_list("population_cap", False, default=200, fill_empty=7)
+
+    @property
+    def _diplomacy(self):
+        """Returns the diplomacy of all players"""
+        diplomacies = self._player_attributes_to_list("diplomacy", None)
+
+        player_diplomacies = UuidList(self._host_uuid, [
+            PlayerDiplomacy(diplomacy_stance=diplomacies[i]) for i in range(8)
+        ])
+        player_diplomacies.extend([
+            PlayerDiplomacy(diplomacy_stance=[3] * 16) for _ in range(8)
+        ])
+        return player_diplomacies
+
+    @property
+    def _player_data_3(self) -> List[PlayerDataThree]:
+        """Returns the resource objects for all players"""
+        original_map: Dict[int, str] = {0: 'ally', 1: 'neutral', 3: 'enemy'}
+        mappings: Dict[str, Dict[str, int]] = {
+            'diplomacy_for_interaction': {'self': 0, 'ally': 0, 'neutral': 1, 'enemy': 3, 'gaia': 3},
+            'diplomacy_for_ai_system':   {'self': 1, 'ally': 2, 'neutral': 3, 'enemy': 4, 'gaia': 0},
+        }
+
+        initial_camera_x = self._player_attributes_to_list("initial_camera_x", None, default=72)
+        initial_camera_y = self._player_attributes_to_list("initial_camera_y", None, default=72)
+        aok_allied_victory = self._player_attributes_to_list("allied_victory", None, default=0)
+        color = self._player_attributes_to_list("color", False, default=1)
+        diplomacies: List[List[int]] = self._player_attributes_to_list("diplomacy", None)
+
+        other_diplomacies: Dict[str, List[List[int]]] = {}
+        for player in range(8):
+            diplomacy = diplomacies[player][:8]
+            for key, mapping in mappings.items():
+                lst = other_diplomacies.setdefault(key, [])
+                temp_lst = [mapping['gaia']] + [
+                    mapping[original_map[n]] for n in diplomacy
+                ]
+                temp_lst[player + 1] = mapping['self']
+                lst.append(temp_lst)
+
+        return UuidList(self._host_uuid, [
+            PlayerDataThree(
+                initial_camera_x[i],
+                initial_camera_y[i],
+                aok_allied_victory[i],
+                other_diplomacies['diplomacy_for_interaction'][i],
+                other_diplomacies['diplomacy_for_ai_system'][i],
+                color[i],
+            ) for i in range(len(initial_camera_x))
+        ])
 
     @property
     def _resources(self) -> List[PlayerResources]:
