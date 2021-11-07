@@ -14,6 +14,9 @@ from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicat
 
 
 class SectionLevel(Enum):
+    """
+    This enum class indicates the section level of the structure
+    """
     TOP_LEVEL = 0
     STRUCT = 1
 
@@ -78,7 +81,10 @@ class AoE2FileSection:
         in this section as `byte_length`.
 
         Args:
-            igenerator: A generator from a binary scenario file
+            igenerator (IncrementalGenerator): A generator from a binary scenario file
+
+        Returns:
+            This function does not return anything
         """
         total_length = 0
         for retriever in self.retriever_map.values():

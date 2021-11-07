@@ -1,22 +1,40 @@
-from typing import List
-
+from __future__ import annotations
+from typing import List, Union
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 
 class DependencyTarget:
+    """
+    This class provides for objects for targeting a specific retriever based on it's section name (or 'self') and the
+    retriever name.
+    """
     def __init__(self, targets: List[List[str]]):
         """
-        Object for targeting a specific retriever based on it's section name (or 'self') and the retriever name.
-
         Args:
-            targets: a list of lists referencing a target according to: "('self' or {section}):{attribute_path}"
+            targets (List[List[str]]): a list of lists which specify the targets of the dependency. Each sublist consists of two elements,
+                the first element is the name of the section in which the target retriever lives and the second element
+                is the name of the retriever within that section
         """
         self.targets = targets
 
     @classmethod
-    def instance_or_none(cls, target):
+    def instance_or_none(cls, target: Union[str, List[str]]) -> DependencyTarget:
+        """
+        This function takes in a string or a list of strings indicating the target retriever(s)
+
+        Args:
+            target (Union[str, List[str]]): a string or list of strings representing the target retriever(s). Each string is in the format
+                'SectionName:RetrieverName'.
+
+        Returns:
+            A DependencyTarget instance
+
+        Raises:
+            InvalidScenarioStructureError: if the parameter 'target' is set to anything other than a string or a list
+                of strings
+        """
         if target is None:
             return None
 

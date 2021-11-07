@@ -39,6 +39,10 @@ class AoE2Scenario:
         return self._object_manager.managers['Map']
 
     def __init__(self, source_location):
+        """
+        Args:
+            source_location: The full file path of the scenario being read
+        """
         self.source_location = source_location
 
         self.read_mode = None
@@ -57,7 +61,7 @@ class AoE2Scenario:
         scenario_store.register_scenario(self)
 
     @classmethod
-    def from_file(cls, filename, game_version):
+    def from_file(cls, filename: str, game_version: str):
         """
         This function creates and returns an instance of the AoE2Scenario class from the given scenario file
 
@@ -102,12 +106,15 @@ class AoE2Scenario:
 
         return scenario
 
-    def _load_structure(self):
+    def _load_structure(self) -> None:
         """
         Load the structure json for the scenario and game version specified into self.structure
 
         Returns:
             This function does not return anything
+
+        Raises:
+            ValueError: if the game and scenario versions are not set
         """
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
@@ -142,6 +149,15 @@ class AoE2Scenario:
         return section
 
     def _add_to_sections(self, section):
+        """
+        This function adds the given section to the sections dictionary
+
+        Args:
+            section: The section to add to the sections dictionary
+
+        Returns:
+            This function does not return anything
+        """
         self.sections[section.name] = section
 
     """ ##########################################################################################
@@ -156,6 +172,13 @@ class AoE2Scenario:
             filename (str): The location to write the file to
             skip_reconstruction (bool): If reconstruction should be skipped. If true, this will ignore all changes made
                 using the managers (For example all changes made using trigger_manager).
+
+        Returns:
+            This function does not return anything
+
+        Raises:
+            ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
+                the same as the filename being written to
         """
         self._write_from_structure(filename, skip_reconstruction)
 
@@ -236,17 +259,17 @@ class AoE2Scenario:
         s_print("Writing structure to file finished successfully.", final=True)
 
 
-def initialise_version_dependencies(game_version, scenario_version):
+def initialise_version_dependencies(game_version, scenario_version) -> None:
     """
     This function initialises the data for the condition and effect objects (IDs, defaults, etc.) for the given scenario
     and game versions
 
     Args:
-        game_version: The version of the game to initialise the dependencies for
-        scenario_version: The version of the scenario to initialise the dependencies for
+        game_version (str): The version of the game to initialise the dependencies for
+        scenario_version (str): The version of the scenario to initialise the dependencies for
 
     Returns:
-        This function does not return anything, it initialises the conditions and effects
+        This function does not return anything, it only initialises the conditions and effects
     """
 
     condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
@@ -289,20 +312,39 @@ def get_file_version(generator: IncrementalGenerator) -> str:
     Get first 4 bytes of a file, which contains the version of the scenario
 
     Args:
-        generator: An IncrementalGenerator object of a scenario file
+        generator (IncrementalGenerator): An IncrementalGenerator object of a scenario file
 
-    Returns: A string which is the version of the scenario file
+    Returns:
+        A string which is the version of the scenario file
 
     """
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
 
-def decompress_bytes(file_content):
+def decompress_bytes(file_content: bytes) -> bytes:
+    """
+    Decompress the given bytes using the -zlib.MAX_WBITS algorithm
+
+    Args:
+        file_content (bytes): The bytes to decompress
+
+    Returns:
+        Decompressed bytes
+    """
     return zlib.decompress(file_content, -zlib.MAX_WBITS)
 
 
-def compress_bytes(file_content):
-    # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
+def compress_bytes(file_content: bytes) -> bytes:
+    """
+    Compress the given bytes using the -zlib.MAX_WBITS algorithm. View this link for additional information:
+    https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
+
+    Args:
+        file_content (bytes): The bytes to compress
+
+    Returns:
+        Compressed bytes
+    """
     deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
     compressed = deflate_obj.compress(file_content) + deflate_obj.flush()
     return compressed
@@ -310,27 +352,30 @@ def compress_bytes(file_content):
 
 def get_version_directory_path() -> Path:
     """
+    Get the path of the AoE2ScenarioParser/versions directory. Simply '../../versions' is not used as that is not OS
+    friendly.
 
     Returns:
-        The full path of the AoE2ScenarioParser/versions directory. Simply '../../versions' is not used because that is not OS friendly.
-
+        The full path of the AoE2ScenarioParser/versions directory.
     """
     return Path(__file__).parent.parent / 'versions'
 
 
 def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     """
-
     This function returns the structure file (conditions, effects and structure) requested for the game and scenario
-    version specified. A FileNotFoundError is raised if a json associated with the name given isn't found
+    version specified.
 
     Args:
-        game_version: The version of the game to return the structure file for
-        scenario_version: The scenario version to return the structure file for
-        name: The name of the structure file being requested
+        game_version (str): The version of the game to return the structure file for
+        scenario_version (str): The scenario version to return the structure file for
+        name (str): The name of the structure file being requested
 
     Returns:
+        a dict representation of the structure file requested
 
+    Raises:
+        UnknownStructureError: if a json associated with the name and versions specified is not found
     """
     try:
         vdir = get_version_directory_path()
@@ -341,18 +386,20 @@ def get_version_dependant_structure_file(game_version: str, scenario_version: st
         raise UnknownStructureError(f"The structure {name} could not be found with: {v}")
 
 
-def get_structure(game_version, scenario_version) -> dict:
+def get_structure(game_version: str, scenario_version: str) -> dict:
     """
-
     Get the structure file of the given game and scenario versions
 
     Args:
-        game_version: The game version to get the structure file for
-        scenario_version: The scenario version to get the structure file for
+        game_version (str): The game version to get the structure file for
+        scenario_version (str): The scenario version to get the structure file for
 
     Returns:
         The dictionary representation of the scenario for the specified versions
 
+    Raises:
+        InvalidScenarioStructureError: if the FileHeader section is not present in the loaded structure file
+        UnknownScenarioStructureError: if the structure for the specified game/scenario version is not found
     """
     try:
         vdir = get_version_directory_path()

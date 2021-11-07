@@ -11,11 +11,31 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
-def bytes_to_fixed_chars(byte_elements, codec="utf-8"):
+def bytes_to_fixed_chars(byte_elements: bytes, codec: str="utf-8") -> str:
+    """
+    This function is used to convert the given bytes to characters using the specified codec
+
+    Args:
+        byte_elements (bytes): The bytes to convert
+        codec (str): The codec to use
+
+    Returns:
+        A string of decoded characters
+    """
     return byte_elements.decode(codec)
 
 
-def fixed_chars_to_bytes(string, codec="utf-8"):
+def fixed_chars_to_bytes(string: str, codec: str="utf-8") -> bytes:
+    """
+    This function is used to convert the given string to bytes using the specified codec
+
+    Args:
+        string (str): The string to convert
+        codec (str): The codec to use
+
+    Returns:
+        bytes of the encoded string
+    """
     # Todo: Add space chars to fix length
     return string.encode(codec)
 
@@ -48,8 +68,11 @@ _no_string_trail = [
 ]
 
 
-def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET) \
-        -> Union[str, bytes]:
+def bytes_to_str(
+    byte_elements: bytes,
+    charset: str=settings.MAIN_CHARSET,
+    fallback_charset: str=settings.FALLBACK_CHARSET
+) -> Union[str, bytes]:
     """
     Converts bytes to string based on given charset.
 
@@ -77,16 +100,16 @@ def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=
 
 def str_to_bytes(
         string: str,
-        charset=settings.MAIN_CHARSET,
-        fallback_charset=settings.FALLBACK_CHARSET
-):
+        charset: str=settings.MAIN_CHARSET,
+        fallback_charset: str=settings.FALLBACK_CHARSET
+) -> bytes:
     """
     Converts string to bytes based on given charsets
 
     Args:
-        string: The string to convert
-        charset: The main charset used while encoding
-        fallback_charset: The fallback charset when the main fails
+        string (str): The string to convert
+        charset (str): The main charset used while encoding
+        fallback_charset (str): The fallback charset when the main fails
 
     Returns:
         The converted string
@@ -102,31 +125,103 @@ def str_to_bytes(
     raise ValueError(f"Unable to encode string using '{charset}' and '{fallback_charset}'. String:\n\t{q_str(string)}")
 
 
-def bytes_to_int(byte_elements, endian="little", signed=False):
+def bytes_to_int(byte_elements: bytes, endian: str="little", signed: bool=False) -> int:
+    """
+    This function is used to convert the given bytes to an integer
+
+    Args:
+        byte_elements (bytes): The bytes to convert
+        endian (str): "little" by default. Can also use "big"
+        signed (bool): False by default.
+
+    Returns:
+        integer representation of the given bytes
+    """
     return int.from_bytes(byte_elements, endian, signed=signed)
 
 
-def int_to_bytes(integer: int, length, endian="little", signed=True):
+def int_to_bytes(integer: int, length: int, endian: str="little", signed: bool=True) -> bytes:
+    """
+    This function is used to convert the given integer to bytes
+
+    Args:
+        integer (int): The number to convert
+        length (int): the number of bytes used to represent the integer
+        endian (str): "little" by default. Can also use "big"
+        signed (bool): True by default
+
+    Returns:
+        byte representation of the integer
+    """
     return integer.to_bytes(length, byteorder=endian, signed=signed)
 
 
-def bytes_to_float(byte_elements):
+def bytes_to_float(byte_elements: bytes) -> float:
+    """
+    This function is used to convert the given bytes to a floating point value
+
+    Args:
+        byte_elements (bytes): The bytes to convert
+
+    Returns:
+        the floating point value represented by the bytes
+    """
     return struct.unpack('f', byte_elements)[0]
 
 
-def float_to_bytes(f):
+def float_to_bytes(f: float) -> bytes:
+    """
+    This function is used to convert the given floating point value to bytes
+
+    Args:
+        f (float): The number to convert
+
+    Returns:
+        the floating point value represented as bytes
+    """
     return struct.pack('f', f)
 
 
-def bytes_to_double(byte_elements):
+def bytes_to_double(byte_elements: bytes) -> float:
+    """
+    This function is used to convert the given bytes to a double value
+
+    Args:
+        byte_elements (bytes): The bytes to convert
+
+    Returns:
+        the double value represented by the bytes
+    """
     return struct.unpack('d', byte_elements)[0]
 
 
-def double_to_bytes(d):
+def double_to_bytes(d: float) -> bytes:
+    """
+    This function is used to convert the given double value to bytes
+
+    Args:
+        d (float): The number to convert
+
+    Returns:
+        the double value represented as bytes
+    """
     return struct.pack('d', d)
 
 
-def parse_val_to_bytes(retriever: 'Retriever', val):
+def parse_val_to_bytes(retriever: Retriever, val) -> bytes:
+    """
+    This function encodes the given value to bytes according to the datatype of the retriever
+
+    Args:
+        retriever (Retriever): The retriever to encode the bytes for
+        val: The value to encode
+
+    Returns:
+        The encoded value as bytes
+
+    Raises:
+        ValueError: if the datatype of the retriever is not recognised
+    """
     var_type, var_len = retriever.datatype.type_and_length
 
     if var_type == "u" or var_type == "s":  # int
@@ -158,7 +253,20 @@ def parse_val_to_bytes(retriever: 'Retriever', val):
         raise ValueError(f"Unable to parse value to bytes with unknown type: ({var_type})")
 
 
-def parse_bytes_to_val(retriever, byte_elements):
+def parse_bytes_to_val(retriever: Retriever, byte_elements: bytes):
+    """
+    This function decodes the bytes given according to the datatype of the retriever
+
+    Args:
+        retriever (Retriever): The retriever to decode the bytes for
+        byte_elements (bytes): The bytes to decode
+
+    Returns:
+        The interpreted value of the bytes
+
+    Raises:
+        ValueError: if the datatype of the retriever is not recognised
+    """
     var_type, var_len = retriever.datatype.type_and_length
 
     if var_type == "u" or var_type == "s":
@@ -178,7 +286,25 @@ def parse_bytes_to_val(retriever, byte_elements):
         raise ValueError(f"Unable to parse bytes with unknown type: ({var_type})")
 
 
-def _combine_int_str(byte_string, length, endian, signed, retriever: 'Retriever' = None) -> bytes:
+def _combine_int_str(byte_string: bytes, length: int, endian: str, signed: bool, retriever: Retriever = None) -> bytes:
+    """
+    This function appends the length of the given bytes (this length is in byte form itself) to the front of the bytes.
+    This is done because strings are stored as an integer (as bytes) that is the length of the string followed by the
+    same number of bytes representing that string
+
+    Args:
+        byte_string (bytes): The byte representation of a string
+        length (int): The length of bytes to store the length in
+        endian (str): This is the format used to encode the length to bytes
+        signed (bool): determines if the length is a signed or unsigned integer
+        retriever (Retriever): the retriever to encode the bytes for
+
+    Returns:
+        the bytes of the length + the bytes of the string
+
+    Raises:
+        OverflowErorr: if the number of bytes needed to store the length is higher than the allowed value for scenarios
+    """
     try:
         return int_to_bytes(len(byte_string), length, endian=endian, signed=signed) + byte_string
     except OverflowError as e:
