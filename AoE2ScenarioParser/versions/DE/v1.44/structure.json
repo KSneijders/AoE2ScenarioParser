@@ -968,134 +968,6 @@
                     }
                 }
             },
-            "per_player_number_of_disabled_buildings": {
-                "type": "u32",
-                "repeat": 16,
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_VALUE",
-                        "target": [
-                            "self:disabled_building_ids_player_1",
-                            "self:disabled_building_ids_player_2",
-                            "self:disabled_building_ids_player_3",
-                            "self:disabled_building_ids_player_4",
-                            "self:disabled_building_ids_player_5",
-                            "self:disabled_building_ids_player_6",
-                            "self:disabled_building_ids_player_7",
-                            "self:disabled_building_ids_player_8"
-                        ],
-                        "eval": "[len(x) for x in [disabled_building_ids_player_1, disabled_building_ids_player_2, disabled_building_ids_player_3, disabled_building_ids_player_4, disabled_building_ids_player_5, disabled_building_ids_player_6, disabled_building_ids_player_7, disabled_building_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
-                    }
-                }
-            },
-            "disabled_building_ids_player_1": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[0]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    },
-                    "on_commit": {
-                        "action": "REFRESH",
-                        "target": "self:per_player_number_of_disabled_buildings"
-                    }
-                }
-            },
-            "disabled_building_ids_player_2": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[1]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
-            "disabled_building_ids_player_3": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[2]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
-            "disabled_building_ids_player_4": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[3]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
-            "disabled_building_ids_player_5": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[4]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
-            "disabled_building_ids_player_6": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[5]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
-            "disabled_building_ids_player_7": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[6]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
-            "disabled_building_ids_player_8": {
-                "type": "u32",
-                "dependencies": {
-                    "on_refresh": {
-                        "action": "SET_REPEAT",
-                        "target": "self:per_player_number_of_disabled_buildings",
-                        "eval": "per_player_number_of_disabled_buildings[7]"
-                    },
-                    "on_construct": {
-                        "action": "REFRESH_SELF"
-                    }
-                }
-            },
             "per_player_number_of_disabled_units": {
                 "type": "u32",
                 "repeat": 16,
@@ -1218,6 +1090,134 @@
                         "action": "SET_REPEAT",
                         "target": "self:per_player_number_of_disabled_units",
                         "eval": "per_player_number_of_disabled_units[7]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "per_player_number_of_disabled_buildings": {
+                "type": "u32",
+                "repeat": 16,
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_VALUE",
+                        "target": [
+                            "self:disabled_building_ids_player_1",
+                            "self:disabled_building_ids_player_2",
+                            "self:disabled_building_ids_player_3",
+                            "self:disabled_building_ids_player_4",
+                            "self:disabled_building_ids_player_5",
+                            "self:disabled_building_ids_player_6",
+                            "self:disabled_building_ids_player_7",
+                            "self:disabled_building_ids_player_8"
+                        ],
+                        "eval": "[len(x) for x in [disabled_building_ids_player_1, disabled_building_ids_player_2, disabled_building_ids_player_3, disabled_building_ids_player_4, disabled_building_ids_player_5, disabled_building_ids_player_6, disabled_building_ids_player_7, disabled_building_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
+                    }
+                }
+            },
+            "disabled_building_ids_player_1": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[0]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    },
+                    "on_commit": {
+                        "action": "REFRESH",
+                        "target": "self:per_player_number_of_disabled_buildings"
+                    }
+                }
+            },
+            "disabled_building_ids_player_2": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[1]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_3": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[2]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_4": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[3]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_5": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[4]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_6": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[5]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_7": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[6]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_8": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[7]"
                     },
                     "on_construct": {
                         "action": "REFRESH_SELF"
