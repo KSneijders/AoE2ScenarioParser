@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import List
+from typing import List, Union
 
 
 class PlayerId(IntEnum):
@@ -72,3 +72,11 @@ class ColorId(IntEnum):
     INVALID_13 = 13
     INVALID_14 = 14
     INVALID_15 = 15
+
+    @staticmethod
+    def from_player_id(player_id: Union[PlayerId, int]):
+        if not 0 <= player_id <= 8:
+            raise ValueError(f"Invalid player ID. Should be between 0 and 8 (both incl), but got: {player_id}")
+        if player_id == 0:
+            return ColorId.GRAY
+        return ColorId(player_id - 1)
