@@ -4,6 +4,7 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player import Player
+from AoE2ScenarioParser.objects.data_objects.player_data_four import PlayerDataFour
 from AoE2ScenarioParser.objects.data_objects.player_data_three import PlayerDataThree
 from AoE2ScenarioParser.objects.data_objects.player_diplomacy import PlayerDiplomacy
 from AoE2ScenarioParser.objects.data_objects.player_meta_data import PlayerMetaData
@@ -24,6 +25,7 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
         RetrieverObjectLink("_metadata", "DataHeader", "player_data_1", process_as_object=PlayerMetaData),
         RetrieverObjectLink("_player_data_3", "Units", "player_data_3", process_as_object=PlayerDataThree),
+        RetrieverObjectLink("_player_data_4", "Units", "player_data_4", process_as_object=PlayerDataFour),
         RetrieverObjectLink("_diplomacy", "Diplomacy", "per_player_diplomacy", process_as_object=PlayerDiplomacy),
         RetrieverObjectLink("_base_priorities", "Options", "per_player_base_priority"),
         RetrieverObjectLink("_allied_victories", "Diplomacy", "per_player_allied_victory"),
@@ -65,6 +67,7 @@ class PlayerManager(AoE2Object):
                  _resources: List[PlayerResources],
                  _metadata: List[PlayerMetaData],
                  _player_data_3: List[PlayerDataThree],
+                 _player_data_4: List[PlayerDataFour],
                  _diplomacy: List[PlayerDiplomacy],
                  _base_priorities: List[int],
                  _allied_victories: List[int],
@@ -200,6 +203,25 @@ class PlayerManager(AoE2Object):
             PlayerDiplomacy(diplomacy_stance=[3] * 16) for _ in range(8)
         ])
         return player_diplomacies
+
+    @property
+    def _player_data_4(self):
+        """Returns the resource duplicates for all players"""
+        population_limit = self._player_attributes_to_list("population_cap", None, default=200)
+        food = self._player_attributes_to_list("food", None, default=0)
+        wood = self._player_attributes_to_list("wood", None, default=0)
+        gold = self._player_attributes_to_list("gold", None, default=0)
+        stone = self._player_attributes_to_list("stone", None, default=0)
+
+        return UuidList(self._host_uuid, [
+            PlayerDataFour(
+                population_limit=float(population_limit[i]),
+                food_duplicate=float(food[i]),
+                wood_duplicate=float(wood[i]),
+                gold_duplicate=float(gold[i]),
+                stone_duplicate=float(stone[i]),
+            ) for i in range(8)
+        ])
 
     @property
     def _player_data_3(self) -> List[PlayerDataThree]:
