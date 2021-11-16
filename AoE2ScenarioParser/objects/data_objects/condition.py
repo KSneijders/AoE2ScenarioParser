@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
+from typing import Union
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
@@ -63,8 +64,8 @@ class Condition(AoE2Object):
                  unit_object: int = None,
                  next_object: int = None,
                  object_list: int = None,
-                 source_player: IntEnum = None,
-                 technology: IntEnum = None,
+                 source_player: Union[int, IntEnum] = None,
+                 technology: Union[int, IntEnum] = None,
                  timer: int = None,
                  area_x1: int = None,
                  area_y1: int = None,
@@ -76,7 +77,7 @@ class Condition(AoE2Object):
                  inverted: int = None,
                  variable: int = None,
                  comparison: int = None,
-                 target_player: IntEnum = None,
+                 target_player: Union[int, IntEnum] = None,
                  unit_ai_action: int = None,
                  object_state: int = None,
                  xs_function: str = None,

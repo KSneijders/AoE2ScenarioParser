@@ -143,7 +143,7 @@ class PlayerManager(AoE2Object):
             self.players[player].gold = 100
             self.players[player].stone = 200
 
-    def create_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY):
+    def set_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY):
         """
         Sets all players in list allied with all others in the same list. Accepts
 

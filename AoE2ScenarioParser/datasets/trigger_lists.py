@@ -1728,8 +1728,8 @@ class ObjectClass(_TriggerListIntEnums):
 
     **Examples**
 
-    >>> ObjectType.OTHER
-    <ObjectType.OTHER: 1>
+    >>> ObjectClass.CIVILIAN
+    <ObjectClass.CIVILIAN: 4>
     """
     ARCHER = 0
     ARTIFACT = 1
