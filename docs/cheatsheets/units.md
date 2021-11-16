@@ -138,13 +138,13 @@ Besides it's location you can also change the type of unit:
 unit.unit_const = UnitInfo.MAN_AT_ARMS.ID    # Units dataset
 ```
 
-You also might want to change the ownership of a unit. This might seem
-easy as there is a `player` attribute within the unit.
-Unfortunately that value is read-only. It's only there so you can
-easily identify the player. To change a units ownership you need the
-`unit_manager`:
+You also might want to change the ownership of a unit. You can do this by 
+changing the `player` property in the unit object itself or calling 
+`change_ownership` from the unit manager.
 
 ```py
+# Both are identical in functionality
+unit.player = PlayerId.THREE
 unit_manager.change_ownership(unit, PlayerId.THREE)
 ```
 
@@ -152,9 +152,24 @@ unit_manager.change_ownership(unit, PlayerId.THREE)
 
 Two ways to delete a unit:
 
+!!! tip "Removing a unit using an object is faster"
+    Due to a unit object containing the player value it belongs to, 
+    the unit can be found a lot faster. Which, when removing a lot of units,
+    can save you some time.
+
 ```py
 unit_manager.remove_unit(unit=unit)
 unit_manager.remove_unit(reference_id=unit.reference_id)
+```
+
+If you want to remove all units from the map or a single player 
+you can also just set it to an empty list:
+
+```py
+# Remove all units from P3
+unit_manager.units[PlayerId.THREE] = []
+# Remove all units
+unit_manager.units = []
 ```
 
 ## Other functions
