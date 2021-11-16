@@ -78,7 +78,7 @@ class Player(AoE2Object):
         self.gold: int = gold
         self.stone: int = stone
         self.color: int = color
-        self.active: bool = active
+        self._active: bool = active
         self.human: bool = human
         self.civilization = civilization
         self.architecture_set = architecture_set
@@ -94,6 +94,14 @@ class Player(AoE2Object):
         self.tribe_name: Optional[str] = tribe_name
         self.base_priority: int = base_priority
         self.string_table_name_id: Optional[int] = string_table_name_id
+
+    @property
+    def active(self):
+        return self._active
+
+    @active.setter
+    def active(self, value):
+        raise ValueError("Cannot set active status of player directly, please use player_manager.active_players")
 
     @overload
     def set_player_diplomacy(self, players: List[Union[PlayerId, int]], diplomacy: DiplomacyState):

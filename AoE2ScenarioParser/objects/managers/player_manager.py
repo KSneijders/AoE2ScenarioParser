@@ -119,6 +119,17 @@ class PlayerManager(AoE2Object):
         self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
 
     @property
+    def active_players(self):
+        return len([player for player in self.players if player.active])
+
+    @active_players.setter
+    def active_players(self, value: int):
+        if not 1 <= value <= 8:
+            raise ValueError("Active players value has to be between 1 and 8")
+        for player_id in PlayerId.all(exclude_gaia=True):
+            setattr(self.players[player_id], '_active', player_id <= value)
+
+    @property
     def players(self) -> List[Player]:
         """Returns all player objects"""
         return self._players
