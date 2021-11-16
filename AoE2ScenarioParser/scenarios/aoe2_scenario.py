@@ -18,7 +18,7 @@ from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
@@ -55,7 +55,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
         self.uuid = uuid.uuid4()
-        scenario_store.register_scenario(self)
+        store.register_scenario(self)
 
     @classmethod
     def from_file(cls, filename, game_version):

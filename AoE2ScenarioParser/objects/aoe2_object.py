@@ -7,7 +7,7 @@ from typing import List, Type, TYPE_CHECKING
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -41,7 +41,7 @@ class AoE2Object:
         if number_hist is None:
             number_hist = []
 
-        scenario_version = scenario_store.get_scenario_version(host_uuid)
+        scenario_version = getters.get_scenario_version(host_uuid)
 
         object_parameters = {}
         for link in cls._link_list:

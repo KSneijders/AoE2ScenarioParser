@@ -3,7 +3,7 @@ from typing import Type, List
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -48,8 +48,8 @@ class RetrieverObjectLink:
             if self.is_special_unit_case:
                 return self._construct_special_unit_case(host_uuid)
 
-            sections = scenario_store.get_sections(host_uuid)
-            scenario_version = scenario_store.get_scenario_version(host_uuid)
+            sections = getters.get_sections(host_uuid)
+            scenario_version = getters.get_scenario_version(host_uuid)
 
             # Retrieve value without using eval() -- Eval is slow
             value = sections[self.section_name]
@@ -96,7 +96,7 @@ class RetrieverObjectLink:
         if self.commit_callback is not None:
             value = self.commit_callback(host_obj, self.name, value)
 
-        sections = scenario_store.get_sections(host_uuid)
+        sections = getters.get_sections(host_uuid)
         section = sections[self.section_name]
 
         if self.is_special_unit_case:
@@ -115,7 +115,8 @@ class RetrieverObjectLink:
             except KeyError as e:
                 # Maybe not supported in current version. if actually not supported -> ignore
                 if self.support is not None:
-                    if not self.support.supports(scenario_store.get_scenario_version(host_uuid)):
+                    if not self.support.supports(
+                            getters.get_scenario_version(host_uuid)):
                         return
                 if settings.IGNORE_WRITING_ERRORS:
                     return
@@ -175,7 +176,7 @@ class RetrieverObjectLink:
 
     def _construct_special_unit_case(self, host_uuid):
         units = []
-        sections = scenario_store.get_sections(host_uuid)
+        sections = getters.get_sections(host_uuid)
         value = sections[self.section_name]
         for index, item in enumerate(self.splitted_link):
             if "[]" in item:
@@ -187,7 +188,7 @@ class RetrieverObjectLink:
         return units
 
     def _commit_special_unit_case(self, host_uuid, value):
-        sections = scenario_store.get_sections(host_uuid)
+        sections = getters.get_sections(host_uuid)
 
         for player, player_unit in enumerate(value):
             player_unit_retriever = sections["Units"].players_units[player]

@@ -1,6 +1,7 @@
 import math
 
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.scenarios.scenario_store import getters
+
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
@@ -60,5 +61,5 @@ def select_retriever(target, section, host_uuid):
     if target[0] == "self":
         return section.retriever_map[target[1]]
     else:
-        sections = scenario_store.get_sections(host_uuid)
+        sections = getters.get_sections(host_uuid)
         return sections[target[0]].retriever_map[target[1]]
