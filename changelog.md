@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.27 - 2021-November-18
+## 0.1.27 - 2021-November-19
 
 **Support for the new 56005 update!**   
 
