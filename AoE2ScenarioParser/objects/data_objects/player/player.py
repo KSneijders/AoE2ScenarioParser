@@ -1,6 +1,6 @@
 from typing import Optional, List, Union, overload
 
-from AoE2ScenarioParser.datasets.object_support import StartingAge
+from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
@@ -69,7 +69,8 @@ class Player(AoE2Object):
     ):
         super().__init__(**kwargs)
 
-        self.player_id: int = player_id
+        self._player_id: int = player_id
+        self._active: bool = active
         self.starting_age: int = StartingAge(starting_age)
         self.lock_civ: bool = bool(lock_civ)
         self.population_cap: int = population_cap
@@ -78,10 +79,9 @@ class Player(AoE2Object):
         self.gold: int = gold
         self.stone: int = stone
         self.color: int = color
-        self._active: bool = active
         self.human: bool = human
-        self.civilization = civilization
-        self.architecture_set = architecture_set
+        self.civilization: Union[int, Civilization] = civilization
+        self.architecture_set: Union[int, Civilization] = architecture_set
 
         # Optionals due to GAIA not having such value
         self.diplomacy: Optional[List[int]] = diplomacy
@@ -94,6 +94,11 @@ class Player(AoE2Object):
         self.tribe_name: Optional[str] = tribe_name
         self.base_priority: int = base_priority
         self.string_table_name_id: Optional[int] = string_table_name_id
+
+    @property
+    def player_id(self):
+        """Read-only value of the player ID"""
+        return self._player_id
 
     @property
     def active(self):

@@ -1,14 +1,14 @@
-from typing import List, Dict, Union, Any, Type
+from typing import List, Dict, Union, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.data_objects.player import Player
-from AoE2ScenarioParser.objects.data_objects.player_data_four import PlayerDataFour
-from AoE2ScenarioParser.objects.data_objects.player_data_three import PlayerDataThree
-from AoE2ScenarioParser.objects.data_objects.player_diplomacy import PlayerDiplomacy
-from AoE2ScenarioParser.objects.data_objects.player_meta_data import PlayerMetaData
-from AoE2ScenarioParser.objects.data_objects.player_resources import PlayerResources
+from AoE2ScenarioParser.objects.data_objects.player.player import Player
+from AoE2ScenarioParser.objects.data_objects.player.player_data_four import PlayerDataFour
+from AoE2ScenarioParser.objects.data_objects.player.player_data_three import PlayerDataThree
+from AoE2ScenarioParser.objects.data_objects.player.player_diplomacy import PlayerDiplomacy
+from AoE2ScenarioParser.objects.data_objects.player.player_meta_data import PlayerMetaData
+from AoE2ScenarioParser.objects.data_objects.player.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
