@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog]
 - Support for the **1.45** scenario files!
 - The **Player Manager**!
   - Allows access to many player related attributes like resources, civ, disables, diplomacy and more!
-  - Check the [player manager cheatsheet](TODO!!!) for more info!
+  - Check the [player manager cheatsheet](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/players/) for more info!
 - Error when overwriting the source scenario (with a setting to disable this behaviour)
   - `settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE` (`False` by default)
 - `map_manager.set_elevation()`
