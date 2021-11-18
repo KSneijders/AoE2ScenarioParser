@@ -17,10 +17,11 @@ nav:
     - Hello World: "hello_world.md"
     - Support: "support.md"
   - Cheatsheets:
+    - Datasets: "cheatsheets/datasets.md"
+    - Map: "cheatsheets/map.md"
+    - Players: "cheatsheets/players.md"
     - Triggers: "cheatsheets/triggers.md"
     - Units: "cheatsheets/units.md"
-    - Map: "cheatsheets/map.md"
-    - Datasets: "cheatsheets/datasets.md"
     - XS Script: "cheatsheets/xs.md"
   - Examples:
     - Intro: "examples/examples.md"
