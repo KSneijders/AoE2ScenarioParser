@@ -13,7 +13,8 @@ from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -63,6 +64,8 @@ class Trigger(AoE2Object):
                  trigger_id: int = -1,
                  **kwargs
                  ):
+        super().__init__(**kwargs)
+
         if conditions is None:
             conditions = []
         if condition_order is None:
@@ -94,8 +97,6 @@ class Trigger(AoE2Object):
 
         self.new_effect = NewEffectSupport(self)
         self.new_condition = NewConditionSupport(self)
-
-        super().__init__(**kwargs)
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -135,7 +136,7 @@ class Trigger(AoE2Object):
 
     @conditions.setter
     def conditions(self, val: List[Condition]) -> None:
-        self._conditions = val
+        self._conditions = UuidList(self._host_uuid, val)
         self.condition_order = list(range(0, len(val)))
 
     @property
@@ -144,7 +145,7 @@ class Trigger(AoE2Object):
 
     @effects.setter
     def effects(self, val: List[Effect]) -> None:
-        self._effects = val
+        self._effects = UuidList(self._host_uuid, val)
         self.effect_order = list(range(0, len(val)))
 
     def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
@@ -163,7 +164,7 @@ class Trigger(AoE2Object):
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
-            sv = scenario_store.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._host_uuid)
             try:
                 return effect_dataset.default_attributes[eff_type]
             except KeyError:
@@ -190,7 +191,7 @@ class Trigger(AoE2Object):
 
         def get_default_condition_attributes(cond_type):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
-            sv = scenario_store.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._host_uuid)
             try:
                 return condition_dataset.default_attributes[cond_type]
             except KeyError:

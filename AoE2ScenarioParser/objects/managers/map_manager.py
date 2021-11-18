@@ -1,10 +1,13 @@
 from __future__ import annotations
 
-from typing import List, Union
+import itertools
+from typing import List, Union, Tuple, Set, Optional
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
+from AoE2ScenarioParser.helper.maffs import sign
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile, reset_terrain_index
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -31,12 +34,24 @@ class MapManager(AoE2Object):
         self._map_height = map_height
         self.terrain = terrain
 
+    @property
+    def terrain_2d(self) -> List[List[TerrainTile]]:
+        return list(list_chuncks(self.terrain, self.map_size))
+
     def get_tile(self, x: int = None, y: int = None, i: int = None) -> TerrainTile:
         if i and (x or y):
             raise ValueError("Cannot use both xy and i. Choose or XY or I.")
         if i is not None:
             return self.terrain[i]
         return self.terrain[xy_to_i(x, y, self.map_size)]
+
+    def get_tile_safe(self, x: int = None, y: int = None, i: int = None) -> Union[TerrainTile, None]:
+        if i and (x or y):
+            raise ValueError("Cannot use both xy and i. Choose or XY or I.")
+        try:
+            return self.get_tile(x, y, i)
+        except (IndexError, ValueError):
+            return None
 
     def get_square_1d(self, x1, y1, x2, y2) -> List[TerrainTile]:
         """
@@ -135,10 +150,74 @@ class MapManager(AoE2Object):
                 new_terrain.extend(row)
         self.terrain = new_terrain
 
+    def set_elevation(self, elevation: int, x1: int, y1: int, x2: Optional[int] = None, y2: Optional[int] = None) -> None:
+        """
+        Sets elevation like the in-game elevation mechanics. Can set a hill (or single point) to a certain height and
+        all tiles around it are adjusted accordingly.
+
+        If you find that the in-game mechanics work differently than this function please report it.
+
+        Args:
+            elevation (int): The elevation to create at the coordinates
+            x1 (int): The x coordinate of the west corner
+            y1 (int): The y coordinate of the west corner
+            x2 (Optional[int]): The x coordinate of the east corner
+            y2 (Optional[int]): The y coordinate of the east corner
+        """
+        x2 = x1 if x2 is None else x2
+        y2 = y1 if y2 is None else y2
+
+        if x1 == x2 and y1 == y2:
+            edge_tiles = source_tiles = [self.get_tile(x1, y1)]
+            xys = [source_tiles[0].xy]
+        else:
+            source_tiles = self.get_square_2d(x1, y1, x2, y2)
+            xys = set(t.xy for row in source_tiles for t in row)
+            edge_tiles = source_tiles[0] + source_tiles[-1]
+            for i in range(1, len(source_tiles) - 1):
+                edge_tiles.extend([source_tiles[i][0], source_tiles[i][-1]])
+
+        for tile in edge_tiles:
+            tile.elevation = elevation
+            self._elevation_tile_recursion(tile, xys)
+
+    def _elevation_tile_recursion(
+            self,
+            source_tile: TerrainTile,
+            xys: Set[Tuple[int, int]],
+            visited: Set[Tuple[int, int]] = None
+    ):
+        """
+        Elevation recursive function. Used in the set_elevation function
+
+        Args:
+            source_tile (TerrainTile): The tile to check around
+            xys (Set[Tuple[int, int]]): The XY tuples from the initial square
+            visited (Set[Tuple[int, int]]): The visited XY tuples with this recursion tree path
+        """
+        visited = set() if visited is None else visited.copy()
+        x, y = source_tile.xy
+        visited.add((x, y))
+        for nx, ny in itertools.product(range(-1, 2), repeat=2):
+            new_x, new_y = x + nx, y + ny
+            if (nx or ny) and (new_x, new_y) not in xys and (new_x, new_y) not in visited:
+                other = self.get_tile_safe(new_x, new_y)
+                if other is None:
+                    continue
+                behind = self.get_tile_safe(x + nx * 2, y + ny * 2)
+                if behind is not None and other.elevation < source_tile.elevation == behind.elevation:
+                    other.elevation = source_tile.elevation
+                elif abs(other.elevation - source_tile.elevation) > 1:
+                    other.elevation = source_tile.elevation + int(sign(other.elevation, source_tile.elevation))
+                    self._elevation_tile_recursion(other, xys, visited)
+
     def create_hill(self, x1, y1, x2, y2, elevation) -> None:
         """
         Function that takes the coordinates and the height of a plateau and applies it to the map
         by also setting the surrounding slopes so that it is smooth.
+
+        **This function can only increase height. It will not lower areas terrain.
+        For that, you can use: `map_manager.set_elevation()`.**
 
         Args:
             x1 (int): The x coordinate of the west corner
@@ -152,6 +231,9 @@ class MapManager(AoE2Object):
         :Author:
             pvallet
         """
+        warn(f"The function `MapManager.create_hill()` is deprecated as of 0.1.27. "
+             f"It will be removed in the future. Please use map_manager.set_elevation() instead.")
+
         for x in range(max(0, x1 - elevation), min(self.map_size, x2 + elevation)):
             for y in range(max(0, y1 - elevation), min(self.map_size, y2 + elevation)):
                 if x1 <= x <= x2 and y1 <= y <= y2:

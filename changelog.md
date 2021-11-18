@@ -6,6 +6,68 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.27 - 2021-November-19
+
+**Support for the new 56005 update!**   
+
+### Added
+
+- Support for the **1.45** scenario files!
+- The **Player Manager**!
+  - Allows access to many player related attributes like resources, civ, disables, diplomacy and more!
+  - Check the [player manager cheatsheet](TODO!!!) for more info!
+- Error when overwriting the source scenario (with a setting to disable this behaviour)
+  - `settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE` (`False` by default)
+- `map_manager.set_elevation()`
+  - A new function which superseeds the `create_hill` function as it can create hills and holes
+  - **Note:** `elevation` is now the first argument, instead of the last
+  - Deprecation warning to the `create_hill` function
+- `map_manager.terrain_2d`
+  - A property which returns the map in a 2D list.
+  - **Note:** This is calculated for each request so it's recommended to call it once and store it
+- `map_manager.get_tile_safe()`
+  - Same as `get_tile` except it won't throw an `IndexError` when the tile cannot be found.  
+  Instead, it returns `None`
+- Datasets from the nitpicked pull: [#18] (newtonerdai).
+  - `StartingAge`
+  - `Civilization`
+- `ColorId` dataset for setting the player color in the player manager
+- The palisade gate to the building dataset (`BuildingInfo.PALISADE_GATE`) for disabling the palisade gate
+
+### Improved 
+
+- Datasets printed through a trigger content string can be individually customized
+
+### Fixed
+
+- Swapped incorrect `object_visible_multiplayer` and `object_selected_multiplayer` effect IDs
+- Issue with reading legacy scenarios that had units selected in effects 
+- `TechInfo.unique_techs` returning an empty list by default
+
+### Changed
+
+- Renamed the `TerrainId.CORRUPTION` to `TerrainId.VERY_EVIL_FOG` to resemble the actual in-game name.
+- **BackEnd**: Renamed the retriever: `player_names` to `tribe_names` to resemble the in-game input field label.
+- **BackEnd**: UUID functions have been moved to getters and actions modules
+
+### Uncovered structures in the scenario file
+
+- Many structures in the structure files for future use. Nitpicked from pull: [#18] (newtonerdai)
+  - `per_player_lock_civilization`
+  - `lock_teams`
+  - `allow_players_choose_teams`
+  - `random_start_points`
+  - `max_number_of_teams`
+  - `per_player_base_priority`
+  - `editor_camera_x & y`
+  - `initial_camera_x & y`
+- Properly added a new structure from the 1.44 version update
+  - `per_player_population_cap`
+
+[#18]: https://github.com/KSneijders/AoE2ScenarioParser/pull/18
+
+---
+
 ## 0.1.26 - 2021-October-01
 
 ### Fixed

@@ -1,6 +1,6 @@
 import math
 from enum import Enum
-from typing import Union, Tuple
+from typing import Union, Tuple, Any
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
@@ -29,6 +29,19 @@ def i_to_xy(i, map_size) -> Tuple[int, int]:
 """ =============================================================
 ============================= OTHER =============================
 =============================================================="""
+
+
+def value_is_valid(value: Any) -> bool:
+    """
+    Check if value is valid by making sure it's not -1 nor None
+
+    Args:
+        value (Any):
+
+    Returns:
+        True if value is not None or -1. False if it is either of those.
+    """
+    return value not in [None, -1]
 
 
 def get_enum_from_unit_const(const: int) -> Union[InfoDatasetBase, None]:

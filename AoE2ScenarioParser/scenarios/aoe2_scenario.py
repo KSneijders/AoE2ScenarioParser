@@ -15,9 +15,10 @@ from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
@@ -34,7 +35,13 @@ class AoE2Scenario:
     def map_manager(self) -> MapManager:
         return self._object_manager.managers['Map']
 
-    def __init__(self):
+    @property
+    def player_manager(self) -> PlayerManager:
+        return self._object_manager.managers['Player']
+
+    def __init__(self, source_location):
+        self.source_location = source_location
+
         self.read_mode = None
         self.scenario_version = "???"
         self.game_version = "???"
@@ -48,7 +55,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
         self.uuid = uuid.uuid4()
-        scenario_store.register_scenario(self)
+        store.register_scenario(self)
 
     @classmethod
     def from_file(cls, filename, game_version):
@@ -59,7 +66,7 @@ class AoE2Scenario:
         igenerator = IncrementalGenerator.from_file(filename)
         s_print("Reading scenario file finished successfully.", final=True)
 
-        scenario = cls()
+        scenario = cls(filename)
         scenario.read_mode = "from_file"
         scenario.game_version = game_version
         scenario.scenario_version = get_file_version(igenerator)
@@ -138,6 +145,8 @@ class AoE2Scenario:
         self._write_from_structure(filename, skip_reconstruction)
 
     def _write_from_structure(self, filename, skip_reconstruction=False):
+        if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
+            raise ValueError("Overwriting the source scenario file is disallowed. This behaviour can be enabled in the settings file.")
         if not skip_reconstruction:
             self._object_manager.reconstruct()
 

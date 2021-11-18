@@ -195,4 +195,5 @@ class BuildingInfo(InfoDatasetBase):
     FORTIFIED_GATE_NORTH_TO_SOUTH = 668, 36, 1507, 16185, False
     PAGAN_SHRINE = 1712, 85, 1526, 16159, False
     GATE = 487, 36, 1406, 16185, False
+    PALISADE_GATE = 792, 44, 1406, 16186, False
     FORTIFIED_GATE = 488, 36, 1406, 16185, False

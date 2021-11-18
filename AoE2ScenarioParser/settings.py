@@ -1,8 +1,11 @@
 NOTIFY_UNKNOWN_BYTES = True
 """Show a notification of extra bytes being available at the end of the file, so you can notify the maintainer."""
 
+# Reading / Writing settings
 PRINT_STATUS_UPDATES = True
 """If status updates of what is being read and written should be printed to console or not."""
+DISABLE_ERROR_ON_OVERWRITING_SOURCE = False
+"""Disable the error being raised when overwriting source scenario."""
 
 # Warning related settings
 DISABLE_WARNINGS = False

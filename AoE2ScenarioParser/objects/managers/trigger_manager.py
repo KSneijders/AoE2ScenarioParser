@@ -7,6 +7,7 @@ from typing import List, Dict, Union
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
+from AoE2ScenarioParser.helper.helper import value_is_valid
 from AoE2ScenarioParser.helper.list_functions import hash_list, list_changed, update_order_array
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
@@ -420,21 +421,21 @@ class TriggerManager(AoE2Object):
 
         for cond_x in alter_conditions:
             cond = trigger.conditions[cond_x]
-            if cond.source_player not in [-1, None] and include_player_source:
+            if value_is_valid(cond.source_player) and include_player_source:
                 if only_change_from is not None and only_change_from != cond.source_player:
                     continue
                 cond.source_player = PlayerId(to_player)
-            if cond.target_player not in [-1, None] and include_player_target:
+            if value_is_valid(cond.target_player) and include_player_target:
                 if only_change_from is not None and only_change_from != cond.target_player:
                     continue
                 cond.target_player = PlayerId(to_player)
         for effect_x in alter_effects:
             effect = trigger.effects[effect_x]
-            if effect.source_player not in [-1, None] and include_player_source:
+            if value_is_valid(effect.source_player) and include_player_source:
                 if only_change_from is not None and only_change_from != effect.source_player:
                     continue
                 effect.source_player = PlayerId(to_player)
-            if effect.target_player not in [-1, None] and include_player_target:
+            if value_is_valid(effect.target_player) and include_player_target:
                 if only_change_from is not None and only_change_from != effect.target_player:
                     continue
                 effect.target_player = PlayerId(to_player)

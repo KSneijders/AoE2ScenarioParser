@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import List
+from typing import List, Union
 
 
 class PlayerId(IntEnum):
@@ -38,7 +38,7 @@ class PlayerId(IntEnum):
 
 class PlayerColorId(IntEnum):
     """
-    This enum class provides the integer values used to reference the colours in-game. These are used in the 'Change Object
+    This enum class provides the integer values used to reference the colors in-game. These are used in the 'Change Object
     Color', etc. effects
     """
     BLUE = 1
@@ -47,5 +47,36 @@ class PlayerColorId(IntEnum):
     YELLOW = 4
     AQUA = 5
     PURPLE = 6
-    GREY = 7
+    GRAY = 7
     ORANGE = 8
+
+
+class ColorId(IntEnum):
+    """
+    This enum represents the actual colors in the dropdown menu for players.
+    Do not confuse with the PlayerColorId which is used to reference a player number by it's color.
+    """
+    BLUE = 0
+    RED = 1
+    GREEN = 2
+    YELLOW = 3
+    AQUA = 4
+    PURPLE = 5
+    GRAY = 6
+    ORANGE = 7
+    INVALID_8 = 8
+    INVALID_9 = 9
+    INVALID_10 = 10
+    INVALID_11 = 11
+    INVALID_12 = 12
+    INVALID_13 = 13
+    INVALID_14 = 14
+    INVALID_15 = 15
+
+    @staticmethod
+    def from_player_id(player_id: Union[PlayerId, int]):
+        if not 0 <= player_id <= 8:
+            raise ValueError(f"Invalid player ID. Should be between 0 and 8 (both incl), but got: {player_id}")
+        if player_id == 0:
+            return ColorId.GRAY
+        return ColorId(player_id - 1)

@@ -903,7 +903,7 @@
         }
     },
     "26": {
-        "name": "object_visible_multiplayer",
+        "name": "object_selected_multiplayer",
         "attributes": [
             "unit_object",
             "source_player",
@@ -935,7 +935,7 @@
         }
     },
     "27": {
-        "name": "object_selected_multiplayer",
+        "name": "object_visible_multiplayer",
         "attributes": [
             "unit_object",
             "source_player",
