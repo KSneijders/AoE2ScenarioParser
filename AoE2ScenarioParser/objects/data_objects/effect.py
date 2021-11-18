@@ -11,6 +11,7 @@ from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
@@ -161,6 +162,8 @@ class Effect(AoE2Object):
                  selected_object_ids: List[int] = None,
                  **kwargs
                  ):
+        super().__init__(**kwargs)
+
         raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
 
         if selected_object_ids is None:
@@ -176,7 +179,7 @@ class Effect(AoE2Object):
                 quantity = None
             # If effect created through reading
             elif quantity is not None:
-                armour_attack_class, armour_attack_quantity = _quantity_to_aa(quantity)
+                armour_attack_class, armour_attack_quantity = self._quantity_to_aa(quantity)
                 quantity = None
         else:
             armour_attack_class = armour_attack_quantity = None
@@ -253,8 +256,6 @@ class Effect(AoE2Object):
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
 
-        super().__init__(**kwargs)
-
     @property
     def legacy_location_object_reference(self) -> int:
         return -1
@@ -321,7 +322,7 @@ class Effect(AoE2Object):
     @property
     def quantity(self):
         if self._armour_attack_flag:
-            return _aa_to_quantity(self.armour_attack_quantity, self.armour_attack_class)
+            return self._aa_to_quantity(self.armour_attack_quantity, self.armour_attack_class)
         return self._quantity
 
     @quantity.setter
@@ -373,6 +374,62 @@ class Effect(AoE2Object):
     def _update_armour_attack_flag(self):
         self._armour_attack_flag = _set_armour_attack_flag(self.effect_type, self.object_attributes)
 
+    def _quantity_to_aa(self, quantity: int) -> Tuple[int, int]:
+        """
+        A function to convert the initial quantity value to the quantity and armor/attack values.
+        Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
+
+        Args:
+            quantity (int): the initial quantity value
+
+        Returns:
+            The one byte armor/attack class as int and one byte armor/attack quantity as int
+
+        ----
+
+        **Trigger Version 2.4**::
+
+            Quantity value: (3, 5)
+            00000000 00000000 00000011 000000101
+                                aaq      aac
+
+        Final 2/4 bytes are aaq (1 byte), and aac (1 byte). First 2 are unused. Max value of both is 255.
+
+        **Trigger Version 2.5**::
+
+            Quantity value: (3, 5)
+            00000000 00000011 00000000 000000101
+              aaq      aaq      aac      aac
+
+        The 4/4 bytes are aaq (2 bytes), and aac (2 bytes). All are used. Max value of both is 65535.
+
+        ----
+        """
+        trigger_version = getters.get_trigger_version(self._host_uuid)
+        if trigger_version == 2.4:
+            return quantity >> 8, quantity & 255
+        elif trigger_version == 2.5:
+            return quantity >> 16, quantity & 65535
+
+    def _aa_to_quantity(self, aa_quantity: int, aa_class: int) -> int:
+        """
+        A function to convert the quantity and armor/attack field to a quantity value.
+        Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
+
+        Args:
+            aa_quantity (int): the armor quantity value
+            aa_class (int): the armor/attack value
+
+        Returns:
+            The one byte quantity and one byte armor/attack value
+        """
+        trigger_version = getters.get_trigger_version(self._host_uuid)
+        if trigger_version == 2.4:
+            # Would use `aa_class << 8` - but apparently multiplication is faster
+            return aa_class * 256 + aa_quantity
+        elif trigger_version == 2.5:
+            return aa_class * 65535 + aa_quantity
+
     def __str__(self):
         return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"
 
@@ -382,38 +439,3 @@ def _set_armour_attack_flag(effect_type, object_attributes) -> bool:
            (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
                ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
            ])
-
-
-def _quantity_to_aa(quantity: int) -> Tuple[int, int]:
-    """
-    A function to convert the initial quantity value to the quantity and armor/attack values.
-    Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
-
-    Quantity value: (3, 5)
-    00000000 00000000 00000011 000000101
-                        aaq      aac
-
-    Args:
-        quantity (int): the initial quantity value
-
-    Returns:
-        The one byte armor/attack class as int and one byte armor/attack quantity as int
-    """
-    return quantity >> 8, quantity & 255
-
-
-def _aa_to_quantity(aa_quantity: int, aa_class: int) -> int:
-    """
-    A function to convert the quantity and armor/attack field to a quantity value.
-    Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
-
-
-    Args:
-        aa_quantity (int): the armor quantity value
-        aa_class (int): the armor/attack value
-
-    Returns:
-        The one byte quantity and one byte armor/attack value
-    """
-    # Would use `aa_class << 8` - but apparently multiplication is faster
-    return aa_class * 256 + aa_quantity

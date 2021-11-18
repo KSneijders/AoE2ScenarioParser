@@ -19,15 +19,12 @@ def unit_change_ownership(uuid: str, player: Union[int, PlayerId], units: List['
 
 def unit_change_ownership(uuid: str, player: Union[int, PlayerId], *args) -> None:
     """
-    Get the trigger manager of a scenario.
+    Change the unit(s) ownership.
 
     Args:
         uuid (str): The UUID of the scenario
         player (Union[int, PlayerId]): The player to transfer the units to.
         args: Unit object or List of unit objects
-
-    Returns:
-        The trigger manager of a scenario.
     """
     def transfer_unit(scenario_, unit_, player_):
         scenario_.unit_manager.units[unit_.player].remove(unit_)

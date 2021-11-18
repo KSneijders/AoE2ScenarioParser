@@ -153,6 +153,22 @@ def get_variable_name(uuid: str, variable_index: int) -> Optional[str]:
     return None
 
 
+def get_trigger_version(uuid: str) -> Optional[float]:
+    """
+    Get the trigger version of the scenario.
+
+    Args:
+        uuid (str): The UUID of the scenario
+
+    Returns:
+        The trigger version.
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        return scenario.sections['Triggers'].trigger_version
+    return None
+
+
 def get_trigger_manager(uuid: str) -> Optional['TriggerManager']:
     """
     Get the trigger manager of a scenario.

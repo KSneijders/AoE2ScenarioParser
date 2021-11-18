@@ -1321,7 +1321,6 @@
             },
             "secondary_game_mode": {
                 "type": "u32",
-                "log": true,
                 "default": 0
             },
             "unknown_3": {
@@ -1758,7 +1757,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 2.4
+                "default": 2.5
             },
             "trigger_instruction_start": {
                 "type": "s8",
