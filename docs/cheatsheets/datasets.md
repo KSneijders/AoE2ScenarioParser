@@ -6,13 +6,14 @@ The project currently contains multiple datasets. You can get access to the data
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.object_support import Civilization, StartingAge
 from AoE2ScenarioParser.datasets.trigger_lists import \
     DiplomacyState, Operation, ButtonLocation, PanelLocation, \
     TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, \
     Comparison, ObjectAttribute, Attribute, UnitAIAction, \
     AttackStance, ObjectType, ObjectClass, DamageClass, \
     HeroStatusFlag, Hotkey, BlastLevel, TerrainRestrictions, \
-    ColorMood, ObjectState
+    ColorMood, ObjectState, SecondaryGameMode
 
 # Information of unit/building/hero and tech IDs
 from AoE2ScenarioParser.datasets.projectiles import ProjectileInfo
@@ -26,7 +27,7 @@ from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 
 # Information about player IDs
-from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
+from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId, ColorId
 ```
 
 A special thanks to **Alian713** for doing **A LOT** of the work in contributing the data needed for these datasets. :heart:
@@ -91,6 +92,10 @@ remember. That's why these datasets have been added:
 | SmartProjectile     | Can be used for changing the `ENABLE_SMART_PROJECTILES` in `ObjectAttribute`.  | `SmartProjectile.ENABLED`          |
 | ColorMood           | Used in the `Change Color Mood` effect.                                        | `ColorMood.WINTER`                 |
 | ObjectState         | Used in the `Objects in area` condition.                                       | `ObjectState.DEAD`                 |
+| ColorId             | Used in the player manager for setting the player color.                       | `ColorId.GREEN`                    |
+| Civilization        | Used in the player manager for setting the player civilization.                | `Civilization.MAYANS`              |
+| StartingAge         | Used in the player manager for setting the player starting age.                | `StartingAge.FEUDAL_AGE`           |
+| SecondaryGameMode   | Used for setting the secondary victory conditions.                             | `SecondaryGameMode.SUDDEN_DEATH`   |
 
 \*: Means extra functionality listed below.
 
