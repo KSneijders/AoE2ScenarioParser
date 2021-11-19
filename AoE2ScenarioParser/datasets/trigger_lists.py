@@ -228,6 +228,8 @@ class TimeUnit(_TriggerListIntEnums):
     """In-Game minutes."""
     SECONDS = 2
     """In-Game seconds."""
+    MINUTES_AND_SECONDS = 3
+    """In-Game Minutes abd seconds."""
 
 
 class VisibilityState(_TriggerListIntEnums):
