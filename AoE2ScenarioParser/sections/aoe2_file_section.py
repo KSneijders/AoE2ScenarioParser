@@ -19,6 +19,22 @@ class SectionLevel(Enum):
     STRUCT = 1
 
 
+class SectionName(Enum):
+    FILEHEADER = "FileHeader"
+    DATAHEADER = "DataHeader"
+    MESSAGES = "Messages"
+    CINEMATICS = "Cinematics"
+    BACKGROUNDIMAGE = "BackgroundImage"
+    PLAYERDATATWO = "PlayerDataTwo"
+    GLOBALVICTORY = "GlobalVictory"
+    DIPLOMACY = "Diplomacy"
+    OPTIONS = "Options"
+    MAP = "Map"
+    UNITS = "Units"
+    TRIGGERS = "Triggers"
+    FILES = "Files"
+
+
 class AoE2FileSection:
     def __init__(self, name, retriever_map, host_uuid, struct_models=None, level=SectionLevel.TOP_LEVEL):
         if struct_models is None:
