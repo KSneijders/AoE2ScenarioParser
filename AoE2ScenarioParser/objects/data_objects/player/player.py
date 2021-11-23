@@ -1,5 +1,6 @@
 from typing import Optional, List, Union, overload
 
+from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
@@ -71,7 +72,7 @@ class Player(AoE2Object):
 
         self._player_id: int = player_id
         self._active: bool = active
-        self.starting_age: int = StartingAge(starting_age)
+        self.starting_age: int = dataset_or_value(StartingAge, starting_age)
         self.lock_civ: bool = bool(lock_civ)
         self.population_cap: int = population_cap
         self.food: int = food
@@ -80,8 +81,8 @@ class Player(AoE2Object):
         self.stone: int = stone
         self.color: int = color
         self.human: bool = human
-        self.civilization: Union[int, Civilization] = civilization
-        self.architecture_set: Union[int, Civilization] = architecture_set
+        self.civilization: Union[int, Civilization] = dataset_or_value(Civilization, civilization)
+        self.architecture_set: Union[int, Civilization] = dataset_or_value(Civilization, architecture_set)
 
         # Optionals due to GAIA not having such value
         self.diplomacy: Optional[List[int]] = diplomacy
