@@ -17,7 +17,7 @@ RAISE_ERROR_ON_WARNING = False
 
 # Charset settings
 MAIN_CHARSET = "utf-8"
-"""The charset used to decode the test in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""
+"""The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""
 FALLBACK_CHARSET = "latin-1"
 """The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails."""
 
