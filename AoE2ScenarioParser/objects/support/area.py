@@ -1,31 +1,70 @@
 from __future__ import annotations
 
 import math
-from typing import List, Tuple, Dict, Union
+from typing import List, Tuple, Dict, Union, NamedTuple, TYPE_CHECKING
 
+from AoE2ScenarioParser.helper.helper import xy_to_i
+from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.scenarios.scenario_store import getters
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
+    from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+
+
+class Tile(NamedTuple):
+    """NamedTuple for tiles. use tile.x or tile.y for coord access"""
+    x: int
+    y: int
 
 
 class Area:
-    def __init__(self, map_size: int) -> None:
+    def __init__(self, map_size: int = None, uuid: str = None) -> None:
+        if map_size is None and uuid is None:
+            raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
         super().__init__()
 
-        self.x1 = -1
-        self.y1 = -1
-        self.x2 = -1
-        self.y2 = -1
+        if map_size is None:
+            map_size = getters.get_map_size(uuid)
 
         self._map_size = map_size - 1
+        self.uuid = uuid
+
+        self.x1 = self.y1 = self.x2 = self.y2 = math.floor(self._map_size / 2)
 
     @classmethod
-    def from_uuid(cls, uuid):
-        return cls(map_size=getters.get_map_size(uuid))
+    def from_uuid(cls, uuid: str) -> Area:
+        return cls(uuid=uuid)
+
+    @property
+    def uuid(self):
+        return self._uuid
+
+    @uuid.setter
+    def uuid(self, value):
+        self._uuid = value
+        if value is not None:
+            self._map_size = getters.get_map_size(value) - 1
+
+    def associate_scenario(self, scenario: AoE2Scenario) -> None:
+        """
+        Associate area with scenario. Saves scenario UUID in this area object.
+
+        Args:
+            scenario (AoE2Scenario): The scenario to associate with
+        """
+        self.uuid = scenario.uuid
+
+    def _force_association(self):
+        """Raise ValueError if UUID is not set"""
+        if self.uuid is None:
+            raise ValueError("Area object not associated with scenario. Cannot request terrain information")
 
     # ============================ Conversion functions ============================
 
-    def selection_to_coords(self) -> List[Tuple[int, int]]:
+    def selection_to_coords(self) -> List[Tile]:
         """
-        Converts the selection to coordinates
+        Converts the selection to a list of (x, y) coordinates
 
         Returns:
             A list of (x, y) tuples of the selection.
@@ -40,8 +79,56 @@ class Area:
                 ]
         """
         return [
-            (x, y) for y in list(range(self.y1, self.y2 + 1)) for x in list(range(self.x1, self.x2 + 1))
+            Tile(x, y) for y in list(range(self.y1, self.y2 + 1)) for x in list(range(self.x1, self.x2 + 1))
         ]
+
+    def selection_to_coords_2d(self) -> List[List[Tile]]:
+        """
+        Converts the selection to a 2D list of (x, y) coordinates
+
+        Returns:
+            A list of lists with (x, y) tuples of the selection.
+
+        Examples:
+            The selection: ``((3,3), (5,5))`` would result in a list with 3 lists with all a length of 3::
+
+                [
+                    [(3,3), (4,3)  ...],
+                    [...,   ...,   ...],
+                    [...,   (4,5), (5,5)]
+                ]
+        """
+        flattened_list = self.selection_to_coords()
+        return list(list_chuncks(flattened_list, (self.x2 + 1) - self.x1))
+
+    def selection_to_terrain_tiles(self) -> List['TerrainTile']:
+        """
+        Converts the selection to a list of terrain tile objects from the map manager.
+        Can only be used if the area has been associated with a scenario (created through map manager)
+
+        Returns:
+            A list of lists with (x, y) tuples of the selection.
+        """
+        self._force_association()
+        terrain = getters.get_terrain(self.uuid)
+        flattened_list = self.selection_to_coords()
+        return [terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in flattened_list]
+
+    def selection_to_terrain_tiles_2d(self) -> List[List['TerrainTile']]:
+        """
+        Converts the selection to a list of lists with terrain tile objects from the map manager.
+        Can only be used if the area has been associated with a scenario (created through map manager)
+
+        Returns:
+            A list of lists with (x, y) tuples of the selection.
+        """
+        self._force_association()
+        terrain = getters.get_terrain(self.uuid)
+        flattened_list = self.selection_to_coords()
+        return list(list_chuncks(
+            [terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in flattened_list],
+            (self.x2 + 1) - self.x1
+        ))
 
     def selection_to_dict(self) -> Dict[str, int]:
         """

@@ -1,10 +1,12 @@
 from typing import Optional, List, Tuple, Dict, TYPE_CHECKING
+
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
     from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
@@ -109,6 +111,22 @@ def get_map_size(uuid: str) -> Optional[int]:
     scenario = store.get_scenario(uuid)
     if scenario:
         return scenario.map_manager.map_size
+    return None
+
+
+def get_terrain(uuid: str) -> Optional[List['TerrainTile']]:
+    """
+    Get the map size of a scenario. Scenario is selected based on the given UUID.
+
+    Args:
+        uuid (str): The UUID of the scenario
+
+    Returns:
+        The map size of the scenario
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        return scenario.map_manager.terrain
     return None
 
 

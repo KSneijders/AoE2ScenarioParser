@@ -1,13 +1,27 @@
 from unittest import TestCase
 
-from AoE2ScenarioParser.objects.support.area import Area
+from AoE2ScenarioParser.datasets.terrains import TerrainId
+from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
+from AoE2ScenarioParser.objects.support.area import Area, Tile
+from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
 class TestArea(TestCase):
     area: Area
 
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        store.register_scenario(SCN)
+
     def setUp(self) -> None:
         self.area = Area(144)
+
+    def test_area_tile(self):
+        tile = Tile(1, 3)
+        self.assertEqual(1, tile.x)
+        self.assertEqual(3, tile.y)
+        self.assertEqual((1, 3), tile)
 
     def test_area_select_entire_map(self):
         self.area.select_entire_map()
@@ -51,7 +65,7 @@ class TestArea(TestCase):
         self.area.expand_y2(50)
         self.assertEqual(self.area._map_size, self.area.y2)
 
-    def test_area_to_coords(self):
+    def test_area_selection_to_coords(self):
         self.area.select(3, 3, 5, 5)
         self.assertListEqual(
             [
@@ -69,6 +83,42 @@ class TestArea(TestCase):
                 (4, 5), (5, 5),
             ],
             self.area.selection_to_coords()
+        )
+
+    def test_area_selection_to_coords_2d(self):
+        self.area.select(3, 3, 5, 5)
+        self.assertListEqual(
+            [
+                [(3, 3), (4, 3), (5, 3)],
+                [(3, 4), (4, 4), (5, 4)],
+                [(3, 5), (4, 5), (5, 5)],
+            ],
+            self.area.selection_to_coords_2d()
+        )
+        self.area.shrink_x1(1)
+        self.assertListEqual(
+            [
+                [(4, 3), (5, 3)],
+                [(4, 4), (5, 4)],
+                [(4, 5), (5, 5)],
+            ],
+            self.area.selection_to_coords_2d()
+        )
+
+    def test_area_selection_to_terrain_tiles(self):
+        self.area.associate_scenario(SCN)
+        self.area.select(1, 1, 2, 2)
+        self.assertListEqual(
+            MM.terrain[6:8] + MM.terrain[11:13],
+            self.area.selection_to_terrain_tiles()
+        )
+
+    def test_area_selection_to_terrain_tiles_2d(self):
+        self.area.associate_scenario(SCN)
+        self.area.select(1, 1, 2, 2)
+        self.assertListEqual(
+            [MM.terrain[6:8], MM.terrain[11:13]],
+            self.area.selection_to_terrain_tiles_2d()
         )
 
     def test_area_selection(self):
@@ -114,3 +164,19 @@ class TestArea(TestCase):
 
         self.area.set_center(5, 5).set_size(300)
         self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.selection)
+
+
+# Mock Objects & Variables
+uuid = "cool_uuid"
+
+
+class MM:
+    """Mock object for map_manager"""
+    map_size = 5
+    terrain = [TerrainTile(_index=index, host_uuid=uuid) for index in range(pow(map_size, 2))]
+
+
+class SCN:
+    """Mock object for scenario"""
+    map_manager = MM
+    uuid: str = uuid
