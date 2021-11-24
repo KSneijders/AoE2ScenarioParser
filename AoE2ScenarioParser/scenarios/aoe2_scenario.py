@@ -165,7 +165,7 @@ class AoE2Scenario:
             f.write(binary + compressed)
 
         s_print("File writing finished successfully.", final=True)
-        s_print(f"File successfully written to: '{filename}'", color="magenta")
+        s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
