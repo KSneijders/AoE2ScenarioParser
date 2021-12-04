@@ -14,8 +14,9 @@ from AoE2ScenarioParser.sections.retrievers.datatype import DataType
 
 class Retriever:
     """
-    A Class for defining how to retrieve data.
-    The Constructor has quite some parameters which can all be used for getting the proper data
+    A retriever forms the fundamental unit of data in a scenario. All retrievers contain only one single value related
+    to a particular thing in the scenario. This class is used to correctly interpret and store all the different types
+    of fundamental data that can be present in a scenario
     """
     __slots__ = [
         'on_construct',
@@ -54,8 +55,8 @@ class Retriever:
         self.name: str = name
         self.default_value = default_value
         self.datatype: DataType = datatype
-        self.is_list = is_list
-        self.log_value = log_value
+        self.is_list: bool = is_list
+        self.log_value: bool = log_value
         self._data = None
 
         if log_value:
@@ -125,27 +126,50 @@ class Retriever:
 
     @property
     def data(self):
+        """
+        The data contained in the retriever
+        """
         return self._data
 
     @data.setter
     def data(self, value):
+        """
+        The setter for the data of the retriever
+
+        Args:
+            value: The new value for the data of the retriever
+
+        Returns:
+
+        """
         if self.log_value:
             old_value = self._data
             self._print_value_update(old_value, value)
         self._data = value
 
     def set_data_to_default(self):
+        """
+        This function sets the values of all the data in the retriever to their default values
+
+        Returns:
+            This function does not return anything
+        """
         if self.datatype.type == "data":
             data = bytes.fromhex(self.default_value)
         elif type(self.default_value) is list:
             data = self.default_value.copy()
-            assert data is not self.default_value
         else:
             data = self.default_value
 
         self.data = data
 
-    def duplicate(self):
+    def duplicate(self) -> Retriever:
+        """
+        This function creates and returns a copy of the retriever object
+
+        Returns:
+            A Retriever instance
+        """
         retriever = Retriever(
             name=self.name,
             default_value=self.default_value,
@@ -159,7 +183,18 @@ class Retriever:
         return retriever
 
     @classmethod
-    def from_structure(cls, name, structure):
+    def from_structure(cls, name: str, structure: dict) -> Retriever:
+        """
+        This function creates a Retriever object from the given name and structure
+
+        Args:
+            name (str): The name of the retriever to create
+            structure (dict): A dict representation of the specified retriever's properties
+
+        Returns:
+            A Retriever instance
+        """
+
         datatype = DataType(var=structure.get('type'), repeat=structure.get('repeat', 1))
         retriever = cls(
             name=name,
@@ -234,10 +269,29 @@ class Retriever:
 
 
 def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Retriever]:
+    """
+    This function copies and returns the given dict of retrievers. This method is preferred over copy() or deepcopy()
+    because of speed. Yes.
+
+    Args:
+        retriever_map (Dict[str, Retriever]): A dictionary with strings as keys and Retrievers as their values
+
+    Returns:
+        A copied version of the given dictionary
+    """
     return pickle.loads(pickle.dumps(retriever_map))
 
 
 def reset_retriever_map(retriever_map: Dict[str, Retriever]) -> None:
+    """
+    This function sets all the values
+
+    Args:
+        retriever_map:
+
+    Returns:
+
+    """
     for retriever in retriever_map.values():
         retriever.set_data_to_default()
 

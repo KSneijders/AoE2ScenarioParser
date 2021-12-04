@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Dict
+from typing import Dict, List
+from uuid import UUID
 
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
@@ -22,25 +23,43 @@ class SectionLevel(Enum):
 
 
 class AoE2FileSection:
-    def __init__(self, name, retriever_map, host_uuid, struct_models=None, level=SectionLevel.TOP_LEVEL):
+    """
+    Multiple retrievers and structures containing related data are grouped together under one file section. This class
+    is used to construct all the retrievers and structures inside a file section.
+    """
+    def __init__(self,
+        name: str,
+        retriever_map: Dict[str, Retriever],
+        host_uuid: UUID,
+        struct_models: Dict[str, AoE2StructModel]=None,
+        level: SectionLevel=SectionLevel.TOP_LEVEL
+    ):
+        """
+        Args:
+            name (str): The name of the file section
+            retriever_map (Dict[str, Retriever]): A dict containing all the retrievers for this file section
+            host_uuid (UUID): The universally unique identifier for the scenario that this file section belongs to
+            struct_models (Dict[str, AoE2StructModel]): A dict containing all the structures for this file section
+            level (SectionLevel): This variable tells if a structure or file section is at the top level of the scenario
+        """
         if struct_models is None:
             struct_models = {}
 
         self.name: str = name
-        self.retriever_map: Dict[str, 'Retriever'] = retriever_map
+        self.retriever_map: Dict[str, Retriever] = retriever_map
         self._host_uuid = host_uuid
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
         self.level: SectionLevel = level
 
     @classmethod
-    def from_model(cls, model, host_uuid, set_defaults=False) -> AoE2FileSection:
+    def from_model(cls, model: AoE2StructModel, host_uuid: UUID, set_defaults: bool=False) -> AoE2FileSection:
         """
-        Create a copy (what was called struct before) from a model.
+        Duplicate the given AoE2StructModel and return it as an AoE2FileSection
 
         Args:
             model (AoE2StructModel): The model to copy from
-            host_uuid (str): String representing host scenario
+            host_uuid (UUID): The universally unique identifier for the scenario that the file section belongs to
             set_defaults (bool): If retrievers need to be set to the default values
 
         Returns:
@@ -59,15 +78,32 @@ class AoE2FileSection:
         )
 
     @classmethod
-    def from_structure(cls, section_name, structure, host_uuid):
+    def from_structure(cls, section_name: str, structure: Dict[str, Dict], host_uuid: UUID) -> AoE2FileSection:
+        """
+        This method constructs all retrievers and structures from the given file section (dict)
+
+        Args:
+            section_name (str): This is the name of the file section
+            structure (Dict[str, Dict]): The dict representation of the file section to build
+            host_uuid (UUID): The universally unique identifier of the scenario that this file section belongs to
+
+        Returns:
+            An AoE2FileSection instance representing the given file section structure
+        """
         retriever_map = {}
         for name, attr in structure.get('retrievers').items():
             retriever_map[name] = Retriever.from_structure(name, attr)
-
+            
         structs = model_dict_from_structure(structure)
         return cls(section_name, retriever_map, host_uuid, structs)
 
-    def get_data_as_bytes(self):
+    def get_data_as_bytes(self) -> bytes:
+        """
+        This function converts the data of a file section into bytes
+
+        Returns:
+            The bytes representing the file section
+        """
         result = []
         retriever: Retriever
         for retriever in self.retriever_map.values():
@@ -76,15 +112,18 @@ class AoE2FileSection:
 
     def set_data_from_generator(self, igenerator: IncrementalGenerator) -> None:
         """
-        Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
-        Bytes will be parsed based on the retrievers. The total length of bytes read to fill this section is also stored
-        in this section as `byte_length`.
+        This function sets all the data for the retrievers and structures of the file section from the given generator
+        (bytes of the scenario file). Each retriever (and retrieves inside structures) parses a set number of bytes
+        based on its datatype. The total number of bytes parsed is then stored in the self.bytes_length variable
 
         Args:
             igenerator (IncrementalGenerator): A generator from a binary scenario file
 
         Returns:
             This function does not return anything
+
+        Raises:
+            ValueError: if a structure inside a model is not defined
         """
         total_length = 0
         for retriever in self.retriever_map.values():
@@ -110,7 +149,21 @@ class AoE2FileSection:
 
         self.byte_length = total_length
 
-    def _fill_retriever_with_bytes(self, retriever, retrieved_bytes):
+    def _fill_retriever_with_bytes(self, retriever: Retriever, retrieved_bytes: List[bytes]):
+        """
+        This function tries to use the given bytes to set the data of the provided retriever
+
+        Args:
+            retriever (Retriever): The retriever to set the data for
+            retrieved_bytes (List[bytes]): The bytes to set the data from
+
+        Returns:
+            This function does not return anything
+
+        Raises:
+            ValueError: if the bytes given cannot be used to set the data of the retriever provided
+
+        """
         try:
             retriever.set_data_from_bytes(retrieved_bytes)
         except ValueError as e:
@@ -120,7 +173,17 @@ class AoE2FileSection:
             print(self.get_byte_structure_as_string())
             raise e
 
-    def _create_struct(self, model: AoE2StructModel, igenerator) -> AoE2FileSection:
+    def _create_struct(self, model: AoE2StructModel, igenerator: IncrementalGenerator) -> AoE2FileSection:
+        """
+        This function creates an AoE2FileSection from the given model using data from the provided generator
+
+        Args:
+            model (AoE2StructModel): The model to make the AoE2FileSection from
+            igenerator (IncrementalGenerator): The generator to set the data for the file section from
+
+        Returns:
+            An AoE2FileSection object created from the given model with its data set according to the given generator
+        """
         struct = AoE2FileSection.from_model(model, host_uuid=self._host_uuid)
 
         try:
@@ -135,7 +198,20 @@ class AoE2FileSection:
 
         return struct
 
-    def set_data(self, data):
+    def set_data(self, data: List):
+        """
+        This function sets the data of all the retrievers of the file section using the list provided
+
+        Args:
+            data (List): A list containing the new data value for each retriever in the file section. This list has the
+            same length as the number of retrievers in the file section.
+
+        Returns:
+            This function does not return anything
+
+        Raises:
+            ValueError: if the length of the list is not equal to the number of retrievers
+        """
         retrievers = list(self.retriever_map.values())
 
         if len(data) == len(retrievers):
