@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from enum import Enum
 from typing import List, Type, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -39,7 +41,7 @@ class AoE2Object:
         if number_hist is None:
             number_hist = []
 
-        scenario_version = scenario_store.get_scenario_version(host_uuid)
+        scenario_version = getters.get_scenario_version(host_uuid)
 
         object_parameters = {}
         for link in cls._link_list:
@@ -91,10 +93,24 @@ class AoE2Object:
             number_hist = obj._instance_number_history
         return number_hist[-1] if len(number_hist) > 0 else None
 
+    def _get_object_attrs(self):
+        attrs = ["_instance_number_history", "_host_uuid"]
+        for link in self._link_list:
+            attrs.append(link.name)
+        return attrs
+
     def __repr__(self):
-        self_dict = self.__dict__
-        self_dict['_sections'] = f"OrderDict"
-        return str(self.__class__.__name__) + ": " + pretty_format_dict(self_dict)
+        attrs = self._get_object_attrs()
+
+        self_dict = {}
+        for attr in attrs:
+            value = getattr(self, attr)
+            if isinstance(value, Enum):
+                self_dict[attr] = value.name
+            else:
+                self_dict[attr] = value
+
+        return str(self.__class__.__name__) + ": " + add_tabs(pretty_format_dict(self_dict), 1)
 
 
 def f_unsupported_string(link: RetrieverObjectLink, version: str):

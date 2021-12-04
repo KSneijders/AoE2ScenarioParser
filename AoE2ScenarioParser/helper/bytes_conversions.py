@@ -11,13 +11,15 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
-def bytes_to_fixed_chars(byte_elements, codec="utf-8"):
-    return byte_elements.decode(codec)
+def bytes_to_fixed_chars(byte_elements: bytes) -> str:
+    end_of_string = byte_elements.find(b"\x00")
+    if end_of_string != -1:
+        byte_elements = byte_elements[:end_of_string]
+    return bytes_to_str(byte_elements)
 
 
-def fixed_chars_to_bytes(string, codec="utf-8"):
-    # Todo: Add space chars to fix length
-    return string.encode(codec)
+def fixed_chars_to_bytes(string: str, var_len: int) -> bytes:
+    return str_to_bytes(string) + b"\x00" * (var_len - len(string))
 
 
 # Update tests if this changes
@@ -145,9 +147,10 @@ def parse_val_to_bytes(retriever: 'Retriever', val):
 
         return _combine_int_str(byte_string, var_len, endian="little", signed=True, retriever=retriever)
     elif var_type == "c":  # str
-        return fixed_chars_to_bytes(val)
+        if len(val) > var_len:
+            raise ValueError(f"Value cannot be longer than {var_len}, retriever: {retriever}")
+        return fixed_chars_to_bytes(val, var_len)
     elif var_type == "data":  # bytes
-        # Todo: Add space chars to fix length
         return val
     elif var_type == "f":  # float
         if var_len == 4:

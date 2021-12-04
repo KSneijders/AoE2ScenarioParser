@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from enum import Enum
 from typing import Dict
 
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_list, pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
@@ -16,6 +17,22 @@ from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicat
 class SectionLevel(Enum):
     TOP_LEVEL = 0
     STRUCT = 1
+
+
+class SectionName(Enum):
+    FILEHEADER = "FileHeader"
+    DATAHEADER = "DataHeader"
+    MESSAGES = "Messages"
+    CINEMATICS = "Cinematics"
+    BACKGROUNDIMAGE = "BackgroundImage"
+    PLAYERDATATWO = "PlayerDataTwo"
+    GLOBALVICTORY = "GlobalVictory"
+    DIPLOMACY = "Diplomacy"
+    OPTIONS = "Options"
+    MAP = "Map"
+    UNITS = "Units"
+    TRIGGERS = "Triggers"
+    FILES = "Files"
 
 
 class AoE2FileSection:
@@ -149,6 +166,8 @@ class AoE2FileSection:
     def __getattr__(self, item):
         """Providing a default way to access retriever data labeled 'name'"""
         if 'retriever_map' not in self.__dict__:
+            return super().__getattribute__(item)
+        elif item.startswith("__"):
             return super().__getattribute__(item)
         else:
             retriever = self.retriever_map[item]

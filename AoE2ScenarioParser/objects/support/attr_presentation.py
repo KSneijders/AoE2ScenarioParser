@@ -13,7 +13,7 @@ from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
-from AoE2ScenarioParser.scenarios import scenario_store
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
@@ -34,13 +34,13 @@ _store_error_displays: Dict[str, Dict[str, Callable[..., str]]] = {
 
 
 def _format_trigger_id_representation(id_: int, uuid: str) -> str:
-    if (name := scenario_store.get_trigger_name(uuid, id_)) is not None:
+    if (name := getters.get_trigger_name(uuid, id_)) is not None:
         return f"\"{trunc_string(name)}\""
     return _store_error_displays['triggers']['invalid_reference']()
 
 
 def _format_variable_id_representation(id_: int, uuid: str) -> str:
-    if (name := scenario_store.get_variable_name(uuid, id_)) is not None:
+    if (name := getters.get_variable_name(uuid, id_)) is not None:
         return f"\"{trunc_string(name)}\""
     return _store_error_displays['variables']['invalid_reference']()
 
@@ -59,7 +59,7 @@ def _format_unit_reference_representation(ref_id: Union[int, List[int]], uuid: s
         return f"{name} ({u.unit_const}) [P{u.player}, X{u.x}, Y{u.y}]"
 
     ids = listify(ref_id)
-    retrieved_units = scenario_store.get_units(uuid, ids)
+    retrieved_units = getters.get_units(uuid, ids)
     if retrieved_units is not None:
         units, invalids = retrieved_units
         unit_count = len(units) + len(invalids)
