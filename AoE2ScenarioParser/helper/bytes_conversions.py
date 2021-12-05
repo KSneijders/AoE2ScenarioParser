@@ -11,33 +11,33 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
-def bytes_to_fixed_chars(byte_elements: bytes, codec: str="utf-8") -> str:
+def bytes_to_fixed_chars(byte_elements: bytes) -> str:
     """
     This function is used to convert the given bytes to characters using the specified codec
 
     Args:
         byte_elements (bytes): The bytes to convert
-        codec (str): The codec to use
 
     Returns:
         A string of decoded characters
     """
-    return byte_elements.decode(codec)
+    end_of_string = byte_elements.find(b"\x00")
+    if end_of_string != -1:
+        byte_elements = byte_elements[:end_of_string]
+    return bytes_to_str(byte_elements)
 
 
-def fixed_chars_to_bytes(string: str, codec: str="utf-8") -> bytes:
+def fixed_chars_to_bytes(string: str, var_len: int) -> bytes:
     """
     This function is used to convert the given string to bytes using the specified codec
 
     Args:
         string (str): The string to convert
-        codec (str): The codec to use
 
     Returns:
         bytes of the encoded string
     """
-    # Todo: Add space chars to fix length
-    return string.encode(codec)
+    return str_to_bytes(string) + b"\x00" * (var_len - len(string))
 
 
 # Update tests if this changes
@@ -240,9 +240,10 @@ def parse_val_to_bytes(retriever: Retriever, val) -> bytes:
 
         return _combine_int_str(byte_string, var_len, endian="little", signed=True, retriever=retriever)
     elif var_type == "c":  # str
-        return fixed_chars_to_bytes(val)
+        if len(val) > var_len:
+            raise ValueError(f"Value cannot be longer than {var_len}, retriever: {retriever}")
+        return fixed_chars_to_bytes(val, var_len)
     elif var_type == "data":  # bytes
-        # Todo: Add space chars to fix length
         return val
     elif var_type == "f":  # float
         if var_len == 4:

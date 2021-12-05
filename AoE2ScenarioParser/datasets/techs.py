@@ -91,7 +91,7 @@ class TechInfo(Enum):
         raise KeyError(f"A technology with icon id '{tech_icon_id}' was not found in the dataset")
 
     @staticmethod
-    def unique_techs(exclude_castle_techs: bool = True, exclude_imp_techs: bool = True) -> list[TechInfo]:
+    def unique_techs(exclude_castle_techs: bool = False, exclude_imp_techs: bool = False) -> list[TechInfo]:
         """
         Get the list of all the unique techs in the game
 
