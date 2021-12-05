@@ -1,7 +1,10 @@
 import setuptools
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    long_description = fh.read().replace(":heavy_check_mark:", "✔️").replace(":x:", "❌")
+
+with open("requirements.txt", "r") as r:
+    dependencies = [line.strip() for line in r.readlines() if line.strip() and not line.strip().startswith("#")]
 
 setuptools.setup(
     name="AoE2ScenarioParser",
@@ -29,11 +32,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.8',
-
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
-    # Also update ./requirements.txt #
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
-    install_requires=[
-        'deprecation', 'typing_extensions'
-    ]
+    install_requires=dependencies
 )
