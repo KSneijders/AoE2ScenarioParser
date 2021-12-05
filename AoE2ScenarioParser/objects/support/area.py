@@ -1,15 +1,21 @@
 from __future__ import annotations
 
 import math
+from enum import Enum
 from typing import List, Tuple, Dict, Union, NamedTuple, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.helper import xy_to_i
-from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+
+
+class AreaState(Enum):
+    FILL = 0
+    EDGE = 1
+    GRID = 2
 
 
 class Tile(NamedTuple):
@@ -30,7 +36,20 @@ class Area:
         self._map_size = map_size - 1
         self.uuid = uuid
 
-        self.x1 = self.y1 = self.x2 = self.y2 = math.floor(self._map_size / 2)
+        self.state = AreaState.FILL
+
+        center = math.floor(self._map_size / 2)
+        self.x1 = center
+        self.y1 = center
+        self.x2 = center
+        self.y2 = center
+        # Edge
+        self.edge_width = 1
+        # Grid
+        self.grid_gap_x = 1
+        self.grid_gap_y = 1
+        self.grid_width_x = 1
+        self.grid_width_y = 1
 
     @classmethod
     def from_uuid(cls, uuid: str) -> Area:
@@ -62,7 +81,7 @@ class Area:
 
     # ============================ Conversion functions ============================
 
-    def selection_to_coords(self) -> List[Tile]:
+    def to_coords(self) -> List[Tile]:
         """
         Converts the selection to a list of (x, y) coordinates
 
@@ -78,30 +97,12 @@ class Area:
                     ...,   (4,5), (5,5)
                 ]
         """
-        return [
-            Tile(x, y) for y in list(range(self.y1, self.y2 + 1)) for x in list(range(self.x1, self.x2 + 1))
-        ]
+        if self.edge:
+            return [Tile(x, y) for y in self.range_y for x in self.range_x if self.is_within_selection(x, y)]
+        # Could have used `self.is_within_selection` here too but for performance reasons this is done without the if.
+        return [Tile(x, y) for y in self.range_y for x in self.range_x]
 
-    def selection_to_coords_2d(self) -> List[List[Tile]]:
-        """
-        Converts the selection to a 2D list of (x, y) coordinates
-
-        Returns:
-            A list of lists with (x, y) tuples of the selection.
-
-        Examples:
-            The selection: ``((3,3), (5,5))`` would result in a list with 3 lists with all a length of 3::
-
-                [
-                    [(3,3), (4,3)  ...],
-                    [...,   ...,   ...],
-                    [...,   (4,5), (5,5)]
-                ]
-        """
-        flattened_list = self.selection_to_coords()
-        return list(list_chuncks(flattened_list, (self.x2 + 1) - self.x1))
-
-    def selection_to_terrain_tiles(self) -> List['TerrainTile']:
+    def to_terrain_tiles(self) -> List['TerrainTile']:
         """
         Converts the selection to a list of terrain tile objects from the map manager.
         Can only be used if the area has been associated with a scenario (created through map manager)
@@ -111,26 +112,9 @@ class Area:
         """
         self._force_association()
         terrain = getters.get_terrain(self.uuid)
-        flattened_list = self.selection_to_coords()
-        return [terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in flattened_list]
+        return [terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords()]
 
-    def selection_to_terrain_tiles_2d(self) -> List[List['TerrainTile']]:
-        """
-        Converts the selection to a list of lists with terrain tile objects from the map manager.
-        Can only be used if the area has been associated with a scenario (created through map manager)
-
-        Returns:
-            A list of lists with (x, y) tuples of the selection.
-        """
-        self._force_association()
-        terrain = getters.get_terrain(self.uuid)
-        flattened_list = self.selection_to_coords()
-        return list(list_chuncks(
-            [terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in flattened_list],
-            (self.x2 + 1) - self.x1
-        ))
-
-    def selection_to_dict(self) -> Dict[str, int]:
+    def to_dict(self) -> Dict[str, int]:
         """
         Converts the 2 corners of the selection to area keys for use in effects etc.
         This can be used by adding double stars (**) before this function.
@@ -141,11 +125,11 @@ class Area:
         Examples:
             The selection: ``((3,3), (5,5))`` would result in a dict that looks like:
                 ``{'area_x1': 3, 'area_y1': 3, 'area_x2': 5, 'area_y2': 5}``
-            Usage: ``**area.selection_to_dict()`` (i.e. in a ``new_effect.something`` function)
+            Usage: ``**area.to_dict()`` (i.e. in a ``new_effect.something`` function)
         """
         return {f"area_{key}": getattr(self, key) for key in ['x1', 'y1', 'x2', 'y2']}
 
-    # ============================ Getter properties ============================
+    # ============================ Properties ============================
 
     @property
     def selection(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
@@ -174,7 +158,65 @@ class Area:
     def center_int(self, value: Tuple[int, int]):
         self.set_center(x=value[0], y=value[1])
 
+    # ============== READ ONLY PROPERTIES ==============
+
+    @property
+    def range_x(self) -> range:
+        """Returns a range object for the x coordinates."""
+        return range(self.x1, self.x2 + 1)
+
+    @property
+    def range_y(self) -> range:
+        """Returns a range object for the y coordinates."""
+        return range(self.y1, self.y2 + 1)
+
+    @property
+    def edge_length_x(self) -> int:
+        """Returns the length of the x side of the selection."""
+        return self.x2 + 1 - self.x1
+
+    @property
+    def edge_length_y(self) -> int:
+        """Returns the length of the y side of the selection."""
+        return self.y2 + 1 - self.y1
+
+    # ============================ Use functions ============================
+
+    def use_filled(self) -> Area:
+        """Sets the area object to use the entire selection"""
+        self.state = AreaState.FILL
+        return self
+
+    def use_edge(self, edge_width: int = None) -> Area:
+        """
+        Sets the area object to use the border of the selection
+
+        Args:
+            edge_width (int): The edge width to set (can be changed using area.edge_width(x))
+
+        Returns:
+            This area object
+        """
+        self.state = AreaState.EDGE
+        if edge_width is not None:
+            self.edge_width = edge_width
+        return self
+
+    def use_grid(self,
+                 grid_gap: int = None,
+                 grid_gap_x: int = None,
+                 grid_gap_y: int = None,
+                 grid_width: int = None,
+                 grid_width_x: int = None,
+                 grid_width_y: int = None):
+        self.state = AreaState.GRID
+
     # ============================ Adjustment functions ============================
+
+    def edge_width(self, width: int) -> Area:
+        """Sets the edge width attribute."""
+        self.edge_width = width
+        return self
 
     def set_size(self, n: int) -> Area:
         """
@@ -195,7 +237,7 @@ class Area:
         map, the selection is moved to that position and all tiles that are out of the map are removed from the
         selection, effectively decreasing the selection size.
 
-        If you want to limit moving the center without changing the selection box size, use: ``set_center_bound``
+        If you want to limit moving the center without changing the selection box size, use: ``set_center_bounded``
         """
         center_x, center_y = self.center
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
@@ -205,7 +247,7 @@ class Area:
         self.y2 = self._minmax_val(self.y2 + diff_y)
         return self
 
-    def set_center_bound(self, x: int, y: int) -> Area:
+    def set_center_bounded(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge
         of the map. The selection will be forced against the edge of the map but the selection will not be decreased.
@@ -236,6 +278,14 @@ class Area:
         self.x1, self.y1, self.x2, self.y2 = x1, y1, x2, y2
         return self
 
+    def shrink(self, n) -> Area:
+        """Shrinks the selection from all sides"""
+        self.shrink_x1(n)
+        self.shrink_y1(n)
+        self.shrink_x2(n)
+        self.shrink_y2(n)
+        return self
+
     def shrink_x1(self, n) -> Area:
         """Shrinks the selection from the first corner on the X axis by n"""
         self.x1 = min(self.x1 + n, self.x2)
@@ -254,6 +304,14 @@ class Area:
     def shrink_y2(self, n) -> Area:
         """Shrinks the selection from the second corner on the Y axis by n"""
         self.y2 = max(self.y1, self.y2 - n)
+        return self
+
+    def expand(self, n) -> Area:
+        """Expands the selection from all sides"""
+        self.expand_x1(n)
+        self.expand_y1(n)
+        self.expand_x2(n)
+        self.expand_y2(n)
         return self
 
     def expand_x1(self, n) -> Area:
@@ -276,7 +334,52 @@ class Area:
         self.y2 = self._minmax_val(self.y2 + n)
         return self
 
+    # ============================ Test against ... functions ============================
+
+    def is_edge_tile(self, x: int, y: int, width: int) -> bool:
+        """
+        Returns if a given tile (x,y) is an edge tile of the set selection given a certain edge width.
+
+        Args:
+            x (int): The X coordinate
+            y (int): The Y coordinate
+            width (int): The width of the border
+
+        Returns:
+            True if (x,y) is an edge tile within the selection, False otherwise
+        """
+        return any((
+            0 <= x - self.x1 < width,
+            0 <= y - self.y1 < width,
+            0 <= self.x2 - x < width,
+            0 <= self.y2 - y < width
+        ))
+
+    def is_within_selection(self, x: int, y: int) -> bool:
+        """
+        If a given (x,y) location is within the selection.
+
+        Args:
+            x (int): The X coordinate
+            y (int): The Y coordinate
+
+        Returns:
+            True if (x,y) is within the selection, False otherwise
+        """
+        if not (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
+            return False
+
+        if self.edge:
+            return self.is_edge_tile(x, y, self.edge_width)
+        else:
+            return True
+
     # ============================ Support functions ============================
+
+    def _is_within_grid(self, x: int, y: int):
+        """If a given (x,y) location is within the grid selection."""
+        return (x - self.x1) % (self.grid_gap_x + self.grid_width_x) < self.grid_width_x and \
+               (y - self.y1) % (self.grid_gap_y + self.grid_width_y) < self.grid_width_y
 
     def _minmax_val(self, val: Union[int, float]) -> Union[int, float]:
         """Keeps a given value within the bounds of ``0 <= val <= map_size``"""
