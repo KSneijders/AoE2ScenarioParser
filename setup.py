@@ -29,7 +29,11 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.8',
+
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
+    # Also update ./requirements.txt #
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
     install_requires=[
-        'deprecation'
+        'deprecation', 'typing_extensions'
     ]
 )
