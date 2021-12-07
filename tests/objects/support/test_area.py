@@ -300,7 +300,9 @@ class TestArea(TestCase):
             },
             self.area.to_coords()
         )
-        self.area.use_grid(gap_size_y=0)
+
+    def test_area_use_grid_with_configs_abuse_as_lines(self):
+        self.area.select(3, 3, 6, 7).use_grid(gap_size_y=0)
         self.assertSetEqual(
             {
                 (3, 3),         (5, 3),
