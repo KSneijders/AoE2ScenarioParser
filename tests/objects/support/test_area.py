@@ -1,7 +1,8 @@
 from unittest import TestCase
+from uuid import UUID
 
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
-from AoE2ScenarioParser.objects.support.area import Area, Tile
+from AoE2ScenarioParser.objects.support.area import Area, Tile, AreaState
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
@@ -76,30 +77,31 @@ class TestArea(TestCase):
 
     def test_area_to_coords(self):
         self.area.select(3, 3, 5, 5)
-        self.assertListEqual(
-            [
+        self.assertSetEqual(
+            {
                 (3, 3), (4, 3), (5, 3),
                 (3, 4), (4, 4), (5, 4),
                 (3, 5), (4, 5), (5, 5),
-            ],
+            },
             self.area.to_coords()
         )
         self.area.shrink_x1(1)
-        self.assertListEqual(
-            [
+        self.assertSetEqual(
+            {
                 (4, 3), (5, 3),
                 (4, 4), (5, 4),
                 (4, 5), (5, 5),
-            ],
+            },
             self.area.to_coords()
         )
-        # With edge is tested in separate test
+        # Other states have their own test
 
     def test_area_to_terrain_tiles(self):
         self.area.associate_scenario(SCN)
         self.area.select(1, 1, 2, 2)
-        self.assertListEqual(
-            MM.terrain[6:8] + MM.terrain[11:13],
+        self.maxDiff = None
+        self.assertSetEqual(
+            set(MM.terrain[6:8] + MM.terrain[11:13]),
             self.area.to_terrain_tiles()
         )
 
@@ -154,34 +156,181 @@ class TestArea(TestCase):
 
     def test_area_use_filled(self):
         self.area.use_filled()
-        self.assertEqual(False, self.area.edge)
+        self.assertEqual(AreaState.FILL, self.area.state)
+        self.area.use_edge().use_filled()
+        self.assertEqual(AreaState.FILL, self.area.state)
+
+        self.area.invert()
+        self.assertSetEqual(set(), self.area.to_coords())
 
     def test_area_use_edge(self):
         self.area.use_edge()
-        self.assertEqual(True, self.area.edge)
+        self.assertEqual(AreaState.EDGE, self.area.state)
 
         self.area.select(3, 3, 6, 7)
-        self.assertListEqual(
-            [
+        self.assertSetEqual(
+            {
                 (3, 3), (4, 3), (5, 3), (6, 3),
                 (3, 4), (6, 4),
                 (3, 5), (6, 5),
                 (3, 6), (6, 6),
                 (3, 7), (4, 7), (5, 7), (6, 7),
-            ],
+            },
             self.area.to_coords()
         )
 
-        self.area.select(3, 3, 8, 8).use_edge().edge_width(2)
-        self.assertListEqual(
-            [
+        self.area.select(3, 3, 8, 8).use_edge().set_edge_width(2)
+        self.assertSetEqual(
+            {
                 (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3),
                 (3, 4), (4, 4), (5, 4), (6, 4), (7, 4), (8, 4),
                 (3, 5), (4, 5), (7, 5), (8, 5),
                 (3, 6), (4, 6), (7, 6), (8, 6),
                 (3, 7), (4, 7), (5, 7), (6, 7), (7, 7), (8, 7),
                 (3, 8), (4, 8), (5, 8), (6, 8), (7, 8), (8, 8),
-            ],
+            },
+            self.area.to_coords()
+        )
+
+        self.area.invert()
+        self.assertSetEqual(
+            {
+                (5, 5), (6, 5),
+                (5, 6), (6, 6),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid(self):
+        self.area.use_grid()
+        self.assertEqual(AreaState.GRID, self.area.state)
+
+        self.area.select(3, 3, 6, 7)
+        self.assertSetEqual(
+            {
+                (3, 3), (5, 3),
+                (3, 5), (5, 5),
+                (3, 7), (5, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.select(3, 3, 6, 7).invert()
+        self.assertSetEqual(
+            {
+                (4, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+                (4, 5), (6, 5),
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (4, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid_arg_configs(self):
+        self.area.use_grid(2, 3)
+        self.assertEqual(2, self.area.grid_gap_x)
+        self.assertEqual(2, self.area.grid_gap_y)
+        self.assertEqual(3, self.area.grid_width_x)
+        self.assertEqual(3, self.area.grid_width_y)
+
+        self.area.use_grid(1, 2, 3, 4)
+        self.assertEqual(1, self.area.grid_gap_x)
+        self.assertEqual(2, self.area.grid_gap_y)
+        self.assertEqual(3, self.area.grid_width_x)
+        self.assertEqual(4, self.area.grid_width_y)
+
+    def test_area_use_grid_kwarg_configs(self):
+        self.area.use_grid(gap_size=3, width_size=4)
+        self.assertEqual(3, self.area.grid_gap_x)
+        self.assertEqual(3, self.area.grid_gap_y)
+        self.assertEqual(4, self.area.grid_width_x)
+        self.assertEqual(4, self.area.grid_width_y)
+
+        self.area.use_grid(gap_size_x=1, gap_size_y=3, width_size_x=5, width_size_y=7)
+        self.assertEqual(1, self.area.grid_gap_x)
+        self.assertEqual(3, self.area.grid_gap_y)
+        self.assertEqual(5, self.area.grid_width_x)
+        self.assertEqual(7, self.area.grid_width_y)
+
+    def test_area_use_grid_combined_kwarg_configs(self):
+        self.area.use_grid(gap_size=10, width_size_x=1, width_size_y=2)
+        self.assertEqual(10, self.area.grid_gap_x)
+        self.assertEqual(10, self.area.grid_gap_y)
+        self.assertEqual(1, self.area.grid_width_x)
+        self.assertEqual(2, self.area.grid_width_y)
+
+        self.area.use_grid(gap_size_x=8, gap_size_y=11, width_size=10)
+        self.assertEqual(8, self.area.grid_gap_x)
+        self.assertEqual(11, self.area.grid_gap_y)
+        self.assertEqual(10, self.area.grid_width_x)
+        self.assertEqual(10, self.area.grid_width_y)
+
+        self.area.use_grid(gap_size_x=8, gap_size=11, width_size=10, width_size_y=2)
+        self.assertEqual(8, self.area.grid_gap_x)
+        self.assertEqual(11, self.area.grid_gap_y)
+        self.assertEqual(10, self.area.grid_width_x)
+        self.assertEqual(2, self.area.grid_width_y)
+
+    def test_area_use_grid_with_configs(self):
+        self.area.select(3, 3, 6, 7).use_grid(gap_size=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (6, 3),
+                (3, 6), (6, 6),
+            },
+            self.area.to_coords()
+        )
+        self.area.use_grid(width_size=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (6, 3),
+                (3, 4), (4, 4), (6, 4),
+                (3, 6), (4, 6), (6, 6),
+                (3, 7), (4, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+        self.area.use_grid(width_size=2, gap_size=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3),
+                (3, 4), (4, 4),
+                (3, 7), (4, 7),
+            },
+            self.area.to_coords()
+        )
+        self.area.use_grid(gap_size_y=0)
+        self.assertSetEqual(
+            {
+                (3, 3),         (5, 3),
+                (3, 4),         (5, 4),
+                (3, 5),         (5, 5),
+                (3, 6),         (5, 6),
+                (3, 7),         (5, 7),
+            },
+            self.area.to_coords()
+        )
+        self.area.use_grid(gap_size_x=0)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+
+                (3, 5), (4, 5), (5, 5), (6, 5),
+
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+        self.area.use_grid(gap_size_x=0, width_size_y=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
             self.area.to_coords()
         )
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 from enum import Enum
-from typing import List, Tuple, Dict, Union, NamedTuple, TYPE_CHECKING
+from typing import Tuple, Dict, Union, NamedTuple, TYPE_CHECKING, overload, Set
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.helper import xy_to_i
@@ -34,26 +34,27 @@ class Area:
         if map_size is None:
             map_size = getters.get_map_size(uuid)
 
-        self._map_size = map_size - 1
-        self.uuid = uuid
+        self._map_size: int = map_size - 1
+        self.uuid: UUID = uuid
 
-        self.state = AreaState.FILL
+        self.state: AreaState = AreaState.FILL
+        self.inverted: bool = False
 
         center = math.floor(self._map_size / 2)
-        self.x1 = center
-        self.y1 = center
-        self.x2 = center
-        self.y2 = center
+        self.x1: int = center
+        self.y1: int = center
+        self.x2: int = center
+        self.y2: int = center
         # Edge
-        self.edge_width = 1
+        self.edge_width: int = 1
         # Grid
-        self.grid_gap_x = 1
-        self.grid_gap_y = 1
-        self.grid_width_x = 1
-        self.grid_width_y = 1
+        self.grid_gap_x: int = 1
+        self.grid_gap_y: int = 1
+        self.grid_width_x: int = 1
+        self.grid_width_y: int = 1
 
     @classmethod
-    def from_uuid(cls, uuid: str) -> Area:
+    def from_uuid(cls, uuid: UUID) -> Area:
         return cls(uuid=uuid)
 
     @property
@@ -82,7 +83,7 @@ class Area:
 
     # ============================ Conversion functions ============================
 
-    def to_coords(self) -> List[Tile]:
+    def to_coords(self) -> Set[Tile]:
         """
         Converts the selection to a list of (x, y) coordinates
 
@@ -98,12 +99,11 @@ class Area:
                     ...,   (4,5), (5,5)
                 ]
         """
-        if self.edge:
-            return [Tile(x, y) for y in self.range_y for x in self.range_x if self.is_within_selection(x, y)]
-        # Could have used `self.is_within_selection` here too but for performance reasons this is done without the if.
-        return [Tile(x, y) for y in self.range_y for x in self.range_x]
+        return {
+            Tile(x, y) for y in self.range_y for x in self.range_x if self.is_within_selection(x, y)
+        }
 
-    def to_terrain_tiles(self) -> List['TerrainTile']:
+    def to_terrain_tiles(self) -> Set['TerrainTile']:
         """
         Converts the selection to a list of terrain tile objects from the map manager.
         Can only be used if the area has been associated with a scenario (created through map manager)
@@ -113,7 +113,7 @@ class Area:
         """
         self._force_association()
         terrain = getters.get_terrain(self.uuid)
-        return [terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords()]
+        return {terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords()}
 
     def to_dict(self) -> Dict[str, int]:
         """
@@ -203,18 +203,88 @@ class Area:
             self.edge_width = edge_width
         return self
 
+    @overload
+    def use_grid(self):
+        ...
+
+    @overload
+    def use_grid(self, gap_size: int, width_size: int):
+        ...
+
+    @overload
+    def use_grid(self, gap_size_x: int, gap_size_y: int, width_size_x: int, width_size_y: int) -> None:
+        ...
+
+    @overload
     def use_grid(self,
-                 grid_gap: int = None,
-                 grid_gap_x: int = None,
-                 grid_gap_y: int = None,
-                 grid_width: int = None,
-                 grid_width_x: int = None,
-                 grid_width_y: int = None):
+                 gap_size: int = None,
+                 width_size: int = None,
+                 gap_size_x: int = None,
+                 gap_size_y: int = None,
+                 width_size_x: int = None,
+                 width_size_y: int = None
+                 ) -> None:
+        ...
+
+    def use_grid(self, *args, **kwargs):
+        """
+        Sets the area object to use a grid within the selection.
+
+        * Can be called with no arguments for no immediate configuration.
+        * Can be called with 2 (int) arguments for size & width config (or using keyword args: gap_size, width_size)
+        * Can be called with 4 (int) arguments for separate x & y, size & width config
+          (or using keyword args: gap_size_x, gap_size_y, width_size_x, width_size_y)
+
+        **Please note**:
+
+        * All arguments default to 1
+        * Keyword Arguments will overwrite normal arguments. Specific X and Y keywords will overwrite the general
+          arguments. This means that: ``(gap_size=3, gap_size_x=5)`` will result in: ``(gap_size_x=5, gap_size_y=3)``
+
+        Keyword Args:
+            gap_size: (int): The size of the gap between lines within the grid on both axis
+            width_size: (int): The width of the lines within the grid for both X & Y aligned lines
+            gap_size_x: (int): The size of the gap between lines within the grid on the X axis
+            gap_size_y: (int): The size of the gap between lines within the grid on the Y axis
+            width_size_x: (int): The width of the lines within the grid for the X aligned lines
+            width_size_y: (int): The width of the lines within the grid for the Y aligned lines
+        """
         self.state = AreaState.GRID
+        gap_size_x = gap_size_y = width_size_x = width_size_y = 1
+
+        if len(args) == 2:
+            gap_size_x = gap_size_y = args[0]
+            width_size_x = width_size_y = args[1]
+        elif len(args) == 4:
+            gap_size_x = args[0]
+            gap_size_y = args[1]
+            width_size_x = args[2]
+            width_size_y = args[3]
+
+        if 'gap_size' in kwargs:
+            gap_size_x = gap_size_y = kwargs['gap_size']
+        if 'width_size' in kwargs:
+            width_size_x = width_size_y = kwargs['width_size']
+
+        self.grid_gap_x = kwargs.get('gap_size_x', gap_size_x)
+        self.grid_gap_y = kwargs.get('gap_size_y', gap_size_y)
+        self.grid_width_x = kwargs.get('width_size_x', width_size_x)
+        self.grid_width_y = kwargs.get('width_size_y', width_size_y)
 
     # ============================ Adjustment functions ============================
 
-    def edge_width(self, width: int) -> Area:
+    def invert(self) -> Area:
+        """
+        Inverts the inverted boolean. Causes the `to_coords` to return the inverted selection. (Especially useful for
+        the grid state. Not as useful for the edge which would be the same as shrinking the selection. When used with
+        the fill state an empty set is returned.
+
+        **Please note:** This inverts the INTERNAL selection. Tiles OUTSIDE of the selection will NOT be returned.
+        """
+        self.inverted = not self.inverted
+        return self
+
+    def set_edge_width(self, width: int) -> Area:
         """Sets the edge width attribute."""
         self.edge_width = width
         return self
@@ -370,12 +440,20 @@ class Area:
         if not (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
             return False
 
-        if self.edge:
-            return self.is_edge_tile(x, y, self.edge_width)
+        is_within: bool
+        if self.state == AreaState.EDGE:
+            is_within = self.is_edge_tile(x, y, self.edge_width)
+        elif self.state == AreaState.GRID:
+            is_within = self._is_within_grid(x, y)
         else:
-            return True
+            is_within = True
+        return self._invert_if_inverted(is_within)
 
     # ============================ Support functions ============================
+
+    def _invert_if_inverted(self, bool_: bool):
+        """Inverts the boolean if the area is in inverted state"""
+        return not bool_ if self.inverted else bool_
 
     def _is_within_grid(self, x: int, y: int):
         """If a given (x,y) location is within the grid selection."""
