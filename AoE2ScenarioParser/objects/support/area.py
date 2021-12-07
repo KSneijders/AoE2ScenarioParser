@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 from enum import Enum
 from typing import List, Tuple, Dict, Union, NamedTuple, TYPE_CHECKING
+from uuid import UUID
 
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.scenarios.scenario_store import getters
@@ -25,7 +26,7 @@ class Tile(NamedTuple):
 
 
 class Area:
-    def __init__(self, map_size: int = None, uuid: str = None) -> None:
+    def __init__(self, map_size: int = None, uuid: UUID = None) -> None:
         if map_size is None and uuid is None:
             raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
         super().__init__()

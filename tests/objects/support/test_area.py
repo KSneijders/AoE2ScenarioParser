@@ -235,4 +235,4 @@ class MM:
 class SCN:
     """Mock object for scenario"""
     map_manager = MM
-    uuid: str = uuid
+    uuid: UUID = uuid

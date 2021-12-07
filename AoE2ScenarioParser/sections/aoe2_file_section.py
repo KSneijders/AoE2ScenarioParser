@@ -54,7 +54,7 @@ class AoE2FileSection:
 
         Args:
             model (AoE2StructModel): The model to copy from
-            host_uuid (str): String representing host scenario
+            host_uuid (UUID): String representing host scenario
             set_defaults (bool): If retrievers need to be set to the default values
 
         Returns:
