@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 from enum import Enum
-from typing import Tuple, Dict, Union, NamedTuple, TYPE_CHECKING, overload, Set
+from typing import Tuple, Dict, Union, NamedTuple, TYPE_CHECKING, Set, List
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.helper import xy_to_i
@@ -14,9 +14,25 @@ if TYPE_CHECKING:
 
 
 class AreaState(Enum):
+    """Enum to show the state of the Area object"""
     FILL = 0
     EDGE = 1
     GRID = 2
+    LINES = 3
+
+
+class AreaAttr(Enum):
+    """Enum to show the supported attributes that can be edited using ``Area.set(k, v)``"""
+    X1 = "x1"
+    Y1 = "y1"
+    X2 = "x2"
+    Y2 = "y2"
+    LINE_GAP = "line_gap"
+    LINE_WIDTH = "line_width"
+    LINE_GAP_X = "line_gap_x"
+    LINE_GAP_Y = "line_gap_y"
+    LINE_WIDTH_X = "line_width_x"
+    LINE_WIDTH_Y = "line_width_y"
 
 
 class Tile(NamedTuple):
@@ -27,11 +43,20 @@ class Tile(NamedTuple):
 
 class Area:
     def __init__(self, map_size: int = None, uuid: UUID = None) -> None:
+        """
+        Object to easily select an area on the map. Uses method chaining for ease of use.
+
+        **Please note**: Setting a ``uuid`` will always overwrite the ``map_size`` attribute, even if it's not ``None``.
+
+        Args:
+            map_size (int): The size of the map this area object will handle
+            uuid (UUID): The UUID of the scenario this area belongs to
+        """
         if map_size is None and uuid is None:
             raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
         super().__init__()
 
-        if map_size is None:
+        if uuid is not None:
             map_size = getters.get_map_size(uuid)
 
         self._map_size: int = map_size - 1
@@ -45,13 +70,11 @@ class Area:
         self.y1: int = center
         self.x2: int = center
         self.y2: int = center
-        # Edge
-        self.edge_width: int = 1
-        # Grid
-        self.grid_gap_x: int = 1
-        self.grid_gap_y: int = 1
-        self.grid_width_x: int = 1
-        self.grid_width_y: int = 1
+
+        self.line_gap_x: int = 1
+        self.line_gap_y: int = 1
+        self.line_width_x: int = 1
+        self.line_width_y: int = 1
 
     @classmethod
     def from_uuid(cls, uuid: UUID) -> Area:
@@ -188,88 +211,20 @@ class Area:
         self.state = AreaState.FILL
         return self
 
-    def use_edge(self, edge_width: int = None) -> Area:
-        """
-        Sets the area object to use the border of the selection
-
-        Args:
-            edge_width (int): The edge width to set (can be changed using area.edge_width(x))
-
-        Returns:
-            This area object
-        """
+    def use_edge(self) -> Area:
+        """Sets the area object to use the border of the selection"""
         self.state = AreaState.EDGE
-        if edge_width is not None:
-            self.edge_width = edge_width
         return self
 
-    @overload
-    def use_grid(self):
-        ...
+    def use_line(self) -> Area:
+        """Sets the area object to use lines within the selection"""
+        self.state = AreaState.LINES
+        return self
 
-    @overload
-    def use_grid(self, gap_size: int, width_size: int):
-        ...
-
-    @overload
-    def use_grid(self, gap_size_x: int, gap_size_y: int, width_size_x: int, width_size_y: int) -> None:
-        ...
-
-    @overload
-    def use_grid(self,
-                 gap_size: int = None,
-                 width_size: int = None,
-                 gap_size_x: int = None,
-                 gap_size_y: int = None,
-                 width_size_x: int = None,
-                 width_size_y: int = None
-                 ) -> None:
-        ...
-
-    def use_grid(self, *args, **kwargs):
-        """
-        Sets the area object to use a grid within the selection.
-
-        * Can be called with no arguments for no immediate configuration.
-        * Can be called with 2 (int) arguments for size & width config (or using keyword args: gap_size, width_size)
-        * Can be called with 4 (int) arguments for separate x & y, size & width config
-          (or using keyword args: gap_size_x, gap_size_y, width_size_x, width_size_y)
-
-        **Please note**:
-
-        * All arguments default to 1
-        * Keyword Arguments will overwrite normal arguments. Specific X and Y keywords will overwrite the general
-          arguments. This means that: ``(gap_size=3, gap_size_x=5)`` will result in: ``(gap_size_x=5, gap_size_y=3)``
-
-        Keyword Args:
-            gap_size: (int): The size of the gap between lines within the grid on both axis
-            width_size: (int): The width of the lines within the grid for both X & Y aligned lines
-            gap_size_x: (int): The size of the gap between lines within the grid on the X axis
-            gap_size_y: (int): The size of the gap between lines within the grid on the Y axis
-            width_size_x: (int): The width of the lines within the grid for the X aligned lines
-            width_size_y: (int): The width of the lines within the grid for the Y aligned lines
-        """
+    def use_grid(self) -> Area:
+        """Sets the area object to use a grid within the selection."""
         self.state = AreaState.GRID
-        gap_size_x = gap_size_y = width_size_x = width_size_y = 1
-
-        if len(args) == 2:
-            gap_size_x = gap_size_y = args[0]
-            width_size_x = width_size_y = args[1]
-        elif len(args) == 4:
-            gap_size_x = args[0]
-            gap_size_y = args[1]
-            width_size_x = args[2]
-            width_size_y = args[3]
-
-        if 'gap_size' in kwargs:
-            gap_size_x = gap_size_y = kwargs['gap_size']
-        if 'width_size' in kwargs:
-            width_size_x = width_size_y = kwargs['width_size']
-
-        self.grid_gap_x = kwargs.get('gap_size_x', gap_size_x)
-        self.grid_gap_y = kwargs.get('gap_size_y', gap_size_y)
-        self.grid_width_x = kwargs.get('width_size_x', width_size_x)
-        self.grid_width_y = kwargs.get('width_size_y', width_size_y)
+        return self
 
     # ============================ Adjustment functions ============================
 
@@ -284,9 +239,46 @@ class Area:
         self.inverted = not self.inverted
         return self
 
-    def set_edge_width(self, width: int) -> Area:
-        """Sets the edge width attribute."""
-        self.edge_width = width
+    def attr(self, key: Union[str, AreaAttr], value: int) -> Area:
+        """Sets the attribute to the given value. AreaAttr or str can be used as key"""
+        if isinstance(key, AreaAttr):
+            key = key.value
+
+        keys: List[str]
+        if key == 'line_width':
+            keys = ['line_width_x', 'line_width_y']
+        elif key == 'line_gap':
+            keys = ['line_gap_x', 'line_gap_y']
+        else:
+            keys = [key]
+
+        for key in keys:
+            setattr(self, key, value)
+        return self
+
+    def attrs(self, kv_dict: Dict[Union[str, AreaAttr], int] = None, **kwargs) -> Area:
+        """
+        Sets multiple attributes to the corresponding values. AreaAttr or str can be used as keys
+
+        Args:
+            kv_dict (Dict[Union[str, AreaAttr], int]): A dictionary with key value pairs for the attrs to be updated
+
+        Examples:
+            An example for the ``kv_dict`` parameter::
+
+                {
+                    'line_gap': 2,
+                    'line_width_x': 2,
+                    'line_width_y': 5
+                }
+
+        Returns:
+            This area object
+        """
+        if kv_dict is None:
+            kv_dict = {}
+        for k, v in {**kv_dict, **kwargs}.items():
+            self.attr(k, v)
         return self
 
     def set_size(self, n: int) -> Area:
@@ -407,23 +399,22 @@ class Area:
 
     # ============================ Test against ... functions ============================
 
-    def is_edge_tile(self, x: int, y: int, width: int) -> bool:
+    def is_edge_tile(self, x: int, y: int) -> bool:
         """
         Returns if a given tile (x,y) is an edge tile of the set selection given a certain edge width.
 
         Args:
             x (int): The X coordinate
             y (int): The Y coordinate
-            width (int): The width of the border
 
         Returns:
             True if (x,y) is an edge tile within the selection, False otherwise
         """
         return any((
-            0 <= x - self.x1 < width,
-            0 <= y - self.y1 < width,
-            0 <= self.x2 - x < width,
-            0 <= self.y2 - y < width
+            0 <= x - self.x1 < self.line_width_x,
+            0 <= y - self.y1 < self.line_width_y,
+            0 <= self.x2 - x < self.line_width_x,
+            0 <= self.y2 - y < self.line_width_y
         ))
 
     def is_within_selection(self, x: int, y: int) -> bool:
@@ -442,7 +433,7 @@ class Area:
 
         is_within: bool
         if self.state == AreaState.EDGE:
-            is_within = self.is_edge_tile(x, y, self.edge_width)
+            is_within = self.is_edge_tile(x, y)
         elif self.state == AreaState.GRID:
             is_within = self._is_within_grid(x, y)
         else:
@@ -451,14 +442,14 @@ class Area:
 
     # ============================ Support functions ============================
 
-    def _invert_if_inverted(self, bool_: bool):
+    def _invert_if_inverted(self, bool_: bool) -> bool:
         """Inverts the boolean if the area is in inverted state"""
         return not bool_ if self.inverted else bool_
 
-    def _is_within_grid(self, x: int, y: int):
+    def _is_within_grid(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
-        return (x - self.x1) % (self.grid_gap_x + self.grid_width_x) < self.grid_width_x and \
-               (y - self.y1) % (self.grid_gap_y + self.grid_width_y) < self.grid_width_y
+        return (x - self.x1) % (self.line_gap_x + self.line_width_x) < self.line_width_x and \
+               (y - self.y1) % (self.line_gap_y + self.line_width_y) < self.line_width_y
 
     def _minmax_val(self, val: Union[int, float]) -> Union[int, float]:
         """Keeps a given value within the bounds of ``0 <= val <= map_size``"""
