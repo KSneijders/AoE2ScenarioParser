@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 from enum import Enum
-from typing import Tuple, Dict, Union, NamedTuple, TYPE_CHECKING, Set, List
+from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.helper import xy_to_i
@@ -56,11 +56,9 @@ class Area:
             raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
         super().__init__()
 
-        if uuid is not None:
-            map_size = getters.get_map_size(uuid)
-
-        self._map_size: int = map_size - 1
         self.uuid: UUID = uuid
+        if uuid is None:
+            self._map_size_value = map_size - 1
 
         self.state: AreaState = AreaState.FILL
         self.inverted: bool = False
@@ -81,14 +79,11 @@ class Area:
         return cls(uuid=uuid)
 
     @property
-    def uuid(self):
-        return self._uuid
-
-    @uuid.setter
-    def uuid(self, value):
-        self._uuid = value
-        if value is not None:
-            self._map_size = getters.get_map_size(value) - 1
+    def _map_size(self) -> int:
+        if self.uuid is not None:
+            return getters.get_map_size(self.uuid) - 1
+        else:
+            return self._map_size_value
 
     def associate_scenario(self, scenario: AoE2Scenario) -> None:
         """
@@ -108,13 +103,13 @@ class Area:
 
     def to_coords(self) -> Set[Tile]:
         """
-        Converts the selection to a list of (x, y) coordinates
+        Converts the selection to a Set of (x, y) coordinates
 
         Returns:
-            A list of (x, y) tuples of the selection.
+            A Set of (x, y) tuples of the selection.
 
         Examples:
-            The selection: ``((3,3), (5,5))`` would result in a list with a length of 9::
+            The selection: ``((3,3), (5,5))`` would result in a Set with a length of 9::
 
                 [
                     (3,3), (4,3)  ...,
@@ -123,16 +118,16 @@ class Area:
                 ]
         """
         return {
-            Tile(x, y) for y in self.range_y for x in self.range_x if self.is_within_selection(x, y)
+            Tile(x, y) for y in self.get_range_y() for x in self.get_range_x() if self.is_within_selection(x, y)
         }
 
     def to_terrain_tiles(self) -> Set['TerrainTile']:
         """
-        Converts the selection to a list of terrain tile objects from the map manager.
+        Converts the selection to a Set of terrain tile objects from the map manager.
         Can only be used if the area has been associated with a scenario (created through map manager)
 
         Returns:
-            A list of lists with (x, y) tuples of the selection.
+            A Set of terrain tiles from the map manager based on the selection.
         """
         self._force_association()
         terrain = getters.get_terrain(self.uuid)
@@ -153,54 +148,33 @@ class Area:
         """
         return {f"area_{key}": getattr(self, key) for key in ['x1', 'y1', 'x2', 'y2']}
 
-    # ============================ Properties ============================
+    # ============================ Getters ============================
 
-    @property
-    def selection(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+    def get_selection(self):
         """Get the four values of the selection as: ((x1, y1), (x2, y2))"""
         return (self.x1, self.y1), (self.x2, self.y2)
 
-    @selection.setter
-    def selection(self, value: Tuple[Tuple[int, int], Tuple[int, int]]):
-        (self.x1, self.y1), (self.x2, self.y2) = value
-
-    @property
-    def center(self) -> Tuple[float, float]:
+    def get_center(self):
         """Get center of current selection"""
         return (self.x1 + self.x2) / 2, (self.y1 + self.y2) / 2
 
-    @center.setter
-    def center(self, value: Tuple[float, float]):
-        self.set_center(x=round(value[0]), y=round(value[1]))
-
-    @property
-    def center_int(self) -> Tuple[int, int]:
+    def get_center_int(self):
         """Get center of current selection, coords can only be integers. If even length, the value is floored"""
         return math.floor((self.x1 + self.x2) / 2), math.floor((self.y1 + self.y2) / 2)
 
-    @center_int.setter
-    def center_int(self, value: Tuple[int, int]):
-        self.set_center(x=value[0], y=value[1])
-
-    # ============== READ ONLY PROPERTIES ==============
-
-    @property
-    def range_x(self) -> range:
+    def get_range_x(self) -> range:
         """Returns a range object for the x coordinates."""
         return range(self.x1, self.x2 + 1)
 
-    @property
-    def range_y(self) -> range:
+    def get_range_y(self) -> range:
         """Returns a range object for the y coordinates."""
         return range(self.y1, self.y2 + 1)
 
-    @property
-    def edge_length_x(self) -> int:
+    def get_width(self) -> int:
         """Returns the length of the x side of the selection."""
         return self.x2 + 1 - self.x1
 
-    @property
-    def edge_length_y(self) -> int:
+    def get_height(self) -> int:
         """Returns the length of the y side of the selection."""
         return self.y2 + 1 - self.y1
 
@@ -281,12 +255,12 @@ class Area:
             self.attr(k, v)
         return self
 
-    def set_size(self, n: int) -> Area:
+    def size(self, n: int) -> Area:
         """
         Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
         ``((3,3), (5,5))``
         """
-        center_x, center_y = self.center_int
+        center_x, center_y = self.get_center_int()
         n -= 1  # Ignore center tile
         self.x1 = self._minmax_val(center_x - math.floor(n / 2))
         self.y1 = self._minmax_val(center_y - math.floor(n / 2))
@@ -294,15 +268,15 @@ class Area:
         self.y2 = self._minmax_val(center_y + math.ceil(n / 2))
         return self
 
-    def set_center(self, x: int, y: int) -> Area:
+    def center(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position. When the given center forces the selection of the edge of the
         map, the selection is moved to that position and all tiles that are out of the map are removed from the
         selection, effectively decreasing the selection size.
 
-        If you want to limit moving the center without changing the selection box size, use: ``set_center_bounded``
+        If you want to limit moving the center without changing the selection box size, use: ``center_bounded``
         """
-        center_x, center_y = self.center
+        center_x, center_y = self.get_center()
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
         self.x1 = self._minmax_val(self.x1 + diff_x)
         self.y1 = self._minmax_val(self.y1 + diff_y)
@@ -310,12 +284,12 @@ class Area:
         self.y2 = self._minmax_val(self.y2 + diff_y)
         return self
 
-    def set_center_bounded(self, x: int, y: int) -> Area:
+    def center_bounded(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge
         of the map. The selection will be forced against the edge of the map but the selection will not be decreased.
         """
-        center_x, center_y = self.center
+        center_x, center_y = self.get_center()
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
         if diff_x < 0 and abs(diff_x) > self.x1:
             diff_x = -self.x1
@@ -338,61 +312,75 @@ class Area:
 
     def select(self, x1, y1, x2, y2) -> Area:
         """Sets the selection to the given coordinates"""
-        self.x1, self.y1, self.x2, self.y2 = x1, y1, x2, y2
+        self.x1 = self._minmax_val(x1)
+        self.y1 = self._minmax_val(y1)
+        self.x2 = self._minmax_val(x2)
+        self.y2 = self._minmax_val(y2)
         return self
 
-    def shrink(self, n) -> Area:
+    def select_from_center(self, x, y, dx, dy) -> Area:
+        """Sets the selection to the given coordinates"""
+        half_x, half_y = (dx-1) / 2, (dy-1) / 2
+        self.select(
+            x1=x - math.ceil(half_x),
+            y1=y - math.ceil(half_y),
+            x2=x + math.floor(half_x),
+            y2=y + math.floor(half_y),
+        )
+        return self
+
+    def shrink_by(self, n) -> Area:
         """Shrinks the selection from all sides"""
-        self.shrink_x1(n)
-        self.shrink_y1(n)
-        self.shrink_x2(n)
-        self.shrink_y2(n)
+        self.shrink_x1_by(n)
+        self.shrink_y1_by(n)
+        self.shrink_x2_by(n)
+        self.shrink_y2_by(n)
         return self
 
-    def shrink_x1(self, n) -> Area:
+    def shrink_x1_by(self, n) -> Area:
         """Shrinks the selection from the first corner on the X axis by n"""
         self.x1 = min(self.x1 + n, self.x2)
         return self
 
-    def shrink_y1(self, n) -> Area:
+    def shrink_y1_by(self, n) -> Area:
         """Shrinks the selection from the first corner on the Y axis by n"""
         self.y1 = min(self.y1 + n, self.y2)
         return self
 
-    def shrink_x2(self, n) -> Area:
+    def shrink_x2_by(self, n) -> Area:
         """Shrinks the selection from the second corner on the X axis by n"""
         self.x2 = max(self.x1, self.x2 - n)
         return self
 
-    def shrink_y2(self, n) -> Area:
+    def shrink_y2_by(self, n) -> Area:
         """Shrinks the selection from the second corner on the Y axis by n"""
         self.y2 = max(self.y1, self.y2 - n)
         return self
 
-    def expand(self, n) -> Area:
+    def expand_by(self, n) -> Area:
         """Expands the selection from all sides"""
-        self.expand_x1(n)
-        self.expand_y1(n)
-        self.expand_x2(n)
-        self.expand_y2(n)
+        self.expand_x1_by(n)
+        self.expand_y1_by(n)
+        self.expand_x2_by(n)
+        self.expand_y2_by(n)
         return self
 
-    def expand_x1(self, n) -> Area:
+    def expand_x1_by(self, n) -> Area:
         """Expands the selection from the first corner on the X axis by n"""
         self.x1 = self._minmax_val(self.x1 - n)
         return self
 
-    def expand_y1(self, n) -> Area:
+    def expand_y1_by(self, n) -> Area:
         """Expands the selection from the first corner on the Y axis by n"""
         self.y1 = self._minmax_val(self.y1 - n)
         return self
 
-    def expand_x2(self, n) -> Area:
+    def expand_x2_by(self, n) -> Area:
         """Expands the selection from the second corner on the X axis by n"""
         self.x2 = self._minmax_val(self.x2 + n)
         return self
 
-    def expand_y2(self, n) -> Area:
+    def expand_y2_by(self, n) -> Area:
         """Expands the selection from the second corner on the Y axis by n"""
         self.y2 = self._minmax_val(self.y2 + n)
         return self

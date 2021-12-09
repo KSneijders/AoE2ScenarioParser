@@ -37,43 +37,67 @@ class TestArea(TestCase):
         self.assertEqual(20, self.area.x2)
         self.assertEqual(22, self.area.y2)
 
+    def test_area_select_from_center(self):
+        self.area.select_from_center(5, 5, 3, 3)
+        self.assertEqual(4, self.area.x1)
+        self.assertEqual(4, self.area.y1)
+        self.assertEqual(6, self.area.x2)
+        self.assertEqual(6, self.area.y2)
+
+        self.area.select_from_center(5, 5, 4, 4)
+
+        self.assertEqual(4, self.area.get_width())
+        self.assertEqual(4, self.area.get_height())
+
+        self.assertEqual(3, self.area.x1)
+        self.assertEqual(3, self.area.y1)
+        self.assertEqual(6, self.area.x2)
+        self.assertEqual(6, self.area.y2)
+
+        self.area.select_from_center(5, 5, 2, 5)
+
+        self.assertEqual(4, self.area.x1)
+        self.assertEqual(3, self.area.y1)
+        self.assertEqual(5, self.area.x2)
+        self.assertEqual(7, self.area.y2)
+
     def test_area_shrink(self):
-        self.area.select(10, 11, 20, 22).shrink_x1(5)  # ====== X1 ======
+        self.area.select(10, 11, 20, 22).shrink_x1_by(5)  # ====== X1 ======
         self.assertEqual(15, self.area.x1)
-        self.area.shrink_x1(10)
+        self.area.shrink_x1_by(10)
         self.assertEqual(20, self.area.x1)
-        self.area.shrink_y1(6)  # ====== y1 ======
+        self.area.shrink_y1_by(6)  # ====== y1 ======
         self.assertEqual(17, self.area.y1)
-        self.area.shrink_x2(3)  # ====== X2 ======
+        self.area.shrink_x2_by(3)  # ====== X2 ======
         self.assertEqual(20, self.area.x2)
-        self.area.shrink_y2(3)  # ====== Y2 ======
+        self.area.shrink_y2_by(3)  # ====== Y2 ======
         self.assertEqual(19, self.area.y2)
-        self.area.shrink_y2(8)
+        self.area.shrink_y2_by(8)
         self.assertEqual(17, self.area.y2)
 
-        self.area.select(10, 11, 20, 22).shrink(2)  # ====== All ======
-        self.assertEqual(((12, 13), (18, 20)), self.area.selection)
-        self.area.shrink(1000)  # ====== All ======
-        self.assertEqual(((18, 20), (18, 20)), self.area.selection)
+        self.area.select(10, 11, 20, 22).shrink_by(2)  # ====== All ======
+        self.assertEqual(((12, 13), (18, 20)), self.area.get_selection())
+        self.area.shrink_by(1000)  # ====== All ======
+        self.assertEqual(((18, 20), (18, 20)), self.area.get_selection())
 
     def test_area_expand(self):
-        self.area.select(10, 10, 20, 20).expand_x1(5)  # ====== X1 ======
+        self.area.select(10, 10, 20, 20).expand_x1_by(5)  # ====== X1 ======
         self.assertEqual(5, self.area.x1)
-        self.area.expand_x1(10)
+        self.area.expand_x1_by(10)
         self.assertEqual(0, self.area.x1)
-        self.area.expand_y1(6)  # ====== y1 ======
+        self.area.expand_y1_by(6)  # ====== y1 ======
         self.assertEqual(4, self.area.y1)
-        self.area.expand_x2(50)  # ====== X2 ======
+        self.area.expand_x2_by(50)  # ====== X2 ======
         self.assertEqual(70, self.area.x2)
-        self.area.expand_y2(100)  # ====== Y2 ======
+        self.area.expand_y2_by(100)  # ====== Y2 ======
         self.assertEqual(120, self.area.y2)
-        self.area.expand_y2(50)
+        self.area.expand_y2_by(50)
         self.assertEqual(self.area._map_size, self.area.y2)
 
-        self.area.select(10, 10, 20, 20).expand(2)  # ====== All ======
-        self.assertEqual(((8, 8), (22, 22)), self.area.selection)
-        self.area.expand(500)
-        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.selection)
+        self.area.select(10, 10, 20, 20).expand_by(2)  # ====== All ======
+        self.assertEqual(((8, 8), (22, 22)), self.area.get_selection())
+        self.area.expand_by(500)
+        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
 
     def test_area_to_coords(self):
         self.area.select(3, 3, 5, 5)
@@ -85,7 +109,7 @@ class TestArea(TestCase):
             },
             self.area.to_coords()
         )
-        self.area.shrink_x1(1)
+        self.area.shrink_x1_by(1)
         self.assertSetEqual(
             {
                 (4, 3), (5, 3),
@@ -106,53 +130,53 @@ class TestArea(TestCase):
         )
 
     def test_area_selection(self):
-        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).selection)
+        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).get_selection())
 
     def test_area_center(self):
-        self.assertEqual(((8, 8), (8, 8)), self.area.set_center(8, 8).selection)
+        self.assertEqual(((8, 8), (8, 8)), self.area.center(8, 8).get_selection())
 
         self.area.select(3, 3, 5, 5)
-        self.assertEqual((4, 4), self.area.center)
+        self.assertEqual((4, 4), self.area.get_center())
         self.area.select(3, 3, 6, 6)
-        self.assertEqual((4.5, 4.5), self.area.center)
-        self.assertEqual((4, 4), self.area.center_int)
+        self.assertEqual((4.5, 4.5), self.area.get_center())
+        self.assertEqual((4, 4), self.area.get_center_int())
 
     def test_area_set_center(self):
-        self.area.select(3, 3, 5, 5).set_center(8, 8)
-        self.assertEqual((8.0, 8.0), self.area.center)
-        self.assertEqual(((7, 7), (9, 9)), self.area.selection)
+        self.area.select(3, 3, 5, 5).center(8, 8)
+        self.assertEqual((8.0, 8.0), self.area.get_center())
+        self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
 
-        self.area.select(5, 10, 20, 20).set_center(5, 0)
-        self.assertEqual((6.0, 2.5), self.area.center)
-        self.assertEqual(((0, 0), (12, 5)), self.area.selection)
+        self.area.select(5, 10, 20, 20).center(5, 0)
+        self.assertEqual((6.0, 2.5), self.area.get_center())
+        self.assertEqual(((0, 0), (12, 5)), self.area.get_selection())
 
     def test_area_set_center_bound(self):
-        self.area.select(3, 3, 5, 5).set_center_bounded(8, 8)
-        self.assertEqual((8.0, 8.0), self.area.center)
-        self.assertEqual(((7, 7), (9, 9)), self.area.selection)
+        self.area.select(3, 3, 5, 5).center_bounded(8, 8)
+        self.assertEqual((8.0, 8.0), self.area.get_center())
+        self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
 
-        self.area.select(5, 10, 20, 20).set_center_bounded(5, 0)
-        self.assertEqual((7.5, 5.0), self.area.center)
-        self.assertEqual(((0, 0), (15, 10)), self.area.selection)
+        self.area.select(5, 10, 20, 20).center_bounded(5, 0)
+        self.assertEqual((7.5, 5.0), self.area.get_center())
+        self.assertEqual(((0, 0), (15, 10)), self.area.get_selection())
 
-        self.area.select(100, 80, 130, 128).set_center_bounded(140, 140)
-        self.assertEqual((128.0, 119.0), self.area.center)
-        self.assertEqual(((113, 95), (self.area._map_size, self.area._map_size)), self.area.selection)
+        self.area.select(100, 80, 130, 128).center_bounded(140, 140)
+        self.assertEqual((128.0, 119.0), self.area.get_center())
+        self.assertEqual(((113, 95), (self.area._map_size, self.area._map_size)), self.area.get_selection())
 
     def test_area_set_size(self):
-        self.area.set_center(8, 8).set_size(9)
-        self.assertEqual(((4, 4), (12, 12)), self.area.selection)
+        self.area.center(8, 8).size(9)
+        self.assertEqual(((4, 4), (12, 12)), self.area.get_selection())
 
-        self.area.set_size(10)
-        self.assertEqual(((4, 4), (13, 13)), self.area.selection)
+        self.area.size(10)
+        self.assertEqual(((4, 4), (13, 13)), self.area.get_selection())
 
-        self.area.set_center(5, 5).set_size(300)
-        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.selection)
+        self.area.center(5, 5).size(300)
+        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
 
         # Set size should also work when called first
         self.area = Area(self.area._map_size)
-        self.area.set_size(9).set_center(8, 8)
-        self.assertEqual(((4, 4), (12, 12)), self.area.selection)
+        self.area.size(9).center(8, 8)
+        self.assertEqual(((4, 4), (12, 12)), self.area.get_selection())
 
     def test_area_use_filled(self):
         self.area.use_filled()
@@ -228,9 +252,6 @@ class TestArea(TestCase):
         )
 
     def test_area_attr_config(self):
-        raise NotImplementedError("Todo (str & AreaAttr)")
-
-    def test_area_attrs_dict_configs(self):
         raise NotImplementedError("Todo (str & AreaAttr)")
 
     def test_area_attrs_kwarg_configs(self):
@@ -342,19 +363,19 @@ class TestArea(TestCase):
 
     def test_area_get_x_range(self):
         self.area.select(3, 4, 5, 6)
-        self.assertEqual(range(3, 5 + 1), self.area.range_x)
+        self.assertEqual(range(3, 5 + 1), self.area.get_range_x())
 
     def test_area_get_y_range(self):
         self.area.select(3, 4, 5, 6)
-        self.assertEqual(range(4, 6 + 1), self.area.range_y)
+        self.assertEqual(range(4, 6 + 1), self.area.get_range_y())
 
-    def test_area_get_x_edge_length(self):
+    def test_area_get_width(self):
         self.area.select(3, 5, 8, 11)
-        self.assertEqual(6, self.area.edge_length_x)
+        self.assertEqual(6, self.area.get_width())
 
-    def test_area_get_y_edge_length(self):
+    def test_area_get_height(self):
         self.area.select(3, 5, 8, 11)
-        self.assertEqual(7, self.area.edge_length_y)
+        self.assertEqual(7, self.area.get_height())
 
     def test_area_is_within_selection(self):
         self.area.select(3, 5, 8, 11)
