@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import math
 from enum import Enum
 from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List
@@ -33,6 +34,7 @@ class AreaAttr(Enum):
     LINE_GAP_Y = "line_gap_y"
     LINE_WIDTH_X = "line_width_x"
     LINE_WIDTH_Y = "line_width_y"
+    AXIS = "axis"
 
 
 class Tile(NamedTuple):
@@ -73,6 +75,8 @@ class Area:
         self.line_gap_y: int = 1
         self.line_width_x: int = 1
         self.line_width_y: int = 1
+
+        self.axis: str = ""
 
     @classmethod
     def from_uuid(cls, uuid: UUID) -> Area:
@@ -180,24 +184,63 @@ class Area:
 
     # ============================ Use functions ============================
 
-    def use_filled(self) -> Area:
+    def use_full(self) -> Area:
         """Sets the area object to use the entire selection"""
         self.state = AreaState.FILL
         return self
 
-    def use_edge(self) -> Area:
-        """Sets the area object to use the border of the selection"""
+    def use_only_edge(self, line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> Area:
+        """
+        Sets the area object to use the edge of the selection
+
+        Args:
+            line_width (int): The width of the x & y edge line
+            line_width_x (int): The width of the x edge line
+            line_width_y (int): The width of the y edge line
+
+        Returns:
+            This area object
+        """
+        self.attrs(line_width=line_width, line_width_x=line_width_x, line_width_y=line_width_y)
         self.state = AreaState.EDGE
         return self
 
-    def use_line(self) -> Area:
-        """Sets the area object to use lines within the selection"""
-        self.state = AreaState.LINES
+    def use_pattern_grid(self, line_gap: int = None, line_width: int = None, line_gap_x: int = None,
+                         line_gap_y: int = None, line_width_x: int = None, line_width_y: int = None) -> Area:
+        """
+        Sets the area object to use a grid pattern within the selection.
+
+        Args:
+            line_gap (int): The size of the gaps between lines
+            line_width (int): The width of the x & y grid lines
+            line_gap_x (int): The size of the x gaps between lines
+            line_gap_y (int): The size of the y gaps between lines
+            line_width_x (int): The width of the x grid lines
+            line_width_y (int): The width of the y grid lines
+
+        Returns:
+            This area object
+        """
+        self.attrs(line_gap=line_gap, line_width=line_width,
+                   line_gap_x=line_gap_x, line_width_x=line_width_x,
+                   line_gap_y=line_gap_y, line_width_y=line_width_y)
+        self.state = AreaState.GRID
         return self
 
-    def use_grid(self) -> Area:
-        """Sets the area object to use a grid within the selection."""
-        self.state = AreaState.GRID
+    def use_pattern_lines(self, axis: str, line_gap: int = None, line_width: int = None) -> Area:
+        """
+        Sets the area object to use a lines pattern within the selection.
+
+        Args:
+            axis (str): The axis the lines should follow. Can either be "x" or "y"
+            line_gap (int): The size of the gaps between lines
+            line_width (int): The width of the x & y lines
+
+        Returns:
+            This area object
+        """
+        self.attrs(axis=axis.lower(), line_gap=line_gap, line_width=line_width)
+        self.state = AreaState.LINES
         return self
 
     # ============================ Adjustment functions ============================
@@ -211,6 +254,11 @@ class Area:
         **Please note:** This inverts the INTERNAL selection. Tiles OUTSIDE of the selection will NOT be returned.
         """
         self.inverted = not self.inverted
+        return self
+
+    def along_axis(self, axis: str) -> Area:
+        """Sets the axis. Can be either "x" or "y". """
+        self.axis = axis
         return self
 
     def attr(self, key: Union[str, AreaAttr], value: int) -> Area:
@@ -230,29 +278,30 @@ class Area:
             setattr(self, key, value)
         return self
 
-    def attrs(self, kv_dict: Dict[Union[str, AreaAttr], int] = None, **kwargs) -> Area:
+    def attrs(
+            self,
+            x1: int = None,
+            y1: int = None,
+            x2: int = None,
+            y2: int = None,
+            line_gap: int = None,
+            line_width: int = None,
+            line_gap_x: int = None,
+            line_gap_y: int = None,
+            line_width_x: int = None,
+            line_width_y: int = None,
+            axis: str = None,
+    ) -> Area:
         """
-        Sets multiple attributes to the corresponding values. AreaAttr or str can be used as keys
-
-        Args:
-            kv_dict (Dict[Union[str, AreaAttr], int]): A dictionary with key value pairs for the attrs to be updated
-
-        Examples:
-            An example for the ``kv_dict`` parameter::
-
-                {
-                    'line_gap': 2,
-                    'line_width_x': 2,
-                    'line_width_y': 5
-                }
+        Sets multiple attributes to the corresponding values.
 
         Returns:
             This area object
         """
-        if kv_dict is None:
-            kv_dict = {}
-        for k, v in {**kv_dict, **kwargs}.items():
-            self.attr(k, v)
+        for key, value in locals().items():
+            if key == 'self' or value is None:
+                continue
+            self.attr(key, value)
         return self
 
     def size(self, n: int) -> Area:
@@ -320,7 +369,7 @@ class Area:
 
     def select_from_center(self, x, y, dx, dy) -> Area:
         """Sets the selection to the given coordinates"""
-        half_x, half_y = (dx-1) / 2, (dy-1) / 2
+        half_x, half_y = (dx - 1) / 2, (dy - 1) / 2
         self.select(
             x1=x - math.ceil(half_x),
             y1=y - math.ceil(half_y),
@@ -423,10 +472,33 @@ class Area:
         if self.state == AreaState.EDGE:
             is_within = self.is_edge_tile(x, y)
         elif self.state == AreaState.GRID:
-            is_within = self._is_within_grid(x, y)
+            is_within = self._is_a_grid_tile(x, y)
+        elif self.state == AreaState.LINES:
+            is_within = self._is_a_line_tile(x, y)
         else:
             is_within = True
         return self._invert_if_inverted(is_within)
+
+    # ============================ Miscellaneous functions ============================
+
+    def copy(self):
+        """
+        Copy this instance of an Area. Useful for when you want to do multiple extractions (to_...) from the same source
+        with small tweaks.
+
+        Examples:
+
+            Get a grid and the edge around it::
+
+                area = Area.select(10,10,20,20)
+                edge = area.copy().expand_by(1).use_only_edge().to_coords()
+                # Without copy you'd have to add `.shrink_by(1)`
+                grid = area.use_pattern_grid().to_coords()
+
+        Returns:
+            A copy of this Area object
+        """
+        return copy.copy(self)
 
     # ============================ Support functions ============================
 
@@ -434,10 +506,18 @@ class Area:
         """Inverts the boolean if the area is in inverted state"""
         return not bool_ if self.inverted else bool_
 
-    def _is_within_grid(self, x: int, y: int) -> bool:
+    def _is_a_grid_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
         return (x - self.x1) % (self.line_gap_x + self.line_width_x) < self.line_width_x and \
                (y - self.y1) % (self.line_gap_y + self.line_width_y) < self.line_width_y
+
+    def _is_a_line_tile(self, x: int, y: int) -> bool:
+        """If a given (x,y) location is within the grid selection."""
+        if self.axis == "x":
+            return (y - self.y1) % (self.line_gap_y + self.line_width_y) < self.line_width_y
+        elif self.axis == "y":
+            return (x - self.x1) % (self.line_gap_x + self.line_width_x) < self.line_width_x
+        raise ValueError("Invalid axis value. Should be either x or y")
 
     def _minmax_val(self, val: Union[int, float]) -> Union[int, float]:
         """Keeps a given value within the bounds of ``0 <= val <= map_size``"""
