@@ -16,10 +16,11 @@ if TYPE_CHECKING:
 
 class AreaState(Enum):
     """Enum to show the state of the Area object"""
-    FILL = 0
+    FULL = 0
     EDGE = 1
     GRID = 2
     LINES = 3
+    CORNERS = 4
 
 
 class AreaAttr(Enum):
@@ -35,6 +36,9 @@ class AreaAttr(Enum):
     LINE_WIDTH_X = "line_width_x"
     LINE_WIDTH_Y = "line_width_y"
     AXIS = "axis"
+    CORNER_SIZE = "corner_size"
+    CORNER_SIZE_X = "corner_size_x"
+    CORNER_SIZE_Y = "corner_size_y"
 
 
 class Tile(NamedTuple):
@@ -62,7 +66,7 @@ class Area:
         if uuid is None:
             self._map_size_value = map_size - 1
 
-        self.state: AreaState = AreaState.FILL
+        self.state: AreaState = AreaState.FULL
         self.inverted: bool = False
 
         center = math.floor(self._map_size / 2)
@@ -77,6 +81,9 @@ class Area:
         self.line_width_y: int = 1
 
         self.axis: str = ""
+
+        self.corner_size_x: int = 1
+        self.corner_size_y: int = 1
 
     @classmethod
     def from_uuid(cls, uuid: UUID) -> Area:
@@ -186,12 +193,12 @@ class Area:
 
     def use_full(self) -> Area:
         """Sets the area object to use the entire selection"""
-        self.state = AreaState.FILL
+        self.state = AreaState.FULL
         return self
 
     def use_only_edge(self, line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> Area:
         """
-        Sets the area object to use the edge of the selection
+        Sets the area object to only use the edge of the selection
 
         Args:
             line_width (int): The width of the x & y edge line
@@ -203,6 +210,22 @@ class Area:
         """
         self.attrs(line_width=line_width, line_width_x=line_width_x, line_width_y=line_width_y)
         self.state = AreaState.EDGE
+        return self
+
+    def use_only_corners(self, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area:
+        """
+        Sets the area object to only use the corners  pattern within the selection.
+
+        Args:
+            corner_size (int): The size along both the x and y axis of the corner areas
+            corner_size_x (int): The size along the x axis of the corner areas
+            corner_size_y (int): The size along the y axis of the corner areas
+
+        Returns:
+            This area object
+        """
+        self.attrs(corner_size=corner_size, corner_size_x=corner_size_x, corner_size_y=corner_size_y)
+        self.state = AreaState.CORNERS
         return self
 
     def use_pattern_grid(self, line_gap: int = None, line_width: int = None, line_gap_x: int = None,
@@ -271,6 +294,8 @@ class Area:
             keys = ['line_width_x', 'line_width_y']
         elif key == 'line_gap':
             keys = ['line_gap_x', 'line_gap_y']
+        elif key == 'corner_size':
+            keys = ['corner_size_x', 'corner_size_y']
         else:
             keys = [key]
 
@@ -291,6 +316,9 @@ class Area:
             line_width_x: int = None,
             line_width_y: int = None,
             axis: str = None,
+            corner_size: int = None,
+            corner_size_x: int = None,
+            corner_size_y: int = None,
     ) -> Area:
         """
         Sets multiple attributes to the corresponding values.
@@ -338,31 +366,6 @@ class Area:
         self.x1 = self._minmax_val(self.x1 + c1)
         self.x2 = self._minmax_val(self.x2 + c2)
         return self
-
-    def _get_length_change(self, new_len: int, cur_len: int, first_coord: int, second_coord) -> Tuple[int, int]:
-        """
-        Calculate the differences in tiles for the 2 points (x1 & x2) or (y1 & y2) when the length of an edge is changed
-
-        Args:
-            new_len (int): The new length
-            cur_len (int): The current length
-            first_coord (int): Coord of the first corner (x1 or y1)
-            second_coord (int): Coord of the first corner (x2 or y2)
-
-        Returns:
-            The differences for the first and second coordinate. Can be negative and positive ints.
-        """
-        half: float = (new_len - cur_len) / 2
-        half1, half2 = -half, half
-        if half > 0:
-            if half > first_coord:
-                half1 = -first_coord
-                half2 += half - first_coord
-            if half > (dist := self._map_size - second_coord):
-                half2 = dist
-                half1 += half - dist
-            return math.floor(half1), math.floor(half2)
-        return math.ceil(half1), math.ceil(half2)
 
     def center(self, x: int, y: int) -> Area:
         """
@@ -483,24 +486,6 @@ class Area:
 
     # ============================ Test against ... functions ============================
 
-    def is_edge_tile(self, x: int, y: int) -> bool:
-        """
-        Returns if a given tile (x,y) is an edge tile of the set selection given a certain edge width.
-
-        Args:
-            x (int): The X coordinate
-            y (int): The Y coordinate
-
-        Returns:
-            True if (x,y) is an edge tile within the selection, False otherwise
-        """
-        return any((
-            0 <= x - self.x1 < self.line_width_x,
-            0 <= y - self.y1 < self.line_width_y,
-            0 <= self.x2 - x < self.line_width_x,
-            0 <= self.y2 - y < self.line_width_y
-        ))
-
     def is_within_selection(self, x: int, y: int) -> bool:
         """
         If a given (x,y) location is within the selection.
@@ -517,11 +502,13 @@ class Area:
 
         is_within: bool
         if self.state == AreaState.EDGE:
-            is_within = self.is_edge_tile(x, y)
+            is_within = self._is_edge_tile(x, y)
         elif self.state == AreaState.GRID:
             is_within = self._is_a_grid_tile(x, y)
         elif self.state == AreaState.LINES:
             is_within = self._is_a_line_tile(x, y)
+        elif self.state == AreaState.CORNERS:
+            is_within = self._is_a_corner_tile(x, y)
         else:
             is_within = True
         return self._invert_if_inverted(is_within)
@@ -549,9 +536,48 @@ class Area:
 
     # ============================ Support functions ============================
 
+    def _get_length_change(self, new_len: int, cur_len: int, first_coord: int, second_coord) -> Tuple[int, int]:
+        """
+        Calculate the differences in tiles for the 2 points (x1 & x2) or (y1 & y2) when the length of an edge is changed
+
+        Args:
+            new_len (int): The new length
+            cur_len (int): The current length
+            first_coord (int): Coord of the first corner (x1 or y1)
+            second_coord (int): Coord of the first corner (x2 or y2)
+
+        Returns:
+            The differences for the first and second coordinate. Can be negative and positive ints.
+        """
+        half: float = (new_len - cur_len) / 2
+        half1, half2 = -half, half
+        if half > 0:
+            if half > first_coord:
+                half1 = -first_coord
+                half2 += half - first_coord
+            if half > (dist := self._map_size - second_coord):
+                half2 = dist
+                half1 += half - dist
+            return math.floor(half1), math.floor(half2)
+        return math.ceil(half1), math.ceil(half2)
+
+    def _is_edge_tile(self, x: int, y: int) -> bool:
+        """ Returns if a given tile (x,y) is an edge tile of the set selection given a certain edge width."""
+        return any((
+            0 <= x - self.x1 < self.line_width_x,
+            0 <= y - self.y1 < self.line_width_y,
+            0 <= self.x2 - x < self.line_width_x,
+            0 <= self.y2 - y < self.line_width_y
+        ))
+
     def _invert_if_inverted(self, bool_: bool) -> bool:
-        """Inverts the boolean if the area is in inverted state"""
+        """Inverts the boolean if the area is in inverted state."""
         return not bool_ if self.inverted else bool_
+
+    def _is_a_corner_tile(self, x: int, y: int) -> bool:
+        """If a given (x,y) location is a corner tile."""
+        return ((self.x1 <= x < self.x1 + self.corner_size_x) or (self.x2 - self.corner_size_x < x <= self.x2)) and \
+               ((self.y1 <= y < self.y1 + self.corner_size_y) or (self.y2 - self.corner_size_y < y <= self.y2))
 
     def _is_a_grid_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
@@ -567,5 +593,5 @@ class Area:
         raise ValueError("Invalid axis value. Should be either x or y")
 
     def _minmax_val(self, val: Union[int, float]) -> Union[int, float]:
-        """Keeps a given value within the bounds of ``0 <= val <= map_size``"""
+        """Keeps a given value within the bounds of ``0 <= val <= map_size``."""
         return max(0, min(val, self._map_size))

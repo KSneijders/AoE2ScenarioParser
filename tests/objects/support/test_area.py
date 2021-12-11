@@ -141,7 +141,6 @@ class TestArea(TestCase):
         self.assertEqual((4.5, 4.5), self.area.get_center())
         self.assertEqual((4, 4), self.area.get_center_int())
 
-    def test_area_center(self):
         self.area.select(3, 3, 5, 5).center(8, 8)
         self.assertEqual((8.0, 8.0), self.area.get_center())
         self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
@@ -204,16 +203,16 @@ class TestArea(TestCase):
         self.area.width(3)
         self.assertEqual(((7, 8), (9, 8)), self.area.get_selection())
 
-    def test_area_use_filled(self):
+    def test_area_use_full(self):
         self.area.use_full()
-        self.assertEqual(AreaState.FILL, self.area.state)
+        self.assertEqual(AreaState.FULL, self.area.state)
         self.area.use_only_edge().use_full()
-        self.assertEqual(AreaState.FILL, self.area.state)
+        self.assertEqual(AreaState.FULL, self.area.state)
 
         self.area.invert()
         self.assertSetEqual(set(), self.area.to_coords())
 
-    def test_area_use_edge(self):
+    def test_area_use_only_edge(self):
         self.area.use_only_edge()
         self.assertEqual(AreaState.EDGE, self.area.state)
 
@@ -319,6 +318,41 @@ class TestArea(TestCase):
                 (4, 5), (6, 5),
                 (3, 6), (4, 6), (5, 6), (6, 6),
                 (4, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_only_corners(self):
+        self.area.use_only_corners()
+        self.assertEqual(AreaState.CORNERS, self.area.state)
+
+        self.area.select(3, 3, 6, 7)
+        self.assertSetEqual(
+            {
+                (3, 3), (6, 3),
+                (3, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.attrs(corner_size=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.attrs(corner_size_x=1, corner_size_y=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (6, 3),
+                (3, 4), (6, 4),
+                (3, 6), (6, 6),
+                (3, 7), (6, 7),
             },
             self.area.to_coords()
         )
@@ -508,6 +542,7 @@ class TestArea(TestCase):
         self.assertNotEqual(area2.state, self.area.state)
         self.assertNotEqual(area2.inverted, self.area.inverted)
         self.assertNotEqual(area2.axis, self.area.axis)
+
 
 # Mock Objects & Variables
 uuid = "cool_uuid"
