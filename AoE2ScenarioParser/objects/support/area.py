@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 from enum import Enum
-from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List
+from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List, Tuple
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.helper import xy_to_i
@@ -311,11 +311,58 @@ class Area:
         """
         center_x, center_y = self.get_center_int()
         n -= 1  # Ignore center tile
-        self.x1 = self._minmax_val(center_x - math.floor(n / 2))
-        self.y1 = self._minmax_val(center_y - math.floor(n / 2))
-        self.x2 = self._minmax_val(center_x + math.ceil(n / 2))
-        self.y2 = self._minmax_val(center_y + math.ceil(n / 2))
+        self.x1 = self._minmax_val(center_x - math.ceil(n / 2))
+        self.y1 = self._minmax_val(center_y - math.ceil(n / 2))
+        self.x2 = self._minmax_val(center_x + math.floor(n / 2))
+        self.y2 = self._minmax_val(center_y + math.floor(n / 2))
         return self
+
+    def height(self, n: int) -> Area:
+        """
+        Sets the height (y axis) of the selection. Shrinks/Expands both sides equally.
+        If the expansion hits the edge of the map, it'll expand on the other side.
+        """
+        c1, c2 = self._get_length_change(n, self.get_height(), self.y1, self.y2)
+
+        self.y1 = self._minmax_val(self.y1 + c1)
+        self.y2 = self._minmax_val(self.y2 + c2)
+        return self
+
+    def width(self, n: int) -> Area:
+        """
+        Sets the width (x axis) of the selection. Shrinks/Expands both sides equally.
+        If the expansion hits the edge of the map, it'll expand on the other side.
+        """
+        c1, c2 = self._get_length_change(n, self.get_width(), self.x1, self.x2)
+
+        self.x1 = self._minmax_val(self.x1 + c1)
+        self.x2 = self._minmax_val(self.x2 + c2)
+        return self
+
+    def _get_length_change(self, new_len: int, cur_len: int, first_coord: int, second_coord) -> Tuple[int, int]:
+        """
+        Calculate the differences in tiles for the 2 points (x1 & x2) or (y1 & y2) when the length of an edge is changed
+
+        Args:
+            new_len (int): The new length
+            cur_len (int): The current length
+            first_coord (int): Coord of the first corner (x1 or y1)
+            second_coord (int): Coord of the first corner (x2 or y2)
+
+        Returns:
+            The differences for the first and second coordinate. Can be negative and positive ints.
+        """
+        half: float = (new_len - cur_len) / 2
+        half1, half2 = -half, half
+        if half > 0:
+            if half > first_coord:
+                half1 = -first_coord
+                half2 += half - first_coord
+            if half > (dist := self._map_size - second_coord):
+                half2 = dist
+                half1 += half - dist
+            return math.floor(half1), math.floor(half2)
+        return math.ceil(half1), math.ceil(half2)
 
     def center(self, x: int, y: int) -> Area:
         """

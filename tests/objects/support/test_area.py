@@ -141,7 +141,7 @@ class TestArea(TestCase):
         self.assertEqual((4.5, 4.5), self.area.get_center())
         self.assertEqual((4, 4), self.area.get_center_int())
 
-    def test_area_set_center(self):
+    def test_area_center(self):
         self.area.select(3, 3, 5, 5).center(8, 8)
         self.assertEqual((8.0, 8.0), self.area.get_center())
         self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
@@ -150,7 +150,7 @@ class TestArea(TestCase):
         self.assertEqual((6.0, 2.5), self.area.get_center())
         self.assertEqual(((0, 0), (12, 5)), self.area.get_selection())
 
-    def test_area_set_center_bound(self):
+    def test_area_center_bound(self):
         self.area.select(3, 3, 5, 5).center_bounded(8, 8)
         self.assertEqual((8.0, 8.0), self.area.get_center())
         self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
@@ -163,12 +163,12 @@ class TestArea(TestCase):
         self.assertEqual((128.0, 119.0), self.area.get_center())
         self.assertEqual(((113, 95), (self.area._map_size, self.area._map_size)), self.area.get_selection())
 
-    def test_area_set_size(self):
+    def test_area_size(self):
         self.area.center(8, 8).size(9)
         self.assertEqual(((4, 4), (12, 12)), self.area.get_selection())
 
         self.area.size(10)
-        self.assertEqual(((4, 4), (13, 13)), self.area.get_selection())
+        self.assertEqual(((3, 3), (12, 12)), self.area.get_selection())
 
         self.area.center(5, 5).size(300)
         self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
@@ -177,6 +177,32 @@ class TestArea(TestCase):
         self.area = Area(self.area._map_size)
         self.area.size(9).center(8, 8)
         self.assertEqual(((4, 4), (12, 12)), self.area.get_selection())
+
+        # Set size should function like aoe2 'center on even size' logic
+        self.area.center(8, 8).size(4)
+        self.assertEqual(((6, 6), (9, 9)), self.area.get_selection())
+
+    def test_area_height(self):
+        self.area.center(8, 8)
+        self.area.height(3)
+        self.assertEqual(((8, 7), (8, 9)), self.area.get_selection())
+        self.area.height(10)
+        self.assertEqual(((8, 3), (8, 12)), self.area.get_selection())
+        self.area.height(4)
+        self.assertEqual(((8, 6), (8, 9)), self.area.get_selection())
+        self.area.height(1)
+        self.assertEqual(((8, 8), (8, 8)), self.area.get_selection())
+
+    def test_area_width(self):
+        self.area.center(8, 8)
+        self.area.width(6)
+        self.assertEqual(((5, 8), (10, 8)), self.area.get_selection())
+        self.area.width(11)
+        self.assertEqual(((2, 8), (12, 8)), self.area.get_selection())
+        self.area.width(8)
+        self.assertEqual(((4, 8), (11, 8)), self.area.get_selection())
+        self.area.width(3)
+        self.assertEqual(((7, 8), (9, 8)), self.area.get_selection())
 
     def test_area_use_filled(self):
         self.area.use_full()
