@@ -1,4 +1,5 @@
 from typing import Iterable, Sequence, Union, TypeVar
+from uuid import UUID
 
 from typing_extensions import SupportsIndex
 
