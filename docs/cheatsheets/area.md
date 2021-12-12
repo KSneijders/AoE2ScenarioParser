@@ -103,9 +103,9 @@ Let's expand our selection by 6 tiles.
 
 ```py
 # On it's own line
-area.expand_by(6)
+area.expand(6)
 # Or add it to the above line
-area.center(castle_object.x, castle_object.y).size(4).expand_by(6)
+area.center(castle_object.x, castle_object.y).size(4).expand(6)
 ```
 
 Now we have a 16 by 16 tile area selected.
@@ -119,7 +119,7 @@ We just want the edges so, let's do that. For that we use a so called "use" func
 # On it's own line
 area.use_only_edge()
 # Or, again, add it to the above line
-area.center(castle_object.x, castle_object.y).size(4).expand_by(6).use_only_edge()
+area.center(castle_object.x, castle_object.y).size(4).expand(6).use_only_edge()
 ```
 
 This tells the area object we only want the outer edge of the selection.
@@ -129,7 +129,7 @@ Now let's convert that to coordinates and place those walls! We can use `area.to
 castle = unit_manager.add_unit(player=PlayerId.ONE, unit_const=BuildingInfo.CASTLE.ID, x=30, y=30)
 area = scenario.new.area()
 
-for tile in area.center(castle.x, castle.y).size(4).expand_by(6).use_only_edge().to_coords():
+for tile in area.center(castle.x, castle.y).size(4).expand(6).use_only_edge().to_coords():
     unit_manager.add_unit(
         player=PlayerId.ONE, unit_const=BuildingInfo.STONE_WALL.ID, x=tile.x, y=tile.y
     )
@@ -214,7 +214,7 @@ We can also expand that selection by 2 to the x2 and y2 sides. Let's add it into
 squares = []
 for tile in area.to_coords():
     squares.append(
-        scenario.new.area().select(tile.x, tile.y).expand_x2_by(2).expand_y2_by(2)
+        scenario.new.area().select(tile.x, tile.y).expand_x2(2).expand_y2(2)
     )
 ```
 
@@ -249,3 +249,102 @@ So using the earlier loop, without the row, with a map size of 117 (39 times) wo
 code above.
 
 ![area checkers example result](./../images/area_checkers_example_result.png "area checkers example result")
+
+The entire code block for this example:
+
+```py
+squares_per_row = math.floor(map_manager.map_size / 3)
+area = scenario.new.area()
+area.select_entire_map().use_pattern_grid(line_gap=2)
+
+squares: List[Area] = []
+for tile in area.to_coords():
+    squares.append(
+        scenario.new.area().select(tile.x, tile.y).expand_x2(2).expand_y2(2)
+    )
+
+for index, square in enumerate(squares):
+    row = index // squares_per_row
+    for terrain_tile in square.to_terrain_tiles():
+        terrain_tile.terrain_id = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
+```
+
+---
+
+### Grid with border
+
+This example will showcase the usage of the `copy` functionality. 
+
+---
+
+
+## API
+
+### Functions
+
+
+In this section the functions are shown very briefly. This will **eventually** be replaced by a proper API doc, but 
+until then, this will have to do. For the documentation on how they work and what the arguments mean, please see the 
+docstrings in your editor. Sorry :(
+
+**Functions to convert to other datatype:**
+
+* `to_coords() -> OrderedSet[Tile]`
+* `to_terrain_tiles() -> OrderedSet['TerrainTile']`
+* `to_dict() -> Dict[str, int]`
+
+---
+
+**Functions to get information from the `Area` object:**
+
+* `get_selection() -> Tuple[Tuple[int, int], Tuple[int, int]]`
+* `get_center() -> Tuple[float, float]`
+* `get_center_int() -> Tuple[int, int]`
+* `get_range_x() -> range`
+* `get_range_y() -> range`
+* `get_width() -> int`
+* `get_height() -> int`
+
+---
+
+**Functions to set what pattern/selection format to use:**
+
+* `use_full() -> Area`
+* `use_only_edge(line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> Area`
+* `use_only_corners(corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
+* `use_pattern_grid(line_gap: int = None, line_width: int = None, line_gap_x: int = None`
+* `use_pattern_lines(axis: str, line_gap: int = None, line_width: int = None) -> Area`
+
+---
+
+**Functions to change the selection in one way or another:**
+
+* `invert() -> Area`
+* `along_axis(axis: str) -> Area`
+* `attr(key: Union[str, AreaAttr], value: int) -> Area`
+* `attrs(x1: int = None, y1: int = None, x2: int = None, y2: int = None, line_gap: int = None, line_width: int = None, line_gap_x: int = None, line_gap_y: int = None, line_width_x: int = None, line_width_y: int = None, axis: str = None, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
+* `size(n: int) -> Area`
+* `height(n: int) -> Area`
+* `width(n: int) -> Area`
+* `center(x: int, y: int) -> Area`
+* `center_bounded(x: int, y: int) -> Area`
+* `select_entire_map() -> Area`
+* `select(x1: int, y1: int, x2: int = None, y2: int = None) -> Area`
+* `select_from_center(x: int, y: int, dx: int = 1, dy: int = 1) -> Area`
+* `shrink(n: int) -> Area`
+* `shrink_x1(n: int) -> Area`
+* `shrink_y1(n: int) -> Area`
+* `shrink_x2(n: int) -> Area`
+* `shrink_y2(n: int) -> Area`
+* `expand(n: int) -> Area`
+* `expand_x1(n: int) -> Area`
+* `expand_y1(n: int) -> Area`
+* `expand_x2(n: int) -> Area`
+* `expand_y2(n: int) -> Area`
+
+---
+
+**Other relevant functions:**
+
+* `is_within_selection(x: int, y: int) -> bool`
+* `copy()`

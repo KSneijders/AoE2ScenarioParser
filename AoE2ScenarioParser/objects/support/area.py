@@ -162,15 +162,15 @@ class Area:
 
     # ============================ Getters ============================
 
-    def get_selection(self):
+    def get_selection(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """Get the four values of the selection as: ((x1, y1), (x2, y2))"""
         return (self.x1, self.y1), (self.x2, self.y2)
 
-    def get_center(self):
+    def get_center(self) -> Tuple[float, float]:
         """Get center of current selection"""
         return (self.x1 + self.x2) / 2, (self.y1 + self.y2) / 2
 
-    def get_center_int(self):
+    def get_center_int(self) -> Tuple[int, int]:
         """Get center of current selection, coords can only be integers. If even length, the value is floored"""
         return math.floor((self.x1 + self.x2) / 2), math.floor((self.y1 + self.y2) / 2)
 
@@ -433,58 +433,58 @@ class Area:
         )
         return self
 
-    def shrink_by(self, n: int) -> Area:
+    def shrink(self, n: int) -> Area:
         """Shrinks the selection from all sides"""
-        self.shrink_x1_by(n)
-        self.shrink_y1_by(n)
-        self.shrink_x2_by(n)
-        self.shrink_y2_by(n)
+        self.shrink_x1(n)
+        self.shrink_y1(n)
+        self.shrink_x2(n)
+        self.shrink_y2(n)
         return self
 
-    def shrink_x1_by(self, n: int) -> Area:
+    def shrink_x1(self, n: int) -> Area:
         """Shrinks the selection from the first corner on the X axis by n"""
         self.x1 = min(self.x1 + n, self.x2)
         return self
 
-    def shrink_y1_by(self, n: int) -> Area:
+    def shrink_y1(self, n: int) -> Area:
         """Shrinks the selection from the first corner on the Y axis by n"""
         self.y1 = min(self.y1 + n, self.y2)
         return self
 
-    def shrink_x2_by(self, n: int) -> Area:
+    def shrink_x2(self, n: int) -> Area:
         """Shrinks the selection from the second corner on the X axis by n"""
         self.x2 = max(self.x1, self.x2 - n)
         return self
 
-    def shrink_y2_by(self, n: int) -> Area:
+    def shrink_y2(self, n: int) -> Area:
         """Shrinks the selection from the second corner on the Y axis by n"""
         self.y2 = max(self.y1, self.y2 - n)
         return self
 
-    def expand_by(self, n: int) -> Area:
+    def expand(self, n: int) -> Area:
         """Expands the selection from all sides"""
-        self.expand_x1_by(n)
-        self.expand_y1_by(n)
-        self.expand_x2_by(n)
-        self.expand_y2_by(n)
+        self.expand_x1(n)
+        self.expand_y1(n)
+        self.expand_x2(n)
+        self.expand_y2(n)
         return self
 
-    def expand_x1_by(self, n: int) -> Area:
+    def expand_x1(self, n: int) -> Area:
         """Expands the selection from the first corner on the X axis by n"""
         self.x1 = self._minmax_val(self.x1 - n)
         return self
 
-    def expand_y1_by(self, n: int) -> Area:
+    def expand_y1(self, n: int) -> Area:
         """Expands the selection from the first corner on the Y axis by n"""
         self.y1 = self._minmax_val(self.y1 - n)
         return self
 
-    def expand_x2_by(self, n: int) -> Area:
+    def expand_x2(self, n: int) -> Area:
         """Expands the selection from the second corner on the X axis by n"""
         self.x2 = self._minmax_val(self.x2 + n)
         return self
 
-    def expand_y2_by(self, n: int) -> Area:
+    def expand_y2(self, n: int) -> Area:
         """Expands the selection from the second corner on the Y axis by n"""
         self.y2 = self._minmax_val(self.y2 + n)
         return self
@@ -530,8 +530,8 @@ class Area:
             Get a grid and the edge around it::
 
                 area = Area.select(10,10,20,20)
-                edge = area.copy().expand_by(1).use_only_edge().to_coords()
-                # Without copy you'd have to add `.shrink_by(1)`
+                edge = area.copy().expand(1).use_only_edge().to_coords()
+                # Without copy you'd have to add `.shrink(1)`
                 grid = area.use_pattern_grid().to_coords()
 
         Returns:
