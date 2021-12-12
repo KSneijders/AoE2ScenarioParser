@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List, Tuple
 from uuid import UUID
 
+from AoE2ScenarioParser.external.ordered_set import OrderedSet
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
@@ -24,7 +25,7 @@ class AreaState(Enum):
 
 
 class AreaAttr(Enum):
-    """Enum to show the supported attributes that can be edited using ``Area.set(k, v)``"""
+    """Enum to show the supported attributes that can be edited using ``Area.attr(k, v)``"""
     X1 = "x1"
     Y1 = "y1"
     X2 = "x2"
@@ -112,15 +113,15 @@ class Area:
 
     # ============================ Conversion functions ============================
 
-    def to_coords(self) -> Set[Tile]:
+    def to_coords(self) -> OrderedSet[Tile]:
         """
-        Converts the selection to a Set of (x, y) coordinates
+        Converts the selection to an OrderedSet of (x, y) coordinates
 
         Returns:
-            A Set of (x, y) tuples of the selection.
+            An OrderedSet of (x, y) tuples of the selection.
 
         Examples:
-            The selection: ``((3,3), (5,5))`` would result in a Set with a length of 9::
+            The selection: ``((3,3), (5,5))`` would result in an OrderedSet with a length of 9::
 
                 [
                     (3,3), (4,3)  ...,
@@ -128,21 +129,21 @@ class Area:
                     ...,   (4,5), (5,5)
                 ]
         """
-        return {
+        return OrderedSet(
             Tile(x, y) for y in self.get_range_y() for x in self.get_range_x() if self.is_within_selection(x, y)
-        }
+        )
 
-    def to_terrain_tiles(self) -> Set['TerrainTile']:
+    def to_terrain_tiles(self) -> OrderedSet['TerrainTile']:
         """
-        Converts the selection to a Set of terrain tile objects from the map manager.
+        Converts the selection to an OrderedSet of terrain tile objects from the map manager.
         Can only be used if the area has been associated with a scenario (created through map manager)
 
         Returns:
-            A Set of terrain tiles from the map manager based on the selection.
+            An OrderedSet of terrain tiles from the map manager based on the selection.
         """
         self._force_association()
         terrain = getters.get_terrain(self.uuid)
-        return {terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords()}
+        return OrderedSet(terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords())
 
     def to_dict(self) -> Dict[str, int]:
         """
@@ -409,15 +410,19 @@ class Area:
         self.x1, self.y1, self.x2, self.y2 = 0, 0, self._map_size, self._map_size
         return self
 
-    def select(self, x1, y1, x2, y2) -> Area:
+    def select(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
         """Sets the selection to the given coordinates"""
+        if x2 is None:
+            x2 = x1
+        if y2 is None:
+            y2 = y1
         self.x1 = self._minmax_val(x1)
         self.y1 = self._minmax_val(y1)
         self.x2 = self._minmax_val(x2)
         self.y2 = self._minmax_val(y2)
         return self
 
-    def select_from_center(self, x, y, dx, dy) -> Area:
+    def select_from_center(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
         """Sets the selection to the given coordinates"""
         half_x, half_y = (dx - 1) / 2, (dy - 1) / 2
         self.select(
@@ -428,7 +433,7 @@ class Area:
         )
         return self
 
-    def shrink_by(self, n) -> Area:
+    def shrink_by(self, n: int) -> Area:
         """Shrinks the selection from all sides"""
         self.shrink_x1_by(n)
         self.shrink_y1_by(n)
@@ -436,27 +441,27 @@ class Area:
         self.shrink_y2_by(n)
         return self
 
-    def shrink_x1_by(self, n) -> Area:
+    def shrink_x1_by(self, n: int) -> Area:
         """Shrinks the selection from the first corner on the X axis by n"""
         self.x1 = min(self.x1 + n, self.x2)
         return self
 
-    def shrink_y1_by(self, n) -> Area:
+    def shrink_y1_by(self, n: int) -> Area:
         """Shrinks the selection from the first corner on the Y axis by n"""
         self.y1 = min(self.y1 + n, self.y2)
         return self
 
-    def shrink_x2_by(self, n) -> Area:
+    def shrink_x2_by(self, n: int) -> Area:
         """Shrinks the selection from the second corner on the X axis by n"""
         self.x2 = max(self.x1, self.x2 - n)
         return self
 
-    def shrink_y2_by(self, n) -> Area:
+    def shrink_y2_by(self, n: int) -> Area:
         """Shrinks the selection from the second corner on the Y axis by n"""
         self.y2 = max(self.y1, self.y2 - n)
         return self
 
-    def expand_by(self, n) -> Area:
+    def expand_by(self, n: int) -> Area:
         """Expands the selection from all sides"""
         self.expand_x1_by(n)
         self.expand_y1_by(n)
@@ -464,22 +469,22 @@ class Area:
         self.expand_y2_by(n)
         return self
 
-    def expand_x1_by(self, n) -> Area:
+    def expand_x1_by(self, n: int) -> Area:
         """Expands the selection from the first corner on the X axis by n"""
         self.x1 = self._minmax_val(self.x1 - n)
         return self
 
-    def expand_y1_by(self, n) -> Area:
+    def expand_y1_by(self, n: int) -> Area:
         """Expands the selection from the first corner on the Y axis by n"""
         self.y1 = self._minmax_val(self.y1 - n)
         return self
 
-    def expand_x2_by(self, n) -> Area:
+    def expand_x2_by(self, n: int) -> Area:
         """Expands the selection from the second corner on the X axis by n"""
         self.x2 = self._minmax_val(self.x2 + n)
         return self
 
-    def expand_y2_by(self, n) -> Area:
+    def expand_y2_by(self, n: int) -> Area:
         """Expands the selection from the second corner on the Y axis by n"""
         self.y2 = self._minmax_val(self.y2 + n)
         return self
