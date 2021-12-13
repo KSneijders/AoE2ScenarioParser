@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, Type
+from typing import Dict, Type, Tuple
 
 from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -41,8 +41,7 @@ class AoE2ObjectManager:
     def reconstruct(self):
         s_print("\nReconstructing sections and structs from managers...", final=True)
 
-        manager: AoE2Object
-        for name, manager in self.managers.items():
+        for name, manager in self.managers.items(): #type: str, AoE2Object
             s_print(f"\t🔄 Reconstructing {name}Manager...", color="yellow")
             manager.commit()
             s_print(f"\t✔ {name}Manager", final=True, color="green")

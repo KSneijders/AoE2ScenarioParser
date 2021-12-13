@@ -15,22 +15,27 @@ class AoE2DEScenario(AoE2Scenario):
     """
     @property
     def trigger_manager(self) -> TriggerManagerDE:
+        """The trigger manager of the scenario"""
         return self._object_manager.managers['Trigger']
 
     @property
     def unit_manager(self) -> UnitManagerDE:
+        """The unit manager of the scenario"""
         return self._object_manager.managers['Unit']
 
     @property
     def map_manager(self) -> MapManagerDE:
+        """The map manager of the scenario"""
         return self._object_manager.managers['Map']
 
     @property
     def xs_manager(self) -> XsManagerDE:
+        """The XS manager of the scenario"""
         return self._object_manager.managers['Xs']
 
     @property
     def player_manager(self) -> PlayerManager:
+        """The player manager of the scenario"""
         return self._object_manager.managers['Player']
 
     @classmethod
