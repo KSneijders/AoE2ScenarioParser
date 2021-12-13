@@ -20,13 +20,13 @@ class SectionLevel(Enum):
 
 
 class SectionName(Enum):
-    FILEHEADER = "FileHeader"
-    DATAHEADER = "DataHeader"
+    FILE_HEADER = "FileHeader"
+    DATA_HEADER = "DataHeader"
     MESSAGES = "Messages"
     CINEMATICS = "Cinematics"
-    BACKGROUNDIMAGE = "BackgroundImage"
-    PLAYERDATATWO = "PlayerDataTwo"
-    GLOBALVICTORY = "GlobalVictory"
+    BACKGROUND_IMAGE = "BackgroundImage"
+    PLAYER_DATA_TWO = "PlayerDataTwo"
+    GLOBAL_VICTORY = "GlobalVictory"
     DIPLOMACY = "Diplomacy"
     OPTIONS = "Options"
     MAP = "Map"
