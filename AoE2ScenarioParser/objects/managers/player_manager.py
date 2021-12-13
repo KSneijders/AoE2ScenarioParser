@@ -11,6 +11,7 @@ from AoE2ScenarioParser.objects.data_objects.player.player_meta_data import Play
 from AoE2ScenarioParser.objects.data_objects.player.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class PlayerManager(AoE2Object):
@@ -29,7 +30,7 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_diplomacy", "Diplomacy", "per_player_diplomacy", process_as_object=PlayerDiplomacy),
         RetrieverObjectLink("_base_priorities", "Options", "per_player_base_priority"),
         RetrieverObjectLink("_allied_victories", "Diplomacy", "per_player_allied_victory"),
-        RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap"),
+        RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
         RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
         RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
 
@@ -84,6 +85,7 @@ class PlayerManager(AoE2Object):
 
         gaia_first_params = {}
         no_gaia_params = {
+            'population_cap': [int(pd.population_limit) for pd in _player_data_4],
             'tribe_name': _tribe_names,
             'string_table_name_id': _string_table_player_names,
             'base_priority': _base_priorities,
@@ -98,7 +100,6 @@ class PlayerManager(AoE2Object):
         gaia_last_params = {
             'starting_age': _starting_ages,
             'lock_civ': _lock_civilizations,
-            'population_cap': _pop_caps,
             'food': [r.food for r in _resources],
             'wood': [r.wood for r in _resources],
             'gold': [r.gold for r in _resources],
@@ -200,7 +201,7 @@ class PlayerManager(AoE2Object):
     @property
     def _pop_caps(self):
         """Returns the population cap of all players"""
-        return self._player_attributes_to_list("population_cap", False, default=200, fill_empty=7)
+        return self._player_attributes_to_list("population_cap", None, default=200, fill_empty=8)
 
     @property
     def _diplomacy(self):
@@ -365,4 +366,4 @@ def spread_player_attributes(player_attributes: Dict, key: str, lst: List,
         gaia_first (Union[None, bool]): If the list has gaia first, last or not at all.
     """
     for index, p in enumerate(player_list(gaia_first)):
-        player_attributes[p][key] = lst[index]
+        player_attributes[p][key] = lst[index] if lst is not None else None

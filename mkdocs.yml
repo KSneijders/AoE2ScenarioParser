@@ -19,6 +19,7 @@ nav:
   - Cheatsheets:
     - Datasets: "cheatsheets/datasets.md"
     - Map: "cheatsheets/map.md"
+    - Area: "cheatsheets/area.md"
     - Players: "cheatsheets/players.md"
     - Triggers: "cheatsheets/triggers.md"
     - Units: "cheatsheets/units.md"

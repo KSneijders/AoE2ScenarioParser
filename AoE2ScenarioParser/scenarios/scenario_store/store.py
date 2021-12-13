@@ -1,18 +1,19 @@
 from typing import TYPE_CHECKING, Dict, Optional
+from uuid import UUID
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
-_scenarios: Dict[str, 'AoE2Scenario'] = {}
+_scenarios: Dict[UUID, 'AoE2Scenario'] = {}
 
 
-def get_scenario(uuid: str) -> Optional['AoE2Scenario']:
+def get_scenario(uuid: UUID) -> Optional['AoE2Scenario']:
     """
     Get scenario through uuid. Not intended to be called outside of the store itself.
 
     Args:
-        uuid (str): The UUID of the scenario
+        uuid (UUID): The UUID of the scenario
 
     Returns:
         The scenario based on it's uuid

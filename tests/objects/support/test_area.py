@@ -1,8 +1,8 @@
 from unittest import TestCase
+from uuid import UUID
 
-from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
-from AoE2ScenarioParser.objects.support.area import Area, Tile
+from AoE2ScenarioParser.objects.support.area import Area, Tile, AreaState, AreaAttr
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
@@ -37,6 +37,30 @@ class TestArea(TestCase):
         self.assertEqual(20, self.area.x2)
         self.assertEqual(22, self.area.y2)
 
+    def test_area_select_from_center(self):
+        self.area.select_from_center(5, 5, 3, 3)
+        self.assertEqual(4, self.area.x1)
+        self.assertEqual(4, self.area.y1)
+        self.assertEqual(6, self.area.x2)
+        self.assertEqual(6, self.area.y2)
+
+        self.area.select_from_center(5, 5, 4, 4)
+
+        self.assertEqual(4, self.area.get_width())
+        self.assertEqual(4, self.area.get_height())
+
+        self.assertEqual(3, self.area.x1)
+        self.assertEqual(3, self.area.y1)
+        self.assertEqual(6, self.area.x2)
+        self.assertEqual(6, self.area.y2)
+
+        self.area.select_from_center(5, 5, 2, 5)
+
+        self.assertEqual(4, self.area.x1)
+        self.assertEqual(3, self.area.y1)
+        self.assertEqual(5, self.area.x2)
+        self.assertEqual(7, self.area.y2)
+
     def test_area_shrink(self):
         self.area.select(10, 11, 20, 22).shrink_x1(5)  # ====== X1 ======
         self.assertEqual(15, self.area.x1)
@@ -50,6 +74,11 @@ class TestArea(TestCase):
         self.assertEqual(19, self.area.y2)
         self.area.shrink_y2(8)
         self.assertEqual(17, self.area.y2)
+
+        self.area.select(10, 11, 20, 22).shrink(2)  # ====== All ======
+        self.assertEqual(((12, 13), (18, 20)), self.area.get_selection())
+        self.area.shrink(1000)  # ====== All ======
+        self.assertEqual(((18, 20), (18, 20)), self.area.get_selection())
 
     def test_area_expand(self):
         self.area.select(10, 10, 20, 20).expand_x1(5)  # ====== X1 ======
@@ -65,105 +94,454 @@ class TestArea(TestCase):
         self.area.expand_y2(50)
         self.assertEqual(self.area._map_size, self.area.y2)
 
-    def test_area_selection_to_coords(self):
+        self.area.select(10, 10, 20, 20).expand(2)  # ====== All ======
+        self.assertEqual(((8, 8), (22, 22)), self.area.get_selection())
+        self.area.expand(500)
+        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
+
+    def test_area_to_coords(self):
         self.area.select(3, 3, 5, 5)
-        self.assertListEqual(
-            [
+        self.assertSetEqual(
+            {
                 (3, 3), (4, 3), (5, 3),
                 (3, 4), (4, 4), (5, 4),
                 (3, 5), (4, 5), (5, 5),
-            ],
-            self.area.selection_to_coords()
+            },
+            self.area.to_coords()
         )
         self.area.shrink_x1(1)
-        self.assertListEqual(
-            [
+        self.assertSetEqual(
+            {
                 (4, 3), (5, 3),
                 (4, 4), (5, 4),
                 (4, 5), (5, 5),
-            ],
-            self.area.selection_to_coords()
+            },
+            self.area.to_coords()
         )
+        # Other states have their own test
 
-    def test_area_selection_to_coords_2d(self):
-        self.area.select(3, 3, 5, 5)
-        self.assertListEqual(
-            [
-                [(3, 3), (4, 3), (5, 3)],
-                [(3, 4), (4, 4), (5, 4)],
-                [(3, 5), (4, 5), (5, 5)],
-            ],
-            self.area.selection_to_coords_2d()
-        )
-        self.area.shrink_x1(1)
-        self.assertListEqual(
-            [
-                [(4, 3), (5, 3)],
-                [(4, 4), (5, 4)],
-                [(4, 5), (5, 5)],
-            ],
-            self.area.selection_to_coords_2d()
-        )
-
-    def test_area_selection_to_terrain_tiles(self):
+    def test_area_to_terrain_tiles(self):
         self.area.associate_scenario(SCN)
         self.area.select(1, 1, 2, 2)
-        self.assertListEqual(
-            MM.terrain[6:8] + MM.terrain[11:13],
-            self.area.selection_to_terrain_tiles()
-        )
-
-    def test_area_selection_to_terrain_tiles_2d(self):
-        self.area.associate_scenario(SCN)
-        self.area.select(1, 1, 2, 2)
-        self.assertListEqual(
-            [MM.terrain[6:8], MM.terrain[11:13]],
-            self.area.selection_to_terrain_tiles_2d()
+        self.maxDiff = None
+        self.assertSetEqual(
+            set(MM.terrain[6:8] + MM.terrain[11:13]),
+            self.area.to_terrain_tiles()
         )
 
     def test_area_selection(self):
-        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).selection)
+        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).get_selection())
 
     def test_area_center(self):
-        self.assertEqual(((8, 8), (8, 8)), self.area.set_center(8, 8).selection)
+        self.assertEqual(((8, 8), (8, 8)), self.area.center(8, 8).get_selection())
 
         self.area.select(3, 3, 5, 5)
-        self.assertEqual((4, 4), self.area.center)
+        self.assertEqual((4, 4), self.area.get_center())
         self.area.select(3, 3, 6, 6)
-        self.assertEqual((4.5, 4.5), self.area.center)
-        self.assertEqual((4, 4), self.area.center_int)
+        self.assertEqual((4.5, 4.5), self.area.get_center())
+        self.assertEqual((4, 4), self.area.get_center_int())
 
-    def test_area_set_center(self):
-        self.area.select(3, 3, 5, 5).set_center(8, 8)
-        self.assertEqual((8.0, 8.0), self.area.center)
-        self.assertEqual(((7, 7), (9, 9)), self.area.selection)
+        self.area.select(3, 3, 5, 5).center(8, 8)
+        self.assertEqual((8.0, 8.0), self.area.get_center())
+        self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
 
-        self.area.select(5, 10, 20, 20).set_center(5, 0)
-        self.assertEqual((6.0, 2.5), self.area.center)
-        self.assertEqual(((0, 0), (12, 5)), self.area.selection)
+        self.area.select(5, 10, 20, 20).center(5, 0)
+        self.assertEqual((6.0, 2.5), self.area.get_center())
+        self.assertEqual(((0, 0), (12, 5)), self.area.get_selection())
 
-    def test_area_set_center_bound(self):
-        self.area.select(3, 3, 5, 5).set_center_bound(8, 8)
-        self.assertEqual((8.0, 8.0), self.area.center)
-        self.assertEqual(((7, 7), (9, 9)), self.area.selection)
+    def test_area_center_bound(self):
+        self.area.select(3, 3, 5, 5).center_bounded(8, 8)
+        self.assertEqual((8.0, 8.0), self.area.get_center())
+        self.assertEqual(((7, 7), (9, 9)), self.area.get_selection())
 
-        self.area.select(5, 10, 20, 20).set_center_bound(5, 0)
-        self.assertEqual((7.5, 5.0), self.area.center)
-        self.assertEqual(((0, 0), (15, 10)), self.area.selection)
+        self.area.select(5, 10, 20, 20).center_bounded(5, 0)
+        self.assertEqual((7.5, 5.0), self.area.get_center())
+        self.assertEqual(((0, 0), (15, 10)), self.area.get_selection())
 
-        self.area.select(100, 80, 130, 128).set_center_bound(140, 140)
-        self.assertEqual((128.0, 119.0), self.area.center)
-        self.assertEqual(((113, 95), (self.area._map_size, self.area._map_size)), self.area.selection)
+        self.area.select(100, 80, 130, 128).center_bounded(140, 140)
+        self.assertEqual((128.0, 119.0), self.area.get_center())
+        self.assertEqual(((113, 95), (self.area._map_size, self.area._map_size)), self.area.get_selection())
 
-    def test_area_set_size(self):
-        self.area.set_center(8, 8).set_size(9)
-        self.assertEqual(((4, 4), (12, 12)), self.area.selection)
+    def test_area_size(self):
+        self.area.center(8, 8).size(9)
+        self.assertEqual(((4, 4), (12, 12)), self.area.get_selection())
 
-        self.area.set_size(10)
-        self.assertEqual(((4, 4), (13, 13)), self.area.selection)
+        self.area.size(10)
+        self.assertEqual(((3, 3), (12, 12)), self.area.get_selection())
 
-        self.area.set_center(5, 5).set_size(300)
-        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.selection)
+        self.area.center(5, 5).size(300)
+        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
+
+        # Set size should also work when called first
+        self.area = Area(self.area._map_size)
+        self.area.size(9).center(8, 8)
+        self.assertEqual(((4, 4), (12, 12)), self.area.get_selection())
+
+        # Set size should function like aoe2 'center on even size' logic
+        self.area.center(8, 8).size(4)
+        self.assertEqual(((6, 6), (9, 9)), self.area.get_selection())
+
+    def test_area_height(self):
+        self.area.center(8, 8)
+        self.area.height(3)
+        self.assertEqual(((8, 7), (8, 9)), self.area.get_selection())
+        self.area.height(10)
+        self.assertEqual(((8, 3), (8, 12)), self.area.get_selection())
+        self.area.height(4)
+        self.assertEqual(((8, 6), (8, 9)), self.area.get_selection())
+        self.area.height(1)
+        self.assertEqual(((8, 8), (8, 8)), self.area.get_selection())
+
+    def test_area_width(self):
+        self.area.center(8, 8)
+        self.area.width(6)
+        self.assertEqual(((5, 8), (10, 8)), self.area.get_selection())
+        self.area.width(11)
+        self.assertEqual(((2, 8), (12, 8)), self.area.get_selection())
+        self.area.width(8)
+        self.assertEqual(((4, 8), (11, 8)), self.area.get_selection())
+        self.area.width(3)
+        self.assertEqual(((7, 8), (9, 8)), self.area.get_selection())
+
+    def test_area_use_full(self):
+        self.area.use_full()
+        self.assertEqual(AreaState.FULL, self.area.state)
+        self.area.use_only_edge().use_full()
+        self.assertEqual(AreaState.FULL, self.area.state)
+
+        self.area.invert()
+        self.assertSetEqual(set(), self.area.to_coords())
+
+    def test_area_use_only_edge(self):
+        self.area.use_only_edge()
+        self.assertEqual(AreaState.EDGE, self.area.state)
+
+        self.area.select(3, 3, 6, 7)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 4), (6, 4),
+                (3, 5), (6, 5),
+                (3, 6), (6, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.select(3, 3, 8, 8).use_only_edge().attr(AreaAttr.LINE_WIDTH, 2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4), (7, 4), (8, 4),
+                (3, 5), (4, 5), (7, 5), (8, 5),
+                (3, 6), (4, 6), (7, 6), (8, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7), (7, 7), (8, 7),
+                (3, 8), (4, 8), (5, 8), (6, 8), (7, 8), (8, 8),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.invert()
+        self.assertSetEqual(
+            {
+                (5, 5), (6, 5),
+                (5, 6), (6, 6),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_lines(self):
+        self.area.use_pattern_lines(axis="y")
+        self.assertEqual(AreaState.LINES, self.area.state)
+
+        self.area.select(3, 3, 6, 7)
+        self.assertSetEqual(
+            {
+                (3, 3), (5, 3),
+                (3, 4), (5, 4),
+                (3, 5), (5, 5),
+                (3, 6), (5, 6),
+                (3, 7), (5, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.use_pattern_lines(axis="x")
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 5), (4, 5), (5, 5), (6, 5),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.use_pattern_lines(axis="x", line_gap=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 6), (4, 6), (5, 6), (6, 6),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.use_pattern_lines(axis="x", line_gap=1, line_width=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid(self):
+        self.area.use_pattern_grid()
+        self.assertEqual(AreaState.GRID, self.area.state)
+
+        self.area.select(3, 3, 6, 7)
+        self.assertSetEqual(
+            {
+                (3, 3), (5, 3),
+                (3, 5), (5, 5),
+                (3, 7), (5, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.select(3, 3, 6, 7).invert()
+        self.assertSetEqual(
+            {
+                (4, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+                (4, 5), (6, 5),
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (4, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_only_corners(self):
+        self.area.use_only_corners()
+        self.assertEqual(AreaState.CORNERS, self.area.state)
+
+        self.area.select(3, 3, 6, 7)
+        self.assertSetEqual(
+            {
+                (3, 3), (6, 3),
+                (3, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.attrs(corner_size=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+        self.area.attrs(corner_size_x=1, corner_size_y=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (6, 3),
+                (3, 4), (6, 4),
+                (3, 6), (6, 6),
+                (3, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_attr_config(self):
+        self.area.attr('line_gap', 3)
+        self.assertEqual(3, self.area.line_gap_x)
+        self.assertEqual(3, self.area.line_gap_y)
+        self.area.attr(AreaAttr.LINE_GAP_X, 4)
+        self.assertEqual(4, self.area.line_gap_x)
+        self.assertEqual(3, self.area.line_gap_y)
+        self.area.attr(AreaAttr.LINE_WIDTH, 10)
+        self.assertEqual(10, self.area.line_width_x)
+        self.assertEqual(10, self.area.line_width_y)
+        self.area.attr('line_width_x', 12)
+        self.assertEqual(12, self.area.line_width_x)
+        self.assertEqual(10, self.area.line_width_y)
+
+    def test_area_attrs_kwarg_configs(self):
+        self.area.attrs(line_gap=3, line_width=4)
+        self.assertEqual(3, self.area.line_gap_x)
+        self.assertEqual(3, self.area.line_gap_y)
+        self.assertEqual(4, self.area.line_width_x)
+        self.assertEqual(4, self.area.line_width_y)
+
+        self.area.attrs(line_gap_x=1, line_gap_y=3, line_width_x=5, line_width_y=7)
+        self.assertEqual(1, self.area.line_gap_x)
+        self.assertEqual(3, self.area.line_gap_y)
+        self.assertEqual(5, self.area.line_width_x)
+        self.assertEqual(7, self.area.line_width_y)
+
+        self.area.attrs(line_gap=10, line_width_x=1, line_width_y=2)
+        self.assertEqual(10, self.area.line_gap_x)
+        self.assertEqual(10, self.area.line_gap_y)
+        self.assertEqual(1, self.area.line_width_x)
+        self.assertEqual(2, self.area.line_width_y)
+
+        self.area.attrs(line_gap_x=8, line_gap_y=11, line_width=10)
+        self.assertEqual(8, self.area.line_gap_x)
+        self.assertEqual(11, self.area.line_gap_y)
+        self.assertEqual(10, self.area.line_width_x)
+        self.assertEqual(10, self.area.line_width_y)
+
+        self.area.attrs(line_gap=11, line_gap_x=8, line_width=10, line_width_y=2)
+        self.assertEqual(8, self.area.line_gap_x)
+        self.assertEqual(11, self.area.line_gap_y)
+        self.assertEqual(10, self.area.line_width_x)
+        self.assertEqual(2, self.area.line_width_y)
+
+    # -------------- test_area_use_grid_with_configs --------------
+
+    def test_area_use_grid_with_configs(self):
+        self.area.select(3, 3, 6, 7).use_pattern_grid(line_gap=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (6, 3),
+                (3, 6), (6, 6),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid_with_configs_2(self):
+        self.area.select(3, 3, 6, 7).use_pattern_grid(line_width=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (6, 3),
+                (3, 4), (4, 4), (6, 4),
+                (3, 6), (4, 6), (6, 6),
+                (3, 7), (4, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid_with_configs_3(self):
+        self.area.select(3, 3, 6, 7).use_pattern_grid(line_width=2, line_gap=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3),
+                (3, 4), (4, 4),
+                (3, 7), (4, 7),
+            },
+            self.area.to_coords()
+        )
+
+    # -------------- test_area_use_grid_with_configs_abuse_as_lines --------------
+
+    def test_area_use_grid_with_configs_abuse_as_lines(self):
+        self.area.select(3, 3, 6, 7).use_pattern_grid(line_gap_y=0)
+        self.assertSetEqual(
+            {
+                (3, 3), (5, 3),
+                (3, 4), (5, 4),
+                (3, 5), (5, 5),
+                (3, 6), (5, 6),
+                (3, 7), (5, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid_with_configs_abuse_as_lines2(self):
+        self.area.select(3, 3, 6, 7).use_pattern_grid(line_gap_x=0)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+
+                (3, 5), (4, 5), (5, 5), (6, 5),
+
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_use_grid_with_configs_abuse_as_lines3(self):
+        self.area.select(3, 3, 6, 7).use_pattern_grid(line_gap_x=0, line_width_y=2)
+        self.assertSetEqual(
+            {
+                (3, 3), (4, 3), (5, 3), (6, 3),
+                (3, 4), (4, 4), (5, 4), (6, 4),
+
+                (3, 6), (4, 6), (5, 6), (6, 6),
+                (3, 7), (4, 7), (5, 7), (6, 7),
+            },
+            self.area.to_coords()
+        )
+
+    def test_area_get_x_range(self):
+        self.area.select(3, 4, 5, 6)
+        self.assertEqual(range(3, 5 + 1), self.area.get_range_x())
+
+    def test_area_get_y_range(self):
+        self.area.select(3, 4, 5, 6)
+        self.assertEqual(range(4, 6 + 1), self.area.get_range_y())
+
+    def test_area_get_width(self):
+        self.area.select(3, 5, 8, 11)
+        self.assertEqual(6, self.area.get_width())
+
+    def test_area_get_height(self):
+        self.area.select(3, 5, 8, 11)
+        self.assertEqual(7, self.area.get_height())
+
+    def test_area_is_within_selection(self):
+        self.area.select(3, 5, 8, 11)
+        self.assertEqual(True, self.area.is_within_selection(3, 5))
+        self.assertEqual(True, self.area.is_within_selection(8, 11))
+        self.assertEqual(True, self.area.is_within_selection(7, 7))
+        self.assertEqual(False, self.area.is_within_selection(2, 7))
+        self.assertEqual(False, self.area.is_within_selection(11, 7))
+        self.assertEqual(False, self.area.is_within_selection(5, 4))
+        self.assertEqual(False, self.area.is_within_selection(5, 13))
+
+    def test_area_is_edge_tile(self):
+        self.area.select(3, 5, 8, 11).use_only_edge()
+        self.assertEqual(True, self.area.is_within_selection(3, 5))
+        self.assertEqual(True, self.area.is_within_selection(8, 11))
+        self.assertEqual(True, self.area.is_within_selection(3, 7))
+        self.assertEqual(True, self.area.is_within_selection(6, 5))
+        self.assertEqual(False, self.area.is_within_selection(5, 7))
+        self.assertEqual(False, self.area.is_within_selection(2, 10))
+        self.assertEqual(False, self.area.is_within_selection(4, 12))
+
+    def test_area_axis(self):
+        self.area.along_axis("y")
+        self.assertEqual("y", self.area.axis)
+        self.area.use_pattern_lines(axis="x")
+        self.assertEqual("x", self.area.axis)
+
+    def test_area_copy(self):
+        area2 = self.area.copy()
+        self.area.select(1, 2, 3, 4)
+        self.area.attrs(line_width_x=5, line_width_y=6, line_gap_x=7, line_gap_y=8)
+        self.area.use_pattern_grid().invert()
+        self.area._map_size_value = 20
+        self.area.uuid = "aaa"
+        self.area.axis = "y"
+
+        self.assertNotEqual(area2.x1, self.area.x1)
+        self.assertNotEqual(area2.y1, self.area.y1)
+        self.assertNotEqual(area2.x2, self.area.x2)
+        self.assertNotEqual(area2.y2, self.area.y2)
+        self.assertNotEqual(area2.line_width_x, self.area.line_width_x)
+        self.assertNotEqual(area2.line_width_y, self.area.line_width_y)
+        self.assertNotEqual(area2.line_gap_x, self.area.line_gap_x)
+        self.assertNotEqual(area2.line_gap_y, self.area.line_gap_y)
+        self.assertNotEqual(area2._map_size_value, self.area._map_size_value)
+        self.assertNotEqual(area2.uuid, self.area.uuid)
+        self.assertNotEqual(area2.state, self.area.state)
+        self.assertNotEqual(area2.inverted, self.area.inverted)
+        self.assertNotEqual(area2.axis, self.area.axis)
 
 
 # Mock Objects & Variables
@@ -179,4 +557,4 @@ class MM:
 class SCN:
     """Mock object for scenario"""
     map_manager = MM
-    uuid: str = uuid
+    uuid: UUID = uuid

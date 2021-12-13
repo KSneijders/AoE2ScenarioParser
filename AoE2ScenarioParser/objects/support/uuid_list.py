@@ -1,4 +1,5 @@
 from typing import Iterable, Sequence, Union, TypeVar
+from uuid import UUID
 
 from typing_extensions import SupportsIndex
 
@@ -6,7 +7,7 @@ T = TypeVar('T')
 
 
 class UuidList(list):
-    def __init__(self, uuid: str, seq: Sequence[T] = ()) -> None:
+    def __init__(self, uuid: UUID, seq: Sequence[T] = ()) -> None:
         self._uuid = uuid
 
         if seq:
