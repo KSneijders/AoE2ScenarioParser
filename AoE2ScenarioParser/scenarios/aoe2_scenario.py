@@ -29,24 +29,28 @@ class AoE2Scenario:
     """
     @property
     def trigger_manager(self) -> TriggerManager:
+        """The trigger manager of the scenario"""
         return self._object_manager.managers['Trigger']
 
     @property
     def unit_manager(self) -> UnitManager:
+        """The unit manager of the scenario"""
         return self._object_manager.managers['Unit']
 
     @property
     def map_manager(self) -> MapManager:
+        """The map manager of the scenario"""
         return self._object_manager.managers['Map']
 
     @property
     def player_manager(self) -> PlayerManager:
+        """The player manager of the scenario"""
         return self._object_manager.managers['Player']
 
-    def __init__(self, source_location):
+    def __init__(self, source_location: str):
         """
         Args:
-            source_location: The full file path of the scenario being read
+            source_location (str): The full file path of the scenario being read
         """
         self.source_location = source_location
 
@@ -111,7 +115,7 @@ class AoE2Scenario:
 
         return scenario
 
-    def _load_structure(self) -> None:
+    def _load_structure(self):
         """
         Load the structure json for the scenario and game version specified into self.structure
 
@@ -126,10 +130,32 @@ class AoE2Scenario:
         self.structure = get_structure(self.game_version, self.scenario_version)
 
     def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
+        """
+        The header is stored decompressed and is the first thing in the scenario file. It is meta data for the scenario
+        file and thus needs to be read before everything else (also the reason why its stored decompressed). This
+        function reads and adds the header file section to the sections dict of the scenario
+
+        Args:
+            raw_file_igenerator (IncrementalGenerator): The generator to read the header section from
+
+        Returns:
+            This function does not return anything
+        """
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
         self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
+        """
+        The sections after the header are compressed and are first decompressed using the -zlib.MAX_WBITS algorithm.
+        This function reads and adds all the remaining file sections from the structure file to the sections dict of the
+        scenario.
+
+        Args:
+            raw_file_igenerator (IncrementalGenerator): The generator to read the file sections from
+
+        Returns:
+            This function does not return anything
+        """
         self._decompressed_file_data = decompress_bytes(raw_file_igenerator.get_remaining_bytes())
 
         data_igenerator = IncrementalGenerator(name='Scenario Data', file_content=self._decompressed_file_data)
@@ -145,7 +171,18 @@ class AoE2Scenario:
                 self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
-    def _create_and_load_section(self, name, igenerator):
+    def _create_and_load_section(self, name: str, igenerator: IncrementalGenerator) -> AoE2FileSection:
+        """
+        This function initialises a file section from its name and fills its retrievers with data from the given
+        generator
+
+        Args:
+            name (str): The name of the file section
+            igenerator (IncrementalGenerator): The generator to fill the data from
+
+        Returns:
+            An AoE2FileSection representing the given section name with its data initialised from the generator
+        """
         s_print(f"\t🔄 Parsing {name}...", color="yellow")
         section = AoE2FileSection.from_structure(name, self.structure.get(name), self.uuid)
         s_print(f"\t🔄 Gathering {name} data...", color="yellow")
@@ -153,7 +190,7 @@ class AoE2Scenario:
         s_print(f"\t✔ {name}", final=True, color="green")
         return section
 
-    def _add_to_sections(self, section):
+    def _add_to_sections(self, section: AoE2FileSection):
         """
         This function adds the given section to the sections dictionary
 
@@ -169,7 +206,7 @@ class AoE2Scenario:
     ####################################### Write functions ######################################
     ########################################################################################## """
 
-    def write_to_file(self, filename, skip_reconstruction=False):
+    def write_to_file(self, filename: str, skip_reconstruction: bool=False):
         """
         Write the scenario to a new file
 
@@ -187,7 +224,22 @@ class AoE2Scenario:
         """
         self._write_from_structure(filename, skip_reconstruction)
 
-    def _write_from_structure(self, filename, skip_reconstruction=False):
+    def _write_from_structure(self, filename: str, skip_reconstruction: bool=False):
+        """
+        Write the scenario to a new file with the given filename
+
+        Args:
+            filename (str): The location to write the file to
+            skip_reconstruction (bool): If reconstruction should be skipped. If true, this will ignore all changes made
+                using the managers (For example all changes made using trigger_manager).
+
+        Returns:
+            This function does not return anything
+
+        Raises:
+            ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
+                the same as the filename being written to
+        """
         if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
             raise ValueError("Overwriting the source scenario file is disallowed. This behaviour can be enabled in the settings file.")
         if not skip_reconstruction:
@@ -210,15 +262,49 @@ class AoE2Scenario:
         s_print("File writing finished successfully.", final=True)
         s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
 
-    def write_error_file(self, filename="error_file.txt", trail_generator=None):
+    def write_error_file(self, filename: str="error_file.txt", trail_generator: IncrementalGenerator=None):
+        """
+        Outputs the contents of the entire scenario file in a readable format. An example of the format is given below::
+
+            ########################### units (1954 * struct:UnitStruct)
+            ############ UnitStruct ############  [STRUCT]
+            00 00 70 42                 x (1 * f32): 60.0
+            00 00 70 42                 y (1 * f32): 60.0
+            00 00 00 00                 z (1 * f32): 0.0
+            52 05 00 00                 reference_id (1 * s32): 1362
+            89 02                       unit_const (1 * u16): 649
+            02                          status (1 * u8): 2
+            00 00 00 00                 rotation (1 * f32): 0.0
+            00 00                       initial_animation_frame (1 * u16): 0
+            ff ff ff ff                 garrisoned_in_id (1 * s32): -1
+
+        Args:
+            filename: (Default "error_file.txt") The filename to write the error file to
+            trail_generator: (Default: None) Write all the bytes remaining in this generator as a trail
+
+        Returns:
+            This function does not return anything
+        """
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
 
     """ #############################################
     ################ Debug functions ################
     ############################################# """
 
-    def _debug_write_from_source(self, filename, datatype, write_bytes=True):
-        """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
+    def _debug_write_from_source(self, filename: str, datatype: str, write_bytes: bool=True):
+        """
+        This function can write the decompressed scenario file as bytes or as hex text
+
+        Args:
+            filename: The filename to write to
+            datatype: these are flags that indicate which parts of the file to include in the output. 'd' for
+                decompressed file data, 'f' for the file, and 'h' for the header. Note: Only 'd' actually works at this
+                time
+            write_bytes: boolean to determine if the file needs to be written as bytes or hex text form
+
+        Returns:
+            This function does not return anything
+        """
         print("File writing from source started with attributes " + datatype + "...")
         file = open(filename, "wb" if write_bytes else "w")
         selected_parts = []
@@ -240,7 +326,29 @@ class AoE2Scenario:
         print("File writing finished successfully.")
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
-        """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
+        """
+        Outputs the contents of the entire scenario file in a readable format. An example of the format is given below::
+
+            ########################### units (1954 * struct:UnitStruct)
+            ############ UnitStruct ############  [STRUCT]
+            00 00 70 42                 x (1 * f32): 60.0
+            00 00 70 42                 y (1 * f32): 60.0
+            00 00 00 00                 z (1 * f32): 0.0
+            52 05 00 00                 reference_id (1 * s32): 1362
+            89 02                       unit_const (1 * u16): 649
+            02                          status (1 * u8): 2
+            00 00 00 00                 rotation (1 * f32): 0.0
+            00 00                       initial_animation_frame (1 * u16): 0
+            ff ff ff ff                 garrisoned_in_id (1 * s32): -1
+
+        Args:
+            filename: The filename to write the error file to
+            trail_generator: (Default: None) Write all the bytes remaining in this generator as a trail
+            commit: (Default: False)
+
+        Returns:
+            This function does not return anything
+        """
         if commit and hasattr(self, '_object_manager'):
             self._object_manager.reconstruct()
 
@@ -264,7 +372,7 @@ class AoE2Scenario:
         s_print("Writing structure to file finished successfully.", final=True)
 
 
-def initialise_version_dependencies(game_version, scenario_version) -> None:
+def initialise_version_dependencies(game_version, scenario_version):
     """
     This function initialises the data for the condition and effect objects (IDs, defaults, etc.) for the given scenario
     and game versions
@@ -306,7 +414,17 @@ def initialise_version_dependencies(game_version, scenario_version) -> None:
         effects.attribute_presentation[effect_id] = structure.get('attribute_presentation', {})
 
 
-def _get_file_section_data(file_section: AoE2FileSection):
+def _get_file_section_data(file_section: AoE2FileSection) -> bytes:
+    """
+    This function converts the data of the given file section into bytes, and also prints that the conversion is
+    happening to the console.
+
+    Args:
+        file_section: The file section to convert to bytes
+
+    Returns:
+        Bytes for all the data in the given file section
+    """
     s_print(f"\t🔄 Reconstructing {file_section.name}...", color="yellow")
     value = file_section.get_data_as_bytes()
     s_print(f"\t✔ {file_section.name}", final=True, color="green")

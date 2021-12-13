@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from copy import deepcopy
 from enum import Enum
 from typing import Dict, List
 from uuid import UUID
@@ -24,6 +23,9 @@ class SectionLevel(Enum):
 
 
 class SectionName(Enum):
+    """
+    This enum class indicates the different sections in the scenario file
+    """
     FILEHEADER = "FileHeader"
     DATAHEADER = "DataHeader"
     MESSAGES = "Messages"
@@ -43,6 +45,9 @@ class AoE2FileSection:
     """
     Multiple retrievers and structures containing related data are grouped together under one file section. This class
     is used to construct all the retrievers and structures inside a file section.
+
+    This class utilises the AoE2StructModel to create multiple of the same structure. These copies are what is used to
+    store the data from a scenario file
     """
     def __init__(self,
         name: str,
@@ -122,8 +127,7 @@ class AoE2FileSection:
             The bytes representing the file section
         """
         result = []
-        retriever: Retriever
-        for retriever in self.retriever_map.values():
+        for retriever in self.retriever_map.values(): #type: Retriever
             result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
@@ -268,7 +272,20 @@ class AoE2FileSection:
             except KeyError:
                 super().__setattr__(name, value)
 
-    def _entry_to_string(self, name, data, datatype):
+    def _entry_to_string(self, name: str, data: str, datatype: str) -> str:
+        """
+        This function formats the given data into a string. An example:
+
+            version: 1.45 (1 * c4)
+
+        Args:
+            name (str): The name of the value
+            data (str): The value itself
+            datatype (str): The datatype of the value
+
+        Returns:
+            Formatted string representation of the given data
+        """
         prefix = "\t"
         if self.level == SectionLevel.STRUCT:
             prefix = "\t\t\t"
@@ -276,13 +293,36 @@ class AoE2FileSection:
             data = q_str(data)
         return f"{prefix}{name}: {data} ({datatype})\n"
 
-    def get_header_string(self):
+    def get_header_string(self) -> str:
+        """
+        Returns:
+            The name of the header for the file section
+        """
         if self.level == SectionLevel.TOP_LEVEL:
-            return "######################## " + self.name + " ######################## [SECTION]"
+            return f"######################## {self.name} ######################## [SECTION]"
         elif self.level == SectionLevel.STRUCT:
-            return "############ " + self.name + " ############  [STRUCT]"
+            return f"############ {self.name} ############  [STRUCT]"
 
     def get_byte_structure_as_string(self):
+        """
+        This function recursively converts the retrievers of a file section and their data into a readable format. An
+        example with this format is shown below::
+
+            ########################### units (1954 * struct:UnitStruct)
+            ############ UnitStruct ############  [STRUCT]
+            00 00 70 42                 x (1 * f32): 60.0
+            00 00 70 42                 y (1 * f32): 60.0
+            00 00 00 00                 z (1 * f32): 0.0
+            52 05 00 00                 reference_id (1 * s32): 1362
+            89 02                       unit_const (1 * u16): 649
+            02                          status (1 * u8): 2
+            00 00 00 00                 rotation (1 * f32): 0.0
+            00 00                       initial_animation_frame (1 * u16): 0
+            ff ff ff ff                 garrisoned_in_id (1 * s32): -1
+
+        Returns:
+            A string showing the data in each retriever of the file section
+        """
         byte_structure = "\n" + self.get_header_string()
 
         for key, retriever in self.retriever_map.items():
