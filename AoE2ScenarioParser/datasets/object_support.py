@@ -22,9 +22,8 @@ class StartingAge(_DataSetIntEnums):
 
 class Civilization(_DataSetIntEnums):
     """
-    # TODO:
-        This enum class provides the integer values used to reference the operations in the game. Used in a lot of effects
-        like 'Modify Attribute' to control whether an attribute is set, added to, multiplied or divided by a value.
+    This enum class provides the integer values used to reference the civilizations in the game.
+    This can be used in research tech conditions to check civ or set a players civ in the player manager.
 
     **Examples**
 
