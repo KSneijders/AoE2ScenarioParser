@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import json
 import uuid
 import zlib
@@ -19,15 +20,12 @@ from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
-from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.scenario_store import store
+from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
 class AoE2Scenario:
-    """
-    All scenario objects are derived from this class
-    """
     @property
     def trigger_manager(self) -> TriggerManager:
         """The trigger manager of the scenario"""
@@ -50,8 +48,10 @@ class AoE2Scenario:
 
     def __init__(self, source_location: str):
         """
+        All scenario objects are derived from this class
+
         Args:
-            source_location (str): The full file path of the scenario being read
+            source_location: The full file path of the scenario being read
         """
         self.source_location = source_location
 
@@ -75,11 +75,11 @@ class AoE2Scenario:
     @classmethod
     def from_file(cls, filename: str, game_version: str):
         """
-        This function creates and returns an instance of the AoE2Scenario class from the given scenario file
+        Creates and returns an instance of the AoE2Scenario class from the given scenario file
 
         Args:
-            filename (str): The path to the scenario file to create the object from
-            game_version (str): The version of the game to create the object for
+            filename: The path to the scenario file to create the object from
+            game_version: The version of the game to create the object for
 
         Returns:
             An instance of the AoE2Scenario class which is the object representation of the given scenario file
@@ -118,46 +118,39 @@ class AoE2Scenario:
 
         return scenario
 
-    def _load_structure(self):
+    def _load_structure(self) -> None:
         """
-        Load the structure json for the scenario and game version specified into self.structure
-
-        Returns:
-            This function does not return anything
+        Loads the structure json for the scenario and game version specified into self.structure
 
         Raises:
-            ValueError: if the game and scenario versions are not set
+            ValueError: if the game or scenario versions are not set
         """
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
         self.structure = get_structure(self.game_version, self.scenario_version)
 
-    def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
+    def _load_header_section(self, raw_file_igenerator: IncrementalGenerator) -> None:
         """
+        Reads and adds the header file section to the sections dict of the scenario.
+
         The header is stored decompressed and is the first thing in the scenario file. It is meta data for the scenario
-        file and thus needs to be read before everything else (also the reason why its stored decompressed). This
-        function reads and adds the header file section to the sections dict of the scenario
+        file and thus needs to be read before everything else (also the reason why its stored decompressed).
 
         Args:
-            raw_file_igenerator (IncrementalGenerator): The generator to read the header section from
-
-        Returns:
-            This function does not return anything
+            raw_file_igenerator: The generator to read the header section from
         """
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
         self._add_to_sections(header)
 
-    def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
+    def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator) -> None:
         """
-        The sections after the header are compressed and are first decompressed using the -zlib.MAX_WBITS algorithm.
-        This function reads and adds all the remaining file sections from the structure file to the sections dict of the
+        Reads and adds all the remaining file sections from the structure file to the sections dict of the
         scenario.
 
-        Args:
-            raw_file_igenerator (IncrementalGenerator): The generator to read the file sections from
+        The sections after the header are compressed and are first decompressed using the -zlib.MAX_WBITS algorithm.
 
-        Returns:
-            This function does not return anything
+        Args:
+            raw_file_igenerator: The generator to read the file sections from
         """
         self._decompressed_file_data = decompress_bytes(raw_file_igenerator.get_remaining_bytes())
 
@@ -176,12 +169,11 @@ class AoE2Scenario:
 
     def _create_and_load_section(self, name: str, igenerator: IncrementalGenerator) -> AoE2FileSection:
         """
-        This function initialises a file section from its name and fills its retrievers with data from the given
-        generator
+        Initialises a file section from its name and fills its retrievers with data from the given generator
 
         Args:
-            name (str): The name of the file section
-            igenerator (IncrementalGenerator): The generator to fill the data from
+            name: The name of the file section
+            igenerator: The generator to fill the data from
 
         Returns:
             An AoE2FileSection representing the given section name with its data initialised from the generator
@@ -193,15 +185,12 @@ class AoE2Scenario:
         s_print(f"\t✔ {name}", final=True, color="green")
         return section
 
-    def _add_to_sections(self, section: AoE2FileSection):
+    def _add_to_sections(self, section: AoE2FileSection) -> None:
         """
-        This function adds the given section to the sections dictionary
+        Adds the given section to the sections dictionary
 
         Args:
             section: The section to add to the sections dictionary
-
-        Returns:
-            This function does not return anything
         """
         self.sections[section.name] = section
 
@@ -209,17 +198,14 @@ class AoE2Scenario:
     ####################################### Write functions ######################################
     ########################################################################################## """
 
-    def write_to_file(self, filename: str, skip_reconstruction: bool=False):
+    def write_to_file(self, filename: str, skip_reconstruction: bool = False) -> None:
         """
-        Write the scenario to a new file
+        Writes the scenario to a new file with the given filename
 
         Args:
-            filename (str): The location to write the file to
-            skip_reconstruction (bool): If reconstruction should be skipped. If true, this will ignore all changes made
+            filename: The location to write the file to
+            skip_reconstruction: If reconstruction should be skipped. If true, this will ignore all changes made
                 using the managers (For example all changes made using trigger_manager).
-
-        Returns:
-            This function does not return anything
 
         Raises:
             ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
@@ -227,24 +213,22 @@ class AoE2Scenario:
         """
         self._write_from_structure(filename, skip_reconstruction)
 
-    def _write_from_structure(self, filename: str, skip_reconstruction: bool=False):
+    def _write_from_structure(self, filename: str, skip_reconstruction: bool = False) -> None:
         """
-        Write the scenario to a new file with the given filename
+        Writes the scenario to a new file with the given filename
 
         Args:
-            filename (str): The location to write the file to
-            skip_reconstruction (bool): If reconstruction should be skipped. If true, this will ignore all changes made
+            filename: The location to write the file to
+            skip_reconstruction: If reconstruction should be skipped. If true, this will ignore all changes made
                 using the managers (For example all changes made using trigger_manager).
-
-        Returns:
-            This function does not return anything
 
         Raises:
             ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
                 the same as the filename being written to
         """
         if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
-            raise ValueError("Overwriting the source scenario file is disallowed. This behaviour can be enabled in the settings file.")
+            raise ValueError("Overwriting the source scenario file is disallowed. "
+                             "This behaviour can be changed through the settings.")
         if not skip_reconstruction:
             self._object_manager.reconstruct()
 
@@ -265,7 +249,7 @@ class AoE2Scenario:
         s_print("File writing finished successfully.", final=True)
         s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
 
-    def write_error_file(self, filename: str="error_file.txt", trail_generator: IncrementalGenerator=None):
+    def write_error_file(self, filename: str = "error_file.txt", trail_generator: IncrementalGenerator = None) -> None:
         """
         Outputs the contents of the entire scenario file in a readable format. An example of the format is given below::
 
@@ -282,11 +266,8 @@ class AoE2Scenario:
             ff ff ff ff                 garrisoned_in_id (1 * s32): -1
 
         Args:
-            filename: (Default "error_file.txt") The filename to write the error file to
-            trail_generator: (Default: None) Write all the bytes remaining in this generator as a trail
-
-        Returns:
-            This function does not return anything
+            filename: The filename to write the error file to
+            trail_generator: Write all the bytes remaining in this generator as a trail
         """
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
 
@@ -294,9 +275,9 @@ class AoE2Scenario:
     ################ Debug functions ################
     ############################################# """
 
-    def _debug_write_from_source(self, filename: str, datatype: str, write_bytes: bool=True):
+    def _debug_write_from_source(self, filename: str, datatype: str, write_bytes: bool = True) -> None:
         """
-        This function can write the decompressed scenario file as bytes or as hex text
+        Writes the decompressed scenario file as bytes or as hex text
 
         Args:
             filename: The filename to write to
@@ -304,11 +285,8 @@ class AoE2Scenario:
                 decompressed file data, 'f' for the file, and 'h' for the header. Note: Only 'd' actually works at this
                 time
             write_bytes: boolean to determine if the file needs to be written as bytes or hex text form
-
-        Returns:
-            This function does not return anything
         """
-        print("File writing from source started with attributes " + datatype + "...")
+        s_print("File writing from source started with attributes " + datatype + "...")
         file = open(filename, "wb" if write_bytes else "w")
         selected_parts = []
         for t in datatype:
@@ -326,7 +304,7 @@ class AoE2Scenario:
             parts += part
         file.write(parts if write_bytes else create_textual_hex(parts.hex()))
         file.close()
-        print("File writing finished successfully.")
+        s_print("File writing finished successfully.")
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
         """
@@ -346,11 +324,8 @@ class AoE2Scenario:
 
         Args:
             filename: The filename to write the error file to
-            trail_generator: (Default: None) Write all the bytes remaining in this generator as a trail
-            commit: (Default: False)
-
-        Returns:
-            This function does not return anything
+            trail_generator: Write all the bytes remaining in this generator as a trail
+            commit: If the managers should commit their changes before writing this file.
         """
         if commit and hasattr(self, '_object_manager'):
             self._object_manager.reconstruct()
@@ -375,17 +350,14 @@ class AoE2Scenario:
         s_print("Writing structure to file finished successfully.", final=True)
 
 
-def initialise_version_dependencies(game_version, scenario_version):
+def initialise_version_dependencies(game_version: str, scenario_version: str) -> None:
     """
-    This function initialises the data for the condition and effect objects (IDs, defaults, etc.) for the given scenario
+    Initialises the data for the condition and effect objects (IDs, defaults, etc.) for the given scenario
     and game versions
 
     Args:
-        game_version (str): The version of the game to initialise the dependencies for
-        scenario_version (str): The version of the scenario to initialise the dependencies for
-
-    Returns:
-        This function does not return anything, it only initialises the conditions and effects
+        game_version: The version of the game to initialise the dependencies for
+        scenario_version: The version of the scenario to initialise the dependencies for
     """
 
     condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
@@ -419,8 +391,8 @@ def initialise_version_dependencies(game_version, scenario_version):
 
 def _get_file_section_data(file_section: AoE2FileSection) -> bytes:
     """
-    This function converts the data of the given file section into bytes, and also prints that the conversion is
-    happening to the console.
+    Converts the data of the given file section into bytes, and also prints that the conversion is happening to the
+    console.
 
     Args:
         file_section: The file section to convert to bytes
@@ -433,16 +405,16 @@ def _get_file_section_data(file_section: AoE2FileSection) -> bytes:
     s_print(f"\t✔ {file_section.name}", final=True, color="green")
     return value
 
+
 def get_file_version(generator: IncrementalGenerator) -> str:
     """
     Get first 4 bytes of a file, which contains the version of the scenario
 
     Args:
-        generator (IncrementalGenerator): An IncrementalGenerator object of a scenario file
+        generator: An IncrementalGenerator object of a scenario file
 
     Returns:
         A string which is the version of the scenario file
-
     """
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
@@ -452,10 +424,10 @@ def decompress_bytes(file_content: bytes) -> bytes:
     Decompress the given bytes using the -zlib.MAX_WBITS algorithm
 
     Args:
-        file_content (bytes): The bytes to decompress
+        file_content: The bytes to decompress
 
     Returns:
-        Decompressed bytes
+        The decompressed bytes
     """
     return zlib.decompress(file_content, -zlib.MAX_WBITS)
 
@@ -466,10 +438,10 @@ def compress_bytes(file_content: bytes) -> bytes:
     https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
 
     Args:
-        file_content (bytes): The bytes to compress
+        file_content: The bytes to compress
 
     Returns:
-        Compressed bytes
+        The compressed bytes
     """
     deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
     compressed = deflate_obj.compress(file_content) + deflate_obj.flush()
@@ -489,13 +461,13 @@ def get_version_directory_path() -> Path:
 
 def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     """
-    This function returns the structure file (conditions, effects and structure) requested for the game and scenario
-    version specified.
+    This function returns a structure file dependant on the version of the scenario (AND game version).
+    Files are retrieved based on the game and scenario version given.
 
     Args:
-        game_version (str): The version of the game to return the structure file for
-        scenario_version (str): The scenario version to return the structure file for
-        name (str): The name of the structure file being requested
+        game_version: The version of the game to return the structure file for
+        scenario_version: The scenario version to return the structure file for
+        name: The name of the structure file being requested
 
     Returns:
         a dict representation of the structure file requested
@@ -514,18 +486,18 @@ def get_version_dependant_structure_file(game_version: str, scenario_version: st
 
 def get_structure(game_version: str, scenario_version: str) -> dict:
     """
-    Get the structure file of the given game and scenario versions
+    Get the structure file of the given game and scenario version
 
     Args:
-        game_version (str): The game version to get the structure file for
-        scenario_version (str): The scenario version to get the structure file for
+        game_version: The game version to get the structure file for
+        scenario_version: The scenario version to get the structure file for
 
     Returns:
         The dictionary representation of the scenario for the specified versions
 
     Raises:
-        InvalidScenarioStructureError: if the FileHeader section is not present in the loaded structure file
-        UnknownScenarioStructureError: if the structure for the specified game/scenario version is not found
+        InvalidScenarioStructureError: If the FileHeader section is not present in the loaded structure file
+        UnknownScenarioStructureError: If the structure for the specified game/scenario version is not found
     """
     try:
         vdir = get_version_directory_path()

@@ -162,9 +162,6 @@ class PlayerManager(AoE2Object):
         Args:
             args: list of player IDs or list of list of player IDs
             diplomacy: The diplomacy to set the teams to. Defaults to ally.
-
-        Returns:
-            This function does not return anything
         """
         for team in args:
             for player in team:

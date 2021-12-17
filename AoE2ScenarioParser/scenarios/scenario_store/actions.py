@@ -4,8 +4,6 @@ from uuid import UUID
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
-from uuid import UUID
-
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
 
@@ -25,8 +23,8 @@ def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], *args) -> No
     Change the unit(s) ownership.
 
     Args:
-        uuid (UUID): The universally unique identifier of the scenario
-        player (Union[int, PlayerId]): The player to transfer the units to.
+        uuid: The universally unique identifier of the scenario
+        player: The player to transfer the units to.
         args: Unit object or List of unit objects
     """
     def transfer_unit(scenario_, unit_, player_):

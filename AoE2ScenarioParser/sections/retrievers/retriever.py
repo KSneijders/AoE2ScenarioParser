@@ -13,11 +13,6 @@ from AoE2ScenarioParser.sections.retrievers.datatype import DataType
 
 
 class Retriever:
-    """
-    A retriever forms the fundamental unit of data in a scenario. All retrievers contain only one single value related
-    to a particular thing in the scenario. This class is used to correctly interpret and store all the different types
-    of fundamental data that can be present in a scenario
-    """
     __slots__ = [
         'on_construct',
         'on_commit',
@@ -28,7 +23,6 @@ class Retriever:
         'log_value',
         '_data',
         'default_value',
-        # 'string_end_char'
     ]
 
     on_construct: RetrieverDependency
@@ -36,19 +30,24 @@ class Retriever:
     on_refresh: RetrieverDependency
 
     def __init__(self,
-        name: str,
-        default_value=None,
-        datatype: DataType=DataType(),
-        is_list: bool=None,
-        log_value: bool=False
-    ):
+                 name: str,
+                 default_value=None,
+                 datatype: DataType = DataType(),
+                 is_list: bool = None,
+                 log_value: bool = False
+                 ):
         """
+        A retriever forms the fundamental unit of data in a scenario.
+        All retrievers contain only one single value related to a particular thing in the scenario.
+        This class is used to correctly interpret and store all the different types of fundamental data that can be
+        present in a scenario
+
         Args:
-            name (str): The name of the item/piece of information to retrieved. Has to be unique within the Section or Struct
+            name: The name of the item/piece of information to retrieved. Has to be unique within the Section or Struct
             default_value: The default value of this retriever
-            datatype (DataType): An instance of the DataType class, specifying the datatype of the retriever
-            is_list: (bool) If this retriever data should be stored using a list. Unknown if not set
-            log_value: (bool) This will log information about this retriever when (Default: False)
+            datatype: An instance of the DataType class, specifying the datatype of the retriever
+            is_list: If this retriever data should be stored using a list.
+            log_value: This will log information about this retriever when (Default: False)
                 1. the data linked to it changes,
                 2. it is constructed or committed
         """
@@ -62,8 +61,6 @@ class Retriever:
         if log_value:
             self.datatype.log_value = True
             self.datatype._debug_retriever_name = name
-
-        # self.string_end_char = False
 
     def get_data_as_bytes(self) -> bytes:
         """
@@ -94,13 +91,10 @@ class Retriever:
 
     def set_data_from_bytes(self, bytes_list: List[bytes]) -> None:
         """
-        This function sets the data of a retriever from the list of bytes provided.
+        Sets the data of a retriever from the list of bytes provided.
 
         Args:
             bytes_list (List(bytes)): a list of bytes
-
-        Returns:
-            This function does not return anything
 
         Raises:
             ValueError: if no bytes are provided or if the repeat value of the retriever is not equal to the length of
@@ -115,20 +109,13 @@ class Retriever:
         self.data = bytes_parser.vorl(self, result)
 
     def update_datatype_repeat(self) -> None:
-        """
-        This function sets all the datatype repeat values to the lengths of their containing lists
-
-        Returns:
-            This function does not return anything
-        """
+        """This function sets all the datatype repeat values to the lengths of their containing lists"""
         if type(self.data) == list:
             self.datatype.repeat = len(self.data)
 
     @property
     def data(self):
-        """
-        The data contained in the retriever
-        """
+        """The data contained in the retriever"""
         return self._data
 
     @data.setter
@@ -138,9 +125,6 @@ class Retriever:
 
         Args:
             value: The new value for the data of the retriever
-
-        Returns:
-
         """
         if self.log_value:
             old_value = self._data
@@ -148,12 +132,7 @@ class Retriever:
         self._data = value
 
     def set_data_to_default(self):
-        """
-        This function sets the values of all the data in the retriever to their default values
-
-        Returns:
-            This function does not return anything
-        """
+        """This function sets the values of all the data in the retriever to their default values"""
         if self.datatype.type == "data":
             data = bytes.fromhex(self.default_value)
         elif type(self.default_value) is list:
@@ -177,7 +156,7 @@ class Retriever:
             is_list=self.is_list,
             log_value=self.log_value
         )
-        for attr in attributes:
+        for attr in ['on_refresh', 'on_construct', 'on_commit']:
             if hasattr(self, attr):
                 setattr(retriever, attr, getattr(self, attr))
         return retriever
@@ -185,11 +164,11 @@ class Retriever:
     @classmethod
     def from_structure(cls, name: str, structure: dict) -> Retriever:
         """
-        This function creates a Retriever object from the given name and structure
+        Creates a Retriever object from the given name and structure
 
         Args:
-            name (str): The name of the retriever to create
-            structure (dict): A dict representation of the specified retriever's properties
+            name: The name of the retriever to create
+            structure: A dict representation of the specified retriever's properties
 
         Returns:
             A Retriever instance
@@ -218,19 +197,16 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
-    def _print_value_update(self, old, new) -> None:
+    def _print_value_update(self, old: int | float | str | bytes, new: int | float | str | bytes) -> None:
         """
-        Function to print when data is changed. Can also be called for when data is changed but the property doesn't
-        fire. This happens when an array is adjusted in size by appending to it ([...] += [...]).
+        Prints when data is changed. Can also be called for when data is changed but the property doesn't fire.
+        This happens when an array is adjusted in size by appending to it ([...] += [...]).
 
         This function prints the retriever, its new value and its old value
 
         Args:
-            old (str): The old value represented using a string
-            new (str): The new value represented using a string
-
-        Returns:
-            This function does not return anything
+            old: The old value represented using a string
+            new: The new value represented using a string
         """
         print(f"{self.to_simple_string()} >>> set to: {string_manipulations.q_str(new)} "
               f"(was: {string_manipulations.q_str(old)})")
@@ -274,7 +250,7 @@ def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Re
     because of speed. Yes.
 
     Args:
-        retriever_map (Dict[str, Retriever]): A dictionary with strings as keys and Retrievers as their values
+        retriever_map: A dictionary with strings as keys and Retrievers as their values
 
     Returns:
         A copied version of the given dictionary
@@ -284,13 +260,10 @@ def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Re
 
 def reset_retriever_map(retriever_map: Dict[str, Retriever]) -> None:
     """
-    This function sets all the values
+    This function sets all the values of the retrievers in the map to their default values.
 
     Args:
-        retriever_map:
-
-    Returns:
-
+        retriever_map: The retriever map with retrievers to reset
     """
     for retriever in retriever_map.values():
         retriever.set_data_to_default()
@@ -302,14 +275,11 @@ def _evaluate_is_list_attribute(retriever: Retriever, dependency: RetrieverDepen
     dependency is SET_REPEAT and if the is_list attribute is not already set
 
     Args:
-        retriever (Retriever): The retriever to change the is_list value for
-        dependency (RetrieverDependency): The dependency to check the action for
+        retriever: The retriever to change the is_list value for
+        dependency: The dependency to check the action for
 
     Returns:
         This function does not return anything
     """
     if dependency.dependency_action == DependencyAction.SET_REPEAT and retriever.is_list is None:
         retriever.is_list = True
-
-
-attributes = ['on_refresh', 'on_construct', 'on_commit']

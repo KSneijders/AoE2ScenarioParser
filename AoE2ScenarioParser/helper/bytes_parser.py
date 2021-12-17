@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, TYPE_CHECKING
 
 from AoE2ScenarioParser import settings
@@ -8,19 +10,21 @@ from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
-attributes = ['on_refresh', 'on_construct', 'on_commit']
 
-
-def vorl(retriever: 'Retriever', value: list):
+def vorl(
+        retriever: 'Retriever',
+        value: List[int | float | str | bytes]
+) -> List[int | float | str | bytes] | int | float | str | bytes:
     """
-    This function checks if a value in a retriever is meant to be a variable or list, and returns it in that form
+    vorl: Value or List. Checks if a value in a retriever is meant to be a variable or list, and returns
+    it in that form.
 
     Args:
-        retriever (Retriever): The retriever
-        value (List[Any]): The value to convert to the correct form
+        retriever: The retriever
+        value: The value to convert to the correct form
 
     Returns:
-        The given list or the value inside it
+        The given list with value or the value inside it
     """
     if retriever.datatype.repeat != 1:
         return value
@@ -37,11 +41,11 @@ def vorl(retriever: 'Retriever', value: list):
 
 def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> List[bytes]:
     """
-    Get the bytes required to set the data in the given retriever
+    Get the bytes required to set the data in the given retriever. Bytes are retriever from an incremental generator.
 
     Args:
-        igenerator (IncrementalGenerator): The generator to return the bytes from
-        retriever (Retriever): The retriever for which the bytes need to be retrieved
+        igenerator: The generator to return the bytes from
+        retriever: The retriever for which the bytes need to be retrieved
 
     Returns:
         The corresponding bytes in a list.
@@ -75,7 +79,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> 
 
 def is_end_of_file_mark(retriever: 'Retriever') -> bool:
     """
-    Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false
+    Returns True if the retriever is the __END_OF_FILE_MARK__ retriever else False
 
     Args:
         retriever (Retriever): The retriever to check
@@ -88,7 +92,7 @@ def is_end_of_file_mark(retriever: 'Retriever') -> bool:
 
 def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: 'Retriever') -> None:
     """
-    This function prints a message if the file has more bytes in it than expected by the structure
+    Prints a message if the file has more bytes in it than expected by the structure
 
     Args:
         igenerator (IncrementalGenerator): The generator to check if more bytes are present

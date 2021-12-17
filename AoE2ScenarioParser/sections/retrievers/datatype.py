@@ -1,9 +1,7 @@
 from __future__ import annotations
-class DataType:
-    """
-    This class is used to represent the data type of the value being retrieved. Every retriever has this as an attribute
-    """
 
+
+class DataType:
     __slots__ = [
         'var',
         '_repeat',
@@ -15,19 +13,21 @@ class DataType:
 
     _debug_retriever_name: str
 
-    def __init__(self, var: str="0", repeat: int=1, log_value: bool=False, type_length: tuple=None):
+    def __init__(self, var: str = "0", repeat: int = 1, log_value: bool = False, type_length: tuple = None):
         """
-        Args:
-            var (str): string representation of the datatype
-            repeat (int): the amount of times a value is repeated
-            log_value (bool): to log the value of the datatype when repeat is set
-            type_length (tuple): a tuple containing the type and length of the datatype
+        This class is used to represent the data type of the value being retrieved. Every retriever has this as an
+        attribute
 
+        Args:
+            var: string representation of the datatype
+            repeat: the amount of times a value is repeated
+            log_value: to log the value of the datatype when repeat is set
+            type_length: a tuple containing the type and length of the datatype
 
         Descriptions:
             var:
-                Almost always a string representation of the data you want to retrieve. This project uses the types from:
-                https://dderevjanik.github.io/agescx/formatscx/#format
+                Almost always a string representation of the data you want to retrieve.
+                This project uses the types from: https://dderevjanik.github.io/agescx/formatscx/#format
 
                 - **s**: Signed integer (parsed as little endian)
                 - **u**: Unsigned integer (parsed as little endian)
@@ -40,7 +40,6 @@ class DataType:
                   subclass. This can be handy for when blocks of data are repeated.
                 - **(Empty)**: Is interpreted as regular byte data. In this project the '' is converted to 'data'
 
-                ​
                 Each datatype is followed by a number that tells how many bits/bytes are used to store it.
 
                 - The types **s, u, f & str** use an amount of bits to specify their size.
@@ -74,10 +73,10 @@ class DataType:
 
     def get_struct_name(self) -> str:
         """
-        This function returns the name of the datatype's structure
+        Returns the name of the datatype structure
 
         Returns:
-            The name of the DataType's structure
+            The name of the DataType structure
 
         Raises:
             ValueError: if the datatype is not a struct
@@ -88,16 +87,12 @@ class DataType:
 
     @property
     def type_and_length(self) -> tuple:
-        """
-        A tuple of the type and length of the datatype
-        """
+        """A tuple of the type and length of the datatype"""
         return self.type, self.length
 
     @property
     def repeat(self) -> int:
-        """
-        The amount of times the datatype repeats
-        """
+        """The amount of times the datatype repeats"""
         return self._repeat
 
     @repeat.setter
@@ -106,10 +101,7 @@ class DataType:
         The setter for the repeat value of the datatype
 
         Args:
-            value (str): The value to set repeat to. The r-value of an assignment is automatically passed as this argument
-
-        Returns:
-            This function does not return anything
+            value: The value to set repeat to. The value of an assignment is automatically passed as this argument
         """
         if self.log_value:
             print(f"[DataType] {self._debug_retriever_name} 'repeat' set to {value} (was: {self._repeat})")
@@ -123,9 +115,6 @@ class DataType:
             A string representation of the datatype
         """
         return f"{self._repeat} * {self.var}"
-
-    def __repr__(self):
-        return f"[DataType] " + self.to_simple_string()
 
     def duplicate(self) -> DataType:
         """
@@ -141,13 +130,16 @@ class DataType:
             type_length=(self.type, self.length)
         )
 
+    def __repr__(self):
+        return f"[DataType] " + self.to_simple_string()
+
 
 def datatype_to_type_length(var: str) -> tuple:
     """
     Get the type and length of a datatype
 
     Args:
-        var (str): The datatyoe string
+        var: The datatype string
 
     Returns:
         The type and length of a datatype. So: 'int32' returns 'int', 32.

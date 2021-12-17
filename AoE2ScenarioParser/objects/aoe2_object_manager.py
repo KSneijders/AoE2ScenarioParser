@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Dict, Type, Tuple
+from typing import Dict, Type, TypeVar
+from uuid import UUID
 
 from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -22,12 +23,16 @@ managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
 }
 
 
+ManagerInstance = TypeVar('ManagerInstance', bound=AoE2Object)
+
+
 class AoE2ObjectManager:
     def __init__(self, scenario_uuid):
-        self.scenario_uuid = scenario_uuid
-        self.managers = {}
+        self.scenario_uuid: UUID = scenario_uuid
+        self.managers: Dict[str, ManagerInstance] = {}
 
-    def setup(self):
+    def setup(self) -> None:
+        """Sets up the managers by calling their construct functions"""
         s_print(f"\nSetting up managers ...", final=True)
         gv = getters.get_game_version(self.scenario_uuid)
 
@@ -38,10 +43,11 @@ class AoE2ObjectManager:
 
         s_print(f"Setting up managers finished successfully.", final=True)
 
-    def reconstruct(self):
+    def reconstruct(self) -> None:
+        """Reconstructs the file sections by calling the managers commit functions"""
         s_print("\nReconstructing sections and structs from managers...", final=True)
 
-        for name, manager in self.managers.items(): #type: str, AoE2Object
+        for name, manager in self.managers.items():
             s_print(f"\t🔄 Reconstructing {name}Manager...", color="yellow")
             manager.commit()
             s_print(f"\t✔ {name}Manager", final=True, color="green")

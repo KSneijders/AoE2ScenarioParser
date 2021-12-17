@@ -10,9 +10,9 @@ from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 class AoE2DEScenario(AoE2Scenario):
     """
-    This class is used to represent a scenario with version >= 1.36 (DE). It is the main class that is exposed to the
-    user of the API.
+    Used to represent a scenario with version >= 1.36 (DE). It is the main class that is exposed to the user of the API.
     """
+
     @property
     def trigger_manager(self) -> TriggerManagerDE:
         """The trigger manager of the scenario"""
@@ -39,13 +39,13 @@ class AoE2DEScenario(AoE2Scenario):
         return self._object_manager.managers['Player']
 
     @classmethod
-    def from_file(cls, filename: str, game_version: str="DE") -> AoE2DEScenario:
+    def from_file(cls, filename: str, game_version: str = "DE") -> AoE2DEScenario:
         """
-        This function creates and returns an instance of the AoE2DEScenario class from the given scenario file
+        Creates and returns an instance of the AoE2DEScenario class from the given scenario file
 
         Args:
-            filename (str): The path to the scenario file to create the object from
-            game_version (str): (Default: 'DE') The version of the game to create the object for
+            filename: The path to the scenario file to create the object from
+            game_version: The version of the game to create the object for
 
         Returns:
             An instance of the AoE2DEScenario class which is the object representation of the given scenario file

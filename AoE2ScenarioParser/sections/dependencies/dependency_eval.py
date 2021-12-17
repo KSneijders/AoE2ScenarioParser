@@ -1,10 +1,11 @@
 from __future__ import annotations
+
+
 class DependencyEval:
-    """
-    This class provides the objects for storing dependency eval code and it's locals.
-    """
-    def __init__(self, eval_code: str, eval_locals: dict=None):
+    def __init__(self, eval_code: str, eval_locals: dict = None):
         """
+        Provides the objects for storing dependency eval code and it's locals.
+
         Args:
             eval_code (str): The code executed using eval
             eval_locals (dict): The locals dict handed to the eval function
@@ -16,7 +17,7 @@ class DependencyEval:
         self.eval_locals = eval_locals
 
     @classmethod
-    def instance_or_none(cls, eval_code: str) -> DependencyEval:
+    def instance_or_none(cls, eval_code: str) -> DependencyEval | None:
         """
         Returns a DependencyEval instance created from the given code
 

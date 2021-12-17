@@ -48,7 +48,7 @@ class UnitInfo(InfoDatasetBase):
     """
 
     @staticmethod
-    def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
+    def vils(exclude_female: bool = False, exclude_male: bool = False) -> List[UnitInfo]:
         """
         Args:
             exclude_female: if set to true, exclude the female villagers
@@ -101,7 +101,7 @@ class UnitInfo(InfoDatasetBase):
             exclude_non_elite_units: bool = False,
             exclude_castle_units: bool = False,
             exclude_non_castle_units: bool = False
-    ) -> list[UnitInfo]:
+    ) -> List[UnitInfo]:
         """
         Args:
             exclude_elite_units: if set to false, exclude the elite unique units

@@ -1,7 +1,7 @@
 from typing import List
 
 
-def hash_list(lst: list):
+def hash_list(lst: List):
     return hash(tuple(lst))
 
 
@@ -9,7 +9,7 @@ def list_changed(lst, lst_hash):
     return lst_hash != hash(tuple(lst))
 
 
-def listify(var) -> list:
+def listify(var) -> List:
     """Always return item as list"""
     return var if type(var) is list else [var]
 
