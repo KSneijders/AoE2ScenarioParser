@@ -1,15 +1,17 @@
-from typing import List
+from typing import List, TYPE_CHECKING
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.helper.exceptions import EndOfFileError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
-def vorl(retriever: Retriever, value: list):
+def vorl(retriever: 'Retriever', value: list):
     """
     This function checks if a value in a retriever is meant to be a variable or list, and returns it in that form
 
@@ -33,7 +35,7 @@ def vorl(retriever: Retriever, value: list):
     return value
 
 
-def retrieve_bytes(igenerator: IncrementalGenerator, retriever: Retriever) -> List[bytes]:
+def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> List[bytes]:
     """
     Get the bytes required to set the data in the given retriever
 
@@ -71,7 +73,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever: Retriever) -> Li
     return retrieved_bytes
 
 
-def is_end_of_file_mark(retriever: Retriever) -> bool:
+def is_end_of_file_mark(retriever: 'Retriever') -> bool:
     """
     Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false
 
@@ -84,7 +86,7 @@ def is_end_of_file_mark(retriever: Retriever) -> bool:
     return retriever.name == "__END_OF_FILE_MARK__"
 
 
-def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: Retriever) -> None:
+def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: 'Retriever') -> None:
     """
     This function prints a message if the file has more bytes in it than expected by the structure
 

@@ -11,13 +11,11 @@ if TYPE_CHECKING:
 
 
 @overload
-def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], unit: Unit) -> None:
 def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], unit: 'Unit') -> None:
     ...
 
 
 @overload
-def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], units: List[Unit]) -> None:
 def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], units: List['Unit']) -> None:
     ...
 

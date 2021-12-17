@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Union
+from typing import Union, List
 
 
 class InfoDatasetBase(Enum):
@@ -22,8 +22,6 @@ class InfoDatasetBase(Enum):
     @staticmethod
     def _id_map() -> dict:
         """
-        **Private Method**
-
         Returns:
             A dict that maps the names of the properties to their index in the info tuple
         """
@@ -31,8 +29,6 @@ class InfoDatasetBase(Enum):
 
     def _get_property(self, name: str) -> Union[int, bool]:
         """
-        **Private Method**
-
         Get the specified property by its name from an object of this (or its derived) class
 
         Args:
@@ -85,8 +81,6 @@ class InfoDatasetBase(Enum):
     @classmethod
     def _from_id(cls, id_type: str, value: int) -> InfoDatasetBase:
         """
-        **Private Method**
-
         This function finds and returns the member object that uses the given value for the specified property (id_type)
 
         Args:
@@ -163,7 +157,7 @@ class InfoDatasetBase(Enum):
         return cls._from_id('hotkey_id', hotkey_id)
 
     @classmethod
-    def gaia_only(cls) -> list[InfoDatasetBase]:
+    def gaia_only(cls) -> List[InfoDatasetBase]:
         """
         Returns:
             A list of all the gaia only units (eg. Deer)
@@ -171,18 +165,16 @@ class InfoDatasetBase(Enum):
         return cls._gaia_filter(gaia_only=True)
 
     @classmethod
-    def non_gaia(cls) -> list[InfoDatasetBase]:
+    def non_gaia(cls) -> List[InfoDatasetBase]:
         """
         Returns:
-            A list of all the units excluding gaia only units (eg. Deer)
+            A list of all the units excluding gaia only units (eg. militia)
         """
         return cls._gaia_filter(gaia_only=False)
 
     @classmethod
-    def _gaia_filter(cls, gaia_only: bool) -> list[InfoDatasetBase]:
+    def _gaia_filter(cls, gaia_only: bool) -> List[InfoDatasetBase]:
         """
-        **Private Method**
-
         Args:
             gaia_only: if set to true, lists all gaia only units. If set to false, lists all units except gaia only units
 

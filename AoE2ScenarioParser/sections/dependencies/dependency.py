@@ -1,15 +1,17 @@
 import math
+from typing import List, TYPE_CHECKING
 from uuid import UUID
-from typing import List
 
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
-from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
-from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
-from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+    from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
+    from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+    from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 
-def refresh_targets(retriever_event: RetrieverDependency, section: AoE2FileSection, host_uuid: UUID):
+
+def refresh_targets(retriever_event: 'RetrieverDependency', section: 'AoE2FileSection', host_uuid: UUID) -> None:
     """
     This function calls the execute_refresh_action on every target in the target list of the given retriever
 
@@ -18,9 +20,6 @@ def refresh_targets(retriever_event: RetrieverDependency, section: AoE2FileSecti
             the dependency action
         section (AoE2FileSection): The AoE2FileSection object containing the given retriever
         host_uuid (UUID): The universally unique identifier for the scenario containing this file section
-
-    Returns:
-        This function does not return anything
     """
     for target in retriever_event.dependency_target.targets:
         selected_retriever = select_retriever(target, section, host_uuid)
@@ -29,7 +28,7 @@ def refresh_targets(retriever_event: RetrieverDependency, section: AoE2FileSecti
         execute_refresh_action(selected_retriever, section, host_uuid)
 
 
-def execute_refresh_action(retriever: Retriever, section: AoE2FileSection, host_uuid: UUID):
+def execute_refresh_action(retriever: 'Retriever', section: 'AoE2FileSection', host_uuid: UUID) -> None:
     """
     This function just calls handle_retriever_dependency with the same retriever section and host, but changes the state
     to refresh.
@@ -38,14 +37,12 @@ def execute_refresh_action(retriever: Retriever, section: AoE2FileSection, host_
         retriever (Retriever): The retriever to refresh
         section (AoE2FileSection): The AoE2FileSection object containing the given retriever
         host_uuid (UUID): The universally unique identifier for the scenario containing this file section
-
-    Returns:
-        This function does not return anything
     """
     handle_retriever_dependency(retriever, "refresh", section, host_uuid)
 
 
-def handle_retriever_dependency(retriever: Retriever, state: str, section: AoE2FileSection, host_uuid: UUID):
+def handle_retriever_dependency(retriever: 'Retriever', state: str, section: 'AoE2FileSection', host_uuid: UUID) \
+        -> None:
     """
     This function checks if the given retriever has a dependency action for the specified state. If it does, then that
     action is carried out in this function.
@@ -55,9 +52,6 @@ def handle_retriever_dependency(retriever: Retriever, state: str, section: AoE2F
         state (str): The state for which the dependency needs to be checked
         section (AoE2FileSection): The AoE2FileSection object containing the given retriever
         host_uuid (UUID): The universally unique identifier for the scenario containing this file section
-
-    Returns:
-        This function does not return anything
     """
     on_x = f'on_{state}'
     if not hasattr(retriever, on_x):
@@ -79,7 +73,7 @@ def handle_retriever_dependency(retriever: Retriever, state: str, section: AoE2F
             retriever.datatype.repeat = value
 
 
-def execute_dependency_eval(retriever_event: RetrieverDependency, section: AoE2FileSection, host_uuid: UUID) -> int:
+def execute_dependency_eval(retriever_event: 'RetrieverDependency', section: 'AoE2FileSection', host_uuid: UUID) -> int:
     """
     This function runs the python code specified in a retriever dependency eval
 
@@ -108,13 +102,13 @@ def execute_dependency_eval(retriever_event: RetrieverDependency, section: AoE2F
     return eval(eval_code, {}, eval_locals)
 
 
-def select_retriever(target: List[str], section: AoE2FileSection, host_uuid: UUID) -> Retriever:
+def select_retriever(target: List[str], section: 'AoE2FileSection', host_uuid: UUID) -> 'Retriever':
     """
     This function returns the retriever being targeted by a dependency action
     Args:
-        target (List[str]): A list containing the section and the name of the retriever
-        section (AoE2FileSection):
-        host_uuid (UUID): The universally unique identifier of the scenario containing the given file section
+        target: A list containing the section and the name of the retriever
+        section:
+        host_uuid: The universally unique identifier of the scenario containing the given file section
 
     Returns:
         returns the given retriever of the specified section (first element of target)
