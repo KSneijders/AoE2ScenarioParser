@@ -109,7 +109,7 @@ class Retriever:
         self.data = bytes_parser.vorl(self, result)
 
     def update_datatype_repeat(self) -> None:
-        """This function sets all the datatype repeat values to the lengths of their containing lists"""
+        """Sets all the datatype repeat values to the lengths of their containing lists"""
         if type(self.data) == list:
             self.datatype.repeat = len(self.data)
 
@@ -132,7 +132,7 @@ class Retriever:
         self._data = value
 
     def set_data_to_default(self):
-        """This function sets the values of all the data in the retriever to their default values"""
+        """Sets the values of all the data in the retriever to their default values"""
         if self.datatype.type == "data":
             data = bytes.fromhex(self.default_value)
         elif type(self.default_value) is list:
@@ -144,7 +144,7 @@ class Retriever:
 
     def duplicate(self) -> Retriever:
         """
-        This function creates and returns a copy of the retriever object
+        Creates and returns a copy of the retriever object
 
         Returns:
             A Retriever instance
@@ -202,7 +202,7 @@ class Retriever:
         Prints when data is changed. Can also be called for when data is changed but the property doesn't fire.
         This happens when an array is adjusted in size by appending to it ([...] += [...]).
 
-        This function prints the retriever, its new value and its old value
+        Prints the retriever, its new value and its old value
 
         Args:
             old: The old value represented using a string
@@ -246,7 +246,7 @@ class Retriever:
 
 def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Retriever]:
     """
-    This function copies and returns the given dict of retrievers. This method is preferred over copy() or deepcopy()
+    Copies and returns the given dict of retrievers. This method is preferred over copy() or deepcopy()
     because of speed. Yes.
 
     Args:
@@ -260,7 +260,7 @@ def duplicate_retriever_map(retriever_map: Dict[str, Retriever]) -> Dict[str, Re
 
 def reset_retriever_map(retriever_map: Dict[str, Retriever]) -> None:
     """
-    This function sets all the values of the retrievers in the map to their default values.
+    Sets all the values of the retrievers in the map to their default values.
 
     Args:
         retriever_map: The retriever map with retrievers to reset
@@ -271,15 +271,12 @@ def reset_retriever_map(retriever_map: Dict[str, Retriever]) -> None:
 
 def _evaluate_is_list_attribute(retriever: Retriever, dependency: RetrieverDependency) -> None:
     """
-    This function sets the is_list attribute of the given retriever to true if the dependency action of the specified
+    Sets the is_list attribute of the given retriever to true if the dependency action of the specified
     dependency is SET_REPEAT and if the is_list attribute is not already set
 
     Args:
         retriever: The retriever to change the is_list value for
         dependency: The dependency to check the action for
-
-    Returns:
-        This function does not return anything
     """
     if dependency.dependency_action == DependencyAction.SET_REPEAT and retriever.is_list is None:
         retriever.is_list = True

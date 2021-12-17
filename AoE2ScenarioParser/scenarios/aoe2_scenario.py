@@ -461,7 +461,7 @@ def get_version_directory_path() -> Path:
 
 def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     """
-    This function returns a structure file dependant on the version of the scenario (AND game version).
+    Returns a structure file dependant on the version of the scenario (AND game version).
     Files are retrieved based on the game and scenario version given.
 
     Args:

@@ -97,9 +97,6 @@ def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: 'Retrie
     Args:
         igenerator (IncrementalGenerator): The generator to check if more bytes are present
         retriever (Retriever): The retriever to check if it's the end of file mark
-
-    Returns:
-        This function does not return anything
     """
     if is_end_of_file_mark(retriever) and settings.NOTIFY_UNKNOWN_BYTES:
         retrieved_bytes = igenerator.get_remaining_bytes()

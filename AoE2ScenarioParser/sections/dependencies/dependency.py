@@ -83,7 +83,7 @@ def execute_dependency_eval(retriever_event: 'RetrieverDependency', section: 'Ao
         host_uuid: The universally unique identifier for the scenario containing this file section
 
     Returns:
-        This function returns the result of the eval code in the given retriever dependency object
+        The result of the eval code in the given retriever dependency object
     """
     eval_code = retriever_event.dependency_eval.eval_code
     eval_locals = retriever_event.dependency_eval.eval_locals
@@ -102,7 +102,7 @@ def execute_dependency_eval(retriever_event: 'RetrieverDependency', section: 'Ao
 
 def select_retriever(target: List[str], section: 'AoE2FileSection', host_uuid: UUID) -> 'Retriever':
     """
-    This function returns the retriever being targeted by a dependency action
+    Returns the retriever being targeted by a dependency action
 
     Args:
         target: A list containing the section and the name of the retriever
@@ -110,7 +110,7 @@ def select_retriever(target: List[str], section: 'AoE2FileSection', host_uuid: U
         host_uuid: The universally unique identifier of the scenario containing the given file section
 
     Returns:
-        returns the given retriever of the specified section (first element of target)
+        The given retriever of the specified section (first element of target)
     """
     if target[0] == "self":
         return section.retriever_map[target[1]]

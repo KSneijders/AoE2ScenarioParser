@@ -299,7 +299,7 @@ def _combine_int_str(
         retriever: 'Retriever' = None
 ) -> bytes:
     """
-    This function appends the length of the given bytes (this length is in byte form itself) to the front of the bytes.
+    Appends the length of the given bytes (this length is in byte form itself) to the front of the bytes.
     This is done because strings are stored as an integer (as bytes) that is the length of the string followed by the
     same number of bytes representing that string
 
