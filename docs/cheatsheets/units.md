@@ -121,8 +121,7 @@ While adding units is fun, you might want to change existing units. You
 can, for example, change the location of any unit:
 
 ```py
-
-from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.area import Tile
 
 ...
 

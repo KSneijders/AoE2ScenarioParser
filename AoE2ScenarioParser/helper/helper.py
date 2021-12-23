@@ -8,6 +8,7 @@ from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.helper import exceptions
+from AoE2ScenarioParser.objects.support.area import Tile
 
 """ =============================================================
 ============================ COORDS =============================
@@ -20,7 +21,7 @@ def xy_to_i(x, y, map_size) -> int:
     return x + y * map_size
 
 
-def i_to_xy(i, map_size) -> Tuple[int, int]:
+def i_to_xy(i, map_size) -> Tile:
     if i < 0 or i >= pow(map_size, 2):
         raise ValueError(f"X and Y need to be: 0 <= n ({i}) < map_size ({map_size})")
     return int(i % map_size), int(i / map_size)

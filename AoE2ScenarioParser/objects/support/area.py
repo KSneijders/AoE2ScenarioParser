@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import copy
 import math
+from collections import namedtuple
 from enum import Enum
-from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List, Tuple
+from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List, Tuple, Type
 from uuid import UUID
 
 from AoE2ScenarioParser.external.ordered_set import OrderedSet
@@ -42,10 +43,8 @@ class AreaAttr(Enum):
     CORNER_SIZE_Y = "corner_size_y"
 
 
-class Tile(NamedTuple):
-    """NamedTuple for tiles. use tile.x or tile.y for coord access"""
-    x: int
-    y: int
+Tile: Type[Tile] = namedtuple('Tile', ['x', 'y'])
+"""NamedTuple for tiles. use tile.x or tile.y for coord access"""
 
 
 class Area:

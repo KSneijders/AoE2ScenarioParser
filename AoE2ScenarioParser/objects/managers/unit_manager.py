@@ -5,7 +5,7 @@ from typing import List, Union
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
-from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.area import Tile
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
