@@ -189,15 +189,19 @@ the one you like the most (We continue with the first option):
 # For the third option:
 from AoE2ScenarioParser.objects.support.area import AreaAttr
 
-...use_pattern_grid(line_gap=2)
-...use_pattern_grid().attr('line_gap', 2)
-...use_pattern_grid().attr(AreaAttr.LINE_GAP, 2)
-...use_pattern_grid().attrs(line_gap=2)
+...
+use_pattern_grid(gap_size=2)
+...
+use_pattern_grid().attr('gap_size', 2)
+...
+use_pattern_grid().attr(AreaAttr.GAP_SIZE, 2)
+...
+use_pattern_grid().attrs(gap_size=2)
 ```
 
 !!! Tip "You can differentiate the X and Y"
-    In many functions you can use the general option like `line_gap`. 
-    But there's also options for `line_gap_x` and `line_gap_y` if you want different selections.
+    In many functions you can use the general option like `gap_size`. 
+    But there's also options for `gap_size_x` and `gap_size_y` if you want different selections.
 
 Now that we have the grid, let's create area objects for each grid tile. 
 
@@ -255,7 +259,7 @@ The entire code block for this example:
 ```py
 squares_per_row = math.floor(map_manager.map_size / 3)
 area = scenario.new.area()
-area.select_entire_map().use_pattern_grid(line_gap=2)
+area.select_entire_map().use_pattern_grid(gap_size=2)
 
 squares: List[Area] = []
 for tile in area.to_coords():
@@ -312,8 +316,8 @@ docstrings in your editor. Sorry :(
 * `use_full() -> Area`
 * `use_only_edge(line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> Area`
 * `use_only_corners(corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
-* `use_pattern_grid(line_gap: int = None, line_width: int = None, line_gap_x: int = None`
-* `use_pattern_lines(axis: str, line_gap: int = None, line_width: int = None) -> Area`
+* `use_pattern_grid(gap_size: int = None, line_width: int = None, gap_size_x: int = None`
+* `use_pattern_lines(axis: str, gap_size: int = None, line_width: int = None) -> Area`
 
 ---
 
@@ -322,7 +326,7 @@ docstrings in your editor. Sorry :(
 * `invert() -> Area`
 * `along_axis(axis: str) -> Area`
 * `attr(key: Union[str, AreaAttr], value: int) -> Area`
-* `attrs(x1: int = None, y1: int = None, x2: int = None, y2: int = None, line_gap: int = None, line_width: int = None, line_gap_x: int = None, line_gap_y: int = None, line_width_x: int = None, line_width_y: int = None, axis: str = None, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
+* `attrs(x1: int = None, y1: int = None, x2: int = None, y2: int = None, gap_size: int = None, line_width: int = None, gap_size_x: int = None, gap_size_y: int = None, line_width_x: int = None, line_width_y: int = None, axis: str = None, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
 * `size(n: int) -> Area`
 * `height(n: int) -> Area`
 * `width(n: int) -> Area`
@@ -330,7 +334,7 @@ docstrings in your editor. Sorry :(
 * `center_bounded(x: int, y: int) -> Area`
 * `select_entire_map() -> Area`
 * `select(x1: int, y1: int, x2: int = None, y2: int = None) -> Area`
-* `select_from_center(x: int, y: int, dx: int = 1, dy: int = 1) -> Area`
+* `select_centered(x: int, y: int, dx: int = 1, dy: int = 1) -> Area`
 * `shrink(n: int) -> Area`
 * `shrink_x1(n: int) -> Area`
 * `shrink_y1(n: int) -> Area`

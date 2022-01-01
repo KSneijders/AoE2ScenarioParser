@@ -3,10 +3,11 @@ from __future__ import annotations
 import copy
 import math
 from enum import Enum
-from typing import Dict, Union, TYPE_CHECKING, List, Tuple
+from typing import Dict, TYPE_CHECKING, List, Tuple
 from uuid import UUID
 
-from AoE2ScenarioParser.external.ordered_set import OrderedSet
+from ordered_set import OrderedSet
+
 from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters
@@ -31,19 +32,26 @@ class AreaAttr(Enum):
     Y1 = "y1"
     X2 = "x2"
     Y2 = "y2"
-    LINE_GAP = "line_gap"
+    GAP_SIZE = "gap_size"
+    GAP_SIZE_X = "gap_size_x"
+    GAP_SIZE_Y = "gap_size_y"
     LINE_WIDTH = "line_width"
-    LINE_GAP_X = "line_gap_x"
-    LINE_GAP_Y = "line_gap_y"
     LINE_WIDTH_X = "line_width_x"
     LINE_WIDTH_Y = "line_width_y"
     AXIS = "axis"
     CORNER_SIZE = "corner_size"
     CORNER_SIZE_X = "corner_size_x"
     CORNER_SIZE_Y = "corner_size_y"
+    BLOCK_SIZE = "block_size"
+    BLOCK_SIZE_X = "block_size_x"
+    BLOCK_SIZE_Y = "block_size_y"
 
 
 class Area:
+    # Stored here so it won't be defined by each function call but also not to clutter the module scope.
+    _recursion_steps = [Tile(0, -1), Tile(1, 0), Tile(0, 1), Tile(-1, 0)]
+    """Values used for recursion steps"""
+
     def __init__(self, map_size: int = None, uuid: UUID = None) -> None:
         """
         Object to easily select an area on the map. Uses method chaining for ease of use.
@@ -71,10 +79,12 @@ class Area:
         self.x2: int = center
         self.y2: int = center
 
-        self.line_gap_x: int = 1
-        self.line_gap_y: int = 1
+        self.gap_size_x: int = 1
+        self.gap_size_y: int = 1
         self.line_width_x: int = 1
         self.line_width_y: int = 1
+        self.block_size_x: int = 1
+        self.block_size_y: int = 1
 
         self.axis: str = ""
 
@@ -113,7 +123,7 @@ class Area:
         Converts the selection to an OrderedSet of (x, y) coordinates
 
         Returns:
-            An OrderedSet of (x, y) tuples of the selection.
+            An OrderedSet of Tiles ((x, y) named tuple) of the selection.
 
         Examples:
             The selection: ``((3,3), (5,5))`` would result in an OrderedSet with a length of 9::
@@ -128,6 +138,28 @@ class Area:
             Tile(x, y) for y in self.get_range_y() for x in self.get_range_x() if self.is_within_selection(x, y)
         )
 
+    def to_chunks(self) -> List[OrderedSet[Tile]]:
+        """
+        Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
+        The separation between chunks is based on if they're connected to each other.
+        So the tiles must share an edge (i.e. they should be non-diagonal).
+
+        Returns:
+            A list of OrderedSets of Tiles ((x, y) named tuple) of the selection.
+        """
+        tiles = self.to_coords()
+
+        # Shortcut for states that CANNOT be more than one chunk
+        if self.state in [AreaState.FULL, AreaState.EDGE]:
+            return [tiles]
+
+        chunks = []
+        while len(tiles):
+            chunk = self.get_first_chunk(tiles)
+            tiles.difference_update(chunk)
+            chunks.append(chunk)
+        return chunks
+
     def to_terrain_tiles(self) -> OrderedSet['TerrainTile']:
         """
         Converts the selection to an OrderedSet of terrain tile objects from the map manager.
@@ -140,20 +172,23 @@ class Area:
         terrain = getters.get_terrain(self.uuid)
         return OrderedSet(terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords())
 
-    def to_dict(self) -> Dict[str, int]:
+    def to_dict(self, prefix="area_") -> Dict[str, int]:
         """
         Converts the 2 corners of the selection to area keys for use in effects etc.
         This can be used by adding double stars (**) before this function.
 
-        Returns:
-            A dict with area_x1, area_y1, area_x2, area_y2 as keys and their respective values.
-
-        Examples:
+        Usage:
             The selection: ``((3,3), (5,5))`` would result in a dict that looks like:
                 ``{'area_x1': 3, 'area_y1': 3, 'area_x2': 5, 'area_y2': 5}``
-            Usage: ``**area.to_dict()`` (i.e. in a ``new_effect.something`` function)
+            Then do: ``**area.to_dict()`` in a function that accepts area tiles
+
+        Args:
+            prefix: The prefix of the string before 'x1' (e.g. prefix="coord_" will result in: "coord_x1" as key)
+
+        Returns:
+            A dict with area_x1, area_y1, area_x2, area_y2 as keys and their respective values.
         """
-        return {f"area_{key}": getattr(self, key) for key in ['x1', 'y1', 'x2', 'y2']}
+        return {f"{prefix}{key}": getattr(self, key) for key in ['x1', 'y1', 'x2', 'y2']}
 
     # ============================ Getters ============================
 
@@ -224,41 +259,48 @@ class Area:
         self.state = AreaState.CORNERS
         return self
 
-    def use_pattern_grid(self, line_gap: int = None, line_width: int = None, line_gap_x: int = None,
-                         line_gap_y: int = None, line_width_x: int = None, line_width_y: int = None) -> Area:
+    def use_pattern_grid(
+            self,
+            block_size: int = None,
+            gap_size: int = None,
+            block_size_x: int = None,
+            block_size_y: int = None,
+            gap_size_x: int = None,
+            gap_size_y: int = None
+    ) -> Area:
         """
         Sets the area object to use a grid pattern within the selection.
 
         Args:
-            line_gap (int): The size of the gaps between lines
-            line_width (int): The width of the x & y grid lines
-            line_gap_x (int): The size of the x gaps between lines
-            line_gap_y (int): The size of the y gaps between lines
-            line_width_x (int): The width of the x grid lines
-            line_width_y (int): The width of the y grid lines
+            block_size (int): The size of the gaps between lines
+            gap_size (int): The width of the grid lines
+            block_size_x (int): The size of the x gaps between lines
+            block_size_y (int): The size of the y gaps between lines
+            gap_size_x (int): The width of the x grid lines
+            gap_size_y (int): The width of the y grid lines
 
         Returns:
             This area object
         """
-        self.attrs(line_gap=line_gap, line_width=line_width,
-                   line_gap_x=line_gap_x, line_width_x=line_width_x,
-                   line_gap_y=line_gap_y, line_width_y=line_width_y)
+        self.attrs(block_size=block_size, gap_size=gap_size,
+                   block_size_x=block_size_x, gap_size_x=gap_size_x,
+                   block_size_y=block_size_y, gap_size_y=gap_size_y)
         self.state = AreaState.GRID
         return self
 
-    def use_pattern_lines(self, axis: str, line_gap: int = None, line_width: int = None) -> Area:
+    def use_pattern_lines(self, axis: str = "y", gap_size: int = None, line_width: int = None) -> Area:
         """
         Sets the area object to use a lines pattern within the selection.
 
         Args:
             axis (str): The axis the lines should follow. Can either be "x" or "y"
-            line_gap (int): The size of the gaps between lines
+            gap_size (int): The size of the gaps between lines
             line_width (int): The width of the x & y lines
 
         Returns:
             This area object
         """
-        self.attrs(axis=axis.lower(), line_gap=line_gap, line_width=line_width)
+        self.attrs(axis=axis.lower(), gap_size=gap_size, line_width=line_width)
         self.state = AreaState.LINES
         return self
 
@@ -280,20 +322,14 @@ class Area:
         self.axis = axis
         return self
 
-    def attr(self, key: Union[str, AreaAttr], value: int) -> Area:
+    def attr(self, key: str | AreaAttr, value: int) -> Area:
         """Sets the attribute to the given value. AreaAttr or str can be used as key"""
         if isinstance(key, AreaAttr):
             key = key.value
 
-        keys: List[str]
-        if key == 'line_width':
-            keys = ['line_width_x', 'line_width_y']
-        elif key == 'line_gap':
-            keys = ['line_gap_x', 'line_gap_y']
-        elif key == 'corner_size':
-            keys = ['corner_size_x', 'corner_size_y']
-        else:
-            keys = [key]
+        keys: List[str] = [key]
+        if key in ['line_width', 'gap_size', 'corner_size', 'block_size']:
+            keys = [key + '_x', key + '_y']
 
         for key in keys:
             setattr(self, key, value)
@@ -305,16 +341,19 @@ class Area:
             y1: int = None,
             x2: int = None,
             y2: int = None,
-            line_gap: int = None,
+            gap_size: int = None,
+            gap_size_x: int = None,
+            gap_size_y: int = None,
             line_width: int = None,
-            line_gap_x: int = None,
-            line_gap_y: int = None,
             line_width_x: int = None,
             line_width_y: int = None,
             axis: str = None,
             corner_size: int = None,
             corner_size_x: int = None,
             corner_size_y: int = None,
+            block_size: int = None,
+            block_size_x: int = None,
+            block_size_y: int = None,
     ) -> Area:
         """
         Sets multiple attributes to the corresponding values.
@@ -323,7 +362,7 @@ class Area:
             This area object
         """
         for key, value in locals().items():
-            if key == 'self' or value is None:
+            if value is None or key == 'self':
                 continue
             self.attr(key, value)
         return self
@@ -410,13 +449,14 @@ class Area:
         x2, y2 = self._negative_coord(x2, y2)
 
         x1, y1, x2, y2 = validate_coords(x1, y1, x2, y2)
+
         self.x1 = self._minmax_val(x1)
         self.y1 = self._minmax_val(y1)
         self.x2 = self._minmax_val(x2)
         self.y2 = self._minmax_val(y2)
         return self
 
-    def select_from_center(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
+    def select_centered(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
         """Sets the selection to the given coordinates"""
         half_x, half_y = (dx - 1) / 2, (dy - 1) / 2
         self.select(
@@ -525,7 +565,7 @@ class Area:
 
                 area = Area.select(10,10,20,20)
                 edge = area.copy().expand(1).use_only_edge().to_coords()
-                # Without copy you'd have to add `.shrink(1)`
+                # Without copy you'd have to undo all changes above. In this case that'd be: `.shrink(1)`
                 grid = area.use_pattern_grid().to_coords()
 
         Returns:
@@ -580,24 +620,45 @@ class Area:
 
     def _is_a_grid_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
-        return (x - self.x1) % (self.line_gap_x + self.line_width_x) < self.line_width_x and \
-               (y - self.y1) % (self.line_gap_y + self.line_width_y) < self.line_width_y
+        return (x - self.x1) % (self.block_size_x + self.gap_size_x) < self.block_size_x and \
+               (y - self.y1) % (self.block_size_y + self.gap_size_y) < self.block_size_y
 
     def _is_a_line_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
         if self.axis == "x":
-            return (y - self.y1) % (self.line_gap_y + self.line_width_y) < self.line_width_y
+            return (y - self.y1) % (self.gap_size_y + self.line_width_y) < self.line_width_y
         elif self.axis == "y":
-            return (x - self.x1) % (self.line_gap_x + self.line_width_x) < self.line_width_x
+            return (x - self.x1) % (self.gap_size_x + self.line_width_x) < self.line_width_x
         raise ValueError("Invalid axis value. Should be either x or y")
 
-    def _minmax_val(self, val: Union[int, float]) -> Union[int, float]:
+    def _minmax_val(self, val: int | float) -> int | float:
         """Keeps a given value within the bounds of ``0 <= val <= map_size``."""
         return max(0, min(val, self._map_size))
 
     def _negative_coord(self, *args: int) -> List[int]:
         """Converts negative coordinates to the non negative value. Like: ``-1 == 119`` when ``map_size = 119``"""
         return [
-            (self._map_size + coord + 1) if coord < 0 else coord
+            (self._map_size + coord + 1) if coord and coord < 0 else coord
             for coord in args
         ]
+
+    @staticmethod
+    def get_first_chunk(tiles: OrderedSet[Tile]) -> OrderedSet[Tile]:
+        tile = tiles[0]
+        queue, found = [tile], OrderedSet([tile])
+
+        i, queue_len = 0, 1
+        while i < queue_len:
+            tile = queue[i]
+
+            for step in Area._recursion_steps:  # Adjacent tiles (y-, x+, y+, x-)
+                nt = Tile(tile.x + step.x, tile.y + step.y)
+
+                if nt in found:
+                    continue
+                if nt in tiles:
+                    found.append(nt)
+                    queue.append(nt)
+                    queue_len += 1
+            i += 1
+        return found
