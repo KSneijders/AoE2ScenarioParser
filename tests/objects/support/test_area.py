@@ -2,7 +2,8 @@ from unittest import TestCase
 from uuid import UUID
 
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
-from AoE2ScenarioParser.objects.support.area import Area, Tile, AreaState, AreaAttr
+from AoE2ScenarioParser.objects.support.area import Area, AreaState, AreaAttr
+from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 

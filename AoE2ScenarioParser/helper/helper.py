@@ -8,7 +8,7 @@ from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.helper import exceptions
-from AoE2ScenarioParser.objects.support.area import Tile
+from AoE2ScenarioParser.objects.support.tile import Tile
 
 """ =============================================================
 ============================ COORDS =============================

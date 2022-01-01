@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import copy
 import math
-from collections import namedtuple
 from enum import Enum
-from typing import Dict, Union, NamedTuple, TYPE_CHECKING, Set, List, Tuple, Type
+from typing import Dict, Union, TYPE_CHECKING, List, Tuple
 from uuid import UUID
 
 from AoE2ScenarioParser.external.ordered_set import OrderedSet
 from AoE2ScenarioParser.helper.helper import xy_to_i
+from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
@@ -41,10 +41,6 @@ class AreaAttr(Enum):
     CORNER_SIZE = "corner_size"
     CORNER_SIZE_X = "corner_size_x"
     CORNER_SIZE_Y = "corner_size_y"
-
-
-Tile: Type[Tile] = namedtuple('Tile', ['x', 'y'])
-"""NamedTuple for tiles. use tile.x or tile.y for coord access"""
 
 
 class Area:

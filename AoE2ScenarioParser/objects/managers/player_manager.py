@@ -34,32 +34,10 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
         RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
 
-        RetrieverObjectLink("_disabled_tech_ids_player_1", "Options", "disabled_tech_ids_player_1"),
-        RetrieverObjectLink("_disabled_tech_ids_player_2", "Options", "disabled_tech_ids_player_2"),
-        RetrieverObjectLink("_disabled_tech_ids_player_3", "Options", "disabled_tech_ids_player_3"),
-        RetrieverObjectLink("_disabled_tech_ids_player_4", "Options", "disabled_tech_ids_player_4"),
-        RetrieverObjectLink("_disabled_tech_ids_player_5", "Options", "disabled_tech_ids_player_5"),
-        RetrieverObjectLink("_disabled_tech_ids_player_6", "Options", "disabled_tech_ids_player_6"),
-        RetrieverObjectLink("_disabled_tech_ids_player_7", "Options", "disabled_tech_ids_player_7"),
-        RetrieverObjectLink("_disabled_tech_ids_player_8", "Options", "disabled_tech_ids_player_8"),
-
-        RetrieverObjectLink("_disabled_building_ids_player_1", "Options", "disabled_building_ids_player_1"),
-        RetrieverObjectLink("_disabled_building_ids_player_2", "Options", "disabled_building_ids_player_2"),
-        RetrieverObjectLink("_disabled_building_ids_player_3", "Options", "disabled_building_ids_player_3"),
-        RetrieverObjectLink("_disabled_building_ids_player_4", "Options", "disabled_building_ids_player_4"),
-        RetrieverObjectLink("_disabled_building_ids_player_5", "Options", "disabled_building_ids_player_5"),
-        RetrieverObjectLink("_disabled_building_ids_player_6", "Options", "disabled_building_ids_player_6"),
-        RetrieverObjectLink("_disabled_building_ids_player_7", "Options", "disabled_building_ids_player_7"),
-        RetrieverObjectLink("_disabled_building_ids_player_8", "Options", "disabled_building_ids_player_8"),
-
-        RetrieverObjectLink("_disabled_unit_ids_player_1", "Options", "disabled_unit_ids_player_1"),
-        RetrieverObjectLink("_disabled_unit_ids_player_2", "Options", "disabled_unit_ids_player_2"),
-        RetrieverObjectLink("_disabled_unit_ids_player_3", "Options", "disabled_unit_ids_player_3"),
-        RetrieverObjectLink("_disabled_unit_ids_player_4", "Options", "disabled_unit_ids_player_4"),
-        RetrieverObjectLink("_disabled_unit_ids_player_5", "Options", "disabled_unit_ids_player_5"),
-        RetrieverObjectLink("_disabled_unit_ids_player_6", "Options", "disabled_unit_ids_player_6"),
-        RetrieverObjectLink("_disabled_unit_ids_player_7", "Options", "disabled_unit_ids_player_7"),
-        RetrieverObjectLink("_disabled_unit_ids_player_8", "Options", "disabled_unit_ids_player_8"),
+        *[
+            RetrieverObjectLink(f"_disabled_{type_}_ids_player_{i}", "Options", f"disabled_{type_}_ids_player_{i}")
+            for type_ in ["tech", "building", "unit"] for i in range(1, 9)
+        ]
     ]
 
     def __init__(self,
