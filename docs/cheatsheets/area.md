@@ -50,9 +50,9 @@ for x in range(10, 14):
         )
 ```
 
-This would create 16 units in a 4x4 area and isn't too bad to read or write. 
-BUT, it feels a bit unnecessary, defining variables for your area just to place some units...
-Let's see how we'd do it with the `Area` object.
+This would create 16 units in a 4x4 area and isn't too bad to read or write.
+Though, having an object which manages the area would be a lot cleaner than looping through coordinates.
+So, let's see how we'd do it with the `Area` object.
 
 ```py
 area = scenario.new.area()  # Create a new area object

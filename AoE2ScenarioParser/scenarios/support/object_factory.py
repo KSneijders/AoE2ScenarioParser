@@ -9,6 +9,6 @@ class ObjectFactory:
 
         self.uuid = uuid
 
-    def area(self):
+    def area(self) -> Area:
         """Return an area map linked to the corresponding scenario"""
         return Area(uuid=self.uuid)
