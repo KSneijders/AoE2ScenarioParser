@@ -7,7 +7,7 @@ from typing import Dict, Union, TYPE_CHECKING, List, Tuple
 from uuid import UUID
 
 from AoE2ScenarioParser.external.ordered_set import OrderedSet
-from AoE2ScenarioParser.helper.helper import xy_to_i
+from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
@@ -407,10 +407,9 @@ class Area:
 
     def select(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
         """Sets the selection to the given coordinates"""
-        if x2 is None:
-            x2 = x1
-        if y2 is None:
-            y2 = y1
+        x2, y2 = self._negative_coord(x2, y2)
+
+        x1, y1, x2, y2 = validate_coords(x1, y1, x2, y2)
         self.x1 = self._minmax_val(x1)
         self.y1 = self._minmax_val(y1)
         self.x2 = self._minmax_val(x2)
@@ -595,3 +594,10 @@ class Area:
     def _minmax_val(self, val: Union[int, float]) -> Union[int, float]:
         """Keeps a given value within the bounds of ``0 <= val <= map_size``."""
         return max(0, min(val, self._map_size))
+
+    def _negative_coord(self, *args: int) -> List[int]:
+        """Converts negative coordinates to the non negative value. Like: ``-1 == 119`` when ``map_size = 119``"""
+        return [
+            (self._map_size + coord + 1) if coord < 0 else coord
+            for coord in args
+        ]

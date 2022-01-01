@@ -38,6 +38,12 @@ class TestArea(TestCase):
         self.assertEqual(20, self.area.x2)
         self.assertEqual(22, self.area.y2)
 
+        self.area.select(1, 2, -1, -2)
+        self.assertEqual(1, self.area.x1)
+        self.assertEqual(2, self.area.y1)
+        self.assertEqual(143, self.area.x2)
+        self.assertEqual(142, self.area.y2)
+
     def test_area_select_from_center(self):
         self.area.select_from_center(5, 5, 3, 3)
         self.assertEqual(4, self.area.x1)
