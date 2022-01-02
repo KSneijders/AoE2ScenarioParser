@@ -155,7 +155,7 @@ class Area:
 
         chunks = []
         while len(tiles):
-            chunk = self.get_first_chunk(tiles)
+            chunk = self._get_first_chunk(tiles)
             tiles.difference_update(chunk)
             chunks.append(chunk)
         return chunks
@@ -642,8 +642,7 @@ class Area:
             for coord in args
         ]
 
-    @staticmethod
-    def get_first_chunk(tiles: OrderedSet[Tile]) -> OrderedSet[Tile]:
+    def _get_first_chunk(self, tiles: OrderedSet[Tile]) -> OrderedSet[Tile]:
         tile = tiles[0]
         queue, found = [tile], OrderedSet([tile])
 
@@ -661,4 +660,6 @@ class Area:
                     queue.append(nt)
                     queue_len += 1
             i += 1
-        return found
+        map_size = self._map_size
+
+        return OrderedSet(sorted(found, key=lambda t: t.y * map_size + t.x))

@@ -277,6 +277,27 @@ class TestArea(TestCase):
             self.area.to_chunks()
         )
 
+    def test_area_to_chunks_order(self):
+        self.area.select(3, 3, 8, 8).use_pattern_grid(block_size=3, gap_size=1)
+        tiles = [
+            (3, 3), (4, 3), (5, 3),  # First (left top) block (3x3)
+            (3, 4), (4, 4), (5, 4),
+            (3, 5), (4, 5), (5, 5),
+            (7, 3), (8, 3),  # Second (right top) block (2x3)
+            (7, 4), (8, 4),
+            (7, 5), (8, 5),
+            (3, 7), (4, 7), (5, 7),  # Third (left bottom) block (3x2)
+            (3, 8), (4, 8), (5, 8),
+            (7, 7), (8, 7),  # Fourth (right bottom) block (2x2)
+            (7, 8), (8, 8),
+        ]
+
+        index = 0
+        for ords in self.area.to_chunks():
+            for tile in ords:
+                self.assertEqual(tiles[index], tile)
+                index += 1
+
     def test_area_use_only_edge(self):
         self.area.use_only_edge()
         self.assertEqual(AreaState.EDGE, self.area.state)
