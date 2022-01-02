@@ -25,6 +25,11 @@ class AreaState(Enum):
     LINES = 3
     CORNERS = 4
 
+    @staticmethod
+    def unchunkables() -> List[AreaState]:
+        """Returns the states that cannot be split into chunks"""
+        return [AreaState.FULL, AreaState.EDGE]
+
 
 class AreaAttr(Enum):
     """Enum to show the supported attributes that can be edited using ``Area.attr(k, v)``"""
@@ -59,8 +64,8 @@ class Area:
         **Please note**: Setting a ``uuid`` will always overwrite the ``map_size`` attribute, even if it's not ``None``.
 
         Args:
-            map_size (int): The size of the map this area object will handle
-            uuid (UUID): The UUID of the scenario this area belongs to
+            map_size: The size of the map this area object will handle
+            uuid: The UUID of the scenario this area belongs to
         """
         if map_size is None and uuid is None:
             raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
@@ -107,7 +112,7 @@ class Area:
         Associate area with scenario. Saves scenario UUID in this area object.
 
         Args:
-            scenario (AoE2Scenario): The scenario to associate with
+            scenario: The scenario to associate with
         """
         self.uuid = scenario.uuid
 
@@ -138,11 +143,16 @@ class Area:
             Tile(x, y) for y in self.get_range_y() for x in self.get_range_x() if self.is_within_selection(x, y)
         )
 
-    def to_chunks(self) -> List[OrderedSet[Tile]]:
+    def to_chunks(self, separate_by_id: bool = True) -> List[OrderedSet[Tile]]:
         """
         Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
         The separation between chunks is based on if they're connected to each other.
         So the tiles must share an edge (i.e. they should be non-diagonal).
+
+        Args:
+            separate_by_id: Take chunk ids into account when separating chunks. When this is true, separate 'chunks'
+                will not be combined into one when they touch each other. For example, with a line pattern and
+                gap_size=0 when this is False, this will result in one 'chunk' as the lines touch each other.
 
         Returns:
             A list of OrderedSets of Tiles ((x, y) named tuple) of the selection.
@@ -150,12 +160,12 @@ class Area:
         tiles = self.to_coords()
 
         # Shortcut for states that CANNOT be more than one chunk
-        if self.state in [AreaState.FULL, AreaState.EDGE]:
+        if self.state in AreaState.unchunkables():
             return [tiles]
 
         chunks = []
         while len(tiles):
-            chunk = self._get_first_chunk(tiles)
+            chunk = self._get_chunk(tiles[0], tiles, separate_by_id)
             tiles.difference_update(chunk)
             chunks.append(chunk)
         return chunks
@@ -232,9 +242,9 @@ class Area:
         Sets the area object to only use the edge of the selection
 
         Args:
-            line_width (int): The width of the x & y edge line
-            line_width_x (int): The width of the x edge line
-            line_width_y (int): The width of the y edge line
+            line_width: The width of the x & y edge line
+            line_width_x: The width of the x edge line
+            line_width_y: The width of the y edge line
 
         Returns:
             This area object
@@ -248,9 +258,9 @@ class Area:
         Sets the area object to only use the corners  pattern within the selection.
 
         Args:
-            corner_size (int): The size along both the x and y axis of the corner areas
-            corner_size_x (int): The size along the x axis of the corner areas
-            corner_size_y (int): The size along the y axis of the corner areas
+            corner_size: The size along both the x and y axis of the corner areas
+            corner_size_x: The size along the x axis of the corner areas
+            corner_size_y: The size along the y axis of the corner areas
 
         Returns:
             This area object
@@ -272,12 +282,12 @@ class Area:
         Sets the area object to use a grid pattern within the selection.
 
         Args:
-            block_size (int): The size of the gaps between lines
-            gap_size (int): The width of the grid lines
-            block_size_x (int): The size of the x gaps between lines
-            block_size_y (int): The size of the y gaps between lines
-            gap_size_x (int): The width of the x grid lines
-            gap_size_y (int): The width of the y grid lines
+            block_size: The size of the gaps between lines
+            gap_size: The width of the grid lines
+            block_size_x: The size of the x gaps between lines
+            block_size_y: The size of the y gaps between lines
+            gap_size_x: The width of the x grid lines
+            gap_size_y: The width of the y grid lines
 
         Returns:
             This area object
@@ -288,19 +298,21 @@ class Area:
         self.state = AreaState.GRID
         return self
 
-    def use_pattern_lines(self, axis: str = "y", gap_size: int = None, line_width: int = None) -> Area:
+    def use_pattern_lines(self, axis: str = None, gap_size: int = None, line_width: int = None) -> Area:
         """
         Sets the area object to use a lines pattern within the selection.
 
         Args:
-            axis (str): The axis the lines should follow. Can either be "x" or "y"
-            gap_size (int): The size of the gaps between lines
-            line_width (int): The width of the x & y lines
+            axis: The axis the lines should follow. Can either be "x" or "y"
+            gap_size: The size of the gaps between lines
+            line_width: The width of the x & y lines
 
         Returns:
             This area object
         """
-        self.attrs(axis=axis.lower(), gap_size=gap_size, line_width=line_width)
+        if axis is not None:
+            axis = axis.lower()
+        self.attrs(axis=axis, gap_size=gap_size, line_width=line_width)
         self.state = AreaState.LINES
         return self
 
@@ -525,17 +537,21 @@ class Area:
 
     # ============================ Test against ... functions ============================
 
-    def is_within_selection(self, x: int, y: int) -> bool:
+    def is_within_selection(self, x: int = -1, y: int = -1, tile: Tile = None) -> bool:
         """
         If a given (x,y) location is within the selection.
 
         Args:
-            x (int): The X coordinate
-            y (int): The Y coordinate
+            x: The X coordinate
+            y: The Y coordinate
+            tile: A Tile object, replacing the x & y coordinates
 
         Returns:
             True if (x,y) is within the selection, False otherwise
         """
+        if tile is not None:
+            x, y = tile
+
         if not (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
             return False
 
@@ -580,10 +596,10 @@ class Area:
         Calculate the differences in tiles for the 2 points (x1 & x2) or (y1 & y2) when the length of an edge is changed
 
         Args:
-            new_len (int): The new length
-            cur_len (int): The current length
-            first_coord (int): Coord of the first corner (x1 or y1)
-            second_coord (int): Coord of the first corner (x2 or y2)
+            new_len: The new length
+            cur_len: The current length
+            first_coord: Coord of the first corner (x1 or y1)
+            second_coord: Coord of the first corner (x2 or y2)
 
         Returns:
             The differences for the first and second coordinate. Can be negative and positive ints.
@@ -642,24 +658,86 @@ class Area:
             for coord in args
         ]
 
-    def _get_first_chunk(self, tiles: OrderedSet[Tile]) -> OrderedSet[Tile]:
-        tile = tiles[0]
+    def _get_chunk(self, tile: Tile, tiles: OrderedSet[Tile], use_chunk_ids: bool) -> OrderedSet[Tile]:
+        """
+        Finds all tiles within the chunk of the given tile. Separation is based on if the tiles are touching combined
+        with if the tiles have the same chunk ID if use_chunk_ids is True
+
+        Args:
+            tile: The tile to find all other tiles within the chunk from
+            tiles: A set with tiles to choose from
+            use_chunk_ids: If chunk IDs should be taken into consideration when splitting chunks. If set to False,
+                chunks are split based on if they touch each other.
+
+        Returns:
+            A sorted OrderedSet with all tiles within the found chunk
+        """
         queue, found = [tile], OrderedSet([tile])
 
-        i, queue_len = 0, 1
-        while i < queue_len:
+        i = 0
+        while i < len(queue):
             tile = queue[i]
+            chunk_id = self._get_chunk_id(tile) if use_chunk_ids else -1
 
             for step in Area._recursion_steps:  # Adjacent tiles (y-, x+, y+, x-)
                 nt = Tile(tile.x + step.x, tile.y + step.y)
 
+                if use_chunk_ids and self._get_chunk_id(nt) != chunk_id:
+                    continue
                 if nt in found:
                     continue
                 if nt in tiles:
                     found.append(nt)
                     queue.append(nt)
-                    queue_len += 1
             i += 1
         map_size = self._map_size
 
         return OrderedSet(sorted(found, key=lambda t: t.y * map_size + t.x))
+
+    def _get_chunk_id(self, tile: Tile) -> int:
+        """
+        This function gets the Chunk id of a tile based on the current state and configs. The chunk ID identifies which
+        chunk the given tile is in. This is useful for separating chunks that are connected but shouldn't be in the same
+        chunk (like when creating a checker or stripe pattern)
+
+        Args:
+            tile: The tile to check as Tile object
+
+        Returns:
+            The int ID of the chunk, or, -1 when it's not in a selection, or 0 when the selection cannot be split into
+                chunks.
+
+        Raises:
+            ValueError: if the area configuration isn't supported by this function.
+        """
+        if not self.is_within_selection(tile=tile):
+            return -1
+
+        if self.state in AreaState.unchunkables():
+            return 0
+
+        elif self.state == AreaState.GRID:
+            if self.inverted:
+                return 0
+            per_row = math.ceil(self.get_height() / (self.block_size_x + self.gap_size_x))
+            return (tile.x - self.x1) // (self.block_size_x + self.gap_size_x) + \
+                   (tile.y - self.y1) // (self.block_size_y + self.gap_size_y) * per_row
+
+        elif self.state == AreaState.LINES:
+            if self.axis == "x":
+                return (tile.y - self.y1) // (self.line_width_y + self.gap_size_y)
+            elif self.axis == "y":
+                return (tile.x - self.x1) // (self.line_width_x + self.gap_size_x)
+
+        elif self.state == AreaState.CORNERS:
+            # 0 Left, 1 Top, 2 Right, 3 Bottom
+            if self.x1 <= tile.x < self.x1 + self.corner_size_x and self.y1 <= tile.y < self.y1 + self.corner_size_y:
+                return 0
+            if self.x2 - self.corner_size_x < tile.x <= self.x2 and self.y1 <= tile.y < self.y1 + self.corner_size_y:
+                return 1
+            if self.x2 - self.corner_size_x < tile.x <= self.x2 and self.y2 - self.corner_size_y < tile.y <= self.y2:
+                return 2
+            if self.x1 <= tile.x < self.x1 + self.corner_size_x and self.y2 - self.corner_size_y < tile.y <= self.y2:
+                return 3
+        raise ValueError(f"Invalid area configuration for getting the Chunk ID. If you believe this is an error, "
+                         f"please raise an issue on github or in the Discord server")
