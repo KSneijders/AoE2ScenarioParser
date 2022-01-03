@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid, validate_coords
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -172,31 +172,24 @@ class Effect(AoE2Object):
         # Set flags
         self._armour_attack_flag = _set_armour_attack_flag(effect_type, object_attributes)
 
-        # HANDLE ARMOUR EFFECT ATTRIBUTES
+        # Handle armour effect attributes:
+        #   When effect is created through trigger.new_effect, aa values will be -1.
+        #   If created while reading a scenario, they both default to None.
         if self._armour_attack_flag:
-            # If effect created through new_effect
-            if value_is_valid(armour_attack_class) or value_is_valid(armour_attack_quantity):
-                quantity = None
-            # If effect created through reading
-            elif quantity is not None:
+            # If effect created through reading scenario file
+            if quantity is not None and armour_attack_class is None and armour_attack_quantity is None:
                 armour_attack_class, armour_attack_quantity = self._quantity_to_aa(quantity)
                 quantity = None
+            # If effect created through new_effect with aa values defined
+            elif value_is_valid(armour_attack_class) or value_is_valid(armour_attack_quantity):
+                quantity = None
+            # If created through new_effect with quantity defined instead of the aa values. Handled by quantity property
+            else:
+                pass
         else:
             armour_attack_class = armour_attack_quantity = None
 
-        # QoL addition. When selecting a singular tile, no need for the second coords.
-        if area_x2 == -1 and area_x1 != -1:
-            area_x2 = area_x1
-        if area_y2 == -1 and area_y1 != -1:
-            area_y2 = area_y1
-
-        # Fix, not allowed for x1 > x2 & y1 > y2
-        if area_x1 > area_x2:
-            area_x1, area_x2 = area_x2, area_x1
-            warn("Swapping 'area_x1' and 'area_x2' values. Attribute 'area_x1' cannot be higher than 'area_x2'")
-        if area_y1 > area_y2:
-            area_y1, area_y2 = area_y2, area_y1
-            warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
+        area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
 
         if value_is_valid(legacy_location_object_reference):
             location_object_reference = legacy_location_object_reference
@@ -332,6 +325,7 @@ class Effect(AoE2Object):
             warn("Setting 'effect.quantity' directly in an effect that uses armour/attack attributes "
                  "might result in unintended behaviour.\nPlease use the 'effect.armour_attack_quantity' "
                  "and 'effect.armour_attack_class' attributes instead.")
+            self.armour_attack_class, self.armour_attack_quantity = self._quantity_to_aa(value)
         self._quantity = value
 
     @property
@@ -428,7 +422,7 @@ class Effect(AoE2Object):
             # Would use `aa_class << 8` - but apparently multiplication is faster
             return aa_class * 256 + aa_quantity
         elif trigger_version == 2.5:
-            return aa_class * 65535 + aa_quantity
+            return aa_class * 65536 + aa_quantity
 
     def __str__(self):
         return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"

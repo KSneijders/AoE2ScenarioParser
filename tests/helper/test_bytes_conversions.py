@@ -10,7 +10,8 @@ class Test(TestCase):
         self.assertEqual(bytes_to_fixed_chars(b'Test Byte String'), 'Test Byte String')
 
     def test_fixed_chars_to_bytes(self):
-        self.assertEqual(fixed_chars_to_bytes('Test String'), b'Test String')
+        self.assertEqual(fixed_chars_to_bytes('Test String', 11), b'Test String')
+        self.assertEqual(fixed_chars_to_bytes('Test String', 20), b'Test String\x00\x00\x00\x00\x00\x00\x00\x00\x00')
 
     def test_bytes_to_str(self):
         normal = b'Test Byte String'
@@ -78,8 +79,8 @@ class Test(TestCase):
         retriever.datatype = DataType("str16")
         self.assertEqual(parse_val_to_bytes(retriever, "Hello World"), b'\x0c\x00Hello World\x00')
         self.assertEqual(parse_val_to_bytes(retriever, b"Hello World"), b'\x0c\x00Hello World\x00')
-        retriever.datatype = DataType("c20")
-        self.assertEqual(parse_val_to_bytes(retriever, "Hello World"), b'Hello World')
+        retriever.datatype = DataType("c15")
+        self.assertEqual(parse_val_to_bytes(retriever, "Hello World"), b'Hello World\x00\x00\x00\x00')
         retriever.datatype = DataType("20")
         self.assertEqual(parse_val_to_bytes(retriever, b'Direct bytes\x11\xff'), b'Direct bytes\x11\xff')
         retriever.datatype = DataType("f32")

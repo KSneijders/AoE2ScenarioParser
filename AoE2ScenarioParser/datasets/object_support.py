@@ -1,7 +1,9 @@
 from enum import IntEnum
 
+from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
-class StartingAge(IntEnum):
+
+class StartingAge(_DataSetIntEnums):
     DARK_AGE = 2
     FEUDAL_AGE = 3
     CASTLE_AGE = 4
@@ -9,7 +11,7 @@ class StartingAge(IntEnum):
     POST_IMPERIAL_AGE = 6
 
 
-class Civilization(IntEnum):
+class Civilization(_DataSetIntEnums):
     BRITONS = 1
     FRANKS = 2
     GOTHS = 3

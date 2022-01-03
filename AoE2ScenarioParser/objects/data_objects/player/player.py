@@ -1,5 +1,6 @@
 from typing import Optional, List, Union, overload
 
+from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
@@ -14,7 +15,6 @@ class Player(AoE2Object):
         'player_id',
         'starting_age',
         'lock_civ',
-        'population_cap',
         'food',
         'wood',
         'gold',
@@ -26,6 +26,7 @@ class Player(AoE2Object):
         'architecture_set',
     ]
     _object_attributes_non_gaia = [
+        'population_cap',
         'diplomacy',
         'initial_camera_x',
         'initial_camera_y',
@@ -43,7 +44,6 @@ class Player(AoE2Object):
             player_id: int,
             starting_age: int,
             lock_civ: int,
-            population_cap: int,
             food: int,
             wood: int,
             gold: int,
@@ -55,6 +55,7 @@ class Player(AoE2Object):
             architecture_set: int,
 
             # Optionals due to GAIA not having such value
+            population_cap: Optional[int] = None,
             diplomacy: Optional[List[int]] = None,
             initial_camera_x: Optional[int] = None,
             initial_camera_y: Optional[int] = None,
@@ -71,19 +72,19 @@ class Player(AoE2Object):
 
         self._player_id: int = player_id
         self._active: bool = active
-        self.starting_age: int = StartingAge(starting_age)
+        self.starting_age: int = dataset_or_value(StartingAge, starting_age)
         self.lock_civ: bool = bool(lock_civ)
-        self.population_cap: int = population_cap
         self.food: int = food
         self.wood: int = wood
         self.gold: int = gold
         self.stone: int = stone
         self.color: int = color
         self.human: bool = human
-        self.civilization: Union[int, Civilization] = civilization
-        self.architecture_set: Union[int, Civilization] = architecture_set
+        self.civilization: Union[int, Civilization] = dataset_or_value(Civilization, civilization)
+        self.architecture_set: Union[int, Civilization] = dataset_or_value(Civilization, architecture_set)
 
         # Optionals due to GAIA not having such value
+        self.population_cap: Optional[int] = population_cap
         self.diplomacy: Optional[List[int]] = diplomacy
         self.initial_camera_x: Optional[int] = initial_camera_x
         self.initial_camera_y: Optional[int] = initial_camera_y
@@ -92,7 +93,7 @@ class Player(AoE2Object):
         self.disabled_buildings: Optional[List[int]] = disabled_buildings
         self.disabled_units: Optional[List[int]] = disabled_units
         self.tribe_name: Optional[str] = tribe_name
-        self.base_priority: int = base_priority
+        self.base_priority: Optional[int] = base_priority
         self.string_table_name_id: Optional[int] = string_table_name_id
 
     @property

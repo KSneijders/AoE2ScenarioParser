@@ -14,15 +14,15 @@ class TerrainTile(AoE2Object):
         RetrieverObjectLink("terrain_id", "Map", "terrain_data[__index__].terrain_id"),
         RetrieverObjectLink("elevation", "Map", "terrain_data[__index__].elevation"),
         RetrieverObjectLink("layer", "Map", "terrain_data[__index__].layer"),
-        RetrieverObjectLink("index", retrieve_history_number=0),
+        RetrieverObjectLink("_index", retrieve_history_number=0),
     ]
 
-    def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1, index: int = - 1,
+    def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1, _index: int = - 1,
                  **kwargs):
         self.terrain_id = terrain_id
         self.elevation = elevation
         self.layer = layer
-        self._index = index
+        self._index = _index
         self._xy: Optional[Tuple[int, int]] = None
 
         super().__init__(**kwargs)

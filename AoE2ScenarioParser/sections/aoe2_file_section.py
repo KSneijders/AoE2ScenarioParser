@@ -19,6 +19,22 @@ class SectionLevel(Enum):
     STRUCT = 1
 
 
+class SectionName(Enum):
+    FILE_HEADER = "FileHeader"
+    DATA_HEADER = "DataHeader"
+    MESSAGES = "Messages"
+    CINEMATICS = "Cinematics"
+    BACKGROUND_IMAGE = "BackgroundImage"
+    PLAYER_DATA_TWO = "PlayerDataTwo"
+    GLOBAL_VICTORY = "GlobalVictory"
+    DIPLOMACY = "Diplomacy"
+    OPTIONS = "Options"
+    MAP = "Map"
+    UNITS = "Units"
+    TRIGGERS = "Triggers"
+    FILES = "Files"
+
+
 class AoE2FileSection:
     def __init__(self, name, retriever_map, host_uuid, struct_models=None, level=SectionLevel.TOP_LEVEL):
         if struct_models is None:
@@ -38,7 +54,7 @@ class AoE2FileSection:
 
         Args:
             model (AoE2StructModel): The model to copy from
-            host_uuid (str): String representing host scenario
+            host_uuid (UUID): String representing host scenario
             set_defaults (bool): If retrievers need to be set to the default values
 
         Returns:

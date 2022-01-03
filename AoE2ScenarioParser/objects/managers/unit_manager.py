@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Union
+from typing import List, Union, Tuple
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -53,14 +53,16 @@ class UnitManager(AoE2Object):
     def add_unit(self,
                  player: Union[int, PlayerId],
                  unit_const: int,
-                 x: float,
-                 y: float,
+                 x: float = 0,
+                 y: float = 0,
                  z: float = 0,
                  rotation: float = 0,
                  garrisoned_in_id: int = -1,
                  animation_frame: int = 0,
                  status: int = 2,
-                 reference_id: int = None, ) -> Unit:
+                 reference_id: int = None,
+                 tile: Tile | Tuple[int, int] = None,
+                 ) -> Unit:
         """
         Adds a unit to the scenario.
 
@@ -76,6 +78,9 @@ class UnitManager(AoE2Object):
             status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
+            tile: An object that represents a tile on the map. Replaces parameters x and y. Also automatically adds
+                .5 to both ints to place the unit centered on the tile.
+
         Returns:
             The Unit created
         """
@@ -84,8 +89,8 @@ class UnitManager(AoE2Object):
 
         unit = Unit(
             player=player,
-            x=x,
-            y=y,
+            x=x if tile is None else (tile[0] + .5),
+            y=y if tile is None else (tile[1] + .5),
             z=z,
             reference_id=reference_id,
             unit_const=unit_const,

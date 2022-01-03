@@ -18,6 +18,7 @@ from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
@@ -56,6 +57,8 @@ class AoE2Scenario:
 
         self.uuid = uuid.uuid4()
         store.register_scenario(self)
+
+        self.new = ObjectFactory(self.uuid)
 
     @classmethod
     def from_file(cls, filename, game_version):
@@ -165,7 +168,7 @@ class AoE2Scenario:
             f.write(binary + compressed)
 
         s_print("File writing finished successfully.", final=True)
-        s_print(f"File successfully written to: '{filename}'", color="magenta")
+        s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)

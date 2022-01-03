@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.29 - 2022-January-03
+
+**Happy new year!**
+
+### Added
+
+- **The `Area` object! A powerful object for area management!**
+  - You can find the `Area` cheatsheet [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/area/)!
+- `tile` parameter to add_unit (Overwrites given x & y values)
+- `SectionName` enum for easier access to scenario sections
+
+### Fixed
+
+- Issue with reading armor/attack values in some effects.
+- (Possibly) Worked around issue caused by a bug in Python from 3.8.6 to 3.9.1 (Fixed in 3.9.2)
+- Renamed `TerrainTile` attribute `index` to `_index` (Index value should be retrieved through the attribute: `i`)
+- Issue where `typing_extensions` wasn't downloaded automatically through pypi (pip)
+- Final print statement not ending with a newline
+
+### Changed
+
+- `i_to_xy` function returns named tuple. Can now **also** access the coords using `.x` and `.y`
+- `Tile` object to be (simple) (x, y) `NamedTuple` instead of an entire object
+  - Note: This is not about `TerrainTile` objects from the Map Manager.
+
+---
+
 ## 0.1.28 - 2021-November-19
 
 ### Added
