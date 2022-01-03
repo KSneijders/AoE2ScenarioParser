@@ -142,7 +142,7 @@ class TestArea(TestCase):
         self.assertEqual((4, 4), self.area.get_center())
         self.area.select(3, 3, 6, 6)
         self.assertEqual((4.5, 4.5), self.area.get_center())
-        self.assertEqual((4, 4), self.area.get_center_int())
+        self.assertEqual((5, 5), self.area.get_center_int())
 
         self.area.select(3, 3, 5, 5).center(8, 8)
         self.assertEqual((8.0, 8.0), self.area.get_center())
@@ -151,6 +151,9 @@ class TestArea(TestCase):
         self.area.select(5, 10, 20, 20).center(5, 0)
         self.assertEqual((6.0, 2.5), self.area.get_center())
         self.assertEqual(((0, 0), (12, 5)), self.area.get_selection())
+
+        self.area.select_centered(5, 5, 4, 4)
+        self.assertEqual((5, 5), self.area.get_center_int())
 
     def test_area_center_bound(self):
         self.area.select(3, 3, 5, 5).center_bounded(8, 8)

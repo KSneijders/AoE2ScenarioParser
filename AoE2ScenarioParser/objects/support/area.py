@@ -182,7 +182,7 @@ class Area:
             chunks.append(self._tiles_to_terrain_tiles(chunk) if as_terrain else chunk)
         return chunks
 
-    def to_dict(self, prefix="area_") -> Dict[str, int]:
+    def to_dict(self, prefix: str ="area_") -> Dict[str, int]:
         """
         Converts the 2 corners of the selection to area keys for use in effects etc.
         This can be used by adding double stars (**) before this function.
@@ -211,8 +211,8 @@ class Area:
         return (self.x1 + self.x2) / 2, (self.y1 + self.y2) / 2
 
     def get_center_int(self) -> Tuple[int, int]:
-        """Get center of current selection, coords can only be integers. If even length, the value is floored"""
-        return math.floor((self.x1 + self.x2) / 2), math.floor((self.y1 + self.y2) / 2)
+        """Get center of current selection, coords can only be integers. If even length, the value is ceiled"""
+        return math.ceil((self.x1 + self.x2) / 2), math.ceil((self.y1 + self.y2) / 2)
 
     def get_range_x(self) -> range:
         """Returns a range object for the x coordinates."""
@@ -255,7 +255,7 @@ class Area:
 
     def use_only_corners(self, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area:
         """
-        Sets the area object to only use the corners  pattern within the selection.
+        Sets the area object to only use the corners pattern within the selection.
 
         Args:
             corner_size: The size along both the x and y axis of the corner areas

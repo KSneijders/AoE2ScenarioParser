@@ -264,62 +264,480 @@ for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
 
 ### Functions
 
+In this section the functions are shown. This will **eventually** be replaced by a proper API doc for everything. But 
+until then, this will have to do. Enjoy!
 
-In this section the functions are shown very briefly. This will **eventually** be replaced by a proper API doc, but 
-until then, this will have to do. For the documentation on how they work and what the arguments mean, please see the 
-docstrings in your editor. Sorry :(
+#### Functions to convert to other datatype:
 
-**Functions to convert to other datatype:**
+.to_coords(as_terrain)
 
- * `to_coords(as_terrain:bool=False) -> OrderedSet[Tile | 'TerrainTile']`
- * `to_chunks(self, as_terrain:bool = False, separate_by_id:bool = True) -> List[OrderedSet[Tile | 'TerrainTile']]`
- * `to_dict(prefix = "area_") -> Dict[str, int]`
+Converts the selection to an OrderedSet of (x, y) coordinates
 
-**Functions to get information from the `Area` object:**
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|as_terrain| bool | False|If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinatesare returned as TerrainTiles.|
 
- * `get_selection() -> Tuple[Tuple[int, int], Tuple[int, int]]`
- * `get_center() -> Tuple[float, float]`
- * `get_center_int() -> Tuple[int, int]`
- * `get_range_x() -> range`
- * `get_range_y() -> range`
- * `get_width() -> int`
- * `get_height() -> int`
+Returns: `OrderedSet[Tile | 'TerrainTile']`
 
-**Functions to set what pattern/selection format to use:**
+---
 
- * `use_full() -> Area`
- * `use_only_edge(line_width:int = None, line_width_x:int = None, line_width_y:int = None) -> Area`
- * `use_only_corners(corner_size:int = None, corner_size_x:int = None, corner_size_y:int = None) -> Area`
- * `use_pattern_grid(self, block_size:int = None, gap_size:int = None, block_size_x:int = None, block_size_y:int=None, gap_size_x:int=None, gap_size_y:int=None) -> Area`
- * `use_pattern_lines(axis:str=None, gap_size:int=None, line_width:int=None) -> Area`
+.to_chunks(as_terrain, separate_by_id)
 
-**Functions to change the selection in one way or another:**
+Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates. The separation between chunks is based on if they're connected to each other. So the tiles must share an edge (i.e. they should be non-diagonal).
 
- * `invert() -> Area`
- * `along_axis(axis:str) -> Area`
- * `attr(key:str|AreaAttr, value:int) -> Area`
- * `attrs(self, x1:int=None, y1:int=None, x2:int=None, y2:int=None, gap_size:int=None, gap_size_x:int=None, gap_size_y:int=None, line_width:int=None, line_width_x:int=None, line_width_y:int=None, axis:str=None, corner_size:int=None, corner_size_x:int=None, corner_size_y:int=None, block_size:int=None, block_size_x:int=None, block_size_y:int=None, ) -> Area`
- * `size(n:int) -> Area`
- * `height(n:int) -> Area`
- * `width(n:int) -> Area`
- * `center(x:int, y:int) -> Area`
- * `center_bounded(x:int, y:int) -> Area`
- * `select_entire_map() -> Area`
- * `select(x1:int, y1:int, x2:int=None, y2:int=None) -> Area`
- * `select_centered(x:int, y:int, dx:int=1, dy:int=1) -> Area`
- * `shrink(n:int) -> Area`
- * `shrink_x1(n:int) -> Area`
- * `shrink_y1(n:int) -> Area`
- * `shrink_x2(n:int) -> Area`
- * `shrink_y2(n:int) -> Area`
- * `expand(n:int) -> Area`
- * `expand_x1(n:int) -> Area`
- * `expand_y1(n:int) -> Area`
- * `expand_x2(n:int) -> Area`
- * `expand_y2(n:int) -> Area`
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|as_terrain| bool | False|If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinatesare returned as TerrainTiles.|
+|separate_by_id| bool | True|Take chunk ids into account when separating chunks. When this is true, separate 'chunks'will not be combined into one when they touch each other. For example, with a line pattern andgap_size=0 when this is False, this will result in one 'chunk' as the lines touch each other.|
 
-**Other relevant functions:**
+Returns: `List[OrderedSet[Tile | 'TerrainTile']]`
 
- * `associate_scenario(scenario:AoE2Scenario) -> None`
- * `is_within_selection(x:int=-1, y:int=-1, tile:Tile=None) -> bool`
- * `copy() -> Area`
+---
+
+.to_dict(prefix)
+
+Converts the 2 corners of the selection to area keys for use in effects etc. This can be used by adding double stars (**) before this function.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|prefix|str|"area_"|The prefix of the string before 'x1' (e.g. prefix="coord_" will result in: "coord_x1" as key)|
+
+Returns: `Dict[str, int]`
+
+#### Functions to get information from the `Area` object:
+
+.get_selection()
+
+Get the four values of the selection as: ((x1, y1), (x2, y2))
+
+Returns: `Tuple[Tuple[int, int], Tuple[int, int]]`
+
+---
+
+.get_center()
+
+Get center of current selection
+
+Returns: `Tuple[float, float]`
+
+---
+
+.get_center_int()
+
+Get center of current selection, coords can only be integers. If even length, the value is ceiled
+
+Returns: `Tuple[int, int]`
+
+---
+
+.get_range_x()
+
+Returns a range object for the x coordinates.
+
+Returns: `range`
+
+---
+
+.get_range_y()
+
+Returns a range object for the y coordinates.
+
+Returns: `range`
+
+---
+
+.get_width()
+
+Returns the length of the x side of the selection.
+
+Returns: `int`
+
+---
+
+.get_height()
+
+Returns the length of the y side of the selection.
+
+Returns: `int`
+
+#### Functions to set what pattern/selection format to use:
+
+.use_full()
+
+Sets the area object to use the entire selection
+
+Returns: `Area`
+
+---
+
+.use_only_edge(line_width, line_width_x, line_width_y)
+
+Sets the area object to only use the edge of the selection
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|line_width| int | None|The width of the x & y edge line|
+|line_width_x| int | None|The width of the x edge line|
+|line_width_y| int | None|The width of the y edge line|
+
+Returns: `Area`
+
+---
+
+.use_only_corners(corner_size, corner_size_x, corner_size_y)
+
+Sets the area object to only use the corners pattern within the selection.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|corner_size| int | None|The size along both the x and y axis of the corner areas|
+|corner_size_x| int | None|The size along the x axis of the corner areas|
+|corner_size_y| int | None|The size along the y axis of the corner areas|
+
+Returns: `Area`
+
+---
+
+.use_pattern_grid(block_size, gap_size, block_size_x, block_size_y, gap_size_x, gap_size_y)
+
+Sets the area object to use a grid pattern within the selection.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|block_size| int | None|The size of the gaps between lines|
+|gap_size| int | None|The width of the grid lines|
+|block_size_x| int | None|The size of the x gaps between lines|
+|block_size_y| int | None|The size of the y gaps between lines|
+|gap_size_x| int | None|The width of the x grid lines|
+|gap_size_y| int | None|The width of the y grid lines|
+
+Returns: `Area`
+
+---
+
+.use_pattern_lines(axis, gap_size, line_width)
+
+Sets the area object to use a lines pattern within the selection.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|axis| str | None|The axis the lines should follow. Can either be "x" or "y"|
+|gap_size| int | None|The size of the gaps between lines|
+|line_width| int | None|The width of the x & y lines|
+
+Returns: `Area`
+
+#### Functions to change the selection in one way or another:
+
+.invert()
+
+Inverts the inverted boolean. Causes the `to_coords` to return the inverted selection. (Especially useful for the grid state. Not as useful for the edge which would be the same as shrinking the selection. When used with the fill state an empty set is returned.
+
+Returns: `Area`
+
+---
+
+.along_axis(axis)
+
+Sets the axis. Can be either "x" or "y".
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|axis| str|-|-|
+
+Returns: `Area`
+
+---
+
+.attr(key, value)
+
+Sets the attribute to the given value. AreaAttr or str can be used as key
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|key| str | AreaAttr|-|-|
+|value| int|-|-|
+
+Returns: `Area`
+
+---
+
+.attrs(x1, y1, x2, y2, gap_size, gap_size_x, gap_size_y, line_width, line_width_x, line_width_y, axis, corner_size, corner_size_x, corner_size_y, block_size, block_size_x, block_size_y)
+
+Sets multiple attributes to the corresponding values.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|x1| int | None|-|
+|y1| int | None|-|
+|x2| int | None|-|
+|y2| int | None|-|
+|gap_size| int | None|-|
+|gap_size_x| int | None|-|
+|gap_size_y| int | None|-|
+|line_width| int | None|-|
+|line_width_x| int | None|-|
+|line_width_y| int | None|-|
+|axis| str | None|-|
+|corner_size| int | None|-|
+|corner_size_x| int | None|-|
+|corner_size_y| int | None|-|
+|block_size| int | None|-|
+|block_size_x| int | None|-|
+|block_size_y| int | None|-|
+
+Returns: `Area`
+
+---
+
+.size(n)
+
+ Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become ``((3,3), (5,5))`` 
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.height(n)
+
+ Sets the height (y axis) of the selection. Shrinks/Expands both sides equally. If the expansion hits the edge of the map, it'll expand on the other side. 
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.width(n)
+
+ Sets the width (x axis) of the selection. Shrinks/Expands both sides equally. If the expansion hits the edge of the map, it'll expand on the other side. 
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.center(x, y)
+
+Moves the selection center to a given position. When the given center forces the selection of the edge of the map, the selection is moved to that position and all tiles that are out of the map are removed from the selection, effectively decreasing the selection size.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|x| int|-|-|
+|y| int|-|-|
+
+Returns: `Area`
+
+---
+
+.center_bounded(x, y)
+
+ Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge of the map. The selection will be forced against the edge of the map but the selection will not be decreased. 
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|x| int|-|-|
+|y| int|-|-|
+
+Returns: `Area`
+
+---
+
+.select_entire_map()
+
+Sets the selection to the entire map
+
+Returns: `Area`
+
+---
+
+.select(x1, y1, x2, y2)
+
+Sets the selection to the given coordinates
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|x1| int|-|-|
+|y1| int|-|-|
+|x2| int | None|-|
+|y2| int | None|-|
+
+Returns: `Area`
+
+---
+
+.select_centered(x, y, dx, dy)
+
+Sets the selection to the given coordinates
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|x| int|-|-|
+|y| int|-|-|
+|dx| int | 1|-|
+|dy| int | 1|-|
+
+Returns: `Area`
+
+---
+
+.shrink(n)
+
+Shrinks the selection from all sides
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.shrink_x1(n)
+
+Shrinks the selection from the first corner on the X axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.shrink_y1(n)
+
+Shrinks the selection from the first corner on the Y axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.shrink_x2(n)
+
+Shrinks the selection from the second corner on the X axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.shrink_y2(n)
+
+Shrinks the selection from the second corner on the Y axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.expand(n)
+
+Expands the selection from all sides
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.expand_x1(n)
+
+Expands the selection from the first corner on the X axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.expand_y1(n)
+
+Expands the selection from the first corner on the Y axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.expand_x2(n)
+
+Expands the selection from the second corner on the X axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.expand_y2(n)
+
+Expands the selection from the second corner on the Y axis by n
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|n| int|-|-|
+
+Returns: `Area`
+
+---
+
+.is_within_selection(x, y, tile)
+
+If a given (x,y) location is within the selection.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|x| int | -1|The X coordinate|
+|y| int | -1|The Y coordinate|
+|tile| Tile | None|A Tile object, replacing the x & y coordinates|
+
+Returns: `bool`
+
+#### Other relevant functions:
+
+.associate_scenario(scenario)
+
+Associate area with scenario. Saves scenario UUID in this area object.
+
+|Parameter|Type|Default|Description|
+|-|-|-|-|
+|scenario| AoE2Scenario|-|The scenario to associate with|
+
+Returns: `None`
+
+---
+
+.copy()
+
+Copy this instance of an Area. Useful for when you want to do multiple extractions (to_...) from the same source with small tweaks.
+
+Returns: `Area`
