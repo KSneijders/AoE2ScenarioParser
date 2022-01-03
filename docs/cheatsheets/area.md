@@ -146,24 +146,18 @@ And that's it! The castle has walls around it. With such ease!
 So, let's say we want to create a checkers pattern. 
 Where we create squares of ice and black terrain alternately.
 To do this we basically need all tiles on the map but in separate squares.
-So selecting the entire map won't help here as we want them all separated.
+So selecting the entire map alone isn't enough here as we want them all separated.
 
 So, what we want is blocks of 3x3 over the course of the map. 
 The map we're reading is a tiny 2 player map which has a size of 120 by 120 tiles.
 
-There's many ways to go about this, so this is just one solution.
-We're going to be using two 'layers' of `Area` objects by (sort of) 'nesting' them. 
-So, my plan is, use the grid function in the `Area` object to get the coordinates of where each area should go.
-Then use those to create more `Area` objects which will expand their selection to match the 3x3.
+What we'll do is select the entire map and use the grid pattern. 
+Then we use a block size of 3 and a gap size of 0. This way we get 3x3 areas.
 
-![Grid to area_blocks](./../images/area_grid_to_blocks.png "area grid to blocks")
-
-So to explain the image above, these 3 squares represent the map, instead of 120 by 120 tiles it's 12 by 12 to make it 
-easier to visualize.
-First we select tiles in a grid (first square). We'll use a distance between tiles of 2. 
-Then we'll create `Area` objects per tile. This way we can easily modify each 3x3 square separately.
-After that we'll expand the selections of all `Area` objects by 2 in the x2 and y2 direction (square 2).
-Finally, we can use the 3x3 `Area` objects to get the terrain tiles and change their terrain.
+Though, we cannot use the `area.to_coords()` function we used before. 
+The reason for that is because the function returns all tiles in the selection. 
+And because we use all tiles in the map, this function will just return a large list of all tiles.
+What we need for this is: `area.to_chunks()`. Let's get started and see how it works!
 
 Alright, first, let's create the main `Area` object and select the entire map. 
 
@@ -172,67 +166,65 @@ area = scenario.new.area()
 area.select_entire_map()
 ```
 
-After that, let's set it so that it uses the grid pattern
+After that, let's set it so that it uses the grid pattern. You can do this in two ways:
 
 ```py
+# Append to the same line
+area = scenario.new.area()
 area.select_entire_map().use_pattern_grid()
+
+# Or add it after the last line
+area = scenario.new.area()
+area.select_entire_map()
+area.use_pattern_grid()
 ```
 
-Now this would be default return a grid with gaps of 1 and blocks of 1x1. Which would look like this:
+Now this would be default return a grid with gaps of 1 and blocks of 1x1. We want blocks of 3x3 and no gaps (gap of 0).
+Below you can see the steps and the difference these configurations have:
 
 ![Area grid 1x1 example](./../images/area_grid_1x1_example.png "Area grid 1x1 example")
 
-We want blocks of 1x1 but a gap of 2. So let's add a configuration to the function, we can do this in four ways, choose 
-the one you like the most (We continue with the first option):
+Now that we know what we want, we can add some configuration to the function, we can do this in four ways, choose 
+the one you like the most (We'll continue with the first option):
 
 ```py
 # For the third option:
 from AoE2ScenarioParser.objects.support.area import AreaAttr
 
 ...
-use_pattern_grid(gap_size=2)
+area.use_pattern_grid(block_size=3, gap_size=0)
 ...
-use_pattern_grid().attr('gap_size', 2)
+area.use_pattern_grid().attr('block_size', 3)
+area.use_pattern_grid().attr('gap_size', 0)
 ...
-use_pattern_grid().attr(AreaAttr.GAP_SIZE, 2)
+area.use_pattern_grid().attr(AreaAttr.BLOCK_SIZE, 3)
+area.use_pattern_grid().attr(AreaAttr.GAP_SIZE, 0)
 ...
-use_pattern_grid().attrs(gap_size=2)
+area.use_pattern_grid().attrs(block_size=3, gap_size=0)
 ```
 
 !!! Tip "You can differentiate the X and Y"
     In many functions you can use the general option like `gap_size`. 
     But there's also options for `gap_size_x` and `gap_size_y` if you want different selections.
 
-Now that we have the grid, let's create area objects for each grid tile. 
+Now that we have the grid, let's add the final piece where we change the terrain itself. 
+We can use the function `to_chunks()` to return our grid as 'chunks'.
+
+Chunks will be returned in a list and every chunk will be returned as an `OrderedSet`.
+These `OrderedSet`s will contain `Tile` objects by default. These objects just contain their `x` and `y` values.
+We can change this behaviour with the `as_terrain` parameter. 
+Setting this to `True` will return the `OrderedSet`s with `TerrainTile` objects. 
+These objects allow you to directly change the terrain on this tile. 
+These are also the same objects returned by the Map Manager.
 
 ```py
-squares = []
-for tile in area.to_coords():
-    squares.append(scenario.new.area().select(tile.x, tile.y))
-```
-
-Now each tile from the grid (earlier first square) has its own Area object that has selected a 1x1 area.
-We can also expand that selection by 2 to the x2 and y2 sides. Let's add it into the loop:
-
-```py
-squares = []
-for tile in area.to_coords():
-    squares.append(
-        scenario.new.area().select(tile.x, tile.y).expand_x2(2).expand_y2(2)
-    )
-```
-
-Now let's add the final piece where we change the terrain itself. We can use a function called `to_terrain_tiles()` to
-directly retrieve the tiles themselves. This way we can, for example, immediately edit the terrain ids.
-
-```py
-for index, square in enumerate(squares):
-    for terrain_tile in square.to_terrain_tiles():
+for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
+    for terrain_tile in chunk:
         terrain_tile.terrain_id = TerrainId.BLACK if index % 2 == 0 else TerrainId.ICE
 ```
 
-So the code above loops through all the 3x3 squares. 
-Then for each square it loops through all the terrain tiles retrieved using `area.to_terrain_tiles()`.
+So the code above loops through all the 3x3 squares returned by the `to_chunks` function.
+Then for each square it loops through all the terrain tiles in the `OrderedSet`.
 We then set the terrain to `BLACK` or `ICE` depending on the index reduced by modulo 2.
 This will alternate the tiles between the two terrain types.
 
@@ -242,9 +234,9 @@ it to create lines instead of alternating each row. We can fix this by adding th
 by modulo 2 to get our ideal situation. 
 
 ```py
-for index, square in enumerate(squares):
-    row = index // squares_per_row
-    for terrain_tile in square.to_terrain_tiles():
+for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
+    for terrain_tile in chunk:
+        row = index // (map_manager.map_size / 3)  # 3 as the size of the grid blocks
         terrain_tile.terrain_id = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
 ```
 
@@ -257,30 +249,16 @@ code above.
 The entire code block for this example:
 
 ```py
-squares_per_row = math.floor(map_manager.map_size / 3)
 area = scenario.new.area()
-area.select_entire_map().use_pattern_grid(gap_size=2)
+area.select_entire_map().use_pattern_grid(block_size=3, gap_size=0)
 
-squares: List[Area] = []
-for tile in area.to_coords():
-    squares.append(
-        scenario.new.area().select(tile.x, tile.y).expand_x2(2).expand_y2(2)
-    )
-
-for index, square in enumerate(squares):
-    row = index // squares_per_row
-    for terrain_tile in square.to_terrain_tiles():
+for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
+    for terrain_tile in chunk:
+        row = index // (map_manager.map_size / 3)  # 3 as the size of the grid blocks
         terrain_tile.terrain_id = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
 ```
 
 ---
-
-### Grid with border
-
-This example will showcase the usage of the `copy` functionality. 
-
----
-
 
 ## API
 
@@ -293,62 +271,55 @@ docstrings in your editor. Sorry :(
 
 **Functions to convert to other datatype:**
 
-* `to_coords() -> OrderedSet[Tile]`
-* `to_terrain_tiles() -> OrderedSet['TerrainTile']`
-* `to_dict() -> Dict[str, int]`
-
----
+ * `to_coords(as_terrain:bool=False) -> OrderedSet[Tile | 'TerrainTile']`
+ * `to_chunks(self, as_terrain:bool = False, separate_by_id:bool = True) -> List[OrderedSet[Tile | 'TerrainTile']]`
+ * `to_dict(prefix = "area_") -> Dict[str, int]`
 
 **Functions to get information from the `Area` object:**
 
-* `get_selection() -> Tuple[Tuple[int, int], Tuple[int, int]]`
-* `get_center() -> Tuple[float, float]`
-* `get_center_int() -> Tuple[int, int]`
-* `get_range_x() -> range`
-* `get_range_y() -> range`
-* `get_width() -> int`
-* `get_height() -> int`
-
----
+ * `get_selection() -> Tuple[Tuple[int, int], Tuple[int, int]]`
+ * `get_center() -> Tuple[float, float]`
+ * `get_center_int() -> Tuple[int, int]`
+ * `get_range_x() -> range`
+ * `get_range_y() -> range`
+ * `get_width() -> int`
+ * `get_height() -> int`
 
 **Functions to set what pattern/selection format to use:**
 
-* `use_full() -> Area`
-* `use_only_edge(line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> Area`
-* `use_only_corners(corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
-* `use_pattern_grid(gap_size: int = None, line_width: int = None, gap_size_x: int = None`
-* `use_pattern_lines(axis: str, gap_size: int = None, line_width: int = None) -> Area`
-
----
+ * `use_full() -> Area`
+ * `use_only_edge(line_width:int = None, line_width_x:int = None, line_width_y:int = None) -> Area`
+ * `use_only_corners(corner_size:int = None, corner_size_x:int = None, corner_size_y:int = None) -> Area`
+ * `use_pattern_grid(self, block_size:int = None, gap_size:int = None, block_size_x:int = None, block_size_y:int=None, gap_size_x:int=None, gap_size_y:int=None) -> Area`
+ * `use_pattern_lines(axis:str=None, gap_size:int=None, line_width:int=None) -> Area`
 
 **Functions to change the selection in one way or another:**
 
-* `invert() -> Area`
-* `along_axis(axis: str) -> Area`
-* `attr(key: Union[str, AreaAttr], value: int) -> Area`
-* `attrs(x1: int = None, y1: int = None, x2: int = None, y2: int = None, gap_size: int = None, line_width: int = None, gap_size_x: int = None, gap_size_y: int = None, line_width_x: int = None, line_width_y: int = None, axis: str = None, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area`
-* `size(n: int) -> Area`
-* `height(n: int) -> Area`
-* `width(n: int) -> Area`
-* `center(x: int, y: int) -> Area`
-* `center_bounded(x: int, y: int) -> Area`
-* `select_entire_map() -> Area`
-* `select(x1: int, y1: int, x2: int = None, y2: int = None) -> Area`
-* `select_centered(x: int, y: int, dx: int = 1, dy: int = 1) -> Area`
-* `shrink(n: int) -> Area`
-* `shrink_x1(n: int) -> Area`
-* `shrink_y1(n: int) -> Area`
-* `shrink_x2(n: int) -> Area`
-* `shrink_y2(n: int) -> Area`
-* `expand(n: int) -> Area`
-* `expand_x1(n: int) -> Area`
-* `expand_y1(n: int) -> Area`
-* `expand_x2(n: int) -> Area`
-* `expand_y2(n: int) -> Area`
-
----
+ * `invert() -> Area`
+ * `along_axis(axis:str) -> Area`
+ * `attr(key:str|AreaAttr, value:int) -> Area`
+ * `attrs(self, x1:int=None, y1:int=None, x2:int=None, y2:int=None, gap_size:int=None, gap_size_x:int=None, gap_size_y:int=None, line_width:int=None, line_width_x:int=None, line_width_y:int=None, axis:str=None, corner_size:int=None, corner_size_x:int=None, corner_size_y:int=None, block_size:int=None, block_size_x:int=None, block_size_y:int=None, ) -> Area`
+ * `size(n:int) -> Area`
+ * `height(n:int) -> Area`
+ * `width(n:int) -> Area`
+ * `center(x:int, y:int) -> Area`
+ * `center_bounded(x:int, y:int) -> Area`
+ * `select_entire_map() -> Area`
+ * `select(x1:int, y1:int, x2:int=None, y2:int=None) -> Area`
+ * `select_centered(x:int, y:int, dx:int=1, dy:int=1) -> Area`
+ * `shrink(n:int) -> Area`
+ * `shrink_x1(n:int) -> Area`
+ * `shrink_y1(n:int) -> Area`
+ * `shrink_x2(n:int) -> Area`
+ * `shrink_y2(n:int) -> Area`
+ * `expand(n:int) -> Area`
+ * `expand_x1(n:int) -> Area`
+ * `expand_y1(n:int) -> Area`
+ * `expand_x2(n:int) -> Area`
+ * `expand_y2(n:int) -> Area`
 
 **Other relevant functions:**
 
-* `is_within_selection(x: int, y: int) -> bool`
-* `copy()`
+ * `associate_scenario(scenario:AoE2Scenario) -> None`
+ * `is_within_selection(x:int=-1, y:int=-1, tile:Tile=None) -> bool`
+ * `copy() -> Area`

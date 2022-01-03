@@ -127,10 +127,9 @@ class TestArea(TestCase):
     def test_area_to_terrain_tiles(self):
         self.area.associate_scenario(SCN)
         self.area.select(1, 1, 2, 2)
-        self.maxDiff = None
         self.assertSetEqual(
             set(MM.terrain[6:8] + MM.terrain[11:13]),
-            self.area.to_terrain_tiles()
+            self.area.to_coords(as_terrain=True)
         )
 
     def test_area_selection(self):

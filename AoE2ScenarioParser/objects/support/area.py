@@ -123,9 +123,13 @@ class Area:
 
     # ============================ Conversion functions ============================
 
-    def to_coords(self) -> OrderedSet[Tile]:
+    def to_coords(self, as_terrain: bool = False) -> OrderedSet[Tile | 'TerrainTile']:
         """
         Converts the selection to an OrderedSet of (x, y) coordinates
+
+        Args:
+            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
+                are returned as TerrainTiles.
 
         Returns:
             An OrderedSet of Tiles ((x, y) named tuple) of the selection.
@@ -139,17 +143,24 @@ class Area:
                     ...,   (4,5), (5,5)
                 ]
         """
-        return OrderedSet(
+        tiles = OrderedSet(
             Tile(x, y) for y in self.get_range_y() for x in self.get_range_x() if self.is_within_selection(x, y)
         )
+        return self._tiles_to_terrain_tiles(tiles) if as_terrain else tiles
 
-    def to_chunks(self, separate_by_id: bool = True) -> List[OrderedSet[Tile]]:
+    def to_chunks(
+            self,
+            as_terrain: bool = False,
+            separate_by_id: bool = True
+    ) -> List[OrderedSet[Tile | 'TerrainTile']]:
         """
         Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
         The separation between chunks is based on if they're connected to each other.
         So the tiles must share an edge (i.e. they should be non-diagonal).
 
         Args:
+            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
+                are returned as TerrainTiles.
             separate_by_id: Take chunk ids into account when separating chunks. When this is true, separate 'chunks'
                 will not be combined into one when they touch each other. For example, with a line pattern and
                 gap_size=0 when this is False, this will result in one 'chunk' as the lines touch each other.
@@ -167,20 +178,9 @@ class Area:
         while len(tiles):
             chunk = self._get_chunk(tiles[0], tiles, separate_by_id)
             tiles.difference_update(chunk)
-            chunks.append(chunk)
+
+            chunks.append(self._tiles_to_terrain_tiles(chunk) if as_terrain else chunk)
         return chunks
-
-    def to_terrain_tiles(self) -> OrderedSet['TerrainTile']:
-        """
-        Converts the selection to an OrderedSet of terrain tile objects from the map manager.
-        Can only be used if the area has been associated with a scenario (created through map manager)
-
-        Returns:
-            An OrderedSet of terrain tiles from the map manager based on the selection.
-        """
-        self._force_association()
-        terrain = getters.get_terrain(self.uuid)
-        return OrderedSet(terrain[xy_to_i(x, y, self._map_size + 1)] for (x, y) in self.to_coords())
 
     def to_dict(self, prefix="area_") -> Dict[str, int]:
         """
@@ -570,7 +570,7 @@ class Area:
 
     # ============================ Miscellaneous functions ============================
 
-    def copy(self):
+    def copy(self) -> Area:
         """
         Copy this instance of an Area. Useful for when you want to do multiple extractions (to_...) from the same source
         with small tweaks.
@@ -657,6 +657,19 @@ class Area:
             (self._map_size + coord + 1) if coord and coord < 0 else coord
             for coord in args
         ]
+
+    def _tiles_to_terrain_tiles(self, tiles: OrderedSet[Tile]) -> OrderedSet['TerrainTile']:
+        """
+        Converts the selection to an OrderedSet of terrain tile objects from the map manager.
+        Can only be used if the area has been associated with a scenario.
+
+        Returns:
+            An OrderedSet of terrain tiles from the map manager based on the selection.
+        """
+        self._force_association()
+        terrain = getters.get_terrain(self.uuid)
+        map_size = self._map_size
+        return OrderedSet(terrain[xy_to_i(x, y, map_size + 1)] for (x, y) in tiles)
 
     def _get_chunk(self, tile: Tile, tiles: OrderedSet[Tile], use_chunk_ids: bool) -> OrderedSet[Tile]:
         """
