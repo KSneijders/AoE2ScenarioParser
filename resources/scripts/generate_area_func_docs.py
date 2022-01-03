@@ -124,6 +124,8 @@ for decorator, name, definition, return_type, doc_str in regex_findall_result:
             else:
                 param_type, param_def = right_side, '-'
 
+            param_type = param_type.replace('|', '\\|')
+
             f_param_table_end.append([param_name, param_type, param_def, ""])
 
         if "Args:" in args_etc:

@@ -469,7 +469,7 @@ Sets the attribute to the given value. AreaAttr or str can be used as key
 
 |Parameter|Type|Default|Description|
 |-|-|-|-|
-|key| str | AreaAttr|-|-|
+|key| str \| AreaAttr|-|-|
 |value| int|-|-|
 
 Returns: `Area`
@@ -724,6 +724,10 @@ Returns: `Area`
 
 ---
 
+#### Other relevant functions:
+
+---
+
 .is_within_selection(x, y, tile)
 
 If a given (x,y) location is within the selection.
@@ -735,10 +739,6 @@ If a given (x,y) location is within the selection.
 |tile| Tile | None|A Tile object, replacing the x & y coordinates|
 
 Returns: `bool`
-
----
-
-#### Other relevant functions:
 
 ---
 
