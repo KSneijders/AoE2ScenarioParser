@@ -269,6 +269,8 @@ until then, this will have to do. Enjoy!
 
 #### Functions to convert to other datatype:
 
+---
+
 .to_coords(as_terrain)
 
 Converts the selection to an OrderedSet of (x, y) coordinates
@@ -304,7 +306,11 @@ Converts the 2 corners of the selection to area keys for use in effects etc. Thi
 
 Returns: `Dict[str, int]`
 
+---
+
 #### Functions to get information from the `Area` object:
+
+---
 
 .get_selection()
 
@@ -360,7 +366,11 @@ Returns the length of the y side of the selection.
 
 Returns: `int`
 
+---
+
 #### Functions to set what pattern/selection format to use:
+
+---
 
 .use_full()
 
@@ -427,7 +437,11 @@ Sets the area object to use a lines pattern within the selection.
 
 Returns: `Area`
 
+---
+
 #### Functions to change the selection in one way or another:
+
+---
 
 .invert()
 
@@ -722,7 +736,11 @@ If a given (x,y) location is within the selection.
 
 Returns: `bool`
 
+---
+
 #### Other relevant functions:
+
+---
 
 .associate_scenario(scenario)
 
