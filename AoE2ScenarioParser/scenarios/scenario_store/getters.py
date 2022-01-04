@@ -186,19 +186,3 @@ def get_trigger_version(uuid: UUID) -> Optional[float]:
     if scenario:
         return scenario.sections['Triggers'].trigger_version
     return None
-
-
-def get_trigger_manager(uuid: UUID) -> Optional['TriggerManager']:
-    """
-    Get the trigger manager of a scenario.
-
-    Args:
-        uuid (UUID): The UUID of the scenario
-
-    Returns:
-        The trigger manager of a scenario.
-    """
-    scenario = store.get_scenario(uuid)
-    if scenario:
-        return scenario.trigger_manager
-    return None
