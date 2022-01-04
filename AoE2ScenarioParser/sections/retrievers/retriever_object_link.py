@@ -19,9 +19,11 @@ class RetrieverObjectLink:
                  retrieve_instance_number: bool = False,
                  retrieve_history_number: int = -1,
                  commit_callback=None,
+                 destination_object=None,
                  ):
         if sum([link is not None, retrieve_instance_number, (retrieve_history_number != -1)]) != 1:
             raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
+        self.destination_object = destination_object
 
         self.name: str = variable_name
         self.section_name = section_name

@@ -46,6 +46,7 @@ class AoE2Object:
         object_parameters = {}
         for link in cls._link_list:
             if link.support is not None and not link.support.supports(scenario_version):
+
                 error_msg = f_unsupported_string(link, scenario_version)
 
                 def _get(self):
@@ -55,10 +56,14 @@ class AoE2Object:
                     if val is not None:
                         raise UnsupportedAttributeError(error_msg)
 
+                obj = cls
+                if link.destination_object is not None:
+                    obj = link.destination_object
+
                 # Todo: Runs for each _construct() -- A LOT of overhead
                 #  Doesn't work properly when reading an older scenario first, and a newer one later
                 #  Properties don't get reset!
-                setattr(cls, link.name, property(_get, _set))
+                setattr(obj, link.name, property(_get, _set))
                 object_parameters[link.name] = None
             else:
                 object_parameters[link.name] = link.construct(host_uuid, number_hist=number_hist)

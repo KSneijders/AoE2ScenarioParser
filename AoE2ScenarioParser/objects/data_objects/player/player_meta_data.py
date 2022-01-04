@@ -1,6 +1,8 @@
 from AoE2ScenarioParser.datasets.object_support import Civilization
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.player.player import Player
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class PlayerMetaData(AoE2Object):
@@ -10,7 +12,8 @@ class PlayerMetaData(AoE2Object):
         RetrieverObjectLink("active", "DataHeader", "player_data_1[__index__].active"),
         RetrieverObjectLink("human", "DataHeader", "player_data_1[__index__].human"),
         RetrieverObjectLink("civilization", "DataHeader", "player_data_1[__index__].civilization"),
-        RetrieverObjectLink("architecture_set", "DataHeader", "player_data_1[__index__].architecture_set"),
+        RetrieverObjectLink("architecture_set", "DataHeader", "player_data_1[__index__].architecture_set",
+                            support=Support(since=1.40), destination_object=Player),
     ]
 
     def __init__(self, active: int, human: int, civilization: int, architecture_set: int, **kwargs):
@@ -19,4 +22,4 @@ class PlayerMetaData(AoE2Object):
         self.active: bool = bool(active)
         self.human: bool = bool(human)
         self.civilization: Civilization = Civilization(civilization)
-        self.architecture_set: Civilization = Civilization(architecture_set)
+        self.architecture_set: Civilization = Civilization(architecture_set) if architecture_set is not None else None
