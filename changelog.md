@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.30 - 2022-January-04
+
+### Fixed
+
+- Issue with reading older scenarios (older than 1.40)
+
+---
+
 ## 0.1.29 - 2022-January-03
 
 **Happy new year!**
