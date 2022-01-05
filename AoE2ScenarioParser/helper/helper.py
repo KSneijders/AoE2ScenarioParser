@@ -37,13 +37,20 @@ def value_is_valid(value: Any) -> bool:
     """
     Check if value is valid by making sure it's not -1 nor None
 
-    Args:
-        value (Any):
-
     Returns:
         True if value is not None or -1. False if it is either of those.
     """
     return value not in [None, -1]
+
+
+def values_are_valid(*args: Any) -> bool:
+    """
+    Check if value is valid by making sure it's not -1 nor None
+
+    Returns:
+        True if all values are not None or -1. False if any of them are either of those.
+    """
+    return any(map(lambda v: v not in [None, -1], args))
 
 
 def get_enum_from_unit_const(const: int) -> Union[InfoDatasetBase, None]:
