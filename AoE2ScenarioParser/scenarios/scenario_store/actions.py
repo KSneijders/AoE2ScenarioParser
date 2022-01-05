@@ -1,4 +1,4 @@
-from typing import List, overload, Union, TYPE_CHECKING
+from typing import List, overload, Union, TYPE_CHECKING, Optional
 from uuid import UUID
 
 from AoE2ScenarioParser.datasets.players import PlayerId
@@ -6,6 +6,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
+    from AoE2ScenarioParser.objects.support.area import Area
     from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
 
@@ -55,3 +56,31 @@ def import_triggers(uuid: UUID, triggers: List['Trigger'], insert_index: int = -
     scenario = store.get_scenario(uuid)
     if scenario:
         scenario.trigger_manager.import_triggers(triggers, insert_index)
+
+
+def remove_triggers(uuid: UUID, trigger_ids: List[int]) -> None:
+    """
+    Import triggers into the scenario using the trigger manager.
+
+    Args:
+        uuid: The UUID of the scenario
+        trigger_ids: A list of trigger ids to remove.
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        scenario.trigger_manager.triggers = [
+            trigger for trigger in scenario.trigger_manager.triggers if trigger.trigger_id not in trigger_ids
+        ]
+        scenario.trigger_manager.reorder_triggers()
+
+
+def new_area_object(uuid: UUID) -> Optional['Area']:
+    """
+    Creates a new area object.
+
+    Args:
+        uuid: The UUID of the scenario
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        return scenario.new.area()

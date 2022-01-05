@@ -754,3 +754,6 @@ class Area:
                 return 3
         raise ValueError(f"Invalid area configuration for getting the Chunk ID. If you believe this is an error, "
                          f"please raise an issue on github or in the Discord server")
+
+    def __repr__(self) -> str:
+        return f"Area(x1={self.x1},\ty1={self.y1},\tx2={self.x2},\ty2={self.y2},\tstate={self.state.name})"
