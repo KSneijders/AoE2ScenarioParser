@@ -283,14 +283,13 @@ Returns: `OrderedSet[Tile | 'TerrainTile']`
 
 ---
 
-.to_chunks(as_terrain, separate_by_id)
+.to_chunks(as_terrain)
 
 Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates. The separation between chunks is based on if they're connected to each other. So the tiles must share an edge (i.e. they should be non-diagonal).
 
-|Parameter|Type|Default|Description|
-|-|-|-|-|
-|as_terrain| bool | False|If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinatesare returned as TerrainTiles.|
-|separate_by_id| bool | True|Take chunk ids into account when separating chunks. When this is true, separate 'chunks'will not be combined into one when they touch each other. For example, with a line pattern andgap_size=0 when this is False, this will result in one 'chunk' as the lines touch each other.|
+| Parameter| Type| Default| Description| 
+| --- | --- | --- | --- | 
+| as_terrain|  bool |  False | If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinatesare returned as TerrainTiles. | 
 
 Returns: `List[OrderedSet[Tile | 'TerrainTile']]`
 
