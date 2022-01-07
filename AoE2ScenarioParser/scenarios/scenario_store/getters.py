@@ -131,20 +131,20 @@ def get_terrain(uuid: UUID) -> Optional[List['TerrainTile']]:
     return None
 
 
-def get_trigger_name(uuid: UUID, trigger_index: int) -> Optional[str]:
+def get_trigger(uuid: UUID, trigger_index: int) -> Optional['Trigger']:
     """
-    Get the trigger name of a trigger in a scenario.
+    Get a trigger in a scenario.
 
     Args:
         uuid (UUID): The UUID of the scenario
         trigger_index (int): The index of the trigger
 
     Returns:
-        The name of the trigger with the given ID
+        The trigger with the given ID
     """
     scenario = store.get_scenario(uuid)
     if scenario and trigger_index < len(scenario.trigger_manager.triggers):
-        return scenario.trigger_manager.triggers[trigger_index].name
+        return scenario.trigger_manager.triggers[trigger_index]
     return None
 
 

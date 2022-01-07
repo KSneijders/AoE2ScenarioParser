@@ -35,7 +35,7 @@ _store_error_displays: Dict[str, Dict[str, Callable[..., str]]] = {
 
 
 def _format_trigger_id_representation(id_: int, uuid: UUID) -> str:
-    if (name := getters.get_trigger_name(uuid, id_)) is not None:
+    if (name := getters.get_trigger(uuid, id_).name) is not None:
         return f"\"{trunc_string(name)}\""
     return _store_error_displays['triggers']['invalid_reference']()
 
