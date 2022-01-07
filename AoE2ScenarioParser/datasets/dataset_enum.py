@@ -3,6 +3,7 @@ from typing import Union, Type
 
 
 class _DataSetMeta(EnumMeta):
+    """Meta class for the dataset enums"""
     def __contains__(self, other):
         try:
             self(other)
@@ -13,14 +14,23 @@ class _DataSetMeta(EnumMeta):
 
 
 class _DataSet(Enum, metaclass=_DataSetMeta):
+    """Enum super class for all datasets to force the mandatory functions for all subclasses."""
     def attribute_presentation(self) -> str:
+        """
+        Get the string representation of an enum entry. Uses `.name` when not overridden.
+
+        Returns:
+            The string representation of an enum entry.
+        """
         raise NotImplemented("_DataSet.attribute_presentation has to be implemented")
 
 
 class _DataSetIntEnums(_DataSet, IntEnum):
+    """IntEnum super class for all int based datasets."""
     def attribute_presentation(self) -> str:
         """
         Get the string representation of an enum entry. Uses `.name` when not overridden.
+
         Returns:
             The string representation of an enum entry.
         """
@@ -28,9 +38,11 @@ class _DataSetIntEnums(_DataSet, IntEnum):
 
 
 class _DataSetIntFlags(_DataSet, IntFlag):
+    """IntFlag super class for all int flag based datasets."""
     def attribute_presentation(self) -> str:
         """
         Get the string representation of an enum entry. Uses `.name` when not overridden.
+
         Returns:
             The string representation of an enum entry.
         """
