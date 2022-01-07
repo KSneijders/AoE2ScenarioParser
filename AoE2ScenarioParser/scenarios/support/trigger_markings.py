@@ -58,6 +58,19 @@ class TriggerMarkings:
         if remove_template_triggers:
             actions.remove_triggers(self._uuid, [t.trigger_id for t in triggers])
 
+    def _create_area(self, ce: Union['Condition', 'Effect']) -> Optional[Area]:
+        if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
+            return actions.new_area_object(self._uuid).select(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
+
+    def _create_tiles(self, ce: Union['Condition', 'Effect']) -> Optional[List[Tile]]:
+        tiles = []
+        if isinstance(ce, Effect) and values_are_valid(ce.location_x, ce.location_y):
+            tiles.append(Tile(ce.location_x, ce.location_y))
+        area = self._create_area(ce)
+        if area:
+            tiles.extend(list(area.to_coords()))
+        return tiles
+
     def _get_unit_ids(self, ce: Union['Condition', 'Effect']) -> List[int]:
         ids: List[int] = []
         if isinstance(ce, Condition) and values_are_valid(ce.unit_object):
@@ -68,23 +81,6 @@ class TriggerMarkings:
             if value_is_valid(ce.selected_object_ids):
                 ids.extend(ce.selected_object_ids)
         return ids
-
-    def _create_area(self, ce: Union['Condition', 'Effect']) -> Optional[Area]:
-        if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
-            return actions.new_area_object(self._uuid).select(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
-
-    def _create_tiles(self, ce: Union['Condition', 'Effect']) -> Optional[List[Tile]]:
-        tiles = []
-        try:
-            # Only effects have a location value
-            if values_are_valid(ce.location_x, ce.location_y):
-                tiles.append(Tile(ce.location_x, ce.location_y))
-        except AttributeError:
-            pass
-        area = self._create_area(ce)
-        if area:
-            tiles.extend(list(area.to_coords()))
-        return tiles
 
     @staticmethod
     def _resolve_markings_name(trigger: 'Trigger'):
