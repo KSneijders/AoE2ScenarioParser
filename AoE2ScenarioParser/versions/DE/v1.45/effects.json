@@ -3501,7 +3501,8 @@
             "source_player",
             "item_id",
             "operation",
-            "object_attributes"
+            "object_attributes",
+            "message"
         ],
         "default_attributes": {
             "effect_type": 51,
