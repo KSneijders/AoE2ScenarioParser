@@ -493,6 +493,7 @@ class TriggerManager(AoE2Object):
         Returns:
             The newly added triggers (with the new IDs and activation links etc.)
         """
+        triggers = copy.deepcopy(triggers)
         index_changes = {}
 
         for offset, trigger in enumerate(triggers):
