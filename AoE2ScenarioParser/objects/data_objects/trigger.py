@@ -95,8 +95,10 @@ class Trigger(AoE2Object):
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
-        self.new_effect = NewEffectSupport(self)
-        self.new_condition = NewConditionSupport(self)
+        self.new_effect = None
+        self.new_condition = None
+
+        self._assign_new_ce_support()
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -106,7 +108,14 @@ class Trigger(AoE2Object):
             if k in ['new_effect', 'new_condition']:
                 continue
             setattr(result, k, self._deepcopy_entry(k, v))
+
+        # result._assign_new_ce_support()
         return result
+
+    def _assign_new_ce_support(self):
+        """Assigns new `new_effect` and `new_condition` objects to this trigger"""
+        self.new_effect = NewEffectSupport(self)
+        self.new_condition = NewConditionSupport(self)
 
     @property
     def condition_order(self):
