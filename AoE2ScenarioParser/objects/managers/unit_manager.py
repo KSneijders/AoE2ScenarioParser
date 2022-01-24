@@ -178,10 +178,6 @@ class UnitManager(AoE2Object):
                 Or if both (tile1 and tile2) are not used simultaneously.
                 Or if any of the 4 (x1, y1, x2, y2) is used together with any of (tile1, tile2). Use one or the other.
                 Or if players and ignore_players are used simultaneously.
-
-        :Authors:
-            KSneijders (https://github.com/KSneijders/)
-            T-West (https://github.com/twestura/)
         """
         if (x1 is not None or y1 is not None or x2 is not None or y2 is not None) and any([tile1, tile2]):
             raise ValueError("Cannot use both x1,y1,x2,y2 notation and tile1,tile2 notation at the same time")
@@ -194,10 +190,14 @@ class UnitManager(AoE2Object):
             raise ValueError("Cannot use both whitelist (players) and blacklist (ignore_players) at the same time")
 
         if tile1:
-            x1 = tile1.x1
-            y1 = tile1.y1
-            x2 = tile2.x2
-            y2 = tile2.y2
+            x1 = tile1.x
+            y1 = tile1.y
+            x2 = tile2.x
+            y2 = tile2.y
+        else:
+            # Inclusive selection
+            x2 += 1
+            y2 += 1
 
         if players is not None:
             players = players
@@ -209,8 +209,7 @@ class UnitManager(AoE2Object):
         if unit_list is None:
             unit_list = self.get_all_units()
 
-        return [unit for unit in unit_list
-                if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
+        return [unit for unit in unit_list if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
     def change_ownership(self, unit: Unit, to_player: Union[int, PlayerId]) -> None:
         """
