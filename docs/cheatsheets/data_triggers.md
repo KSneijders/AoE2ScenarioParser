@@ -1,6 +1,6 @@
 # Data Triggers
 
-"**Data Triggers**" is a new feature to the parser. 
+**Data Triggers** is a new feature to the parser. 
 They allow you to transfer the power of visuals from the in-game editor into the parser!
 
 ## What are these data triggers?
@@ -50,25 +50,25 @@ different selections.
 
 Currently, there's 4 marking types you can use to select information on the map. These are:
 
-1. Area
+### Area
 
-   Create an `Area` object based on an area selected using the `Set Area` button in-game (Effects & Conditions).
+Create an `Area` object based on an area selected using the `Set Area` button in-game (Effects & Conditions).
 
-2. Tile
+### Tile
 
-   Create `Tile` objects based on a single tile selected using the `Set Location` button (Effects)
-   or a bunch of tiles selected using the `Set Area` button (Effects and Conditions) in-game.
+Create `Tile` objects based on a single tile selected using the `Set Location` button (Effects)
+or a bunch of tiles selected using the `Set Area` button (Effects and Conditions) in-game.
 
-3. Object
+### Object
 
-   Select a `Unit` object (or multiple `Unit` objects) based on the selected units using the `Set objects` button
-   (Effects and Conditions) or `Set location` button (Effects) (Works with both selecting a unit AND the tile a unit is 
-   standing on). It also allows selecting an area using the `Set Area` button (Effects and Conditions) and all units
-   within that area will be included.
+Select a `Unit` object (or multiple `Unit` objects) based on the selected units using the `Set objects` button
+(Effects and Conditions) or `Set location` button (Effects) (Works with both selecting a unit AND the tile a unit is 
+standing on). It also allows selecting an area using the `Set Area` button (Effects and Conditions) and all units
+within that area will be included.
 
-5. Trigger
+### Trigger
 
-   Select a `Trigger` object based on the selected trigger in (de)activation effects using the `Trigger List` dropdown.
+Select a `Trigger` object based on the selected trigger in (de)activation effects using the `Trigger List` dropdown.
 
 ## Mechanics
 
