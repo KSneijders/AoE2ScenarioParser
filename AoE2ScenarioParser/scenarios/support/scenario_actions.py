@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from AoE2ScenarioParser.scenarios.support.trigger_markings import TriggerMarkings
+from AoE2ScenarioParser.scenarios.support.data_triggers import DataTriggers
 
 
 class ScenarioActions:
@@ -9,8 +9,8 @@ class ScenarioActions:
 
         self._uuid = uuid
 
-    def discover_trigger_markings(self, remove_template_triggers=True) -> TriggerMarkings:
-        trigger_markings = TriggerMarkings(self._uuid)
-        trigger_markings.discover(remove_template_triggers)
+    def load_data_triggers(self, remove_template_triggers=True) -> DataTriggers:
+        data_triggers = DataTriggers(self._uuid)
+        data_triggers.discover(remove_template_triggers)
 
-        return trigger_markings
+        return data_triggers

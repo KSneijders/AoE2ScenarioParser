@@ -6,12 +6,13 @@ from AoE2ScenarioParser.helper.helper import values_are_valid, value_is_valid
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.support.area import Area
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters, actions
 
 
-class TriggerMarkings:
+class DataTriggers:
     _scan_options: Dict[str, List[str]] = {
         "area": ["area", "areas"],
         "tile": ["tile", "tiles"],
@@ -37,7 +38,7 @@ class TriggerMarkings:
 
         for trigger in triggers:
             object_ids = []
-            tag = self._resolve_markings_name(trigger)
+            tag = self._resolve_data_trigger_name(trigger)
             for ce in loop_trigger_content(trigger):
                 if trigger.name.startswith("area"):
                     if area := self._create_area(ce):
@@ -49,6 +50,10 @@ class TriggerMarkings:
 
                 elif trigger.name.startswith("object"):
                     object_ids.extend(self._get_unit_ids(ce))
+                    if objects := self._get_objects_from_area(ce):
+                        self.objects.setdefault(tag, []).extend(objects)
+                    if objects := self._get_objects_from_tile(ce):
+                        self.objects.setdefault(tag, []).extend(objects)
 
                 elif trigger.name.startswith("trigger"):
                     if found_trigger := self._get_trigger(ce):
@@ -59,6 +64,14 @@ class TriggerMarkings:
 
         if remove_template_triggers:
             actions.remove_triggers(self._uuid, [t.trigger_id for t in triggers])
+
+    def _get_objects_from_area(self, ce: Union['Condition', 'Effect']) -> Optional[List[Unit]]:
+        if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
+            return getters.get_units_in_area(self._uuid, ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
+
+    def _get_objects_from_tile(self, ce: Union['Condition', 'Effect']) -> Optional[List[Unit]]:
+        if isinstance(ce, Effect) and values_are_valid(ce.location_x, ce.location_y):
+            return getters.get_units_in_area(self._uuid, ce.location_x, ce.location_y, ce.location_x, ce.location_y)
 
     def _get_trigger(self, ce: Union['Condition', 'Effect']) -> Optional[Trigger]:
         if value_is_valid(ce.trigger_id):
@@ -89,7 +102,7 @@ class TriggerMarkings:
         return ids
 
     @staticmethod
-    def _resolve_markings_name(trigger: 'Trigger'):
+    def _resolve_data_trigger_name(trigger: 'Trigger'):
         return trigger.name[trigger.name.find(":") + 1:]
 
 

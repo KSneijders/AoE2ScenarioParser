@@ -19,9 +19,9 @@ nav:
   - Cheatsheets:
     - Area: "cheatsheets/area.md"
     - Datasets: "cheatsheets/datasets.md"
+    - Data Triggers: "cheatsheets/data_triggers.md"
     - Map: "cheatsheets/map.md"
     - Players: "cheatsheets/players.md"
-    - Trigger Markings: "cheatsheets/trigger_markings.md"
     - Triggers: "cheatsheets/triggers.md"
     - Units: "cheatsheets/units.md"
     - XS Script: "cheatsheets/xs.md"
