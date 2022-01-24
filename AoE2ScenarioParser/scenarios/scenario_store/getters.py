@@ -28,6 +28,26 @@ def get_unit(uuid: UUID, unit_reference_id: int) -> Optional['Unit']:
     return None
 
 
+def get_units_in_area(uuid: UUID, x1: int, y1: int, x2: int, y2: int) -> Optional[List['Unit']]:
+    """
+    Get a placed unit based on it's reference id in a scenario.
+
+    Args:
+        uuid (UUID): The UUID of the scenario
+        x1: The X location of the left corner
+        y1: The Y location of the left corner
+        x2: The X location of the right corner
+        y2: The Y location of the right corner
+
+    Returns:
+        The Unit Object
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        return scenario.unit_manager.get_units_in_area(x1, y1, x2, y2)
+    return None
+
+
 def get_units(uuid: UUID, unit_reference_ids: List[int]) -> Optional[Tuple[List['Unit'], List[int]]]:
     """
     Get a placed unit based on it's reference id in a scenario.
