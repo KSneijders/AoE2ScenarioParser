@@ -16,6 +16,7 @@ from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect, TS
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -44,7 +45,8 @@ class TriggerManager(AoE2Object):
 
     @triggers.setter
     def triggers(self, value):
-        self._update_triggers_uuid(value)
+        value = UuidList(self._host_uuid, value, self._update_triggers_uuid)
+
         self._trigger_hash = hash_list(value)
         self._triggers = value
         self.trigger_display_order = list(range(len(value)))
@@ -500,7 +502,6 @@ class TriggerManager(AoE2Object):
             new_index = len(self.triggers) + offset
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
-        self._update_triggers_uuid(triggers)
         for trigger in triggers:
             for i, effect in enumerate(get_activation_effects(trigger)):
                 try:
@@ -515,13 +516,12 @@ class TriggerManager(AoE2Object):
             self.move_triggers([t.trigger_id for t in triggers], index)
         return triggers
 
-    def _update_triggers_uuid(self, triggers):
-        for trigger in triggers:
-            trigger._host_uuid = self._host_uuid
-            for effect in trigger.effects:
-                effect._host_uuid = self._host_uuid
-            for condition in trigger.conditions:
-                condition._host_uuid = self._host_uuid
+    def _update_triggers_uuid(self, trigger):
+        """Function to update inner UUIDs """
+        for effect in trigger.effects:
+            effect._host_uuid = self._host_uuid
+        for condition in trigger.conditions:
+            condition._host_uuid = self._host_uuid
 
     def get_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)

@@ -7,8 +7,10 @@ T = TypeVar('T')
 
 
 class UuidList(list):
-    def __init__(self, uuid: UUID, seq: Sequence[T] = ()) -> None:
+    def __init__(self, uuid: UUID, seq: Sequence[T] = (), callback=None, argument_generator=None) -> None:
         self._uuid = uuid
+        self.callback = callback
+        self.argument_generator = argument_generator
 
         if seq:
             seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
@@ -84,3 +86,8 @@ class UuidList(list):
             o (T): an object to update
         """
         o._host_uuid = self.uuid
+        if self.callback:
+            if self.argument_generator:
+                self.callback(o, next(self.argument_generator))
+            else:
+                self.callback(o)
