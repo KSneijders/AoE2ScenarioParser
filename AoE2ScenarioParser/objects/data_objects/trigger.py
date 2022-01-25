@@ -109,7 +109,7 @@ class Trigger(AoE2Object):
                 continue
             setattr(result, k, self._deepcopy_entry(k, v))
 
-        # result._assign_new_ce_support()
+        result._assign_new_ce_support()
         return result
 
     def _assign_new_ce_support(self):
