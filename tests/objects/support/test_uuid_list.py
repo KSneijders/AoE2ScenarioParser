@@ -8,6 +8,18 @@ class U:
 
     def __init__(self):
         self._host_uuid = ''
+        self.other = 0
+
+    def __repr__(self):
+        return f"u'{self._host_uuid}'"
+
+
+class NU:
+    """Nested Mock object like AoE2Object"""
+
+    def __init__(self):
+        self._host_uuid = ''
+        self.values = UuidList(self._host_uuid, (U(), U(), U()))
 
     def __repr__(self):
         return f"u'{self._host_uuid}'"
@@ -22,30 +34,30 @@ class TestUuidList(TestCase):
     def test_uuid_transfer_init(self):
         self.lst = UuidList("uuid", (U(),))
 
-        self.assertEqual(self.lst[0]._host_uuid, "uuid")
+        self.assertEqual("uuid", self.lst[0]._host_uuid)
 
     def test_uuid_transfer_init_nested(self):
         self.lst = UuidList("uuid", ((U(), U(),), (U(), U(),)))
 
         for lst in self.lst:
-            self.assertEqual(lst.uuid, "uuid")
+            self.assertEqual("uuid", lst.uuid)
             for e in lst:
-                self.assertEqual(e._host_uuid, "uuid")
+                self.assertEqual("uuid", e._host_uuid)
 
     # ################## Append ##################
 
     def test_uuid_transfer_append(self):
         u = U()
         self.lst.append(u)
-        self.assertEqual(u._host_uuid, "uuid")
+        self.assertEqual("uuid", u._host_uuid)
 
     def test_uuid_transfer_append_nested(self):
         self.lst.append(UuidList('not-uuid', (U(),)))
         self.lst.append([U()])
         for lst in self.lst:
-            self.assertEqual(lst.uuid, "uuid")
+            self.assertEqual("uuid", lst.uuid)
             for e in lst:
-                self.assertEqual(e._host_uuid, "uuid")
+                self.assertEqual("uuid", e._host_uuid)
 
     # ################## Extend ##################
 
@@ -53,7 +65,7 @@ class TestUuidList(TestCase):
         lst = [U(), U(), U()]
         self.lst.extend(lst)
         for u in self.lst:
-            self.assertEqual(u._host_uuid, "uuid")
+            self.assertEqual("uuid", u._host_uuid)
 
     def test_uuid_transfer_extend_nested(self):
         self.lst.extend(
@@ -66,24 +78,24 @@ class TestUuidList(TestCase):
         self.lst.extend([(U(),), UuidList('not-uuid3', (U(),))])
 
         for lst in self.lst:
-            self.assertEqual(lst.uuid, "uuid")
+            self.assertEqual("uuid", lst.uuid)
             for e in lst:
-                self.assertEqual(e._host_uuid, "uuid")
+                self.assertEqual("uuid", e._host_uuid)
 
     # ################## Insert ##################
 
     def test_uuid_transfer_insert(self):
         u = U()
         self.lst.insert(0, u)
-        self.assertEqual(u._host_uuid, "uuid")
+        self.assertEqual("uuid", u._host_uuid)
 
     def test_uuid_transfer_insert_nested(self):
         self.lst.insert(0, UuidList('not-uuid3', (U(),)))
         self.lst.insert(0, (U(),))
         for lst in self.lst:
-            self.assertEqual(lst.uuid, "uuid")
+            self.assertEqual("uuid", lst.uuid)
             for e in lst:
-                self.assertEqual(e._host_uuid, "uuid")
+                self.assertEqual("uuid", e._host_uuid)
 
     # ################## __setitem__ ##################
 
@@ -91,7 +103,7 @@ class TestUuidList(TestCase):
         u = U()
         self.lst.extend((U(), U(), U()))
         self.lst[1] = u
-        self.assertEqual(u._host_uuid, "uuid")
+        self.assertEqual("uuid", u._host_uuid)
 
     def test_uuid_transfer_setitem_single_nested(self):
         self.lst.extend(((U(), U(), U()), (U(), U(), U())))
@@ -100,16 +112,16 @@ class TestUuidList(TestCase):
         self.lst[1][2] = U()
 
         for lst in self.lst:
-            self.assertEqual(lst.uuid, "uuid")
+            self.assertEqual("uuid", lst.uuid)
             for e in lst:
-                self.assertEqual(e._host_uuid, "uuid")
+                self.assertEqual("uuid", e._host_uuid)
 
     def test_uuid_transfer_setitem_slice(self):
         self.lst.extend((U(), U(), U()))
 
         self.lst[1:3] = (U(), U())
         for u in self.lst:
-            self.assertEqual(u._host_uuid, "uuid")
+            self.assertEqual("uuid", u._host_uuid)
 
     def test_uuid_transfer_setitem_slice_nested(self):
         self.lst.extend((
@@ -121,6 +133,42 @@ class TestUuidList(TestCase):
 
         self.lst[1:3] = ((U(), U()), (U(), U()))
         for lst in self.lst:
-            self.assertEqual(lst.uuid, "uuid")
+            self.assertEqual("uuid", lst.uuid)
             for e in lst:
-                self.assertEqual(e._host_uuid, "uuid")
+                self.assertEqual("uuid", e._host_uuid)
+
+    # ################## __setitem__ Callback Entry ##################
+
+    def test_uuid_transfer_init_callback_entry(self):
+        def set_other(e):
+            e.other = 11
+
+        self.lst = UuidList("uuid").when_update_execute_entry(set_other)
+        self.lst.append(U())
+
+        self.assertEqual("uuid", self.lst[0]._host_uuid)
+        self.assertEqual(11, self.lst[0].other)
+
+    def test_uuid_transfer_init_callback_list(self):
+        def set_other(lst):
+            for i, e in enumerate(lst):
+                e.other = i
+
+        self.lst = UuidList("uuid").when_update_execute_list(set_other)
+        self.lst.extend((U(), U(), U(), U(), U(), U()))
+
+        for index, entry in enumerate(self.lst):
+            self.assertEqual("uuid", entry._host_uuid)
+            self.assertEqual(index, entry.other)
+
+    def test_uuid_transfer_init_callback_entry_nested(self):
+        def set_nested(e):
+            e.values.uuid = e._host_uuid
+
+        self.lst = UuidList("uuid").when_update_execute_entry(set_nested)
+        self.lst.append(NU())
+
+        self.assertEqual("uuid", self.lst[0]._host_uuid)
+        self.assertEqual("uuid", self.lst[0].values[0]._host_uuid)
+        self.assertEqual("uuid", self.lst[0].values[1]._host_uuid)
+        self.assertEqual("uuid", self.lst[0].values[2]._host_uuid)

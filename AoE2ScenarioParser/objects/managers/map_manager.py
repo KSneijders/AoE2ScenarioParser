@@ -119,12 +119,18 @@ class MapManager(AoE2Object):
 
     @terrain.setter
     def terrain(self, value: List[TerrainTile]):
+        def reset_indices(lst):
+            print([l.i for l in lst])
+            tile: TerrainTile
+            for index, tile in enumerate(lst):
+                reset_terrain_index(tile, index)
+            print([l.i for l in lst])
+
         if value is not None:
             self._terrain = UuidList(
                 uuid=self._host_uuid,
                 seq=value,
-                callback=reset_terrain_index,
-                argument_generator=iter(range(len(value)))
+                on_update_execute_list=reset_indices
             )
 
     @map_size.setter

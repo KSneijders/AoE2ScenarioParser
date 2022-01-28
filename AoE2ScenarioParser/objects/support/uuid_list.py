@@ -1,21 +1,35 @@
-from typing import Iterable, Sequence, Union, TypeVar
+from typing import Iterable, Sequence, Union, TypeVar, List
 from uuid import UUID
 
 from typing_extensions import SupportsIndex
 
-T = TypeVar('T')
+_T = TypeVar('_T')
 
 
 class UuidList(list):
-    def __init__(self, uuid: UUID, seq: Sequence[T] = (), callback=None, argument_generator=None) -> None:
+    def __init__(
+            self,
+            uuid: UUID,
+            seq: Sequence[_T] = (),
+            on_update_execute_entry=None,
+            on_update_execute_list=None
+    ) -> None:
+        """
+        Args:
+            uuid: The UUID for the list
+            seq: The starting sequence within this list
+            on_update_execute_entry: The callback executed for each entry that is updated (added)
+            on_update_execute_list: The callback executed on the entire list when a new entry is added
+        """
+        super().__init__(seq)
+
         self._uuid = uuid
-        self.callback = callback
-        self.argument_generator = argument_generator
+        self.on_update_execute_entry = on_update_execute_entry
+        self.on_update_execute_list = on_update_execute_list
 
         if seq:
             seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
             self._update(seq)
-        super().__init__(seq)
 
     @property
     def uuid(self):
@@ -26,25 +40,41 @@ class UuidList(list):
         self._uuid = value
         self._update(self)
 
-    def append(self, __object: T) -> None:
+    def append(self, __object: _T) -> None:
         """Append object to the end of the list."""
         __object = self._iter_to_uuid_list(__object)
-        self._update(__object)
         super().append(__object)
+        self._update(__object)
 
-    def extend(self, __iterable: Iterable[T]) -> None:
+    def extend(self, __iterable: Iterable[_T]) -> None:
         """Extend list by appending elements from the iterable."""
         __iterable = self._iter_to_uuid_list(__iterable, ignore_root_iter=True)
-        self._update(__iterable)
         super().extend(__iterable)
+        self._update(__iterable)
 
-    def insert(self, __index: int, __object: T) -> None:
+    def insert(self, __index: int, __object: _T) -> None:
         """Insert object before index"""
         __object = self._iter_to_uuid_list(__object)
-        self._update(__object)
         super().insert(__index, __object)
+        self._update(__object)
 
-    def __setitem__(self, i: SupportsIndex, o: Union[T, Iterable[T]]) -> None:
+    def pop(self, __index: int = ...) -> _T:
+        popped = super().pop(__index)
+        self._callback(is_last_update=True)
+        return popped
+
+    def remove(self, __value: _T) -> None:
+        super().remove(__value)
+        self._callback(is_last_update=True)
+
+    def reverse(self) -> None:
+        super().reverse()
+        self._callback(is_last_update=True)
+
+    def sort(self: List, *, key: None = ..., reverse: bool = ...) -> None:
+        super().sort(key=key, reverse=reverse)
+
+    def __setitem__(self, i: SupportsIndex, o: Union[_T, Iterable[_T]]) -> None:
         """
         Set self[key] to value or set self[i:j] to slice.
 
@@ -53,10 +83,10 @@ class UuidList(list):
             o: The object to set or iterable with objects when slicing is used
         """
         o = self._iter_to_uuid_list(o, ignore_root_iter=isinstance(i, slice))
-        self._update(o)
         super().__setitem__(i, o)
+        self._update(o)
 
-    def _iter_to_uuid_list(self, iterable: Union[T, Iterable[T]], ignore_root_iter=False) -> Union[T, Iterable[T]]:
+    def _iter_to_uuid_list(self, iterable: Union[_T, Iterable[_T]], ignore_root_iter=False) -> Union[_T, Iterable[_T]]:
         if ignore_root_iter:
             return list(map(self._iter_to_uuid_list, iterable))
 
@@ -67,7 +97,7 @@ class UuidList(list):
             seq=iterable
         )
 
-    def _update(self, o: Union[T, Iterable[T]]):
+    def _update(self, o: Union[_T, Iterable[_T]]):
         """Checks if `o` is an iterable and calls function on each entry or on `o` if it's not an iterable"""
         if issubclass(o.__class__, Iterable):
             for element in o:
@@ -75,19 +105,31 @@ class UuidList(list):
                     element.uuid = self.uuid
                     continue
                 self._update_object(element)
+            self._callback(is_last_update=True)
         else:
-            self._update_object(o)
+            self._update_object(o, is_last_update=True)
 
-    def _update_object(self, o: T):
+    def _update_object(self, o: _T, is_last_update: bool = False):
         """
         Update the UUID of the object
 
         Args:
-            o (T): an object to update
+            o: an object to update
+            is_last_update: If this entry is the last in a list
         """
         o._host_uuid = self.uuid
-        if self.callback:
-            if self.argument_generator:
-                self.callback(o, next(self.argument_generator))
-            else:
-                self.callback(o)
+        self._callback(o, is_last_update)
+
+    def _callback(self, o: _T = None, is_last_update: bool = False) -> None:
+        """
+        Executes given callbacks on `o` if given. If not given, execute list callback on entire list.
+
+        Args:
+            o: an object to call a callback on
+            is_last_update: If this entry is the last in a list
+        """
+        if o is not None:
+            if self.on_update_execute_entry is not None:
+                self.on_update_execute_entry(o)
+        if self.on_update_execute_list is not None and is_last_update:
+            self.on_update_execute_list(self)
