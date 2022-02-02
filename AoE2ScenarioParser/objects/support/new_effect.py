@@ -1013,6 +1013,7 @@ class NewEffectSupport:
             source_player: Union[int, None] = None,
             operation: Union[int, None] = None,
             object_attributes: Union[int, None] = None,
+            message: Union[str, None] = None,
     ) -> Effect:
         """
         The parameters 'armour_attack_quantity' and 'armour_attack_class' are only used when object_attributes is Armor
@@ -1030,6 +1031,7 @@ class NewEffectSupport:
             source_player=source_player,
             operation=operation,
             object_attributes=object_attributes,
+            message=message
         )
 
     def modify_resource(

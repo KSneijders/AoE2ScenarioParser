@@ -10,6 +10,7 @@ from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile, reset_terrain_index
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -118,11 +119,17 @@ class MapManager(AoE2Object):
 
     @terrain.setter
     def terrain(self, value: List[TerrainTile]):
+        def reset_indices(lst):
+            tile: TerrainTile
+            for index, tile in enumerate(lst):
+                reset_terrain_index(tile, index)
+
         if value is not None:
-            for i, tile in enumerate(value):
-                reset_terrain_index(tile, new_index=i)
-                tile._host_uuid = self._host_uuid
-        self._terrain = value
+            self._terrain = UuidList(
+                uuid=self._host_uuid,
+                seq=value,
+                on_update_execute_list=reset_indices
+            )
 
     @map_size.setter
     def map_size(self, new_size: int):
@@ -150,7 +157,8 @@ class MapManager(AoE2Object):
                 new_terrain.extend(row)
         self.terrain = new_terrain
 
-    def set_elevation(self, elevation: int, x1: int, y1: int, x2: Optional[int] = None, y2: Optional[int] = None) -> None:
+    def set_elevation(self, elevation: int, x1: int, y1: int, x2: Optional[int] = None,
+                      y2: Optional[int] = None) -> None:
         """
         Sets elevation like the in-game elevation mechanics. Can set a hill (or single point) to a certain height and
         all tiles around it are adjusted accordingly.

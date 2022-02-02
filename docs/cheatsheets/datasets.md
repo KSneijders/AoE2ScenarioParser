@@ -46,8 +46,8 @@ effect = trigger.new_effect.change_diplomacy(...)
 They can still be used if you want the effect & condition IDs for other purposes.
 
 ```py
-Condition.OBJECTS_IN_AREA  # 5
-Effect.PATROL  # 19
+ConditionId.OBJECTS_IN_AREA  # 5
+EffectId.PATROL  # 19
 ```
 
 ```py
@@ -145,7 +145,7 @@ They're also, together with the `Tech` dataset, very useful when adding or editi
 
 ### General Usage
 
-These are the biggest datasets and most powerful datasets:
+These are the biggest and most powerful datasets:
 
 | Dataset        | Description                                          |
 |----------------|------------------------------------------------------|
@@ -154,6 +154,14 @@ These are the biggest datasets and most powerful datasets:
 | `HeroInfo`     | Dataset for heroes                                   |
 | `OtherInfo`    | Dataset for other units (like relics and gold piles) |
 | `TechInfo`     | Dataset for technologies                             |
+
+!!! hint "The use of the `.ID` suffix"
+    These datasets contain more info about the object than just the ID.  
+    To be able to access all this info from a single entry, suffix are needed to specifically request the right 
+    information.  
+    If you want the normal ID of a unit/building etc. you need to use: `.ID` after the dataset entry.  
+    This will look something like: `UnitInfo.PALADIN.ID`
+    
 
 For adding units it'll look something like the following:
 

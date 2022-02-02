@@ -4,7 +4,7 @@ from typing import Union
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
-from AoE2ScenarioParser.scenarios.scenario_store import getters
+from AoE2ScenarioParser.scenarios.scenario_store import getters, actions
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
@@ -66,9 +66,7 @@ class XsManagerDE(AoE2Object):
             host_uuid=self._host_uuid
         )
         self.xs_trigger.new_effect.script_call(message="")
-
-        trigger_manager = getters.get_trigger_manager(self._host_uuid)
-        trigger_manager.import_triggers([self.xs_trigger], insert_index)
+        actions.import_triggers(self._host_uuid, [self.xs_trigger], insert_index)
 
     def _append_to_xs(self, title, string) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{string}\n\n"

@@ -16,6 +16,7 @@ from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect, TS
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
@@ -44,10 +45,18 @@ class TriggerManager(AoE2Object):
 
     @triggers.setter
     def triggers(self, value):
-        self._update_triggers_uuid(value)
+        value = UuidList(self._host_uuid, value, on_update_execute_entry=self._update_triggers_uuid)
+
         self._trigger_hash = hash_list(value)
         self._triggers = value
         self.trigger_display_order = list(range(len(value)))
+
+    def _update_triggers_uuid(self, trigger):
+        """Function to update inner UUIDs """
+        for effect in trigger.effects:
+            effect._host_uuid = self._host_uuid
+        for condition in trigger.conditions:
+            condition._host_uuid = self._host_uuid
 
     @property
     def trigger_display_order(self) -> List[int]:
@@ -493,34 +502,26 @@ class TriggerManager(AoE2Object):
         Returns:
             The newly added triggers (with the new IDs and activation links etc.)
         """
+        triggers = copy.deepcopy(triggers)
         index_changes = {}
 
         for offset, trigger in enumerate(triggers):
             new_index = len(self.triggers) + offset
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
-        self._update_triggers_uuid(triggers)
         for trigger in triggers:
             for i, effect in enumerate(get_activation_effects(trigger)):
                 try:
                     effect.trigger_id = index_changes[effect.trigger_id]
                 except KeyError:
-                    warn(f"(De)Activation effect {i} in trigger '{trigger.name}' refers to a trigger that wasn't included "
-                         f"in the imported triggers. Effect will be reset")
+                    warn(f"(De)Activation effect {i} in trigger '{trigger.name}' refers to a trigger that wasn't "
+                         f"included in the imported triggers. Effect will be reset")
                     effect.trigger_id = -1
 
         self.triggers += triggers
         if index != -1:
             self.move_triggers([t.trigger_id for t in triggers], index)
         return triggers
-
-    def _update_triggers_uuid(self, triggers):
-        for trigger in triggers:
-            trigger._host_uuid = self._host_uuid
-            for effect in trigger.effects:
-                effect._host_uuid = self._host_uuid
-            for condition in trigger.conditions:
-                condition._host_uuid = self._host_uuid
 
     def get_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)

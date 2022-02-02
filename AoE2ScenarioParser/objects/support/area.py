@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 from enum import Enum
-from typing import Dict, TYPE_CHECKING, List, Tuple
+from typing import Dict, TYPE_CHECKING, List, Tuple, Iterable
 from uuid import UUID
 
 from ordered_set import OrderedSet
@@ -150,8 +150,7 @@ class Area:
 
     def to_chunks(
             self,
-            as_terrain: bool = False,
-            separate_by_id: bool = True
+            as_terrain: bool = False
     ) -> List[OrderedSet[Tile | 'TerrainTile']]:
         """
         Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
@@ -161,9 +160,6 @@ class Area:
         Args:
             as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
                 are returned as TerrainTiles.
-            separate_by_id: Take chunk ids into account when separating chunks. When this is true, separate 'chunks'
-                will not be combined into one when they touch each other. For example, with a line pattern and
-                gap_size=0 when this is False, this will result in one 'chunk' as the lines touch each other.
 
         Returns:
             A list of OrderedSets of Tiles ((x, y) named tuple) of the selection.
@@ -174,15 +170,22 @@ class Area:
         if self.state in AreaState.unchunkables():
             return [tiles]
 
-        chunks = []
-        while len(tiles):
-            chunk = self._get_chunk(tiles[0], tiles, separate_by_id)
-            tiles.difference_update(chunk)
+        chunks: Dict[int, List[Tile]] = {}
+        for tile in tiles:
+            chunk_id = self._get_chunk_id(tile)
+            chunks.setdefault(chunk_id, []).append(tile)
 
-            chunks.append(self._tiles_to_terrain_tiles(chunk) if as_terrain else chunk)
-        return chunks
+        map_size = self._map_size
+        chunks_ordered: List[OrderedSet[Tile]] = []
+        for chunk_id, chunk_tiles in chunks.items():
+            tiles = self._tiles_to_terrain_tiles(chunk_tiles) if as_terrain else chunk_tiles
+            chunks_ordered.append(
+                OrderedSet(sorted(tiles, key=lambda t: t.y * map_size + t.x))
+            )
 
-    def to_dict(self, prefix: str ="area_") -> Dict[str, int]:
+        return chunks_ordered
+
+    def to_dict(self, prefix: str = "area_") -> Dict[str, int]:
         """
         Converts the 2 corners of the selection to area keys for use in effects etc.
         This can be used by adding double stars (**) before this function.
@@ -658,7 +661,7 @@ class Area:
             for coord in args
         ]
 
-    def _tiles_to_terrain_tiles(self, tiles: OrderedSet[Tile]) -> OrderedSet['TerrainTile']:
+    def _tiles_to_terrain_tiles(self, tiles: Iterable[Tile]) -> OrderedSet['TerrainTile']:
         """
         Converts the selection to an OrderedSet of terrain tile objects from the map manager.
         Can only be used if the area has been associated with a scenario.
@@ -670,42 +673,6 @@ class Area:
         terrain = getters.get_terrain(self.uuid)
         map_size = self._map_size
         return OrderedSet(terrain[xy_to_i(x, y, map_size + 1)] for (x, y) in tiles)
-
-    def _get_chunk(self, tile: Tile, tiles: OrderedSet[Tile], use_chunk_ids: bool) -> OrderedSet[Tile]:
-        """
-        Finds all tiles within the chunk of the given tile. Separation is based on if the tiles are touching combined
-        with if the tiles have the same chunk ID if use_chunk_ids is True
-
-        Args:
-            tile: The tile to find all other tiles within the chunk from
-            tiles: A set with tiles to choose from
-            use_chunk_ids: If chunk IDs should be taken into consideration when splitting chunks. If set to False,
-                chunks are split based on if they touch each other.
-
-        Returns:
-            A sorted OrderedSet with all tiles within the found chunk
-        """
-        queue, found = [tile], OrderedSet([tile])
-
-        i = 0
-        while i < len(queue):
-            tile = queue[i]
-            chunk_id = self._get_chunk_id(tile) if use_chunk_ids else -1
-
-            for step in Area._recursion_steps:  # Adjacent tiles (y-, x+, y+, x-)
-                nt = Tile(tile.x + step.x, tile.y + step.y)
-
-                if use_chunk_ids and self._get_chunk_id(nt) != chunk_id:
-                    continue
-                if nt in found:
-                    continue
-                if nt in tiles:
-                    found.append(nt)
-                    queue.append(nt)
-            i += 1
-        map_size = self._map_size
-
-        return OrderedSet(sorted(found, key=lambda t: t.y * map_size + t.x))
 
     def _get_chunk_id(self, tile: Tile) -> int:
         """
@@ -754,3 +721,6 @@ class Area:
                 return 3
         raise ValueError(f"Invalid area configuration for getting the Chunk ID. If you believe this is an error, "
                          f"please raise an issue on github or in the Discord server")
+
+    def __repr__(self) -> str:
+        return f"Area(x1={self.x1},\ty1={self.y1},\tx2={self.x2},\ty2={self.y2},\tstate={self.state.name})"

@@ -1,11 +1,11 @@
-from typing import Optional, List, Tuple, Dict, TYPE_CHECKING
+from typing import Optional, List, Tuple, Dict, TYPE_CHECKING, Union
 from uuid import UUID
 
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
-    from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+    from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
     from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
@@ -25,6 +25,26 @@ def get_unit(uuid: UUID, unit_reference_id: int) -> Optional['Unit']:
     units, _ = get_units(uuid, [unit_reference_id])
     if units:
         return units[0]
+    return None
+
+
+def get_units_in_area(uuid: UUID, x1: int, y1: int, x2: int, y2: int) -> Optional[List['Unit']]:
+    """
+    Get a placed unit based on it's reference id in a scenario.
+
+    Args:
+        uuid (UUID): The UUID of the scenario
+        x1: The X location of the left corner
+        y1: The Y location of the left corner
+        x2: The X location of the right corner
+        y2: The Y location of the right corner
+
+    Returns:
+        The Unit Object
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        return scenario.unit_manager.get_units_in_area(x1, y1, x2, y2)
     return None
 
 
@@ -131,20 +151,37 @@ def get_terrain(uuid: UUID) -> Optional[List['TerrainTile']]:
     return None
 
 
-def get_trigger_name(uuid: UUID, trigger_index: int) -> Optional[str]:
+def get_trigger(uuid: UUID, trigger_index: int) -> Optional['Trigger']:
     """
-    Get the trigger name of a trigger in a scenario.
+    Get a trigger in a scenario.
 
     Args:
         uuid (UUID): The UUID of the scenario
         trigger_index (int): The index of the trigger
 
     Returns:
-        The name of the trigger with the given ID
+        The trigger with the given ID
     """
     scenario = store.get_scenario(uuid)
     if scenario and trigger_index < len(scenario.trigger_manager.triggers):
-        return scenario.trigger_manager.triggers[trigger_index].name
+        return scenario.trigger_manager.triggers[trigger_index]
+    return None
+
+
+def get_triggers_by_prefix(uuid: UUID, prefix: Union[str, Tuple]) -> Optional[List['Trigger']]:
+    """
+    Get the trigger version of the scenario.
+
+    Args:
+        uuid (UUID): The UUID of the scenario
+        prefix: The prefix to check trigger names against
+
+    Returns:
+        Triggers matching the given prefix
+    """
+    scenario = store.get_scenario(uuid)
+    if scenario:
+        return [trigger for trigger in scenario.trigger_manager.triggers if trigger.name.startswith(prefix)]
     return None
 
 
@@ -185,20 +222,4 @@ def get_trigger_version(uuid: UUID) -> Optional[float]:
     scenario = store.get_scenario(uuid)
     if scenario:
         return scenario.sections['Triggers'].trigger_version
-    return None
-
-
-def get_trigger_manager(uuid: UUID) -> Optional['TriggerManager']:
-    """
-    Get the trigger manager of a scenario.
-
-    Args:
-        uuid (UUID): The UUID of the scenario
-
-    Returns:
-        The trigger manager of a scenario.
-    """
-    scenario = store.get_scenario(uuid)
-    if scenario:
-        return scenario.trigger_manager
     return None
