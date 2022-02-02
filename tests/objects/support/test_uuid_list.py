@@ -143,7 +143,7 @@ class TestUuidList(TestCase):
         def set_other(e):
             e.other = 11
 
-        self.lst = UuidList("uuid").when_update_execute_entry(set_other)
+        self.lst = UuidList("uuid", on_update_execute_entry=set_other)
         self.lst.append(U())
 
         self.assertEqual("uuid", self.lst[0]._host_uuid)
@@ -154,7 +154,7 @@ class TestUuidList(TestCase):
             for i, e in enumerate(lst):
                 e.other = i
 
-        self.lst = UuidList("uuid").when_update_execute_list(set_other)
+        self.lst = UuidList("uuid", on_update_execute_list=set_other)
         self.lst.extend((U(), U(), U(), U(), U(), U()))
 
         for index, entry in enumerate(self.lst):
@@ -165,7 +165,7 @@ class TestUuidList(TestCase):
         def set_nested(e):
             e.values.uuid = e._host_uuid
 
-        self.lst = UuidList("uuid").when_update_execute_entry(set_nested)
+        self.lst = UuidList("uuid", on_update_execute_entry=set_nested)
         self.lst.append(NU())
 
         self.assertEqual("uuid", self.lst[0]._host_uuid)

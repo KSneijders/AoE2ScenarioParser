@@ -21,8 +21,6 @@ class UuidList(list):
             on_update_execute_entry: The callback executed for each entry that is updated (added)
             on_update_execute_list: The callback executed on the entire list when a new entry is added
         """
-        super().__init__(seq)
-
         self._uuid = uuid
         self.on_update_execute_entry = on_update_execute_entry
         self.on_update_execute_list = on_update_execute_list
@@ -30,6 +28,8 @@ class UuidList(list):
         if seq:
             seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
             self._update(seq)
+
+        super().__init__(seq)
 
     @property
     def uuid(self):
