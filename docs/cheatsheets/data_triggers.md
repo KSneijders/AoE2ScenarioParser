@@ -48,7 +48,7 @@ different selections.
 
 ## Different data types
 
-Currently, there's 4 marking types you can use to select information on the map. These are:
+Currently, there's 4 data types you can use to select information on the map. These are:
 
 ### Area
 
@@ -86,7 +86,7 @@ unique per data type.
 
 The function then goes through all the effects and conditions within the trigger. The effect or condition type doesn't 
 matter. The function just checks the proper attributes (for example: the `area_x1`, `area_y1`, `area_x2` & `area_y2` 
-attributes) for the area markings. If all of those attributes are set, it creates/finds the proper object accordingly.
+attributes) for the area data type. If all of those attributes are set, it creates/finds the proper object accordingly.
 
 The object returned by `load_data_triggers()` has 4 attributes which will return the corresponding dictionaries.
 So, for example, you could store the dicts directly like so:
@@ -117,8 +117,8 @@ The dictionaries are also special in that they allow attribute access instead of
 So to get the key "_TCs_" you can use either of these with the same result: 
 
 ```py
-markings.objects['TCs']
-markings.objects.TCs
+trigger_data.objects['TCs']
+trigger_data.objects.TCs
 ```
 
 !!! Note "Keys with spaces won't work with attribute access"
@@ -135,7 +135,7 @@ This trigger was made to make an area object around berries. (Don't ask why).
 You can see multiple conditions in the list. 
 All of them have an area selected so the list for the `berries` will have 6 `Area` objects
 
-![Trigger Marking Area Example](./../images/trigger_markings_area_example.png "Trigger markings example with area selected")
+![Data Trigger - Area Example](./../images/data_trigger_area_example.png "Data triggers example with area selected")
 
 ### Tile
 
@@ -143,7 +143,7 @@ This trigger just selects a bunch of tiles. As you can see in the image, tiles c
 button. This will result in multiple `Tile` objects being created for one effect. The list for this trigger will return
 at least the 7 `Tile` objects selected by this condition.
 
-![Trigger Marking Tile Example](./../images/trigger_markings_tile_example.png "Trigger markings example with tile selected")
+![Data Trigger - Tile Example](./../images/data_trigger_tile_example.png "Data triggers example with tile selected")
 
 ### Object
 
@@ -154,11 +154,11 @@ All of them have units selected through the `Set Objects` or `Set Location` butt
 This list will be longer than just 3 `Unit` objects as the shown effect already selects 3 units on its own. 
 So, if the other 2 only selected 1 unit each, the list would have 5 `Unit` objects in total.
 
-![Trigger Marking Object Example](./../images/trigger_markings_object_example.png "Trigger markings example with object selected")
+![Data Trigger - Object Example](./../images/data_trigger_object_example.png "Data triggers example with object selected")
 
 ### Trigger
 
-This trigger selects 2 triggers with the name 'main'. Trigger markings for selecting triggers is the simplest as you can
+This trigger selects 2 triggers with the name 'main'. Data triggers for selecting triggers is the simplest as you can
 only select 1 Trigger per effect. So this list will have 2 triggers in it.
 
-![Trigger Marking Trigger Example](./../images/trigger_markings_trigger_example.png "Trigger markings example with trigger selected")
+![Data Trigger - Trigger Example](./../images/data_trigger_trigger_example.png "Data triggers example with trigger selected")
