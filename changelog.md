@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.31 - 2022-February-02
+
+**Support for the new 58259 update!**   
+
+### Added 
+
+- **The new `Data Triggers` functionality!** A powerful tool to communicate information from in-game to the parser!
+  - You can find the `Data Triggers` cheatsheet [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/data_triggers/)!
+- `message` field to the `modify_attribute` effect.
+
+### Improved
+
+- `Area.to_chunks()` function is now **A LOT** faster in certain situations (sometimes 40x faster!)
+
+### Fixed
+
+- Issue with reading the new scenario files (since update 58259, 31-Jan-22)
+- Issue with imported triggers not being deep-copied and causing reference problems
+- Issue with copied triggers not being able to use `new_effect` and `new_condition`
+- Issue where `get_unit_in_area` params `x2` and `y2` were considered exclusive 
+  - Locations: `(0, 0), (3, 3)` would be considered like: `(0, 0), (2, 2)`
+
+---
+
 ## 0.1.30 - 2022-January-04
 
 ### Fixed
