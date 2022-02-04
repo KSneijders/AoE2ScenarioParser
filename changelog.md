@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.32 - 2022-February-04
+
+### Fixed
+
+- Issue with type hinting `trigger.new_effect` and `trigger.new_condition`
+
+---
+
 ## 0.1.31 - 2022-February-02
 
 **Support for the new 58259 update!**   

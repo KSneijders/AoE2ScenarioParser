@@ -95,8 +95,8 @@ class Trigger(AoE2Object):
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
-        self.new_effect = None
-        self.new_condition = None
+        self.new_effect: NewEffectSupport
+        self.new_condition: NewConditionSupport
 
         self._assign_new_ce_support()
 
