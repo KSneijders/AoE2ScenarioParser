@@ -490,7 +490,7 @@ class TriggerManager(AoE2Object):
         self.triggers.append(new_trigger)
         return new_trigger
 
-    def import_triggers(self, triggers: List[Trigger], index: int = -1) -> List[Trigger]:
+    def import_triggers(self, triggers: List[Trigger], index: int = -1, deepcopy: bool = True) -> List[Trigger]:
         """
         Adds existing trigger objects (from another scenario) to this scenario. Keeping all ``(de)activate trigger``
         effects linked!
@@ -498,11 +498,14 @@ class TriggerManager(AoE2Object):
         Args:
             triggers: The list of Trigger objects to be added
             index: The index where to insert the new triggers, will be added at the end when left unused.
+            deepcopy: If the given triggers need to be deep copied or not when importing. Can be useful to keep the
+                reference alive between the source and target trigger the same when setting this to `False`.
 
         Returns:
             The newly added triggers (with the new IDs and activation links etc.)
         """
-        triggers = copy.deepcopy(triggers)
+        if deepcopy:
+            triggers = copy.deepcopy(triggers)
         index_changes = {}
 
         for offset, trigger in enumerate(triggers):

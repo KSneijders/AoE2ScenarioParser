@@ -44,7 +44,7 @@ def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], *args) -> No
                 transfer_unit(scenario, units, player)
 
 
-def import_triggers(uuid: UUID, triggers: List['Trigger'], insert_index: int = -1) -> None:
+def import_triggers(uuid: UUID, triggers: List['Trigger'], insert_index: int = -1, deepcopy=True) -> None:
     """
     Import triggers into the scenario using the trigger manager.
 
@@ -52,10 +52,12 @@ def import_triggers(uuid: UUID, triggers: List['Trigger'], insert_index: int = -
         uuid: The UUID of the scenario
         triggers: The trigger to import.
         insert_index: The insert index used in import triggers function
+        deepcopy: If the given triggers need to be deep copied or not when importing. Can be useful to keep the
+            reference alive between the source and target trigger the same when setting this to `False`.
     """
     scenario = store.get_scenario(uuid)
     if scenario:
-        scenario.trigger_manager.import_triggers(triggers, insert_index)
+        scenario.trigger_manager.import_triggers(triggers, insert_index, deepcopy)
 
 
 def remove_triggers(uuid: UUID, trigger_ids: List[int]) -> None:
