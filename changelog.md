@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.33 - 2022-February-21
+
+### Fixed
+
+- Issue with `XS Manager` not copying the script content to the right trigger object. 
+
+---
+
 ## 0.1.32 - 2022-February-04
 
 ### Fixed
