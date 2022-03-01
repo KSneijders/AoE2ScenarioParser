@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.34 - 2022-March-1
+
+### Fixed
+
+- Issue with deepcopying `UuidList`s. (Causing issues with trigger importing). 
+
+---
+
 ## 0.1.33 - 2022-February-21
 
 ### Fixed
