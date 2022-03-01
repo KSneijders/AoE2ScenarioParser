@@ -1,4 +1,5 @@
-from typing import List
+from copy import deepcopy
+from typing import List, Any
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
@@ -100,17 +101,12 @@ class Trigger(AoE2Object):
 
         self._assign_new_ce_support()
 
-    def __deepcopy__(self, memo):
-        cls = self.__class__
-        result = cls.__new__(cls)
-        memo[id(self)] = result
-        for k, v in self.__dict__.items():
-            if k in ['new_effect', 'new_condition']:
-                continue
-            setattr(result, k, self._deepcopy_entry(k, v))
-
-        result._assign_new_ce_support()
-        return result
+    def _deepcopy_entry(self, k, v) -> Any:
+        """Default copy implementation per key for AoE2Object. Created so this logic can be inherited."""
+        if k in ['new_effect', 'new_condition']:
+            return None
+        else:
+            return super()._deepcopy_entry(k, v)
 
     def _assign_new_ce_support(self):
         """Assigns new `new_effect` and `new_condition` objects to this trigger"""

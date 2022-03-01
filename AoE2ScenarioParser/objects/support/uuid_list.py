@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Iterable, Sequence, Union, TypeVar, List
 from uuid import UUID
 
@@ -30,6 +31,16 @@ class UuidList(list):
             self._update(seq)
 
         super().__init__(seq)
+
+    def __deepcopy__(self, memo):
+        deepcopied_content = [deepcopy(e) for e in self]
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        for k, v in self.__dict__.items():
+            setattr(result, k, getattr(self, k))
+        result[:] = deepcopied_content
+        return result
 
     @property
     def uuid(self):
