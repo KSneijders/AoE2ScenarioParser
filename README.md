@@ -32,13 +32,17 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 
 ## Features:
 
-|            | View               | Add                | Edit               | Remove             |
-| ---------- | ------------------ | ------------------ | ------------------ | ------------------ |
-| Triggers   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Conditions | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Effects    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Units      | n/a                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Map        | n/a                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+|            | View               | Add                 | Edit               | Remove              |
+| ---------- | ------------------ | ------------------- | ------------------ | ------------------- |
+| Triggers   | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
+| Conditions | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
+| Effects    | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
+| Units      | n/a *<sup>1</sup>  | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
+| Map        | n/a *<sup>1</sup>  | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
+| Players    | n/a *<sup>1</sup>  | :heavy_check_mark:* | :heavy_check_mark: | :heavy_check_mark:* |
+
+*: You can disable or enable players like in the in-game editor (min 1, max 8).  
+*<sup>1</sup>: There's no overall formatting function to display these. Though, they can still be printed.
 
 &nbsp;
 
