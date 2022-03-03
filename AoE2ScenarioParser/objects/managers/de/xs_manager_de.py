@@ -1,10 +1,12 @@
 from pathlib import Path
 from typing import Optional
 
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError, UnsupportedVersionError
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.scenarios.scenario_store import actions
+from AoE2ScenarioParser.scenarios.scenario_store.getters import get_scenario_version
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
@@ -29,9 +31,7 @@ class XsManagerDE(AoE2Object):
             description="Due to the lack of support for transferring XS files between systems in Age of Empires II:DE, "
                         "this trigger adds the entire script to an effect script call. This will add the script to"
                         "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser",
-            # host_uuid=self._host_uuid
         )
-        self._xs_trigger.new_effect.script_call(message="")
 
     @property
     def script_name(self):
@@ -69,6 +69,13 @@ class XsManagerDE(AoE2Object):
         Args:
             insert_index: The index where the xs trigger is added. Will be added at the end of the list if left as -1
         """
+        try:
+            self._xs_trigger.new_effect.script_call(message="")
+        except UnsupportedAttributeError:
+            raise UnsupportedVersionError(
+                f"The scenario version ({get_scenario_version(self._host_uuid)}) does not support XS. "
+                f"Save the scenario in the editor to update the scenario to allow for XS."
+            ) from None
         self._initialized = True
         actions.import_triggers(self._host_uuid, [self.xs_trigger], insert_index, deepcopy=False)
 

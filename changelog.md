@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.35 - 2022-March-3
+
+### Fixed
+
+- Issue introduced after the `0.1.33` fix. 
+  - `XS Manager` was trying to create a `script call` effect regardless if the scenario supported it or not.
+
+---
+
 ## 0.1.34 - 2022-March-1
 
 ### Fixed
