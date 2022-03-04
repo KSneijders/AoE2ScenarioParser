@@ -188,7 +188,7 @@ def transform_value_by_representation(representation, value, uuid):
                 suffix_original_value = False
         else:
             raise ValueError(f"Unknown representation: '{representation}'")
-    except KeyError:
+    except (KeyError, ValueError):
         value_representation, format_value_repr = unknown
 
     if format_value_repr:
