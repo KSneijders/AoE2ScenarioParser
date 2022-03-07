@@ -7,8 +7,8 @@ class ObjectFactory:
     def __init__(self, uuid: UUID) -> None:
         super().__init__()
 
-        self.uuid = uuid
+        self._uuid = uuid
 
-    def area(self):
+    def area(self) -> Area:
         """Return an area map linked to the corresponding scenario"""
-        return Area(uuid=self.uuid)
+        return Area(uuid=self._uuid)

@@ -4,7 +4,7 @@ from enum import IntEnum
 from typing import Union
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords, value_is_valid
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -84,20 +84,7 @@ class Condition(AoE2Object):
                  **kwargs
                  ):
         raise_if_not_int_subclass([object_list, technology])
-
-        # QoL addition. When selecting a singular tile, no need for the second coords.
-        if area_x2 == -1 and area_x1 != -1:
-            area_x2 = area_x1
-        if area_y2 == -1 and area_y1 != -1:
-            area_y2 = area_y1
-
-        # Fix, not allowed for x1 > x2 & y1 > y2
-        if area_x1 > area_x2:
-            area_x1, area_x2 = area_x2, area_x1
-            warn("Swapping 'area_x1' and 'area_x2' values. Attribute 'area_x1' cannot be higher than 'area_x2'")
-        if area_y1 > area_y2:
-            area_y1, area_y2 = area_y2, area_y1
-            warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
+        area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
 
         self.condition_type: int = condition_type
         self.quantity: int = quantity

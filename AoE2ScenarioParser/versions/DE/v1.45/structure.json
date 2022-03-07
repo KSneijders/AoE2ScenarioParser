@@ -1757,7 +1757,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 2.5
+                "default": 2.6
             },
             "trigger_instruction_start": {
                 "type": "s8",

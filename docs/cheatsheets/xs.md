@@ -60,13 +60,13 @@ direct XS script string.
 ```py
 # Add a file to the script. 
 # Work on your XS script in a file and this will add it to the scenario
-xm.add_script(xs_file_path="path/to/xs/script.xs")
+xs_manager.add_script(xs_file_path="path/to/xs/script.xs")
 
 # Add XS directly
 xs_script = """
 int a = 1;
 int b = a + 4;
 """
-xm.add_script(xs_string=xs_script)
+xs_manager.add_script(xs_string=xs_script)
 ```
 You can use both `xs_file_path=...` and `xs_string=...` in the same `add_script` call too.

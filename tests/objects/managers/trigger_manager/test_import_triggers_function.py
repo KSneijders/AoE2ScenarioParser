@@ -51,6 +51,29 @@ class Test(TestCase):
         self.assertEqual(t0.effects[0].trigger_id, t2.trigger_id)
         self.assertEqual(t2.effects[0].trigger_id, t1.trigger_id)
 
+    def test_import_triggers_verify_activation_effects_twice(self):
+        t0 = self.tm.add_trigger("Trigger0")
+        t1 = self.tm.add_trigger("Trigger1")
+        t2 = self.tm.add_trigger("Trigger2")
+        t0.new_effect.activate_trigger(2)
+        t2.new_effect.activate_trigger(1)
+
+        new_triggers = [t0, t1, t2]
+
+        for _ in range(2):
+            self.tm.import_triggers(new_triggers)
+        self.assertListEqual([t.trigger_id for t in self.tm.triggers], list(range(9)))
+
+        for offset in range(0, len(self.tm.triggers), 3):
+            self.assertEqual(
+                self.tm.triggers[offset].effects[0].trigger_id,
+                self.tm.triggers[offset + 2].trigger_id,
+            )
+            self.assertEqual(
+                self.tm.triggers[offset + 2].effects[0].trigger_id,
+                self.tm.triggers[offset + 1].trigger_id,
+            )
+
     def test_import_triggers_with_index(self):
         self.tm.add_trigger("Trigger0")
         self.tm.add_trigger("Trigger1")

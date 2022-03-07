@@ -35,7 +35,7 @@ _store_error_displays: Dict[str, Dict[str, Callable[..., str]]] = {
 
 
 def _format_trigger_id_representation(id_: int, uuid: UUID) -> str:
-    if (name := getters.get_trigger_name(uuid, id_)) is not None:
+    if (name := getters.get_trigger(uuid, id_).name) is not None:
         return f"\"{trunc_string(name)}\""
     return _store_error_displays['triggers']['invalid_reference']()
 
@@ -188,7 +188,7 @@ def transform_value_by_representation(representation, value, uuid):
                 suffix_original_value = False
         else:
             raise ValueError(f"Unknown representation: '{representation}'")
-    except KeyError:
+    except (KeyError, ValueError):
         value_representation, format_value_repr = unknown
 
     if format_value_repr:

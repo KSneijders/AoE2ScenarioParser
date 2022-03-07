@@ -21,6 +21,7 @@ class RetrieverObjectLink:
         retrieve_instance_number: bool = False,
         retrieve_history_number: int = -1,
         commit_callback: Callable = None,
+        destination_object=None,
     ):
         """
         Args:
@@ -32,6 +33,7 @@ class RetrieverObjectLink:
             retrieve_instance_number:
             retrieve_history_number:
             commit_callback:
+            destination_object:
         """
         if not mutually_exclusive(link, retrieve_instance_number, value_is_valid(retrieve_history_number)):
             raise ValueError(
@@ -39,6 +41,7 @@ class RetrieverObjectLink:
                 "'retriever_history_number' may be used at a time."
             )
 
+        self.destination_object = destination_object
         self.name = variable_name
         self.section_name = section_name
         self.link = link

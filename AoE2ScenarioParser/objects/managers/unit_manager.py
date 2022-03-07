@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Union
+from typing import List, Union, Tuple
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -53,14 +53,16 @@ class UnitManager(AoE2Object):
     def add_unit(self,
                  player: Union[int, PlayerId],
                  unit_const: int,
-                 x: float,
-                 y: float,
+                 x: float = 0,
+                 y: float = 0,
                  z: float = 0,
                  rotation: float = 0,
                  garrisoned_in_id: int = -1,
                  animation_frame: int = 0,
                  status: int = 2,
-                 reference_id: int = None, ) -> Unit:
+                 reference_id: int = None,
+                 tile: Tile | Tuple[int, int] = None,
+                 ) -> Unit:
         """
         Adds a unit to the scenario.
 
@@ -76,6 +78,9 @@ class UnitManager(AoE2Object):
             status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
+            tile: An object that represents a tile on the map. Replaces parameters x and y. Also automatically adds
+                .5 to both ints to place the unit centered on the tile.
+
         Returns:
             The Unit created
         """
@@ -84,8 +89,8 @@ class UnitManager(AoE2Object):
 
         unit = Unit(
             player=player,
-            x=x,
-            y=y,
+            x=x if tile is None else (tile[0] + .5),
+            y=y if tile is None else (tile[1] + .5),
             z=z,
             reference_id=reference_id,
             unit_const=unit_const,
@@ -173,10 +178,6 @@ class UnitManager(AoE2Object):
                 Or if both (tile1 and tile2) are not used simultaneously.
                 Or if any of the 4 (x1, y1, x2, y2) is used together with any of (tile1, tile2). Use one or the other.
                 Or if players and ignore_players are used simultaneously.
-
-        :Authors:
-            KSneijders (https://github.com/KSneijders/)
-            T-West (https://github.com/twestura/)
         """
         if (x1 is not None or y1 is not None or x2 is not None or y2 is not None) and any([tile1, tile2]):
             raise ValueError("Cannot use both x1,y1,x2,y2 notation and tile1,tile2 notation at the same time")
@@ -189,10 +190,14 @@ class UnitManager(AoE2Object):
             raise ValueError("Cannot use both whitelist (players) and blacklist (ignore_players) at the same time")
 
         if tile1:
-            x1 = tile1.x1
-            y1 = tile1.y1
-            x2 = tile2.x2
-            y2 = tile2.y2
+            x1 = tile1.x
+            y1 = tile1.y
+            x2 = tile2.x
+            y2 = tile2.y
+        else:
+            # Inclusive selection
+            x2 += 1
+            y2 += 1
 
         if players is not None:
             players = players
@@ -204,8 +209,7 @@ class UnitManager(AoE2Object):
         if unit_list is None:
             unit_list = self.get_all_units()
 
-        return [unit for unit in unit_list
-                if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
+        return [unit for unit in unit_list if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
     def change_ownership(self, unit: Unit, to_player: Union[int, PlayerId]) -> None:
         """

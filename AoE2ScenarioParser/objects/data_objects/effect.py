@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid, validate_coords
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -189,19 +189,7 @@ class Effect(AoE2Object):
         else:
             armour_attack_class = armour_attack_quantity = None
 
-        # QoL addition. When selecting a singular tile, no need for the second coords.
-        if area_x2 == -1 and area_x1 != -1:
-            area_x2 = area_x1
-        if area_y2 == -1 and area_y1 != -1:
-            area_y2 = area_y1
-
-        # Fix, not allowed for x1 > x2 & y1 > y2
-        if area_x1 > area_x2:
-            area_x1, area_x2 = area_x2, area_x1
-            warn("Swapping 'area_x1' and 'area_x2' values. Attribute 'area_x1' cannot be higher than 'area_x2'")
-        if area_y1 > area_y2:
-            area_y1, area_y2 = area_y2, area_y1
-            warn("Swapping 'area_y1' and 'area_y2' values. Attribute 'area_y1' cannot be higher than 'area_y2'")
+        area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
 
         if value_is_valid(legacy_location_object_reference):
             location_object_reference = legacy_location_object_reference
@@ -414,7 +402,7 @@ class Effect(AoE2Object):
         trigger_version = getters.get_trigger_version(self._host_uuid)
         if trigger_version == 2.4:
             return quantity >> 8, quantity & 255
-        elif trigger_version == 2.5:
+        elif trigger_version >= 2.5:
             return quantity >> 16, quantity & 65535
 
     def _aa_to_quantity(self, aa_quantity: int, aa_class: int) -> int:
@@ -433,7 +421,7 @@ class Effect(AoE2Object):
         if trigger_version == 2.4:
             # Would use `aa_class << 8` - but apparently multiplication is faster
             return aa_class * 256 + aa_quantity
-        elif trigger_version == 2.5:
+        elif trigger_version >= 2.5:
             return aa_class * 65536 + aa_quantity
 
     def __str__(self):

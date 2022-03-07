@@ -27,15 +27,17 @@ class AoE2Object:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            setattr(result, k, self._deepcopy_entry(k, v))
+            entry = self._deepcopy_entry(k, v)
+            if entry is None:
+                continue
+            setattr(result, k, entry)
         return result
 
     def _deepcopy_entry(self, k, v):
-        """Default copy implementation per key for AoE2Object. Created so this logic can be inherited."""
-        if k not in ['_sections', '_link_list']:
-            val = deepcopy(v)
-        else:
+        if k in ['_sections', '_link_list']:
             val = getattr(self, k)
+        else:
+            val = deepcopy(v)
         return val
 
     @classmethod
@@ -54,6 +56,7 @@ class AoE2Object:
         object_parameters = {}
         for link in cls._link_list:
             if link.support is not None and not link.support.supports(scenario_version):
+
                 error_msg = f_unsupported_string(link, scenario_version)
 
                 def _get(self):
@@ -63,10 +66,14 @@ class AoE2Object:
                     if val is not None:
                         raise UnsupportedAttributeError(error_msg)
 
+                obj = cls
+                if link.destination_object is not None:
+                    obj = link.destination_object
+
                 # Todo: Runs for each _construct() -- A LOT of overhead
                 #  Doesn't work properly when reading an older scenario first, and a newer one later
                 #  Properties don't get reset!
-                setattr(cls, link.name, property(_get, _set))
+                setattr(obj, link.name, property(_get, _set))
                 object_parameters[link.name] = None
             else:
                 object_parameters[link.name] = link.construct(host_uuid, number_hist = number_hist)

@@ -442,7 +442,8 @@ class EffectId(IntEnum):
     - object_list_unit_id
     - source_player
     - operation
-    - object_attributes"""
+    - object_attributes
+    - message"""
     MODIFY_RESOURCE = 52
     """Attributes for the **modify_resource** effect are: \n
     - quantity

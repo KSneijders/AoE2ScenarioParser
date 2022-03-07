@@ -6,6 +6,98 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.35 - 2022-March-3
+
+### Fixed
+
+- Issue introduced after the `0.1.33` fix. 
+  - `XS Manager` was trying to create a `script call` effect regardless if the scenario supported it or not.
+
+---
+
+## 0.1.34 - 2022-March-1
+
+### Fixed
+
+- Issue with deepcopying `UuidList`s. (Causing issues with trigger importing). 
+
+---
+
+## 0.1.33 - 2022-February-21
+
+### Fixed
+
+- Issue with `XS Manager` not copying the script content to the right trigger object. 
+
+---
+
+## 0.1.32 - 2022-February-04
+
+### Fixed
+
+- Issue with type hinting `trigger.new_effect` and `trigger.new_condition`
+
+---
+
+## 0.1.31 - 2022-February-02
+
+**Support for the new 58259 update!**   
+
+### Added 
+
+- **The new `Data Triggers` functionality!** A powerful tool to communicate information from in-game to the parser!
+  - You can find the `Data Triggers` cheatsheet [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/data_triggers/)!
+- `message` field to the `modify_attribute` effect.
+
+### Improved
+
+- `Area.to_chunks()` function is now **A LOT** faster in certain situations (sometimes 40x faster!)
+
+### Fixed
+
+- Issue with reading the new scenario files (since update 58259, 31-Jan-22)
+- Issue with imported triggers not being deep-copied and causing reference problems
+- Issue with copied triggers not being able to use `new_effect` and `new_condition`
+- Issue where `get_unit_in_area` params `x2` and `y2` were considered exclusive 
+  - Locations: `(0, 0), (3, 3)` would be considered like: `(0, 0), (2, 2)`
+
+---
+
+## 0.1.30 - 2022-January-04
+
+### Fixed
+
+- Issue with reading older scenarios (older than 1.40)
+
+---
+
+## 0.1.29 - 2022-January-03
+
+**Happy new year!**
+
+### Added
+
+- **The `Area` object! A powerful object for area management!**
+  - You can find the `Area` cheatsheet [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/area/)!
+- `tile` parameter to add_unit (Overwrites given x & y values)
+- `SectionName` enum for easier access to scenario sections
+
+### Fixed
+
+- Issue with reading armor/attack values in some effects.
+- (Possibly) Worked around issue caused by a bug in Python from 3.8.6 to 3.9.1 (Fixed in 3.9.2)
+- Renamed `TerrainTile` attribute `index` to `_index` (Index value should be retrieved through the attribute: `i`)
+- Issue where `typing_extensions` wasn't downloaded automatically through pypi (pip)
+- Final print statement not ending with a newline
+
+### Changed
+
+- `i_to_xy` function returns named tuple. Can now **also** access the coords using `.x` and `.y`
+- `Tile` object to be (simple) (x, y) `NamedTuple` instead of an entire object
+  - Note: This is not about `TerrainTile` objects from the Map Manager.
+
+---
+
 ## 0.1.28 - 2021-November-19
 
 ### Added
