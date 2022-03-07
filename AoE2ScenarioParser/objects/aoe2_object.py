@@ -3,8 +3,10 @@ from __future__ import annotations
 from copy import deepcopy
 from enum import Enum
 from typing import List, Type, TYPE_CHECKING
+from uuid import UUID
 
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.scenarios.scenario_store import getters
@@ -37,7 +39,13 @@ class AoE2Object:
         return val
 
     @classmethod
-    def _construct(cls, host_uuid, number_hist=None):
+    def _construct(cls, host_uuid: UUID, number_hist = None) -> AoE2Object:
+        """
+
+        Args:
+            host_uuid: The universally unique identifier of the scenario
+            number_hist:
+        """
         if number_hist is None:
             number_hist = []
 
@@ -61,14 +69,14 @@ class AoE2Object:
                 setattr(cls, link.name, property(_get, _set))
                 object_parameters[link.name] = None
             else:
-                object_parameters[link.name] = link.construct(host_uuid, number_hist=number_hist)
+                object_parameters[link.name] = link.construct(host_uuid, number_hist = number_hist)
 
         object_parameters['host_uuid'] = host_uuid
         obj = cls(**object_parameters)
 
         return obj
 
-    def commit(self, local_link_list=None):
+    def commit(self, local_link_list = None):
         """
         Commits all changes to the section & struct structure of the object it's called upon.
 
@@ -80,14 +88,12 @@ class AoE2Object:
             local_link_list = self._link_list
 
         for link in local_link_list[::-1]:
-            link.commit(self._host_uuid, host_obj=self)
+            link.commit(self._host_uuid, host_obj = self)
 
     @staticmethod
-    def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:
-        if obj is None and number_hist is None:
-            raise ValueError("The use of the parameter 'obj' or 'number_hist' is required.")
-        if obj is not None and number_hist is not None:
-            raise ValueError("Cannot use both the parameter 'obj' and 'number_hist'.")
+    def get_instance_number(obj: AoE2Object = None, number_hist = None) -> int:
+        if not mutually_exclusive(obj, number_hist):
+            raise ValueError("Only one of the arguments 'obj' and 'number_hist' may be used at a time.")
 
         if number_hist is None and obj is not None:
             number_hist = obj._instance_number_history

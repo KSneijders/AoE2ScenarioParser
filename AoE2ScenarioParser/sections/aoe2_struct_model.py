@@ -7,16 +7,17 @@ from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
 class AoE2StructModel:
+    """
+    Multiple retrievers containing related data are grouped together in scenario files under structs. This class is used
+    to recursively build all retrievers and sub-structures inside a structure.
+
+    Note that this class is just a model that represents each possible structure in a scenario file, hence it does NOT
+    actually contain any data. Rather it acts as a "mold" to copy from and create multiple of structures that are
+    repeated many times in a scenario. Thus, these struct models are actually always the same for a given version of a
+    scenario. The actual data is held in file sections which are unique to each scenario file read.
+    """
     def __init__(self, name: str, retriever_map: Dict[str, Retriever], structs: Dict[str, AoE2StructModel]):
         """
-        Multiple retrievers containing related data are grouped together in scenario files under structs. This class is
-        used to recursively build all retrievers and sub-structures inside a structure.
-
-        Note that this class is just a model that represents each possible structure in a scenario file, hence it does
-        NOT actually contain any data. Rather it acts as a "mold" to copy from and create multiple of structures that
-        are repeated many times in a scenario. Thus, these struct models are actually always the same for a given
-        version of a scenario. The actual data is held in file sections which are unique to each scenario file read.
-
         Args:
             name: The name of the structure being built
             retriever_map: A dict of retrievers that constitute this structure

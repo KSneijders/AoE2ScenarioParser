@@ -4,10 +4,9 @@ from AoE2ScenarioParser.helper.exceptions import EndOfFileError
 
 
 class IncrementalGenerator:
+    """Similar to an actual generator and is used to return the bytes of a file sequentially"""
     def __init__(self, name: str, file_content: bytes, progress: int = 0):
         """
-        Similar to an actual generator and is used to return the bytes of a file sequentially
-
         Args:
             name: The full file path of the file to create the generator for
             file_content: The bytes of the specified file

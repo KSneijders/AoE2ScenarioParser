@@ -6,11 +6,12 @@ from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 
 class DependencyTarget:
+    """
+    Provides the objects for targeting a specific retriever based on it's section name (or 'self') and the retriever
+    name.
+    """
     def __init__(self, targets: List[List[str]]):
         """
-        Provides the objects for targeting a specific retriever based on it's section name (or 'self') and the
-        retriever name.
-
         Args:
             targets: a list of lists which specify the targets of the dependency. Each sublist consists of two elements,
                 the first element is the name of the section in which the target retriever lives and the second element

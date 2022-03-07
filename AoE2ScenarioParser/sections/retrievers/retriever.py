@@ -13,6 +13,12 @@ from AoE2ScenarioParser.sections.retrievers.datatype import DataType
 
 
 class Retriever:
+    """
+    A retriever forms the fundamental unit of data in a scenario.
+    All retrievers contain only one single value related to a particular thing in the scenario.
+    This class is used to correctly interpret and store all the different types of fundamental data that can be
+    present in a scenario
+    """
     __slots__ = [
         'on_construct',
         'on_commit',
@@ -37,11 +43,6 @@ class Retriever:
                  log_value: bool = False
                  ):
         """
-        A retriever forms the fundamental unit of data in a scenario.
-        All retrievers contain only one single value related to a particular thing in the scenario.
-        This class is used to correctly interpret and store all the different types of fundamental data that can be
-        present in a scenario
-
         Args:
             name: The name of the item/piece of information to retrieved. Has to be unique within the Section or Struct
             default_value: The default value of this retriever

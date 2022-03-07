@@ -2,6 +2,9 @@ from __future__ import annotations
 
 
 class DataType:
+    """
+    This class is used to represent the data type of the value being retrieved. Every retriever has this as an attribute
+    """
     __slots__ = [
         'var',
         '_repeat',
@@ -15,9 +18,6 @@ class DataType:
 
     def __init__(self, var: str = "0", repeat: int = 1, log_value: bool = False, type_length: tuple = None):
         """
-        This class is used to represent the data type of the value being retrieved. Every retriever has this as an
-        attribute
-
         Args:
             var: string representation of the datatype
             repeat: the amount of times a value is repeated

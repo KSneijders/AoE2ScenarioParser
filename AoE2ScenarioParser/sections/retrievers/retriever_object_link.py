@@ -1,7 +1,8 @@
-from typing import Type, List
+from typing import Type, List, Callable
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.helper import mutually_exclusive, value_is_valid
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
@@ -10,35 +11,50 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class RetrieverObjectLink:
-    def __init__(self,
-                 variable_name: str,
-                 section_name: str = None,
-                 link: str = None,
-                 support: Support = None,
-                 process_as_object: Type[AoE2Object] = None,
-                 retrieve_instance_number: bool = False,
-                 retrieve_history_number: int = -1,
-                 commit_callback=None,
-                 ):
-        if sum([link is not None, retrieve_instance_number, (retrieve_history_number != -1)]) != 1:
-            raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
+    def __init__(
+        self,
+        variable_name: str,
+        section_name: str = None,
+        link: str = None,
+        support: Support = None,
+        process_as_object: Type[AoE2Object] = None,
+        retrieve_instance_number: bool = False,
+        retrieve_history_number: int = -1,
+        commit_callback: Callable = None,
+    ):
+        """
+        Args:
+            variable_name:
+            section_name:
+            link:
+            support:
+            process_as_object:
+            retrieve_instance_number:
+            retrieve_history_number:
+            commit_callback:
+        """
+        if not mutually_exclusive(link, retrieve_instance_number, value_is_valid(retrieve_history_number)):
+            raise ValueError(
+                "Only one of the arguments 'link', 'retrieve_instance_number' and "
+                "'retriever_history_number' may be used at a time."
+            )
 
-        self.name: str = variable_name
+        self.name = variable_name
         self.section_name = section_name
         self.link = link
-        self.support: Support = support
-        self.is_special_unit_case = self._is_special_unit_case()
-        self.process_as_object: Type[AoE2Object] = process_as_object
-        self.retrieve_instance_number: bool = retrieve_instance_number
-        self.retrieve_history_number: int = retrieve_history_number
+        self.support = support
+        self.is_special_unit_case: bool = self._is_special_unit_case()
+        self.process_as_object = process_as_object
+        self.retrieve_instance_number = retrieve_instance_number
+        self.retrieve_history_number = retrieve_history_number
         self.commit_callback = commit_callback
 
         self.splitted_link: List[str] = link.split('.') if link is not None else []
 
-    def construct(self, host_uuid, number_hist=None):
+    def construct(self, host_uuid, number_hist = None):
         if number_hist is None:
             number_hist = []
-        instance_number = AoE2Object.get_instance_number(number_hist=number_hist)
+        instance_number = AoE2Object.get_instance_number(number_hist = number_hist)
 
         if self.retrieve_instance_number:
             return instance_number
@@ -116,7 +132,8 @@ class RetrieverObjectLink:
                 # Maybe not supported in current version. if actually not supported -> ignore
                 if self.support is not None:
                     if not self.support.supports(
-                            getters.get_scenario_version(host_uuid)):
+                            getters.get_scenario_version(host_uuid)
+                    ):
                         return
                 if settings.IGNORE_WRITING_ERRORS:
                     return
@@ -164,7 +181,7 @@ class RetrieverObjectLink:
             retriever.data = retriever.data[:new_len]
         elif new_len > old_len:
             retriever.data += [
-                AoE2FileSection.from_model(model, host_uuid, set_defaults=True)
+                AoE2FileSection.from_model(model, host_uuid, set_defaults = True)
                 for _ in range(new_len - old_len)
             ]
 

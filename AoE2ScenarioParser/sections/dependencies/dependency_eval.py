@@ -2,10 +2,11 @@ from __future__ import annotations
 
 
 class DependencyEval:
+    """
+    Provides the objects for storing dependency eval code and it's locals.
+    """
     def __init__(self, eval_code: str, eval_locals: dict = None):
         """
-        Provides the objects for storing dependency eval code and it's locals.
-
         Args:
             eval_code (str): The code executed using eval
             eval_locals (dict): The locals dict handed to the eval function

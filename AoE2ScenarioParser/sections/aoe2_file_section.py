@@ -41,6 +41,13 @@ class SectionName(Enum):
 
 
 class AoE2FileSection:
+    """
+    Multiple retrievers and structures containing related data are grouped together under one file section. This class
+    is used to construct, manage and commit all the retrievers and structures inside a file section.
+
+    Utilises the AoE2StructModel to create multiple of the same structure. These copies are what is used to store the
+    data from a scenario file
+    """
     def __init__(self,
                  name: str,
                  retriever_map: Dict[str, 'Retriever'],
@@ -49,12 +56,6 @@ class AoE2FileSection:
                  level: SectionLevel = SectionLevel.TOP_LEVEL
                  ):
         """
-        Multiple retrievers and structures containing related data are grouped together under one file section. This
-        class is used to construct, manage and commit all the retrievers and structures inside a file section.
-
-        Utilises the AoE2StructModel to create multiple of the same structure. These copies are what is used
-        to store the data from a scenario file
-
         Args:
             name: The name of the file section
             retriever_map: A dict containing all the retrievers for this file section

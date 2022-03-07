@@ -1,6 +1,6 @@
 from typing import List
 
-from AoE2ScenarioParser.helper.helper import exclusive_if
+from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.variable import Variable
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
@@ -48,7 +48,7 @@ class TriggerManagerDE(TriggerManager):
         return new_variable
 
     def get_variable(self, variable_id: int = None, variable_name: str = None) -> Variable:
-        if not exclusive_if(variable_id is not None, variable_name is not None):
+        if not mutually_exclusive(variable_id is not None, variable_name is not None):
             raise ValueError("Select a variable using either the variable_id or variable_name parameters.")
         for variable in self.variables:
             if variable.variable_id == variable_id or variable.name == variable_name:

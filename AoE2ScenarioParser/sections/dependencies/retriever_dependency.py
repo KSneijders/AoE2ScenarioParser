@@ -6,14 +6,15 @@ from AoE2ScenarioParser.sections.dependencies.dependency_target import Dependenc
 
 
 class RetrieverDependency:
+    """
+    Provides for objects used to handle dependencies between retrievers
+    """
     def __init__(self,
                  dependency_action: DependencyAction,
                  dependency_target: DependencyTarget = None,
                  dependency_eval: DependencyEval = None
                  ):
         """
-        Provides for objects used to handle dependencies between retrievers
-
         Args:
             dependency_action: The type of action taken.
             dependency_target: The target of the action.
