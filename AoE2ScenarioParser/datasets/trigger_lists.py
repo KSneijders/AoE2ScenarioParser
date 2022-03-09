@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import json
 
 from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums, _DataSetIntFlags
 
@@ -344,6 +345,7 @@ class ObjectAttribute(_DataSetIntEnums):
     REGENERATION_RATE = 109
 
 
+_editor_names = None
 class Attribute(_DataSetIntEnums):
     """
     This enum class provides the integer values used to reference all the player resources in the game. Used in effects
@@ -351,37 +353,50 @@ class Attribute(_DataSetIntEnums):
 
     **Examples**
 
-    >>> Attribute.FOOD
-    <Attribute.FOOD: 0>
+    >>> Attribute.FOOD_STORAGE
+    <Attribute.FOOD_STORAGE: 0>
     """
 
-    FOOD = 0
+    @property
+    def editor_name(self):
+        """
+        The exact name of this resource in the editor. To be used in <> notation in trigger displays
+        """
+        global _editor_names
+        if _editor_names is None:
+            with open("./sources/resource_editor_names.json") as file:
+                _editor_names = json.load(file)
+
+        return _editor_names[self]
+
+
+    FOOD_STORAGE = 0
     """
-    Food amount of the source player
+    - Purpose: Current food amount
     """
-    WOOD = 1
+    WOOD_STORAGE = 1
     """
-    Wood amount of the source player
+    - Purpose: Current wood amount
     """
-    STONE = 2
+    STONE_STORAGE = 2
     """
-    Stone amount of the source player
+    - Purpose: Current stone amount
     """
-    GOLD = 3
+    GOLD_STORAGE = 3
     """
-    Gold amount of the source player
+    - Purpose: Current gold amount
     """
-    POPULATION_CAP = 4
+    POPULATION_HEADROOM = 4
     """
-    Current max pop of the source player
+    - Purpose: Amount of free population space. Note that this is NOT the population cap
     """
     CONVERSION_RANGE = 5
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     CURRENT_AGE = 6
     """
-    Age name and icon at the top of the screen of the source player
+    - Purpose: Controls the age name and icon at the top of the screen
 
     - Default Values:
 
@@ -393,201 +408,205 @@ class Attribute(_DataSetIntEnums):
 
         - 3:  Imperial Age
 
-    - Additional Information: Setting this to an amount higher than 3 cycles the icon but keeps the age at imperial
+    - Note: Setting this to an amount higher than 3 cycles the icon but keeps the age at imperial
     """
-    RELICS = 7
+    RELICS_CAPTURED = 7
     """
-    Number of relics held by the source player
+    - Purpose: Number of relics held
     """
-    TRADE_BONUS = 8
+    UNUSED_RESOURCE_008 = 8
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
     TRADE_GOODS = 9
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
-    TRADE_PRODUCTION = 10
+    UNUSED_RESOURCE_010 = 10
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
     CURRENT_POPULATION = 11
     """
-    Current pop of the source player
+    - Purpose: The current population
     """
     CORPSE_DECAY_TIME = 12
     """
-    Time taken by corpses to decay for the source player
-
-    - Additional Information: Doesn't seem to do anything when changed
+    - Purpose: Unknown... What does this resource do?
     """
     REMARKABLE_DISCOVERY = 13
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     MONUMENTS_CAPTURED = 14
     """
-    Number of monuments owned by the source player
+    - Purpose: Number of monuments owned
     """
     MEAT_STORAGE = 15
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     BERRY_STORAGE = 16
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     FISH_STORAGE = 17
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     UNUSED_RESOURCE_018 = 18
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
     TOTAL_UNITS_OWNED = 19
     """
-    Total units owned by the source player
+    - Purpose: Total units owned, excluding buildings
     """
-    KILLS = 20
+    UNITS_KILLED = 20
     """
-    Total units killed of the source player
+    - Purpose: Total units killed, excluding buildings
     """
-    RESEARCH_COUNT = 21
+    TECHNOLOGY_COUNT = 21
     """
-    Research count of the source player
+    - Purpose: Number of technologies researched till now
     """
-    EXPLORATION = 22
+    PERCENT_MAP_EXPLORED = 22
     """
-    Percent map explored by the source player
+    - Purpose: Percentage of the map explored
     """
     CASTLE_AGE_TECH_ID = 23
     """
-    Always 102 
+    - Purpose: Always 102
 
-    - Additional Information: Nothing happens when you change this
+    - Note: Nothing happens when you change this, probably for mods only
     """
     IMPERIAL_AGE_TECH_ID = 24
     """
-    Always 103 
+    - Purpose: Always 103
 
-    - Additional Information: Nothing happens when you change this
+    - Note: Nothing happens when you change this, probably for mods only
     """
     FEUDAL_AGE_TECH_ID = 25
     """
-    Always 101 
+    - Purpose: Always 101
 
-    - Additional Information: Nothing happens when you change this
+    - Note: Nothing happens when you change this, probably for mods only
     """
-    ATTACK_SOUND_EFFECT_ID = 26
+    ATTACK_WARNING_SOUND_ID = 26
     """
-    Always 0 
+    - Purpose: Always 0
 
-    - Additional Information: Nothing happens when you change this
+    - Note: Nothing happens when you change this, probably for mods only
     """
     ENABLE_MONK_CONVERSION = 27
     """
-    Boolean: allow enemy monk conversions by the source player
+    - Purpose: Boolean: allow enemy monk conversions
 
     - Default Values:
 
-        - 0:  Don't Allow
+        - 0:  No (default)
 
-        - $\geq$ 1:  Allow
-
-    - Additional Information: Set to 1 when atonement is researched
+        - >= 1:  Yes, after Atonement
     """
-    ENABLE_BUILDING_CONVERSIONS = 28
+    ENABLE_BUILDING_CONVERSION = 28
     """
-    Boolean: allow enemy building conversions by the source player.
+    - Purpose: Boolean: allow enemy building conversions.
 
     - Default Values:
 
-        - 0:  Don't Allow
+        - 0:  No (default)
 
-        - 1:  Allow
+        - 1:  Yes, after Redemption
 
-        - $\geq$2:  Monks can convert buildings from range
-
-    - Additional Information: Set to 1 when redemption is researched
+        - >=2:  Monks can convert buildings from range
     """
     UNUSED_RESOURCE_029 = 29
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
-    BUILDING_LIMIT = 30
+    UNUSED_RESOURCE_030 = 30
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
-    FOOD_LIMIT = 31
+    UNUSED_RESOURCE_031 = 31
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
     BONUS_POPULATION_CAP = 32
     """
-    Additional max pop space of the source player
+    - Purpose: Additional pop space to grant on top of maximum pop cap
 
-    - Additional Information: 10 for goths
+    - Note: 10 for goths
     """
     FOOD_MAINTENANCE = 33
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     FAITH = 34
     """
-    Boolean: faith researched by the source player
-
-    - Additional Information: Set to 1 when faith is researched, ONLY  a boolean value, does not force faith's effects if manually set to 1
+    - Purpose: Unknown... What does this resource do?
     """
-    FAITH_RECHARGE_RATE = 35
+    FAITH_RECHARGING_RATE = 35
     """
-    Monk faith recovery rate of the source player
-    """
-    FARM_FOOD = 36
-    """
-    Max farm food of the source player
-    """
-    CIVILIAN_POPULATION = 37
-    """
-    Civilian pop of the source player
-    """
-    UNUSED_RESOURCE_038 = 38
-    """
-    Unused amount of the source player
-    """
-    ALL_TECHS_ACHIEVED = 39
-    """
-    Boolean: researched all enabled techs by the source player
+    - Purpose: Monk faith recovery rate
 
     - Default Values:
 
-        - 0:  when all techs not researched
+        - 1:  The unit of measurement for this rate is unknown
+    """
+    FARM_FOOD_AMOUNT = 36
+    """
+    - Purpose: Maximum farm food amount
 
-        - 1:  when all techs are researched
+    - Default Values:
+
+        - 175:  Generic
+
+        - 220:  Chinese
+
+    - Note: This is what horse collar etc. technologies modify
+    """
+    CIVILIAN_POPULATION = 37
+    """
+    - Purpose: Current civilian population
+    """
+    UNUSED_RESOURCE_038 = 38
+    """
+    - Purpose: Unused
+    """
+    ALL_TECHS_ACHIEVED = 39
+    """
+    - Purpose: Boolean: If all available technologies have been researched
+
+    - Default Values:
+
+        - 0:  No
+
+        - 1:  Yes
     """
     MILITARY_POPULATION = 40
     """
-    Military pop of the source player
+    - Purpose: Current military popupation
     """
     CONVERSIONS = 41
     """
-    Number of units converted by the source player
+    - Purpose: Number of units converted
     """
-    WONDER = 42
+    STANDING_WONDERS = 42
     """
-    Number of standing wonders of the source player
+    - Purpose: Number of standing wonders
     """
     RAZINGS = 43
     """
-    Number of buildings destroyed by the source player
+    - Purpose: Number of buildings razed
     """
     KILL_RATIO = 44
     """
-    Ceil of kills/deaths of the source player
+    - Purpose: This is the number of units lost subtracted from the number of units killed in total
     """
-    PLAYER_KILLED = 45
+    SURVIVAL_TO_FINISH = 45
     """
-    Boolean: survival to finish of the source player
+    - Purpose: Boolean: This is set to `0` under the same conditions which are required to defeat a player
 
     - Default Values:
 
@@ -597,11 +616,19 @@ class Attribute(_DataSetIntEnums):
     """
     TRIBUTE_INEFFICIENCY = 46
     """
-    Tribute tax fraction imposed on the source player
+    - Purpose: This is the fraction of tributes sent that are collected as tax
+
+    - Default Values:
+
+        - 0.3:  Generic
+
+        - 0.2:  After Coinage
+
+        - 0:  After Banking
     """
     GOLD_MINING_PRODUCTIVITY = 47
     """
-    Amount of gold mined multiplier of the source player
+    - Purpose: Multiplier for gold mined by gold miners
 
     - Default Values:
 
@@ -609,169 +636,189 @@ class Attribute(_DataSetIntEnums):
 
         - 1.15:  Mayans
 
-    - Additional Information: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate as well. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
+    - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
     """
     TOWN_CENTER_UNAVAILABLE = 48
     """
-    Boolean: allow building tcs for the source player
+    - Purpose: Boolean: allow building extra tcs
 
     - Default Values:
 
         - 0:  No (Sudden Death)
 
-        - 1:  Yes
+        - 1:  Yes (Normal)
     """
     GOLD_COUNTER = 49
     """
-    Total gold collected by the source player
+    - Purpose: Total gold collected
     """
     REVEAL_ALLY = 50
     """
-    Boolean: show ally los for the source player
+    - Purpose: Boolean: show ally los for the source player
 
     - Default Values:
 
-        - 0:  No Allied Vision
+        - 0:  No (default)
 
-        - 1:  Allied Vision
+        - 1:  Yes, after Cartography or with a Portuguese ally
 
-    - Additional Information: Note - Once enabled, Allied vison cannot be undone
+    - Note: Once set to `1`, setting it back to `0` won't take away the LoS of allies
     """
-    HOUSES = 51
+    UNUSED_RESOURCE_051 = 51
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
     MONASTERIES = 52
     """
-    Number of monasteries of the source player
+    - Purpose: Number of monasteries
     """
     TRIBUTE_SENT = 53
     """
-    Amount tributed by the source player
+    - Purpose: Total of all resources tributed to others. This does not count taxes paid on tributing
     """
     ALL_MONUMENTS_CAPTURED = 54
     """
-    Boolean: all monuments captured by the source player
+    - Purpose: Boolean: all monuments on the map captured
+
+    - Default Values:
+
+        - 0:  No
+
+        - 1:  Yes
     """
     ALL_RELICS_CAPTURED = 55
     """
-    Boolean: all relics captured by the source player
+    - Purpose: Boolean: all relics on the map captured
+
+    - Default Values:
+
+        - 0:  No
+
+        - 1:  Yes
     """
-    ORE = 56
+    ORE_STORAGE = 56
     """
-    SWGB ore amount of the source player
+    - Purpose: Unused
     """
-    CAPTURED_UNIT = 57
+    KIDNAP_STORAGE = 57
     """
-    Number of units kidnapped by the source player
+    - Purpose: Number of units kidnapped
+
+    - Note: This is probably only used by mods, this usage may be incorrect
     """
     DARK_AGE_TECH_ID = 58
     """
-    Always 104 
+    - Purpose: Always 104 
 
-    - Additional Information: Nothing happens when you change this
+    - Note: Nothing happens when you change this
     """
-    TRADE_GOOD_QUALITY = 59
+    UNUSED_RESOURCE_059 = 59
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
-    TRADE_MARKET_LEVEL = 60
+    UNUSED_RESOURCE_060 = 60
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
-    FORMATIONS = 61
+    UNUSED_RESOURCE_061 = 61
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
-    BUILDING_HOUSE_RATE = 62
+    BUILDING_HOUSING_RATE = 62
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
-    GATHER_TAX_RATE = 63
+    TAX_GATHER_RATE = 63
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
-    GATHER_ACCUMULATION = 64
+    GATHER_ACCUMULATOR = 64
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... What does this resource do?
     """
     SALVAGE_DECAY_RATE = 65
     """
-    Boat corpse decay rate of the source player
-
-    - Additional Information: Changing this doesn't seem to do anything
+    - Purpose: Unknown... What does this resource do?
     """
-    ALLOW_FORMATIONS = 66
+    UNUSED_RESOURCE_066 = 66
     """
-    Unused amount of the source player
+    - Purpose: Unused
     """
     CAN_CONVERT = 67
     """
-    Boolean: allow enemy object conversions amount of the source player
+    - Purpose: Boolean: monks can convert enemy units
 
     - Default Values:
 
-        - 0:  Don't allow even regular unit conversion
+        - 0:  No
 
-        - 1:  Allows regular unit conversion
+        - 1:  Yes (default)
     """
-    HITPOINTS_KILLED = 68
+    HIT_POINTS_KILLED = 68
     """
-    Cumulative hp of all units killed by the source player
+    - Purpose: Cumulative hp of all units killed
     """
-    PLAYER1_KILLS = 69
+    KILLED_P1 = 69
     """
-    Number of player 1 units killed by the source player
+    - Purpose: Number of player 1 units killed
     """
-    PLAYER2_KILLS = 70
+    KILLED_P2 = 70
     """
-    Number of player 2 units killed by the source player
+    - Purpose: Number of player 2 units killed
     """
-    PLAYER3_KILLS = 71
+    KILLED_P3 = 71
     """
-    Number of player 3 units killed by the source player
+    - Purpose: Number of player 3 units killed
     """
-    PLAYER4_KILLS = 72
+    KILLED_P4 = 72
     """
-    Number of player 4 units killed by the source player
+    - Purpose: Number of player 4 units killed
     """
-    PLAYER5_KILLS = 73
+    KILLED_P5 = 73
     """
-    Number of player 5 units killed by the source player
+    - Purpose: Number of player 5 units killed
     """
-    PLAYER6_KILLS = 74
+    KILLED_P6 = 74
     """
-    Number of player 6 units killed by the source player
+    - Purpose: Number of player 6 units killed
     """
-    PLAYER7_KILLS = 75
+    KILLED_P7 = 75
     """
-    Number of player 7 units killed by the source player
+    - Purpose: Number of player 7 units killed
     """
-    PLAYER8_KILLS = 76
+    KILLED_P8 = 76
     """
-    Number of player 8 units killed by the source player
+    - Purpose: Number of player 8 units killed
     """
     CONVERSION_RESISTANCE = 77
     """
-    Coefficient of conversion resistance of the source player
+    - Purpose: Coefficient of conversion resistance
 
-    - Additional Information: Probability of conversion is divided by this value for ALL source player units, Teuton team bonus for conversion resistance works by increasing this.
+    - Default Values:
+
+        - 0:  Generic
+
+        - +2:  with Teuton ally
+
+        - +3:  after Faith
+
+    - Note: Probability of conversion is divided by this value for ALL source player units, Teuton team bonus for conversion resistance works by increasing this.
     """
     TRADE_VIG_RATE = 78
     """
-    Market exchange rate fraction for the source player
+    - Purpose: Market exchange rate fraction for the source player
 
     - Default Values:
 
-        - 0.3:  Generic rate
+        - 0.3:  Generic Rate
 
-        - 0.15:  after guilds
+        - 0.15:  after Guilds
 
-        - 0.05:  for saracens
+        - 0.05:  Saracens
     """
     STONE_MINING_PRODUCTIVITY = 79
     """
-    Amount of stone mined multiplier of the source player
+    - Purpose: Multiplier for stone mined by stone miners
 
     - Default Values:
 
@@ -779,505 +826,543 @@ class Attribute(_DataSetIntEnums):
 
         - 1.15:  Mayans
 
-    - Additional Information: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate as well. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
+    - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
     """
-    QUEUED_COUNT = 80
+    QUEUED_UNITS = 80
     """
-    Amount of units in queue of the source player
+    - Purpose: Amount of units in queue
 
-    - Additional Information: Note that only the units waiting to be trained are considered in the queue so if an archery range has 3 archers being made, there is 1 archer that is being trained and 2 archers that are in queue
+    - Note: Note that only the units waiting to be trained are considered in the queue so if an archery range has 3 archers being made, there is 1 archer that is being trained and 2 archers that are in queue
     """
     TRAINING_COUNT = 81
     """
-    Amount of units being trained of the source player
+    - Purpose: Amount of units being trained
 
-    - Additional Information: Note that only the FIRST unit in each building is considered as being trained so if a town centre has 4 villagers being made, there is 1 archer that is being trained and 3 villagers that are in queue
+    - Note: Note that only the FIRST unit in each building is considered as being trained so if a town centre has 4 villagers being made, there is 1 archer that is being trained and 3 villagers that are in queue
     """
-    START_WITH_PACKED_TOWN_CENTRE = 82
+    START_WITH_UNIT_444_PTWC_ = 82
     """
-    Boolean: started with PTWC of the source player
+    - Purpose: Boolean: started with PTWC
 
-    - Additional Information: Setting this to 1 in an RMS allows for starting with PTWC. Manually changing this in the editor does nothing
+    - Note: Setting this to 1 in an RMS allows for starting with PTWC. Manually changing this in the editor does nothing
     """
     BOARDING_RECHARGE_RATE = 83
     """
-    ABGAL faith recharge rate amount of the source player
+    - Purpose: ABGAL faith recharge rate amount
 
-    - Additional Information: This is similar to monk's faith except for a special ship unit 536 called the ABGAL in the editor that can convert ships form 1 range away
+    - Note: This is similar to monk's faith except for a special ship unit 536 called the ABGAL in the editor that can convert ships form 1 range away
     """
     STARTING_VILLAGERS = 84
     """
-    Number of starting villagers of the source player
+    - Purpose: Number of starting villagers
 
     - Default Values:
 
-        - 3:  For generic civs
+        - 3:  Generic
 
-        - 4:  For Mayans
+        - 4:  Mayans
 
-        - 6:  For Chinese
+        - 6:  Chinese
 
-    - Additional Information: Only works for RMS, Changing this manually in the editor does nothing x2 on budapest, x3 on metropolis
+    - Note: Only works for RMS, changing this manually in the editor does nothing.
     """
     RESEARCH_COST_MODIFIER = 85
     """
-    Reduce tech cost to fraction for the source player
+    - Purpose: Multiply technology costs by this value
+
+    - Default Values:
+
+        - 1:  Generic
+
+        - 0.9:  Chinese in feudal age
+
+        - 0.85:  Chinese in castle age
+
+        - 0.80:  Chinese in imperial age
     """
     RESEARCH_TIME_MODIFIER = 86
     """
-    Reduce tech research time to fraction for the source player
+    - Purpose: Multiply technology research times by this value
     """
     CONVERT_BOATS = 87
     """
-    Boolean: allow monks to convert boats amount of the source player
+    - Purpose: Boolean: allow monks to convert boats
+
+    - Default Values:
+
+        - 0:  No
+
+        - 1:  Yes (default)
     """
-    FISH_TRAP_FOOD = 88
+    FISH_TRAP_FOOD_AMOUNT = 88
     """
-    Max fishtrap food of the source player
+    - Purpose: Maximum fishtrap food amount
+
+    - Default Values:
+
+        - 710:  Generic
+
+        - 2130:  Malay
     """
     HEAL_RATE_MODIFIER = 89
     """
-    Monk healing rate of the source player
+    - Purpose: Monk healing rate modifier
+
+    - Default Values:
+
+        - 0:  The unit of measuremeant for this is unknown
     """
-    HEAL_RANGE = 90
+    HEALING_RANGE = 90
     """
-    Monk heal range of the source player
+    - Purpose: Monk heal range
+
+    - Default Values:
+
+        - 4:  Tiles
     """
     STARTING_FOOD = 91
     """
-    Starting food amount of the source player
+    - Purpose: Starting food amount
 
-    - Additional Information: Only works for RMS. Changing this manually in the editor does nothing but its a way to check starting food amount
+    - Note: Only works for RMS, changing this manually in the editor does nothing but its a way to check starting food amount
     """
     STARTING_WOOD = 92
     """
-    Starting wood amount of the source player
+    - Purpose: Starting wood amount
 
-    - Additional Information: Only works for RMS. Changing this manually in the editor does nothing but its a way to check starting wood amount
+    - Note: Only works for RMS, changing this manually in the editor does nothing but its a way to check starting wood amount
     """
     STARTING_STONE = 93
     """
-    Starting stone amount of the source player
+    - Purpose: Starting stone amount
 
-    - Additional Information: Only works for RMS. Changing this manually in the editor does nothing but its a way to check starting stone amount
+    - Note: Only works for RMS, changing this manually in the editor does nothing but its a way to check starting stone amount
     """
     STARTING_GOLD = 94
     """
-    Starting gold amount of the source player
+    - Purpose: Starting gold amount
 
-    - Additional Information: Only works for RMS. Changing this manually in the editor does nothing but its a way to check starting gold amount
+    - Note: Only works for RMS, changing this manually in the editor does nothing but its a way to check starting gold amount
     """
-    ENABLE_PTWC_OR_KIDNAP_OR_LOOT = 95
+    ENABLE_PTWC_KIDNAP_LOOT = 95
     """
-    Enable town centre packing for the source player
+    - Purpose: Enable town centre packing for the source player
 
     - Default Values:
 
-        - 0:  Normal
+        - 0:  default
 
-        - 1:  Enables Pack Button on TC but it is bugged, if you click it then TC goes berserk
+        - 1:  allows the TC to be packed and moved
 
-        - $\geq$2:  No noticeable effect
+        - >=2:  no noticeable effect
+
+    - Note: Enabling kidnap/loot requires modding the units to have the kidnap/pillage action
     """
-    BERSERKER_HEAL_TIMER = 96
+    UNUSED_RESOURCE_096 = 96
     """
-    Time difference between berserker heal rate for source player
-
-    - Additional Information: This is divided by two every time berserkergang is researched
+    - Purpose: Unused
     """
     DOMINANT_SHEEP_CONTROL = 97
     """
-    Boolean: force sheep conversion of the source player
+    - Purpose: Boolean: force sheep conversion
 
     - Default Values:
 
-        - 0:  Normal Sheep conversion behaviour
+        - 0:  Generic
 
-        - $\geq$1:  If another player does not also have this set to a non zero value, their sheep will force convert to source player
+        - 1:  Celts
 
-    - Additional Information: This is how the celt bonus of sheep not converting works
+    - Note: If this is set to a non zero value, other players' sheep convert to you even if they have a unit in their LOS, unless this is also a non zero value for them. Celt sheep bonus
     """
-    OBJECT_COST_SUMMATION = 98
+    BUILDING_COST_SUM = 98
     """
-    Total cost of all units and buildings owned by the source player
+    - Purpose: Total cost of all units and buildings owned
     """
-    RESEARCH_COST_SUMMATION = 99
+    TECH_COST_SUM = 99
     """
-    Total cost of all researches researched by the source player
+    - Purpose: Total cost of all researches researched
     """
-    RELIC_INCOME_SUMMATION = 100
+    RELIC_INCOME_SUM = 100
     """
-    Total relic gold generated by the source player
+    - Purpose: Total relic gold generated
     """
-    TRADE_INCOME_SUMMATION = 101
+    TRADE_INCOME_SUM = 101
     """
-    Total trade gold generated by the source player
+    - Purpose: Total trade gold generated
     """
-    PLAYER1_TRIBUTE = 102
+    P1_TRIBUTE = 102
     """
-    Amount of resources tributed to player 1 by the source player
+    - Purpose: Amount of resources tributed to player 1
     """
-    PLAYER2_TRIBUTE = 103
+    P2_TRIBUTE = 103
     """
-    Amount of resources tributed to player 2 by the source player
+    - Purpose: Amount of resources tributed to player 2
     """
-    PLAYER3_TRIBUTE = 104
+    P3_TRIBUTE = 104
     """
-    Amount of resources tributed to player 3 by the source player
+    - Purpose: Amount of resources tributed to player 3
     """
-    PLAYER4_TRIBUTE = 105
+    P4_TRIBUTE = 105
     """
-    Amount of resources tributed to player 4 by the source player
+    - Purpose: Amount of resources tributed to player 4
     """
-    PLAYER5_TRIBUTE = 106
+    P5_TRIBUTE = 106
     """
-    Amount of resources tributed to player 5 by the source player
+    - Purpose: Amount of resources tributed to player 5
     """
-    PLAYER6_TRIBUTE = 107
+    P6_TRIBUTE = 107
     """
-    Amount of resources tributed to player 6 by the source player
+    - Purpose: Amount of resources tributed to player 6
     """
-    PLAYER7_TRIBUTE = 108
+    P7_TRIBUTE = 108
     """
-    Amount of resources tributed to player 7 by the source player
+    - Purpose: Amount of resources tributed to player 7
     """
-    PLAYER8_TRIBUTE = 109
+    P8_TRIBUTE = 109
     """
-    Amount of resources tributed to player 8 by the source player
+    - Purpose: Amount of resources tributed to player 8
     """
-    PLAYER1_KILL_VALUE = 110
+    P1_KILL_VALUE = 110
     """
-    Cost of units of player 1 killed by the source player
+    - Purpose: Total cost of all units killed of player 1
     """
-    PLAYER2_KILL_VALUE = 111
+    P2_KILL_VALUE = 111
     """
-    Cost of units of player 2 killed by the source player
+    - Purpose: Total cost of all units killed of player 2
     """
-    PLAYER3_KILL_VALUE = 112
+    P3_KILL_VALUE = 112
     """
-    Cost of units of player 3 killed by the source player
+    - Purpose: Total cost of all units killed of player 3
     """
-    PLAYER4_KILL_VALUE = 113
+    P4_KILL_VALUE = 113
     """
-    Cost of units of player 4 killed by the source player
+    - Purpose: Total cost of all units killed of player 4
     """
-    PLAYER5_KILL_VALUE = 114
+    P5_KILL_VALUE = 114
     """
-    Cost of units of player 5 killed by the source player
+    - Purpose: Total cost of all units killed of player 5
     """
-    PLAYER6_KILL_VALUE = 115
+    P6_KILL_VALUE = 115
     """
-    Cost of units of player 6 killed by the source player
+    - Purpose: Total cost of all units killed of player 6
     """
-    PLAYER7_KILL_VALUE = 116
+    P7_KILL_VALUE = 116
     """
-    Cost of units of player 7 killed by the source player
+    - Purpose: Total cost of all units killed of player 7
     """
-    PLAYER8_KILL_VALUE = 117
+    P8_KILL_VALUE = 117
     """
-    Cost of units of player 8 killed by the source player
+    - Purpose: Total cost of all units killed of player 8
     """
-    PLAYER1_RAZINGS = 118
+    P1_RAZINGS = 118
     """
-    Number of buildings destroyed of player 1 by the source player
+    - Purpose: Number of buildings destroyed of player 1
     """
-    PLAYER2_RAZINGS = 119
+    P2_RAZINGS = 119
     """
-    Number of buildings destroyed of player 2 by the source player
+    - Purpose: Number of buildings destroyed of player 2
     """
-    PLAYER3_RAZINGS = 120
+    P3_RAZINGS = 120
     """
-    Number of buildings destroyed of player 3 by the source player
+    - Purpose: Number of buildings destroyed of player 3
     """
-    PLAYER4_RAZINGS = 121
+    P4_RAZINGS = 121
     """
-    Number of buildings destroyed of player 4 by the source player
+    - Purpose: Number of buildings destroyed of player 4
     """
-    PLAYER5_RAZINGS = 122
+    P5_RAZINGS = 122
     """
-    Number of buildings destroyed of player 5 by the source player
+    - Purpose: Number of buildings destroyed of player 5
     """
-    PLAYER6_RAZINGS = 123
+    P6_RAZINGS = 123
     """
-    Number of buildings destroyed of player 6 by the source player
+    - Purpose: Number of buildings destroyed of player 6
     """
-    PLAYER7_RAZINGS = 124
+    P7_RAZINGS = 124
     """
-    Number of buildings destroyed of player 7 by the source player
+    - Purpose: Number of buildings destroyed of player 7
     """
-    PLAYER8_RAZINGS = 125
+    P8_RAZINGS = 125
     """
-    Number of buildings destroyed of player 8 by the source player
+    - Purpose: Number of buildings destroyed of player 8
     """
-    PLAYER1_RAZING_VALUE = 126
+    P1_RAZING_VALUE = 126
     """
-    Cost of buildings destroyed of player 1 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 1
     """
-    PLAYER2_RAZING_VALUE = 127
+    P2_RAZING_VALUE = 127
     """
-    Cost of buildings destroyed of player 2 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 2
     """
-    PLAYER3_RAZING_VALUE = 128
+    P3_RAZING_VALUE = 128
     """
-    Cost of buildings destroyed of player 3 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 3
     """
-    PLAYER4_RAZING_VALUE = 129
+    P4_RAZING_VALUE = 129
     """
-    Cost of buildings destroyed of player 4 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 4
     """
-    PLAYER5_RAZING_VALUE = 130
+    P5_RAZING_VALUE = 130
     """
-    Cost of buildings destroyed of player 5 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 5
     """
-    PLAYER6_RAZING_VALUE = 131
+    P6_RAZING_VALUE = 131
     """
-    Cost of buildings destroyed of player 6 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 6
     """
-    PLAYER7_RAZING_VALUE = 132
+    P7_RAZING_VALUE = 132
     """
-    Cost of buildings destroyed of player 7 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 7
     """
-    PLAYER8_RAZING_VALUE = 133
+    P8_RAZING_VALUE = 133
     """
-    Cost of buildings destroyed of player 8 by the source player
+    - Purpose: Total cost of all buildings destroyed of player 8
     """
-    CASTLE = 134
+    STANDING_CASTLES = 134
     """
-    Number of standing castles by the source player
+    - Purpose: Number of standing castles
     """
-    HIT_POINT_RAZINGS = 135
+    HIT_POINTS_RAZED = 135
     """
-    Cumulative hp of all buildings destroyed by the source player
+    - Purpose: Total HP of all buildings destroyed
     """
-    KILLS_BY_PLAYER1 = 136
+    KILLS_BY_P1 = 136
     """
-    Number of units killed by player 1 of the source player
+    - Purpose: Number of own units killed by player 1
     """
-    KILLS_BY_PLAYER2 = 137
+    KILLS_BY_P2 = 137
     """
-    Number of units killed by player 2 of the source player
+    - Purpose: Number of own units killed by player 2
     """
-    KILLS_BY_PLAYER3 = 138
+    KILLS_BY_P3 = 138
     """
-    Number of units killed by player 3 of the source player
+    - Purpose: Number of own units killed by player 3
     """
-    KILLS_BY_PLAYER4 = 139
+    KILLS_BY_P4 = 139
     """
-    Number of units killed by player 4 of the source player
+    - Purpose: Number of own units killed by player 4
     """
-    KILLS_BY_PLAYER5 = 140
+    KILLS_BY_P5 = 140
     """
-    Number of units killed by player 5 of the source player
+    - Purpose: Number of own units killed by player 5
     """
-    KILLS_BY_PLAYER6 = 141
+    KILLS_BY_P6 = 141
     """
-    Number of units killed by player 6 of the source player
+    - Purpose: Number of own units killed by player 6
     """
-    KILLS_BY_PLAYER7 = 142
+    KILLS_BY_P7 = 142
     """
-    Number of units killed by player 7 of the source player
+    - Purpose: Number of own units killed by player 7
     """
-    KILLS_BY_PLAYER8 = 143
+    KILLS_BY_P8 = 143
     """
-    Number of units killed by player 8 of the source player
+    - Purpose: Number of own units killed by player 8
     """
-    RAZINGS_BY_PLAYER1 = 144
+    RAZINGS_BY_P1 = 144
     """
-    Number of buildings destroyed by player 1 of the source player
+    - Purpose: Number of own buildings destroyed by player 1
     """
-    RAZINGS_BY_PLAYER2 = 145
+    RAZINGS_BY_P2 = 145
     """
-    Number of buildings destroyed by player 2 of the source player
+    - Purpose: Number of own buildings destroyed by player 2
     """
-    RAZINGS_BY_PLAYER3 = 146
+    RAZINGS_BY_P3 = 146
     """
-    Number of buildings destroyed by player 3 of the source player
+    - Purpose: Number of own buildings destroyed by player 3
     """
-    RAZINGS_BY_PLAYER4 = 147
+    RAZINGS_BY_P4 = 147
     """
-    Number of buildings destroyed by player 4 of the source player
+    - Purpose: Number of own buildings destroyed by player 4
     """
-    RAZINGS_BY_PLAYER5 = 148
+    RAZINGS_BY_P5 = 148
     """
-    Number of buildings destroyed by player 5 of the source player
+    - Purpose: Number of own buildings destroyed by player 5
     """
-    RAZINGS_BY_PLAYER6 = 149
+    RAZINGS_BY_P6 = 149
     """
-    Number of buildings destroyed by player 6 of the source player
+    - Purpose: Number of own buildings destroyed by player 6
     """
-    RAZINGS_BY_PLAYER7 = 150
+    RAZINGS_BY_P7 = 150
     """
-    Number of buildings destroyed by player 7 of the source player
+    - Purpose: Number of own buildings destroyed by player 7
     """
-    RAZINGS_BY_PLAYER8 = 151
+    RAZINGS_BY_P8 = 151
     """
-    Number of buildings destroyed by player 8 of the source player
+    - Purpose: Number of own buildings destroyed by player 8
     """
     VALUE_KILLED_BY_OTHERS = 152
     """
-    Cumulative cost of units lost by the source player
+    - Purpose: Total cost of all own units lost
     """
     VALUE_RAZED_BY_OTHERS = 153
     """
-    Cumulative cost of buildings lost by the source player
+    - Purpose: Total cost of all own buildings lost
     """
     KILLED_BY_OTHERS = 154
     """
-    Number of units killed by other players of the source player
+    - Purpose: Number of own units killed by other players
     """
     RAZED_BY_OTHERS = 155
     """
-    Number of buildings destroyed by other players amount of the source player
+    - Purpose: Number of own buildings destroyed by other players
     """
-    TRIBUTE_FROM_PLAYER1 = 156
+    TRIBUTE_FROM_P1 = 156
     """
-    Tribute received from player 1 of the source player
+    - Purpose: Tribute received from player 1
     """
-    TRIBUTE_FROM_PLAYER2 = 157
+    TRIBUTE_FROM_P2 = 157
     """
-    Tribute received from player 2 of the source player
+    - Purpose: Tribute received from player 2
     """
-    TRIBUTE_FROM_PLAYER3 = 158
+    TRIBUTE_FROM_P3 = 158
     """
-    Tribute received from player 3 of the source player
+    - Purpose: Tribute received from player 3
     """
-    TRIBUTE_FROM_PLAYER4 = 159
+    TRIBUTE_FROM_P4 = 159
     """
-    Tribute received from player 4 of the source player
+    - Purpose: Tribute received from player 4
     """
-    TRIBUTE_FROM_PLAYER5 = 160
+    TRIBUTE_FROM_P5 = 160
     """
-    Tribute received from player 5 of the source player
+    - Purpose: Tribute received from player 5
     """
-    TRIBUTE_FROM_PLAYER6 = 161
+    TRIBUTE_FROM_P6 = 161
     """
-    Tribute received from player 6 of the source player
+    - Purpose: Tribute received from player 6
     """
-    TRIBUTE_FROM_PLAYER7 = 162
+    TRIBUTE_FROM_P7 = 162
     """
-    Tribute received from player 7 of the source player
+    - Purpose: Tribute received from player 7
     """
-    TRIBUTE_FROM_PLAYER8 = 163
+    TRIBUTE_FROM_P8 = 163
     """
-    Tribute received from player 8 of the source player
+    - Purpose: Tribute received from player 8
     """
     VALUE_CURRENT_UNITS = 164
     """
-    Cumulative cost of alive units of the source player
+    - Purpose: Total cost of all own alive units
     """
     VALUE_CURRENT_BUILDINGS = 165
     """
-    Cumulative cost of standing buildings of the source player
+    - Purpose: Total cost of all own standing buildings
     """
     FOOD_TOTAL = 166
     """
-    Total food collected by the source player
+    - Purpose: Total food collected
     """
     WOOD_TOTAL = 167
     """
-    Total wood collected by the source player
+    - Purpose: Total wood collected
     """
     STONE_TOTAL = 168
     """
-    Total stone collected by the source player
+    - Purpose: Total stone collected
     """
     GOLD_TOTAL = 169
     """
-    Total gold collected by the source player
+    - Purpose: Total gold collected
     """
     TOTAL_VALUE_OF_KILLS = 170
     """
-    Cumulative cost of all units killed by the source player
+    - Purpose: Total cost of all units killed
     """
     TOTAL_TRIBUTE_RECEIVED = 171
     """
-    Total amount of resources received in tribute by the source player
+    - Purpose: Total of all resources received in tribute
     """
     TOTAL_VALUE_OF_RAZINGS = 172
     """
-    Cumulative cost of all buildings destroyed by of the source player
+    - Purpose: Total cost of all buildings destroyed
     """
     TOTAL_CASTLES_BUILT = 173
     """
-    Number of total castles built by the source player
+    - Purpose: Number of total castles built
     """
     TOTAL_WONDERS_BUILT = 174
     """
-    Number of total wonders built by the source player
+    - Purpose: Number of total wonders built
     """
     TRIBUTE_SCORE = 175
     """
-    Tribute score of the source player
+    - Purpose: Total amount of resources sent in tribute including taxes. 10% of this is counted towards the economy score
     """
-    CONVERT_MIN_ADJ = 176
+    CONVERT_MIN_ADJUSTMENT = 176
     """
-    Additional monk seconds needed before conversion starts for the source player
+    - Purpose: Additional monk seconds needed before a conversion is even possible
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=870 "Explanatory video by T-West") by T-West
+    - Note: A great explanation of how this works: https://youtu.be/-qRUaOHpbwI?t=870 by T-West
     """
-    CONVERT_MAX_ADJ = 177
+    CONVERT_MAX_ADJUSTMENT = 177
     """
-    Additional monk seconds needed before forced conversion for the source player
+    - Purpose: Additional monk seconds needed before a conversion is forced
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=870 "Explanatory video by T-West") by T-West
+    - Note: A great explanation of how this works: https://youtu.be/-qRUaOHpbwI?t=870 by T-West
     """
-    CONVERT_RESIST_MIN_ADJ = 178
+    CONVERT_RESIST_MIO_ADJUSTMENT = 178
     """
-    Additional monk seconds needed before conversion starts against the source player
+    - Purpose: Additional monk seconds needed before conversion by enemy monks is even possible
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=830 "Explanatory video by T-West") by T-West
+    - Note: A great explanation of how this works: https://youtu.be/-qRUaOHpbwI?t=830 by T-West
     """
-    CONVERT_RESIST_MAX_ADJ = 179
+    CONVERT_RESIST_MAX_ADJUSTMENT = 179
     """
-    Additional monk seconds needed before forced conversion for the source player
+    - Purpose: Additional monk seconds needed before conversion by enemy monks is forced
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=870 "Explanatory video by T-West") by T-West
+    - Note: A great explanation of how this works: https://youtu.be/-qRUaOHpbwI?t=830 by T-West
     """
     CONVERT_BUILDING_MIN = 180
     """
-    Building conversion min time of the source player
+    - Purpose: Minimum time required to convert a building
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=902 "Explanatory video by T-West") by T-West
+    - Note: A great explanation of how this works: https://youtu.be/-qRUaOHpbwI?t=902 by T-West
     """
     CONVERT_BUILDING_MAX = 181
     """
-    Building conversion max time of the source player
+    - Purpose: Maximum time required to convert a building
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=902 "Explanatory video by T-West") by T-West
+    - Note: A great explanation for how this works: https://youtu.be/-qRUaOHpbwI?t=902 by T-West
     """
     CONVERT_BUILDING_CHANCE = 182
     """
-    Percent chance for monks to convert buildings by the source player
+    - Purpose: Percent chance for monks to convert buildings
 
-    - Additional Information: A great explanation for how this works [here](https://youtu.be/-qRUaOHpbwI?t=902 "Explanatory video by T-West") by T-West
+    - Note: A great explanation for how this works: https://youtu.be/-qRUaOHpbwI?t=902 by T-West
     """
-    SPIES = 183
+    REVEAL_ENEMY = 183
     """
-    Boolean: show enemy los for the source player
+    - Purpose: Boolean: show enemy los for the source player
+
+    - Default Values:
+
+        - 0:  No (default)
+
+        - 1:  Yes, after Spies
+
+    - Note: Once set to `1`, setting it back to `0` won't take away LoS of enemies!
     """
     VALUE_WONDERS_CASTLES = 184
     """
-    Total cost of all wonders and castles of the source player
+    - Purpose: Total cost of all wonders and castles constructed
     """
     FOOD_SCORE = 185
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... what does this resource do?
     """
     WOOD_SCORE = 186
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... what does this resource do?
     """
     STONE_SCORE = 187
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... what does this resource do?
     """
     GOLD_SCORE = 188
     """
-    Unknown amount of the source player
+    - Purpose: Unknown... what does this resource do?
     """
-    WOOD_BONUS = 189
+    CHOPPING_PRODUCTIVITY = 189
     """
-    Amount of wood chopped multiplier of the source player
+    - Purpose: Multiplier for wood chopped by lumberjacks
 
     - Default Values:
 
@@ -1285,11 +1370,11 @@ class Attribute(_DataSetIntEnums):
 
         - 1.15:  Mayans
 
-    - Additional Information: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate as well. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
+    - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
     """
-    FOOD_BONUS = 190
+    FOOD_GATHERING_PRODUCTIVITY = 190
     """
-    Amount of food gathered from all sources (except from sheep) multiplier of the source player
+    - Purpose: Multiplier for food gathered from all sources
 
     - Default Values:
 
@@ -1297,33 +1382,51 @@ class Attribute(_DataSetIntEnums):
 
         - 1.15:  Mayans
 
-    - Additional Information: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate as well. In the case of Mayans, This is compensated for by reducing villager work rate by 15%. The work rate for farmers is reduced by about 23.4%
+    - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%. The work rate for farmers is reduced by about 23.4%
     """
-    RELIC_RATE = 191
+    RELIC_GOLD_PRODUCTION_RATE = 191
     """
-    Relic gold generation rate for the source player
+    - Purpose: Relic gold generation rate in gold per second
 
     - Default Values:
 
-        - 0.5:  by default
+        - 0.5:  default
+
+        - 0.25:  after getting hit with Atheism 
     """
-    HERESY = 192
+    CONVERTED_UNITS_DIE = 192
     """
-    Boolean: converted units die for the source player
+    - Purpose: Boolean: converted units die instead of switching over to the enemy
+
+    - Default Values:
+
+        - 0:  No (default)
+
+        - 1:  Yes, after Heresey
     """
     THEOCRACY = 193
     """
-    Boolean: only one monk needs to regen faith after group conversion for the source player
+    - Purpose: Boolean: only one monk needs to regen faith after group conversion for the source player
+
+    - Default Values:
+
+        - 0:  No (default)
+
+        - 1:  Yes, after researching Theocracy
     """
     CRENELLATIONS = 194
     """
-    Boolean: researched crenellations amount of the source player
+    - Purpose: Boolean: Garrisoned infantry fire arrows
 
-    - Additional Information: Set to 1 if crenellations is researched, does not give the effect of crenellations, just a boolean
+    - Default Values:
+
+        - 0:  No (default)
+
+        - 1:  Yes, after crenellations
     """
-    CONSTRUCTION_RATE_MOD = 195
+    CONSTRUCTION_RATE_MODIFIER = 195
     """
-    Builder work rate multiplier of the source player
+    - Purpose: Builder work rate multiplier
 
     - Default Values:
 
@@ -1331,91 +1434,99 @@ class Attribute(_DataSetIntEnums):
 
         - 1.3:  Spanish
 
-    - Additional Information: The actual work rate for builders is given by `construction_rate_mod * builder.default_work_rate`
+    - Note: The actual work rate for builders is given by `construction_rate_mod * builder.default_work_rate`
     """
-    HUN_WONDER_BONUS = 196
+    HUN_WONDER_DISCOUNT = 196
     """
-    Additional time for relic/wonder victories in one tenth of an year by any player
+    - Purpose: Additional time required for relic/wonder victories in one tenth of a year
 
-    - Additional Information: Internally, relic and wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame This is additive per player Set to 1000 if atheism is researched
+    - Default Values:
+
+        - 0:  default
+
+        - 1000:  (100 years) for the Hun player, after researching atheism. The value of this resource of each player is added to determine the total extra time for relic/wonder victories, i.e. it adds up if multiple hun players get the tech
+
+    - Note: Internally, relic and wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame
     """
     SPIES_DISCOUNT = 197
     """
-    Boolean: give discount on spies for the source player
+    - Purpose: Boolean: Halves the cost of spies per villager, and caps it at 15k gold max instead of the usual 30k.
 
-    - Additional Information: Set to 1 if atheism is researched
+    - Default Values:
+
+        - 0:  Default
     """
-    UNKNOWN_RESOURCE_198 = 198
+    UNUSED_RESOURCE_198 = 198
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_199 = 199
+    UNUSED_RESOURCE_199 = 199
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_200 = 200
+    UNUSED_RESOURCE_200 = 200
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_201 = 201
+    UNUSED_RESOURCE_201 = 201
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_202 = 202
+    UNUSED_RESOURCE_202 = 202
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_203 = 203
+    UNUSED_RESOURCE_203 = 203
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_204 = 204
+    UNUSED_RESOURCE_204 = 204
     """
-    Unknown amount of source player
+    - Purpose: Unused
     """
     FEITORIA_FOOD_PRODUCTIVITY = 205
     """
-    Feitoria/BR Trade Workshop food production multiplier of the source player
+    - Purpose: Feitoria food production rate multiplier
 
     - Default Values:
 
         - 1:  Generic
 
-    - Additional Information: The amount of food obtained from owning `n` number of Feitorias (BR Trade Workshops) is given by `n * feitoria_food_productivity * 1.6 (2.25)`.
+    - Note: The amount of food obtained from owning `n` number of Feitorias is given by `n * feitoria_food_productivity * 1.6`
     """
     FEITORIA_WOOD_PRODUCTIVITY = 206
     """
-    Feitoria/BR Trade Workshop wood production multiplier of the source player
+    - Purpose: Feitoria wood production rate multiplier
 
     - Default Values:
 
         - 1:  Generic
 
-    - Additional Information: The amount of wood obtained from owning `n` number of Feitorias (BR Trade Workshops) is given by `n * feitoria_wood_productivity * 1 (2.25)`.
+    - Note: The amount of wood obtained from owning `n` number of Feitorias is given by `n * feitoria_wood_productivity * 1`
     """
     FEITORIA_STONE_PRODUCTIVITY = 207
     """
-    Feitoria/BR Trade Workshop stone production multiplier of the source player
+    - Purpose: Feitoria stone production rate multiplier
 
     - Default Values:
 
         - 1:  Generic
 
-    - Additional Information: The amount of stone obtained from owning `n` number of Feitorias (BR Trade Workshops) is given by `n * feitoria_stone_productivity * 0.3 (0)`.
+    - Note: The amount of stone obtained from owning `n` number of Feitorias is given by `n * feitoria_stone_productivity * 0.3`
     """
     FEITORIA_GOLD_PRODUCTIVITY = 208
     """
-    Feitoria/BR Trade Workshop gold production multiplier of the source player
+    - Purpose: Feitoria gold production rate multiplier
 
     - Default Values:
 
         - 1:  Generic
 
-    - Additional Information: The amount of gold obtained from owning `n` number of Feitorias (BR Trade Workshops) is given by `n * feitoria_gold_productivity * 0.7 (2.25)`.
+    - Note: The amount of gold obtained from owning `n` number of Feitorias is given by `n * feitoria_gold_productivity * 0.7`
     """
-    REVEAL_ENEMY_TOWN_CENTRE = 209
+    REVEAL_ENEMY_TOWN_CENTERS = 209
     """
-    Boolean: reveal enemy town centre location for the source player
+    - Purpose: Boolean: reveal enemy town centre location for the source player
 
     - Default Values:
 
@@ -1423,11 +1534,11 @@ class Attribute(_DataSetIntEnums):
 
         - 5:  Vietnamese
 
-    - Additional Information: The bonus works for all values $\geq$1, the choice of setting it to 5 for vietnamese seems arbitrary Vietnamese reveal enemy tc location bonus
+    - Note: The bonus works for all values >=1, the choice of setting it to 5 for vietnamese seems arbitrary
     """
-    REVEAL_RELICS = 210
+    RELICS_VISIBLE_ON_MAP = 210
     """
-    Boolean: reveal relics on map amount of the source player
+    - Purpose: Boolean: reveal relics on map amount
 
     - Default Values:
 
@@ -1435,11 +1546,11 @@ class Attribute(_DataSetIntEnums):
 
         - 42:  Burmese
 
-    - Additional Information: Burmese reveal relics on map bonus (probably) Only works in RMS, Manually changing this in the editor does not seem to have any effects
+    - Note: Burmese reveal relics on map bonus. Only works in RMS, manually changing this in the editor does not seem to have any effects
     """
-    ELEVATION_BONUS_HIGHER = 211
+    ELEVATION_HIGHER_BONUS = 211
     """
-    The fraction for additional bonus damage dealt from higher elevation for the source player
+    - Purpose: The fraction for additional bonus damage dealt from higher elevation
 
     - Default Values:
 
@@ -1447,177 +1558,197 @@ class Attribute(_DataSetIntEnums):
 
         - 0.25:  Tatars
 
-    - Additional Information: Damage that units on higher elevation deal to units on lower elevation is multiplied by `1.25 + elevation_bonus_higher`
+    - Note: Damage that units on higher elevation deal to units on lower elevation is multiplied by `1.25 + elevation_bonus_higher`
     """
-    ELEVATION_BONUS_LOWER = 212
+    ELEVATION_LOWER_BONUS = 212
     """
-    The fraction for additional bonus damage dealt from lower elevation for the source player
+    - Purpose: The fraction for additional bonus damage dealt from lower elevation
 
     - Default Values:
 
         - 0:  Generic
 
-    - Additional Information: Damage that units on lower elevation deal to units on higher elevation is multiplied by `0.75 + elevation_bonus_lower`
+    - Note: Damage that units on lower elevation deal to units on higher elevation is multiplied by `0.75 + elevation_bonus_lower`
     """
     RAIDING_PRODUCTIVITY = 213
     """
-    Keshik gold generation rate per second*100 of the source player
+    - Purpose: Keshik gold generation rate per 100 seconds
 
     - Default Values:
 
-        - 50:  Tatars
+        - 0:  Generic
 
-    - Additional Information: Note that in practice, due to attack reload time and frame delay, Keshiks don't actually produce 0.5 gold per second, but a lower value
+        - 50:  (0.5 g/s) Tatars
+
+    - Note: Note that in practice, due to attack reload time and frame delay, Keshiks don't actually produce 0.5 g/s, but a slightly lower value
     """
     MERCENARY_KIPCHAK_COUNT = 214
     """
-    Total number of mercenary kipchak creatable by the source player
+    - Purpose: Total number of mercenary kipchak creatable
 
-    - Additional Information: Researching Cuman Mercenaries sets this to 10. Making mercenary Kipchaks costs one unit of this resource
+    - Default Values:
+
+        - 0:  Generic
+
+        - 10:  after a Cuman ally researches Cuman Mercenaries
+
+    - Note: Researching Cuman Mercenaries sets this to 10. Making mercenary Kipchaks costs one unit of this resource
     """
     MERCENARY_KIPCHAK_LIMIT = 215
     """
-    Number of mercenary kipchaks created/queued by the source player
+    - Purpose: Number of mercenary kipchaks created/queued
 
-    - Additional Information: Making mercenary Kipchaks gives one unit of this resource
+    - Note: Making mercenary Kipchaks gives one unit of this resource
     """
     SHEPHERD_PRODUCTIVITY = 216
     """
-    Amount of food collected from sheep multiplier of the source player
+    - Purpose: Amount of food collected from sheep multiplier
 
     - Default Values:
 
         - 1:  Generic
 
-        - 1.15:  Mayans
-
         - 1.57:  Tatars
 
-    - Additional Information: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate as well. In the case of Mayans/Tatars, This is compensated for by reducing villager work rate by 15%/57%
+    - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Tatars, This is compensated for by reducing villager work rate by 57%
     """
-    TRIGGER_SHARED_LOS = 217
+    SHARED_LINE_OF_SIGHT = 217
     """
-    Boolean: reveal ally for the source player
+    - Purpose: Unknown... what does this resource do?
+    """
+    FEUDAL_TOWN_CENTER_LIMIT = 218
+    """
+    - Purpose: This is the number of extra TCs a player is allowed to build IF TCs are enabled in feudal age.
 
     - Default Values:
 
-        - 0:  No Allied Vision
+        - 10002.1:  Generic
 
-        - 1:  Allied Vision
+        - 2.1:  Cumans
 
-    - Additional Information: Note - Once enabled, Allied vison cannot be undone
+    - Note: Since generic civs don't get access to TCs in feudal, the 10k amount doesn't matter, but if you're trying to make a map where you want people to be able to make TCs in feudal, make sure to set this value to 10k for cumans!
     """
-    UNKNOWN_RESOURCE_218 = 218
+    FISHING_PRODUCTIVITY = 219
     """
-    Unknown amount of the source player
-    """
-    UNKNOWN_RESOURCE_219 = 219
-    """
-    Unknown amount of the source player
-    """
-    UNKNOWN_RESOURCE_220 = 220
-    """
-    Unknown amount of the source player
-    """
-    FOOD_TRICKLE_FROM_MONUMENT = 221
-    """
-    Monument food trickle rate multiplier of source player
+    - Purpose: Multiplier for food gathered by fishing ships
 
     - Default Values:
 
-        - 1:  In KoTH games
+        - 1:  Generic
 
-    - Additional Information: The amount of resources obtained by owning a monument is `0.7925 * food_trickle_from_monument`
+    - Note: Since this works by multiplying the amount of resources gathered by a fishing ship, it has a side effect of increasing the gather rate
     """
-    WOOD_TRICKLE_FROM_MONUMENT = 222
+    UNUSED_RESOURCE_220 = 220
     """
-    Monument wood trickle rate multiplier of source player
+    - Purpose: Unused
+    """
+    MONUMENT_FOOD_PRODUCTIVITY = 221
+    """
+    - Purpose: Monument food trickle rate multiplier
 
     - Default Values:
 
         - 1:  In KoTH games
 
-    - Additional Information: The amount of resources obtained by owning a monument is `0.7925 * wood_trickle_from_monument`
+    - Note: The amount of resources obtained by owning a monument is `0.7925 * food_trickle_from_monument`
     """
-    STONE_TRICKLE_FROM_MONUMENT = 223
+    MONUMENT_WOOD_PRODUCTIVITY = 222
     """
-    Monument stone trickle rate multiplier of source player
+    - Purpose: Monument wood trickle rate multiplier
 
     - Default Values:
 
         - 1:  In KoTH games
 
-    - Additional Information: The amount of resources obtained by owning a monument is `0.7925 * stone_trickle_from_monument`
+    - Note: The amount of resources obtained by owning a monument is `0.7925 * wood_trickle_from_monument`
     """
-    GOLD_TRICKLE_FROM_MONUMENT = 224
+    MONUMENT_STONE_PRODUCTIVITY = 223
     """
-    Monument gold trickle rate multiplier of source player
+    - Purpose: Monument stone trickle rate multiplier
 
     - Default Values:
 
         - 1:  In KoTH games
 
-    - Additional Information: The amount of resources obtained by owning a monument is `0.7925 * gold_trickle_from_monument`
+    - Note: The amount of resources obtained by owning a monument is `0.7925 * stone_trickle_from_monument`
+    """
+    MONUMENT_GOLD_PRODUCTIVITY = 224
+    """
+    - Purpose: Monument gold trickle rate multiplier
+
+    - Default Values:
+
+        - 1:  In KoTH games
+
+    - Note: The amount of resources obtained by owning a monument is `0.7925 * gold_trickle_from_monument`
     """
     RELIC_FOOD_PRODUCTION_RATE = 225
     """
-    Relic food production per minute of the source player
+    - Purpose: Relic food production per minute
 
     - Default Values:
 
+        - 0:  Generic
+
         - 30:  Burgundians
 
-        - 0: Generic
+        - 15:  Burgundians after getting hit with Atheism
     """
     VILLAGERS_KILLED_BY_GAIA = 226
     """
-    Villagers lost to gaia by the source player
+    - Purpose: Total number of villagers lost to gaia
     """
     VILLAGERS_KILLED_BY_ANIMALS = 227
     """
-    Villagers lost to wild animals by the source player
+    - Purpose: Total number of villagers lost to wild animals
     """
-    VILLAGERS_KILLED_BY_AI_PLAYER = 228
+    VILLAGERS_KILLED_BY_AL_PLAYER = 228
     """
-    Villagers lost to ais by the source player
+    - Purpose: Total number of villagers lost to AIs
     """
     VILLAGERS_KILLED_BY_HUMAN_PLAYER = 229
     """
-    Villagers lost to humans by the source player
+    - Purpose: Total number of villagers lost to human players
     """
-    FOOD_TRICKLE = 230
+    FOOD_GENERATION_RATE = 230
     """
-    Food given per minute to the source player
+    - Purpose: Free food trickle rate (per minute)
     """
-    WOOD_TRICKLE = 231
+    WOOD_GENERATION_RATE = 231
     """
-    Wood given per minute to the source player
+    - Purpose: Free wood trickle rate (per minute)
     """
-    STONE_TRICKLE = 232
+    STONE_GENERATION_RATE = 232
     """
-    Stone given per minute to the source player
+    - Purpose: Free stone trickle rate (per minute)
     """
-    GOLD_TRICKLE = 233
+    GOLD_GENERATION_RATE = 233
     """
-    Gold given per minute to the source player
+    - Purpose: Free gold trickle rate (per minute)
     """
     SPAWN_LIMIT = 234
     """
-    Limit of the number of spawning buildings that spawn units from spawn command in a technology of the source player
+    - Purpose: The limit to the number of spawning buildings that can spawn units from spawn command in a technology
+
+    - Note: This is usually overridden by techs
     """
     FLEMISH_MILITIA_POPULATION = 235
     """
-    Number of flemish militia of the source player
+    - Purpose: Number of alive flemish militia
     """
-    FARMING_GOLD_TRICKLE = 236
+    FARMING_GOLD_PRODUCTIVITY = 236
     """
-    Farming gold generation rate per second*100 of the source player
+    - Purpose: Farming gold generation rate per 100 seconds
 
-    - Additional Information: used by the Burgundian Vineyards technology. Set to 2 when researched
+    - Default Values:
+
+        - 0:  Generic
+
+        - 2:  (0.02 g/s per farmer) after Burgundian Vineyards
     """
     FOLWARK_COLLECTION_AMOUNT = 237
     """
-    This is the amount of food collected from farms built around a Folwark by the source player
+    - Purpose: This is the amount of food collected from farms built around a folwark
 
     - Default Values:
 
@@ -1625,17 +1756,23 @@ class Attribute(_DataSetIntEnums):
 
         - 17.5:  Poles
 
+        - 19.25:  Poles with Chinese Ally
+
         - 25:  Poles with Horse Collar
+
+        - 27.5:  Poles with Horse Collar & Chinese Ally
 
         - 37.5:  Poles with Heavy Plow
 
+        - 41.25:  Poles with Heavy Plow & Chinese Ally
+
         - 55:  Poles with Crop Rotation
 
-    - Additional Information: Poles set this to 17.5. Horse Collar adds 7.5 to it, Heavy Plow adds 12.5 to it and Crop Rotation adds 17.5 to it
+        - 60.5:  Poles with Crop Rotation & Chinese Ally
     """
     FOLWARK_ATTRIBUTE_TYPE = 238
     """
-    This is the ID of the resource that is given to the player from a farm constructed around a Folwark to the source player
+    - Purpose: This is the ID of the resource that is given when a farm is constructed around a folwark
 
     - Default Values:
 
@@ -1645,21 +1782,21 @@ class Attribute(_DataSetIntEnums):
     """
     FOLWARK_BUILDING_TYPE = 239
     """
-    This is the ID of the building that the Folwark needs to upgrade from for the farm collection ability to work for the source player
+    - Purpose: This is the ID of the building that the Folwark needs to upgrade from for the farm collection ability to work
 
     - Default Values:
 
-        - 68 (Mill):  Poles
+        - 68:  (Mill) Poles
 
         - -1:  Generic
     """
     UNITS_CONVERTED = 240
     """
-    The amount of units lost to enemy conversions by the source player
+    - Purpose: The amount of units lost to enemy conversions
     """
     STONE_MINING_GOLD_PRODUCTIVITY = 241
     """
-    Stone mining gold generation rate per second*100 of the source player
+    - Purpose: Stone mining gold generation rate per 100 seconds
 
     - Default Values:
 
@@ -1671,15 +1808,45 @@ class Attribute(_DataSetIntEnums):
 
         - 23.805:  Poles with Stone Shaft Mining
     """
-    NUMBER_OF_FREE_TRANSPORTS = 242
+    TRADE_WORKSHOP_FOOD_PRODUCTIVITY = 242
     """
-    This is the number of free transport ships trainable by having a Sicilian ally to the source player
+    - Purpose: Trade Workshop food production rate multiplier
 
     - Default Values:
 
-    	- 1:  Generic
+        - 1:  Generic
 
-    - Additional Information: One unit of this resource is required to be able to train the free transport ship granted by having a Sicilian ally. This seemingly useless cost is necessary to prevent shift queuing multiple of the free transport ship unit. Note that as soon as at least one free transport ship is created, the unit disables itself, no matter how much of this resource is left. It is possible to change this by disabling technology 229, but then keep in mind that regular transport ships won't be trainable once this resource runs out
+    - Note: The amount of food obtained from owning `n` number of TWS (Unit 1647) is given by `n * tws_food_productivity * 2.25`.
+    """
+    TRADE_WORKSHOP_WOOD_PRODUCTIVITY = 243
+    """
+    - Purpose: Trade Workshop wood production rate multiplier
+
+    - Default Values:
+
+        - 1:  Generic
+
+    - Note: The amount of wood obtained from owning `n` number of TWS (Unit 1647) is given by `n * tws_wood_productivity * 2.25`.
+    """
+    TRADE_WORKSHOP_STONE_PRODUCTIVITY = 244
+    """
+    - Purpose: Trade Workshop stone production rate multiplier
+
+    - Default Values:
+
+        - 0:  Generic
+
+    - Note: The amount of stone obtained from owning `n` number of TWS (Unit 1647) is given by `n * tws_stone_productivity * 2.25`.
+    """
+    TRADE_WORKSHOP_GOLD_PRODUCTIVITY = 245
+    """
+    - Purpose: Trade Workshop gold production rate multiplier
+
+    - Default Values:
+
+        - 1:  Generic
+
+    - Note: The amount of gold obtained from owning `n` number of TWS (Unit 1647) is given by `n * tws_gold_productivity * 2.25`.
     """
 
 
