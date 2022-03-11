@@ -33,3 +33,13 @@ def register_scenario(scenario: 'AoE2Scenario') -> None:
     if scenario.uuid in _scenarios:
         raise ValueError("Scenario with that UUID already present")
     _scenarios[scenario.uuid] = scenario
+
+
+def remove_scenario(uuid: UUID) -> None:
+    """
+    Remove a scenario from the store
+
+    Args:
+        uuid (UUID): The UUID of the scenario
+    """
+    del _scenarios[uuid]
