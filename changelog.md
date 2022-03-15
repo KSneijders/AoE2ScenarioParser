@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.36 - 2022-March-15
+
+### Added
+
+- `Attribute.X.editor_name` attribute to get the editor name as string -- [#36] (Alian)
+- `scenario.remove_store_reference()` to remove the scenario reference from the store
+  - Useful for when you want the scenario to be cleared by garbage collection (You also need to delete all other references to the scenario yourself)
+
+### Fixed
+
+- Issue with printing trigger values that are not in a dataset
+
+### Updated
+
+- `Attribute` dataset names & docstrings updated -- [#36] (Alian).
+
+[#36]: https://github.com/KSneijders/AoE2ScenarioParser/pull/36
+
+---
+
 ## 0.1.35 - 2022-March-3
 
 ### Fixed

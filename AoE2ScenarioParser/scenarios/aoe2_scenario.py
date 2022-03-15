@@ -134,6 +134,19 @@ class AoE2Scenario:
     def _add_to_sections(self, section):
         self.sections[section.name] = section
 
+    def remove_store_reference(self):
+        """
+        Removes the reference to this scenario object from the scenario store. Useful (~a must) when reading many
+        scenarios in a row without needing earlier ones. Python likes to take up a lot of memory.
+        Removing all references to an object will cause the memory to be cleared up.
+
+        **Please note:** When using this function it's important to remove all other references to the scenario.
+        So if save it in a dict or list, remove it from it.
+        If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete them
+        using: `del varname`.
+        """
+        store.remove_scenario(self.uuid)
+
     """ ##########################################################################################
     ####################################### Write functions ######################################
     ########################################################################################## """
