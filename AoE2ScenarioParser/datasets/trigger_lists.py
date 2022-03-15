@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 import json
+from pathlib import Path
 
 from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums, _DataSetIntFlags
 
@@ -345,7 +346,9 @@ class ObjectAttribute(_DataSetIntEnums):
     REGENERATION_RATE = 109
 
 
-_editor_names = None
+_attribute_dataset_editor_names = None
+
+
 class Attribute(_DataSetIntEnums):
     """
     This enum class provides the integer values used to reference all the player resources in the game. Used in effects
@@ -355,20 +358,26 @@ class Attribute(_DataSetIntEnums):
 
     >>> Attribute.FOOD_STORAGE
     <Attribute.FOOD_STORAGE: 0>
+
+    You can also request the editor names of these player attributes (resources) to be used in <...> notation in
+    trigger displays using:
+
+    >>> Attribute.FOOD_STORAGE.editor_name
+    '!Food Storage'
     """
 
     @property
     def editor_name(self):
         """
-        The exact name of this resource in the editor. To be used in <> notation in trigger displays
+        The exact name of this resource in the editor. To be used in <...> notation in trigger displays
         """
-        global _editor_names
-        if _editor_names is None:
-            with open("./sources/resource_editor_names.json") as file:
-                _editor_names = json.load(file)
+        global _attribute_dataset_editor_names
 
-        return _editor_names[self]
+        if _attribute_dataset_editor_names is None:
+            with (Path(__file__).parent / 'sources' / 'resource_editor_names.json').open() as file:
+                _attribute_dataset_editor_names = json.load(file)
 
+        return _attribute_dataset_editor_names[self]
 
     FOOD_STORAGE = 0
     """
