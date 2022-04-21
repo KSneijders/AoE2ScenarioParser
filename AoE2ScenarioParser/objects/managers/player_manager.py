@@ -33,6 +33,7 @@ class PlayerManager(AoE2Object):
         RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
         RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
         RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
+        RetrieverObjectLink("_player_count", "FileHeader", "player_count"),
 
         *[
             RetrieverObjectLink(f"_disabled_{type_}_ids_player_{i}", "Options", f"disabled_{type_}_ids_player_{i}")
@@ -53,6 +54,7 @@ class PlayerManager(AoE2Object):
                  _pop_caps: List[int],
                  _tribe_names: List[str],
                  _string_table_player_names: List[int],
+                 _player_count: int,
                  **kwargs
                  ):
         super().__init__(**kwargs)
@@ -122,6 +124,8 @@ class PlayerManager(AoE2Object):
         """
         Sets the default starting resources for all players
 
+        Note: Does NOT take civs into account
+
         Args:
             players (List[PlayerId]): A list of players, defaults to all players (incl GAIA) when left out
         """
@@ -160,6 +164,11 @@ class PlayerManager(AoE2Object):
             return getattr(self.players[int(name[-1])], f"disabled_{type_}s")
 
         return super().__getattribute__(name)
+
+    @property
+    def _player_count(self):
+        """Returns number of active players to be stored in the FileHeader"""
+        return self.active_players
 
     @property
     def _allied_victories(self):
