@@ -28,6 +28,9 @@ nav:
   - Examples:
     - Intro: "examples/examples.md"
     - Triggers: "examples/triggers.md"
+  - Community:
+    - Guides and Resources: "community/resources.md"
+    - Projects: "community/projects.md"
 
 #  - API Docs: "api-doc.md"
 
