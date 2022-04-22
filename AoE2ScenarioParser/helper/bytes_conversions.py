@@ -6,7 +6,6 @@ from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import has_str_trail, del_str_trail, q_str, \
     trunc_bytes, add_str_trail
 
-
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
@@ -188,5 +187,5 @@ def _combine_int_str(byte_string, length, endian, signed, retriever: 'Retriever'
         if str(e) == "int too big to convert":
             name: str = retriever.name if retriever else ""
             raise OverflowError(
-                f"{name.capitalize()} is too long. Length must be below {pow(2, length*8-1)}, but is: {len(byte_string)}"
+                f"{name.capitalize()} is too long. Length must be below {pow(2, length * 8 - 1)}, but is: {len(byte_string)}"
             ) from None

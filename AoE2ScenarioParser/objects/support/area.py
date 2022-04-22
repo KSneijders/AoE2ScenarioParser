@@ -429,10 +429,10 @@ class Area:
         """
         center_x, center_y = self.get_center_int()
         n -= 1  # Ignore center tile
-        self.x1 = center_x - math.ceil(n / 2)  # self._minmax_val(center_x - math.ceil(n / 2))
-        self.y1 = center_y - math.ceil(n / 2)  # self._minmax_val(center_y - math.ceil(n / 2))
-        self.x2 = center_x + math.floor(n / 2)  # self._minmax_val(center_x + math.floor(n / 2))
-        self.y2 = center_y + math.floor(n / 2)  # self._minmax_val(center_y + math.floor(n / 2))
+        self.x1 = center_x - math.ceil(n / 2)
+        self.y1 = center_y - math.ceil(n / 2)
+        self.x2 = center_x + math.floor(n / 2)
+        self.y2 = center_y + math.floor(n / 2)
         return self
 
     def height(self, n: int) -> Area:
@@ -442,8 +442,8 @@ class Area:
         """
         c1, c2 = self._get_length_change(n, self.get_height(), self.y1, self.y2)
 
-        self.y1 = self._y1 + c1  # self._minmax_val(self.y1 + c1)
-        self.y2 = self._y2 + c2  # self._minmax_val(self.y2 + c2)
+        self.y1 = self._y1 + c1
+        self.y2 = self._y2 + c2
         return self
 
     def width(self, n: int) -> Area:
@@ -453,8 +453,8 @@ class Area:
         """
         c1, c2 = self._get_length_change(n, self.get_width(), self.x1, self.x2)
 
-        self.x1 = self._x1 + c1  # self._minmax_val(self.x1 + c1)
-        self.x2 = self._x2 + c2  # self._minmax_val(self.x2 + c2)
+        self.x1 = self._x1 + c1
+        self.x2 = self._x2 + c2
         return self
 
     def center(self, x: int, y: int) -> Area:
@@ -505,10 +505,6 @@ class Area:
 
         self.x1, self.y1, self.x2, self.y2 = validate_coords(x1, y1, x2, y2)
 
-        # self.x1 = self._minmax_val(x1)
-        # self.y1 = self._minmax_val(y1)
-        # self.x2 = self._minmax_val(x2)
-        # self.y2 = self._minmax_val(y2)
         return self
 
     def select_centered(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
@@ -560,22 +556,22 @@ class Area:
 
     def expand_x1(self, n: int) -> Area:
         """Expands the selection from the first corner on the X axis by n"""
-        self.x1 = self.x1 - n  # self._minmax_val(self.x1 - n)
+        self.x1 = self.x1 - n
         return self
 
     def expand_y1(self, n: int) -> Area:
         """Expands the selection from the first corner on the Y axis by n"""
-        self.y1 = self.y1 - n  # self._minmax_val(self.y1 - n)
+        self.y1 = self.y1 - n
         return self
 
     def expand_x2(self, n: int) -> Area:
         """Expands the selection from the second corner on the X axis by n"""
-        self.x2 = self.x2 + n # self._minmax_val(self.x2 + n)
+        self.x2 = self.x2 + n
         return self
 
     def expand_y2(self, n: int) -> Area:
         """Expands the selection from the second corner on the Y axis by n"""
-        self.y2 = self.y2 + n  # self._minmax_val(self.y2 + n)
+        self.y2 = self.y2 + n
         return self
 
     # ============================ Test against ... functions ============================

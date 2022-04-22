@@ -1,5 +1,3 @@
-from enum import IntEnum
-
 from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
 

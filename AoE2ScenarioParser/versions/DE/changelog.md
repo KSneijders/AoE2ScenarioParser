@@ -61,14 +61,14 @@ No changes except for default civilization changed to 38 (from 36) because of th
 
 ### Added
 
--   Map:
-    -   Between `script_name` and `collide_and_correct`
-        ```json
-        "block_humanity_team_change": {
-            "type": "u8",
-            "default": 0
-        },
-        ```
+- Map:
+    - Between `script_name` and `collide_and_correct`
+      ```json
+      "block_humanity_team_change": {
+          "type": "u8",
+          "default": 0
+      },
+      ```
 
 ---
 
@@ -76,76 +76,76 @@ No changes except for default civilization changed to 38 (from 36) because of th
 
 ### Added
 
--   DataHeader.PlayerDataOneStruct:
+- DataHeader.PlayerDataOneStruct:
 
-    -   Between `civilization` and `cty_mode`
-        ```json
-        "architecture_set": {
-          "type": "u32",
-          "default": 36
-        },
-        ```
+    - Between `civilization` and `cty_mode`
+      ```json
+      "architecture_set": {
+        "type": "u32",
+        "default": 36
+      },
+      ```
 
--   Map:
+- Map:
 
-    -   Between `map_color_mood` and `collide_and_correct`
-        ```json
-        "separator_3": {
-            "type": "2",
-            "default": "600a"
-        },
-        "script_name": {
-            "type": "str16",
-            "default": "",
-            "dependencies": {
-                "on_commit": {
-                    "action": "REFRESH",
-                    "target": "Files:script_file_path"
-                }
-            }
-        },
-        ```
-    -   Between `villager_force_drop` and `player_1_camera_y`
-        ```json
-        "unknown": {
-            "type": "128",
-            "default": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-        },
-        ```
+    - Between `map_color_mood` and `collide_and_correct`
+      ```json
+      "separator_3": {
+          "type": "2",
+          "default": "600a"
+      },
+      "script_name": {
+          "type": "str16",
+          "default": "",
+          "dependencies": {
+              "on_commit": {
+                  "action": "REFRESH",
+                  "target": "Files:script_file_path"
+              }
+          }
+      },
+      ```
+    - Between `villager_force_drop` and `player_1_camera_y`
+      ```json
+      "unknown": {
+          "type": "128",
+          "default": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      ```
 
--   Triggers.trigger.condition:
+- Triggers.trigger.condition:
 
-    -   After: `target_player`
-        ```json
-        "unit_ai_action": {
-            "type": "s32",
-            "default": -1
-        },
-        "unknown_4": {
-            "type": "s32",
-            "default": -1
-        },
-        "xs_function": {
-            "type": "str32",
-            "default": ""
-        }
-        ```
+    - After: `target_player`
+      ```json
+      "unit_ai_action": {
+          "type": "s32",
+          "default": -1
+      },
+      "unknown_4": {
+          "type": "s32",
+          "default": -1
+      },
+      "xs_function": {
+          "type": "str32",
+          "default": ""
+      }
+      ```
 
--   Triggers.trigger.effect:
+- Triggers.trigger.effect:
 
-    -   Between: `play_sound` and `message`
-        ```json
-        "player_color": {
-            "type": "s32",
-            "default": -1
-        },
-        "unknown_4": {
-            "type": "s32",
-            "default": -1
-        },
-        ```
+    - Between: `play_sound` and `message`
+      ```json
+      "player_color": {
+          "type": "s32",
+          "default": -1
+      },
+      "unknown_4": {
+          "type": "s32",
+          "default": -1
+      },
+      ```
 
--   Files:
+- Files:
 
 ```json
       "Files": {
@@ -254,15 +254,15 @@ No changes except for default civilization changed to 38 (from 36) because of th
 
 ### Removed
 
--   FileHeader:
+- FileHeader:
 
-    -   Between `scenario_instructions` and `player_count`
-        ```json
-        "individual_victories_used": {
-          "type": "u32",
-          "default": 0
-        },
-        ```
+    - Between `scenario_instructions` and `player_count`
+      ```json
+      "individual_victories_used": {
+        "type": "u32",
+        "default": 0
+      },
+      ```
 
 ---
 
@@ -270,15 +270,15 @@ No changes except for default civilization changed to 38 (from 36) because of th
 
 ### Added
 
--   Map:
+- Map:
 
-    -   Between `collide_and_correct` and `player_1_camera_y`
-        ```json
-        "villager_force_drop": {
-                "type": "u8",
-                "default": 0
-            },
-        ```
+    - Between `collide_and_correct` and `player_1_camera_y`
+      ```json
+      "villager_force_drop": {
+              "type": "u8",
+              "default": 0
+          },
+      ```
 
 ---
 

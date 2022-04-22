@@ -1,4 +1,4 @@
-from typing import Dict, TYPE_CHECKING, List, Union, Callable, Optional
+from typing import Dict, TYPE_CHECKING, List, Union, Callable
 from uuid import UUID
 
 from AoE2ScenarioParser.datasets.conditions import attribute_presentation as condition_attribute_presentation
@@ -18,7 +18,6 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
-
 
 _store_error_displays: Dict[str, Dict[str, Callable[..., str]]] = {
     'triggers': {

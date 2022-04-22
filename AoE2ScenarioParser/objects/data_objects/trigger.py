@@ -1,4 +1,3 @@
-from copy import deepcopy
 from typing import List, Any
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset

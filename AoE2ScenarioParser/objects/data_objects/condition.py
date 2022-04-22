@@ -4,8 +4,7 @@ from enum import IntEnum
 from typing import Union
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords, value_is_valid
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
