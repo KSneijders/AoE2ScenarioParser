@@ -218,7 +218,8 @@ class UnitManager(AoE2Object):
 
         return [unit for unit in unit_list if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
-    def change_ownership(self, unit: Unit, to_player: Union[int, PlayerId]) -> None:
+    @staticmethod
+    def change_ownership(unit: Unit | List[Unit], to_player: Union[int, PlayerId]) -> None:
         """
         Changes a unit's ownership to the given player.
 
@@ -226,12 +227,11 @@ class UnitManager(AoE2Object):
             unit: The unit object which ownership will be changed
             to_player: The player that'll get ownership over the unit (using PlayerId enum)
         """
-        for i, player_unit in enumerate(self.units[unit.player]):
-            if player_unit == unit:
-                del self.units[unit.player][i]
-                self.units[to_player].append(unit)
-                unit._player = PlayerId(to_player)
-                return
+        if isinstance(unit, list):
+            for u in unit:
+                u.player = to_player
+        else:
+            unit.player = to_player
 
     def get_new_reference_id(self) -> int:
         """
