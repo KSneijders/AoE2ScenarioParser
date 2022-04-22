@@ -7,6 +7,7 @@ from typing import List, Type, TYPE_CHECKING
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
@@ -18,7 +19,7 @@ class AoE2Object:
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-        self._host_uuid = kwargs.get('host_uuid', "<<NO_HOST_UUID>>")
+        self._host_uuid = kwargs.get('host_uuid', NO_UUID)
 
     def __deepcopy__(self, memo):
         cls = self.__class__

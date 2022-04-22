@@ -7,6 +7,9 @@ from typing_extensions import SupportsIndex
 _T = TypeVar('_T')
 
 
+NO_UUID = "<<NO_HOST_UUID>>"
+
+
 class UuidList(list):
     def __init__(
             self,

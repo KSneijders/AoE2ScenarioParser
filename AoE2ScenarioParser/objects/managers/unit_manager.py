@@ -4,6 +4,8 @@ from typing import List, Union, Tuple
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits
+
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
@@ -14,14 +16,19 @@ class UnitManager(AoE2Object):
     """Manager of the everything trigger related."""
 
     _link_list = [
-        RetrieverObjectLink("units", "Units", "players_units[].units", process_as_object=Unit),
+        RetrieverObjectLink("_player_units", "Units", "players_units", process_as_object=PlayerUnits),
         RetrieverObjectLink("next_unit_id", "DataHeader", "next_unit_id_to_place")
     ]
 
-    def __init__(self, units: List[List[Unit]], next_unit_id: int, **kwargs):
+    def __init__(
+            self,
+            _player_units: List[PlayerUnits],
+            next_unit_id: int,
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
-        self.units = units
+        self.units = [pu.units for pu in _player_units]
         self.reference_id_generator = create_id_generator(next_unit_id)
 
     @property
@@ -275,6 +282,19 @@ class UnitManager(AoE2Object):
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
         self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
+
+    # ###############################################################################################
+    # ################################# Functions for reconstruction ################################
+    # ###############################################################################################
+
+    @property
+    def _player_units(self):
+        player_units = []
+        for i in range(9):
+            units = self.get_player_units(i)
+            player_units.append(PlayerUnits(unit_count=len(units), units=units))
+
+        return UuidList(self._host_uuid, player_units)
 
 
 def create_id_generator(start_id: int):
