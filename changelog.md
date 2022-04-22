@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.37 - 2022-MONTH-DAY
+
+### Added
+
+- [Community documentation page](https://ksneijders.github.io/AoE2ScenarioParser/community/resources/)
+
+### Fixed
+
+- Player Count shown in in-game scenario overview now updates to the amount of active players 
+  - instead of not updating at all
+
+### Improved
+
+- `UnitManager.change_ownership` now accepts a list of units as well as a single unit
+  - Also improved function performance
+- **BackEnd**: UnitManager read & writing logic (by a lot)
+
+---
+
 ## 0.1.36 - 2022-March-15
 
 ### Added
