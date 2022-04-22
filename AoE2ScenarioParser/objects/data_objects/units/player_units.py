@@ -10,7 +10,7 @@ class PlayerUnits(AoE2Object):
 
     _link_list = [
         RetrieverObjectLink("unit_count", "Units", "players_units[__index__].unit_count"),
-        RetrieverObjectLink("units", "Units", "players_units[__index__].units"),
+        RetrieverObjectLink("units", "Units", "players_units[__index__].units", process_as_object=Unit),
     ]
 
     def __init__(self, unit_count: int, units: List[Unit], **kwargs):
