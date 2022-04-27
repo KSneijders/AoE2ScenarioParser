@@ -41,7 +41,7 @@ class Trigger(AoE2Object):
         RetrieverObjectLink("effects", "Triggers", "trigger_data[__index__].effect_data",
                             process_as_object=Effect),
         RetrieverObjectLink("effect_order", "Triggers", "trigger_data[__index__].effect_display_order_array"),
-        RetrieverObjectLink("trigger_id", retrieve_instance_number=True),
+        RetrieverObjectLink("trigger_id", retrieve_history_number=0),
     ]
 
     def __init__(self,

@@ -72,9 +72,8 @@ class AoE2Object:
                 object_parameters[link.name] = link.construct(host_uuid, number_hist=number_hist)
 
         object_parameters['host_uuid'] = host_uuid
-        obj = cls(**object_parameters)
 
-        return obj
+        return cls(**object_parameters)
 
     def commit(self, local_link_list=None):
         """
