@@ -242,7 +242,7 @@ class Area:
         return (self.x1, self.y1), (self.x2, self.y2)
 
     def get_raw_selection(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
-        """Get the four values of the selection (even if they are outside of the map) as: ((x1, y1), (x2, y2))"""
+        """Get the four values of the selection (even if they are outside the map) as: ((x1, y1), (x2, y2))"""
         return (self._x1, self._y1), (self._x2, self._y2)
 
     def get_center(self) -> Tuple[float, float]:
@@ -460,8 +460,8 @@ class Area:
     def center(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position. When the given center forces the selection of the edge of the
-        map, the selection is moved to that position and all tiles that are out of the map are removed from the
-        selection, effectively decreasing the selection size.
+        map the off-map tiles will not be returned. When moving the selection back into the map the tiles will be
+        returned again.
 
         If you want to limit moving the center without changing the selection box size, use: ``center_bounded``
         """
@@ -476,7 +476,8 @@ class Area:
     def center_bounded(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge
-        of the map. The selection will be forced against the edge of the map but the selection will not be decreased.
+        of the map. The selection will be forced against the edge of the map and the selection will not be decreased in
+        size.
         """
         center_x, center_y = self.get_center()
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)

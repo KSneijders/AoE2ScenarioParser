@@ -319,6 +319,14 @@ Returns: `Tuple[Tuple[int, int], Tuple[int, int]]`
 
 ---
 
+.get_raw_selection()
+
+Get the four values of the selection (even if they are outside the map) as: ((x1, y1), (x2, y2))
+
+Returns: `Tuple[Tuple[int, int], Tuple[int, int]]`
+
+---
+
 .get_center()
 
 Get center of current selection
@@ -364,6 +372,14 @@ Returns: `int`
 Returns the length of the y side of the selection.
 
 Returns: `int`
+
+---
+
+.get_dimensions()
+
+Returns the lengths of the x & y side of the selection (in that order).
+
+Returns: `Tuple[int, int]`
 
 ---
 
@@ -541,7 +557,7 @@ Returns: `Area`
 
 .center(x, y)
 
-Moves the selection center to a given position. When the given center forces the selection of the edge of the map, the selection is moved to that position and all tiles that are out of the map are removed from the selection, effectively decreasing the selection size.
+Moves the selection center to a given position. When the given center forces the selection of the edge of the map the off-map tiles will not be returned. When moving the selection back into the map the tiles will be returned again.
 
 |Parameter|Type|Default|Description|
 |-|-|-|-|
@@ -554,7 +570,7 @@ Returns: `Area`
 
 .center_bounded(x, y)
 
- Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge of the map. The selection will be forced against the edge of the map but the selection will not be decreased. 
+Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge of the map. The selection will be forced against the edge of the map and the selection will not be decreased in size. 
 
 |Parameter|Type|Default|Description|
 |-|-|-|-|
