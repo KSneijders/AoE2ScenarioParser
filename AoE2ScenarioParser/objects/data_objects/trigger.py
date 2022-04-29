@@ -292,7 +292,7 @@ class Trigger(AoE2Object):
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                name = "???"
+                name = f"Unknown ({condition.condition_type})"
                 if condition.condition_type in condition_dataset.condition_names:
                     name = condition_dataset.condition_names[condition.condition_type]
 
@@ -304,8 +304,11 @@ class Trigger(AoE2Object):
             for e_display_order, effect_id in enumerate(self.effect_order):
                 effect = self.effects[effect_id]
 
-                return_string += f"\t{effect_dataset.effect_names[effect.effect_type]}" \
-                                 f" [Index: {effect_id}, Display: {e_display_order}]:\n"
+                name = f"Unknown ({effect.effect_type})"
+                if effect.effect_type in effect_dataset.effect_names:
+                    name = effect_dataset.effect_names[effect.effect_type]
+
+                return_string += f"\t{name} [Index: {effect_id}, Display: {e_display_order}]:\n"
                 return_string += add_tabs(effect.get_content_as_string(), 2)
 
         if include_trigger_definition:
