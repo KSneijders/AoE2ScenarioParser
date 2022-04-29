@@ -311,13 +311,19 @@ class ObjectAttribute(_DataSetIntEnums):
     PROJECTILE_UNIT = 16
     BUILDING_ICON_OVERRIDE = 17
     TERRAIN_DEFENSE_BONUS = 18
-    ENABLE_SMART_PROJECTILES = 19
+    PROJECTILE_SMART_MODE = 19
     MINIMUM_RANGE = 20
-    AMOUNT_OF_1ST_RESOURCES = 21
+    AMOUNT_OF_1ST_RESOURCE_STORAGE = 21
     BLAST_WIDTH = 22
     SEARCH_RADIUS = 23
-    BONUS_DAMAGE_RESIST = 24
+    BONUS_DAMAGE_RESISTANCE = 24
     ICON_ID = 25
+    AMOUNT_OF_2ND_RESOURCE_STORAGE = 26
+    AMOUNT_OF_3RD_RESOURCE_STORAGE = 27
+    FOG_VISIBILITY = 28
+    OCCLUSION_MODE = 29
+    GARRISON_TYPE = 30
+    UNIT_SIZE_Z = 31
     HERO_STATUS = 40
     FRAME_DELAY = 41
     TRAIN_LOCATION = 42
@@ -331,8 +337,21 @@ class ObjectAttribute(_DataSetIntEnums):
     OBJECT_NAME_ID = 50
     SHORT_DESCRIPTION_ID = 51
     TERRAIN_RESTRICTION_ID = 53
+    UNIT_TRAIT = 54
+    TRAIT_PIECE = 56
     DEAD_UNIT_ID = 57
     HOTKEY_ID = 58
+    MAXIMUM_CHARGE = 59
+    RECHARGE_RATE = 60
+    CHARGE_EVENT = 61
+    CHARGE_TYPE = 62
+    COMBAT_ABILITY = 63
+    ATTACK_DISPERSION = 64
+    SECONDARY_PROJECTILE_UNIT = 65
+    BLOOD_UNIT = 66
+    PROJECTILE_HIT_MODE = 67
+    PROJECTILE_VANISH_MODE = 68
+    PROJECTILE_ARC = 69
     RESOURCE_COSTS = 100
     TRAIN_TIME = 101
     TOTAL_MISSILES = 102
@@ -344,6 +363,8 @@ class ObjectAttribute(_DataSetIntEnums):
     GARRISON_HEAL_RATE = 108
     """Hidden in the editor, but does work! Do not open effect in editor, will cause it to reset"""
     REGENERATION_RATE = 109
+    POPULATION = 110
+
 
 
 _attribute_dataset_editor_names = None
@@ -383,6 +404,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Current food amount
     """
+    AOTHER = 0
     WOOD_STORAGE = 1
     """
     - Purpose: Current wood amount
@@ -967,10 +989,7 @@ class Attribute(_DataSetIntEnums):
 
     - Note: Enabling kidnap/loot requires modding the units to have the kidnap/pillage action
     """
-    UNUSED_RESOURCE_096 = 96
-    """
-    - Purpose: Unused
-    """
+    NO_DROPSITE_FARMERS = 96
     DOMINANT_SHEEP_CONTROL = 97
     """
     - Purpose: Boolean: force sheep conversion
@@ -1307,7 +1326,7 @@ class Attribute(_DataSetIntEnums):
 
     - Note: A great explanation of how this works: https://youtu.be/-qRUaOHpbwI?t=870 by T-West
     """
-    CONVERT_RESIST_MIO_ADJUSTMENT = 178
+    CONVERT_RESIST_MIN_ADJUSTMENT = 178
     """
     - Purpose: Additional monk seconds needed before conversion by enemy monks is even possible
 
@@ -1625,7 +1644,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unknown... what does this resource do?
     """
-    FEUDAL_TOWN_CENTER_LIMIT = 218
+    EARLY_TOWN_CENTER_LIMIT = 218
     """
     - Purpose: This is the number of extra TCs a player is allowed to build IF TCs are enabled in feudal age.
 
@@ -1711,7 +1730,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Total number of villagers lost to wild animals
     """
-    VILLAGERS_KILLED_BY_AL_PLAYER = 228
+    VILLAGERS_KILLED_BY_AI_PLAYER = 228
     """
     - Purpose: Total number of villagers lost to AIs
     """
@@ -1857,6 +1876,31 @@ class Attribute(_DataSetIntEnums):
 
     - Note: The amount of gold obtained from owning `n` number of TWS (Unit 1647) is given by `n * tws_gold_productivity * 2.25`.
     """
+    UNITS_VALUE_TOTAL = 246
+    BUILDINGS_VALUE_TOTAL = 247
+    VILLAGERS_CREATED_TOTAL = 248
+    VILLAGERS_IDLE_PERIODS_TOTAL = 249
+    VILLAGERS_IDLE_SECONDS_TOTAL = 250
+    TRADE_FOOD_PERCENT = 251
+    TRADE_WOOD_PERCENT = 252
+    TRADE_STONE_PERCENT = 253
+    LIVESTOCK_FOOD_PRODUCTIVITY = 254
+    SPEED_UP_BUILDING_TYPE = 255
+    SPEED_UP_BUILDING_RANGE = 256
+    SPEED_UP_PERCENTAGE = 257
+    SPEED_UP_OBJECT_TYPE = 258
+    SPEED_UP_EFFECT_TYPE = 259
+    SPEED_UP_SECONDARY_EFFECT_TYPE = 260
+    SPEED_UP_SECONDARY_PERCENTAGE = 261
+    EXTRA_ELEPHANT_CONVERT_RESIST = 262
+    STARTING_SCOUT_ID = 263
+    RELIC_WOOD_PRODUCTION_RATE = 264
+    RELIC_STONE_PRODUCTION_RATE = 265
+    CHOPPING_GOLD_PRODUCTIVITY = 266
+    UNKNOWN_RESOURCE_267 = 267
+    UNKNOWN_RESOURCE_268 = 268
+    UNKNOWN_RESOURCE_269 = 269
+
 
 
 class ObjectType(_DataSetIntEnums):
@@ -2192,7 +2236,7 @@ class DamageClass(_DataSetIntEnums):
     ARCHERS = 15
     BATTLE_SHIPS_AND_SABOTEUR = 16
     """Camels also had this armour class before AK"""
-    RAMS = 17
+    RAMS_TREBUCHETS_SIEGE_TOWERS = 17
     TREES = 18
     UNIQUE_UNITS = 19
     SIEGE_WEAPONS = 20
@@ -2201,20 +2245,20 @@ class DamageClass(_DataSetIntEnums):
     GUNPOWDER_UNITS = 23
     BOARS = 24
     MONKS = 25
-    CASTLE = 26
+    CASTLES = 26
+    """Castles, Kreposts, Fortresses, Poenari Castles"""
     SPEARMEN = 27
     CAVALRY_ARCHERS = 28
     EAGLE_WARRIORS = 29
     CAMELS = 30
     """Camels use this armour class since and after AK"""
-    LEITIS = 31
-    CONDOTTIERO = 32
-    ORGAN_GUN_BULLET = 33
-    """Only Projectile Gunpowder (Secondary) with id 1119 has this damage class. No unit has this armour class."""
-    FISHING_SHIP = 34
+    UNUSED_ID31 = 31
+    CONDOTTIERI = 32
+    PROJECTILE_GUNPOWDER_SECONDARY = 33
+    FISHING_SHIPS = 34
     MAMELUKES = 35
-    HEROES_AND_KING = 36
-    UNUSED_ID37 = 37
+    HEROES_AND_KINGS = 36
+    HUSSITE_WAGONS = 37
     UNUSED_ID38 = 38
     UNUSED_ID39 = 39
     UNUSED_ID40 = 40
@@ -2426,3 +2470,18 @@ class SecondaryGameMode(_DataSetIntFlags):
     SUDDEN_DEATH = 2
     REGICIDE = 4
     KING_OF_THE_HILL = 8
+
+
+class VictoryTimerType(_DataSetIntEnums):
+    """
+    This enum class provides the integer values used to reference the different ages in the game. These values are
+    used by the 'Current Age' player resource
+
+    **Examples**
+
+    >>> VictoryTimerType.WONDER_TIMER
+    <VictoryTimerType.WONDER_TIMER: 0>
+    """
+    WONDER_TIMER = 0
+    RELIC_TIMER = 1
+    KING_OF_THE_HILL_TIMER = 2

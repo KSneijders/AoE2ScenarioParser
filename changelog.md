@@ -6,22 +6,54 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.37 - 2022-MONTH-DAY
+## 0.1.37 // 0.2.0 ?? - 2022-MONTH-DAY
+
+**Support for the new 61321 update!** (Scenario version 1.46)
 
 ### Added
 
+- **Update 61321** - Support for the new Conditions
+  - `BUILDING_IS_TRADING`
+  - `DISPLAY_TIMER_TRIGGERED`
+  - `VICTORY_TIMER`
+  - `AND`
+- **Update 61321** - 19 new entries in `ObjectAttribute`
+- **Update 61321** - 24 new entries in `Attribute` (Player Attribute / Resource)
+- **Update 61321** - new dataset: `VictoryTimerType`
 - [Community documentation page](https://ksneijders.github.io/AoE2ScenarioParser/community/resources/)
-
-### Fixed
-
-- Player Count shown in in-game scenario overview now updates to the amount of active players 
-  - instead of not updating at all
 
 ### Improved
 
 - `UnitManager.change_ownership` now accepts a list of units as well as a single unit
   - Also improved function performance
 - **BackEnd**: UnitManager read & writing logic (by a lot)
+
+### Fixed
+
+- Player Count shown in in-game scenario overview now updates to the amount of active players 
+  - instead of not updating at all
+- Typo in `Attribute` entries: 
+  - `CONVERT_RESIST_MIO_ADJUSTMENT (Typo)` => `CONVERT_RESIST_MIN_ADJUSTMENT` (ID: 178)
+  - `VILLAGERS_KILLED_BY_AL_PLAYER` => `VILLAGERS_KILLED_BY_AI_PLAYER` (ID: 228)
+
+### Changed
+
+- **Update 61321** - Renamed some `ObjectAttribute` entries:
+  - `ENABLE_SMART_PROJECTILES` => `PROJECTILE_SMART_MODE` (ID: 19)
+  - `AMOUNT_OF_1ST_RESOURCES` => `AMOUNT_OF_1ST_RESOURCE_STORAGE` (ID: 21)
+  - `BONUS_DAMAGE_RESIST` => `BONUS_DAMAGE_RESISTANCE` (ID: 24)
+- **Update 61321** - Renamed some `Attribute` entries:
+  - `UNUSED_RESOURCE_096` => `NO_DROPSITE_FARMERS` (ID: 96)
+  - `FEUDAL_TOWN_CENTER_LIMIT` => `EARLY_TOWN_CENTER_LIMIT` (ID: 218)
+- **Update 61321** - Renamed some `DamageClass` entries:
+  - `RAMS` => `RAMS_TREBUCHETS_SIEGE_TOWERS` (ID: 17)
+  - `CASTLE` => `CASTLES` (ID: 26)
+  - `LEITIS` => `UNUSED_ID31` (ID: 31) -- _behaviour moved to a combat ability_
+  - `CONDOTTIERO` => `CONDOTTIERI` (ID: 32)
+  - `ORGAN_GUN_BULLET` => `PROJECTILE_GUNPOWDER_SECONDARY` (ID: 33) -- _no longer used by only the organ gun_
+  - `FISHING_SHIP` => `FISHING_SHIPS` (ID: 34)
+  - `HEROES_AND_KING` => `HEROES_AND_KINGS` (ID: 36)
+  - `UNUSED_ID37` => `HUSSITE_WAGONS` (ID: 37)
 
 ---
 

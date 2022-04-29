@@ -100,6 +100,7 @@ class RetrieverObjectLink:
                 else:
                     retriever = file_section.retriever_map[item]
             except KeyError as e:
+                print(e)
                 # Maybe not supported in current version. if actually not supported -> ignore
                 if self.support is not None:
                     if not self.support.supports(
