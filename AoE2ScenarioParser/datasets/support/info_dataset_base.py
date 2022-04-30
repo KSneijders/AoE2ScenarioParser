@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Union
+from typing import Union, List
 
 
 class InfoDatasetBase(Enum):
@@ -163,7 +163,7 @@ class InfoDatasetBase(Enum):
         return cls._from_id('hotkey_id', hotkey_id)
 
     @classmethod
-    def gaia_only(cls) -> list[InfoDatasetBase]:
+    def gaia_only(cls) -> List[InfoDatasetBase]:
         """
         Returns:
             A list of all the gaia only units (eg. Deer)
@@ -171,7 +171,7 @@ class InfoDatasetBase(Enum):
         return cls._gaia_filter(gaia_only=True)
 
     @classmethod
-    def non_gaia(cls) -> list[InfoDatasetBase]:
+    def non_gaia(cls) -> List[InfoDatasetBase]:
         """
         Returns:
             A list of all the units excluding gaia only units (eg. Deer)
@@ -179,7 +179,7 @@ class InfoDatasetBase(Enum):
         return cls._gaia_filter(gaia_only=False)
 
     @classmethod
-    def _gaia_filter(cls, gaia_only: bool) -> list[InfoDatasetBase]:
+    def _gaia_filter(cls, gaia_only: bool) -> List[InfoDatasetBase]:
         """
         **Private Method**
 

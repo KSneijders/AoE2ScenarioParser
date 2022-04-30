@@ -197,3 +197,5 @@ class BuildingInfo(InfoDatasetBase):
     GATE = 487, 36, 1406, 16185, False
     PALISADE_GATE = 792, 44, 1406, 16186, False
     FORTIFIED_GATE = 488, 36, 1406, 16185, False
+    CARAVANSERAI = 1754, 87, 1529, 16351, False
+    MINARET_OF_JAM = 1773, 37, 1530, 16182, False

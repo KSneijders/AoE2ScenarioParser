@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import List
+
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -48,7 +50,7 @@ class UnitInfo(InfoDatasetBase):
     """
 
     @staticmethod
-    def vils(exclude_female: bool = False, exclude_male: bool = False) -> list[UnitInfo]:
+    def vils(exclude_female: bool = False, exclude_male: bool = False) -> List[UnitInfo]:
         """
         Args:
             exclude_female: if set to true, exclude the female villagers
@@ -101,7 +103,7 @@ class UnitInfo(InfoDatasetBase):
             exclude_non_elite_units: bool = False,
             exclude_castle_units: bool = False,
             exclude_non_castle_units: bool = False
-    ) -> list[UnitInfo]:
+    ) -> List[UnitInfo]:
         """
         Args:
             exclude_elite_units: if set to false, exclude the elite unique units
@@ -120,14 +122,16 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.BERSERK,
                     UnitInfo.BOYAR,
                     UnitInfo.CAMEL_ARCHER,
+                    UnitInfo.CAMEL_SCOUT,
                     UnitInfo.CATAPHRACT,
+                    UnitInfo.CHAKRAM_THROWER,
                     UnitInfo.CHU_KO_NU,
                     UnitInfo.CONQUISTADOR,
                     UnitInfo.COUSTILLIER,
-                    UnitInfo.ELEPHANT_ARCHER,
                     UnitInfo.FLAMING_CAMEL,
                     UnitInfo.GBETO,
                     UnitInfo.GENOESE_CROSSBOWMAN,
+                    UnitInfo.GHULAM,
                     UnitInfo.HUSKARL,
                     UnitInfo.HUSSITE_WAGON,
                     UnitInfo.JAGUAR_WARRIOR,
@@ -145,16 +149,21 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.OBUCH,
                     UnitInfo.ORGAN_GUN,
                     UnitInfo.PLUMED_ARCHER,
+                    UnitInfo.RATHA_MELEE,
+                    UnitInfo.RATHA_RANGED,
                     UnitInfo.RATTAN_ARCHER,
                     UnitInfo.SAMURAI,
                     UnitInfo.SERJEANT,
                     UnitInfo.SHOTEL_WARRIOR,
+                    UnitInfo.SHRIVAMSHA_RIDER,
                     UnitInfo.TARKAN,
                     UnitInfo.TEUTONIC_KNIGHT,
+                    UnitInfo.THIRISADAI,
                     UnitInfo.THROWING_AXEMAN,
+                    UnitInfo.URUMI_SWORDSMAN,
                     UnitInfo.WAR_ELEPHANT,
                     UnitInfo.WAR_WAGON,
-                    UnitInfo.WOAD_RAIDER
+                    UnitInfo.WOAD_RAIDER,
                 ],
                 "elite": [
                     UnitInfo.ELITE_ARAMBAI,
@@ -163,12 +172,13 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_BOYAR,
                     UnitInfo.ELITE_CAMEL_ARCHER,
                     UnitInfo.ELITE_CATAPHRACT,
+                    UnitInfo.ELITE_CHAKRAM_THROWER,
                     UnitInfo.ELITE_CHU_KO_NU,
                     UnitInfo.ELITE_CONQUISTADOR,
                     UnitInfo.ELITE_COUSTILLIER,
-                    UnitInfo.ELITE_ELEPHANT_ARCHER,
                     UnitInfo.ELITE_GBETO,
                     UnitInfo.ELITE_GENOESE_CROSSBOWMAN,
+                    UnitInfo.ELITE_GHULAM,
                     UnitInfo.ELITE_HUSKARL,
                     UnitInfo.ELITE_HUSSITE_WAGON,
                     UnitInfo.ELITE_JAGUAR_WARRIOR,
@@ -186,16 +196,20 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_OBUCH,
                     UnitInfo.ELITE_ORGAN_GUN,
                     UnitInfo.ELITE_PLUMED_ARCHER,
+                    UnitInfo.ELITE_RATHA_MELEE,
+                    UnitInfo.ELITE_RATHA_RANGED,
                     UnitInfo.ELITE_RATTAN_ARCHER,
                     UnitInfo.ELITE_SAMURAI,
                     UnitInfo.ELITE_SERJEANT,
                     UnitInfo.ELITE_SHOTEL_WARRIOR,
+                    UnitInfo.ELITE_SHRIVAMSHA_RIDER,
                     UnitInfo.ELITE_TARKAN,
                     UnitInfo.ELITE_TEUTONIC_KNIGHT,
                     UnitInfo.ELITE_THROWING_AXEMAN,
+                    UnitInfo.ELITE_URUMI_SWORDSMAN,
                     UnitInfo.ELITE_WAR_ELEPHANT,
                     UnitInfo.ELITE_WAR_WAGON,
-                    UnitInfo.ELITE_WOAD_RAIDER
+                    UnitInfo.ELITE_WOAD_RAIDER,
                 ]
             },
             "non_elite": [
@@ -540,6 +554,21 @@ class UnitInfo(InfoDatasetBase):
     ELITE_OBUCH = 1703, 369, 1702, 16104, False
     WINGED_HUSSAR = 1707, 371, 1708, 16661, False
     HOUFNICE = 1709, 372, 1710, 16093, False
-    FREE_TRANSPORT_SHIP = 1735, 95, -1, 16443, False
+    URUMI_SWORDSMAN = 1735, 386, 1736, 16104, False
     MONK_WITH_TURKISH_RELIC = 309, 33, 134, 16361, False
     CRUSADER_KNIGHT = 1723, 377, 1724, 16730, False
+    ELITE_URUMI_SWORDSMAN = 1737, 386, 1736, 16454, False
+    RATHA_MELEE = 1738, 388, 1739, 16101, False
+    ELITE_RATHA_MELEE = 1740, 388, 1739, 16101, False
+    CHAKRAM_THROWER = 1741, 390, 1742, 16111, False
+    ELITE_CHAKRAM_THROWER = 1743, 390, 1742, 16461, False
+    GHULAM = 1747, 385, 1748, 16101, False
+    ELITE_GHULAM = 1749, 385, 1748, 16101, False
+    THIRISADAI = 1750, 387, -1, 16106, False
+    SHRIVAMSHA_RIDER = 1751, 391, 1752, 16737, False
+    ELITE_SHRIVAMSHA_RIDER = 1753, 391, 1752, 16737, False
+    CAMEL_SCOUT = 1755, 392, 1668, 16416, False
+    RATHA_RANGED = 1759, 389, 1760, 16727, False
+    ELITE_RATHA_RANGED = 1761, 389, 1760, 16729, False
+    ARMORED_ELEPHANT = 1744, 394, 1745, 16494, False
+    SIEGE_ELEPHANT = 1746, 395, 1757, 16494, False
