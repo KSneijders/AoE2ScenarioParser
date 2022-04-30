@@ -51,7 +51,7 @@
             "color_mood": "ColorMood",
             "reset_timer": "bool",
             "object_state": "ObjectState",
-            "action_type":  "ActionType",
+            "action_type": "ActionType",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]"

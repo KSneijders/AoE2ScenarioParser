@@ -4,8 +4,7 @@ from enum import IntEnum
 from typing import Union
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords, value_is_valid
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
@@ -49,12 +48,18 @@ class Condition(AoE2Object):
                             "trigger_data[__index__].condition_data[__index__].comparison"),
         RetrieverObjectLink("target_player", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].target_player"),
-        RetrieverObjectLink("object_state", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].object_state", Support(since=1.42)),
-        RetrieverObjectLink("xs_function", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].xs_function", Support(since=1.40)),
         RetrieverObjectLink("unit_ai_action", "Triggers",
                             "trigger_data[__index__].condition_data[__index__].unit_ai_action", Support(since=1.40)),
+        RetrieverObjectLink("object_state", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].object_state", Support(since=1.42)),
+        RetrieverObjectLink("timer_id", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].timer_id", Support(since=1.46)),
+        RetrieverObjectLink("victory_timer_type", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].victory_timer_type", Support(since=1.46)),
+        RetrieverObjectLink("include_changeable_weapon_objects", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].include_changeable_weapon_objects", Support(since=1.46)),
+        RetrieverObjectLink("xs_function", "Triggers",
+                            "trigger_data[__index__].condition_data[__index__].xs_function", Support(since=1.40)),
     ]
 
     def __init__(self,
@@ -80,6 +85,9 @@ class Condition(AoE2Object):
                  target_player: Union[int, IntEnum] = None,
                  unit_ai_action: int = None,
                  object_state: int = None,
+                 timer_id: int = None,
+                 victory_timer_type: int = None,
+                 include_changeable_weapon_objects: int = None,
                  xs_function: str = None,
                  **kwargs
                  ):
@@ -108,6 +116,9 @@ class Condition(AoE2Object):
         self.target_player: int = target_player
         self.unit_ai_action: int = unit_ai_action
         self.object_state: int = object_state
+        self.timer_id: int = timer_id
+        self.victory_timer_type: int = victory_timer_type
+        self.include_changeable_weapon_objects: int = include_changeable_weapon_objects
         self.xs_function: str = xs_function
 
         super().__init__(**kwargs)

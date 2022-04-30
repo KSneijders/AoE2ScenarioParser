@@ -2,7 +2,6 @@ import math
 from uuid import UUID
 
 from AoE2ScenarioParser.scenarios.scenario_store import getters
-
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 

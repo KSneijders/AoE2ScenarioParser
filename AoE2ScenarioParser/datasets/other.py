@@ -143,7 +143,8 @@ class OtherInfo(InfoDatasetBase):
     FLAG_L = 1283, -1, -1, 16183, False
     FLAG_M = 1284, -1, -1, 16183, False
     FLARE = 274, -1, -1, 16316, False
-    FLARE_PERMANENT = 1689, -1, -1, 16316, False
+    FLARE_A_PERMANENT = 1689, -1, -1, 16316, False
+    FLARE_B_PERMANENT = 1785, -1, -1, 16316, False
     FLOWER_BED = 859, -1, -1, 16385, True
     FLOWERS_1 = 334, -1, -1, 16382, True
     FLOWERS_2 = 335, -1, -1, 16383, True
@@ -170,6 +171,8 @@ class OtherInfo(InfoDatasetBase):
     JAPANESE_RELIC = 294, 26, -1, 16357, True
     LARGE_TEMP_MAP_REVEAL = 332, -1, -1, 16316, False
     MAP_REVEALER = 837, -1, -1, 16737, True
+    MAP_REVEALER_MEDIUM = 1774, -1, -1, 16737, False
+    MAP_REVEALER_GIANT = 1775, -1, -1, 16737, False
     MOSQUE = 655, 12, 1496, 16552, True
     MOUNTAIN_1 = 310, -1, -1, 16342, True
     MOUNTAIN_2 = 311, -1, -1, 16343, True
@@ -300,3 +303,7 @@ class OtherInfo(InfoDatasetBase):
     FLAME3 = 1335, -1, -1, 16517, True
     FLAME4 = 1336, -1, -1, 16517, True
     WATERFALL_BACKGROUND = 1635, -1, -1, 16756, True
+    BLOCKER = 1776, -1, -1, 16756, True
+    INDIAN_STATUES = 1777, -1, -1, 16717, True
+    REKHA_DEUL_TEMPLE = 1778, -1, -1, 16756, True
+    INDIAN_RUINS = 1784, -1, -1, 16757, True

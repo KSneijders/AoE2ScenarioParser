@@ -27,7 +27,6 @@ class Retriever:
         'log_value',
         '_data',
         'default_value',
-        # 'string_end_char'
     ]
 
     on_construct: RetrieverDependency
@@ -54,8 +53,6 @@ class Retriever:
         if log_value:
             self.datatype.log_value = True
             self.datatype._debug_retriever_name = name
-
-        # self.string_end_char = False
 
     def get_data_as_bytes(self):
         self.update_datatype_repeat()
@@ -100,6 +97,10 @@ class Retriever:
         if self.log_value:
             old_value = self._data
             self._print_value_update(old_value, value)
+
+        # If repeat is 0 and value being said is truthy (mainly not an empty list) set repeat to one
+        if self.datatype.repeat == 0 and value:
+            self.datatype.repeat = 1
         self._data = value
 
     def set_data_to_default(self):

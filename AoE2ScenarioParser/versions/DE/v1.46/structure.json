@@ -190,11 +190,11 @@
                     },
                     "civilization": {
                         "type": "u32",
-                        "default": 38
+                        "default": 40
                     },
                     "architecture_set": {
                         "type": "u32",
-                        "default": 38
+                        "default": 40
                     },
                     "cty_mode": {
                         "type": "u32",
@@ -1340,6 +1340,32 @@
                 "type": "s32",
                 "default": 0
             },
+            "per_player_population_cap": {
+                "repeat": 16,
+                "type": "u32",
+                "default": [
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200,
+                    200
+                ]
+            },
+            "secondary_game_mode": {
+                "type": "u32",
+                "default": 0
+            },
             "unknown_3": {
                 "type": "4",
                 "default": "0df0adde"
@@ -1775,7 +1801,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 2.4
+                "default": 2.6
             },
             "trigger_instruction_start": {
                 "type": "s8",
@@ -2006,7 +2032,7 @@
                             },
                             "static_value_46": {
                                 "type": "s32",
-                                "default": 49
+                                "default": 52
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2211,6 +2237,18 @@
                                 "type": "s32",
                                 "default": -1
                             },
+                            "reset_timer": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_state": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "action_type": {
+                                "type": "s32",
+                                "default": -1
+                            },
                             "message": {
                                 "type": "str32",
                                 "default": ""
@@ -2246,7 +2284,7 @@
                             },
                             "static_value_21": {
                                 "type": "s32",
-                                "default": 24
+                                "default": 27
                             },
                             "quantity": {
                                 "type": "s32",
@@ -2341,6 +2379,18 @@
                                 "default": -1
                             },
                             "object_state": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "timer_id": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "victory_timer_type": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "include_changeable_weapon_objects": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -2446,6 +2496,10 @@
                         "target": "self:number_of_ai_files"
                     }
                 }
+            },
+            "WAITING_FOR_FIX_TEMP": {
+                "type": "5",
+                "default": "00000000"
             },
             "__END_OF_FILE_MARK__": {
                 "type": "1",

@@ -2,7 +2,7 @@ from typing import List
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
-from AoE2ScenarioParser.helper.exceptions import EndOfFileError
+from AoE2ScenarioParser.helper.exceptions import EndOfFileError, UnsupportedAttributeError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']
@@ -60,10 +60,14 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
             return []
-    except TypeError:
-        print(retriever)
-        print(retriever.datatype.repeat)
-        exit()  # Todo: Should not exit (?)
+
+    if is_script_file_content_retriever(retriever):
+        if retrieved_bytes[0] != b'\x00\x00\x00\x00':
+            raise UnsupportedAttributeError(
+                "The parser currently does NOT support the 'Script Filename' attribute.\n"
+                "Please clear the 'Script Filename' text box on the map tab in the scenario editor and try again.\n\n"
+                "Sorry for the inconvenience. - Kirby"
+            )
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)
@@ -74,6 +78,11 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
 def is_end_of_file_mark(retriever) -> bool:
     """Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false"""
     return retriever.name == "__END_OF_FILE_MARK__"
+
+
+def is_script_file_content_retriever(retriever) -> bool:
+    """Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false"""
+    return retriever.name == "script_file_content"
 
 
 def handle_end_of_file_mark(igenerator, retriever) -> None:
@@ -106,7 +115,7 @@ def handle_end_of_file_mark(igenerator, retriever) -> None:
             "",
             "Please be so kind and include the map in question. Thanks again!",
             "",
-            "Extra data found in the file:",
+            f"Extra data found in the file ({len(retrieved_bytes)} bytes):",
             f"\t'{retrieved_bytes}'"
         ]))
         retriever.datatype.repeat = 1

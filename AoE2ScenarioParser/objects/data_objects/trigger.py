@@ -1,4 +1,3 @@
-from copy import deepcopy
 from typing import List, Any
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
@@ -22,7 +21,10 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 class Trigger(AoE2Object):
     """Object for handling a trigger."""
 
+    # Todo: Create alternative to RetrieverObjectLink to retrieve a lot of values from the same FileSection
     _link_list = [
+        # SomeObject("Triggers", "trigger_data[__index__]", {"name": "trigger_name"})
+
         RetrieverObjectLink("name", "Triggers", "trigger_data[__index__].trigger_name"),
         RetrieverObjectLink("description", "Triggers", "trigger_data[__index__].trigger_description"),
         RetrieverObjectLink("description_stid", "Triggers", "trigger_data[__index__].description_string_table_id"),
@@ -42,7 +44,7 @@ class Trigger(AoE2Object):
         RetrieverObjectLink("effects", "Triggers", "trigger_data[__index__].effect_data",
                             process_as_object=Effect),
         RetrieverObjectLink("effect_order", "Triggers", "trigger_data[__index__].effect_display_order_array"),
-        RetrieverObjectLink("trigger_id", retrieve_instance_number=True),
+        RetrieverObjectLink("trigger_id", retrieve_history_number=0),
     ]
 
     def __init__(self,
@@ -102,7 +104,6 @@ class Trigger(AoE2Object):
         self._assign_new_ce_support()
 
     def _deepcopy_entry(self, k, v) -> Any:
-        """Default copy implementation per key for AoE2Object. Created so this logic can be inherited."""
         if k in ['new_effect', 'new_condition']:
             return None
         else:
@@ -190,7 +191,8 @@ class Trigger(AoE2Object):
                        attribute=None, unit_object=None, next_object=None, object_list=None,
                        source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
                        area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None
+                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None,
+                       timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
                        ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
@@ -290,8 +292,11 @@ class Trigger(AoE2Object):
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                return_string += f"\t{condition_dataset.condition_names[condition.condition_type]} " \
-                                 f"[Index: {condition_id}, Display: {c_display_order}]:\n"
+                name = f"Unknown ({condition.condition_type})"
+                if condition.condition_type in condition_dataset.condition_names:
+                    name = condition_dataset.condition_names[condition.condition_type]
+
+                return_string += f"\t{name} [Index: {condition_id}, Display: {c_display_order}]:\n"
                 return_string += add_tabs(condition.get_content_as_string(), 2)
 
         if len(self.effect_order) > 0:
@@ -299,8 +304,11 @@ class Trigger(AoE2Object):
             for e_display_order, effect_id in enumerate(self.effect_order):
                 effect = self.effects[effect_id]
 
-                return_string += f"\t{effect_dataset.effect_names[effect.effect_type]}" \
-                                 f" [Index: {effect_id}, Display: {e_display_order}]:\n"
+                name = f"Unknown ({effect.effect_type})"
+                if effect.effect_type in effect_dataset.effect_names:
+                    name = effect_dataset.effect_names[effect.effect_type]
+
+                return_string += f"\t{name} [Index: {effect_id}, Display: {e_display_order}]:\n"
                 return_string += add_tabs(effect.get_content_as_string(), 2)
 
         if include_trigger_definition:

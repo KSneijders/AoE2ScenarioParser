@@ -55,6 +55,7 @@ class NewConditionSupport:
             source_player: Union[int, None] = None,
             object_group: Union[int, None] = None,
             object_type: Union[int, None] = None,
+            include_changeable_weapon_objects: Union[int, None] = None,
     ) -> Condition:
         return self._trigger_ref._add_condition(
             ConditionId.OWN_OBJECTS,
@@ -63,6 +64,7 @@ class NewConditionSupport:
             source_player=source_player,
             object_group=object_group,
             object_type=object_type,
+            include_changeable_weapon_objects=include_changeable_weapon_objects,
         )
 
     def own_fewer_objects(
@@ -76,6 +78,7 @@ class NewConditionSupport:
             area_y2: Union[int, None] = None,
             object_group: Union[int, None] = None,
             object_type: Union[int, None] = None,
+            include_changeable_weapon_objects: Union[int, None] = None,
     ) -> Condition:
         return self._trigger_ref._add_condition(
             ConditionId.OWN_FEWER_OBJECTS,
@@ -88,6 +91,7 @@ class NewConditionSupport:
             area_y2=area_y2,
             object_group=object_group,
             object_type=object_type,
+            include_changeable_weapon_objects=include_changeable_weapon_objects,
         )
 
     def objects_in_area(
@@ -103,6 +107,7 @@ class NewConditionSupport:
             object_type: Union[int, None] = None,
             inverted: Union[int, None] = None,
             object_state: Union[int, None] = None,
+            include_changeable_weapon_objects: Union[int, None] = None,
     ) -> Condition:
         return self._trigger_ref._add_condition(
             ConditionId.OBJECTS_IN_AREA,
@@ -117,6 +122,7 @@ class NewConditionSupport:
             object_type=object_type,
             inverted=inverted,
             object_state=object_state,
+            include_changeable_weapon_objects=include_changeable_weapon_objects,
         )
 
     def destroy_object(
@@ -430,4 +436,50 @@ class NewConditionSupport:
             ConditionId.AI_SIGNAL_MULTIPLAYER,
             ai_signal=ai_signal,
             inverted=inverted,
+        )
+
+    def and_(
+            self,
+    ) -> Condition:
+        return self._trigger_ref._add_condition(
+            ConditionId.AND,
+        )
+
+    def building_is_trading(
+            self,
+            unit_object: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+    ) -> Condition:
+        return self._trigger_ref._add_condition(
+            ConditionId.BUILDING_IS_TRADING,
+            unit_object=unit_object,
+            inverted=inverted,
+        )
+
+    def display_timer_triggered(
+            self,
+            timer_id: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+    ) -> Condition:
+        return self._trigger_ref._add_condition(
+            ConditionId.DISPLAY_TIMER_TRIGGERED,
+            timer_id=timer_id,
+            inverted=inverted,
+        )
+
+    def victory_timer(
+            self,
+            quantity: Union[int, None] = None,
+            source_player: Union[int, None] = None,
+            inverted: Union[int, None] = None,
+            comparison: Union[int, None] = None,
+            victory_timer_type: Union[int, None] = None,
+    ) -> Condition:
+        return self._trigger_ref._add_condition(
+            ConditionId.VICTORY_TIMER,
+            quantity=quantity,
+            source_player=source_player,
+            inverted=inverted,
+            comparison=comparison,
+            victory_timer_type=victory_timer_type,
         )

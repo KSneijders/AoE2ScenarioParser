@@ -1,8 +1,11 @@
 from typing import Type, List
+from uuid import UUID
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.helper import exclusive_if
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
@@ -16,58 +19,41 @@ class RetrieverObjectLink:
                  link: str = None,
                  support: Support = None,
                  process_as_object: Type[AoE2Object] = None,
-                 retrieve_instance_number: bool = False,
                  retrieve_history_number: int = -1,
                  commit_callback=None,
                  destination_object=None,
                  ):
-        if sum([link is not None, retrieve_instance_number, (retrieve_history_number != -1)]) != 1:
+        if not exclusive_if(link is not None, retrieve_history_number != -1):
             raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
-        self.destination_object = destination_object
 
         self.name: str = variable_name
         self.section_name = section_name
         self.link = link
         self.support: Support = support
-        self.is_special_unit_case = self._is_special_unit_case()
         self.process_as_object: Type[AoE2Object] = process_as_object
-        self.retrieve_instance_number: bool = retrieve_instance_number
         self.retrieve_history_number: int = retrieve_history_number
         self.commit_callback = commit_callback
+        self.destination_object = destination_object
 
         self.splitted_link: List[str] = link.split('.') if link is not None else []
 
     def construct(self, host_uuid, number_hist=None):
         if number_hist is None:
             number_hist = []
-        instance_number = AoE2Object.get_instance_number(number_hist=number_hist)
 
-        if self.retrieve_instance_number:
-            return instance_number
-        elif self.retrieve_history_number != -1:
+        if self.retrieve_history_number != -1:
             return number_hist[self.retrieve_history_number]
         else:
-            if self.is_special_unit_case:
-                return self._construct_special_unit_case(host_uuid)
-
             sections = getters.get_sections(host_uuid)
-            scenario_version = getters.get_scenario_version(host_uuid)
 
             # Retrieve value without using eval() -- Eval is slow
             value = sections[self.section_name]
             for index, item in enumerate(self.splitted_link):
-                try:
-                    if "[" in item:
-                        value = getattr(value, item[:-11])[number_hist[index]]
-                    else:
-                        value = getattr(value, item)
-                except AttributeError as e:
-                    # Maybe not supported in current version. if actually not supported -> ignore
-                    if self.support is not None:
-                        if not self.support.supports(scenario_version):
-                            value = None
-                            break
-                    raise e
+                if item.endswith("]"):
+                    # item[:-11] removes "[__index__]" from the key
+                    value = getattr(value, item[:-11])[number_hist[index]]
+                else:
+                    value = getattr(value, item)
 
             if self.process_as_object:
                 return self.process_object_list(value, number_hist, host_uuid)
@@ -81,11 +67,14 @@ class RetrieverObjectLink:
             )
         return object_list
 
-    def commit(self, host_uuid, host_obj: AoE2Object):
+    def commit(self, host_uuid: UUID, host_obj: AoE2Object):
         # Object-only attributes for the ease of access of information.
         # Not actually representing a value in the scenario file.
-        if self.retrieve_instance_number or self.retrieve_history_number >= 0:
+        if self.retrieve_history_number != -1:
             return
+
+        if host_uuid == NO_UUID:
+            raise ValueError(f"Invalid object commit. No UUID was set. Object class: {host_obj.__class__.__name__}")
 
         number_hist = host_obj._instance_number_history
 
@@ -101,10 +90,6 @@ class RetrieverObjectLink:
         sections = getters.get_sections(host_uuid)
         section = sections[self.section_name]
 
-        if self.is_special_unit_case:
-            self._commit_special_unit_case(host_uuid, value)
-            return
-
         # Retrieve value without using eval() -- Eval is slow
         retriever = None
         file_section = section
@@ -115,6 +100,7 @@ class RetrieverObjectLink:
                 else:
                     retriever = file_section.retriever_map[item]
             except KeyError as e:
+                print(e)
                 # Maybe not supported in current version. if actually not supported -> ignore
                 if self.support is not None:
                     if not self.support.supports(
@@ -173,41 +159,7 @@ class RetrieverObjectLink:
             if retriever.log_value:
                 retriever._print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
 
-    def _is_special_unit_case(self) -> bool:
-        return ("[]" in self.link) if self.link else False
-
-    def _construct_special_unit_case(self, host_uuid):
-        units = []
-        sections = getters.get_sections(host_uuid)
-        value = sections[self.section_name]
-        for index, item in enumerate(self.splitted_link):
-            if "[]" in item:
-                value = getattr(value, item[:-2])
-            else:
-                for player, player_units_section in enumerate(value):
-                    player_units = getattr(player_units_section, item)
-                    units.append(self.process_object_list(player_units, [player], host_uuid))
-        return units
-
-    def _commit_special_unit_case(self, host_uuid, value):
-        sections = getters.get_sections(host_uuid)
-
-        for player, player_unit in enumerate(value):
-            player_unit_retriever = sections["Units"].players_units[player]
-            retriever_list = player_unit_retriever.retriever_map.values()
-            units = player_unit_retriever.retriever_map["units"]
-            # units = get_retriever_by_name(retriever_list, "units")
-            struct_model = player_unit_retriever.struct_models["UnitStruct"]
-
-            RetrieverObjectLink.update_retriever_length(units, struct_model, len(value[player]), host_uuid)
-            RetrieverObjectLink.commit_object_list(player_unit, [player])
-
-            for retriever in retriever_list:
-                if hasattr(retriever, 'on_commit'):
-                    handle_retriever_dependency(retriever, "commit", player_unit_retriever, host_uuid)
-
     def __repr__(self):
         return f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}" + \
                (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
-               (f"\n\t- Get Instance Number: True" if self.retrieve_instance_number else "") + \
                (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")

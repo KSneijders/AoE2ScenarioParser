@@ -1,4 +1,4 @@
-from typing import Dict, TYPE_CHECKING, List, Union, Callable, Optional
+from typing import Dict, TYPE_CHECKING, List, Union, Callable
 from uuid import UUID
 
 from AoE2ScenarioParser.datasets.conditions import attribute_presentation as condition_attribute_presentation
@@ -8,8 +8,8 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, AttackStance, UnitAIAction, \
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
-    ObjectAttribute, Attribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
-    SmartProjectile, DamageClass, Hotkey, ColorMood, ObjectState, ActionType
+    ObjectAttribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
+    SmartProjectile, DamageClass, Hotkey, ColorMood, ObjectState, ActionType, VictoryTimerType, Attribute
 from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
@@ -18,7 +18,6 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
-
 
 _store_error_displays: Dict[str, Dict[str, Callable[..., str]]] = {
     'triggers': {
@@ -100,6 +99,7 @@ _datasets = {
     "ColorMood": ColorMood,
     "ObjectState": ObjectState,
     "ActionType": ActionType,
+    "VictoryTimerType": VictoryTimerType,
 }
 
 _other = {
@@ -148,6 +148,8 @@ def transform_attr_value(ce, type_, attr, val, uuid):
 
 
 def get_presentation_value(key, source, type_):
+    if type_ not in source:
+        return None
     if key in source[type_]:
         return source[type_][key]
     return source[-1][key]

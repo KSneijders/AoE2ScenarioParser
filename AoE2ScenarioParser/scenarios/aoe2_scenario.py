@@ -164,7 +164,8 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, skip_reconstruction=False):
         if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
-            raise ValueError("Overwriting the source scenario file is disallowed. This behaviour can be enabled in the settings file.")
+            raise ValueError(
+                "Overwriting the source scenario file is disallowed. This behaviour can be enabled in the settings file.")
         if not skip_reconstruction:
             self._object_manager.reconstruct()
 
