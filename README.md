@@ -58,6 +58,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | 1.43          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [51737] (August 10th, 2021)
 | 1.44          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [54480] (October 5th, 2021) <br> **Unchanged in**: <br> - Hotfix [54684] (October 6th, 2021) |
 | 1.45          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [56005] (November 17th, 2021) <br> **Unchanged in**: <br> - Update [58259] (January 31st, 2022) |
+| 1.46          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [61321] (April 27th, 2022)        
 
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
@@ -84,6 +85,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 [54684]: https://www.ageofempires.com/news/aoeii-de-update-54480/#hotfix-54684
 [56005]: https://www.ageofempires.com/news/aoeii_de_update_56005/
 [58259]: https://www.ageofempires.com/news/aoe-ii-de-update-58259/
+[61321]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-61321/
 
 # Authors
 
