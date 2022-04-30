@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog]
   - `DISPLAY_TIMER_TRIGGERED`
   - `VICTORY_TIMER`
   - `AND`
+- **Update 61321** - Support for the new Effects
+  - `ENABLE_OBJECT_DELETION`
+  - `DISABLE_OBJECT_DELETION`
 - **Update 61321** - 19 new entries in `ObjectAttribute`
 - **Update 61321** - 24 new entries in `Attribute` (Player Attribute / Resource)
 - **Update 61321** - new dataset: `VictoryTimerType`

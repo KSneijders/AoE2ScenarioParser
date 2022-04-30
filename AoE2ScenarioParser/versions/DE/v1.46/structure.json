@@ -2497,6 +2497,10 @@
                     }
                 }
             },
+            "WAITING_FOR_FIX_TEMP": {
+                "type": "5",
+                "default": "00000000"
+            },
             "__END_OF_FILE_MARK__": {
                 "type": "1",
                 "default": ""
