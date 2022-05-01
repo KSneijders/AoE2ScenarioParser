@@ -80,7 +80,7 @@ class DataType:
             var=self.var,
             repeat=self.repeat,
             log_value=self.log_value,
-            type_length=(self.type, self.length)
+            type_length=self.type_and_length
         )
 
 

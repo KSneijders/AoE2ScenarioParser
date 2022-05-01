@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.42"
+                "default": "1.44"
             },
             "header_length": {
                 "type": "u32",
@@ -499,31 +499,31 @@
             "ResourcesStruct": {
                 "retrievers": {
                     "gold": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "wood": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "food": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "stone": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "ore_x_unused": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "trade_goods": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "player_color": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     }
                 }
