@@ -1883,6 +1883,11 @@
                         "target": "self:number_of_variables"
                     }
                 }
+            },
+            "useless_trigger_data": {
+                "comment": "Uselessness confirmed by developer",
+                "type": "9",
+                "default": "000000000000000000"
             }
         },
         "structs": {
@@ -2418,10 +2423,6 @@
     },
     "Files": {
         "retrievers": {
-            "unknown_2": {
-                "type": "4",
-                "default": "00000000"
-            },
             "script_file_path": {
                 "type": "str16",
                 "default": null,
@@ -2496,10 +2497,6 @@
                         "target": "self:number_of_ai_files"
                     }
                 }
-            },
-            "WAITING_FOR_FIX_TEMP": {
-                "type": "5",
-                "default": "00000000"
             },
             "__END_OF_FILE_MARK__": {
                 "type": "1",
