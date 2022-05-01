@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.38 - 2022-MAY-1
+
+### Fixed
+
+- Issue with reading scenario files when script name field was populated
+
+---
+
 ## 0.1.37 - 2022-MAY-1
 
 **Support for the new 61321 update!** (Scenario version 1.46)
