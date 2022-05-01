@@ -59,12 +59,7 @@ class AoE2FileSection:
         Returns:
             An AoE2FileSection instance based on the model
         """
-        global total_time
-
-        start = time.time()
         duplicate_rmap = {k: e.duplicate() for k, e in model.retriever_map.items()}
-        # duplicate_rmap = duplicate_retriever_map(model.retriever_map)
-        total_time += time.time() - start
 
         if set_defaults:
             reset_retriever_map(duplicate_rmap)
