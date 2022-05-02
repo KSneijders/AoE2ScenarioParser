@@ -22,42 +22,56 @@ class PlayerManager(AoE2Object):
     #  I'll be dealing with this IF support for other game versions will ever happen.
 
     _link_list = [
-        RetrieverObjectLink("_starting_ages", "Options", "per_player_starting_age"),
-        RetrieverObjectLink("_lock_civilizations", "DataHeader", "per_player_lock_civilization"),
-        RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
-        RetrieverObjectLink("_metadata", "DataHeader", "player_data_1", process_as_object=PlayerMetaData),
-        RetrieverObjectLink("_player_data_3", "Units", "player_data_3", process_as_object=PlayerDataThree),
-        RetrieverObjectLink("_player_data_4", "Units", "player_data_4", process_as_object=PlayerDataFour),
-        RetrieverObjectLink("_diplomacy", "Diplomacy", "per_player_diplomacy", process_as_object=PlayerDiplomacy),
-        RetrieverObjectLink("_base_priorities", "Options", "per_player_base_priority"),
-        RetrieverObjectLink("_allied_victories", "Diplomacy", "per_player_allied_victory"),
-        RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
-        RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
-        RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
         RetrieverObjectLink("_player_count", "FileHeader", "player_count"),
 
-        *[
-            RetrieverObjectLink(f"_disabled_{type_}_ids_player_{i}", "Options", f"disabled_{type_}_ids_player_{i}")
-            for type_ in ["tech", "building", "unit"] for i in range(1, 9)
-        ]
+        RetrieverObjectLinkGroup("DataHeader", group=[
+            RetrieverObjectLink("_tribe_names", link="tribe_names"),
+            RetrieverObjectLink("_string_table_player_names", link="string_table_player_names"),
+            RetrieverObjectLink("_metadata", link="player_data_1", process_as_object=PlayerMetaData),
+            RetrieverObjectLink("_lock_civilizations", link="per_player_lock_civilization"),
+        ]),
+
+        RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
+
+        RetrieverObjectLinkGroup("Diplomacy", group=[
+            RetrieverObjectLink("_diplomacy", link="per_player_diplomacy", process_as_object=PlayerDiplomacy),
+            RetrieverObjectLink("_allied_victories", link="per_player_allied_victory"),
+        ]),
+
+        RetrieverObjectLinkGroup("Options", group=[
+            *[
+                RetrieverObjectLink(f"_disabled_{type_}_ids_player_{i}", link=f"disabled_{type_}_ids_player_{i}")
+                for type_ in ["tech", "building", "unit"] for i in range(1, 9)
+            ],
+            RetrieverObjectLink("_starting_ages", link="per_player_starting_age"),
+            RetrieverObjectLink("_base_priorities", link="per_player_base_priority"),
+        ]),
+
+        RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
+
+        RetrieverObjectLinkGroup("Units", group=[
+            RetrieverObjectLink("_player_data_4", link="player_data_4", process_as_object=PlayerDataFour),
+            RetrieverObjectLink("_player_data_3", link="player_data_3", process_as_object=PlayerDataThree),
+        ]),
     ]
 
-    def __init__(self,
-                 _starting_ages: List[int],
-                 _lock_civilizations: List[int],
-                 _resources: List[PlayerResources],
-                 _metadata: List[PlayerMetaData],
-                 _player_data_3: List[PlayerDataThree],
-                 _player_data_4: List[PlayerDataFour],
-                 _diplomacy: List[PlayerDiplomacy],
-                 _base_priorities: List[int],
-                 _allied_victories: List[int],
-                 _pop_caps: List[int],
-                 _tribe_names: List[str],
-                 _string_table_player_names: List[int],
-                 _player_count: int,
-                 **kwargs
-                 ):
+    def __init__(
+            self,
+            _player_count: int,
+            _tribe_names: List[str],
+            _string_table_player_names: List[int],
+            _metadata: List[PlayerMetaData],
+            _lock_civilizations: List[int],
+            _resources: List[PlayerResources],
+            _diplomacy: List[PlayerDiplomacy],
+            _allied_victories: List[int],
+            _starting_ages: List[int],
+            _base_priorities: List[int],
+            _pop_caps: List[int],
+            _player_data_4: List[PlayerDataFour],
+            _player_data_3: List[PlayerDataThree],
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
         disables = {}
