@@ -2,20 +2,20 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Type, TYPE_CHECKING
+from typing import List, Type, TYPE_CHECKING, Any, Dict
 
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
-from AoE2ScenarioParser.scenarios.scenario_store import getters
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class AoE2Object:
-    _link_list: List[RetrieverObjectLink] = []
+    _link_list: List[RetrieverObjectLinkParent] = []
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
@@ -44,32 +44,11 @@ class AoE2Object:
         if number_hist is None:
             number_hist = []
 
-        scenario_version = getters.get_scenario_version(host_uuid)
+        object_parameters: Dict[str, Any] = {}
 
-        object_parameters = {}
         for link in cls._link_list:
-            if link.support is not None and not link.support.supports(scenario_version):
-
-                error_msg = f_unsupported_string(link, scenario_version)
-
-                def _get(self):
-                    raise UnsupportedAttributeError(error_msg)
-
-                def _set(self, val):
-                    if val is not None:
-                        raise UnsupportedAttributeError(error_msg)
-
-                obj = cls
-                if link.destination_object is not None:
-                    obj = link.destination_object
-
-                # Todo: Runs for each _construct() -- A LOT of overhead
-                #  Doesn't work properly when reading an older scenario first, and a newer one later
-                #  Properties don't get reset!
-                setattr(obj, link.name, property(_get, _set))
-                object_parameters[link.name] = None
-            else:
-                object_parameters[link.name] = link.construct(host_uuid, number_hist=number_hist)
+            values = link.construct(host_uuid, number_hist, cls)
+            object_parameters.update(values)
 
         object_parameters['host_uuid'] = host_uuid
 
@@ -103,7 +82,7 @@ class AoE2Object:
     def _get_object_attrs(self):
         attrs = ["_instance_number_history", "_host_uuid"]
         for link in self._link_list:
-            attrs.append(link.name)
+            attrs.extend(link.get_names())
         return attrs
 
     def __repr__(self):
@@ -118,7 +97,3 @@ class AoE2Object:
                 self_dict[attr] = value
 
         return str(self.__class__.__name__) + ": " + add_tabs(pretty_format_dict(self_dict), 1)
-
-
-def f_unsupported_string(link: RetrieverObjectLink, version: str):
-    return f"The property '{link.name}' is {link.support}. Current version: {version}.\n"

@@ -5,13 +5,16 @@ from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.variable import Variable
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class TriggerManagerDE(TriggerManager):
     _link_list = [
-        RetrieverObjectLink("triggers", "Triggers", "trigger_data", process_as_object=Trigger),
-        RetrieverObjectLink("trigger_display_order", "Triggers", "trigger_display_order_array"),
-        RetrieverObjectLink("variables", "Triggers", "variable_data", process_as_object=Variable),
+        RetrieverObjectLinkGroup("Triggers", group=[
+            RetrieverObjectLink("triggers", link="trigger_data", process_as_object=Trigger),
+            RetrieverObjectLink("trigger_display_order", link="trigger_display_order_array"),
+            RetrieverObjectLink("variables", link="variable_data", process_as_object=Variable),
+        ])
     ]
 
     def __init__(self, triggers: List[Trigger], trigger_display_order: List[int], variables: List[Variable], **kwargs):

@@ -96,7 +96,7 @@ class Retriever:
     def data(self, value):
         if self.log_value:
             old_value = self._data
-            self._print_value_update(old_value, value)
+            self.print_value_update(old_value, value)
 
         # If repeat is 0 and value being said is truthy (mainly not an empty list) set repeat to one
         if self.datatype.repeat == 0 and value:
@@ -152,7 +152,7 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
-    def _print_value_update(self, old, new) -> None:
+    def print_value_update(self, old, new) -> None:
         """
         Function to print when data is changed. Can also be called for when data is changed but the property doesn't
         fire. This happens when an array is adjusted in size by appending to it ([...] += [...]).

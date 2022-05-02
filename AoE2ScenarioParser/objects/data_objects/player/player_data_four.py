@@ -1,16 +1,19 @@
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class PlayerDataFour(AoE2Object):
     """Object for handling a tile in the map."""
 
     _link_list = [
-        RetrieverObjectLink("population_limit", "Units", "player_data_4[__index__].population_limit"),
-        RetrieverObjectLink("food_duplicate", "Units", "player_data_4[__index__].food_duplicate"),
-        RetrieverObjectLink("wood_duplicate", "Units", "player_data_4[__index__].wood_duplicate"),
-        RetrieverObjectLink("gold_duplicate", "Units", "player_data_4[__index__].gold_duplicate"),
-        RetrieverObjectLink("stone_duplicate", "Units", "player_data_4[__index__].stone_duplicate"),
+        RetrieverObjectLinkGroup("Units", "player_data_4[__index__]", group=[
+            RetrieverObjectLink("population_limit"),
+            RetrieverObjectLink("food_duplicate"),
+            RetrieverObjectLink("wood_duplicate"),
+            RetrieverObjectLink("gold_duplicate"),
+            RetrieverObjectLink("stone_duplicate"),
+        ])
     ]
 
     def __init__(

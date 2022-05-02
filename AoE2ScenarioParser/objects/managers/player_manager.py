@@ -11,6 +11,7 @@ from AoE2ScenarioParser.objects.data_objects.player.player_meta_data import Play
 from AoE2ScenarioParser.objects.data_objects.player.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 

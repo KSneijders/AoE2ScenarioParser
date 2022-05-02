@@ -1,77 +1,149 @@
-from typing import Type, List
+from typing import Type, List, Callable, Dict, Any, Optional, TYPE_CHECKING
 from uuid import UUID
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
-from AoE2ScenarioParser.helper.helper import exclusive_if
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
-class RetrieverObjectLink:
+
+class RetrieverObjectLink(RetrieverObjectLinkParent):
     def __init__(
             self,
             variable_name: str,
             section_name: str = None,
             link: str = None,
             support: Support = None,
-            process_as_object: Type[AoE2Object] = None,
-            retrieve_history_number: int = -1,
-            commit_callback=None,
-            destination_object=None,
+            process_as_object: Type['AoE2Object'] = None,
+            retrieve_history_number: int = None,
+            commit_callback: Callable = None,
+            destination_object: Type['AoE2Object'] = None,
     ):
-        if not exclusive_if(link is not None, retrieve_history_number != -1):
-            raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
+        if link is not None and retrieve_history_number is not None:
+            raise ValueError("You must use 'link' OR 'retrieve_history_number' as parameter, not both.")
+
+        super().__init__(section_name, link or variable_name, commit_callback)
 
         self.name: str = variable_name
-        self.section_name = section_name
-        self.link = link
         self.support: Support = support
-        self.process_as_object: Type[AoE2Object] = process_as_object
-        self.retrieve_history_number: int = retrieve_history_number
-        self.commit_callback = commit_callback
-        self.destination_object = destination_object
+        self.process_as_object: Type['AoE2Object'] = process_as_object
+        self.retrieve_history_number: Optional[int] = retrieve_history_number
+        self.destination_object: Type['AoE2Object'] = destination_object
 
-        self.splitted_link: List[str] = link.split('.') if link is not None else []
+        self.disabled = False
+        """
+        Set to True if the given property (referenced by link) is not supported in the current scenario version.
+        When True, the properties are overridden to raise an error when used.  
+        """
 
-    def construct(self, host_uuid, number_hist=None):
+    def get_names(self):
+        """
+        Returns:
+            The name of this object link in a list
+        """
+        return [self.name]
+
+    def overwrite_unsupported_properties(self, class_reference: Type['AoE2Object'], uuid: UUID) -> bool:
+        scenario_version = getters.get_scenario_version(uuid)
+
+        # If support is None, that means that the thing is supported in every scenario version that the parser supports
+        if self.support is not None:
+            # If already disabled, the property has already been set to raise an error so return True
+            if self.disabled:
+                return True
+            # If the property is supported, return False
+            if self.support.supports(scenario_version):
+                return False
+
+            error_msg = self.get_unsupported_string(scenario_version)
+
+            def _get(self_):
+                raise UnsupportedAttributeError(error_msg)
+
+            def _set(self_, val):
+                if val is not None:
+                    raise UnsupportedAttributeError(error_msg)
+
+            if self.destination_object is not None:
+                class_reference = self.destination_object
+
+            # Todo: Doesn't work properly when reading an older scenario first, and a newer one later
+            #  Properties don't get reset!
+            #  Just resetting doesnt work either as both scenarios can be used at the same time. get/set functions need
+            #  more logic ("or Dynamic classes" -- Alian)
+            setattr(class_reference, self.name, property(_get, _set))
+            self.disabled = True
+
+            return True
+        return False
+
+    def retrieve_value_from_link(
+            self,
+            uuid: UUID = None,
+            host_obj: Type['AoE2Object'] = None,
+            from_section: Any = None,
+            number_hist: List[int] = None
+    ) -> Any:
+        """
+        Retrieve value based on link.
+
+        Args:
+            uuid: The UUID of the current scenario
+            host_obj: A reference to the host object class
+            from_section: Start retrieving the value from a different starting point than the scenario sections
+            number_hist: The history numbers
+
+        Returns:
+            The value located at the location found through self.link
+        """
+        overwritten = self.overwrite_unsupported_properties(host_obj, uuid)
+        if overwritten:
+            return None
+
+        value = super().retrieve_value_from_link(uuid, host_obj, from_section, number_hist)
+
+        if self.process_as_object:
+            value = self.process_object_list(value, number_hist, uuid)
+        return value
+
+    def construct(
+            self,
+            host_uuid: UUID,
+            number_hist: List[int] = None,
+            host_obj: Type['AoE2Object'] = None
+    ) -> Dict[str, Any]:
         if number_hist is None:
             number_hist = []
 
-        if self.retrieve_history_number != -1:
-            return number_hist[self.retrieve_history_number]
+        if self.retrieve_history_number is not None:
+            value = number_hist[self.retrieve_history_number]
         else:
-            sections = getters.get_sections(host_uuid)
+            value = self.retrieve_value_from_link(uuid=host_uuid, host_obj=host_obj, number_hist=number_hist)
 
-            # Retrieve value without using eval() -- Eval is slow
-            value = sections[self.section_name]
-            for index, item in enumerate(self.splitted_link):
-                if item.endswith("]"):
-                    # item[:-11] removes "[__index__]" from the key
-                    value = getattr(value, item[:-11])[number_hist[index]]
-                else:
-                    value = getattr(value, item)
+        return {self.name: value}
 
-            if self.process_as_object:
-                return self.process_object_list(value, number_hist, host_uuid)
-            return value
-
-    def process_object_list(self, value_list, instance_number_history, host_uuid):
+    def process_object_list(self, value_list: List[Any], instance_number_history, host_uuid):
         object_list = []
         for index, struct in enumerate(value_list):
+            # Todo: Check this out - structs are unused - Kirby
             object_list.append(
                 self.process_as_object._construct(host_uuid, instance_number_history + [index])
             )
         return object_list
 
-    def commit(self, host_uuid: UUID, host_obj: AoE2Object):
+    def commit(self, host_uuid: UUID, host_obj: 'AoE2Object'):
         # Object-only attributes for the ease of access of information.
         # Not actually representing a value in the scenario file.
-        if self.retrieve_history_number != -1:
+        if self.retrieve_history_number is not None:
             return
 
         if host_uuid == NO_UUID:
@@ -136,13 +208,18 @@ class RetrieverObjectLink:
 
     @staticmethod
     def commit_object_list(object_list, instance_number_history):
-        obj: AoE2Object
+        obj: 'AoE2Object'
         for index, obj in enumerate(object_list):
             obj._instance_number_history = instance_number_history + [index]
             obj.commit()
 
     @staticmethod
-    def update_retriever_length(retriever, model, new_len, host_uuid):
+    def update_retriever_length(
+            retriever: Retriever,
+            model: AoE2StructModel,
+            new_len: int,
+            host_uuid: UUID
+    ):
         try:
             old_len = len(retriever.data)
         except TypeError:  # retriever.data was not set before (list of 0 -> None)
@@ -158,9 +235,20 @@ class RetrieverObjectLink:
             ]
 
             if retriever.log_value:
-                retriever._print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
+                retriever.print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
+
+    def get_unsupported_string(self, version: str):
+        return f"The property '{self.name}' is {self.support}. Current version: {version}.\n"
 
     def __repr__(self):
-        return f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}" + \
-               (f"\n\t- Process as: {self.process_as_object.__name__}" if self.process_as_object else "") + \
-               (f"\n\t- Get Hist Number: {self.retrieve_history_number}" if self.retrieve_history_number >= 0 else "")
+        lines: List[str] = [
+            f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}"
+        ]
+
+        if self.process_as_object is not None:
+            lines.append(f"\t- Process as: {self.process_as_object.__name__}")
+
+        if self.retrieve_history_number is not None:
+            lines.append(f"\t- Get Hist Number: {self.retrieve_history_number}")
+
+        return '\n'.join([line for line in lines if line])
