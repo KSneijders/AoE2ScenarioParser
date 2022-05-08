@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 from pathlib import Path
+from typing import Dict
 
 from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums, _DataSetIntFlags
 
@@ -294,77 +295,413 @@ class ObjectAttribute(_DataSetIntEnums):
     <ObjectAttribute.LINE_OF_SIGHT: 1>
     """
     HIT_POINTS = 0
+    """
+    This attribute refers to the health of the units
+    """
     LINE_OF_SIGHT = 1
+    """
+    This is the distance a unit can see around itself
+    """
     GARRISON_CAPACITY = 2
+    """
+    This is the amount of units that can garrison inside another unit
+    """
     UNIT_SIZE_X = 3
+    """
+    This determines the x-size of the unit's collision hitbox (width of the unit)
+    """
     UNIT_SIZE_Y = 4
+    """
+    This determines the y-size of the unit's collision hitbox (length of the unit)
+    """
     MOVEMENT_SPEED = 5
+    """
+    This is the movement speed of a unit, measured in tiles per second
+    """
     ROTATION_SPEED = 6
+    """
+    This is the rate at which units can rotate, measured in seconds per frame (this many seconds must pass before the object can switch to the next rotation frame). For example, for a trebuchet to start attacking a building facing the opposite direction, it has to rotate to face that way first
+    """
     ARMOR = 8
+    """
+    This is the quantity of armour a unit has on any of its `Armour Classes`. Note that changing the armour through this option will show it as being added to the base armour amount. (for example: 4+4)
+    """
     ATTACK = 9
+    """
+    This is the quantity of attack a unit has on any of its `Attack Classes`. Note that changing the attack through this option will show it as being added to the base attack amount. (for example: 6+2)
+    """
     ATTACK_RELOAD_TIME = 10
+    """
+    This is the minimum time that must pass before a unit is able to fire another shot. For melee units it is the minimum time between two successive hits that they can do
+    """
     ACCURACY_PERCENT = 11
+    """
+    This determines how accurately a unit can aim at another unit
+    This accuracy is the accuracy of a unit to fire at the exact centre of its target. If the shot fired is not aimed at the exact centre of the target, it may still hit the target if its not off by too much since it can still land within the hitbox of the target, just not at the exact centre
+        Thus, bigger targets are actually easier to hit, which explains why buildings are an easier target to hit for trebuchets than small units
+        In this image, you can see that shots that were fired in the red area in the 2nd scenario would've hit if the target had been closer like in the first scenario, but since the target is far away, they actually miss
+        More technically, the visual angle of an object of the same size that is farther away is smaller, thus giving a smaller room for error for the shot in terms of the range of angles that will make the shot hit
+        The chance of a unit getting converted by a monk is also determined by its accuracy
+        If you modify an onager to have a big blast radius and give it a small accuracy, then attack a lot of units bunched together, the accuracy determines what percentage of units take damage from the blast of the onager! This is the reason why warwolf trebuchets get 100% accuracy because otherwise the blast wouldn't damage all of the units. Another interesting consequence of this is the delete trick with onagers and mangonels. This is where a mangonel is deleted immediately after it fires its shot and because a dead unit doesn't have an accuracy, it defaults to 100% and thus deals more damage to all the units in the blast radius
+        Note: There are two other factors that play a role in determining the damage from the shot fired by the deleted mangonel
+        
+            1. The damage from a mangonel's shot is decreased over distance when moving outward from the centre of the blast (the targeted point). However, when the mangonel is deleted, this decrease over distance doesn't happen, and the projectile deals the full 100% damage to all the units in the blast radius!
+            2. A shot that is fired from lower elevation would normally deal only 75% of its normal damage due to the elevation damage reduction. deleting a mangonel in this case also makes the damage the full 100% as if there was no elevation difference
+    """
     MAX_RANGE = 12
+    """
+    This is the maximum range of a unit. Note that to be able to shoot at a target, it must be visible to the unit via its own line of sight or from another unit's line of sight
+    """
     WORK_RATE = 13
+    """
+    This is the work rate for any unit that can do work. Villagers, Fishing Ships, Serjeants
+    """
     CARRY_CAPACITY = 14
+    """
+    This is the carry capacity of Villagers
+    """
     BASE_ARMOR = 15
+    """
+    This is the quantity of base armour a unit has on any of its `Armour Classes`. Note that changing the armour through this option will show it as the base armour itself, and it will not be added to the regular amount
+    """
     PROJECTILE_UNIT = 16
+    """
+    This is the ID of the projectile that a unit fires
+    """
     BUILDING_ICON_OVERRIDE = 17
+    """
+    The functionality of this attribute is unknown as it doesn't always behave certainly.
+    """
     TERRAIN_DEFENSE_BONUS = 18
+    """
+    Unknown... What does this attribute do?
+    """
     PROJECTILE_SMART_MODE = 19
+    """
+    This is a combinable bit field. Controls the following two behaviours for projectiles:
+    For example, if we set this property of the projectile used by an archer to `1`, it will have ballistics. (This is exactly what researching ballistics does in the first place). If we set this property to `2`, a missed projectile that hits another unit will deal its full damage instead of the 50% that it would normally do
+    What if we want to enable both properties at once? This is achieved by adding the flag values for both of them together. Setting this property to `3` enables both effects
+    
+        - 0: No Ballistics
+        - 1: Has Ballistics
+        - 2: Deals full damage on missed hit
+        """
     MINIMUM_RANGE = 20
+    """
+    The minimum distance a unit must be from an attacking unit for the attacking unit to be able to fire its projectile
+    """
     AMOUNT_OF_1ST_RESOURCE_STORAGE = 21
+    """
+    This is the amount of 1st resource contained in any unit. Refer to A.G.E. to see which resource this is for each unit
+    """
     BLAST_WIDTH = 22
+    """
+    All enemy units inside this radius take damage from an attacking unit. This is used by elephants, Druzhina Halberdiers, and Logistica Cataphracts
+    """
     SEARCH_RADIUS = 23
+    """
+    The maximum distance at which a unit can detect and auto attack enemy units
+    """
     BONUS_DAMAGE_RESISTANCE = 24
+    """
+    Used by Sicilians for the 50% bonus damage resistance. Set to 0.5 for all Sicilian land military units except siege
+    """
     ICON_ID = 25
+    """
+    The ID of the icon that you want a unit to show
+    """
     AMOUNT_OF_2ND_RESOURCE_STORAGE = 26
+    """
+    This is the amount of 2nd resource contained in any unit. Refer to A.G.E. to see which resource this is for each unit
+    """
     AMOUNT_OF_3RD_RESOURCE_STORAGE = 27
+    """
+    This is the amount of 3rd resource contained in any unit. Refer to A.G.E. to see which resource this is for each unit
+    """
     FOG_VISIBILITY = 28
+    """
+    Controls visibility of a unit through the fog of war
+    
+        - 0: Not Visible
+        - 1: Always Visible
+        - 2: Visible If Alive
+        - 3: Inverted Visibility
+        - 4: Check Doppleganger
+        """
     OCCLUSION_MODE = 29
+    """
+    This is a combinable bit field. Controls the outlines of units as seen through other units
+    
+        - 0: No outline
+        - 1: Display outline when behind other units that have flag 2
+        - 2: Other units' outlines are rendered when they are behind this unit
+        - 4: Display outline on this unit's foundation when behind other units that have flag 2
+        """
     GARRISON_TYPE = 30
-    UNIT_SIZE_Z = 31
+    """
+    This is a combinable bit field. Controls which units are able to garrison in a buidling. A unit needs to have the garrison in building task to be able to garrison in a building to begin with
+    
+        - 1: Villagers
+        - 2: Infantry
+        - 4: Cavalry
+        - 8: Monks
+        - 16: Herdables
+        - 32: Siege
+        - 64: Ships
+        """
+    UNIT_SIZE_Z = 32
+    """
+    This determines the z-size of the unit's collision hitbox (height of the unit)
+    """
     HERO_STATUS = 40
+    """
+    This is a combinable bit field. Controls the following properties:
+    For example, if we set the hero status of a knight to 2, a monk will not be able to convert it. If we set the hero status of a militia to 4, it will regenerate HP automatically
+        What if we want to enable multiple properties at once? This is achieved by adding the flag values for those properties together and setting the hero status to that value. For example, if we want to make a paladin both unconvertable and regenerate HP automatically, we can set its hero status to 2+4 = 6. This means that the hero status of a unit can take on any values in the range 1-63. If you set it to any other value, it does not have any effect on the unit
+        This works because notice that there is one and only one way to add different flag values together to obtain a particular value for the hero status! For example, if we have a value of 20 for the hero status of a unit, the only way to make 20 from the above flag values is to add 4 and 16. Thus, we know that the properties corresponding to the flag values 4 (self regeneration) and 16 (protected formation by default) must be enabled for that unit
+        This is a consequence of the fact that every number can be represented as a unique sum of powers of two (binary numbers)
+        
+        - 1: Full Hero Status
+        - 2: Cannot be Converted
+        - 4: Self Regeneration (30 HP/min)
+        - 8: Defensive Stance by Default
+        - 16: Protected Formation by Default
+        - 32: Safe Delete Confirmation
+        - 64: Hero Glow
+        - 128: Invert All Flags (except flag 1)
+        """
     FRAME_DELAY = 41
+    """
+    The amount of delay between the point when the attacking animation starts and the actual hit happening for military units. This is what makes Cavalry Archers annoying to micro
+    """
     TRAIN_LOCATION = 42
+    """
+    The ID of the unit that trains any given unit. Barracks train Militia, so the train location of a Militia is the ID of the Barracks
+    """
     TRAIN_BUTTON = 43
+    """
+    The button used for training any given unit. For example, Militia are trained by using the first button, hence the Button Location of Militia is 1. This number ranges from 0-15
+    """
     BLAST_ATTACK_LEVEL = 44
+    """
+    A unit deals blast damage to ***other*** units with ***equal or higher*** Blast Defense Level that are in its blast radius. For example, while mangonels (blast attack: 2) can damage your own units (blast defense of all player owned units is always 2), scorpions (blast attack: 3) cannot do the same
+    One of the flags 0-3 can be combined with one of the flags from 4-64 by adding the two values
+    
+        - 0: damage resources, nearby allied units and tress
+        - 1: damage trees, nearby allied units
+        - 2: damage nearby allied units
+        - 3: damage targeted unit only
+        - 4: Deal a fixed 5 HP of damage to nearby units
+        - 8: Deal 50% of unit's own damage to nearby units
+        - 16: Deal 25% of unit's own damage to nearby units
+        - 32: Deal 33% of unit's own damage to nearby units
+        - 64: Attenuate damage as distance from the centre of attack increases (infantry only)
+        - 128: Blast damage is dealt along the direction the unit is facing only. This area is a very narrow cone
+        """
     BLAST_DEFENSE_LEVEL = 45
+    """
+    A unit feels the blast damage from ***other*** units with ***equal or lower*** Blast Attack Level and if it is inside the attacker's blast radius. For example, while onagers (blast attack: 1) can cut trees (blast defense 1), mangonels (blast attack: 2) cannot do the same
+        
+        - 0: damage resources, nearby allied units and tress
+        - 1: damage trees, nearby allied units
+        - 2: damage nearby allied units
+        - 3: damage targeted unit only
+        """
     SHOWN_ATTACK = 46
+    """
+    The amount of attack that is displayed as a unit's attack (may not actually be the true attack)
+    """
     SHOWN_RANGE = 47
+    """
+    The quantity that is displayed as a unit's attack ingame (may not actually be the true attack)
+    """
     SHOWN_MELEE_ARMOR = 48
+    """
+    The quantity that is displayed as a unit's melee armour ingame (may not actually be the true armour)
+    """
     SHOWN_PIERCE_ARMOR = 49
+    """
+    The quantity that is displayed as a unit's pierce armour ingame (may not actually be the true armour)
+    """
     OBJECT_NAME_ID = 50
+    """
+    The string ID to use for the name of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    """
     SHORT_DESCRIPTION_ID = 51
+    """
+    The string ID for the Short Description of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    """
     TERRAIN_RESTRICTION_ID = 53
+    """
+    This number determines how a unit interacts with terrains and which terrains it can walk on
+        
+        - 0: All
+        - 1: Land And Shallows
+        - 2: Beach
+        - 3: Water Small Trail
+        - 4: Land
+        - 5: Nothing
+        - 6: Water No Trail
+        - 7: All Except Water
+        - 8: Land Except Farm
+        - 9: Nothing 2
+        - 10: Land And Beach
+        - 11: Land Except Farm 2
+        - 12: All Except Water Bridge Cannon
+        - 13: Water Medium Trail
+        - 14: All Except Water Bridge Arrow
+        - 15: Water Large Trail
+        - 16: Grass And Beach
+        - 17: Water And Bridge Except Beach
+        - 18: All Except Water Bridge Spear
+        - 19: Only Water And Ice
+        - 20: All Except Water Wheel
+        - 21: Shallow Water
+        - 22: All Dart
+        - 23: All Arrow Fire
+        - 24: All Cannon Fire
+        - 25: All Spear Fire
+        - 26: All Dart Fire
+        - 27: All Laser
+        - 28: All Except Water Cavalry
+        - 29: All Except Water Packet Trebuchet
+        - 30: Water Smallest Trail
+        """
     UNIT_TRAIT = 54
+    """
+    This is a combinable bit field. Controls the following properties:
+        
+        - 1: Garrison Unit
+        - 2: Ship Unit
+        - 4: Build Another Building (Serjeants)
+        - 8: Transform Into Another Unit (Ratha)
+        - 16: Auto Scout Unit
+        """
     TRAIT_PIECE = 56
+    """
+    This can be set to the ID of a unit that is used along with some of the Unit Traits
+    
+        - 1: Unused
+        - 2: Unused
+        - 4: Build Unit
+        - 8: Transform Unit
+        - 16: Unused
+        """
     DEAD_UNIT_ID = 57
+    """
+    This is the ID of the unit to spawn after the current unit dies. This is whats used to make the dismounted konniks possible
+    """
     HOTKEY_ID = 58
+    """
+    This number determines which hotkey is assigned to a unit
+    """
     MAXIMUM_CHARGE = 59
+    """
+    The maximum amount of charge that a unit can hold
+    """
     RECHARGE_RATE = 60
+    """
+    The rate of charge regeneration per second
+    """
     CHARGE_EVENT = 61
+    """
+    This action depletes the unit's charge
+        - 1: If charge type is set to `1`, `2` or `3`, depletes charge on attacking
+        """
     CHARGE_TYPE = 62
+    """
+    The type of charge that a unit holds
+    
+        - 1: Attack charge
+        - 2: ??? charge
+        - 3: Area attack charge
+        - 4: Agility charge
+        """
     COMBAT_ABILITY = 63
+    """
+    Combinable bit field. Controls several attacking behaviours for units
+    
+        - 1: Ignore melee and pierce armours of the targeted unit
+        - 2: Resist armour-ignoring attacks
+        - 4: Damage the targeted unit's armor (Obuch)
+        - 8: Attack ground ability
+        - 16: Bulk volley release (kipchak/siege weapons)
+        """
     ATTACK_DISPERSION = 64
+    """
+    Half of the radius from the target unit in which missed projectiles fired by this unit can land in
+    """
     SECONDARY_PROJECTILE_UNIT = 65
+    """
+    This is the ID of the secondary projectile that a unit fires (Chu Ko Nu)
+    """
     BLOOD_UNIT = 66
+    """
+    This is the ID of a secondary unit to spawn after the current unit dies. This could potentially be used along with dead unit ID to spawn two units after a single unit dies
+    """
     PROJECTILE_HIT_MODE = 67
+    """
+    Controls how a projectile collides with units in the path of its target. Currently changing this through XS has no effect
+        
+        - 0: Collide only with the targetted unit
+        - 1: Collide with any damage-able units in the path to the targetted unit
+        - 2: Collide with any unit in the path to the targetted unit
+        """
     PROJECTILE_VANISH_MODE = 68
+    """
+    Controls if a projectile passes through or disappears on impact. Currently changing this through XS has no effect
+        
+        - 0: Disappear on first impact
+        - 1: Pass through
+        """
     PROJECTILE_ARC = 69
+    """
+    Controls the maximum height of the fired projectile
+    """
     RESOURCE_COSTS = 100
+    """
+    Refers to the first resource cost of a unit. Refer to A.G.E. to see which resource cost that is
+    """
     TRAIN_TIME = 101
+    """
+    This is the amount of time it takes to create a unit
+    """
     TOTAL_MISSILES = 102
+    """
+    This is the number of projectiles a unit fires. The Chu Ko Nu fires 3 and the Elite Chu Ko Nu fires 5
+    """
     FOOD_COSTS = 103
+    """
+    The food cost of a unit
+    """
     WOOD_COSTS = 104
+    """
+    The wood cost of a unit
+    """
     GOLD_COSTS = 105
+    """
+    The gold cost of a unit
+    """
     STONE_COSTS = 106
+    """
+    The stone cost of a unit
+    """
     MAX_TOTAL_MISSILES = 107
+    """
+    The maximum number of projectiles a unit can fire when other units are garrisoned inside of it. A castle fires 5 projectiles by default but can fire more if units are garrisoned inside it. This attribute controls the maximum number of those
+    """
     GARRISON_HEAL_RATE = 108
-    """Hidden in the editor, but does work! Do not open effect in editor, will cause it to reset"""
+    """
+    The rate measured in HP/s at which garissoned units are healed inside a given building
+    """
     REGENERATION_RATE = 109
+    """
+    The rate measured in HP/minute at which units heal themselves. This value is overridden to 30 HP/minute if the flag for Self Regeneration is set in the Hero Status of a unit
+    """
     POPULATION = 110
-
+    """
+    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population heardroom provided by a unit
+    """
 
 
 _attribute_dataset_editor_names = None
@@ -430,13 +767,10 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Controls the age name and icon at the top of the screen
 
     - Default Values:
-
+        
         - 0:  Dark Age
-
         - 1:  Feudal Age
-
         - 2:  Castle Age
-
         - 3:  Imperial Age
 
     - Note: Setting this to an amount higher than 3 cycles the icon but keeps the age at imperial
@@ -534,9 +868,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: allow enemy monk conversions
 
     - Default Values:
-
+       
         - 0:  No (default)
-
         - >= 1:  Yes, after Atonement
     """
     ENABLE_BUILDING_CONVERSION = 28
@@ -544,11 +877,9 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: allow enemy building conversions.
 
     - Default Values:
-
+        
         - 0:  No (default)
-
         - 1:  Yes, after Redemption
-
         - >=2:  Monks can convert buildings from range
     """
     UNUSED_RESOURCE_029 = 29
@@ -592,7 +923,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 175:  Generic
-
         - 220:  Chinese
 
     - Note: This is what horse collar etc. technologies modify
@@ -610,9 +940,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: If all available technologies have been researched
 
     - Default Values:
-
+        
         - 0:  No
-
         - 1:  Yes
     """
     MILITARY_POPULATION = 40
@@ -640,9 +969,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: This is set to `0` under the same conditions which are required to defeat a player
 
     - Default Values:
-
+        
         - 0:  No
-
         - 1:  Yes
     """
     TRIBUTE_INEFFICIENCY = 46
@@ -650,11 +978,9 @@ class Attribute(_DataSetIntEnums):
     - Purpose: This is the fraction of tributes sent that are collected as tax
 
     - Default Values:
-
+        
         - 0.3:  Generic
-
         - 0.2:  After Coinage
-
         - 0:  After Banking
     """
     GOLD_MINING_PRODUCTIVITY = 47
@@ -664,7 +990,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 1:  Generic
-
         - 1.15:  Mayans
 
     - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
@@ -674,9 +999,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: allow building extra tcs
 
     - Default Values:
-
+        
         - 0:  No (Sudden Death)
-
         - 1:  Yes (Normal)
     """
     GOLD_COUNTER = 49
@@ -688,9 +1012,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: show ally los for the source player
 
     - Default Values:
-
+        
         - 0:  No (default)
-
         - 1:  Yes, after Cartography or with a Portuguese ally
 
     - Note: Once set to `1`, setting it back to `0` won't take away the LoS of allies
@@ -712,9 +1035,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: all monuments on the map captured
 
     - Default Values:
-
+        
         - 0:  No
-
         - 1:  Yes
     """
     ALL_RELICS_CAPTURED = 55
@@ -722,9 +1044,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: all relics on the map captured
 
     - Default Values:
-
+    
         - 0:  No
-
         - 1:  Yes
     """
     ORE_STORAGE = 56
@@ -780,9 +1101,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: monks can convert enemy units
 
     - Default Values:
-
+    
         - 0:  No
-
         - 1:  Yes (default)
     """
     HIT_POINTS_KILLED = 68
@@ -826,11 +1146,9 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Coefficient of conversion resistance
 
     - Default Values:
-
+        
         - 0:  Generic
-
         - +2:  with Teuton ally
-
         - +3:  after Faith
 
     - Note: Probability of conversion is divided by this value for ALL source player units, Teuton team bonus for conversion resistance works by increasing this.
@@ -840,11 +1158,9 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Market exchange rate fraction for the source player
 
     - Default Values:
-
+        
         - 0.3:  Generic Rate
-
         - 0.15:  after Guilds
-
         - 0.05:  Saracens
     """
     STONE_MINING_PRODUCTIVITY = 79
@@ -854,7 +1170,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 1:  Generic
-
         - 1.15:  Mayans
 
     - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
@@ -890,9 +1205,7 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 3:  Generic
-
         - 4:  Mayans
-
         - 6:  Chinese
 
     - Note: Only works for RMS, changing this manually in the editor does nothing.
@@ -904,11 +1217,8 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 1:  Generic
-
         - 0.9:  Chinese in feudal age
-
         - 0.85:  Chinese in castle age
-
         - 0.80:  Chinese in imperial age
     """
     RESEARCH_TIME_MODIFIER = 86
@@ -920,9 +1230,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: allow monks to convert boats
 
     - Default Values:
-
+    
         - 0:  No
-
         - 1:  Yes (default)
     """
     FISH_TRAP_FOOD_AMOUNT = 88
@@ -932,7 +1241,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 710:  Generic
-
         - 2130:  Malay
     """
     HEAL_RATE_MODIFIER = 89
@@ -982,9 +1290,7 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  default
-
         - 1:  allows the TC to be packed and moved
-
         - >=2:  no noticeable effect
 
     - Note: Enabling kidnap/loot requires modding the units to have the kidnap/pillage action
@@ -997,7 +1303,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 1:  Celts
 
     - Note: If this is set to a non zero value, other players' sheep convert to you even if they have a unit in their LOS, unless this is also a non zero value for them. Celt sheep bonus
@@ -1361,9 +1666,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: show enemy los for the source player
 
     - Default Values:
-
+    
         - 0:  No (default)
-
         - 1:  Yes, after Spies
 
     - Note: Once set to `1`, setting it back to `0` won't take away LoS of enemies!
@@ -1395,7 +1699,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 1:  Generic
-
         - 1.15:  Mayans
 
     - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%
@@ -1407,7 +1710,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 1:  Generic
-
         - 1.15:  Mayans
 
     - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Mayans, This is compensated for by reducing villager work rate by 15%. The work rate for farmers is reduced by about 23.4%
@@ -1419,7 +1721,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0.5:  default
-
         - 0.25:  after getting hit with Atheism 
     """
     CONVERTED_UNITS_DIE = 192
@@ -1427,9 +1728,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: converted units die instead of switching over to the enemy
 
     - Default Values:
-
+    
         - 0:  No (default)
-
         - 1:  Yes, after Heresey
     """
     THEOCRACY = 193
@@ -1437,9 +1737,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: only one monk needs to regen faith after group conversion for the source player
 
     - Default Values:
-
+    
         - 0:  No (default)
-
         - 1:  Yes, after researching Theocracy
     """
     CRENELLATIONS = 194
@@ -1447,9 +1746,8 @@ class Attribute(_DataSetIntEnums):
     - Purpose: Boolean: Garrisoned infantry fire arrows
 
     - Default Values:
-
+    
         - 0:  No (default)
-
         - 1:  Yes, after crenellations
     """
     CONSTRUCTION_RATE_MODIFIER = 195
@@ -1459,7 +1757,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 1.3:  Spanish
 
     - Note: The actual work rate for builders is given by `construction_rate_mod * builder.default_work_rate`
@@ -1471,7 +1768,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  default
-
         - 1000:  (100 years) for the Hun player, after researching atheism. The value of this resource of each player is added to determine the total extra time for relic/wonder victories, i.e. it adds up if multiple hun players get the tech
 
     - Note: Internally, relic and wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame
@@ -1559,7 +1855,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 5:  Vietnamese
 
     - Note: The bonus works for all values >=1, the choice of setting it to 5 for vietnamese seems arbitrary
@@ -1571,7 +1866,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - -1:  Generic
-
         - 42:  Burmese
 
     - Note: Burmese reveal relics on map bonus. Only works in RMS, manually changing this in the editor does not seem to have any effects
@@ -1583,7 +1877,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 0.25:  Tatars
 
     - Note: Damage that units on higher elevation deal to units on lower elevation is multiplied by `1.25 + elevation_bonus_higher`
@@ -1605,7 +1898,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 50:  (0.5 g/s) Tatars
 
     - Note: Note that in practice, due to attack reload time and frame delay, Keshiks don't actually produce 0.5 g/s, but a slightly lower value
@@ -1617,7 +1909,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 10:  after a Cuman ally researches Cuman Mercenaries
 
     - Note: Researching Cuman Mercenaries sets this to 10. Making mercenary Kipchaks costs one unit of this resource
@@ -1635,7 +1926,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 1:  Generic
-
         - 1.57:  Tatars
 
     - Note: Since this works by multiplying the amount of resources gathered by a villager, it has a side effect of increasing the gather rate. In the case of Tatars, This is compensated for by reducing villager work rate by 57%
@@ -1651,7 +1941,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 10002.1:  Generic
-
         - 2.1:  Cumans
 
     - Note: Since generic civs don't get access to TCs in feudal, the 10k amount doesn't matter, but if you're trying to make a map where you want people to be able to make TCs in feudal, make sure to set this value to 10k for cumans!
@@ -1717,9 +2006,7 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 30:  Burgundians
-
         - 15:  Burgundians after getting hit with Atheism
     """
     VILLAGERS_KILLED_BY_GAIA = 226
@@ -1771,7 +2058,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 2:  (0.02 g/s per farmer) after Burgundian Vineyards
     """
     FOLWARK_COLLECTION_AMOUNT = 237
@@ -1781,21 +2067,13 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 17.5:  Poles
-
         - 19.25:  Poles with Chinese Ally
-
         - 25:  Poles with Horse Collar
-
         - 27.5:  Poles with Horse Collar & Chinese Ally
-
         - 37.5:  Poles with Heavy Plow
-
         - 41.25:  Poles with Heavy Plow & Chinese Ally
-
         - 55:  Poles with Crop Rotation
-
         - 60.5:  Poles with Crop Rotation & Chinese Ally
     """
     FOLWARK_ATTRIBUTE_TYPE = 238
@@ -1805,7 +2083,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Poles
-
         - -1:  Generic
     """
     FOLWARK_BUILDING_TYPE = 239
@@ -1815,7 +2092,6 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 68:  (Mill) Poles
-
         - -1:  Generic
     """
     UNITS_CONVERTED = 240
@@ -1829,11 +2105,8 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Generic
-
         - 18:  Poles
-
         - 20.7:  Poles with Stone Mining
-
         - 23.805:  Poles with Stone Shaft Mining
     """
     TRADE_WORKSHOP_FOOD_PRODUCTIVITY = 242
@@ -1900,7 +2173,6 @@ class Attribute(_DataSetIntEnums):
     UNKNOWN_RESOURCE_267 = 267
     UNKNOWN_RESOURCE_268 = 268
     UNKNOWN_RESOURCE_269 = 269
-
 
 
 class ObjectType(_DataSetIntEnums):
@@ -2060,7 +2332,7 @@ class TerrainRestrictions(_DataSetIntEnums):
 class HeroStatusFlag(_DataSetIntFlags):
     """
     This enum class provides the integer values for the different hero status flags that can be used in the 'Modify
-    Attribute' effect with the 'Hero Status' attribute.
+    Attribute' effect with the 'Hero Status' attribute. This is a combinable bit field
 
     **Methods**
 
@@ -2117,7 +2389,7 @@ class HeroStatusFlag(_DataSetIntFlags):
         return HeroStatusFlag(total)
 
     @staticmethod
-    def split_flags(value: int) -> dict[HeroStatusFlag, bool]:
+    def split_flags(value: int) -> Dict[HeroStatusFlag, bool]:
         """
         Split the Hero Status flags into boolean variables related to their effects
 
@@ -2133,6 +2405,7 @@ class HeroStatusFlag(_DataSetIntFlags):
 
         return flags
 
+    NO_HERO_STATUS = 0
     FULL_HERO_STATUS = 1
     CANNOT_BE_CONVERTED = 2
     HERO_REGENERATION = 4
@@ -2155,53 +2428,58 @@ class BlastLevel(_DataSetIntEnums):
     """
     RESOURCES = 0
     """
-    Damage Resources
+    damage resources, nearby allied units and tress
     """
     TREES = 1
     """
-    Damage Trees
+    damage trees, nearby allied units
     """
     NEARBY_UNITS = 2
     """
-    Damage surrounding units
+    damage nearby allied units
     """
     TARGET_ONLY = 3
     """
-    Damage targetted unit only
+    damage targeted unit only
     """
     FIXED_FIVE = 4
     """
-    Deal a fixed, 5 HP of damage to surrounding units
+    Deal a fixed 5 HP of damage to nearby units
     """
     FIFTY_PERCENT = 8
     """
-    Deal 50% damage to surrounding units
+    Deal 50% of unit's own damage to nearby units
     """
-    TWNETY_FIVE_PERCENT = 16
+    TWENTY_FIVE_PERCENT = 16
     """
-    Deal 25% damage to surrounding units
+    Deal 25% of unit's own damage to nearby units
     """
     THIRTY_THREE_PERCENT = 32
     """
-    Deal 33% damage to surrounding units
+    Deal 33% of unit's own damage to nearby units
     """
     DISTANCE_ATTENUATION = 64
     """
-    Only works for infantry units, reduces blast damage done based on distance
+    Attenuate damage as distance from the centre of attack increases (infantry only)
+    """
+    DIRECTIONAL = 128
+    """
+    Blast damage is dealt along the direction the unit is facing only. This area is a very narrow cone    
     """
 
 
-class SmartProjectile(_DataSetIntEnums):
+class ProjectileSmartMode(_DataSetIntFlags):
     """
-    This enum class provides the integer values used to reference the smart projectile flag values used in the game. Used in the
-    'Modify Attribute' effect with the 'Enable Smart Projectile' attribute
+    This enum class provides the integer values used to reference the smart projectile flag values used in the game.
+    Used in the 'Modify Attribute' effect with the 'Projectile Smart Mode' attribute. This is a combainable bit field
 
     **Examples**
 
-    >>> SmartProjectile.ENABLED
-    <SmartProjectile.ENABLED: 1>
+    >>> ProjectileSmartMode.HAS_BALLISTICS
+    <ProjectileSmartMode.HAS_BALLISTICS: 1>
     """
-    ENABLED = 1
+    TARGET_CURRENT_LOCATION = 0
+    TARGET_FUTURE_LOCATION = 1
     FULL_DAMAGE_ON_MISSED_HIT = 2
 
 
@@ -2369,8 +2647,8 @@ class ObjectState(_DataSetIntEnums):
 
     **Examples**
 
-    >>> BlastLevel.TREES
-    <BlastLevel.TREES: 1>
+    >>> ObjectState.FOUNDATION
+    <ObjectState.FOUNDATION: 0>
     """
     FOUNDATION = 0
     ALMOST_ALIVE = 1
@@ -2441,6 +2719,8 @@ class SecondaryGameMode(_DataSetIntFlags):
     <HeroStatusFlag.SUDDEN_DEATH|REGICIDE: 6>
     """
 
+    # todo: we can probably add this to the base dataset int flags class, I have an idea on how to generic-ify this
+    #  method although idk if its actually good - Alian
     @staticmethod
     def combine(
             empire_wars: bool = False,
@@ -2466,6 +2746,7 @@ class SecondaryGameMode(_DataSetIntFlags):
         total += 8 if king_of_the_hill else 0
         return SecondaryGameMode(total)
 
+    NONE = 0
     EMPIRE_WARS = 1
     SUDDEN_DEATH = 2
     REGICIDE = 4
@@ -2485,3 +2766,170 @@ class VictoryTimerType(_DataSetIntEnums):
     WONDER_TIMER = 0
     RELIC_TIMER = 1
     KING_OF_THE_HILL_TIMER = 2
+
+
+class ChargeType(_DataSetIntEnums):
+    """
+    This enum provides the integer values used to reference the type of charge that a unit holds
+
+    **Examples**
+
+    >>> ChargeType.AREA_ATTACK_CHARGE
+    <ChargeType.AREA_ATTACK_CHARGE: 3>
+    """
+    ATTACK_CHARGE = 1
+    UNKNOWN_CHARGE = 2
+    AREA_ATTACK_CHARGE = 3
+    AGILITY_CHARGE = 4
+
+
+class ChargeEvent(_DataSetIntEnums):
+    """
+    This enum provides the integer values used to reference the action which depletes a unit's charge
+
+    **Examples**
+
+    >>> ChargeEvent.DEPLETES_CHARGE_ON_ATTACKING
+    <ChargeEvent.DEPLETES_CHARGE_ON_ATTACKING: 1>
+    """
+    NO_CHARGE_DEPLETED = 0
+    CHARGE_DEPLETED_ON_ATTACK = 1
+
+
+class CombatAbility(_DataSetIntFlags):
+    """
+    This enum class provides the integer values for the break off combat flags that can be used
+    in the 'Modify Attribute' effect with the 'Combat Ability' attribute. This is a combinable bit field.
+
+    **Examples**
+
+    >>> CombatAbility.RESIST_ARMOR_IGNORING_ATTACKS
+    <CombatAbility.RESIST_ARMOR_IGNORING_ATTACKS: 2>
+    """
+    NORMAL = 0
+    IGNORE_MELEE_PIERCE_ARMOR = 1
+    RESIST_ARMOR_IGNORING_ATTACKS = 2
+    DAMAGE_TARGET_ARMOR = 4
+    ATTACK_GROUND = 8
+    BULK_VOLLEY_RELEASE = 16
+
+
+class FogVisibility(_DataSetIntEnums):
+    """
+    This enum class provides the integer values used to references the different fog visibility settings that can be
+    used in the 'Modify Attribute' effect with the 'Fog Visibility' attribute.
+
+    **Examples**
+
+    >>> FogVisibility.VISIBLE_IF_ALIVE
+    <FogVisibility.VISIBLE_IF_ALIVE: 2>
+    """
+    NOT_VISIBLE = 0
+    ALWAYS_VISIBLE = 1
+    VISIBLE_IF_ALIVE = 2
+    INVERTED_VISIBILITY = 3
+    CHECK_DOPPELGANGER = 4
+
+
+class GarrisonType(_DataSetIntFlags):
+    """
+    This enum class provides the integer values for the different garrison type flags that can be used in the 'Modify
+    Attribute' effect with the 'Garrison Type' attribute. This is a combinable bit field
+
+    **Examples**
+
+    >>> GarrisonType.VILLAGERS
+    <GarrisonType.VILLAGERS: 1>
+    """
+    NONE = 0
+    VILLAGERS = 1
+    INFANTRY = 2
+    CAVALRY = 4
+    MONKS = 8
+    HERDABLES = 16
+    SIEGE = 32
+    SHIPS = 64
+
+
+class OcclusionMode(_DataSetIntFlags):
+    """
+    This enum class provides the integer values for the different occlusion mode flags that can be used in the 'Modify
+    Attribute' effect with the 'OcclusionMode' attribute. This is a combinable bit field.
+
+    **Examples**
+
+    >>> OcclusionMode.NO_OUTLINE
+    <OcclusionMode.NO_OUTLINE: 0>
+    """
+    NO_OCCLUSION = 0
+    """
+    No outline
+    """
+    DISPLAY_OUTLINE = 1
+    """
+    Display outline when behind other units that have flag 2
+    """
+    OCCLUDES_OTHERS = 2
+    """
+    Other units' outlines are rendered when they are behind this unit
+    """
+    DISPLAY_OUTLINE_FOR_FOUNDATION = 4
+    """
+    Display outline on this unit's foundation when behind other units that have flag 
+    """
+
+
+class ProjectileHitMode(_DataSetIntEnums):
+    """
+    This enum class provides the integer values used to references the different projectile hit mode settings that can
+    be used in the 'Modify Attribute' effect with the 'Projectile Hit Mode' attribute.
+
+    **Examples**
+
+    >>> ProjectileHitMode.ANY_OBSTACLE
+    <ProjectileHitMode.ANY_OBSTACLE: 2>
+    """
+    TARGET_ONLY = 0
+    """
+    Collide only with the targeted unit"
+    """
+    ANY_PLAYER_UNIT = 1
+    """
+    Collide with any damage-able units in the path to the targeted unit"
+    """
+    ANY_OBSTACLE = 2
+    """
+    Collide with any unit in the path to the targeted unit
+    """
+
+
+class ProjectileVanishMode(_DataSetIntEnums):
+    """
+    This enum class provides the integer values used to references the different projectile vanish mode settings that
+    can be used in the 'Modify Attribute' effect with the 'Projectile Vanish Mode' attribute.
+
+    **Examples**
+
+    >>> ProjectileVanishMode.DISAPPEAR_ON_IMPACT
+    <ProjectileVanishMode.DISAPPEAR_ON_IMPACT: 0>
+    """
+
+    DISAPPEAR_ON_IMPACT = 0
+    PASS_THROUGH = 1
+
+
+class UnitTrait(_DataSetIntFlags):
+    """
+    This enum class provides the integer values used to references the different unit trait flags that can be used in
+    the 'Modify Attribute' effect with the 'Unit Trait' attribute.
+
+    **Examples**
+
+    >>> UnitTrait.NO_OUTLINE
+    <UnitTrait.NO_OUTLINE: 0>
+    """
+    GARRISONABLE = 1
+    SHIP = 2
+    BUILD_BUILDING = 4
+    TRANSFORMABLE = 8
+    AUTO_SCOUT = 16
