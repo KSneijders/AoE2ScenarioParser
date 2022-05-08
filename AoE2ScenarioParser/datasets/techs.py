@@ -112,7 +112,9 @@ class TechInfo(Enum):
                 TechInfo.CHATRAS,
                 TechInfo.CHIEFTAINS,
                 TechInfo.CORVINIAN_ARMY,
+                TechInfo.DETINETS,
                 TechInfo.FIRST_CRUSADE,
+                TechInfo.GRAND_TRUNK_ROAD,
                 TechInfo.GREAT_WALL,
                 TechInfo.GREEK_FIRE,
                 TechInfo.HILL_FORTS,
@@ -127,7 +129,6 @@ class TechInfo(Enum):
                 TechInfo.MADRASAH,
                 TechInfo.MARAUDERS,
                 TechInfo.MEDICAL_CORPS,
-                TechInfo.ORTHODOXY,
                 TechInfo.PAIKS,
                 TechInfo.EUPSEONG,
                 TechInfo.PAVISE,
@@ -138,7 +139,6 @@ class TechInfo(Enum):
                 TechInfo.STEPPE_HUSBANDRY,
                 TechInfo.STIRRUPS,
                 TechInfo.STRONGHOLD,
-                TechInfo.SULTANS,
                 TechInfo.SZLACHTA_PRIVILEGES,
                 TechInfo.THALASSOCRACY,
                 TechInfo.TIGUI,
@@ -146,6 +146,7 @@ class TechInfo(Enum):
                 TechInfo.WAGENBURG_TACTICS,
                 TechInfo.YASAMA,
                 TechInfo.YEOMEN,
+                TechInfo.ZEALOTRY
             ],
             "imp_age": [
                 TechInfo.ARQUEBUS,
@@ -156,6 +157,7 @@ class TechInfo(Enum):
                 TechInfo.BURGUNDIAN_VINEYARDS,
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
+                TechInfo.COUNTERWEIGHTS,
                 TechInfo.FABRIC_SHIEDS,
                 TechInfo.CUMAN_MERCENARIES,
                 TechInfo.DOUBLE_CROSSBOW,
@@ -189,7 +191,6 @@ class TechInfo(Enum):
                 TechInfo.TOWER_SHIELDS,
                 TechInfo.WARWOLF,
                 TechInfo.WOOTZ_STEEL,
-                TechInfo.ZEALOTRY
             ]
         }
 
