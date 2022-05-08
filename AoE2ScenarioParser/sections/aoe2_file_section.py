@@ -59,7 +59,8 @@ class AoE2FileSection:
         Returns:
             An AoE2FileSection instance based on the model
         """
-        duplicate_rmap = duplicate_retriever_map(model.retriever_map)
+        duplicate_rmap = {k: e.duplicate() for k, e in model.retriever_map.items()}
+
         if set_defaults:
             reset_retriever_map(duplicate_rmap)
 

@@ -13,16 +13,17 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class RetrieverObjectLink:
-    def __init__(self,
-                 variable_name: str,
-                 section_name: str = None,
-                 link: str = None,
-                 support: Support = None,
-                 process_as_object: Type[AoE2Object] = None,
-                 retrieve_history_number: int = -1,
-                 commit_callback=None,
-                 destination_object=None,
-                 ):
+    def __init__(
+            self,
+            variable_name: str,
+            section_name: str = None,
+            link: str = None,
+            support: Support = None,
+            process_as_object: Type[AoE2Object] = None,
+            retrieve_history_number: int = -1,
+            commit_callback=None,
+            destination_object=None,
+    ):
         if not exclusive_if(link is not None, retrieve_history_number != -1):
             raise ValueError("You must use exactly one of 'link' and the two 'retrieve...number' parameters.")
 

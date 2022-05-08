@@ -6,6 +6,62 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.39 - 2022-MAY-8
+
+### Added
+
+- **Update 61321**:
+  - Techs in `TechInfo`
+- Docstrings for all `ObjectAttribute` entries (Directly from the UGC Guide. Credits: Alian)
+- These new datasets for the `Modify Attribute` effect:  (**Thanks to Alian, our dataset wizard**)
+  - Import like: `from AoE2ScenarioParser.datasets.trigger_lists import <NAME HERE>`
+  - `ChargeType`
+  - `ChargeEvent`
+  - `CombatAbility`
+  - `FogVisibility`
+  - `GarrisonType`
+  - `OcclusionMode`
+  - `ProjectileHitMode`
+  - `ProjectileVanishMode`
+  - `UnitTrait`
+
+### Updated
+
+- **Update 61321**:
+  - `TechInfo.SULTANS` to: `TechInfo.GRAND_TRUNK_ROAD`
+  - `TechInfo.INDIANS` to: `TechInfo.HINDUSTANIS`
+  - Renamed dataset `SmartProjectile` to: `ProjectileSmartMode`
+- Dataset documentation: [link](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/datasets/)
+
+### Fixed
+
+- Issue reading some older scenarios
+- Typo in `TechInfo` dataset:
+  - `TechInfo.FABRIC_SHIEDS` to: `TechInfo.FABRIC_SHIELDS`
+  - `TechInfo.STONE_SHADT_MINING_GOLD_GENERATION_INCREASE` to: `TechInfo.STONE_SHAFT_MINING_GOLD_GENERATION_INCREASE`
+- Typo in `BlastLevel` dataset:
+  - `BlastLevel.TWNETY_FIVE_PERCENT` to: `BlastLevel.TWENTY_FIVE_PERCENT`
+  
+### Changed
+
+- Renamed `SmartProjectile.ENABLED` to: `ProjectileSmartMode.TARGET_FUTURE_LOCATION`
+- Renamed a couple techs for consistency (Thanks Alian)
+  - `HEAVY_CAV_ARCHER` to: `HEAVY_CAVALRY_ARCHER`
+  - `RESOURCES_LAST_LONGER_15` to: `RESOURCES_LAST_15_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_30` to: `RESOURCES_LAST_30_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_40` to: `RESOURCES_LAST_40_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_50` to: `RESOURCES_LAST_50_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_75` to: `RESOURCES_LAST_75_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_100` to: `RESOURCES_LAST_100_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_125` to: `RESOURCES_LAST_125_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_150` to: `RESOURCES_LAST_150_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_175` to: `RESOURCES_LAST_175_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_200` to: `RESOURCES_LAST_200_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_300` to: `RESOURCES_LAST_300_PERCENT_LONGER`
+  - `FOLWARK_HORSE_COLLAR_EXTRA` to: `HORSE_COLLAR_FOLWARK_BONUS_INCREASE`
+
+---
+
 ## 0.1.38 - 2022-MAY-1
 
 ### Fixed

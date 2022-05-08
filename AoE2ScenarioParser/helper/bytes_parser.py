@@ -57,6 +57,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
                 string_bytes = igenerator.get_bytes(string_length)
                 retrieved_bytes.append(int_bytes + string_bytes)
     except EndOfFileError:
+        # END_OF_FILE_MARK retriever should always go in here
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
             return []

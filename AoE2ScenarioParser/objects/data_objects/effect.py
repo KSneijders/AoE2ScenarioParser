@@ -400,10 +400,9 @@ class Effect(AoE2Object):
         ----
         """
         trigger_version = getters.get_trigger_version(self._host_uuid)
-        if trigger_version == 2.4:
-            return quantity >> 8, quantity & 255
-        elif trigger_version >= 2.5:
+        if trigger_version >= 2.5:
             return quantity >> 16, quantity & 65535
+        return quantity >> 8, quantity & 255
 
     def _aa_to_quantity(self, aa_quantity: int, aa_class: int) -> int:
         """
@@ -418,11 +417,11 @@ class Effect(AoE2Object):
             The one byte quantity and one byte armor/attack value
         """
         trigger_version = getters.get_trigger_version(self._host_uuid)
-        if trigger_version == 2.4:
-            # Would use `aa_class << 8` - but apparently multiplication is faster
-            return aa_class * 256 + aa_quantity
-        elif trigger_version >= 2.5:
+        if trigger_version >= 2.5:
             return aa_class * 65536 + aa_quantity
+
+        # Would use `aa_class << 8` - but apparently multiplication is faster
+        return aa_class * 256 + aa_quantity
 
     def __str__(self):
         return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"
