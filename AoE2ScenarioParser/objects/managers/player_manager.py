@@ -2,6 +2,7 @@ from typing import List, Dict, Union, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player.player import Player
 from AoE2ScenarioParser.objects.data_objects.player.player_data_four import PlayerDataFour
@@ -316,7 +317,7 @@ class PlayerManager(AoE2Object):
             gaia_first: Union[bool, None] = True,
             default: Union[str, int] = 0,
             fill_empty: int = 0
-    ) -> List:
+    ) -> List[Any]:
         """
         The list to store in the scenario structure with values from all players.
 
@@ -333,9 +334,12 @@ class PlayerManager(AoE2Object):
         default_list = [default] * fill_empty
         values = []
         for p in players:
-            v = getattr(self.players[p], attribute)
-            if v is None and gaia_first is None:
-                v = default
+            try:
+                v = getattr(self.players[p], attribute)
+                if v is None and gaia_first is None:
+                    v = default
+            except UnsupportedAttributeError:
+                v = None
             values.append(v)
         return values + default_list
 

@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Type, TYPE_CHECKING, Any, Dict
+from typing import List, TYPE_CHECKING, Any, Dict
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
-from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 if TYPE_CHECKING:
@@ -32,6 +31,13 @@ class AoE2Object:
             setattr(result, k, entry)
         return result
 
+    @property
+    def instance_number_history(self):
+        """
+        Keeps indexes of the paretns of this object. Should NOT be edited. Used for constructing/committing this object
+        """
+        return self._instance_number_history
+
     def _deepcopy_entry(self, k, v):
         if k in ['_sections', '_link_list']:
             val = getattr(self, k)
@@ -54,18 +60,18 @@ class AoE2Object:
 
         return cls(**object_parameters)
 
-    def commit(self, local_link_list=None):
+    def commit(self, local_link_list: List[RetrieverObjectLinkParent] = None):
         """
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
+            local_link_list: a separate list of RetrieverObjectLinks. This way it's
                 possible to commit only specific properties instead of all from an object.
         """
         if local_link_list is None:
             local_link_list = self._link_list
 
-        for link in local_link_list[::-1]:
+        for link in reversed(local_link_list):
             link.commit(self._host_uuid, host_obj=self)
 
     @staticmethod

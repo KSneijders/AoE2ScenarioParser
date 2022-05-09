@@ -1,9 +1,7 @@
 from typing import Type, List, Callable, Dict, Any, Optional, TYPE_CHECKING
 from uuid import UUID
 
-from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
-from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel
@@ -14,6 +12,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+    from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class RetrieverObjectLink(RetrieverObjectLinkParent):
@@ -31,12 +30,13 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if link is not None and retrieve_history_number is not None:
             raise ValueError("You must use 'link' OR 'retrieve_history_number' as parameter, not both.")
 
-        super().__init__(section_name, link or variable_name, commit_callback)
+        super().__init__(section_name, link or variable_name)
 
         self.name: str = variable_name
         self.support: Support = support
         self.process_as_object: Type['AoE2Object'] = process_as_object
         self.retrieve_history_number: Optional[int] = retrieve_history_number
+        self.commit_callback: Callable = commit_callback
         self.destination_object: Type['AoE2Object'] = destination_object
 
         self.disabled = False
@@ -44,6 +44,8 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         Set to True if the given property (referenced by link) is not supported in the current scenario version.
         When True, the properties are overridden to raise an error when used.  
         """
+        self.group: Optional['RetrieverObjectLinkGroup'] = None
+        """A link to the parent which will be injected by the group if it is in any """
 
     def get_names(self):
         """
@@ -86,12 +88,12 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             return True
         return False
 
-    def retrieve_value_from_link(
+    def get_value_from_link(
             self,
             uuid: UUID = None,
+            number_hist: List[int] = None,
             host_obj: Type['AoE2Object'] = None,
-            from_section: Any = None,
-            number_hist: List[int] = None
+            from_section: Any = None
     ) -> Any:
         """
         Retrieve value based on link.
@@ -107,9 +109,10 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         """
         overwritten = self.overwrite_unsupported_properties(host_obj, uuid)
         if overwritten:
+            # Unsupported property; So unable to get value as it doesn't exist in current version.
             return None
 
-        value = super().retrieve_value_from_link(uuid, host_obj, from_section, number_hist)
+        value = super().get_value_from_link(uuid, number_hist, host_obj, from_section)
 
         if self.process_as_object:
             value = self.process_object_list(value, number_hist, uuid)
@@ -127,99 +130,181 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if self.retrieve_history_number is not None:
             value = number_hist[self.retrieve_history_number]
         else:
-            value = self.retrieve_value_from_link(uuid=host_uuid, host_obj=host_obj, number_hist=number_hist)
+            value = self.get_value_from_link(host_uuid, number_hist, host_obj)
 
         return {self.name: value}
 
     def process_object_list(self, value_list: List[Any], instance_number_history, host_uuid):
         object_list = []
         for index, struct in enumerate(value_list):
-            # Todo: Check this out - structs are unused - Kirby
+            # Todo: Check this out - structs are unused - KSneijders
             object_list.append(
                 self.process_as_object._construct(host_uuid, instance_number_history + [index])
             )
         return object_list
 
-    def commit(self, host_uuid: UUID, host_obj: 'AoE2Object'):
-        # Object-only attributes for the ease of access of information.
-        # Not actually representing a value in the scenario file.
+    def set_value_from_link(
+            self,
+            uuid: UUID = None,
+            number_hist: List[int] = None,
+            host_obj: 'AoE2Object' = None,
+            from_section: Any = None
+    ):
         if self.retrieve_history_number is not None:
             return
+        if self.support and not self.support.supports(getters.get_scenario_version(uuid)):
+            return
 
-        if host_uuid == NO_UUID:
-            raise ValueError(f"Invalid object commit. No UUID was set. Object class: {host_obj.__class__.__name__}")
-
-        number_hist = host_obj._instance_number_history
-
-        try:
-            # Get new value for receiver
-            value = getattr(host_obj, self.name)
-        except UnsupportedAttributeError:
-            return  # Not supported in current version.
-
-        if self.commit_callback is not None:
-            value = self.commit_callback(host_obj, self.name, value)
-
-        sections = getters.get_sections(host_uuid)
-        section = sections[self.section_name]
-
-        # Retrieve value without using eval() -- Eval is slow
-        retriever = None
-        file_section = section
-        for index, item in enumerate(self.splitted_link):
-            try:
-                if "[" in item:
-                    file_section = getattr(file_section, item[:-11])[number_hist[index]]
-                else:
-                    retriever = file_section.retriever_map[item]
-            except KeyError as e:
-                print(e)
-                # Maybe not supported in current version. if actually not supported -> ignore
-                if self.support is not None:
-                    if not self.support.supports(
-                            getters.get_scenario_version(host_uuid)):
-                        return
-                if settings.IGNORE_WRITING_ERRORS:
-                    return
-                raise e
+        retriever = self.get_from_link(True, uuid, from_section, number_hist)
+        if not isinstance(retriever, Retriever):
+            print("\n\n\n\n\n\n######################################")
+            print(from_section)
+            print("\n\n#####################\n\n")
+            print(type(retriever))
+            print(retriever)
+            print(number_hist)
+            print(self)
+            exit(333)
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to find retriever")
 
+        try:
+            value = getattr(host_obj, self.name)
+        except UnsupportedAttributeError as e:
+            print(e)
+            print(self)
+            print(self.support)
+            exit(773737)
+        file_section = self.get_section(uuid, from_section)
+
         if self.process_as_object:
-            struct_datatype = retriever.datatype.var
+            print("\n\nxxxxxxxxxxxxxxxxxxxxxxxxx")
+            print(self)
+            print(f"Len value: {len(value)}")
+            if len(value) > 0:
+                print(value[0].__class__.__name__, len(value))
+            else:
+                print("<< EMPTY >>")
+            struct_model = RetrieverObjectLink.get_struct_model(retriever, file_section)
 
-            prefix = "struct:"
-            if not struct_datatype.startswith(prefix):
-                raise ValueError(
-                    f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'"
-                )
-
-            struct_name = struct_datatype[len(prefix):]
-            struct_model = file_section.struct_models[struct_name]
-
-            RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), host_uuid)
-            RetrieverObjectLink.commit_object_list(value, host_obj._instance_number_history)
+            RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), uuid)
+            RetrieverObjectLink.commit_object_list(value, host_obj.instance_number_history)
         else:
             retriever.data = value
 
         if hasattr(retriever, 'on_commit'):
-            handle_retriever_dependency(retriever, "commit", file_section, host_uuid)
+            handle_retriever_dependency(retriever, "commit", file_section, uuid)
+
+    def commit(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
+        self.set_value_from_link(host_uuid, host_obj.instance_number_history, host_obj)
+
+    # def commit(self, host_uuid: UUID, host_obj: 'AoE2Object'):
+    #     # Object-only attributes for the ease of access of information.
+    #     # Not actually representing a value in the scenario file.
+    #     if self.retrieve_history_number is not None:
+    #         return
+    #
+    #     if host_uuid == NO_UUID:
+    #         raise ValueError(f"Invalid object commit. No UUID was set. Object class: {host_obj.__class__.__name__}")
+    #
+    #     number_hist = host_obj._instance_number_history
+    #
+    #     try:
+    #         # Get new value for receiver
+    #         value = getattr(host_obj, self.name)
+    #     except UnsupportedAttributeError:
+    #         return  # Not supported in current version.
+    #
+    #     if self.commit_callback is not None:
+    #         value = self.commit_callback(host_obj, self.name, value)
+    #
+    #     sections = getters.get_sections(host_uuid)
+    #     section = sections[self.section_name]
+    #
+    #     # Retrieve value without using eval() -- Eval is slow
+    #     retriever = None
+    #     file_section = section
+    #     for index, item in enumerate(self.splitted_link):
+    #         try:
+    #             if "[" in item:
+    #                 file_section = getattr(file_section, item[:-11])[number_hist[index]]
+    #             else:
+    #                 retriever = file_section.retriever_map[item]
+    #         except KeyError as e:
+    #             print(e)
+    #             # Maybe not supported in current version. if actually not supported -> ignore
+    #             if self.support is not None:
+    #                 if not self.support.supports(
+    #                         getters.get_scenario_version(host_uuid)):
+    #                     return
+    #             if settings.IGNORE_WRITING_ERRORS:
+    #                 return
+    #             raise e
+    #
+    #     if retriever is None:
+    #         raise ValueError("RetrieverObjectLink is unable to find retriever")
+    #
+    #     if self.process_as_object:
+    #         struct_datatype = retriever.datatype.var
+    #
+    #         prefix = "struct:"
+    #         if not struct_datatype.startswith(prefix):
+    #             raise ValueError(
+    #                 f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'"
+    #             )
+    #
+    #         struct_name = struct_datatype[len(prefix):]
+    #         struct_model = file_section.struct_models[struct_name]
+    #
+    #         RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), host_uuid)
+    #         RetrieverObjectLink.commit_object_list(value, host_obj._instance_number_history)
+    #     else:
+    #         retriever.data = value
+    #
+    #     if hasattr(retriever, 'on_commit'):
+    #         handle_retriever_dependency(retriever, "commit", file_section, host_uuid)
 
     @staticmethod
-    def commit_object_list(object_list, instance_number_history):
-        obj: 'AoE2Object'
+    def get_struct_model(retriever: 'Retriever', section: 'AoE2FileSection'):
+        prefix = "struct:"
+
+        struct_datatype = retriever.datatype.var
+        if not struct_datatype.startswith(prefix):
+            raise ValueError(f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'")
+
+        struct_name = struct_datatype[len(prefix):]
+        return section.struct_models[struct_name]
+
+    @staticmethod
+    def commit_object_list(object_list: List['AoE2Object'], instance_number_history: List[int]):
         for index, obj in enumerate(object_list):
             obj._instance_number_history = instance_number_history + [index]
             obj.commit()
 
+    # Todo: This could be a retriever function
     @staticmethod
     def update_retriever_length(
             retriever: Retriever,
             model: AoE2StructModel,
             new_len: int,
             host_uuid: UUID
-    ):
+    ) -> None:
+        """
+        Update the length of a struct retriever. When committing the new data from the managers, certain lists like
+        the trigger list might have changed in size. And, because every object (e.g. Trigger) corresponds to a section
+        with the same data (e.g. Trigger Section) the 2 lists (in manager and the corresponding one in sections) should
+        always be the same size. This function takes care of that.
+
+        If the list is equal, leave it unchanged. If the list is shorter, cut the retriever data short. If the list is
+        longer, add new sections to it based on the given model (& the model defaults)
+
+        Args:
+            retriever: The retriever containing the list
+            model: The model inside the retriever, in case the list grew
+            new_len: The new length of the list inside the managers
+            host_uuid: The UUID of the current scenario
+        """
         try:
             old_len = len(retriever.data)
         except TypeError:  # retriever.data was not set before (list of 0 -> None)
@@ -241,14 +326,21 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         return f"The property '{self.name}' is {self.support}. Current version: {version}.\n"
 
     def __repr__(self):
-        lines: List[str] = [
-            f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}"
-        ]
+        lines: List[str] = []
+
+        if self.group:
+            lines.append(f"[RetrieverObjectLinkGroup] {self.group.section_name}: {self.group.link}")
+            lines.append(f"\t[RetrieverObjectLink] {self.name}: {self.link} ({self.group.link}.{self.link})")
+        else:
+            lines.append(f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}")
 
         if self.process_as_object is not None:
             lines.append(f"\t- Process as: {self.process_as_object.__name__}")
 
         if self.retrieve_history_number is not None:
             lines.append(f"\t- Get Hist Number: {self.retrieve_history_number}")
+
+        if self.support is not None:
+            lines.append(f"\t- Support: {self.support}")
 
         return '\n'.join([line for line in lines if line])
