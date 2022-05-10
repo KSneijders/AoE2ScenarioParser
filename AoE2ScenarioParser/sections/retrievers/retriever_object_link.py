@@ -100,7 +100,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         value = super().pull_from_link(uuid, number_hist, host_obj, progress)
 
         if self.process_as_object:
-            value = self.process_object_list(value, number_hist, uuid, progress)
+            value = self.process_object_list(value, number_hist, uuid)
         return value
 
     def pull(
@@ -124,35 +124,14 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             self,
             objects: List['AoE2FileSection'],
             instance_number_history: List[int],
-            uuid: UUID,
-            progress: ConstructProgress
+            uuid: UUID
     ):
-        object_list = []
-        for index, struct in enumerate(objects):
-            # print("\n\n[process_object_list] Before call")
-            # print(f"'{type(struct)}' (type(struct))")
-            # print(f"'{self.process_as_object}' (self.process_as_object)")
-            # print(f"'{self.splitted_link}' (self.splitted_link)")
-            # print(f"'{progress}' (progress)")
-            # print(instance_number_history + [index])
-            history = instance_number_history + [index]
-            object_list.append(
-                self.process_as_object.construct(
-                    uuid,
-                    history,
-                    progress=ConstructProgress(section=struct, done=len(history))
-                )
-            )
-        return object_list
+        length = len(instance_number_history) + 1
 
-        # return [
-        #     self.process_as_object.construct(uuid, instance_number_history + [index], from_section=obj)
-        #     for index, obj in enumerate(objects)
-        # ]
-        # object_list = []
-        # for index, struct in enumerate(objects):
-        #     object_list.append(self.process_as_object.construct(uuid, instance_number_history + [index]))
-        # return object_list
+        return [
+            self.process_as_object.construct(uuid, instance_number_history + [index], progress=ConstructProgress(section=section, done=length))
+            for index, section in enumerate(objects)
+        ]
 
     def push_to_link(
             self,

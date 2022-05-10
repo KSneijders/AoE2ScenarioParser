@@ -86,12 +86,6 @@ class RetrieverObjectLinkParent:
         Returns:
             The found retriever or the value inside it depending on `return_retriever` parameter
         """
-        # print(f"\n\nGet From Link  [{self.__class__.__name__}]")
-        # print(f"'{number_hist}' (number_hist)")
-        # print(f"'{return_retriever}' (return_retriever)")
-        # print(f"'{self.splitted_link}' (self.splitted_link)")
-        # print(f"'{self.parent and self.parent.splitted_link}' (self.parent.splitted_link)")
-        # print(f"'{progress}' (progress)")
         section = self.get_section(uuid, progress)
 
         starting_index = 0

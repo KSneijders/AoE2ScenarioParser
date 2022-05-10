@@ -170,7 +170,6 @@ class AoE2FileSection:
         elif item.startswith("__"):
             return super().__getattribute__(item)
         else:
-            # print(f"'{self.retriever_map}' (self.retriever_map)")
             retriever = self.retriever_map[item]
             if retriever is None:
                 return super().__getattribute__(item)
