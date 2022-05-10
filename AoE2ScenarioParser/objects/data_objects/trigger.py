@@ -139,7 +139,7 @@ class Trigger(AoE2Object):
 
     @conditions.setter
     def conditions(self, val: List[Condition]) -> None:
-        self._conditions = UuidList(self._host_uuid, val)
+        self._conditions = UuidList(self._uuid, val)
         self.condition_order = list(range(0, len(val)))
 
     @property
@@ -148,7 +148,7 @@ class Trigger(AoE2Object):
 
     @effects.setter
     def effects(self, val: List[Effect]) -> None:
-        self._effects = UuidList(self._host_uuid, val)
+        self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
     def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
@@ -167,7 +167,7 @@ class Trigger(AoE2Object):
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
-            sv = getters.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._uuid)
             try:
                 return effect_dataset.default_attributes[eff_type]
             except KeyError:
@@ -180,7 +180,7 @@ class Trigger(AoE2Object):
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_effect = Effect(**effect_attr, host_uuid=self._host_uuid)
+        new_effect = Effect(**effect_attr, uuid=self._uuid)
         self.effects.append(new_effect)
         return new_effect
 
@@ -195,7 +195,7 @@ class Trigger(AoE2Object):
 
         def get_default_condition_attributes(cond_type):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
-            sv = getters.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._uuid)
             try:
                 return condition_dataset.default_attributes[cond_type]
             except KeyError:
@@ -208,7 +208,7 @@ class Trigger(AoE2Object):
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_condition = Condition(**condition_attr, host_uuid=self._host_uuid)
+        new_condition = Condition(**condition_attr, uuid=self._uuid)
         self.conditions.append(new_condition)
         return new_condition
 

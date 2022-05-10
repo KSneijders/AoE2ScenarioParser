@@ -15,7 +15,7 @@ class AoE2Object:
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-        self._host_uuid = kwargs.get('host_uuid', NO_UUID)
+        self._uuid = kwargs.get('uuid', NO_UUID)
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -43,17 +43,17 @@ class AoE2Object:
         return val
 
     @classmethod
-    def _construct(cls, host_uuid, number_hist=None):
+    def _construct(cls, uuid, number_hist=None):
         if number_hist is None:
             number_hist = []
 
         object_parameters: Dict[str, Any] = {}
 
         for link in cls._link_list:
-            values = link.pull(host_uuid, number_hist, cls)
+            values = link.pull(uuid, number_hist, cls)
             object_parameters.update(values)
 
-        object_parameters['host_uuid'] = host_uuid
+        object_parameters['uuid'] = uuid
 
         return cls(**object_parameters)
 
@@ -69,7 +69,7 @@ class AoE2Object:
             local_link_list = self._link_list
 
         for link in reversed(local_link_list):
-            link.push(self._host_uuid, host_obj=self)
+            link.push(self._uuid, host_obj=self)
 
     @staticmethod
     def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:
@@ -83,7 +83,7 @@ class AoE2Object:
         return number_hist[-1] if len(number_hist) > 0 else None
 
     def _get_object_attrs(self):
-        attrs = ["_instance_number_history", "_host_uuid"]
+        attrs = ["_instance_number_history", "_uuid"]
         for link in self._link_list:
             attrs.extend(link.get_names())
         return attrs

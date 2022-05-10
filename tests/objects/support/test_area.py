@@ -675,7 +675,7 @@ uuid = "cool_uuid"
 class MM:
     """Mock object for map_manager"""
     map_size = 5
-    terrain = [TerrainTile(_index=index, host_uuid=uuid) for index in range(pow(map_size, 2))]
+    terrain = [TerrainTile(_index=index, uuid=uuid) for index in range(pow(map_size, 2))]
 
 
 class SCN:

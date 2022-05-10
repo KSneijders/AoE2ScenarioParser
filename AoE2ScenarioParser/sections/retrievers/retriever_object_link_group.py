@@ -35,7 +35,7 @@ class RetrieverObjectLinkGroup(RetrieverObjectLinkParent):
 
     def pull(
             self,
-            host_uuid: UUID,
+            uuid: UUID,
             number_hist: List[int] = None,
             host_obj: Type['AoE2Object'] = None
     ) -> Dict[str, Any]:
@@ -43,7 +43,7 @@ class RetrieverObjectLinkGroup(RetrieverObjectLinkParent):
         Construct all retrievers in the group
 
         Args:
-            host_uuid: The UUID of the current scenario
+            uuid: The UUID of the current scenario
             number_hist: The history number list
             host_obj: The host object that belongs to the retriever links
 
@@ -53,19 +53,19 @@ class RetrieverObjectLinkGroup(RetrieverObjectLinkParent):
         if number_hist is None:
             number_hist = []
         attributes = {}
-        section = self.get_value_from_link(host_uuid, number_hist)
+        section = self.get_value_from_link(uuid, number_hist)
 
         for link in self.group:
-            attributes[link.name] = link.get_value_from_link(uuid=host_uuid, number_hist=number_hist,
+            attributes[link.name] = link.get_value_from_link(uuid=uuid, number_hist=number_hist,
                                                              host_obj=host_obj, from_section=section)
         return attributes
 
-    def push(self, host_uuid: UUID, host_obj: 'AoE2Object'):
-        if host_uuid == NO_UUID:
+    def push(self, uuid: UUID, host_obj: 'AoE2Object'):
+        if uuid == NO_UUID:
             raise ValueError(f"Invalid object push. No UUID was set. Object class: {host_obj.__class__.__name__}")
 
         number_hist = host_obj.instance_number_history
-        section = self.get_value_from_link(host_uuid, number_hist)
+        section = self.get_value_from_link(uuid, number_hist)
 
         for link in reversed(self.group):
-            link.set_value_from_link(uuid=host_uuid, number_hist=number_hist, host_obj=host_obj, from_section=section)
+            link.set_value_from_link(uuid=uuid, number_hist=number_hist, host_obj=host_obj, from_section=section)

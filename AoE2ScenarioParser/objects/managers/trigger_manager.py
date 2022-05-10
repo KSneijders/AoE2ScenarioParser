@@ -45,7 +45,7 @@ class TriggerManager(AoE2Object):
 
     @triggers.setter
     def triggers(self, value):
-        value = UuidList(self._host_uuid, value, on_update_execute_entry=self._update_triggers_uuid)
+        value = UuidList(self._uuid, value, on_update_execute_entry=self._update_triggers_uuid)
 
         self._trigger_hash = hash_list(value)
         self._triggers = value
@@ -54,9 +54,9 @@ class TriggerManager(AoE2Object):
     def _update_triggers_uuid(self, trigger):
         """Function to update inner UUIDs """
         for effect in trigger.effects:
-            effect._host_uuid = self._host_uuid
+            effect._uuid = self._uuid
         for condition in trigger.conditions:
-            condition._host_uuid = self._host_uuid
+            condition._uuid = self._uuid
 
     @property
     def trigger_display_order(self) -> List[int]:
@@ -486,7 +486,7 @@ class TriggerManager(AoE2Object):
         for key in keys:
             if locals()[key] is not None:
                 trigger_attr[key] = locals()[key]
-        new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr, host_uuid=self._host_uuid)
+        new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr, uuid=self._uuid)
         self.triggers.append(new_trigger)
         return new_trigger
 

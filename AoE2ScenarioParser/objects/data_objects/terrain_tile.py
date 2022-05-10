@@ -45,7 +45,7 @@ class TerrainTile(AoE2Object):
     @property
     def xy(self) -> Tuple[int, int]:
         if not self._xy:
-            self._xy = i_to_xy(self._index, getters.get_map_size(self._host_uuid))
+            self._xy = i_to_xy(self._index, getters.get_map_size(self._uuid))
         return self._xy
 
 

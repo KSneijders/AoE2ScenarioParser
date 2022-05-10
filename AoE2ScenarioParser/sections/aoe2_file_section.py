@@ -35,25 +35,25 @@ class SectionName(Enum):
 
 
 class AoE2FileSection:
-    def __init__(self, name, retriever_map, host_uuid, struct_models=None, level=SectionLevel.TOP_LEVEL):
+    def __init__(self, name, retriever_map, uuid, struct_models=None, level=SectionLevel.TOP_LEVEL):
         if struct_models is None:
             struct_models = {}
 
         self.name: str = name
         self.retriever_map: Dict[str, 'Retriever'] = retriever_map
-        self._host_uuid = host_uuid
+        self._uuid = uuid
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
         self.level: SectionLevel = level
 
     @classmethod
-    def from_model(cls, model, host_uuid, set_defaults=False) -> AoE2FileSection:
+    def from_model(cls, model, uuid, set_defaults=False) -> AoE2FileSection:
         """
         Create a copy (what was called struct before) from a model.
 
         Args:
             model (AoE2StructModel): The model to copy from
-            host_uuid (UUID): String representing host scenario
+            uuid (UUID): String representing host scenario
             set_defaults (bool): If retrievers need to be set to the default values
 
         Returns:
@@ -67,19 +67,19 @@ class AoE2FileSection:
         return cls(
             name=model.name,
             retriever_map=duplicate_rmap,
-            host_uuid=host_uuid,
+            uuid=uuid,
             struct_models=model.structs,
             level=SectionLevel.STRUCT
         )
 
     @classmethod
-    def from_structure(cls, section_name, structure, host_uuid):
+    def from_structure(cls, section_name, structure, uuid):
         retriever_map = {}
         for name, attr in structure.get('retrievers').items():
             retriever_map[name] = Retriever.from_structure(name, attr)
 
         structs = model_dict_from_structure(structure)
-        return cls(section_name, retriever_map, host_uuid, structs)
+        return cls(section_name, retriever_map, uuid, structs)
 
     def get_data_as_bytes(self):
         result = []
@@ -99,7 +99,7 @@ class AoE2FileSection:
         """
         total_length = 0
         for retriever in self.retriever_map.values():
-            handle_retriever_dependency(retriever, "construct", self, self._host_uuid)
+            handle_retriever_dependency(retriever, "construct", self, self._uuid)
             if retriever.datatype.type == "struct":
                 struct_name = retriever.datatype.get_struct_name()
 
@@ -132,7 +132,7 @@ class AoE2FileSection:
             raise e
 
     def _create_struct(self, model: AoE2StructModel, igenerator) -> AoE2FileSection:
-        struct = AoE2FileSection.from_model(model, host_uuid=self._host_uuid)
+        struct = AoE2FileSection.from_model(model, uuid=self._uuid)
 
         try:
             struct.set_data_from_generator(igenerator)
@@ -154,7 +154,7 @@ class AoE2FileSection:
                 retrievers[i].data = data[i]
 
                 if hasattr(retrievers[i], 'on_construct'):
-                    handle_retriever_dependency(retrievers[i], "construct", self, self._host_uuid)
+                    handle_retriever_dependency(retrievers[i], "construct", self, self._uuid)
         else:
             print(f"\nError in: {self.__class__.__name__}")
             print(f"Data: (len: {len(data)}) "

@@ -120,7 +120,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
 
     def pull(
             self,
-            host_uuid: UUID,
+            uuid: UUID,
             number_hist: List[int] = None,
             host_obj: Type['AoE2Object'] = None
     ) -> Dict[str, Any]:
@@ -130,16 +130,16 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if self.retrieve_history_number is not None:
             value = number_hist[self.retrieve_history_number]
         else:
-            value = self.get_value_from_link(host_uuid, number_hist, host_obj)
+            value = self.get_value_from_link(uuid, number_hist, host_obj)
 
         return {self.name: value}
 
-    def process_object_list(self, value_list: List[Any], instance_number_history, host_uuid):
+    def process_object_list(self, value_list: List[Any], instance_number_history, uuid):
         object_list = []
         for index, struct in enumerate(value_list):
             # Todo: Check this out - structs are unused - KSneijders
             object_list.append(
-                self.process_as_object._construct(host_uuid, instance_number_history + [index])
+                self.process_as_object._construct(uuid, instance_number_history + [index])
             )
         return object_list
 
@@ -174,8 +174,8 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if hasattr(retriever, 'on_commit'):
             handle_retriever_dependency(retriever, "commit", file_section, uuid)
 
-    def push(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
-        self.set_value_from_link(host_uuid, host_obj.instance_number_history, host_obj)
+    def push(self, uuid: UUID, host_obj: 'AoE2Object') -> None:
+        self.set_value_from_link(uuid, host_obj.instance_number_history, host_obj)
 
     @staticmethod
     def get_struct_model(retriever: 'Retriever', section: 'AoE2FileSection'):
@@ -200,7 +200,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             retriever: Retriever,
             model: AoE2StructModel,
             new_len: int,
-            host_uuid: UUID
+            uuid: UUID
     ) -> None:
         """
         Update the length of a struct retriever. When committing the new data from the managers, certain lists like
@@ -215,7 +215,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             retriever: The retriever containing the list
             model: The model inside the retriever, in case the list grew
             new_len: The new length of the list inside the managers
-            host_uuid: The UUID of the current scenario
+            uuid: The UUID of the current scenario
         """
         try:
             old_len = len(retriever.data)
@@ -227,7 +227,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             retriever.data = retriever.data[:new_len]
         elif new_len > old_len:
             retriever.data += [
-                AoE2FileSection.from_model(model, host_uuid, set_defaults=True)
+                AoE2FileSection.from_model(model, uuid, set_defaults=True)
                 for _ in range(new_len - old_len)
             ]
 

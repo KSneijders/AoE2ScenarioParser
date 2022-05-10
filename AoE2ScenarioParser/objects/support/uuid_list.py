@@ -6,7 +6,7 @@ from typing_extensions import SupportsIndex
 
 _T = TypeVar('_T')
 
-NO_UUID = "<<NO_HOST_UUID>>"
+NO_UUID = "<<NO_UUID>>"
 
 
 class UuidList(list):
@@ -130,7 +130,7 @@ class UuidList(list):
             o: an object to update
             is_last_update: If this entry is the last in a list
         """
-        o._host_uuid = self.uuid
+        o._uuid = self.uuid
         self._callback(o, is_last_update)
 
     def _callback(self, o: _T = None, is_last_update: bool = False) -> None:

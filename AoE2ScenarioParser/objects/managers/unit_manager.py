@@ -48,7 +48,7 @@ class UnitManager(AoE2Object):
         elif len(value) < 9:
             value.extend([[] for _ in range(9 - len(value))])
 
-        self._units = UuidList(self._host_uuid, value)
+        self._units = UuidList(self._uuid, value)
 
     def update_unit_player_values(self):
         """Function to update all player values in all units. Useful when units are moved manually (in mass)."""
@@ -104,7 +104,7 @@ class UnitManager(AoE2Object):
             rotation=rotation,
             initial_animation_frame=animation_frame,
             garrisoned_in_id=garrisoned_in_id,
-            host_uuid=self._host_uuid
+            uuid=self._uuid
         )
 
         self.units[player].append(unit)
@@ -293,7 +293,7 @@ class UnitManager(AoE2Object):
             units = self.get_player_units(i)
             player_units.append(PlayerUnits(unit_count=len(units), units=units))
 
-        return UuidList(self._host_uuid, player_units)
+        return UuidList(self._uuid, player_units)
 
 
 def create_id_generator(start_id: int):

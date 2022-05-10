@@ -134,7 +134,7 @@ class PlayerManager(AoE2Object):
     @players.setter
     def players(self, value: List[Player]) -> None:
         """Sets player objects"""
-        self._players = UuidList(self._host_uuid, value)
+        self._players = UuidList(self._uuid, value)
 
     def set_default_starting_resources(self, players: List[PlayerId] = None) -> None:
         """
@@ -211,7 +211,7 @@ class PlayerManager(AoE2Object):
         """Returns the diplomacy of all players"""
         diplomacies = self._player_attributes_to_list("diplomacy", None)
 
-        player_diplomacies = UuidList(self._host_uuid, [
+        player_diplomacies = UuidList(self._uuid, [
             PlayerDiplomacy(diplomacy_stance=diplomacies[i]) for i in range(8)
         ])
         player_diplomacies.extend([
@@ -228,7 +228,7 @@ class PlayerManager(AoE2Object):
         gold = self._player_attributes_to_list("gold", None, default=0)
         stone = self._player_attributes_to_list("stone", None, default=0)
 
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerDataFour(
                 population_limit=float(population_limit[i]),
                 food_duplicate=float(food[i]),
@@ -262,7 +262,7 @@ class PlayerManager(AoE2Object):
                 temp_lst[player + 1] = mapping['self']
                 lst.append(temp_lst)
 
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerDataThree(
                 initial_camera_x[i],
                 initial_camera_y[i],
@@ -281,7 +281,7 @@ class PlayerManager(AoE2Object):
         gold = self._player_attributes_to_list("gold", False, default=0, fill_empty=7)
         stone = self._player_attributes_to_list("stone", False, default=0, fill_empty=7)
         color = self._player_attributes_to_list("color", False, default=0, fill_empty=7)
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerResources(food[i], wood[i], gold[i], stone[i], color[i]) for i in range(len(food))
         ])
 
@@ -292,7 +292,7 @@ class PlayerManager(AoE2Object):
         human = self._player_attributes_to_list("human", False, default=0, fill_empty=7)
         civilization = self._player_attributes_to_list("civilization", False, default=40, fill_empty=7)
         architecture_set = self._player_attributes_to_list("architecture_set", False, default=40, fill_empty=7)
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerMetaData(active[i], human[i], civilization[i], architecture_set[i]) for i in range(len(active))
         ])
 

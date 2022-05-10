@@ -129,7 +129,7 @@ class MapManager(AoE2Object):
 
         if value is not None:
             self._terrain = UuidList(
-                uuid=self._host_uuid,
+                uuid=self._uuid,
                 seq=value,
                 on_update_execute_list=reset_indices
             )
@@ -154,9 +154,9 @@ class MapManager(AoE2Object):
             chunck_gen = list_chuncks(self.terrain, old_size)
             for index in range(new_size):
                 if index < old_size:
-                    row = next(chunck_gen) + [TerrainTile(host_uuid=self._host_uuid) for _ in range(difference)]
+                    row = next(chunck_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
                 else:
-                    row = [TerrainTile(host_uuid=self._host_uuid) for _ in range(new_size)]
+                    row = [TerrainTile(uuid=self._uuid) for _ in range(new_size)]
                 new_terrain.extend(row)
         self.terrain = new_terrain
 

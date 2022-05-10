@@ -117,13 +117,13 @@ class RetrieverObjectLinkParent:
     def get_names(self) -> List[str]:
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
 
-    def pull(self, host_uuid: UUID, number_hist: List[int] = None, host_obj: Type['AoE2Object'] = None) -> Dict[str, Any]:
+    def pull(self, uuid: UUID, number_hist: List[int] = None, host_obj: Type['AoE2Object'] = None) -> Dict[str, Any]:
         """
         Should result in the values being pulled from AoE2FileSection and Retrievers into the corresponding descendants
         of AoE2Object.
 
         Args:
-            host_uuid: The UUID of the current scenario
+            uuid: The UUID of the current scenario
             number_hist: The history number list
             host_obj: The host object that belongs to the retriever links
 
@@ -132,13 +132,13 @@ class RetrieverObjectLinkParent:
         """
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
 
-    def push(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
+    def push(self, uuid: UUID, host_obj: 'AoE2Object') -> None:
         """
         Should result in the values going from the descendants of AoE2Object and being pushed back into the
         corresponding Retrievers and AoE2FileSection
 
         Args:
-            host_uuid: The UUID of the current scenario
+            uuid: The UUID of the current scenario
             host_obj: The host object that belongs to the retriever links
         """
         raise NotImplementedError("This function has not been implemented in the subclass yet.")

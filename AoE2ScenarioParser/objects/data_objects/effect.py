@@ -333,7 +333,7 @@ class Effect(AoE2Object):
             if not self._armour_attack_flag and attribute in ["armour_attack_quantity", "armour_attack_class"]:
                 continue
 
-            value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._host_uuid)
+            value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._uuid)
             return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":
@@ -377,7 +377,7 @@ class Effect(AoE2Object):
 
         ----
         """
-        trigger_version = getters.get_trigger_version(self._host_uuid)
+        trigger_version = getters.get_trigger_version(self._uuid)
         if trigger_version >= 2.5:
             return quantity >> 16, quantity & 65535
         return quantity >> 8, quantity & 255
@@ -394,7 +394,7 @@ class Effect(AoE2Object):
         Returns:
             The one byte quantity and one byte armor/attack value
         """
-        trigger_version = getters.get_trigger_version(self._host_uuid)
+        trigger_version = getters.get_trigger_version(self._uuid)
         if trigger_version >= 2.5:
             return aa_class * 65536 + aa_quantity
 

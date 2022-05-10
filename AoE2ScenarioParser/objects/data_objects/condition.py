@@ -120,7 +120,7 @@ class Condition(AoE2Object):
             if attribute == "condition_type" or val in [[], [-1], [''], "", " ", -1]:
                 continue
 
-            value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._host_uuid)
+            value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._uuid)
             return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":

@@ -64,7 +64,7 @@ class Unit(AoE2Object):
 
     @player.setter
     def player(self, player: Union[int, PlayerId]):
-        actions.unit_change_ownership(self._host_uuid, player, self)
+        actions.unit_change_ownership(self._uuid, player, self)
         self._player = player
 
     @property
