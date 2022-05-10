@@ -2,15 +2,12 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, TYPE_CHECKING, Any, Dict
+from typing import List, Any, Dict
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
-
-if TYPE_CHECKING:
-    from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
 class AoE2Object:
@@ -53,7 +50,7 @@ class AoE2Object:
         object_parameters: Dict[str, Any] = {}
 
         for link in cls._link_list:
-            values = link.construct(host_uuid, number_hist, cls)
+            values = link.pull(host_uuid, number_hist, cls)
             object_parameters.update(values)
 
         object_parameters['host_uuid'] = host_uuid
@@ -72,7 +69,7 @@ class AoE2Object:
             local_link_list = self._link_list
 
         for link in reversed(local_link_list):
-            link.commit(self._host_uuid, host_obj=self)
+            link.push(self._host_uuid, host_obj=self)
 
     @staticmethod
     def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:

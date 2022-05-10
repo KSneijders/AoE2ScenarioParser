@@ -26,6 +26,7 @@ class TechInfo(Enum):
     >>> TechInfo.monastery_techs()
     >>> TechInfo.university_techs()
     >>> TechInfo.eco_techs()
+    >>> TechInfo.civilization_techs()
 
     **Examples**
 
@@ -501,6 +502,58 @@ class TechInfo(Enum):
                 techs_to_return.extend(upgrades[age][building])
 
         return techs_to_return
+
+    @staticmethod
+    def civilization_techs() -> List[TechInfo]:
+        """
+        Returns:
+            A list of TechInfo objects which represent all civ 'upgrades'. Can be used to detect which civ is being
+            played by the player using the 'researched technology' condition.
+        """
+        return [
+            TechInfo.AZTECS,
+            TechInfo.BENGALIS,
+            TechInfo.BERBERS,
+            TechInfo.BOHEMIANS,
+            TechInfo.BRITONS,
+            TechInfo.BULGARIANS,
+            TechInfo.BURGUNDIANS,
+            TechInfo.BURMESE,
+            TechInfo.BYZANTINES,
+            TechInfo.CELTS,
+            TechInfo.CHINESE,
+            TechInfo.CUMANS,
+            TechInfo.DRAVIDIANS,
+            TechInfo.ETHIOPIANS,
+            TechInfo.FRANKS,
+            TechInfo.GOTHS,
+            TechInfo.GURJARAS,
+            TechInfo.HUNS,
+            TechInfo.INCAS,
+            TechInfo.INDIANS,
+            TechInfo.ITALIANS,
+            TechInfo.JAPANESE,
+            TechInfo.KHMER,
+            TechInfo.KOREANS,
+            TechInfo.LITHUANIANS,
+            TechInfo.MAGYARS,
+            TechInfo.MALAY,
+            TechInfo.MALIANS,
+            TechInfo.MAYANS,
+            TechInfo.MONGOLS,
+            TechInfo.PERSIANS,
+            TechInfo.POLES,
+            TechInfo.PORTUGUESE,
+            TechInfo.SARACENS,
+            TechInfo.SICILIANS,
+            TechInfo.SLAVS,
+            TechInfo.SPANISH,
+            TechInfo.TATARS,
+            TechInfo.TEUTONS,
+            TechInfo.TURKS,
+            TechInfo.VIETNAMESE,
+            TechInfo.VIKINGS,
+        ]
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33

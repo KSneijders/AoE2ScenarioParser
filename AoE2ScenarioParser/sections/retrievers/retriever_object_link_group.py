@@ -33,7 +33,7 @@ class RetrieverObjectLinkGroup(RetrieverObjectLinkParent):
         """
         return [e.name for e in self.group]
 
-    def construct(
+    def pull(
             self,
             host_uuid: UUID,
             number_hist: List[int] = None,
@@ -60,9 +60,9 @@ class RetrieverObjectLinkGroup(RetrieverObjectLinkParent):
                                                              host_obj=host_obj, from_section=section)
         return attributes
 
-    def commit(self, host_uuid: UUID, host_obj: 'AoE2Object'):
+    def push(self, host_uuid: UUID, host_obj: 'AoE2Object'):
         if host_uuid == NO_UUID:
-            raise ValueError(f"Invalid object commit. No UUID was set. Object class: {host_obj.__class__.__name__}")
+            raise ValueError(f"Invalid object push. No UUID was set. Object class: {host_obj.__class__.__name__}")
 
         number_hist = host_obj.instance_number_history
         section = self.get_value_from_link(host_uuid, number_hist)

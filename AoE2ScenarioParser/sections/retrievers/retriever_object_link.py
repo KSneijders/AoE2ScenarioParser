@@ -118,7 +118,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             value = self.process_object_list(value, number_hist, uuid)
         return value
 
-    def construct(
+    def pull(
             self,
             host_uuid: UUID,
             number_hist: List[int] = None,
@@ -156,36 +156,14 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             return
 
         retriever = self.get_from_link(True, uuid, from_section, number_hist)
-        if not isinstance(retriever, Retriever):
-            print("\n\n\n\n\n\n######################################")
-            print(from_section)
-            print("\n\n#####################\n\n")
-            print(type(retriever))
-            print(retriever)
-            print(number_hist)
-            print(self)
-            exit(333)
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to find retriever")
 
-        try:
-            value = getattr(host_obj, self.name)
-        except UnsupportedAttributeError as e:
-            print(e)
-            print(self)
-            print(self.support)
-            exit(773737)
+        value = getattr(host_obj, self.name)
         file_section = self.get_section(uuid, from_section)
 
         if self.process_as_object:
-            print("\n\nxxxxxxxxxxxxxxxxxxxxxxxxx")
-            print(self)
-            print(f"Len value: {len(value)}")
-            if len(value) > 0:
-                print(value[0].__class__.__name__, len(value))
-            else:
-                print("<< EMPTY >>")
             struct_model = RetrieverObjectLink.get_struct_model(retriever, file_section)
 
             RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), uuid)
@@ -196,74 +174,8 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if hasattr(retriever, 'on_commit'):
             handle_retriever_dependency(retriever, "commit", file_section, uuid)
 
-    def commit(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
+    def push(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
         self.set_value_from_link(host_uuid, host_obj.instance_number_history, host_obj)
-
-    # def commit(self, host_uuid: UUID, host_obj: 'AoE2Object'):
-    #     # Object-only attributes for the ease of access of information.
-    #     # Not actually representing a value in the scenario file.
-    #     if self.retrieve_history_number is not None:
-    #         return
-    #
-    #     if host_uuid == NO_UUID:
-    #         raise ValueError(f"Invalid object commit. No UUID was set. Object class: {host_obj.__class__.__name__}")
-    #
-    #     number_hist = host_obj._instance_number_history
-    #
-    #     try:
-    #         # Get new value for receiver
-    #         value = getattr(host_obj, self.name)
-    #     except UnsupportedAttributeError:
-    #         return  # Not supported in current version.
-    #
-    #     if self.commit_callback is not None:
-    #         value = self.commit_callback(host_obj, self.name, value)
-    #
-    #     sections = getters.get_sections(host_uuid)
-    #     section = sections[self.section_name]
-    #
-    #     # Retrieve value without using eval() -- Eval is slow
-    #     retriever = None
-    #     file_section = section
-    #     for index, item in enumerate(self.splitted_link):
-    #         try:
-    #             if "[" in item:
-    #                 file_section = getattr(file_section, item[:-11])[number_hist[index]]
-    #             else:
-    #                 retriever = file_section.retriever_map[item]
-    #         except KeyError as e:
-    #             print(e)
-    #             # Maybe not supported in current version. if actually not supported -> ignore
-    #             if self.support is not None:
-    #                 if not self.support.supports(
-    #                         getters.get_scenario_version(host_uuid)):
-    #                     return
-    #             if settings.IGNORE_WRITING_ERRORS:
-    #                 return
-    #             raise e
-    #
-    #     if retriever is None:
-    #         raise ValueError("RetrieverObjectLink is unable to find retriever")
-    #
-    #     if self.process_as_object:
-    #         struct_datatype = retriever.datatype.var
-    #
-    #         prefix = "struct:"
-    #         if not struct_datatype.startswith(prefix):
-    #             raise ValueError(
-    #                 f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'"
-    #             )
-    #
-    #         struct_name = struct_datatype[len(prefix):]
-    #         struct_model = file_section.struct_models[struct_name]
-    #
-    #         RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), host_uuid)
-    #         RetrieverObjectLink.commit_object_list(value, host_obj._instance_number_history)
-    #     else:
-    #         retriever.data = value
-    #
-    #     if hasattr(retriever, 'on_commit'):
-    #         handle_retriever_dependency(retriever, "commit", file_section, host_uuid)
 
     @staticmethod
     def get_struct_model(retriever: 'Retriever', section: 'AoE2FileSection'):

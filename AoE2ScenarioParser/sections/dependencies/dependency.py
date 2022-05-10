@@ -23,7 +23,7 @@ def handle_retriever_dependency(retriever: Retriever, state, section, host_uuid:
     if not hasattr(retriever, on_x):
         return
 
-    retriever_event = getattr(retriever, on_x)  # construct, commit or refresh
+    retriever_event = getattr(retriever, on_x)  # construct, push or refresh
 
     action = retriever_event.dependency_action
 

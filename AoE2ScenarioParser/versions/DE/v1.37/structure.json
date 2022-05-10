@@ -1799,7 +1799,7 @@
                             },
                             "static_value_46": {
                                 "type": "s32",
-                                "default": 48
+                                "default": 46
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2027,7 +2027,7 @@
                             },
                             "static_value_21": {
                                 "type": "s32",
-                                "default": 23
+                                "default": 21
                             },
                             "quantity": {
                                 "type": "s32",

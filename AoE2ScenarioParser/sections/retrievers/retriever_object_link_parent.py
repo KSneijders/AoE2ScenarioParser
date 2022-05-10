@@ -1,4 +1,6 @@
-from typing import Any, List, Callable, Type, Dict, TYPE_CHECKING
+from __future__ import annotations
+
+from typing import Any, List, Type, Dict, TYPE_CHECKING, Union
 from uuid import UUID
 
 from AoE2ScenarioParser.scenarios.scenario_store import getters
@@ -47,17 +49,7 @@ class RetrieverObjectLinkParent:
     def get_section(self, uuid: UUID = None, from_section: Any = None):
         if from_section is None:
             sections = getters.get_sections(uuid)
-            try:
-                return sections[self.section_name]
-            except KeyError as e:
-                print(self)
-                print("\n\n\n")
-
-                import time
-                time.sleep(.1)
-
-                raise e
-
+            return sections[self.section_name]
         return from_section
 
     def get_from_link(
@@ -66,61 +58,46 @@ class RetrieverObjectLinkParent:
             uuid: UUID = None,
             from_section: Any = None,
             number_hist: List[int] = None,
-    ) -> 'Retriever':
-        # print(f"return_retriever={return_retriever} uuid={uuid} host_obj={host_obj} from_section={from_section} number_hist={number_hist}")
-        old = value = self.get_section(uuid, from_section)
+    ) -> Union['Retriever', Any]:
+        """
+        Retrieve a retriever or the value inside it from a given link. Starting point (where the link should start
+        looking from) can be from the scenario sections (if ``from_section`` is left empty). If ``from_section`` is not
+        empty, it'll start looking from there. ``from_section`` is only used when this function is called from
+        a RetrieverObjectLinkGroup.
+
+        Args:
+            return_retriever: If this function should return the retriever or the data inside of it
+            uuid: The UUID of the scenario
+            from_section: If defined, use the link to start from this section instead of the main scenario sections
+            number_hist: The number history of this object
+
+        Returns:
+            The found retriever or the value inside it depending on `return_retriever` parameter
+        """
+        section = self.get_section(uuid, from_section)
 
         starting_index = 0
         if from_section is not None:
             # Get the index up to date if this link is within a group.
             starting_index = len(number_hist)
 
-        # if self.splitted_link == ['garrisoned_in_id']:
-        #     print("\n+++++++++++++++")
-        #     print(starting_index)
-        #     print(self.splitted_link)
-        #     print(self.section_name)
-
         # If we want the retriever and there's only one link, we can directly extract it from the retriever map
         if return_retriever and len(self.splitted_link) == 1:
-            return value.retriever_map[self.splitted_link[0]]
+            return section.retriever_map[self.splitted_link[0]]
 
         for index, item in enumerate(self.splitted_link, starting_index):
-            # If the end of the loop is found, return the retriever
+            # If looking for a retriever and the end of the loop is found, return it
             if return_retriever and index == len(self.splitted_link) - 1:
-                try:
-                    return value.retriever_map[item]
-                except KeyError as e:
-                    import time
-                    print(self)
-                    print(type(value))
-                    print(value.retriever_map.keys())
-                    # print(value)
-                    time.sleep(.2)
-                    raise e
-
-            if value.name == "PlayerDataThreeStruct":
-                print(index)
-                print(return_retriever)
-                print(index == len(self.splitted_link) - 1)
-                print("----\n")
+                return section.retriever_map[item]
 
             if item.endswith("]"):
                 # item[:-11] removes "[__index__]" from the key
-                value = getattr(value, item[:-11])[number_hist[index]]
+                section = getattr(section, item[:-11])[number_hist[index]]
             else:
-                value = getattr(value, item)
+                section = getattr(section, item)
 
-        # if type(value) is int and return_retriever:
-        #     print(f"old: {old}")
-        #     print(self.splitted_link)
-        #     # print(self)
-        #     # print(type(value))
-        #     # print(value)
-        #     # print(f"return_retriever={return_retriever} uuid={uuid} from_section={from_section} number_hist={number_hist}")
-        #     exit(889211)
         # Can only be reached if `return_retriever=False`
-        return value
+        return section
 
     def overwrite_unsupported_properties(self, class_reference: Type['AoE2Object'], uuid: UUID) -> bool:
         """
@@ -140,14 +117,10 @@ class RetrieverObjectLinkParent:
     def get_names(self) -> List[str]:
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
 
-    def construct(
-            self,
-            host_uuid: UUID,
-            number_hist: List[int] = None,
-            host_obj: Type['AoE2Object'] = None
-    ) -> Dict[str, Any]:
+    def pull(self, host_uuid: UUID, number_hist: List[int] = None, host_obj: Type['AoE2Object'] = None) -> Dict[str, Any]:
         """
-        Construct all retrievers in the group
+        Should result in the values being pulled from AoE2FileSection and Retrievers into the corresponding descendants
+        of AoE2Object.
 
         Args:
             host_uuid: The UUID of the current scenario
@@ -159,5 +132,13 @@ class RetrieverObjectLinkParent:
         """
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
 
-    def commit(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
+    def push(self, host_uuid: UUID, host_obj: 'AoE2Object') -> None:
+        """
+        Should result in the values going from the descendants of AoE2Object and being pushed back into the
+        corresponding Retrievers and AoE2FileSection
+
+        Args:
+            host_uuid: The UUID of the current scenario
+            host_obj: The host object that belongs to the retriever links
+        """
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
