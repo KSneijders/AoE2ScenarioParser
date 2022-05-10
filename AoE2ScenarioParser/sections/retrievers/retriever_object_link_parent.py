@@ -1,13 +1,16 @@
 from __future__ import annotations
 
-from typing import Any, List, Type, Dict, TYPE_CHECKING, Union
+from typing import Any, List, Type, Dict, TYPE_CHECKING, Union, Optional
 from uuid import UUID
 
 from AoE2ScenarioParser.scenarios.scenario_store import getters
+from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+    from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+    from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class RetrieverObjectLinkParent:
@@ -20,12 +23,15 @@ class RetrieverObjectLinkParent:
         self.link: str = link
         self.splitted_link: List[str] = link.split('.') if link else []
 
-    def get_value_from_link(
+        self.parent: Optional['RetrieverObjectLinkGroup'] = None
+        """A link to the parent which will be injected by the group if it is in any """
+
+    def pull_from_link(
             self,
             uuid: UUID,
             number_hist: List[int],
             host_obj: Type['AoE2Object'] = None,
-            from_section: Any = None
+            progress: ConstructProgress = None
     ) -> Any:
         """
         Retrieve value based on link
@@ -34,29 +40,35 @@ class RetrieverObjectLinkParent:
             uuid: The UUID of the current scenario
             number_hist: The history numbers
             host_obj: A reference to the host object class
-            from_section: Start retrieving the value from a different starting point than the scenario sections
+            progress: Start retrieving the value from a different starting point than the scenario sections
 
         Returns:
             The value located at the location found through self.link
         """
-        return self.get_from_link(
-            return_retriever=False,
-            uuid=uuid,
-            number_hist=number_hist,
-            from_section=from_section,
-        )
+        return self.get_from_link(False, uuid, progress, number_hist)
 
-    def get_section(self, uuid: UUID = None, from_section: Any = None):
-        if from_section is None:
+    def get_section(self, uuid: UUID = None, progress: ConstructProgress = None) -> 'AoE2FileSection':
+        """
+        Wrapper function to return the ``from_section`` if it is defined. If not, get a section based on the current
+        ``self.section_name`` from the scenario sections dict.
+
+        Args:
+            uuid: The UUID of the current scenario
+            progress: The section to get another section from
+
+        Returns:
+            The section given or one from the scenario
+        """
+        if progress is None:
             sections = getters.get_sections(uuid)
             return sections[self.section_name]
-        return from_section
+        return progress.section
 
     def get_from_link(
             self,
             return_retriever=True,
             uuid: UUID = None,
-            from_section: Any = None,
+            progress: ConstructProgress = None,
             number_hist: List[int] = None,
     ) -> Union['Retriever', Any]:
         """
@@ -68,24 +80,28 @@ class RetrieverObjectLinkParent:
         Args:
             return_retriever: If this function should return the retriever or the data inside of it
             uuid: The UUID of the scenario
-            from_section: If defined, use the link to start from this section instead of the main scenario sections
+            progress: If defined, use the link to start from this section instead of the main scenario sections
             number_hist: The number history of this object
 
         Returns:
             The found retriever or the value inside it depending on `return_retriever` parameter
         """
-        section = self.get_section(uuid, from_section)
+        # print(f"\n\nGet From Link  [{self.__class__.__name__}]")
+        # print(f"'{number_hist}' (number_hist)")
+        # print(f"'{return_retriever}' (return_retriever)")
+        # print(f"'{self.splitted_link}' (self.splitted_link)")
+        # print(f"'{self.parent and self.parent.splitted_link}' (self.parent.splitted_link)")
+        # print(f"'{progress}' (progress)")
+        section = self.get_section(uuid, progress)
 
         starting_index = 0
-        if from_section is not None:
-            # Get the index up to date if this link is within a group.
-            starting_index = len(number_hist)
+        if progress is not None:
+            starting_index = progress.done
 
-        # If we want the retriever and there's only one link, we can directly extract it from the retriever map
-        if return_retriever and len(self.splitted_link) == 1:
-            return section.retriever_map[self.splitted_link[0]]
+        # for index, item in enumerate(self.splitted_link, starting_index):
+        for index in range(starting_index, len(self.splitted_link)):
+            item = self.splitted_link[index]
 
-        for index, item in enumerate(self.splitted_link, starting_index):
             # If looking for a retriever and the end of the loop is found, return it
             if return_retriever and index == len(self.splitted_link) - 1:
                 return section.retriever_map[item]
@@ -115,9 +131,19 @@ class RetrieverObjectLinkParent:
         return False
 
     def get_names(self) -> List[str]:
+        """
+        Returns:
+            All names from this link (singular/group) inside of a list
+        """
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
 
-    def pull(self, uuid: UUID, number_hist: List[int] = None, host_obj: Type['AoE2Object'] = None) -> Dict[str, Any]:
+    def pull(
+            self,
+            uuid: UUID,
+            number_hist: List[int] = None,
+            host_obj: Type['AoE2Object'] = None,
+            progress: ConstructProgress = None
+    ) -> Dict[str, Any]:
         """
         Should result in the values being pulled from AoE2FileSection and Retrievers into the corresponding descendants
         of AoE2Object.
@@ -126,6 +152,7 @@ class RetrieverObjectLinkParent:
             uuid: The UUID of the current scenario
             number_hist: The history number list
             host_obj: The host object that belongs to the retriever links
+            progress: If defined, use the link to start from this section instead of the main scenario sections
 
         Returns:
             A Dict with keys as object constructor params and values corresponding to said keys

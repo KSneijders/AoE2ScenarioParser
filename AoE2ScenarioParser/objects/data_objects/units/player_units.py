@@ -11,7 +11,7 @@ class PlayerUnits(AoE2Object):
 
     _link_list = [
         RetrieverObjectLinkGroup("Units", "players_units[__index__]", group=[
-            RetrieverObjectLink("unit_count",),
+            RetrieverObjectLink("unit_count"),
             RetrieverObjectLink("units", process_as_object=Unit),
         ])
     ]

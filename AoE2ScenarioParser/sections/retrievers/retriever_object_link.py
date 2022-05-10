@@ -6,13 +6,13 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
+from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-    from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class RetrieverObjectLink(RetrieverObjectLinkParent):
@@ -44,85 +44,71 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         Set to True if the given property (referenced by link) is not supported in the current scenario version.
         When True, the properties are overridden to raise an error when used.  
         """
-        self.group: Optional['RetrieverObjectLinkGroup'] = None
-        """A link to the parent which will be injected by the group if it is in any """
 
     def get_names(self):
-        """
-        Returns:
-            The name of this object link in a list
-        """
         return [self.name]
 
     def overwrite_unsupported_properties(self, class_reference: Type['AoE2Object'], uuid: UUID) -> bool:
         scenario_version = getters.get_scenario_version(uuid)
 
         # If support is None, that means that the thing is supported in every scenario version that the parser supports
-        if self.support is not None:
-            # If already disabled, the property has already been set to raise an error so return True
-            if self.disabled:
-                return True
-            # If the property is supported, return False
-            if self.support.supports(scenario_version):
-                return False
+        if self.support is None:
+            return False
 
-            error_msg = self.get_unsupported_string(scenario_version)
+        # If already disabled, the property has already been set to raise an error so return True
+        if self.disabled:
+            return True
 
-            def _get(self_):
+        # If the property is supported, return False
+        if self.support.supports(scenario_version):
+            return False
+
+        # Disable the property
+        error_msg = self.get_unsupported_string(scenario_version)
+
+        def _get(self_):
+            raise UnsupportedAttributeError(error_msg)
+
+        def _set(self_, val):
+            if val is not None:
                 raise UnsupportedAttributeError(error_msg)
 
-            def _set(self_, val):
-                if val is not None:
-                    raise UnsupportedAttributeError(error_msg)
+        # Overwrite the destination object to disable when this object is just a mock object
+        if self.destination_object is not None:
+            class_reference = self.destination_object
 
-            if self.destination_object is not None:
-                class_reference = self.destination_object
+        # Todo: Doesn't work properly when reading an older scenario first, and a newer one later
+        #  Properties don't get reset!
+        #  Just resetting doesnt work either as both scenarios can be used at the same time. get/set functions need
+        #  more logic ("or Dynamic classes" -- Alian)
+        setattr(class_reference, self.name, property(_get, _set))
+        self.disabled = True
+        return True
 
-            # Todo: Doesn't work properly when reading an older scenario first, and a newer one later
-            #  Properties don't get reset!
-            #  Just resetting doesnt work either as both scenarios can be used at the same time. get/set functions need
-            #  more logic ("or Dynamic classes" -- Alian)
-            setattr(class_reference, self.name, property(_get, _set))
-            self.disabled = True
-
-            return True
-        return False
-
-    def get_value_from_link(
+    def pull_from_link(
             self,
             uuid: UUID = None,
             number_hist: List[int] = None,
             host_obj: Type['AoE2Object'] = None,
-            from_section: Any = None
+            progress: ConstructProgress = None
     ) -> Any:
-        """
-        Retrieve value based on link.
-
-        Args:
-            uuid: The UUID of the current scenario
-            host_obj: A reference to the host object class
-            from_section: Start retrieving the value from a different starting point than the scenario sections
-            number_hist: The history numbers
-
-        Returns:
-            The value located at the location found through self.link
-        """
         overwritten = self.overwrite_unsupported_properties(host_obj, uuid)
         if overwritten:
             # Unsupported property; So unable to get value as it doesn't exist in current version.
             return None
 
-        value = super().get_value_from_link(uuid, number_hist, host_obj, from_section)
+        value = super().pull_from_link(uuid, number_hist, host_obj, progress)
 
         if self.process_as_object:
-            value = self.process_object_list(value, number_hist, uuid)
+            value = self.process_object_list(value, number_hist, uuid, progress)
         return value
 
     def pull(
             self,
             uuid: UUID,
             number_hist: List[int] = None,
-            host_obj: Type['AoE2Object'] = None
+            host_obj: Type['AoE2Object'] = None,
+            progress: ConstructProgress = None
     ) -> Dict[str, Any]:
         if number_hist is None:
             number_hist = []
@@ -130,38 +116,63 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if self.retrieve_history_number is not None:
             value = number_hist[self.retrieve_history_number]
         else:
-            value = self.get_value_from_link(uuid, number_hist, host_obj)
+            value = self.pull_from_link(uuid, number_hist, host_obj, progress)
 
         return {self.name: value}
 
-    def process_object_list(self, value_list: List[Any], instance_number_history, uuid):
+    def process_object_list(
+            self,
+            objects: List['AoE2FileSection'],
+            instance_number_history: List[int],
+            uuid: UUID,
+            progress: ConstructProgress
+    ):
         object_list = []
-        for index, struct in enumerate(value_list):
-            # Todo: Check this out - structs are unused - KSneijders
+        for index, struct in enumerate(objects):
+            # print("\n\n[process_object_list] Before call")
+            # print(f"'{type(struct)}' (type(struct))")
+            # print(f"'{self.process_as_object}' (self.process_as_object)")
+            # print(f"'{self.splitted_link}' (self.splitted_link)")
+            # print(f"'{progress}' (progress)")
+            # print(instance_number_history + [index])
+            history = instance_number_history + [index]
             object_list.append(
-                self.process_as_object._construct(uuid, instance_number_history + [index])
+                self.process_as_object.construct(
+                    uuid,
+                    history,
+                    progress=ConstructProgress(section=struct, done=len(history))
+                )
             )
         return object_list
 
-    def set_value_from_link(
+        # return [
+        #     self.process_as_object.construct(uuid, instance_number_history + [index], from_section=obj)
+        #     for index, obj in enumerate(objects)
+        # ]
+        # object_list = []
+        # for index, struct in enumerate(objects):
+        #     object_list.append(self.process_as_object.construct(uuid, instance_number_history + [index]))
+        # return object_list
+
+    def push_to_link(
             self,
             uuid: UUID = None,
             number_hist: List[int] = None,
             host_obj: 'AoE2Object' = None,
-            from_section: Any = None
+            progress: ConstructProgress = None
     ):
         if self.retrieve_history_number is not None:
             return
         if self.support and not self.support.supports(getters.get_scenario_version(uuid)):
             return
 
-        retriever = self.get_from_link(True, uuid, from_section, number_hist)
+        retriever = self.get_from_link(True, uuid, progress, number_hist)
 
         if retriever is None:
             raise ValueError("RetrieverObjectLink is unable to find retriever")
 
         value = getattr(host_obj, self.name)
-        file_section = self.get_section(uuid, from_section)
+        file_section = self.get_section(uuid, progress)
 
         if self.process_as_object:
             struct_model = RetrieverObjectLink.get_struct_model(retriever, file_section)
@@ -175,24 +186,26 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             handle_retriever_dependency(retriever, "commit", file_section, uuid)
 
     def push(self, uuid: UUID, host_obj: 'AoE2Object') -> None:
-        self.set_value_from_link(uuid, host_obj.instance_number_history, host_obj)
-
-    @staticmethod
-    def get_struct_model(retriever: 'Retriever', section: 'AoE2FileSection'):
-        prefix = "struct:"
-
-        struct_datatype = retriever.datatype.var
-        if not struct_datatype.startswith(prefix):
-            raise ValueError(f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'")
-
-        struct_name = struct_datatype[len(prefix):]
-        return section.struct_models[struct_name]
+        self.push_to_link(uuid, host_obj.instance_number_history, host_obj)
 
     @staticmethod
     def commit_object_list(object_list: List['AoE2Object'], instance_number_history: List[int]):
         for index, obj in enumerate(object_list):
             obj._instance_number_history = instance_number_history + [index]
             obj.commit()
+
+    # Todo: This could be a AoE2FileSection function
+    @staticmethod
+    def get_struct_model(retriever: 'Retriever', section: 'AoE2FileSection'):
+        prefix = "struct:"
+
+        struct_datatype = retriever.datatype.var
+        if not struct_datatype.startswith(prefix):
+            raise ValueError(
+                f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'")
+
+        struct_name = struct_datatype[len(prefix):]
+        return section.struct_models[struct_name]
 
     # Todo: This could be a retriever function
     @staticmethod
@@ -240,9 +253,9 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
     def __repr__(self):
         lines: List[str] = []
 
-        if self.group:
-            lines.append(f"[RetrieverObjectLinkGroup] {self.group.section_name}: {self.group.link}")
-            lines.append(f"\t[RetrieverObjectLink] {self.name}: {self.link} ({self.group.link}.{self.link})")
+        if self.parent:
+            lines.append(f"[RetrieverObjectLinkGroup] {self.parent.section_name}: {self.parent.link}")
+            lines.append(f"\t[RetrieverObjectLink] {self.name}: {self.link} ({self.parent.link}.{self.link})")
         else:
             lines.append(f"[RetrieverObjectLink] {self.name}: {self.section_name}.{self.link}")
 

@@ -33,7 +33,7 @@ class AoE2ObjectManager:
 
         for name, manager in managers[gv].items():
             s_print(f"\t🔄 Setting up {name}Manager...", color="yellow")
-            self.managers[name] = manager._construct(self.scenario_uuid)
+            self.managers[name] = manager.construct(self.scenario_uuid)
             s_print(f"\t✔ {name}Manager", final=True, color="green")
 
         s_print(f"Setting up managers finished successfully.", final=True)

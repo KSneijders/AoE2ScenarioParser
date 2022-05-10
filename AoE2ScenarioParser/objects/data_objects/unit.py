@@ -18,13 +18,13 @@ class Unit(AoE2Object):
     _link_list = [
         RetrieverObjectLink("player", retrieve_history_number=0),
         RetrieverObjectLinkGroup("Units", "players_units[__index__].units[__index__]", group=[
-            RetrieverObjectLink("x", "Units", link="x"),
-            RetrieverObjectLink("y", "Units", link="y"),
-            RetrieverObjectLink("z", "Units", link="z"),
-            RetrieverObjectLink("reference_id", "Units", link="reference_id"),
-            RetrieverObjectLink("unit_const", "Units", link="unit_const"),
-            RetrieverObjectLink("status", "Units", link="status"),
-            RetrieverObjectLink("rotation", "Units", link="rotation"),
+            RetrieverObjectLink("x"),
+            RetrieverObjectLink("y"),
+            RetrieverObjectLink("z"),
+            RetrieverObjectLink("reference_id"),
+            RetrieverObjectLink("unit_const"),
+            RetrieverObjectLink("status"),
+            RetrieverObjectLink("rotation"),
             RetrieverObjectLink("initial_animation_frame"),
             RetrieverObjectLink("garrisoned_in_id"),
         ])

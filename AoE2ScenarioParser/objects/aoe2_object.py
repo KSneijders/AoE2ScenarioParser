@@ -3,10 +3,12 @@ from __future__ import annotations
 from copy import deepcopy
 from enum import Enum
 from typing import List, Any, Dict
+from uuid import UUID
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
+from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 
@@ -31,7 +33,7 @@ class AoE2Object:
     @property
     def instance_number_history(self):
         """
-        Keeps indexes of the paretns of this object. Should NOT be edited. Used for constructing/committing this object
+        Keeps indexes of the parents of this object. Should NOT be edited. Used for constructing/committing this object
         """
         return self._instance_number_history
 
@@ -43,44 +45,35 @@ class AoE2Object:
         return val
 
     @classmethod
-    def _construct(cls, uuid, number_hist=None):
+    def construct(cls, uuid: UUID, number_hist: List[int] = None, progress: ConstructProgress = None):
         if number_hist is None:
             number_hist = []
 
         object_parameters: Dict[str, Any] = {}
 
         for link in cls._link_list:
-            values = link.pull(uuid, number_hist, cls)
+            # print(f"\n\nCONSTRUCT [{link.link}]")
+            # print(f"'{progress}' (progress (CONSTRUCT))")
+            values = link.pull(uuid, number_hist, cls, progress)
             object_parameters.update(values)
 
         object_parameters['uuid'] = uuid
 
         return cls(**object_parameters)
 
-    def commit(self, local_link_list: List[RetrieverObjectLinkParent] = None):
+    def commit(self, link_list: List[RetrieverObjectLinkParent] = None):
         """
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            local_link_list: a separate list of RetrieverObjectLinks. This way it's
-                possible to commit only specific properties instead of all from an object.
+            link_list: a separate list of RetrieverObjectLinks. This way it's possible to commit only specific
+                properties instead of all from an object.
         """
-        if local_link_list is None:
-            local_link_list = self._link_list
+        if link_list is None:
+            link_list = self._link_list
 
-        for link in reversed(local_link_list):
+        for link in reversed(link_list):
             link.push(self._uuid, host_obj=self)
-
-    @staticmethod
-    def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:
-        if obj is None and number_hist is None:
-            raise ValueError("The use of the parameter 'obj' or 'number_hist' is required.")
-        if obj is not None and number_hist is not None:
-            raise ValueError("Cannot use both the parameter 'obj' and 'number_hist'.")
-
-        if number_hist is None and obj is not None:
-            number_hist = obj._instance_number_history
-        return number_hist[-1] if len(number_hist) > 0 else None
 
     def _get_object_attrs(self):
         attrs = ["_instance_number_history", "_uuid"]
