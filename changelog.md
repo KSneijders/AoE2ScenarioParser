@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.40 - 2022-MAY-18
+
+### Improved
+
+- Docstrings and for the PlayerAttribute (`Attribute`) dataset  (Thanks Alian)
+
+### Fixed
+
+- `TechInfo.unique_techs()` having a typo in `TechInfo.FABRIC_SHIELDS` tech
+- `UnitInfo.unique_units()` returning the (`ELITE_`)`SHRIVAMSHA_RIDER` as castle units
+
+---
+
 ## 0.1.39 - 2022-MAY-8
 
 ### Added
