@@ -158,7 +158,7 @@ class TechInfo(Enum):
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
                 TechInfo.COUNTERWEIGHTS,
-                TechInfo.FABRIC_SHIEDS,
+                TechInfo.FABRIC_SHIELDS,
                 TechInfo.CUMAN_MERCENARIES,
                 TechInfo.DOUBLE_CROSSBOW,
                 TechInfo.DRILL,
