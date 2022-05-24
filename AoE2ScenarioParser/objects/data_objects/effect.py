@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Any
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
@@ -11,6 +11,7 @@ from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
+from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -22,8 +23,9 @@ def _add_trail_if_string_attr_is_used_in_effect(obj: Effect, attr_name, val: Uni
     return val
 
 
-class Effect(AoE2Object):
+class Effect(AoE2Object, TriggerComponent):
     """Object for handling an effect."""
+    hidden_attribute = 'effect_type'
 
     _link_list = [
         RetrieverObjectLink("effect_type", "Triggers", "trigger_data[__index__].effect_data[__index__].effect_type"),
@@ -338,6 +340,15 @@ class Effect(AoE2Object):
             val = [val]
         self._selected_object_ids = val
 
+    def should_be_displayed(self, attr: str, val: Any) -> bool:
+        # Ignore the quantity value in the print statement when flag is True.
+        if self._armour_attack_flag and attr == "quantity":
+            return False
+        if not self._armour_attack_flag and attr == "armour_attack_quantity" or attr == "armour_attack_class":
+            return False
+
+        return super().should_be_displayed(attr, val)
+
     def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.effect_type not in effects.attributes:  # Unknown effect
             attributes_list = effects.empty_attributes
@@ -347,12 +358,7 @@ class Effect(AoE2Object):
         return_string = ""
         for attribute in attributes_list:
             val = getattr(self, attribute)
-            if attribute == "effect_type" or val in [[], [-1], "", " ", -1]:
-                continue
-            # Ignore the quantity value in the print statement when flag is True.
-            if self._armour_attack_flag and attribute == "quantity":
-                continue
-            if not self._armour_attack_flag and attribute in ["armour_attack_quantity", "armour_attack_class"]:
+            if not self.should_be_displayed(attribute, val):
                 continue
 
             value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._host_uuid)
