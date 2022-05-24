@@ -154,7 +154,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         file_section = self.get_section(uuid, progress)
 
         if self.process_as_object:
-            struct_model = RetrieverObjectLink.get_struct_model(retriever, file_section)
+            struct_model = file_section.find_struct_model_by_retriever(retriever)
 
             RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), uuid)
             RetrieverObjectLink.commit_object_list(value, host_obj.instance_number_history)
@@ -173,25 +173,12 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             obj._instance_number_history = instance_number_history + [index]
             obj.commit()
 
-    # Todo: This could be a AoE2FileSection function
-    @staticmethod
-    def get_struct_model(retriever: 'Retriever', section: 'AoE2FileSection'):
-        prefix = "struct:"
-
-        struct_datatype = retriever.datatype.var
-        if not struct_datatype.startswith(prefix):
-            raise ValueError(
-                f"process_as_object isn't defined properly. Expected: '{prefix}...', got: '{struct_datatype}'")
-
-        struct_name = struct_datatype[len(prefix):]
-        return section.struct_models[struct_name]
-
-    # Todo: This could be a retriever function
+    # Todo: Should this be a function in some other countries?
     @staticmethod
     def update_retriever_length(
             retriever: Retriever,
             model: AoE2StructModel,
-            new_len: int,
+            new_length: int,
             uuid: UUID
     ) -> None:
         """
@@ -206,25 +193,24 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         Args:
             retriever: The retriever containing the list
             model: The model inside the retriever, in case the list grew
-            new_len: The new length of the list inside the managers
+            new_length: The new length of the list inside the managers
             uuid: The UUID of the current scenario
         """
-        try:
-            old_len = len(retriever.data)
-        except TypeError:  # retriever.data was not set before (list of 0 -> None)
-            old_len = 0
-            retriever.data = []
+        old_length = len(retriever.data)
 
-        if new_len < old_len:
-            retriever.data = retriever.data[:new_len]
-        elif new_len > old_len:
+        if new_length == old_length:
+            return
+
+        if new_length < old_length:
+            retriever.data = retriever.data[:new_length]
+        elif new_length > old_length:
             retriever.data += [
                 AoE2FileSection.from_model(model, uuid, set_defaults=True)
-                for _ in range(new_len - old_len)
+                for _ in range(new_length - old_length)
             ]
 
-            if retriever.log_value:
-                retriever.print_value_update(f"[{model.name}] * {old_len}", f"[{model.name}] * {new_len}")
+        if retriever.log_value:
+            retriever.print_value_update(f"[{model.name}] * {old_length}", f"[{model.name}] * {new_length}")
 
     def get_unsupported_string(self, version: str):
         return f"The property '{self.name}' is {self.support}. Current version: {version}.\n"

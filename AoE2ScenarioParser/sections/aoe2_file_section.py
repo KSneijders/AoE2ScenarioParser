@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicate_retriever_map, reset_retriever_map
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
 
 
 class SectionLevel(Enum):
@@ -45,6 +45,17 @@ class AoE2FileSection:
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
         self.level: SectionLevel = level
+
+    def find_struct_model_by_retriever(self, retriever: 'Retriever') -> AoE2StructModel:
+        prefix = "struct:"
+
+        struct_datatype = retriever.datatype.var
+        if not struct_datatype.startswith(prefix):
+            raise ValueError(f"Unable to retrieve model '{struct_datatype}' from file section. "
+                             f"Possible model names: {self.struct_models.keys()}")
+
+        struct_name = struct_datatype[len(prefix):]
+        return self.struct_models[struct_name]
 
     @classmethod
     def from_model(cls, model, uuid, set_defaults=False) -> AoE2FileSection:

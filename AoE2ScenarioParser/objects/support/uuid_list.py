@@ -28,6 +28,9 @@ class UuidList(list):
         self.on_update_execute_entry = on_update_execute_entry
         self.on_update_execute_list = on_update_execute_list
 
+        if not isinstance(seq, Iterable):
+            raise ValueError(f"Sequence object should be iterable. Got: {seq}")
+
         if seq:
             seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
             self._update(seq)
