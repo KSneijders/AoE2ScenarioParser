@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.41 - 2022-June-30
+## 0.1.41 - 2022-JUNE-30
 
 ### Fixed
 
