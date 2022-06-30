@@ -241,7 +241,11 @@ class DifficultyLevel(_DataSetIntEnums):
     MODERATE = 2
     HARD = 1
     HARDEST = 0
-    # EXTREME = 5  # ???
+    EXTREME = -1
+    """
+    The only exception in the entire scenario where the value -1 is NOT an unselected/invalid value. 
+    This might cause issues in the parser, please report them if you find any.
+    """
 
 
 class TechnologyState(_DataSetIntEnums):

@@ -13,12 +13,13 @@ from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
+from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
 
-class Trigger(AoE2Object):
+class Trigger(AoE2Object, TriggerComponent):
     """Object for handling a trigger."""
 
     # Todo: Create alternative to RetrieverObjectLink to retrieve a lot of values from the same FileSection

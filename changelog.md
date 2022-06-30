@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog]
 
 ---
 
+## 0.1.41 - 2022-June-30
+
+### Fixed
+
+- `DifficultyLevel.EXTREME` is now properly available. Representing `-1` `:yFE:`
+- The `quantity` field not being shown when printing the `Difficulty level` Condition when the difficulty was set to `EXTREME (-1)`
+- `TechInfo.INDIANS` not being renamed to `TechInfo.HINDUSTANIS`
+
+---
+
 ## 0.1.40 - 2022-MAY-18
 
 ### Improved

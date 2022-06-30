@@ -161,7 +161,7 @@ class ConditionId(IntEnum):
     """
     DIFFICULTY_LEVEL = 19
     """
-    Attributes for the **units_garrisoned** condition are:\n
+    Attributes for the **difficulty_level** condition are:\n
     - condition_type
     - quantity
     - inverted
