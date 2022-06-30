@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.41 - 2022-June-30
+## 0.1.42 - 2022-June-30
+
+### Fixed
+
+- Fixed issue with `Effect.armour_attack_class` attribute not being displayed (correctly) when printing triggers/effects
+- Fixed incorrect ID for `EffectId.DISABLE_OBJECT_DELETION`
+
+---
+
+## 0.1.41 - 2022-JUNE-30
 
 ### Fixed
 
