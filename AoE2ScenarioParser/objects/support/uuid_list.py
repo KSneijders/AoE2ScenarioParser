@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Iterable, Sequence, Union, TypeVar, List
+from typing import Iterable, Sequence, Union, TypeVar, List, Generic, Iterator
 from uuid import UUID
 
 from typing_extensions import SupportsIndex
@@ -9,7 +9,7 @@ _T = TypeVar('_T')
 NO_UUID = "<<NO_UUID>>"
 
 
-class UuidList(list):
+class UuidList(list, Generic[_T]):
     def __init__(
             self,
             uuid: UUID,
@@ -36,6 +36,9 @@ class UuidList(list):
             self._update(seq)
 
         super().__init__(seq)
+
+    def __iter__(self) -> Iterator[_T]:
+        return super().__iter__()
 
     def __deepcopy__(self, memo):
         deepcopied_content = [deepcopy(e) for e in self]
