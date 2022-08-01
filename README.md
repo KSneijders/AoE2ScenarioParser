@@ -28,7 +28,7 @@ If you have any questions regarding the parser, [join the discord]!
 
 Current up-to-date progress can be found on the [changelog.md] page. (Check the `dev` branch for non-released progress).
 
-[changelog.md]: ./CHANGELOG.md
+[changelog.md]: https://github.com/KSneijders/AoE2ScenarioParser/blob/dev/changelog.md
 
 ## Features:
 
