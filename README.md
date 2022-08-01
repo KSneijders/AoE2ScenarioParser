@@ -28,7 +28,7 @@ If you have any questions regarding the parser, [join the discord]!
 
 Current up-to-date progress can be found on the [changelog.md] page. (Check the `dev` branch for non-released progress).
 
-[changelog.md]: ./changelog.md
+[changelog.md]: ./CHANGELOG.md
 
 ## Features:
 

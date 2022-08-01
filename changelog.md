@@ -3,10 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog]
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## 0.1.42 - 2022-June-30
+## Unreleased
+
+- 
+
+---
+
+## 0.1.42 - 2022-August-01
 
 ### Fixed
 
@@ -15,7 +22,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.41 - 2022-JUNE-30
+## 0.1.41 - 2022-June-30
 
 ### Fixed
 
@@ -25,7 +32,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.40 - 2022-MAY-18
+## 0.1.40 - 2022-May-18
 
 ### Improved
 
@@ -38,7 +45,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.39 - 2022-MAY-8
+## 0.1.39 - 2022-May-8
 
 ### Added
 
@@ -94,7 +101,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.38 - 2022-MAY-1
+## 0.1.38 - 2022-May-1
 
 ### Fixed
 
@@ -102,7 +109,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.37 - 2022-MAY-1
+## 0.1.37 - 2022-May-1
 
 **Support for the new 61321 update!** (Scenario version 1.46)
 
