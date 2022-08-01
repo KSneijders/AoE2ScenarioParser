@@ -344,7 +344,7 @@ class Effect(AoE2Object, TriggerComponent):
         # Ignore the quantity value in the print statement when flag is True.
         if self._armour_attack_flag and attr == "quantity":
             return False
-        if not self._armour_attack_flag and attr == "armour_attack_quantity" or attr == "armour_attack_class":
+        if not self._armour_attack_flag and (attr == "armour_attack_quantity" or attr == "armour_attack_class"):
             return False
 
         return super().should_be_displayed(attr, val)
