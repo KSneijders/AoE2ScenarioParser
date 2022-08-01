@@ -603,7 +603,7 @@ class EffectId(IntEnum):
     **Version notice**: \n
     This condition was added in: 1.46
     """
-    DISABLE_OBJECT_DELETION = 73
+    DISABLE_OBJECT_DELETION = 74
     """Attributes for the **change_color_mood** effect are: \n
     - object_list_unit_id
     - source_player
