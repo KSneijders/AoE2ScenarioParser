@@ -128,7 +128,6 @@ class Retriever:
 
         if affect_dirty and self._data is not None:
             self.is_dirty = True
-            print(f"DIRTY! {self.name}")
         self._data = value
 
     def set_data_to_default(self):
