@@ -157,22 +157,23 @@ class AoE2FileSection:
 
         return struct
 
-    def set_data(self, data):
-        retrievers = list(self.retriever_map.values())
-
-        if len(data) == len(retrievers):
-            for i in range(len(data)):
-                retrievers[i].data = data[i]
-
-                if hasattr(retrievers[i], 'on_construct'):
-                    handle_retriever_dependency(retrievers[i], "construct", self, self._uuid)
-        else:
-            print(f"\nError in: {self.__class__.__name__}")
-            print(f"Data: (len: {len(data)}) "
-                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
-            print(f"Retrievers: (len: {len(retrievers)}) "
-                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retriever_map.values())])}")
-            raise ValueError("Data list isn't the same size as the DataType list")
+    # Todo: Remove if unused
+    # def set_data(self, data):
+    #     retrievers = list(self.retriever_map.values())
+    #
+    #     if len(data) == len(retrievers):
+    #         for i in range(len(data)):
+    #             retrievers[i].data = data[i]
+    #
+    #             if hasattr(retrievers[i], 'on_construct'):
+    #                 handle_retriever_dependency(retrievers[i], "construct", self, self._uuid)
+    #     else:
+    #         print(f"\nError in: {self.__class__.__name__}")
+    #         print(f"Data: (len: {len(data)}) "
+    #               f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
+    #         print(f"Retrievers: (len: {len(retrievers)}) "
+    #               f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retriever_map.values())])}")
+    #         raise ValueError("Data list isn't the same size as the DataType list")
 
     def __getattr__(self, item):
         """Providing a default way to access retriever data labeled 'name'"""
