@@ -4,7 +4,7 @@ from AoE2ScenarioParser.helper.exceptions import EndOfFileError
 class IncrementalGenerator:
     def __init__(self, name, file_content, progress=0):
         self.name = name
-        self.file_content = file_content
+        self.file_content: bytes = file_content
         self.progress = progress
 
     @classmethod

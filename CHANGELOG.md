@@ -3,10 +3,49 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog]
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## 0.1.39 - 2022-MAY-8
+## Unreleased
+
+- 
+
+---
+
+## 0.1.42 - 2022-August-01
+
+### Fixed
+
+- Fixed issue with `Effect.armour_attack_class` attribute not being displayed (correctly) when printing triggers/effects
+- Fixed incorrect ID for `EffectId.DISABLE_OBJECT_DELETION`
+
+---
+
+## 0.1.41 - 2022-June-30
+
+### Fixed
+
+- `DifficultyLevel.EXTREME` is now properly available. Representing `-1` `:yFE:`
+- The `quantity` field not being shown when printing the `Difficulty level` Condition when the difficulty was set to `EXTREME (-1)`
+- `TechInfo.INDIANS` not being renamed to `TechInfo.HINDUSTANIS`
+
+---
+
+## 0.1.40 - 2022-May-18
+
+### Improved
+
+- Docstrings and for the PlayerAttribute (`Attribute`) dataset  (Thanks Alian)
+
+### Fixed
+
+- `TechInfo.unique_techs()` having a typo in `TechInfo.FABRIC_SHIELDS` tech
+- `UnitInfo.unique_units()` returning the (`ELITE_`)`SHRIVAMSHA_RIDER` as castle units
+
+---
+
+## 0.1.39 - 2022-May-8
 
 ### Added
 
@@ -62,7 +101,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.38 - 2022-MAY-1
+## 0.1.38 - 2022-May-1
 
 ### Fixed
 
@@ -70,7 +109,7 @@ The format is based on [Keep a Changelog]
 
 ---
 
-## 0.1.37 - 2022-MAY-1
+## 0.1.37 - 2022-May-1
 
 **Support for the new 61321 update!** (Scenario version 1.46)
 

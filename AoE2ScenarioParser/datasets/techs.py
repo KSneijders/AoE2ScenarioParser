@@ -159,7 +159,7 @@ class TechInfo(Enum):
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
                 TechInfo.COUNTERWEIGHTS,
-                TechInfo.FABRIC_SHIEDS,
+                TechInfo.FABRIC_SHIELDS,
                 TechInfo.CUMAN_MERCENARIES,
                 TechInfo.DOUBLE_CROSSBOW,
                 TechInfo.DRILL,
@@ -720,7 +720,7 @@ class TechInfo(Enum):
     IMPERIAL_CAMEL_RIDER = 521, 74
     IMPERIAL_SKIRMISHER = 655, 120
     INCAS = 549, -1
-    INDIANS = 548, -1
+    HINDUSTANIS = 548, -1
     INQUISITION = 492, 33
     IRON_CASTING = 68, 18
     IRONCLAD = 489, 33

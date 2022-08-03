@@ -15,6 +15,7 @@ from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
@@ -40,6 +41,10 @@ class AoE2Scenario:
     @property
     def player_manager(self) -> PlayerManager:
         return self._object_manager.managers['Player']
+
+    @property
+    def message_manager(self) -> MessageManager:
+        return self._object_manager.managers['Message']
 
     def __init__(self, source_location):
         self.source_location = source_location

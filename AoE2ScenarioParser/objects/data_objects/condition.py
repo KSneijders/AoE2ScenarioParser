@@ -1,20 +1,23 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import Union
+from typing import Union, Any
 
 from AoE2ScenarioParser.datasets import conditions
+from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
+from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
-class Condition(AoE2Object):
+class Condition(AoE2Object, TriggerComponent):
     """Object for handling a condition."""
+    hidden_attribute = 'condition_type'
 
     _link_list = [
         RetrieverObjectLinkGroup("Triggers", "trigger_data[__index__].condition_data[__index__]", group=[
@@ -108,6 +111,13 @@ class Condition(AoE2Object):
 
         super().__init__(**kwargs)
 
+    def should_be_displayed(self, attr: str, val: Any) -> bool:
+        # Include the only exception to the -1 == invalid rule
+        if self.condition_type == ConditionId.DIFFICULTY_LEVEL and attr == 'quantity' and val == -1:
+            return True
+
+        return super().should_be_displayed(attr, val)
+
     def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.condition_type not in conditions.attributes:
             attributes_list = conditions.empty_attributes
@@ -117,7 +127,7 @@ class Condition(AoE2Object):
         return_string = ""
         for attribute in attributes_list:
             val = getattr(self, attribute)
-            if attribute == "condition_type" or val in [[], [-1], [''], "", " ", -1]:
+            if not self.should_be_displayed(attribute, val):
                 continue
 
             value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._uuid)
