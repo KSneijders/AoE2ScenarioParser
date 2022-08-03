@@ -7,9 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## Unreleased
+## 0.1.42 - 2022-August-03
 
-- 
+### Added
+
+- The `MessageManager` (`scenario.message_manager`)
+  - The ability to change the 6 text fields in the message tab (instructions, hints, victory etc.)
+  - `MessageManager` documentation: [link](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/message/)
+- The `is_dirty` attribute to retrievers to see if they were manually changed (from outside managers)
+- A setting that stops managers from overwriting dirty retrievers (on by default)
+  - `settings.ALLOW_DIRTY_RETRIEVER_OVERWRITE`
+
+### Changed
+
+- **BackEnd**: Partially rewritten construct & commit logic (slight performance improvement)
+- **BackEnd**: Renamed all references to `UUID` named: `host_uuid` to just `uuid`
 
 ---
 
@@ -17,8 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed issue with `Effect.armour_attack_class` attribute not being displayed (correctly) when printing triggers/effects
-- Fixed incorrect ID for `EffectId.DISABLE_OBJECT_DELETION`
+- Issue with `Effect.armour_attack_class` attribute not being displayed (correctly) when printing triggers/effects
+- Incorrect ID for `EffectId.DISABLE_OBJECT_DELETION`
 
 ---
 
