@@ -14,6 +14,8 @@ DISABLE_WARNINGS = False
 """Disable all warnings thrown by the printers.warn function."""
 DISABLE_VERSION_WARNINGS = False
 """Disable warnings about python versions"""
+DISABLE_DIRTY_RETRIEVER_WARNING = False
+"""Disable warnings about dirty retrievers being overwritten"""
 RAISE_ERROR_ON_WARNING = False
 """Raise an error when a warning should be shown. Handy for debugging, shows you the stacktrace."""
 
