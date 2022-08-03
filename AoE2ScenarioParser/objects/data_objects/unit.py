@@ -11,21 +11,23 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import actions
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class Unit(AoE2Object):
     _link_list = [
         RetrieverObjectLink("player", retrieve_history_number=0),
-        RetrieverObjectLink("x", "Units", "players_units[__index__].units[__index__].x"),
-        RetrieverObjectLink("y", "Units", "players_units[__index__].units[__index__].y"),
-        RetrieverObjectLink("z", "Units", "players_units[__index__].units[__index__].z"),
-        RetrieverObjectLink("reference_id", "Units", "players_units[__index__].units[__index__].reference_id"),
-        RetrieverObjectLink("unit_const", "Units", "players_units[__index__].units[__index__].unit_const"),
-        RetrieverObjectLink("status", "Units", "players_units[__index__].units[__index__].status"),
-        RetrieverObjectLink("rotation", "Units", "players_units[__index__].units[__index__].rotation"),
-        RetrieverObjectLink("initial_animation_frame", "Units",
-                            "players_units[__index__].units[__index__].initial_animation_frame"),
-        RetrieverObjectLink("garrisoned_in_id", "Units", "players_units[__index__].units[__index__].garrisoned_in_id"),
+        RetrieverObjectLinkGroup("Units", "players_units[__index__].units[__index__]", group=[
+            RetrieverObjectLink("x"),
+            RetrieverObjectLink("y"),
+            RetrieverObjectLink("z"),
+            RetrieverObjectLink("reference_id"),
+            RetrieverObjectLink("unit_const"),
+            RetrieverObjectLink("status"),
+            RetrieverObjectLink("rotation"),
+            RetrieverObjectLink("initial_animation_frame"),
+            RetrieverObjectLink("garrisoned_in_id"),
+        ])
     ]
 
     def __init__(self,
@@ -62,7 +64,7 @@ class Unit(AoE2Object):
 
     @player.setter
     def player(self, player: Union[int, PlayerId]):
-        actions.unit_change_ownership(self._host_uuid, player, self)
+        actions.unit_change_ownership(self._uuid, player, self)
         self._player = player
 
     @property

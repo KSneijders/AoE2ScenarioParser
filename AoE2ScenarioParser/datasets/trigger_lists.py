@@ -517,15 +517,15 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     SHOWN_RANGE = 47
     """
-    The quantity that is displayed as a unit's attack ingame (may not actually be the true attack)
+    The quantity that is displayed as a unit's attack in-game (may not actually be the true attack)
     """
     SHOWN_MELEE_ARMOR = 48
     """
-    The quantity that is displayed as a unit's melee armour ingame (may not actually be the true armour)
+    The quantity that is displayed as a unit's melee armour in-game (may not actually be the true armour)
     """
     SHOWN_PIERCE_ARMOR = 49
     """
-    The quantity that is displayed as a unit's pierce armour ingame (may not actually be the true armour)
+    The quantity that is displayed as a unit's pierce armour in-game (may not actually be the true armour)
     """
     OBJECT_NAME_ID = 50
     """
@@ -1781,7 +1781,7 @@ class Attribute(_DataSetIntEnums):
         - 0:  default
         - 1000:  (100 years) for the Hun player, after researching atheism. The value of this resource of each player is added to determine the total extra time for relic/wonder victories, i.e. it adds up if multiple hun players get the tech
     
-    - Note: Internally, relic and wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame
+    - Note: Internally, relic and wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown in-game
     """
     SPIES_DISCOUNT = 197
     """

@@ -2,24 +2,22 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Type, TYPE_CHECKING
+from typing import List, Any, Dict
+from uuid import UUID
 
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
-from AoE2ScenarioParser.scenarios.scenario_store import getters
-
-if TYPE_CHECKING:
-    from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 
 class AoE2Object:
-    _link_list: List[RetrieverObjectLink] = []
+    _link_list: List[RetrieverObjectLinkParent] = []
 
     def __init__(self, **kwargs):
         self._instance_number_history = []
-        self._host_uuid = kwargs.get('host_uuid', NO_UUID)
+        self._uuid = kwargs.get('uuid', NO_UUID)
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -32,6 +30,13 @@ class AoE2Object:
             setattr(result, k, entry)
         return result
 
+    @property
+    def instance_number_history(self):
+        """
+        Keeps indexes of the parents of this object. Should NOT be edited. Used for constructing/committing this object
+        """
+        return self._instance_number_history
+
     def _deepcopy_entry(self, k, v):
         if k in ['_sections', '_link_list']:
             val = getattr(self, k)
@@ -40,70 +45,40 @@ class AoE2Object:
         return val
 
     @classmethod
-    def _construct(cls, host_uuid, number_hist=None):
+    def construct(cls, uuid: UUID, number_hist: List[int] = None, progress: ConstructProgress = None):
         if number_hist is None:
             number_hist = []
 
-        scenario_version = getters.get_scenario_version(host_uuid)
+        object_parameters: Dict[str, Any] = {}
 
-        object_parameters = {}
         for link in cls._link_list:
-            if link.support is not None and not link.support.supports(scenario_version):
+            # print(f"\n\nCONSTRUCT [{link.link}]")
+            # print(f"'{progress}' (progress (CONSTRUCT))")
+            values = link.pull(uuid, number_hist, cls, progress)
+            object_parameters.update(values)
 
-                error_msg = f_unsupported_string(link, scenario_version)
-
-                def _get(self):
-                    raise UnsupportedAttributeError(error_msg)
-
-                def _set(self, val):
-                    if val is not None:
-                        raise UnsupportedAttributeError(error_msg)
-
-                obj = cls
-                if link.destination_object is not None:
-                    obj = link.destination_object
-
-                # Todo: Runs for each _construct() -- A LOT of overhead
-                #  Doesn't work properly when reading an older scenario first, and a newer one later
-                #  Properties don't get reset!
-                setattr(obj, link.name, property(_get, _set))
-                object_parameters[link.name] = None
-            else:
-                object_parameters[link.name] = link.construct(host_uuid, number_hist=number_hist)
-
-        object_parameters['host_uuid'] = host_uuid
+        object_parameters['uuid'] = uuid
 
         return cls(**object_parameters)
 
-    def commit(self, local_link_list=None):
+    def commit(self, link_list: List[RetrieverObjectLinkParent] = None):
         """
         Commits all changes to the section & struct structure of the object it's called upon.
 
         Args:
-            local_link_list (Type[List[RetrieverObjectLink]]): a separate list of RetrieverObjectLinks. This way it's
-                possible to commit only specific properties instead of all from an object.
+            link_list: a separate list of RetrieverObjectLinks. This way it's possible to commit only specific
+                properties instead of all from an object.
         """
-        if local_link_list is None:
-            local_link_list = self._link_list
+        if link_list is None:
+            link_list = self._link_list
 
-        for link in local_link_list[::-1]:
-            link.commit(self._host_uuid, host_obj=self)
-
-    @staticmethod
-    def get_instance_number(obj: AoE2Object = None, number_hist=None) -> int:
-        if obj is None and number_hist is None:
-            raise ValueError("The use of the parameter 'obj' or 'number_hist' is required.")
-        if obj is not None and number_hist is not None:
-            raise ValueError("Cannot use both the parameter 'obj' and 'number_hist'.")
-
-        if number_hist is None and obj is not None:
-            number_hist = obj._instance_number_history
-        return number_hist[-1] if len(number_hist) > 0 else None
+        for link in reversed(link_list):
+            link.push(self._uuid, host_obj=self)
 
     def _get_object_attrs(self):
-        attrs = ["_instance_number_history", "_host_uuid"]
+        attrs = ["_instance_number_history", "_uuid"]
         for link in self._link_list:
-            attrs.append(link.name)
+            attrs.extend(link.get_names())
         return attrs
 
     def __repr__(self):
@@ -118,7 +93,3 @@ class AoE2Object:
                 self_dict[attr] = value
 
         return str(self.__class__.__name__) + ": " + add_tabs(pretty_format_dict(self_dict), 1)
-
-
-def f_unsupported_string(link: RetrieverObjectLink, version: str):
-    return f"The property '{link.name}' is {link.support}. Current version: {version}.\n"

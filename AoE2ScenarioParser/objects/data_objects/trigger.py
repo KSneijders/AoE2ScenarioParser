@@ -17,34 +17,31 @@ from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class Trigger(AoE2Object, TriggerComponent):
     """Object for handling a trigger."""
 
-    # Todo: Create alternative to RetrieverObjectLink to retrieve a lot of values from the same FileSection
     _link_list = [
-        # SomeObject("Triggers", "trigger_data[__index__]", {"name": "trigger_name"})
-
-        RetrieverObjectLink("name", "Triggers", "trigger_data[__index__].trigger_name"),
-        RetrieverObjectLink("description", "Triggers", "trigger_data[__index__].trigger_description"),
-        RetrieverObjectLink("description_stid", "Triggers", "trigger_data[__index__].description_string_table_id"),
-        RetrieverObjectLink("display_as_objective", "Triggers", "trigger_data[__index__].display_as_objective"),
-        RetrieverObjectLink("short_description", "Triggers", "trigger_data[__index__].short_description"),
-        RetrieverObjectLink("short_description_stid", "Triggers",
-                            "trigger_data[__index__].short_description_string_table_id"),
-        RetrieverObjectLink("display_on_screen", "Triggers", "trigger_data[__index__].display_on_screen"),
-        RetrieverObjectLink("description_order", "Triggers", "trigger_data[__index__].objective_description_order"),
-        RetrieverObjectLink("enabled", "Triggers", "trigger_data[__index__].enabled"),
-        RetrieverObjectLink("looping", "Triggers", "trigger_data[__index__].looping"),
-        RetrieverObjectLink("header", "Triggers", "trigger_data[__index__].make_header"),
-        RetrieverObjectLink("mute_objectives", "Triggers", "trigger_data[__index__].mute_objectives"),
-        RetrieverObjectLink("conditions", "Triggers", "trigger_data[__index__].condition_data",
-                            process_as_object=Condition),
-        RetrieverObjectLink("condition_order", "Triggers", "trigger_data[__index__].condition_display_order_array"),
-        RetrieverObjectLink("effects", "Triggers", "trigger_data[__index__].effect_data",
-                            process_as_object=Effect),
-        RetrieverObjectLink("effect_order", "Triggers", "trigger_data[__index__].effect_display_order_array"),
+        RetrieverObjectLinkGroup("Triggers", "trigger_data[__index__]", group=[
+            RetrieverObjectLink("name", link="trigger_name"),
+            RetrieverObjectLink("description", link="trigger_description"),
+            RetrieverObjectLink("description_stid", link="description_string_table_id"),
+            RetrieverObjectLink("display_as_objective"),
+            RetrieverObjectLink("short_description"),
+            RetrieverObjectLink("short_description_stid", link="short_description_string_table_id"),
+            RetrieverObjectLink("display_on_screen"),
+            RetrieverObjectLink("description_order", link="objective_description_order"),
+            RetrieverObjectLink("enabled"),
+            RetrieverObjectLink("looping"),
+            RetrieverObjectLink("header", link="make_header"),
+            RetrieverObjectLink("mute_objectives"),
+            RetrieverObjectLink("conditions", link="condition_data", process_as_object=Condition),
+            RetrieverObjectLink("condition_order", link="condition_display_order_array"),
+            RetrieverObjectLink("effects", link="effect_data", process_as_object=Effect),
+            RetrieverObjectLink("effect_order", link="effect_display_order_array"),
+        ]),
         RetrieverObjectLink("trigger_id", retrieve_history_number=0),
     ]
 
@@ -143,7 +140,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
     @conditions.setter
     def conditions(self, val: List[Condition]) -> None:
-        self._conditions = UuidList(self._host_uuid, val)
+        self._conditions = UuidList(self._uuid, val)
         self.condition_order = list(range(0, len(val)))
 
     @property
@@ -152,7 +149,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
     @effects.setter
     def effects(self, val: List[Effect]) -> None:
-        self._effects = UuidList(self._host_uuid, val)
+        self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
     def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
@@ -171,7 +168,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
-            sv = getters.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._uuid)
             try:
                 return effect_dataset.default_attributes[eff_type]
             except KeyError:
@@ -184,7 +181,7 @@ class Trigger(AoE2Object, TriggerComponent):
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_effect = Effect(**effect_attr, host_uuid=self._host_uuid)
+        new_effect = Effect(**effect_attr, uuid=self._uuid)
         self.effects.append(new_effect)
         return new_effect
 
@@ -199,7 +196,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
         def get_default_condition_attributes(cond_type):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
-            sv = getters.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._uuid)
             try:
                 return condition_dataset.default_attributes[cond_type]
             except KeyError:
@@ -212,7 +209,7 @@ class Trigger(AoE2Object, TriggerComponent):
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_condition = Condition(**condition_attr, host_uuid=self._host_uuid)
+        new_condition = Condition(**condition_attr, uuid=self._uuid)
         self.conditions.append(new_condition)
         return new_condition
 

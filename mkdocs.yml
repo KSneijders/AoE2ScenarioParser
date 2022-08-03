@@ -20,6 +20,7 @@ nav:
     - Area: "cheatsheets/area.md"
     - Datasets: "cheatsheets/datasets.md"
     - Data Triggers: "cheatsheets/data_triggers.md"
+    - Message: "cheatsheets/message.md"
     - Map: "cheatsheets/map.md"
     - Players: "cheatsheets/players.md"
     - Triggers: "cheatsheets/triggers.md"

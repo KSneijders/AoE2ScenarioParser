@@ -5,15 +5,18 @@ from AoE2ScenarioParser.helper.helper import i_to_xy
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class TerrainTile(AoE2Object):
     """Object for handling a tile in the map."""
 
     _link_list = [
-        RetrieverObjectLink("terrain_id", "Map", "terrain_data[__index__].terrain_id"),
-        RetrieverObjectLink("elevation", "Map", "terrain_data[__index__].elevation"),
-        RetrieverObjectLink("layer", "Map", "terrain_data[__index__].layer"),
+        RetrieverObjectLinkGroup("Map", "terrain_data[__index__]", group=[
+            RetrieverObjectLink("terrain_id"),
+            RetrieverObjectLink("elevation"),
+            RetrieverObjectLink("layer"),
+        ]),
         RetrieverObjectLink("_index", retrieve_history_number=0),
     ]
 
@@ -42,7 +45,7 @@ class TerrainTile(AoE2Object):
     @property
     def xy(self) -> Tuple[int, int]:
         if not self._xy:
-            self._xy = i_to_xy(self._index, getters.get_map_size(self._host_uuid))
+            self._xy = i_to_xy(self._index, getters.get_map_size(self._uuid))
         return self._xy
 
 

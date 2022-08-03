@@ -1,17 +1,20 @@
 from AoE2ScenarioParser.datasets.players import ColorId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class PlayerResources(AoE2Object):
     """Object for handling a tile in the map."""
 
     _link_list = [
-        RetrieverObjectLink("food", "PlayerDataTwo", "resources[__index__].food"),
-        RetrieverObjectLink("wood", "PlayerDataTwo", "resources[__index__].wood"),
-        RetrieverObjectLink("gold", "PlayerDataTwo", "resources[__index__].gold"),
-        RetrieverObjectLink("stone", "PlayerDataTwo", "resources[__index__].stone"),
-        RetrieverObjectLink("color", "PlayerDataTwo", "resources[__index__].player_color"),
+        RetrieverObjectLinkGroup("PlayerDataTwo", "resources[__index__]", group=[
+            RetrieverObjectLink("food"),
+            RetrieverObjectLink("wood"),
+            RetrieverObjectLink("gold"),
+            RetrieverObjectLink("stone"),
+            RetrieverObjectLink("color", link="player_color"),
+        ])
     ]
 
     def __init__(self, food: int, wood: int, gold: int, stone: int, color: int, **kwargs):

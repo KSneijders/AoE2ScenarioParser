@@ -1,15 +1,15 @@
 from copy import deepcopy
-from typing import Iterable, Sequence, Union, TypeVar, List
+from typing import Iterable, Sequence, Union, TypeVar, List, Generic, Iterator
 from uuid import UUID
 
 from typing_extensions import SupportsIndex
 
 _T = TypeVar('_T')
 
-NO_UUID = "<<NO_HOST_UUID>>"
+NO_UUID = "<<NO_UUID>>"
 
 
-class UuidList(list):
+class UuidList(list, Generic[_T]):
     def __init__(
             self,
             uuid: UUID,
@@ -28,11 +28,17 @@ class UuidList(list):
         self.on_update_execute_entry = on_update_execute_entry
         self.on_update_execute_list = on_update_execute_list
 
+        if not isinstance(seq, Iterable):
+            raise ValueError(f"Sequence object should be iterable. Got: {seq}")
+
         if seq:
             seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
             self._update(seq)
 
         super().__init__(seq)
+
+    def __iter__(self) -> Iterator[_T]:
+        return super().__iter__()
 
     def __deepcopy__(self, memo):
         deepcopied_content = [deepcopy(e) for e in self]
@@ -130,7 +136,7 @@ class UuidList(list):
             o: an object to update
             is_last_update: If this entry is the last in a list
         """
-        o._host_uuid = self.uuid
+        o._uuid = self.uuid
         self._callback(o, is_last_update)
 
     def _callback(self, o: _T = None, is_last_update: bool = False) -> None:

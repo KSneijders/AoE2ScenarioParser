@@ -1,7 +1,7 @@
-from __future__ import annotations
+from typing import NamedTuple
 
-from collections import namedtuple
-from typing import Type
 
-Tile: Type[Tile] = namedtuple('Tile', ['x', 'y'])
-"""NamedTuple for tiles. use tile.x or tile.y for coord access"""
+class Tile(NamedTuple):
+    """NamedTuple for tiles. use tile.x or tile.y for coord access"""
+    x: int
+    y: int

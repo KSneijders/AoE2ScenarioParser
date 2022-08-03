@@ -2,6 +2,7 @@ from typing import List, Dict, Union, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player.player import Player
 from AoE2ScenarioParser.objects.data_objects.player.player_data_four import PlayerDataFour
@@ -11,6 +12,7 @@ from AoE2ScenarioParser.objects.data_objects.player.player_meta_data import Play
 from AoE2ScenarioParser.objects.data_objects.player.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
@@ -21,42 +23,56 @@ class PlayerManager(AoE2Object):
     #  I'll be dealing with this IF support for other game versions will ever happen.
 
     _link_list = [
-        RetrieverObjectLink("_starting_ages", "Options", "per_player_starting_age"),
-        RetrieverObjectLink("_lock_civilizations", "DataHeader", "per_player_lock_civilization"),
-        RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
-        RetrieverObjectLink("_metadata", "DataHeader", "player_data_1", process_as_object=PlayerMetaData),
-        RetrieverObjectLink("_player_data_3", "Units", "player_data_3", process_as_object=PlayerDataThree),
-        RetrieverObjectLink("_player_data_4", "Units", "player_data_4", process_as_object=PlayerDataFour),
-        RetrieverObjectLink("_diplomacy", "Diplomacy", "per_player_diplomacy", process_as_object=PlayerDiplomacy),
-        RetrieverObjectLink("_base_priorities", "Options", "per_player_base_priority"),
-        RetrieverObjectLink("_allied_victories", "Diplomacy", "per_player_allied_victory"),
-        RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
-        RetrieverObjectLink("_tribe_names", "DataHeader", "tribe_names"),
-        RetrieverObjectLink("_string_table_player_names", "DataHeader", "string_table_player_names"),
         RetrieverObjectLink("_player_count", "FileHeader", "player_count"),
 
-        *[
-            RetrieverObjectLink(f"_disabled_{type_}_ids_player_{i}", "Options", f"disabled_{type_}_ids_player_{i}")
-            for type_ in ["tech", "building", "unit"] for i in range(1, 9)
-        ]
+        RetrieverObjectLinkGroup("DataHeader", group=[
+            RetrieverObjectLink("_tribe_names", link="tribe_names"),
+            RetrieverObjectLink("_string_table_player_names", link="string_table_player_names"),
+            RetrieverObjectLink("_metadata", link="player_data_1", process_as_object=PlayerMetaData),
+            RetrieverObjectLink("_lock_civilizations", link="per_player_lock_civilization"),
+        ]),
+
+        RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
+
+        RetrieverObjectLinkGroup("Diplomacy", group=[
+            RetrieverObjectLink("_diplomacy", link="per_player_diplomacy", process_as_object=PlayerDiplomacy),
+            RetrieverObjectLink("_allied_victories", link="per_player_allied_victory"),
+        ]),
+
+        RetrieverObjectLinkGroup("Options", group=[
+            *[
+                RetrieverObjectLink(f"_disabled_{type_}_ids_player_{i}", link=f"disabled_{type_}_ids_player_{i}")
+                for type_ in ["tech", "building", "unit"] for i in range(1, 9)
+            ],
+            RetrieverObjectLink("_starting_ages", link="per_player_starting_age"),
+            RetrieverObjectLink("_base_priorities", link="per_player_base_priority"),
+        ]),
+
+        RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
+
+        RetrieverObjectLinkGroup("Units", group=[
+            RetrieverObjectLink("_player_data_4", link="player_data_4", process_as_object=PlayerDataFour),
+            RetrieverObjectLink("_player_data_3", link="player_data_3", process_as_object=PlayerDataThree),
+        ]),
     ]
 
-    def __init__(self,
-                 _starting_ages: List[int],
-                 _lock_civilizations: List[int],
-                 _resources: List[PlayerResources],
-                 _metadata: List[PlayerMetaData],
-                 _player_data_3: List[PlayerDataThree],
-                 _player_data_4: List[PlayerDataFour],
-                 _diplomacy: List[PlayerDiplomacy],
-                 _base_priorities: List[int],
-                 _allied_victories: List[int],
-                 _pop_caps: List[int],
-                 _tribe_names: List[str],
-                 _string_table_player_names: List[int],
-                 _player_count: int,
-                 **kwargs
-                 ):
+    def __init__(
+            self,
+            _player_count: int,
+            _tribe_names: List[str],
+            _string_table_player_names: List[int],
+            _metadata: List[PlayerMetaData],
+            _lock_civilizations: List[int],
+            _resources: List[PlayerResources],
+            _diplomacy: List[PlayerDiplomacy],
+            _allied_victories: List[int],
+            _starting_ages: List[int],
+            _base_priorities: List[int],
+            _pop_caps: List[int],
+            _player_data_4: List[PlayerDataFour],
+            _player_data_3: List[PlayerDataThree],
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
         disables = {}
@@ -118,7 +134,7 @@ class PlayerManager(AoE2Object):
     @players.setter
     def players(self, value: List[Player]) -> None:
         """Sets player objects"""
-        self._players = UuidList(self._host_uuid, value)
+        self._players = UuidList(self._uuid, value)
 
     def set_default_starting_resources(self, players: List[PlayerId] = None) -> None:
         """
@@ -195,7 +211,7 @@ class PlayerManager(AoE2Object):
         """Returns the diplomacy of all players"""
         diplomacies = self._player_attributes_to_list("diplomacy", None)
 
-        player_diplomacies = UuidList(self._host_uuid, [
+        player_diplomacies = UuidList(self._uuid, [
             PlayerDiplomacy(diplomacy_stance=diplomacies[i]) for i in range(8)
         ])
         player_diplomacies.extend([
@@ -212,7 +228,7 @@ class PlayerManager(AoE2Object):
         gold = self._player_attributes_to_list("gold", None, default=0)
         stone = self._player_attributes_to_list("stone", None, default=0)
 
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerDataFour(
                 population_limit=float(population_limit[i]),
                 food_duplicate=float(food[i]),
@@ -246,7 +262,7 @@ class PlayerManager(AoE2Object):
                 temp_lst[player + 1] = mapping['self']
                 lst.append(temp_lst)
 
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerDataThree(
                 initial_camera_x[i],
                 initial_camera_y[i],
@@ -265,7 +281,7 @@ class PlayerManager(AoE2Object):
         gold = self._player_attributes_to_list("gold", False, default=0, fill_empty=7)
         stone = self._player_attributes_to_list("stone", False, default=0, fill_empty=7)
         color = self._player_attributes_to_list("color", False, default=0, fill_empty=7)
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerResources(food[i], wood[i], gold[i], stone[i], color[i]) for i in range(len(food))
         ])
 
@@ -276,7 +292,7 @@ class PlayerManager(AoE2Object):
         human = self._player_attributes_to_list("human", False, default=0, fill_empty=7)
         civilization = self._player_attributes_to_list("civilization", False, default=40, fill_empty=7)
         architecture_set = self._player_attributes_to_list("architecture_set", False, default=40, fill_empty=7)
-        return UuidList(self._host_uuid, [
+        return UuidList(self._uuid, [
             PlayerMetaData(active[i], human[i], civilization[i], architecture_set[i]) for i in range(len(active))
         ])
 
@@ -301,7 +317,7 @@ class PlayerManager(AoE2Object):
             gaia_first: Union[bool, None] = True,
             default: Union[str, int] = 0,
             fill_empty: int = 0
-    ) -> List:
+    ) -> List[Any]:
         """
         The list to store in the scenario structure with values from all players.
 
@@ -318,9 +334,12 @@ class PlayerManager(AoE2Object):
         default_list = [default] * fill_empty
         values = []
         for p in players:
-            v = getattr(self.players[p], attribute)
-            if v is None and gaia_first is None:
-                v = default
+            try:
+                v = getattr(self.players[p], attribute)
+                if v is None and gaia_first is None:
+                    v = default
+            except UnsupportedAttributeError:
+                v = None
             values.append(v)
         return values + default_list
 
