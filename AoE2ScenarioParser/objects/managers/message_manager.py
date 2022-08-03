@@ -10,12 +10,12 @@ class MessageManager(AoE2Object):
 
     _link_list = [
         RetrieverObjectLinkGroup("Messages", group=[
-            RetrieverObjectLink("instructions", "ascii_instructions"),
-            RetrieverObjectLink("hints", "ascii_hints"),
-            RetrieverObjectLink("victory", "ascii_victory"),
-            RetrieverObjectLink("loss", "ascii_loss"),
-            RetrieverObjectLink("history", "ascii_history"),
-            RetrieverObjectLink("scouts", "ascii_scouts"),
+            RetrieverObjectLink("instructions", link="ascii_instructions"),
+            RetrieverObjectLink("hints", link="ascii_hints"),
+            RetrieverObjectLink("victory", link="ascii_victory"),
+            RetrieverObjectLink("loss", link="ascii_loss"),
+            RetrieverObjectLink("history", link="ascii_history"),
+            RetrieverObjectLink("scouts", link="ascii_scouts"),
         ]),
     ]
 

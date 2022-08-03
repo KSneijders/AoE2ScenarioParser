@@ -9,8 +9,6 @@ from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 def refresh_targets(retriever_event, section, uuid):
     for target in retriever_event.dependency_target.targets:
         selected_retriever = select_retriever(target, section, uuid)
-        # selected_retriever = get_retriever_by_name(retriever_list, target[1])
-        # selected_retriever = section.retriever_map[target[1]]
         execute_refresh_action(selected_retriever, section, uuid)
 
 
@@ -46,8 +44,6 @@ def execute_dependency_eval(retriever_event, section, uuid):
 
     values = []
     for target in targets:
-        # retriever_list = select_retriever_list(target, self_list, sections)
-        # values.append(get_retriever_by_name(retriever_list, target[1]).data)
         values.append(select_retriever(target, section, uuid).data)
 
     for index, target in enumerate(targets):
