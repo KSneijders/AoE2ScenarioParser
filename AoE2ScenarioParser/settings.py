@@ -6,6 +6,8 @@ PRINT_STATUS_UPDATES = True
 """If status updates of what is being read and written should be printed to console or not."""
 DISABLE_ERROR_ON_OVERWRITING_SOURCE = False
 """Disable the error being raised when overwriting source scenario."""
+ALLOW_DIRTY_RETRIEVER_OVERWRITE = False
+"""If it is allowed to overwrite a retriever that is dirty (it has been changed manually)"""
 
 # Warning related settings
 DISABLE_WARNINGS = False

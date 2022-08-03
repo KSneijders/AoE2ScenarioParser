@@ -32,7 +32,7 @@ def handle_retriever_dependency(retriever: Retriever, state, section, uuid: UUID
     elif action in [DependencyAction.SET_VALUE, DependencyAction.SET_REPEAT]:
         value = execute_dependency_eval(retriever_event, section, uuid)
         if action == DependencyAction.SET_VALUE:
-            retriever.data = value
+            retriever.set_data(value, affect_dirty=False)
         elif action == DependencyAction.SET_REPEAT:
             retriever.datatype.repeat = value
 

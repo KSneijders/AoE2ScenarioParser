@@ -159,7 +159,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             RetrieverObjectLink.update_retriever_length(retriever, struct_model, len(value), uuid)
             RetrieverObjectLink.commit_object_list(value, host_obj.instance_number_history)
         else:
-            retriever.data = value
+            retriever.set_data(value, affect_dirty=False)
 
         if hasattr(retriever, 'on_commit'):
             handle_retriever_dependency(retriever, "commit", file_section, uuid)
@@ -202,7 +202,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
             return
 
         if new_length < old_length:
-            retriever.data = retriever.data[:new_length]
+            retriever.set_data(retriever.data[:new_length], affect_dirty=False)
         elif new_length > old_length:
             retriever.data += [
                 AoE2FileSection.from_model(model, uuid, set_defaults=True)

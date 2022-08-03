@@ -114,16 +114,17 @@ class AoE2FileSection:
             if retriever.datatype.type == "struct":
                 struct_name = retriever.datatype.get_struct_name()
 
-                retriever.data = []
+                structs = []
                 for _ in range(retriever.datatype.repeat):
                     model = self.struct_models.get(struct_name)
                     if model is None:
                         raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
 
                     struct = self._create_struct(model, igenerator)
-                    retriever.data.append(struct)
+                    structs.append(struct)
 
                     total_length += struct.byte_length
+                retriever.set_data(structs, affect_dirty=False)
             else:
                 retrieved_bytes = bytes_parser.retrieve_bytes(igenerator, retriever)
                 self._fill_retriever_with_bytes(retriever, retrieved_bytes)
