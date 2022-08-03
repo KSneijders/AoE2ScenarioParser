@@ -108,9 +108,6 @@ class Retriever:
             value: The value to set the data to
             affect_dirty: If the `dirty` attribute should be affected (set to true) by updating the data
         """
-        if self.name == 'ascii_instructions':
-            print(self)
-
         if self.is_dirty and not affect_dirty:
             if settings.ALLOW_DIRTY_RETRIEVER_OVERWRITE:
                 if not settings.DISABLE_DIRTY_RETRIEVER_WARNING:
