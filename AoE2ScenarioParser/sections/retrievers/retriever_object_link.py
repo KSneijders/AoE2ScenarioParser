@@ -153,6 +153,9 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         value = getattr(host_obj, self.name)
         file_section = self.get_section(uuid, progress)
 
+        if self.commit_callback:
+            value = self.commit_callback(host_obj, self.name, value)
+
         if self.process_as_object:
             struct_model = file_section.find_struct_model_by_retriever(retriever)
 

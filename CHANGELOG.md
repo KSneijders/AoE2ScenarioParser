@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## Unreleased
+
+### Fixed
+
+- `Retriever.commit_callback` wasn't called on commit causing text fields on Effects to corrupt (sometimes)
+- `UnitInfo.THIRISADAI` showing as castle unit in `UnitInfo.unique_units()`
+
+---
+
 ## 0.1.43 - 2022-August-03
 
 ### Added
