@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## Unreleased
+## 0.1.44 - 2022-August-05
+
+### Added
+
+- String Table ID alternatives to `MessageManager` attributes.
+  - `message_manager.instructions_string_table_id = 123`
 
 ### Fixed
 
