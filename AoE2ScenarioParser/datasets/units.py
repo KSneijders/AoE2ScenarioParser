@@ -157,7 +157,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.SHOTEL_WARRIOR,
                     UnitInfo.TARKAN,
                     UnitInfo.TEUTONIC_KNIGHT,
-                    UnitInfo.THIRISADAI,
                     UnitInfo.THROWING_AXEMAN,
                     UnitInfo.URUMI_SWORDSMAN,
                     UnitInfo.WAR_ELEPHANT,
@@ -230,6 +229,7 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.SHRIVAMSHA_RIDER,
                 UnitInfo.SLINGER,
                 UnitInfo.TARKAN_STABLE,
+                UnitInfo.THIRISADAI,
                 UnitInfo.TURTLE_SHIP,
                 UnitInfo.WINGED_HUSSAR
             ],
