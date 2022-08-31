@@ -119,7 +119,7 @@ class Retriever:
             old_value = self._data
             self.print_value_update(old_value, value)
 
-        # If repeat is 0 and value being said is truthy (mainly not an empty list) set repeat to one
+        # If repeat is 0 and value being said is truthy (mainly not an empty list) set repeat to one (convenience)
         if self.datatype.repeat == 0 and value:
             self.datatype.repeat = 1
 

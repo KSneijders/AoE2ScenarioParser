@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import json
 import uuid
 import zlib
 from pathlib import Path
+from typing import List, Any, Tuple
 from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -11,7 +14,7 @@ from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, 
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, add_tabs, q_str, add_suffix_chars
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -19,10 +22,12 @@ from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.scenarios.scenario_debug.compare import debug_compare
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
 class AoE2Scenario:
@@ -88,8 +93,8 @@ class AoE2Scenario:
         s_print("##########################################", final=True, color="blue")
 
         s_print(f"\nLoading scenario structure...")
-        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         scenario._load_structure()
+        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         s_print(f"Loading scenario structure finished successfully.", final=True)
 
         # scenario._initialize(igenerator)
@@ -128,7 +133,7 @@ class AoE2Scenario:
                 self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
-    def _create_and_load_section(self, name, igenerator):
+    def _create_and_load_section(self, name, igenerator) -> AoE2FileSection:
         s_print(f"\t🔄 Parsing {name}...", color="yellow")
         section = AoE2FileSection.from_structure(name, self.structure.get(name), self.uuid)
         s_print(f"\t🔄 Gathering {name} data...", color="yellow")
@@ -136,10 +141,10 @@ class AoE2Scenario:
         s_print(f"\t✔ {name}", final=True, color="green")
         return section
 
-    def _add_to_sections(self, section):
+    def _add_to_sections(self, section) -> None:
         self.sections[section.name] = section
 
-    def remove_store_reference(self):
+    def remove_store_reference(self) -> None:
         """
         Removes the reference to this scenario object from the scenario store. Useful (~a must) when reading many
         scenarios in a row without needing earlier ones. Python likes to take up a lot of memory.
@@ -151,6 +156,10 @@ class AoE2Scenario:
         using: `del varname`.
         """
         store.remove_scenario(self.uuid)
+
+    def commit(self) -> None:
+        """Commit the changes to the retriever backend made within the managers."""
+        self._object_manager.reconstruct()
 
     """ ##########################################################################################
     ####################################### Write functions ######################################
@@ -169,10 +178,10 @@ class AoE2Scenario:
 
     def _write_from_structure(self, filename, skip_reconstruction=False):
         if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
-            raise ValueError(
-                "Overwriting the source scenario file is disallowed. This behaviour can be enabled in the settings file.")
+            raise ValueError("Overwriting the source scenario file is disallowed. "
+                             "This behaviour can be enabled in the settings file.")
         if not skip_reconstruction:
-            self._object_manager.reconstruct()
+            self.commit()
 
         s_print("\nFile writing from structure started...", final=True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
@@ -197,6 +206,22 @@ class AoE2Scenario:
     """ #############################################
     ################ Debug functions ################
     ############################################# """
+
+    def _debug_compare(
+            self,
+            other: AoE2Scenario,
+            filename: str = "differences.txt",
+            commit: bool = False
+    ) -> None:
+        """
+        Compare a scenario to a given scenario and report the differences found
+
+        Args:
+            other: The scenario to compare it to
+            filename: The debug file to write the differences to (Defaults to "differences.txt")
+            commit: If the scenarios need to commit their manager changes before comparing (Defaults to False)
+        """
+        debug_compare(self, other, filename, commit)
 
     def _debug_write_from_source(self, filename, datatype, write_bytes=True):
         """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
@@ -223,7 +248,7 @@ class AoE2Scenario:
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
         """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
-            self._object_manager.reconstruct()
+            self.commit()
 
         s_print("\nWriting structure to file...", final=True)
         with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:

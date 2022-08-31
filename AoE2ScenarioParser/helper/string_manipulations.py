@@ -48,7 +48,7 @@ def remove_prefix(string: str, prefix: str) -> str:
     return string[len(prefix):] if string.index(prefix) == 0 else string
 
 
-def q_str(value: any) -> str:
+def q_str(value: Any) -> str:
     if type(value) is str:
         return f"'{value}'"
     if type(value) is bytes:
