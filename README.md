@@ -10,7 +10,6 @@ the in-game editor.
 Documentation can be found on **[GitHub Pages]**.
 
 [GitHub Pages]: https://ksneijders.github.io/AoE2ScenarioParser/
-
 ## Quick links
 
 - [Installing AoE2ScenarioParser](https://ksneijders.github.io/AoE2ScenarioParser/installation/)
@@ -23,17 +22,16 @@ Documentation can be found on **[GitHub Pages]**.
 If you have any questions regarding the parser, [join the discord]!
 
 [join the discord]: https://discord.gg/DRUtmugXT3
-
 # Progress
 
 Current up-to-date progress can be found on the [changelog.md] page. (Check the `dev` branch for non-released progress).
 
 [changelog.md]: https://github.com/KSneijders/AoE2ScenarioParser/blob/dev/changelog.md
-
 ## Features:
 
+
 |            | View               | Add                 | Edit               | Remove              |
-| ---------- | ------------------ | ------------------- | ------------------ | ------------------- |
+| ------------ | -------------------- | --------------------- | -------------------- | --------------------- |
 | Triggers   | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
 | Conditions | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
 | Effects    | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
@@ -41,25 +39,26 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | Map        | n/a *<sup>1</sup>  | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
 | Players    | n/a *<sup>1</sup>  | :heavy_check_mark:* | :heavy_check_mark: | :heavy_check_mark:* |
 
-*: You can disable or enable players like in the in-game editor (min 1, max 8).  
+*: You can disable or enable players like in the in-game editor (min 1, max 8).
 *<sup>1</sup>: There's no overall formatting function to display these. Though, they can still be printed.
 
 &nbsp;
 
 ## Support:
 
-| Scenario file version | Read               | Write              | Reference                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------- | ------------------ | ------------------ | -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                   |
-| 1.36          | :heavy_check_mark: | :heavy_check_mark: | Version since the **release of the Definitive Edition**
-| 1.37          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [35584] (February 27th, 2020) <br> **Unchanged in**: <br> - Update [36202] (March 30th, 2020) <br> - Update [36906] (April 29th, 2020) <br> - Update [37650] (May 27th, 2020) <br> - Hotfix [37906] (June 2nd, 2020) <br> - Update [39284] (July 20th, 2020) <br> - Hotfix [39515] (July 27th, 2020) <br> - Update [40220] (August 24th, 2020) <br> - Update [40874] (September 22nd, 2020) <br> - Update [41855] (October 20th, 2020) |
-| 1.40          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [42848] (November 17th, 2020) <br> **Unchanged in**: <br> - Hotfix [43210] (November 24th, 2020)                                                                                                                                                                                                                                                                                       |
-| 1.41          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [44725] (January 25th, 2021) <br> **Unchanged in**: <br> - Hotfix [44834] (January 28th, 2021)<br> - Hotfix [45185] (February 11th, 2021)<br> - Update [46265] (March 24th, 2021)<br> - Update [47820] (May 3rd, 2021)                                                                                                                                                                                                                                                                                             |
-| 1.42          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [50292] (July 6th, 2021) <br> **Unchanged in**: <br> - Hotfix [50700] (July 13th, 2021)
-| 1.43          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [51737] (August 10th, 2021)
-| 1.44          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [54480] (October 5th, 2021) <br> **Unchanged in**: <br> - Hotfix [54684] (October 6th, 2021) |
-| 1.45          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [56005] (November 17th, 2021) <br> **Unchanged in**: <br> - Update [58259] (January 31st, 2022) |
-| 1.46          | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [61321] (April 27th, 2022)        
 
+| Scenario file version | Read               | Write              | Reference                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ----------------------- | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1.36                  | :heavy_check_mark: | :heavy_check_mark: | Version since the**release of the Definitive Edition**                                                                                                                                                                                                                                                                                                                                                                                                           |
+| 1.37                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[35584] (February 27th, 2020) <br> **Unchanged in**: <br> - Update [36202] (March 30th, 2020) <br> - Update [36906] (April 29th, 2020) <br> - Update [37650] (May 27th, 2020) <br> - Hotfix [37906] (June 2nd, 2020) <br> - Update [39284] (July 20th, 2020) <br> - Hotfix [39515] (July 27th, 2020) <br> - Update [40220] (August 24th, 2020) <br> - Update [40874] (September 22nd, 2020) <br> - Update [41855] (October 20th, 2020) |
+| 1.40                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[42848] (November 17th, 2020) <br> **Unchanged in**: <br> - Hotfix [43210] (November 24th, 2020)                                                                                                                                                                                                                                                                                                                                       |
+| 1.41                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[44725] (January 25th, 2021) <br> **Unchanged in**: <br> - Hotfix [44834] (January 28th, 2021)<br> - Hotfix [45185] (February 11th, 2021)<br> - Update [46265] (March 24th, 2021)<br> - Update [47820] (May 3rd, 2021)                                                                                                                                                                                                                 |
+| 1.42                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[50292] (July 6th, 2021) <br> **Unchanged in**: <br> - Hotfix [50700] (July 13th, 2021)                                                                                                                                                                                                                                                                                                                                                |
+| 1.43                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[51737] (August 10th, 2021)                                                                                                                                                                                                                                                                                                                                                                                                            |
+| 1.44                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[54480] (October 5th, 2021) <br> **Unchanged in**: <br> - Hotfix [54684] (October 6th, 2021)                                                                                                                                                                                                                                                                                                                                           |
+| 1.45                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[56005] (November 17th, 2021) <br> **Unchanged in**: <br> - Update [58259] (January 31st, 2022)                                                                                                                                                                                                                                                                                                                                        |
+| 1.46                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[61321] (April 27th, 2022)  <br> **Unchanged in**: <br> - Update [63482] (June 28th, 2021) <br> - Hotfix [63581] (July 6th, 2021)                                                                                                                                                                                                                                                                                                                                                                                                        |
+| 1.47                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[66692] (August 29th, 2022)                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 [36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
@@ -86,6 +85,9 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 [56005]: https://www.ageofempires.com/news/aoeii_de_update_56005/
 [58259]: https://www.ageofempires.com/news/aoe-ii-de-update-58259/
 [61321]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-61321/
+[63482]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-63482/
+[63581]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-63482#Hotfix-63581
+[66692]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-66692/
 
 # Authors
 

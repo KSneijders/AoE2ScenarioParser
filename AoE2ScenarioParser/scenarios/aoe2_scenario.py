@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import json
 import uuid
 import zlib
 from pathlib import Path
+from typing import List, Any, Tuple
 from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -11,7 +14,7 @@ from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, 
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, add_tabs, q_str, add_suffix_chars
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -23,6 +26,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
 class AoE2Scenario:
@@ -88,8 +92,8 @@ class AoE2Scenario:
         s_print("##########################################", final=True, color="blue")
 
         s_print(f"\nLoading scenario structure...")
-        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         scenario._load_structure()
+        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         s_print(f"Loading scenario structure finished successfully.", final=True)
 
         # scenario._initialize(igenerator)
@@ -197,6 +201,94 @@ class AoE2Scenario:
     """ #############################################
     ################ Debug functions ################
     ############################################# """
+
+    def _debug_compare(self, other: 'AoE2Scenario', filename: str = "differences.txt", commit: bool = False):
+        if commit:
+            for scn in self, other:
+                if hasattr(scn, '_object_manager'):
+                    scn._object_manager.reconstruct()
+
+        print(f"Searching for differences between scenarios...")
+        if other.game_version != self.game_version or other.scenario_version != self.scenario_version:
+            raise ValueError("Scenarios must be from the same game & have the same version.")
+
+        with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:
+            def write_lines_to_debug_file(
+                    path: List[str],
+                    reason: str,
+                    difference: Tuple[Any, Any],
+                    values: Tuple[Any, Any]
+            ):
+                val0_str_cls, val1_str_cls = values[0].__class__.__name__, values[1].__class__.__name__
+                max_type_len = max(len(val0_str_cls), len(val1_str_cls))
+
+                if isinstance(values[0], list):
+                    l0, l1 = len(values[0]), len(values[1])
+                    val0_str = f"{values[0][0:4]}" + (f" ... (4 / {l0})" if l0 - 4 > 0 else "")
+                    val1_str = f"{values[1][0:4]}" + (f" ... (4 / {l1})" if l1 - 4 > 0 else "")
+                else:
+                    val0_str = q_str(values[0])
+                    val1_str = q_str(values[1])
+
+                f.write('\n\n\n' + '\n'.join([
+                    ' > '.join(path),
+                    add_tabs(
+                        '\n'.join([
+                            f'{reason} ({q_str(difference[0])} vs {q_str(difference[1])})',
+                            f'Values:',
+                            add_tabs('\n'.join([
+                                f'{add_suffix_chars(val0_str_cls, " ", max_type_len)} | {val0_str}',
+                                f'{add_suffix_chars(val1_str_cls, " ", max_type_len)} | {val1_str}'
+                            ]), 1)
+                        ]), 1)
+                ]))
+
+            def compare_retrievers(obj1: Retriever | AoE2FileSection, obj2: Retriever | AoE2FileSection, path: List[str]):
+                path = path.copy()
+                if isinstance(obj1, AoE2FileSection):
+                    for retr_key in obj1.retriever_map.keys():
+                        retriever1: Retriever = obj1.retriever_map[retr_key]
+                        retriever2: Retriever = obj2.retriever_map[retr_key]
+
+                        compare_retrievers(retriever1, retriever2, path + [retr_key])
+                else:
+                    if obj1.data.__class__ != obj2.data.__class__:
+                        write_lines_to_debug_file(
+                            path, "DIFFERENT TYPES",
+                            (obj1.data.__class__, obj2.data.__class__),
+                            (obj1.data, obj2.data)
+                        )
+
+                    if isinstance(obj1.data, list):
+                        if len(obj1.data) != len(obj2.data):
+                            write_lines_to_debug_file(
+                                path, "DIFFERENT LENGTHS",
+                                (len(obj1.data), len(obj2.data)),
+                                (obj1.data, obj2.data),
+                            )
+
+                        elif len(obj1.data) > 0:
+                            if obj1.data[0].__class__ != obj2.data[0].__class__:
+                                write_lines_to_debug_file(
+                                    path, "DIFFERENT LIST CONTENT TYPES",
+                                    (obj1.data[0].__class__, obj2.data[0].__class__),
+                                    (obj1.data, obj2.data),
+                                )
+                            else:
+                                if isinstance(obj1.data[0], AoE2FileSection):
+                                    for i in range(len(obj1.data)):
+                                        compare_retrievers(obj1.data[i], obj2.data[i], path + [obj1.name + f"[{i}]"])
+                    elif obj1.data != obj2.data:
+                        write_lines_to_debug_file(
+                            path, "DIFFERENT VALUES",
+                            (obj1.data, obj2.data),
+                            (obj1.data, obj2.data)
+                        )
+
+            for section_key in other.sections.keys():
+                file_section1 = self.sections[section_key]
+                file_section2 = other.sections[section_key]
+                compare_retrievers(file_section1, file_section2, [section_key])
 
     def _debug_write_from_source(self, filename, datatype, write_bytes=True):
         """This function is used as a test debugging writing. It writes parts of the read file to the filesystem."""
