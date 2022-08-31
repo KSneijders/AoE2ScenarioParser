@@ -113,3 +113,8 @@ def validate_coords(x1: int, y1: int, x2: int = None, y2: int = None) -> Tuple[i
         y1, y2 = y2, y1
         warn("Swapping 'y1' and 'y2' values. Attribute 'y1' cannot be higher than 'y2'")
     return x1, y1, x2, y2
+
+
+def typename(x: Any):
+    """Get the name of the class of the given object"""
+    return type(x).__name__
