@@ -245,12 +245,18 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def item_id(self):
-        return self.object_list_unit_id
+        if value_is_valid(self.object_list_unit_id):
+            return self.object_list_unit_id
+        if value_is_valid(self.technology):
+            return self.technology
+        if value_is_valid(self.tribute_list):
+            return self.tribute_list
+        return -1
 
     @item_id.setter
     def item_id(self, value):
-        raise ValueError("The `item_id` attribute isn't used in scenario's. Please use `object_list_unit_id`.\n"
-                         "If you believe this is an error, please create a report at GitHub.")
+        raise ValueError("The `item_id` attribute is always equal to its corresponding attribute."
+                         "Please use that attribute (i.e. 'object_list_unit_id' or 'technology' or 'tribute_list').")
 
     @property
     def effect_type(self):

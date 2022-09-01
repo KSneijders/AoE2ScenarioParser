@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## Unreleased
+
+### Fixed
+
+- The `EnableTechnologyStacking` effect missing the `quantity` attribute.
+- The `item_id` attribute not updating properly for all use cases.
+
+---
+
 ## 0.1.47 - 2022-September-01
 
 ### Fixed
