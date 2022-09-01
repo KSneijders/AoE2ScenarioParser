@@ -436,6 +436,7 @@
             },
             "conquest_required": {
                 "type": "u32",
+                "comment": "If conquest is checked in 'Custom' GlobalVictory menu",
                 "default": 1
             },
             "ruins": {
@@ -444,6 +445,7 @@
             },
             "artifacts_required": {
                 "type": "u32",
+                "comment": "The amount of relics that is set when 'relics' is checked in 'Custom' GlobalVictory menu",
                 "default": 0
             },
             "discovery": {
@@ -929,8 +931,16 @@
                 "default": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             },
             "unknown_1": {
-                "type": "17",
-                "default": "9dffffffffffffffffffffff1600000000"
+                "type": "12",
+                "default": "9dffffffffffffffffffffff"
+            },
+            "ai_map_type": {
+                "type": "s32",
+                "default": 0
+            },
+            "unknown_3": {
+                "type": "1",
+                "default": "00"
             },
             "per_player_base_priority": {
                 "type": "u8",
@@ -1001,16 +1011,16 @@
                 "type": "u8",
                 "default": 0
             },
-            "ai_map_type": {
-                "type": "s32",
-                "default": 0
-            },
             "per_player_population_cap": {
                 "repeat": 16,
                 "type": "u32",
                 "default": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
             },
             "unknown_3": {
+                "type": "4",
+                "default": "00000000"
+            },
+            "unknown_5": {
                 "type": "4",
                 "default": "0df0adde"
             },

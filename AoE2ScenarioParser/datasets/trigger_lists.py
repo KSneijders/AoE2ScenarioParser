@@ -2874,7 +2874,6 @@ class Age(_DataSetIntEnums):
     >>> Age.IMPERIAL_AGE
     <Age.IMPERIAL_AGE: 3>
     """
-
     DARK_AGE = 0
     FEUDAL_AGE = 1
     CASTLE_AGE = 2
@@ -3117,7 +3116,6 @@ class ProjectileVanishMode(_DataSetIntEnums):
     >>> ProjectileVanishMode.DISAPPEAR_ON_IMPACT
     <ProjectileVanishMode.DISAPPEAR_ON_IMPACT: 0>
     """
-
     DISAPPEAR_ON_IMPACT = 0
     PASS_THROUGH = 1
 
@@ -3137,3 +3135,21 @@ class UnitTrait(_DataSetIntFlags):
     BUILD_BUILDING = 4
     TRANSFORMABLE = 8
     AUTO_SCOUT = 16
+
+
+class VictoryCondition(_DataSetIntEnums):
+    """
+    This enum class provides the integer values used to references the different victory conditions that can be set
+    using the Global Victory tab in the in-game editor.
+
+    **Examples**
+
+    >>> VictoryCondition.TIME_LIMIT
+    <VictoryCondition.TIME_LIMIT: 3>
+    """
+    STANDARD = 0
+    CONQUEST = 1
+    SCORE = 2
+    TIME_LIMIT = 3
+    CUSTOM = 4
+    SECONDARY_GAME_MODE = 6

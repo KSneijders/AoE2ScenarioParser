@@ -85,7 +85,6 @@ def compare_retrievers(
         return
 
     # If it's a retriever, check its data and go through it if necessary (when it's a list)
-
     # Check if the data types are the same
     if typename(obj1.data) != typename(obj2.data):
         write_difference_to_file(
@@ -110,20 +109,20 @@ def compare_retrievers(
                     (typename(obj1.data[0]), typename(obj2.data[0])),
                     (obj1.data, obj2.data),
                 )
+            # If the list is a list of AoE2FileSection, go through those recursively
+            # We can assume type & length are equal due to earlier checks
+            elif isinstance(obj1.data[0], AoE2FileSection):
+                for i in range(len(obj1.data)):
+                    compare_retrievers(output_file, obj1.data[i], obj2.data[i], path + [obj1.name + f"[{i}]"])
             else:
-                # If the list is a list of AoE2FileSection, go through those recursively
-                # We can assume type & length are equal due to earlier checks
-                if isinstance(obj1.data[0], AoE2FileSection):
-                    for i in range(len(obj1.data)):
-                        compare_retrievers(output_file, obj1.data[i], obj2.data[i], path + [obj1.name + f"[{i}]"])
-                else:
-                    for i in range(len(obj1.data)):
-                        if obj1.data[i] != obj2.data[i]:
-                            write_difference_to_file(
-                                output_file, path + [obj1.name + f"[{i}]"], "DIFFERENT LIST DATA VALUE",
-                                (obj1.data[i], obj2.data[i]),
-                                (obj1.data[i], obj2.data[i]),
-                            )
+                # Both lists are empty
+                for i in range(len(obj1.data)):
+                    if obj1.data[i] != obj2.data[i]:
+                        write_difference_to_file(
+                            output_file, path + [obj1.name + f"[{i}]"], "DIFFERENT LIST DATA VALUE",
+                            (obj1.data[i], obj2.data[i]),
+                            (obj1.data[i], obj2.data[i]),
+                        )
     # If it's not a list, compare the data directly.
     # This SHOULD only be values like: str, int, float or Enum datasets entries etc. (primitives)
     elif obj1.data != obj2.data:

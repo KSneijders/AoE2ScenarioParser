@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.47 - 2022-September-01
+
+### Fixed
+
+- Issues with reading new 1.47 scenario
+
+---
+
 ## 0.1.46 - 2022-September-01
 
 ### Removed
