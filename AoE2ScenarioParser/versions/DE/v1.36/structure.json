@@ -438,6 +438,7 @@
             },
             "conquest_required": {
                 "type": "u32",
+                "comment": "If conquest is checked in 'Custom' GlobalVictory menu",
                 "default": 1
             },
             "ruins": {
@@ -446,6 +447,7 @@
             },
             "artifacts_required": {
                 "type": "u32",
+                "comment": "The amount of relics that is set when 'relics' is checked in 'Custom' GlobalVictory menu",
                 "default": 0
             },
             "discovery": {
