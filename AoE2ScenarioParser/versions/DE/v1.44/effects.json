@@ -4547,6 +4547,7 @@
     "67": {
         "name": "enable_technology_stacking",
         "attributes": [
+            "quantity",
             "source_player",
             "technology"
         ],

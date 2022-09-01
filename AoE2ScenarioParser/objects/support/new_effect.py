@@ -1301,11 +1301,13 @@ class NewEffectSupport:
             self,
             source_player: Union[int, None] = None,
             technology: Union[int, None] = None,
+            quantity: Union[int, None] = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.ENABLE_TECHNOLOGY_STACKING,
             source_player=source_player,
             technology=technology,
+            quantity=quantity,
         )
 
     def disable_technology_stacking(
