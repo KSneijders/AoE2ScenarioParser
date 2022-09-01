@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.46 - 2022-September-01
+
+### Removed
+
+- Development logging information
+
+---
+
 ## 0.1.45 - 2022-August-31
 
 **Support for the new 66692 update!** (Scenario version 1.47)

@@ -1010,25 +1010,9 @@
                 "type": "u32",
                 "default": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
             },
-            "secondary_game_mode": {
-                "type": "u8",
-                "log": true,
-                "default": 0
-            },
-            "secondary_game_mode1": {
-                "type": "u8",
-                "log":  true,
-                "default": 0
-            },
-            "secondary_game_mode2": {
-                "type": "u8",
-                "log":  true,
-                "default": 0
-            },
-            "secondary_game_mode3": {
-                "type": "u8",
-                "log":  true,
-                "default": 0
+            "unknown_3": {
+                "type": "4",
+                "default": "0df0adde"
             },
             "unknown_4": {
                 "type": "4",
