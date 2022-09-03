@@ -4,7 +4,6 @@ import json
 import uuid
 import zlib
 from pathlib import Path
-from typing import List, Any, Tuple
 from typing import Union, Dict
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -14,7 +13,7 @@ from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, 
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, add_tabs, q_str, add_suffix_chars
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -27,7 +26,6 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
 
 
 class AoE2Scenario:
@@ -115,6 +113,7 @@ class AoE2Scenario:
 
     def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
+        self._file_header = raw_file_igenerator.file_content[:raw_file_igenerator.progress]
         self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
