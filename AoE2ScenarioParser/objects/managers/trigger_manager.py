@@ -40,11 +40,11 @@ class TriggerManager(AoE2Object):
         self.trigger_display_order: List[int] = trigger_display_order
 
     @property
-    def triggers(self) -> List[Trigger]:
+    def triggers(self) -> UuidList[Trigger]:
         return self._triggers
 
     @triggers.setter
-    def triggers(self, value):
+    def triggers(self, value: List[Trigger]) -> None:
         value = UuidList(self._uuid, value, on_update_execute_entry=self._update_triggers_uuid)
 
         self._trigger_hash = hash_list(value)
@@ -203,7 +203,7 @@ class TriggerManager(AoE2Object):
                                      trigger_ce_lock=None,
                                      include_gaia: bool = False,
                                      create_copy_for_players: List[IntEnum] = None,
-                                     group_triggers_by=None):
+                                     group_triggers_by=None) -> Dict[IntEnum, List[Trigger]]:
         """
         Copies an entire trigger tree for all or a selection of players. Every copy will change desired player
         attributes with it. Trigger trees are triggers linked together using EffectId.(DE)ACTIVATE_TRIGGER.
@@ -239,13 +239,13 @@ class TriggerManager(AoE2Object):
         known_node_indexes = [trigger_index]
         self._find_trigger_tree_nodes_recursively(source_trigger, known_node_indexes)
 
-        new_triggers = {}
+        new_triggers: Dict[IntEnum, List[Trigger]] = {}
         trigger_index_swap = {}
 
         # Set values for from_player
         new_triggers[from_player] = [self.triggers[i] for i in known_node_indexes]
         for index in known_node_indexes:
-            trigger = self.triggers[index]
+            trigger: Trigger = self.triggers[index]
             trigger_index_swap.setdefault(index, {})[from_player] = trigger.trigger_id
 
         # Copy for all other players
@@ -303,10 +303,12 @@ class TriggerManager(AoE2Object):
 
         As an example:
 
-        >>> [0,1,2,3,4,5,6,7,8]  # Current index order
-        >>> # Let's move trigger 1, 4, 5 and 6 to location 2
-        >>> self.move_triggers([1, 4, 5, 6], 2)  # << 2 is an INDEX, not the value
-        >>> [0,1,4,5,6,2,3,7,8]  # New index order
+        ```
+        [0,1,2,3,4,5,6,7,8]  # Current index order
+        # Let's move trigger 1, 4, 5 and 6 to location 2
+        self.move_triggers([1, 4, 5, 6], 2)  # << 2 is an INDEX, not the value
+        [0,1,4,5,6,2,3,7,8]  # New index order
+        ```
 
         Args:
             trigger_ids: The trigger IDs to move
@@ -338,9 +340,11 @@ class TriggerManager(AoE2Object):
 
         As an example:
 
-        >>> [0,1,2,3,4,5,6,7,8]  # Current index order
-        >>> self.reorder_triggers([0,1,2,3,5,4,7,8,6])
-        >>> [0,1,2,3,5,4,7,8,6]  # New index order
+        ```
+        [0,1,2,3,4,5,6,7,8]  # Current index order
+        self.reorder_triggers([0,1,2,3,5,4,7,8,6])
+        [0,1,2,3,5,4,7,8,6]  # New index order
+        ```
 
         Keep in mind that all trigger IDs will get remapped with this function. So ``trigger_manager.triggers[4]`` might
         result in a different trigger after this function is called in comparison to before.

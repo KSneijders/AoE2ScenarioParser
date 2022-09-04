@@ -28,11 +28,11 @@ class MapManagerDE(MapManager):
                  terrain: List[TerrainTile],
                  **kwargs,
                  ):
-        self.map_color_mood = map_color_mood
-        self.collide_and_correct = collide_and_correct
-        self.villager_force_drop = villager_force_drop
-
         super().__init__(map_width, map_height, terrain, **kwargs)
+
+        self.map_color_mood: str = map_color_mood
+        self.collide_and_correct: bool = collide_and_correct
+        self.villager_force_drop: bool = villager_force_drop
 
     @property
     def script_name(self):

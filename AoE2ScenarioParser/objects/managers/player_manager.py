@@ -111,7 +111,7 @@ class PlayerManager(AoE2Object):
         player_attributes: Dict[int, Dict] = {i: {'player_id': PlayerId(i)} for i in range(9)}
         for param_set, gaia_first in param_sets:
             for key, lst in param_set.items():
-                spread_player_attributes(player_attributes, key, lst, gaia_first)
+                _spread_player_attributes(player_attributes, key, lst, gaia_first)
 
         self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
 
@@ -140,7 +140,8 @@ class PlayerManager(AoE2Object):
         """
         Sets the default starting resources for all players
 
-        Note: Does NOT take civs into account
+        Note:
+            Does NOT take civs into account
 
         Args:
             players (List[PlayerId]): A list of players, defaults to all players (incl GAIA) when left out
@@ -153,16 +154,14 @@ class PlayerManager(AoE2Object):
             self.players[player].gold = 100
             self.players[player].stone = 200
 
-    def set_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY):
+    def set_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
+            -> None:
         """
         Sets all players in list allied with all others in the same list. Accepts
 
         Args:
-            args: list of player IDs or list of list of player IDs
+            *args: list of player IDs or list of list of player IDs
             diplomacy: The diplomacy to set the teams to. Defaults to ally.
-
-        Returns:
-            This function does not return anything
         """
         for team in args:
             for player in team:
@@ -330,7 +329,7 @@ class PlayerManager(AoE2Object):
         Returns:
             The list of values
         """
-        players = player_list(gaia_first)
+        players = _player_list(gaia_first)
         default_list = [default] * fill_empty
         values = []
         for p in players:
@@ -344,7 +343,7 @@ class PlayerManager(AoE2Object):
         return values + default_list
 
 
-def player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
+def _player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
     """
     Construct a list of players where GAIA can be first, last or not in the list at all
 
@@ -360,8 +359,8 @@ def player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
     return players
 
 
-def spread_player_attributes(player_attributes: Dict, key: str, lst: List,
-                             gaia_first: Union[None, bool] = True) -> None:
+def _spread_player_attributes(player_attributes: Dict, key: str, lst: List,
+                              gaia_first: Union[None, bool] = True) -> None:
     """
     Spreads list values to player attribute dictionaries
 
@@ -371,5 +370,5 @@ def spread_player_attributes(player_attributes: Dict, key: str, lst: List,
         lst (List): The list of values
         gaia_first (Union[None, bool]): If the list has gaia first, last or not at all.
     """
-    for index, p in enumerate(player_list(gaia_first)):
+    for index, p in enumerate(_player_list(gaia_first)):
         player_attributes[p][key] = lst[index] if lst is not None else None

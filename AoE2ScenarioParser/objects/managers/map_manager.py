@@ -34,9 +34,9 @@ class MapManager(AoE2Object):
                  ):
         super().__init__(**kwargs)
 
-        self._map_width = map_width
-        self._map_height = map_height
-        self.terrain = terrain
+        self.terrain: List[TerrainTile] = terrain
+        self._map_width: int = map_width
+        self._map_height: int = map_height
 
     @property
     def terrain_2d(self) -> List[List[TerrainTile]]:
