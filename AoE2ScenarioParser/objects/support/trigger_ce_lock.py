@@ -1,16 +1,28 @@
+from __future__ import annotations
+
+from typing import List
+
+
 class TriggerCELock:
-    def __init__(self, lock_conditions=False, lock_effects=False, lock_condition_type=None, lock_effect_type=None,
-                 lock_condition_ids=None, lock_effect_ids=None):
+    def __init__(
+            self,
+            lock_conditions: bool = False,
+            lock_effects: bool = False,
+            lock_condition_type: List[int] | None = None,
+            lock_effect_type: List[int] | None = None,
+            lock_condition_ids: List[int] | None = None,
+            lock_effect_ids: List[int] | None = None
+    ):
         """
         Object used to identify which conditions and effects should be locked from change.
 
         Args:
-            lock_conditions (bool): Lock all conditions
-            lock_effects (bool): Lock all effects
-            lock_condition_type (List[int]): Lock certain condition types. Example: `ConditionId.OWN_OBJECTS`
-            lock_effect_type (List[int]): Lock certain effect types. Example: `EffectId.CREATE_OBJECT`
-            lock_condition_ids (List[int]): Lock certain conditions by their id
-            lock_effect_ids (List[int]): Lock certain effects by their id
+            lock_conditions: Lock all conditions
+            lock_effects: Lock all effects
+            lock_condition_type: Lock certain condition types. Example: `ConditionId.OWN_OBJECTS`
+            lock_effect_type: Lock certain effect types. Example: `EffectId.CREATE_OBJECT`
+            lock_condition_ids: Lock certain conditions by their id
+            lock_effect_ids: Lock certain effects by their id
         """
         if lock_condition_type is None:
             lock_condition_type = []

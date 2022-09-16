@@ -22,8 +22,8 @@ class Support:
         Used to determine if retriever_object_link should be constructed/committed.
 
         Args:
-            since (float): Version item introduced
-            until (float): Version item last seen in (before removal)
+            since: Version item introduced
+            until: Version item last seen in (before removal)
         """
         self.since = since
         self.until = until

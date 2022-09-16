@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pickle
-from typing import Dict
+from typing import Dict, Any
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
@@ -36,23 +36,30 @@ class Retriever:
     on_commit: RetrieverDependency
     on_refresh: RetrieverDependency
 
-    def __init__(self, name, default_value=None, datatype=DataType(), is_list=None, log_value=False):
+    def __init__(
+            self,
+            name: str,
+            default_value: Any = None,
+            datatype: DataType = DataType(),
+            is_list: bool | None = None,
+            log_value: bool = False,
+    ):
         """
         Args:
-            name (str): The name of the item. Has to be unique within the Section or Struct
-            default_value (Any): The default value of this retriever
-            datatype (DataType): A datatype object
-            is_list (None | bool): If this retriever data should be presented using a list. If None, it's unknown.
-            log_value (bool): A boolean for, mostly, debugging. This will log information about this retrievers when the
+            name: The name of the item. Has to be unique within the Section or Struct
+            default_value: The default value of this retriever
+            datatype: A datatype object
+            is_list: If this retriever data should be presented using a list. If None, it's unknown.
+            log_value: A boolean for, mostly, debugging. This will log information about this retrievers when the
                 data is changed, when this retriever is constructed and when it's committed.
         """
         self.name: str = name
-        self.default_value = default_value
+        self.default_value: Any = default_value
         self.datatype: DataType = datatype
-        self.is_list = is_list
-        self.log_value = log_value
-        self.is_dirty = False
-        self._data = None
+        self.is_list: bool = is_list
+        self.log_value: bool = log_value
+        self.is_dirty: bool = False
+        self._data: Any = None
 
         if log_value:
             self.datatype.log_value = True
@@ -176,14 +183,14 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
-    def print_value_update(self, old, new) -> None:
+    def print_value_update(self, old: str, new: str) -> None:
         """
         Function to print when data is changed. Can also be called for when data is changed but the property doesn't
         fire. This happens when an array is adjusted in size by appending to it ([...] += [...]).
 
         Args:
-            old (str): The old value represented using a string
-            new (str): The new value represented using a string
+            old: The old value represented using a string
+            new: The new value represented using a string
         """
         print(f"{self.to_simple_string()} >>> set to: {string_manipulations.q_str(new)} "
               f"(was: {string_manipulations.q_str(old)})")

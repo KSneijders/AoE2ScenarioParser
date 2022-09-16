@@ -18,8 +18,8 @@ def get_unit(uuid: UUID, unit_reference_id: int) -> Optional['Unit']:
     Get a placed unit based on it's reference id in a scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
-        unit_reference_id (int): The reference_id of the unit
+        uuid: The UUID of the scenario
+        unit_reference_id: The reference_id of the unit
 
     Returns:
         The Unit Object
@@ -35,7 +35,7 @@ def get_units_in_area(uuid: UUID, x1: int, y1: int, x2: int, y2: int) -> Optiona
     Get a placed unit based on it's reference id in a scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
         x1: The X location of the left corner
         y1: The Y location of the left corner
         x2: The X location of the right corner
@@ -50,13 +50,13 @@ def get_units_in_area(uuid: UUID, x1: int, y1: int, x2: int, y2: int) -> Optiona
     return None
 
 
-def get_units(uuid: UUID, unit_reference_ids: List[int]) -> Optional[Tuple[List['Unit'], List[int]]]:
+def get_units(uuid: UUID, unit_reference_ids: List[int]) -> Tuple[List['Unit'], List[int]] | None:
     """
     Get a placed unit based on it's reference id in a scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
-        unit_reference_ids (List[int]): The reference_ids of the units
+        uuid: The UUID of the scenario
+        unit_reference_ids: The reference_ids of the units
 
     Returns:
         A tuple with a list of the found unit objects and a list of the IDs that weren't found.
@@ -78,7 +78,7 @@ def get_sections(uuid: UUID) -> Optional[Dict[str, 'AoE2FileSection']]:
     Get the section dict of a scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The sections of the selected scenario
@@ -94,7 +94,7 @@ def get_scenario_version(uuid: UUID) -> Optional[str]:
     Get the scenario version.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The scenario version of the selected scenario (e.g. '1.43')
@@ -110,7 +110,7 @@ def get_game_version(uuid: UUID) -> Optional[str]:
     Get the game version.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The game version of the selected scenario (e.g. 'DE')
@@ -126,7 +126,7 @@ def get_map_size(uuid: UUID) -> Optional[int]:
     Get the map size of a scenario. Scenario is selected based on the given UUID.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The map size of the scenario
@@ -142,7 +142,7 @@ def get_terrain(uuid: UUID) -> Optional[List['TerrainTile']]:
     Get the map size of a scenario. Scenario is selected based on the given UUID.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The map size of the scenario
@@ -158,8 +158,8 @@ def get_trigger(uuid: UUID, trigger_index: int) -> Optional['Trigger']:
     Get a trigger in a scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
-        trigger_index (int): The index of the trigger
+        uuid: The UUID of the scenario
+        trigger_index: The index of the trigger
 
     Returns:
         The trigger with the given ID
@@ -175,7 +175,7 @@ def get_triggers_by_prefix(uuid: UUID, prefix: str | Tuple) -> Optional[List['Tr
     Get the trigger version of the scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
         prefix: The prefix to check trigger names against
 
     Returns:
@@ -192,8 +192,8 @@ def get_variable_name(uuid: UUID, variable_index: int) -> Optional[str]:
     Get the variable name in a scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
-        variable_index (int): The index of the variable
+        uuid: The UUID of the scenario
+        variable_index: The index of the variable
 
     Returns:
         The name of the variable with the given ID
@@ -216,7 +216,7 @@ def get_trigger_version(uuid: UUID) -> Optional[float]:
     Get the trigger version of the scenario.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The trigger version.

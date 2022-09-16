@@ -27,11 +27,11 @@ class MapManager(AoE2Object):
     ]
 
     def __init__(self,
-                 map_width: int,
-                 map_height: int,
-                 terrain: List[TerrainTile],
-                 **kwargs
-                 ):
+            map_width: int,
+            map_height: int,
+            terrain: List[TerrainTile],
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
         self.terrain: List[TerrainTile] = terrain
@@ -57,15 +57,15 @@ class MapManager(AoE2Object):
         except (IndexError, ValueError):
             return None
 
-    def get_square_1d(self, x1, y1, x2, y2) -> List[TerrainTile]:
+    def get_square_1d(self, x1: int, y1: int, x2: int, y2: int) -> List[TerrainTile]:
         """
         Get a square of tiles from the map
 
         Args:
-            x1 (int): The x1 coordinate of the square
-            y1 (int): The y1 coordinate of the square
-            x2 (int): The x2 coordinate of the square
-            y2 (int): The y2 coordinate of the square
+            x1: The x1 coordinate of the square
+            y1: The y1 coordinate of the square
+            x2: The x2 coordinate of the square
+            y2: The y2 coordinate of the square
 
         Returns:
             1D list of terrain tiles based on given coordinates
@@ -75,15 +75,15 @@ class MapManager(AoE2Object):
             result.extend(row)
         return result
 
-    def get_square_2d(self, x1, y1, x2, y2) -> List[List[TerrainTile]]:
+    def get_square_2d(self, x1: int, y1: int, x2: int, y2: int) -> List[List[TerrainTile]]:
         """
         Get a square of tiles from the map
 
         Args:
-            x1 (int): The x1 coordinate of the square
-            y1 (int): The y1 coordinate of the square
-            x2 (int): The x2 coordinate of the square
-            y2 (int): The y2 coordinate of the square
+            x1: The x1 coordinate of the square
+            y1: The y1 coordinate of the square
+            x2: The x2 coordinate of the square
+            y2: The y2 coordinate of the square
 
         Returns:
             2D list of lists with terrain tiles based on given coordinates
@@ -160,8 +160,14 @@ class MapManager(AoE2Object):
                 new_terrain.extend(row)
         self.terrain = new_terrain
 
-    def set_elevation(self, elevation: int, x1: int, y1: int, x2: Optional[int] = None,
-                      y2: Optional[int] = None) -> None:
+    def set_elevation(
+            self,
+            elevation: int,
+            x1: int,
+            y1: int,
+            x2: int | None = None,
+            y2: int | None = None
+    ) -> None:
         """
         Sets elevation like the in-game elevation mechanics. Can set a hill (or single point) to a certain height and
         all tiles around it are adjusted accordingly.
@@ -169,11 +175,11 @@ class MapManager(AoE2Object):
         If you find that the in-game mechanics work differently than this function please report it.
 
         Args:
-            elevation (int): The elevation to create at the coordinates
-            x1 (int): The x coordinate of the west corner
-            y1 (int): The y coordinate of the west corner
-            x2 (Optional[int]): The x coordinate of the east corner
-            y2 (Optional[int]): The y coordinate of the east corner
+            elevation: The elevation to create at the coordinates
+            x1: The x coordinate of the west corner
+            y1: The y coordinate of the west corner
+            x2: The x coordinate of the east corner
+            y2: The y coordinate of the east corner
         """
         x2 = x1 if x2 is None else x2
         y2 = y1 if y2 is None else y2
@@ -202,9 +208,9 @@ class MapManager(AoE2Object):
         Elevation recursive function. Used in the set_elevation function
 
         Args:
-            source_tile (TerrainTile): The tile to check around
-            xys (Set[Tuple[int, int]]): The XY tuples from the initial square
-            visited (Set[Tuple[int, int]]): The visited XY tuples with this recursion tree path
+            source_tile: The tile to check around
+            xys: The XY tuples from the initial square
+            visited: The visited XY tuples with this recursion tree path
         """
         visited = set() if visited is None else visited.copy()
         x, y = source_tile.xy
@@ -222,7 +228,7 @@ class MapManager(AoE2Object):
                     other.elevation = source_tile.elevation + int(sign(other.elevation, source_tile.elevation))
                     self._elevation_tile_recursion(other, xys, visited)
 
-    def create_hill(self, x1, y1, x2, y2, elevation) -> None:
+    def create_hill(self, x1: int, y1: int, x2: int, y2: int, elevation: int) -> None:
         """
         Function that takes the coordinates and the height of a plateau and applies it to the map
         by also setting the surrounding slopes so that it is smooth.
@@ -231,11 +237,11 @@ class MapManager(AoE2Object):
         For that, you can use: `map_manager.set_elevation()`.**
 
         Args:
-            x1 (int): The x coordinate of the west corner
-            y1 (int): The y coordinate of the west corner
-            x2 (int): The x coordinate of the east corner
-            y2 (int): The y coordinate of the east corner
-            elevation (int): The elevation of the map. Default in-game = 0 (called 1 in the game), in-game max = 6
+            x1: The x coordinate of the west corner
+            y1: The y coordinate of the west corner
+            x2: The x coordinate of the east corner
+            y2: The y coordinate of the east corner
+            elevation: The elevation of the map. Default in-game = 0 (called 1 in the game), in-game max = 6
                 (called 7 in game). If the given value is over 20 the game camera will 'clip' into the hill.
                 So the in-game camera hovers around the height of 20/21 when fully zoomed in, without Ultra Graphics.
 

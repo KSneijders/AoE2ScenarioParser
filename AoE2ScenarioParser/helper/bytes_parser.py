@@ -1,20 +1,23 @@
-from typing import List
+from typing import List, TYPE_CHECKING, Any
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.helper.exceptions import EndOfFileError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+
 attributes = ['on_refresh', 'on_construct', 'on_commit']
 
 
-def vorl(retriever, value):
+def vorl(retriever: 'Retriever', value: List[Any]):
     """
     Variable or List
 
     Args:
-        retriever (Retriever): The retriever
-        value (List[Any]): A value to be put in the retriever
+        retriever: The retriever
+        value: A value to be put in the retriever
 
     Returns:
         The given list or the value inside it
@@ -32,13 +35,13 @@ def vorl(retriever, value):
     return value
 
 
-def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
+def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> List[bytes]:
     """
     Retrieves the bytes belonging to this retriever.
 
     Args:
-        igenerator (IncrementalGenerator): The generator to return the bytes from
-        retriever (Retriever): The retriever holding the bytes
+        igenerator: The generator to return the bytes from
+        retriever: The retriever holding the bytes
 
     Returns:
         The corresponding bytes in a list. When 4 int8s need to retrieved, the list will have a length of 4 where each
@@ -68,12 +71,18 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever) -> List[bytes]:
     return retrieved_bytes
 
 
-def is_end_of_file_mark(retriever) -> bool:
-    """Returns true if the retriever is the __END_OF_FILE_MARK__ retriever else false"""
+def is_end_of_file_mark(retriever: 'Retriever') -> bool:
+    """
+    Args:
+        retriever: The retriever to check
+
+    Returns:
+        Returns `True` if the retriever is the __END_OF_FILE_MARK__ retriever otherwise `False`
+    """
     return retriever.name == "__END_OF_FILE_MARK__"
 
 
-def handle_end_of_file_mark(igenerator, retriever) -> None:
+def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: 'Retriever') -> None:
     """
     Print message when the END_OF_FILE_MARK is reached and more bytes are present.\n
     You can disable this check (and thereby this message) using:\n
@@ -81,8 +90,8 @@ def handle_end_of_file_mark(igenerator, retriever) -> None:
     ``>> settings.NOTIFY_UNKNOWN_BYTES = False``
 
     Args:
-        igenerator (IncrementalGenerator): The generator to check if more bytes are present
-        retriever (Retriever): The retriever to check if it's the end of file mark
+        igenerator: The generator to check if more bytes are present
+        retriever: The retriever to check if it's the end of file mark
 
     Returns:
         None

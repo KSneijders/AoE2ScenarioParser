@@ -15,7 +15,7 @@ def get_scenario(uuid: UUID) -> Optional['AoE2Scenario']:
     Get scenario through uuid. Not intended to be called outside of the store itself.
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
 
     Returns:
         The scenario based on it's uuid
@@ -30,7 +30,7 @@ def register_scenario(scenario: 'AoE2Scenario') -> None:
     Register a scenario to the store
 
     Args:
-        scenario (AoE2DEScenario): The scenario to register
+        scenario: The scenario to register
     """
     if scenario.uuid in _scenarios:
         raise ValueError("Scenario with that UUID already present")
@@ -42,6 +42,6 @@ def remove_scenario(uuid: UUID) -> None:
     Remove a scenario from the store
 
     Args:
-        uuid (UUID): The UUID of the scenario
+        uuid: The UUID of the scenario
     """
     del _scenarios[uuid]

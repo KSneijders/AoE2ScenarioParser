@@ -10,7 +10,10 @@ def list_changed(lst, lst_hash):
 
 
 def listify(var) -> list:
-    """Always return item as list"""
+    """
+    Always return item as list
+
+    """
     return var if type(var) is list else [var]
 
 
@@ -19,8 +22,8 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
     Update an order array.
 
     Args:
-        order_array (List[int]): The order array like trigger.condition_order
-        supposed_length (int): The length the array should be
+        order_array: The order array like trigger.condition_order
+        supposed_length: The length the array should be
 
     """
     actual_length = len(order_array)

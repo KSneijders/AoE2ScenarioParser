@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from enum import Enum
 from typing import Dict
+from uuid import UUID
 
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
@@ -57,14 +58,14 @@ class AoE2FileSection:
         return self.struct_models[struct_name]
 
     @classmethod
-    def from_model(cls, model, uuid, set_defaults=False) -> AoE2FileSection:
+    def from_model(cls, model: AoE2StructModel, uuid: UUID, set_defaults: bool = False) -> AoE2FileSection:
         """
         Create a copy (what was called struct before) from a model.
 
         Args:
-            model (AoE2StructModel): The model to copy from
-            uuid (UUID): String representing host scenario
-            set_defaults (bool): If retrievers need to be set to the default values
+            model: The model to copy from
+            uuid: String representing host scenario
+            set_defaults: If retrievers need to be set to the default values
 
         Returns:
             An AoE2FileSection instance based on the model

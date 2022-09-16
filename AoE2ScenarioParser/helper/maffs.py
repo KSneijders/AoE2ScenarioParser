@@ -10,8 +10,8 @@ import math
 def sign(a: int | float, b: int | float) -> int:
     """
     Args:
-        a (int|float): The first number
-        b (int|float): The second number
+        a: The first number
+        b: The second number
 
     Returns:
         Returns 1 if a is higher than b, -1 if b is higher than a, and 0 when they're equal

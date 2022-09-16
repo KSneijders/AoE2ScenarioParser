@@ -127,19 +127,21 @@ class UnitManager(AoE2Object):
             units += player_units
         return units
 
-    def filter_units_by_const(self,
+    def filter_units_by_const(
+            self,
             unit_consts: List[int],
             blacklist: bool = False,
-            player_list: List[int | PlayerId] = None,
-            unit_list: List[Unit] = None) -> List[Unit]:
+            player_list: List[PlayerId] = None,
+            unit_list: List[Unit] = None
+    ) -> List[Unit]:
         """
         Filter unit on their unit_const value.
 
         Args:
-            unit_consts (List[int]): The constants to filter with
-            blacklist (bool): Use the given constant list as blacklist instead of whitelist
-            player_list (List[int]): A list of players to filter from. If not used, all players are used.
-            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+            unit_consts: The constants to filter with
+            blacklist: Use the given constant list as blacklist instead of whitelist
+            player_list: A list of players to filter from. If not used, all players are used.
+            unit_list: A set of units to filter from. If not used, all units are used.
 
         Returns:
             A list of units
@@ -261,8 +263,8 @@ class UnitManager(AoE2Object):
         which list to remove the unit from.
 
         Args:
-            reference_id (int): The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
-            unit (Unit): The Unit object to be removed.
+            reference_id: The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
+            unit: The Unit object to be removed.
         """
         if reference_id is not None and unit is not None:
             raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
@@ -301,7 +303,7 @@ def create_id_generator(start_id: int) -> Generator[int]:
     Create generator for increasing value
 
     Args:
-        start_id (int): The id to start returning
+        start_id: The id to start returning
 
     Returns:
         A generator which will return a +1 ID value for each time called with next.

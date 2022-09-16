@@ -11,7 +11,7 @@ class PlayerId(IntEnum):
         Return a list of all players
 
         Args:
-            exclude_gaia (bool): if the GAIA player should be excluded from the list or not
+            exclude_gaia: if the GAIA player should be excluded from the list or not
 
         Returns:
             The list of playerIds

@@ -21,7 +21,6 @@
 
         {% with attributes = obj.attributes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
           {% if attributes %}
-            {{ attributes }}
             {% if config.show_category_heading %}
               {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributessssss{% endfilter %}
             {% endif %}

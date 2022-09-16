@@ -364,7 +364,7 @@ class Effect(AoE2Object, TriggerComponent):
         Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
 
         Args:
-            quantity (int): the initial quantity value
+            quantity: the initial quantity value
 
         Returns:
             The one byte armor/attack class as int and one byte armor/attack quantity as int
@@ -400,8 +400,8 @@ class Effect(AoE2Object, TriggerComponent):
         Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
 
         Args:
-            aa_quantity (int): the armor quantity value
-            aa_class (int): the armor/attack value
+            aa_quantity: the armor quantity value
+            aa_class: the armor/attack value
 
         Returns:
             The one byte quantity and one byte armor/attack value

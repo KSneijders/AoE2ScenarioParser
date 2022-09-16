@@ -27,8 +27,8 @@ class TriggerManagerDE(TriggerManager):
         Adds a variable.
 
         Args:
-            name (str): The name for the variable
-            variable_id (int): The ID of the variable. If left empty (default: -1), lowest available value will be used
+            name: The name for the variable
+            variable_id: The ID of the variable. If left empty (default: -1), lowest available value will be used
 
         Returns:
             The newly added Variable

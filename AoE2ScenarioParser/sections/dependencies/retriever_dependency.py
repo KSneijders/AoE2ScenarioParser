@@ -1,17 +1,24 @@
+from __future__ import annotations
+
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.dependencies.dependency_eval import DependencyEval
 from AoE2ScenarioParser.sections.dependencies.dependency_target import DependencyTarget
 
 
 class RetrieverDependency:
-    def __init__(self, dependency_action, dependency_target=None, dependency_eval=None):
+    def __init__(
+            self,
+            dependency_action: DependencyAction,
+            dependency_target: DependencyTarget | None = None,
+            dependency_eval: DependencyEval | None = None
+    ):
         """
         Object for handling dependencies between retrievers
 
         Args:
-            dependency_action (DependencyAction): The type of action taken.
-            dependency_target (DependencyTarget): The target of the action.
-            dependency_eval (DependencyEval): Eval code to execute for action.
+            dependency_action: The type of action taken.
+            dependency_target: The target of the action.
+            dependency_eval: Eval code to execute for action.
         """
         if dependency_action != DependencyAction.REFRESH_SELF and dependency_target is None:
             raise ValueError(f"Parameter dependency_target cannot be None when action is {dependency_action.name}")

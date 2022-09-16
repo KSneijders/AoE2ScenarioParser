@@ -15,6 +15,7 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
+from AoE2ScenarioParser.objects.support.trigger_ce_lock import TriggerCELock
 from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -29,10 +30,10 @@ class TriggerManager(AoE2Object):
     ]
 
     def __init__(self,
-                 triggers: List[Trigger],
-                 trigger_display_order: List[int],
-                 **kwargs
-                 ):
+            triggers: List[Trigger],
+            trigger_display_order: List[int],
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
         self.triggers: List[Trigger] = triggers
@@ -69,35 +70,37 @@ class TriggerManager(AoE2Object):
     def trigger_display_order(self, val):
         self._trigger_display_order = val
 
-    def copy_trigger_per_player(self,
-                                from_player,
-                                trigger_select: int | TriggerSelect,
-                                change_from_player_only=False,
-                                include_player_source=True,
-                                include_player_target=False,
-                                trigger_ce_lock=None,
-                                include_gaia: bool = False,
-                                create_copy_for_players: List[IntEnum] = None) -> Dict[PlayerId, Trigger]:
+    def copy_trigger_per_player(
+            self,
+            from_player: IntEnum,
+            trigger_select: int | TriggerSelect,
+            change_from_player_only: bool = False,
+            include_player_source: bool = True,
+            include_player_target: bool = False,
+            trigger_ce_lock: TriggerCELock | None = None,
+            include_gaia: bool = False,
+            create_copy_for_players: List[IntEnum] = None
+    ) -> Dict[PlayerId, Trigger]:
         """
         Copies a trigger for all or a selection of players. Every copy will change desired player attributes with it.
 
         Args:
-            from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
+            from_player: The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
-            change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
+            trigger_select: An object used to identify which trigger to select.
+            change_from_player_only: If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
-            include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
+            include_player_source: If set to True, allow player source attributes to be changed while copying.
                 Player source attributes are attributes where a player is defined to perform an action such as create an
                 object. If set to False these attributes will remain unchanged.
-            include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
+            include_player_target: If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock: The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
-            include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
+            include_gaia: If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
                 defined)
-            create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
+            create_copy_for_players: A list of Players to create a copy for. The `from_player` will be
                 excluded from this list.
 
         Returns:
@@ -166,16 +169,16 @@ class TriggerManager(AoE2Object):
     def copy_trigger(
             self,
             trigger_select: int | TriggerSelect,
-            append_after_source=True,
-            add_suffix=True
+            append_after_source: bool = True,
+            add_suffix: bool = True
     ) -> Trigger:
         """
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
-            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
-            append_after_source (bool): If the new trigger should be appended below the source trigger
-            add_suffix (bool): If the text ' (copy)' should be added after the trigger
+            trigger_select: An object used to identify which trigger to select.
+            append_after_source: If the new trigger should be appended below the source trigger
+            add_suffix: If the text ' (copy)' should be added after the trigger
 
         Returns:
             The newly copied trigger
@@ -194,39 +197,41 @@ class TriggerManager(AoE2Object):
 
         return deepcopy_trigger
 
-    def copy_trigger_tree_per_player(self,
-                                     from_player,
-                                     trigger_select: int | TriggerSelect,
-                                     change_from_player_only=False,
-                                     include_player_source=True,
-                                     include_player_target=False,
-                                     trigger_ce_lock=None,
-                                     include_gaia: bool = False,
-                                     create_copy_for_players: List[IntEnum] = None,
-                                     group_triggers_by=None) -> Dict[IntEnum, List[Trigger]]:
+    def copy_trigger_tree_per_player(
+            self,
+            from_player: IntEnum,
+            trigger_select: int | TriggerSelect,
+            change_from_player_only: bool = False,
+            include_player_source: bool = True,
+            include_player_target: bool = False,
+            trigger_ce_lock: TriggerCELock | None = None,
+            include_gaia: bool = False,
+            create_copy_for_players: List[IntEnum] | None = None,
+            group_triggers_by: GroupBy | None = None
+    ) -> Dict[IntEnum, List[Trigger]]:
         """
         Copies an entire trigger tree for all or a selection of players. Every copy will change desired player
         attributes with it. Trigger trees are triggers linked together using EffectId.(DE)ACTIVATE_TRIGGER.
 
         Args:
-            from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
+            from_player: The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
-            change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
+            trigger_select: An object used to identify which trigger to select.
+            change_from_player_only: If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
-            include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
+            include_player_source: If set to True, allow player source attributes to be changed while copying.
                 Player source attributes are attributes where a player is defined to perform an action such as create an
                 object. If set to False these attributes will remain unchanged.
-            include_player_target (bool): If set to True, allow player target attributes to be changed while copying.
+            include_player_target: If set to True, allow player target attributes to be changed while copying.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock: The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed while copying.
-            include_gaia (bool): If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
+            include_gaia: If True, GAIA is included in the copied list. (Also when `create_copy_for_players` is
                 defined)
-            create_copy_for_players (List[IntEnum]): A list of Players to create a copy for. The `from_player` will be
+            create_copy_for_players: A list of Players to create a copy for. The `from_player` will be
                 excluded from this list.
-            group_triggers_by (GroupBy): How to group the newly added triggers.
+            group_triggers_by: How to group the newly added triggers.
 
         Returns:
             The newly created triggers in a dict using the Player as key and as value with a list of triggers
@@ -408,22 +413,29 @@ class TriggerManager(AoE2Object):
 
         return new_triggers
 
-    def replace_player(self, trigger_select: int | TriggerSelect, to_player, only_change_from=None,
-                       include_player_source=True, include_player_target=False, trigger_ce_lock=None) -> Trigger:
+    def replace_player(
+            self,
+            trigger_select: int | TriggerSelect,
+            to_player: PlayerId,
+            only_change_from: PlayerId = None,
+            include_player_source: bool = True,
+            include_player_target: bool = False,
+            trigger_ce_lock: TriggerCELock = None
+    ) -> Trigger:
         """
         Replaces player attributes. Specifically useful if multiple players are used in the same trigger.
 
         Args:
-            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
-            to_player (PlayerId): The player the attributes are changed to.
-            only_change_from (PlayerId): Can only change player attributes if the player is equal to the given value
-            include_player_source (bool): If set to True, allow player source attributes to be changed while replacing.
+            trigger_select: An object used to identify which trigger to select.
+            to_player: The player the attributes are changed to.
+            only_change_from: Can only change player attributes if the player is equal to the given value
+            include_player_source: If set to True, allow player source attributes to be changed while replacing.
                 Player source attributes are attributes where a player is defined to perform an action such as create an
                 object. If set to False these attributes will remain unchanged.
-            include_player_target (bool): If set to True, allow player target attributes to be changed while replacing.
+            include_player_target: If set to True, allow player target attributes to be changed while replacing.
                 Player target attributes are attributes where a player is defined as the target such as change ownership
                 or sending resources. If set to False these attributes will remain unchanged.
-            trigger_ce_lock (TriggerCELock): The TriggerCELock object. Used to lock certain (types) of conditions or
+            trigger_ce_lock: The TriggerCELock object. Used to lock certain (types) of conditions or
                 effects from being changed.
 
         Returns:
@@ -455,28 +467,41 @@ class TriggerManager(AoE2Object):
 
         return trigger
 
-    def add_trigger(self, name, description=None, description_stid=None, display_as_objective=None,
-                    short_description=None, short_description_stid=None, display_on_screen=None, description_order=None,
-                    enabled=None, looping=None, header=None, mute_objectives=None, conditions=None,
-                    effects=None) -> Trigger:
+    def add_trigger(
+            self,
+            name: str,
+            description: str | None = None,
+            description_stid: int | None = None,
+            display_as_objective: bool | None = None,
+            short_description: str | None = None,
+            short_description_stid: int | None = None,
+            display_on_screen: bool | None = None,
+            description_order: int | None = None,
+            enabled: bool | None = None,
+            looping: bool | None = None,
+            header: bool | None = None,
+            mute_objectives: bool | None = None,
+            conditions: List | None = None,
+            effects: List | None = None
+    ) -> Trigger:
         """
         Adds a new trigger to the scenario.
 
         Args:
-            name (str): The name for the trigger
-            description (str): The trigger description
-            description_stid (int): The trigger description string table ID
-            display_as_objective (bool): Display the trigger as objective
-            short_description (str): The short trigger description
-            short_description_stid (int): The short trigger description string table ID
-            display_on_screen (bool): Display the trigger objective on screen
-            description_order (int): ?
-            enabled (bool): If the trigger is enabled from the start.
-            looping (bool): If the trigger loops.
-            header (bool): Turn objective into header
-            mute_objectives (bool): Mute objectives
-            conditions (List): A list of condition managers
-            effects (List): A list of effect managers
+            name: The name for the trigger
+            description: The trigger description
+            description_stid: The trigger description string table ID
+            display_as_objective: Display the trigger as objective
+            short_description: The short trigger description
+            short_description_stid: The short trigger description string table ID
+            display_on_screen: Display the trigger objective on screen
+            description_order: ?
+            enabled: If the trigger is enabled from the start.
+            looping: If the trigger loops.
+            header: Turn objective into header
+            mute_objectives: Mute objectives
+            conditions: A list of condition managers
+            effects: A list of effect managers
 
         Returns:
             The newly created trigger
@@ -674,7 +699,7 @@ def get_activation_effects(trigger: Trigger) -> List[Effect]:
     Get all activation effects in a Trigger]
 
     Args:
-        trigger (Trigger): The trigger object
+        trigger: The trigger object
 
     Returns:
         A list with (de)activation effects

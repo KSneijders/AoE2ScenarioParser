@@ -26,40 +26,43 @@ def fixed_chars_to_bytes(string: str, var_len: int) -> bytes:
 # Update tests if this changes
 # Tests *should* fail - but just to be sure
 _no_string_trail = [
-    "filename",                 # Scenario filename
-    "ascii_instructions",       # Messages
-    "ascii_hints",              # Messages
-    "ascii_victory",            # Messages
-    "ascii_loss",               # Messages
-    "ascii_history",            # Messages
-    "ascii_scouts",             # Messages
-    "ascii_pregame",            # Cinematics
-    "ascii_victory",            # Cinematics
-    "ascii_loss",               # Cinematics
-    "ascii_filename",           # Cinematics
-    "strings",                  # in PlayerDataTwo
-    "ai_names",                 # in PlayerDataTwo
-    "ai_per_file_text",         # in AIStruct
-    "unknown_string",           # in Map
-    "map_color_mood",           # in Map
-    "script_name",              # in Map
-    "water_definition",         # in Map
-    "message",                  # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
-    "sound_name",               # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
-    "script_file_path",         # in Files
-    "script_file_content",      # in Files
+    "filename",  # Scenario filename
+    "ascii_instructions",  # Messages
+    "ascii_hints",  # Messages
+    "ascii_victory",  # Messages
+    "ascii_loss",  # Messages
+    "ascii_history",  # Messages
+    "ascii_scouts",  # Messages
+    "ascii_pregame",  # Cinematics
+    "ascii_victory",  # Cinematics
+    "ascii_loss",  # Cinematics
+    "ascii_filename",  # Cinematics
+    "strings",  # in PlayerDataTwo
+    "ai_names",  # in PlayerDataTwo
+    "ai_per_file_text",  # in AIStruct
+    "unknown_string",  # in Map
+    "map_color_mood",  # in Map
+    "script_name",  # in Map
+    "water_definition",  # in Map
+    "message",  # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
+    "sound_name",  # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
+    "script_file_path",  # in Files
+    "script_file_content",  # in Files
 ]
 
 
-def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=settings.FALLBACK_CHARSET) \
-        -> str | bytes:
+def bytes_to_str(
+        byte_elements: bytes,
+        charset: str = settings.MAIN_CHARSET,
+        fallback_charset: str = settings.FALLBACK_CHARSET
+) -> str | bytes:
     """
     Converts bytes to string based on given charset.
 
     Args:
-        byte_elements (bytes): Bytes to be decoded to string.
-        charset (str): Main charset used to decode the bytes. Defaults settings.MAIN_CHARSET.
-        fallback_charset (str): Fallback charset used to decode the bytes when the main fails. Defaults settings.FALLBACK_CHARSET.
+        byte_elements: Bytes to be decoded to string.
+        charset: Main charset used to decode the bytes. Defaults settings.MAIN_CHARSET.
+        fallback_charset: Fallback charset used to decode the bytes when the main fails. Defaults settings.FALLBACK_CHARSET.
 
     Returns:
         The decoded string or the byte elements when the string cannot be decoded
@@ -74,7 +77,8 @@ def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=
 
     # Return the string as bytes when it cannot be decoded.
     # This will leave the string as-is.
-    warn(f"Unable to decode bytes using '{charset}' and '{fallback_charset}', bytes: \n\t{trunc_bytes(byte_elements, 25)}")
+    warn(
+        f"Unable to decode bytes using '{charset}' and '{fallback_charset}', bytes: \n\t{trunc_bytes(byte_elements, 25)}")
     return byte_elements
 
 

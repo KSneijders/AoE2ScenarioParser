@@ -142,11 +142,14 @@ class PlayerManager(AoE2Object):
         """
         Sets the default starting resources for all players
 
-        Note:
-            Does NOT take civs into account
+        Warning: Does NOT take civs into account
+            This does not take the current selected civ of this player into account. For example, a player with the
+            Chinese civ selected will still be set to 200 food. Generally speaking, it's recommended to not use this for
+            competitive, normal play. You can select `low` resources in the lobby menu to get 'normal' resources for
+            every civ.
 
         Args:
-            players (List[PlayerId]): A list of players, defaults to all players (incl GAIA) when left out
+            players: A list of players, defaults to all players (incl GAIA) when left out
         """
         if players is None:
             players = PlayerId.all()
@@ -323,10 +326,10 @@ class PlayerManager(AoE2Object):
         The list to store in the scenario structure with values from all players.
 
         Args:
-            attribute (str): The attribute to get from the players
-            gaia_first (bool | None): If the list has gaia first, last or not at all
-            default (str | int): The default value to fill the empty fields and what to end to an 16 field list
-            fill_empty (int): How many empty elements have to be filled with the default value
+            attribute: The attribute to get from the players
+            gaia_first: If the list has gaia first, last or not at all
+            default: The default value to fill the empty fields and what to end to an 16 field list
+            fill_empty: How many empty elements have to be filled with the default value
 
         Returns:
             The list of values
@@ -350,7 +353,7 @@ def _player_list(gaia_first: None | bool = True) -> List[PlayerId]:
     Construct a list of players where GAIA can be first, last or not in the list at all
 
     Args:
-        gaia_first (None | bool): If the list has gaia first, last or not at all
+        gaia_first: If the list has gaia first, last or not at all
 
     Returns:
         The list of players
@@ -361,16 +364,20 @@ def _player_list(gaia_first: None | bool = True) -> List[PlayerId]:
     return players
 
 
-def _spread_player_attributes(player_attributes: Dict, key: str, lst: List,
-                              gaia_first: None | bool = True) -> None:
+def _spread_player_attributes(
+        player_attributes: Dict,
+        key: str,
+        lst: List,
+        gaia_first: None | bool = True
+) -> None:
     """
     Spreads list values to player attribute dictionaries
 
     Args:
-        player_attributes (dict): Player attributes dict to save the values in
-        key (str): The key to save the values under in the player dicts
-        lst (List): The list of values
-        gaia_first (None | bool): If the list has gaia first, last or not at all.
+        player_attributes: Player attributes dict to save the values in
+        key: The key to save the values under in the player dicts
+        lst: The list of values
+        gaia_first: If the list has gaia first, last or not at all.
     """
     for index, p in enumerate(_player_list(gaia_first)):
         player_attributes[p][key] = lst[index] if lst is not None else None

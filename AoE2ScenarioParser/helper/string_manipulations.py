@@ -41,8 +41,8 @@ def remove_prefix(string: str, prefix: str) -> str:
         https://docs.python.org/3/library/stdtypes.html?highlight=removesuffix#str.removeprefix
 
     Args:
-        string (str): The string to check it's prefix
-        prefix (str): The prefix to remove from the string
+        string: The string to check it's prefix
+        prefix: The prefix to remove from the string
 
     Returns:
         The given string or the string without the prefix if it was present
