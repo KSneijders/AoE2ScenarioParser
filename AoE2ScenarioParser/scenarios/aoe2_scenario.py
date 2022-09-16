@@ -57,7 +57,7 @@ class AoE2Scenario:
         self.game_version = "???"
         self.structure = {}
         self.sections: Dict[str, AoE2FileSection] = {}
-        self._object_manager: Union[AoE2ObjectManager, None] = None
+        self._object_manager: AoE2ObjectManager | None = None
 
         # Used in debug functions
         self._file = None
@@ -149,10 +149,11 @@ class AoE2Scenario:
         scenarios in a row without needing earlier ones. Python likes to take up a lot of memory.
         Removing all references to an object will cause the memory to be cleared up.
 
-        **Please note:** When using this function it's important to remove all other references to the scenario.
-        So if save it in a dict or list, remove it from it.
-        If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete them
-        using: `del varname`.
+        Warning: Remove all other references too!
+            When using this function it's important to remove all other references to the scenario.
+            So if save it in a dict or list, remove it from it.
+            If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete them
+            using: `del varname`.
         """
         store.remove_scenario(self.uuid)
 

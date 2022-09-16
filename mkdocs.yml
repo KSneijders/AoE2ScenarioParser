@@ -15,6 +15,7 @@ plugins:
             options:
               # Options from: https://mkdocstrings.github.io/python/usage/
               show_if_no_docstring: true
+              show_category_heading: true
               docstring_style: google
               show_source: true  # Show source code
               show_bases: true  # Show parent classes
@@ -51,6 +52,7 @@ nav:
     - Tools: "community/tools.md"
     - Projects: "community/projects.md"
   - API Docs:
+    - Scenario: "api_docs/scenario.md"
     - PlayerManager: "api_docs/player_manager.md"
     - TriggerManager: "api_docs/trigger_manager.md"
     - TriggerManagerDE: "api_docs/trigger_manager_de.md"
@@ -101,7 +103,9 @@ theme:
     - search.highlight
     - search.share
     - navigation.expand
-
+  font:
+    text: Roboto
+    code: Fira Code
   palette:
     - scheme: default
       toggle:
