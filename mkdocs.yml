@@ -8,7 +8,7 @@ use_directory_urls: true
 plugins:
     - search
     - mkdocstrings:
-        custom_templates: resources/api_docs/templates
+        custom_templates: resources/docs/templates
         default_handler: python
         handlers:
           python:
@@ -19,13 +19,13 @@ plugins:
               docstring_style: google
               show_source: true  # Show source code
               show_bases: true  # Show parent classes
-              filters: ["!^_[^_]", "!^__"]
+              filters: ["!^_[^_]"]
 
 
 watch:
 - AoE2ScenarioParser
 - docs
-- resources/api_docs
+- resources/docs
 
 nav:
   - AoE2SP:
@@ -90,6 +90,9 @@ markdown_extensions:
 extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - _assets/css/api_docs_extra.css
 
 theme:
   name: material

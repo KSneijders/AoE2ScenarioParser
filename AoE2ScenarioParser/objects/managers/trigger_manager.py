@@ -15,7 +15,7 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
-from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect, TS
+from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
@@ -35,9 +35,9 @@ class TriggerManager(AoE2Object):
                  ):
         super().__init__(**kwargs)
 
-        self._trigger_hash = hash_list(triggers)
         self.triggers: List[Trigger] = triggers
         self.trigger_display_order: List[int] = trigger_display_order
+        self._trigger_hash = hash_list(triggers)
 
     @property
     def triggers(self) -> UuidList[Trigger]:
@@ -130,7 +130,7 @@ class TriggerManager(AoE2Object):
             if player == from_player:
                 continue
 
-            new_trigger = self.copy_trigger(TS.trigger(trigger), append_after_source=False, add_suffix=False)
+            new_trigger = self.copy_trigger(TriggerSelect.trigger(trigger), append_after_source=False, add_suffix=False)
             new_trigger.name += " (GAIA)" if player == PlayerId.GAIA else f" (p{player})"
             return_dict[player] = new_trigger
 

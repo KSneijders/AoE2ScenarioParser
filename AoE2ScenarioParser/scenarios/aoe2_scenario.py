@@ -4,7 +4,7 @@ import json
 import uuid
 import zlib
 from pathlib import Path
-from typing import Union, Dict
+from typing import Union, Dict, Any
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
@@ -52,9 +52,9 @@ class AoE2Scenario:
     def __init__(self, source_location):
         self.source_location = source_location
 
-        self.read_mode = None
-        self.scenario_version = "???"
-        self.game_version = "???"
+        self.read_mode: str = "???"
+        self.scenario_version: str = "???"
+        self.game_version: str = "???"
         self.structure = {}
         self.sections: Dict[str, AoE2FileSection] = {}
         self._object_manager: AoE2ObjectManager | None = None
@@ -82,7 +82,7 @@ class AoE2Scenario:
         scenario = cls(filename)
         scenario.read_mode = "from_file"
         scenario.game_version = game_version
-        scenario.scenario_version = get_file_version(igenerator)
+        scenario.scenario_version = _get_file_version(igenerator)
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
@@ -92,7 +92,7 @@ class AoE2Scenario:
 
         s_print(f"\nLoading scenario structure...")
         scenario._load_structure()
-        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
+        _initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         s_print(f"Loading scenario structure finished successfully.", final=True)
 
         # scenario._initialize(igenerator)
@@ -109,7 +109,7 @@ class AoE2Scenario:
     def _load_structure(self):
         if self.game_version == "???" or self.scenario_version == "???":
             raise ValueError("Both game and scenario version need to be set to load structure")
-        self.structure = get_structure(self.game_version, self.scenario_version)
+        self.structure = _get_structure(self.game_version, self.scenario_version)
 
     def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
@@ -117,7 +117,7 @@ class AoE2Scenario:
         self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
-        self._decompressed_file_data = decompress_bytes(raw_file_igenerator.get_remaining_bytes())
+        self._decompressed_file_data = _decompress_bytes(raw_file_igenerator.get_remaining_bytes())
 
         data_igenerator = IncrementalGenerator(name='Scenario Data', file_content=self._decompressed_file_data)
 
@@ -192,7 +192,7 @@ class AoE2Scenario:
                 continue
             binary_list_to_be_compressed.append(_get_file_section_data(file_part))
 
-        compressed = compress_bytes(b''.join(binary_list_to_be_compressed))
+        compressed = _compress_bytes(b''.join(binary_list_to_be_compressed))
 
         with open(filename, 'wb') as f:
             f.write(binary + compressed)
@@ -270,8 +270,8 @@ class AoE2Scenario:
         s_print("Writing structure to file finished successfully.", final=True)
 
 
-def initialise_version_dependencies(game_version, scenario_version):
-    condition_json = get_version_dependant_structure_file(game_version, scenario_version, "conditions")
+def _initialise_version_dependencies(game_version: str, scenario_version: str) -> None:
+    condition_json = _get_version_dependant_structure_file(game_version, scenario_version, "conditions")
 
     for condition_id, structure in condition_json.items():
         condition_id = int(condition_id)
@@ -285,7 +285,7 @@ def initialise_version_dependencies(game_version, scenario_version):
         conditions.attributes[condition_id] = structure['attributes']
         conditions.attribute_presentation[condition_id] = structure.get('attribute_presentation', {})
 
-    effect_json = get_version_dependant_structure_file(game_version, scenario_version, "effects")
+    effect_json = _get_version_dependant_structure_file(game_version, scenario_version, "effects")
 
     for effect_id, structure in effect_json.items():
         effect_id = int(effect_id)
@@ -307,29 +307,29 @@ def _get_file_section_data(file_section: AoE2FileSection):
     return value
 
 
-def get_file_version(generator: IncrementalGenerator):
+def _get_file_version(generator: IncrementalGenerator):
     """Get first 4 bytes of a file, which contains the version of the scenario"""
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
 
-def decompress_bytes(file_content):
+def _decompress_bytes(file_content: bytes) -> bytes:
     return zlib.decompress(file_content, -zlib.MAX_WBITS)
 
 
-def compress_bytes(file_content):
+def _compress_bytes(file_content: bytes) -> bytes:
     # https://stackoverflow.com/questions/3122145/zlib-error-error-3-while-decompressing-incorrect-header-check/22310760#22310760
     deflate_obj = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
     compressed = deflate_obj.compress(file_content) + deflate_obj.flush()
     return compressed
 
 
-def get_version_directory_path() -> Path:
+def _get_version_directory_path() -> Path:
     return Path(__file__).parent.parent / 'versions'
 
 
-def get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
+def _get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     try:
-        vdir = get_version_directory_path()
+        vdir = _get_version_directory_path()
         with (vdir / game_version / f'v{scenario_version}' / f'{name}.json').open() as structure_file:
             return json.load(structure_file)
     except FileNotFoundError:  # Unsupported version
@@ -337,9 +337,9 @@ def get_version_dependant_structure_file(game_version: str, scenario_version: st
         raise UnknownStructureError(f"The structure {name} could not be found with: {v}")
 
 
-def get_structure(game_version, scenario_version) -> dict:
+def _get_structure(game_version: str, scenario_version: str) -> Dict[str, Any]:
     try:
-        vdir = get_version_directory_path()
+        vdir = _get_version_directory_path()
         with (vdir / game_version / f'v{scenario_version}' / 'structure.json').open() as structure_file:
             structure = json.load(structure_file)
 
