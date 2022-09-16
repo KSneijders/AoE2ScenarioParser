@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import itertools
-from typing import List, Tuple, Set, Optional
+from typing import List, Tuple, Set
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i

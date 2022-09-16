@@ -73,7 +73,7 @@ def handle_retriever_dependency(
             retriever.datatype.repeat = value
 
 
-def execute_dependency_eval(retriever_event: 'RetrieverDependency', section: 'AoE2FileSection', =uuid: UUID) -> int:
+def execute_dependency_eval(retriever_event: 'RetrieverDependency', section: 'AoE2FileSection', uuid: UUID) -> int:
     """
     Runs the python code specified in a retriever dependency eval
 
