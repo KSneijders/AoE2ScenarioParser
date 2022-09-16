@@ -3,6 +3,247 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog]
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## Unreleased
+
+### Fixed
+
+- The `EnableTechnologyStacking` effect missing the `quantity` attribute.
+- The `item_id` attribute not updating properly for all use cases.
+
+---
+
+## 0.1.47 - 2022-September-01
+
+### Fixed
+
+- Issues with reading new 1.47 scenario
+
+---
+
+## 0.1.46 - 2022-September-01
+
+### Removed
+
+- Development logging information
+
+---
+
+## 0.1.45 - 2022-August-31
+
+**Support for the new 66692 update!** (Scenario version 1.47)
+
+---
+
+## 0.1.44 - 2022-August-05
+
+### Added
+
+- String Table ID alternatives to `MessageManager` attributes.
+  - `message_manager.instructions_string_table_id = 123`
+
+### Fixed
+
+- `Retriever.commit_callback` wasn't called on commit causing text fields on Effects to corrupt (sometimes)
+- `UnitInfo.THIRISADAI` showing as castle unit in `UnitInfo.unique_units()`
+
+---
+
+## 0.1.43 - 2022-August-03
+
+### Added
+
+- The `MessageManager` (`scenario.message_manager`)
+  - The ability to change the 6 text fields in the message tab (instructions, hints, victory etc.)
+  - `MessageManager` documentation: [link](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/message/)
+- The `is_dirty` attribute to retrievers to see if they were manually changed (from outside managers)
+- A setting that stops managers from overwriting dirty retrievers (on by default)
+  - `settings.ALLOW_DIRTY_RETRIEVER_OVERWRITE`
+
+### Changed
+
+- **BackEnd**: Partially rewritten construct & commit logic (slight performance improvement)
+- **BackEnd**: Renamed all references to `UUID` named: `host_uuid` to just `uuid`
+
+---
+
+## 0.1.42 - 2022-August-01
+
+### Fixed
+
+- Issue with `Effect.armour_attack_class` attribute not being displayed (correctly) when printing triggers/effects
+- Incorrect ID for `EffectId.DISABLE_OBJECT_DELETION`
+
+---
+
+## 0.1.41 - 2022-June-30
+
+### Fixed
+
+- `DifficultyLevel.EXTREME` is now properly available. Representing `-1` `:yFE:`
+- The `quantity` field not being shown when printing the `Difficulty level` Condition when the difficulty was set to `EXTREME (-1)`
+- `TechInfo.INDIANS` not being renamed to `TechInfo.HINDUSTANIS`
+
+---
+
+## 0.1.40 - 2022-May-18
+
+### Improved
+
+- Docstrings and for the PlayerAttribute (`Attribute`) dataset  (Thanks Alian)
+
+### Fixed
+
+- `TechInfo.unique_techs()` having a typo in `TechInfo.FABRIC_SHIELDS` tech
+- `UnitInfo.unique_units()` returning the (`ELITE_`)`SHRIVAMSHA_RIDER` as castle units
+
+---
+
+## 0.1.39 - 2022-May-8
+
+### Added
+
+- **Update 61321**:
+  - Techs in `TechInfo`
+- Docstrings for all `ObjectAttribute` entries (Directly from the UGC Guide. Credits: Alian)
+- These new datasets for the `Modify Attribute` effect:  (**Thanks to Alian, our dataset wizard**)
+  - Import like: `from AoE2ScenarioParser.datasets.trigger_lists import <NAME HERE>`
+  - `ChargeType`
+  - `ChargeEvent`
+  - `CombatAbility`
+  - `FogVisibility`
+  - `GarrisonType`
+  - `OcclusionMode`
+  - `ProjectileHitMode`
+  - `ProjectileVanishMode`
+  - `UnitTrait`
+
+### Updated
+
+- **Update 61321**:
+  - `TechInfo.SULTANS` to: `TechInfo.GRAND_TRUNK_ROAD`
+  - `TechInfo.INDIANS` to: `TechInfo.HINDUSTANIS`
+  - Renamed dataset `SmartProjectile` to: `ProjectileSmartMode`
+- Dataset documentation: [link](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/datasets/)
+
+### Fixed
+
+- Issue reading some older scenarios
+- Typo in `TechInfo` dataset:
+  - `TechInfo.FABRIC_SHIEDS` to: `TechInfo.FABRIC_SHIELDS`
+  - `TechInfo.STONE_SHADT_MINING_GOLD_GENERATION_INCREASE` to: `TechInfo.STONE_SHAFT_MINING_GOLD_GENERATION_INCREASE`
+- Typo in `BlastLevel` dataset:
+  - `BlastLevel.TWNETY_FIVE_PERCENT` to: `BlastLevel.TWENTY_FIVE_PERCENT`
+  
+### Changed
+
+- Renamed `SmartProjectile.ENABLED` to: `ProjectileSmartMode.TARGET_FUTURE_LOCATION`
+- Renamed a couple techs for consistency (Thanks Alian)
+  - `HEAVY_CAV_ARCHER` to: `HEAVY_CAVALRY_ARCHER`
+  - `RESOURCES_LAST_LONGER_15` to: `RESOURCES_LAST_15_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_30` to: `RESOURCES_LAST_30_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_40` to: `RESOURCES_LAST_40_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_50` to: `RESOURCES_LAST_50_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_75` to: `RESOURCES_LAST_75_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_100` to: `RESOURCES_LAST_100_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_125` to: `RESOURCES_LAST_125_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_150` to: `RESOURCES_LAST_150_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_175` to: `RESOURCES_LAST_175_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_200` to: `RESOURCES_LAST_200_PERCENT_LONGER`
+  - `RESOURCES_LAST_LONGER_300` to: `RESOURCES_LAST_300_PERCENT_LONGER`
+  - `FOLWARK_HORSE_COLLAR_EXTRA` to: `HORSE_COLLAR_FOLWARK_BONUS_INCREASE`
+
+---
+
+## 0.1.38 - 2022-May-1
+
+### Fixed
+
+- Issue with reading scenario files when script name field was populated
+
+---
+
+## 0.1.37 - 2022-May-1
+
+**Support for the new 61321 update!** (Scenario version 1.46)
+
+### Added
+
+- **Update 61321**:
+  - Support for the new Conditions
+    - `BUILDING_IS_TRADING`
+    - `DISPLAY_TIMER_TRIGGERED`
+    - `VICTORY_TIMER`
+    - `AND`
+  - Support for the new Effects
+    - `ENABLE_OBJECT_DELETION`
+    - `DISABLE_OBJECT_DELETION`
+  - 19 new entries in `ObjectAttribute`
+  - 24 new entries in `Attribute` (aka: 'Player Attribute' or 'Resource')
+  - 15 new units to `UnitInfo`
+  - 2 new buildings to `BuildingInfo`
+  - 8 new heroes to `HeroInfo`
+  - 7 new others to `OtherInfo` (Partially from new update)
+  - New dataset: `VictoryTimerType`
+- [Community documentation page](https://ksneijders.github.io/AoE2ScenarioParser/community/resources/) (WIP)
+
+### Improved
+
+- `UnitManager.change_ownership` now accepts a list of units as well as a single unit
+  - Also improved function performance
+- **BackEnd**: UnitManager read & writing logic (by a lot)
+
+### Fixed
+
+- Player Count shown in in-game scenario overview now updates to the amount of active players 
+  - instead of not updating at all
+- Typo in `Attribute` entries: 
+  - `CONVERT_RESIST_MIO_ADJUSTMENT (Typo)` => `CONVERT_RESIST_MIN_ADJUSTMENT` (ID: 178)
+  - `VILLAGERS_KILLED_BY_AL_PLAYER` => `VILLAGERS_KILLED_BY_AI_PLAYER` (ID: 228)
+
+### Changed
+
+- **Update 61321**:
+  - Renamed some `ObjectAttribute` entries:
+    - `ENABLE_SMART_PROJECTILES` => `PROJECTILE_SMART_MODE` (ID: 19)
+    - `AMOUNT_OF_1ST_RESOURCES` => `AMOUNT_OF_1ST_RESOURCE_STORAGE` (ID: 21)
+    - `BONUS_DAMAGE_RESIST` => `BONUS_DAMAGE_RESISTANCE` (ID: 24)
+  - Renamed some `Attribute` entries:
+    - `UNUSED_RESOURCE_096` => `NO_DROPSITE_FARMERS` (ID: 96)
+    - `FEUDAL_TOWN_CENTER_LIMIT` => `EARLY_TOWN_CENTER_LIMIT` (ID: 218)
+  - Renamed some `DamageClass` entries:
+    - `RAMS` => `RAMS_TREBUCHETS_SIEGE_TOWERS` (ID: 17)
+    - `CASTLE` => `CASTLES` (ID: 26)
+    - `LEITIS` => `UNUSED_ID31` (ID: 31) -- _behaviour moved to a combat ability_
+    - `CONDOTTIERO` => `CONDOTTIERI` (ID: 32)
+    - `ORGAN_GUN_BULLET` => `PROJECTILE_GUNPOWDER_SECONDARY` (ID: 33) -- _no longer used by only the organ gun_
+    - `FISHING_SHIP` => `FISHING_SHIPS` (ID: 34)
+    - `HEROES_AND_KING` => `HEROES_AND_KINGS` (ID: 36)
+    - `UNUSED_ID37` => `HUSSITE_WAGONS` (ID: 37)
+- Elephant Archer from the `UnitInfo.unique_units()` function
+
+---
+
+## 0.1.36 - 2022-March-15
+
+### Added
+
+- `Attribute.X.editor_name` attribute to get the editor name as string -- [#36] (Alian)
+- `scenario.remove_store_reference()` to remove the scenario reference from the store
+  - Useful for when you want the scenario to be cleared by garbage collection (You also need to delete all other references to the scenario yourself)
+
+### Fixed
+
+- Issue with printing trigger values that are not in a dataset
+
+### Updated
+
+- `Attribute` dataset names & docstrings updated -- [#36] (Alian).
+
+[#36]: https://github.com/KSneijders/AoE2ScenarioParser/pull/36
 
 ---
 

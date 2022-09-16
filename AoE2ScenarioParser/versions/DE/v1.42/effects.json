@@ -5,7 +5,7 @@
             "effect_type": "",
             "ai_script_goal": "",
             "armour_attack_quantity": "",
-            "armour_attack_class": "",
+            "armour_attack_class": "DamageClass",
             "quantity": "",
             "tribute_list": "Attribute",
             "diplomacy": "DiplomacyState",
@@ -4340,6 +4340,7 @@
     "67": {
         "name": "enable_technology_stacking",
         "attributes": [
+            "quantity",
             "source_player",
             "technology"
         ],

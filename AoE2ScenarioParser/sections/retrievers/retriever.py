@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import pickle
-from typing import Dict, List
+from typing import Dict, List, Any
 
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.sections.retrievers.datatype import DataType
@@ -29,6 +31,7 @@ class Retriever:
         'log_value',
         '_data',
         'default_value',
+        'is_dirty',
     ]
 
     on_construct: RetrieverDependency
@@ -57,6 +60,7 @@ class Retriever:
         self.datatype: DataType = datatype
         self.is_list: bool = is_list
         self.log_value: bool = log_value
+        self.is_dirty: bool = False
         self._data = None
 
         if log_value:
@@ -121,15 +125,33 @@ class Retriever:
 
     @data.setter
     def data(self, value):
+        self.set_data(value)
+
+    def set_data(self, value, affect_dirty: bool = True) -> None:
         """
-        The setter for the data of the retriever
+        Setter wrapper to be able to circumvent updating the `dirty` attribute when called internally.
 
         Args:
-            value: The new value for the data of the retriever
+            value: The value to set the data to
+            affect_dirty: If the `dirty` attribute should be affected (set to true) by updating the data
         """
+        if self.is_dirty and not affect_dirty:
+            if settings.ALLOW_DIRTY_RETRIEVER_OVERWRITE:
+                if not settings.DISABLE_DIRTY_RETRIEVER_WARNING:
+                    warn(f"Attribute {self.name} was overwritten by a writing process.")
+            else:
+                return
+
         if self.log_value:
             old_value = self._data
-            self._print_value_update(old_value, value)
+            self.print_value_update(old_value, value)
+
+        # If repeat is 0 and value being said is truthy (mainly not an empty list) set repeat to one (convenience)
+        if self.datatype.repeat == 0 and value:
+            self.datatype.repeat = 1
+
+        if affect_dirty and self._data is not None:
+            self.is_dirty = True
         self._data = value
 
     def set_data_to_default(self):
@@ -198,7 +220,7 @@ class Retriever:
                 setattr(retriever, dependency_name, dependency_list)
         return retriever
 
-    def _print_value_update(self, old: int | float | str | bytes, new: int | float | str | bytes) -> None:
+    def print_value_update(self, old: Any, new: Any) -> None:
         """
         Prints when data is changed. Can also be called for when data is changed but the property doesn't fire.
         This happens when an array is adjusted in size by appending to it ([...] += [...]).

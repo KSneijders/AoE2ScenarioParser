@@ -41,6 +41,7 @@ all available managers:
 | map_manager     | The map manager is used for changing terrain, elevation or simply getting coordinates for certain types.    |
 | player_manager  | The player manager is used to edit player attributes such as civs, starting age, diplomacy, disables etc.   |
 | xs_manager      | The XS manager is used to store XS in a script_call effect to make it easily transferable in Multiplayer    |
+| message_manager | The Message manager is used to edit the fields in the Messages tab in the in-game editor.                   |
 
 You can access all managers like so:
 

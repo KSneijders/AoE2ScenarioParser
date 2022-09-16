@@ -41,6 +41,7 @@ class ConditionId(IntEnum):
     - source_player
     - object_group
     - object_type
+    - include_changeable_weapon_objects
     """
     OWN_FEWER_OBJECTS = 4
     """
@@ -54,6 +55,7 @@ class ConditionId(IntEnum):
     - area_y2
     - object_group
     - object_type
+    - include_changeable_weapon_objects
     """
     OBJECTS_IN_AREA = 5
     """
@@ -69,6 +71,7 @@ class ConditionId(IntEnum):
     - object_type
     - object_state
     - inverted
+    - include_changeable_weapon_objects
     """
     DESTROY_OBJECT = 6
     """
@@ -158,7 +161,7 @@ class ConditionId(IntEnum):
     """
     DIFFICULTY_LEVEL = 19
     """
-    Attributes for the **units_garrisoned** condition are:\n
+    Attributes for the **difficulty_level** condition are:\n
     - condition_type
     - quantity
     - inverted
@@ -206,7 +209,7 @@ class ConditionId(IntEnum):
     - xs_function
     
     **Version notice**: \n
-    This condition is supported since: 1.40
+    This condition was added in: 1.40
     """
     OBJECT_SELECTED_MULTIPLAYER = 26
     """
@@ -216,7 +219,7 @@ class ConditionId(IntEnum):
     - inverted
     
     **Version notice**: \n
-    This condition is supported since: 1.40
+    This condition was added in: 1.40
     """
     OBJECT_VISIBLE_MULTIPLAYER = 27
     """
@@ -226,7 +229,7 @@ class ConditionId(IntEnum):
     - inverted
     
     **Version notice**: \n
-    This condition is supported since: 1.40
+    This condition was added in: 1.40
     """
     OBJECT_HAS_ACTION = 28
     """
@@ -237,14 +240,14 @@ class ConditionId(IntEnum):
     - unit_ai_action
     
     **Version notice**: \n
-    This condition is supported since: 1.40
+    This condition was added in: 1.40
     """
     OR = 29
     """
     The **OR** condition does not have any attributes
     
     **Version notice**: \n
-    This condition is supported since: 1.40
+    This condition was added in: 1.40
     """
     AI_SIGNAL_MULTIPLAYER = 30
     """
@@ -253,7 +256,44 @@ class ConditionId(IntEnum):
     - inverted
     
     **Version notice**: \n
-    This condition is supported since: 1.40
+    This condition was added in: 1.40
+    """
+    BUILDING_IS_TRADING = 54
+    """
+    Attributes for the **building_is_trading** condition are:\n
+    - unit_object
+    - inverted
+    
+    **Version notice**: \n
+    This condition was added in: 1.46
+    """
+    DISPLAY_TIMER_TRIGGERED = 55
+    """
+    Attributes for the **display_timer_triggered** condition are:\n
+    - timer_id
+    - inverted
+    
+    **Version notice**: \n
+    This condition was added in: 1.46
+    """
+    VICTORY_TIMER = 56
+    """
+    Attributes for the **victory_timer** condition are:\n
+    - quantity
+    - source_player
+    - inverted
+    - comparison
+    - victory_timer_type
+    
+    **Version notice**: \n
+    This condition was added in: 1.46
+    """
+    AND = 57
+    """
+    The **AND** condition does not have any attributes
+    
+    **Version notice**: \n
+    This condition was added in: 1.46
     """
 
 
@@ -280,6 +320,9 @@ empty_attributes = {
     "target_player": -1,
     "unit_ai_action": -1,
     "object_state": -1,
+    "timer_id": -1,
+    "victory_timer_type": -1,
+    "include_changeable_weapon_objects": -1,
     "xs_function": ""
 }
 

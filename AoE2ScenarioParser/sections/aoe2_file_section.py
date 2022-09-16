@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, duplicate_retriever_map, reset_retriever_map
+from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
 
 
 if TYPE_CHECKING:
@@ -51,7 +51,7 @@ class AoE2FileSection:
     def __init__(self,
                  name: str,
                  retriever_map: Dict[str, 'Retriever'],
-                 host_uuid: UUID,
+                 uuid: UUID,
                  struct_models: Dict[str, 'AoE2StructModel'] = None,
                  level: SectionLevel = SectionLevel.TOP_LEVEL
                  ):
@@ -59,7 +59,7 @@ class AoE2FileSection:
         Args:
             name: The name of the file section
             retriever_map: A dict containing all the retrievers for this file section
-            host_uuid: The universally unique identifier for the scenario that this file section belongs to
+            uuid: The universally unique identifier for the scenario that this file section belongs to
             struct_models: A dict containing all the structures for this file section
             level: This variable tells if a structure or file section is at the top level of the scenario or a struct.
         """
@@ -67,46 +67,58 @@ class AoE2FileSection:
             struct_models = {}
 
         self.name: str = name
-        self.retriever_map: Dict[str, Retriever] = retriever_map
-        self._host_uuid = host_uuid
+        self.retriever_map: Dict[str, 'Retriever'] = retriever_map
+        self._uuid = uuid
         self.byte_length: int = -1
         self.struct_models: Dict[str, AoE2StructModel] = struct_models
         self.level: SectionLevel = level
 
+    def find_struct_model_by_retriever(self, retriever: 'Retriever') -> AoE2StructModel:
+        prefix = "struct:"
+
+        struct_datatype = retriever.datatype.var
+        if not struct_datatype.startswith(prefix):
+            raise ValueError(f"Unable to retrieve model '{struct_datatype}' from file section. "
+                             f"Possible model names: {self.struct_models.keys()}")
+
+        struct_name = struct_datatype[len(prefix):]
+        return self.struct_models[struct_name]
+
     @classmethod
-    def from_model(cls, model: 'AoE2StructModel', host_uuid: UUID, set_defaults: bool = False) -> 'AoE2FileSection':
+    def from_model(cls, model: 'AoE2StructModel', uuid: UUID, set_defaults: bool = False) -> 'AoE2FileSection':
         """
         Create a file section based on the given AoE2StructModel.
 
         Args:
-            model: The model to copy from
-            host_uuid: The universally unique identifier for the scenario that the file section belongs to
+            model (AoE2StructModel): The model to copy from
+            uuid: The universally unique identifier for the scenario that the file section belongs to
             set_defaults: If retrievers need to be set to the default values
 
         Returns:
             An AoE2FileSection instance based on the model
         """
-        duplicate_rmap = duplicate_retriever_map(model.retriever_map)
+        duplicate_rmap = {k: e.duplicate() for k, e in model.retriever_map.items()}
+
         if set_defaults:
             reset_retriever_map(duplicate_rmap)
 
         return cls(
             name=model.name,
             retriever_map=duplicate_rmap,
-            host_uuid=host_uuid,
+            uuid=uuid,
             struct_models=model.structs,
             level=SectionLevel.STRUCT
         )
 
     @classmethod
-    def from_structure(cls, section_name: str, structure: Dict[str, Dict], host_uuid: UUID) -> 'AoE2FileSection':
+    def from_structure(cls, section_name: str, structure: Dict[str, Dict], uuid: UUID) -> 'AoE2FileSection':
         """
         Constructs all retrievers and structures from the given file section (dict)
 
         Args:
             section_name (str): This is the name of the file section
             structure (Dict[str, Dict]): The dict representation of the file section to build
-            host_uuid (UUID): The universally unique identifier of the scenario that this file section belongs to
+            uuid (UUID): The universally unique identifier of the scenario that this file section belongs to
 
         Returns:
             An AoE2FileSection instance representing the given file section structure
@@ -116,7 +128,7 @@ class AoE2FileSection:
             retriever_map[name] = Retriever.from_structure(name, attr)
 
         structs = model_dict_from_structure(structure)
-        return cls(section_name, retriever_map, host_uuid, structs)
+        return cls(section_name, retriever_map, uuid, structs)
 
     def get_data_as_bytes(self) -> bytes:
         """
@@ -144,20 +156,21 @@ class AoE2FileSection:
         """
         total_length = 0
         for retriever in self.retriever_map.values():
-            handle_retriever_dependency(retriever, "construct", self, self._host_uuid)
+            handle_retriever_dependency(retriever, "construct", self, self._uuid)
             if retriever.datatype.type == "struct":
                 struct_name = retriever.datatype.get_struct_name()
 
-                retriever.data = []
+                structs = []
                 for _ in range(retriever.datatype.repeat):
                     model = self.struct_models.get(struct_name)
                     if model is None:
                         raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
 
                     struct = self._create_struct(model, igenerator)
-                    retriever.data.append(struct)
+                    structs.append(struct)
 
                     total_length += struct.byte_length
+                retriever.set_data(structs, affect_dirty=False)
             else:
                 retrieved_bytes = bytes_parser.retrieve_bytes(igenerator, retriever)
                 self._fill_retriever_with_bytes(retriever, retrieved_bytes)
@@ -203,7 +216,7 @@ class AoE2FileSection:
         Returns:
             An AoE2FileSection object created from the given model with its data set according to the given generator
         """
-        struct = AoE2FileSection.from_model(model, host_uuid=self._host_uuid)
+        struct = AoE2FileSection.from_model(model, uuid=self._uuid)
 
         try:
             struct.set_data_from_generator(igenerator)
@@ -217,32 +230,23 @@ class AoE2FileSection:
 
         return struct
 
-    def set_data(self, data: List) -> None:
-        """
-        Sets the data of all the retrievers of the file section using the list provided
-
-        Args:
-            data: A list containing the new data value for each retriever in the file section. This list has the same
-                length as the number of retrievers in the file section.
-
-        Raises:
-            ValueError: if the length of the list is not equal to the number of retrievers
-        """
-        retrievers = list(self.retriever_map.values())
-
-        if len(data) == len(retrievers):
-            for i in range(len(data)):
-                retrievers[i].data = data[i]
-
-                if hasattr(retrievers[i], 'on_construct'):
-                    handle_retriever_dependency(retrievers[i], "construct", self, self._host_uuid)
-        else:
-            print(f"\nError in: {self.__class__.__name__}")
-            print(f"Data: (len: {len(data)}) "
-                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
-            print(f"Retrievers: (len: {len(retrievers)}) "
-                  f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retriever_map.values())])}")
-            raise ValueError("Data list isn't the same size as the DataType list")
+    # Todo: Remove if unused
+    # def set_data(self, data):
+    #     retrievers = list(self.retriever_map.values())
+    #
+    #     if len(data) == len(retrievers):
+    #         for i in range(len(data)):
+    #             retrievers[i].data = data[i]
+    #
+    #             if hasattr(retrievers[i], 'on_construct'):
+    #                 handle_retriever_dependency(retrievers[i], "construct", self, self._uuid)
+    #     else:
+    #         print(f"\nError in: {self.__class__.__name__}")
+    #         print(f"Data: (len: {len(data)}) "
+    #               f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
+    #         print(f"Retrievers: (len: {len(retrievers)}) "
+    #               f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retriever_map.values())])}")
+    #         raise ValueError("Data list isn't the same size as the DataType list")
 
     def __getattr__(self, item):
         """Providing a default way to access retriever data labeled 'name'"""

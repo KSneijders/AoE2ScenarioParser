@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.42"
+                "default": "1.43"
             },
             "header_length": {
                 "type": "u32",
@@ -116,22 +116,8 @@
                 "type": "u32",
                 "repeat": 16,
                 "default": [
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294,
-                    4294967294
+                    4294967294, 4294967294, 4294967294, 4294967294, 4294967294, 4294967294, 4294967294, 4294967294,
+                    4294967294, 4294967294, 4294967294, 4294967294, 4294967294, 4294967294, 4294967294, 4294967294
                 ]
             },
             "player_data_1": {
@@ -348,7 +334,10 @@
                         "dependencies": {
                             "on_construct": {
                                 "action": "SET_REPEAT",
-                                "target": ["self:width", "self:height"],
+                                "target": [
+                                    "self:width",
+                                    "self:height"
+                                ],
                                 "eval": "width * height"
                             }
                         }
@@ -363,61 +352,14 @@
                 "type": "str16",
                 "repeat": 32,
                 "default": [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
+                    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                    "", "", "", "", "", "", ""
                 ]
             },
             "ai_names": {
                 "type": "str16",
                 "repeat": 16,
-                "default": [
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
+                "default": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
             },
             "ai_files": {
                 "type": "struct:AIStruct",
@@ -455,31 +397,31 @@
             "ResourcesStruct": {
                 "retrievers": {
                     "gold": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "wood": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "food": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "stone": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "ore_x_unused": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "trade_goods": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     },
                     "player_color": {
-                        "type": "u32",
+                        "type": "s32",
                         "default": 0
                     }
                 }
@@ -494,6 +436,7 @@
             },
             "conquest_required": {
                 "type": "u32",
+                "comment": "If conquest is checked in 'Custom' GlobalVictory menu",
                 "default": 1
             },
             "ruins": {
@@ -502,6 +445,7 @@
             },
             "artifacts_required": {
                 "type": "u32",
+                "comment": "The amount of relics that is set when 'relics' is checked in 'Custom' GlobalVictory menu",
                 "default": 0
             },
             "discovery": {
@@ -771,24 +715,7 @@
                     "stance_with_each_player": {
                         "type": "u32",
                         "repeat": 16,
-                        "default": [
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3,
-                            3
-                        ]
+                        "default": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
                     }
                 }
             }
@@ -1310,7 +1237,10 @@
                 "dependencies": {
                     "on_refresh": {
                         "action": "SET_REPEAT",
-                        "target": ["self:map_width", "self:map_height"],
+                        "target": [
+                            "self:map_width",
+                            "self:map_height"
+                        ],
                         "eval": "map_width * map_height"
                     },
                     "on_construct": {
@@ -1318,7 +1248,10 @@
                     },
                     "on_commit": {
                         "action": "REFRESH",
-                        "target": ["self:map_width", "self:map_height"]
+                        "target": [
+                            "self:map_width",
+                            "self:map_height"
+                        ]
                     }
                 }
             }

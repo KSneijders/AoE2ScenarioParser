@@ -19,9 +19,11 @@ from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.scenarios.scenario_debug.compare import debug_compare
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
@@ -51,11 +53,11 @@ class AoE2Scenario:
         """The player manager of the scenario"""
         return self._object_manager.managers['Player']
 
-    def __init__(self, source_location: str):
-        """
-        Args:
-            source_location: The full file path of the scenario being read
-        """
+    @property
+    def message_manager(self) -> MessageManager:
+        return self._object_manager.managers['Message']
+
+    def __init__(self, source_location):
         self.source_location = source_location
 
         self.read_mode = None
@@ -107,9 +109,9 @@ class AoE2Scenario:
         s_print("##########################################", final = True, color = "blue")
 
         s_print(f"\nLoading scenario structure...")
-        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
         scenario._load_structure()
-        s_print(f"Loading scenario structure finished successfully.", final = True)
+        initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
+        s_print(f"Loading scenario structure finished successfully.", final=True)
 
         # scenario._initialize(igenerator)
         s_print("Parsing scenario file...", final = True)
@@ -144,6 +146,7 @@ class AoE2Scenario:
             raw_file_igenerator: The generator to read the header section from
         """
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
+        self._file_header = raw_file_igenerator.file_content[:raw_file_igenerator.progress]
         self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator) -> None:
@@ -198,6 +201,23 @@ class AoE2Scenario:
         """
         self.sections[section.name] = section
 
+    def remove_store_reference(self) -> None:
+        """
+        Removes the reference to this scenario object from the scenario store. Useful (~a must) when reading many
+        scenarios in a row without needing earlier ones. Python likes to take up a lot of memory.
+        Removing all references to an object will cause the memory to be cleared up.
+
+        **Please note:** When using this function it's important to remove all other references to the scenario.
+        So if save it in a dict or list, remove it from it.
+        If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete them
+        using: `del varname`.
+        """
+        store.remove_scenario(self.uuid)
+
+    def commit(self) -> None:
+        """Commit the changes to the retriever backend made within the managers."""
+        self._object_manager.reconstruct()
+
     """ ##########################################################################################
     ####################################### Write functions ######################################
     ########################################################################################## """
@@ -236,7 +256,7 @@ class AoE2Scenario:
                 "This behaviour can be changed through the settings."
             )
         if not skip_reconstruction:
-            self._object_manager.reconstruct()
+            self.commit()
 
         s_print("\nFile writing from structure started...", final = True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
@@ -280,6 +300,22 @@ class AoE2Scenario:
     """ #############################################
     ################ Debug functions ################
     ############################################# """
+
+    def _debug_compare(
+            self,
+            other: AoE2Scenario,
+            filename: str = "differences.txt",
+            commit: bool = False
+    ) -> None:
+        """
+        Compare a scenario to a given scenario and report the differences found
+
+        Args:
+            other: The scenario to compare it to
+            filename: The debug file to write the differences to (Defaults to "differences.txt")
+            commit: If the scenarios need to commit their manager changes before comparing (Defaults to False)
+        """
+        debug_compare(self, other, filename, commit)
 
     def _debug_write_from_source(self, filename: str, datatype: str, write_bytes: bool = True) -> None:
         """
@@ -334,7 +370,7 @@ class AoE2Scenario:
             commit: If the managers should commit their changes before writing this file.
         """
         if commit and hasattr(self, '_object_manager'):
-            self._object_manager.reconstruct()
+            self.commit()
 
         s_print("\nWriting structure to file...", final = True)
         with open(filename, 'w', encoding = settings.MAIN_CHARSET) as f:

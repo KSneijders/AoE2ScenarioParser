@@ -1,4 +1,4 @@
-from typing import List, Dict, Type, Tuple
+from typing import List, Type, Tuple
 
 from AoE2ScenarioParser.helper.string_manipulations import create_inline_line, add_tabs
 

@@ -5,7 +5,7 @@
             "effect_type": "",
             "ai_script_goal": "",
             "armour_attack_quantity": "",
-            "armour_attack_class": "",
+            "armour_attack_class": "DamageClass",
             "quantity": "",
             "tribute_list": "Attribute",
             "diplomacy": "DiplomacyState",
@@ -51,7 +51,7 @@
             "color_mood": "ColorMood",
             "reset_timer": "bool",
             "object_state": "ObjectState",
-            "action_type":  "ActionType",
+            "action_type": "ActionType",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]"
@@ -4547,6 +4547,7 @@
     "67": {
         "name": "enable_technology_stacking",
         "attributes": [
+            "quantity",
             "source_player",
             "technology"
         ],

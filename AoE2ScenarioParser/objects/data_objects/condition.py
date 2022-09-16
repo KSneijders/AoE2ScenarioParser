@@ -1,60 +1,53 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import Union
+from typing import Union, Any
 
 from AoE2ScenarioParser.datasets import conditions
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords, value_is_valid
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.datasets.conditions import ConditionId
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, validate_coords
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
+from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
-class Condition(AoE2Object):
+class Condition(AoE2Object, TriggerComponent):
     """Object for handling a condition."""
+    hidden_attribute = 'condition_type'
 
     _link_list = [
-        RetrieverObjectLink("condition_type", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].condition_type"),
-        RetrieverObjectLink("quantity", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].quantity"),
-        RetrieverObjectLink("attribute", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].attribute"),
-        RetrieverObjectLink("unit_object", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].unit_object"),
-        RetrieverObjectLink("next_object", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].next_object"),
-        RetrieverObjectLink("object_list", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].object_list"),
-        RetrieverObjectLink("source_player", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].source_player"),
-        RetrieverObjectLink("technology", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].technology"),
-        RetrieverObjectLink("timer", "Triggers", "trigger_data[__index__].condition_data[__index__].timer"),
-        RetrieverObjectLink("area_x1", "Triggers", "trigger_data[__index__].condition_data[__index__].area_x1"),
-        RetrieverObjectLink("area_y1", "Triggers", "trigger_data[__index__].condition_data[__index__].area_y1"),
-        RetrieverObjectLink("area_x2", "Triggers", "trigger_data[__index__].condition_data[__index__].area_x2"),
-        RetrieverObjectLink("area_y2", "Triggers", "trigger_data[__index__].condition_data[__index__].area_y2"),
-        RetrieverObjectLink("object_group", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].object_group"),
-        RetrieverObjectLink("object_type", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].object_type"),
-        RetrieverObjectLink("ai_signal", "Triggers", "trigger_data[__index__].condition_data[__index__].ai_signal"),
-        RetrieverObjectLink("inverted", "Triggers", "trigger_data[__index__].condition_data[__index__].inverted"),
-        RetrieverObjectLink("variable", "Triggers", "trigger_data[__index__].condition_data[__index__].variable"),
-        RetrieverObjectLink("comparison", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].comparison"),
-        RetrieverObjectLink("target_player", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].target_player"),
-        RetrieverObjectLink("object_state", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].object_state", Support(since=1.42)),
-        RetrieverObjectLink("xs_function", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].xs_function", Support(since=1.40)),
-        RetrieverObjectLink("unit_ai_action", "Triggers",
-                            "trigger_data[__index__].condition_data[__index__].unit_ai_action", Support(since=1.40)),
+        RetrieverObjectLinkGroup("Triggers", "trigger_data[__index__].condition_data[__index__]", group=[
+            RetrieverObjectLink("condition_type"),
+            RetrieverObjectLink("quantity"),
+            RetrieverObjectLink("attribute"),
+            RetrieverObjectLink("unit_object"),
+            RetrieverObjectLink("next_object"),
+            RetrieverObjectLink("object_list"),
+            RetrieverObjectLink("source_player"),
+            RetrieverObjectLink("technology"),
+            RetrieverObjectLink("timer"),
+            RetrieverObjectLink("area_x1"),
+            RetrieverObjectLink("area_y1"),
+            RetrieverObjectLink("area_x2"),
+            RetrieverObjectLink("area_y2"),
+            RetrieverObjectLink("object_group"),
+            RetrieverObjectLink("object_type"),
+            RetrieverObjectLink("ai_signal"),
+            RetrieverObjectLink("inverted"),
+            RetrieverObjectLink("variable"),
+            RetrieverObjectLink("comparison"),
+            RetrieverObjectLink("target_player"),
+            RetrieverObjectLink("unit_ai_action", support=Support(since=1.40)),
+            RetrieverObjectLink("object_state", support=Support(since=1.42)),
+            RetrieverObjectLink("timer_id", support=Support(since=1.46)),
+            RetrieverObjectLink("victory_timer_type", support=Support(since=1.46)),
+            RetrieverObjectLink("include_changeable_weapon_objects", support=Support(since=1.46)),
+            RetrieverObjectLink("xs_function", support=Support(since=1.40)),
+        ])
     ]
 
     def __init__(self,
@@ -80,6 +73,9 @@ class Condition(AoE2Object):
                  target_player: Union[int, IntEnum] = None,
                  unit_ai_action: int = None,
                  object_state: int = None,
+                 timer_id: int = None,
+                 victory_timer_type: int = None,
+                 include_changeable_weapon_objects: int = None,
                  xs_function: str = None,
                  **kwargs
                  ):
@@ -108,9 +104,19 @@ class Condition(AoE2Object):
         self.target_player: int = target_player
         self.unit_ai_action: int = unit_ai_action
         self.object_state: int = object_state
+        self.timer_id: int = timer_id
+        self.victory_timer_type: int = victory_timer_type
+        self.include_changeable_weapon_objects: int = include_changeable_weapon_objects
         self.xs_function: str = xs_function
 
         super().__init__(**kwargs)
+
+    def should_be_displayed(self, attr: str, val: Any) -> bool:
+        # Include the only exception to the -1 == invalid rule
+        if self.condition_type == ConditionId.DIFFICULTY_LEVEL and attr == 'quantity' and val == -1:
+            return True
+
+        return super().should_be_displayed(attr, val)
 
     def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.condition_type not in conditions.attributes:
@@ -121,10 +127,10 @@ class Condition(AoE2Object):
         return_string = ""
         for attribute in attributes_list:
             val = getattr(self, attribute)
-            if attribute == "condition_type" or val in [[], [-1], [''], "", " ", -1]:
+            if not self.should_be_displayed(attribute, val):
                 continue
 
-            value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._host_uuid)
+            value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._uuid)
             return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":

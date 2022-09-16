@@ -4,7 +4,7 @@ from typing import List, TYPE_CHECKING
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
-from AoE2ScenarioParser.helper.exceptions import EndOfFileError
+from AoE2ScenarioParser.helper.exceptions import EndOfFileError, UnsupportedAttributeError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 
 if TYPE_CHECKING:
@@ -63,13 +63,10 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> 
                 string_bytes = igenerator.get_bytes(string_length)
                 retrieved_bytes.append(int_bytes + string_bytes)
     except EndOfFileError:
+        # END_OF_FILE_MARK retriever should always go in here
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
             return []
-    except TypeError:
-        print(retriever)
-        print(retriever.datatype.repeat)
-        exit()  # Todo: Should not exit (?)
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)
@@ -114,7 +111,7 @@ def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: 'Retrie
             "",
             "Please be so kind and include the map in question. Thanks again!",
             "",
-            "Extra data found in the file:",
+            f"Extra data found in the file ({len(retrieved_bytes)} bytes):",
             f"\t'{retrieved_bytes}'"
         ]))
         retriever.datatype.repeat = 1

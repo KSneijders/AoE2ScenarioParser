@@ -13,7 +13,7 @@ class IncrementalGenerator:
             progress: Keeps track of how many bytes have been read from the generator.
         """
         self.name = name
-        self.file_content = file_content
+        self.file_content: bytes = file_content
         self.progress = progress
 
     @classmethod

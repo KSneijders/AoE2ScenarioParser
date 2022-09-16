@@ -73,11 +73,11 @@ class XsManagerDE(AoE2Object):
             self._xs_trigger.new_effect.script_call(message="")
         except UnsupportedAttributeError:
             raise UnsupportedVersionError(
-                f"The scenario version ({get_scenario_version(self._host_uuid)}) does not support XS. "
+                f"The scenario version ({get_scenario_version(self._uuid)}) does not support XS. "
                 f"Save the scenario in the editor to update the scenario to allow for XS."
             ) from None
         self._initialized = True
-        actions.import_triggers(self._host_uuid, [self.xs_trigger], insert_index, deepcopy=False)
+        actions.import_triggers(self._uuid, [self.xs_trigger], insert_index, deepcopy=False)
 
     def _append_to_xs(self, title, string) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{string}\n\n"

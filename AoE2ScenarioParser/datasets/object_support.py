@@ -49,7 +49,7 @@ class Civilization(_DataSetIntEnums):
     HUNS = 17
     KOREANS = 18
     ITALIANS = 19
-    INDIANS = 20
+    HINDUSTANIS = 20
     INCAS = 21
     MAGYARS = 22
     SLAVS = 23
@@ -69,5 +69,8 @@ class Civilization(_DataSetIntEnums):
     SICILIANS = 37
     POLES = 38
     BOHEMIANS = 39
-    RANDOM = 40
-    FULL_RANDOM = 42
+    DRAVIDIANS = 40
+    BENGALIS = 41
+    GURJARAS = 42
+    RANDOM = 43
+    FULL_RANDOM = 45

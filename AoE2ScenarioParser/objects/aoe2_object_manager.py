@@ -9,11 +9,13 @@ from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
+from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
     'DE': {
+        'Message': MessageManager,
         'Player': PlayerManager,
         'Map': MapManagerDE,
         'Unit': UnitManagerDE,
@@ -40,9 +42,9 @@ class AoE2ObjectManager:
         gv = getters.get_game_version(self.scenario_uuid)
 
         for name, manager in managers[gv].items():
-            s_print(f"\t🔄 Setting up {name}Manager...", color = "yellow")
-            self.managers[name] = manager._construct(self.scenario_uuid)
-            s_print(f"\t✔ {name}Manager", final = True, color = "green")
+            s_print(f"\t🔄 Setting up {name}Manager...", color="yellow")
+            self.managers[name] = manager.construct(self.scenario_uuid)
+            s_print(f"\t✔ {name}Manager", final=True, color="green")
 
         s_print(f"Setting up managers finished successfully.", final = True)
 

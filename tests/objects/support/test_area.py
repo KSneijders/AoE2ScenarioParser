@@ -4,6 +4,7 @@ from uuid import UUID
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.area import Area, AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
@@ -151,6 +152,13 @@ class TestArea(TestCase):
         self.area.select(5, 10, 20, 20).center(5, 0)
         self.assertEqual((6.0, 2.5), self.area.get_center())
         self.assertEqual(((0, 0), (12, 5)), self.area.get_selection())
+
+        self.area.select(10, 10, 20, 20)
+        w, h = self.area.get_dimensions()
+        print("Dimensions:", w, h)
+        self.area.center(0, 0).center(20, 20)
+        print("Dimensions:", self.area.get_dimensions())
+        self.assertEqual((w, h), self.area.get_dimensions())
 
         self.area.select_centered(5, 5, 4, 4)
         self.assertEqual((5, 5), self.area.get_center_int())
@@ -642,7 +650,7 @@ class TestArea(TestCase):
         self.area.attrs(line_width_x=5, line_width_y=6, gap_size_x=7, gap_size_y=8)
         self.area.use_pattern_grid().invert()
         self.area._map_size_value = 20
-        self.area.uuid = "aaa"
+        self.area.uuid = uuid  # Must match an actual UUID if you've set one
         self.area.axis = "y"
 
         self.assertNotEqual(area2.x1, self.area.x1)
@@ -667,7 +675,7 @@ uuid = "cool_uuid"
 class MM:
     """Mock object for map_manager"""
     map_size = 5
-    terrain = [TerrainTile(_index=index, host_uuid=uuid) for index in range(pow(map_size, 2))]
+    terrain = [TerrainTile(_index=index, uuid=uuid) for index in range(pow(map_size, 2))]
 
 
 class SCN:

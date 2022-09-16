@@ -96,6 +96,38 @@ class Area:
         self.corner_size_x: int = 1
         self.corner_size_y: int = 1
 
+    @property
+    def x1(self):
+        return self._minmax_val(self._x1)
+
+    @x1.setter
+    def x1(self, value):
+        self._x1 = value
+
+    @property
+    def y1(self):
+        return self._minmax_val(self._y1)
+
+    @y1.setter
+    def y1(self, value):
+        self._y1 = value
+
+    @property
+    def x2(self):
+        return self._minmax_val(self._x2)
+
+    @x2.setter
+    def x2(self, value):
+        self._x2 = value
+
+    @property
+    def y2(self):
+        return self._minmax_val(self._y2)
+
+    @y2.setter
+    def y2(self, value):
+        self._y2 = value
+
     @classmethod
     def from_uuid(cls, uuid: UUID) -> Area:
         return cls(uuid=uuid)
@@ -209,6 +241,10 @@ class Area:
         """Get the four values of the selection as: ((x1, y1), (x2, y2))"""
         return (self.x1, self.y1), (self.x2, self.y2)
 
+    def get_raw_selection(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+        """Get the four values of the selection (even if they are outside the map) as: ((x1, y1), (x2, y2))"""
+        return (self._x1, self._y1), (self._x2, self._y2)
+
     def get_center(self) -> Tuple[float, float]:
         """Get center of current selection"""
         return (self.x1 + self.x2) / 2, (self.y1 + self.y2) / 2
@@ -232,6 +268,10 @@ class Area:
     def get_height(self) -> int:
         """Returns the length of the y side of the selection."""
         return self.y2 + 1 - self.y1
+
+    def get_dimensions(self) -> Tuple[int, int]:
+        """Returns the lengths of the x & y side of the selection (in that order)."""
+        return self.get_width(), self.get_height()
 
     # ============================ Use functions ============================
 
@@ -389,10 +429,10 @@ class Area:
         """
         center_x, center_y = self.get_center_int()
         n -= 1  # Ignore center tile
-        self.x1 = self._minmax_val(center_x - math.ceil(n / 2))
-        self.y1 = self._minmax_val(center_y - math.ceil(n / 2))
-        self.x2 = self._minmax_val(center_x + math.floor(n / 2))
-        self.y2 = self._minmax_val(center_y + math.floor(n / 2))
+        self.x1 = center_x - math.ceil(n / 2)
+        self.y1 = center_y - math.ceil(n / 2)
+        self.x2 = center_x + math.floor(n / 2)
+        self.y2 = center_y + math.floor(n / 2)
         return self
 
     def height(self, n: int) -> Area:
@@ -402,8 +442,8 @@ class Area:
         """
         c1, c2 = self._get_length_change(n, self.get_height(), self.y1, self.y2)
 
-        self.y1 = self._minmax_val(self.y1 + c1)
-        self.y2 = self._minmax_val(self.y2 + c2)
+        self.y1 = self._y1 + c1
+        self.y2 = self._y2 + c2
         return self
 
     def width(self, n: int) -> Area:
@@ -413,30 +453,31 @@ class Area:
         """
         c1, c2 = self._get_length_change(n, self.get_width(), self.x1, self.x2)
 
-        self.x1 = self._minmax_val(self.x1 + c1)
-        self.x2 = self._minmax_val(self.x2 + c2)
+        self.x1 = self._x1 + c1
+        self.x2 = self._x2 + c2
         return self
 
     def center(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position. When the given center forces the selection of the edge of the
-        map, the selection is moved to that position and all tiles that are out of the map are removed from the
-        selection, effectively decreasing the selection size.
+        map the off-map tiles will not be returned. When moving the selection back into the map the tiles will be
+        returned again.
 
         If you want to limit moving the center without changing the selection box size, use: ``center_bounded``
         """
         center_x, center_y = self.get_center()
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
-        self.x1 = self._minmax_val(self.x1 + diff_x)
-        self.y1 = self._minmax_val(self.y1 + diff_y)
-        self.x2 = self._minmax_val(self.x2 + diff_x)
-        self.y2 = self._minmax_val(self.y2 + diff_y)
+        self.x1 = self._x1 + diff_x
+        self.y1 = self._y1 + diff_y
+        self.x2 = self._x2 + diff_x
+        self.y2 = self._y2 + diff_y
         return self
 
     def center_bounded(self, x: int, y: int) -> Area:
         """
         Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge
-        of the map. The selection will be forced against the edge of the map but the selection will not be decreased.
+        of the map. The selection will be forced against the edge of the map and the selection will not be decreased in
+        size.
         """
         center_x, center_y = self.get_center()
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
@@ -463,12 +504,8 @@ class Area:
         """Sets the selection to the given coordinates"""
         x2, y2 = self._negative_coord(x2, y2)
 
-        x1, y1, x2, y2 = validate_coords(x1, y1, x2, y2)
+        self.x1, self.y1, self.x2, self.y2 = validate_coords(x1, y1, x2, y2)
 
-        self.x1 = self._minmax_val(x1)
-        self.y1 = self._minmax_val(y1)
-        self.x2 = self._minmax_val(x2)
-        self.y2 = self._minmax_val(y2)
         return self
 
     def select_centered(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
@@ -492,22 +529,22 @@ class Area:
 
     def shrink_x1(self, n: int) -> Area:
         """Shrinks the selection from the first corner on the X axis by n"""
-        self.x1 = min(self.x1 + n, self.x2)
+        self.x1 = min(self._x1 + n, self._x2)
         return self
 
     def shrink_y1(self, n: int) -> Area:
         """Shrinks the selection from the first corner on the Y axis by n"""
-        self.y1 = min(self.y1 + n, self.y2)
+        self.y1 = min(self._y1 + n, self._y2)
         return self
 
     def shrink_x2(self, n: int) -> Area:
         """Shrinks the selection from the second corner on the X axis by n"""
-        self.x2 = max(self.x1, self.x2 - n)
+        self.x2 = max(self._x1, self._x2 - n)
         return self
 
     def shrink_y2(self, n: int) -> Area:
         """Shrinks the selection from the second corner on the Y axis by n"""
-        self.y2 = max(self.y1, self.y2 - n)
+        self.y2 = max(self._y1, self._y2 - n)
         return self
 
     def expand(self, n: int) -> Area:
@@ -520,22 +557,22 @@ class Area:
 
     def expand_x1(self, n: int) -> Area:
         """Expands the selection from the first corner on the X axis by n"""
-        self.x1 = self._minmax_val(self.x1 - n)
+        self.x1 = self.x1 - n
         return self
 
     def expand_y1(self, n: int) -> Area:
         """Expands the selection from the first corner on the Y axis by n"""
-        self.y1 = self._minmax_val(self.y1 - n)
+        self.y1 = self.y1 - n
         return self
 
     def expand_x2(self, n: int) -> Area:
         """Expands the selection from the second corner on the X axis by n"""
-        self.x2 = self._minmax_val(self.x2 + n)
+        self.x2 = self.x2 + n
         return self
 
     def expand_y2(self, n: int) -> Area:
         """Expands the selection from the second corner on the Y axis by n"""
-        self.y2 = self._minmax_val(self.y2 + n)
+        self.y2 = self.y2 + n
         return self
 
     # ============================ Test against ... functions ============================
@@ -555,7 +592,7 @@ class Area:
         if tile is not None:
             x, y = tile
 
-        if not (self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2):
+        if not (self._x1 <= x <= self._x2 and self._y1 <= y <= self._y2):
             return False
 
         is_within: bool

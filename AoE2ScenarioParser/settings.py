@@ -6,12 +6,16 @@ PRINT_STATUS_UPDATES = True
 """If status updates of what is being read and written should be printed to console or not."""
 DISABLE_ERROR_ON_OVERWRITING_SOURCE = False
 """Disable the error being raised when overwriting source scenario."""
+ALLOW_DIRTY_RETRIEVER_OVERWRITE = False
+"""If it is allowed to overwrite a retriever that is dirty (it has been changed manually)"""
 
 # Warning related settings
 DISABLE_WARNINGS = False
 """Disable all warnings thrown by the printers.warn function."""
 DISABLE_VERSION_WARNINGS = False
 """Disable warnings about python versions"""
+DISABLE_DIRTY_RETRIEVER_WARNING = False
+"""Disable warnings about dirty retrievers being overwritten"""
 RAISE_ERROR_ON_WARNING = False
 """Raise an error when a warning should be shown. Handy for debugging, shows you the stacktrace."""
 

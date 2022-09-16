@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Union
+from typing import Union, List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.trigger_lists import Age
@@ -26,6 +26,7 @@ class TechInfo(Enum):
     >>> TechInfo.monastery_techs()
     >>> TechInfo.university_techs()
     >>> TechInfo.eco_techs()
+    >>> TechInfo.civilization_techs()
 
     **Examples**
 
@@ -112,7 +113,9 @@ class TechInfo(Enum):
                 TechInfo.CHATRAS,
                 TechInfo.CHIEFTAINS,
                 TechInfo.CORVINIAN_ARMY,
+                TechInfo.DETINETS,
                 TechInfo.FIRST_CRUSADE,
+                TechInfo.GRAND_TRUNK_ROAD,
                 TechInfo.GREAT_WALL,
                 TechInfo.GREEK_FIRE,
                 TechInfo.HILL_FORTS,
@@ -122,10 +125,12 @@ class TechInfo(Enum):
                 TechInfo.IRONCLAD,
                 TechInfo.KAMANDARAN,
                 TechInfo.KASBAH,
+                TechInfo.KSHATRIYAS,
                 TechInfo.NOMADS,
                 TechInfo.MADRASAH,
                 TechInfo.MARAUDERS,
-                TechInfo.ORTHODOXY,
+                TechInfo.MEDICAL_CORPS,
+                TechInfo.PAIKS,
                 TechInfo.EUPSEONG,
                 TechInfo.PAVISE,
                 TechInfo.ROYAL_HEIRS,
@@ -135,7 +140,6 @@ class TechInfo(Enum):
                 TechInfo.STEPPE_HUSBANDRY,
                 TechInfo.STIRRUPS,
                 TechInfo.STRONGHOLD,
-                TechInfo.SULTANS,
                 TechInfo.SZLACHTA_PRIVILEGES,
                 TechInfo.THALASSOCRACY,
                 TechInfo.TIGUI,
@@ -143,6 +147,7 @@ class TechInfo(Enum):
                 TechInfo.WAGENBURG_TACTICS,
                 TechInfo.YASAMA,
                 TechInfo.YEOMEN,
+                TechInfo.ZEALOTRY
             ],
             "imp_age": [
                 TechInfo.ARQUEBUS,
@@ -153,7 +158,8 @@ class TechInfo(Enum):
                 TechInfo.BURGUNDIAN_VINEYARDS,
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
-                TechInfo.FABRIC_SHIEDS,
+                TechInfo.COUNTERWEIGHTS,
+                TechInfo.FABRIC_SHIELDS,
                 TechInfo.CUMAN_MERCENARIES,
                 TechInfo.DOUBLE_CROSSBOW,
                 TechInfo.DRILL,
@@ -162,6 +168,7 @@ class TechInfo(Enum):
                 TechInfo.FARIMBA,
                 TechInfo.FLEMISH_REVOLUTION,
                 TechInfo.FORCED_LEVY,
+                TechInfo.FRONTIER_GUARDS,
                 TechInfo.FUROR_CELTICA,
                 TechInfo.GARLAND_WARS,
                 TechInfo.HUSSITE_REFORMS,
@@ -169,6 +176,7 @@ class TechInfo(Enum):
                 TechInfo.LECHITIC_LEGACY,
                 TechInfo.LOGISTICA,
                 TechInfo.MAGHREBI_CAMELS,
+                TechInfo.MAHAYANA,
                 TechInfo.MAHOUTS,
                 TechInfo.MANIPUR_CAVALRY,
                 TechInfo.PAPER_MONEY,
@@ -183,7 +191,7 @@ class TechInfo(Enum):
                 TechInfo.TORSION_ENGINES,
                 TechInfo.TOWER_SHIELDS,
                 TechInfo.WARWOLF,
-                TechInfo.ZEALOTRY
+                TechInfo.WOOTZ_STEEL,
             ]
         }
 
@@ -217,12 +225,13 @@ class TechInfo(Enum):
                 TechInfo.ELITE_BOYAR,
                 TechInfo.ELITE_CAMEL_ARCHER,
                 TechInfo.ELITE_CATAPHRACT,
+                TechInfo.ELITE_CHAKRAM_THROWER,
                 TechInfo.ELITE_CHU_KO_NU,
                 TechInfo.ELITE_CONQUISTADOR,
                 TechInfo.ELITE_COUSTILLIER,
-                TechInfo.ELITE_ELEPHANT_ARCHER,
                 TechInfo.ELITE_GBETO,
                 TechInfo.ELITE_GENOESE_CROSSBOWMAN,
+                TechInfo.ELITE_GHULAM,
                 TechInfo.ELITE_HUSKARL,
                 TechInfo.ELITE_HUSSITE_WAGON,
                 TechInfo.ELITE_JAGUAR_WARRIOR,
@@ -240,6 +249,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_OBUCH,
                 TechInfo.ELITE_ORGAN_GUN,
                 TechInfo.ELITE_PLUMED_ARCHER,
+                TechInfo.ELITE_RATHA,
                 TechInfo.ELITE_RATTAN_ARCHER,
                 TechInfo.ELITE_SAMURAI,
                 TechInfo.ELITE_SERJEANT,
@@ -247,6 +257,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_TARKAN,
                 TechInfo.ELITE_TEUTONIC_KNIGHT,
                 TechInfo.ELITE_THROWING_AXEMAN,
+                TechInfo.ELITE_URUMI_SWORDSMAN,
                 TechInfo.ELITE_WAR_ELEPHANT,
                 TechInfo.ELITE_WAR_WAGON,
                 TechInfo.ELITE_WOAD_RAIDER,
@@ -259,6 +270,7 @@ class TechInfo(Enum):
                 TechInfo.HOUFNICE,
                 TechInfo.IMPERIAL_CAMEL_RIDER,
                 TechInfo.IMPERIAL_SKIRMISHER,
+                TechInfo.ELITE_SHRIVAMSHA_RIDER,
                 TechInfo.WINGED_HUSSAR
             ]
         }
@@ -273,7 +285,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def town_center_techs(ages: Union[int, list[int]] = None):
+    def town_center_techs(ages: Union[int, List[int]] = None):
         """
         Args:
             ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -309,7 +321,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def blacksmith_techs(ages: Union[int, list[int]] = None) -> List[TechInfo]:
+    def blacksmith_techs(ages: Union[int, List[int]] = None) -> List[TechInfo]:
         """
         Args:
             ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -352,7 +364,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def monastery_techs(ages: Union[int, list[int]] = None) -> List[TechInfo]:
+    def monastery_techs(ages: Union[int, List[int]] = None) -> List[TechInfo]:
         """
         Args:
             ages: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -389,7 +401,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def university_techs(ages: Union[int, list[int]] = None) -> List[TechInfo]:
+    def university_techs(ages: Union[int, List[int]] = None) -> List[TechInfo]:
         """
         Args:
             ages: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -429,7 +441,7 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def eco_techs(ages: Union[int, list[int]] = None, buildings: Union[int, list[int]] = None) -> List[TechInfo]:
+    def eco_techs(ages: Union[int, List[int]] = None, buildings: Union[int, List[int]] = None) -> List[TechInfo]:
         """
         Args:
             ages: The age ID (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -491,6 +503,58 @@ class TechInfo(Enum):
 
         return techs_to_return
 
+    @staticmethod
+    def civilization_techs() -> List[TechInfo]:
+        """
+        Returns:
+            A list of TechInfo objects which represent all civ 'upgrades'. Can be used to detect which civ is being
+            played by the player using the 'researched technology' condition.
+        """
+        return [
+            TechInfo.AZTECS,
+            TechInfo.BENGALIS,
+            TechInfo.BERBERS,
+            TechInfo.BOHEMIANS,
+            TechInfo.BRITONS,
+            TechInfo.BULGARIANS,
+            TechInfo.BURGUNDIANS,
+            TechInfo.BURMESE,
+            TechInfo.BYZANTINES,
+            TechInfo.CELTS,
+            TechInfo.CHINESE,
+            TechInfo.CUMANS,
+            TechInfo.DRAVIDIANS,
+            TechInfo.ETHIOPIANS,
+            TechInfo.FRANKS,
+            TechInfo.GOTHS,
+            TechInfo.GURJARAS,
+            TechInfo.HUNS,
+            TechInfo.INCAS,
+            TechInfo.INDIANS,
+            TechInfo.ITALIANS,
+            TechInfo.JAPANESE,
+            TechInfo.KHMER,
+            TechInfo.KOREANS,
+            TechInfo.LITHUANIANS,
+            TechInfo.MAGYARS,
+            TechInfo.MALAY,
+            TechInfo.MALIANS,
+            TechInfo.MAYANS,
+            TechInfo.MONGOLS,
+            TechInfo.PERSIANS,
+            TechInfo.POLES,
+            TechInfo.PORTUGUESE,
+            TechInfo.SARACENS,
+            TechInfo.SICILIANS,
+            TechInfo.SLAVS,
+            TechInfo.SPANISH,
+            TechInfo.TATARS,
+            TechInfo.TEUTONS,
+            TechInfo.TURKS,
+            TechInfo.VIETNAMESE,
+            TechInfo.VIKINGS,
+        ]
+
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33
     ARBALESTER = 237, 54
@@ -540,7 +604,7 @@ class TechInfo(Enum):
     COINAGE = 23, 7
     CONSCRIPTION = 315, 91
     CORVINIAN_ARMY = 514, 33
-    FABRIC_SHIEDS = 517, 107
+    FABRIC_SHIELDS = 517, 107
     CRENELLATIONS = 11, 107
     CROP_ROTATION = 12, 0
     CROSSBOWMAN = 100, 29
@@ -636,7 +700,7 @@ class TechInfo(Enum):
     HAND_CART = 249, 42
     HEATED_SHOT = 380, 104
     HEAVY_CAMEL_RIDER = 236, 55
-    HEAVY_CAV_ARCHER = 218, 52
+    HEAVY_CAVALRY_ARCHER = 218, 52
     HEAVY_DEMOLITION_SHIP = 244, 39
     HEAVY_PLOW = 13, 1
     HEAVY_SCORPION = 239, 38
@@ -656,7 +720,7 @@ class TechInfo(Enum):
     IMPERIAL_CAMEL_RIDER = 521, 74
     IMPERIAL_SKIRMISHER = 655, 120
     INCAS = 549, -1
-    INDIANS = 548, -1
+    HINDUSTANIS = 548, -1
     INQUISITION = 492, 33
     IRON_CASTING = 68, 18
     IRONCLAD = 489, 33
@@ -734,7 +798,7 @@ class TechInfo(Enum):
     STONE_MINING = 278, 87
     STONE_SHAFT_MINING = 279, 88
     STRONGHOLD = 482, 33
-    SULTANS = 506, 33
+    GRAND_TRUNK_ROAD = 506, 33
     SUPPLIES = 716, 124
     SUPREMACY = 440, 107
     TATARS = 674, -1
@@ -778,11 +842,11 @@ class TechInfo(Enum):
     FOLWARK_FEUDAL = 794, -1
     FOLWARK_CASTLE = 795, -1
     FOLWARK_IMPERIAL = 796, -1
-    FOLWARK_HORSE_COLLAR_EXTRA = 797, -1
+    HORSE_COLLAR_FOLWARK_BONUS_INCREASE = 797, -1
     FOLWARK_HEAVY_PLOW_EXTRA = 797, -1
     FOLWARK_CROP_ROTATION_EXTRA = 797, -1
     STONE_MINING_GOLD_GENERATION_INCREASE = 806, -1
-    STONE_SHADT_MINING_GOLD_GENERATION_INCREASE = 807, -1
+    STONE_SHAFT_MINING_GOLD_GENERATION_INCREASE = 807, -1
     BOHEMIANS = 777, -1
     WAGENBURG_TACTICS = 784, 33
     HUSSITE_REFORMS = 785, 107
@@ -792,15 +856,95 @@ class TechInfo(Enum):
     ELITE_OBUCH = 779, 105
     SET_MAX_POP = 658, -1
     ENABLE_MONUMENT_RES_TRICKLE = 729, -1
-    RESOURCES_LAST_LONGER_15 = 737, -1
-    RESOURCES_LAST_LONGER_30 = 738, -1
-    RESOURCES_LAST_LONGER_40 = 739, -1
-    RESOURCES_LAST_LONGER_50 = 740, -1
-    RESOURCES_LAST_LONGER_75 = 741, -1
-    RESOURCES_LAST_LONGER_100 = 742, -1
-    RESOURCES_LAST_LONGER_125 = 743, -1
-    RESOURCES_LAST_LONGER_150 = 744, -1
-    RESOURCES_LAST_LONGER_175 = 745, -1
-    RESOURCES_LAST_LONGER_200 = 746, -1
-    RESOURCES_LAST_LONGER_300 = 747, -1
+    RESOURCES_LAST_15_PERCENT_LONGER = 737, -1
+    RESOURCES_LAST_30_PERCENT_LONGER = 738, -1
+    RESOURCES_LAST_40_PERCENT_LONGER = 739, -1
+    RESOURCES_LAST_50_PERCENT_LONGER = 740, -1
+    RESOURCES_LAST_75_PERCENT_LONGER = 741, -1
+    RESOURCES_LAST_100_PERCENT_LONGER = 742, -1
+    RESOURCES_LAST_125_PERCENT_LONGER = 743, -1
+    RESOURCES_LAST_150_PERCENT_LONGER = 744, -1
+    RESOURCES_LAST_175_PERCENT_LONGER = 745, -1
+    RESOURCES_LAST_200_PERCENT_LONGER = 746, -1
+    RESOURCES_LAST_300_PERCENT_LONGER = 747, -1
     DISABLE_FREE_TRANSPORT = 229, -1
+    AUTO_UPGRADE_SCOUT_FEUDAL_AGE = 20, 0
+    COMPASS = 28, 827
+    SPANISH_CANNON_GALLEON = 57, 0
+    WALLS_HP_CASTLE_AGE = 71, -1
+    PALISADE_WALLS_HP_FEUDAL_AGE = 72, -1
+    FREE_GUARD_TOWER = 442, -1
+    FREE_KEEP = 443, -1
+    FREE_BOMBARD_TOWER = 444, -1
+    COUNTERWEIGHTS = 454, 107
+    DETINETS = 455, 33
+    ARROWSLITS_GUARD_TOWER = 610, -1
+    ARROWSLITS_KEEP = 611, -1
+    FIRE_SHIPS_AUTO_BALLISTICS = 612, -1
+    XOLOTL_POST_IMPERIAL_UPGRADE = 636, -1
+    IMPERIAL_NOMADS = 641, -1
+    THALASSOCRACY_AND_FLETCHING = 669, -1
+    THALASSOCRACY_AND_BODKIN = 670, -1
+    THALASSOCRACY_AND_BRACER = 671, -1
+    RENAME_UNITS = 713, -1
+    FTT_MOVE_LANCERS = 717, 0
+    FTT_MOVE_TARKANS = 718, 0
+    FTT_MOVE_HUSKARLS = 719, 0
+    FTT_MOVE_SLINGERS = 720, 0
+    CHANGE_TC_CONSTR_TIME1 = 723, 0
+    CHANGE_TC_CONSTR_TIME2 = 724, 0
+    THALASSOCRACY_AND_CHEMISTRY = 734, -1
+    THALASSOCRACY_AND_MURDER_HOLES = 735, -1
+    THALASSOCRACY_AND_HEATED_SHOT = 736, -1
+    FEUDAL_ECO_TECH_REQUIREMENT = 758, -1
+    CASTLE_ECO_TECH_REQUIREMENT = 759, -1
+    IMPERIAL_ECO_TECH_REQUIREMENT = 760, -1
+    HEAVY_PLOW_REQUIREMENT = 761, -1
+    BOW_SAW_REQUIREMENT = 762, -1
+    HAND_CART_REQUIREMENT = 763, -1
+    GOLD_SHAFT_MINING_REQUIREMENT = 764, -1
+    STONE_SHAFT_MINING_REQUIREMENT = 765, -1
+    CROP_ROTATION_REQUIREMENT = 766, -1
+    TWO_MAN_SAW_REQUIREMENT = 767, -1
+    CAVALIER_REQUIREMENT = 768, -1
+    WINGED_HUSSAR_LITHUANIANS = 788, -1
+    WINGED_HUSSAR_POLES = 789, -1
+    HEAVY_PLOW_FOLWARK_BONUS_INCREASE = 798, -1
+    CROP_ROTATION_FOLWARK_BONUS_INCREASE = 799, -1
+    HORSE_COLLAR_AND_CHINESE_TB = 812, -1
+    HEAVY_PLOW_AND_CHINESE_TB = 813, -1
+    CROP_ROTATION_AND_CHINESE_TB = 814, -1
+    HORSE_COLLAR_AND_CHINESE_TB_AND_SICILIANS = 815, -1
+    HEAVY_PLOW_AND_CHINESE_TB_AND_SICILIANS = 816, -1
+    CROP_ROTATION_AND_CHINESE_TB_AND_SICILIANS = 817, -1
+    CHINESE_TB_AND_POLES = 818, -1
+    HORSE_COLLAR_AND_CHINESE_TB_AND_POLES = 819, -1
+    HEAVY_PLOW_AND_CHINESE_TB_AND_POLES = 820, -1
+    CROP_ROTATION_AND_CHINESE_TB_AND_POLES = 821, -1
+    DRAVIDIANS = 822, -1
+    BENGALIS = 823, -1
+    GURJARAS = 824, -1
+    ELITE_URUMI_SWORDSMAN = 826, 105
+    ELITE_RATHA = 828, 105
+    ELITE_CHAKRAM_THROWER = 830, 105
+    MEDICAL_CORPS = 831, 33
+    WOOTZ_STEEL = 832, 107
+    PAIKS = 833, 33
+    MAHAYANA = 834, 107
+    KSHATRIYAS = 835, 33
+    FRONTIER_GUARDS = 836, 107
+    SIEGE_ELEPHANT = 838, 128
+    ELITE_GHULAM = 840, 105
+    ELITE_SHRIVAMSHA_RIDER = 843, 105
+    CAMEL_SCOUT_EXTRA_BONUS_DAMAGE = 859, -1
+    UPGRADE_CAMEL_SCOUTS_TO_RIDERS = 860, -1
+    KSHATRIYAS_AND_SUPPLIES = 861, -1
+    FTT_MOVE_TARKANS_2 = 862, 0
+    FTT_MOVE_ELEPHANT_ARCHERS = 863, 0
+    FTT_MOVE_ARMORED_ELEPHANTS = 864, 0
+    FTT_MOVE_SHRIVAMSHA_RIDERS = 865, 0
+    FTT_MOVE_SHRIVAMSHA_RIDERS_2 = 866, 0
+    PAPER_MONEY_AND_DOUBLE_BIT_AXE = 867, -1
+    PAPER_MONEY_AND_BOW_SAW = 868, -1
+    PAPER_MONEY_AND_TWO_MAN_SAW = 869, -1
+

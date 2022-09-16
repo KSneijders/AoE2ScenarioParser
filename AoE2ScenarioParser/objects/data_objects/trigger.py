@@ -1,4 +1,3 @@
-from copy import deepcopy
 from typing import List, Any
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
@@ -14,35 +13,36 @@ from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
+from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
-class Trigger(AoE2Object):
+class Trigger(AoE2Object, TriggerComponent):
     """Object for handling a trigger."""
 
     _link_list = [
-        RetrieverObjectLink("name", "Triggers", "trigger_data[__index__].trigger_name"),
-        RetrieverObjectLink("description", "Triggers", "trigger_data[__index__].trigger_description"),
-        RetrieverObjectLink("description_stid", "Triggers", "trigger_data[__index__].description_string_table_id"),
-        RetrieverObjectLink("display_as_objective", "Triggers", "trigger_data[__index__].display_as_objective"),
-        RetrieverObjectLink("short_description", "Triggers", "trigger_data[__index__].short_description"),
-        RetrieverObjectLink("short_description_stid", "Triggers",
-                            "trigger_data[__index__].short_description_string_table_id"),
-        RetrieverObjectLink("display_on_screen", "Triggers", "trigger_data[__index__].display_on_screen"),
-        RetrieverObjectLink("description_order", "Triggers", "trigger_data[__index__].objective_description_order"),
-        RetrieverObjectLink("enabled", "Triggers", "trigger_data[__index__].enabled"),
-        RetrieverObjectLink("looping", "Triggers", "trigger_data[__index__].looping"),
-        RetrieverObjectLink("header", "Triggers", "trigger_data[__index__].make_header"),
-        RetrieverObjectLink("mute_objectives", "Triggers", "trigger_data[__index__].mute_objectives"),
-        RetrieverObjectLink("conditions", "Triggers", "trigger_data[__index__].condition_data",
-                            process_as_object=Condition),
-        RetrieverObjectLink("condition_order", "Triggers", "trigger_data[__index__].condition_display_order_array"),
-        RetrieverObjectLink("effects", "Triggers", "trigger_data[__index__].effect_data",
-                            process_as_object=Effect),
-        RetrieverObjectLink("effect_order", "Triggers", "trigger_data[__index__].effect_display_order_array"),
-        RetrieverObjectLink("trigger_id", retrieve_instance_number=True),
+        RetrieverObjectLinkGroup("Triggers", "trigger_data[__index__]", group=[
+            RetrieverObjectLink("name", link="trigger_name"),
+            RetrieverObjectLink("description", link="trigger_description"),
+            RetrieverObjectLink("description_stid", link="description_string_table_id"),
+            RetrieverObjectLink("display_as_objective"),
+            RetrieverObjectLink("short_description"),
+            RetrieverObjectLink("short_description_stid", link="short_description_string_table_id"),
+            RetrieverObjectLink("display_on_screen"),
+            RetrieverObjectLink("description_order", link="objective_description_order"),
+            RetrieverObjectLink("enabled"),
+            RetrieverObjectLink("looping"),
+            RetrieverObjectLink("header", link="make_header"),
+            RetrieverObjectLink("mute_objectives"),
+            RetrieverObjectLink("conditions", link="condition_data", process_as_object=Condition),
+            RetrieverObjectLink("condition_order", link="condition_display_order_array"),
+            RetrieverObjectLink("effects", link="effect_data", process_as_object=Effect),
+            RetrieverObjectLink("effect_order", link="effect_display_order_array"),
+        ]),
+        RetrieverObjectLink("trigger_id", retrieve_history_number=0),
     ]
 
     def __init__(self,
@@ -102,7 +102,6 @@ class Trigger(AoE2Object):
         self._assign_new_ce_support()
 
     def _deepcopy_entry(self, k, v) -> Any:
-        """Default copy implementation per key for AoE2Object. Created so this logic can be inherited."""
         if k in ['new_effect', 'new_condition']:
             return None
         else:
@@ -141,7 +140,7 @@ class Trigger(AoE2Object):
 
     @conditions.setter
     def conditions(self, val: List[Condition]) -> None:
-        self._conditions = UuidList(self._host_uuid, val)
+        self._conditions = UuidList(self._uuid, val)
         self.condition_order = list(range(0, len(val)))
 
     @property
@@ -150,7 +149,7 @@ class Trigger(AoE2Object):
 
     @effects.setter
     def effects(self, val: List[Effect]) -> None:
-        self._effects = UuidList(self._host_uuid, val)
+        self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
     def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
@@ -169,7 +168,7 @@ class Trigger(AoE2Object):
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
-            sv = getters.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._uuid)
             try:
                 return effect_dataset.default_attributes[eff_type]
             except KeyError:
@@ -182,7 +181,7 @@ class Trigger(AoE2Object):
         effect_attr = {}
         for key, value in effect_defaults.items():
             effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_effect = Effect(**effect_attr, host_uuid=self._host_uuid)
+        new_effect = Effect(**effect_attr, uuid=self._uuid)
         self.effects.append(new_effect)
         return new_effect
 
@@ -190,13 +189,14 @@ class Trigger(AoE2Object):
                        attribute=None, unit_object=None, next_object=None, object_list=None,
                        source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
                        area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None
+                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None,
+                       timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
                        ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
-            sv = getters.get_scenario_version(self._host_uuid)
+            sv = getters.get_scenario_version(self._uuid)
             try:
                 return condition_dataset.default_attributes[cond_type]
             except KeyError:
@@ -209,7 +209,7 @@ class Trigger(AoE2Object):
         condition_attr = {}
         for key, value in condition_defaults.items():
             condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
-        new_condition = Condition(**condition_attr, host_uuid=self._host_uuid)
+        new_condition = Condition(**condition_attr, uuid=self._uuid)
         self.conditions.append(new_condition)
         return new_condition
 
@@ -290,8 +290,11 @@ class Trigger(AoE2Object):
             for c_display_order, condition_id in enumerate(self.condition_order):
                 condition = self.conditions[condition_id]
 
-                return_string += f"\t{condition_dataset.condition_names[condition.condition_type]} " \
-                                 f"[Index: {condition_id}, Display: {c_display_order}]:\n"
+                name = f"Unknown ({condition.condition_type})"
+                if condition.condition_type in condition_dataset.condition_names:
+                    name = condition_dataset.condition_names[condition.condition_type]
+
+                return_string += f"\t{name} [Index: {condition_id}, Display: {c_display_order}]:\n"
                 return_string += add_tabs(condition.get_content_as_string(), 2)
 
         if len(self.effect_order) > 0:
@@ -299,8 +302,11 @@ class Trigger(AoE2Object):
             for e_display_order, effect_id in enumerate(self.effect_order):
                 effect = self.effects[effect_id]
 
-                return_string += f"\t{effect_dataset.effect_names[effect.effect_type]}" \
-                                 f" [Index: {effect_id}, Display: {e_display_order}]:\n"
+                name = f"Unknown ({effect.effect_type})"
+                if effect.effect_type in effect_dataset.effect_names:
+                    name = effect_dataset.effect_names[effect.effect_type]
+
+                return_string += f"\t{name} [Index: {effect_id}, Display: {e_display_order}]:\n"
                 return_string += add_tabs(effect.get_content_as_string(), 2)
 
         if include_trigger_definition:

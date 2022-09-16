@@ -3,30 +3,27 @@ import sys
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.printers import warn
 
-
-_block_below_minor = 8
-_notify_below_minor = 8
+_block_below = (3, 8)
+_notify_below = (3, 8)
 _py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
 
 
 def python_version_check():
-    """
-    Raises an error if user's python version is below the configured minimum allowed python version.
-    Raises a warning if user's python version is below the configured minimum notify version. Used to notify users when
-        the parser's minimum python version requirement will be increased.
-    """
-    if sys.version_info[0] < 3:
-        raise Exception("AoE2ScenarioParser requires the use of Python 3")
+    if sys.version_info < (3, 0):
+        raise Exception("AoE2ScenarioParser does not support Python 2")
 
-    if sys.version_info[1] < _block_below_minor:
-        raise Exception(f"\n\nAoE2ScenarioParser requires the use of Python 3.{_block_below_minor}.\n"
+    if sys.version_info < _block_below:
+        raise Exception(f"\n\nAoE2ScenarioParser requires the use of Python {'.'.join(map(str, _block_below))}.\n"
                         f"You are currently using version {_py_version}. You can download a newer version from: \n"
                         f"\thttps://www.python.org/downloads/\n")
-    elif sys.version_info[1] < _notify_below_minor:
+    elif sys.version_info < _notify_below:
         if not settings.DISABLE_VERSION_WARNINGS:
-            warn(f"AoE2ScenarioParser will update it's minimum python requirements to Python 3.{_notify_below_minor} soon.\n"
-                 f"You are currently using version {_py_version}. You can download a newer version from: \n"
-                 f"\thttps://www.python.org/downloads/\n\n"
-                 f"You can disable these warnings using:\n" 
-                 "    from AoE2ScenarioParser import settings\n" 
-                 "    settings.DISABLE_VERSION_WARNINGS = True")
+            warn(
+                f"AoE2ScenarioParser will update it's minimum python requirements to "
+                f"Python {'.'.join(map(str, _notify_below))} in the (near) future.\n"
+                f"You are currently using version {_py_version}. You can download a newer version from: \n"
+                f"\thttps://www.python.org/downloads/\n\n"
+                f"You can disable these warnings using:\n"
+                "    from AoE2ScenarioParser import settings\n"
+                "    settings.DISABLE_VERSION_WARNINGS = True"
+            )

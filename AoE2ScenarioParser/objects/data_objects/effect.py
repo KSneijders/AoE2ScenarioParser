@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Any
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
@@ -11,8 +11,10 @@ from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_effect_attr_value
+from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
@@ -22,87 +24,65 @@ def _add_trail_if_string_attr_is_used_in_effect(obj: Effect, attr_name, val: Uni
     return val
 
 
-class Effect(AoE2Object):
+class Effect(AoE2Object, TriggerComponent):
     """Object for handling an effect."""
+    hidden_attribute = 'effect_type'
 
     _link_list = [
-        RetrieverObjectLink("effect_type", "Triggers", "trigger_data[__index__].effect_data[__index__].effect_type"),
-        RetrieverObjectLink("ai_script_goal", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].ai_script_goal"),
-        RetrieverObjectLink("quantity", "Triggers", "trigger_data[__index__].effect_data[__index__].quantity"),
-        RetrieverObjectLink("tribute_list", "Triggers", "trigger_data[__index__].effect_data[__index__].tribute_list"),
-        RetrieverObjectLink("diplomacy", "Triggers", "trigger_data[__index__].effect_data[__index__].diplomacy"),
-        RetrieverObjectLink("legacy_location_object_reference", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].legacy_location_object_reference"),
-        RetrieverObjectLink("object_list_unit_id", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].object_list_unit_id"),
-        RetrieverObjectLink("source_player", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].source_player"),
-        RetrieverObjectLink("target_player", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].target_player"),
-        RetrieverObjectLink("technology", "Triggers", "trigger_data[__index__].effect_data[__index__].technology"),
-        RetrieverObjectLink("string_id", "Triggers", "trigger_data[__index__].effect_data[__index__].string_id"),
-        RetrieverObjectLink("display_time", "Triggers", "trigger_data[__index__].effect_data[__index__].display_time"),
-        RetrieverObjectLink("trigger_id", "Triggers", "trigger_data[__index__].effect_data[__index__].trigger_id"),
-        RetrieverObjectLink("location_x", "Triggers", "trigger_data[__index__].effect_data[__index__].location_x"),
-        RetrieverObjectLink("location_y", "Triggers", "trigger_data[__index__].effect_data[__index__].location_y"),
-        RetrieverObjectLink("location_object_reference", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].location_object_reference"),
-        RetrieverObjectLink("area_x1", "Triggers", "trigger_data[__index__].effect_data[__index__].area_x1"),
-        RetrieverObjectLink("area_y1", "Triggers", "trigger_data[__index__].effect_data[__index__].area_y1"),
-        RetrieverObjectLink("area_x2", "Triggers", "trigger_data[__index__].effect_data[__index__].area_x2"),
-        RetrieverObjectLink("area_y2", "Triggers", "trigger_data[__index__].effect_data[__index__].area_y2"),
-        RetrieverObjectLink("object_group", "Triggers", "trigger_data[__index__].effect_data[__index__].object_group"),
-        RetrieverObjectLink("object_type", "Triggers", "trigger_data[__index__].effect_data[__index__].object_type"),
-        RetrieverObjectLink("instruction_panel_position", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].instruction_panel_position"),
-        RetrieverObjectLink("attack_stance", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].attack_stance"),
-        RetrieverObjectLink("time_unit", "Triggers", "trigger_data[__index__].effect_data[__index__].time_unit"),
-        RetrieverObjectLink("enabled", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].enabled"),
-        RetrieverObjectLink("food", "Triggers", "trigger_data[__index__].effect_data[__index__].food"),
-        RetrieverObjectLink("wood", "Triggers", "trigger_data[__index__].effect_data[__index__].wood"),
-        RetrieverObjectLink("stone", "Triggers", "trigger_data[__index__].effect_data[__index__].stone"),
-        RetrieverObjectLink("gold", "Triggers", "trigger_data[__index__].effect_data[__index__].gold"),
-        RetrieverObjectLink("item_id", "Triggers", "trigger_data[__index__].effect_data[__index__].item_id"),
-        RetrieverObjectLink("flash_object", "Triggers", "trigger_data[__index__].effect_data[__index__].flash_object"),
-        RetrieverObjectLink("force_research_technology", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].force_research_technology"),
-        RetrieverObjectLink("visibility_state", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].visibility_state"),
-        RetrieverObjectLink("scroll", "Triggers", "trigger_data[__index__].effect_data[__index__].scroll"),
-        RetrieverObjectLink("operation", "Triggers", "trigger_data[__index__].effect_data[__index__].operation"),
-        RetrieverObjectLink("object_list_unit_id_2", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].object_list_unit_id_2"),
-        RetrieverObjectLink("button_location", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].button_location"),
-        RetrieverObjectLink("ai_signal_value", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].ai_signal_value"),
-        RetrieverObjectLink("object_attributes", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].object_attributes"),
-        RetrieverObjectLink("variable", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].variable"),
-        RetrieverObjectLink("timer", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].timer"),
-        RetrieverObjectLink("facet", "Triggers", "trigger_data[__index__].effect_data[__index__].facet"),
-        RetrieverObjectLink("play_sound", "Triggers", "trigger_data[__index__].effect_data[__index__].play_sound"),
-        RetrieverObjectLink("player_color", "Triggers", "trigger_data[__index__].effect_data[__index__].player_color",
-                            Support(since=1.40)),
-        RetrieverObjectLink("color_mood", "Triggers", "trigger_data[__index__].effect_data[__index__].color_mood",
-                            Support(since=1.42)),
-        RetrieverObjectLink("reset_timer", "Triggers", "trigger_data[__index__].effect_data[__index__].reset_timer",
-                            Support(since=1.44)),
-        RetrieverObjectLink("object_state", "Triggers", "trigger_data[__index__].effect_data[__index__].object_state",
-                            Support(since=1.44)),
-        RetrieverObjectLink("action_type", "Triggers", "trigger_data[__index__].effect_data[__index__].action_type",
-                            Support(since=1.44)),
-        RetrieverObjectLink("message", "Triggers", "trigger_data[__index__].effect_data[__index__].message",
-                            commit_callback=_add_trail_if_string_attr_is_used_in_effect),
-        RetrieverObjectLink("sound_name", "Triggers", "trigger_data[__index__].effect_data[__index__].sound_name",
-                            commit_callback=_add_trail_if_string_attr_is_used_in_effect),
-        RetrieverObjectLink("selected_object_ids", "Triggers",
-                            "trigger_data[__index__].effect_data[__index__].selected_object_ids"),
+        RetrieverObjectLinkGroup("Triggers", "trigger_data[__index__].effect_data[__index__]", group=[
+            RetrieverObjectLink("effect_type"),
+            RetrieverObjectLink("ai_script_goal"),
+            RetrieverObjectLink("quantity"),
+            RetrieverObjectLink("tribute_list"),
+            RetrieverObjectLink("diplomacy"),
+            RetrieverObjectLink("legacy_location_object_reference"),
+            RetrieverObjectLink("object_list_unit_id"),
+            RetrieverObjectLink("source_player"),
+            RetrieverObjectLink("target_player"),
+            RetrieverObjectLink("technology"),
+            RetrieverObjectLink("string_id"),
+            RetrieverObjectLink("display_time"),
+            RetrieverObjectLink("trigger_id"),
+            RetrieverObjectLink("location_x"),
+            RetrieverObjectLink("location_y"),
+            RetrieverObjectLink("location_object_reference"),
+            RetrieverObjectLink("area_x1"),
+            RetrieverObjectLink("area_y1"),
+            RetrieverObjectLink("area_x2"),
+            RetrieverObjectLink("area_y2"),
+            RetrieverObjectLink("object_group"),
+            RetrieverObjectLink("object_type"),
+            RetrieverObjectLink("instruction_panel_position"),
+            RetrieverObjectLink("attack_stance"),
+            RetrieverObjectLink("time_unit"),
+            RetrieverObjectLink("enabled"),
+            RetrieverObjectLink("food"),
+            RetrieverObjectLink("wood"),
+            RetrieverObjectLink("stone"),
+            RetrieverObjectLink("gold"),
+            RetrieverObjectLink("item_id"),
+            RetrieverObjectLink("flash_object"),
+            RetrieverObjectLink("force_research_technology"),
+            RetrieverObjectLink("visibility_state"),
+            RetrieverObjectLink("scroll"),
+            RetrieverObjectLink("operation"),
+            RetrieverObjectLink("object_list_unit_id_2"),
+            RetrieverObjectLink("button_location"),
+            RetrieverObjectLink("ai_signal_value"),
+            RetrieverObjectLink("object_attributes"),
+            RetrieverObjectLink("variable"),
+            RetrieverObjectLink("timer"),
+            RetrieverObjectLink("facet"),
+            RetrieverObjectLink("play_sound"),
+            RetrieverObjectLink("player_color", support=Support(since=1.40)),
+            RetrieverObjectLink("color_mood", support=Support(since=1.42)),
+            RetrieverObjectLink("reset_timer", support=Support(since=1.44)),
+            RetrieverObjectLink("object_state", support=Support(since=1.44)),
+            RetrieverObjectLink("action_type", support=Support(since=1.44)),
+            RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
+            RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
+            RetrieverObjectLink("selected_object_ids"),
+        ])
     ]
 
     def __init__(self,
@@ -265,12 +245,18 @@ class Effect(AoE2Object):
 
     @property
     def item_id(self):
-        return self.object_list_unit_id
+        if value_is_valid(self.object_list_unit_id):
+            return self.object_list_unit_id
+        if value_is_valid(self.technology):
+            return self.technology
+        if value_is_valid(self.tribute_list):
+            return self.tribute_list
+        return -1
 
     @item_id.setter
     def item_id(self, value):
-        raise ValueError("The `item_id` attribute isn't used in scenario's. Please use `object_list_unit_id`.\n"
-                         "If you believe this is an error, please create a report at GitHub.")
+        raise ValueError("The `item_id` attribute is always equal to its corresponding attribute."
+                         "Please use that attribute (i.e. 'object_list_unit_id' or 'technology' or 'tribute_list').")
 
     @property
     def effect_type(self):
@@ -338,6 +324,15 @@ class Effect(AoE2Object):
             val = [val]
         self._selected_object_ids = val
 
+    def should_be_displayed(self, attr: str, val: Any) -> bool:
+        # Ignore the quantity value in the print statement when flag is True.
+        if self._armour_attack_flag and attr == "quantity":
+            return False
+        if not self._armour_attack_flag and (attr == "armour_attack_quantity" or attr == "armour_attack_class"):
+            return False
+
+        return super().should_be_displayed(attr, val)
+
     def get_content_as_string(self, include_effect_definition=False) -> str:
         if self.effect_type not in effects.attributes:  # Unknown effect
             attributes_list = effects.empty_attributes
@@ -347,15 +342,10 @@ class Effect(AoE2Object):
         return_string = ""
         for attribute in attributes_list:
             val = getattr(self, attribute)
-            if attribute == "effect_type" or val in [[], [-1], "", " ", -1]:
-                continue
-            # Ignore the quantity value in the print statement when flag is True.
-            if self._armour_attack_flag and attribute == "quantity":
-                continue
-            if not self._armour_attack_flag and attribute in ["armour_attack_quantity", "armour_attack_class"]:
+            if not self.should_be_displayed(attribute, val):
                 continue
 
-            value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._host_uuid)
+            value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._uuid)
             return_string += f"{attribute}: {value_string}\n"
 
         if return_string == "":
@@ -399,11 +389,10 @@ class Effect(AoE2Object):
 
         ----
         """
-        trigger_version = getters.get_trigger_version(self._host_uuid)
-        if trigger_version == 2.4:
-            return quantity >> 8, quantity & 255
-        elif trigger_version >= 2.5:
+        trigger_version = getters.get_trigger_version(self._uuid)
+        if trigger_version >= 2.5:
             return quantity >> 16, quantity & 65535
+        return quantity >> 8, quantity & 255
 
     def _aa_to_quantity(self, aa_quantity: int, aa_class: int) -> int:
         """
@@ -417,12 +406,12 @@ class Effect(AoE2Object):
         Returns:
             The one byte quantity and one byte armor/attack value
         """
-        trigger_version = getters.get_trigger_version(self._host_uuid)
-        if trigger_version == 2.4:
-            # Would use `aa_class << 8` - but apparently multiplication is faster
-            return aa_class * 256 + aa_quantity
-        elif trigger_version >= 2.5:
+        trigger_version = getters.get_trigger_version(self._uuid)
+        if trigger_version >= 2.5:
             return aa_class * 65536 + aa_quantity
+
+        # Would use `aa_class << 8` - but apparently multiplication is faster
+        return aa_class * 256 + aa_quantity
 
     def __str__(self):
         return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"

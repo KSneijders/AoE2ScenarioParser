@@ -587,9 +587,36 @@ class EffectId(IntEnum):
     - color_mood
     
     **Version notice**: \n
-    This condition is supported since: 1.42"""
-    # Possibly used for marking when achievements should be achieved. Doesn't seem to work in scenario's. F
-    # UNKNOWN_0 = 58  # Was 58... Not anymore (?)
+    This condition was added in: 1.42
+    """
+    ENABLE_OBJECT_DELETION = 73
+    """Attributes for the **change_color_mood** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - item_id
+    - selected_object_ids
+    
+    **Version notice**: \n
+    This condition was added in: 1.46
+    """
+    DISABLE_OBJECT_DELETION = 74
+    """Attributes for the **change_color_mood** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - item_id
+    - selected_object_ids
+    
+    **Version notice**: \n
+    This condition was added in: 1.46
+    """
 
 
 empty_attributes = {
