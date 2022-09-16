@@ -4,7 +4,7 @@ import json
 import uuid
 import zlib
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Type, TypeVar
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
@@ -28,6 +28,8 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+
+_ScenarioType = TypeVar('_ScenarioType', bound='AoE2Scenario')
 
 
 class AoE2Scenario:
@@ -79,7 +81,7 @@ class AoE2Scenario:
         self.actions = ScenarioActions(self.uuid)
 
     @classmethod
-    def from_file(cls, filename: str, game_version: str):
+    def from_file(cls: Type[_ScenarioType], filename: str, game_version: str) -> _ScenarioType:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
 
@@ -88,25 +90,26 @@ class AoE2Scenario:
             game_version: The version of the game to create the object for
 
         Returns:
-            An instance of the AoE2Scenario class which is the object representation of the given scenario file
+            An instance of the AoE2Scenario class (or any of its subclasses) which is the object representation of
+            the given scenario file
         """
         python_version_check()
 
-        s_print(f"\nReading file: '{filename}'", final = True, color = "magenta")
+        s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
         s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(filename)
-        s_print("Reading scenario file finished successfully.", final = True)
+        s_print("Reading scenario file finished successfully.", final=True)
 
-        scenario = cls(filename)
+        scenario: _ScenarioType = cls(filename)
         scenario.read_mode = "from_file"
         scenario.game_version = game_version
         scenario.scenario_version = _get_file_version(igenerator)
 
         # Log game and scenario version
-        s_print("\n############### Attributes ###############", final = True, color = "blue")
-        s_print(f">>> Game version: '{scenario.game_version}'", final = True, color = "blue")
-        s_print(f">>> Scenario version: {scenario.scenario_version}", final = True, color = "blue")
-        s_print("##########################################", final = True, color = "blue")
+        s_print("\n############### Attributes ###############", final=True, color="blue")
+        s_print(f">>> Game version: '{scenario.game_version}'", final=True, color="blue")
+        s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
+        s_print("##########################################", final=True, color="blue")
 
         s_print(f"\nLoading scenario structure...")
         scenario._load_structure()
@@ -114,10 +117,10 @@ class AoE2Scenario:
         s_print(f"Loading scenario structure finished successfully.", final=True)
 
         # scenario._initialize(igenerator)
-        s_print("Parsing scenario file...", final = True)
+        s_print("Parsing scenario file...", final=True)
         scenario._load_header_section(igenerator)
         scenario._load_content_sections(igenerator)
-        s_print(f"Parsing scenario file finished successfully.", final = True)
+        s_print(f"Parsing scenario file finished successfully.", final=True)
 
         scenario._object_manager = AoE2ObjectManager(scenario.uuid)
         scenario._object_manager.setup()
@@ -161,7 +164,7 @@ class AoE2Scenario:
         """
         self._decompressed_file_data = _decompress_bytes(raw_file_igenerator.get_remaining_bytes())
 
-        data_igenerator = IncrementalGenerator(name = 'Scenario Data', file_content = self._decompressed_file_data)
+        data_igenerator = IncrementalGenerator(name='Scenario Data', file_content=self._decompressed_file_data)
 
         for section_name in self.structure.keys():
             if section_name == "FileHeader":
@@ -171,7 +174,7 @@ class AoE2Scenario:
                 self._add_to_sections(section)
             except (ValueError, TypeError) as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tSection: {section_name}\n")
-                self.write_error_file(trail_generator = data_igenerator)
+                self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
     def _create_and_load_section(self, name: str, igenerator: IncrementalGenerator) -> AoE2FileSection:
@@ -185,11 +188,11 @@ class AoE2Scenario:
         Returns:
             An AoE2FileSection representing the given section name with its data initialised from the generator
         """
-        s_print(f"\t🔄 Parsing {name}...", color = "yellow")
+        s_print(f"\t🔄 Parsing {name}...", color="yellow")
         section = AoE2FileSection.from_structure(name, self.structure.get(name), self.uuid)
-        s_print(f"\t🔄 Gathering {name} data...", color = "yellow")
+        s_print(f"\t🔄 Gathering {name} data...", color="yellow")
         section.set_data_from_generator(igenerator)
-        s_print(f"\t✔ {name}", final = True, color = "green")
+        s_print(f"\t✔ {name}", final=True, color="green")
         return section
 
     def _add_to_sections(self, section: AoE2FileSection) -> None:
@@ -210,8 +213,8 @@ class AoE2Scenario:
         Warning: Remove all other references too!
             When using this function it's important to remove all other references to the scenario.
             So if save it in a dict or list, remove it from it.
-            If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete them
-            using: `del varname`.
+            If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete
+            them using: `del varname`.
         """
         store.remove_scenario(self.uuid)
 
@@ -259,7 +262,7 @@ class AoE2Scenario:
         if not skip_reconstruction:
             self.commit()
 
-        s_print("\nFile writing from structure started...", final = True)
+        s_print("\nFile writing from structure started...", final=True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
@@ -273,8 +276,8 @@ class AoE2Scenario:
         with open(filename, 'wb') as f:
             f.write(binary + compressed)
 
-        s_print("File writing finished successfully.", final = True)
-        s_print(f"File successfully written to: '{filename}'", color = "magenta", final = True)
+        s_print("File writing finished successfully.", final=True)
+        s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
 
     def write_error_file(self, filename: str = "error_file.txt", trail_generator: IncrementalGenerator = None) -> None:
         """
@@ -296,7 +299,7 @@ class AoE2Scenario:
             filename: The filename to write the error file to
             trail_generator: Write all the bytes remaining in this generator as a trail
         """
-        self._debug_byte_structure_to_file(filename = filename, trail_generator = trail_generator)
+        self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
 
     """ #############################################
     ################ Debug functions ################
@@ -349,7 +352,7 @@ class AoE2Scenario:
         file.close()
         s_print("File writing finished successfully.")
 
-    def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit = False):
+    def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
         """
         Outputs the contents of the entire scenario file in a readable format. An example of the format is given below::
 
@@ -373,24 +376,24 @@ class AoE2Scenario:
         if commit and hasattr(self, '_object_manager'):
             self.commit()
 
-        s_print("\nWriting structure to file...", final = True)
-        with open(filename, 'w', encoding = settings.MAIN_CHARSET) as f:
+        s_print("\nWriting structure to file...", final=True)
+        with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:
             result = []
             for section in self.sections.values():
                 s_print(f"\t🔄 Writing {section.name}...")
                 result.append(section.get_byte_structure_as_string())
-                s_print(f"\t✔ {section.name}", final = True)
+                s_print(f"\t✔ {section.name}", final=True)
 
             if trail_generator is not None:
                 s_print("\tWriting trail...")
                 trail = trail_generator.get_remaining_bytes()
 
                 result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
-                result.append(create_textual_hex(trail.hex(), space_distance = 2, enter_distance = 24))
-                s_print("\tWriting trail finished successfully.", final = True)
+                result.append(create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
+                s_print("\tWriting trail finished successfully.", final=True)
 
             f.write(''.join(result))
-        s_print("Writing structure to file finished successfully.", final = True)
+        s_print("Writing structure to file finished successfully.", final=True)
 
 
 def _initialise_version_dependencies(game_version: str, scenario_version: str) -> None:
@@ -442,9 +445,9 @@ def _get_file_section_data(file_section: AoE2FileSection) -> bytes:
     Returns:
         Bytes for all the data in the given file section
     """
-    s_print(f"\t🔄 Reconstructing {file_section.name}...", color = "yellow")
+    s_print(f"\t🔄 Reconstructing {file_section.name}...", color="yellow")
     value = file_section.get_data_as_bytes()
-    s_print(f"\t✔ {file_section.name}", final = True, color = "green")
+    s_print(f"\t✔ {file_section.name}", final=True, color="green")
     return value
 
 
@@ -460,7 +463,7 @@ def _get_file_version(generator: IncrementalGenerator):
     """
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
 
-    
+
 def _decompress_bytes(file_content: bytes) -> bytes:
     """
     Decompress the given bytes using the -zlib.MAX_WBITS algorithm
