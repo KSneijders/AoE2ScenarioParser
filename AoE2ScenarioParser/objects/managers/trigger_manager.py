@@ -303,8 +303,8 @@ class TriggerManager(AoE2Object):
 
     def move_triggers(self, trigger_ids: List[int], insert_index: int) -> None:
         """
-        Function to move triggers. Moves the given IDs from anywhere to the split index. This function reorders triggers
-        BUT keeps ``(de)activate trigger`` effects linked properly!
+        Moves the given IDs from anywhere to the split index. This function reorders triggers BUT keeps
+        ``(de)activate trigger`` effects linked properly!
 
         As an example:
 

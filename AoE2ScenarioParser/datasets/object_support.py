@@ -2,6 +2,17 @@ from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
 
 class StartingAge(_DataSetIntEnums):
+    """
+    **This is not the same as the "Age" dataset and should !!NOT!! be used in effects/conditions etc.**
+
+    This enum class provides the integer values used to reference the starting ages in the game.
+    This is used in the player objects to set a starting age.
+
+    **Examples**
+
+    >>> StartingAge.POST_IMPERIAL_AGE
+    <StartingAge.POST_IMPERIAL_AGE: 6>
+    """
     DARK_AGE = 2
     FEUDAL_AGE = 3
     CASTLE_AGE = 4
@@ -10,6 +21,15 @@ class StartingAge(_DataSetIntEnums):
 
 
 class Civilization(_DataSetIntEnums):
+    """
+    This enum class provides the integer values used to reference the civilizations in the game.
+    This can be used in research tech conditions to check civ or set a players civ in the player manager.
+
+    **Examples**
+
+    >>> Civilization.VIKINGS
+    <Civilization.VIKINGS: 11>
+    """
     BRITONS = 1
     FRANKS = 2
     GOTHS = 3

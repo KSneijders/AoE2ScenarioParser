@@ -680,3 +680,6 @@ effect_names = {}
 default_attributes = {}
 attributes = {}
 attribute_presentation = {}
+"""
+This dict maps the effect attributes by their name to the dataset used to represent them
+"""

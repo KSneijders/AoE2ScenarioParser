@@ -6,6 +6,9 @@ from AoE2ScenarioParser.sections.dependencies.dependency_target import Dependenc
 
 
 class RetrieverDependency:
+    """
+    Provides for objects used to handle dependencies between retrievers
+    """
     def __init__(
             self,
             dependency_action: DependencyAction,
@@ -13,12 +16,14 @@ class RetrieverDependency:
             dependency_eval: DependencyEval | None = None
     ):
         """
-        Object for handling dependencies between retrievers
-
         Args:
             dependency_action: The type of action taken.
             dependency_target: The target of the action.
             dependency_eval: Eval code to execute for action.
+
+        Raises:
+            ValueError: if the parameter 'dependency_target' is None and the 'dependency_action' is anything other than
+                REFRESH_SELF
         """
         if dependency_action != DependencyAction.REFRESH_SELF and dependency_target is None:
             raise ValueError(f"Parameter dependency_target cannot be None when action is {dependency_action.name}")
@@ -33,7 +38,17 @@ class RetrieverDependency:
         self.dependency_eval = dependency_eval
 
     @classmethod
-    def from_structure(cls, structure):
+    def from_structure(cls, structure: dict) -> RetrieverDependency:
+        """
+        Creates a RetrieverDependency object from the given dependency structure.
+
+        Args:
+            structure: This is a dictionary that contains the action to perform, the target retriever to perform the
+                action on and the relevant code to execute
+
+        Returns:
+            A RetrieverDependency instance created from the given dependency structure
+        """
         return cls(
             dependency_action=DependencyAction[structure.get('action')],
             dependency_target=DependencyTarget.instance_or_none(structure.get('target')),

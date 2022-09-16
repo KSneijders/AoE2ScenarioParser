@@ -22,8 +22,6 @@ class InfoDatasetBase(Enum):
     @staticmethod
     def _id_map() -> dict:
         """
-        **Private Method**
-
         Returns:
             A dict that maps the names of the properties to their index in the info tuple
         """
@@ -31,8 +29,6 @@ class InfoDatasetBase(Enum):
 
     def _get_property(self, name: str) -> int | bool:
         """
-        **Private Method**
-
         Get the specified property by its name from an object of this (or its derived) class
 
         Args:
@@ -85,9 +81,7 @@ class InfoDatasetBase(Enum):
     @classmethod
     def _from_id(cls, id_type: str, value: int) -> InfoDatasetBase:
         """
-        **Private Method**
-
-        This function finds and returns the member object that uses the given value for the specified property (id_type)
+        Finds and returns the member object that uses the given value for the specified property (id_type)
 
         Args:
             id_type: the property of member objects that should match the value specified
@@ -112,7 +106,7 @@ class InfoDatasetBase(Enum):
     @classmethod
     def from_id(cls, unit_id: int) -> InfoDatasetBase:
         """
-        This function finds and returns the unit with the given unit ID
+        Finds and returns the unit with the given unit ID
 
         Args:
             unit_id: the unit ID to search for
@@ -125,7 +119,7 @@ class InfoDatasetBase(Enum):
     @classmethod
     def from_icon_id(cls, icon_id: int) -> InfoDatasetBase:
         """
-        This function finds and returns the unit with the given icon ID
+        Finds and returns the unit with the given icon ID
 
         Args:
             icon_id: the icon ID to search for
@@ -138,7 +132,7 @@ class InfoDatasetBase(Enum):
     @classmethod
     def from_dead_id(cls, dead_id: int) -> InfoDatasetBase:
         """
-        This function finds and returns the unit with the given dead unit ID
+        Finds and returns the unit with the given dead unit ID
 
         Args:
             dead_id: the dead unit ID to search for
@@ -151,7 +145,7 @@ class InfoDatasetBase(Enum):
     @classmethod
     def from_hotkey_id(cls, hotkey_id: int) -> InfoDatasetBase:
         """
-        This function finds and returns the unit with the given hotkey ID. Note that there may be multiple units that
+        Finds and returns the unit with the given hotkey ID. Note that there may be multiple units that
         use the same hotkey ID, currently only one is returned!
 
         Args:
@@ -174,15 +168,13 @@ class InfoDatasetBase(Enum):
     def non_gaia(cls) -> List[InfoDatasetBase]:
         """
         Returns:
-            A list of all the units excluding gaia only units (eg. Deer)
+            A list of all the units excluding gaia only units (eg. militia)
         """
         return cls._gaia_filter(gaia_only=False)
 
     @classmethod
     def _gaia_filter(cls, gaia_only: bool) -> List[InfoDatasetBase]:
         """
-        **Private Method**
-
         Args:
             gaia_only: if set to true, lists all gaia only units. If set to false, lists all units except gaia only units
 

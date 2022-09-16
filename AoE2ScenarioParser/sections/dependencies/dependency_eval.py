@@ -4,10 +4,11 @@ from typing import Dict
 
 
 class DependencyEval:
+    """
+    Provides the objects for storing dependency eval code and it's locals.
+    """
     def __init__(self, eval_code: str, eval_locals: Dict | None = None):
         """
-        Object for storing dependency eval code and it's locals.
-
         Args:
             eval_code: The code executed using eval
             eval_locals: The locals dict handed to the eval function
@@ -20,6 +21,15 @@ class DependencyEval:
 
     @classmethod
     def instance_or_none(cls, eval_code: str) -> DependencyEval:
+        """
+        Returns a DependencyEval instance created from the given code
+
+        Args:
+            eval_code (str): The code to create the DependencyEval object with
+
+        Returns:
+            An instance of the DependencyEval class
+        """
         if eval_code is None:
             raise ValueError("The parameter `eval_code` cannot be None")
         return cls(eval_code)

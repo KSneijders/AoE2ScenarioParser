@@ -5,7 +5,7 @@ import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
-from AoE2ScenarioParser.helper.helper import exclusive_if
+from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -214,7 +214,7 @@ class Trigger(AoE2Object, TriggerComponent):
         return new_condition
 
     def get_effect(self, effect_index: int = None, display_index: int = None) -> Effect:
-        if not exclusive_if(effect_index is not None, display_index is not None):
+        if not mutually_exclusive(effect_index is not None, display_index is not None):
             raise ValueError(f"Please identify an effect using either effect_index or display_index.")
 
         if effect_index is None:
@@ -223,7 +223,7 @@ class Trigger(AoE2Object, TriggerComponent):
         return self.effects[effect_index]
 
     def get_condition(self, condition_index: int = None, display_index: int = None) -> Condition:
-        if not exclusive_if(condition_index is not None, display_index is not None):
+        if not mutually_exclusive(condition_index is not None, display_index is not None):
             raise ValueError(f"Please identify a condition using either condition_index or display_index.")
 
         if condition_index is None:
@@ -232,7 +232,7 @@ class Trigger(AoE2Object, TriggerComponent):
         return self.conditions[condition_index]
 
     def remove_effect(self, effect_index: int = None, display_index: int = None, effect: Effect = None) -> None:
-        if not exclusive_if(effect_index is not None, display_index is not None, effect is not None):
+        if not mutually_exclusive(effect_index is not None, display_index is not None, effect is not None):
             raise ValueError(f"Please identify an effect using either effect_index, display_index or effect.")
 
         if effect is not None:
@@ -244,7 +244,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
-        if not exclusive_if(condition_index is not None, display_index is not None, condition is not None):
+        if not mutually_exclusive(condition_index is not None, display_index is not None, condition is not None):
             raise ValueError(f"Please identify a condition using either condition_index, display_index or condition.")
 
         if condition is not None:

@@ -10,24 +10,33 @@ from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 
 class AoE2DEScenario(AoE2Scenario):
+    """
+    Used to represent a scenario with version >= 1.36 (DE). It is the main class that is exposed to the user of the API.
+    """
+
     @property
     def trigger_manager(self) -> TriggerManagerDE:
+        """The trigger manager of the scenario"""
         return self._object_manager.managers['Trigger']
 
     @property
     def unit_manager(self) -> UnitManagerDE:
+        """The unit manager of the scenario"""
         return self._object_manager.managers['Unit']
 
     @property
     def map_manager(self) -> MapManagerDE:
+        """The map manager of the scenario"""
         return self._object_manager.managers['Map']
 
     @property
     def xs_manager(self) -> XsManagerDE:
+        """The XS manager of the scenario"""
         return self._object_manager.managers['Xs']
 
     @property
     def player_manager(self) -> PlayerManager:
+        """The player manager of the scenario"""
         return self._object_manager.managers['Player']
 
     @property
@@ -35,5 +44,15 @@ class AoE2DEScenario(AoE2Scenario):
         return self._object_manager.managers['Message']
 
     @classmethod
-    def from_file(cls, filename, game_version="DE") -> AoE2DEScenario:
+    def from_file(cls, filename: str, game_version: str = "DE") -> AoE2DEScenario:
+        """
+        Creates and returns an instance of the AoE2DEScenario class from the given scenario file
+
+        Args:
+            filename: The path to the scenario file to create the object from
+            game_version: The version of the game to create the object for
+
+        Returns:
+            An instance of the AoE2DEScenario class which is the object representation of the given scenario file
+        """
         return super().from_file(filename, game_version)

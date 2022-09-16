@@ -27,7 +27,7 @@ def unit_change_ownership(uuid: UUID, player: int | PlayerId, *args) -> None:
     Change the unit(s) ownership.
 
     Args:
-        uuid: The UUID of the scenario
+        uuid: The universally unique identifier of the scenario
         player: The player to transfer the units to.
         args: Unit object or List of unit objects
     """

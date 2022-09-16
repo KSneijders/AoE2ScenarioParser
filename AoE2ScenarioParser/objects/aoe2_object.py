@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Any, Dict
+from typing import List, Type, TYPE_CHECKING
 from uuid import UUID
 
+from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
