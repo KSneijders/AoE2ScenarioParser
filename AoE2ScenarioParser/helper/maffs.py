@@ -2,11 +2,12 @@
 Don't hate the player, hate the g... name.
 https://memeguy.com/photos/images/quick-maffs-288168.jpg
 """
+from __future__ import annotations
+
 import math
-from typing import Union
 
 
-def sign(a: Union[int, float], b: Union[int, float]) -> int:
+def sign(a: int | float, b: int | float) -> int:
     """
     Args:
         a (int|float): The first number

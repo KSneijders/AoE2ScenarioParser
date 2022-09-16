@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from copy import deepcopy
-from typing import Iterable, Sequence, Union, TypeVar, List, Generic, Iterator
+from typing import Iterable, Sequence, TypeVar, List, Generic, Iterator
 from uuid import UUID
 
 from typing_extensions import SupportsIndex
@@ -93,7 +95,7 @@ class UuidList(list, Generic[_T]):
     def sort(self: List, *, key: None = ..., reverse: bool = ...) -> None:
         super().sort(key=key, reverse=reverse)
 
-    def __setitem__(self, i: SupportsIndex, o: Union[_T, Iterable[_T]]) -> None:
+    def __setitem__(self, i: SupportsIndex, o: _T | Iterable[_T]) -> None:
         """
         Set self[key] to value or set self[i:j] to slice.
 
@@ -105,7 +107,7 @@ class UuidList(list, Generic[_T]):
         super().__setitem__(i, o)
         self._update(o)
 
-    def _iter_to_uuid_list(self, iterable: Union[_T, Iterable[_T]], ignore_root_iter=False) -> Union[_T, Iterable[_T]]:
+    def _iter_to_uuid_list(self, iterable: _T | Iterable[_T], ignore_root_iter=False) -> _T | Iterable[_T]:
         if ignore_root_iter:
             return list(map(self._iter_to_uuid_list, iterable))
 
@@ -116,7 +118,7 @@ class UuidList(list, Generic[_T]):
             seq=iterable
         )
 
-    def _update(self, o: Union[_T, Iterable[_T]]):
+    def _update(self, o: _T | Iterable[_T]):
         """Checks if `o` is an iterable and calls function on each entry or on `o` if it's not an iterable"""
         if issubclass(o.__class__, Iterable):
             for element in o:

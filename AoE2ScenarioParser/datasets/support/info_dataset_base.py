@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Union, List
+from typing import List
 
 
 class InfoDatasetBase(Enum):
@@ -29,7 +29,7 @@ class InfoDatasetBase(Enum):
         """
         return {'id': 0, 'icon_id': 1, 'dead_id': 2, 'hotkey_id': 3, 'gaia_only': 4}
 
-    def _get_property(self, name: str) -> Union[int, bool]:
+    def _get_property(self, name: str) -> int | bool:
         """
         **Private Method**
 

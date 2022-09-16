@@ -1,4 +1,6 @@
-from typing import Optional, List, Tuple, Dict, TYPE_CHECKING, Union
+from __future__ import annotations
+
+from typing import Optional, List, Tuple, Dict, TYPE_CHECKING
 from uuid import UUID
 
 from AoE2ScenarioParser.scenarios.scenario_store import store
@@ -168,7 +170,7 @@ def get_trigger(uuid: UUID, trigger_index: int) -> Optional['Trigger']:
     return None
 
 
-def get_triggers_by_prefix(uuid: UUID, prefix: Union[str, Tuple]) -> Optional[List['Trigger']]:
+def get_triggers_by_prefix(uuid: UUID, prefix: str | Tuple) -> Optional[List['Trigger']]:
     """
     Get the trigger version of the scenario.
 

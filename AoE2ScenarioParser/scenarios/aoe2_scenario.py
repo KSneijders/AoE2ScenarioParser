@@ -4,7 +4,7 @@ import json
 import uuid
 import zlib
 from pathlib import Path
-from typing import Union, Dict, Any
+from typing import Dict, Any
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects

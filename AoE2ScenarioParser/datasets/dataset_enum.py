@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from enum import Enum, IntEnum, IntFlag, EnumMeta
-from typing import Union, Type
+from typing import Type
 
 
 class _DataSetMeta(EnumMeta):
@@ -37,7 +39,7 @@ class _DataSetIntFlags(_DataSet, IntFlag):
         return super().name
 
 
-def dataset_or_value(enum: Type[_DataSet], value: Union[int, str]) -> Union[_DataSet, int, str]:
+def dataset_or_value(enum: Type[_DataSet], value: int | str) -> _DataSet | int | str:
     """
     Return the value in the enum used to create the enum, or if it failed, returns just the value
 

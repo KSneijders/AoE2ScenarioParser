@@ -1,4 +1,6 @@
-from typing import List, Dict, Union, Any
+from __future__ import annotations
+
+from typing import List, Dict, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
@@ -154,7 +156,7 @@ class PlayerManager(AoE2Object):
             self.players[player].gold = 100
             self.players[player].stone = 200
 
-    def set_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
+    def set_diplomacy_teams(self, *args: List[PlayerId | int], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
             -> None:
         """
         Sets all players in list allied with all others in the same list. Accepts
@@ -313,8 +315,8 @@ class PlayerManager(AoE2Object):
     def _player_attributes_to_list(
             self,
             attribute: str,
-            gaia_first: Union[bool, None] = True,
-            default: Union[str, int] = 0,
+            gaia_first: bool | None = True,
+            default: str | int = 0,
             fill_empty: int = 0
     ) -> List[Any]:
         """
@@ -322,8 +324,8 @@ class PlayerManager(AoE2Object):
 
         Args:
             attribute (str): The attribute to get from the players
-            gaia_first (Union[bool, None]): If the list has gaia first, last or not at all
-            default (Union[str, int]): The default value to fill the empty fields and what to end to an 16 field list
+            gaia_first (bool | None): If the list has gaia first, last or not at all
+            default (str | int): The default value to fill the empty fields and what to end to an 16 field list
             fill_empty (int): How many empty elements have to be filled with the default value
 
         Returns:
@@ -343,12 +345,12 @@ class PlayerManager(AoE2Object):
         return values + default_list
 
 
-def _player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
+def _player_list(gaia_first: None | bool = True) -> List[PlayerId]:
     """
     Construct a list of players where GAIA can be first, last or not in the list at all
 
     Args:
-        gaia_first (Union[None, bool]): If the list has gaia first, last or not at all
+        gaia_first (None | bool): If the list has gaia first, last or not at all
 
     Returns:
         The list of players
@@ -360,7 +362,7 @@ def _player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
 
 
 def _spread_player_attributes(player_attributes: Dict, key: str, lst: List,
-                              gaia_first: Union[None, bool] = True) -> None:
+                              gaia_first: None | bool = True) -> None:
     """
     Spreads list values to player attribute dictionaries
 
@@ -368,7 +370,7 @@ def _spread_player_attributes(player_attributes: Dict, key: str, lst: List,
         player_attributes (dict): Player attributes dict to save the values in
         key (str): The key to save the values under in the player dicts
         lst (List): The list of values
-        gaia_first (Union[None, bool]): If the list has gaia first, last or not at all.
+        gaia_first (None | bool): If the list has gaia first, last or not at all.
     """
     for index, p in enumerate(_player_list(gaia_first)):
         player_attributes[p][key] = lst[index] if lst is not None else None

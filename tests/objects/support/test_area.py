@@ -4,7 +4,6 @@ from uuid import UUID
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.area import Area, AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.tile import Tile
-from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 

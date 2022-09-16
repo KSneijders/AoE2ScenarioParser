@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import itertools
-from typing import List, Union, Tuple, Set, Optional
+from typing import List, Tuple, Set, Optional
 
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
@@ -49,7 +49,7 @@ class MapManager(AoE2Object):
             return self.terrain[i]
         return self.terrain[xy_to_i(x, y, self.map_size)]
 
-    def get_tile_safe(self, x: int = None, y: int = None, i: int = None) -> Union[TerrainTile, None]:
+    def get_tile_safe(self, x: int = None, y: int = None, i: int = None) -> TerrainTile | None:
         if i and (x or y):
             raise ValueError("Cannot use both xy and i. Choose or XY or I.")
         try:

@@ -42,7 +42,7 @@ class Retriever:
             name (str): The name of the item. Has to be unique within the Section or Struct
             default_value (Any): The default value of this retriever
             datatype (DataType): A datatype object
-            is_list (Union[None, bool]): If this retriever data should be presented using a list. If None, it's unknown.
+            is_list (None | bool): If this retriever data should be presented using a list. If None, it's unknown.
             log_value (bool): A boolean for, mostly, debugging. This will log information about this retrievers when the
                 data is changed, when this retriever is constructed and when it's committed.
         """

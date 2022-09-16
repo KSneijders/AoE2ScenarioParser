@@ -1,4 +1,6 @@
-from typing import Union, Any, List
+from __future__ import annotations
+
+from typing import Any, List
 
 
 def add_str_trail(string: bytes) -> bytes:
@@ -13,7 +15,7 @@ def has_str_trail(string: bytes) -> bool:
     return len(string) > 0 and string[-1] == 0
 
 
-def del_str_trail(string: Union[str, bytes]) -> Union[str, bytes]:
+def del_str_trail(string: str | bytes) -> str | bytes:
     if has_str_trail(string):
         string = string[:-1]
     return string

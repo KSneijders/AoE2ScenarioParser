@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import Union, Any
+from typing import Any
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.datasets.conditions import ConditionId
@@ -51,34 +51,34 @@ class Condition(AoE2Object, TriggerComponent):
     ]
 
     def __init__(self,
-                 condition_type: int = None,
-                 quantity: int = None,
-                 attribute: int = None,
-                 unit_object: int = None,
-                 next_object: int = None,
-                 object_list: int = None,
-                 source_player: Union[int, IntEnum] = None,
-                 technology: Union[int, IntEnum] = None,
-                 timer: int = None,
-                 area_x1: int = None,
-                 area_y1: int = None,
-                 area_x2: int = None,
-                 area_y2: int = None,
-                 object_group: int = None,
-                 object_type: int = None,
-                 ai_signal: int = None,
-                 inverted: int = None,
-                 variable: int = None,
-                 comparison: int = None,
-                 target_player: Union[int, IntEnum] = None,
-                 unit_ai_action: int = None,
-                 object_state: int = None,
-                 timer_id: int = None,
-                 victory_timer_type: int = None,
-                 include_changeable_weapon_objects: int = None,
-                 xs_function: str = None,
-                 **kwargs
-                 ):
+            condition_type: int = None,
+            quantity: int = None,
+            attribute: int = None,
+            unit_object: int = None,
+            next_object: int = None,
+            object_list: int = None,
+            source_player: int | IntEnum = None,
+            technology: int | IntEnum = None,
+            timer: int = None,
+            area_x1: int = None,
+            area_y1: int = None,
+            area_x2: int = None,
+            area_y2: int = None,
+            object_group: int = None,
+            object_type: int = None,
+            ai_signal: int = None,
+            inverted: int = None,
+            variable: int = None,
+            comparison: int = None,
+            target_player: int | IntEnum = None,
+            unit_ai_action: int = None,
+            object_state: int = None,
+            timer_id: int = None,
+            victory_timer_type: int = None,
+            include_changeable_weapon_objects: int = None,
+            xs_function: str = None,
+            **kwargs
+    ):
         raise_if_not_int_subclass([object_list, technology])
         area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
 

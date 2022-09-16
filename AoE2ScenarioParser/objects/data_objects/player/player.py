@@ -1,4 +1,6 @@
-from typing import Optional, List, Union, overload
+from __future__ import annotations
+
+from typing import Optional, List, overload
 
 from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
@@ -80,8 +82,8 @@ class Player(AoE2Object):
         self.stone: int = stone
         self.color: int = color
         self.human: bool = human
-        self.civilization: Union[int, Civilization] = dataset_or_value(Civilization, civilization)
-        self.architecture_set: Union[int, Civilization] = dataset_or_value(Civilization, architecture_set)
+        self.civilization: int | Civilization = dataset_or_value(Civilization, civilization)
+        self.architecture_set: int | Civilization = dataset_or_value(Civilization, architecture_set)
 
         # Optionals due to GAIA not having such value
         self.population_cap: Optional[int] = population_cap
@@ -110,15 +112,15 @@ class Player(AoE2Object):
         raise ValueError("Cannot set active status of player directly, please use player_manager.active_players")
 
     @overload
-    def set_player_diplomacy(self, players: List[Union[PlayerId, int]], diplomacy: DiplomacyState):
+    def set_player_diplomacy(self, players: List[PlayerId | int], diplomacy: DiplomacyState):
         ...
 
     @overload
-    def set_player_diplomacy(self, player: Union[PlayerId, int], diplomacy: DiplomacyState):
+    def set_player_diplomacy(self, player: PlayerId | int, diplomacy: DiplomacyState):
         ...
 
     def set_player_diplomacy(self, *args):
-        players: List[Union[PlayerId, int]] = listify(args[0])
+        players: List[PlayerId | int] = listify(args[0])
         diplomacy: DiplomacyState = args[1]
 
         if self.player_id in players:

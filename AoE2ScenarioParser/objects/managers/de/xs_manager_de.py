@@ -82,7 +82,7 @@ class XsManagerDE(AoE2Object):
     def _append_to_xs(self, title, string) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{string}\n\n"
 
-    def add_script(self, xs_file_path="", xs_string=""):
+    def add_script(self, xs_file_path: str = "", xs_string: str = ""):
         """
         Add a script to the script call effect in the XS trigger
 
@@ -97,6 +97,6 @@ class XsManagerDE(AoE2Object):
         if xs_string:
             self._append_to_xs(f"XS string", xs_string)
 
-    def _debug_write_script_to_file(self, filename="xs.txt"):
+    def _debug_write_script_to_file(self, filename: str = "xs.txt"):
         with open(filename, 'w') as file:
             file.write(self.xs_trigger.effects[0].message)

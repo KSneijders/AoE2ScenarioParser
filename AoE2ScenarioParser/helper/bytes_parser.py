@@ -2,7 +2,7 @@ from typing import List
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
-from AoE2ScenarioParser.helper.exceptions import EndOfFileError, UnsupportedAttributeError
+from AoE2ScenarioParser.helper.exceptions import EndOfFileError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 
 attributes = ['on_refresh', 'on_construct', 'on_commit']

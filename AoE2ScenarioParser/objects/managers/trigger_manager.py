@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 from enum import IntEnum
-from typing import List, Dict, Union
+from typing import List, Dict
 
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
@@ -71,7 +71,7 @@ class TriggerManager(AoE2Object):
 
     def copy_trigger_per_player(self,
                                 from_player,
-                                trigger_select: Union[int, TriggerSelect],
+                                trigger_select: int | TriggerSelect,
                                 change_from_player_only=False,
                                 include_player_source=True,
                                 include_player_target=False,
@@ -84,7 +84,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (Union[int, TriggerSelect]): An object used to identify which trigger to select.
+            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
             change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
@@ -165,7 +165,7 @@ class TriggerManager(AoE2Object):
 
     def copy_trigger(
             self,
-            trigger_select: Union[int, TriggerSelect],
+            trigger_select: int | TriggerSelect,
             append_after_source=True,
             add_suffix=True
     ) -> Trigger:
@@ -173,7 +173,7 @@ class TriggerManager(AoE2Object):
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
-            trigger_select (Union[int, TriggerSelect]): An object used to identify which trigger to select.
+            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
             append_after_source (bool): If the new trigger should be appended below the source trigger
             add_suffix (bool): If the text ' (copy)' should be added after the trigger
 
@@ -196,7 +196,7 @@ class TriggerManager(AoE2Object):
 
     def copy_trigger_tree_per_player(self,
                                      from_player,
-                                     trigger_select: Union[int, TriggerSelect],
+                                     trigger_select: int | TriggerSelect,
                                      change_from_player_only=False,
                                      include_player_source=True,
                                      include_player_target=False,
@@ -211,7 +211,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player (IntEnum): The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select (Union[int, TriggerSelect]): An object used to identify which trigger to select.
+            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
             change_from_player_only (bool): If set to True, only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source (bool): If set to True, allow player source attributes to be changed while copying.
@@ -376,7 +376,7 @@ class TriggerManager(AoE2Object):
                 if effect.trigger_id in index_changes:
                     effect.trigger_id = index_changes[effect.trigger_id]
 
-    def copy_trigger_tree(self, trigger_select: Union[int, TriggerSelect]) -> List[Trigger]:
+    def copy_trigger_tree(self, trigger_select: int | TriggerSelect) -> List[Trigger]:
         """
         Copies an entire trigger tree. Trigger trees are triggers linked together using EffectId.(DE)ACTIVATE_TRIGGER.
 
@@ -408,13 +408,13 @@ class TriggerManager(AoE2Object):
 
         return new_triggers
 
-    def replace_player(self, trigger_select: Union[int, TriggerSelect], to_player, only_change_from=None,
+    def replace_player(self, trigger_select: int | TriggerSelect, to_player, only_change_from=None,
                        include_player_source=True, include_player_target=False, trigger_ce_lock=None) -> Trigger:
         """
         Replaces player attributes. Specifically useful if multiple players are used in the same trigger.
 
         Args:
-            trigger_select (Union[int, TriggerSelect]): An object used to identify which trigger to select.
+            trigger_select (int | TriggerSelect): An object used to identify which trigger to select.
             to_player (PlayerId): The player the attributes are changed to.
             only_change_from (PlayerId): Can only change player attributes if the player is equal to the given value
             include_player_source (bool): If set to True, allow player source attributes to be changed while replacing.
@@ -530,11 +530,11 @@ class TriggerManager(AoE2Object):
             self.move_triggers([t.trigger_id for t in triggers], index)
         return triggers
 
-    def get_trigger(self, trigger_select: Union[int, TriggerSelect]) -> Trigger:
+    def get_trigger(self, trigger_select: int | TriggerSelect) -> Trigger:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
         return trigger
 
-    def remove_trigger(self, trigger_select: Union[int, TriggerSelect]) -> None:
+    def remove_trigger(self, trigger_select: int | TriggerSelect) -> None:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         del self.triggers[trigger_index]
@@ -626,7 +626,7 @@ class TriggerManager(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_select: Union[int, TriggerSelect]) -> str:
+    def get_trigger_as_string(self, trigger_select: int | TriggerSelect) -> str:
         trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
 
         return_string = "\t'" + trigger.name + "'"
