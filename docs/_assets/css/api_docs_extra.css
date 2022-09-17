@@ -1,3 +1,16 @@
 h5.doc.doc-heading {
-    font-size: 16px;
+    font-size: 20px;
 }
+
+.class-attribute-entry {
+    padding: 10px 10px !important;
+}
+
+.class-attribute-entry .highlight.language-python {
+    font-size: 14px;
+}
+
+.class-attribute-entry .doc-label-instance-attribute{
+    font-size: 14px;
+}
+

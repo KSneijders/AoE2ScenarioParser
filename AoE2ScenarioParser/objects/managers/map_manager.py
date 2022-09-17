@@ -233,8 +233,9 @@ class MapManager(AoE2Object):
         Function that takes the coordinates and the height of a plateau and applies it to the map
         by also setting the surrounding slopes so that it is smooth.
 
-        **This function can only increase height. It will not lower areas terrain.
-        For that, you can use: `map_manager.set_elevation()`.**
+        Warning: This function can only increase terrain height!
+            This function can only increase height. It will not lower areas terrain.
+            For that, you can use: `map_manager.set_elevation()`.
 
         Args:
             x1: The x coordinate of the west corner
@@ -245,8 +246,8 @@ class MapManager(AoE2Object):
                 (called 7 in game). If the given value is over 20 the game camera will 'clip' into the hill.
                 So the in-game camera hovers around the height of 20/21 when fully zoomed in, without Ultra Graphics.
 
-        :Author:
-            pvallet
+        Author:
+            This function was written by: pvallet
         """
         warn(f"The function `MapManager.create_hill()` is deprecated as of 0.1.27. "
              f"It will be removed in the future. Please use map_manager.set_elevation() instead.")

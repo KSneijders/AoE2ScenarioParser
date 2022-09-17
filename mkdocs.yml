@@ -20,6 +20,8 @@ plugins:
               show_source: true  # Show source code
               show_bases: true  # Show parent classes
               filters: ["!^_[^_]"]
+              show_signature: false
+              show_signature_annotations: false
 
 
 watch:
@@ -52,15 +54,26 @@ nav:
     - Tools: "community/tools.md"
     - Projects: "community/projects.md"
   - API Docs:
-    - Scenario: "api_docs/scenario.md"
+    - AoE2Scenario: "api_docs/aoe2_scenario.md"
+    - MapManager: "api_docs/map_manager.md"
+    - MapManagerDE: "api_docs/map_manager_de.md"
+    - MessageManager: "api_docs/message_manager.md"
     - PlayerManager: "api_docs/player_manager.md"
     - TriggerManager: "api_docs/trigger_manager.md"
     - TriggerManagerDE: "api_docs/trigger_manager_de.md"
-    - MessageManager: "api_docs/message_manager.md"
-    - MapManager: "api_docs/map_manager.md"
-    - MapManagerDE: "api_docs/map_manager_de.md"
     - UnitManager: "api_docs/unit_manager.md"
     - XsManager: "api_docs/xs_manager_de.md"
+    - Unit: "api_docs/unit.md"
+    - Player: "api_docs/player.md"
+    - TerrainTile: "api_docs/terrain_tile.md"
+    - Trigger: "api_docs/trigger.md"
+    - TriggerSelect: "api_docs/trigger_select.md"
+    - Effect: "api_docs/effect.md"
+    - Condition: "api_docs/condition.md"
+    - NewEffect: "api_docs/new_effect.md"
+    - NewCondition: "api_docs/new_condition.md"
+    - Variable: "api_docs/variable.md"
+    - Area: "api_docs/area.md"
 
 
 markdown_extensions:

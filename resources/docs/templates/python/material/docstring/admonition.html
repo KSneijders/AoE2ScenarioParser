@@ -1,0 +1,16 @@
+<!--
+Adjusted template by KSneijders
+
+Copied from:
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/docstring/admonition.html
+
+Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- Added the `open` keyword to the `details` node to open admonitions by default
+
+-->
+
+{{ log.debug("Rendering admonition") }}
+<details class="{{ section.value.kind }}" open>
+    <summary>{{ section.title|convert_markdown(heading_level, html_id, strip_paragraph=True) }}</summary>
+    {{ section.value.contents|convert_markdown(heading_level, html_id) }}
+</details>

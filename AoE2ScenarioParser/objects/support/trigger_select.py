@@ -1,3 +1,5 @@
+from typing import Type
+
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
 
@@ -7,11 +9,11 @@ class TriggerSelect:
         Object used to select a trigger in many trigger related functions. For ease of use, the alias `TS` can be
         called. You can also use those in combination with the class methods (factory methods). Like so:
 
-        TS.index(4)    # To select the trigger with index 4
+        `TS.index(4)`  To select the trigger with index 4
 
-        TS.display(4)  # Trigger with display index 4
+        `TS.display(4)`  Trigger with display index 4
 
-        TS.trigger(trigger)  # Well... The trigger object given...
+        `TS.trigger(trigger)`  Well... The trigger object given...
 
         Args:
             trigger_index: The index of the trigger. Starting from 0, based on creation time
@@ -35,4 +37,5 @@ class TriggerSelect:
         return cls(trigger=trigger)
 
 
-TS = TriggerSelect
+TS: Type[TriggerSelect] = TriggerSelect
+"""Alias for TriggerSelect"""

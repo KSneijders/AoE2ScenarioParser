@@ -1,3 +1,17 @@
+<!--
+Adjusted template by KSneijders
+
+Copied from:
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/attribute.html
+
+Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- Changed display to use <tr> and <td> to work with the table created in `children.html`
+- Removed showing the default assigned values for class (instance) attributes
+- Removed some lines working with `show_full_path` as it's not enabled in this project.
+- Added `class-attribute-entry` class to edit font size
+
+-->
+
 {{ log.debug("Rendering " + attribute.path) }}
 
 <div class="doc doc-object doc-attribute">
@@ -15,7 +29,7 @@
 
   {% if not root or config.show_root_heading %}
     <tr>
-      <td>
+      <td class="class-attribute-entry">
         {% filter heading(heading_level,
               role="data" if attribute.parent.kind.value == "module" else "attr",
               id=html_id,

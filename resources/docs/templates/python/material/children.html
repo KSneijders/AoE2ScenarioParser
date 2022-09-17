@@ -1,3 +1,14 @@
+<!--
+Adjusted template by KSneijders
+
+Copied from:
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/children.html
+
+Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- Changed nodes around attributes list to start a table
+
+-->
+
 {% if obj.members %}
   {{ log.debug("Rendering children of " + obj.path) }}
 
@@ -22,7 +33,7 @@
         {% with attributes = obj.attributes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
           {% if attributes %}
             {% if config.show_category_heading %}
-              {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributessssss{% endfilter %}
+              {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
               <table>

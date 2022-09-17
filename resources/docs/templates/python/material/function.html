@@ -2,9 +2,11 @@
 Adjusted template by KSneijders
 
 Copied from:
- https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/function.html
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/function.html
 
 Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- Added lines between functions (see <hr> above main div)
+- Added margin to main <div>
 
 -->
 
@@ -36,7 +38,7 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
         <span class="doc doc-object-name doc-function-name">{% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}</span>
       {% else %}
         {% filter highlight(language="python", inline=True) %}
-          {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+          {% if show_full_path %}{{ function.path }}{% else %}def {{ function.name }}(...){% endif %}
           {% include "signature.html" with context %}
         {% endfilter %}
       {% endif %}

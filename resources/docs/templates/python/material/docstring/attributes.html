@@ -1,4 +1,16 @@
+<!--
+Adjusted template by KSneijders
+
+Copied from:
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/docstring/attributes.html
+
+Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- None yet
+
+-->
+
 {{ log.debug("Rendering attributes section") }}
+
 {% if config.docstring_section_style == "table" %}
   {% block table_style %}
   <p><strong>{{ section.title or "Attributes:" }}</strong></p>
