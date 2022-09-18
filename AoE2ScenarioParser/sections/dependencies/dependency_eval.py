@@ -20,7 +20,7 @@ class DependencyEval:
         self.eval_locals: Dict = eval_locals
 
     @classmethod
-    def instance_or_none(cls, eval_code: str) -> DependencyEval:
+    def instance_or_none(cls, eval_code: str) -> DependencyEval | None:
         """
         Returns a DependencyEval instance created from the given code
 
@@ -31,5 +31,5 @@ class DependencyEval:
             An instance of the DependencyEval class
         """
         if eval_code is None:
-            raise ValueError("The parameter `eval_code` cannot be None")
+            return None
         return cls(eval_code)
