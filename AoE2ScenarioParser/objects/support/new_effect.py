@@ -249,6 +249,7 @@ class NewEffectSupport:
 
     def change_view(
             self,
+            quantity: Union[int, None] = None,
             source_player: Union[int, None] = None,
             location_x: Union[int, None] = None,
             location_y: Union[int, None] = None,
@@ -256,6 +257,7 @@ class NewEffectSupport:
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_VIEW,
+            quantity=quantity,
             source_player=source_player,
             location_x=location_x,
             location_y=location_y,

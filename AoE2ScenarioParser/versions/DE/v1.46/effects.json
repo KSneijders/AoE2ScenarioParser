@@ -1101,6 +1101,7 @@
         "name": "change_view",
         "attributes": [
             "effect_type",
+            "quantity",
             "source_player",
             "location_x",
             "location_y",
