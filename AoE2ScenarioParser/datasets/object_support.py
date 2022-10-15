@@ -10,6 +10,7 @@ class StartingAge(_DataSetIntEnums):
 
 
 class Civilization(_DataSetIntEnums):
+    GAIA = 0
     BRITONS = 1
     FRANKS = 2
     GOTHS = 3
