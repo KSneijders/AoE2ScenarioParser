@@ -49,40 +49,42 @@ class AoE2Scenario:
     def message_manager(self) -> MessageManager:
         return self._object_manager.managers['Message']
 
-    def __init__(self, source_location):
+    def __init__(self, game_version, scenario_version, source_location, name):
+        # Scenario meta info
+        self.game_version = game_version
+        self.scenario_version = scenario_version
         self.source_location = source_location
 
-        self.read_mode = None
-        self.scenario_version = "???"
-        self.game_version = "???"
+        # Actual scenario content
         self.structure = {}
         self.sections: Dict[str, AoE2FileSection] = {}
         self._object_manager: Union[AoE2ObjectManager, None] = None
+
+        # For Scenario Store functionality
+        self.name = name
+        self.uuid = uuid.uuid4()
+        store.register_scenario(self)
+
+        # Actions through the scenario
+        self.new = ObjectFactory(self.uuid)
+        self.actions = ScenarioActions(self.uuid)
 
         # Used in debug functions
         self._file = None
         self._file_header = None
         self._decompressed_file_data = None
 
-        self.uuid = uuid.uuid4()
-        store.register_scenario(self)
-
-        self.new = ObjectFactory(self.uuid)
-        self.actions = ScenarioActions(self.uuid)
-
     @classmethod
-    def from_file(cls, filename, game_version):
+    def from_file(cls, path, game_version, name: str = ""):
         python_version_check()
 
-        s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
+        s_print(f"\nReading file: '{path}'", final=True, color="magenta")
         s_print("Reading scenario file...")
-        igenerator = IncrementalGenerator.from_file(filename)
+        igenerator = IncrementalGenerator.from_file(path)
         s_print("Reading scenario file finished successfully.", final=True)
 
-        scenario = cls(filename)
-        scenario.read_mode = "from_file"
-        scenario.game_version = game_version
-        scenario.scenario_version = get_file_version(igenerator)
+        scenario_version = get_file_version(igenerator)
+        scenario = cls(game_version, scenario_version, path, name)
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
@@ -104,6 +106,37 @@ class AoE2Scenario:
         scenario._object_manager = AoE2ObjectManager(scenario.uuid)
         scenario._object_manager.setup()
 
+        return scenario
+
+    def with_name(self, name: str) -> AoE2Scenario:
+        """
+        Set the name of this scenario and return this instance.
+        Names are used to get access to a scenario object by doing ```AoE2Scenario.get_by_name(<name>)```
+        """
+        # Todo: Add return type from api-docs branch when merged :)
+        self.name = name
+        return self
+
+    @staticmethod
+    def get_by_name(name: str) -> AoE2Scenario:
+        """
+        Get a scenario by their name.
+        Names can be set by calling `scenario.name(...)` or `scenario.from_file().name(...)`.
+        Or if the name is not set, it defaults to the filename of the scenario (without the file extension).
+
+        Args:
+            name: The name of the scenario
+
+        Raises:
+            ValueError: If the name doesn't match any scenario
+
+        Returns:
+            The scenario requested
+        """
+        # Todo: Add return type from api-docs branch when merged :)
+        scenario = store.get_scenario(name=name)
+        if scenario is None:
+            raise ValueError(f"Unable to find scenario with name: '{name}'.")
         return scenario
 
     def _load_structure(self):

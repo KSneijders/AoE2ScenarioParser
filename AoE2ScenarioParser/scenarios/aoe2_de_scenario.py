@@ -35,5 +35,5 @@ class AoE2DEScenario(AoE2Scenario):
         return self._object_manager.managers['Message']
 
     @classmethod
-    def from_file(cls, filename, game_version="DE") -> AoE2DEScenario:
-        return super().from_file(filename, game_version)
+    def from_file(cls, path, game_version="DE", name="") -> AoE2DEScenario:
+        return super().from_file(path=path, game_version=game_version, name=name)

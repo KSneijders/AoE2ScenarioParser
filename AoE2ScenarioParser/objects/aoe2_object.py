@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Any, Dict
+from typing import List, Any, Dict, TYPE_CHECKING
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
@@ -10,6 +10,10 @@ from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
+from scenarios.scenario_store import store
+
+if TYPE_CHECKING:
+    from scenarios.aoe2_scenario import AoE2Scenario
 
 
 class AoE2Object:
@@ -36,6 +40,9 @@ class AoE2Object:
         Keeps indexes of the parents of this object. Should NOT be edited. Used for constructing/committing this object
         """
         return self._instance_number_history
+
+    def get_associated_scenario(self) -> 'AoE2Scenario':
+        return store.get_scenario(self._uuid)
 
     def _deepcopy_entry(self, k, v):
         if k in ['_sections', '_link_list']:
