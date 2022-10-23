@@ -8,12 +8,12 @@ from uuid import UUID
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
+from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
-from scenarios.scenario_store import store
 
 if TYPE_CHECKING:
-    from scenarios.aoe2_scenario import AoE2Scenario
+    from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 
 class AoE2Object:

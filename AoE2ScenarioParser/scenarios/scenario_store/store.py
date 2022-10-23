@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, Optional
 from uuid import UUID
 
+from AoE2ScenarioParser.helper.helper import exclusive_if
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
-from helper.helper import exclusive_if
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
