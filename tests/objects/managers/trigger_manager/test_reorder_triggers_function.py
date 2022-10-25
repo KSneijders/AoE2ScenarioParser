@@ -3,7 +3,7 @@ from unittest import TestCase
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.scenarios.aoe2_scenario import initialise_version_dependencies
 
-initialise_version_dependencies("DE", 1.43)
+initialise_version_dependencies("DE", 1.47)
 
 
 class Test(TestCase):
