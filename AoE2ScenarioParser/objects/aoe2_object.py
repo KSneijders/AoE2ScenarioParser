@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Any, Dict, TYPE_CHECKING
+from typing import List, Any, Dict, TYPE_CHECKING, Optional
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
@@ -13,7 +13,7 @@ from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructP
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
 
 class AoE2Object:
@@ -34,15 +34,19 @@ class AoE2Object:
             setattr(result, k, entry)
         return result
 
+    def get_scenario(self) -> 'AoE2DEScenario':
+        """ Get the scenario associated with the current object """
+        scenario: Optional['AoE2DEScenario'] = store.get_scenario(uuid=self._uuid)
+        if scenario:
+            return scenario
+        raise ValueError("Unable to fetch associated scenario from detached object")
+
     @property
     def instance_number_history(self):
         """
         Keeps indexes of the parents of this object. Should NOT be edited. Used for constructing/committing this object
         """
         return self._instance_number_history
-
-    def get_associated_scenario(self) -> 'AoE2Scenario':
-        return store.get_scenario(self._uuid)
 
     def _deepcopy_entry(self, k, v):
         if k in ['_sections', '_link_list']:

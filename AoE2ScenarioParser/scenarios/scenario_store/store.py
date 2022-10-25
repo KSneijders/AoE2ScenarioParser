@@ -3,43 +3,53 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, Optional
 from uuid import UUID
 
-from AoE2ScenarioParser.helper.helper import exclusive_if
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 _scenarios: Dict[UUID, 'AoE2Scenario'] = {}
 _scenarios_by_name: Dict[str, 'AoE2Scenario'] = {}
 
 
-def get_scenario(uuid: UUID | None = None, name: str | None = None) -> Optional['AoE2Scenario']:
+def get_scenario(
+        uuid: UUID = None,
+        obj: 'AoE2Object' = None,
+        name: str = None
+) -> Optional['AoE2Scenario']:
     """
-    Get scenario through uuid. Not intended to be called outside the store itself.
+    Get scenario through a UUID, a related object or the name of a scenario.
+    Not intended to be called outside the store itself.
+
+    Use the wrapper instead: `AoE2Scenario.get_scenario()`
 
     Args:
-        uuid (UUID): The UUID of the scenario
-        name:
+        uuid: The UUID of the scenario
+        obj: An object related to a scenario
+        name: The name of a scenario
+
+    Raises
 
     Returns:
-        The scenario based on it's uuid
+        The scenario based on the given identifier, or `None`
     """
-    if not exclusive_if(uuid, name):
-        raise ValueError("Unable to locate scenario without either a uuid or a name")
-
     if uuid == NO_UUID:
         return None
 
     key, dict_ = "", {}
-    if uuid:
+    if uuid is not None:
         key, dict_ = uuid, _scenarios
-    elif name:
+    elif obj is not None:
+        key, dict_ = obj._uuid, _scenarios
+    elif name is not None:
         key, dict_ = name, _scenarios_by_name
+
     if key in dict_:
         return dict_[key]
     else:
-        raise ValueError("Unable to find scenario based on the given name or uuid")
+        raise ValueError("Unable to find scenario based on the given identifier")
 
 
 def register_scenario(scenario: 'AoE2Scenario') -> None:

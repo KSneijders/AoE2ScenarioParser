@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import json
-import uuid
 import zlib
 from pathlib import Path
-from typing import Union, Dict
+from typing import Union, Dict, TYPE_CHECKING
+from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
@@ -12,7 +12,7 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.printers import s_print
+from AoE2ScenarioParser.helper.printers import s_print, color_string
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
@@ -26,6 +26,9 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
 class AoE2Scenario:
@@ -49,7 +52,7 @@ class AoE2Scenario:
     def message_manager(self) -> MessageManager:
         return self._object_manager.managers['Message']
 
-    def __init__(self, game_version, scenario_version, source_location, name):
+    def __init__(self, game_version: str, scenario_version: str, source_location: str, name: str):
         # Scenario meta info
         self.game_version = game_version
         self.scenario_version = scenario_version
@@ -62,7 +65,7 @@ class AoE2Scenario:
 
         # For Scenario Store functionality
         self.name = name
-        self.uuid = uuid.uuid4()
+        self.uuid = uuid4()
         store.register_scenario(self)
 
         # Actions through the scenario
@@ -75,16 +78,22 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
     @classmethod
-    def from_file(cls, path, game_version, name: str = ""):
+    def from_file(cls, path: str, game_version, name: str = ""):
         python_version_check()
 
-        s_print(f"\nReading file: '{path}'", final=True, color="magenta")
+        filepath = Path(path)
+        if not filepath.is_file():
+            raise ValueError(f"Unable to read file from path '{filepath}'")
+
+        name = name or filepath.stem
+
+        s_print(f"\nReading file: " + color_string(f"'{path}'", "magenta"), final=True)
         s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(path)
         s_print("Reading scenario file finished successfully.", final=True)
 
         scenario_version = get_file_version(igenerator)
-        scenario = cls(game_version, scenario_version, path, name)
+        scenario = cls(game_version, scenario_version, source_location=path, name=name)
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
@@ -108,36 +117,27 @@ class AoE2Scenario:
 
         return scenario
 
-    def with_name(self, name: str) -> AoE2Scenario:
-        """
-        Set the name of this scenario and return this instance.
-        Names are used to get access to a scenario object by doing ```AoE2Scenario.get_by_name(<name>)```
-        """
-        # Todo: Add return type from api-docs branch when merged :)
-        self.name = name
-        return self
-
     @staticmethod
-    def get_by_name(name: str) -> AoE2Scenario:
+    def get_scenario(
+        uuid: UUID = None,
+        obj: 'AoE2Object' = None,
+        name: str = None
+    ) -> AoE2Scenario:
         """
-        Get a scenario by their name.
-        Names can be set by calling `scenario.name(...)` or `scenario.from_file().name(...)`.
-        Or if the name is not set, it defaults to the filename of the scenario (without the file extension).
+        Get scenario through a UUID, a related object or the name of a scenario.
 
         Args:
-            name: The name of the scenario
+            uuid: The UUID of the scenario
+            obj: An object related to a scenario
+            name: The name of a scenario
 
-        Raises:
-            ValueError: If the name doesn't match any scenario
+        Raises
 
         Returns:
-            The scenario requested
+            The scenario based on the given identifier, or `None`
         """
         # Todo: Add return type from api-docs branch when merged :)
-        scenario = store.get_scenario(name=name)
-        if scenario is None:
-            raise ValueError(f"Unable to find scenario with name: '{name}'.")
-        return scenario
+        return store.get_scenario(uuid=uuid, obj=obj, name=name)
 
     def _load_structure(self):
         if self.game_version == "???" or self.scenario_version == "???":
@@ -211,7 +211,7 @@ class AoE2Scenario:
     def _write_from_structure(self, filename, skip_reconstruction=False):
         if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
             raise ValueError("Overwriting the source scenario file is disallowed. "
-                             "This behaviour can be enabled in the settings file.")
+                             "This behaviour can be disabled in the settings file.")
         if not skip_reconstruction:
             self.commit()
 
@@ -230,7 +230,7 @@ class AoE2Scenario:
             f.write(binary + compressed)
 
         s_print("File writing finished successfully.", final=True)
-        s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
+        s_print(f"File successfully written to: " + color_string(f"'{filename}'", "magenta"), final=True)
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
@@ -278,7 +278,7 @@ class AoE2Scenario:
         print("File writing finished successfully.")
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
-        """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
+        """ Used for debugging - Writes structure from read file to the filesystem in an easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
             self.commit()
 
