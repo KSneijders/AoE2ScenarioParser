@@ -9,10 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- More ways to get access to scenario object and its managers without having to drag them everywhere.
+
 ### Fixed
 
 - The `EnableTechnologyStacking` effect missing the `quantity` attribute.
 - The `item_id` attribute not updating properly for all use cases.
+- The `ChangeView` effect missing the recently added (to this effect) `quantity` field.
+- An issue that occurred when reading scenarios which had the `civ` field set to `0`.
+- An issue with copying `Variable` objects from one scenario to another.
 
 ---
 
