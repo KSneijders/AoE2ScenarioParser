@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `ChangeView` effect missing the recently added (to this effect) `quantity` field.
 - An issue that occurred when reading scenarios which had the `civ` field set to `0`.
 - An issue with copying `Variable` objects from one scenario to another.
+- Ordering of units returned from data triggers was not consistent with the order which were used in conditions/effects
 
 ---
 

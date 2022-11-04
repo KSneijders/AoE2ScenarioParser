@@ -39,7 +39,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | Map        | n/a *<sup>1</sup>  | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark:  |
 | Players    | n/a *<sup>1</sup>  | :heavy_check_mark:* | :heavy_check_mark: | :heavy_check_mark:* |
 
-*: You can disable or enable players like in the in-game editor (min 1, max 8).
+*: You can disable or enable players like in the in-game editor (min 1, max 8).  
 *<sup>1</sup>: There's no overall formatting function to display these. Though, they can still be printed.
 
 &nbsp;
