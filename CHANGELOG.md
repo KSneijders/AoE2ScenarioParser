@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.48 - 2022-November-??
+
+### Fixed
+
+- Ordering of units returned from data triggers was not consistent with the order which were used in conditions/effects
+
+---
+
 ## 0.1.47 - 2022-September-01
 
 ### Fixed
