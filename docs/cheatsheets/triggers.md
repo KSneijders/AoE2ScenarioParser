@@ -70,6 +70,11 @@ target_scenario.write_to_file(path_to_output_file)
 
 Selecting a trigger can be done using the `get_trigger` function. The
 function accepts 1 argument, a `TriggerSelect` (Alias: `TS`) object.  
+
+!!! Tip "For an index, just use an integer" 
+    Instead of `TS.index(4)` you can just use `4`. 
+    Integers are used in the same way as `TS.index(4)` for ease of use
+
 You can import `TS` (or `TriggerSelect`) like so:
 
 ```py
@@ -100,7 +105,9 @@ TS.display(...)  # Short hand for: display_index
 TS.trigger(...)
 
 # Examples:
-trigger = trigger_manager.get_trigger(TS.index(0))
+trigger = trigger_manager.get_trigger(TS.index(7))
+trigger = trigger_manager.get_trigger(7)  # <-- Same result as above, defaults to `TS.index(...)`
+trigger = trigger_manager.get_trigger(TS.display(3))
 ```
 
 You can use the `get_summary_as_string` function to view these values without opening
@@ -129,7 +136,7 @@ scenario = AoE2DEScenario.from_file(read_file)
 
 # Get Trigger
 trigger_manager = scenario.trigger_manager
-trigger = trigger_manager.get_trigger(TS.index(0))
+trigger = trigger_manager.get_trigger(0)
 ```
 
 If you want to see the contents of the trigger you can do so by running
@@ -171,7 +178,7 @@ You can edit a trigger like so:
 
 ```py
 # Get the trigger_index or display_index using the content or summary methods above
-trigger = trigger_manager.get_trigger(TS.index(0))
+trigger = trigger_manager.get_trigger(0)  # Or: TS.index(0)
 trigger = trigger_manager.get_trigger(TS.display(0))
 
 trigger.name = "New Trigger Name"
@@ -186,7 +193,7 @@ trigger_index, display_index and trigger reference. You can use it as
 follows:
 
 ```py
-copied_trigger = trigger_manager.copy_trigger(TS.index(0))
+copied_trigger = trigger_manager.copy_trigger(3)
 ```
 
 This will result in a full (deep)copy of your trigger. The only parts
@@ -202,7 +209,7 @@ is shown:
 ```py
 copied_triggers = trigger_manager.copy_trigger_per_player(
     from_player=PlayerId.ONE,
-    trigger_select=TS.index(0),
+    trigger_select=3,
     create_copy_for_players=[
         PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR  # Optional list
     ]
@@ -219,7 +226,7 @@ all triggers linked to it. It gets all triggers by taking the ids from
 copied:
 
 ```py
-trigger_manager.copy_trigger_tree(TS.index(0))
+trigger_manager.copy_trigger_tree(3)
 ```
 
 ### Copy tree per player
@@ -233,7 +240,7 @@ select in which order all the new triggers should be placed:
 ```py
 trigger_manager.copy_trigger_tree_per_player(
     from_player=PlayerId.ONE,
-    trigger_select=TS.index(0),
+    trigger_select=3,  # Or: TS.index(3)
     group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.NONE and GroupBy.TRIGGER
 )
 ```
@@ -245,7 +252,7 @@ trigger using the get_trigger function. But on top of that
 you can also use it's reference:
 
 ```py
-trigger_manager.remove_trigger(TS.index(0))
+trigger_manager.remove_trigger(3)  # Or: TS.index(3)
 trigger_manager.remove_trigger(TS.display(0))
 trigger_manager.remove_trigger(TS.trigger(trigger))
 ```

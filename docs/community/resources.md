@@ -16,7 +16,7 @@ A textual explanation including images and examples to showcase the installation
 
 **Resource**: [Youtube video](https://www.youtube.com/watch?v=6dP-pDbFCNw&feature=youtu.be) (By **duyhung2h**)
 
-A thorough video explaining and showcasing the installation process .
+A thorough video explaining and showcasing the installation process.
 
 ## Community Examples
 
