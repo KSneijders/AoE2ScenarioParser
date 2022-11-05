@@ -12,7 +12,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 
 
 class UnitManager(AoE2Object):
-    """Manager of the everything trigger related."""
+    """Manager of everything unit related."""
 
     _link_list = [
         RetrieverObjectLink("_player_units", "Units", "players_units", process_as_object=PlayerUnits),
@@ -56,19 +56,20 @@ class UnitManager(AoE2Object):
             for unit in self.units[player]:
                 unit._player = player
 
-    def add_unit(self,
-                 player: Union[int, PlayerId],
-                 unit_const: int,
-                 x: float = 0,
-                 y: float = 0,
-                 z: float = 0,
-                 rotation: float = 0,
-                 garrisoned_in_id: int = -1,
-                 animation_frame: int = 0,
-                 status: int = 2,
-                 reference_id: int = None,
-                 tile: Tile | Tuple[int, int] = None,
-                 ) -> Unit:
+    def add_unit(
+            self,
+            player: Union[int, PlayerId],
+            unit_const: int,
+            x: float = 0,
+            y: float = 0,
+            z: float = 0,
+            rotation: float = 0,
+            garrisoned_in_id: int = -1,
+            animation_frame: int = 0,
+            status: int = 2,
+            reference_id: int = None,
+            tile: Tile | Tuple[int, int] = None,
+    ) -> Unit:
         """
         Adds a unit to the scenario.
 
@@ -84,7 +85,7 @@ class UnitManager(AoE2Object):
             status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
-            tile: An object that represents a tile on the map. Replaces parameters x and y. Also automatically adds
+            tile: An object that represents a tile on the map. Replaces parameters x and y. Also, automatically adds
                 .5 to both ints to place the unit centered on the tile.
 
         Returns:
@@ -127,11 +128,56 @@ class UnitManager(AoE2Object):
             units += player_units
         return units
 
-    def filter_units_by_const(self,
-                              unit_consts: List[int],
-                              blacklist: bool = False,
-                              player_list: List[Union[int, PlayerId]] = None,
-                              unit_list: List[Unit] = None) -> List[Unit]:
+    def filter_units_by(
+            self,
+            attr: str,
+            unit_attrs: List[int],
+            blacklist: bool = False,
+            player_list: List[Union[int, PlayerId]] = None,
+            unit_list: List[Unit] = None
+    ) -> List[Unit]:
+        """
+        Filter units based on a given attribute of units
+
+        Args:
+            attr (str): The attribute to filter by
+            unit_attrs (List[int]): The values for the attributes to filter with
+            blacklist (bool): Use the given constant list as blacklist instead of whitelist
+            player_list (List[int]): A list of players to filter from. If not used, all players are used.
+            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+
+        Returns:
+            A list of units
+
+        Raises:
+            AttributeError - If the provided attr does not exist on objects of the Unit class
+        """
+
+        if unit_list is None:
+            unit_list = self.get_all_units()
+        if player_list is not None:
+            unit_list = [unit for unit in unit_list if unit.player in player_list]
+
+        if len(unit_list) == 0:
+            return []
+
+        unit = unit_list[0]
+        if not hasattr(unit, attr):
+            raise AttributeError(f"Cannot filter Unit objects by {attr}")
+
+        # Both return statements can be combined using: ((unit.unit_const in unit_consts) != blacklist)
+        # But splitting them helps performance (not checking against blacklist for each entry)
+        if not blacklist:
+            return [unit for unit_attr in unit_attrs for unit in unit_list if getattr(unit, attr) == unit_attr]
+        return [unit for unit_attr in unit_attrs for unit in unit_list if getattr(unit, attr) != unit_attr]
+
+    def filter_units_by_const(
+            self,
+            unit_consts: List[int],
+            blacklist: bool = False,
+            player_list: List[Union[int, PlayerId]] = None,
+            unit_list: List[Unit] = None
+    ) -> List[Unit]:
         """
         Filter unit on their unit_const value.
 
@@ -144,27 +190,41 @@ class UnitManager(AoE2Object):
         Returns:
             A list of units
         """
-        if unit_list is None:
-            unit_list = self.get_all_units()
-        if player_list is not None:
-            unit_list = [unit for unit in unit_list if unit.player in player_list]
+        return self.filter_units_by("unit_const", unit_consts, blacklist, player_list, unit_list)
 
-        # Both return statements can be combined using: ((unit.unit_const in unit_consts) != blacklist)
-        # But splitting them helps performance (not checking against blacklist for each entry)
-        if not blacklist:
-            return [unit for unit in unit_list if unit.unit_const in unit_consts]
-        return [unit for unit in unit_list if unit.unit_const not in unit_consts]
+    def filter_units_by_reference_id(
+            self,
+            unit_reference_ids: List[int],
+            blacklist: bool = False,
+            player_list: List[Union[int, PlayerId]] = None,
+            unit_list: List[Unit] = None
+    ) -> List[Unit]:
+        """
+        Filter unit on their unit_const value.
 
-    def get_units_in_area(self,
-                          x1: float = None,
-                          y1: float = None,
-                          x2: float = None,
-                          y2: float = None,
-                          tile1: Tile = None,
-                          tile2: Tile = None,
-                          unit_list: List[Unit] = None,
-                          players: List[Union[int, PlayerId]] = None,
-                          ignore_players: List[PlayerId] = None):
+        Args:
+            unit_reference_ids (List[int]): The reference_ids to filter with
+            blacklist (bool): Use the given constant list as blacklist instead of whitelist
+            player_list (List[int]): A list of players to filter from. If not used, all players are used.
+            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+
+        Returns:
+            A list of units
+        """
+        return self.filter_units_by("reference_id", unit_reference_ids, blacklist, player_list, unit_list)
+
+    def get_units_in_area(
+            self,
+            x1: float = None,
+            y1: float = None,
+            x2: float = None,
+            y2: float = None,
+            tile1: Tile = None,
+            tile2: Tile = None,
+            unit_list: List[Unit] = None,
+            players: List[Union[int, PlayerId]] = None,
+            ignore_players: List[PlayerId] = None
+    ) -> List[Unit]:
         """
         Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
 
@@ -237,7 +297,7 @@ class UnitManager(AoE2Object):
         Get a new ID each time the function is called. Starting from the current highest ID.
 
         Returns:
-            The newly generator ID
+            The newly generated ID
         """
         return next(self.reference_id_generator)
 

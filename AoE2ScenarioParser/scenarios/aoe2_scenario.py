@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import json
-import uuid
+import time
 import zlib
 from pathlib import Path
-from typing import List, Any, Tuple
-from typing import Union, Dict
+from typing import Union, Dict, TYPE_CHECKING
+from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
@@ -13,8 +13,8 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.printers import s_print
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, add_tabs, q_str, add_suffix_chars
+from AoE2ScenarioParser.helper.printers import s_print, color_string
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -27,7 +27,9 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
-from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
 class AoE2Scenario:
@@ -51,40 +53,49 @@ class AoE2Scenario:
     def message_manager(self) -> MessageManager:
         return self._object_manager.managers['Message']
 
-    def __init__(self, source_location):
+    def __init__(self, game_version: str, scenario_version: str, source_location: str, name: str):
+        # Scenario meta info
+        self.game_version = game_version
+        self.scenario_version = scenario_version
         self.source_location = source_location
+        self._time_start = time.time()
 
-        self.read_mode = None
-        self.scenario_version = "???"
-        self.game_version = "???"
+        # Actual scenario content
         self.structure = {}
         self.sections: Dict[str, AoE2FileSection] = {}
         self._object_manager: Union[AoE2ObjectManager, None] = None
+
+        # For Scenario Store functionality
+        self.name = name
+        self.uuid = uuid4()
+        store.register_scenario(self)
+
+        # Actions through the scenario
+        self.new = ObjectFactory(self.uuid)
+        self.actions = ScenarioActions(self.uuid)
 
         # Used in debug functions
         self._file = None
         self._file_header = None
         self._decompressed_file_data = None
 
-        self.uuid = uuid.uuid4()
-        store.register_scenario(self)
-
-        self.new = ObjectFactory(self.uuid)
-        self.actions = ScenarioActions(self.uuid)
-
     @classmethod
-    def from_file(cls, filename, game_version):
+    def from_file(cls, path: str, game_version, name: str = ""):
         python_version_check()
 
-        s_print(f"\nReading file: '{filename}'", final=True, color="magenta")
-        s_print("Reading scenario file...")
-        igenerator = IncrementalGenerator.from_file(filename)
-        s_print("Reading scenario file finished successfully.", final=True)
+        filepath = Path(path)
+        if not filepath.is_file():
+            raise ValueError(f"Unable to read file from path '{filepath}'")
 
-        scenario = cls(filename)
-        scenario.read_mode = "from_file"
-        scenario.game_version = game_version
-        scenario.scenario_version = get_file_version(igenerator)
+        name = name or filepath.stem
+
+        s_print(f"Reading file: " + color_string(f"'{path}'", "magenta"), final=True, time=True, newline=True)
+        s_print("Reading scenario file...")
+        igenerator = IncrementalGenerator.from_file(path)
+        s_print("Reading scenario file finished successfully.", final=True, time=True)
+
+        scenario_version = get_file_version(igenerator)
+        scenario = cls(game_version, scenario_version, source_location=path, name=name)
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
@@ -92,21 +103,43 @@ class AoE2Scenario:
         s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
         s_print("##########################################", final=True, color="blue")
 
-        s_print(f"\nLoading scenario structure...")
+        s_print(f"Loading scenario structure...", time=True, newline=True)
         scenario._load_structure()
         initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
-        s_print(f"Loading scenario structure finished successfully.", final=True)
+        s_print(f"Loading scenario structure finished successfully.", final=True, time=True)
 
         # scenario._initialize(igenerator)
-        s_print("Parsing scenario file...", final=True)
+        s_print("Parsing scenario file...", final=True, time=True)
         scenario._load_header_section(igenerator)
         scenario._load_content_sections(igenerator)
-        s_print(f"Parsing scenario file finished successfully.", final=True)
+        s_print(f"Parsing scenario file finished successfully.", final=True, time=True)
 
         scenario._object_manager = AoE2ObjectManager(scenario.uuid)
         scenario._object_manager.setup()
 
         return scenario
+
+    @staticmethod
+    def get_scenario(
+        uuid: UUID = None,
+        obj: 'AoE2Object' = None,
+        name: str = None
+    ) -> AoE2Scenario:
+        """
+        Get scenario through a UUID, a related object or the name of a scenario.
+
+        Args:
+            uuid: The UUID of the scenario
+            obj: An object related to a scenario
+            name: The name of a scenario
+
+        Raises
+
+        Returns:
+            The scenario based on the given identifier, or `None`
+        """
+        # Todo: Add return type from api-docs branch when merged :)
+        return store.get_scenario(uuid=uuid, obj=obj, name=name)
 
     def _load_structure(self):
         if self.game_version == "???" or self.scenario_version == "???":
@@ -115,6 +148,7 @@ class AoE2Scenario:
 
     def _load_header_section(self, raw_file_igenerator: IncrementalGenerator):
         header = self._create_and_load_section('FileHeader', raw_file_igenerator)
+        self._file_header = raw_file_igenerator.file_content[:raw_file_igenerator.progress]
         self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator):
@@ -179,11 +213,11 @@ class AoE2Scenario:
     def _write_from_structure(self, filename, skip_reconstruction=False):
         if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
             raise ValueError("Overwriting the source scenario file is disallowed. "
-                             "This behaviour can be enabled in the settings file.")
+                             "This behaviour can be disabled in the settings file.")
         if not skip_reconstruction:
             self.commit()
 
-        s_print("\nFile writing from structure started...", final=True)
+        s_print("File writing from structure started...", final=True, time=True, newline=True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
@@ -197,8 +231,10 @@ class AoE2Scenario:
         with open(filename, 'wb') as f:
             f.write(binary + compressed)
 
-        s_print("File writing finished successfully.", final=True)
-        s_print(f"File successfully written to: '{filename}'", color="magenta", final=True)
+        etime = round(time.time() - self._time_start, 2)
+        s_print("File writing finished successfully.", final=True, time=True)
+        s_print(f"File successfully written to: " + color_string(f"'{filename}'", "magenta"), final=True, time=True)
+        s_print(f"Execution time from scenario read: {etime}s", final=True, time=True)
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
@@ -246,7 +282,7 @@ class AoE2Scenario:
         print("File writing finished successfully.")
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
-        """ Used for debugging - Writes structure from read file to the filesystem in a easily readable manner. """
+        """ Used for debugging - Writes structure from read file to the filesystem in an easily readable manner. """
         if commit and hasattr(self, '_object_manager'):
             self.commit()
 

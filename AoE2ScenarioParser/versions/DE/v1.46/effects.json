@@ -1101,6 +1101,7 @@
         "name": "change_view",
         "attributes": [
             "effect_type",
+            "quantity",
             "source_player",
             "location_x",
             "location_y",
@@ -4548,6 +4549,7 @@
     "67": {
         "name": "enable_technology_stacking",
         "attributes": [
+            "quantity",
             "source_player",
             "technology"
         ],

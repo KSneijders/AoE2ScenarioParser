@@ -4,9 +4,10 @@ For an introduction to the XS scripting language itself, you can check out the [
 
 ## Support
 
-As of writing this, **Age of Empires 2 Definitive Edition** does not support transferring XS scripts attached to a 
-scenario through multiplayer lobbies. This results in an issue where you cannot use XS in multiplayer until everyone in 
-the lobby places the XS file at the proper location by hand. Which is very cumbersome.
+Since the introduction of the XS manager, there have been some improvements to the game supporting XS in multiplayer.
+Age of Empires 2 Definitive Edition is able to transfer manually referenced XS files (through the XS file field) to
+other **players** within your lobby.
+Unfortunately this support does not stretch to spectators. They will not be able to watch your games.
 
 To get around this, you can add your XS script to a `Script Call` effect. When you add the XS to such an effect, it 
 will, when loading the scenario, move all scripts from those calls to the `default0.xs` file. This does work in 
@@ -48,11 +49,12 @@ xs_manager.initialise_xs_trigger()
 xs_manager.initialise_xs_trigger(insert_index=0)
 ```
 
-## Adding XS
-
 !!! tip "You don't have to initialise the trigger"
-    Whenever you call the `add_script()` function, it will automatically initialise the trigger if it hasn't been already.
-    The use of the `initialise_xs_trigger()` function is to control where the trigger is placed.
+    Whenever you call the `add_script()` function (more about this below), 
+    it will automatically initialise the trigger if it hasn't been already.
+    The use of the `initialise_xs_trigger()` function is **purely** to control where the trigger is placed.
+
+## Adding XS
 
 You can add scripts to the trigger using the `add_script` function. This function accepts a path to an XS file and a 
 direct XS script string.

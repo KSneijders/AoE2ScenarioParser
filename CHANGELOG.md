@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.48 - 2022-November-05
+
+### Added
+
+- More ways to get access to scenario object and its managers without having to drag them everywhere.
+  - `scenario <object>.get_scenario()` i.e. `scenario = trigger.get_scenario()`
+  - `scenario = AoE2DEScenario.get_scenario(obj=trigger)`
+  - `scenario = AoE2DEScenario.get_scenario(name="coolname")`
+    - You can set the names like this:
+      1. Defaults to filename: `AoE2DEScenario.from_file('path/coolname.aoe2scenario')` (name: coolname) 
+      2. Explicitely setting the name: `AoE2DEScenario.from_file('path/othername.aoe2scenario', name="myname")` (name: myname)
+- Time indicators for status messages and execution time per scenario
+
+### Fixed
+
+- The `EnableTechnologyStacking` effect missing the `quantity` attribute.
+- The `item_id` attribute not updating properly for all use cases.
+- The `ChangeView` effect missing the recently added (to this effect) `quantity` field.
+- An issue that occurred when reading scenarios which had the `civ` field set to `0`.
+- An issue with copying `Variable` objects from one scenario to another.
+- The ordering of units returned from `object` data triggers not being consistent with the condition/effect input order
+
+---
+
 ## 0.1.47 - 2022-September-01
 
 ### Fixed
