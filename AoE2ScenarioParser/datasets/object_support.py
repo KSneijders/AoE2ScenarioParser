@@ -30,6 +30,7 @@ class Civilization(_DataSetIntEnums):
     >>> Civilization.VIKINGS
     <Civilization.VIKINGS: 11>
     """
+    GAIA = 0
     BRITONS = 1
     FRANKS = 2
     GOTHS = 3

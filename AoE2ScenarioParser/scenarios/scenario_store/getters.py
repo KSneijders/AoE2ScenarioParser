@@ -64,12 +64,7 @@ def get_units(uuid: UUID, unit_reference_ids: List[int]) -> Tuple[List['Unit'], 
     unit_reference_ids = unit_reference_ids.copy()
     scenario = store.get_scenario(uuid)
     if scenario:
-        result = []
-        for unit in scenario.unit_manager.get_all_units():
-            if unit.reference_id in unit_reference_ids:
-                unit_reference_ids.remove(unit.reference_id)
-                result.append(unit)
-        return result, unit_reference_ids
+        return scenario.unit_manager.filter_units_by_reference_id(unit_reference_ids), unit_reference_ids
     return None
 
 

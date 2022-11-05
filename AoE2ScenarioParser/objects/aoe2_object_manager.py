@@ -38,7 +38,7 @@ class AoE2ObjectManager:
 
     def setup(self) -> None:
         """Sets up the managers by calling their construct functions"""
-        s_print(f"\nSetting up managers ...", final = True)
+        s_print(f"Setting up managers ...", final=True, time=True, newline=True)
         gv = getters.get_game_version(self.scenario_uuid)
 
         for name, manager in managers[gv].items():
@@ -46,15 +46,15 @@ class AoE2ObjectManager:
             self.managers[name] = manager.construct(self.scenario_uuid)
             s_print(f"\t✔ {name}Manager", final=True, color="green")
 
-        s_print(f"Setting up managers finished successfully.", final = True)
+        s_print(f"Setting up managers finished successfully.", final=True, time=True)
 
     def reconstruct(self) -> None:
         """Reconstructs the file sections by calling the managers commit functions"""
-        s_print("\nReconstructing sections and structs from managers...", final = True)
+        s_print("Reconstructing sections and structs from managers...", final=True, time=True, newline=True)
 
         for name, manager in self.managers.items():
             s_print(f"\t🔄 Reconstructing {name}Manager...", color = "yellow")
             manager.commit()
             s_print(f"\t✔ {name}Manager", final = True, color = "green")
 
-        s_print("Reconstruction finished successfully.", final = True)
+        s_print("Reconstruction finished successfully.", final=True, time=True)

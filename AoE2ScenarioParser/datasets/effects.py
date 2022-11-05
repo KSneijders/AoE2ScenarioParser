@@ -109,6 +109,7 @@ class EffectId(IntEnum):
     - selected_object_ids"""
     CHANGE_VIEW = 16
     """Attributes for the **change_view** effect are: \n
+    - quantity
     - source_player
     - location_x
     - location_y

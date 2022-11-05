@@ -1,4 +1,5 @@
 import sys
+from time import strftime, localtime
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.exceptions import WarningToError
@@ -46,7 +47,7 @@ def rprint(string: str = "", replace: bool = True, final: bool = False) -> None:
         print(string)
 
 
-def s_print(string="", replace=True, final=False, color=None) -> None:
+def s_print(string="", replace=True, final=False, color=None, time=False, newline=False) -> None:
     """
     Status print, read rprint docstring for more info.
     Simple rprint wrapper with a check for the PRINT_STATUS_UPDATES setting.
@@ -54,6 +55,10 @@ def s_print(string="", replace=True, final=False, color=None) -> None:
     if settings.PRINT_STATUS_UPDATES:
         if color is not None:
             string = color_string(string, color)
+        if time:
+            string = f"[{current_time()}] {string}"
+        if newline:
+            string = f"\n{string}"
         rprint(string, replace, final)
 
 
@@ -67,3 +72,8 @@ def warn(string="") -> None:
             f"\n\nWarning Occurred with 'settings.THROW_ERROR_ON_WARNING' is True. \nWarning:\n{add_tabs(string, 1)}\n")
     if not settings.DISABLE_WARNINGS:
         print('\n' + color_string(string, 'bright_yellow'))
+
+
+def current_time() -> str:
+    """Get the current local machine time in a formatted string"""
+    return strftime("%H:%M:%S", localtime())

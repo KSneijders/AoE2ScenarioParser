@@ -4,6 +4,7 @@ from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.variable import Variable
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
@@ -21,6 +22,14 @@ class TriggerManagerDE(TriggerManager):
         super().__init__(triggers, trigger_display_order, **kwargs)
 
         self.variables: List[Variable] = variables
+
+    @property
+    def variables(self) -> List[Variable]:
+        return self._variables
+
+    @variables.setter
+    def variables(self, value: List[Variable]):
+        self._variables = UuidList(self._uuid, value)
 
     def add_variable(self, name: str, variable_id: int = -1) -> Variable:
         """
@@ -85,6 +94,6 @@ class TriggerManagerDE(TriggerManager):
             return_string += "\t<<No Variables>>\n"
 
         for variable in self.variables:
-            return_string += f"\t'{variable.name}' [Index: {variable.variable_id}]\n"
+            return_string += f"\t'{variable.name}' [Index: {variable.variable_id}] ({variable._uuid})\n"
 
         return return_string

@@ -2,14 +2,18 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Dict, Any
+from typing import List, Any, Dict, TYPE_CHECKING, Optional
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
+from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
 
 class AoE2Object:
@@ -29,6 +33,13 @@ class AoE2Object:
                 continue
             setattr(result, k, entry)
         return result
+
+    def get_scenario(self) -> 'AoE2DEScenario':
+        """ Get the scenario associated with the current object """
+        scenario: Optional['AoE2DEScenario'] = store.get_scenario(uuid=self._uuid)
+        if scenario:
+            return scenario
+        raise ValueError("Unable to fetch associated scenario from detached object")
 
     @property
     def instance_number_history(self):

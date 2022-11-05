@@ -5,7 +5,7 @@ from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerMan
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
-_initialise_version_dependencies("DE", 1.43)
+_initialise_version_dependencies("DE", 1.47)
 
 
 class Test(TestCase):

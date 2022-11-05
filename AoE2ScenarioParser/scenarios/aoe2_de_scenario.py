@@ -6,7 +6,7 @@ from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
-from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario, _ScenarioType
 
 
 class AoE2DEScenario(AoE2Scenario):
@@ -44,15 +44,16 @@ class AoE2DEScenario(AoE2Scenario):
         return self._object_manager.managers['Message']
 
     @classmethod
-    def from_file(cls, filename: str, game_version: str = "DE") -> AoE2DEScenario:
+    def from_file(cls, path: str, game_version="DE", name: str = "") -> _ScenarioType:
         """
         Creates and returns an instance of the AoE2DEScenario class from the given scenario file
 
         Args:
-            filename: The path to the scenario file to create the object from
+            path: The path to the scenario file to create the object from
             game_version: The version of the game to create the object for
+            name: The name given to this scenario (defaults to the filename without extension)
 
         Returns:
             An instance of the AoE2DEScenario class which is the object representation of the given scenario file
         """
-        return super().from_file(filename, game_version)
+        return super().from_file(path=path, game_version=game_version, name=name)

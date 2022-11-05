@@ -34,6 +34,11 @@ class UuidList(list, Generic[_T]):
             raise ValueError(f"Sequence object should be iterable. Got: {seq}")
 
         if seq:
+            # Deepcopy the given list if the object's UUID isn't equal to the given UUID
+            # Meaning the objects came from another scenario. Can cause reference issues!
+            if hasattr(seq[0], '_uuid') and seq[0]._uuid != uuid and seq[0]._uuid != NO_UUID:
+                seq = deepcopy(seq)
+
             seq = self._iter_to_uuid_list(seq, ignore_root_iter=True)
             self._update(seq)
 
