@@ -30,7 +30,7 @@ class AoE2ObjectManager:
         self.managers = {}
 
     def setup(self):
-        s_print(f"\nSetting up managers ...", final=True)
+        s_print(f"Setting up managers ...", final=True, time=True, newline=True)
         gv = getters.get_game_version(self.scenario_uuid)
 
         for name, manager in managers[gv].items():
@@ -38,10 +38,10 @@ class AoE2ObjectManager:
             self.managers[name] = manager.construct(self.scenario_uuid)
             s_print(f"\t✔ {name}Manager", final=True, color="green")
 
-        s_print(f"Setting up managers finished successfully.", final=True)
+        s_print(f"Setting up managers finished successfully.", final=True, time=True)
 
     def reconstruct(self):
-        s_print("\nReconstructing sections and structs from managers...", final=True)
+        s_print("Reconstructing sections and structs from managers...", final=True, time=True, newline=True)
 
         manager: AoE2Object
         for name, manager in self.managers.items():
@@ -49,4 +49,4 @@ class AoE2ObjectManager:
             manager.commit()
             s_print(f"\t✔ {name}Manager", final=True, color="green")
 
-        s_print("Reconstruction finished successfully.", final=True)
+        s_print("Reconstruction finished successfully.", final=True, time=True)

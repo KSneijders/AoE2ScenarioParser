@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - More ways to get access to scenario object and its managers without having to drag them everywhere.
+  - `scenario <object>.get_scenario()` i.e. `scenario = trigger.get_scenario()`
+  - `scenario = AoE2DEScenario.get_scenario(obj=trigger)`
+  - `scenario = AoE2DEScenario.get_scenario(name="coolname")`
+    - You can set the names like this:
+      1. Defaults to filename: `AoE2DEScenario.from_file('path/coolname.aoe2scenario')` (name: coolname) 
+      2. Explicitely setting the name: `AoE2DEScenario.from_file('path/othername.aoe2scenario', name="myname")` (name: myname)
+- Time indicators for status messages and execution time per scenario
 
 ### Fixed
 
@@ -20,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `ChangeView` effect missing the recently added (to this effect) `quantity` field.
 - An issue that occurred when reading scenarios which had the `civ` field set to `0`.
 - An issue with copying `Variable` objects from one scenario to another.
-- Ordering of units returned from data triggers was not consistent with the order which were used in conditions/effects
+- The ordering of units returned from `object` data triggers not being consistent with the condition/effect input order
 
 ---
 

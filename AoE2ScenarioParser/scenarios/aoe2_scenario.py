@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 import zlib
 from pathlib import Path
 from typing import Union, Dict, TYPE_CHECKING
@@ -57,6 +58,7 @@ class AoE2Scenario:
         self.game_version = game_version
         self.scenario_version = scenario_version
         self.source_location = source_location
+        self._time_start = time.time()
 
         # Actual scenario content
         self.structure = {}
@@ -87,10 +89,10 @@ class AoE2Scenario:
 
         name = name or filepath.stem
 
-        s_print(f"\nReading file: " + color_string(f"'{path}'", "magenta"), final=True)
+        s_print(f"Reading file: " + color_string(f"'{path}'", "magenta"), final=True, time=True, newline=True)
         s_print("Reading scenario file...")
         igenerator = IncrementalGenerator.from_file(path)
-        s_print("Reading scenario file finished successfully.", final=True)
+        s_print("Reading scenario file finished successfully.", final=True, time=True)
 
         scenario_version = get_file_version(igenerator)
         scenario = cls(game_version, scenario_version, source_location=path, name=name)
@@ -101,16 +103,16 @@ class AoE2Scenario:
         s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
         s_print("##########################################", final=True, color="blue")
 
-        s_print(f"\nLoading scenario structure...")
+        s_print(f"Loading scenario structure...", time=True, newline=True)
         scenario._load_structure()
         initialise_version_dependencies(scenario.game_version, scenario.scenario_version)
-        s_print(f"Loading scenario structure finished successfully.", final=True)
+        s_print(f"Loading scenario structure finished successfully.", final=True, time=True)
 
         # scenario._initialize(igenerator)
-        s_print("Parsing scenario file...", final=True)
+        s_print("Parsing scenario file...", final=True, time=True)
         scenario._load_header_section(igenerator)
         scenario._load_content_sections(igenerator)
-        s_print(f"Parsing scenario file finished successfully.", final=True)
+        s_print(f"Parsing scenario file finished successfully.", final=True, time=True)
 
         scenario._object_manager = AoE2ObjectManager(scenario.uuid)
         scenario._object_manager.setup()
@@ -215,7 +217,7 @@ class AoE2Scenario:
         if not skip_reconstruction:
             self.commit()
 
-        s_print("\nFile writing from structure started...", final=True)
+        s_print("File writing from structure started...", final=True, time=True, newline=True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
 
         binary_list_to_be_compressed = []
@@ -229,8 +231,10 @@ class AoE2Scenario:
         with open(filename, 'wb') as f:
             f.write(binary + compressed)
 
-        s_print("File writing finished successfully.", final=True)
-        s_print(f"File successfully written to: " + color_string(f"'{filename}'", "magenta"), final=True)
+        etime = round(time.time() - self._time_start, 2)
+        s_print("File writing finished successfully.", final=True, time=True)
+        s_print(f"File successfully written to: " + color_string(f"'{filename}'", "magenta"), final=True, time=True)
+        s_print(f"Execution time from scenario read: {etime}s", final=True, time=True)
 
     def write_error_file(self, filename="error_file.txt", trail_generator=None):
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
