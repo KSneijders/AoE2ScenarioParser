@@ -101,7 +101,7 @@ class AoE2Scenario:
 
         Returns:
             An instance of the AoE2Scenario class (or any of its subclasses) which is the object representation of
-            the given scenario file
+                the given scenario file
         """
         python_version_check()
 

@@ -1,0 +1,48 @@
+{#
+Created template by KSneijders (based of './parameters.html')
+
+Used for functions with no parameter section in the docstrings (usually ignored)
+#}
+
+{{ log.debug("Rendering fake parameters section") }}
+{% if function and function.parameters and config.docstring_section_style == "table" %}
+    {% block table_style %}
+        <p><strong>Parameters:</strong></p>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Default</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for parameter in function.parameters %}
+                {% if parameter.name not in ("self", "cls") %}
+                    <tr>
+                        <td><code>{{ parameter.name }}</code></td>
+                        <td>
+                            {% if parameter.annotation %}
+                                {% with expression = parameter.annotation %}
+                                    <code>{% include "expression.html" with context %}</code>
+                                {% endwith %}
+                            {% endif %}
+                        </td>
+                        <td> - </td>
+                        <td>
+                            {% if parameter.default %}
+                                {% with expression = parameter.default %}
+                                    <code>{% include "expression.html" with context %}</code>
+                                {% endwith %}
+                            {% else %}
+                                <em>required</em>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock table_style %}
+{% endif %}

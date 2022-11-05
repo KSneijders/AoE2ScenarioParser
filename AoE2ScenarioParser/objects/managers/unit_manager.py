@@ -150,7 +150,7 @@ class UnitManager(AoE2Object):
             A list of units
 
         Raises:
-            AttributeError - If the provided attr does not exist on objects of the Unit class
+            AttributeError: If the provided attr does not exist on objects of the Unit class
         """
 
         if unit_list is None:

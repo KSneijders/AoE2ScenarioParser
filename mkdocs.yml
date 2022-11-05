@@ -19,6 +19,7 @@ plugins:
               docstring_style: google
               show_source: true  # Show source code
               show_bases: true  # Show parent classes
+              show_submodules: true  # Show the subclasses
               filters: ["!^_[^_]"]
               show_signature: false
               show_signature_annotations: false
