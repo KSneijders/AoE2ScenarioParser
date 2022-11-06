@@ -30,8 +30,6 @@ def get_scenario(
         obj: An object related to a scenario
         name: The name of a scenario
 
-    Raises
-
     Returns:
         The scenario based on the given identifier, or `None`
     """

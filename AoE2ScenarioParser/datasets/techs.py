@@ -97,8 +97,8 @@ class TechInfo(Enum):
         Get the list of all the unique techs in the game
 
         Args:
-            exclude_castle_techs: if set to True, exclude the castle age techs
-            exclude_imp_techs: if set to True, exclude the imperial age techs
+            exclude_castle_techs: if set to `True`,  exclude the castle age techs
+            exclude_imp_techs: if set to `True`,  exclude the imperial age techs
 
         Returns:
             A list of TechInfo objects which are all the unique techs in the game
@@ -211,8 +211,8 @@ class TechInfo(Enum):
     ) -> List[TechInfo]:
         """
         Args:
-            exclude_castle_techs: if set to false, excludes the castle unique unit techs from the list of techs returned
-            exclude_non_castle_techs: if set to false, excludes the non castle unique unit techs from the list of techs
+            exclude_castle_techs: if set to `False`, excludes the castle unique unit techs from the list of techs returned
+            exclude_non_castle_techs: if set to `False`, excludes the non castle unique unit techs from the list of techs
                 returned
 
         Returns:

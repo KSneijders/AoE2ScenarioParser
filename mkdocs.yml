@@ -69,6 +69,7 @@ nav:
     - TerrainTile: "api_docs/terrain_tile.md"
     - Trigger: "api_docs/trigger.md"
     - TriggerSelect: "api_docs/trigger_select.md"
+    - TriggerCeLock: "api_docs/trigger_ce_lock.md"
     - Effect: "api_docs/effect.md"
     - Condition: "api_docs/condition.md"
     - NewEffect: "api_docs/new_effect.md"

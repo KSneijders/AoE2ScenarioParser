@@ -11,7 +11,7 @@ from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
 class Player(AoE2Object):
-    """Object for handling all player information."""
+    """A class for handling all player information."""
 
     _object_attributes = [
         'player_id',
@@ -105,23 +105,25 @@ class Player(AoE2Object):
 
     @property
     def active(self):
+        """Read-only value if this player is active or not"""
         return self._active
 
     @active.setter
     def active(self, value):
         raise ValueError("Cannot set active status of player directly, please use player_manager.active_players")
 
-    @overload
-    def set_player_diplomacy(self, players: List[PlayerId | int], diplomacy: DiplomacyState):
-        ...
+    def set_player_diplomacy(self, players: PlayerId | int | List[PlayerId | int], diplomacy: DiplomacyState):
+        """
+        Set the diplomacy of this player to other players.
 
-    @overload
-    def set_player_diplomacy(self, player: PlayerId | int, diplomacy: DiplomacyState):
-        ...
+        Note: This sets the player diplomacy ONE WAY!
+            This does NOT set the other player's diplomacy to this player to the same diplomacy
 
-    def set_player_diplomacy(self, *args):
-        players: List[PlayerId | int] = listify(args[0])
-        diplomacy: DiplomacyState = args[1]
+        Args:
+            players: The player(s) to change
+            diplomacy: The diplomacy setting to set the player to
+        """
+        players: List[PlayerId | int] = listify(players)
 
         if self.player_id in players:
             raise ValueError("Cannot set diplomacy from and to the same player")

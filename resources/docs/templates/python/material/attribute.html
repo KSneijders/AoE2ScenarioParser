@@ -9,86 +9,127 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
 - Removed showing the default assigned values for class (instance) attributes
 - Removed some lines working with `show_full_path` as it's not enabled in this project.
 - Added `class-attribute-entry` class to edit font size
+- Added <hr> in the end of the file
 
 #}
 
 {{ log.debug("Rendering " + attribute.path) }}
 
 <div class="doc doc-object doc-attribute">
-{% with html_id = attribute.path %}
+    {% with html_id = attribute.path %}
 
-  {% if root %}
-    {% set show_full_path = config.show_root_full_path %}
-    {% set root_members = True %}
-  {% elif root_members %}
-    {% set show_full_path = config.show_root_members_full_path or config.show_object_full_path %}
-    {% set root_members = False %}
-  {% else %}
-    {% set show_full_path = config.show_object_full_path %}
-  {% endif %}
+        {% if root %}
+            {% set show_full_path = config.show_root_full_path %}
+            {% set root_members = True %}
+        {% elif root_members %}
+            {% set show_full_path = config.show_root_members_full_path or config.show_object_full_path %}
+            {% set root_members = False %}
+        {% else %}
+            {% set show_full_path = config.show_object_full_path %}
+        {% endif %}
 
-  {% if not root or config.show_root_heading %}
-    <tr>
-      <td class="class-attribute-entry">
-        {% filter heading(heading_level,
-              role="data" if attribute.parent.kind.value == "module" else "attr",
-              id=html_id,
-              class="doc doc-heading",
-              toc_label=attribute.name) %}
-              {% filter highlight(language="python", inline=True) %}
-                {{ attribute.name }}
-              {% endfilter %}
+        {% if not root or config.show_root_heading %}
+            {% if heading_level == 3 %}
+                {# Module level attributes #}
+                {% filter heading(heading_level,
+                    role="data" if attribute.parent.kind.value == "module" else "attr",
+                    id=html_id,
+                    style="margin-bottom: 2px;",
+                    class="doc doc-heading",
+                    toc_label=attribute.name) %}
+                    {% filter highlight(language="python", inline=True) %}
+                        {{ attribute.name }}
 
-              {% with labels = attribute.labels %}
-                {% include "labels.html" with context %}
-              {% endwith %}
-        {% endfilter %}
-      </td>
-      {#
-        <td>
-          {% if attribute.value %}
-            {% filter highlight(language="python", inline=True) %}
-              {{ attribute.value }}
-            {% endfilter %}
-          {% endif %}
-        </td>
-      #}
-      <td>
-          {% if attribute.annotation %}
-            {% filter highlight(language="python", inline=True) %}
-              {{ attribute.annotation }}
-            {% endfilter %}
-          {% endif %}
-      </td>
-    </tr>
+                    {% endfilter %}
 
-    {% if config.separate_signature %}
-      {% filter highlight(language="python", inline=False) %}
-        {% filter format_code(config.line_length) %}
-          {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-          {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
-          {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
-        {% endfilter %}
-      {% endfilter %}
-    {% endif %}
+                    {% with labels = attribute.labels %}
+                        {% include "labels.html" with context %}
+                    {% endwith %}
+                {% endfilter %}
 
-  {% else %}
-    {% if config.show_root_toc_entry %}
-      {% filter heading(heading_level,
+                <div style="padding-left: 32px">
+                    {% if attribute.annotation %}
+                        Type:
+                        {% filter highlight(language="python", inline=True) %}
+                            {{ attribute.annotation }}
+                        {% endfilter %}
+                    {% endif %}
+
+                    <br>
+
+                    {% if attribute.value %}
+                        Value:
+                        {% filter highlight(language="python", inline=True) %}
+                            {{ attribute.value }}
+                        {% endfilter %}
+                    {% endif %}
+                </div>
+
+            {% elif heading_level == 5 %}
+                {# Class level attributes #}
+                <tr>
+                    <td class="class-attribute-entry">
+                        {% filter heading(heading_level,
+                            role="data" if attribute.parent.kind.value == "module" else "attr",
+                            id=html_id,
+                            class="doc doc-heading",
+                            toc_label=attribute.name) %}
+                            {% filter highlight(language="python", inline=True) %}
+                                {{ attribute.name }}
+                            {% endfilter %}
+
+                            {% with labels = attribute.labels %}
+                                {% include "labels.html" with context %}
+                            {% endwith %}
+                        {% endfilter %}
+                    </td>
+                    {# <td>
+                      {% if attribute.value %}
+                        {% filter highlight(language="python", inline=True) %}
+                          {{ attribute.value }}
+                        {% endfilter %}
+                      {% endif %}
+                    </td> #}
+                    <td>
+                        {% if attribute.annotation %}
+                            {% filter highlight(language="python", inline=True) %}
+                                {{ attribute.annotation }}
+                            {% endfilter %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if config.separate_signature %}
+                {% filter highlight(language="python", inline=False) %}
+                    {% filter format_code(config.line_length) %}
+                        {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+                        {% if attribute.annotation %}: {{ attribute.annotation|safe }}{% endif %}
+                        {% if attribute.value %} = {{ attribute.value|safe }}{% endif %}
+                    {% endfilter %}
+                {% endfilter %}
+            {% endif %}
+
+        {% else %}
+            {% if config.show_root_toc_entry %}
+                {% filter heading(heading_level,
           role="data" if attribute.parent.kind.value == "module" else "attr",
           id=html_id,
           toc_label=attribute.path if config.show_root_full_path else attribute.name,
           hidden=True) %}
-      {% endfilter %}
-    {% endif %}
-    {% set heading_level = heading_level - 1 %}
-  {% endif %}
+                {% endfilter %}
+            {% endif %}
+            {% set heading_level = heading_level - 1 %}
+        {% endif %}
 
-  <div class="doc doc-contents {% if root %}first{% endif %}">
-    {% with docstring_sections = attribute.docstring.parsed %}
-      {% include "docstring.html" with context %}
+        {% if heading_level == 3 %}
+            {# Module level attributes #}
+            <div class="doc doc-contents {% if root %}first{% endif %}" style="padding-left: 32px">
+                {% with docstring_sections = attribute.docstring.parsed %}
+                    {% include "docstring.html" with context %}
+                {% endwith %}
+            </div>
+            <hr>
+        {% endif %}
     {% endwith %}
-  </div>
-
-{% endwith %}
 </div>

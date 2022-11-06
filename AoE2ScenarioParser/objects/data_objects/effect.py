@@ -231,10 +231,12 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def legacy_location_object_reference(self) -> int:
+        """Getter for legacy object_reference location. Now always returns `-1`."""
         return -1
 
     @property
     def player_color(self):
+        """Get the player color attribute"""
         return self._player_color
 
     @player_color.setter
@@ -245,6 +247,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def item_id(self):
+        """Get the currently selected item_id based on other attributes"""
         if value_is_valid(self.object_list_unit_id):
             return self.object_list_unit_id
         if value_is_valid(self.technology):
@@ -260,6 +263,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def effect_type(self):
+        """The type of the effect (EffectId dataset)"""
         return self._effect_type
 
     @effect_type.setter
@@ -278,6 +282,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def armour_attack_quantity(self):
+        """Helper property for handling the armour_attack related values"""
         return self._armour_attack_quantity
 
     @armour_attack_quantity.setter
@@ -289,6 +294,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def armour_attack_class(self):
+        """Helper property for handling the armour_attack related values"""
         return self._armour_attack_class
 
     @armour_attack_class.setter
@@ -300,6 +306,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def quantity(self):
+        """Getter for quantity, even if it is combined with `armour_attack_quantity` and `armour_attack_class`"""
         if self._armour_attack_flag:
             return self._aa_to_quantity(self.armour_attack_quantity, self.armour_attack_class)
         return self._quantity
@@ -316,6 +323,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def selected_object_ids(self) -> List[int]:
+        """Get the current selected objects"""
         return self._selected_object_ids
 
     @selected_object_ids.setter
@@ -324,16 +332,27 @@ class Effect(AoE2Object, TriggerComponent):
             val = [val]
         self._selected_object_ids = val
 
-    def should_be_displayed(self, attr: str, val: Any) -> bool:
+    def _should_be_displayed(self, attr: str, val: Any) -> bool:
         # Ignore the quantity value in the print statement when flag is True.
         if self._armour_attack_flag and attr == "quantity":
             return False
         if not self._armour_attack_flag and (attr == "armour_attack_quantity" or attr == "armour_attack_class"):
             return False
 
-        return super().should_be_displayed(attr, val)
+        return super()._should_be_displayed(attr, val)
 
     def get_content_as_string(self, include_effect_definition=False) -> str:
+        """
+        Create a human-readable string showcasing all content of this effect.
+
+        This is also the function that is called when doing: `print(effect)`
+
+        Args:
+            include_effect_definition: If the effect meta-data should be added by this function
+
+        Returns:
+            The created string
+        """
         if self.effect_type not in effects.attributes:  # Unknown effect
             attributes_list = effects.empty_attributes
         else:
@@ -342,7 +361,7 @@ class Effect(AoE2Object, TriggerComponent):
         return_string = ""
         for attribute in attributes_list:
             val = getattr(self, attribute)
-            if not self.should_be_displayed(attribute, val):
+            if not self._should_be_displayed(attribute, val):
                 continue
 
             value_string = transform_effect_attr_value(self.effect_type, attribute, val, self._uuid)

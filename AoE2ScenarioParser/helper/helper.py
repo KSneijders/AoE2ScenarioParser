@@ -64,7 +64,7 @@ def value_is_valid(value: Any) -> bool:
         value:
 
     Returns:
-        True if value is not None or -1. False if it is either of those.
+        `True` if value is not None or -1. `False` if it is either of those.
     """
     return value not in [None, -1]
 
@@ -74,7 +74,7 @@ def values_are_valid(*args: Any) -> bool:
     Check if value is valid by making sure it's not -1 nor None
 
     Returns:
-        True if all values are not None or -1. False if any of them are either of those.
+        `True` if all values are not None or -1. `False` if any of them are either of those.
     """
     return any(map(lambda v: v not in [None, -1], args))
 
@@ -115,7 +115,7 @@ def get_int_len(num: int) -> int:
 
 def mutually_exclusive(*args) -> bool:
     """
-    True only if one of the entries is true, False otherwise.
+    `True` only if one of the entries is true, `False` otherwise.
 
     Args:
         *args: values that can be converted to booleans

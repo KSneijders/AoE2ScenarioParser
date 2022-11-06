@@ -33,7 +33,7 @@ from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
-_ScenarioType = TypeVar('_ScenarioType', bound='AoE2Scenario')
+S = TypeVar('S', bound='AoE2Scenario')
 
 
 class AoE2Scenario:
@@ -61,28 +61,29 @@ class AoE2Scenario:
 
     @property
     def message_manager(self) -> MessageManager:
+        """The message manager of the scenario"""
         return self._object_manager.managers['Message']
 
     def __init__(self, game_version: str, scenario_version: str, source_location: str, name: str):
         # Scenario meta info
-        self.game_version = game_version
-        self.scenario_version = scenario_version
-        self.source_location = source_location
-        self._time_start = time.time()
+        self.game_version: str = game_version
+        self.scenario_version: str = scenario_version
+        self.source_location: str = source_location
+        self._time_start: float = time.time()
 
         # Actual scenario content
-        self.structure = {}
+        self.structure: Dict = {}
         self.sections: Dict[str, AoE2FileSection] = {}
         self._object_manager: AoE2ObjectManager | None = None
 
         # For Scenario Store functionality
-        self.name = name
-        self.uuid = uuid4()
+        self.name: str = name
+        self.uuid: UUID = uuid4()
         store.register_scenario(self)
 
         # Actions through the scenario
-        self.new = ObjectFactory(self.uuid)
-        self.actions = ScenarioActions(self.uuid)
+        self.new: ObjectFactory = ObjectFactory(self.uuid)
+        self.actions: ScenarioActions = ScenarioActions(self.uuid)
 
         # Used in debug functions
         self._file = None
@@ -90,7 +91,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
     @classmethod
-    def from_file(cls: Type[_ScenarioType], path: str, game_version: str, name: str = "") -> _ScenarioType:
+    def from_file(cls: Type[S], path: str, game_version: str, name: str = "") -> S:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
 
@@ -117,7 +118,7 @@ class AoE2Scenario:
         s_print("Reading scenario file finished successfully.", final=True, time=True)
 
         scenario_version = _get_file_version(igenerator)
-        scenario: _ScenarioType = cls(game_version, scenario_version, source_location=path, name=name)
+        scenario: S = cls(game_version, scenario_version, source_location=path, name=name)
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
@@ -154,8 +155,6 @@ class AoE2Scenario:
             uuid: The UUID of the scenario
             obj: An object related to a scenario
             name: The name of a scenario
-
-        Raises
 
         Returns:
             The scenario based on the given identifier, or `None`

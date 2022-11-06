@@ -19,8 +19,9 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
     {# If this function has parameter documentation #}
     {% if function %}
         {% set ns.func = true %}
+
         {# Check if there is a section where: `section.kind.value` === 'parameters' #}
-        {% if not docstring_sections|map(attribute="kind")|selectattr("value", "equalto", "parameters") %}
+        {% if docstring_sections|map(attribute="kind")|selectattr("value", "equalto", "parameters")|first %}
             {% set ns.hasParams = true %}
         {% endif %}
     {% endif %}

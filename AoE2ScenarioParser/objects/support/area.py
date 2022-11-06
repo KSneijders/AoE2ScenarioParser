@@ -160,7 +160,7 @@ class Area:
         Converts the selection to an OrderedSet of (x, y) coordinates
 
         Args:
-            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
+            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If `True` the coordinates
                 are returned as TerrainTiles.
 
         Returns:
@@ -190,7 +190,7 @@ class Area:
         So the tiles must share an edge (i.e. they should be non-diagonal).
 
         Args:
-            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
+            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If `True` the coordinates
                 are returned as TerrainTiles.
 
         Returns:
@@ -587,7 +587,7 @@ class Area:
             tile: A Tile object, replacing the x & y coordinates
 
         Returns:
-            True if (x,y) is within the selection, False otherwise
+            `True` if (x,y) is within the selection, `False` otherwise
         """
         if tile is not None:
             x, y = tile

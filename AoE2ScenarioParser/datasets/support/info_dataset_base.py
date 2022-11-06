@@ -176,7 +176,7 @@ class InfoDatasetBase(Enum):
     def _gaia_filter(cls, gaia_only: bool) -> List[InfoDatasetBase]:
         """
         Args:
-            gaia_only: if set to true, lists all gaia only units. If set to false, lists all units except gaia only units
+            gaia_only: if set to true, lists all gaia only units. If set to `False`, lists all units except gaia only units
 
         Returns:
             A list of either all gaia only units or a list of all units excluding gaia only units

@@ -42,7 +42,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
 
         self.disabled = False
         """
-        Set to True if the given property (referenced by link) is not supported in the current scenario version.
+        Set to `True` if the given property (referenced by link) is not supported in the current scenario version.
         When True, the properties are overridden to raise an error when used.  
         """
 

@@ -120,7 +120,7 @@ class RetrieverObjectLinkParent:
             uuid: The UUID of the current scenario
 
         Returns:
-            True if values are (or already have been) overwritten
+            `True` if values are (or already have been) overwritten
         """
         return False
 

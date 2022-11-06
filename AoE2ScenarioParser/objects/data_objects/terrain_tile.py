@@ -32,23 +32,32 @@ class TerrainTile(AoE2Object):
 
     @property
     def x(self) -> int:
+        """The X coordinate of this tile on the map"""
         return self.xy[0]
 
     @property
     def y(self) -> int:
+        """The Y coordinate of this tile on the map"""
         return self.xy[1]
 
     @property
     def i(self) -> int:
+        """The index of this tile on the map"""
         return self._index
 
     @property
     def xy(self) -> Tuple[int, int]:
+        """
+        The X,Y coordinate of this tile on the map
+
+        Returns:
+            A tuple containing two integers representing the XY coordinates
+        """
         if not self._xy:
             self._xy = i_to_xy(self._index, getters.get_map_size(self._uuid))
         return self._xy
 
-
-def reset_terrain_index(tile, new_index):
-    tile._index = new_index
-    tile._xy = None
+    def _reset_terrain_index(self, new_index: int):
+        """Reset the current terrain index"""
+        self._index = new_index
+        self._xy = None

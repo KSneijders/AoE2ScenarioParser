@@ -26,7 +26,7 @@ def has_str_trail(string: str | bytes) -> bool:
         string: The string/bytes to check the last character of
 
     Returns:
-        True if the given bytes end with a null character else 0
+        `True` if the given bytes end with a null character else 0
     """
     return string.endswith(b"\x00")
 

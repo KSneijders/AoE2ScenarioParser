@@ -5,44 +5,53 @@ Used for functions with no parameter section in the docstrings (usually ignored)
 #}
 
 {{ log.debug("Rendering fake parameters section") }}
-{% if function and function.parameters and config.docstring_section_style == "table" %}
+{% if function
+    and function.parameters
+    and config.docstring_section_style == "table" %}
+    {% set ns = namespace(hasHeader=false) %}
     {% block table_style %}
-        <p><strong>Parameters:</strong></p>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Default</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for parameter in function.parameters %}
-                {% if parameter.name not in ("self", "cls") %}
+        {% for parameter in function.parameters %}
+            {% if parameter.name not in ("self", "cls") %}
+                {# Only add the header when we found a valid parameter (not self or cls) #}
+                {# Currently, as far as I could find, there's no built-in test for: 'not-in' #}
+                {# This makes it difficult to test in advance if there are valid parameters #}
+                {% if not ns.hasHeader %}
+                    {% set ns.hasHeader = true %}
+                    <p><strong>Parameters:</strong></p>
+                    <table>
+                    <thead>
                     <tr>
-                        <td><code>{{ parameter.name }}</code></td>
-                        <td>
-                            {% if parameter.annotation %}
-                                {% with expression = parameter.annotation %}
-                                    <code>{% include "expression.html" with context %}</code>
-                                {% endwith %}
-                            {% endif %}
-                        </td>
-                        <td> - </td>
-                        <td>
-                            {% if parameter.default %}
-                                {% with expression = parameter.default %}
-                                    <code>{% include "expression.html" with context %}</code>
-                                {% endwith %}
-                            {% else %}
-                                <em>required</em>
-                            {% endif %}
-                        </td>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Default</th>
                     </tr>
+                    </thead>
+                    <tbody>
                 {% endif %}
-            {% endfor %}
-            </tbody>
-        </table>
+                <tr>
+                    <td><code>{{ parameter.name }}</code></td>
+                    <td>
+                        {% if parameter.annotation %}
+                            {% with expression = parameter.annotation %}
+                                <code>{% include "expression.html" with context %}</code>
+                            {% endwith %}
+                        {% endif %}
+                    </td>
+                    <td> -</td>
+                    <td>
+                        {% if parameter.default %}
+                            {% with expression = parameter.default %}
+                                <code>{% include "expression.html" with context %}</code>
+                            {% endwith %}
+                        {% else %}
+                            <em>required</em>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+    </table>
     {% endblock table_style %}
 {% endif %}

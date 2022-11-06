@@ -9,14 +9,18 @@ from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile, reset_terrain_index
+from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 
 
 class MapManager(AoE2Object):
-    """Manager of the everything map related."""
+    """
+    Manager of everything map related.
+    This class does not include the logic for DE specific features.
+    For those see: `MapManagerDE`
+    """
 
     _link_list = [
         RetrieverObjectLinkGroup("Map", group=[
@@ -26,7 +30,8 @@ class MapManager(AoE2Object):
         ])
     ]
 
-    def __init__(self,
+    def __init__(
+            self,
             map_width: int,
             map_height: int,
             terrain: List[TerrainTile],
@@ -39,19 +44,107 @@ class MapManager(AoE2Object):
         self._map_height: int = map_height
 
     @property
+    def map_width(self) -> int:
+        return self._map_width
+
+    @property
+    def map_height(self) -> int:
+        return self._map_height
+
+    @property
+    def map_size(self) -> int:
+        if self._map_height == self._map_width:
+            return self._map_height
+        else:
+            raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
+
+    @property
+    def terrain(self) -> List[TerrainTile]:
+        return self._terrain
+
+    @terrain.setter
+    def terrain(self, value: List[TerrainTile]):
+        def reset_indices(lst):
+            tile: TerrainTile
+            for index, tile in enumerate(lst):
+                tile._reset_terrain_index(index)
+
+        if value is not None:
+            self._terrain = UuidList(
+                uuid=self._uuid,
+                seq=value,
+                on_update_execute_list=reset_indices
+            )
+
+    @property
     def terrain_2d(self) -> List[List[TerrainTile]]:
+        """Return the terrain tiles in a 2D array instead of a 1D array. Array is split based on the map size."""
         return list(list_chuncks(self.terrain, self.map_size))
 
+    @map_size.setter
+    def map_size(self, new_size: int):
+        old_size = self._map_width
+        difference = new_size - old_size
+
+        self._map_width = new_size
+        self._map_height = new_size
+
+        new_terrain = []
+        if difference < 0:
+            # Remove ends of rows (x) & remove final rows entirely (y)
+            for index, chunck in enumerate(list_chuncks(self.terrain, old_size)):
+                if index == new_size:
+                    break
+                new_terrain.extend(chunck[:new_size])
+        elif difference > 0:
+            # Add ends to rows (x) & add entirely new rows  (y)
+            chunck_gen = list_chuncks(self.terrain, old_size)
+            for index in range(new_size):
+                if index < old_size:
+                    row = next(chunck_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
+                else:
+                    row = [TerrainTile(uuid=self._uuid) for _ in range(new_size)]
+                new_terrain.extend(row)
+        self.terrain = new_terrain
+
     def get_tile(self, x: int = None, y: int = None, i: int = None) -> TerrainTile:
+        """
+        Get a tile on the map based on xy coordinates or using the index (`i`)
+
+        Args:
+            x: The x coordinate of the wanted tile (used together with y)
+            y: The y coordinate of the wanted tile (used together with x)
+            i: The index of the wanted tile
+
+        Raises:
+            ValueError: If parameters (`x` and/or `y`) and `i` are all set
+            ValueError: If the index requested is outside the index range of the terrain tiles
+
+        Returns:
+            The requested tile
+        """
         if i and (x or y):
             raise ValueError("Cannot use both xy and i. Choose or XY or I.")
         if i is not None:
-            return self.terrain[i]
+            if 0 <= i < self.map_size:
+                return self.terrain[i]
+            else:
+                raise ValueError("Parameter i needs to be: 0 <= i < map_size")
         return self.terrain[xy_to_i(x, y, self.map_size)]
 
     def get_tile_safe(self, x: int = None, y: int = None, i: int = None) -> TerrainTile | None:
-        if i and (x or y):
-            raise ValueError("Cannot use both xy and i. Choose or XY or I.")
+        """
+        Get a tile on the map based on xy coordinates or using the index (`i`).
+        If the index is outside the map, `None` is returned instead of an error
+
+        Args:
+            x: The x coordinate of the wanted tile (used together with y)
+            y: The y coordinate of the wanted tile (used together with x)
+            i: The index of the wanted tile
+
+        Returns:
+            The requested tile or `None` if it doesn't exist
+        """
         try:
             return self.get_tile(x, y, i)
         except (IndexError, ValueError):
@@ -100,65 +193,6 @@ class MapManager(AoE2Object):
             i2 = xy_to_i(x2, row, self.map_size)
             tiles = self.terrain[i1:i2 + 1]
             yield tiles
-
-    @property
-    def map_width(self) -> int:
-        return self._map_width
-
-    @property
-    def map_height(self) -> int:
-        return self._map_height
-
-    @property
-    def map_size(self) -> int:
-        if self._map_height == self._map_width:
-            return self._map_height
-        else:
-            raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
-
-    @property
-    def terrain(self) -> List[TerrainTile]:
-        return self._terrain
-
-    @terrain.setter
-    def terrain(self, value: List[TerrainTile]):
-        def reset_indices(lst):
-            tile: TerrainTile
-            for index, tile in enumerate(lst):
-                reset_terrain_index(tile, index)
-
-        if value is not None:
-            self._terrain = UuidList(
-                uuid=self._uuid,
-                seq=value,
-                on_update_execute_list=reset_indices
-            )
-
-    @map_size.setter
-    def map_size(self, new_size: int):
-        old_size = self._map_width
-        difference = new_size - old_size
-
-        self._map_width = new_size
-        self._map_height = new_size
-
-        new_terrain = []
-        if difference < 0:
-            # Remove ends of rows (x) & remove final rows entirely (y)
-            for index, chunck in enumerate(list_chuncks(self.terrain, old_size)):
-                if index == new_size:
-                    break
-                new_terrain.extend(chunck[:new_size])
-        elif difference > 0:
-            # Add ends to rows (x) & add entirely new rows  (y)
-            chunck_gen = list_chuncks(self.terrain, old_size)
-            for index in range(new_size):
-                if index < old_size:
-                    row = next(chunck_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
-                else:
-                    row = [TerrainTile(uuid=self._uuid) for _ in range(new_size)]
-                new_terrain.extend(row)
-        self.terrain = new_terrain
 
     def set_elevation(
             self,

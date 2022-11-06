@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
@@ -10,6 +10,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import R
 
 
 class TriggerManagerDE(TriggerManager):
+    """Manager of all DE trigger related features"""
     _link_list = [
         RetrieverObjectLinkGroup("Triggers", group=[
             RetrieverObjectLink("triggers", link="trigger_data", process_as_object=Trigger),
@@ -25,6 +26,7 @@ class TriggerManagerDE(TriggerManager):
 
     @property
     def variables(self) -> List[Variable]:
+        """All currently renamed variables"""
         return self._variables
 
     @variables.setter
@@ -37,10 +39,10 @@ class TriggerManagerDE(TriggerManager):
 
         Args:
             name: The name for the variable
-            variable_id: The ID of the variable. If left empty (default: -1), lowest available value will be used
+            variable_id: The ID of the variable. If left empty lowest available value will be used
 
         Returns:
-            The newly added Variable
+            The newly renamed Variable
         """
         list_of_var_ids = [var.variable_id for var in self.variables]
         if variable_id == -1:
@@ -59,14 +61,32 @@ class TriggerManagerDE(TriggerManager):
         self.variables.append(new_variable)
         return new_variable
 
-    def get_variable(self, variable_id: int = None, variable_name: str = None) -> Variable:
+    def get_variable(self, variable_id: int = None, variable_name: str = None) -> Optional[Variable]:
+        """
+        Get a specific variable
+
+        Args:
+            variable_id: The ID of the variable you want
+            variable_name: The name of the variable you want
+
+        Returns:
+            The `Variable` object or None if it couldn't be found
+        """
         if not mutually_exclusive(variable_id is not None, variable_name is not None):
             raise ValueError("Select a variable using either the variable_id or variable_name parameters.")
         for variable in self.variables:
             if variable.variable_id == variable_id or variable.name == variable_name:
                 return variable
+        return None
 
     def get_summary_as_string(self) -> str:
+        """
+        Create a human-readable string showcasing a summary of the content of the manager.
+        This includes all triggers and the amount of conditions and effects they hold and also all renamed variables.
+
+        Returns:
+            The created string
+        """
         return_string = super().get_summary_as_string()
 
         return_string += "\nVariables Summary:\n"
@@ -86,6 +106,15 @@ class TriggerManagerDE(TriggerManager):
         return return_string
 
     def get_content_as_string(self) -> str:
+        """
+        Create a human-readable string showcasing all content of the manager.
+        This includes all triggers and their conditions and effects and also all renamed variables.
+
+        This is also the function that is called when doing: `print(trigger_manager)`
+
+        Returns:
+            The created string
+        """
         return_string = super().get_content_as_string()
 
         return_string += "Variables:\n"

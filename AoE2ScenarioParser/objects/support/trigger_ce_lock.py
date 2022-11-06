@@ -4,6 +4,7 @@ from typing import List
 
 
 class TriggerCELock:
+    """Object used to identify which conditions and effects should be locked from change"""
     def __init__(
             self,
             lock_conditions: bool = False,
@@ -14,8 +15,6 @@ class TriggerCELock:
             lock_effect_ids: List[int] | None = None
     ):
         """
-        Object used to identify which conditions and effects should be locked from change.
-
         Args:
             lock_conditions: Lock all conditions
             lock_effects: Lock all effects

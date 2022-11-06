@@ -19,7 +19,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class PlayerManager(AoE2Object):
-    """Manager of the everything player related."""
+    """Manager of everything player related."""
 
     # Todo: Implement a DE version separate of this.
     #  I'll be dealing with this IF support for other game versions will ever happen.
@@ -119,6 +119,7 @@ class PlayerManager(AoE2Object):
 
     @property
     def active_players(self):
+        """The amount of players that are active within the scenario"""
         return len([player for player in self.players if player.active])
 
     @active_players.setter
@@ -142,7 +143,7 @@ class PlayerManager(AoE2Object):
         """
         Sets the default starting resources for all players
 
-        Warning: Does NOT take civs into account
+        Warning: Does NOT take civilizations into account
             This does not take the current selected civ of this player into account. For example, a player with the
             Chinese civ selected will still be set to 200 food. Generally speaking, it's recommended to not use this for
             competitive, normal play. You can select `low` resources in the lobby menu to get 'normal' resources for
@@ -162,11 +163,16 @@ class PlayerManager(AoE2Object):
     def set_diplomacy_teams(self, *args: List[PlayerId | int], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
             -> None:
         """
-        Sets all players in list allied with all others in the same list. Accepts
+        Sets all players in list allied with all others in the same list.
 
         Args:
-            *args: list of player IDs or list of list of player IDs
+            *args: List(s) with player IDs that'll be set to the given diplomacy value
             diplomacy: The diplomacy to set the teams to. Defaults to ally.
+
+        Examples:
+            To set diplomacy like a 4v4 in ranked. Two teams of 4 with alternating IDs.
+
+                set_diplomacy_teams([1,3,5,7], [2,4,6,8], diplomacy=DiplomacyState.ALLY)
         """
         for team in args:
             for player in team:

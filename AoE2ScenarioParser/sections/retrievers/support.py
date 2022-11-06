@@ -36,7 +36,7 @@ class Support:
             v: The string representation of the scenario version
 
         Returns:
-            True/False based on if the object is supported by the given scenario version
+            `True`/`False` based on if the object is supported by the given scenario version
         """
         return self.since <= float(v) <= self.until
 
