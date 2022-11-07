@@ -22,10 +22,10 @@ class TerrainTile(AoE2Object):
 
     def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1, _index: int = - 1,
                  **kwargs):
-        self.terrain_id = terrain_id
-        self.elevation = elevation
-        self.layer = layer
-        self._index = _index
+        self.terrain_id: int = terrain_id
+        self.elevation: int = elevation
+        self.layer: int = layer
+        self._index: int = _index
         self._xy: Optional[Tuple[int, int]] = None
 
         super().__init__(**kwargs)

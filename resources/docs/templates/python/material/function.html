@@ -35,11 +35,20 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
         toc_label=function.name ~ "()") %}
 
                 {% if config.separate_signature %}
-                    <span class="doc doc-object-name doc-function-name">{% if show_full_path %}
-                        {{ function.path }}{% else %}{{ function.name }}{% endif %}</span>
+                    <span class="doc doc-object-name doc-function-name">
+                        {% if show_full_path %}
+                            {{ function.path }}
+                        {% else %}
+                            {{ function.name }}
+                        {% endif %}
+                    </span>
                 {% else %}
                     {% filter highlight(language="python", inline=True) %}
-                        {% if show_full_path %}{{ function.path }}{% else %}def {{ function.name }}(...){% endif %}
+                        {% if show_full_path %}
+                            {{ function.path }}
+                        {% else %}
+                            def {{ function.name }}(...)
+                        {% endif %}
                         {% include "signature.html" with context %}
                     {% endfilter %}
                 {% endif %}
@@ -47,7 +56,6 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                 {% with labels = function.labels %}
                     {% include "labels.html" with context %}
                 {% endwith %}
-
             {% endfilter %}
 
             {% if config.separate_signature %}

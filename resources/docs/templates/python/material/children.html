@@ -8,8 +8,8 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
 - Changed nodes around attributes list to start a table
 - Added `sort` filter to functions ("|sort(attribute="labels", reverse =true)")
     Causes properties and class methods to be shown before normal methods
+- Added check for attributes if not just attributes but also functions with 'property' label exist
 #}
-
 {% if obj.members %}
     {{ log.debug("Rendering children of " + obj.path) }}
 
@@ -32,7 +32,7 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                 {% endif %}
 
                 {% with attributes = obj.attributes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
-                    {% if attributes %}
+                    {% if attributes or obj.functions.values()|selectattr('labels')|list|count %}
                         {% if config.show_category_heading %}
                             {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
                         {% endif %}
@@ -55,6 +55,11 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                                     {% for attribute in attributes|order_members(config.members_order, members_list) %}
                                         {% if not attribute.is_alias or attribute.is_explicitely_exported %}
                                             {% include "attribute.html" with context %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for name, function in obj.functions.items() %}
+                                        {% if 'property' in function.labels %}
+                                            {% include "property_attribute.html" with context %}
                                         {% endif %}
                                     {% endfor %}
                                 </table>
@@ -85,10 +90,14 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                         {% endif %}
                         {% with heading_level = heading_level + extra_level %}
                             {% for function in functions|order_members(config.members_order, members_list)
-                    |sort(attribute="labels", reverse =true) %}
-                                {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
-                                    {% if not function.is_alias or function.is_explicitely_exported %}
-                                        {% include "function.html" with context %}
+                                |sort(attribute="labels", reverse =true) %}
+                                {% if 'property' in function.labels %}
+                                    {# pass #}
+                                {% else %}
+                                    {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
+                                        {% if not function.is_alias or function.is_explicitely_exported %}
+                                            {% include "function.html" with context %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}

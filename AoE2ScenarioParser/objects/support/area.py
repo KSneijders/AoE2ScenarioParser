@@ -97,7 +97,7 @@ class Area:
         self.corner_size_y: int = 1
 
     @property
-    def x1(self):
+    def x1(self) -> int:
         return self._minmax_val(self._x1)
 
     @x1.setter
@@ -105,7 +105,7 @@ class Area:
         self._x1 = value
 
     @property
-    def y1(self):
+    def y1(self) -> int:
         return self._minmax_val(self._y1)
 
     @y1.setter
@@ -113,7 +113,7 @@ class Area:
         self._y1 = value
 
     @property
-    def x2(self):
+    def x2(self) -> int:
         return self._minmax_val(self._x2)
 
     @x2.setter
@@ -121,7 +121,7 @@ class Area:
         self._x2 = value
 
     @property
-    def y2(self):
+    def y2(self) -> int:
         return self._minmax_val(self._y2)
 
     @y2.setter

@@ -119,7 +119,7 @@ class Condition(AoE2Object, TriggerComponent):
 
         return super()._should_be_displayed(attr, val)
 
-    def get_content_as_string(self, include_condition_definition=False) -> str:
+    def get_content_as_string(self, include_condition_definition: bool = False) -> str:
         """
         Create a human-readable string showcasing all content of this condition.
 

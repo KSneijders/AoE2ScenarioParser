@@ -33,7 +33,11 @@ from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
-S = TypeVar('S', bound='AoE2Scenario')
+S: TypeVar = TypeVar('S', bound='AoE2Scenario')
+"""
+A type variable (generic) that represents an instance of the AoE2Scenario class or any of its 
+subclasses (e.g. `AoE2DEScenario`) 
+"""
 
 
 class AoE2Scenario:
@@ -147,7 +151,7 @@ class AoE2Scenario:
         uuid: UUID = None,
         obj: 'AoE2Object' = None,
         name: str = None
-    ) -> AoE2Scenario:
+    ) -> S:
         """
         Get scenario through a UUID, a related object or the name of a scenario.
 
@@ -159,7 +163,6 @@ class AoE2Scenario:
         Returns:
             The scenario based on the given identifier, or `None`
         """
-        # Todo: Add return type from api-docs branch when merged :)
         return store.get_scenario(uuid=uuid, obj=obj, name=name)
 
     def _load_structure(self) -> None:

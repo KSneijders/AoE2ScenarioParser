@@ -55,7 +55,9 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                         {% endfilter %}
                     {% endif %}
 
-                    <br>
+                    {% if attribute.annotation and attribute.value %}
+                        <br>
+                    {% endif %}
 
                     {% if attribute.value %}
                         Value:
@@ -92,9 +94,9 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                     </td> #}
                     <td>
                         {% if attribute.annotation %}
-                            {% filter highlight(language="python", inline=True) %}
-                                {{ attribute.annotation }}
-                            {% endfilter %}
+                            {% with expression = attribute.annotation %}
+                                <code>{% include "expression.html" with context %}</code>
+                            {% endwith %}
                         {% endif %}
                     </td>
                 </tr>

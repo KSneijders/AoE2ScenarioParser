@@ -45,7 +45,8 @@ class Trigger(AoE2Object, TriggerComponent):
         RetrieverObjectLink("trigger_id", retrieve_history_number=0),
     ]
 
-    def __init__(self,
+    def __init__(
+            self,
             name: str,
             description: str = "",
             description_stid: int = -1,
@@ -96,8 +97,8 @@ class Trigger(AoE2Object, TriggerComponent):
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
-        self.new_effect: NewEffectSupport
-        self.new_condition: NewConditionSupport
+        self.new_effect: NewEffectSupport = NewEffectSupport(self)
+        self.new_condition: NewConditionSupport = NewConditionSupport(self)
 
         self._assign_new_ce_support()
 
@@ -113,7 +114,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self.new_condition = NewConditionSupport(self)
 
     @property
-    def condition_order(self):
+    def condition_order(self) -> List[int]:
         """The condition display order """
         if list_changed(self.conditions, self._condition_hash):
             update_order_array(self._condition_order, len(self.conditions))
@@ -125,7 +126,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self._condition_order = val
 
     @property
-    def effect_order(self):
+    def effect_order(self) -> List[int]:
         """The effect display order """
         if list_changed(self.effects, self._effect_hash):
             update_order_array(self._effect_order, len(self.effects))

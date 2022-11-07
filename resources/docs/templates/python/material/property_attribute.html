@@ -1,0 +1,30 @@
+{#
+Created template by KSneijders (based of a partial of './attribute.html')
+
+Used for properties which are usually shown as functions, not sure why.
+Currently showing them as attributes.
+#}
+<tr>
+    <td class="class-attribute-entry">
+        {% filter heading(heading_level,
+            role="attr",
+            id=html_id,
+            class="doc doc-heading",
+            toc_label=name) %}
+            {% filter highlight(language="python", inline=True) %}
+                {{ function.name }}
+            {% endfilter %}
+
+            {% with labels = function.labels %}
+                {% include "labels.html" with context %}
+            {% endwith %}
+        {% endfilter %}
+    </td>
+    <td>
+        {% if function.annotation %}
+            {% with expression = function.annotation %}
+                <code>{% include "expression.html" with context %}</code>
+            {% endwith %}
+        {% endif %}
+    </td>
+</tr>

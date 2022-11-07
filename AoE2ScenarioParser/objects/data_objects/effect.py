@@ -85,63 +85,64 @@ class Effect(AoE2Object, TriggerComponent):
         ])
     ]
 
-    def __init__(self,
-                 effect_type: int = None,
-                 ai_script_goal: int = None,
-                 armour_attack_quantity: int = None,
-                 armour_attack_class: int = None,
-                 quantity: int = None,
-                 tribute_list: int = None,
-                 diplomacy: int = None,
-                 legacy_location_object_reference: int = None,
-                 object_list_unit_id: int = None,
-                 source_player: int = None,
-                 target_player: int = None,
-                 technology: int = None,
-                 string_id: int = None,
-                 display_time: int = None,
-                 trigger_id: int = None,
-                 location_x: int = None,
-                 location_y: int = None,
-                 location_object_reference: int = None,
-                 area_x1: int = None,
-                 area_y1: int = None,
-                 area_x2: int = None,
-                 area_y2: int = None,
-                 object_group: int = None,
-                 object_type: int = None,
-                 instruction_panel_position: int = None,
-                 attack_stance: int = None,
-                 time_unit: int = None,
-                 enabled: int = None,
-                 food: int = None,
-                 wood: int = None,
-                 stone: int = None,
-                 gold: int = None,
-                 item_id: int = None,  # Unused (?)
-                 flash_object: int = None,
-                 force_research_technology: int = None,
-                 visibility_state: int = None,
-                 scroll: int = None,
-                 operation: int = None,
-                 object_list_unit_id_2: int = None,
-                 button_location: int = None,
-                 ai_signal_value: int = None,
-                 object_attributes: int = None,
-                 variable: int = None,
-                 timer: int = None,
-                 facet: int = None,
-                 play_sound: int = None,
-                 player_color: int = None,
-                 color_mood: int = None,
-                 reset_timer: int = None,
-                 object_state: int = None,
-                 action_type: int = None,
-                 message: str = None,
-                 sound_name: str = None,
-                 selected_object_ids: List[int] = None,
-                 **kwargs
-                 ):
+    def __init__(
+            self,
+            effect_type: int = None,
+            ai_script_goal: int = None,
+            armour_attack_quantity: int = None,
+            armour_attack_class: int = None,
+            quantity: int = None,
+            tribute_list: int = None,
+            diplomacy: int = None,
+            legacy_location_object_reference: int = None,
+            object_list_unit_id: int = None,
+            source_player: int = None,
+            target_player: int = None,
+            technology: int = None,
+            string_id: int = None,
+            display_time: int = None,
+            trigger_id: int = None,
+            location_x: int = None,
+            location_y: int = None,
+            location_object_reference: int = None,
+            area_x1: int = None,
+            area_y1: int = None,
+            area_x2: int = None,
+            area_y2: int = None,
+            object_group: int = None,
+            object_type: int = None,
+            instruction_panel_position: int = None,
+            attack_stance: int = None,
+            time_unit: int = None,
+            enabled: int = None,
+            food: int = None,
+            wood: int = None,
+            stone: int = None,
+            gold: int = None,
+            item_id: int = None,  # Unused (?)
+            flash_object: int = None,
+            force_research_technology: int = None,
+            visibility_state: int = None,
+            scroll: int = None,
+            operation: int = None,
+            object_list_unit_id_2: int = None,
+            button_location: int = None,
+            ai_signal_value: int = None,
+            object_attributes: int = None,
+            variable: int = None,
+            timer: int = None,
+            facet: int = None,
+            play_sound: int = None,
+            player_color: int = None,
+            color_mood: int = None,
+            reset_timer: int = None,
+            object_state: int = None,
+            action_type: int = None,
+            message: str = None,
+            sound_name: str = None,
+            selected_object_ids: List[int] = None,
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
         raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
@@ -231,7 +232,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def legacy_location_object_reference(self) -> int:
-        """Getter for legacy object_reference location. Now always returns `-1`."""
+        """Getter for legacy object_reference location. Always returns `-1`."""
         return -1
 
     @property
@@ -341,7 +342,7 @@ class Effect(AoE2Object, TriggerComponent):
 
         return super()._should_be_displayed(attr, val)
 
-    def get_content_as_string(self, include_effect_definition=False) -> str:
+    def get_content_as_string(self, include_effect_definition: bool = False) -> str:
         """
         Create a human-readable string showcasing all content of this effect.
 
