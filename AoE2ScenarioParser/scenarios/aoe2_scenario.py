@@ -286,24 +286,25 @@ class AoE2Scenario:
         if commit and hasattr(self, '_object_manager'):
             self.commit()
 
-        s_print("\nWriting structure to file...", final=True)
+        s_print("Writing structure to file...", final=True, time=True, newline=True)
+
+        result = []
+        for section in self.sections.values():
+            s_print(f"\t🔄 Writing {section.name}...", color="yellow")
+            result.append(section.get_byte_structure_as_string())
+            s_print(f"\t✔ {section.name}", final=True, color="green")
+
+        if trail_generator is not None:
+            s_print("\tWriting trail...")
+            trail = trail_generator.get_remaining_bytes()
+
+            result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
+            result.append(create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
+            s_print("\tWriting trail finished successfully.", final=True)
+
         with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:
-            result = []
-            for section in self.sections.values():
-                s_print(f"\t🔄 Writing {section.name}...")
-                result.append(section.get_byte_structure_as_string())
-                s_print(f"\t✔ {section.name}", final=True)
-
-            if trail_generator is not None:
-                s_print("\tWriting trail...")
-                trail = trail_generator.get_remaining_bytes()
-
-                result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
-                result.append(create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
-                s_print("\tWriting trail finished successfully.", final=True)
-
             f.write(''.join(result))
-        s_print("Writing structure to file finished successfully.", final=True)
+        s_print("Writing structure to file finished successfully.", final=True, time=True)
 
 
 def initialise_version_dependencies(game_version, scenario_version):
