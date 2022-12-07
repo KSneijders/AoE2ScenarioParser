@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import math
 from typing import List, Union, Tuple, Set, Optional
 
 from AoE2ScenarioParser.helper import helper
@@ -116,24 +117,6 @@ class MapManager(AoE2Object):
         else:
             raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
 
-    @property
-    def terrain(self) -> List[TerrainTile]:
-        return self._terrain
-
-    @terrain.setter
-    def terrain(self, value: List[TerrainTile]):
-        def reset_indices(lst):
-            tile: TerrainTile
-            for index, tile in enumerate(lst):
-                reset_terrain_index(tile, index)
-
-        if value is not None:
-            self._terrain = UuidList(
-                uuid=self._uuid,
-                seq=value,
-                on_update_execute_list=reset_indices
-            )
-
     @map_size.setter
     def map_size(self, new_size: int):
         old_size = self._map_width
@@ -145,20 +128,44 @@ class MapManager(AoE2Object):
         new_terrain = []
         if difference < 0:
             # Remove ends of rows (x) & remove final rows entirely (y)
-            for index, chunck in enumerate(list_chuncks(self.terrain, old_size)):
+            for index, chunk in enumerate(list_chuncks(self.terrain, old_size)):
                 if index == new_size:
                     break
-                new_terrain.extend(chunck[:new_size])
+                new_terrain.extend(chunk[:new_size])
         elif difference > 0:
             # Add ends to rows (x) & add entirely new rows  (y)
-            chunck_gen = list_chuncks(self.terrain, old_size)
+            chunk_gen = list_chuncks(self.terrain, old_size)
             for index in range(new_size):
                 if index < old_size:
-                    row = next(chunck_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
+                    row = next(chunk_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
                 else:
                     row = [TerrainTile(uuid=self._uuid) for _ in range(new_size)]
                 new_terrain.extend(row)
         self.terrain = new_terrain
+
+    @property
+    def terrain(self) -> List[TerrainTile]:
+        return self._terrain
+
+    @terrain.setter
+    def terrain(self, value: List[TerrainTile]):
+        sqrt = math.sqrt(len(value))
+        if sqrt % 1 != 0:
+            raise ValueError(f"Tiles do not represent a square map. (Given tile count: {len(value)})")
+
+        def reset_indices(lst):
+            tile: TerrainTile
+            for index, tile in enumerate(lst):
+                reset_terrain_index(tile, index)
+
+        if value is not None:
+            self._terrain = UuidList(
+                uuid=self._uuid,
+                seq=value,
+                on_update_execute_list=reset_indices
+            )
+        self._map_width = int(sqrt)
+        self._map_height = int(sqrt)
 
     def set_elevation(self, elevation: int, x1: int, y1: int, x2: Optional[int] = None,
                       y2: Optional[int] = None) -> None:
