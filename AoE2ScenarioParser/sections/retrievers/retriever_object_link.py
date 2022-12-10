@@ -1,7 +1,7 @@
 from typing import Type, List, Callable, Dict, Any, Optional, TYPE_CHECKING
 from uuid import UUID
 
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel

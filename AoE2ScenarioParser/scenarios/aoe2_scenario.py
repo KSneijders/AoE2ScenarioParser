@@ -10,7 +10,7 @@ from uuid import uuid4, UUID
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
+from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print, color_string

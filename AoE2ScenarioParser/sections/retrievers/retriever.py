@@ -111,7 +111,7 @@ class Retriever:
         if self.is_dirty and not affect_dirty:
             if settings.ALLOW_DIRTY_RETRIEVER_OVERWRITE:
                 if not settings.DISABLE_DIRTY_RETRIEVER_WARNING:
-                    warn(f"Attribute {self.name} was overwritten by a writing process.")
+                    warn(f"Attribute {self.name} was overwritten by a writing process.", category=UpdateDirtyWarning)
             else:
                 return
 

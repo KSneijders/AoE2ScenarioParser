@@ -1,6 +1,6 @@
 from typing import List
 
-from AoE2ScenarioParser.helper.exceptions import InvalidScenarioStructureError
+from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 

@@ -1,3 +1,4 @@
+import warnings
 from unittest import TestCase
 
 from AoE2ScenarioParser.helper.bytes_conversions import *
@@ -29,10 +30,9 @@ class Test(TestCase):
         self.assertEqual(bytes_to_str(utf8_zero_char), 'utf-8 encoded string > éáû')
 
         # When not able to decode using a given charset, it *should* give the input back as-is.
-        settings.DISABLE_WARNINGS = True
+        warnings.filterwarnings(action='ignore', category=ByteDecodeWarning)
         self.assertEqual(bytes_to_str(latin1, charset='ascii', fallback_charset='ascii'), latin1)
         self.assertEqual(bytes_to_str(utf8_zero_char, charset='ascii', fallback_charset='ascii'), utf8_zero_char)
-        settings.DISABLE_WARNINGS = False
 
     def test_str_to_bytes(self):
         self.assertEqual(str_to_bytes('Test String'), b'Test String')

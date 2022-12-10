@@ -1,9 +1,10 @@
 import sys
+import warnings
+
 from time import strftime, localtime
+from typing import Type
 
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.helper.exceptions import WarningToError
-from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 _color = {
     'end': '\033[0m',
@@ -66,12 +67,20 @@ def color_string(string: str, color: str) -> str:
     return _color[color] + string + _color['end']
 
 
-def warn(string="") -> None:
-    if settings.RAISE_ERROR_ON_WARNING:
-        raise WarningToError(
-            f"\n\nWarning Occurred with 'settings.THROW_ERROR_ON_WARNING' is True. \nWarning:\n{add_tabs(string, 1)}\n")
-    if not settings.DISABLE_WARNINGS:
-        print('\n' + color_string(string, 'bright_yellow'))
+def warn(message: str = "", category: Type[Warning] = None, stack: int = 0) -> None:
+    """
+    Throw a warning in the console
+
+    Args:
+        message: The warning message
+        category: The category of this warning
+        stack: How many 'stacks' should be ignored when showing the code cause
+    """
+    warnings.warn(
+        message='\n' + color_string(message, 'bright_yellow') + '\n',
+        category=category or UserWarning,
+        stacklevel=stack + 3
+    )
 
 
 def current_time() -> str:

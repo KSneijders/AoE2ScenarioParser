@@ -2,6 +2,7 @@ import struct
 from typing import Union, TYPE_CHECKING
 
 from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.exceptions.asp_warnings import ByteDecodeWarning
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import has_str_trail, del_str_trail, q_str, \
     trunc_bytes, add_str_trail
@@ -72,12 +73,10 @@ def bytes_to_str(byte_elements, charset=settings.MAIN_CHARSET, fallback_charset=
         except ValueError:
             continue
 
-    # Return the string as bytes when it cannot be decoded.
-    # This will leave the string as-is.
-    warn(
-        f"Unable to decode bytes using '{charset}' and '{fallback_charset}', "
-        f"bytes: \n\t{trunc_bytes(byte_elements, 25)}"
-    )
+    # Return the string as bytes when it cannot be decoded. This will leave it as-is.
+    truncated = trunc_bytes(byte_elements, 25)
+    warn(f"Unable to decode bytes using '{charset}' and '{fallback_charset}', bytes: \n\t{truncated}",
+         category=ByteDecodeWarning)
     return byte_elements
 
 

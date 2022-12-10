@@ -7,7 +7,7 @@ from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.helper import exceptions
+from AoE2ScenarioParser.exceptions import asp_exceptions
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.tile import Tile
 

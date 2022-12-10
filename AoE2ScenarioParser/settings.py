@@ -9,16 +9,6 @@ DISABLE_ERROR_ON_OVERWRITING_SOURCE = False
 ALLOW_DIRTY_RETRIEVER_OVERWRITE = False
 """If it is allowed to overwrite a retriever that is dirty (it has been changed manually)"""
 
-# Warning related settings
-DISABLE_WARNINGS = False
-"""Disable all warnings thrown by the printers.warn function."""
-DISABLE_VERSION_WARNINGS = False
-"""Disable warnings about python versions"""
-DISABLE_DIRTY_RETRIEVER_WARNING = False
-"""Disable warnings about dirty retrievers being overwritten"""
-RAISE_ERROR_ON_WARNING = False
-"""Raise an error when a warning should be shown. Handy for debugging, shows you the stacktrace."""
-
 # Charset settings
 MAIN_CHARSET = "utf-8"
 """The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""

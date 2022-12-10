@@ -1,10 +1,10 @@
 import sys
 
-from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.exceptions.asp_warnings import PythonVersionWarning
 from AoE2ScenarioParser.helper.printers import warn
 
 _block_below = (3, 8)
-_notify_below = (3, 8)
+_notify_below = (3, 11)
 _py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
 
 
@@ -17,13 +17,13 @@ def python_version_check():
                         f"You are currently using version {_py_version}. You can download a newer version from: \n"
                         f"\thttps://www.python.org/downloads/\n")
     elif sys.version_info < _notify_below:
-        if not settings.DISABLE_VERSION_WARNINGS:
-            warn(
-                f"AoE2ScenarioParser will update it's minimum python requirements to "
-                f"Python {'.'.join(map(str, _notify_below))} in the (near) future.\n"
-                f"You are currently using version {_py_version}. You can download a newer version from: \n"
-                f"\thttps://www.python.org/downloads/\n\n"
-                f"You can disable these warnings using:\n"
-                "    from AoE2ScenarioParser import settings\n"
-                "    settings.DISABLE_VERSION_WARNINGS = True"
-            )
+        v = '.'.join(map(str, _notify_below))
+        warn('\n'.join([
+            f"AoE2ScenarioParser will update the minimum python requirements to Python {v} in the (near) future.",
+            f"You are currently using version {_py_version}. You can download a newer version from:",
+            "\thttps://www.python.org/downloads/",
+            f"You can disable these warnings using:",
+            "\timport warnings",
+            "\tfrom AoE2ScenarioParser.helper.exceptions import PythonVersionWarning",
+            "\twarnings.filterwarnings(action='ignore', category=PythonVersionWarning)",
+        ]), category=PythonVersionWarning)

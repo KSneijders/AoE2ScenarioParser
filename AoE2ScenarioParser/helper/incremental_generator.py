@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.helper.exceptions import EndOfFileError
+from AoE2ScenarioParser.exceptions.asp_exceptions import EndOfFileError
 
 
 class IncrementalGenerator:
