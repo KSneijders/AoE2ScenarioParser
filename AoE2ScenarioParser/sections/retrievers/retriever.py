@@ -114,7 +114,7 @@ class Retriever:
                 warn(f"Attribute {self.name} was overwritten by a writing process.", category=UpdateDirtyWarning)
             else:
                 return
-
+    
         if self.log_value:
             old_value = self._data
             self.print_value_update(old_value, value)
