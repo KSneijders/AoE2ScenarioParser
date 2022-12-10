@@ -4,6 +4,7 @@ import pickle
 from typing import Dict
 
 from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.exceptions.asp_warnings import UpdateDirtyWarning
 from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.list_functions import listify
@@ -110,8 +111,7 @@ class Retriever:
         """
         if self.is_dirty and not affect_dirty:
             if settings.ALLOW_DIRTY_RETRIEVER_OVERWRITE:
-                if not settings.DISABLE_DIRTY_RETRIEVER_WARNING:
-                    warn(f"Attribute {self.name} was overwritten by a writing process.", category=UpdateDirtyWarning)
+                warn(f"Attribute {self.name} was overwritten by a writing process.", category=UpdateDirtyWarning)
             else:
                 return
 
