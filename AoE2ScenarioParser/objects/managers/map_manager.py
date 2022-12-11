@@ -4,11 +4,9 @@ import itertools
 import math
 from typing import List, Union, Tuple, Set, Optional
 
-from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.helper.maffs import sign
-from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile, reset_terrain_index
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
@@ -228,37 +226,3 @@ class MapManager(AoE2Object):
                 elif abs(other.elevation - source_tile.elevation) > 1:
                     other.elevation = source_tile.elevation + int(sign(other.elevation, source_tile.elevation))
                     self._elevation_tile_recursion(other, xys, visited)
-
-    def create_hill(self, x1, y1, x2, y2, elevation) -> None:
-        """
-        Function that takes the coordinates and the height of a plateau and applies it to the map
-        by also setting the surrounding slopes so that it is smooth.
-
-        **This function can only increase height. It will not lower areas terrain.
-        For that, you can use: `map_manager.set_elevation()`.**
-
-        Args:
-            x1 (int): The x coordinate of the west corner
-            y1 (int): The y coordinate of the west corner
-            x2 (int): The x coordinate of the east corner
-            y2 (int): The y coordinate of the east corner
-            elevation (int): The elevation of the map. Default in-game = 0 (called 1 in the game), in-game max = 6
-                (called 7 in game). If the given value is over 20 the game camera will 'clip' into the hill.
-                So the in-game camera hovers around the height of 20/21 when fully zoomed in, without Ultra Graphics.
-
-        :Author:
-            pvallet
-        """
-        warn(f"The function `MapManager.create_hill()` is deprecated as of 0.1.27. "
-             f"It will be removed in the future. Please use map_manager.set_elevation() instead.")
-
-        for x in range(max(0, x1 - elevation), min(self.map_size, x2 + elevation)):
-            for y in range(max(0, y1 - elevation), min(self.map_size, y2 + elevation)):
-                if x1 <= x <= x2 and y1 <= y <= y2:
-                    intended_elevation = elevation
-                else:
-                    distance_to_hill = max(x1 - x, x - x2, y1 - y, y - y2)
-                    intended_elevation = elevation - distance_to_hill
-
-                tile = self.terrain[helper.xy_to_i(x, y, self.map_size)]
-                tile.elevation = max(intended_elevation, tile.elevation)
