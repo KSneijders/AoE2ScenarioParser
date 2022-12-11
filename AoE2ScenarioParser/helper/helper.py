@@ -83,7 +83,7 @@ def exclusive_if(*args):
 def raise_if_not_int_subclass(values):
     for v in values:
         if not issubclass(v.__class__, int):
-            raise TypeError(exceptions.type_error_message(v, issubclass(v.__class__, Enum)))
+            raise TypeError(asp_exceptions.type_error_message(v, issubclass(v.__class__, Enum)))
 
 
 def validate_coords(x1: int, y1: int, x2: int = None, y2: int = None) -> Tuple[int, int, int, int]:

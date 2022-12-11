@@ -4,7 +4,7 @@ from AoE2ScenarioParser.exceptions.asp_warnings import PythonVersionWarning
 from AoE2ScenarioParser.helper.printers import warn
 
 _block_below = (3, 8)
-_notify_below = (3, 11)
+_notify_below = (3, 8)
 _py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
 
 
