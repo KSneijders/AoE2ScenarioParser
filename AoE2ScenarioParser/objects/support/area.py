@@ -8,7 +8,9 @@ from uuid import UUID
 
 from ordered_set import OrderedSet
 
-from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords
+from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
+from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords, values_are_valid
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
@@ -53,11 +55,18 @@ class AreaAttr(Enum):
 
 
 class Area:
-    # Stored here so it won't be defined by each function call but also not to clutter the module scope.
     _recursion_steps = [Tile(0, -1), Tile(1, 0), Tile(0, 1), Tile(-1, 0)]
     """Values used for recursion steps"""
 
-    def __init__(self, map_size: int = None, uuid: UUID = None) -> None:
+    def __init__(
+            self,
+            map_size: int = None,
+            uuid: UUID = None,
+            x1: int = None,
+            y1: int = None,
+            x2: int = None,
+            y2: int = None,
+    ) -> None:
         """
         Object to easily select an area on the map. Uses method chaining for ease of use.
 
@@ -66,23 +75,33 @@ class Area:
         Args:
             map_size: The size of the map this area object will handle
             uuid: The UUID of the scenario this area belongs to
+            x1: The X location of the left corner
+            y1: The Y location of the left corner
+            x2: The X location of the right corner
+            y2: The Y location of the right corner
         """
         if map_size is None and uuid is None:
-            raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
-        super().__init__()
+            if x1 is None or y1 is None:
+                raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
 
         self.uuid: UUID = uuid
-        if uuid is None:
+        if map_size is not None:
             self._map_size_value = map_size - 1
+        else:
+            self._map_size_value = map_size
+
+        if values_are_valid(x1, y1):
+            x1, y1, x2, y2 = validate_coords(x1, y1, x2, y2)
+        else:
+            x1 = y1 = x2 = y2 = math.floor(self._map_size / 2)  # Select the center tile
 
         self.state: AreaState = AreaState.FULL
         self.inverted: bool = False
 
-        center = math.floor(self._map_size / 2)
-        self.x1: int = center
-        self.y1: int = center
-        self.x2: int = center
-        self.y2: int = center
+        self.x1: int = x1
+        self.y1: int = y1
+        self.x2: int = x2
+        self.y2: int = y2
 
         self.gap_size_x: int = 1
         self.gap_size_y: int = 1
@@ -133,11 +152,32 @@ class Area:
         return cls(uuid=uuid)
 
     @property
+    def map_size(self):
+        return self._map_size
+
+    @map_size.setter
+    def map_size(self, value):
+        if self.uuid is not None:
+            warn("Overriding the map size of a scenario linked Area object. Area.uuid was set to None.",
+                 category=UuidForcedUnlinkWarning)
+            self.uuid = None
+        self._map_size_value = value
+
+    @property
     def _map_size(self) -> int:
         if self.uuid is not None:
             return getters.get_map_size(self.uuid) - 1
-        else:
+        elif self._map_size_value is not None:
             return self._map_size_value
+        else:
+            self._map_size_error()
+
+    @property
+    def _map_size_safe(self) -> int:
+        try:
+            return self._map_size
+        except ValueError:
+            return 999_999_999
 
     def associate_scenario(self, scenario: AoE2Scenario) -> None:
         """
@@ -148,10 +188,23 @@ class Area:
         """
         self.uuid = scenario.uuid
 
-    def _force_association(self):
+    def _force_association(self) -> None:
         """Raise ValueError if UUID is not set"""
         if self.uuid is None:
             raise ValueError("Area object not associated with scenario. Cannot request terrain information")
+
+    def _force_map_size(self) -> int:
+        """
+        Raise ValueError if map_size isn't set. Error handling is done within self._map_size.
+        This just causes the error from within the `_map_size` if it isn't set.
+        Useful when a function conditionally uses the `_map_size`.
+        Where it 'sometimes' will and 'sometimes' won't throw the error
+        """
+        return self._map_size
+
+    def _map_size_error(self) -> None:
+        raise ValueError("No UUID or map_size was set. "
+                         "Set a map_size or associate with a scenario to use map size related functionality")
 
     # ============================ Conversion functions ============================
 
@@ -208,7 +261,7 @@ class Area:
             chunks.setdefault(chunk_id, []).append(tile)
 
         map_size = self._map_size
-        chunks_ordered: List[OrderedSet[Tile]] = []
+        chunks_ordered: List[OrderedSet[Tile | 'TerrainTile']] = []
         for chunk_id, chunk_tiles in chunks.items():
             tiles = self._tiles_to_terrain_tiles(chunk_tiles) if as_terrain else chunk_tiles
             chunks_ordered.append(
@@ -479,6 +532,8 @@ class Area:
         of the map. The selection will be forced against the edge of the map and the selection will not be decreased in
         size.
         """
+        self._force_map_size()
+
         center_x, center_y = self.get_center()
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
         if diff_x < 0 and abs(diff_x) > self.x1:
@@ -650,7 +705,7 @@ class Area:
             if half > first_coord:
                 half1 = -first_coord
                 half2 += half - first_coord
-            if half > (dist := self._map_size - second_coord):
+            if half > (dist := self._map_size_safe - second_coord):
                 half2 = dist
                 half1 += half - dist
             return math.floor(half1), math.floor(half2)
@@ -689,7 +744,7 @@ class Area:
 
     def _minmax_val(self, val: int | float) -> int | float:
         """Keeps a given value within the bounds of ``0 <= val <= map_size``."""
-        return max(0, min(val, self._map_size))
+        return max(0, min(val, self._map_size_safe))
 
     def _negative_coord(self, *args: int) -> List[int]:
         """Converts negative coordinates to the non negative value. Like: ``-1 == 119`` when ``map_size = 119``"""
