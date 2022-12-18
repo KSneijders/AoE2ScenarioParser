@@ -9,7 +9,7 @@ from uuid import UUID
 from ordered_set import OrderedSet
 
 from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
-from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords, values_are_valid
+from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords, values_are_valid, value_is_valid
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters
@@ -66,6 +66,8 @@ class Area:
             y1: int = None,
             x2: int = None,
             y2: int = None,
+            corner1: Tile = None,
+            corner2: Tile = None,
     ) -> None:
         """
         Object to easily select an area on the map. Uses method chaining for ease of use.
@@ -79,19 +81,21 @@ class Area:
             y1: The Y location of the left corner
             x2: The X location of the right corner
             y2: The Y location of the right corner
+            corner1: The location of the left corner
+            corner2: The location of the right corner
         """
         if map_size is None and uuid is None:
-            if x1 is None or y1 is None:
+            if corner1 is None and (x1 is None or y1 is None):
                 raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
 
         self.uuid: UUID = uuid
         if map_size is not None:
             self._map_size_value = map_size - 1
         else:
-            self._map_size_value = map_size
+            self._map_size_value = None
 
-        if values_are_valid(x1, y1):
-            x1, y1, x2, y2 = validate_coords(x1, y1, x2, y2)
+        if values_are_valid(x1, y1) or value_is_valid(corner1):
+            x1, y1, x2, y2 = validate_coords(x1, y1, x2, y2, corner1, corner2)
         else:
             x1 = y1 = x2 = y2 = math.floor(self._map_size / 2)  # Select the center tile
 
@@ -114,6 +118,18 @@ class Area:
 
         self.corner_size_x: int = 1
         self.corner_size_y: int = 1
+
+    # ============================ Class methods ============================
+
+    @classmethod
+    def from_uuid(cls, uuid: UUID) -> Area:
+        return cls(uuid=uuid)
+
+    @classmethod
+    def from_tiles(cls, corner1: Tile, corner2: Tile = None):
+        return cls(corner1=corner1, corner2=corner2)
+
+    # ============================ Properties ============================
 
     @property
     def x1(self):
@@ -147,9 +163,21 @@ class Area:
     def y2(self, value):
         self._y2 = value
 
-    @classmethod
-    def from_uuid(cls, uuid: UUID) -> Area:
-        return cls(uuid=uuid)
+    @property
+    def corner1(self):
+        return Tile(self.x1, self.y1)
+
+    @corner1.setter
+    def corner1(self, value: Tile):
+        self.x1, self.y1 = value.x, value.y
+
+    @property
+    def corner2(self):
+        return Tile(self.x2, self.y2)
+
+    @corner2.setter
+    def corner2(self, value: Tile):
+        self.x2, self.y2 = value.x, value.y
 
     @property
     def map_size(self):
@@ -815,4 +843,4 @@ class Area:
                          f"please raise an issue on github or in the Discord server")
 
     def __repr__(self) -> str:
-        return f"Area(x1={self.x1},\ty1={self.y1},\tx2={self.x2},\ty2={self.y2},\tstate={self.state.name})"
+        return f"Area(x1={self.x1}, y1={self.y1}, x2={self.x2}, y2={self.y2}, state={self.state.name})"

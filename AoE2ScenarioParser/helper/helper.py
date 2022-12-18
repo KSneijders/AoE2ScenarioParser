@@ -86,7 +86,14 @@ def raise_if_not_int_subclass(values):
             raise TypeError(asp_exceptions.type_error_message(v, issubclass(v.__class__, Enum)))
 
 
-def validate_coords(x1: int, y1: int, x2: int = None, y2: int = None) -> Tuple[int, int, int, int]:
+def validate_coords(
+        x1: int = None,
+        y1: int = None,
+        x2: int = None,
+        y2: int = None,
+        corner1: Tile = None,
+        corner2: Tile = None,
+) -> Tuple[int, int, int, int]:
     """
     Validates given coordinates.
 
@@ -98,10 +105,16 @@ def validate_coords(x1: int, y1: int, x2: int = None, y2: int = None) -> Tuple[i
         y1: The Y location of the left corner
         x2: The X location of the right corner
         y2: The Y location of the right corner
+        corner1: The location of the left corner
+        corner2: The location of the right corner
 
     Returns:
         The updated values through a tuple as (x1, y1, x2, y2)
     """
+    if value_is_valid(corner1):
+        x1, y1 = corner1.x, corner1.y
+    if value_is_valid(corner2):
+        x2, y2 = corner2.x, corner2.y
     if value_is_valid(x1) and not value_is_valid(x2):
         x2 = x1
     if value_is_valid(y1) and not value_is_valid(y2):

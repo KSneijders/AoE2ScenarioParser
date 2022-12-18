@@ -245,35 +245,35 @@ class TestArea(TestCase):
 
     def test_area_to_chunks(self):
         self.area.select(3, 3, 5, 5)
-        # self.assertListEqual(
-        #     [{
-        #         (3, 3), (4, 3), (5, 3),
-        #         (3, 4), (4, 4), (5, 4),
-        #         (3, 5), (4, 5), (5, 5),
-        #     }],
-        #     self.area.to_chunks()
-        # )
+        self.assertListEqual(
+            [{
+                (3, 3), (4, 3), (5, 3),
+                (3, 4), (4, 4), (5, 4),
+                (3, 5), (4, 5), (5, 5),
+            }],
+            self.area.to_chunks()
+        )
 
         self.area.select(3, 3, 6, 7).use_pattern_lines(axis="x")
-        # self.assertListEqual(
-        #     [
-        #         {(3, 3), (4, 3), (5, 3), (6, 3)},
-        #         {(3, 5), (4, 5), (5, 5), (6, 5)},
-        #         {(3, 7), (4, 7), (5, 7), (6, 7)},
-        #     ],
-        #     self.area.to_chunks()
-        # )
+        self.assertListEqual(
+            [
+                {(3, 3), (4, 3), (5, 3), (6, 3)},
+                {(3, 5), (4, 5), (5, 5), (6, 5)},
+                {(3, 7), (4, 7), (5, 7), (6, 7)},
+            ],
+            self.area.to_chunks()
+        )
 
         self.area.select(3, 3, 7, 7).use_pattern_grid(block_size=2)
-        # self.assertListEqual(
-        #     [
-        #         {(3, 3), (4, 3), (3, 4), (4, 4)},
-        #         {(6, 3), (7, 3), (6, 4), (7, 4)},
-        #         {(3, 6), (4, 6), (3, 7), (4, 7)},
-        #         {(6, 6), (7, 6), (6, 7), (7, 7)},
-        #     ],
-        #     self.area.to_chunks()
-        # )
+        self.assertListEqual(
+            [
+                {(3, 3), (4, 3), (3, 4), (4, 4)},
+                {(6, 3), (7, 3), (6, 4), (7, 4)},
+                {(3, 6), (4, 6), (3, 7), (4, 7)},
+                {(6, 6), (7, 6), (6, 7), (7, 7)},
+            ],
+            self.area.to_chunks()
+        )
 
         self.area.invert()
         self.assertListEqual(
@@ -689,6 +689,45 @@ class TestArea(TestCase):
         self.assertEqual(10, self.area.y1)
         self.assertEqual(13, self.area.x2)
         self.assertEqual(12, self.area.y2)
+
+    def test_area_corners(self):
+        self.area = Area(x1=1, y1=2, corner1=Tile(3, 4))
+        self.assertEqual(3, self.area.x1)
+        self.assertEqual(4, self.area.y1)
+        self.assertEqual(3, self.area.x2)
+        self.assertEqual(4, self.area.y2)
+
+        self.area = Area(corner1=Tile(2, 4), corner2=Tile(6, 8))
+        self.assertEqual(2, self.area.x1)
+        self.assertEqual(4, self.area.y1)
+        self.assertEqual(6, self.area.x2)
+        self.assertEqual(8, self.area.y2)
+        self.assertEqual(Tile(2, 4), self.area.corner1)
+        self.assertEqual(Tile(6, 8), self.area.corner2)
+
+        self.area = Area(corner1=Tile(3, 5))
+        self.assertEqual(3, self.area.x1)
+        self.assertEqual(5, self.area.y1)
+        self.assertEqual(3, self.area.x2)
+        self.assertEqual(5, self.area.y2)
+        self.assertEqual(Tile(3, 5), self.area.corner1)
+        self.assertEqual(Tile(3, 5), self.area.corner2)
+
+        self.area.corner1 = Tile(10, 15)
+        self.assertEqual(Tile(10, 15), self.area.corner1)
+        self.assertEqual(10, self.area.x1)
+        self.assertEqual(15, self.area.y1)
+        self.assertEqual(Tile(3, 5), self.area.corner2)  # Should be unchanged
+        self.assertEqual(3, self.area.x2)  # Should be unchanged
+        self.assertEqual(5, self.area.y2)  # Should be unchanged
+
+        self.area.corner2 = Tile(20, 25)
+        self.assertEqual(Tile(10, 15), self.area.corner1)  # Should be unchanged
+        self.assertEqual(10, self.area.x1)  # Should be unchanged
+        self.assertEqual(15, self.area.y1)  # Should be unchanged
+        self.assertEqual(Tile(20, 25), self.area.corner2)
+        self.assertEqual(20, self.area.x2)
+        self.assertEqual(25, self.area.y2)
 
 
 # Mock Objects & Variables
