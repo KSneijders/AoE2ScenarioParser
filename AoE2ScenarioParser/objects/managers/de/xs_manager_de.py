@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Optional
 
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError, UnsupportedVersionError
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError
+
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.scenarios.scenario_store import actions
@@ -22,6 +22,11 @@ class XsManagerDE(AoE2Object):
         super().__init__(**kwargs)
 
         self._script_name = script_name
+        """
+        Using script files (added through this attribute) will NOT work for spectators.
+        You can work around this issue by using: ```xs_manager.add_script(xs_file_path='path/to/script.xs')```
+        For more information check out: https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs/
+        """
 
         # --- XS Script Call Trigger ---
         self._initialized = False
@@ -40,10 +45,6 @@ class XsManagerDE(AoE2Object):
 
     @script_name.setter
     def script_name(self, value):
-        if value:
-            warn("Using script files added through `xs_manager.script_name` will not work in multiplayer.\n"
-                 "You can work around this issue by using: `xs_manager.add_script(xs_file_path='path/to/script.xs')`.\n"
-                 "For more information check out: https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs/")
         self._script_name = value
 
     @property

@@ -4,7 +4,7 @@ from typing import List, TYPE_CHECKING, Any
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
-from AoE2ScenarioParser.helper.exceptions import EndOfFileError
+from AoE2ScenarioParser.exceptions.asp_exceptions import EndOfFileError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 
 if TYPE_CHECKING:

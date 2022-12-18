@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.49 - Unreleased
+
+### Fixed
+
+- Issue when copying the entire terrain list to another scenario (`mm2.terrain = mm.terrain`)
+
+---
+
 ## 0.1.48 - 2022-November-05
 
 ### Added

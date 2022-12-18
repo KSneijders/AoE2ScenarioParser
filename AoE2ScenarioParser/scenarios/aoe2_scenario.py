@@ -10,8 +10,7 @@ from uuid import uuid4, UUID
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.helper.exceptions import (
-    InvalidScenarioStructureError, UnknownScenarioStructureError,
+from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 )
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
@@ -292,11 +291,8 @@ class AoE2Scenario:
             ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
                 the same as the filename being written to
         """
-        if not settings.DISABLE_ERROR_ON_OVERWRITING_SOURCE and self.source_location == filename:
-            raise ValueError(
-                "Overwriting the source scenario file is disallowed. "
-                "This behaviour can be changed through the settings."
-            )
+        if settings.ALLOW_OVERWRITING_SOURCE and self.source_location == filename:
+            raise ValueError("Overwriting the source scenario file is discouraged & disallowed. "
         if not skip_reconstruction:
             self.commit()
 
@@ -416,24 +412,25 @@ class AoE2Scenario:
         if commit and hasattr(self, '_object_manager'):
             self.commit()
 
-        s_print("\nWriting structure to file...", final=True)
+        s_print("Writing structure to file...", final=True, time=True, newline=True)
+
+        result = []
+        for section in self.sections.values():
+            s_print(f"\t🔄 Writing {section.name}...", color="yellow")
+            result.append(section.get_byte_structure_as_string())
+            s_print(f"\t✔ {section.name}", final=True, color="green")
+
+        if trail_generator is not None:
+            s_print("\tWriting trail...")
+            trail = trail_generator.get_remaining_bytes()
+
+            result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
+            result.append(create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
+            s_print("\tWriting trail finished successfully.", final=True)
+
         with open(filename, 'w', encoding=settings.MAIN_CHARSET) as f:
-            result = []
-            for section in self.sections.values():
-                s_print(f"\t🔄 Writing {section.name}...")
-                result.append(section.get_byte_structure_as_string())
-                s_print(f"\t✔ {section.name}", final=True)
-
-            if trail_generator is not None:
-                s_print("\tWriting trail...")
-                trail = trail_generator.get_remaining_bytes()
-
-                result.append(f"\n\n{'#' * 27} TRAIL ({len(trail)})\n\n")
-                result.append(create_textual_hex(trail.hex(), space_distance=2, enter_distance=24))
-                s_print("\tWriting trail finished successfully.", final=True)
-
             f.write(''.join(result))
-        s_print("Writing structure to file finished successfully.", final=True)
+        s_print("Writing structure to file finished successfully.", final=True, time=True)
 
 
 def _initialise_version_dependencies(game_version: str, scenario_version: str) -> None:

@@ -1,13 +1,12 @@
 from __future__ import annotations
 
 import itertools
-from typing import List, Tuple, Set
+import math
+from typing import List, Union, Tuple, Set, Optional
 
-from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.helper.maffs import sign
-from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
@@ -57,30 +56,6 @@ class MapManager(AoE2Object):
             return self._map_height
         else:
             raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
-
-    @property
-    def terrain(self) -> List[TerrainTile]:
-        return self._terrain
-
-    @terrain.setter
-    def terrain(self, value: List[TerrainTile]):
-        def reset_indices(lst):
-            tile: TerrainTile
-            for index, tile in enumerate(lst):
-                tile._reset_terrain_index(index)
-
-        if value is not None:
-            self._terrain = UuidList(
-                uuid=self._uuid,
-                seq=value,
-                on_update_execute_list=reset_indices
-            )
-
-    @property
-    def terrain_2d(self) -> List[List[TerrainTile]]:
-        """Return the terrain tiles in a 2D array instead of a 1D array. Array is split based on the map size."""
-        return list(list_chuncks(self.terrain, self.map_size))
-
     @map_size.setter
     def map_size(self, new_size: int):
         old_size = self._map_width
@@ -92,20 +67,44 @@ class MapManager(AoE2Object):
         new_terrain = []
         if difference < 0:
             # Remove ends of rows (x) & remove final rows entirely (y)
-            for index, chunck in enumerate(list_chuncks(self.terrain, old_size)):
+            for index, chunk in enumerate(list_chuncks(self.terrain, old_size)):
                 if index == new_size:
                     break
-                new_terrain.extend(chunck[:new_size])
+                new_terrain.extend(chunk[:new_size])
         elif difference > 0:
             # Add ends to rows (x) & add entirely new rows  (y)
-            chunck_gen = list_chuncks(self.terrain, old_size)
+            chunk_gen = list_chuncks(self.terrain, old_size)
             for index in range(new_size):
                 if index < old_size:
-                    row = next(chunck_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
+                    row = next(chunk_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]
                 else:
                     row = [TerrainTile(uuid=self._uuid) for _ in range(new_size)]
                 new_terrain.extend(row)
         self.terrain = new_terrain
+
+    @property
+    def terrain(self) -> List[TerrainTile]:
+        return self._terrain
+
+    @terrain.setter
+    def terrain(self, value: List[TerrainTile]):
+        sqrt = math.sqrt(len(value))
+        if sqrt % 1 != 0:
+            raise ValueError(f"Tiles do not represent a square map. (Given tile count: {len(value)})")
+
+        def reset_indices(lst):
+            tile: TerrainTile
+            for index, tile in enumerate(lst):
+                reset_terrain_index(tile, index)
+
+        if value is not None:
+            self._terrain = UuidList(
+                uuid=self._uuid,
+                seq=value,
+                on_update_execute_list=reset_indices
+            )
+        self._map_width = int(sqrt)
+        self._map_height = int(sqrt)
 
     def get_tile(self, x: int = None, y: int = None, i: int = None) -> TerrainTile:
         """
@@ -261,38 +260,3 @@ class MapManager(AoE2Object):
                 elif abs(other.elevation - source_tile.elevation) > 1:
                     other.elevation = source_tile.elevation + int(sign(other.elevation, source_tile.elevation))
                     self._elevation_tile_recursion(other, xys, visited)
-
-    def create_hill(self, x1: int, y1: int, x2: int, y2: int, elevation: int) -> None:
-        """
-        Function that takes the coordinates and the height of a plateau and applies it to the map
-        by also setting the surrounding slopes so that it is smooth.
-
-        Warning: This function can only increase terrain height!
-            This function can only increase height. It will not lower areas terrain.
-            For that, you can use: `map_manager.set_elevation()`.
-
-        Args:
-            x1: The x coordinate of the west corner
-            y1: The y coordinate of the west corner
-            x2: The x coordinate of the east corner
-            y2: The y coordinate of the east corner
-            elevation: The elevation of the map. Default in-game = 0 (called 1 in the game), in-game max = 6
-                (called 7 in game). If the given value is over 20 the game camera will 'clip' into the hill.
-                So the in-game camera hovers around the height of 20/21 when fully zoomed in, without Ultra Graphics.
-
-        Author:
-            This function was written by: pvallet
-        """
-        warn(f"The function `MapManager.create_hill()` is deprecated as of 0.1.27. "
-             f"It will be removed in the future. Please use map_manager.set_elevation() instead.")
-
-        for x in range(max(0, x1 - elevation), min(self.map_size, x2 + elevation)):
-            for y in range(max(0, y1 - elevation), min(self.map_size, y2 + elevation)):
-                if x1 <= x <= x2 and y1 <= y <= y2:
-                    intended_elevation = elevation
-                else:
-                    distance_to_hill = max(x1 - x, x - x2, y1 - y, y - y2)
-                    intended_elevation = elevation - distance_to_hill
-
-                tile = self.terrain[helper.xy_to_i(x, y, self.map_size)]
-                tile.elevation = max(intended_elevation, tile.elevation)

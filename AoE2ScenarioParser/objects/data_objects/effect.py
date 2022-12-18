@@ -6,6 +6,7 @@ from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
+from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectArmorAttackUsageWarning
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid, validate_coords
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
@@ -290,7 +291,7 @@ class Effect(AoE2Object, TriggerComponent):
     def armour_attack_quantity(self, value):
         if value is not None and value != [] and not self._armour_attack_flag:
             warn("Setting 'effect.armour_attack_quantity' when the effect doesn't use armour/attack attributes "
-                 "might result in unintended behaviour.")
+                 "might result in unintended behaviour.", category=IncorrectArmorAttackUsageWarning)
         self._armour_attack_quantity = value
 
     @property
@@ -302,7 +303,7 @@ class Effect(AoE2Object, TriggerComponent):
     def armour_attack_class(self, value):
         if value is not None and value != [] and not self._armour_attack_flag:
             warn("Setting 'effect.armour_attack_class' when the effect doesn't use armour/attack attributes "
-                 "might result in unintended behaviour.")
+                 "might result in unintended behaviour.", category=IncorrectArmorAttackUsageWarning)
         self._armour_attack_class = value
 
     @property
@@ -316,9 +317,12 @@ class Effect(AoE2Object, TriggerComponent):
     def quantity(self, value):
         # Quantity by default, when unused is []
         if value is not None and value != [] and self._armour_attack_flag:
-            warn("Setting 'effect.quantity' directly in an effect that uses armour/attack attributes "
-                 "might result in unintended behaviour.\nPlease use the 'effect.armour_attack_quantity' "
-                 "and 'effect.armour_attack_class' attributes instead.")
+            warn(
+                message="Setting 'effect.quantity' directly in an effect that uses armour/attack attributes "
+                        "might result in unintended behaviour.\nPlease use the 'effect.armour_attack_quantity' "
+                        "and 'effect.armour_attack_class' attributes instead.",
+                category=IncorrectArmorAttackUsageWarning
+            )
             self.armour_attack_class, self.armour_attack_quantity = self._quantity_to_aa(value)
         self._quantity = value
 
