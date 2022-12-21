@@ -134,10 +134,10 @@ class TestArea(TestCase):
         )
 
     def test_area_selection(self):
-        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).get_selection())
+        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).area_bounded())
 
     def test_area_center(self):
-        self.assertEqual(((8, 8), (8, 8)), self.area.center(8, 8).get_selection())
+        self.assertEqual(((8, 8), (8, 8)), self.area.center(8, 8).area_bounded())
 
         self.area.select(3, 3, 5, 5)
         self.assertEqual((4, 4), self.area.get_center())
