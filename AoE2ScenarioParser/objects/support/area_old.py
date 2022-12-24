@@ -70,13 +70,13 @@ class Area:
             corner2: Tile = None,
     ) -> None:
         """
-        Object to easily select an area on the map. Uses method chaining for ease of use.
+        Object to easily select an tile_pattern on the map. Uses method chaining for ease of use.
 
         **Please note**: Setting a ``uuid`` will always overwrite the ``map_size`` attribute, even if it's not ``None``.
 
         Args:
-            map_size: The size of the map this area object will handle
-            uuid: The UUID of the scenario this area belongs to
+            map_size: The size of the map this tile_pattern object will handle
+            uuid: The UUID of the scenario this tile_pattern belongs to
             x1: The X location of the left corner
             y1: The Y location of the left corner
             x2: The X location of the right corner
@@ -86,7 +86,7 @@ class Area:
         """
         if map_size is None and uuid is None:
             if corner1 is None and (x1 is None or y1 is None):
-                raise ValueError("Cannot create area object without knowing the map size or a UUID from a scenario.")
+                raise ValueError("Cannot create tile_pattern object without knowing the map size or a UUID from a scenario.")
 
         self.uuid: UUID = uuid
         if map_size is not None:
@@ -209,7 +209,7 @@ class Area:
 
     def associate_scenario(self, scenario: AoE2Scenario) -> None:
         """
-        Associate area with scenario. Saves scenario UUID in this area object.
+        Associate tile_pattern with scenario. Saves scenario UUID in this tile_pattern object.
 
         Args:
             scenario: The scenario to associate with
@@ -300,13 +300,13 @@ class Area:
 
     def to_dict(self, prefix: str = "area_") -> Dict[str, int]:
         """
-        Converts the 2 corners of the selection to area keys for use in effects etc.
+        Converts the 2 corners of the selection to tile_pattern keys for use in effects etc.
         This can be used by adding double stars (**) before this function.
 
         Usage:
             The selection: ``((3,3), (5,5))`` would result in a dict that looks like:
                 ``{'area_x1': 3, 'area_y1': 3, 'area_x2': 5, 'area_y2': 5}``
-            Then do: ``**area.to_dict()`` in a function that accepts area tiles
+            Then do: ``**tile_pattern.to_dict()`` in a function that accepts tile_pattern tiles
 
         Args:
             prefix: The prefix of the string before 'x1' (e.g. prefix="coord_" will result in: "coord_x1" as key)
@@ -357,13 +357,13 @@ class Area:
     # ============================ Use functions ============================
 
     def use_full(self) -> Area:
-        """Sets the area object to use the entire selection"""
+        """Sets the tile_pattern object to use the entire selection"""
         self.state = AreaState.FULL
         return self
 
     def use_only_edge(self, line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> Area:
         """
-        Sets the area object to only use the edge of the selection
+        Sets the tile_pattern object to only use the edge of the selection
 
         Args:
             line_width: The width of the x & y edge line
@@ -371,7 +371,7 @@ class Area:
             line_width_y: The width of the y edge line
 
         Returns:
-            This area object
+            This tile_pattern object
         """
         self.attrs(line_width=line_width, line_width_x=line_width_x, line_width_y=line_width_y)
         self.state = AreaState.EDGE
@@ -379,7 +379,7 @@ class Area:
 
     def use_only_corners(self, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> Area:
         """
-        Sets the area object to only use the corners pattern within the selection.
+        Sets the tile_pattern object to only use the corners pattern within the selection.
 
         Args:
             corner_size: The size along both the x and y axis of the corner areas
@@ -387,7 +387,7 @@ class Area:
             corner_size_y: The size along the y axis of the corner areas
 
         Returns:
-            This area object
+            This tile_pattern object
         """
         self.attrs(corner_size=corner_size, corner_size_x=corner_size_x, corner_size_y=corner_size_y)
         self.state = AreaState.CORNERS
@@ -403,7 +403,7 @@ class Area:
             gap_size_y: int = None
     ) -> Area:
         """
-        Sets the area object to use a grid pattern within the selection.
+        Sets the tile_pattern object to use a grid pattern within the selection.
 
         Args:
             block_size: The size of the gaps between lines
@@ -414,7 +414,7 @@ class Area:
             gap_size_y: The width of the y grid lines
 
         Returns:
-            This area object
+            This tile_pattern object
         """
         self.attrs(block_size=block_size, gap_size=gap_size,
                    block_size_x=block_size_x, gap_size_x=gap_size_x,
@@ -424,7 +424,7 @@ class Area:
 
     def use_pattern_lines(self, axis: str = None, gap_size: int = None, line_width: int = None) -> Area:
         """
-        Sets the area object to use a lines pattern within the selection.
+        Sets the tile_pattern object to use a lines pattern within the selection.
 
         Args:
             axis: The axis the lines should follow. Can either be "x" or "y"
@@ -432,7 +432,7 @@ class Area:
             line_width: The width of the x & y lines
 
         Returns:
-            This area object
+            This tile_pattern object
         """
         if axis is not None:
             axis = axis.lower()
@@ -495,7 +495,7 @@ class Area:
         Sets multiple attributes to the corresponding values.
 
         Returns:
-            This area object
+            This tile_pattern object
         """
         for key, value in locals().items():
             if value is None or key == 'self':
@@ -702,10 +702,10 @@ class Area:
 
             Get a grid and the edge around it::
 
-                area = Area.select(10,10,20,20)
-                edge = area.copy().expand(1).use_only_edge().to_coords()
+                tile_pattern = Area.select(10,10,20,20)
+                edge = tile_pattern.copy().expand(1).use_only_edge().to_coords()
                 # Without copy you'd have to undo all changes above. In this case that'd be: `.shrink(1)`
-                grid = area.use_pattern_grid().to_coords()
+                grid = tile_pattern.use_pattern_grid().to_coords()
 
         Returns:
             A copy of this Area object
@@ -749,7 +749,7 @@ class Area:
         ))
 
     def _invert_if_inverted(self, bool_: bool) -> bool:
-        """Inverts the boolean if the area is in inverted state."""
+        """Inverts the boolean if the tile_pattern is in inverted state."""
         return not bool_ if self.inverted else bool_
 
     def _is_a_corner_tile(self, x: int, y: int) -> bool:
@@ -784,7 +784,7 @@ class Area:
     def _tiles_to_terrain_tiles(self, tiles: Iterable[Tile]) -> OrderedSet['TerrainTile']:
         """
         Converts the selection to an OrderedSet of terrain tile objects from the map manager.
-        Can only be used if the area has been associated with a scenario.
+        Can only be used if the tile_pattern has been associated with a scenario.
 
         Returns:
             An OrderedSet of terrain tiles from the map manager based on the selection.
@@ -808,7 +808,7 @@ class Area:
                 chunks.
 
         Raises:
-            ValueError: if the area configuration isn't supported by this function.
+            ValueError: if the tile_pattern configuration isn't supported by this function.
         """
         if not self.is_within_selection(tile=tile):
             return -1
@@ -839,7 +839,7 @@ class Area:
                 return 2
             if self.x1 <= tile.x < self.x1 + self.corner_size_x and self.y2 - self.corner_size_y < tile.y <= self.y2:
                 return 3
-        raise ValueError(f"Invalid area configuration for getting the Chunk ID. If you believe this is an error, "
+        raise ValueError(f"Invalid tile_pattern configuration for getting the Chunk ID. If you believe this is an error, "
                          f"please raise an issue on github or in the Discord server")
 
     def __repr__(self) -> str:

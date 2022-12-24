@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.tile import Tile, TileT
 
 
 class Area:
-    """Represents an area selection on a map. An area is defined by two opposite corners of a map"""
-
-    def __init__(self, corner1: tuple[int, int], corner2: tuple[int, int] = None):
+    """Represents an area selection on a map. An area is defined by two opposite corners of a rectangle"""
+    def __init__(self, corner1: TileT, corner2: TileT = None):
         if corner2 is None:
             self.corner1 = self.corner2 = Tile(corner1[0], corner1[1])
             return
@@ -33,6 +32,10 @@ class Area:
     def height(self) -> int:
         return self.corner2.y - self.corner1.y + 1
 
+    @property
+    def dimensions(self) -> tuple[int, int]:
+        return self.width, self.height
+
     def contains(self, tile: tuple) -> bool:
         x, y = tile
         return (
@@ -49,3 +52,16 @@ class Area:
 
     def __repr__(self) -> str:
         return f"Area({self.corner1}, {self.corner2})"
+
+    def __eq__(self, other) -> bool:
+        if isinstance(other, Area):
+            return self.corner1 == other.corner1 and self.corner2 == other.corner2
+        if not isinstance(other, tuple):
+            return False
+        if len(other) == 1:
+            tile, = other
+            return self.corner1 == tile == self.corner2
+        if len(other) == 2:
+            tile1, tile2 = other
+            return self.corner1 == tile1 and self.corner2 == tile2
+        return False
