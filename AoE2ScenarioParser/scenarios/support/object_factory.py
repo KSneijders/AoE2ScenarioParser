@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from AoE2ScenarioParser.objects.support.area import TilePattern
+from AoE2ScenarioParser.objects.support.area import AreaPattern
 
 
 class ObjectFactory:
@@ -9,6 +9,6 @@ class ObjectFactory:
 
         self._uuid = uuid
 
-    def tile_pattern(self) -> TilePattern:
-        """Return an tile_pattern map linked to the corresponding scenario"""
-        return TilePattern(uuid=self._uuid)
+    def area_pattern(self) -> AreaPattern:
+        """Return an area_pattern map linked to the corresponding scenario"""
+        return AreaPattern(uuid=self._uuid)

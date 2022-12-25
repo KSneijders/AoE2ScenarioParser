@@ -99,9 +99,9 @@ from AoE2ScenarioParser.helper.attr_dict import AttrDict
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.support.area import Area
-from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.area.Tile import Tile
 
-scenario = ... # Load scenario stuff here
+scenario = ...  # Load scenario stuff here
 
 trigger_data = scenario.actions.load_data_triggers()
 

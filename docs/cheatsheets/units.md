@@ -122,7 +122,7 @@ can, for example, change the location of any unit:
 
 ```py
 
-from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.area.Tile import Tile
 
 ...
 

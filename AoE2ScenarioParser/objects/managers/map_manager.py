@@ -4,7 +4,7 @@ import itertools
 import math
 from typing import List, Union, Tuple, Set, Optional
 
-from AoE2ScenarioParser.helper.helper import xy_to_i
+from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chuncks
 from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object

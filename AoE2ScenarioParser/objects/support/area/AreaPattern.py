@@ -3,17 +3,17 @@ from __future__ import annotations
 import copy
 import math
 import sys
-from typing import TYPE_CHECKING, Iterable, Literal
+from typing import TYPE_CHECKING, Iterable, Literal, NoReturn
 from uuid import UUID
 
 from ordered_set import OrderedSet
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnlinkedScenarioError, UnchunkableConfigurationError
 from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
-from AoE2ScenarioParser.helper.helper import xy_to_i
+from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.area import AreaState, AreaAttr, Area
-from AoE2ScenarioParser.objects.support.tile import Tile, TileT
+from AoE2ScenarioParser.objects.support.area.Tile import Tile, TileT
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
@@ -21,7 +21,7 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 
-class TilePattern:
+class AreaPattern:
     _recursion_steps = [Tile(0, -1), Tile(1, 0), Tile(0, 1), Tile(-1, 0)]
     """Values used for recursion steps"""
 
@@ -34,22 +34,22 @@ class TilePattern:
             uuid: UUID = None,
     ) -> None:
         """
-        Object to easily select and create tile_pattern patterns on the map. Uses method chaining for ease of use.
+        Object to easily select and create area_pattern patterns on the map. Uses method chaining for ease of use.
 
         **Please note**: Setting a ``uuid`` will always overwrite the ``map_size`` attribute, even if it's not ``None``.
 
         Args:
-            area: The tile_pattern to make the selection with
+            area: The area_pattern to make the selection with
             corner1: The location of the left corner
             corner2: The location of the right corner
-            map_size: The size of the map this tile_pattern object will handle
-            uuid: The UUID of the scenario this tile_pattern belongs to
+            map_size: The size of the map this area_pattern object will handle
+            uuid: The UUID of the scenario this area_pattern belongs to
 
         Raises
             ValueError: If insufficient information is provided to create a tile pattern selection
         """
         if all((map_size is None, uuid is None, area is None, corner1 is None)):
-            raise ValueError("Cannot create TilePattern. At least one of map_size, uuid, area or corner1 is required.")
+            raise ValueError("Cannot create AreaPattern. At least one of map_size, uuid, area or corner1 is required.")
 
         if isinstance(area, tuple):
             area = Area(*area)
@@ -90,11 +90,11 @@ class TilePattern:
     # ============================ Class methods ============================
 
     @classmethod
-    def from_uuid(cls, uuid: UUID) -> TilePattern:
+    def from_uuid(cls, uuid: UUID) -> AreaPattern:
         return cls(uuid=uuid)
 
     @classmethod
-    def from_tiles(cls, corner1: TileT, corner2: TileT = None) -> TilePattern:
+    def from_tiles(cls, corner1: TileT, corner2: TileT = None) -> AreaPattern:
         corner1 = Tile(*corner1).resolve_negative_coords()
         corner2 = Tile(*corner2).resolve_negative_coords()
         return cls(corner1=corner1, corner2=corner2)
@@ -116,7 +116,7 @@ class TilePattern:
     def map_size(self, value: int):
         if self.uuid is not None and value != getters.get_map_size(self.uuid):
             warn(
-                "Overriding the map size of a TilePattern with linked scenario. TilePattern.uuid was set to None.",
+                "Overriding the map size of a AreaPattern with linked scenario. AreaPattern.uuid was set to None.",
                 category=UuidForcedUnlinkWarning
             )
             self.uuid = None
@@ -126,17 +126,6 @@ class TilePattern:
     def area_bounded(self) -> Area:
         """Get the four values of the selection as: ((x1, y1), (x2, y2))"""
         return self.area.bound(self.map_size)
-
-    def link_scenario(self, scenario: AoE2Scenario) -> TilePattern:
-        """
-        Link pattern with scenario. Saves scenario UUID in this tile object and update the map size
-
-        Args:
-            scenario: The scenario to link with
-        """
-        self.uuid = scenario.uuid
-        self.map_size = getters.get_map_size(self.uuid)
-        return self
 
     # ============================ Conversion functions ============================
 
@@ -152,7 +141,8 @@ class TilePattern:
             An OrderedSet of Tiles ((x, y) named tuple) of the selection.
 
         Raises:
-            UnlinkedScenarioError: When as_terrain is set to True, but no scenario is linked with this TerrailTile object
+            UnlinkedScenarioError: When as_terrain is set to True, but no scenario is linked with this TerrainTile
+                object
 
         Examples:
             The selection: ``((3,3), (5,5))`` would result in an OrderedSet with a length of 9::
@@ -164,9 +154,7 @@ class TilePattern:
                 ]
         """
         if as_terrain and self.uuid is None:
-            raise UnlinkedScenarioError(
-                "No scenario is associated with this TilePattern object, cannot get coordinates as terrain"
-            )
+            self._raise_unlinked_scenario_error()
 
         (x1, y1), (x2, y2) = self.area
         tiles = OrderedSet(
@@ -200,9 +188,7 @@ class TilePattern:
                 When a pattern configuration makes the chunk segregation indeterminate
         """
         if as_terrain and self.uuid is None:
-            raise UnlinkedScenarioError(
-                "No scenario is associated with this TilePattern object, cannot get coordinates as terrain"
-            )
+            self._raise_unlinked_scenario_error()
 
         tiles = self.to_coords()
 
@@ -225,21 +211,21 @@ class TilePattern:
         for chunk_id, chunk_tiles in chunks.items():
             tiles = self._tiles_to_terrain_tiles(chunk_tiles) if as_terrain else chunk_tiles
             chunks_ordered.append(
-                OrderedSet(sorted(tiles, key=lambda tile: tile.y * map_size + tile.x))
+                OrderedSet(sorted(tiles, key=lambda t: t.y * map_size + t.x))
             )
 
         return chunks_ordered
 
     # ============================ Use functions ============================
 
-    def use_full(self) -> TilePattern:
-        """Sets the tile_pattern object to use the entire selection"""
+    def use_full(self) -> AreaPattern:
+        """Sets the area_pattern object to use the entire selection"""
         self.state = AreaState.FULL
         return self
 
-    def use_only_edge(self, line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> TilePattern:
+    def use_only_edge(self, line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> AreaPattern:
         """
-        Sets the tile_pattern object to only use the edge of the selection
+        Sets the area_pattern object to only use the edge of the selection
 
         Args:
             line_width: The width of the x & y edge line
@@ -247,23 +233,28 @@ class TilePattern:
             line_width_y: The width of the y edge line
 
         Returns:
-            This tile_pattern object
+            This area_pattern object
         """
         self.attrs(line_width=line_width, line_width_x=line_width_x, line_width_y=line_width_y)
         self.state = AreaState.EDGE
         return self
 
-    def use_only_corners(self, corner_size: int = None, corner_size_x: int = None, corner_size_y: int = None) -> TilePattern:
+    def use_only_corners(
+        self,
+        corner_size: int = None,
+        corner_size_x: int = None,
+        corner_size_y: int = None
+    ) -> AreaPattern:
         """
-        Sets the tile_pattern object to only use the corners pattern within the selection.
+        Sets the area_pattern object to only use the corners pattern within the selection.
 
         Args:
-            corner_size: The size along both the x and y axis of the corner areas
-            corner_size_x: The size along the x axis of the corner areas
-            corner_size_y: The size along the y axis of the corner areas
+            corner_size: The size along both the x and y-axis of the corner areas
+            corner_size_x: The size along the x-axis of the corner areas
+            corner_size_y: The size along the y-axis of the corner areas
 
         Returns:
-            This tile_pattern object
+            This area_pattern object
         """
         self.attrs(corner_size=corner_size, corner_size_x=corner_size_x, corner_size_y=corner_size_y)
         self.state = AreaState.CORNERS
@@ -277,9 +268,9 @@ class TilePattern:
             block_size_y: int = None,
             gap_size_x: int = None,
             gap_size_y: int = None
-    ) -> TilePattern:
+    ) -> AreaPattern:
         """
-        Sets the tile_pattern object to use a grid pattern within the selection.
+        Sets the area_pattern object to use a grid pattern within the selection.
 
         Args:
             block_size: The size of the gaps between lines
@@ -290,7 +281,7 @@ class TilePattern:
             gap_size_y: The width of the y grid lines
 
         Returns:
-            This tile_pattern object
+            This area_pattern object
         """
         self.attrs(
             block_size=block_size, gap_size=gap_size,
@@ -300,9 +291,9 @@ class TilePattern:
         self.state = AreaState.GRID
         return self
 
-    def use_pattern_lines(self, axis: str = None, gap_size: int = None, line_width: int = None) -> TilePattern:
+    def use_pattern_lines(self, axis: str = None, gap_size: int = None, line_width: int = None) -> AreaPattern:
         """
-        Sets the tile_pattern object to use a lines pattern within the selection.
+        Sets the area_pattern object to use a lines pattern within the selection.
 
         Args:
             axis: The axis the lines should follow. Can either be "x" or "y"
@@ -310,7 +301,7 @@ class TilePattern:
             line_width: The width of the x & y lines
 
         Returns:
-            This tile_pattern object
+            This area_pattern object
         """
         if axis is not None:
             axis = axis.lower()
@@ -320,25 +311,25 @@ class TilePattern:
 
     # ============================ Adjustment functions ============================
 
-    def invert(self) -> TilePattern:
+    def invert(self) -> AreaPattern:
         """
         Inverts the inverted boolean. Causes the `to_coords` to return the inverted selection. (Especially useful for
-        the grid state. Not as useful for the edge which would be the same as shrinking the selection. When used with
+        the grid state). Not as useful for the edge which would be the same as shrinking the selection. When used with
         the fill state an empty set is returned.
 
-        **Please note:** This inverts the INTERNAL selection. Tiles OUTSIDE of the selection will NOT be returned.
+        **Please note:** This inverts the INTERNAL selection. Tiles OUTSIDE the selection will NOT be returned.
         """
         self.inverted = not self.inverted
         return self
 
-    def along_axis(self, axis: Literal["x", "y", "X", "Y"]) -> TilePattern:
+    def along_axis(self, axis: Literal["x", "y", "X", "Y"]) -> AreaPattern:
         """Sets the axis. Can be either "x" or "y"."""
         if (lcase_axis := axis.lower()) not in {"x", "y"}:
             raise ValueError(f"The allowed values for axis are 'x' or 'y', given: {axis}")
         self.axis = lcase_axis
         return self
 
-    def attr(self, key: str | AreaAttr, value: int) -> TilePattern:
+    def attr(self, key: str | AreaAttr, value: int) -> AreaPattern:
         """Sets the attribute to the given value. AreaAttr or str can be used as key"""
         if isinstance(key, AreaAttr):
             key = key.value
@@ -370,12 +361,12 @@ class TilePattern:
             block_size: int = None,
             block_size_x: int = None,
             block_size_y: int = None,
-    ) -> TilePattern:
+    ) -> AreaPattern:
         """
         Sets multiple attributes to the corresponding values.
 
         Returns:
-            This tile_pattern object
+            This area_pattern object
         """
         for key, value in locals().items():
             if value is None or key == 'self':
@@ -383,7 +374,7 @@ class TilePattern:
             self.attr(key, value)
         return self
 
-    def size(self, n: int) -> TilePattern:
+    def size(self, n: int) -> AreaPattern:
         """
         Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
         ``((3,3), (5,5))``
@@ -397,9 +388,9 @@ class TilePattern:
         )
         return self
 
-    def height(self, n: int) -> TilePattern:
+    def height(self, n: int) -> AreaPattern:
         """
-        Sets the height (y axis) of the selection. Shrinks/Expands both sides equally.
+        Sets the height (y-axis) of the selection. Shrinks/Expands both sides equally.
         If the expansion hits the edge of the map, it'll expand on the other side.
         """
         corner1, corner2 = self.area
@@ -411,9 +402,9 @@ class TilePattern:
         )
         return self
 
-    def width(self, n: int) -> TilePattern:
+    def width(self, n: int) -> AreaPattern:
         """
-        Sets the width (x axis) of the selection. Shrinks/Expands both sides equally.
+        Sets the width (x-axis) of the selection. Shrinks/Expands both sides equally.
         If the expansion hits the edge of the map, it'll expand on the other side.
         """
         corner1, corner2 = self.area
@@ -426,21 +417,21 @@ class TilePattern:
         )
         return self
 
-    def cut_overflow(self) -> TilePattern:
+    def cut_overflow(self) -> AreaPattern:
         """
-        If the tile_pattern selection is off the map, shrink the tile_pattern to fit inside the map
+        If the area_pattern selection is off the map, shrink the area_pattern to fit inside the map
         """
         self.area = self.area.bound(self._map_size)
         return self
 
-    def shift_overflow(self) -> TilePattern:
+    def shift_overflow(self) -> AreaPattern:
         """
-        If the tile_pattern selection is off the map, shift the excess tile_pattern inside the map without shrinkage
+        If the area_pattern selection is off the map, shift the excess area_pattern inside the map without shrinkage
         """
-        # first get a new tile_pattern object with the excess tiles cut out, then check
+        # first get a new area_pattern object with the excess tiles cut out, then check
         # how many extra tiles need to be re-added.
-        # Re-add that many tiles to both sides of the new tile_pattern and then
-        # just cut the excess off again to get the shifted version of the old tile_pattern
+        # Re-add that many tiles to both sides of the new area_pattern and then
+        # just cut the excess off again to get the shifted version of the old area_pattern
 
         new_area = self.area.bound(self._map_size)
         diff_width = self.area.width - new_area.width
@@ -451,7 +442,7 @@ class TilePattern:
         ).bound(self._map_size)
         return self
 
-    def center(self, tile: TileT) -> TilePattern:
+    def center(self, tile: TileT) -> AreaPattern:
         """
         Moves the selection center to a given position while retaining the old width/height
         """
@@ -465,7 +456,7 @@ class TilePattern:
         )
         return self
 
-    def select_entire_map(self) -> TilePattern:
+    def select_entire_map(self) -> AreaPattern:
         """Sets the selection to the entire map"""
         self.area = Area(
             (0, 0),
@@ -473,7 +464,7 @@ class TilePattern:
         )
         return self
 
-    def select(self, corner1: TileT, corner2: TileT = None) -> TilePattern:
+    def select(self, corner1: TileT, corner2: TileT = None) -> AreaPattern:
         """Sets the selection to the given coordinates"""
         if corner2 is None:
             corner2 = corner1
@@ -485,18 +476,18 @@ class TilePattern:
         )
         return self
 
-    def select_centered(self, tile: TileT, *, dx: int = 1, dy: int = 1) -> TilePattern:
+    def select_centered(self, tile: TileT, *, dx: int = 1, dy: int = 1) -> AreaPattern:
         """Sets the selection to the given coordinates"""
         self.center(tile).width(dx).height(dy)
         return self
 
-    def shrink(self, n: int) -> TilePattern:
+    def shrink(self, n: int) -> AreaPattern:
         """Shrinks the selection from all sides"""
         self.shrink_bottom_corner_by(dx=n, dy=n)
         self.shrink_top_corner_by(dx=n, dy=n)
         return self
 
-    def shrink_bottom_corner_by(self, *, dx: int = 0, dy: int = 0) -> TilePattern:
+    def shrink_bottom_corner_by(self, *, dx: int = 0, dy: int = 0) -> AreaPattern:
         """Shrinks the selection from the bottom corner by shifting the bottom corner up by (dx, dy)"""
         corner1, corner2 = self.area
         self.area.corner1 = Tile(
@@ -505,7 +496,7 @@ class TilePattern:
         )
         return self
 
-    def shrink_top_corner_by(self, *, dx: int = 0, dy: int = 0) -> TilePattern:
+    def shrink_top_corner_by(self, *, dx: int = 0, dy: int = 0) -> AreaPattern:
         """Shrinks the selection from the top corner by shifting the bottom corner down by (dx, dy)"""
         corner1, corner2 = self.area
         self.area.corner2 = Tile(
@@ -514,13 +505,13 @@ class TilePattern:
         )
         return self
 
-    def expand(self, n: int) -> TilePattern:
+    def expand(self, n: int) -> AreaPattern:
         """Expands the selection from all sides"""
         self.expand_bottom_corner_by(dx=n, dy=n)
         self.expand_top_corner_by(dx=n, dy=n)
         return self
 
-    def expand_bottom_corner_by(self, *, dx: int = 0, dy: int = 0) -> TilePattern:
+    def expand_bottom_corner_by(self, *, dx: int = 0, dy: int = 0) -> AreaPattern:
         """Expands the selection from the bottom corner by shifting the bottom corner down by (dx, dy)"""
         corner1 = self.area.corner1
         self.area.corner1 = Tile(
@@ -529,7 +520,7 @@ class TilePattern:
         )
         return self
 
-    def expand_top_corner_by(self, *, dx: int = 0, dy: int = 0) -> TilePattern:
+    def expand_top_corner_by(self, *, dx: int = 0, dy: int = 0) -> AreaPattern:
         """Expands the selection from the top corner by shifting the bottom corner up by (dx, dy)"""
         corner2 = self.area.corner2
         self.area.corner2 = Tile(
@@ -563,26 +554,43 @@ class TilePattern:
 
     # ============================ Miscellaneous functions ============================
 
-    def copy(self) -> TilePattern:
+    def copy(self) -> AreaPattern:
         """
         Copy this instance of an Area. Useful for when you want to do multiple extractions (to_...) from the same source
         with small tweaks.
 
         Examples:
 
-            Get a grid and the edge around it::
+            Get a grid and the surrounding edge::
 
-                tile_pattern = Area.select(10,10,20,20)
-                edge = tile_pattern.copy().expand(1).use_only_edge().to_coords()
+                area_pattern = Area.select(10,10,20,20)
+                edge = area_pattern.copy().expand(1).use_only_edge().to_coords()
                 # Without copy you'd have to undo all changes above. In this case that'd be: `.shrink(1)`
-                grid = tile_pattern.use_pattern_grid().to_coords()
+                grid = area_pattern.use_pattern_grid().to_coords()
 
         Returns:
             A copy of this Area object
         """
         return copy.copy(self)
 
+    def link_scenario(self, scenario: AoE2Scenario) -> AreaPattern:
+        """
+        Link pattern with scenario. Saves scenario UUID in this tile object and update the map size
+
+        Args:
+            scenario: The scenario to link with
+        """
+        self.uuid = scenario.uuid
+        self.map_size = getters.get_map_size(self.uuid)
+        return self
+
     # ============================ Support functions ============================
+
+    def _raise_unlinked_scenario_error(self) -> NoReturn:
+        """Raises the UnlinkedScenarioError exception"""
+        raise UnlinkedScenarioError(
+            "No scenario is associated with this AreaPattern object, cannot get coordinates as terrain"
+        )
 
     def _is_on_edge(self, tile: TileT) -> bool:
         """Returns if a given tile (x, y) is an edge tile of the set selection given a certain edge width."""
@@ -630,7 +638,7 @@ class TilePattern:
     def _tiles_to_terrain_tiles(self, tiles: Iterable[Tile]) -> OrderedSet[TerrainTile]:
         """
         Converts the selection to an OrderedSet of terrain tile objects from the map manager.
-        Can only be used if the tile_pattern has been associated with a scenario.
+        Can only be used if the area_pattern has been associated with a scenario.
 
         Returns:
             An OrderedSet of terrain tiles from the map manager based on the selection.
@@ -652,8 +660,8 @@ class TilePattern:
 
         per_row = math.ceil(self.area.height / (self.block_size_x + self.gap_size_x))
         return (
-            (x - corner1.x) // (self.block_size_x + self.gap_size_x)
-            + (y - corner1.y) // (self.block_size_y + self.gap_size_y) * per_row
+                (x - corner1.x) // (self.block_size_x + self.gap_size_x)
+                + (y - corner1.y) // (self.block_size_y + self.gap_size_y) * per_row
         )
 
     def _calc_line_chunk_id(self, tile: TileT) -> int:
@@ -712,4 +720,4 @@ class TilePattern:
         return -1
 
     def __repr__(self) -> str:
-        return f"TilePattern(tile_pattern={self.area}, state={self.state.name})"
+        return f"AreaPattern(area_pattern={self.area}, state={self.state.name})"

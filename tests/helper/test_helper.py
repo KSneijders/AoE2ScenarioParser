@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from AoE2ScenarioParser.helper.helper import xy_to_i, i_to_xy
-
+from AoE2ScenarioParser.helper.coordinates import xy_to_i, i_to_xy
 
 """
 x = Cols (West -> North)
