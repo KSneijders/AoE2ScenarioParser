@@ -1,0 +1,57 @@
+{#
+Adjusted template by KSneijders
+
+Copied from:
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/docstring.html
+
+Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- Added namespace (hasParams: bool, func: bool)
+- Added Check if 'parameter' section is present in docstring_sections,
+    if not => add our own `undocumented_parameters` section
+
+#}
+
+{% if docstring_sections %}
+    {% set ns = namespace(hasParams=false, func=false) %}
+
+    {# If this function has parameter documentation #}
+    {% if function %}
+        {% set ns.func = true %}
+
+        {# Check if there is a section where: `section.kind.value` === 'parameters' #}
+        {% if docstring_sections|map(attribute="kind")|selectattr("value", "equalto", "parameters")|first %}
+            {% set ns.hasParams = true %}
+        {% endif %}
+    {% endif %}
+
+    {% for section in docstring_sections %}
+        {% if section.kind.value == "text" %}
+            {{ section.value|convert_markdown(heading_level, html_id) }}
+
+            {% if ns.func and not ns.hasParams %}
+                {# Add fake parameters (not documented) to the function docs #}
+                {% include "docstring/undocumented_parameters.html" with context %}
+            {% endif %}
+        {% elif section.kind.value == "attributes" %}
+            {% include "docstring/attributes.html" with context %}
+        {% elif section.kind.value == "parameters" %}
+            {% include "docstring/parameters.html" with context %}
+        {% elif section.kind.value == "other parameters" %}
+            {% include "docstring/other_parameters.html" with context %}
+        {% elif section.kind.value == "raises" %}
+            {% include "docstring/raises.html" with context %}
+        {% elif section.kind.value == "warns" %}
+            {% include "docstring/warns.html" with context %}
+        {% elif section.kind.value == "yields" %}
+            {% include "docstring/yields.html" with context %}
+        {% elif section.kind.value == "receives" %}
+            {% include "docstring/receives.html" with context %}
+        {% elif section.kind.value == "returns" %}
+            {% include "docstring/returns.html" with context %}
+        {% elif section.kind.value == "examples" %}
+            {% include "docstring/examples.html" with context %}
+        {% elif section.kind.value == "admonition" %}
+            {% include "docstring/admonition.html" with context %}
+        {% endif %}
+    {% endfor %}
+{% endif %}

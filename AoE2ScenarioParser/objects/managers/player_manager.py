@@ -1,8 +1,10 @@
-from typing import List, Dict, Union, Any
+from __future__ import annotations
+
+from typing import List, Dict, Any
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player.player import Player
 from AoE2ScenarioParser.objects.data_objects.player.player_data_four import PlayerDataFour
@@ -17,7 +19,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class PlayerManager(AoE2Object):
-    """Manager of the everything player related."""
+    """Manager of everything player related."""
 
     # Todo: Implement a DE version separate of this.
     #  I'll be dealing with this IF support for other game versions will ever happen.
@@ -111,12 +113,13 @@ class PlayerManager(AoE2Object):
         player_attributes: Dict[int, Dict] = {i: {'player_id': PlayerId(i)} for i in range(9)}
         for param_set, gaia_first in param_sets:
             for key, lst in param_set.items():
-                spread_player_attributes(player_attributes, key, lst, gaia_first)
+                _spread_player_attributes(player_attributes, key, lst, gaia_first)
 
         self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
 
     @property
-    def active_players(self):
+    def active_players(self) -> int:
+        """The amount of players that are active within the scenario"""
         return len([player for player in self.players if player.active])
 
     @active_players.setter
@@ -140,10 +143,14 @@ class PlayerManager(AoE2Object):
         """
         Sets the default starting resources for all players
 
-        Note: Does NOT take civs into account
+        Warning: Does NOT take civilizations into account
+            This does not take the current selected civ of this player into account. For example, a player with the
+            Chinese civ selected will still be set to 200 food. Generally speaking, it's recommended to not use this for
+            competitive, normal play. You can select `low` resources in the lobby menu to get 'normal' resources for
+            every civ.
 
         Args:
-            players (List[PlayerId]): A list of players, defaults to all players (incl GAIA) when left out
+            players: A list of players, defaults to all players (incl GAIA) when left out
         """
         if players is None:
             players = PlayerId.all()
@@ -153,16 +160,19 @@ class PlayerManager(AoE2Object):
             self.players[player].gold = 100
             self.players[player].stone = 200
 
-    def set_diplomacy_teams(self, *args: List[Union[PlayerId, int]], diplomacy: DiplomacyState = DiplomacyState.ALLY):
+    def set_diplomacy_teams(self, *args: List[PlayerId | int], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
+            -> None:
         """
-        Sets all players in list allied with all others in the same list. Accepts
+        Sets all players in list allied with all others in the same list.
 
         Args:
-            args: list of player IDs or list of list of player IDs
+            *args: List(s) with player IDs that'll be set to the given diplomacy value
             diplomacy: The diplomacy to set the teams to. Defaults to ally.
 
-        Returns:
-            This function does not return anything
+        Examples:
+            To set diplomacy like a 4v4 in ranked. Two teams of 4 with alternating IDs.
+
+                set_diplomacy_teams([1,3,5,7], [2,4,6,8], diplomacy=DiplomacyState.ALLY)
         """
         for team in args:
             for player in team:
@@ -314,23 +324,23 @@ class PlayerManager(AoE2Object):
     def _player_attributes_to_list(
             self,
             attribute: str,
-            gaia_first: Union[bool, None] = True,
-            default: Union[str, int] = 0,
+            gaia_first: bool | None = True,
+            default: str | int = 0,
             fill_empty: int = 0
     ) -> List[Any]:
         """
         The list to store in the scenario structure with values from all players.
 
         Args:
-            attribute (str): The attribute to get from the players
-            gaia_first (Union[bool, None]): If the list has gaia first, last or not at all
-            default (Union[str, int]): The default value to fill the empty fields and what to end to an 16 field list
-            fill_empty (int): How many empty elements have to be filled with the default value
+            attribute: The attribute to get from the players
+            gaia_first: If the list has gaia first, last or not at all
+            default: The default value to fill the empty fields and what to end to an 16 field list
+            fill_empty: How many empty elements have to be filled with the default value
 
         Returns:
             The list of values
         """
-        players = player_list(gaia_first)
+        players = _player_list(gaia_first)
         default_list = [default] * fill_empty
         values = []
         for p in players:
@@ -344,12 +354,12 @@ class PlayerManager(AoE2Object):
         return values + default_list
 
 
-def player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
+def _player_list(gaia_first: None | bool = True) -> List[PlayerId]:
     """
     Construct a list of players where GAIA can be first, last or not in the list at all
 
     Args:
-        gaia_first (Union[None, bool]): If the list has gaia first, last or not at all
+        gaia_first: If the list has gaia first, last or not at all
 
     Returns:
         The list of players
@@ -360,16 +370,20 @@ def player_list(gaia_first: Union[None, bool] = True) -> List[PlayerId]:
     return players
 
 
-def spread_player_attributes(player_attributes: Dict, key: str, lst: List,
-                             gaia_first: Union[None, bool] = True) -> None:
+def _spread_player_attributes(
+        player_attributes: Dict,
+        key: str,
+        lst: List,
+        gaia_first: None | bool = True
+) -> None:
     """
     Spreads list values to player attribute dictionaries
 
     Args:
-        player_attributes (dict): Player attributes dict to save the values in
-        key (str): The key to save the values under in the player dicts
-        lst (List): The list of values
-        gaia_first (Union[None, bool]): If the list has gaia first, last or not at all.
+        player_attributes: Player attributes dict to save the values in
+        key: The key to save the values under in the player dicts
+        lst: The list of values
+        gaia_first: If the list has gaia first, last or not at all.
     """
-    for index, p in enumerate(player_list(gaia_first)):
+    for index, p in enumerate(_player_list(gaia_first)):
         player_attributes[p][key] = lst[index] if lst is not None else None

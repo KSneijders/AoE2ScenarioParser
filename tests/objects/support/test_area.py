@@ -4,7 +4,6 @@ from uuid import UUID
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.area import Area, AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.tile import Tile
-from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
@@ -155,9 +154,7 @@ class TestArea(TestCase):
 
         self.area.select(10, 10, 20, 20)
         w, h = self.area.get_dimensions()
-        print("Dimensions:", w, h)
         self.area.center(0, 0).center(20, 20)
-        print("Dimensions:", self.area.get_dimensions())
         self.assertEqual((w, h), self.area.get_dimensions())
 
         self.area.select_centered(5, 5, 4, 4)
@@ -247,35 +244,35 @@ class TestArea(TestCase):
 
     def test_area_to_chunks(self):
         self.area.select(3, 3, 5, 5)
-        # self.assertListEqual(
-        #     [{
-        #         (3, 3), (4, 3), (5, 3),
-        #         (3, 4), (4, 4), (5, 4),
-        #         (3, 5), (4, 5), (5, 5),
-        #     }],
-        #     self.area.to_chunks()
-        # )
+        self.assertListEqual(
+            [{
+                (3, 3), (4, 3), (5, 3),
+                (3, 4), (4, 4), (5, 4),
+                (3, 5), (4, 5), (5, 5),
+            }],
+            self.area.to_chunks()
+        )
 
         self.area.select(3, 3, 6, 7).use_pattern_lines(axis="x")
-        # self.assertListEqual(
-        #     [
-        #         {(3, 3), (4, 3), (5, 3), (6, 3)},
-        #         {(3, 5), (4, 5), (5, 5), (6, 5)},
-        #         {(3, 7), (4, 7), (5, 7), (6, 7)},
-        #     ],
-        #     self.area.to_chunks()
-        # )
+        self.assertListEqual(
+            [
+                {(3, 3), (4, 3), (5, 3), (6, 3)},
+                {(3, 5), (4, 5), (5, 5), (6, 5)},
+                {(3, 7), (4, 7), (5, 7), (6, 7)},
+            ],
+            self.area.to_chunks()
+        )
 
         self.area.select(3, 3, 7, 7).use_pattern_grid(block_size=2)
-        # self.assertListEqual(
-        #     [
-        #         {(3, 3), (4, 3), (3, 4), (4, 4)},
-        #         {(6, 3), (7, 3), (6, 4), (7, 4)},
-        #         {(3, 6), (4, 6), (3, 7), (4, 7)},
-        #         {(6, 6), (7, 6), (6, 7), (7, 7)},
-        #     ],
-        #     self.area.to_chunks()
-        # )
+        self.assertListEqual(
+            [
+                {(3, 3), (4, 3), (3, 4), (4, 4)},
+                {(6, 3), (7, 3), (6, 4), (7, 4)},
+                {(3, 6), (4, 6), (3, 7), (4, 7)},
+                {(6, 6), (7, 6), (6, 7), (7, 7)},
+            ],
+            self.area.to_chunks()
+        )
 
         self.area.invert()
         self.assertListEqual(
@@ -649,8 +646,8 @@ class TestArea(TestCase):
         self.area.select(1, 2, 3, 4)
         self.area.attrs(line_width_x=5, line_width_y=6, gap_size_x=7, gap_size_y=8)
         self.area.use_pattern_grid().invert()
-        self.area._map_size_value = 20
-        self.area.uuid = uuid  # Must match an actual UUID if you've set one
+        self.area.map_size = 20
+        self.area.uuid = TEST_UUID  # Must match an actual UUID if you've set one
         self.area.axis = "y"
 
         self.assertNotEqual(area2.x1, self.area.x1)
@@ -667,19 +664,83 @@ class TestArea(TestCase):
         self.assertNotEqual(area2.inverted, self.area.inverted)
         self.assertNotEqual(area2.axis, self.area.axis)
 
+    def test_area_instantiate_without_map_size(self):
+        self.area = Area(x1=0, y1=1, x2=2, y2=3)
+        self.assertEqual(0, self.area.x1)
+        self.assertEqual(1, self.area.y1)
+        self.assertEqual(2, self.area.x2)
+        self.assertEqual(3, self.area.y2)
+
+        self.area = Area(x1=0, y1=3)
+        self.assertEqual(0, self.area.x1)
+        self.assertEqual(3, self.area.y1)
+        self.assertEqual(0, self.area.x2)
+        self.assertEqual(3, self.area.y2)
+
+    def test_map_size_functions_without_map_size(self):
+        self.area = Area(x1=10, y1=10, x2=12, y2=12)
+
+        self.assertRaises(ValueError, lambda: self.area.center_bounded(5, 5))
+        self.assertRaises(ValueError, lambda: self.area.select_entire_map())
+
+        self.area.width(5)
+        self.assertEqual(9, self.area.x1)
+        self.assertEqual(10, self.area.y1)
+        self.assertEqual(13, self.area.x2)
+        self.assertEqual(12, self.area.y2)
+
+    def test_area_corners(self):
+        self.area = Area(x1=1, y1=2, corner1=Tile(3, 4))
+        self.assertEqual(3, self.area.x1)
+        self.assertEqual(4, self.area.y1)
+        self.assertEqual(3, self.area.x2)
+        self.assertEqual(4, self.area.y2)
+
+        self.area = Area(corner1=Tile(2, 4), corner2=Tile(6, 8))
+        self.assertEqual(2, self.area.x1)
+        self.assertEqual(4, self.area.y1)
+        self.assertEqual(6, self.area.x2)
+        self.assertEqual(8, self.area.y2)
+        self.assertEqual(Tile(2, 4), self.area.corner1)
+        self.assertEqual(Tile(6, 8), self.area.corner2)
+
+        self.area = Area(corner1=Tile(3, 5))
+        self.assertEqual(3, self.area.x1)
+        self.assertEqual(5, self.area.y1)
+        self.assertEqual(3, self.area.x2)
+        self.assertEqual(5, self.area.y2)
+        self.assertEqual(Tile(3, 5), self.area.corner1)
+        self.assertEqual(Tile(3, 5), self.area.corner2)
+
+        self.area.corner1 = Tile(10, 15)
+        self.assertEqual(Tile(10, 15), self.area.corner1)
+        self.assertEqual(10, self.area.x1)
+        self.assertEqual(15, self.area.y1)
+        self.assertEqual(Tile(3, 5), self.area.corner2)  # Should be unchanged
+        self.assertEqual(3, self.area.x2)  # Should be unchanged
+        self.assertEqual(5, self.area.y2)  # Should be unchanged
+
+        self.area.corner2 = Tile(20, 25)
+        self.assertEqual(Tile(10, 15), self.area.corner1)  # Should be unchanged
+        self.assertEqual(10, self.area.x1)  # Should be unchanged
+        self.assertEqual(15, self.area.y1)  # Should be unchanged
+        self.assertEqual(Tile(20, 25), self.area.corner2)
+        self.assertEqual(20, self.area.x2)
+        self.assertEqual(25, self.area.y2)
+
 
 # Mock Objects & Variables
-uuid = "cool_uuid"
+TEST_UUID = "TEST_UUID"
 
 
 class MM:
     """Mock object for map_manager"""
     map_size = 5
-    terrain = [TerrainTile(_index=index, uuid=uuid) for index in range(pow(map_size, 2))]
+    terrain = [TerrainTile(_index=index, uuid=TEST_UUID) for index in range(pow(map_size, 2))]
 
 
 class SCN:
     """Mock object for scenario"""
     map_manager = MM
-    uuid: UUID = uuid
+    uuid: UUID = TEST_UUID
     name = "mock"

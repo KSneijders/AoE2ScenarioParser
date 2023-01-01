@@ -4,8 +4,8 @@ import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError
-from AoE2ScenarioParser.helper.helper import exclusive_if
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -45,26 +45,27 @@ class Trigger(AoE2Object, TriggerComponent):
         RetrieverObjectLink("trigger_id", retrieve_history_number=0),
     ]
 
-    def __init__(self,
-                 name: str,
-                 description: str = "",
-                 description_stid: int = -1,
-                 display_as_objective: int = 0,
-                 short_description: str = "",
-                 short_description_stid: int = -1,
-                 display_on_screen: int = 0,
-                 description_order: int = 0,
-                 enabled: int = 1,
-                 looping: int = 0,
-                 header: int = 0,
-                 mute_objectives: int = 0,
-                 conditions: List[Condition] = None,
-                 condition_order: List[int] = None,
-                 effects: List[Effect] = None,
-                 effect_order: List[int] = None,
-                 trigger_id: int = -1,
-                 **kwargs
-                 ):
+    def __init__(
+            self,
+            name: str,
+            description: str = "",
+            description_stid: int = -1,
+            display_as_objective: int = 0,
+            short_description: str = "",
+            short_description_stid: int = -1,
+            display_on_screen: int = 0,
+            description_order: int = 0,
+            enabled: int = 1,
+            looping: int = 0,
+            header: int = 0,
+            mute_objectives: int = 0,
+            conditions: List[Condition] = None,
+            condition_order: List[int] = None,
+            effects: List[Effect] = None,
+            effect_order: List[int] = None,
+            trigger_id: int = -1,
+            **kwargs
+    ):
         super().__init__(**kwargs)
 
         if conditions is None:
@@ -96,8 +97,8 @@ class Trigger(AoE2Object, TriggerComponent):
         self.effect_order: List[int] = effect_order
         self.trigger_id: int = trigger_id
 
-        self.new_effect: NewEffectSupport
-        self.new_condition: NewConditionSupport
+        self.new_effect: NewEffectSupport = NewEffectSupport(self)
+        self.new_condition: NewConditionSupport = NewConditionSupport(self)
 
         self._assign_new_ce_support()
 
@@ -113,7 +114,8 @@ class Trigger(AoE2Object, TriggerComponent):
         self.new_condition = NewConditionSupport(self)
 
     @property
-    def condition_order(self):
+    def condition_order(self) -> List[int]:
+        """The condition display order """
         if list_changed(self.conditions, self._condition_hash):
             update_order_array(self._condition_order, len(self.conditions))
             self._condition_hash = hash_list(self.conditions)
@@ -124,7 +126,8 @@ class Trigger(AoE2Object, TriggerComponent):
         self._condition_order = val
 
     @property
-    def effect_order(self):
+    def effect_order(self) -> List[int]:
+        """The effect display order """
         if list_changed(self.effects, self._effect_hash):
             update_order_array(self._effect_order, len(self.effects))
             self._effect_hash = hash_list(self.effects)
@@ -136,6 +139,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
     @property
     def conditions(self) -> List[Condition]:
+        """All conditions in this trigger"""
         return self._conditions
 
     @conditions.setter
@@ -145,6 +149,7 @@ class Trigger(AoE2Object, TriggerComponent):
 
     @property
     def effects(self) -> List[Effect]:
+        """All effects in this trigger"""
         return self._effects
 
     @effects.setter
@@ -153,17 +158,17 @@ class Trigger(AoE2Object, TriggerComponent):
         self.effect_order = list(range(0, len(val)))
 
     def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
-                    armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
-                    object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
-                    display_time=None, trigger_id=None, location_x=None, location_y=None,
-                    location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
-                    object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
-                    time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
-                    flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
-                    operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
-                    object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-                    player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
-                    object_state=None, action_type=None, ) -> Effect:
+            armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
+            object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
+            display_time=None, trigger_id=None, location_x=None, location_y=None,
+            location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
+            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
+            time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
+            flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
+            operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
+            object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
+            player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
+            object_state=None, action_type=None, ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
@@ -186,12 +191,12 @@ class Trigger(AoE2Object, TriggerComponent):
         return new_effect
 
     def _add_condition(self, condition_type: ConditionId, quantity=None,
-                       attribute=None, unit_object=None, next_object=None, object_list=None,
-                       source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
-                       area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-                       comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None,
-                       timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
-                       ) -> Condition:
+            attribute=None, unit_object=None, next_object=None, object_list=None,
+            source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
+            area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
+            comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None,
+            timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
+    ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):
@@ -214,7 +219,21 @@ class Trigger(AoE2Object, TriggerComponent):
         return new_condition
 
     def get_effect(self, effect_index: int = None, display_index: int = None) -> Effect:
-        if not exclusive_if(effect_index is not None, display_index is not None):
+        """
+        Retrieve an effect based on its (display) index
+
+        Args:
+            effect_index: The effect index of the effect to retrieve
+            display_index: The display index of the effect to retrieve
+
+        Raises:
+            ValueError: If more than one parameter is used simultaneously
+            IndexError: If the effect could not be found
+
+        Returns:
+            The wanted effect
+        """
+        if not mutually_exclusive(effect_index is not None, display_index is not None):
             raise ValueError(f"Please identify an effect using either effect_index or display_index.")
 
         if effect_index is None:
@@ -223,7 +242,21 @@ class Trigger(AoE2Object, TriggerComponent):
         return self.effects[effect_index]
 
     def get_condition(self, condition_index: int = None, display_index: int = None) -> Condition:
-        if not exclusive_if(condition_index is not None, display_index is not None):
+        """
+        Retrieve a condition based on its (display) index
+
+        Args:
+            condition_index: The condition index of the condition to retrieve
+            display_index: The display index of the condition to retrieve
+
+        Raises:
+            ValueError: If more than one parameter is used simultaneously
+            IndexError: If the condition could not be found
+
+        Returns:
+            The wanted condition
+        """
+        if not mutually_exclusive(condition_index is not None, display_index is not None):
             raise ValueError(f"Please identify a condition using either condition_index or display_index.")
 
         if condition_index is None:
@@ -232,7 +265,18 @@ class Trigger(AoE2Object, TriggerComponent):
         return self.conditions[condition_index]
 
     def remove_effect(self, effect_index: int = None, display_index: int = None, effect: Effect = None) -> None:
-        if not exclusive_if(effect_index is not None, display_index is not None, effect is not None):
+        """
+        Remove an effect from this trigger
+
+        Args:
+            effect_index: The effect index of the condition to remove
+            display_index: The display index of the condition to remove
+            effect: A reference to the effect object to remove from this trigger
+
+        Raises:
+            ValueError: If more than one parameter is used simultaneously
+        """
+        if not mutually_exclusive(effect_index is not None, display_index is not None, effect is not None):
             raise ValueError(f"Please identify an effect using either effect_index, display_index or effect.")
 
         if effect is not None:
@@ -244,7 +288,18 @@ class Trigger(AoE2Object, TriggerComponent):
 
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
-        if not exclusive_if(condition_index is not None, display_index is not None, condition is not None):
+        """
+        Remove a condition from this trigger
+
+        Args:
+            condition_index: The condition index of the condition to remove
+            display_index: The display index of the condition to remove
+            condition: A reference to the condition object to remove from this trigger
+
+        Raises:
+            ValueError: If more than one parameter is used simultaneously
+        """
+        if not mutually_exclusive(condition_index is not None, display_index is not None, condition is not None):
             raise ValueError(f"Please identify a condition using either condition_index, display_index or condition.")
 
         if condition is not None:
@@ -255,7 +310,19 @@ class Trigger(AoE2Object, TriggerComponent):
 
         del self.conditions[condition_index]
 
-    def get_content_as_string(self, include_trigger_definition=False) -> str:
+    def get_content_as_string(self, include_trigger_definition: bool = False) -> str:
+        """
+        Create a human-readable string showcasing all content of this trigger.
+        This includes all the content within the conditions and effects of this trigger.
+
+        This is also the function that is called when doing: `print(trigger)`
+
+        Args:
+            include_trigger_definition: If the trigger meta-data should be added by this function
+
+        Returns:
+            The created string
+        """
         return_string = ""
 
         data_tba = {

@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.49 - 2023-January-01
+
+### Added
+
+- **[API Docs (Beta)](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/aoe2_scenario/)**!
+- `corner1` and `corner2` attributes to the `Area` object.
+- The ability to use `Area` objects without linking them to a scenario
+  - Example: `area = Area(x1=0, y1=0, x2=5, y2=5)`.
+  - Example: `area = Area(corner1=Tile(0, 0), corner2=Tile(5, 5))`.
+
+### Fixed
+
+- Issue when copying the entire terrain list to another scenario (`mm2.terrain = mm.terrain`)
+- Issue when using UTF-8 characters in fixed length strings
+
+### Removed
+
+- The `create_hill` function in the map manager. Use `set_elevation` instead.
+
+---
+
 ## 0.1.48 - 2022-November-05
 
 ### Added

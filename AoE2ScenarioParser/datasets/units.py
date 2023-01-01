@@ -106,10 +106,10 @@ class UnitInfo(InfoDatasetBase):
     ) -> List[UnitInfo]:
         """
         Args:
-            exclude_elite_units: if set to false, exclude the elite unique units
-            exclude_non_elite_units: if set to false, exclude the non elite unique units
-            exclude_castle_units: if set to false, exclude the castle unique units
-            exclude_non_castle_units: if set to false, excludes the unique units not trained at the castle
+            exclude_elite_units: if set to `False`, exclude the elite unique units
+            exclude_non_elite_units: if set to `False`, exclude the non elite unique units
+            exclude_castle_units: if set to `False`, exclude the castle unique units
+            exclude_non_castle_units: if set to `False`, excludes the unique units not trained at the castle
 
         Returns:
             A list of unique unit UniInfo objects

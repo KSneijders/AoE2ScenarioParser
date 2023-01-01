@@ -1,9 +1,10 @@
 import sys
+import warnings
+
 from time import strftime, localtime
+from typing import Type
 
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.helper.exceptions import WarningToError
-from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 _color = {
     'end': '\033[0m',
@@ -26,14 +27,14 @@ _color = {
 }
 
 
-def rprint(string="", replace=True, final=False) -> None:
+def rprint(string: str = "", replace: bool = True, final: bool = False) -> None:
     """
     Replaceable print, print lines which can be overwritten by the next
 
     Args:
-        string (str): The string to print -> print(str)
-        replace (bool): If this line should be replaced by the next if the next also has replace=True
-        final (bool): If true, the next print is not able to replace this line. Used when this line replaces
+        string: The string to print -> print(str)
+        replace: If this line should be replaced by the next if the next also has replace=True
+        final: If true, the next print is not able to replace this line. Used when this line replaces
             another line but should not be replaced by the next replace=True.
 
     Returns:
@@ -66,12 +67,20 @@ def color_string(string: str, color: str) -> str:
     return _color[color] + string + _color['end']
 
 
-def warn(string="") -> None:
-    if settings.RAISE_ERROR_ON_WARNING:
-        raise WarningToError(
-            f"\n\nWarning Occurred with 'settings.THROW_ERROR_ON_WARNING' is True. \nWarning:\n{add_tabs(string, 1)}\n")
-    if not settings.DISABLE_WARNINGS:
-        print('\n' + color_string(string, 'bright_yellow'))
+def warn(message: str = "", category: Type[Warning] = None, stack: int = 0) -> None:
+    """
+    Throw a warning in the console
+
+    Args:
+        message: The warning message
+        category: The category of this warning
+        stack: How many 'stacks' should be ignored when showing the code cause
+    """
+    warnings.warn(
+        message='\n' + color_string(message, 'bright_yellow') + '\n',
+        category=category or UserWarning,
+        stacklevel=stack + 3
+    )
 
 
 def current_time() -> str:

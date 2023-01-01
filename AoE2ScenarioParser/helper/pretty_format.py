@@ -52,7 +52,7 @@ def pretty_format_name(name: str) -> str:
     of each word.
     For example, elite_chu_ko_nu -> Elite Chu Ko Nu.
 
-    :Author:
+    Author:
         T-West (https://github.com/twestura/)
     """
     return ' '.join(s.capitalize() for s in name.split('_'))

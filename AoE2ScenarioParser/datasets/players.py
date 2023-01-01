@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import List, Union
+from typing import List
 
 
 class PlayerId(IntEnum):
@@ -11,7 +11,7 @@ class PlayerId(IntEnum):
         Return a list of all players
 
         Args:
-            exclude_gaia (bool): if the GAIA player should be excluded from the list or not
+            exclude_gaia: if the GAIA player should be excluded from the list or not
 
         Returns:
             The list of playerIds
@@ -38,8 +38,8 @@ class PlayerId(IntEnum):
 
 class PlayerColorId(IntEnum):
     """
-    This enum class provides the integer values used to reference the colors in-game. These are used in the 'Change Object
-    Color', etc. effects
+    This enum class provides the integer values used to reference the colors in-game.
+    These are used in the 'Change Object Color', etc. effects
     """
     BLUE = 1
     RED = 2
@@ -74,7 +74,7 @@ class ColorId(IntEnum):
     INVALID_15 = 15
 
     @staticmethod
-    def from_player_id(player_id: Union[PlayerId, int]):
+    def from_player_id(player_id: PlayerId | int):
         if not 0 <= player_id <= 8:
             raise ValueError(f"Invalid player ID. Should be between 0 and 8 (both incl), but got: {player_id}")
         if player_id == 0:

@@ -1,4 +1,6 @@
-from typing import List, overload, Union, TYPE_CHECKING, Optional
+from __future__ import annotations
+
+from typing import List, overload, TYPE_CHECKING, Optional
 from uuid import UUID
 
 from AoE2ScenarioParser.datasets.players import PlayerId
@@ -11,21 +13,21 @@ if TYPE_CHECKING:
 
 
 @overload
-def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], unit: 'Unit') -> None:
+def unit_change_ownership(uuid: UUID, player: int | PlayerId, unit: 'Unit') -> None:
     ...
 
 
 @overload
-def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], units: List['Unit']) -> None:
+def unit_change_ownership(uuid: UUID, player: int | PlayerId, units: List['Unit']) -> None:
     ...
 
 
-def unit_change_ownership(uuid: UUID, player: Union[int, PlayerId], *args) -> None:
+def unit_change_ownership(uuid: UUID, player: int | PlayerId, *args) -> None:
     """
     Change the unit(s) ownership.
 
     Args:
-        uuid: The UUID of the scenario
+        uuid: The universally unique identifier of the scenario
         player: The player to transfer the units to.
         args: Unit object or List of unit objects
     """

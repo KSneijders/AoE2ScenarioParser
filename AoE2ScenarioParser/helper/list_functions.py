@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Any
 
 
-def hash_list(lst: list):
+def hash_list(lst: List):
     return hash(tuple(lst))
 
 
@@ -9,7 +9,7 @@ def list_changed(lst, lst_hash):
     return lst_hash != hash(tuple(lst))
 
 
-def listify(var) -> list:
+def listify(var: Any) -> List[Any]:
     """Always return item as list"""
     return var if type(var) is list else [var]
 
@@ -19,8 +19,8 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
     Update an order array.
 
     Args:
-        order_array (List[int]): The order array like trigger.condition_order
-        supposed_length (int): The length the array should be
+        order_array: The order array like trigger.condition_order
+        supposed_length: The length the array should be
 
     """
     actual_length = len(order_array)

@@ -76,9 +76,9 @@ class ProjectileInfo(Enum):
         Get the projectile object based on unit const
 
         Args:
-            unit_const (int): The unit to find the projectile of
-            has_chemistry (bool): If you want the fire (chemistry) version (if it exists)
-            secondary (bool): If you want the secondary projectile version (if it exists)
+            unit_const: The unit to find the projectile of
+            has_chemistry: If you want the fire (chemistry) version (if it exists)
+            secondary: If you want the secondary projectile version (if it exists)
 
         Returns:
             The ProjectileInfo corresponding to the given unit and params or None if nothing was found

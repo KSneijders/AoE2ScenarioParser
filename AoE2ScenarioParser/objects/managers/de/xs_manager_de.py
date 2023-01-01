@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Optional
 
-from AoE2ScenarioParser.helper.exceptions import UnsupportedAttributeError, UnsupportedVersionError
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError
+
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.scenarios.scenario_store import actions
@@ -12,7 +12,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class XsManagerDE(AoE2Object):
-    """Manager of the everything XS related."""
+    """Manager of everything XS related."""
 
     _link_list = [
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
@@ -22,6 +22,11 @@ class XsManagerDE(AoE2Object):
         super().__init__(**kwargs)
 
         self._script_name = script_name
+        """
+        Using script files (added through this attribute) will NOT work for spectators.
+        You can work around this issue by using: ```xs_manager.add_script(xs_file_path='path/to/script.xs')```
+        For more information check out: https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs/
+        """
 
         # --- XS Script Call Trigger ---
         self._initialized = False
@@ -35,18 +40,16 @@ class XsManagerDE(AoE2Object):
 
     @property
     def script_name(self):
+        """The XS script name to include in the scenario"""
         return self._script_name
 
     @script_name.setter
     def script_name(self, value):
-        if value:
-            warn("Using script files added through `xs_manager.script_name` will not work in multiplayer.\n"
-                 "You can work around this issue by using: `xs_manager.add_script(xs_file_path='path/to/script.xs')`.\n"
-                 "For more information check out: https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs/")
         self._script_name = value
 
     @property
     def xs_trigger(self):
+        """The trigger holding the script call effect holding all the XS"""
         if not self._initialized:
             self.initialise_xs_trigger()
         return self._xs_trigger
@@ -60,14 +63,14 @@ class XsManagerDE(AoE2Object):
         Creates the XS trigger on a desired location. If you don't care about the location, the `add_script()` function
         adds the trigger when calling it the first time too.
 
-        If you want the trigger to be (almost) at the top of the list and you're reading a scenario with barely any to
+        If you want the trigger to be (almost) at the top of the list, and you're reading a scenario with barely any to
         no triggers, it is recommended to call this somewhere at the start of the script.
 
         Insert index is used to move this trigger to a desired index.
         Keep in mind that moving triggers like this might take some time when you have a lot of triggers (thousands).
 
         Args:
-            insert_index: The index where the xs trigger is added. Will be added at the end of the list if left as -1
+            insert_index: The index where the xs trigger is added. Will be added at the end of the list if left empty
         """
         try:
             self._xs_trigger.new_effect.script_call(message="")
@@ -82,7 +85,7 @@ class XsManagerDE(AoE2Object):
     def _append_to_xs(self, title, string) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{string}\n\n"
 
-    def add_script(self, xs_file_path="", xs_string=""):
+    def add_script(self, xs_file_path: str = "", xs_string: str = ""):
         """
         Add a script to the script call effect in the XS trigger
 
@@ -97,6 +100,6 @@ class XsManagerDE(AoE2Object):
         if xs_string:
             self._append_to_xs(f"XS string", xs_string)
 
-    def _debug_write_script_to_file(self, filename="xs.txt"):
+    def _debug_write_script_to_file(self, filename: str = "xs.txt"):
         with open(filename, 'w') as file:
             file.write(self.xs_trigger.effects[0].message)
