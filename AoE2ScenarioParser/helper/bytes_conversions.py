@@ -19,7 +19,8 @@ def bytes_to_fixed_chars(byte_elements: bytes) -> str:
 
 
 def fixed_chars_to_bytes(string: str, var_len: int) -> bytes:
-    return str_to_bytes(string) + b"\x00" * (var_len - len(string))
+    bytes_ = str_to_bytes(string)
+    return bytes_ + b"\x00" * (var_len - len(bytes_))
 
 
 # @formatter:off

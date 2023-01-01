@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Issue when copying the entire terrain list to another scenario (`mm2.terrain = mm.terrain`)
+- Issue when using UTF-8 characters in fixed length strings
 
 ---
 
