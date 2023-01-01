@@ -8,7 +8,7 @@ use_directory_urls: true
 plugins:
     - search
     - mkdocstrings:
-        custom_templates: resources/docs/templates
+        custom_templates: resources/docs/templates/
         default_handler: python
         handlers:
           python:

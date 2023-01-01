@@ -1,1 +1,4 @@
 mkdocstrings[python]
+deprecation
+typing_extensions
+ordered-set==4.0.2
