@@ -1,24 +1,29 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Dict
+from typing import Dict, List, TYPE_CHECKING
+from uuid import UUID
 
 from AoE2ScenarioParser.helper import bytes_parser
-from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
 
 
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
+
+
 class SectionLevel(Enum):
+    """This enum class indicates the section level of the structure"""
     TOP_LEVEL = 0
     STRUCT = 1
 
 
 class SectionName(Enum):
+    """This enum class indicates the different sections in the scenario file"""
     FILE_HEADER = "FileHeader"
     DATA_HEADER = "DataHeader"
     MESSAGES = "Messages"
@@ -35,7 +40,28 @@ class SectionName(Enum):
 
 
 class AoE2FileSection:
-    def __init__(self, name, retriever_map, uuid, struct_models=None, level=SectionLevel.TOP_LEVEL):
+    """
+    Multiple retrievers and structures containing related data are grouped together under one file section. This class
+    is used to construct, manage and commit all the retrievers and structures inside a file section.
+
+    Utilises the AoE2StructModel to create multiple of the same structure. These copies are what is used to store the
+    data from a scenario file
+    """
+    def __init__(self,
+                 name: str,
+                 retriever_map: Dict[str, 'Retriever'],
+                 uuid: UUID,
+                 struct_models: Dict[str, 'AoE2StructModel'] = None,
+                 level: SectionLevel = SectionLevel.TOP_LEVEL
+                 ):
+        """
+        Args:
+            name: The name of the file section
+            retriever_map: A dict containing all the retrievers for this file section
+            uuid: The universally unique identifier for the scenario that this file section belongs to
+            struct_models: A dict containing all the structures for this file section
+            level: This variable tells if a structure or file section is at the top level of the scenario or a struct.
+        """
         if struct_models is None:
             struct_models = {}
 
@@ -58,14 +84,14 @@ class AoE2FileSection:
         return self.struct_models[struct_name]
 
     @classmethod
-    def from_model(cls, model, uuid, set_defaults=False) -> AoE2FileSection:
+    def from_model(cls, model: AoE2StructModel, uuid: UUID, set_defaults: bool = False) -> AoE2FileSection:
         """
-        Create a copy (what was called struct before) from a model.
+        Create a file section based on the given AoE2StructModel.
 
         Args:
-            model (AoE2StructModel): The model to copy from
-            uuid (UUID): String representing host scenario
-            set_defaults (bool): If retrievers need to be set to the default values
+            model: The model to copy from
+            uuid: The universally unique identifier of the scenario
+            set_defaults: If retrievers need to be set to the default values
 
         Returns:
             An AoE2FileSection instance based on the model
@@ -84,7 +110,18 @@ class AoE2FileSection:
         )
 
     @classmethod
-    def from_structure(cls, section_name, structure, uuid):
+    def from_structure(cls, section_name: str, structure: Dict[str, Dict], uuid: UUID) -> 'AoE2FileSection':
+        """
+        Constructs all retrievers and structures from the given file section (dict)
+
+        Args:
+            section_name (str): This is the name of the file section
+            structure (Dict[str, Dict]): The dict representation of the file section to build
+            uuid (UUID): The universally unique identifier of the scenario that this file section belongs to
+
+        Returns:
+            An AoE2FileSection instance representing the given file section structure
+        """
         retriever_map = {}
         for name, attr in structure.get('retrievers').items():
             retriever_map[name] = Retriever.from_structure(name, attr)
@@ -92,21 +129,29 @@ class AoE2FileSection:
         structs = model_dict_from_structure(structure)
         return cls(section_name, retriever_map, uuid, structs)
 
-    def get_data_as_bytes(self):
-        result = []
-        retriever: Retriever
+    def get_data_as_bytes(self) -> bytes:
+        """
+        Converts the data of a file section into bytes
+
+        Returns:
+            The bytes representing the file section
+        """
+        result: List[bytes] = []
         for retriever in self.retriever_map.values():
             result.append(retriever.get_data_as_bytes())
         return b''.join(result)
 
-    def set_data_from_generator(self, igenerator: IncrementalGenerator) -> None:
+    def set_data_from_generator(self, igenerator: 'IncrementalGenerator') -> None:
         """
-        Fill data from all retrievers with data from the given generator. Generator is expected to return bytes.
-        Bytes will be parsed based on the retrievers. The total length of bytes read to fill this section is also stored
-        in this section as `byte_length`.
+        Sets all the data for the retrievers and structures of the file section from the given generator
+        (bytes of the scenario file). Each retriever (and retrieves inside structures) parses a set number of bytes
+        based on its datatype. The total number of bytes parsed is then stored in the self.bytes_length variable
 
         Args:
             igenerator: A generator from a binary scenario file
+
+        Raises:
+            ValueError: if a structure inside a model is not defined
         """
         total_length = 0
         for retriever in self.retriever_map.values():
@@ -133,7 +178,20 @@ class AoE2FileSection:
 
         self.byte_length = total_length
 
-    def _fill_retriever_with_bytes(self, retriever, retrieved_bytes):
+    def _fill_retriever_with_bytes(self, retriever: 'Retriever', retrieved_bytes: List[bytes]) -> None:
+        """
+        With the given bytes, sets the data of the provided retriever.
+
+        If setting the data fails and a ValueError is raised, this function deals with the error logging (and re-raises
+        the error).
+
+        Args:
+            retriever: The retriever to set the data for
+            retrieved_bytes: The bytes to set the data from
+
+        Raises:
+            ValueError: if the bytes given cannot be used to set the data of the retriever provided
+        """
         try:
             retriever.set_data_from_bytes(retrieved_bytes)
         except ValueError as e:
@@ -143,7 +201,20 @@ class AoE2FileSection:
             print(self.get_byte_structure_as_string())
             raise e
 
-    def _create_struct(self, model: AoE2StructModel, igenerator) -> AoE2FileSection:
+    def _create_struct(self, model: 'AoE2StructModel', igenerator: 'IncrementalGenerator') -> 'AoE2FileSection':
+        """
+        Creates an AoE2FileSection from the given model using data from the provided generator
+
+        If setting the data fails and a ValueError is raised, this function deals with the error logging (and re-raises
+        the error).
+
+        Args:
+            model: The model to make the AoE2FileSection from
+            igenerator: The generator to set the data for the file section from
+
+        Returns:
+            An AoE2FileSection object created from the given model with its data set according to the given generator
+        """
         struct = AoE2FileSection.from_model(model, uuid=self._uuid)
 
         try:
@@ -199,7 +270,20 @@ class AoE2FileSection:
             except KeyError:
                 super().__setattr__(name, value)
 
-    def _entry_to_string(self, name, data, datatype):
+    def _entry_to_string(self, name: str, data: str, datatype: str) -> str:
+        """
+        Formats the given data into a string. Example::
+
+            version: 1.45 (1 * c4)
+
+        Args:
+            name: The name of the value
+            data: The value itself
+            datatype: The datatype of the value
+
+        Returns:
+            Formatted string representation of the given data
+        """
         prefix = "\t"
         if self.level == SectionLevel.STRUCT:
             prefix = "\t\t\t"
@@ -207,13 +291,36 @@ class AoE2FileSection:
             data = q_str(data)
         return f"{prefix}{name}: {data} ({datatype})\n"
 
-    def get_header_string(self):
+    def get_header_string(self) -> str:
+        """
+        Returns:
+            The name of the header for the file section
+        """
         if self.level == SectionLevel.TOP_LEVEL:
-            return "######################## " + self.name + " ######################## [SECTION]"
+            return f"######################## {self.name} ######################## [SECTION]"
         elif self.level == SectionLevel.STRUCT:
-            return "############ " + self.name + " ############  [STRUCT]"
+            return f"############ {self.name} ############  [STRUCT]"
 
     def get_byte_structure_as_string(self):
+        """
+        Recursively converts the retrievers of a file section and their data into a readable format. An
+        example with this format is shown below::
+
+            ########################### units (1954 * struct:UnitStruct)
+            ############ UnitStruct ############  [STRUCT]
+            00 00 70 42                 x (1 * f32): 60.0
+            00 00 70 42                 y (1 * f32): 60.0
+            00 00 00 00                 z (1 * f32): 0.0
+            52 05 00 00                 reference_id (1 * s32): 1362
+            89 02                       unit_const (1 * u16): 649
+            02                          status (1 * u8): 2
+            00 00 00 00                 rotation (1 * f32): 0.0
+            00 00                       initial_animation_frame (1 * u16): 0
+            ff ff ff ff                 garrisoned_in_id (1 * s32): -1
+
+        Returns:
+            A string showing the data in each retriever of the file section
+        """
         byte_structure = "\n" + self.get_header_string()
 
         for key, retriever in self.retriever_map.items():

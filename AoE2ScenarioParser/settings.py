@@ -1,3 +1,15 @@
+"""
+
+Warning: IMPORT THE MODULE, NOT THE VALUES!
+    To change these settings, import the module: `from AoE2ScenarioParser import settings`.
+    Then you can change the settings like: `settings.RAISE_ERROR_ON_WARNING = True`
+
+If you import the values directly like: `from ... import RAISE_ERROR_ON_WARNING`
+_(not written out because it wouldn't work)_, change the value would overwrite the reference and not the value which
+means the change wouldn't transfer to the `settings` module.
+
+"""
+
 NOTIFY_UNKNOWN_BYTES = True
 """Show a notification of extra bytes being available at the end of the file, so you can notify the maintainer"""
 

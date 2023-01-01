@@ -1,0 +1,165 @@
+{#
+Adjusted template by KSneijders
+
+Copied from:
+  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/children.html
+
+Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
+- Changed nodes around attributes list to start a table
+- Added `sort` filter to functions ("|sort(attribute="labels", reverse =true)")
+    Causes properties and class methods to be shown before normal methods
+- Added check for attributes if not just attributes but also functions with 'property' label exist
+#}
+{% if obj.members %}
+    {{ log.debug("Rendering children of " + obj.path) }}
+
+    <div class="doc doc-children">
+
+        {% if root_members %}
+            {% set members_list = config.members %}
+        {% else %}
+            {% set members_list = none %}
+        {% endif %}
+
+        {% if config.group_by_category %}
+
+            {% with %}
+
+                {% if config.show_category_heading %}
+                    {% set extra_level = 1 %}
+                {% else %}
+                    {% set extra_level = 0 %}
+                {% endif %}
+
+                {% with attributes = obj.attributes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                    {% if attributes or obj.functions.values()|selectattr('labels')|list|count %}
+                        {% if config.show_category_heading %}
+                            {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
+                        {% endif %}
+                        {% with heading_level = heading_level + extra_level %}
+                            {% if heading_level == 3 %}
+                                {# Module level attributes #}
+                                {% for attribute in attributes|order_members(config.members_order, members_list) %}
+                                    {% if not attribute.is_alias or attribute.is_explicitely_exported %}
+                                        {% include "attribute.html" with context %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% elif heading_level == 5 %}
+                                {# Class level attributes #}
+                                <table>
+                                    <tr>
+                                        <th>Attribute</th>
+                                        {# <th>Default value</th> #}
+                                        <th>Type</th>
+                                    </tr>
+                                    {% for attribute in attributes|order_members(config.members_order, members_list) %}
+                                        {% if not attribute.is_alias or attribute.is_explicitely_exported %}
+                                            {% include "attribute.html" with context %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for name, function in obj.functions.items() %}
+                                        {% if 'property' in function.labels %}
+                                            {% include "property_attribute.html" with context %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </table>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endwith %}
+
+                {% with classes = obj.classes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                    {% if classes %}
+                        {% if config.show_category_heading %}
+                            {% filter heading(heading_level, id=html_id ~ "-classes") %}Classes{% endfilter %}
+                        {% endif %}
+                        {% with heading_level = heading_level + extra_level %}
+                            {% for class in classes|order_members(config.members_order, members_list) %}
+                                {% if not class.is_alias or class.is_explicitely_exported %}
+                                    {% include "class.html" with context %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% endif %}
+                {% endwith %}
+
+                {% with functions = obj.functions|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                    {% if functions %}
+                        {% if config.show_category_heading %}
+                            {% filter heading(heading_level, id=html_id ~ "-functions") %}Functions{% endfilter %}
+                        {% endif %}
+                        {% with heading_level = heading_level + extra_level %}
+                            {% for function in functions|order_members(config.members_order, members_list)
+                                |sort(attribute="labels", reverse =true) %}
+                                {% if 'property' in function.labels %}
+                                    {# pass #}
+                                {% else %}
+                                    {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
+                                        {% if not function.is_alias or function.is_explicitely_exported %}
+                                            {% include "function.html" with context %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% endif %}
+                {% endwith %}
+
+                {% if config.show_submodules %}
+                    {% with modules = obj.modules|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                        {% if modules %}
+                            {% if config.show_category_heading %}
+                                {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
+                            {% endif %}
+                            {% with heading_level = heading_level + extra_level %}
+                                {% for module in modules|order_members(config.members_order, members_list) %}
+                                    {% if not module.is_alias or module.is_explicitely_exported %}
+                                        {% include "module.html" with context %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+
+            {% endwith %}
+
+        {% else %}
+
+            {% for child in obj.members|
+          filter_objects(config.filters, members_list, config.show_if_no_docstring)|
+          order_members(config.members_order, members_list) %}
+
+                {% if not (obj.kind.value == "class" and child.name == "__init__" and config.merge_init_into_class) %}
+
+                    {% if child.kind.value == "attribute" %}
+                        {% with attribute = child %}
+                            {% include "attribute.html" with context %}
+                        {% endwith %}
+
+                    {% elif child.kind.value == "class" %}
+                        {% with class = child %}
+                            {% include "class.html" with context %}
+                        {% endwith %}
+
+                    {% elif child.kind.value == "function" %}
+                        {% with function = child %}
+                            {% include "function.html" with context %}
+                        {% endwith %}
+
+                    {% elif child.kind.value == "module" and config.show_submodules %}
+                        {% with module = child %}
+                            {% include "module.html" with context %}
+                        {% endwith %}
+
+                    {% endif %}
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+{% endif %}
