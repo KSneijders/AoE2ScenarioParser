@@ -12,8 +12,6 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
 #}
 
 {% if docstring_sections %}
-    {{ log.debug("Rendering docstring") }}
-
     {% set ns = namespace(hasParams=false, func=false) %}
 
     {# If this function has parameter documentation #}

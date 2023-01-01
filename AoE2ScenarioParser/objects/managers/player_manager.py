@@ -118,7 +118,7 @@ class PlayerManager(AoE2Object):
         self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
 
     @property
-    def active_players(self):
+    def active_players(self) -> int:
         """The amount of players that are active within the scenario"""
         return len([player for player in self.players if player.active])
 

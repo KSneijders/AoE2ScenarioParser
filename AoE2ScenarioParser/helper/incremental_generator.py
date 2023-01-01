@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from AoE2ScenarioParser.exceptions.asp_exceptions import EndOfFileError
 
 

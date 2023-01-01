@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Union, Dict, TYPE_CHECKING, TypeVar, Type, Any
+from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -12,7 +12,6 @@ import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
-)
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print, color_string
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
@@ -292,7 +291,7 @@ class AoE2Scenario:
                 the same as the filename being written to
         """
         if settings.ALLOW_OVERWRITING_SOURCE and self.source_location == filename:
-            raise ValueError("Overwriting the source scenario file is discouraged & disallowed. "
+            raise ValueError("Overwriting the source scenario file is discouraged & disallowed. ")
         if not skip_reconstruction:
             self.commit()
 

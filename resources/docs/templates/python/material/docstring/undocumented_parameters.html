@@ -4,7 +4,6 @@ Created template by KSneijders (based of './parameters.html')
 Used for functions with no parameter section in the docstrings (usually ignored)
 #}
 
-{{ log.debug("Rendering fake parameters section") }}
 {% if function
     and function.parameters
     and config.docstring_section_style == "table" %}
@@ -18,7 +17,6 @@ Used for functions with no parameter section in the docstrings (usually ignored)
                 {% if not ns.hasHeader %}
                     {% set ns.hasHeader = true %}
                     <p><strong>Parameters:</strong></p>
-                    <table>
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -51,7 +49,5 @@ Used for functions with no parameter section in the docstrings (usually ignored)
                 </tr>
             {% endif %}
         {% endfor %}
-    </tbody>
-    </table>
     {% endblock table_style %}
 {% endif %}

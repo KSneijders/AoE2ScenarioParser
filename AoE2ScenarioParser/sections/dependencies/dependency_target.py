@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError
@@ -10,6 +12,7 @@ class DependencyTarget:
     Provides the objects for targeting a specific retriever based on it's section name (or 'self') and the retriever
     name.
     """
+
     def __init__(self, targets: List[List[str]]):
         """
         Args:

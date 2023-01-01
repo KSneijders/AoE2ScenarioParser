@@ -5,7 +5,7 @@ import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
-from AoE2ScenarioParser.helper.helper import exclusive_if
+from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object

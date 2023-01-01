@@ -108,10 +108,6 @@ class Player(AoE2Object):
         """Read-only value if this player is active or not"""
         return self._active
 
-    @active.setter
-    def active(self, value):
-        raise ValueError("Cannot set active status of player directly, please use player_manager.active_players")
-
     def set_player_diplomacy(self, players: PlayerId | int | List[PlayerId | int], diplomacy: DiplomacyState):
         """
         Set the diplomacy of this player to other players.
