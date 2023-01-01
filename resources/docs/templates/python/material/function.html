@@ -84,6 +84,12 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                 {% include "docstring.html" with context %}
             {% endwith %}
 
+            {% if not function.docstring and function.parameters|count > 0 %}
+                {% with section = function.parameters %}
+                    {% include "docstring/undocumented_parameters.html" with context %}
+                {% endwith %}
+            {% endif %}
+
             {% if config.show_source and function.source %}
                 <details class="quote">
                     <summary>Source code in <code>{{ function.relative_filepath }}</code></summary>

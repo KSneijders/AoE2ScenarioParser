@@ -17,6 +17,7 @@ Used for functions with no parameter section in the docstrings (usually ignored)
                 {% if not ns.hasHeader %}
                     {% set ns.hasHeader = true %}
                     <p><strong>Parameters:</strong></p>
+                    <table>
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -34,6 +35,8 @@ Used for functions with no parameter section in the docstrings (usually ignored)
                             {% with expression = parameter.annotation %}
                                 <code>{% include "expression.html" with context %}</code>
                             {% endwith %}
+                        {% else %}
+                            ?
                         {% endif %}
                     </td>
                     <td> -</td>
@@ -49,5 +52,9 @@ Used for functions with no parameter section in the docstrings (usually ignored)
                 </tr>
             {% endif %}
         {% endfor %}
+        {% if ns.hasHeader %}
+            </tbody>
+            </table>
+        {% endif %}
     {% endblock table_style %}
 {% endif %}
