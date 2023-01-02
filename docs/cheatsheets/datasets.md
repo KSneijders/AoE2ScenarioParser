@@ -74,7 +74,7 @@ remember. That's why these datasets have been added:
 | -------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------- |
 | DiplomacyState       | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.          | `DiplomacyState.ALLY`                        |
 | Operation            | Used in many effects. Generally related to variables.                               | `Operation.MULTIPLY`                         |
-| ButtonLocation *     | Used in the `Change Research Location` and `Change Train Location` effects. *       | `ButtonLocation.r2c3`                        |
+| ButtonLocation *     | Used in the `Change Research Location` and `Change Train Location` effects. *       | `ButtonLocation.R2C3`                        |
 | PanelLocation        | Used in the `Display Instructions` effect.                                          | `PanelLocation.CENTER`                       |
 | TimeUnit             | Used in the `Display Timer` effect.                                                 | `TimeUnit.YEARS`                             |
 | VisibilityState      | Used in the `Set Player Visibility` effect.                                         | `VisibilityState.EXPLORED`                   |
@@ -114,7 +114,7 @@ remember. That's why these datasets have been added:
 ### ButtonLocation
 
 ```py
-ButtonLocation.row_col(1, 3)  # ButtonLocation.r1c3
+ButtonLocation.row_col(1, 3)  # ButtonLocation.R1C3
 ```
 
 ### HeroStatusFlag

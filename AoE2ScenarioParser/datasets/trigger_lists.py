@@ -130,7 +130,7 @@ class ButtonLocation(_DataSetIntEnums):
     **Examples**
 
     >>> ButtonLocation.R2C2
-    <ButtonLocation.r2c2: 7>
+    <ButtonLocation.R2C2: 7>
     >>> ButtonLocation.R3C1.attribute_presentation()
     'row_3_col_1'
     """
