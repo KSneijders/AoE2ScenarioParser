@@ -1,0 +1,50 @@
+{#
+Created template by KSneijders (based of a partial of './attribute.html')
+
+Used for properties which are usually shown as functions, not sure why.
+Currently showing them as attributes.
+#}
+
+{# Hide all properties that start with '_' #}
+{% if not attribute.name.startswith('_') %}
+    <tr>
+        <td class="class-attribute-entry">
+            {% filter heading(heading_level,
+                role="attr",
+                id=html_id,
+                class="doc doc-heading",
+                toc_label=attribute.name) %}
+                {% filter highlight(language="python", inline=True) %}
+                    {{ attribute.name }}
+                {% endfilter %}
+
+                {% with labels = attribute.labels %}
+                    {% include "labels.html" with context %}
+                {% endwith %}
+            {% endfilter %}
+        </td>
+        <td>
+            {% if attribute.annotation %}
+                {% with expression = attribute.annotation %}
+                    <code>{% include "expression.html" with context %}</code>
+                {% endwith %}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="border-top: 0 !important; padding-top: 0; padding-bottom: 0">
+            {% with docstring_sections = attribute.docstring.parsed %}
+                {% include "docstring.html" with context %}
+            {% endwith %}
+
+            <div class="inner-table-code-block-overwrite">
+                {% if config.show_source and attribute.source %}
+                    <details class="quote">
+                        <summary>Source code in <code>{{ attribute.relative_filepath }}</code></summary>
+                        {{ attribute.source|highlight(language="python", linestart=attribute.lineno, linenums=True) }}
+                    </details>
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+{% endif %}

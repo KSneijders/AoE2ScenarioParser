@@ -1,0 +1,39 @@
+h5.doc.doc-heading {
+    font-size: 20px;
+}
+
+.class-attribute-entry {
+    padding: 10px 10px !important;
+}
+
+.class-attribute-entry .highlight.language-python {
+    font-size: 14px;
+}
+
+.class-attribute-entry .doc-label-instance-attribute {
+    font-size: 14px;
+}
+
+/*
+ | Overwrite certain CSS attributes on source code blocks inside tables to fix styling issues.
+ */
+
+.inner-table-code-block-overwrite details {
+    margin: 1.5625em 0 !important;
+}
+
+.inner-table-code-block-overwrite table.highlighttable tr {
+    display: flex !important;
+}
+
+.inner-table-code-block-overwrite table.highlighttable tr td {
+    border-top: none !important;
+}
+
+.inner-table-code-block-overwrite table.highlighttable tr td:first-child {
+    padding: .7720588235em 0 .7720588235em 1.1764705882em !important;
+}
+
+.inner-table-code-block-overwrite table.highlighttable tr td:not(:first-child) {
+    padding: 0 !important;
+}

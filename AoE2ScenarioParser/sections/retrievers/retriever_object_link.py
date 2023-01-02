@@ -2,6 +2,7 @@ from typing import Type, List, Callable, Dict, Any, Optional, TYPE_CHECKING
 from uuid import UUID
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel
@@ -41,7 +42,7 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
 
         self.disabled = False
         """
-        Set to True if the given property (referenced by link) is not supported in the current scenario version.
+        Set to `True` if the given property (referenced by link) is not supported in the current scenario version.
         When True, the properties are overridden to raise an error when used.  
         """
 

@@ -6,29 +6,38 @@ default_until = 100
 
 class Support:
     """
-    Object to compare version support.
-
-    Note to self: \n
-    As long as versions are always 4 chars long, this system works.
-    If they could define the first (or second) 2.x version as: 2.1 and 9 later as: 2.10, this would break.
-    The version is always 4 in length, I assume they'd write it as: '2.01' and not '2.1 ' to fill the 4 chars.
-
-    If they do write is as '2.1 ', I'd have to compare each number (between dots) separately.
-    So with: (2.1 vs 2.10): (2 vs 2) and (1 vs 10)
+    Object to check for version support.
     """
+
+    # Note to self: \n
+    # As long as versions are always 4 chars long, this system works.
+    # If they could define the first (or second) 2.x version as: 2.1 and 9 later as: 2.10, this would break.
+    # The version is always 4 in length, I assume they'd write it as: '2.01' and not '2.1 ' to fill the 4 chars.
+
+    # If they do write is as '2.1 ', I'd have to compare each number (between dots) separately.
+    # So with: (2.1 vs 2.10): (2 vs 2) and (1 vs 10)
 
     def __init__(self, since: float = default_since, until: float = default_until):
         """
         Used to determine if retriever_object_link should be constructed/committed.
 
         Args:
-            since (float): Version item introduced
-            until (float): Version item last seen in (before removal)
+            since: Version item introduced
+            until: Version item last seen in (before removal)
         """
         self.since = since
         self.until = until
 
-    def supports(self, v: str):
+    def supports(self, v: str) -> bool:
+        """
+        Check if this object is supported by the given scenario version
+
+        Args:
+            v: The string representation of the scenario version
+
+        Returns:
+            `True`/`False` based on if the object is supported by the given scenario version
+        """
         return self.since <= float(v) <= self.until
 
     def __repr__(self):

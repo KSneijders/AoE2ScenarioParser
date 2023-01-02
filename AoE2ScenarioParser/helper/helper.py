@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 from enum import Enum
-from typing import Union, Any
+from typing import Tuple, Any
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
@@ -18,10 +18,13 @@ from AoE2ScenarioParser.exceptions import asp_exceptions
 
 def value_is_valid(value: Any) -> bool:
     """
-    Check if value is valid by making sure it's not -1 nor None
+    Check if value is valid by making sure it's neither -1 nor None
+
+    Args:
+        value:
 
     Returns:
-        True if value is not None or -1. False if it is either of those.
+        `True` if value is not None or -1. `False` if it is either of those.
     """
     return value not in [None, -1]
 
@@ -31,17 +34,20 @@ def values_are_valid(*args: Any) -> bool:
     Check if value is valid by making sure it's not -1 nor None
 
     Returns:
-        True if all values are not None or -1. False if any of them are either of those.
+        `True` if all values are not None or -1. `False` if any of them are either of those.
     """
     return any(map(lambda v: v not in [None, -1], args))
 
 
-def get_enum_from_unit_const(const: int) -> Union[InfoDatasetBase, None]:
+def get_enum_from_unit_const(const: int) -> InfoDatasetBase | None:
     """
-    Returns an Enum corresponding with the given Const.
+    Get the enum value for the given unit constant
 
-    Arguments:
-        const: The constant representing a unit
+    Args:
+        const: The unit ID
+
+    Returns:
+        The enum value for the given unit constant
     """
     enums = [UnitInfo, BuildingInfo, HeroInfo, OtherInfo]
     for enum in enums:
@@ -52,14 +58,31 @@ def get_enum_from_unit_const(const: int) -> Union[InfoDatasetBase, None]:
     return None
 
 
-def get_int_len(num):
+def get_int_len(num: int) -> int:
+    """
+    Get the length (in digits) of the given number
+
+    Args:
+        num: The number to find the length
+
+    Returns:
+        The length of the given number
+    """
     if num > 0:
         return math.floor(math.log10(num))
     return 0
 
 
-def exclusive_if(*args):
-    """Returns True if exactly one entry is true. False otherwise"""
+def mutually_exclusive(*args) -> bool:
+    """
+    `True` only if one of the entries is true, `False` otherwise.
+
+    Args:
+        *args: values that can be converted to booleans
+
+    Returns:
+        True/False
+    """
     return sum(map(bool, args)) == 1
 
 

@@ -2935,10 +2935,10 @@ class SecondaryGameMode(_DataSetIntFlags):
         This method combines the given hero status flags into an integer value
 
         Args:
-            empire_wars (bool): If empire wars should be enabled
-            sudden_death (bool): If sudden death should be enabled
-            regicide (bool): If regicide should be enabled
-            king_of_the_hill (bool): If king of the hill should be enabled
+            empire_wars: If empire wars should be enabled
+            sudden_death: If sudden death should be enabled
+            regicide: If regicide should be enabled
+            king_of_the_hill: If king of the hill should be enabled
 
         Returns:
             An integer combining all the different hero status flags into one value

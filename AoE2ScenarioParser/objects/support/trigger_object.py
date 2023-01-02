@@ -9,7 +9,7 @@ class TriggerComponent:
         """Generate a string representation of this trigger component"""
         raise NotImplementedError("This method has not been implemented yet.")
 
-    def should_be_displayed(self, attr: str, val: Any) -> bool:
+    def _should_be_displayed(self, attr: str, val: Any) -> bool:
         """
         Check if a given attribute with a given value should be printed or not
 
