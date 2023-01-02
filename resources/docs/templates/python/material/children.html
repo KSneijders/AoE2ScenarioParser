@@ -52,16 +52,28 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                                         {# <th>Default value</th> #}
                                         <th>Type</th>
                                     </tr>
-                                    {% for attribute in attributes|order_members(config.members_order, members_list) %}
+
+                                    {# Not properties... #}
+                                    {% for attribute in attributes|order_members(config.members_order, members_list)
+                                        if not attribute.has_labels(['property']) %}
                                         {% if not attribute.is_alias or attribute.is_explicitely_exported %}
                                             {% include "attribute.html" with context %}
                                         {% endif %}
                                     {% endfor %}
-                                    {% for name, function in obj.functions.items() %}
-                                        {% if 'property' in function.labels %}
+
+                                    {# Properties... #}
+                                    {% for attribute in attributes|order_members(config.members_order, members_list)
+                                        if attribute.has_labels(['property']) %}
+                                        {% if not attribute.is_alias or attribute.is_explicitely_exported %}
                                             {% include "property_attribute.html" with context %}
                                         {% endif %}
                                     {% endfor %}
+                                    {# Unused as properties are no longer functions. #}
+                                    {# {% for name, function in obj.functions.items() %}#}
+                                    {# {% if 'property' in function.labels %}#}
+                                    {# {% include "property_attribute.html" with context %}#}
+                                    {# {% endif %}#}
+                                    {# {% endfor %}#}
                                 </table>
                             {% endif %}
                         {% endwith %}

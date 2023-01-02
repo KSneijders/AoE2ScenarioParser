@@ -1,4 +1,5 @@
+mkdocs
+mkdocs-material
+mkdocs-material-extensions
 mkdocstrings[python]
-deprecation
-typing_extensions
-ordered-set==4.0.2
+pymdown-extensions

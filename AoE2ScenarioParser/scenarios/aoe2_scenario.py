@@ -61,11 +61,6 @@ class AoE2Scenario:
         """The player manager of the scenario"""
         return self._object_manager.managers['Player']
 
-    @property
-    def message_manager(self) -> MessageManager:
-        """The message manager of the scenario"""
-        return self._object_manager.managers['Message']
-
     def __init__(self, game_version: str, scenario_version: str, source_location: str, name: str):
         # Scenario meta info
         self.game_version: str = game_version
@@ -91,6 +86,11 @@ class AoE2Scenario:
         self._file = None
         self._file_header = None
         self._decompressed_file_data = None
+
+    @property
+    def message_manager(self) -> MessageManager:
+        """The message manager of the scenario"""
+        return self._object_manager.managers['Message']
 
     @classmethod
     def from_file(cls: Type[S], path: str, game_version: str, name: str = "") -> S:
