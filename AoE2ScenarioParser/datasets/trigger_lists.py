@@ -129,28 +129,27 @@ class ButtonLocation(_DataSetIntEnums):
 
     **Examples**
 
-    >>> ButtonLocation.r2c2
+    >>> ButtonLocation.R2C2
     <ButtonLocation.r2c2: 7>
-    >>> ButtonLocation.r3c1.attribute_presentation()
+    >>> ButtonLocation.R3C1.attribute_presentation()
     'row_3_col_1'
     """
-    _r1c1 = 0
-    r1c1 = 1
-    r1c2 = 2
-    r1c3 = 3
-    r1c4 = 4
-    r1c5 = 5
-    r2c1 = 6
-    r2c2 = 7
-    r2c3 = 8
-    r2c4 = 9
-    r2c5 = 10
-    r3c1 = 11
-    r3c2 = 12
-    r3c3 = 13
-    r3c4 = 14
-
-    # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
+    _R1C1 = 0
+    R1C1 = 1
+    R1C2 = 2
+    R1C3 = 3
+    R1C4 = 4
+    R1C5 = 5
+    R2C1 = 6
+    R2C2 = 7
+    R2C3 = 8
+    R2C4 = 9
+    R2C5 = 10
+    R3C1 = 11
+    R3C2 = 12
+    R3C3 = 13
+    R3C4 = 14
+    # R3C5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
 
     def attribute_presentation(self):
         val = self.value or 1  # Change VAL 0 to 1
