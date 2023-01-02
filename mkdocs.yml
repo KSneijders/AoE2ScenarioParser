@@ -56,7 +56,6 @@ nav:
     - Projects: "community/projects.md"
   - API Docs (Beta):
     - AoE2Scenario: "api_docs/aoe2_scenario.md"
-    - AoE2DEScenario: "api_docs/aoe2_de_scenario.md"
     - MessageManager: "api_docs/message_manager.md"
     - Map:
       - MapManager: "api_docs/map_manager.md"

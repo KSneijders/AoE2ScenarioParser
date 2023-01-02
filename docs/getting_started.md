@@ -4,7 +4,7 @@ Once you have installed the library the fun can begin!
 To get started import the library in your python project like so:
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 ```
 
 Define the file you will be reading from and where you will be writing your new file to.  
@@ -25,7 +25,7 @@ output_path = "File/Path/To/Your/Output/File.aoe2scenario"
 Now create the `Scenario` object with the filename as parameter.
 
 ```py
-scenario = AoE2DEScenario.from_file(input_path)
+scenario = AoE2Scenario.from_file(input_path)
 ```
 
 ## Managers
@@ -46,7 +46,7 @@ all available managers:
 You can access all managers like so:
 
 ```py
-scenario = AoE2DEScenario.from_file(input_path)
+scenario = AoE2Scenario.from_file(input_path)
 
 trigger_manager = scenario.trigger_manager
 unit_manager = scenario.unit_manager

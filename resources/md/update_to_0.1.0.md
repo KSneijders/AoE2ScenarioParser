@@ -8,7 +8,7 @@ This document shows the changes that have to be made to `0.0.20` code for it to 
 
 - The class to call the `from_file(...)` function on has changed from: `AoE2Scenario` to `AoE2DEScenario`.   
   You can import the new class using:  
-  `from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario`
+  `from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario`
 - The `trigger.add_effect(...)` and `trigger.add_condition(...)` are now private functions in a trigger. So now: (`trigger._add_effect(...)` and `trigger._add_condition(...)`)  
   The reason for this is the introduction of the `new_effect` and `new_condition` objects!  
   These objects have all conditions and effects as functions. This makes it easier in combination with autocomplete to know what attributes can be used!  
