@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Type
 
-from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
@@ -13,11 +12,6 @@ class AoE2DEScenario(AoE2Scenario):
     """
     Used to represent a scenario with version >= 1.36 (DE). It is the main class that is exposed to the user of the API.
     """
-
-    @property
-    def unit_manager(self) -> UnitManagerDE:
-        """The unit manager of the scenario"""
-        return self._object_manager.managers['Unit']
 
     @property
     def xs_manager(self) -> XsManagerDE:
