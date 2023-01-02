@@ -70,7 +70,6 @@ nav:
       - Unit: "api_docs/unit.md"
     - Trigger:
       - TriggerManager: "api_docs/trigger_manager.md"
-      - TriggerManagerDE: "api_docs/trigger_manager_de.md"
       - Trigger: "api_docs/trigger.md"
       - Effects:
         - Effect: "api_docs/effect.md"

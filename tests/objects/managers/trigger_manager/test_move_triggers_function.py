@@ -1,16 +1,16 @@
 from unittest import TestCase
 
-from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
+from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
-_initialise_version_dependencies("DE", 1.47)
+_initialise_version_dependencies("DE", '1.47')
 
 
 class Test(TestCase):
-    tm: TriggerManagerDE
+    tm: TriggerManager
 
     def setUp(self) -> None:
-        self.tm = TriggerManagerDE([], [], [])
+        self.tm = TriggerManager([], [], [])
 
     def test_move_triggers(self):
         for i in range(10):

@@ -16,11 +16,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class MapManager(AoE2Object):
-    """
-    Manager of everything map related.
-    This class does not include the logic for DE specific features.
-    For those see: `MapManagerDE`
-    """
+    """Manager of everything map related."""
 
     _link_list = [
         RetrieverObjectLinkGroup("Map", group=[

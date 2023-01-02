@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Type
 
-from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
@@ -14,11 +13,6 @@ class AoE2DEScenario(AoE2Scenario):
     """
     Used to represent a scenario with version >= 1.36 (DE). It is the main class that is exposed to the user of the API.
     """
-
-    @property
-    def trigger_manager(self) -> TriggerManagerDE:
-        """The trigger manager of the scenario"""
-        return self._object_manager.managers['Trigger']
 
     @property
     def unit_manager(self) -> UnitManagerDE:
