@@ -60,7 +60,6 @@ nav:
     - MessageManager: "api_docs/message_manager.md"
     - Map:
       - MapManager: "api_docs/map_manager.md"
-      - MapManagerDE: "api_docs/map_manager_de.md"
       - TerrainTile: "api_docs/terrain_tile.md"
     - Player:
       - PlayerManager: "api_docs/player_manager.md"
