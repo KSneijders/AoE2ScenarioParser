@@ -28,4 +28,4 @@ The changes listed below will be explained further in an official document at a 
    2. `TriggerManagerDE` > `TriggerManager`
    3. `UnitManagerDE` > `UnitManager`
    4. `XsManagerDE` > `XsManager` (Renamed & Moved)
-2. 
+2. Removed `AoE2DEScenario` class. Use `AoE2Scenario.from_file(...)` from now on.
