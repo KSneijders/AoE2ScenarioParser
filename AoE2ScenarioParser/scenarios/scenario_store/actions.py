@@ -8,7 +8,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
-    from AoE2ScenarioParser.objects.support.area import Area
+    from AoE2ScenarioParser.objects.support.area import AreaPattern
     from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
 
@@ -78,13 +78,13 @@ def remove_triggers(uuid: UUID, trigger_ids: List[int]) -> None:
         scenario.trigger_manager.reorder_triggers()
 
 
-def new_area_object(uuid: UUID) -> Optional['Area']:
+def new_area_pattern_object(uuid: UUID) -> Optional['AreaPattern']:
     """
-    Creates a new area object.
+    Creates a new area_pattern object.
 
     Args:
         uuid: The UUID of the scenario
     """
     scenario = store.get_scenario(uuid)
     if scenario:
-        return scenario.new.area()
+        return scenario.new.area_pattern()

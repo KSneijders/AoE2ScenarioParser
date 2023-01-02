@@ -6,10 +6,10 @@ How to replace all sound names in effects with the name: ``OldName`` to ``NewNam
 
 ```py
 # Import the scenario object
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(file_path_here)
+scenario = AoE2Scenario.from_file(file_path_here)
 
 trigger_manager = scenario.trigger_manager
 
@@ -31,11 +31,11 @@ scenario.write_to_file(file_output_path_here)
 Get all triggers from one scenario and import them into another scenario.
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # Define Scenario files
-source_scenario = AoE2DEScenario.from_file(path_to_the_source_file)
-target_scenario = AoE2DEScenario.from_file(path_to_the_target_file)
+source_scenario = AoE2Scenario.from_file(path_to_the_source_file)
+target_scenario = AoE2Scenario.from_file(path_to_the_target_file)
 
 # Define Trigger Managers
 source_trigger_manager = source_scenario.trigger_manager

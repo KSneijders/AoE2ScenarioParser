@@ -3,7 +3,7 @@ from uuid import UUID
 
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.area import Area, AreaState, AreaAttr
-from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.area.Tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
@@ -133,10 +133,10 @@ class TestArea(TestCase):
         )
 
     def test_area_selection(self):
-        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).get_selection())
+        self.assertEqual(((3, 3), (5, 5)), self.area.select(3, 3, 5, 5).area_bounded())
 
     def test_area_center(self):
-        self.assertEqual(((8, 8), (8, 8)), self.area.center(8, 8).get_selection())
+        self.assertEqual(((8, 8), (8, 8)), self.area.center(8, 8).area_bounded())
 
         self.area.select(3, 3, 5, 5)
         self.assertEqual((4, 4), self.area.get_center())

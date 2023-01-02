@@ -7,7 +7,7 @@ You can use the player manager to edit many player related attributes.
 Here's an example of how to view a player and edit their starting civilization, architecture and resources.
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets.object_support import Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
 
@@ -18,7 +18,7 @@ scenario_folder = "your/path/to/the/scenario/folder/"  # <-- Final slash is impo
 scenario_name = "name_of_your_scenario"
 
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
+scenario = AoE2Scenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
 
 # Save the player manager and the second player
 player_manager = scenario.player_manager

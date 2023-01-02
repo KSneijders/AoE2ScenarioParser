@@ -7,7 +7,8 @@ from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerColorId, PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
 from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectArmorAttackUsageWarning
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid, validate_coords
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
+from AoE2ScenarioParser.helper.coordinates import validate_coords
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object

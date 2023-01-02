@@ -33,5 +33,13 @@ class UnsupportedVersionError(AoE2ScenarioParserError):
     pass
 
 
+class UnlinkedScenarioError(AoE2ScenarioParserError):
+    pass
+
+
+class UnchunkableConfigurationError(AoE2ScenarioParserError):
+    pass
+
+
 def type_error_message(value, include_hint=True):
     return f"Expected int, found: {value.__class__}. " + (f"Maybe you meant: '{value}.ID'?" if include_hint else "")

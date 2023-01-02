@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from AoE2ScenarioParser.objects.support.area import Area
+from AoE2ScenarioParser.objects.support.area import AreaPattern
 
 
 class ObjectFactory:
@@ -9,6 +9,6 @@ class ObjectFactory:
 
         self._uuid = uuid
 
-    def area(self) -> Area:
-        """Return an area map linked to the corresponding scenario"""
-        return Area(uuid=self._uuid)
+    def area_pattern(self) -> AreaPattern:
+        """Return an area_pattern map linked to the corresponding scenario"""
+        return AreaPattern(uuid=self._uuid)

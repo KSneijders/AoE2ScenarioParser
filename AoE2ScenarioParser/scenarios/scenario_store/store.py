@@ -7,7 +7,7 @@ from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 _scenarios: Dict[UUID, 'AoE2Scenario'] = {}

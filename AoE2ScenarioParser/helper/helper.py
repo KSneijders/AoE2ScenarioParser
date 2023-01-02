@@ -10,46 +10,6 @@ from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.exceptions import asp_exceptions
-from AoE2ScenarioParser.helper.printers import warn
-from AoE2ScenarioParser.objects.support.tile import Tile
-
-""" =============================================================
-============================ COORDS =============================
-=============================================================="""
-
-
-def xy_to_i(x: int, y: int, map_size: int) -> int:
-    """
-    Converts 2-dimensional map coordinates to 1-dimensional array index
-
-    Args:
-        x: The x coordinate on the map
-        y: The y coordinate on the map
-        map_size: The size of the map
-
-    Returns:
-        The 1-dimensional array index for the given 2-dimensional map coordinates and specified map size
-    """
-    if max(x, y) >= map_size or min(x, y) < 0:
-        raise ValueError("X and Y need to be: 0 <= n < map_size")
-    return x + y * map_size
-
-
-def i_to_xy(i: int, map_size: int) -> Tuple[int, int]:
-    """
-    Converts 1-dimensional array index to 2-dimensional map coordinates
-
-    Args:
-        i: The index in the 1-dimensional array
-        map_size: The size of the map
-
-    Returns:
-        A tuple containing the (x, y) coordinates for the given 1-dimensional array index and specified map size
-    """
-    if i < 0 or i >= pow(map_size, 2):
-        raise ValueError(f"X and Y need to be: 0 <= n ({i}) < map_size ({map_size})")
-    return Tile(int(i % map_size), int(i / map_size))
-
 
 """ =============================================================
 ============================= OTHER =============================
@@ -132,48 +92,23 @@ def raise_if_not_int_subclass(values):
             raise TypeError(asp_exceptions.type_error_message(v, issubclass(v.__class__, Enum)))
 
 
-def validate_coords(
-        x1: int = None,
-        y1: int = None,
-        x2: int = None,
-        y2: int = None,
-        corner1: Tile = None,
-        corner2: Tile = None,
-) -> Tuple[int, int, int, int]:
-    """
-    Validates given coordinates.
-
-    - Swaps x/y1 with x/y2 if 1 is higher than it's 2 counterpart
-    - Sets x/y2 to x/y1 if it's not been set.
-
-    Args:
-        x1: The X location of the left corner
-        y1: The Y location of the left corner
-        x2: The X location of the right corner
-        y2: The Y location of the right corner
-        corner1: The location of the left corner
-        corner2: The location of the right corner
-
-    Returns:
-        The updated values through a tuple as (x1, y1, x2, y2)
-    """
-    if value_is_valid(corner1):
-        x1, y1 = corner1.x, corner1.y
-    if value_is_valid(corner2):
-        x2, y2 = corner2.x, corner2.y
-    if value_is_valid(x1) and not value_is_valid(x2):
-        x2 = x1
-    if value_is_valid(y1) and not value_is_valid(y2):
-        y2 = y1
-    if x1 > x2:
-        x1, x2 = x2, x1
-        warn("Swapping 'x1' and 'x2' values. Attribute 'x1' cannot be higher than 'x2'")
-    if y1 > y2:
-        y1, y2 = y2, y1
-        warn("Swapping 'y1' and 'y2' values. Attribute 'y1' cannot be higher than 'y2'")
-    return x1, y1, x2, y2
-
-
 def typename(x: Any):
     """Get the name of the class of the given object"""
     return type(x).__name__
+
+
+def bound(value: int | float, bounds: tuple[int | float, int | float]) -> int | float:
+    """
+    If a given value is within a specified range (i.e., between the given bounds), return that value.
+    If the given value is outside the specified range (i.e., it overflows one of the bounds), return the value of the
+    bound that it overflowed.
+
+    Args:
+        value: The value to check
+        bounds: The bounds to check the value against
+
+    Returns:
+        The given value if within the bounds, otherwise the corresponding bound value
+    """
+    low, high = bounds
+    return max(low, min(high, value))

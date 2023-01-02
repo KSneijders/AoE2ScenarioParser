@@ -20,3 +20,12 @@ The changes listed below will be explained further in an official document at a 
    1. `xy_to_i`
    2. `i_to_xy`
    3. `validate_coords`
+
+## Rework: Remove `DE` suffix
+
+1. Merged the functionality of the below managers into their corresponding super classes:
+   1. `MapManagerDE` > `MapManager`
+   2. `TriggerManagerDE` > `TriggerManager`
+   3. `UnitManagerDE` > `UnitManager`
+   4. `XsManagerDE` > `XsManager` (Renamed & Moved)
+2. Removed `AoE2DEScenario` class. Use `AoE2Scenario.from_file(...)` from now on.

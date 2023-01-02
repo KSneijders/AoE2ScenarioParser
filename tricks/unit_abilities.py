@@ -2,14 +2,14 @@ from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import PanelLocation
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # File & Folder setup
 scenario_folder = "C:/Users/Kerwin Sneijders/Games/Age of Empires 2 DE/76561198140740017/resources/_common/scenario/"
 read_file = scenario_folder + "unitTest.aoe2scenario"
 write_to_file = scenario_folder + "unitTestResult.aoe2scenario"
 
-scenario = AoE2DEScenario.from_file(read_file)
+scenario = AoE2Scenario.from_file(read_file)
 
 trigger_manager = scenario.trigger_manager
 unit_manager = scenario.unit_manager
