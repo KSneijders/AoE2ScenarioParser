@@ -79,7 +79,7 @@ nav:
       - Variable: "api_docs/variable.md"
       - TriggerSelect: "api_docs/trigger_select.md"
       - TriggerCeLock: "api_docs/trigger_ce_lock.md"
-    - XsManager: "api_docs/xs_manager_de.md"
+    - XsManager: "api_docs/xs_manager.md"
     - Settings: "api_docs/settings.md"
     - Area: "api_docs/area.md"
 

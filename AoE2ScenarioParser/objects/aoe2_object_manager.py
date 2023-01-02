@@ -5,7 +5,7 @@ from uuid import UUID
 
 from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
+from AoE2ScenarioParser.objects.managers.xs_manager import XsManager
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
@@ -20,7 +20,7 @@ managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
         'Map': MapManager,
         'Unit': UnitManager,
         'Trigger': TriggerManager,
-        'Xs': XsManagerDE,
+        'Xs': XsManager,
     }
 }
 

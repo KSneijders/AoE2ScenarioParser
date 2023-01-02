@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Type
 
-from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
+from AoE2ScenarioParser.objects.managers.xs_manager import XsManager
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario, S
@@ -14,7 +14,7 @@ class AoE2DEScenario(AoE2Scenario):
     """
 
     @property
-    def xs_manager(self) -> XsManagerDE:
+    def xs_manager(self) -> XsManager:
         """The XS manager of the scenario"""
         return self._object_manager.managers['Xs']
 
