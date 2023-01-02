@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Type
 
-from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
@@ -25,11 +24,6 @@ class AoE2DEScenario(AoE2Scenario):
     def unit_manager(self) -> UnitManagerDE:
         """The unit manager of the scenario"""
         return self._object_manager.managers['Unit']
-
-    @property
-    def map_manager(self) -> MapManagerDE:
-        """The map manager of the scenario"""
-        return self._object_manager.managers['Map']
 
     @property
     def xs_manager(self) -> XsManagerDE:

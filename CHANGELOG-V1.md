@@ -20,3 +20,7 @@ The changes listed below will be explained further in an official document at a 
    1. `xy_to_i`
    2. `i_to_xy`
    3. `validate_coords`
+
+## Rework: Remove `DE` suffix
+
+1. 
