@@ -12,6 +12,7 @@ the in-game editor.
 - [Getting Started](https://ksneijders.github.io/AoE2ScenarioParser/getting_started/)
 - [Hello World Example](https://ksneijders.github.io/AoE2ScenarioParser/hello_world/)
 - [Discord Server](https://discord.gg/DRUtmugXT3)
+- [API Docs](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/aoe2_scenario/)
 
 ## Documentation
 
