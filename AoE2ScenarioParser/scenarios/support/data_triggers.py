@@ -1,4 +1,6 @@
-from typing import Union, List, Optional, Iterator, Dict
+from __future__ import annotations
+
+from typing import List, Optional, Iterator, Dict
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.attr_dict import AttrDict
@@ -65,23 +67,23 @@ class DataTriggers:
         if remove_template_triggers:
             actions.remove_triggers(self._uuid, [t.trigger_id for t in triggers])
 
-    def _get_objects_from_area(self, ce: Union['Condition', 'Effect']) -> Optional[List[Unit]]:
+    def _get_objects_from_area(self, ce: 'Condition' | 'Effect') -> Optional[List[Unit]]:
         if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
             return getters.get_units_in_area(self._uuid, ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
 
-    def _get_objects_from_tile(self, ce: Union['Condition', 'Effect']) -> Optional[List[Unit]]:
+    def _get_objects_from_tile(self, ce: 'Condition' | 'Effect') -> Optional[List[Unit]]:
         if isinstance(ce, Effect) and values_are_valid(ce.location_x, ce.location_y):
             return getters.get_units_in_area(self._uuid, ce.location_x, ce.location_y, ce.location_x, ce.location_y)
 
-    def _get_trigger(self, ce: Union['Condition', 'Effect']) -> Optional[Trigger]:
+    def _get_trigger(self, ce: 'Condition' | 'Effect') -> Optional[Trigger]:
         if value_is_valid(ce.trigger_id):
             return getters.get_trigger(self._uuid, ce.trigger_id)
 
-    def _create_area(self, ce: Union['Condition', 'Effect']) -> Optional[Area]:
+    def _create_area(self, ce: 'Condition' | 'Effect') -> Optional[Area]:
         if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
             return actions.new_area_object(self._uuid).select(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
 
-    def _create_tiles(self, ce: Union['Condition', 'Effect']) -> Optional[List[Tile]]:
+    def _create_tiles(self, ce: 'Condition' | 'Effect') -> Optional[List[Tile]]:
         tiles = []
         if isinstance(ce, Effect) and values_are_valid(ce.location_x, ce.location_y):
             tiles.append(Tile(ce.location_x, ce.location_y))
@@ -90,7 +92,7 @@ class DataTriggers:
             tiles.extend(list(area.to_coords()))
         return tiles
 
-    def _get_unit_ids(self, ce: Union['Condition', 'Effect']) -> List[int]:
+    def _get_unit_ids(self, ce: 'Condition' | 'Effect') -> List[int]:
         ids: List[int] = []
         if isinstance(ce, Condition) and values_are_valid(ce.unit_object):
             ids.append(ce.unit_object)
@@ -106,7 +108,7 @@ class DataTriggers:
         return trigger.name[trigger.name.find(":") + 1:]
 
 
-def loop_trigger_content(trigger: 'Trigger') -> Iterator[Union['Condition', 'Effect']]:
+def loop_trigger_content(trigger: 'Trigger') -> Iterator['Condition' | 'Effect']:
     for condition in trigger.conditions:
         yield condition
     for effect in trigger.effects:

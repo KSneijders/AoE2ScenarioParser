@@ -7,7 +7,28 @@ use_directory_urls: true
 
 plugins:
     - search
-#    - awesome-pages
+    - mkdocstrings:
+        custom_templates: resources/docs/templates/
+        default_handler: python
+        handlers:
+          python:
+            options:
+              # Options from: https://mkdocstrings.github.io/python/usage/
+              show_if_no_docstring: true
+              show_category_heading: true
+              docstring_style: google
+              show_source: true  # Show source code
+              show_bases: true  # Show parent classes
+              show_submodules: true  # Show the subclasses
+              filters: ["!^_[^_]"]
+              show_signature: false
+              show_signature_annotations: false
+
+
+watch:
+- AoE2ScenarioParser
+- docs
+- resources/docs
 
 nav:
   - AoE2SP:
@@ -33,9 +54,37 @@ nav:
     - Guides and Resources: "community/resources.md"
     - Tools: "community/tools.md"
     - Projects: "community/projects.md"
-
-#  - API Docs: "api-doc.md"
-
+  - API Docs (Beta):
+    - AoE2Scenario: "api_docs/aoe2_scenario.md"
+    - AoE2DEScenario: "api_docs/aoe2_de_scenario.md"
+    - MessageManager: "api_docs/message_manager.md"
+    - Map:
+      - MapManager: "api_docs/map_manager.md"
+      - MapManagerDE: "api_docs/map_manager_de.md"
+      - TerrainTile: "api_docs/terrain_tile.md"
+    - Player:
+      - PlayerManager: "api_docs/player_manager.md"
+      - Player: "api_docs/player.md"
+    - Units:
+      - UnitManager: "api_docs/unit_manager.md"
+      - UnitManagerDE: "api_docs/unit_manager_de.md"
+      - Unit: "api_docs/unit.md"
+    - Trigger:
+      - TriggerManager: "api_docs/trigger_manager.md"
+      - TriggerManagerDE: "api_docs/trigger_manager_de.md"
+      - Trigger: "api_docs/trigger.md"
+      - Effects:
+        - Effect: "api_docs/effect.md"
+        - NewEffect: "api_docs/new_effect.md"
+      - Conditions:
+        - Condition: "api_docs/condition.md"
+        - NewCondition: "api_docs/new_condition.md"
+      - Variable: "api_docs/variable.md"
+      - TriggerSelect: "api_docs/trigger_select.md"
+      - TriggerCeLock: "api_docs/trigger_ce_lock.md"
+    - XsManager: "api_docs/xs_manager_de.md"
+    - Settings: "api_docs/settings.md"
+    - Area: "api_docs/area.md"
 
 
 markdown_extensions:
@@ -66,6 +115,9 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
+extra_css:
+  - _assets/css/api_docs_extra.css
+
 theme:
   name: material
   language: en
@@ -78,8 +130,9 @@ theme:
     - search.highlight
     - search.share
     - navigation.expand
-    # - navigation.sections
-
+  font:
+    text: Roboto
+    code: Fira Code
   palette:
     - scheme: default
       toggle:
@@ -89,7 +142,3 @@ theme:
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
-#  palette:
-#    scheme: slate
-#    primary: red
-#    accent: red

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Union, Tuple
+from typing import List, Tuple, Generator
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -58,7 +58,7 @@ class UnitManager(AoE2Object):
 
     def add_unit(
             self,
-            player: Union[int, PlayerId],
+            player: int | PlayerId,
             unit_const: int,
             x: float = 0,
             y: float = 0,
@@ -111,7 +111,7 @@ class UnitManager(AoE2Object):
         self.units[player].append(unit)
         return unit
 
-    def get_player_units(self, player: Union[int, PlayerId]) -> List[Unit]:
+    def get_player_units(self, player: int | PlayerId) -> List[Unit]:
         """
         Returns a list of UnitObjects for the given player.
 
@@ -140,17 +140,17 @@ class UnitManager(AoE2Object):
         Filter units based on a given attribute of units
 
         Args:
-            attr (str): The attribute to filter by
-            unit_attrs (List[int]): The values for the attributes to filter with
-            blacklist (bool): Use the given constant list as blacklist instead of whitelist
-            player_list (List[int]): A list of players to filter from. If not used, all players are used.
-            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+            attr: The attribute to filter by
+            unit_attrs: The values for the attributes to filter with
+            blacklist: Use the given constant list as blacklist instead of whitelist
+            player_list: A list of players to filter from. If not used, all players are used.
+            unit_list: A set of units to filter from. If not used, all units are used.
 
         Returns:
             A list of units
 
         Raises:
-            AttributeError - If the provided attr does not exist on objects of the Unit class
+            AttributeError: If the provided attr does not exist on objects of the Unit class
         """
 
         if unit_list is None:
@@ -182,10 +182,10 @@ class UnitManager(AoE2Object):
         Filter unit on their unit_const value.
 
         Args:
-            unit_consts (List[int]): The constants to filter with
-            blacklist (bool): Use the given constant list as blacklist instead of whitelist
-            player_list (List[int]): A list of players to filter from. If not used, all players are used.
-            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+            unit_consts: The constants to filter with
+            blacklist: Use the given constant list as blacklist instead of whitelist
+            player_list: A list of players to filter from. If not used, all players are used.
+            unit_list: A set of units to filter from. If not used, all units are used.
 
         Returns:
             A list of units
@@ -278,7 +278,7 @@ class UnitManager(AoE2Object):
         return [unit for unit in unit_list if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
     @staticmethod
-    def change_ownership(unit: Unit | List[Unit], to_player: Union[int, PlayerId]) -> None:
+    def change_ownership(unit: Unit | List[Unit], to_player: int | PlayerId) -> None:
         """
         Changes a unit's ownership to the given player.
 
@@ -321,8 +321,8 @@ class UnitManager(AoE2Object):
         which list to remove the unit from.
 
         Args:
-            reference_id (int): The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
-            unit (Unit): The Unit object to be removed.
+            reference_id: The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
+            unit: The Unit object to be removed.
         """
         if reference_id is not None and unit is not None:
             raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
@@ -356,12 +356,12 @@ class UnitManager(AoE2Object):
         return UuidList(self._uuid, player_units)
 
 
-def create_id_generator(start_id: int):
+def create_id_generator(start_id: int) -> Generator[int]:
     """
     Create generator for increasing value
 
     Args:
-        start_id (int): The id to start returning
+        start_id: The id to start returning
 
     Returns:
         A generator which will return a +1 ID value for each time called with next.

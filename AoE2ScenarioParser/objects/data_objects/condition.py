@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import Union, Any
+from typing import Any
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.datasets.conditions import ConditionId
@@ -51,35 +51,36 @@ class Condition(AoE2Object, TriggerComponent):
         ])
     ]
 
-    def __init__(self,
-                 condition_type: int = None,
-                 quantity: int = None,
-                 attribute: int = None,
-                 unit_object: int = None,
-                 next_object: int = None,
-                 object_list: int = None,
-                 source_player: Union[int, IntEnum] = None,
-                 technology: Union[int, IntEnum] = None,
-                 timer: int = None,
-                 area_x1: int = None,
-                 area_y1: int = None,
-                 area_x2: int = None,
-                 area_y2: int = None,
-                 object_group: int = None,
-                 object_type: int = None,
-                 ai_signal: int = None,
-                 inverted: int = None,
-                 variable: int = None,
-                 comparison: int = None,
-                 target_player: Union[int, IntEnum] = None,
-                 unit_ai_action: int = None,
-                 object_state: int = None,
-                 timer_id: int = None,
-                 victory_timer_type: int = None,
-                 include_changeable_weapon_objects: int = None,
-                 xs_function: str = None,
-                 **kwargs
-                 ):
+    def __init__(
+            self,
+            condition_type: int = None,
+            quantity: int = None,
+            attribute: int = None,
+            unit_object: int = None,
+            next_object: int = None,
+            object_list: int = None,
+            source_player: int | IntEnum = None,
+            technology: int | IntEnum = None,
+            timer: int = None,
+            area_x1: int = None,
+            area_y1: int = None,
+            area_x2: int = None,
+            area_y2: int = None,
+            object_group: int = None,
+            object_type: int = None,
+            ai_signal: int = None,
+            inverted: int = None,
+            variable: int = None,
+            comparison: int = None,
+            target_player: int | IntEnum = None,
+            unit_ai_action: int = None,
+            object_state: int = None,
+            timer_id: int = None,
+            victory_timer_type: int = None,
+            include_changeable_weapon_objects: int = None,
+            xs_function: str = None,
+            **kwargs
+    ):
         raise_if_not_int_subclass([object_list, technology])
         area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
 
@@ -112,14 +113,25 @@ class Condition(AoE2Object, TriggerComponent):
 
         super().__init__(**kwargs)
 
-    def should_be_displayed(self, attr: str, val: Any) -> bool:
+    def _should_be_displayed(self, attr: str, val: Any) -> bool:
         # Include the only exception to the -1 == invalid rule
         if self.condition_type == ConditionId.DIFFICULTY_LEVEL and attr == 'quantity' and val == -1:
             return True
 
-        return super().should_be_displayed(attr, val)
+        return super()._should_be_displayed(attr, val)
 
-    def get_content_as_string(self, include_effect_definition=False) -> str:
+    def get_content_as_string(self, include_condition_definition: bool = False) -> str:
+        """
+        Create a human-readable string showcasing all content of this condition.
+
+        This is also the function that is called when doing: `print(condition)`
+
+        Args:
+            include_condition_definition: If the condition meta-data should be added by this function
+
+        Returns:
+            The created string
+        """
         if self.condition_type not in conditions.attributes:
             attributes_list = conditions.empty_attributes
         else:
@@ -128,7 +140,7 @@ class Condition(AoE2Object, TriggerComponent):
         return_string = ""
         for attribute in attributes_list:
             val = getattr(self, attribute)
-            if not self.should_be_displayed(attribute, val):
+            if not self._should_be_displayed(attribute, val):
                 continue
 
             value_string = transform_condition_attr_value(self.condition_type, attribute, val, self._uuid)
@@ -137,10 +149,10 @@ class Condition(AoE2Object, TriggerComponent):
         if return_string == "":
             return "<< No Attributes >>\n"
 
-        if include_effect_definition:
+        if include_condition_definition:
             return f"{conditions.condition_names[self.condition_type]}:\n{add_tabs(return_string, 1)}"
 
         return return_string
 
     def __str__(self):
-        return f"[Condition] {self.get_content_as_string(include_effect_definition=True)}"
+        return f"[Condition] {self.get_content_as_string(include_condition_definition=True)}"

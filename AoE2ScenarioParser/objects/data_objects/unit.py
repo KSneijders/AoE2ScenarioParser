@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import math
-from typing import Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
@@ -15,6 +14,10 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import R
 
 
 class Unit(AoE2Object):
+    """
+    A class representing a single unit on the map.
+    This can be an archer, a gold mine, a house or even a tree.
+    """
     _link_list = [
         RetrieverObjectLink("player", retrieve_history_number=0),
         RetrieverObjectLinkGroup("Units", "players_units[__index__].units[__index__]", group=[
@@ -31,7 +34,7 @@ class Unit(AoE2Object):
     ]
 
     def __init__(self,
-                 player: Union[int, PlayerId],
+                 player: int | PlayerId,
                  x: float,
                  y: float,
                  z: float,
@@ -60,15 +63,17 @@ class Unit(AoE2Object):
 
     @property
     def player(self) -> PlayerId:
+        """The player that owns this unit"""
         return self._player
 
     @player.setter
-    def player(self, player: Union[int, PlayerId]):
+    def player(self, player: int | PlayerId):
         actions.unit_change_ownership(self._uuid, player, self)
         self._player = player
 
     @property
     def tile(self) -> Tile:
+        """The tile where the unit is located"""
         return Tile(math.floor(self.x), math.floor(self.y))
         # Floor x and y as location (0.9, 0.9) is still Tile[x=0, y=0]
 
@@ -79,6 +84,7 @@ class Unit(AoE2Object):
 
     @property
     def name(self) -> str:
+        """The name of the unit, nicely formatted"""
         unit_enum = helper.get_enum_from_unit_const(self.unit_const)
         if unit_enum:
             return pretty_format_name(unit_enum.name)

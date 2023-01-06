@@ -8,6 +8,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class MapManagerDE(MapManager):
+    """Manager of all DE map related features"""
     _link_list = [
         RetrieverObjectLinkGroup("Map", group=[
             RetrieverObjectLink("map_color_mood"),
@@ -28,18 +29,8 @@ class MapManagerDE(MapManager):
                  terrain: List[TerrainTile],
                  **kwargs,
                  ):
-        self.map_color_mood = map_color_mood
-        self.collide_and_correct = collide_and_correct
-        self.villager_force_drop = villager_force_drop
-
         super().__init__(map_width, map_height, terrain, **kwargs)
 
-    @property
-    def script_name(self):
-        raise DeprecationWarning("The attribute script_name is handled through the xs_manager. "
-                                 "scenario.xs_manager.script_name")
-
-    @script_name.setter
-    def script_name(self, val):
-        raise DeprecationWarning("The attribute script_name is handled through the xs_manager. "
-                                 "scenario.xs_manager.script_name")
+        self.map_color_mood: str = map_color_mood
+        self.collide_and_correct: bool = collide_and_correct
+        self.villager_force_drop: bool = villager_force_drop
