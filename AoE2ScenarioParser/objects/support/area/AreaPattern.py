@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 import sys
-from typing import TYPE_CHECKING, Iterable, Literal, NoReturn, Callable
+from typing import TYPE_CHECKING, Iterable, Literal, NoReturn
 from uuid import UUID
 
 from ordered_set import OrderedSet
@@ -13,7 +13,8 @@ from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
 from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.area import AreaState, AreaAttr, Area
-from AoE2ScenarioParser.objects.support.area.Tile import Tile, TileT
+from AoE2ScenarioParser.objects.support.Area import Area
+from AoE2ScenarioParser.objects.support.Tile import Tile, TileT
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:

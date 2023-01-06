@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.objects.support.area.Tile import Tile, TileT
+from AoE2ScenarioParser.objects.support.Tile import Tile, TileT
 
 
 class Area:

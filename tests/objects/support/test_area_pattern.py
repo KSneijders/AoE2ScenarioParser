@@ -2,8 +2,8 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
-from AoE2ScenarioParser.objects.support.area import AreaPattern, AreaState, AreaAttr, Area
-from AoE2ScenarioParser.objects.support.area.Tile import Tile
+from AoE2ScenarioParser.objects.support.area import AreaPattern, AreaState, AreaAttr
+from AoE2ScenarioParser.objects.support.Tile import Tile
 
 
 class TestAreaPattern(TestCase):
