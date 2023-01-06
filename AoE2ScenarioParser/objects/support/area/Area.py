@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from math import ceil
-
 from AoE2ScenarioParser.objects.support.area.Tile import Tile, TileT
 
 
@@ -24,8 +22,7 @@ class Area:
 
     @property
     def center(self) -> Tile:
-        x, y = self.corner1.middle_location(self.corner2)
-        return Tile(ceil(x), ceil(y))
+        return self.corner1.mid_tile(self.corner2)
 
     @property
     def width(self) -> int:

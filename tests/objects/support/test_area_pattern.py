@@ -215,9 +215,9 @@ class TestAreaPattern(TestCase):
 
     def test_area_use_full(self):
         self.area_pattern.use_full()
-        self.assertEqual(AreaState.FULL, self.area_pattern.state)
+        self.assertEqual(AreaState.RECT, self.area_pattern.state)
         self.area_pattern.use_only_edge().use_full()
-        self.assertEqual(AreaState.FULL, self.area_pattern.state)
+        self.assertEqual(AreaState.RECT, self.area_pattern.state)
 
         self.area_pattern.select((3, 3), (5, 5))
         self.assertSetEqual(
@@ -252,23 +252,37 @@ class TestAreaPattern(TestCase):
             self.area_pattern.to_chunks()
         )
 
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_lines(axis= "x")
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_lines(axis="x")
         self.assertListEqual(
             [
                 {(3, 3), (4, 3), (5, 3), (6, 3)},
+
                 {(3, 5), (4, 5), (5, 5), (6, 5)},
+
                 {(3, 7), (4, 7), (5, 7), (6, 7)},
             ],
             self.area_pattern.to_chunks()
         )
 
-        self.area_pattern.select(3, 3, 7, 7).use_pattern_grid(block_size=2)
+        self.area_pattern.select((3, 3), (7, 7)).use_pattern_grid(block_size=2)
         self.assertListEqual(
             [
-                {(3, 3), (4, 3), (3, 4), (4, 4)},
-                {(6, 3), (7, 3), (6, 4), (7, 4)},
-                {(3, 6), (4, 6), (3, 7), (4, 7)},
-                {(6, 6), (7, 6), (6, 7), (7, 7)},
+                {
+                    (3, 3), (4, 3),
+                    (3, 4), (4, 4)
+                },
+                {
+                    (6, 3), (7, 3),
+                    (6, 4), (7, 4)
+                },
+                {
+                    (3, 6), (4, 6),
+                    (3, 7), (4, 7)
+                },
+                {
+                    (6, 6), (7, 6),
+                    (6, 7), (7, 7)
+                },
             ],
             self.area_pattern.to_chunks()
         )
@@ -278,7 +292,9 @@ class TestAreaPattern(TestCase):
             [{
                 (5, 3),
                 (5, 4),
+
                 (3, 5), (4, 5), (5, 5), (6, 5), (7, 5),
+
                 (5, 6),
                 (5, 7),
             }],
@@ -286,16 +302,19 @@ class TestAreaPattern(TestCase):
         )
 
     def test_area_to_chunks_order(self):
-        self.area_pattern.select(3, 3, 8, 8).use_pattern_grid(block_size=3, gap_size=1)
+        self.area_pattern.select((3, 3), (8, 8)).use_pattern_grid(block_size=3, gap_size=1)
         tiles = [
             (3, 3), (4, 3), (5, 3),  # First (left top) block (3x3)
             (3, 4), (4, 4), (5, 4),
             (3, 5), (4, 5), (5, 5),
+
             (7, 3), (8, 3),  # Second (right top) block (2x3)
             (7, 4), (8, 4),
             (7, 5), (8, 5),
+
             (3, 7), (4, 7), (5, 7),  # Third (left bottom) block (3x2)
             (3, 8), (4, 8), (5, 8),
+
             (7, 7), (8, 7),  # Fourth (right bottom) block (2x2)
             (7, 8), (8, 8),
         ]
@@ -307,7 +326,7 @@ class TestAreaPattern(TestCase):
                 index += 1
 
     def test_area_get_chunk_id(self):
-        self.area_pattern.use_pattern_grid().select(1, 1, 5, 5)
+        self.area_pattern.use_pattern_grid().select((1, 1), (5, 5))
         self.assertEqual(0, self.area_pattern._get_chunk_id(Tile(1, 1)))
         self.assertEqual(4, self.area_pattern._get_chunk_id(Tile(3, 3)))
         self.assertEqual(-1, self.area_pattern._get_chunk_id(Tile(3, 4)))
@@ -336,25 +355,25 @@ class TestAreaPattern(TestCase):
         self.area_pattern.use_only_edge()
         self.assertEqual(AreaState.EDGE, self.area_pattern.state)
 
-        self.area_pattern.select(3, 3, 6, 7)
+        self.area_pattern.select((3, 3), (6, 7))
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
-                (3, 4), (6, 4),
-                (3, 5), (6, 5),
-                (3, 6), (6, 6),
+                (3, 4),                 (6, 4),
+                (3, 5),                 (6, 5),
+                (3, 6),                 (6, 6),
                 (3, 7), (4, 7), (5, 7), (6, 7),
             },
             self.area_pattern.to_coords()
         )
 
-        self.area_pattern.select(3, 3, 8, 8).use_only_edge().attr(AreaAttr.LINE_WIDTH, 2)
+        self.area_pattern.select((3, 3), (8, 8)).use_only_edge().attr(AreaAttr.LINE_WIDTH, 2)
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3),
                 (3, 4), (4, 4), (5, 4), (6, 4), (7, 4), (8, 4),
-                (3, 5), (4, 5), (7, 5), (8, 5),
-                (3, 6), (4, 6), (7, 6), (8, 6),
+                (3, 5), (4, 5),                 (7, 5), (8, 5),
+                (3, 6), (4, 6),                 (7, 6), (8, 6),
                 (3, 7), (4, 7), (5, 7), (6, 7), (7, 7), (8, 7),
                 (3, 8), (4, 8), (5, 8), (6, 8), (7, 8), (8, 8),
             },
@@ -374,14 +393,14 @@ class TestAreaPattern(TestCase):
         self.area_pattern.use_pattern_lines(axis= "y")
         self.assertEqual(AreaState.LINES, self.area_pattern.state)
 
-        self.area_pattern.select(3, 3, 6, 7)
+        self.area_pattern.select((3, 3), (6, 7))
         self.assertSetEqual(
             {
-                (3, 3), (5, 3),
-                (3, 4), (5, 4),
-                (3, 5), (5, 5),
-                (3, 6), (5, 6),
-                (3, 7), (5, 7),
+                (3, 3),         (5, 3),
+                (3, 4),         (5, 4),
+                (3, 5),         (5, 5),
+                (3, 6),         (5, 6),
+                (3, 7),         (5, 7),
             },
             self.area_pattern.to_coords()
         )
@@ -390,7 +409,9 @@ class TestAreaPattern(TestCase):
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
+
                 (3, 5), (4, 5), (5, 5), (6, 5),
+
                 (3, 7), (4, 7), (5, 7), (6, 7),
             },
             self.area_pattern.to_coords()
@@ -400,6 +421,8 @@ class TestAreaPattern(TestCase):
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
+
+
                 (3, 6), (4, 6), (5, 6), (6, 6),
             },
             self.area_pattern.to_coords()
@@ -420,24 +443,26 @@ class TestAreaPattern(TestCase):
         self.area_pattern.use_pattern_grid()
         self.assertEqual(AreaState.GRID, self.area_pattern.state)
 
-        self.area_pattern.select(3, 3, 6, 7)
+        self.area_pattern.select((3, 3), (6, 7))
         self.assertSetEqual(
             {
-                (3, 3), (5, 3),
-                (3, 5), (5, 5),
-                (3, 7), (5, 7),
+                (3, 3),        (5, 3),
+
+                (3, 5),        (5, 5),
+
+                (3, 7),        (5, 7),
             },
             self.area_pattern.to_coords()
         )
 
-        self.area_pattern.select(3, 3, 6, 7).invert()
+        self.area_pattern.select((3, 3), (6, 7)).invert()
         self.assertSetEqual(
             {
-                (4, 3), (6, 3),
+                        (4, 3),         (6, 3),
                 (3, 4), (4, 4), (5, 4), (6, 4),
-                (4, 5), (6, 5),
+                        (4, 5),         (6, 5),
                 (3, 6), (4, 6), (5, 6), (6, 6),
-                (4, 7), (6, 7),
+                        (4, 7),         (6, 7),
             },
             self.area_pattern.to_coords()
         )
@@ -446,11 +471,14 @@ class TestAreaPattern(TestCase):
         self.area_pattern.use_only_corners()
         self.assertEqual(AreaState.CORNERS, self.area_pattern.state)
 
-        self.area_pattern.select(3, 3, 6, 7)
+        self.area_pattern.select((3, 3), (6, 7))
         self.assertSetEqual(
             {
-                (3, 3), (6, 3),
-                (3, 7), (6, 7),
+                (3, 3),                 (6, 3),
+
+
+
+                (3, 7),                 (6, 7),
             },
             self.area_pattern.to_coords()
         )
@@ -460,6 +488,7 @@ class TestAreaPattern(TestCase):
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
                 (3, 4), (4, 4), (5, 4), (6, 4),
+
                 (3, 6), (4, 6), (5, 6), (6, 6),
                 (3, 7), (4, 7), (5, 7), (6, 7),
             },
@@ -469,10 +498,10 @@ class TestAreaPattern(TestCase):
         self.area_pattern.attrs(corner_size_x=1, corner_size_y=2)
         self.assertSetEqual(
             {
-                (3, 3), (6, 3),
-                (3, 4), (6, 4),
-                (3, 6), (6, 6),
-                (3, 7), (6, 7),
+                (3, 3),                 (6, 3),
+                (3, 4),                 (6, 4),
+                (3, 6),                 (6, 6),
+                (3, 7),                 (6, 7),
             },
             self.area_pattern.to_coords()
         )
@@ -525,33 +554,36 @@ class TestAreaPattern(TestCase):
     # -------------- test_area_use_grid_with_configs --------------
 
     def test_area_use_grid_with_configs(self):
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_grid(gap_size=2)
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size=2)
         self.assertSetEqual(
             {
-                (3, 3), (6, 3),
-                (3, 6), (6, 6),
+                (3, 3),                 (6, 3),
+                (3, 6),                 (6, 6),
             },
             self.area_pattern.to_coords()
         )
 
     def test_area_use_grid_with_configs_2(self):
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_grid(block_size=2)
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(block_size=2)
         self.assertSetEqual(
             {
-                (3, 3), (4, 3), (6, 3),
-                (3, 4), (4, 4), (6, 4),
-                (3, 6), (4, 6), (6, 6),
-                (3, 7), (4, 7), (6, 7),
+                (3, 3), (4, 3),         (6, 3),
+                (3, 4), (4, 4),         (6, 4),
+
+                (3, 6), (4, 6),         (6, 6),
+                (3, 7), (4, 7),         (6, 7),
             },
             self.area_pattern.to_coords()
         )
 
     def test_area_use_grid_with_configs_3(self):
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_grid(block_size=2, gap_size=2)
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(block_size=2, gap_size=2)
         self.assertSetEqual(
             {
                 (3, 3), (4, 3),
                 (3, 4), (4, 4),
+
+
                 (3, 7), (4, 7),
             },
             self.area_pattern.to_coords()
@@ -560,20 +592,20 @@ class TestAreaPattern(TestCase):
     # -------------- test_area_use_grid_with_configs_abuse_as_lines --------------
 
     def test_area_use_grid_with_configs_abuse_as_lines(self):
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_grid(gap_size_y=0)
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size_y=0)
         self.assertSetEqual(
             {
-                (3, 3), (5, 3),
-                (3, 4), (5, 4),
-                (3, 5), (5, 5),
-                (3, 6), (5, 6),
-                (3, 7), (5, 7),
+                (3, 3),        (5, 3),
+                (3, 4),        (5, 4),
+                (3, 5),        (5, 5),
+                (3, 6),        (5, 6),
+                (3, 7),        (5, 7),
             },
             self.area_pattern.to_coords()
         )
 
     def test_area_use_grid_with_configs_abuse_as_lines2(self):
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_grid(gap_size_x=0)
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size_x=0)
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -586,7 +618,7 @@ class TestAreaPattern(TestCase):
         )
 
     def test_area_use_grid_with_configs_abuse_as_lines3(self):
-        self.area_pattern.select(3, 3, 6, 7).use_pattern_grid(gap_size_x=0, block_size_y=2)
+        self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size_x=0, block_size_y=2)
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -598,41 +630,25 @@ class TestAreaPattern(TestCase):
             self.area_pattern.to_coords()
         )
 
-    def test_area_get_x_range(self):
-        self.area_pattern.select(3, 4, 5, 6)
-        self.assertEqual(range(3, 5 + 1), self.area_pattern.get_range_x())
-
-    def test_area_get_y_range(self):
-        self.area_pattern.select(3, 4, 5, 6)
-        self.assertEqual(range(4, 6 + 1), self.area_pattern.get_range_y())
-
-    def test_area_get_width(self):
-        self.area_pattern.select(3, 5, 8, 11)
-        self.assertEqual(6, self.area_pattern.get_width())
-
-    def test_area_get_height(self):
-        self.area_pattern.select(3, 5, 8, 11)
-        self.assertEqual(7, self.area_pattern.get_height())
-
     def test_area_is_within_selection(self):
-        self.area_pattern.select(3, 5, 8, 11)
-        self.assertEqual(True, self.area_pattern.is_within_selection(3, 5))
-        self.assertEqual(True, self.area_pattern.is_within_selection(8, 11))
-        self.assertEqual(True, self.area_pattern.is_within_selection(7, 7))
-        self.assertEqual(False, self.area_pattern.is_within_selection(2, 7))
-        self.assertEqual(False, self.area_pattern.is_within_selection(11, 7))
-        self.assertEqual(False, self.area_pattern.is_within_selection(5, 4))
-        self.assertEqual(False, self.area_pattern.is_within_selection(5, 13))
+        self.area_pattern.select((3, 5), (8, 11))
+        self.assertEqual(True, self.area_pattern.is_within_selection((3, 5)))
+        self.assertEqual(True, self.area_pattern.is_within_selection((8, 11)))
+        self.assertEqual(True, self.area_pattern.is_within_selection((7, 7)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((2, 7)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((11, 7)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((5, 4)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((5, 13)))
 
     def test_area_is_edge_tile(self):
-        self.area_pattern.select(3, 5, 8, 11).use_only_edge()
-        self.assertEqual(True, self.area_pattern.is_within_selection(3, 5))
-        self.assertEqual(True, self.area_pattern.is_within_selection(8, 11))
-        self.assertEqual(True, self.area_pattern.is_within_selection(3, 7))
-        self.assertEqual(True, self.area_pattern.is_within_selection(6, 5))
-        self.assertEqual(False, self.area_pattern.is_within_selection(5, 7))
-        self.assertEqual(False, self.area_pattern.is_within_selection(2, 10))
-        self.assertEqual(False, self.area_pattern.is_within_selection(4, 12))
+        self.area_pattern.select((3, 5), (8, 11)).use_only_edge()
+        self.assertEqual(True, self.area_pattern.is_within_selection((3, 5)))
+        self.assertEqual(True, self.area_pattern.is_within_selection((8, 11)))
+        self.assertEqual(True, self.area_pattern.is_within_selection((3, 7)))
+        self.assertEqual(True, self.area_pattern.is_within_selection((6, 5)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((5, 7)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((2, 10)))
+        self.assertEqual(False, self.area_pattern.is_within_selection((4, 12)))
 
     def test_area_axis(self):
         self.area_pattern.along_axis("y")
@@ -641,88 +657,44 @@ class TestAreaPattern(TestCase):
         self.assertEqual("x", self.area_pattern.axis)
 
     def test_area_copy(self):
-        area2 = self.area_pattern.copy()
-        self.area_pattern.select(1, 2, 3, 4)
+        pattern = self.area_pattern.copy()
+        self.area_pattern.select((1, 2), (3, 4))
         self.area_pattern.attrs(line_width_x=5, line_width_y=6, gap_size_x=7, gap_size_y=8)
         self.area_pattern.use_pattern_grid().invert()
         self.area_pattern.map_size = 20
-        self.area_pattern.uuid = TEST_UUID  # Must match an actual UUID if you've set one
+        self.area_pattern.uuid = "TEST_UUID"  # Must match an actual UUID if you've set one
         self.area_pattern.axis = "y"
 
-        self.assertNotEqual(area2.x1, self.area_pattern.x1)
-        self.assertNotEqual(area2.y1, self.area_pattern.y1)
-        self.assertNotEqual(area2.x2, self.area_pattern.x2)
-        self.assertNotEqual(area2.y2, self.area_pattern.y2)
-        self.assertNotEqual(area2.line_width_x, self.area_pattern.line_width_x)
-        self.assertNotEqual(area2.line_width_y, self.area_pattern.line_width_y)
-        self.assertNotEqual(area2.gap_size_x, self.area_pattern.gap_size_x)
-        self.assertNotEqual(area2.gap_size_y, self.area_pattern.gap_size_y)
-        self.assertNotEqual(area2._map_size_value, self.area_pattern._map_size_value)
-        self.assertNotEqual(area2.uuid, self.area_pattern.uuid)
-        self.assertNotEqual(area2.state, self.area_pattern.state)
-        self.assertNotEqual(area2.inverted, self.area_pattern.inverted)
-        self.assertNotEqual(area2.axis, self.area_pattern.axis)
+        self.assertNotEqual(pattern.area, self.area_pattern.area)
+        self.assertNotEqual(pattern.line_width_x, self.area_pattern.line_width_x)
+        self.assertNotEqual(pattern.line_width_y, self.area_pattern.line_width_y)
+        self.assertNotEqual(pattern.gap_size_x, self.area_pattern.gap_size_x)
+        self.assertNotEqual(pattern.gap_size_y, self.area_pattern.gap_size_y)
+        self.assertNotEqual(pattern.uuid, self.area_pattern.uuid)
+        self.assertNotEqual(pattern.state, self.area_pattern.state)
+        self.assertNotEqual(pattern.inverted, self.area_pattern.inverted)
+        self.assertNotEqual(pattern.axis, self.area_pattern.axis)
 
     def test_area_instantiate_without_map_size(self):
-        self.area_pattern = Area(x1=0, y1=1, x2=2, y2=3)
-        self.assertEqual(0, self.area_pattern.x1)
-        self.assertEqual(1, self.area_pattern.y1)
-        self.assertEqual(2, self.area_pattern.x2)
-        self.assertEqual(3, self.area_pattern.y2)
+        self.area_pattern = AreaPattern.from_tiles((0, 1), (2, 3))
+        self.assertEqual(((0, 1), (2, 3)), self.area_pattern.area)
 
-        self.area_pattern = Area(x1=0, y1=3)
-        self.assertEqual(0, self.area_pattern.x1)
-        self.assertEqual(3, self.area_pattern.y1)
-        self.assertEqual(0, self.area_pattern.x2)
-        self.assertEqual(3, self.area_pattern.y2)
+        self.area_pattern = AreaPattern.from_tiles((0, 3))
+        self.assertEqual(((0, 3),), self.area_pattern.area)
 
     def test_map_size_functions_without_map_size(self):
-        self.area_pattern = Area(x1=10, y1=10, x2=12, y2=12)
+        self.area_pattern = AreaPattern.from_tiles((10, 10), (12, 12))
 
-        self.assertRaises(ValueError, lambda: self.area_pattern.center_bounded(5, 5))
+        self.assertRaises(ValueError, lambda: self.area_pattern.center((5, 5)).cut_overflow())
+        self.assertRaises(ValueError, lambda: self.area_pattern.shift_overflow())
         self.assertRaises(ValueError, lambda: self.area_pattern.select_entire_map())
 
         self.area_pattern.width(5)
-        self.assertEqual(9, self.area_pattern.x1)
-        self.assertEqual(10, self.area_pattern.y1)
-        self.assertEqual(13, self.area_pattern.x2)
-        self.assertEqual(12, self.area_pattern.y2)
+        self.assertEqual(((3, 4), (7, 6)), self.area_pattern.area)
 
     def test_area_corners(self):
-        self.area_pattern = Area(x1=1, y1=2, corner1=Tile(3, 4))
-        self.assertEqual(3, self.area_pattern.x1)
-        self.assertEqual(4, self.area_pattern.y1)
-        self.assertEqual(3, self.area_pattern.x2)
-        self.assertEqual(4, self.area_pattern.y2)
+        self.area_pattern = AreaPattern.from_tiles(corner1=Tile(2, 4), corner2=Tile(6, 8))
+        self.assertEqual(((2, 4), (6, 8)), self.area_pattern.area)
 
-        self.area_pattern = Area(corner1=Tile(2, 4), corner2=Tile(6, 8))
-        self.assertEqual(2, self.area_pattern.x1)
-        self.assertEqual(4, self.area_pattern.y1)
-        self.assertEqual(6, self.area_pattern.x2)
-        self.assertEqual(8, self.area_pattern.y2)
-        self.assertEqual(Tile(2, 4), self.area_pattern.corner1)
-        self.assertEqual(Tile(6, 8), self.area_pattern.corner2)
-
-        self.area_pattern = Area(corner1=Tile(3, 5))
-        self.assertEqual(3, self.area_pattern.x1)
-        self.assertEqual(5, self.area_pattern.y1)
-        self.assertEqual(3, self.area_pattern.x2)
-        self.assertEqual(5, self.area_pattern.y2)
-        self.assertEqual(Tile(3, 5), self.area_pattern.corner1)
-        self.assertEqual(Tile(3, 5), self.area_pattern.corner2)
-
-        self.area_pattern.corner1 = Tile(10, 15)
-        self.assertEqual(Tile(10, 15), self.area_pattern.corner1)
-        self.assertEqual(10, self.area_pattern.x1)
-        self.assertEqual(15, self.area_pattern.y1)
-        self.assertEqual(Tile(3, 5), self.area_pattern.corner2)  # Should be unchanged
-        self.assertEqual(3, self.area_pattern.x2)  # Should be unchanged
-        self.assertEqual(5, self.area_pattern.y2)  # Should be unchanged
-
-        self.area_pattern.corner2 = Tile(20, 25)
-        self.assertEqual(Tile(10, 15), self.area_pattern.corner1)  # Should be unchanged
-        self.assertEqual(10, self.area_pattern.x1)  # Should be unchanged
-        self.assertEqual(15, self.area_pattern.y1)  # Should be unchanged
-        self.assertEqual(Tile(20, 25), self.area_pattern.corner2)
-        self.assertEqual(20, self.area_pattern.x2)
-        self.assertEqual(25, self.area_pattern.y2)
+        self.area_pattern = AreaPattern.from_tiles(corner1=Tile(3, 5))
+        self.assertEqual(((3, 5),), self.area_pattern.area)

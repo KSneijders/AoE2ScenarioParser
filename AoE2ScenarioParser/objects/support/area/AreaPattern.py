@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 import sys
-from typing import TYPE_CHECKING, Iterable, Literal, NoReturn
+from typing import TYPE_CHECKING, Iterable, Literal, NoReturn, Callable
 from uuid import UUID
 
 from ordered_set import OrderedSet
@@ -72,7 +72,7 @@ class AreaPattern:
             area = Area(corner1, corner2)
 
         self.area = area
-        self.state: AreaState = AreaState.FULL
+        self.state: AreaState = AreaState.RECT
         self.inverted: bool = False
 
         self.gap_size_x: int = 1
@@ -82,7 +82,7 @@ class AreaPattern:
         self.block_size_x: int = 1
         self.block_size_y: int = 1
 
-        self.axis: str = ""
+        self.axis: str = "x"
 
         self.corner_size_x: int = 1
         self.corner_size_y: int = 1
@@ -96,7 +96,8 @@ class AreaPattern:
     @classmethod
     def from_tiles(cls, corner1: TileT, corner2: TileT = None) -> AreaPattern:
         corner1 = Tile(*corner1).resolve_negative_coords()
-        corner2 = Tile(*corner2).resolve_negative_coords()
+        if corner2 is not None:
+            corner2 = Tile(*corner2).resolve_negative_coords()
         return cls(corner1=corner1, corner2=corner2)
 
     # ============================ Properties ============================
@@ -193,7 +194,7 @@ class AreaPattern:
         tiles = self.to_coords()
 
         # Shortcut for states that CANNOT be more than one chunk
-        if self.state in AreaState.unchunkables():
+        if not self.state.is_chunkable():
             return [tiles]
 
         chunks: dict[int, list[Tile]] = {}
@@ -220,7 +221,7 @@ class AreaPattern:
 
     def use_full(self) -> AreaPattern:
         """Sets the area_pattern object to use the entire selection"""
-        self.state = AreaState.FULL
+        self.state = AreaState.RECT
         return self
 
     def use_only_edge(self, line_width: int = None, line_width_x: int = None, line_width_y: int = None) -> AreaPattern:
@@ -421,7 +422,7 @@ class AreaPattern:
         """
         If the area_pattern selection is off the map, shrink the area_pattern to fit inside the map
         """
-        self.area = self.area.bound(self._map_size)
+        self.area = self.area.bound(self.map_size)
         return self
 
     def shift_overflow(self) -> AreaPattern:
@@ -433,7 +434,7 @@ class AreaPattern:
         # Re-add that many tiles to both sides of the new area_pattern and then
         # just cut the excess off again to get the shifted version of the old area_pattern
 
-        new_area = self.area.bound(self._map_size)
+        new_area = self.area.bound(self.map_size)
         diff_width = self.area.width - new_area.width
         diff_height = self.area.height - new_area.height
         self.area = Area(
@@ -545,7 +546,7 @@ class AreaPattern:
             return False
 
         return any((
-            self.state == AreaState.FULL,
+            self.state == AreaState.RECT,
             self.state == AreaState.EDGE and self._is_on_edge(tile),
             self.state == AreaState.GRID and self._is_in_grid(tile),
             self.state == AreaState.LINES and self._is_on_line(tile),
@@ -678,7 +679,7 @@ class AreaPattern:
 
     def _calc_corner_chunk_id(self, tile: TileT) -> int:
         """
-        Corner chunk ID is which "corner of tiles" the given tile is on, starting from the top/left (visually, the west
+        Corner chunk ID is which "corner of tiles" the given tile is on, starting from the top left (visually, the west
         corner on the minimap) and increasing clockwise
         """
         x, y = tile
@@ -686,11 +687,11 @@ class AreaPattern:
 
         if 0 <= x - corner1.x < self.corner_size_x and 0 <= y - corner1.y < self.corner_size_y:
             return 0
-        if 0 <= x - corner1.x < self.corner_size_x and 0 <= corner2.y - y < self.corner_size_y:
+        if 0 <= corner2.x - x < self.corner_size_x and 0 <= y - corner1.y < self.corner_size_y:
             return 1
         if 0 <= corner2.x - x < self.corner_size_x and 0 <= corner2.y - y < self.corner_size_y:
             return 2
-        if 0 <= corner2.x - x < self.corner_size_x and 0 <= y - corner1.y < self.corner_size_y:
+        if 0 <= x - corner1.x < self.corner_size_x and 0 <= corner2.y - y < self.corner_size_y:
             return 3
         return -1
 
@@ -709,7 +710,7 @@ class AreaPattern:
         """
         if not self.is_within_selection(tile):
             return -1
-        if self.state in AreaState.unchunkables():
+        if not self.state.is_chunkable():
             return 0
         if self.state == AreaState.GRID:
             return self._calc_grid_chunk_id(tile)

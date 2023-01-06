@@ -216,9 +216,9 @@ class TestArea(TestCase):
 
     def test_area_use_full(self):
         self.area.use_full()
-        self.assertEqual(AreaState.FULL, self.area.state)
+        self.assertEqual(AreaState.RECT, self.area.state)
         self.area.use_only_edge().use_full()
-        self.assertEqual(AreaState.FULL, self.area.state)
+        self.assertEqual(AreaState.RECT, self.area.state)
 
         self.area.select(3, 3, 5, 5)
         self.assertSetEqual(
