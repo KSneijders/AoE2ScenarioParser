@@ -209,7 +209,7 @@ is shown:
 ```py
 copied_triggers = trigger_manager.copy_trigger_per_player(
     from_player=PlayerId.ONE,
-    trigger_select=3,
+    trigger=3,
     create_copy_for_players=[
         PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR  # Optional list
     ]
@@ -240,7 +240,7 @@ select in which order all the new triggers should be placed:
 ```py
 trigger_manager.copy_trigger_tree_per_player(
     from_player=PlayerId.ONE,
-    trigger_select=3,  # Or: TS.index(3)
+    trigger=3,  # Or: TS.index(3)
     group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.NONE and GroupBy.TRIGGER
 )
 ```

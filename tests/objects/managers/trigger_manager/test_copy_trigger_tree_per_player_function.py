@@ -19,7 +19,7 @@ class Test(TestCase):
         trigger.new_effect.create_object(object_list_unit_id=1, source_player=PlayerId.ONE)
         trigger.new_effect.create_object(source_player=PlayerId.TWO)
 
-        self.tm.copy_trigger_tree_per_player(from_player=PlayerId.ONE, trigger_select=0)
+        self.tm.copy_trigger_tree_per_player(from_player=PlayerId.ONE, trigger=0)
 
         self.assertListEqual(
             [t.name for t in self.tm.triggers],
@@ -41,7 +41,7 @@ class Test(TestCase):
         trigger2.new_effect.activate_trigger(trigger_id=3)
         trigger3 = self.tm.add_trigger("Trigger3")
 
-        new_triggers = self.tm.copy_trigger_tree_per_player(from_player=PlayerId.ONE, trigger_select=0)
+        new_triggers = self.tm.copy_trigger_tree_per_player(from_player=PlayerId.ONE, trigger=0)
 
         self.assertListEqual(
             [t.name for t in self.tm.triggers],
@@ -76,7 +76,7 @@ class Test(TestCase):
         trigger4 = self.tm.add_trigger("Trigger4")
 
         new_triggers = self.tm.copy_trigger_tree_per_player(
-            from_player=PlayerId.ONE, trigger_select=2, group_triggers_by=GroupBy.TRIGGER
+            from_player=PlayerId.ONE, trigger=2, group_triggers_by=GroupBy.TRIGGER
         )
 
         self.assertListEqual(
@@ -117,7 +117,7 @@ class Test(TestCase):
         trigger5 = self.tm.add_trigger("Trigger5")
 
         new_triggers = self.tm.copy_trigger_tree_per_player(
-            from_player=PlayerId.ONE, trigger_select=1, group_triggers_by=GroupBy.PLAYER
+            from_player=PlayerId.ONE, trigger=1, group_triggers_by=GroupBy.PLAYER
         )
 
         self.assertListEqual(

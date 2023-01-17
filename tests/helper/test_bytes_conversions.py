@@ -33,6 +33,7 @@ class Test(TestCase):
         warnings.filterwarnings(action='ignore', category=ByteDecodeWarning)
         self.assertEqual(bytes_to_str(latin1, charset='ascii', fallback_charset='ascii'), latin1)
         self.assertEqual(bytes_to_str(utf8_zero_char, charset='ascii', fallback_charset='ascii'), utf8_zero_char)
+        warnings.filterwarnings(action='default', category=ByteDecodeWarning)
 
     def test_str_to_bytes(self):
         self.assertEqual(str_to_bytes('Test String'), b'Test String')
