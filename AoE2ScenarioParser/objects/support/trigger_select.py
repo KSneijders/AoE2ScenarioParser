@@ -1,6 +1,7 @@
-from typing import Type
+from typing import Type, TYPE_CHECKING
 
-from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
 
 class TriggerSelect:
@@ -18,7 +19,7 @@ class TriggerSelect:
 
         `TS.trigger(trigger)`  Well... The trigger object given...
     """
-    def __init__(self, trigger_index: int = None, display_index: int = None, trigger: Trigger = None):
+    def __init__(self, trigger_index: int = None, display_index: int = None, trigger: 'Trigger' = None):
         """
         Args:
             trigger_index: The index of the trigger. Starting from 0, based on creation time
@@ -38,7 +39,7 @@ class TriggerSelect:
         return cls(display_index=display_index)
 
     @classmethod
-    def trigger(cls, trigger: Trigger):
+    def trigger(cls, trigger: 'Trigger'):
         return cls(trigger=trigger)
 
 

@@ -119,7 +119,7 @@ def trunc_string(string: str | bytes, length=30, add_ellipsis=True) -> str | byt
     Truncates string to a certain length and possibly adds ellipsis to said string.
 
     Args:
-        string: The string to truncate if over the given length
+        string: The string to truncate
         length: The max given length the string can be
         add_ellipsis: If ellipsis should be added if the string is truncated
 
