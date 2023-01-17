@@ -8,7 +8,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
-    from AoE2ScenarioParser.objects.support.area import AreaPattern
+    from AoE2ScenarioParser.objects.support.area_pattern import AreaPattern
     from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
 

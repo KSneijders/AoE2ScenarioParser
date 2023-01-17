@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.objects.support.Tile import Tile, TileT
+from AoE2ScenarioParser.objects.support.tile import Tile, TileT
 
 
 class Area:
@@ -9,6 +9,7 @@ class Area:
         if corner2 is None:
             self.corner1 = self.corner2 = Tile(corner1[0], corner1[1])
             return
+
         x1, x2 = sorted((corner1[0], corner2[0]))
         y1, y2 = sorted((corner1[1], corner2[1]))
         self.corner1 = Tile(x1, y1)

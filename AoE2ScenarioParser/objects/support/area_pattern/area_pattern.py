@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 import sys
-from typing import TYPE_CHECKING, Iterable, Literal, NoReturn
+from typing import TYPE_CHECKING, Iterable, Literal, NoReturn, List, Dict
 from uuid import UUID
 
 from ordered_set import OrderedSet
@@ -12,9 +12,9 @@ from AoE2ScenarioParser.exceptions.asp_exceptions import UnlinkedScenarioError, 
 from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
 from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.printers import warn
-from AoE2ScenarioParser.objects.support.area import AreaState, AreaAttr, Area
-from AoE2ScenarioParser.objects.support.Area import Area
-from AoE2ScenarioParser.objects.support.Tile import Tile, TileT
+from AoE2ScenarioParser.objects.support.area_pattern import AreaState, AreaAttr
+from AoE2ScenarioParser.objects.support.area import Area
+from AoE2ScenarioParser.objects.support.tile import Tile, TileT
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
@@ -170,7 +170,7 @@ class AreaPattern:
     def to_chunks(
             self,
             as_terrain: bool = False
-    ) -> list[OrderedSet[Tile | TerrainTile]]:
+    ) -> List[OrderedSet[Tile | TerrainTile]]:
         """
         Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
         The separation between chunks is based on if they're connected to each other.
@@ -198,7 +198,7 @@ class AreaPattern:
         if not self.state.is_chunkable():
             return [tiles]
 
-        chunks: dict[int, list[Tile]] = {}
+        chunks: Dict[int, List[Tile]] = {}
         for tile in tiles:
             chunk_id = self._get_chunk_id(tile)
             if chunk_id == -1:
@@ -209,7 +209,7 @@ class AreaPattern:
             chunks.setdefault(chunk_id, []).append(tile)
 
         map_size = self._map_size
-        chunks_ordered: list[OrderedSet[Tile | TerrainTile]] = []
+        chunks_ordered: List[OrderedSet[Tile | TerrainTile]] = []
         for chunk_id, chunk_tiles in chunks.items():
             tiles = self._tiles_to_terrain_tiles(chunk_tiles) if as_terrain else chunk_tiles
             chunks_ordered.append(
@@ -336,7 +336,7 @@ class AreaPattern:
         if isinstance(key, AreaAttr):
             key = key.value
 
-        keys: list[str] = [key]
+        keys: List[str] = [key]
         if key in ['line_width', 'gap_size', 'corner_size', 'block_size']:
             keys = [key + '_x', key + '_y']
 
