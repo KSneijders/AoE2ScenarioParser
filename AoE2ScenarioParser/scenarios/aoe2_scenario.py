@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import time
+import warnings
 import zlib
 from pathlib import Path
 from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any
@@ -13,7 +14,7 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.printers import s_print, color_string
+from AoE2ScenarioParser.helper.printers import s_print, color_string, warn
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
@@ -242,6 +243,11 @@ class AoE2Scenario:
 
     def remove_store_reference(self) -> None:
         """
+        This function is **DEPRECATED**. No replacement is necessary as the store now uses weak references.
+        You can safely remove the call to this function.
+
+        --- Legacy docstring ---
+
         Removes the reference to this scenario object from the scenario store. Useful (~a must) when reading many
         scenarios in a row without needing earlier ones. Python likes to take up a lot of memory.
         Removing all references to an object will cause the memory to be cleared up.
@@ -252,6 +258,8 @@ class AoE2Scenario:
             If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete
             them using: `del varname`.
         """
+        warn("This function is DEPRECATED as the store now uses weak references. \n"
+             "You can safely remove the call to this function.", DeprecationWarning)
         store.remove_scenario(self.uuid)
 
     def commit(self) -> None:
