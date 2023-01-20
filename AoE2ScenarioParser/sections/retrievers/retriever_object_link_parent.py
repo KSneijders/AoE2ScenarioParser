@@ -163,3 +163,19 @@ class RetrieverObjectLinkParent:
             host_obj: The host object that belongs to the retriever links
         """
         raise NotImplementedError("This function has not been implemented in the subclass yet.")
+
+    @staticmethod
+    def format_link_string(link: str, history: List[int]) -> str:
+        """
+        Format a link string to include the index values from the history
+
+        Args:
+            link: The link string (i.e. `"trigger_data[__index__].effect_data[__index__]"`)
+            history: The number history i.e. `[4, 1]`
+
+        Returns:
+            The formatted string. Taking the examples from params, this would become `"trigger_data[4].effect_data[1]"`.
+        """
+        for i in range(len(history)):
+            link = link.replace('__index__', str(history[i]), 1)
+        return link

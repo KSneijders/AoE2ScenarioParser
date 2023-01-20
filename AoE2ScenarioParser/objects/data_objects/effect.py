@@ -20,8 +20,11 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 def _add_trail_if_string_attr_is_used_in_effect(obj: Effect, attr_name, val: bytes | str):
-    if attr_name in effects.attributes[obj.effect_type]:
-        return val + (b"\x00" if type(val) is bytes else "\x00")
+    try:
+        if attr_name in effects.attributes[obj.effect_type]:
+            return val + (b"\x00" if type(val) is bytes else "\x00")
+    except KeyError:
+        pass
     return val
 
 
@@ -376,7 +379,12 @@ class Effect(AoE2Object, TriggerComponent):
             return "<< No Attributes >>\n"
 
         if include_effect_definition:
-            return f"{effects.effect_names[self.effect_type]}:\n{add_tabs(return_string, 1)}"
+            try:
+                effect_name = effects.effect_names[self.effect_type]
+            except KeyError:
+                effect_name = "Unknown"
+
+            return f"{effect_name}:\n{add_tabs(return_string, 1)}"
         return return_string
 
     def _update_armour_attack_flag(self):

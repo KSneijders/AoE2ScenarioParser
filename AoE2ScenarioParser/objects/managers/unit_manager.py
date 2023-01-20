@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Generator
+from typing import List, Tuple, Generator, Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
