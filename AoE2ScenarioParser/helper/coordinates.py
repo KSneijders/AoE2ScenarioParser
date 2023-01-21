@@ -6,7 +6,7 @@ from AoE2ScenarioParser.helper.helper import value_is_valid
 from AoE2ScenarioParser.helper.printers import warn
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.objects.support.area import Tile
+    from AoE2ScenarioParser.objects.support.tile import Tile
 
 
 def xy_to_i(x, y, map_size) -> int:
