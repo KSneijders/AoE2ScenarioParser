@@ -253,6 +253,7 @@ class TestAreaPattern(TestCase):
         )
 
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_lines(axis="x")
+        # @formatter:off
         self.assertListEqual(
             [
                 {(3, 3), (4, 3), (5, 3), (6, 3)},
@@ -263,8 +264,10 @@ class TestAreaPattern(TestCase):
             ],
             self.area_pattern.to_chunks()
         )
+        # @formatter:on
 
         self.area_pattern.select((3, 3), (7, 7)).use_pattern_grid(block_size=2)
+        # @formatter:off
         self.assertListEqual(
             [
                 {
@@ -286,8 +289,10 @@ class TestAreaPattern(TestCase):
             ],
             self.area_pattern.to_chunks()
         )
+        # @formatter:on
 
         self.area_pattern.invert()
+        # @formatter:off
         self.assertListEqual(
             [{
                 (5, 3),
@@ -300,9 +305,11 @@ class TestAreaPattern(TestCase):
             }],
             self.area_pattern.to_chunks()
         )
+        # @formatter:on
 
     def test_area_to_chunks_order(self):
         self.area_pattern.select((3, 3), (8, 8)).use_pattern_grid(block_size=3, gap_size=1)
+        # @formatter:off
         tiles = [
             (3, 3), (4, 3), (5, 3),  # First (left top) block (3x3)
             (3, 4), (4, 4), (5, 4),
@@ -318,6 +325,7 @@ class TestAreaPattern(TestCase):
             (7, 7), (8, 7),  # Fourth (right bottom) block (2x2)
             (7, 8), (8, 8),
         ]
+        # @formatter:on
 
         index = 0
         for ords in self.area_pattern.to_chunks():
@@ -356,6 +364,7 @@ class TestAreaPattern(TestCase):
         self.assertEqual(AreaState.EDGE, self.area_pattern.state)
 
         self.area_pattern.select((3, 3), (6, 7))
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -366,8 +375,10 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.select((3, 3), (8, 8)).use_only_edge().attr(AreaAttr.LINE_WIDTH, 2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3),
@@ -379,6 +390,7 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.invert()
         self.assertSetEqual(
@@ -394,6 +406,7 @@ class TestAreaPattern(TestCase):
         self.assertEqual(AreaState.LINES, self.area_pattern.state)
 
         self.area_pattern.select((3, 3), (6, 7))
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3),         (5, 3),
@@ -404,8 +417,10 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.use_pattern_lines(axis= "x")
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -416,8 +431,10 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.use_pattern_lines(axis= "x", gap_size=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -427,6 +444,7 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.use_pattern_lines(axis= "x", gap_size=1, line_width=2)
         self.assertSetEqual(
@@ -444,6 +462,7 @@ class TestAreaPattern(TestCase):
         self.assertEqual(AreaState.GRID, self.area_pattern.state)
 
         self.area_pattern.select((3, 3), (6, 7))
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3),        (5, 3),
@@ -454,8 +473,10 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.select((3, 3), (6, 7)).invert()
+        # @formatter:off
         self.assertSetEqual(
             {
                         (4, 3),         (6, 3),
@@ -466,12 +487,14 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_use_only_corners(self):
         self.area_pattern.use_only_corners()
         self.assertEqual(AreaState.CORNERS, self.area_pattern.state)
 
         self.area_pattern.select((3, 3), (6, 7))
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3),                 (6, 3),
@@ -482,8 +505,10 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.attrs(corner_size=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -494,8 +519,10 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
         self.area_pattern.attrs(corner_size_x=1, corner_size_y=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3),                 (6, 3),
@@ -505,6 +532,7 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_attr_config(self):
         self.area_pattern.attr('gap_size', 3)
@@ -555,6 +583,7 @@ class TestAreaPattern(TestCase):
 
     def test_area_use_grid_with_configs(self):
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3),                 (6, 3),
@@ -562,9 +591,11 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_use_grid_with_configs_2(self):
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(block_size=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3),         (6, 3),
@@ -575,9 +606,11 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_use_grid_with_configs_3(self):
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(block_size=2, gap_size=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3),
@@ -588,11 +621,13 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     # -------------- test_area_use_grid_with_configs_abuse_as_lines --------------
 
     def test_area_use_grid_with_configs_abuse_as_lines(self):
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size_y=0)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3),        (5, 3),
@@ -603,9 +638,11 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_use_grid_with_configs_abuse_as_lines2(self):
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size_x=0)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -616,9 +653,11 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_use_grid_with_configs_abuse_as_lines3(self):
         self.area_pattern.select((3, 3), (6, 7)).use_pattern_grid(gap_size_x=0, block_size_y=2)
+        # @formatter:off
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -629,6 +668,7 @@ class TestAreaPattern(TestCase):
             },
             self.area_pattern.to_coords()
         )
+        # @formatter:on
 
     def test_area_is_within_selection(self):
         self.area_pattern.select((3, 5), (8, 11))
