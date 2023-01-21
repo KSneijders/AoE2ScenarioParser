@@ -100,7 +100,7 @@ def bytes_to_str(
             continue
 
     # Return the string as bytes when it cannot be decoded. This will leave it as-is.
-    truncated = trunc_bytes(byte_elements, 25)
+    truncated = trunc_string(byte_elements, 25)
     warn(f"Unable to decode bytes using '{charset}' and '{fallback_charset}', bytes: \n\t{truncated}",
          category=ByteDecodeWarning)
     return byte_elements

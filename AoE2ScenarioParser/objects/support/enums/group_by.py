@@ -4,7 +4,7 @@ from enum import IntEnum
 class GroupBy(IntEnum):
     """
     Enum used to select what way the triggers should be grouped when using the function 'copy_trigger_tree_per_player'.
-    Each mode has it's own explanation explained in the corresponding docstring.
+    Each mode has its own explanation explained in the corresponding docstring.
     """
     NONE = -1
     """

@@ -13,4 +13,4 @@ class AreaState(IntEnum):
 
     def is_chunkable(self: AreaState) -> bool:
         """Return if the state is chunkable or not"""
-        return not self in {AreaState.RECT, AreaState.EDGE}
+        return self not in {AreaState.RECT, AreaState.EDGE}

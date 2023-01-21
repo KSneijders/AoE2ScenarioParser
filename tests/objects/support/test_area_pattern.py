@@ -2,15 +2,15 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
-from AoE2ScenarioParser.objects.support.area import AreaPattern, AreaState, AreaAttr
-from AoE2ScenarioParser.objects.support.Tile import Tile
+from AoE2ScenarioParser.objects.support.area_pattern import AreaPattern, AreaState, AreaAttr
+from AoE2ScenarioParser.objects.support.tile import Tile
 
 
 class TestAreaPattern(TestCase):
     area_pattern: AreaPattern
 
     def setUp(self) -> None:
-        self.area_pattern = AreaPattern(map_size = 144)
+        self.area_pattern = AreaPattern(map_size=144)
 
     def test_select_entire_map(self):
         self.area_pattern.select_entire_map()
@@ -132,7 +132,7 @@ class TestAreaPattern(TestCase):
         mock_scx = Mock()
         mock_scx.uuid = test_uuid
         patched_get_terrain.return_value = terrain = [
-            TerrainTile(_index = index, uuid = test_uuid) for index in range(pow(5, 2))
+            TerrainTile(_index=index, uuid=test_uuid) for index in range(pow(5, 2))
         ]
         self.area_pattern.link_scenario(mock_scx)
         self.area_pattern.select((1, 1), (2, 2))
@@ -183,7 +183,7 @@ class TestAreaPattern(TestCase):
         )
 
     def test_set_size_then_center(self):
-        self.area_pattern = AreaPattern(map_size = self.area_pattern._map_size)
+        self.area_pattern = AreaPattern(map_size=self.area_pattern._map_size)
         self.area_pattern.size(9).center((8, 8))
         self.assertEqual(((4, 4), (12, 12)), self.area_pattern.area)
 
@@ -343,7 +343,7 @@ class TestAreaPattern(TestCase):
         self.assertEqual(12, self.area_pattern._get_chunk_id(Tile(3, 3)))
         self.assertEqual(17, self.area_pattern._get_chunk_id(Tile(3, 4)))
 
-        self.area_pattern.use_pattern_lines(axis= "y", gap_size=1)
+        self.area_pattern.use_pattern_lines(axis="y", gap_size=1)
         self.assertEqual(0, self.area_pattern._get_chunk_id(Tile(1, 1)))
         self.assertEqual(-1, self.area_pattern._get_chunk_id(Tile(2, 4)))
         self.assertEqual(2, self.area_pattern._get_chunk_id(Tile(5, 3)))
@@ -402,7 +402,7 @@ class TestAreaPattern(TestCase):
         )
 
     def test_area_use_lines(self):
-        self.area_pattern.use_pattern_lines(axis= "y")
+        self.area_pattern.use_pattern_lines(axis="y")
         self.assertEqual(AreaState.LINES, self.area_pattern.state)
 
         self.area_pattern.select((3, 3), (6, 7))
@@ -419,7 +419,7 @@ class TestAreaPattern(TestCase):
         )
         # @formatter:on
 
-        self.area_pattern.use_pattern_lines(axis= "x")
+        self.area_pattern.use_pattern_lines(axis="x")
         # @formatter:off
         self.assertSetEqual(
             {
@@ -433,7 +433,7 @@ class TestAreaPattern(TestCase):
         )
         # @formatter:on
 
-        self.area_pattern.use_pattern_lines(axis= "x", gap_size=2)
+        self.area_pattern.use_pattern_lines(axis="x", gap_size=2)
         # @formatter:off
         self.assertSetEqual(
             {
@@ -446,7 +446,7 @@ class TestAreaPattern(TestCase):
         )
         # @formatter:on
 
-        self.area_pattern.use_pattern_lines(axis= "x", gap_size=1, line_width=2)
+        self.area_pattern.use_pattern_lines(axis="x", gap_size=1, line_width=2)
         self.assertSetEqual(
             {
                 (3, 3), (4, 3), (5, 3), (6, 3),
@@ -693,7 +693,7 @@ class TestAreaPattern(TestCase):
     def test_area_axis(self):
         self.area_pattern.along_axis("y")
         self.assertEqual("y", self.area_pattern.axis)
-        self.area_pattern.use_pattern_lines(axis= "x")
+        self.area_pattern.use_pattern_lines(axis="x")
         self.assertEqual("x", self.area_pattern.axis)
 
     def test_area_copy(self):

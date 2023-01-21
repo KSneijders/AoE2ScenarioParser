@@ -189,7 +189,7 @@ the one you like the most (We'll continue with the first option):
 
 ```py
 # For the third option:
-from AoE2ScenarioParser.objects.support.area import AreaAttr
+from AoE2ScenarioParser.objects.support.area_pattern import AreaAttr
 
 ...
 area.use_pattern_grid(block_size=3, gap_size=0)

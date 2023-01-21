@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from AoE2ScenarioParser.objects.support.area import AreaPattern
+from AoE2ScenarioParser.objects.support.area_pattern import AreaPattern
 
 
 class ObjectFactory:
