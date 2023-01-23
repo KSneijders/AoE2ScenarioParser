@@ -14,7 +14,6 @@ class Tile(NamedTuple):
     x: int
     y: int
 
-    # Todo: Add tests
     @classmethod
     def from_i(cls, i: int, map_size: int):
         """
@@ -57,10 +56,8 @@ class Tile(NamedTuple):
         Raises:
             ValueError: When negative coordinates are provided without a map_size
         """
-        if map_size is None:
-            if self.x < 0 or self.y < 0:
-                raise ValueError("Cannot use negative coordinates to make an area selection when map_size is not set")
-            return self
+        if map_size is None and (self.x < 0 or self.y < 0):
+            raise ValueError("Cannot use negative coordinates to make an area selection when map_size is not set")
         return Tile(
             (self.x + map_size) if self.x < 0 else self.x,
             (self.y + map_size) if self.y < 0 else self.y,
