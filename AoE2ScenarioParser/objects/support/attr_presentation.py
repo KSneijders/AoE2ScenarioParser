@@ -65,14 +65,17 @@ def _format_unit_reference_representation(ref_id: int | List[int], uuid: UUID) -
     if retrieved_units is not None:
         units, invalids = retrieved_units
         unit_count = len(units) + len(invalids)
-        formatted = '\n\t'.join([
-            f"{i}: {format_unit(unit)} ({unit.reference_id})" for i, unit in enumerate(units)
-        ])
-        formatted += '\n\t'.join([
-            _store_error_displays['units']['invalid_reference'](invalid_id) for invalid_id in invalids
-        ])
+
+        formatted_strings = {}
+        for i, unit in enumerate(units):
+            formatted_strings[unit.reference_id] = f"{i}: {format_unit(unit)} ({unit.reference_id})"
+        for i, invalid_id in enumerate(invalids, len(units)):
+            formatted_strings[invalid_id] = f"{i}: " + _store_error_displays['units']['invalid_reference'](invalid_id)
+
+        joined_format_string = '\n\t'.join([formatted_strings[ref_id] for ref_id in ids])
         s = "s" if unit_count != 1 else ""
-        return f"{unit_count} unit{s}:\n\t{formatted}"
+
+        return f"{unit_count} unit{s}:\n\t{joined_format_string}"
     return f"<<INVALID UNITS>> ({ref_id})"
 
 

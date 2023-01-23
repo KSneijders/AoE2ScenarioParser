@@ -2,16 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional
 from uuid import UUID
+from weakref import WeakValueDictionary
 
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
-_scenarios: Dict[UUID, 'AoE2Scenario'] = {}
-_scenarios_by_name: Dict[str, 'AoE2Scenario'] = {}
+_scenarios: WeakValueDictionary[UUID, 'AoE2Scenario'] = WeakValueDictionary()
+_scenarios_by_name: WeakValueDictionary[str, 'AoE2Scenario'] = WeakValueDictionary()
 
 
 def get_scenario(
@@ -65,7 +65,8 @@ def register_scenario(scenario: 'AoE2Scenario') -> None:
 
 def remove_scenario(uuid: UUID) -> None:
     """
-    Remove a scenario from the store
+    force remove a scenario from the store. In general this is not necessary as the store stores references to the
+    scenario weakly. This means, as soon as the user removes all hard references, it's gone from the store too.
 
     Args:
         uuid: The UUID of the scenario
