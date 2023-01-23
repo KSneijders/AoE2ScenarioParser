@@ -110,9 +110,9 @@ class Tile(NamedTuple):
         return math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
 
     # Todo: Add tests
-    def dist_taxi_cab(self, other: Tile) -> int:
+    def dist_taxicab(self, other: Tile) -> int:
         """
-        Get the taxi cab/manhattan distance between two tiles
+        Get the taxicab/manhattan distance between two tiles
 
         Args:
             other: The tile to find the distance to
