@@ -63,7 +63,6 @@ class Tile(NamedTuple):
             (self.y + map_size) if self.y < 0 else self.y,
         )
 
-    # Todo: Add tests
     def mid_tile(self, other: Tile, de_behaviour: bool = True) -> Tile:
         """
         Returns the tile that is in the middle of the current and given tile.
@@ -80,7 +79,6 @@ class Tile(NamedTuple):
             return Tile(math.floor(x), math.floor(y))
         return Tile(math.ceil(x), math.ceil(y))
 
-    # Todo: Add tests
     def mid_point(self, other: Tile) -> tuple[float, float]:
         """
         Returns the mid-point between the two tiles as 2 floats
@@ -93,7 +91,6 @@ class Tile(NamedTuple):
         """
         return (self.x + other.x) / 2, (self.y + other.y) / 2
 
-    # Todo: Add tests
     def dist(self, other: Tile) -> float:
         """
         Get the euclidean distance between two tiles
@@ -106,7 +103,6 @@ class Tile(NamedTuple):
         """
         return math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
 
-    # Todo: Add tests
     def dist_taxicab(self, other: Tile) -> int:
         """
         Get the taxicab/manhattan distance between two tiles
@@ -117,7 +113,7 @@ class Tile(NamedTuple):
         Returns:
             The taxi cab/manhattan distance between the current and given tile
         """
-        return (other.x - self.x) + (other.y - self.y)
+        return abs(other.x - self.x) + abs(other.y - self.y)
 
     def __repr__(self):
         return f"Tile({self.x}, {self.y})"

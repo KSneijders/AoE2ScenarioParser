@@ -1,3 +1,4 @@
+import math
 from unittest import TestCase
 
 from AoE2ScenarioParser.objects.support import Tile
@@ -43,4 +44,28 @@ class TestUuidList(TestCase):
 
     def test_mid_tile(self):
         self.assertEqual(self.tile, self.tile.mid_tile(self.tile))
-        # work in progress...
+
+        self.assertEqual(Tile(3, 5), self.tile.mid_tile(Tile(3, 6)))
+        self.assertEqual(Tile(5, 7), self.tile.mid_tile(Tile(7, 9)))
+        self.assertEqual(Tile(4, 3), self.tile.mid_tile(Tile(5, 2)))
+        self.assertEqual(Tile(2, 2), self.tile.mid_tile(Tile(0, 0)))
+
+        self.assertEqual(Tile(3, 5), self.tile.mid_tile(Tile(3, 7), de_behaviour=False))
+        self.assertEqual(Tile(3, 6), self.tile.mid_tile(Tile(3, 7), de_behaviour=True))
+
+    def test_mid_point(self):
+        self.assertEqual((1.5, 2.0), self.tile.mid_point(Tile(0, 0)))
+        self.assertEqual((3.0, 5.0), self.tile.mid_point(Tile(3, 6)))
+        self.assertEqual((4.5, 3.5), self.tile.mid_point(Tile(6, 3)))
+
+    def test_dist(self):
+        self.assertEqual(0.0, self.tile.dist(Tile(3, 4)))
+        self.assertEqual(1.0, self.tile.dist(Tile(4, 4)))
+        self.assertEqual(1.0, self.tile.dist(Tile(3, 3)))
+        self.assertEqual(math.sqrt(2), self.tile.dist(Tile(2, 3)))
+
+    def test_dist_taxicab(self):
+        self.assertEqual(0.0, self.tile.dist_taxicab(Tile(3, 4)))
+        self.assertEqual(1.0, self.tile.dist_taxicab(Tile(4, 4)))
+        self.assertEqual(1.0, self.tile.dist_taxicab(Tile(3, 3)))
+        self.assertEqual(2.0, self.tile.dist_taxicab(Tile(2, 3)))
