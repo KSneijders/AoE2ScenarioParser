@@ -148,12 +148,12 @@ class TestAreaPattern(TestCase):
         self.assertEqual(((8, 8), (8, 8)), self.area_pattern.center((8, 8)).area)
 
         self.area_pattern.select((3, 3), (5, 5))
-        self.assertEqual((4, 4), self.area_pattern.area.center)
+        self.assertEqual((4, 4), self.area_pattern.area.center_tile)
         self.area_pattern.select((3, 3), (6, 6))
-        self.assertEqual((5, 5), self.area_pattern.area.center)
+        self.assertEqual((5, 5), self.area_pattern.area.center_tile)
 
         self.area_pattern.select((3, 3), (5, 5)).center((8, 8))
-        self.assertEqual((8, 8), self.area_pattern.area.center)
+        self.assertEqual((8, 8), self.area_pattern.area.center_tile)
         self.assertEqual(((7, 7), (9, 9)), self.area_pattern.area)
 
         self.area_pattern.select((5, 10), (20, 20)).center((5, 0))
@@ -166,7 +166,7 @@ class TestAreaPattern(TestCase):
         self.assertEqual((w, h), self.area_pattern.area.dimensions)
 
         self.area_pattern.select_centered((5, 5), dx=4, dy=4)
-        self.assertEqual((5, 5), self.area_pattern.area.center)
+        self.assertEqual((5, 5), self.area_pattern.area.center_tile)
 
     def test_set_center_then_size(self):
         self.area_pattern.center((8, 8)).size(9)

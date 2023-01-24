@@ -4,7 +4,7 @@ from unittest import TestCase
 from AoE2ScenarioParser.objects.support import Tile
 
 
-class TestUuidList(TestCase):
+class TestTile(TestCase):
     tile: Tile
 
     def setUp(self) -> None:

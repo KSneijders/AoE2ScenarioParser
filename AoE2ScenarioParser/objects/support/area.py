@@ -22,8 +22,12 @@ class Area:
         )
 
     @property
-    def center(self) -> Tile:
+    def center_tile(self) -> Tile:
         return self.corner1.mid_tile(self.corner2)
+
+    @property
+    def center_point(self) -> tuple[float, float]:
+        return self.corner1.mid_point(self.corner2)
 
     @property
     def width(self) -> int:

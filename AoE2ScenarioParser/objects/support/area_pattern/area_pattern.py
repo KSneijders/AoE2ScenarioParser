@@ -381,7 +381,7 @@ class AreaPattern:
         Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
         ``((3,3), (5,5))``
         """
-        center = self.area.center
+        center = self.area.center_tile
         n -= 1  # Ignore center tile
 
         self.area = Area(
@@ -396,7 +396,7 @@ class AreaPattern:
         If the expansion hits the edge of the map, it'll expand on the other side.
         """
         corner1, corner2 = self.area
-        center = self.area.center
+        center = self.area.center_tile
         n -= 1  # Ignore center tile
         self.area = Area(
             (corner1.x, center.y - math.ceil(n / 2)),
@@ -410,7 +410,7 @@ class AreaPattern:
         If the expansion hits the edge of the map, it'll expand on the other side.
         """
         corner1, corner2 = self.area
-        center = self.area.center
+        center = self.area.center_tile
         n -= 1  # Ignore center tile
 
         self.area = Area(
@@ -449,7 +449,7 @@ class AreaPattern:
         Moves the selection center to a given position while retaining the old width/height
         """
         x, y = tile
-        center = self.area.center
+        center = self.area.center_tile
         dx, dy = x - center.x, y - center.y
         (x1, y1), (x2, y2) = self.area
         self.area = Area(
