@@ -20,11 +20,6 @@ class TestArea(TestCase):
 
         self.assertEqual(Area((2, 2), (4, 4)), Area((4, 4), (2, 2)))
 
-    def test_bound(self):
-        self.assertEqual(Area((2, 2), (4, 4)), self.area.bound(4))
-        self.assertEqual(Area((2, 2), (3, 4)), Area((2, 2), (3, 6)).bound(4))
-        self.assertEqual(Area((0, 0)), Area((-1, -1)).bound(4))
-
     def test_center(self):
         """Short test as the specific logic is tested within the Tile class"""
         self.assertEqual(Tile(4, 4), self.area.center_tile)
@@ -41,6 +36,17 @@ class TestArea(TestCase):
 
     def test_dimensions(self):
         self.assertEqual((4.0, 5.0), self.area.dimensions)
+
+    def test_resolve_negative_coords(self):
+        self.area = Area((-4, -4), (-2, -2))
+        self.assertEqual(Area((6, 6), (8, 8)), self.area.resolve_negative_coords(10))
+        # self.area = Tile(-1, 5)
+        # self.assertEqual(Tile(9, 5), self.area.resolve_negative_coords(10))
+
+    def test_bound(self):
+        self.assertEqual(Area((2, 2), (4, 4)), self.area.bound(4))
+        self.assertEqual(Area((2, 2), (3, 4)), Area((2, 2), (3, 6)).bound(4))
+        self.assertEqual(Area((0, 0)), Area((-1, -1)).bound(4))
 
     def test_contains(self):
         self.assertTrue(self.area.contains(Tile(2, 2)))

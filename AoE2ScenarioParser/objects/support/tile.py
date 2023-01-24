@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 from typing import NamedTuple, Tuple
 
-from AoE2ScenarioParser.helper.coordinates import i_to_xy
+from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.helper import bound
 
 TileT = Tuple[int, int]
@@ -28,6 +28,18 @@ class Tile(NamedTuple):
         """
         return cls(*i_to_xy(i, map_size))
 
+    def to_i(self, map_size: int) -> int:
+        """
+        Get the index of a tile if it'd be on a map
+
+        Args:
+            map_size: The map_size of the map
+
+        Returns:
+            A number representing the index of this tile on a map
+        """
+        return xy_to_i(self.x, self.y, map_size)
+
     def bound(self, map_size: int) -> Tile:
         """
         Create a new tile object with the same coords as this tile but bounded between 0 and map_size
@@ -43,7 +55,7 @@ class Tile(NamedTuple):
             bound(self.y, (0, map_size)),
         )
 
-    def resolve_negative_coords(self, map_size: int | None = None) -> Tile:
+    def resolve_negative_coords(self, map_size: int) -> Tile:
         """
         Converts negative coordinates to the non-negative value. Like: ``-1 == 119`` when ``map_size = 120``
 
@@ -52,12 +64,7 @@ class Tile(NamedTuple):
 
         Returns:
             A new Tile object with the mapped coordinates
-
-        Raises:
-            ValueError: When negative coordinates are provided without a map_size
         """
-        if map_size is None and (self.x < 0 or self.y < 0):
-            raise ValueError("Cannot use negative coordinates to make an area selection when map_size is not set")
         return Tile(
             (self.x + map_size) if self.x < 0 else self.x,
             (self.y + map_size) if self.y < 0 else self.y,
