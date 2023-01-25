@@ -68,11 +68,9 @@ class AreaPattern:
                 corner1 = Tile(x, y)
             if corner2 is None:
                 corner2 = corner1
-            corner1 = Tile.from_value(corner1).resolve_negative_coords(self._map_size)
-            corner2 = Tile.from_value(corner2).resolve_negative_coords(self._map_size)
             area = Area(corner1, corner2)
 
-        self.area = area
+        self.area = area.resolve_negative_coords(self._map_size)
         self.state: AreaState = AreaState.RECT
         self.inverted: bool = False
 

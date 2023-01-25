@@ -49,7 +49,7 @@ class Area:
         """The dimensions of this area (inclusive)"""
         return self.width, self.height
 
-    def resolve_negative_coords(self, map_size: int) -> Area:
+    def resolve_negative_coords(self, map_size: int = None) -> Area:
         """
         Converts negative coordinates to the non-negative value. Like: ``-1 == 119`` when ``map_size = 120``
 

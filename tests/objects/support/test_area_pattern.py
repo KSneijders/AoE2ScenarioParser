@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
+from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.objects.support.area_pattern import AreaPattern, AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.tile import Tile
 
@@ -742,3 +743,20 @@ class TestAreaPattern(TestCase):
         area_pattern2 = AreaPattern.from_tiles((1, 1), (2, 2))
 
         self.assertEqual(area_pattern1.area, area_pattern2.area)
+
+    def test_init_with_negative_tiles(self):
+        self.assertRaises(ValueError, lambda: AreaPattern(corner1=(-5, -5), corner2=(-1, -1)))
+        self.assertRaises(ValueError, lambda: AreaPattern(area=((-1, -2), (-5, -4))))
+
+        ap = AreaPattern(corner1=(-5, -5), corner2=(-1, -1), map_size=10)
+        self.assertEqual(Area((5, 5), (9, 9)), ap.area)
+
+        ap = AreaPattern(corner1=(-5, -5), map_size=10)
+        self.assertEqual(Area((5, 5), (5, 5)), ap.area)
+
+        ap = AreaPattern(area=((-5, -5),), map_size=10)
+        self.assertEqual(Area((5, 5), (5, 5)), ap.area)
+
+        ap = AreaPattern(area=((-1, -2), (-5, -4)), map_size=10)
+        self.assertEqual(Area((5, 6), (9, 8)), ap.area)
+
