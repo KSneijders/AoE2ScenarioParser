@@ -55,7 +55,7 @@ class Tile(NamedTuple):
             bound(self.y, (0, map_size)),
         )
 
-    def resolve_negative_coords(self, map_size: int) -> Tile:
+    def resolve_negative_coords(self, map_size: int = None) -> Tile:
         """
         Converts negative coordinates to the non-negative value. Like: ``-1 == 119`` when ``map_size = 120``
 
@@ -64,7 +64,13 @@ class Tile(NamedTuple):
 
         Returns:
             A new Tile object with the mapped coordinates
+
+        Raises:
+            ValueError: When negative coordinates are provided without a map_size
         """
+        if map_size is None and (self.x < 0 or self.y < 0):
+            raise ValueError("Cannot use negative coordinates to make an area selection when map_size is not set")
+
         return Tile(
             (self.x + map_size) if self.x < 0 else self.x,
             (self.y + map_size) if self.y < 0 else self.y,
