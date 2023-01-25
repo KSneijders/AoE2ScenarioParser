@@ -68,8 +68,8 @@ class AreaPattern:
                 corner1 = Tile(x, y)
             if corner2 is None:
                 corner2 = corner1
-            corner1.resolve_negative_coords(self._map_size)
-            corner2.resolve_negative_coords(self._map_size)
+            corner1 = Tile.from_value(corner1).resolve_negative_coords(self._map_size)
+            corner2 = Tile.from_value(corner2).resolve_negative_coords(self._map_size)
             area = Area(corner1, corner2)
 
         self.area = area
@@ -95,11 +95,8 @@ class AreaPattern:
         return cls(uuid=uuid)
 
     @classmethod
-    def from_tiles(cls, corner1: TileT, corner2: TileT = None) -> AreaPattern:
-        corner1 = Tile(*corner1).resolve_negative_coords()
-        if corner2 is not None:
-            corner2 = Tile(*corner2).resolve_negative_coords()
-        return cls(corner1=corner1, corner2=corner2)
+    def from_tiles(cls, corner1: TileT, corner2: TileT = None, map_size: int = None) -> AreaPattern:
+        return cls(corner1=corner1, corner2=corner2, map_size=map_size)
 
     # ============================ Properties ============================
 

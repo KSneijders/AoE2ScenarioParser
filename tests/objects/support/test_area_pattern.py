@@ -295,13 +295,11 @@ class TestAreaPattern(TestCase):
         # @formatter:off
         self.assertListEqual(
             [{
-                (5, 3),
-                (5, 4),
-
+                                (5, 3),
+                                (5, 4),
                 (3, 5), (4, 5), (5, 5), (6, 5), (7, 5),
-
-                (5, 6),
-                (5, 7),
+                                (5, 6),
+                                (5, 7),
             }],
             self.area_pattern.to_chunks()
         )
@@ -738,3 +736,9 @@ class TestAreaPattern(TestCase):
 
         self.area_pattern = AreaPattern.from_tiles(corner1=Tile(3, 5))
         self.assertEqual(((3, 5),), self.area_pattern.area)
+
+    def test_init_with_tuples(self):
+        area_pattern1 = AreaPattern(corner1=(1, 1), corner2=(2, 2))
+        area_pattern2 = AreaPattern.from_tiles((1, 1), (2, 2))
+
+        self.assertEqual(area_pattern1.area, area_pattern2.area)

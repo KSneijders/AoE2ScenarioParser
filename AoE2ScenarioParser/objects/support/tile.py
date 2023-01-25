@@ -15,6 +15,28 @@ class Tile(NamedTuple):
     y: int
 
     @classmethod
+    def from_value(cls, val: TileT):
+        """
+        Create a Tile object based on a given value
+
+        Args:
+            val: The value used to create a tile with
+
+        Returns:
+            A new Tile instance if a tuple is given. If a tile is given it's directly returned.
+
+        Raises:
+            ValueError: When a value is given that cannot be turned into a Tile()
+        """
+        if isinstance(val, Tile):
+            return val
+        elif isinstance(val, tuple) or isinstance(val, list):
+            return Tile(*val)
+        elif isinstance(val, dict):
+            return Tile(**val)
+        raise ValueError(f"Unable to create instance of tile from the given value: {val}")
+
+    @classmethod
     def from_i(cls, i: int, map_size: int):
         """
         Create a Tile object based on an index and a map_size
