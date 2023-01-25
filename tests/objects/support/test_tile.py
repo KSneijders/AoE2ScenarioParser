@@ -75,3 +75,11 @@ class TestTile(TestCase):
         self.assertEqual(1.0, self.tile.dist_taxicab(Tile(4, 4)))
         self.assertEqual(1.0, self.tile.dist_taxicab(Tile(3, 3)))
         self.assertEqual(2.0, self.tile.dist_taxicab(Tile(2, 3)))
+
+    def test_from_value(self):
+        tile = Tile(34, 4)
+
+        self.assertIs(tile, Tile.from_value(tile))
+        self.assertEqual(Tile(1, 2), Tile.from_value((1, 2)))
+        self.assertEqual(Tile(1, 2), Tile.from_value([1, 2]))
+        self.assertEqual(Tile(1, 2), Tile.from_value({'x': 1, 'y': 2}))

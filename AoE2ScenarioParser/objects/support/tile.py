@@ -15,7 +15,7 @@ class Tile(NamedTuple):
     y: int
 
     @classmethod
-    def from_value(cls, val: TileT):
+    def from_value(cls, val: TileT | list | dict):
         """
         Create a Tile object based on a given value
 
