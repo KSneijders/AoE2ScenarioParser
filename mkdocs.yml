@@ -38,7 +38,7 @@ nav:
     - Hello World: "hello_world.md"
     - Support: "support.md"
   - Cheatsheets:
-    - Area: "cheatsheets/area.md"
+    - AreaPattern: "cheatsheets/area_pattern.md"
     - Datasets: "cheatsheets/datasets.md"
     - Data Triggers: "cheatsheets/data_triggers.md"
     - Message: "cheatsheets/message.md"
@@ -84,7 +84,13 @@ nav:
       - TriggerCeLock: "api_docs/trigger_ce_lock.md"
     - XsManager: "api_docs/xs_manager_de.md"
     - Settings: "api_docs/settings.md"
-    - Area: "api_docs/area.md"
+    - Support:
+      - Area: "api_docs/area.md"
+      - Tile: "api_docs/tile.md"
+      - AreaPattern:
+        - AreaAttr: "api_docs/area_attr.md"
+        - AreaPattern: "api_docs/area_pattern.md"
+        - AreaState: "api_docs/area_state.md"
 
 
 markdown_extensions:
