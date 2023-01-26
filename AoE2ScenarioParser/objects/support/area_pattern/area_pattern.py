@@ -718,3 +718,6 @@ class AreaPattern:
 
     def __repr__(self) -> str:
         return f"AreaPattern(area_pattern={self.area}, state={self.state.name})"
+
+    def __iter__(self):
+        return self.to_coords()
