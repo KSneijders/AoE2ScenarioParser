@@ -88,9 +88,9 @@ nav:
       - Area:               "api_docs/support/area.md"
       - Tile:               "api_docs/support/tile.md"
       - AreaPattern:
-        - AreaAttr:         "api_docs/area_pattern/area_attr.md"
-        - AreaPattern:      "api_docs/area_pattern/area_pattern.md"
-        - AreaState:        "api_docs/area_pattern/area_state.md"
+        - AreaAttr:         "api_docs/support/area_pattern/area_attr.md"
+        - AreaPattern:      "api_docs/support/area_pattern/area_pattern.md"
+        - AreaState:        "api_docs/support/area_pattern/area_state.md"
 
 
 markdown_extensions:
