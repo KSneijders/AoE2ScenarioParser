@@ -67,17 +67,17 @@ nav:
       - UnitManager:        "api_docs/units/unit_manager.md"
       - Unit:               "api_docs/units/unit.md"
     - Trigger:
-      - TriggerManager:     "api_docs/triggers/trigger_manager.md"
-      - Trigger:            "api_docs/triggers/trigger.md"
+      - TriggerManager:     "api_docs/trigger/trigger_manager.md"
+      - Trigger:            "api_docs/trigger/trigger.md"
       - Effects:
-        - Effect:           "api_docs/triggers/effects/effect.md"
-        - NewEffect:        "api_docs/triggers/effects/new_effect.md"
+        - Effect:           "api_docs/trigger/effects/effect.md"
+        - NewEffect:        "api_docs/trigger/effects/new_effect.md"
       - Conditions:
-        - Condition:        "api_docs/triggers/conditions/condition.md"
-        - NewCondition:     "api_docs/triggers/conditions/new_condition.md"
-      - Variable:           "api_docs/triggers/variable.md"
-      - TriggerSelect:      "api_docs/triggers/trigger_select.md"
-      - TriggerCeLock:      "api_docs/triggers/trigger_ce_lock.md"
+        - Condition:        "api_docs/trigger/conditions/condition.md"
+        - NewCondition:     "api_docs/trigger/conditions/new_condition.md"
+      - Variable:           "api_docs/trigger/variable.md"
+      - TriggerSelect:      "api_docs/trigger/trigger_select.md"
+      - TriggerCeLock:      "api_docs/trigger/trigger_ce_lock.md"
     - XsManager:            "api_docs/xs_manager.md"
     - Settings:             "api_docs/settings.md"
     - Support:
