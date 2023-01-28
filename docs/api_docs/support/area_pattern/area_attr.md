@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.support.area_pattern.area_attr
+::: AoE2ScenarioParser.objects.support.area_pattern.area_attr.AreaAttr

@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.support.area
+::: AoE2ScenarioParser.objects.support.area.Area

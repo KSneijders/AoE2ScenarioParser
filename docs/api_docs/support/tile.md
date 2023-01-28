@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.support.tile
+::: AoE2ScenarioParser.objects.support.tile.Tile

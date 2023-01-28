@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.support.new_condition
+::: AoE2ScenarioParser.objects.support.new_condition.NewConditionSupport

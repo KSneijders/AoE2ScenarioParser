@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.data_objects.terrain_tile
+::: AoE2ScenarioParser.objects.data_objects.terrain_tile.TerrainTile
