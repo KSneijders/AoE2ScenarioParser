@@ -63,9 +63,6 @@ nav:
     - Player:
       - PlayerManager:      "api_docs/player/player_manager.md"
       - Player:             "api_docs/player/player.md"
-    - Units:
-      - UnitManager:        "api_docs/units/unit_manager.md"
-      - Unit:               "api_docs/units/unit.md"
     - Trigger:
       - TriggerManager:     "api_docs/trigger/trigger_manager.md"
       - Trigger:            "api_docs/trigger/trigger.md"
@@ -78,8 +75,12 @@ nav:
       - Variable:           "api_docs/trigger/variable.md"
       - TriggerSelect:      "api_docs/trigger/trigger_select.md"
       - TriggerCeLock:      "api_docs/trigger/trigger_ce_lock.md"
+      - Functions:          "api_docs/trigger/functions.md"
+    - Units:
+      - UnitManager:        "api_docs/units/unit_manager.md"
+      - Unit:               "api_docs/units/unit.md"
+      - Functions:          "api_docs/units/functions.md"
     - XsManager:            "api_docs/xs_manager.md"
-    - Settings:             "api_docs/settings.md"
     - Support:
       - Area:               "api_docs/support/area.md"
       - Tile:               "api_docs/support/tile.md"
