@@ -1,12 +1,10 @@
 from __future__ import annotations
 
 import math
-from typing import NamedTuple, Tuple
+from typing import NamedTuple
 
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.helper import bound
-
-TileT = Tuple[int, int]
 
 
 class Tile(NamedTuple):

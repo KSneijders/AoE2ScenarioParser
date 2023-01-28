@@ -87,6 +87,8 @@ nav:
         - AreaAttr:         "api_docs/support/area_pattern/area_attr.md"
         - AreaPattern:      "api_docs/support/area_pattern/area_pattern.md"
         - AreaState:        "api_docs/support/area_pattern/area_state.md"
+      - TypeDefs:           "api_docs/support/typedefs.md"
+    - Settings:             "api_docs/settings.md"
 
 
 markdown_extensions:

@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 import sys
-from typing import TYPE_CHECKING, Iterable, Literal, NoReturn, List, Dict
+from typing import TYPE_CHECKING, Iterable, Literal, NoReturn, List, Dict, cast
 from uuid import UUID
 
 from ordered_set import OrderedSet
@@ -14,7 +14,8 @@ from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.area_pattern import AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.area import Area
-from AoE2ScenarioParser.objects.support.tile import Tile, TileT
+from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.typedefs import AreaT, TileT
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
@@ -28,7 +29,7 @@ class AreaPattern:
 
     def __init__(
             self,
-            area: Area | tuple[TileT, TileT] | tuple[TileT] = None,
+            area: AreaT = None,
             corner1: TileT = None,
             corner2: TileT = None,
             map_size: int = None,
@@ -70,7 +71,7 @@ class AreaPattern:
                 corner2 = corner1
             area = Area(corner1, corner2)
 
-        self.area = area.resolve_negative_coords(self._map_size)
+        self.area = cast(Area, area).resolve_negative_coords(self._map_size)
         self.state: AreaState = AreaState.RECT
         self.inverted: bool = False
 

@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.objects.support.tile import Tile, TileT
+from typing import Iterable, TYPE_CHECKING
+
+from AoE2ScenarioParser.objects.support.tile import Tile
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.support.typedefs import TileT
 
 
 class Area:
@@ -95,9 +100,8 @@ class Area:
             and self.corner1.y <= y <= self.corner2.y
         )
 
-    def __iter__(self) -> Tile:
-        yield self.corner1
-        yield self.corner2
+    def __iter__(self) -> Iterable[Tile]:
+        return iter((self.corner1, self.corner2))
 
     def __getitem__(self, item: int) -> Tile:
         return (self.corner1, self.corner2)[item]
