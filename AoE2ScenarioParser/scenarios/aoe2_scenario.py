@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import time
-import warnings
 import zlib
 from pathlib import Path
 from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any
@@ -375,23 +374,22 @@ class AoE2Scenario:
             write_bytes: boolean to determine if the file needs to be written as bytes or hex text form
         """
         s_print("File writing from source started with attributes " + datatype + "...")
-        file = open(filename, "wb" if write_bytes else "w")
-        selected_parts = []
-        for t in datatype:
-            if t == "f":
-                selected_parts.append(self._file)
-            elif t == "h":
-                selected_parts.append(self._file_header)
-            elif t == "d":
-                selected_parts.append(self._decompressed_file_data)
-        parts = None
-        for part in selected_parts:
-            if parts is None:
-                parts = part
-                continue
-            parts += part
-        file.write(parts if write_bytes else create_textual_hex(parts.hex()))
-        file.close()
+        with open(filename, "wb" if write_bytes else "w") as file:
+            selected_parts = []
+            for t in datatype:
+                if t == "f":
+                    selected_parts.append(self._file)
+                elif t == "h":
+                    selected_parts.append(self._file_header)
+                elif t == "d":
+                    selected_parts.append(self._decompressed_file_data)
+            parts = None
+            for part in selected_parts:
+                if parts is None:
+                    parts = part
+                    continue
+                parts += part
+            file.write(parts if write_bytes else create_textual_hex(parts.hex()))
         s_print("File writing finished successfully.")
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
