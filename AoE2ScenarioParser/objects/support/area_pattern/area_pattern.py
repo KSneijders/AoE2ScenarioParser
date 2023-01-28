@@ -179,10 +179,9 @@ class AreaPattern:
             A list of OrderedSets of Tiles ((x, y) named tuple) of the selection.
 
         Raises:
-            UnlinkedScenarioError:
-                When as_terrain is set to True, but no scenario is linked with this TerrainTile object
-            UnchunkableConfigurationError:
-                When a pattern configuration makes the chunk segregation indeterminate
+            UnlinkedScenarioError: When as_terrain is set to True, but no scenario is linked with this
+                TerrainTile object
+            UnchunkableConfigurationError: When a pattern configuration makes the chunk segregation indeterminate
         """
         if as_terrain and self.uuid is None:
             self._raise_unlinked_scenario_error()

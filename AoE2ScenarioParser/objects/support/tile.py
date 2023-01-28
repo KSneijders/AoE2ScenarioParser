@@ -15,7 +15,7 @@ class Tile(NamedTuple):
     y: int
 
     @classmethod
-    def from_value(cls, val: TileT | list | dict):
+    def from_value(cls, val: TileT | list | dict) -> Tile:
         """
         Create a Tile object based on a given value
 
@@ -37,7 +37,7 @@ class Tile(NamedTuple):
         raise ValueError(f"Unable to create instance of tile from the given value: {val}")
 
     @classmethod
-    def from_i(cls, i: int, map_size: int):
+    def from_i(cls, i: int, map_size: int) -> Tile:
         """
         Create a Tile object based on an index and a map_size
 
