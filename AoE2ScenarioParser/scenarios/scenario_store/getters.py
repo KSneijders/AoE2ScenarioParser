@@ -8,7 +8,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.unit import Unit
     from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
     from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
@@ -198,7 +198,7 @@ def get_variable_name(uuid: UUID, variable_index: int) -> Optional[str]:
     Raises:
         ValueError: if variables are not supported in the scenario whose ID was provided
     """
-    scenario: Optional[AoE2DEScenario] = store.get_scenario(uuid)
+    scenario: Optional[AoE2Scenario] = store.get_scenario(uuid)
     if scenario:
         if gv := get_game_version(uuid) == "DE":
             variable = scenario.trigger_manager.get_variable(variable_index)

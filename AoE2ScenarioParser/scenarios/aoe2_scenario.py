@@ -18,11 +18,8 @@ from AoE2ScenarioParser.helper.printers import s_print, color_string, warn
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
-from AoE2ScenarioParser.objects.managers.map_manager import MapManager
-from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
-from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
-from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
-from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.objects.managers import TriggerManager, UnitManager, MapManager, PlayerManager, \
+    MessageManager, XsManager
 from AoE2ScenarioParser.scenarios.scenario_debug.compare import debug_compare
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
@@ -33,10 +30,7 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 S: TypeVar = TypeVar('S', bound='AoE2Scenario')
-"""
-A type variable (generic) that represents an instance of the AoE2Scenario class or any of its 
-subclasses (e.g. `AoE2DEScenario`) 
-"""
+"""A type variable (generic) that represents an instance of the AoE2Scenario class or any of its subclasses"""
 
 
 class AoE2Scenario:
@@ -61,6 +55,16 @@ class AoE2Scenario:
     def player_manager(self) -> PlayerManager:
         """The player manager of the scenario"""
         return self._object_manager.managers['Player']
+
+    @property
+    def message_manager(self) -> MessageManager:
+        """The message manager of the scenario"""
+        return self._object_manager.managers['Message']
+
+    @property
+    def xs_manager(self) -> XsManager:
+        """The XS manager of the scenario"""
+        return self._object_manager.managers['Xs']
 
     def __init__(self, game_version: str, scenario_version: str, source_location: str, name: str):
         # Scenario meta info
@@ -88,13 +92,8 @@ class AoE2Scenario:
         self._file_header = None
         self._decompressed_file_data = None
 
-    @property
-    def message_manager(self) -> MessageManager:
-        """The message manager of the scenario"""
-        return self._object_manager.managers['Message']
-
     @classmethod
-    def from_file(cls: Type[S], path: str, game_version: str, name: str = "") -> S:
+    def from_file(cls: Type[S], path: str, game_version: str = "DE", name: str = "") -> S:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
 

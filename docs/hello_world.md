@@ -19,13 +19,13 @@ Create an empty scenario in the editor and save it as "hello world"
 Create a new project and file (in PyCharm). Name the file `hello_world.py`, and copy the code below into `hello_world.py`
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # The path to your scenario folder
 input_folder = "C:/path/to/your/scenario/folder/"
 
 # The scenario object. 
-scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
+scenario = AoE2Scenario.from_file(input_folder + "hello world.aoe2scenario")
 ```
 
 ### 3. Getting the scenario path
@@ -196,13 +196,13 @@ Your code should look something like the below block. You can find more examples
 ```py
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # The path to your scenario folder
 input_folder = "C:/path/to/your/scenario/folder/"
 
 # The scenario object.
-scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
+scenario = AoE2Scenario.from_file(input_folder + "hello world.aoe2scenario")
 
 # Save reference to the manager, so you don't have to do "scenario.trigger_manager..." each time
 trigger_manager = scenario.trigger_manager

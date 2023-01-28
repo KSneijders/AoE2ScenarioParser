@@ -11,7 +11,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
-class XsManagerDE(AoE2Object):
+class XsManager(AoE2Object):
     """Manager of everything XS related."""
 
     _link_list = [

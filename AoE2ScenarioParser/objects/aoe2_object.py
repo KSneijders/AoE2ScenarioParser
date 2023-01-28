@@ -13,7 +13,7 @@ from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructP
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 
 class AoE2Object:
@@ -34,9 +34,9 @@ class AoE2Object:
             setattr(result, k, entry)
         return result
 
-    def get_scenario(self) -> 'AoE2DEScenario':
+    def get_scenario(self) -> 'AoE2Scenario':
         """ Get the scenario associated with the current object """
-        scenario: Optional['AoE2DEScenario'] = store.get_scenario(uuid=self._uuid)
+        scenario: Optional['AoE2Scenario'] = store.get_scenario(uuid=self._uuid)
         if scenario:
             return scenario
         raise ValueError("Unable to fetch associated scenario from detached object")

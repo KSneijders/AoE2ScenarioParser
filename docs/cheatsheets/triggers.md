@@ -9,7 +9,7 @@ Here's an example of how to create (add) a trigger and add a condition
 and effect to it:
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.units import UnitInfo
 
@@ -20,7 +20,7 @@ scenario_folder = "your/path/to/the/scenario/folder/"  # <-- Final slash is impo
 scenario_name = "name_of_your_scenario"
 
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
+scenario = AoE2Scenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
 
 # Add Trigger
 trigger_manager = scenario.trigger_manager
@@ -46,11 +46,11 @@ scenario.write_to_file(f"{scenario_folder}{scenario_name}_output.aoe2scenario")
 Instead of directly adding triggers you can also import triggers from another scenario:
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # Define Scenario files
-source_scenario = AoE2DEScenario.from_file(path_to_the_source_file)
-target_scenario = AoE2DEScenario.from_file(path_to_the_target_file)
+source_scenario = AoE2Scenario.from_file(path_to_the_source_file)
+target_scenario = AoE2Scenario.from_file(path_to_the_target_file)
 
 # Define Trigger Managers
 source_trigger_manager = source_scenario.trigger_manager
@@ -132,7 +132,7 @@ select triggers. Which would look like:
 
 ```py
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(read_file)
+scenario = AoE2Scenario.from_file(read_file)
 
 # Get Trigger
 trigger_manager = scenario.trigger_manager

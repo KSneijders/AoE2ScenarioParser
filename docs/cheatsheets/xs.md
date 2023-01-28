@@ -23,14 +23,14 @@ You can use the XS manager to add XS to your scenarios. All these XS calls do in
 as is explained above. You can use the XS manager like so:
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # File & Folder setup
 scenario_folder = "your/path/to/the/scenario/folder/"
 read_file = scenario_folder + "scenario_name.aoe2scenario"
 
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(read_file)
+scenario = AoE2Scenario.from_file(read_file)
 
 xs_manager = scenario.xs_manager
 ```

@@ -15,7 +15,7 @@ You can adjust the map size using the parser.
 You can adjust the map size like so:
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 # File & Folder setup
 # Define paths to the scenario folder.
@@ -24,7 +24,7 @@ scenario_folder = "your/path/to/the/scenario/folder/"  # <-- Final slash is impo
 scenario_name = "name_of_your_scenario"
 
 # Define Scenario file
-scenario = AoE2DEScenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
+scenario = AoE2Scenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenario")
 
 # Add Trigger
 map_manager = scenario.map_manager

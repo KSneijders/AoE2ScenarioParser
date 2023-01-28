@@ -60,8 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `scenario = AoE2DEScenario.get_scenario(obj=trigger)`
   - `scenario = AoE2DEScenario.get_scenario(name="coolname")`
     - You can set the names like this:
-      1. Defaults to filename: `AoE2DEScenario.from_file('path/coolname.aoe2scenario')` (name: coolname) 
-      2. Explicitely setting the name: `AoE2DEScenario.from_file('path/othername.aoe2scenario', name="myname")` (name: myname)
+      1. Defaults to filename: `AoE2Scenario.from_file('path/coolname.aoe2scenario')` (name: coolname) 
+      2. Explicitely setting the name: `AoE2Scenario.from_file('path/othername.aoe2scenario', name="myname")` (name: myname)
 - Time indicators for status messages and execution time per scenario
 
 ### Fixed

@@ -12,32 +12,38 @@ from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class MapManager(AoE2Object):
-    """
-    Manager of everything map related.
-    This class does not include the logic for DE specific features.
-    For those see: `MapManagerDE`
-    """
+    """Manager of everything map related."""
 
     _link_list = [
         RetrieverObjectLinkGroup("Map", group=[
-            RetrieverObjectLink("map_width", "map_width"),
-            RetrieverObjectLink("map_height", "map_height"),
-            RetrieverObjectLink("terrain", "terrain_data", process_as_object=TerrainTile),
+            RetrieverObjectLink("map_color_mood"),
+            RetrieverObjectLink("collide_and_correct"),
+            RetrieverObjectLink("villager_force_drop", support=Support(since=1.37)),
+            RetrieverObjectLink("map_width"),
+            RetrieverObjectLink("map_height"),
+            RetrieverObjectLink("terrain", link="terrain_data", process_as_object=TerrainTile),
         ])
     ]
 
     def __init__(
             self,
+            map_color_mood: str,
+            collide_and_correct: bool,
+            villager_force_drop: bool,
             map_width: int,
             map_height: int,
             terrain: List[TerrainTile],
-            **kwargs
+            **kwargs,
     ):
         super().__init__(**kwargs)
 
+        self.map_color_mood: str = map_color_mood
+        self.collide_and_correct: bool = collide_and_correct
+        self.villager_force_drop: bool = villager_force_drop
         self.terrain: List[TerrainTile] = terrain
         self._map_width: int = map_width
         self._map_height: int = map_height
@@ -56,6 +62,7 @@ class MapManager(AoE2Object):
             return self._map_height
         else:
             raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
+
     @map_size.setter
     def map_size(self, new_size: int):
         old_size = self._map_width
