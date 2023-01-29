@@ -27,7 +27,7 @@ class TriggerSelect:
                        "The class will be removed in the future. \n" \
                        "Using the ID (number: e.g. 34) or the actual trigger by itself is enough. \n" \
                        "Using the display index is discouraged but can be achieved using the following syntax: \n" \
-                       "\t`trigger_manager.get_trigger(by_display_index=34)`"
+                       "\t`trigger_manager.get_trigger(34, use_display_index=True)`"
 
     def __init__(self, trigger_index: int = None, display_index: int = None, trigger: Trigger = None, **kwargs):
         """

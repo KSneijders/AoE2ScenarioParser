@@ -620,21 +620,23 @@ class TriggerManager(AoE2Object):
             self.move_triggers([t.trigger_id for t in triggers], index)
         return triggers
 
-    def get_trigger(self, trigger: TriggerIdentifier, by_display_index: int = None) -> Trigger:
+    def get_trigger(self, trigger: int, use_display_index: bool = False) -> Trigger:
         """
         Get a single trigger
 
         Args:
             trigger: A trigger object or the ID representing it
-            by_display_index: The display index ID of a trigger. Usage is discouraged as display indices can easily
-                cause confusion.
+            use_display_index: If the given number is a display_index number instead of a normal index number. Use of
+                this is heavily discouraged as it doesn't add anything and easily causes confusion.
 
         Returns:
-            The selected trigger
+            The trigger on the given index
         """
-        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
+        if use_display_index:
+            trigger = self.trigger_display_order[trigger]
+        _, trigger = self._validate_and_retrieve_trigger_info(trigger)
         return trigger
-    
+
     def get_display_index(self, trigger: TriggerIdentifier) -> int:
         """
         Get the display index of a trigger. It is not recommended to actively use this attribute for trigger 
@@ -647,7 +649,7 @@ class TriggerManager(AoE2Object):
             The display index of a trigger
         """
         trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
-        return self.trigger_display_order[trigger_index]
+        return self.trigger_display_order.index(trigger_index)
 
     def remove_trigger(self, trigger: TriggerIdentifier) -> None:
         """
@@ -661,40 +663,6 @@ class TriggerManager(AoE2Object):
         del self.triggers[trigger_index]
 
         self.reorder_triggers()
-
-    def _find_trigger_tree_nodes_recursively(self, trigger: Trigger, known_node_indexes: List[int]) -> None:
-        found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
-        unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
-
-        if len(unknown_node_indexes) == 0:
-            return
-
-        known_node_indexes += unknown_node_indexes
-
-        for index in unknown_node_indexes:
-            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
-
-    def _validate_and_retrieve_trigger_info(self, identifier: TriggerIdentifier) -> Tuple[int, Trigger]:
-        """
-        Fill in the missing information and validate if necessary
-
-        Args:
-            identifier: The trigger or a number representing a trigger by its ID
-
-        Returns:
-            A tuple with the ID of the trigger and the trigger itself
-        """
-        index: int
-        trigger: Trigger
-
-        if isinstance(identifier, int):
-            index = identifier
-            trigger = self.triggers[index]
-        else:
-            index = identifier.trigger_id
-            trigger = identifier
-
-        return index, trigger
 
     def get_summary_as_string(self) -> str:
         """
@@ -714,6 +682,7 @@ class TriggerManager(AoE2Object):
 
         longest_trigger_name = -1
         longest_index_notation = -1
+
         for display, trigger_index in enumerate(display_order):
             trigger_name = triggers[trigger_index].name
             longest_trigger_name = max(longest_trigger_name, len(trigger_name))
@@ -724,7 +693,8 @@ class TriggerManager(AoE2Object):
             )
 
         longest_trigger_name += 3
-        for display, trigger_index in enumerate(display_order):
+        for trigger_index in range(len(self.triggers)):
+            display = self.get_display_index(trigger_index)
             trigger = triggers[trigger_index]
             trigger_name = trigger.name
 
@@ -767,7 +737,7 @@ class TriggerManager(AoE2Object):
         if len(self.triggers) == 0:
             return_string += "\t<<No triggers>>\n"
 
-        for trigger_index in self.trigger_display_order:
+        for trigger_index in range(len(self.triggers)):
             return_string += self.get_trigger_as_string(trigger_index) + "\n"
 
         return_string += "Variables:\n"
@@ -799,6 +769,40 @@ class TriggerManager(AoE2Object):
         return_string += add_tabs(trigger.get_content_as_string(include_trigger_definition=False), 2)
 
         return return_string
+
+    def _find_trigger_tree_nodes_recursively(self, trigger: Trigger, known_node_indexes: List[int]) -> None:
+        found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
+        unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
+
+        if len(unknown_node_indexes) == 0:
+            return
+
+        known_node_indexes += unknown_node_indexes
+
+        for index in unknown_node_indexes:
+            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+
+    def _validate_and_retrieve_trigger_info(self, identifier: TriggerIdentifier) -> Tuple[int, Trigger]:
+        """
+        Fill in the missing information and validate if necessary
+
+        Args:
+            identifier: The trigger or a number representing a trigger by its ID
+
+        Returns:
+            A tuple with the ID of the trigger and the trigger itself
+        """
+        index: int
+        trigger: Trigger
+
+        if isinstance(identifier, int):
+            index = identifier
+            trigger = self.triggers[index]
+        else:
+            index = identifier.trigger_id
+            trigger = identifier
+
+        return index, trigger
 
     @staticmethod
     def _find_alterable_ce(trigger: Trigger, trigger_ce_lock: TriggerCELock) -> (List[int], List[int]):
