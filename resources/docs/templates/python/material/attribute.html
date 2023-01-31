@@ -29,7 +29,7 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
         {% endif %}
 
         {% if not root or config.show_root_heading %}
-            {% if heading_level == 3 %}
+            {% if not is_class %}
                 {# Module level attributes #}
                 {% filter heading(heading_level,
                     role="data" if attribute.parent.kind.value == "module" else "attr",
@@ -39,7 +39,6 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                     toc_label=attribute.name) %}
                     {% filter highlight(language="python", inline=True) %}
                         {{ attribute.name }}
-
                     {% endfilter %}
 
                     {% with labels = attribute.labels %}
@@ -67,7 +66,7 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                     {% endif %}
                 </div>
 
-            {% elif heading_level == 5 %}
+            {% else %}
                 {# Class level attributes #}
                 <tr>
                     <td class="class-attribute-entry">
@@ -124,7 +123,7 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
             {% set heading_level = heading_level - 1 %}
         {% endif %}
 
-        {% if heading_level == 3 %}
+        {% if not is_class %}
             {# Module level attributes #}
             <div class="doc doc-contents {% if root %}first{% endif %}" style="padding-left: 32px">
                 {% with docstring_sections = attribute.docstring.parsed %}
