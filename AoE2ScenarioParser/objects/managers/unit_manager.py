@@ -28,7 +28,7 @@ class UnitManager(AoE2Object):
         super().__init__(**kwargs)
 
         self.units = [pu.units for pu in _player_units]
-        self.reference_id_generator = create_id_generator(next_unit_id)
+        self.reference_id_generator = _create_id_generator(next_unit_id)
 
     @property
     def next_unit_id(self):
@@ -356,7 +356,7 @@ class UnitManager(AoE2Object):
         return UuidList(self._uuid, player_units)
 
 
-def create_id_generator(start_id: int) -> Generator[int]:
+def _create_id_generator(start_id: int) -> Generator[int]:
     """
     Create generator for increasing value
 

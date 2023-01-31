@@ -333,7 +333,7 @@ class TriggerManager(AoE2Object):
         # Set trigger_id's in activation effects to the new player copied trigger ID
         for player, triggers in new_triggers.items():
             for trigger in triggers:
-                for effect in get_activation_effects(trigger):
+                for effect in _get_activation_effects(trigger):
                     effect.trigger_id = trigger_index_swap[effect.trigger_id][player]
 
         # -------------- Group by logic -------------- #
@@ -442,7 +442,7 @@ class TriggerManager(AoE2Object):
 
         # Find and update all (de)activation effect trigger references
         for trigger in self.triggers:
-            for effect in get_activation_effects(trigger):
+            for effect in _get_activation_effects(trigger):
                 if effect.trigger_id in index_changes:
                     effect.trigger_id = index_changes[effect.trigger_id]
 
@@ -607,7 +607,7 @@ class TriggerManager(AoE2Object):
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
         for trigger in triggers:
-            for i, effect in enumerate(get_activation_effects(trigger)):
+            for i, effect in enumerate(_get_activation_effects(trigger)):
                 try:
                     effect.trigger_id = index_changes[effect.trigger_id]
                 except KeyError:
@@ -823,7 +823,7 @@ class TriggerManager(AoE2Object):
         return self.get_content_as_string()
 
 
-def get_activation_effects(trigger: Trigger) -> List[Effect]:
+def _get_activation_effects(trigger: Trigger) -> List[Effect]:
     """
     Get all activation effects in a Trigger
 
