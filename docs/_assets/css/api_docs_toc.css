@@ -1,0 +1,16 @@
+/**
+ |
+ | Hide nested content (1) and rotate arrows (2) to make menus look entirely closed.
+ | This stays until JS takes over and actually closes them and disables these styles using: `.disable-instant-css`
+ |
+ */
+
+/* (1) */
+.md-nav__toggle:not(.disable-instant-css) ~ .md-nav:not([data-md-level="0"]):not([data-md-level="1"]) {
+    display: none;
+}
+
+/* (2) */
+.md-nav__item--nested .md-nav__toggle:not(.disable-instant-css) ~ .md-nav__link .md-nav__icon.md-icon {
+    transform: rotate(0deg);
+}
