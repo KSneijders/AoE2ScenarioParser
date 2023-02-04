@@ -159,18 +159,18 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
-    def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
-            armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
-            object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
-            display_time=None, trigger_id=None, location_x=None, location_y=None,
-            location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
-            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
-            time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
-            flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
-            operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
-            object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-            player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
-            object_state=None, action_type=None, ) -> Effect:
+    def _add_effect(
+            self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None, armour_attack_class=None,
+            quantity=None, tribute_list=None, diplomacy=None, object_list_unit_id=None, source_player=None,
+            target_player=None, technology=None, string_id=None, display_time=None, trigger_id=None, location_x=None,
+            location_y=None, location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
+            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None, time_unit=None,
+            enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
+            force_research_technology=None, visibility_state=None, scroll=None, operation=None,
+            object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
+            variable=None, timer=None, facet=None, play_sound=None, message=None, player_color=None, sound_name=None,
+            selected_object_ids=None, color_mood=None, reset_timer=None, object_state=None, action_type=None
+    ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):

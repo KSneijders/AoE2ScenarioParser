@@ -2364,9 +2364,14 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Only generates gold while collecting wood from trees, and not when cutting them down
     """
-    UNUSED_RESOURCE_267 = 267
+    FORAGING_WOOD_PRODUCTIVITY = 267
     """
-    - Purpose: Unused
+    - Purpose: Forager foraging wood generation rate per 100 seconds
+
+    - Default Values:
+
+        - 0:  Default
+        - 10.4753:  (0.104753 w/s per forager) Portuguese
     """
     UNUSED_RESOURCE_268 = 268
     """

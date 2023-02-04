@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.50 - 2023-January-20
+
+### Added
+
+- New error message for certain type of errors which might help find the cause of the issue faster.
+- New unit to the `UnitInfo` dataset, named: `Sogdian Cataphract`.
+- **Deprecation** warning to `scenario.remove_store_reference()`, see the docstring for more info.
+
+### Updated
+
+- Scenario store now uses `WeakValueDictionary` instead of normal dictionary.
+
+### Fixed
+
+- Multiple issues when printing an effect with `selected_object_ids` that had invalid references.
+- Issue when trying to write a scenario with an effect containing an invalid effect ID.
+
+---
+
 ## 0.1.49 - 2023-January-01
 
 ### Added

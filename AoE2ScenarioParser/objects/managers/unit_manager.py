@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Generator
+from typing import List, Tuple, Generator, Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits
-from AoE2ScenarioParser.objects.support.area.Tile import Tile
+from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 
@@ -28,7 +28,7 @@ class UnitManager(AoE2Object):
         super().__init__(**kwargs)
 
         self.units = [pu.units for pu in _player_units]
-        self.reference_id_generator = create_id_generator(next_unit_id)
+        self.reference_id_generator = _create_id_generator(next_unit_id)
 
     @property
     def next_unit_id(self):
@@ -356,7 +356,7 @@ class UnitManager(AoE2Object):
         return UuidList(self._uuid, player_units)
 
 
-def create_id_generator(start_id: int) -> Generator[int]:
+def _create_id_generator(start_id: int) -> Generator[int]:
     """
     Create generator for increasing value
 

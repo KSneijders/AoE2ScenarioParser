@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any
+from typing import Dict, TYPE_CHECKING, Type, Any
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -13,12 +13,13 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.printers import s_print, color_string
+from AoE2ScenarioParser.helper.printers import s_print, color_string, warn
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
 from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers import TriggerManager, UnitManager, MapManager, PlayerManager, \
     MessageManager, XsManager
+from AoE2ScenarioParser.objects.support.typedefs import Scenario
 from AoE2ScenarioParser.scenarios.scenario_debug.compare import debug_compare
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
@@ -27,9 +28,6 @@ from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-
-S: TypeVar = TypeVar('S', bound='AoE2Scenario')
-"""A type variable (generic) that represents an instance of the AoE2Scenario class or any of its subclasses"""
 
 
 class AoE2Scenario:
@@ -92,7 +90,7 @@ class AoE2Scenario:
         self._decompressed_file_data = None
 
     @classmethod
-    def from_file(cls: Type[S], path: str, game_version: str = "DE", name: str = "") -> S:
+    def from_file(cls: Type[Scenario], path: str, game_version: str = "DE", name: str = "") -> Scenario:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
 
@@ -119,7 +117,7 @@ class AoE2Scenario:
         s_print("Reading scenario file finished successfully.", final=True, time=True)
 
         scenario_version = _get_file_version(igenerator)
-        scenario: S = cls(game_version, scenario_version, source_location=path, name=name)
+        scenario: Scenario = cls(game_version, scenario_version, source_location=path, name=name)
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
@@ -148,7 +146,7 @@ class AoE2Scenario:
         uuid: UUID = None,
         obj: 'AoE2Object' = None,
         name: str = None
-    ) -> S:
+    ) -> Scenario:
         """
         Get scenario through a UUID, a related object or the name of a scenario.
 
@@ -241,6 +239,11 @@ class AoE2Scenario:
 
     def remove_store_reference(self) -> None:
         """
+        This function is **DEPRECATED**. No replacement is necessary as the store now uses weak references.
+        You can safely remove the call to this function.
+
+        --- Legacy docstring ---
+
         Removes the reference to this scenario object from the scenario store. Useful (~a must) when reading many
         scenarios in a row without needing earlier ones. Python likes to take up a lot of memory.
         Removing all references to an object will cause the memory to be cleared up.
@@ -251,6 +254,8 @@ class AoE2Scenario:
             If you have variables referencing this scenario that you won't need anymore (and won't overwrite) delete
             them using: `del varname`.
         """
+        warn("This function is DEPRECATED as the store now uses weak references. \n"
+             "You can safely remove the call to this function.", DeprecationWarning)
         store.remove_scenario(self.uuid)
 
     def commit(self) -> None:
@@ -367,23 +372,22 @@ class AoE2Scenario:
             write_bytes: boolean to determine if the file needs to be written as bytes or hex text form
         """
         s_print("File writing from source started with attributes " + datatype + "...")
-        file = open(filename, "wb" if write_bytes else "w")
-        selected_parts = []
-        for t in datatype:
-            if t == "f":
-                selected_parts.append(self._file)
-            elif t == "h":
-                selected_parts.append(self._file_header)
-            elif t == "d":
-                selected_parts.append(self._decompressed_file_data)
-        parts = None
-        for part in selected_parts:
-            if parts is None:
-                parts = part
-                continue
-            parts += part
-        file.write(parts if write_bytes else create_textual_hex(parts.hex()))
-        file.close()
+        with open(filename, "wb" if write_bytes else "w") as file:
+            selected_parts = []
+            for t in datatype:
+                if t == "f":
+                    selected_parts.append(self._file)
+                elif t == "h":
+                    selected_parts.append(self._file_header)
+                elif t == "d":
+                    selected_parts.append(self._decompressed_file_data)
+            parts = None
+            for part in selected_parts:
+                if parts is None:
+                    parts = part
+                    continue
+                parts += part
+            file.write(parts if write_bytes else create_textual_hex(parts.hex()))
         s_print("File writing finished successfully.")
 
     def _debug_byte_structure_to_file(self, filename, trail_generator: IncrementalGenerator = None, commit=False):
