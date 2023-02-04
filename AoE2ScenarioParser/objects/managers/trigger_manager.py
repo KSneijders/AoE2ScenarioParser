@@ -17,7 +17,7 @@ from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.variable import Variable
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.objects.support.trigger_ce_lock import TriggerCELock
-from AoE2ScenarioParser.objects.support.trigger_select import TriggerIdentifier
+from AoE2ScenarioParser.objects.support.typedefs import TriggerIdentifier
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup

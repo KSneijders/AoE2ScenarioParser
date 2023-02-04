@@ -1,10 +1,9 @@
-from typing import Type, Union
+from typing import Type, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.printers import warn
-from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
-
-TriggerIdentifier = Union[int, Trigger]
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 
 
 class TriggerSelect:
@@ -29,7 +28,7 @@ class TriggerSelect:
                        "Using the display index is discouraged but can be achieved using the following syntax: \n" \
                        "\t`trigger_manager.get_trigger(34, use_display_index=True)`"
 
-    def __init__(self, trigger_index: int = None, display_index: int = None, trigger: Trigger = None, **kwargs):
+    def __init__(self, trigger_index: int = None, display_index: int = None, trigger: 'Trigger' = None, **kwargs):
         """
         Args:
             trigger_index: The index of the trigger. Starting from 0, based on creation time
@@ -58,7 +57,7 @@ class TriggerSelect:
         return cls(display_index=display_index, through_alias=True)
 
     @classmethod
-    def trigger(cls, trigger: Trigger):
+    def trigger(cls, trigger: 'Trigger'):
         # Using a format string so that PyCharm shows the functions with a strike-through effect.
         # For whatever reason, it doesn't with a variable...
         warn(f"{TriggerSelect._deprecated}", DeprecationWarning)
