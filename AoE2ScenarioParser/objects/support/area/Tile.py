@@ -16,7 +16,7 @@ class Tile(NamedTuple):
 
     # Todo: Add tests
     @classmethod
-    def from_i(cls, i: int, map_size: int):
+    def from_i(cls, i: int, map_size: int) -> Tile:
         """
         Create a Tile object based on an index and a map_size
 
