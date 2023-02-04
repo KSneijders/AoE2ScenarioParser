@@ -1,4 +1,6 @@
-from typing import List, Any
+from __future__ import annotations
+
+from typing import List, Any, Tuple
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
@@ -190,13 +192,12 @@ class Trigger(AoE2Object, TriggerComponent):
         self.effects.append(new_effect)
         return new_effect
 
-    def _add_condition(self, condition_type: ConditionId, quantity=None,
-            attribute=None, unit_object=None, next_object=None, object_list=None,
-            source_player=None, technology=None, timer=None, area_x1=None, area_y1=None, area_x2=None,
-            area_y2=None, object_group=None, object_type=None, ai_signal=None, inverted=None, variable=None,
-            comparison=None, target_player=None, unit_ai_action=None, xs_function=None, object_state=None,
-            timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
-    ) -> Condition:
+    def _add_condition(self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None,
+            next_object=None, object_list=None, source_player=None, technology=None, timer=None, area_x1=None,
+            area_y1=None, area_x2=None, area_y2=None, object_group=None, object_type=None, ai_signal=None,
+            inverted=None, variable=None, comparison=None, target_player=None, unit_ai_action=None, xs_function=None,
+            object_state=None, timer_id=None, victory_timer_type=None,
+            include_changeable_weapon_objects=None, ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):
@@ -218,97 +219,67 @@ class Trigger(AoE2Object, TriggerComponent):
         self.conditions.append(new_condition)
         return new_condition
 
-    def get_effect(self, effect_index: int = None, display_index: int = None) -> Effect:
+    def get_effect(self, effect: int, use_display_index: bool = False) -> Effect:
         """
-        Retrieve an effect based on its (display) index
+        Retrieve an effect based on its index
 
         Args:
-            effect_index: The effect index of the effect to retrieve
-            display_index: The display index of the effect to retrieve
-
-        Raises:
-            ValueError: If more than one parameter is used simultaneously
-            IndexError: If the effect could not be found
+            effect: The index of the effect to retrieve
+            use_display_index: If the given number is a display_index number instead of a normal index number. Use of
+                this is heavily discouraged as it doesn't add anything and easily causes confusion.
 
         Returns:
-            The wanted effect
+            The effect on the given index
         """
-        if not mutually_exclusive(effect_index is not None, display_index is not None):
-            raise ValueError(f"Please identify an effect using either effect_index or display_index.")
+        if use_display_index:
+            effect = self.effect_order[effect]
+        return self.effects[effect]
 
-        if effect_index is None:
-            effect_index = self.effect_order[display_index]
-
-        return self.effects[effect_index]
-
-    def get_condition(self, condition_index: int = None, display_index: int = None) -> Condition:
+    def get_condition(self, condition: int, use_display_index: bool = False) -> Condition:
         """
-        Retrieve a condition based on its (display) index
+        Retrieve a condition based on its index
 
         Args:
-            condition_index: The condition index of the condition to retrieve
-            display_index: The display index of the condition to retrieve
-
-        Raises:
-            ValueError: If more than one parameter is used simultaneously
-            IndexError: If the condition could not be found
+            condition: The index of the condition to retrieve
+            use_display_index: If the given number is a display_index number instead of a normal index number. Use of
+                this is heavily discouraged as it doesn't add anything and easily causes confusion.
 
         Returns:
-            The wanted condition
+            The condition on the given index
         """
-        if not mutually_exclusive(condition_index is not None, display_index is not None):
-            raise ValueError(f"Please identify a condition using either condition_index or display_index.")
+        if use_display_index:
+            condition = self.condition_order[condition]
+        return self.conditions[condition]
 
-        if condition_index is None:
-            condition_index = self.condition_order[display_index]
-
-        return self.conditions[condition_index]
-
-    def remove_effect(self, effect_index: int = None, display_index: int = None, effect: Effect = None) -> None:
+    def remove_effect(self, effect: int | Effect) -> None:
         """
         Remove an effect from this trigger
 
         Args:
-            effect_index: The effect index of the condition to remove
-            display_index: The display index of the condition to remove
-            effect: A reference to the effect object to remove from this trigger
+            effect: The effect index or the effect object itself
 
         Raises:
             ValueError: If more than one parameter is used simultaneously
         """
-        if not mutually_exclusive(effect_index is not None, display_index is not None, effect is not None):
-            raise ValueError(f"Please identify an effect using either effect_index, display_index or effect.")
+        if isinstance(effect, Effect):
+            effect = effect.effect_id
 
-        if effect is not None:
-            effect_index = self.effects.index(effect)
-        if effect_index is None:
-            effect_index = self.effect_order[display_index]
+        del self.effects[effect]
 
-        del self.effects[effect_index]
-
-    def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
-            -> None:
+    def remove_condition(self, condition: int | Condition) -> None:
         """
         Remove a condition from this trigger
 
         Args:
-            condition_index: The condition index of the condition to remove
-            display_index: The display index of the condition to remove
-            condition: A reference to the condition object to remove from this trigger
+            condition: The condition index or the condition object itself
 
         Raises:
             ValueError: If more than one parameter is used simultaneously
         """
-        if not mutually_exclusive(condition_index is not None, display_index is not None, condition is not None):
-            raise ValueError(f"Please identify a condition using either condition_index, display_index or condition.")
+        if isinstance(condition, Condition):
+            condition = condition.condition_id
 
-        if condition is not None:
-            condition_index = self.conditions.index(condition)
-
-        if condition_index is None:
-            condition_index = self.condition_order[display_index]
-
-        del self.conditions[condition_index]
+        del self.conditions[condition]
 
     def get_content_as_string(self, include_trigger_definition: bool = False) -> str:
         """

@@ -29,3 +29,13 @@ The changes listed below will be explained further in an official document at a 
    3. `UnitManagerDE` > `UnitManager`
    4. `XsManagerDE` > `XsManager` (Renamed & Moved)
 2. Removed `AoE2DEScenario` class. Use `AoE2Scenario.from_file(...)` from now on.
+
+# Rework: Remove display index (mostly)
+
+1. `display_index` can no longer be used to get a trigger in any trigger function except for: 
+   `trigger_manager.get_trigger(<num>, use_display_index=True)`
+2. `TriggerSelect` (`TS`) class can no longer be used.
+3. Printing the trigger manager, (summary & content) now shows trigger in index order instead of display order
+4. `display_index` has been removed from Trigger class when retrieving Conditions or Effects
+5. `trigger.get_effect` and `trigger.get_condition` have the same `use_display_index=True` attribute
+6. Added `condition_id` (**WILL BE CHANGED LATER**) to Conditions and `effect_id` (**WILL BE CHANGED LATER**) to Effects

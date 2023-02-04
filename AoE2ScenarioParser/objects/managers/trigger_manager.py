@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 from enum import IntEnum
-from typing import List, Dict
+from typing import List, Dict, Tuple, Optional
 
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
@@ -17,7 +17,7 @@ from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.data_objects.variable import Variable
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.objects.support.trigger_ce_lock import TriggerCELock
-from AoE2ScenarioParser.objects.support.trigger_select import TriggerSelect
+from AoE2ScenarioParser.objects.support.trigger_select import TriggerIdentifier
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
@@ -138,7 +138,7 @@ class TriggerManager(AoE2Object):
     def copy_trigger_per_player(
             self,
             from_player: IntEnum,
-            trigger_select: int | TriggerSelect,
+            trigger: TriggerIdentifier,
             change_from_player_only: bool = False,
             include_player_source: bool = True,
             include_player_target: bool = False,
@@ -152,7 +152,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player: The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
             change_from_player_only: If set to `True`,  only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source: If set to `True`,  allow player source attributes to be changed while copying.
@@ -177,7 +177,7 @@ class TriggerManager(AoE2Object):
             ValueError: if more than one trigger selection is used. Any of (trigger_index, display_index or trigger)
                 Or if Both `include_player_source` and `include_player_target` are `False`
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
 
         if create_copy_for_players is None:
             create_copy_for_players = [
@@ -194,7 +194,7 @@ class TriggerManager(AoE2Object):
             if player == from_player:
                 continue
 
-            new_trigger = self.copy_trigger(TriggerSelect.trigger(trigger), append_after_source=False, add_suffix=False)
+            new_trigger = self.copy_trigger(trigger, append_after_source=False, add_suffix=False)
             new_trigger.name += " (GAIA)" if player == PlayerId.GAIA else f" (p{player})"
             return_dict[player] = new_trigger
 
@@ -229,7 +229,7 @@ class TriggerManager(AoE2Object):
 
     def copy_trigger(
             self,
-            trigger_select: int | TriggerSelect,
+            trigger: TriggerIdentifier,
             append_after_source: bool = True,
             add_suffix: bool = True
     ) -> Trigger:
@@ -237,14 +237,14 @@ class TriggerManager(AoE2Object):
         Creates an exact copy (deepcopy) of this trigger.
 
         Args:
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
             append_after_source: If the new trigger should be appended below the source trigger
             add_suffix: If the text ' (copy)' should be added after the trigger
 
         Returns:
             The newly copied trigger
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
 
         deepcopy_trigger = copy.deepcopy(trigger)
         deepcopy_trigger.trigger_id = len(self.triggers)
@@ -261,7 +261,7 @@ class TriggerManager(AoE2Object):
     def copy_trigger_tree_per_player(
             self,
             from_player: IntEnum,
-            trigger_select: int | TriggerSelect,
+            trigger: TriggerIdentifier,
             change_from_player_only: bool = False,
             include_player_source: bool = True,
             include_player_target: bool = False,
@@ -277,7 +277,7 @@ class TriggerManager(AoE2Object):
         Args:
             from_player: The central player this trigger is created for. This is the player that will not get
                 a copy.
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
             change_from_player_only: If set to `True`,  only change player attributes in effects and conditions that
                 are equal to the player defined using the `from_player` parameter.
             include_player_source: If set to `True`,  allow player source attributes to be changed while copying.
@@ -300,7 +300,7 @@ class TriggerManager(AoE2Object):
         if group_triggers_by is None:
             group_triggers_by = GroupBy.NONE
 
-        trigger_index, display_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, source_trigger = self._validate_and_retrieve_trigger_info(trigger)
 
         known_node_indexes = [trigger_index]
         self._find_trigger_tree_nodes_recursively(source_trigger, known_node_indexes)
@@ -358,7 +358,7 @@ class TriggerManager(AoE2Object):
                 new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
 
         if group_triggers_by != GroupBy.NONE:
-            self.move_triggers(new_trigger_ids, display_index)
+            self.move_triggers(new_trigger_ids, trigger_index)
 
         return new_triggers
 
@@ -446,17 +446,17 @@ class TriggerManager(AoE2Object):
                 if effect.trigger_id in index_changes:
                     effect.trigger_id = index_changes[effect.trigger_id]
 
-    def copy_trigger_tree(self, trigger_select: int | TriggerSelect) -> List[Trigger]:
+    def copy_trigger_tree(self, trigger: TriggerIdentifier) -> List[Trigger]:
         """
         Copies an entire trigger tree. Trigger trees are triggers linked together using `(de)activate_trigger` effects.
 
         Args:
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select
+            trigger: A trigger object or the ID representing it
 
         Returns:
             The newly created triggers in a list
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
 
         known_node_indexes = [trigger_index]
         self._find_trigger_tree_nodes_recursively(trigger, known_node_indexes)
@@ -480,7 +480,7 @@ class TriggerManager(AoE2Object):
 
     def replace_player(
             self,
-            trigger_select: int | TriggerSelect,
+            trigger: TriggerIdentifier,
             to_player: PlayerId,
             only_change_from: PlayerId = None,
             include_player_source: bool = True,
@@ -491,7 +491,7 @@ class TriggerManager(AoE2Object):
         Replaces player attributes. Specifically useful if multiple players are used in the same trigger.
 
         Args:
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
             to_player: The player the attributes are changed to.
             only_change_from: Can only change player attributes if the player is equal to the given value
             include_player_source: If set to `True`,  allow player source attributes to be changed while replacing.
@@ -506,7 +506,7 @@ class TriggerManager(AoE2Object):
         Returns:
             The given trigger with the proper player attributes changed
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
         alter_conditions, alter_effects = TriggerManager._find_alterable_ce(trigger, trigger_ce_lock)
 
         for cond_x in alter_conditions:
@@ -620,70 +620,49 @@ class TriggerManager(AoE2Object):
             self.move_triggers([t.trigger_id for t in triggers], index)
         return triggers
 
-    def get_trigger(self, trigger_select: int | TriggerSelect) -> Trigger:
+    def get_trigger(self, trigger: int, use_display_index: bool = False) -> Trigger:
         """
         Get a single trigger
 
         Args:
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
+            use_display_index: If the given number is a display_index number instead of a normal index number. Use of
+                this is heavily discouraged as it doesn't add anything and easily causes confusion.
 
         Returns:
-            The selected trigger
+            The trigger on the given index
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        if use_display_index:
+            trigger = self.trigger_display_order[trigger]
+        _, trigger = self._validate_and_retrieve_trigger_info(trigger)
         return trigger
 
-    def remove_trigger(self, trigger_select: int | TriggerSelect) -> None:
+    def get_display_index(self, trigger: TriggerIdentifier) -> int:
+        """
+        Get the display index of a trigger. It is not recommended to actively use this attribute for trigger 
+        identification or to change display indices in general. 
+        
+        Args:
+            trigger: A trigger object or the ID representing it
+
+        Returns:
+            The display index of a trigger
+        """
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
+        return self.trigger_display_order.index(trigger_index)
+
+    def remove_trigger(self, trigger: TriggerIdentifier) -> None:
         """
         Remove a trigger
 
         Args:
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
 
         del self.triggers[trigger_index]
 
         self.reorder_triggers()
-
-    def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
-        found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
-        unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
-
-        if len(unknown_node_indexes) == 0:
-            return
-
-        known_node_indexes += unknown_node_indexes
-
-        for index in unknown_node_indexes:
-            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
-
-    def _validate_and_retrieve_trigger_info(self, trigger_select) -> (int, int, Trigger):
-        if type(trigger_select) is int:
-            trigger = display_index = None
-            trigger_index = trigger_select
-        else:
-            trigger = trigger_select.trigger
-            trigger_index = trigger_select.trigger_index
-            display_index = trigger_select.display_index
-
-        try:
-            if trigger is not None:
-                trigger_index = trigger.trigger_id
-                display_index = self.trigger_display_order.index(trigger_index)
-            elif trigger_index is not None:
-                trigger = self.triggers[trigger_index]
-                display_index = self.trigger_display_order.index(trigger_index)
-            elif display_index is not None:
-                trigger_index = self.trigger_display_order[display_index]
-                trigger = self.triggers[trigger_index]
-        except IndexError:
-            if trigger_index:
-                raise ValueError(f"No trigger with index {trigger_index}") from None
-            if display_index:
-                raise ValueError(f"No Trigger with display index {display_index}") from None
-
-        return trigger_index, display_index, trigger
 
     def get_summary_as_string(self) -> str:
         """
@@ -703,6 +682,7 @@ class TriggerManager(AoE2Object):
 
         longest_trigger_name = -1
         longest_index_notation = -1
+
         for display, trigger_index in enumerate(display_order):
             trigger_name = triggers[trigger_index].name
             longest_trigger_name = max(longest_trigger_name, len(trigger_name))
@@ -713,7 +693,8 @@ class TriggerManager(AoE2Object):
             )
 
         longest_trigger_name += 3
-        for display, trigger_index in enumerate(display_order):
+        for trigger_index in range(len(self.triggers)):
+            display = self.get_display_index(trigger_index)
             trigger = triggers[trigger_index]
             trigger_name = trigger.name
 
@@ -756,7 +737,7 @@ class TriggerManager(AoE2Object):
         if len(self.triggers) == 0:
             return_string += "\t<<No triggers>>\n"
 
-        for trigger_index in self.trigger_display_order:
+        for trigger_index in range(len(self.triggers)):
             return_string += self.get_trigger_as_string(trigger_index) + "\n"
 
         return_string += "Variables:\n"
@@ -769,17 +750,18 @@ class TriggerManager(AoE2Object):
 
         return return_string
 
-    def get_trigger_as_string(self, trigger_select: int | TriggerSelect) -> str:
+    def get_trigger_as_string(self, trigger: TriggerIdentifier) -> str:
         """
         Create a human-readable string showcasing trigger meta-data and content.
 
         Args:
-            trigger_select: The ID of the trigger or an object used to identify which trigger to select.
+            trigger: A trigger object or the ID representing it
 
         Returns:
             The created string
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
+        display_index = self.get_display_index(trigger_index)
 
         return_string = "\t'" + trigger.name + "'"
         return_string += " [Index: " + str(trigger_index) + ", Display: " + str(display_index) + "]" + ":\n"
@@ -787,6 +769,40 @@ class TriggerManager(AoE2Object):
         return_string += add_tabs(trigger.get_content_as_string(include_trigger_definition=False), 2)
 
         return return_string
+
+    def _find_trigger_tree_nodes_recursively(self, trigger: Trigger, known_node_indexes: List[int]) -> None:
+        found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
+        unknown_node_indexes = [i for i in found_node_indexes if i not in known_node_indexes]
+
+        if len(unknown_node_indexes) == 0:
+            return
+
+        known_node_indexes += unknown_node_indexes
+
+        for index in unknown_node_indexes:
+            self._find_trigger_tree_nodes_recursively(self.triggers[index], known_node_indexes)
+
+    def _validate_and_retrieve_trigger_info(self, identifier: TriggerIdentifier) -> Tuple[int, Trigger]:
+        """
+        Fill in the missing information and validate if necessary
+
+        Args:
+            identifier: The trigger or a number representing a trigger by its ID
+
+        Returns:
+            A tuple with the ID of the trigger and the trigger itself
+        """
+        index: int
+        trigger: Trigger
+
+        if isinstance(identifier, int):
+            index = identifier
+            trigger = self.triggers[index]
+        else:
+            index = identifier.trigger_id
+            trigger = identifier
+
+        return index, trigger
 
     @staticmethod
     def _find_alterable_ce(trigger: Trigger, trigger_ce_lock: TriggerCELock) -> (List[int], List[int]):
