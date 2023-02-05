@@ -9,12 +9,11 @@ from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.object_support import Civilization, StartingAge
 
 from AoE2ScenarioParser.datasets.trigger_data import Age, ActionType, AttackStance, PlayerAttribute, BlastLevel,
-
-ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel,
-DiplomacyState, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState,
-ObjectType, OcclusionMode, Operation, PanelLocation, ProjectileHitMode, ProjectileSmartMode, ProjectileVanishMode,
-SecondaryGameMode, TechnologyState, TerrainRestrictions, TimeUnit, UnitAIAction, UnitTrait, VictoryCondition,
-VictoryTimerType, VisibilityState
+    ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel,
+    DiplomacyState, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState,
+    ObjectType, OcclusionMode, Operation, PanelLocation, ProjectileHitMode, ProjectileSmartMode, ProjectileVanishMode,
+    SecondaryGameMode, TechnologyState, TerrainRestrictions, TimeUnit, UnitAIAction, UnitTrait, VictoryCondition,
+    VictoryTimerType, VisibilityState
 
 # Information of unit/building/hero and tech IDs
 from AoE2ScenarioParser.datasets.projectiles import ProjectileInfo
@@ -28,7 +27,7 @@ from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 
 # Information about player IDs
-from AoE2ScenarioParser.datasets.players import Player, PlayerColorId, ColorId
+from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId, ColorId
 ```
 
 A special thanks to **Alian713** for doing **A LOT** of the work in contributing the data needed for these datasets. :heart:
@@ -129,12 +128,12 @@ hero_status = HeroStatusFlag.CANNOT_BE_CONVERTED | HeroStatusFlag.DELETE_CONFIRM
 trigger = trigger_manager.add_trigger("Inform Betrayal!")
 condition = trigger.new_condition.diplomacy_state(
     quantity=DiplomacyState.ALLY,  # <-- DiplomacyState dataset
-    source_player=Player.TWO,
-    target_player=Player.THREE
+    source_player=PlayerId.TWO,
+    target_player=PlayerId.THREE
 )
 
 effect = trigger.new_effect.display_instructions(
-    source_player=Player.ONE,
+    source_player=PlayerId.ONE,
     message="Spy: Your ally has betrayed you! He allied the enemy!",
     instruction_panel_position=PanelLocation.CENTER,  # <-- PanelLocation dataset
     display_time=10
@@ -171,11 +170,11 @@ These are the biggest and most powerful datasets:
 For adding units it'll look something like the following:
 
 ```py
-unit_manager.add_unit(Player.ONE,  UnitInfo.CONQUISTADOR.ID,    x=10, y=20)
-unit_manager.add_unit(Player.TWO,  UnitInfo.PALADIN.ID,         x=20, y=20)
-unit_manager.add_unit(Player.GAIA, BuildingInfo.FEITORIA.ID,    x=30, y=20)
-unit_manager.add_unit(Player.GAIA, HeroInfo.WILLIAM_WALLACE.ID, x=40, y=20)
-unit_manager.add_unit(Player.GAIA, OtherInfo.GOLD_MINE.ID,      x=50, y=20)
+unit_manager.add_unit(PlayerId.ONE,  UnitInfo.CONQUISTADOR.ID,    x=10, y=20)
+unit_manager.add_unit(PlayerId.TWO,  UnitInfo.PALADIN.ID,         x=20, y=20)
+unit_manager.add_unit(PlayerId.GAIA, BuildingInfo.FEITORIA.ID,    x=30, y=20)
+unit_manager.add_unit(PlayerId.GAIA, HeroInfo.WILLIAM_WALLACE.ID, x=40, y=20)
+unit_manager.add_unit(PlayerId.GAIA, OtherInfo.GOLD_MINE.ID,      x=50, y=20)
 ```
 
 With the triggers you can do similar stuff like:
@@ -187,7 +186,7 @@ effect = trigger.new_effect.create_object(
 )
 ...
 effect = trigger.new_effect.research_technology(
-    source_player=Player.THREE,
+    source_player=PlayerId.THREE,
     technology=TechInfo.BLOODLINES.ID
 )
 ...
@@ -335,7 +334,7 @@ If you wanted to change a projectile of archers to that of an arambai, you could
 trigger.new_effect.modify_attribute(
     quantity=ProjectileInfo.ARAMBAI.ID,
     object_list_unit_id=UnitInfo.ARCHER.ID,
-    source_player=Player.ONE,
+    source_player=PlayerId.ONE,
     operation=Operation.SET,
     object_attributes=ObjectAttribute.PROJECTILE_UNIT
 )
@@ -372,9 +371,9 @@ like: `0: Gaia, 1: Player1 ... 8: Player8`. So because of this a representation 
 which looks like this:
 
 ```py
-Player.GAIA,
-Player.ONE, Player.TWO, Player.THREE, Player.FOUR,
-Player.FIVE, Player.SIX, Player.SEVEN, Player.EIGHT
+PlayerId.GAIA,
+PlayerId.ONE, PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR,
+PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
 ```
 
 If you want to loop through players, you have 2 options:
@@ -384,8 +383,8 @@ If you want to loop through players, you have 2 options:
 for player in range(9):  # Or range(1, 9) if you want to exclude GAIA
 # ... code...
 
-# The Player function:
-for player in Player.all():  # Or Player.all(exclude_gaia=True) if you want to exclude GAIA
+# The PlayerId function:
+for player in PlayerId.all():  # Or PlayerId.all(exclude_gaia=True) if you want to exclude GAIA
 # ... code...    
 ```
 

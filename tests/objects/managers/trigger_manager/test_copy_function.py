@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
@@ -53,7 +53,7 @@ class Test(TestCase):
     def test_copy_trigger_ce(self):
         trigger = self.tm.add_trigger("50% Create object")
         trigger.new_condition.chance(50)
-        trigger.new_effect.create_object(4, Player.ONE, 3, 4)
+        trigger.new_effect.create_object(4, PlayerId.ONE, 3, 4)
 
         copy = self.tm.copy_trigger(0)
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, overload, TYPE_CHECKING, Optional
 from uuid import UUID
 
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:
@@ -13,16 +13,16 @@ if TYPE_CHECKING:
 
 
 @overload
-def unit_change_ownership(uuid: UUID, player: int | Player, unit: 'Unit') -> None:
+def unit_change_ownership(uuid: UUID, player: int | PlayerId, unit: 'Unit') -> None:
     ...
 
 
 @overload
-def unit_change_ownership(uuid: UUID, player: int | Player, units: List['Unit']) -> None:
+def unit_change_ownership(uuid: UUID, player: int | PlayerId, units: List['Unit']) -> None:
     ...
 
 
-def unit_change_ownership(uuid: UUID, player: int | Player, *args) -> None:
+def unit_change_ownership(uuid: UUID, player: int | PlayerId, *args) -> None:
     """
     Change the unit(s) ownership.
 

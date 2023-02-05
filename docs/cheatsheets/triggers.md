@@ -8,7 +8,7 @@ Here's an example of how to create (add) a trigger and add a condition and effec
 
 ```py
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.units import UnitInfo
 
 # File & Folder setup
@@ -30,7 +30,7 @@ timer_condition = trigger.new_condition.timer(timer=20)
 # Add Create Object Effect
 create_paladin_effect = trigger.new_effect.create_object(
     object_list_unit_id=UnitInfo.PALADIN.ID,
-    source_player=Player.ONE,
+    source_player=PlayerId.ONE,
     location_x=5,
     location_y=4,
 )
@@ -130,7 +130,7 @@ Triggers:
         effects:
             create_object [Index: 0, Display: 0]:
                 object_list_unit_id: UnitInfo.PALADIN.ID
-                source_player: Player.ONE
+                source_player: PlayerId.ONE
                 location_x: 5
                 location_y: 4
                 facet: 0
@@ -176,13 +176,13 @@ is shown:
 
 ```py
 copied_triggers = trigger_manager.copy_trigger_per_player(
-    from_player=Player.ONE,
+    from_player=PlayerId.ONE,
     trigger=3,
     create_copy_for_players=[
-        Player.TWO, Player.THREE, Player.FOUR  # Optional list
+        PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR  # Optional list
     ]
 )
-print(f"New trigger for Player Two: {copied_triggers[Player.TWO]}")
+print(f"New trigger for Player Two: {copied_triggers[PlayerId.TWO]}")
 ```
 
 ### Copy tree
@@ -207,7 +207,7 @@ select in which order all the new triggers should be placed:
 
 ```py
 trigger_manager.copy_trigger_tree_per_player(
-    from_player=Player.ONE,
+    from_player=PlayerId.ONE,
     trigger=3,
     group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.NONE and GroupBy.TRIGGER
 )
