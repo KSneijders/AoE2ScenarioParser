@@ -5,7 +5,7 @@ from typing import Optional, List, overload
 from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
+from AoE2ScenarioParser.datasets.trigger_data.diplomacy_state import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 

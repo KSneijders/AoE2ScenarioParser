@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum, IntEnum, IntFlag, EnumMeta
-from typing import Type
+from typing import Type, Dict
 
 
 class _DataSetMeta(EnumMeta):
@@ -41,6 +41,19 @@ class _DataSetIntEnums(_DataSet, IntEnum):
 
 class _DataSetIntFlags(_DataSet, IntFlag):
     """IntFlag super class for all int flag based datasets."""
+
+    def split(self) -> Dict[_DataSetIntFlags, bool]:
+        """
+        Split the Hero Status flags into boolean variables related to their effects
+
+        Returns:
+            A dict with all the flags values as keys and a bool as their value
+        """
+        flags = {}
+        for flag in self.__class__:
+            flags[flag] = bool(flag & self or self == flag == 0)
+        return flags
+
     def attribute_presentation(self) -> str:
         """
         Get the string representation of an enum entry. Uses `.name` when not overridden.

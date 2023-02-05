@@ -8,7 +8,7 @@ from AoE2ScenarioParser.datasets.effects import attribute_presentation as effect
 from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.techs import TechInfo
-from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState, Operation, AttackStance, UnitAIAction, \
+from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState, Operation, AttackStance, UnitAIAction, \
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
     ObjectAttribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
     DamageClass, Hotkey, ColorMood, ObjectState, ActionType, VictoryTimerType, Attribute, ProjectileSmartMode

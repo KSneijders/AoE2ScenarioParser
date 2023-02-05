@@ -7,16 +7,13 @@ The project currently contains multiple datasets. You can get access to the data
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.object_support import Civilization, StartingAge
-from AoE2ScenarioParser.datasets.trigger_lists import \
-    DiplomacyState, Operation, ButtonLocation, PanelLocation, \
-    TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, \
-    Comparison, ObjectAttribute, Attribute, UnitAIAction, \
-    AttackStance, ObjectType, ObjectClass, DamageClass, \
-    HeroStatusFlag, Hotkey, BlastLevel, TerrainRestrictions, \
-    ColorMood, ObjectState, SecondaryGameMode, ChargeType, \
-    ChargeEvent, CombatAbility, FogVisibility, GarrisonType, \
-    OcclusionMode, ProjectileHitMode, ProjectileVanishMode, \
-    UnitTrait, ProjectileSmartMode, Age, ActionType, VictoryTimerType
+
+from AoE2ScenarioParser.datasets.trigger_data import Age, ActionType, AttackStance, Attribute, BlastLevel, \
+    ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel, \
+    DiplomacyState, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState, \
+    ObjectType, OcclusionMode, Operation, PanelLocation, ProjectileHitMode, ProjectileSmartMode, ProjectileVanishMode, \
+    SecondaryGameMode, TechnologyState, TerrainRestrictions, TimeUnit, UnitAIAction, UnitTrait, VictoryCondition, \
+    VictoryTimerType, VisibilityState
 
 # Information of unit/building/hero and tech IDs
 from AoE2ScenarioParser.datasets.projectiles import ProjectileInfo
@@ -70,8 +67,8 @@ Attributes for the **change_diplomacy** effect are:
 Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to
 remember. That's why these datasets have been added:
 
-|        Names         |                                  Explanation                                        |              Example                         |
-| -------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------- |
+| Names                | Explanation                                                                         | Example                                      |
+|----------------------|-------------------------------------------------------------------------------------|----------------------------------------------|
 | DiplomacyState       | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.          | `DiplomacyState.ALLY`                        |
 | Operation            | Used in many effects. Generally related to variables.                               | `Operation.MULTIPLY`                         |
 | ButtonLocation *     | Used in the `Change Research Location` and `Change Train Location` effects. *       | `ButtonLocation.R2C3`                        |
@@ -120,12 +117,7 @@ ButtonLocation.row_col(1, 3)  # ButtonLocation.R1C3
 ### HeroStatusFlag
 
 ```py
-# Both have the same result
-hsf = HeroStatusFlag.CANNOT_BE_CONVERTED + HeroStatusFlag.DELETE_CONFIRMATION
-hsf = HeroStatusFlag.combine(
-    cannot_be_converted=True,
-    delete_confirmation=True
-)
+hero_status = HeroStatusFlag.CANNOT_BE_CONVERTED | HeroStatusFlag.DELETE_CONFIRMATION
 ```
 
 ---

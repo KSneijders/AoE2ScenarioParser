@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
+from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 

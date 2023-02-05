@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
-from AoE2ScenarioParser.datasets.trigger_lists import Age
+from AoE2ScenarioParser.datasets.trigger_data import Age
 from AoE2ScenarioParser.helper.list_functions import listify
 
 

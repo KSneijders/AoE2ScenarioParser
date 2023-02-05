@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.datasets.trigger_lists import PanelLocation
+from AoE2ScenarioParser.datasets.trigger_data import PanelLocation
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
