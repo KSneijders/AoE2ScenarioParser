@@ -9,9 +9,8 @@ Below you can find examples on how to add units to the scenario. This
 will add a conquistador for player 1 at (0, 0) which is the West corner
 of the map:
 
-
 ```py
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 
 # ... 
@@ -22,7 +21,7 @@ from AoE2ScenarioParser.datasets.units import UnitInfo
 unit_manager = scenario.unit_manager
 
 unit = unit_manager.add_unit(
-    player=PlayerId.ONE,
+    player=Player.ONE,
     unit_const=UnitInfo.CONQUISTADOR.ID,  # Units dataset
     x=0.5,
     y=0.5
@@ -30,12 +29,12 @@ unit = unit_manager.add_unit(
 
 # Or, with more detail:
 unit = unit_manager.add_unit(
-    player=PlayerId.ONE,
+    player=Player.ONE,
     unit_const=UnitInfo.CONQUISTADOR.ID,
     x=0.5,
     y=0.5,
-    z=0,                # The 'height' of the unit. 
-    rotation=0,         # Rotation in radians
+    z=0,  # The 'height' of the unit. 
+    rotation=0,  # Rotation in radians
     animation_frame=0,  # The nth animation frame
 )
 ```
@@ -46,7 +45,7 @@ To select the units you want there are a couple options. You can select
 all the units from a certain player:
 
 ```py
-gaia_units = unit_manager.get_player_units(PlayerId.GAIA)
+gaia_units = unit_manager.get_player_units(Player.GAIA)
 ```
 
 Or, get all units:
@@ -77,19 +76,19 @@ For all other examples we'll be using the ``[x, y]`` notation. But you can use t
 
 ```py
 unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, players=[
-    PlayerId.ONE, PlayerId.TWO
+    Player.ONE, Player.TWO
 ])
 # Any unit within 2,3 => 4,5 from Player 1 and 2.
 
 unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, ignore_players=[
-    PlayerId.GAIA
+    Player.GAIA
 ])
 # Any unit within 2,3 => 4,5 from any Player but GAIA.
 
-unit = unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.CONQUISTADOR.ID, x=5, y=1)
-unit2 = unit_manager.add_unit(player=PlayerId.TWO, unit_const=UnitInfo.CONQUISTADOR.ID, x=1, y=5)
+unit = unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CONQUISTADOR.ID, x=5, y=1)
+unit2 = unit_manager.add_unit(player=Player.TWO, unit_const=UnitInfo.CONQUISTADOR.ID, x=1, y=5)
 
-unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[PlayerId.ONE])
+unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[Player.ONE])
 # Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
 ```
 
@@ -100,12 +99,12 @@ For this you can use the `filter_units_by_const` function.
 # Get TC object of all players
 unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID])
 # Get TC object of only player one and two
-unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID], player_list=[PlayerId.ONE, PlayerId.TWO])
+unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID], player_list=[Player.ONE, Player.TWO])
 # Get all objects of player one except for the villagers
 unit_manager.filter_units_by_const(
     unit_consts=[UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
     blacklist=True,  # <-- When True, everything in the unit_consts list will be excluded instead of included
-    player_list=[PlayerId.ONE],
+    player_list=[Player.ONE],
 )
 # Exclude all unique units from a given list
 unit_manager.filter_units_by_const(
@@ -144,8 +143,8 @@ changing the `player` property in the unit object itself or calling
 
 ```py
 # Both are identical in functionality
-unit.player = PlayerId.THREE
-unit_manager.change_ownership(unit, PlayerId.THREE)
+unit.player = Player.THREE
+unit_manager.change_ownership(unit, Player.THREE)
 ```
 
 ## Removing
@@ -167,7 +166,7 @@ you can also just set it to an empty list:
 
 ```py
 # Remove all units from P3
-unit_manager.units[PlayerId.THREE] = []
+unit_manager.units[Player.THREE] = []
 # Remove all units
 unit_manager.units = []
 ```

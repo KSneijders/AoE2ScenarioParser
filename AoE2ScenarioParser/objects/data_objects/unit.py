@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
@@ -34,7 +34,7 @@ class Unit(AoE2Object):
     ]
 
     def __init__(self,
-                 player: int | PlayerId,
+                 player: int | Player,
                  x: float,
                  y: float,
                  z: float,
@@ -50,7 +50,7 @@ class Unit(AoE2Object):
 
         super().__init__(**kwargs)
 
-        self._player: PlayerId = PlayerId(player)
+        self._player: Player = Player(player)
         self.x: float = x
         self.y: float = y
         self.z: float = z
@@ -62,12 +62,12 @@ class Unit(AoE2Object):
         self.garrisoned_in_id: int = garrisoned_in_id
 
     @property
-    def player(self) -> PlayerId:
+    def player(self) -> Player:
         """The player that owns this unit"""
         return self._player
 
     @player.setter
-    def player(self, player: int | PlayerId):
+    def player(self, player: int | Player):
         actions.unit_change_ownership(self._uuid, player, self)
         self._player = player
 

@@ -28,7 +28,7 @@ class GroupBy(IntEnum):
     Example: If the 'source' trigger has display_index of 3, and another trigger in it's tree has 5. Assuming the 
     triggers were copied for all players, display indexes of the copies from the firs trigger would be: 5, 7, 9, 11, 13,
     15 and 17. The second trigger would have moved to 4 (from 5) and it's copies would occupy slots: 6, 8, 10, 12, 14, 
-    16 and 18. This way both PlayerId.ONE (assuming that's the source player) triggers will be together, same goes for 
+    16 and 18. This way both Player.ONE (assuming that's the source player) triggers will be together, same goes for 
     all other players. 
     
     In the example above can be seen how the second trigger was moved from 5 to 4. The unrelated trigger in between was

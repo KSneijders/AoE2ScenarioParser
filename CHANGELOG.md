@@ -585,8 +585,8 @@ This allowed the following:
 - Typo - `SmartPorjectile` to `SmartProjectile`
 - Missing several parameters for specific effects and conditions in `new_effect` and `new_condition`
 - Missing several attributes for specific effects and conditions when using `get_content_as_string()`
-- `effect.player_color` resulting in the wrong color when assigned using `PlayerId` or `PlayerColorId`
-- Functions in `unit_manager` requiring `PlayerId`. Just an `int` is also possible now.
+- `effect.player_color` resulting in the wrong color when assigned using `Player` or `PlayerColorId`
+- Functions in `unit_manager` requiring `Player`. Just an `int` is also possible now.
 - Issue with resizing the map.
 - Issue with importing triggers that had activation effects referencing triggers that were not imported.
 
@@ -689,7 +689,7 @@ Special thanks to **Alian** for his contribution with the datasets! <3
 ### Added
 
 - `filter_units_by_const()` function to the unit_manager. ([check the docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/units.html#select-existing-units))
-- `PlayerId.all()` function. ([check these docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/datasets.html#players))
+- `Player.all()` function. ([check these docs for examples](https://aoe2scenarioparser.readthedocs.io/en/master/cheatsheets/datasets.html#players))
 
 ### Updated
 

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
@@ -15,10 +15,10 @@ class Test(TestCase):
 
     def test_copy_trigger_per_player_attributes(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.create_object(object_list_unit_id=1, source_player=PlayerId.ONE)
-        trigger.new_effect.create_object(object_list_unit_id=1, source_player=PlayerId.TWO)
+        trigger.new_effect.create_object(object_list_unit_id=1, source_player=Player.ONE)
+        trigger.new_effect.create_object(object_list_unit_id=1, source_player=Player.TWO)
 
-        self.tm.copy_trigger_per_player(from_player=PlayerId.ONE, trigger=0)
+        self.tm.copy_trigger_per_player(from_player=Player.ONE, trigger=0)
 
         self.assertListEqual(
             [t.name for t in self.tm.triggers],
@@ -26,7 +26,7 @@ class Test(TestCase):
              "Trigger0 (p5)", "Trigger0 (p6)", "Trigger0 (p7)", "Trigger0 (p8)", ]
         )
 
-        for index, player in enumerate(PlayerId.all(exclude_gaia=True)):
+        for index, player in enumerate(Player.all(exclude_gaia=True)):
             self.assertEqual(self.tm.triggers[index].effects[0].object_list_unit_id, 1)
             self.assertEqual(self.tm.triggers[index].effects[0].source_player, player)
 
@@ -35,42 +35,42 @@ class Test(TestCase):
 
     def test_copy_trigger_per_player_change_from_player_only(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.create_object(object_list_unit_id=1, source_player=PlayerId.ONE)
-        trigger.new_effect.create_object(object_list_unit_id=1, source_player=PlayerId.TWO)
+        trigger.new_effect.create_object(object_list_unit_id=1, source_player=Player.ONE)
+        trigger.new_effect.create_object(object_list_unit_id=1, source_player=Player.TWO)
 
-        self.tm.copy_trigger_per_player(from_player=PlayerId.ONE, trigger=0, change_from_player_only=True)
+        self.tm.copy_trigger_per_player(from_player=Player.ONE, trigger=0, change_from_player_only=True)
 
-        for index, player in enumerate(PlayerId.all(exclude_gaia=True)):
+        for index, player in enumerate(Player.all(exclude_gaia=True)):
             self.assertEqual(self.tm.triggers[index].effects[0].object_list_unit_id, 1)
             self.assertEqual(self.tm.triggers[index].effects[0].source_player, player)
             self.assertEqual(self.tm.triggers[index].effects[1].source_player, 2)
 
     def test_copy_trigger_per_player_include_player_source(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.change_diplomacy(source_player=PlayerId.ONE, target_player=PlayerId.TWO)
+        trigger.new_effect.change_diplomacy(source_player=Player.ONE, target_player=Player.TWO)
 
-        self.tm.copy_trigger_per_player(from_player=PlayerId.ONE, trigger=0, include_player_source=False)
+        self.tm.copy_trigger_per_player(from_player=Player.ONE, trigger=0, include_player_source=False)
 
-        for index, player in enumerate(PlayerId.all(exclude_gaia=True)):
-            self.assertEqual(self.tm.triggers[index].effects[0].source_player, PlayerId.ONE)
-            self.assertEqual(self.tm.triggers[index].effects[0].target_player, PlayerId.TWO)
+        for index, player in enumerate(Player.all(exclude_gaia=True)):
+            self.assertEqual(self.tm.triggers[index].effects[0].source_player, Player.ONE)
+            self.assertEqual(self.tm.triggers[index].effects[0].target_player, Player.TWO)
 
     def test_copy_trigger_per_player_include_player_target(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.change_diplomacy(source_player=PlayerId.ONE, target_player=PlayerId.TWO)
+        trigger.new_effect.change_diplomacy(source_player=Player.ONE, target_player=Player.TWO)
 
-        self.tm.copy_trigger_per_player(from_player=PlayerId.ONE, trigger=0, include_player_target=True)
+        self.tm.copy_trigger_per_player(from_player=Player.ONE, trigger=0, include_player_target=True)
 
-        for index, player in enumerate(PlayerId.all(exclude_gaia=True)):
+        for index, player in enumerate(Player.all(exclude_gaia=True)):
             self.assertEqual(self.tm.triggers[index].effects[0].source_player, player)
             if index != 0:  # First entry is source trigger. Remains unchanged
                 self.assertEqual(self.tm.triggers[index].effects[0].target_player, player)
 
     def test_copy_trigger_per_player_include_gaia(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.change_diplomacy(source_player=PlayerId.ONE, target_player=PlayerId.TWO)
+        trigger.new_effect.change_diplomacy(source_player=Player.ONE, target_player=Player.TWO)
 
-        self.tm.copy_trigger_per_player(from_player=PlayerId.ONE, trigger=0, include_gaia=True)
+        self.tm.copy_trigger_per_player(from_player=Player.ONE, trigger=0, include_gaia=True)
 
         self.assertListEqual(
             [t.name for t in self.tm.triggers],
@@ -80,10 +80,10 @@ class Test(TestCase):
 
     def test_copy_trigger_per_player_create_copy_for_players(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.change_diplomacy(source_player=PlayerId.ONE, target_player=PlayerId.TWO)
+        trigger.new_effect.change_diplomacy(source_player=Player.ONE, target_player=Player.TWO)
 
-        self.tm.copy_trigger_per_player(from_player=PlayerId.ONE, trigger=0, create_copy_for_players=[
-            PlayerId.THREE, PlayerId.FIVE, PlayerId.SEVEN, PlayerId.EIGHT
+        self.tm.copy_trigger_per_player(from_player=Player.ONE, trigger=0, create_copy_for_players=[
+            Player.THREE, Player.FIVE, Player.SEVEN, Player.EIGHT
         ])
 
         self.assertListEqual(

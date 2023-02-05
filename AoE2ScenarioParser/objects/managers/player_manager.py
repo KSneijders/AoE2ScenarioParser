@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Dict, Any
 
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -110,12 +110,12 @@ class PlayerManager(AoE2Object):
         }
 
         param_sets = [(no_gaia_params, None), (gaia_first_params, True), (gaia_last_params, False)]
-        player_attributes: Dict[int, Dict] = {i: {'player_id': PlayerId(i)} for i in range(9)}
+        player_attributes: Dict[int, Dict] = {i: {'player_id': Player(i)} for i in range(9)}
         for param_set, gaia_first in param_sets:
             for key, lst in param_set.items():
                 _spread_player_attributes(player_attributes, key, lst, gaia_first)
 
-        self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
+        self.players = [Player(**player_attributes[p]) for p in Player.all()]
 
     @property
     def active_players(self) -> int:
@@ -126,7 +126,7 @@ class PlayerManager(AoE2Object):
     def active_players(self, value: int):
         if not 1 <= value <= 8:
             raise ValueError("Active players value has to be between 1 and 8")
-        for player_id in PlayerId.all(exclude_gaia=True):
+        for player_id in Player.all(exclude_gaia=True):
             setattr(self.players[player_id], '_active', player_id <= value)
 
     @property
@@ -139,7 +139,7 @@ class PlayerManager(AoE2Object):
         """Sets player objects"""
         self._players = UuidList(self._uuid, value)
 
-    def set_default_starting_resources(self, players: List[PlayerId] = None) -> None:
+    def set_default_starting_resources(self, players: List[Player] = None) -> None:
         """
         Sets the default starting resources for all players
 
@@ -153,14 +153,14 @@ class PlayerManager(AoE2Object):
             players: A list of players, defaults to all players (incl GAIA) when left out
         """
         if players is None:
-            players = PlayerId.all()
+            players = Player.all()
         for player in players:
             self.players[player].food = 200
             self.players[player].wood = 200
             self.players[player].gold = 100
             self.players[player].stone = 200
 
-    def set_diplomacy_teams(self, *args: List[PlayerId | int], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
+    def set_diplomacy_teams(self, *args: List[Player | int], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
             -> None:
         """
         Sets all players in list allied with all others in the same list.
@@ -176,7 +176,7 @@ class PlayerManager(AoE2Object):
         """
         for team in args:
             for player in team:
-                if player == PlayerId.GAIA:
+                if player == Player.GAIA:
                     raise ValueError("Gaia cannot be in a team")
                 self.players[player].set_player_diplomacy([p for p in team if p != player], diplomacy)
 
@@ -354,7 +354,7 @@ class PlayerManager(AoE2Object):
         return values + default_list
 
 
-def _player_list(gaia_first: None | bool = True) -> List[PlayerId]:
+def _player_list(gaia_first: None | bool = True) -> List[Player]:
     """
     Construct a list of players where GAIA can be first, last or not in the list at all
 
@@ -364,9 +364,9 @@ def _player_list(gaia_first: None | bool = True) -> List[PlayerId]:
     Returns:
         The list of players
     """
-    players = PlayerId.all(exclude_gaia=True)
+    players = Player.all(exclude_gaia=True)
     if gaia_first is not None:
-        players.insert(0 if gaia_first else 8, PlayerId.GAIA)
+        players.insert(0 if gaia_first else 8, Player.GAIA)
     return players
 
 

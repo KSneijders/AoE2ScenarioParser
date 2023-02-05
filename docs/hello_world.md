@@ -116,11 +116,11 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 3. Now let's add the code to add some units to the end of the script:
 
     ```py
-    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
-    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
-    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
-    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
-    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
+    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
+    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
+    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
+    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
+    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
     ```
 
     Take a look at the code, maybe you can see what it does?
@@ -131,10 +131,10 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
         These units are placed using whole numbers (called: integers, `x=15, y=12`), if you want units to spawn in the middle of a tile, use
         `.5` after the integer, like so: `x=15.5, y=12.5`
 
-5. You can also see the above code uses `PlayerId` and `UnitInfo` objects.
+5. You can also see the above code uses `Player` and `UnitInfo` objects.
 
     ```
-    PlayerId.ONE         # The number representing player one (1)
+    Player.ONE         # The number representing player one (1)
     UnitInfo.MILITIA.ID  # The number representing a militia unit (74)
     ```
 
@@ -144,7 +144,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 6. Let's import the datasets using the code below. Add these lines to the top of your file.
 
     ```py
-    from AoE2ScenarioParser.datasets.players import PlayerId
+    from AoE2ScenarioParser.datasets.players import Player
     from AoE2ScenarioParser.datasets.units import UnitInfo
     ```
 
@@ -194,7 +194,7 @@ Your code should look something like the below block. You can find more examples
 [examples](https://ksneijders.github.io/AoE2ScenarioParser/examples/triggers/) page.
 
 ```py
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
@@ -217,11 +217,11 @@ hello_world_trigger.new_effect.display_instructions(
     message="Hello World"
 )
 
-unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
-unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
-unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
-unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
-unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
+unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MILITIA.ID, x=15, y=12)
+unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID, x=15, y=13)
+unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID, x=15, y=14)
+unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
+unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CHAMPION.ID, x=15, y=16)
 
 map_manager.set_elevation(elevation=3, x1=10, y1=10, x2=20, y2=20)
 map_manager.map_size = 40
