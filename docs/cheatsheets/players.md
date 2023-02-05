@@ -8,7 +8,7 @@ Here's an example of how to view a player and edit their starting civilization, 
 
 ```py
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
-from AoE2ScenarioParser.datasets.object_support import Civilization
+from AoE2ScenarioParser.datasets.player_data import Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
 
 # File & Folder setup

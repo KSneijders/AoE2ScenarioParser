@@ -47,12 +47,14 @@ The changes listed below will be explained further in an official document at a 
 ## Moved Datasets in individual modules
 
 1. Moved all datasets from the `trigger_list` module to their own modules: 
-   From: `from AoE2ScenarioParser.datasets.trigger_lists`
-   To: `from AoE2ScenarioParser.datasets.trigger_data.object_type`
+   From: `AoE2ScenarioParser.datasets.trigger_lists.<class>`
+   To: `AoE2ScenarioParser.datasets.trigger_data.<module>.<class>`
 2. Moved `HeroStatusFlag.split_flags()` (+ Renamed, See #3) to the flag super class so all flag dataset classes can use it now
 3. Renamed `_DataSetIntFlags.split_flags()` to `_DataSetIntFlags.split()`
+4. Moved `Civilization` and `StartingAge` dataset into `player_data` module 
+   From: `AoE2ScenarioParser.datasets.object_support.<class>`
+   To: `AoE2ScenarioParser.datasets.player_data.<module>.<class>`
 
-## Renamed `Attribute` dataset to `PlayerAttribute`
+## Renamed datasets
 
 1. Renamed `Attribute` dataset to `PlayerAttribute`
-

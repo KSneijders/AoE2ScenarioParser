@@ -6,7 +6,7 @@ The project currently contains multiple datasets. You can get access to the data
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.datasets.object_support import Civilization, StartingAge
+from AoE2ScenarioParser.datasets.player_data import StartingAge, Civilization
 
 from AoE2ScenarioParser.datasets.trigger_data import Age, ActionType, AttackStance, PlayerAttribute, BlastLevel,
     ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel,
