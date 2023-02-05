@@ -8,20 +8,20 @@ from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 _attribute_dataset_editor_names = None
 
 
-class Attribute(_DataSetIntEnums):
+class PlayerAttribute(_DataSetIntEnums):
     """
     This enum class provides the integer values used to reference all the player resources in the game. Used in effects
     and conditions like 'Accumulate Attribute' and 'Modify Resource'
 
     **Examples**
 
-    >>> Attribute.FOOD_STORAGE
-    <Attribute.FOOD_STORAGE: 0>
+    >>> PlayerAttribute.FOOD_STORAGE
+    <PlayerAttribute.FOOD_STORAGE: 0>
 
     You can also request the editor names of these player attributes (resources) to be used in <...> notation in
     trigger displays using:
 
-    >>> Attribute.FOOD_STORAGE.editor_name
+    >>> PlayerAttribute.FOOD_STORAGE.editor_name
     '!Food Storage'
     """
 

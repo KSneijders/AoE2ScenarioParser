@@ -7,7 +7,7 @@
             "armour_attack_quantity": "",
             "armour_attack_class": "DamageClass",
             "quantity": "",
-            "tribute_list": "Attribute",
+            "tribute_list": "PlayerAttribute",
             "diplomacy": "DiplomacyState",
             "object_list_unit_id": "UnitInfo",
             "source_player": "PlayerId",

@@ -4,7 +4,7 @@
         "attribute_presentation": {
             "condition_type": "",
             "quantity": "",
-            "attribute": "Attribute",
+            "attribute": "PlayerAttribute",
             "unit_object": "",
             "next_object": "",
             "object_list": "UnitInfo",

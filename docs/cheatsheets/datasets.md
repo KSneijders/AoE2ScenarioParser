@@ -8,11 +8,11 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.object_support import Civilization, StartingAge
 
-from AoE2ScenarioParser.datasets.trigger_data import Age, ActionType, AttackStance, Attribute, BlastLevel, \
-    ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel, \
-    DiplomacyState, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState, \
-    ObjectType, OcclusionMode, Operation, PanelLocation, ProjectileHitMode, ProjectileSmartMode, ProjectileVanishMode, \
-    SecondaryGameMode, TechnologyState, TerrainRestrictions, TimeUnit, UnitAIAction, UnitTrait, VictoryCondition, \
+from AoE2ScenarioParser.datasets.trigger_data import Age, ActionType, AttackStance, PlayerAttribute, BlastLevel,
+    ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel,
+    DiplomacyState, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState,
+    ObjectType, OcclusionMode, Operation, PanelLocation, ProjectileHitMode, ProjectileSmartMode, ProjectileVanishMode,
+    SecondaryGameMode, TechnologyState, TerrainRestrictions, TimeUnit, UnitAIAction, UnitTrait, VictoryCondition,
     VictoryTimerType, VisibilityState
 
 # Information of unit/building/hero and tech IDs
@@ -79,7 +79,7 @@ remember. That's why these datasets have been added:
 | TechnologyState      | Used in the `Technology State` condition.                                           | `TechnologyState.RESEARCHING`                |
 | Comparison           | Used in many effects and conditions. Generally related to variables.                | `Comparison.EQUAL`                           |
 | ObjectAttribute      | Used in the `Modify Attribute` effect.                                              | `ObjectAttribute.CARRY_CAPACITY`             |
-| Attribute            | Used in the `Accumulate Attribute` effect.                                          | `Attribute.ALL_TECHS_ACHIEVED`               |
+| PlayerAttribute      | Used in the `Accumulate Attribute` effect.                                          | `PlayerAttribute.ALL_TECHS_ACHIEVED`         |
 | UnitAIAction         | Used in the `Object has Action` condition.                                          | `UnitAIAction.ATTACK`                        |
 | AttackStance         | Used in the `Change Object Stance` effect.                                          | `AttackStance.AGGRESSIVE_STANCE`             |
 | ObjectType           | Used in every unit selection effect & condition.                                    | `ObjectType.DOPPELGANGER`                    |

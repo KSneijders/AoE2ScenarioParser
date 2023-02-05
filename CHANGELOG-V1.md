@@ -51,3 +51,8 @@ The changes listed below will be explained further in an official document at a 
    To: `from AoE2ScenarioParser.datasets.trigger_data.object_type`
 2. Moved `HeroStatusFlag.split_flags()` (+ Renamed, See #3) to the flag super class so all flag dataset classes can use it now
 3. Renamed `_DataSetIntFlags.split_flags()` to `_DataSetIntFlags.split()`
+
+## Renamed `Attribute` dataset to `PlayerAttribute`
+
+1. Renamed `Attribute` dataset to `PlayerAttribute`
+
