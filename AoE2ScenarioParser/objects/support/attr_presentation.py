@@ -5,7 +5,7 @@ from uuid import UUID
 
 from AoE2ScenarioParser.datasets.conditions import attribute_presentation as condition_attribute_presentation
 from AoE2ScenarioParser.datasets.effects import attribute_presentation as effect_attribute_presentation
-from AoE2ScenarioParser.datasets.players import PlayerId, PlayerColorId
+from AoE2ScenarioParser.datasets.players import Player, PlayerColorId
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState, Operation, AttackStance, UnitAIAction, \
@@ -109,7 +109,7 @@ _datasets = {
 
 _other = {
     'bool': lambda v: str(bool(v)),
-    'PlayerId': lambda p: f"PlayerData {PlayerId(p).name.capitalize()}",
+    'Player': lambda p: f"PlayerData {Player(p).name.capitalize()}",
     'PlayerColorId': lambda p: f"{PlayerColorId(p + 1).name.capitalize()}",
     'str': q_str,
 }

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Tuple, Generator, Union
 
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits
@@ -52,13 +52,13 @@ class UnitManager(AoE2Object):
 
     def update_unit_player_values(self):
         """Function to update all player values in all units. Useful when units are moved manually (in mass)."""
-        for player in PlayerId.all():
+        for player in Player.all():
             for unit in self.units[player]:
                 unit._player = player
 
     def add_unit(
             self,
-            player: int | PlayerId,
+            player: int | Player,
             unit_const: int,
             x: float = 0,
             y: float = 0,
@@ -111,7 +111,7 @@ class UnitManager(AoE2Object):
         self.units[player].append(unit)
         return unit
 
-    def get_player_units(self, player: int | PlayerId) -> List[Unit]:
+    def get_player_units(self, player: int | Player) -> List[Unit]:
         """
         Returns a list of UnitObjects for the given player.
 
@@ -133,7 +133,7 @@ class UnitManager(AoE2Object):
             attr: str,
             unit_attrs: List[int],
             blacklist: bool = False,
-            player_list: List[Union[int, PlayerId]] = None,
+            player_list: List[Union[int, Player]] = None,
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
@@ -175,7 +175,7 @@ class UnitManager(AoE2Object):
             self,
             unit_consts: List[int],
             blacklist: bool = False,
-            player_list: List[Union[int, PlayerId]] = None,
+            player_list: List[Union[int, Player]] = None,
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
@@ -196,7 +196,7 @@ class UnitManager(AoE2Object):
             self,
             unit_reference_ids: List[int],
             blacklist: bool = False,
-            player_list: List[Union[int, PlayerId]] = None,
+            player_list: List[Union[int, Player]] = None,
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
@@ -222,8 +222,8 @@ class UnitManager(AoE2Object):
             tile1: Tile = None,
             tile2: Tile = None,
             unit_list: List[Unit] = None,
-            players: List[Union[int, PlayerId]] = None,
-            ignore_players: List[PlayerId] = None
+            players: List[Union[int, Player]] = None,
+            ignore_players: List[Player] = None
     ) -> List[Unit]:
         """
         Returns all units in the square with left corner (x1, y1) and right corner (x2, y2). Both corners inclusive.
@@ -268,9 +268,9 @@ class UnitManager(AoE2Object):
         if players is not None:
             players = players
         elif ignore_players is not None:
-            players = [p for p in PlayerId if p not in ignore_players]
+            players = [p for p in Player if p not in ignore_players]
         else:
-            players = [p for p in PlayerId]
+            players = [p for p in Player]
 
         if unit_list is None:
             unit_list = self.get_all_units()
@@ -278,7 +278,7 @@ class UnitManager(AoE2Object):
         return [unit for unit in unit_list if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
     @staticmethod
-    def change_ownership(unit: Unit | List[Unit], to_player: int | PlayerId) -> None:
+    def change_ownership(unit: Unit | List[Unit], to_player: int | Player) -> None:
         """
         Changes a unit's ownership to the given player.
 
@@ -309,7 +309,7 @@ class UnitManager(AoE2Object):
             The highest ID in the map
         """
         highest_id = 0  # If no units, default to 0
-        for player in PlayerId.all():
+        for player in Player.all():
             for unit in self.units[player]:
                 highest_id = max(highest_id, unit.reference_id)
         return highest_id

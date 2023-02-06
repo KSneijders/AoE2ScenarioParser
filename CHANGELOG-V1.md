@@ -58,6 +58,7 @@ The changes listed below will be explained further in an official document at a 
 ## Renamed datasets
 
 1. Renamed `Attribute` dataset to `PlayerAttribute`
+2. Renamed `PlayerId` dataset to `Player`
 
 ## Rename Player related classes
 

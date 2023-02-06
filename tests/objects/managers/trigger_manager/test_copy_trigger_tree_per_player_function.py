@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
@@ -16,10 +16,10 @@ class Test(TestCase):
 
     def test_copy_trigger_tree_per_player_attributes(self):
         trigger = self.tm.add_trigger("Trigger0")
-        trigger.new_effect.create_object(object_list_unit_id=1, source_player=PlayerId.ONE)
-        trigger.new_effect.create_object(source_player=PlayerId.TWO)
+        trigger.new_effect.create_object(object_list_unit_id=1, source_player=Player.ONE)
+        trigger.new_effect.create_object(source_player=Player.TWO)
 
-        self.tm.copy_trigger_tree_per_player(from_player=PlayerId.ONE, trigger=0)
+        self.tm.copy_trigger_tree_per_player(from_player=Player.ONE, trigger=0)
 
         self.assertListEqual(
             [t.name for t in self.tm.triggers],
@@ -27,7 +27,7 @@ class Test(TestCase):
              "Trigger0 (p5)", "Trigger0 (p6)", "Trigger0 (p7)", "Trigger0 (p8)", ]
         )
 
-        for index, player in enumerate(PlayerId.all(exclude_gaia=True)):
+        for index, player in enumerate(Player.all(exclude_gaia=True)):
             self.assertEqual(self.tm.triggers[index].effects[0].object_list_unit_id, 1)
             self.assertEqual(self.tm.triggers[index].effects[0].source_player, player)
 
@@ -41,7 +41,7 @@ class Test(TestCase):
         trigger2.new_effect.activate_trigger(trigger_id=3)
         trigger3 = self.tm.add_trigger("Trigger3")
 
-        new_triggers = self.tm.copy_trigger_tree_per_player(from_player=PlayerId.ONE, trigger=0)
+        new_triggers = self.tm.copy_trigger_tree_per_player(from_player=Player.ONE, trigger=0)
 
         self.assertListEqual(
             [t.name for t in self.tm.triggers],
@@ -76,7 +76,7 @@ class Test(TestCase):
         trigger4 = self.tm.add_trigger("Trigger4")
 
         new_triggers = self.tm.copy_trigger_tree_per_player(
-            from_player=PlayerId.ONE, trigger=2, group_triggers_by=GroupBy.TRIGGER
+            from_player=Player.ONE, trigger=2, group_triggers_by=GroupBy.TRIGGER
         )
 
         self.assertListEqual(
@@ -117,7 +117,7 @@ class Test(TestCase):
         trigger5 = self.tm.add_trigger("Trigger5")
 
         new_triggers = self.tm.copy_trigger_tree_per_player(
-            from_player=PlayerId.ONE, trigger=1, group_triggers_by=GroupBy.PLAYER
+            from_player=Player.ONE, trigger=1, group_triggers_by=GroupBy.PLAYER
         )
 
         self.assertListEqual(

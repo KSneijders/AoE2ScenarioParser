@@ -4,9 +4,9 @@ from enum import IntEnum
 from typing import List
 
 
-class PlayerId(IntEnum):
+class Player(IntEnum):
     @staticmethod
-    def all(exclude_gaia: bool = False) -> List[PlayerId]:
+    def all(exclude_gaia: bool = False) -> List[Player]:
         """
         Return a list of all players
 
@@ -16,9 +16,9 @@ class PlayerId(IntEnum):
         Returns:
             The list of playerIds
         """
-        return ([] if exclude_gaia else [PlayerId.GAIA]) + [
-            PlayerId.ONE, PlayerId.TWO, PlayerId.THREE, PlayerId.FOUR,
-            PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
+        return ([] if exclude_gaia else [Player.GAIA]) + [
+            Player.ONE, Player.TWO, Player.THREE, Player.FOUR,
+            Player.FIVE, Player.SIX, Player.SEVEN, Player.EIGHT
         ]
 
     """
@@ -74,7 +74,7 @@ class ColorId(IntEnum):
     INVALID_15 = 15
 
     @staticmethod
-    def from_player_id(player_id: PlayerId | int):
+    def from_player_id(player_id: Player | int):
         if not 0 <= player_id <= 8:
             raise ValueError(f"Invalid player ID. Should be between 0 and 8 (both incl), but got: {player_id}")
         if player_id == 0:

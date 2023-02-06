@@ -9,7 +9,7 @@ Here's an example of how to view a player and edit their starting civilization, 
 ```py
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 from AoE2ScenarioParser.datasets.player_data import Civilization
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 
 # File & Folder setup
 # Define paths to the scenario folder.
@@ -22,7 +22,7 @@ scenario = AoE2Scenario.from_file(f"{scenario_folder}{scenario_name}.aoe2scenari
 
 # Save the player manager and the second player
 player_manager = scenario.player_manager
-player_two = player_manager.players[PlayerId.TWO]
+player_two = player_manager.players[Player.TWO]
 
 player_two.civilization = Civilization.BYZANTINES
 player_two.architecture_set = Civilization.BYZANTINES
@@ -82,14 +82,14 @@ For example, if you want to disable `archery ranges`, `stables` and `siege works
 and you want to disable the `market`, the tech `loom` and `Paladins` for the fifth player, you can do so like this:
 
 ```py
-player_two = player_manager.players[PlayerId.TWO]
+player_two = player_manager.players[Player.TWO]
 player_two.disabled_buildings.extend([
     BuildingInfo.ARCHERY_RANGE.ID,
     BuildingInfo.STABLE.ID, 
     BuildingInfo.SIEGE_WORKSHOP.ID
 ])
 
-player_five = player_manager.players[PlayerId.FIVE]
+player_five = player_manager.players[Player.FIVE]
 player_five.disabled_buildings.append(BuildingInfo.MARKET.ID)
 player_five.disabled_techs.append(TechInfo.LOOM.ID)
 player_five.disabled_units.append(UnitInfo.PALADIN.ID)
@@ -98,8 +98,8 @@ player_five.disabled_units.append(UnitInfo.PALADIN.ID)
 You can also copy the list of units from one player to another:
 
 ```py
-player_two = player_manager.players[PlayerId.TWO]
-player_five = player_manager.players[PlayerId.FIVE]
+player_two = player_manager.players[Player.TWO]
+player_five = player_manager.players[Player.FIVE]
 
 player_five.disabled_buildings = player_two.disabled_buildings.copy()
 ```
@@ -111,7 +111,7 @@ You can set diplomacy through the player manager or directly per player.
 ### Set diplomacy teams
 
 If you want to quickly set the diplomacy in teams where everyone is allied to the rest of the team, you can use the `player_manager.set_diplomacy_teams` function.
-It accepts a list of lists with integers or `PlayerId` numbers.
+It accepts a list of lists with integers or `Player` numbers.
 
 The code below creates four teams of two. This sets the players to ally as you can see with the final `diplomacy` argument.
 
@@ -132,7 +132,7 @@ For example, below you can see that player one is set to enemy with player 5 and
     All 'target' players (2, 3, 4 and 5) are still on the default Enemy stance.
 
 ```py
-p1 = player_manager.players[PlayerId.ONE]
+p1 = player_manager.players[Player.ONE]
 p1.set_player_diplomacy(5, DiplomacyState.ENEMY)
 p1.set_player_diplomacy([2, 3, 4], DiplomacyState.ALLY)
 ```
