@@ -10,20 +10,21 @@ __READ_THE_STATEMENT_BELOW__ = '\n'.join([
     "",
     "AoE2ScenarioParser has updated to the first major version, version 1.0.0!",
     "This update brings a lot of changes which should help the development experience by A LOT.",
-    "To read about the many great changes made to the parser in the v1.0.0 release, please see the changelog:",
-    ">>> https://github.com/KSneijders/AoE2ScenarioParser/blob/master/CHANGELOG.md",  # TODO: <-- VERIFY URL BEFORE RELEASE
+    "To read about the many great changes made to the parser in the v1.0.0 release, please read the v1 release notes:",
+    ">>> https://ksneijders.github.io/.../V1_RELEASE_NOTES/",  # TODO: <-- ADD URL TO MIGRATION GUIDE
     "",
     "Here are a couple examples of the updated/new features of the v1.0.0 release:",
     "- Speed improvements due to a completely new library: BinaryFileParser (Credits: Alian713)",   # TODO: VERIFY BEFORE RELEASE!!
-    "- Removed A LOT of clutter from the library",                                                  # TODO: VERIFY BEFORE RELEASE!!
     "- Better distinct Effect and Condition classes for ease of use",                               # TODO: VERIFY BEFORE RELEASE!!
-    "- More consistent naming schemes across the library",                                          # TODO: VERIFY BEFORE RELEASE!!
     "- Many improvements to the Area & Tile objects and their functionality",                       # TODO: VERIFY BEFORE RELEASE!!
+    "",
+    "For a more in-depth look at all the changes, check out the changelog:",
+    ">>> https://github.com/KSneijders/AoE2ScenarioParser/blob/master/CHANGELOG.md",  # TODO: <-- VERIFY URL BEFORE RELEASE
     "",
     "To use this version, changes will have to be made to your code.",
     "Depending on the scale of your project, this might take up some time. But, rest assured, it is worth it!",
-    "A document that lists the changes that you (might) need to make, can be found here:",
-    ">>> https://ksneijders.github.io/.../UPDATE_GUIDE_URL/",  # TODO: <-- ADD URL TO UPDATE GUIDE
+    "A document that lists the changes - that you may or may not need to make - can be found here:",
+    ">>> https://ksneijders.github.io/.../MIGRATION_GUIDE_V1_URL/",  # TODO: <-- ADD URL TO MIGRATION GUIDE
     "",
     "For questions regarding the linked document above, or questions about anything upgrade related,",
     "Please refer to the discord server:",
