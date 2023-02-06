@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.player_data import StartingAge, Civilization
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import Player
 from AoE2ScenarioParser.datasets.trigger_data.diplomacy_state import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -108,7 +108,7 @@ class PlayerData(AoE2Object):
         """Read-only value if this player is active or not"""
         return self._active
 
-    def set_player_diplomacy(self, players: PlayerId | int | List[PlayerId | int], diplomacy: DiplomacyState):
+    def set_player_diplomacy(self, players: Player | int | List[Player | int], diplomacy: DiplomacyState):
         """
         Set the diplomacy of this player to other players.
 
@@ -119,7 +119,7 @@ class PlayerData(AoE2Object):
             players: The player(s) to change
             diplomacy: The diplomacy setting to set the player to
         """
-        players: List[PlayerId | int] = listify(players)
+        players: List[Player | int] = listify(players)
 
         if self.player_id in players:
             raise ValueError("Cannot set diplomacy from and to the same player")
@@ -129,6 +129,6 @@ class PlayerData(AoE2Object):
 
     def _get_object_attrs(self):
         attrs = self._object_attributes
-        if self.player_id != PlayerId.GAIA:
+        if self.player_id != Player.GAIA:
             attrs.extend(self._object_attributes_non_gaia)
         return super()._get_object_attrs() + attrs

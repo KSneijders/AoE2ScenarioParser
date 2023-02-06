@@ -284,7 +284,7 @@ class UnitManager(AoE2Object):
 
         Args:
             unit: The unit object which ownership will be changed
-            to_player: The player that'll get ownership over the unit (using PlayerId enum)
+            to_player: The player that'll get ownership over the unit (using Player enum)
         """
         if isinstance(unit, list):
             for u in unit:

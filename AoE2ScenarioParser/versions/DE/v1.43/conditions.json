@@ -8,7 +8,7 @@
             "unit_object": "",
             "next_object": "",
             "object_list": "UnitInfo",
-            "source_player": "PlayerId",
+            "source_player": "Player",
             "technology": "TechInfo",
             "timer": "",
             "area_x1": "",
@@ -21,7 +21,7 @@
             "inverted": "bool",
             "variable": "",
             "comparison": "Comparison",
-            "target_player": "PlayerId",
+            "target_player": "Player",
             "unit_ai_action": "UnitAIAction",
             "object_state": "ObjectState",
             "xs_function": "str"

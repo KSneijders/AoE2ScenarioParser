@@ -109,7 +109,7 @@ _datasets = {
 
 _other = {
     'bool': lambda v: str(bool(v)),
-    'Player': lambda p: f"PlayerData {Player(p).name.capitalize()}",
+    'Player': lambda p: f"Player {Player(p).name.capitalize()}",
     'PlayerColorId': lambda p: f"{PlayerColorId(p + 1).name.capitalize()}",
     'str': q_str,
 }
