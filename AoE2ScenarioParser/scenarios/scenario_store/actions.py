@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, overload, TYPE_CHECKING, Optional
 from uuid import UUID
 
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 if TYPE_CHECKING:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Tuple, Generator, Union
 
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits

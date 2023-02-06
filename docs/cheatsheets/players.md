@@ -8,8 +8,7 @@ Here's an example of how to view a player and edit their starting civilization, 
 
 ```py
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
-from AoE2ScenarioParser.datasets.player_data import Civilization
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.player_data import Civilization, Player
 
 # File & Folder setup
 # Define paths to the scenario folder.
@@ -48,7 +47,7 @@ Players have many attributes, below is a list of most of their attributes which 
 | wood                 | int       | -            |            |
 | gold                 | int       | -            |            |
 | stone                | int       | -            |            |
-| color                | int       | ColorId      |            |
+| color                | int       | Color        |            |
 | human                | bool      | -            |            |
 | civilization         | int       | Civilization |            |
 | architecture_set     | int       | Civilization |            |

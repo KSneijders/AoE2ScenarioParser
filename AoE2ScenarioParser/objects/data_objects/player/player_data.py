@@ -3,8 +3,7 @@ from __future__ import annotations
 from typing import Optional, List
 
 from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
-from AoE2ScenarioParser.datasets.player_data import StartingAge, Civilization
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.player_data import StartingAge, Civilization, Player
 from AoE2ScenarioParser.datasets.trigger_data.diplomacy_state import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object

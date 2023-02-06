@@ -144,7 +144,8 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 6. Let's import the datasets using the code below. Add these lines to the top of your file.
 
     ```py
-    from AoE2ScenarioParser.datasets.players import Player
+
+from AoE2ScenarioParser.datasets.player_data import Player
     from AoE2ScenarioParser.datasets.units import UnitInfo
     ```
 
@@ -194,7 +195,8 @@ Your code should look something like the below block. You can find more examples
 [examples](https://ksneijders.github.io/AoE2ScenarioParser/examples/triggers/) page.
 
 ```py
-from AoE2ScenarioParser.datasets.players import Player
+
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 

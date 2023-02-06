@@ -4,7 +4,7 @@ from typing import List, Tuple, Any
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.datasets.players import PlayerColorId, Player
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import ObjectAttribute
 from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectArmorAttackUsageWarning
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
@@ -250,9 +250,11 @@ class Effect(AoE2Object, TriggerComponent):
 
     @player_color.setter
     def player_color(self, value):
-        if type(value) in [PlayerColorId, Player]:
+        if isinstance(value, Player):
             value -= 1
         self._player_color = value
+        if value != -1:
+            print(self._player_color)
 
     @property
     def item_id(self):

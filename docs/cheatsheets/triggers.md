@@ -8,7 +8,7 @@ Here's an example of how to create (add) a trigger and add a condition and effec
 
 ```py
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 
 # File & Folder setup

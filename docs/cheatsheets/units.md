@@ -10,7 +10,8 @@ will add a conquistador for player 1 at (0, 0) which is the West corner
 of the map:
 
 ```py
-from AoE2ScenarioParser.datasets.players import Player
+
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 
 # ... 

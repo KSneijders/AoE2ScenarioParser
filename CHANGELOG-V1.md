@@ -44,22 +44,24 @@ The changes listed below will be explained further in an official document at a 
 
 1. URLs to certain API doc pages have changed
 
-## Moved Datasets in individual modules
+## Changed datasets
 
-1. Moved all datasets from the `trigger_list` module to their own modules: 
-   From: `AoE2ScenarioParser.datasets.trigger_lists.<class>`
+1. Moved all datasets from the `trigger_list` module to their own modules:   
+   From: `AoE2ScenarioParser.datasets.trigger_lists.<class>`  
    To: `AoE2ScenarioParser.datasets.trigger_data.<module>.<class>`
 2. Moved `HeroStatusFlag.split_flags()` (+ Renamed, See #3) to the flag super class so all flag dataset classes can use it now
 3. Renamed `_DataSetIntFlags.split_flags()` to `_DataSetIntFlags.split()`
-4. Moved `Civilization` and `StartingAge` dataset into `player_data` module 
-   From: `AoE2ScenarioParser.datasets.object_support.<class>`
+4. Moved `Civilization` and `StartingAge` datasets into `player_data` module:  
+   From: `AoE2ScenarioParser.datasets.object_support.<class>`  
    To: `AoE2ScenarioParser.datasets.player_data.<module>.<class>`
+5. Moved `ColorId` and `PlayerId` datasets into `player_data` module:  
+   From: `AoE2ScenarioParser.datasets.player.<class>`  
+   To: `AoE2ScenarioParser.datasets.player_data.<module>.<class>`
+6. Renamed `Attribute` dataset to `PlayerAttribute`
+7. Renamed `PlayerId` dataset to `Player`
+8. Renamed `ColorId` dataset to `Color`
+9. **Removed** `PlayerColorId` dataset to circumvent confusion (and it was outdated)
 
-## Renamed datasets
-
-1. Renamed `Attribute` dataset to `PlayerAttribute`
-2. Renamed `PlayerId` dataset to `Player`
-
-## Rename Player related classes
+## Rename Player class
 
 1. Renamed `Player` class (from PlayerManager) to `PlayerData`

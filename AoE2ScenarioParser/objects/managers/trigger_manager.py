@@ -5,7 +5,7 @@ from enum import IntEnum
 from typing import List, Dict, Tuple, Optional
 
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.datasets.players import Player
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import value_is_valid, mutually_exclusive
 from AoE2ScenarioParser.helper.list_functions import hash_list, list_changed, update_order_array

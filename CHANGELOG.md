@@ -585,7 +585,7 @@ This allowed the following:
 - Typo - `SmartPorjectile` to `SmartProjectile`
 - Missing several parameters for specific effects and conditions in `new_effect` and `new_condition`
 - Missing several attributes for specific effects and conditions when using `get_content_as_string()`
-- `effect.player_color` resulting in the wrong color when assigned using `Player` or `PlayerColorId`
+- `effect.player_color` resulting in the wrong color when assigned using `Player` or `PlayerColor`
 - Functions in `unit_manager` requiring `Player`. Just an `int` is also possible now.
 - Issue with resizing the map.
 - Issue with importing triggers that had activation effects referencing triggers that were not imported.

@@ -28,7 +28,7 @@ from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 
 # Information about player IDs
-from AoE2ScenarioParser.datasets.players import Player, PlayerColorId, ColorId
+from AoE2ScenarioParser.datasets.player_data import Color, Player
 ```
 
 A special thanks to **Alian713** for doing **A LOT** of the work in contributing the data needed for these datasets. :heart:
@@ -93,7 +93,7 @@ remember. That's why these datasets have been added:
 | ProjectileSmartMode  | Can be used for changing the `ENABLE_SMART_PROJECTILES` in `ObjectAttribute`.       | `ProjectileSmartMode.TARGET_FUTURE_LOCATION` |
 | ColorMood            | Used in the `Change Color Mood` effect.                                             | `ColorMood.WINTER`                           |
 | ObjectState          | Used in the `Objects in area` condition.                                            | `ObjectState.DEAD`                           |
-| ColorId              | Used in the player manager for setting the player color.                            | `ColorId.GREEN`                              |
+| Color                | Used in the player manager for setting the player color.                            | `Color.GREEN`                                |
 | Civilization         | Used in the player manager for setting the player civilization.                     | `Civilization.MAYANS`                        |
 | StartingAge          | Used in the player manager for setting the player starting age.                     | `StartingAge.FEUDAL_AGE`                     |
 | SecondaryGameMode    | Used for setting the secondary victory conditions.                                  | `SecondaryGameMode.SUDDEN_DEATH`             |
@@ -387,13 +387,6 @@ for player in range(9):  # Or range(1, 9) if you want to exclude GAIA
 # The Player function:
 for player in Player.all():  # Or Player.all(exclude_gaia=True) if you want to exclude GAIA
 # ... code...    
-```
-
-You can also address the players by color if you prefer it:
-
-```py
-PlayerColorId.BLUE, PlayerColorId.RED, PlayerColorId.GREEN, PlayerColorId.YELLOW,
-PlayerColorId.AQUA, PlayerColorId.PURPLE, PlayerColorId.GRAY, PlayerColorId.ORANGE
 ```
 
 ---

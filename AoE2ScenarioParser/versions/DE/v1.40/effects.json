@@ -47,7 +47,7 @@
             "timer": "",
             "facet": "",
             "play_sound": "bool",
-            "player_color": "PlayerColorId",
+            "player_color": "PlayerColor",
             "color_mood": "ColorMood",
             "message": "str",
             "sound_name": "str",

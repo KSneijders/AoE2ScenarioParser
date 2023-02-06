@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.datasets.players import ColorId
+from AoE2ScenarioParser.datasets.player_data.color import Color
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
@@ -24,4 +24,4 @@ class PlayerResources(AoE2Object):
         self.wood: int = wood
         self.gold: int = gold
         self.stone: int = stone
-        self.color: ColorId = ColorId(color)
+        self.color: Color = Color(color)
