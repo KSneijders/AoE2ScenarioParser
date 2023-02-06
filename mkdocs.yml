@@ -62,7 +62,7 @@ nav:
       - TerrainTile:        "api_docs/map/terrain_tile.md"
     - Player:
       - PlayerManager:      "api_docs/player/player_manager.md"
-      - Player:             "api_docs/player/player.md"
+      - PlayerData:         "api_docs/player/player_data.md"
     - Trigger:
       - TriggerManager:     "api_docs/trigger/trigger_manager.md"
       - Trigger:            "api_docs/trigger/trigger.md"

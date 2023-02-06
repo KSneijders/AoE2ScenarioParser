@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.data_objects.player.player import Player
+from AoE2ScenarioParser.objects.data_objects.player.player_data import PlayerData
 from AoE2ScenarioParser.objects.data_objects.player.player_data_four import PlayerDataFour
 from AoE2ScenarioParser.objects.data_objects.player.player_data_three import PlayerDataThree
 from AoE2ScenarioParser.objects.data_objects.player.player_diplomacy import PlayerDiplomacy
@@ -115,7 +115,7 @@ class PlayerManager(AoE2Object):
             for key, lst in param_set.items():
                 _spread_player_attributes(player_attributes, key, lst, gaia_first)
 
-        self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]
+        self.players = [PlayerData(**player_attributes[p]) for p in PlayerId.all()]
 
     @property
     def active_players(self) -> int:
@@ -130,12 +130,12 @@ class PlayerManager(AoE2Object):
             setattr(self.players[player_id], '_active', player_id <= value)
 
     @property
-    def players(self) -> List[Player]:
+    def players(self) -> List[PlayerData]:
         """Returns all player objects"""
         return self._players
 
     @players.setter
-    def players(self, value: List[Player]) -> None:
+    def players(self, value: List[PlayerData]) -> None:
         """Sets player objects"""
         self._players = UuidList(self._uuid, value)
 

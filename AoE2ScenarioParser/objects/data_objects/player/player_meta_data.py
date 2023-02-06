@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.datasets.player_data import Civilization
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.data_objects.player.player import Player
+from AoE2ScenarioParser.objects.data_objects.player.player_data import PlayerData
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -14,7 +14,7 @@ class PlayerMetaData(AoE2Object):
             RetrieverObjectLink("active"),
             RetrieverObjectLink("human"),
             RetrieverObjectLink("civilization"),
-            RetrieverObjectLink("architecture_set", support=Support(since=1.40), destination_object=Player),
+            RetrieverObjectLink("architecture_set", support=Support(since=1.40), destination_object=PlayerData),
         ])
     ]
 

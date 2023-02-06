@@ -10,7 +10,7 @@ from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
-class Player(AoE2Object):
+class PlayerData(AoE2Object):
     """A class for handling all player information."""
 
     _object_attributes = [
