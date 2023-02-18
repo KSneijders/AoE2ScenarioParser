@@ -65,7 +65,7 @@ class DataTriggers:
                 self.objects.setdefault(tag, []).extend(getters.get_units(self._uuid, object_ids)[0])
 
         if remove_template_triggers:
-            actions.remove_triggers(self._uuid, [t.trigger_id for t in triggers])
+            actions.remove_triggers(self._uuid, [t.id for t in triggers])
 
     def _get_objects_from_area(self, ce: Condition | Effect) -> Optional[List[Unit]]:
         if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):

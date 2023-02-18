@@ -65,3 +65,8 @@ The changes listed below will be explained further in an official document at a 
 ## Rename Player class
 
 1. Renamed `Player` class (from PlayerManager) to `PlayerData`
+
+## Change data object attributes for consistency
+
+1. Renamed `Trigger` class attribute `trigger_id` to `id` and `trigger_id` to `id_` in the constructor
+2. 

@@ -30,4 +30,4 @@ class Test(TestCase):
         t2 = self.tm.add_trigger("Trigger2")
 
         self.tm.remove_trigger(1)
-        self.assertEqual(t0.effects[0].trigger_id, t2.trigger_id)
+        self.assertEqual(t0.effects[0].trigger_id, t2.id)

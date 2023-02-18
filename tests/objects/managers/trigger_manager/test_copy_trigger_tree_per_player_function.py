@@ -61,11 +61,11 @@ class Test(TestCase):
         for player, triggers in new_triggers.items():
             activate_id = triggers[0].effects[0].trigger_id
 
-            self.assertEqual(activate_id, triggers[1].trigger_id)
+            self.assertEqual(activate_id, triggers[1].id)
             self.assertIs(self.tm.triggers[activate_id], triggers[1])
 
         # Verify activate triggers outside of the tree
-        self.assertEqual(trigger2.effects[0].trigger_id, trigger3.trigger_id)
+        self.assertEqual(trigger2.effects[0].trigger_id, trigger3.id)
 
     def test_copy_trigger_tree_per_player_groupby_trigger(self):
         self.tm.add_trigger("Trigger0")
@@ -98,14 +98,14 @@ class Test(TestCase):
             activate_id0 = triggers[0].effects[0].trigger_id
             activate_id1 = triggers[1].effects[0].trigger_id
 
-            self.assertEqual(activate_id0, triggers[1].trigger_id)
-            self.assertEqual(activate_id1, triggers[2].trigger_id)
+            self.assertEqual(activate_id0, triggers[1].id)
+            self.assertEqual(activate_id1, triggers[2].id)
 
             self.assertIs(self.tm.triggers[activate_id0], triggers[1])
             self.assertIs(self.tm.triggers[activate_id1], triggers[2])
 
         # Verify activate triggers outside of the tree
-        self.assertEqual(trigger1.effects[0].trigger_id, trigger4.trigger_id)
+        self.assertEqual(trigger1.effects[0].trigger_id, trigger4.id)
 
     def test_copy_trigger_tree_per_player_groupby_player(self):
         self.tm.add_trigger("Trigger0")
@@ -142,11 +142,11 @@ class Test(TestCase):
             activate_id0 = triggers[0].effects[0].trigger_id
             activate_id1 = triggers[1].effects[0].trigger_id
 
-            self.assertEqual(activate_id0, triggers[1].trigger_id)
-            self.assertEqual(activate_id1, triggers[2].trigger_id)
+            self.assertEqual(activate_id0, triggers[1].id)
+            self.assertEqual(activate_id1, triggers[2].id)
 
             self.assertIs(self.tm.triggers[activate_id0], triggers[1])
             self.assertIs(self.tm.triggers[activate_id1], triggers[2])
 
         # Verify activate triggers outside of the tree
-        self.assertEqual(trigger4.effects[0].trigger_id, trigger5.trigger_id)
+        self.assertEqual(trigger4.effects[0].trigger_id, trigger5.id)

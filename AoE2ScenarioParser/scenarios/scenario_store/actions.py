@@ -73,7 +73,7 @@ def remove_triggers(uuid: UUID, trigger_ids: List[int]) -> None:
     scenario = store.get_scenario(uuid)
     if scenario:
         scenario.trigger_manager.triggers = [
-            trigger for trigger in scenario.trigger_manager.triggers if trigger.trigger_id not in trigger_ids
+            trigger for trigger in scenario.trigger_manager.triggers if trigger.id not in trigger_ids
         ]
         scenario.trigger_manager.reorder_triggers()
 

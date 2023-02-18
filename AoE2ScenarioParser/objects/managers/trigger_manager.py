@@ -247,14 +247,14 @@ class TriggerManager(AoE2Object):
         trigger_index, trigger = self._validate_and_retrieve_trigger_info(trigger)
 
         deepcopy_trigger = copy.deepcopy(trigger)
-        deepcopy_trigger.trigger_id = len(self.triggers)
+        deepcopy_trigger.id = len(self.triggers)
         if add_suffix:
             deepcopy_trigger.name += " (copy)"
 
         self.triggers.append(deepcopy_trigger)
 
         if append_after_source:
-            self.move_triggers([trigger_index, deepcopy_trigger.trigger_id], trigger_index)
+            self.move_triggers([trigger_index, deepcopy_trigger.id], trigger_index)
 
         return deepcopy_trigger
 
@@ -312,7 +312,7 @@ class TriggerManager(AoE2Object):
         new_triggers[from_player] = [self.triggers[i] for i in known_node_indexes]
         for index in known_node_indexes:
             trigger: Trigger = self.triggers[index]
-            trigger_index_swap.setdefault(index, {})[from_player] = trigger.trigger_id
+            trigger_index_swap.setdefault(index, {})[from_player] = trigger.id
 
         # Copy for all other players
         for index in known_node_indexes:
@@ -327,10 +327,10 @@ class TriggerManager(AoE2Object):
                 create_copy_for_players,
             )
             for player, trigger in triggers.items():
-                trigger_index_swap.setdefault(index, {})[player] = trigger.trigger_id
+                trigger_index_swap.setdefault(index, {})[player] = trigger.id
                 new_triggers.setdefault(player, []).append(trigger)
 
-        # Set trigger_id's in activation effects to the new player copied trigger ID
+        # Set trigger id's in activation effects to the new player copied trigger ID
         for player, triggers in new_triggers.items():
             for trigger in triggers:
                 for effect in _get_activation_effects(trigger):
@@ -346,7 +346,7 @@ class TriggerManager(AoE2Object):
                         continue
                     if player not in new_triggers:
                         continue
-                    new_trigger_ids.append(new_triggers[player][i].trigger_id)
+                    new_trigger_ids.append(new_triggers[player][i].id)
         elif group_triggers_by == GroupBy.PLAYER:
             for player in Player.all():
                 if player == from_player:
@@ -355,7 +355,7 @@ class TriggerManager(AoE2Object):
                 if player not in new_triggers:
                     continue
 
-                new_trigger_ids.extend([trigger.trigger_id for trigger in new_triggers[player]])
+                new_trigger_ids.extend([trigger.id for trigger in new_triggers[player]])
 
         if group_triggers_by != GroupBy.NONE:
             self.move_triggers(new_trigger_ids, trigger_index)
@@ -434,9 +434,9 @@ class TriggerManager(AoE2Object):
                 trigger = self.triggers[index]
             except IndexError:
                 raise ValueError(f"The trigger ID {index} doesn't exist") from None
-            index_changes[trigger.trigger_id] = new_index
+            index_changes[trigger.id] = new_index
 
-            trigger.trigger_id = new_index
+            trigger.id = new_index
             new_triggers_list.append(trigger)
         self.triggers = new_triggers_list
 
@@ -466,7 +466,7 @@ class TriggerManager(AoE2Object):
         for index in known_node_indexes:
             trigger = self.copy_trigger(index, append_after_source=False)
             new_triggers.append(trigger)
-            id_swap[index] = trigger.trigger_id
+            id_swap[index] = trigger.id
 
         for trigger in new_triggers:
             activation_effects = [
@@ -580,7 +580,7 @@ class TriggerManager(AoE2Object):
         for key in keys:
             if locals()[key] is not None:
                 trigger_attr[key] = locals()[key]
-        new_trigger = Trigger(name=name, trigger_id=len(self.triggers), **trigger_attr, uuid=self._uuid)
+        new_trigger = Trigger(name=name, id=len(self.triggers), **trigger_attr, uuid=self._uuid)
         self.triggers.append(new_trigger)
         return new_trigger
 
@@ -604,7 +604,7 @@ class TriggerManager(AoE2Object):
 
         for offset, trigger in enumerate(triggers):
             new_index = len(self.triggers) + offset
-            index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
+            index_changes[trigger.id] = trigger.id = new_index
 
         for trigger in triggers:
             for i, effect in enumerate(_get_activation_effects(trigger)):
@@ -617,7 +617,7 @@ class TriggerManager(AoE2Object):
 
         self.triggers += triggers
         if index != -1:
-            self.move_triggers([t.trigger_id for t in triggers], index)
+            self.move_triggers([t.id for t in triggers], index)
         return triggers
 
     def get_trigger(self, trigger: int, use_display_index: bool = False) -> Trigger:

@@ -37,5 +37,5 @@ class Test(TestCase):
             [f"Trigger{i}" for i in [3, 0, 1, 4, 2]]
         )
 
-        self.assertEqual(t0.effects[0].trigger_id, t2.trigger_id)
-        self.assertEqual(t2.effects[0].trigger_id, t4.trigger_id)
+        self.assertEqual(t0.effects[0].trigger_id, t2.id)
+        self.assertEqual(t2.effects[0].trigger_id, t4.id)

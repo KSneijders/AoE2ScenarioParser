@@ -44,7 +44,7 @@ class Trigger(AoE2Object, TriggerComponent):
             RetrieverObjectLink("effects", link="effect_data", process_as_object=Effect),
             RetrieverObjectLink("effect_order", link="effect_display_order_array"),
         ]),
-        RetrieverObjectLink("trigger_id", retrieve_history_number=0),
+        RetrieverObjectLink("id_", retrieve_history_number=0),
     ]
 
     def __init__(
@@ -65,7 +65,7 @@ class Trigger(AoE2Object, TriggerComponent):
             condition_order: List[int] = None,
             effects: List[Effect] = None,
             effect_order: List[int] = None,
-            trigger_id: int = -1,
+            id_: int = -1,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -97,7 +97,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effect_hash = hash_list(effects)
         self.effects: List[Effect] = effects
         self.effect_order: List[int] = effect_order
-        self.trigger_id: int = trigger_id
+        self.id: int = id_
 
         self.new_effect: NewEffectSupport = NewEffectSupport(self)
         self.new_condition: NewConditionSupport = NewConditionSupport(self)
@@ -348,7 +348,7 @@ class Trigger(AoE2Object, TriggerComponent):
                 return_string += add_tabs(effect.get_content_as_string(), 2)
 
         if include_trigger_definition:
-            return f"\"{self.name}\" [Index: {self.trigger_id}]\n" + add_tabs(return_string, 1)
+            return f"\"{self.name}\" [Index: {self.id}]\n" + add_tabs(return_string, 1)
         return return_string
 
     def __str__(self) -> str:
