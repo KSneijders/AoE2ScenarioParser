@@ -7,8 +7,8 @@ from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import ObjectAttribute
 from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectArmorAttackUsageWarning
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
 from AoE2ScenarioParser.helper.coordinates import validate_coords
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass, value_is_valid
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -93,7 +93,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     def __init__(
             self,
-            effect_type: int = None,
+            effect_type: int | EffectId = None,
             ai_script_goal: int = None,
             armour_attack_quantity: int = None,
             armour_attack_class: int = None,
@@ -152,7 +152,11 @@ class Effect(AoE2Object, TriggerComponent):
     ):
         super().__init__(**kwargs)
 
-        raise_if_not_int_subclass([object_list_unit_id, technology, object_list_unit_id_2])
+        raise_if_not_int_subclass({
+            'object_list_unit_id': object_list_unit_id,
+            'technology': technology,
+            'object_list_unit_id_2': object_list_unit_id_2
+        })
 
         if selected_object_ids is None:
             selected_object_ids = []
@@ -457,6 +461,6 @@ class Effect(AoE2Object, TriggerComponent):
 
 def _set_armour_attack_flag(effect_type, object_attributes) -> bool:
     return (effect_type in [EffectId.CHANGE_OBJECT_ATTACK, EffectId.CHANGE_OBJECT_ARMOR]) or \
-           (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
-               ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
-           ])
+        (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
+            ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
+        ])

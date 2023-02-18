@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class AoE2ScenarioParserError(Exception):
     """
     The super class of all errors in the AoE2ScenarioParser.
@@ -45,5 +48,6 @@ class ScenarioWritingError(AoE2ScenarioParserError):
     pass
 
 
-def type_error_message(value, include_hint=True):
-    return f"Expected int, found: {value.__class__}. " + (f"Maybe you meant: '{value}.ID'?" if include_hint else "")
+def type_error_message(value: Any, key: str, include_hint: bool = True):
+    return f"Attribute '{key}': expected int, found '{value.__class__}'. " + \
+        (f"Maybe you meant: '{value}.ID'?" if include_hint else "")

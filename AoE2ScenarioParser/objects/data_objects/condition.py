@@ -5,8 +5,8 @@ from typing import Any
 
 from AoE2ScenarioParser.datasets import conditions
 from AoE2ScenarioParser.datasets.conditions import ConditionId
-from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.coordinates import validate_coords
+from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.support.attr_presentation import transform_condition_attr_value
@@ -54,7 +54,7 @@ class Condition(AoE2Object, TriggerComponent):
 
     def __init__(
             self,
-            condition_type: int = None,
+            condition_type: int | ConditionId = None,
             quantity: int = None,
             attribute: int = None,
             unit_object: int = None,
@@ -83,7 +83,7 @@ class Condition(AoE2Object, TriggerComponent):
             condition_id: int = -1,
             **kwargs
     ):
-        raise_if_not_int_subclass([object_list, technology])
+        raise_if_not_int_subclass({'object_list': object_list, 'technology': technology})
         area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
 
         self.condition_type: int = condition_type

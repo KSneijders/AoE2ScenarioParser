@@ -9,7 +9,7 @@ from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.exceptions import asp_exceptions
+from AoE2ScenarioParser.exceptions.asp_exceptions import type_error_message
 
 """ =============================================================
 ============================= OTHER =============================
@@ -86,10 +86,10 @@ def mutually_exclusive(*args) -> bool:
     return sum(map(bool, args)) == 1
 
 
-def raise_if_not_int_subclass(values):
-    for v in values:
+def raise_if_not_int_subclass(values: dict):
+    for k, v in values.items():
         if not issubclass(v.__class__, int):
-            raise TypeError(asp_exceptions.type_error_message(v, issubclass(v.__class__, Enum)))
+            raise TypeError(type_error_message(v, k, issubclass(v.__class__, Enum)))
 
 
 def typename(x: Any):

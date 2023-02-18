@@ -46,7 +46,7 @@ class Unit(AoE2Object):
                  garrisoned_in_id: int,
                  **kwargs
                  ):
-        raise_if_not_int_subclass([unit_const])
+        raise_if_not_int_subclass({'unit_const': unit_const})
 
         super().__init__(**kwargs)
 
