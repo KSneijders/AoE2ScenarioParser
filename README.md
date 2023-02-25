@@ -97,6 +97,6 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 
 # License
 
-GNU General Public License v3.0: Please see the [LICENSE file].
+MIT License: Please see the [LICENSE file].
 
 [license file]: https://github.com/KSneijders/AoE2ScenarioParser/blob/dev/LICENSE
