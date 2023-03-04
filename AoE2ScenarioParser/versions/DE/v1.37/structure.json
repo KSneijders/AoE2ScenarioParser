@@ -1233,7 +1233,7 @@
         "structs": {
             "TerrainStruct": {
                 "retrievers": {
-                    "terrain_id": {
+                    "id": {
                         "type": "u8",
                         "default": 0
                     },
