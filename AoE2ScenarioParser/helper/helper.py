@@ -39,20 +39,20 @@ def values_are_valid(*args: Any) -> bool:
     return any(map(lambda v: v not in [None, -1], args))
 
 
-def get_enum_from_unit_const(const: int) -> InfoDatasetBase | None:
+def get_enum_from_unit_type(type: int) -> InfoDatasetBase | None:
     """
-    Get the enum value for the given unit constant
+    Get the enum value for the given unit type
 
     Args:
-        const: The unit ID
+        type: The unit ID
 
     Returns:
-        The enum value for the given unit constant
+        The enum value for the given unit type
     """
     enums = [UnitInfo, BuildingInfo, HeroInfo, OtherInfo]
     for enum in enums:
         try:
-            return enum.from_id(const)
+            return enum.from_id(type)
         except (ValueError, KeyError):
             continue
     return None

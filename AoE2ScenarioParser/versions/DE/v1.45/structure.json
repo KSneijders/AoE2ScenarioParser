@@ -1575,7 +1575,7 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "unit_const": {
+                            "type": {
                                 "type": "u16",
                                 "default": 4
                             },

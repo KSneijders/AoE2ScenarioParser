@@ -60,7 +60,7 @@ class UnitManager(AoE2Object):
     def add_unit(
             self,
             player: int | Player,
-            unit_const: int,
+            type: int,
             x: float = 0,
             y: float = 0,
             z: float = 0,
@@ -76,7 +76,7 @@ class UnitManager(AoE2Object):
 
         Args:
             player: The player the unit belongs to.
-            unit_const: Defines what unit you're placing. The IDs used in the unit/buildings dataset.
+            type: Defines what unit you're placing. The IDs used in the unit/buildings dataset.
             x: The x location in the scenario.
             y: The y location in the scenario.
             z: The z (height) location in the scenario.
@@ -101,7 +101,7 @@ class UnitManager(AoE2Object):
             y=y if tile is None else (tile[1] + .5),
             z=z,
             id=id,
-            unit_const=unit_const,
+            type=type,
             status=status,
             rotation=rotation,
             initial_animation_frame=animation_frame,
@@ -143,7 +143,7 @@ class UnitManager(AoE2Object):
         Args:
             attr: The attribute to filter by
             unit_attrs: The values for the attributes to filter with
-            blacklist: Use the given constant list as blacklist instead of whitelist
+            blacklist: Use the given attrs list as blacklist instead of whitelist
             player_list: A list of players to filter from. If not used, all players are used.
             unit_list: A set of units to filter from. If not used, all units are used.
 
@@ -166,32 +166,32 @@ class UnitManager(AoE2Object):
         if not hasattr(unit, attr):
             raise AttributeError(f"Cannot filter Unit objects by {attr}")
 
-        # Both return statements can be combined using: ((unit.unit_const in unit_consts) != blacklist)
+        # Both return statements can be combined using: ((unit_attr in unit_attrs) != blacklist)
         # But splitting them helps performance (not checking against blacklist for each entry)
         if not blacklist:
             return [unit for unit_attr in unit_attrs for unit in unit_list if getattr(unit, attr) == unit_attr]
         return [unit for unit_attr in unit_attrs for unit in unit_list if getattr(unit, attr) != unit_attr]
 
-    def filter_units_by_const(
+    def filter_units_by_type(
             self,
-            unit_consts: List[int],
+            unit_types: List[int],
             blacklist: bool = False,
             player_list: List[Union[int, Player]] = None,
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
-        Filter unit on their unit_const value.
+        Filter unit on their type value.
 
         Args:
-            unit_consts: The constants to filter with
-            blacklist: Use the given constant list as blacklist instead of whitelist
+            unit_types: The types to filter with
+            blacklist: Use the given type list as blacklist instead of whitelist
             player_list: A list of players to filter from. If not used, all players are used.
             unit_list: A set of units to filter from. If not used, all units are used.
 
         Returns:
             A list of units
         """
-        return self.filter_units_by("unit_const", unit_consts, blacklist, player_list, unit_list)
+        return self.filter_units_by("type", unit_types, blacklist, player_list, unit_list)
 
     def filter_units_by_id(
             self,
@@ -201,11 +201,11 @@ class UnitManager(AoE2Object):
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
-        Filter unit on their unit_const value.
+        Filter unit on their id value.
 
         Args:
             unit_ids: The unit ids to filter with
-            blacklist: Use the given constant list as blacklist instead of whitelist
+            blacklist: Use the given id list as blacklist instead of whitelist
             player_list: A list of players to filter from. If not used, all players are used.
             unit_list: A set of units to filter from. If not used, all units are used.
 
@@ -319,7 +319,7 @@ class UnitManager(AoE2Object):
         which list to remove the unit from.
 
         Args:
-            id: The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
+            id: The id of the unit. Note that this is NOT a unit type (So NOT: UnitInfo.ARCHER)
             unit: The Unit object to be removed.
         """
         if id is not None and unit is not None:
@@ -338,7 +338,7 @@ class UnitManager(AoE2Object):
 
     def remove_eye_candy(self) -> None:
         eye_candy_ids = [1351, 1352, 1353, 1354, 1355, 1358, 1359, 1360, 1361, 1362, 1363, 1364, 1365, 1366]
-        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.unit_const not in eye_candy_ids]
+        self.units[0] = [gaia_unit for gaia_unit in self.units[0] if gaia_unit.type not in eye_candy_ids]
 
     # ###############################################################################################
     # ################################# Functions for reconstruction ################################

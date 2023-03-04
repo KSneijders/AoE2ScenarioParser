@@ -116,11 +116,11 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 3. Now let's add the code to add some units to the end of the script:
 
     ```py
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
+    unit_manager.add_unit(player=Player.ONE, type=UnitInfo.MILITIA.ID,              x=15, y=12)
+    unit_manager.add_unit(player=Player.ONE, type=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
+    unit_manager.add_unit(player=Player.ONE, type=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
+    unit_manager.add_unit(player=Player.ONE, type=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
+    unit_manager.add_unit(player=Player.ONE, type=UnitInfo.CHAMPION.ID,             x=15, y=16)
     ```
 
     Take a look at the code, maybe you can see what it does?
@@ -219,11 +219,11 @@ hello_world_trigger.new_effect.display_instructions(
     message="Hello World"
 )
 
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MILITIA.ID, x=15, y=12)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID, x=15, y=13)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID, x=15, y=14)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CHAMPION.ID, x=15, y=16)
+unit_manager.add_unit(player=Player.ONE, type=UnitInfo.MILITIA.ID, x=15, y=12)
+unit_manager.add_unit(player=Player.ONE, type=UnitInfo.MAN_AT_ARMS.ID, x=15, y=13)
+unit_manager.add_unit(player=Player.ONE, type=UnitInfo.LONG_SWORDSMAN.ID, x=15, y=14)
+unit_manager.add_unit(player=Player.ONE, type=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
+unit_manager.add_unit(player=Player.ONE, type=UnitInfo.CHAMPION.ID, x=15, y=16)
 
 map_manager.set_elevation(elevation=3, x1=10, y1=10, x2=20, y2=20)
 map_manager.map_size = 40

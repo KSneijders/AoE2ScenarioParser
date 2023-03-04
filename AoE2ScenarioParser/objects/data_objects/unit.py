@@ -25,7 +25,7 @@ class Unit(AoE2Object):
             RetrieverObjectLink("y"),
             RetrieverObjectLink("z"),
             RetrieverObjectLink("id"),
-            RetrieverObjectLink("unit_const"),
+            RetrieverObjectLink("type"),
             RetrieverObjectLink("status"),
             RetrieverObjectLink("rotation"),
             RetrieverObjectLink("initial_animation_frame"),
@@ -40,14 +40,14 @@ class Unit(AoE2Object):
             y: float,
             z: float,
             id: int,
-            unit_const: int,
+            type: int,
             status: int,
             rotation: float,
             initial_animation_frame: int,
             garrisoned_in_id: int,
             **kwargs
     ):
-        raise_if_not_int_subclass({'unit_const': unit_const})
+        raise_if_not_int_subclass({'type': type})
 
         super().__init__(**kwargs)
 
@@ -56,7 +56,7 @@ class Unit(AoE2Object):
         self.y: float = y
         self.z: float = z
         self.id: int = id
-        self.unit_const: int = unit_const
+        self.type: int = type
         self.status: int = status
         self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
@@ -86,8 +86,8 @@ class Unit(AoE2Object):
     @property
     def name(self) -> str:
         """The name of the unit, nicely formatted"""
-        unit_enum = helper.get_enum_from_unit_const(self.unit_const)
+        unit_enum = helper.get_enum_from_unit_type(self.type)
         if unit_enum:
             return pretty_format_name(unit_enum.name)
         else:
-            return f"Unknown{self.unit_const}"  # e.g."Unknown411"
+            return f"Unknown{self.type}"  # e.g."Unknown411"

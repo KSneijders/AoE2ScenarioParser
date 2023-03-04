@@ -12,7 +12,7 @@ from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState, Operation, 
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
     ObjectAttribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
     DamageClass, Hotkey, ColorMood, ObjectState, ActionType, VictoryTimerType, PlayerAttribute, ProjectileSmartMode
-from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
+from AoE2ScenarioParser.helper.helper import get_enum_from_unit_type
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
@@ -49,16 +49,16 @@ def _format_variable_id_representation(id_: int, uuid: UUID) -> str:
 
 def _format_unit_reference_representation(ref_id: int | List[int], uuid: UUID) -> str:
     def format_unit(u: 'Unit') -> str:
-        enum_entry = u.unit_const
-        if not issubclass(u.unit_const.__class__, InfoDatasetBase):
-            enum_entry = get_enum_from_unit_const(u.unit_const)
+        enum_entry = u.type
+        if not issubclass(u.type.__class__, InfoDatasetBase):
+            enum_entry = get_enum_from_unit_type(u.type)
 
         if enum_entry:
             name = pretty_format_name(enum_entry.name)
         else:
-            name = _store_error_displays['units']['unknown'](u.unit_const)
+            name = _store_error_displays['units']['unknown'](u.type)
 
-        return f"{name} ({u.unit_const}) [P{u.player}, X{u.x}, Y{u.y}]"
+        return f"{name} ({u.type}) [P{u.player}, X{u.x}, Y{u.y}]"
 
     ids = listify(ref_id)
     retrieved_units = getters.get_units(uuid, ids)
@@ -171,7 +171,7 @@ def transform_value_by_representation(representation, value, uuid):
             value_representation = _datasets[representation](value).attribute_presentation()
 
         elif representation in _combined_info_datasets:
-            enum_entry = get_enum_from_unit_const(value)
+            enum_entry = get_enum_from_unit_type(value)
             if enum_entry is not None:
                 value_representation = enum_entry.name
             else:

@@ -43,10 +43,10 @@ This is not necessarily difficult to do, it'd probably look something like the f
 for x in range(10, 14):
     for y in range(50, 54):
         unit_manager.add_unit(
-            player=Player.ONE, 
-            unit_const=UnitInfo.KNIGHT.ID, 
-            x=x+.5, 
-            y=y+.5
+            player=Player.ONE,
+            type=UnitInfo.KNIGHT.ID,
+            x=x + .5,
+            y=y + .5
         )
 ```
 
@@ -61,9 +61,9 @@ pattern = scenario.new.area_pattern()  # Create a new area object
 for tile in pattern.select(10, 50, 13, 53).to_coords():
     # Every tile is a NamedTuple with an 'x' and 'y' value
     unit_manager.add_unit(
-        player=Player.ONE, 
-        unit_const=UnitInfo.KNIGHT.ID, 
-        x=tile.x + .5, 
+        player=Player.ONE,
+        type=UnitInfo.KNIGHT.ID,
+        x=tile.x + .5,
         y=tile.y + .5
     )
 ```
@@ -84,7 +84,7 @@ So let's take a more complicated example! Like creating a wall around a castle!
 This will be quite the difference, so let's do it in steps, first we create the castle and the area object.
 
 ```py
-castle = unit_manager.add_unit(player=Player.ONE, unit_const=BuildingInfo.CASTLE.ID, x=30, y=30)
+castle = unit_manager.add_unit(player=Player.ONE, type=BuildingInfo.CASTLE.ID, x=30, y=30)
 pattern = scenario.new.area_pattern()
 ```
 
@@ -126,12 +126,12 @@ This tells the area object we only want the outer edge of the selection.
 Now let's convert that to coordinates and place those walls! We can use `area.to_coords()` again!
 
 ```py
-castle = unit_manager.add_unit(player=Player.ONE, unit_const=BuildingInfo.CASTLE.ID, x=30, y=30)
+castle = unit_manager.add_unit(player=Player.ONE, type=BuildingInfo.CASTLE.ID, x=30, y=30)
 pattern = scenario.new.area_pattern()
 
 for tile in pattern.center(castle.x, castle.y).size(4).expand(6).use_only_edge().to_coords():
     unit_manager.add_unit(
-        player=Player.ONE, unit_const=BuildingInfo.STONE_WALL.ID, x=tile.x, y=tile.y
+        player=Player.ONE, type=BuildingInfo.STONE_WALL.ID, x=tile.x, y=tile.y
     )
 ```
 

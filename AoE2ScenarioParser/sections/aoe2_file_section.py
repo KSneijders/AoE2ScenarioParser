@@ -312,7 +312,7 @@ class AoE2FileSection:
             00 00 70 42                 y (1 * f32): 60.0
             00 00 00 00                 z (1 * f32): 0.0
             52 05 00 00                 id (1 * s32): 1362
-            89 02                       unit_const (1 * u16): 649
+            89 02                       type (1 * u16): 649
             02                          status (1 * u8): 2
             00 00 00 00                 rotation (1 * f32): 0.0
             00 00                       initial_animation_frame (1 * u16): 0

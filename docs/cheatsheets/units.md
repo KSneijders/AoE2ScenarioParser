@@ -23,7 +23,7 @@ unit_manager = scenario.unit_manager
 
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_const=UnitInfo.CONQUISTADOR.ID,  # Units dataset
+    type=UnitInfo.CONQUISTADOR.ID,  # Units dataset
     x=0.5,
     y=0.5
 )
@@ -31,7 +31,7 @@ unit = unit_manager.add_unit(
 # Or, with more detail:
 unit = unit_manager.add_unit(
     player=Player.ONE,
-    unit_const=UnitInfo.CONQUISTADOR.ID,
+    type=UnitInfo.CONQUISTADOR.ID,
     x=0.5,
     y=0.5,
     z=0,  # The 'height' of the unit. 
@@ -86,30 +86,30 @@ unit_manager.get_units_in_area(x1=2, y1=3, x2=4, y2=5, ignore_players=[
 ])
 # Any unit within 2,3 => 4,5 from any Player but GAIA.
 
-unit = unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CONQUISTADOR.ID, x=5, y=1)
-unit2 = unit_manager.add_unit(player=Player.TWO, unit_const=UnitInfo.CONQUISTADOR.ID, x=1, y=5)
+unit = unit_manager.add_unit(player=Player.ONE, type=UnitInfo.CONQUISTADOR.ID, x=5, y=1)
+unit2 = unit_manager.add_unit(player=Player.TWO, type=UnitInfo.CONQUISTADOR.ID, x=1, y=5)
 
 unit_manager.get_units_in_area(x1=0, y1=0, x2=9, y2=9, unit_list=[unit, unit2], players=[Player.ONE])
 # Selects any unit from the given list that belongs to Player 1 within 0,0 => 9,9.
 ```
 
-You can also filter certain units based on their `unit_const` value.  
+You can also filter certain units based on their `type` value.  
 For this you can use the `filter_units_by_const` function.
 
 ```py
 # Get TC object of all players
-unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID])
+unit_manager.filter_units_by_type(unit_types=[BuildingInfo.TOWN_CENTER.ID])
 # Get TC object of only player one and two
-unit_manager.filter_units_by_const(unit_consts=[BuildingInfo.TOWN_CENTER.ID], player_list=[Player.ONE, Player.TWO])
+unit_manager.filter_units_by_type(unit_types=[BuildingInfo.TOWN_CENTER.ID], player_list=[Player.ONE, Player.TWO])
 # Get all objects of player one except for the villagers
-unit_manager.filter_units_by_const(
-    unit_consts=[UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
-    blacklist=True,  # <-- When True, everything in the unit_consts list will be excluded instead of included
+unit_manager.filter_units_by_type(
+    unit_types=[UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
+    blacklist=True,  # <-- When True, everything in the unit_types list will be excluded instead of included
     player_list=[Player.ONE],
 )
 # Exclude all unique units from a given list
-unit_manager.filter_units_by_const(
-    unit_consts=UnitInfo.unique_units(),
+unit_manager.filter_units_by_type(
+    unit_types=UnitInfo.unique_units(),
     blacklist=True,
     unit_list=[some_list_with_Unit_objects]
 )
@@ -135,7 +135,7 @@ unit.y = 0.5
 Besides it's location you can also change the type of unit:
 
 ```py
-unit.unit_const = UnitInfo.MAN_AT_ARMS.ID    # Units dataset
+unit.type = UnitInfo.MAN_AT_ARMS.ID  # Units dataset
 ```
 
 You also might want to change the ownership of a unit. You can do this by 

@@ -70,13 +70,13 @@ class ProjectileInfo(Enum):
         raise KeyError(f"A projectile unit with ID '{projectile_id}' was not found in the dataset")
 
     @staticmethod
-    def get_unit_projectile(unit_const: int, has_chemistry: bool = False, secondary: bool = False) -> ProjectileInfo:
+    def get_unit_projectile(unit_type: int, has_chemistry: bool = False, secondary: bool = False) -> ProjectileInfo:
 
         """
-        Get the projectile object based on unit const
+        Get the projectile object based on unit type
 
         Args:
-            unit_const: The unit to find the projectile of
+            unit_type: The unit to find the projectile of
             has_chemistry: If you want the fire (chemistry) version (if it exists)
             secondary: If you want the secondary projectile version (if it exists)
 
@@ -84,14 +84,14 @@ class ProjectileInfo(Enum):
             The ProjectileInfo corresponding to the given unit and params or None if nothing was found
         """
 
-        if type(unit_const) is not int:
-            raise TypeError(f"unit const expected int, got {type(unit_const)}")
-        if unit_const < 0:
-            raise ValueError(f"{unit_const} is not a valid unit constant")
+        if type(unit_type) is not int:
+            raise TypeError(f"unit type expected int, got {type(unit_type)}")
+        if unit_type < 0:
+            raise ValueError(f"{unit_type} is not a valid unit type")
 
         projectile = "secondary" if secondary else "primary"
         fire = "_fire" if has_chemistry else ""
-        projectile_id = _unit_projectile_info.get(str(unit_const), {}).get(projectile + fire, -1)
+        projectile_id = _unit_projectile_info.get(str(unit_type), {}).get(projectile + fire, -1)
 
         return ProjectileInfo.from_id(projectile_id) if projectile_id != -1 else None
 
