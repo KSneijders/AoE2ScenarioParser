@@ -49,7 +49,7 @@ class Condition(AoE2Object, TriggerComponent):
             RetrieverObjectLink("include_changeable_weapon_objects", support=Support(since=1.46)),
             RetrieverObjectLink("xs_function", support=Support(since=1.40)),
         ]),
-        RetrieverObjectLink("condition_id", retrieve_history_number=-1),
+        RetrieverObjectLink("id", retrieve_history_number=-1),
     ]
 
     def __init__(
@@ -80,7 +80,7 @@ class Condition(AoE2Object, TriggerComponent):
             victory_timer_type: int = None,
             include_changeable_weapon_objects: int = None,
             xs_function: str = None,
-            condition_id: int = -1,
+            id: int = -1,
             **kwargs
     ):
         raise_if_not_int_subclass({'object_list': object_list, 'technology': technology})
@@ -112,7 +112,7 @@ class Condition(AoE2Object, TriggerComponent):
         self.victory_timer_type: int = victory_timer_type
         self.include_changeable_weapon_objects: int = include_changeable_weapon_objects
         self.xs_function: str = xs_function
-        self.condition_id: int = condition_id
+        self.id: int = id
 
         super().__init__(**kwargs)
 
@@ -153,7 +153,7 @@ class Condition(AoE2Object, TriggerComponent):
             return "<< No Attributes >>\n"
 
         if include_condition_definition:
-            return f"{conditions.condition_names[self.condition_type]} [Index: {self.condition_id}]:\n" \
+            return f"{conditions.condition_names[self.condition_type]} [Index: {self.id}]:\n" \
                    f"{add_tabs(return_string, 1)}"
 
         return return_string

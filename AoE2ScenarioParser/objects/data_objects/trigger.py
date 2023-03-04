@@ -263,7 +263,7 @@ class Trigger(AoE2Object, TriggerComponent):
             ValueError: If more than one parameter is used simultaneously
         """
         if isinstance(effect, Effect):
-            effect = effect.effect_id
+            effect = effect.id
 
         del self.effects[effect]
 
@@ -278,7 +278,7 @@ class Trigger(AoE2Object, TriggerComponent):
             ValueError: If more than one parameter is used simultaneously
         """
         if isinstance(condition, Condition):
-            condition = condition.condition_id
+            condition = condition.id
 
         del self.conditions[condition]
 

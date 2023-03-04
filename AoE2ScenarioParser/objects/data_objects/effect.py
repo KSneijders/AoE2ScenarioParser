@@ -88,7 +88,7 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
         ]),
-        RetrieverObjectLink("effect_id", retrieve_history_number=-1),
+        RetrieverObjectLink("id", retrieve_history_number=-1),
     ]
 
     def __init__(
@@ -147,7 +147,7 @@ class Effect(AoE2Object, TriggerComponent):
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
-            effect_id: int = -1,
+            id: int = -1,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -240,7 +240,7 @@ class Effect(AoE2Object, TriggerComponent):
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
-        self.effect_id = effect_id
+        self.id = id
 
     @property
     def legacy_location_object_reference(self) -> int:
@@ -393,7 +393,7 @@ class Effect(AoE2Object, TriggerComponent):
                 effect_name = effects.effect_names[self.effect_type]
             except KeyError:
                 effect_name = "Unknown"
-            return f"{effect_name} [Index: {self.effect_id}]:\n" \
+            return f"{effect_name} [Index: {self.id}]:\n" \
                    f"{add_tabs(return_string, 1)}"
         return return_string
 
