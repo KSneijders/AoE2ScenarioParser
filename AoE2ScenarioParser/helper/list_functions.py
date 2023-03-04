@@ -1,4 +1,4 @@
-from typing import List, Any, Generator
+from typing import List, Any, Generator, Iterator
 
 from AoE2ScenarioParser.objects.support.typedefs import T
 
@@ -36,7 +36,7 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
 
 
 # Written by: Ned Batchelder @ https://stackoverflow.com/a/312464/7230293
-def list_chunks(list_: List[T], n: int) -> Generator[List[T]]:
+def list_chunks(list_: List[T], n: int) -> Iterator[List[T]]:
     """Yield successive n-sized chunks from given list"""
     for i in range(0, len(list_), n):
         yield list_[i:i + n]

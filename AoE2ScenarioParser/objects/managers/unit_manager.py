@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Generator, Union
+from typing import List, Tuple, Generator, Union, Iterator
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.helper.list_functions import listify
@@ -354,7 +354,7 @@ class UnitManager(AoE2Object):
         return UuidList(self._uuid, player_units)
 
 
-def _create_id_generator(start_id: int) -> Generator[int]:
+def _create_id_generator(start_id: int) -> Iterator[int]:
     """
     Create generator for increasing value
 
