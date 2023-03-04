@@ -38,7 +38,7 @@ The changes listed below will be explained further in an official document at a 
 3. Printing the trigger manager, (summary & content) now shows trigger in index order instead of display order
 4. `display_index` has been removed from Trigger class when retrieving Conditions or Effects
 5. `trigger.get_effect` and `trigger.get_condition` have the same `use_display_index=True` attribute
-6. Added `condition_id` (**WILL BE CHANGED LATER**) to Conditions and `effect_id` (**WILL BE CHANGED LATER**) to Effects
+6. Added `id` to Conditions and `id` to Effects
 
 ## Docs rework
 
@@ -68,5 +68,9 @@ The changes listed below will be explained further in an official document at a 
 
 ## Change data object attributes for consistency
 
-1. Renamed `Trigger` class attribute `trigger_id` to `id` and `trigger_id` to `id_` in the constructor
-2. 
+1. Renamed `Trigger` class attribute `trigger_id` to `id`
+2. Renamed `Effect` class attribute `effect_id` to `id`
+3. Renamed `Condition` class attribute `condition_id` to `id`
+4. Renamed `Unit` class attribute `unit_const` to `type`
+5. Renamed `Unit` class attribute `reference_id` to `id`
+6. Renamed `TerrainTile` class attribute `terrain_id` to `type`
