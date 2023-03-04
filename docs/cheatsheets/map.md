@@ -41,12 +41,12 @@ You can also edit terrain tiles.
 
 ### Terrain Tiles
 
-Each terrain tile has 3 properties. It's `elevation`, `id` and `layer`.
-You can request this information using:
+Each terrain tile has 3 properties. It's `elevation`, `terrain_id` and `layer`.
+You can request this information using: 
 
 ```py
 tile = map_manager.get_tile(0, 0)
-tile.id
+tile.terrain_id
 tile.elevation
 tile.layer
 ```
@@ -57,7 +57,7 @@ You can also edit this information, for example if you want to change tile 20 in
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 
 tile = map_manager.get_tile(i=19)  # (0 based, 0 is the 1st tile, 1 is the second tile etc.)
-tile.id = TerrainId.WATER_SHALLOW
+tile.terrain_id = TerrainId.WATER_SHALLOW
 ```
 
 You can also request `readonly` properties from a tile, like its index or coordinates.  
@@ -108,12 +108,12 @@ from AoE2ScenarioParser.datasets.terrains import TerrainId
 
 # Using: get_square_1d
 for tile in map_manager.get_square_1d(x1=4, y1=4, x2=8, y2=8):
-    tile.id = TerrainId.ROAD
+    tile.terrain_id = TerrainId.ROAD
 
 # Using: get_square_2d
 for tile_row in map_manager.get_square_2d(x1=4, y1=4, x2=8, y2=8):
     for tile in tile_row:
-        tile.id = TerrainId.ROAD
+        tile.terrain_id = TerrainId.ROAD
 ```
 
 This will turn the above map into:

@@ -13,16 +13,16 @@ class TerrainTile(AoE2Object):
 
     _link_list = [
         RetrieverObjectLinkGroup("Map", "terrain_data[__index__]", group=[
-            RetrieverObjectLink("id"),
+            RetrieverObjectLink("terrain_id"),
             RetrieverObjectLink("elevation"),
             RetrieverObjectLink("layer"),
         ]),
         RetrieverObjectLink("_index", retrieve_history_number=0),
     ]
 
-    def __init__(self, id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1, _index: int = - 1,
+    def __init__(self, terrain_id: int = TerrainId.GRASS_1, elevation: int = 0, layer: int = -1, _index: int = - 1,
                  **kwargs):
-        self.id: int = id
+        self.terrain_id: int = terrain_id
         self.elevation: int = elevation
         self.layer: int = layer
         self._index: int = _index
