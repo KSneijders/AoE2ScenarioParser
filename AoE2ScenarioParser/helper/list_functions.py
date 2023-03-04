@@ -1,17 +1,19 @@
-from typing import List, Any
+from typing import List, Any, Generator
+
+from AoE2ScenarioParser.objects.support.typedefs import T
 
 
-def hash_list(lst: List):
-    return hash(tuple(lst))
+def hash_list(list_: List) -> int:
+    return hash(tuple(list_))
 
 
-def list_changed(lst, lst_hash):
-    return lst_hash != hash(tuple(lst))
+def list_changed(list_: List[Any], lst_hash) -> bool:
+    return lst_hash != hash(tuple(list_))
 
 
-def listify(var: Any) -> List[Any]:
+def listify(value: T) -> List[T]:
     """Always return item as list"""
-    return var if type(var) is list else [var]
+    return value if isinstance(value, list) else [value]
 
 
 def update_order_array(order_array: List[int], supposed_length: int) -> None:
@@ -21,7 +23,6 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
     Args:
         order_array: The order array like trigger.condition_order
         supposed_length: The length the array should be
-
     """
     actual_length = len(order_array)
 
@@ -35,7 +36,7 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
 
 
 # Written by: Ned Batchelder @ https://stackoverflow.com/a/312464/7230293
-def list_chuncks(lst, n):
-    """Yield successive n-sized chunks from lst."""
-    for i in range(0, len(lst), n):
-        yield lst[i:i + n]
+def list_chunks(list_: List[T], n: int) -> Generator[List[T]]:
+    """Yield successive n-sized chunks from given list"""
+    for i in range(0, len(list_), n):
+        yield list_[i:i + n]

@@ -13,18 +13,18 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
 
 
-def get_unit(uuid: UUID, unit_reference_id: int) -> Optional['Unit']:
+def get_unit(uuid: UUID, unit_id: int) -> Optional['Unit']:
     """
     Get a placed unit based on it's reference id in a scenario.
 
     Args:
         uuid: The universally unique identifier of the scenario
-        unit_reference_id: The reference_id of the unit
+        unit_id: The id of the unit
 
     Returns:
         The Unit Object
     """
-    units, _ = get_units(uuid, [unit_reference_id])
+    units, _ = get_units(uuid, [unit_id])
     if units:
         return units[0]
     return None
@@ -50,23 +50,23 @@ def get_units_in_area(uuid: UUID, x1: int, y1: int, x2: int, y2: int) -> Optiona
     return None
 
 
-def get_units(uuid: UUID, unit_reference_ids: List[int]) -> Tuple[List['Unit'], List[int]] | None:
+def get_units(uuid: UUID, unit_ids: List[int]) -> Tuple[List['Unit'], List[int]] | None:
     """
-    Get a placed unit based on it's reference id in a scenario.
+    Get a unit based on its reference id in a scenario.
 
     Args:
         uuid: The universally unique identifier of the scenario
-        unit_reference_ids: The reference_ids of the units
+        unit_ids: The ids of the units
 
     Returns:
         A tuple with a list of the found unit objects and a list of the IDs that weren't found.
     """
-    unit_reference_ids = unit_reference_ids.copy()
+    unit_ids = unit_ids.copy()
     scenario = store.get_scenario(uuid)
     if scenario:
-        units = scenario.unit_manager.filter_units_by_reference_id(unit_reference_ids)
-        found = [unit.reference_id for unit in units]
-        return units, [id_ for id_ in unit_reference_ids if id_ not in found]
+        units = scenario.unit_manager.filter_units_by_id(unit_ids)
+        found = [unit.id for unit in units]
+        return units, [id_ for id_ in unit_ids if id_ not in found]
     return None
 
 

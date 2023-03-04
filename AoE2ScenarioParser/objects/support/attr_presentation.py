@@ -68,7 +68,7 @@ def _format_unit_reference_representation(ref_id: int | List[int], uuid: UUID) -
 
         formatted_strings = {}
         for i, unit in enumerate(units):
-            formatted_strings[unit.reference_id] = f"{i}: {format_unit(unit)} ({unit.reference_id})"
+            formatted_strings[unit.id] = f"{i}: {format_unit(unit)} ({unit.id})"
         for i, invalid_id in enumerate(invalids, len(units)):
             formatted_strings[invalid_id] = f"{i}: " + _store_error_displays['units']['invalid_reference'](invalid_id)
 

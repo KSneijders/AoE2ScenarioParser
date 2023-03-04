@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from typing import List, Any, Tuple
+from typing import List, Any
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
-from AoE2ScenarioParser.helper.helper import mutually_exclusive
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -44,7 +43,7 @@ class Trigger(AoE2Object, TriggerComponent):
             RetrieverObjectLink("effects", link="effect_data", process_as_object=Effect),
             RetrieverObjectLink("effect_order", link="effect_display_order_array"),
         ]),
-        RetrieverObjectLink("id_", retrieve_history_number=0),
+        RetrieverObjectLink("id", retrieve_history_number=0),
     ]
 
     def __init__(
@@ -65,7 +64,7 @@ class Trigger(AoE2Object, TriggerComponent):
             condition_order: List[int] = None,
             effects: List[Effect] = None,
             effect_order: List[int] = None,
-            id_: int = -1,
+            id: int = -1,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -97,7 +96,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effect_hash = hash_list(effects)
         self.effects: List[Effect] = effects
         self.effect_order: List[int] = effect_order
-        self.id: int = id_
+        self.id: int = id
 
         self.new_effect: NewEffectSupport = NewEffectSupport(self)
         self.new_condition: NewConditionSupport = NewConditionSupport(self)
@@ -192,12 +191,14 @@ class Trigger(AoE2Object, TriggerComponent):
         self.effects.append(new_effect)
         return new_effect
 
-    def _add_condition(self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None,
+    def _add_condition(
+            self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None,
             next_object=None, object_list=None, source_player=None, technology=None, timer=None, area_x1=None,
             area_y1=None, area_x2=None, area_y2=None, object_group=None, object_type=None, ai_signal=None,
             inverted=None, variable=None, comparison=None, target_player=None, unit_ai_action=None, xs_function=None,
             object_state=None, timer_id=None, victory_timer_type=None,
-            include_changeable_weapon_objects=None, ) -> Condition:
+            include_changeable_weapon_objects=None
+    ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):

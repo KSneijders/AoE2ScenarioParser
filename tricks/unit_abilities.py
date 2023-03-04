@@ -19,12 +19,12 @@ unit_to_be_garrisoned = UnitInfo.ARCHER.ID
 # Anything < 0, but not -1 as that's default
 unit_to_be_garrisoned_id = -20
 
-unit_manager.add_unit(Player.ONE, UnitInfo.PALADIN.ID, 20, 5, reference_id=0)
+unit_manager.add_unit(Player.ONE, UnitInfo.PALADIN.ID, 20, 5, id=0)
 
 unit_manager.add_unit(Player.ONE, unit_to_be_garrisoned, 0, 0, garrisoned_in_id=0,
-                      reference_id=unit_to_be_garrisoned_id)
+                      id=unit_to_be_garrisoned_id)
 unit_manager.add_unit(Player.ONE, unit_to_be_garrisoned, 119, 119, garrisoned_in_id=0,
-                      reference_id=unit_to_be_garrisoned_id)
+                      id=unit_to_be_garrisoned_id)
 
 trigger = trigger_manager.add_trigger("DetectUnitUngarrisoned", looping=True)
 

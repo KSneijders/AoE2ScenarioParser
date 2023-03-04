@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import List, Tuple, Generator, Union
 
 from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits
@@ -28,11 +29,11 @@ class UnitManager(AoE2Object):
         super().__init__(**kwargs)
 
         self.units = [pu.units for pu in _player_units]
-        self.reference_id_generator = _create_id_generator(next_unit_id)
+        self.unit_id_generator = _create_id_generator(next_unit_id)
 
     @property
     def next_unit_id(self):
-        return self.get_new_reference_id()
+        return self.get_new_unit_id()
 
     @property
     def units(self):
@@ -67,7 +68,7 @@ class UnitManager(AoE2Object):
             garrisoned_in_id: int = -1,
             animation_frame: int = 0,
             status: int = 2,
-            reference_id: int = None,
+            id: int = None,
             tile: Tile | Tuple[int, int] = None,
     ) -> Unit:
         """
@@ -80,10 +81,10 @@ class UnitManager(AoE2Object):
             y: The y location in the scenario.
             z: The z (height) location in the scenario.
             rotation: The rotation of the unit.
-            garrisoned_in_id: The reference_id of another unit this unit is garrisoned in.
+            garrisoned_in_id: The id of another unit this unit is garrisoned in.
             animation_frame: The animation frame of the unit.
             status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
-            reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
+            id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
             tile: An object that represents a tile on the map. Replaces parameters x and y. Also, automatically adds
                 .5 to both ints to place the unit centered on the tile.
@@ -91,15 +92,15 @@ class UnitManager(AoE2Object):
         Returns:
             The Unit created
         """
-        if reference_id is None:
-            reference_id = self.get_new_reference_id()
+        if id is None:
+            id = self.get_new_unit_id()
 
         unit = Unit(
             player=player,
             x=x if tile is None else (tile[0] + .5),
             y=y if tile is None else (tile[1] + .5),
             z=z,
-            reference_id=reference_id,
+            id=id,
             unit_const=unit_const,
             status=status,
             rotation=rotation,
@@ -192,9 +193,9 @@ class UnitManager(AoE2Object):
         """
         return self.filter_units_by("unit_const", unit_consts, blacklist, player_list, unit_list)
 
-    def filter_units_by_reference_id(
+    def filter_units_by_id(
             self,
-            unit_reference_ids: List[int],
+            unit_ids: List[int],
             blacklist: bool = False,
             player_list: List[Union[int, Player]] = None,
             unit_list: List[Unit] = None
@@ -203,15 +204,15 @@ class UnitManager(AoE2Object):
         Filter unit on their unit_const value.
 
         Args:
-            unit_reference_ids (List[int]): The reference_ids to filter with
-            blacklist (bool): Use the given constant list as blacklist instead of whitelist
-            player_list (List[int]): A list of players to filter from. If not used, all players are used.
-            unit_list (List[Unit]): A set of units to filter from. If not used, all units are used.
+            unit_ids: The unit ids to filter with
+            blacklist: Use the given constant list as blacklist instead of whitelist
+            player_list: A list of players to filter from. If not used, all players are used.
+            unit_list: A set of units to filter from. If not used, all units are used.
 
         Returns:
             A list of units
         """
-        return self.filter_units_by("reference_id", unit_reference_ids, blacklist, player_list, unit_list)
+        return self.filter_units_by("id", unit_ids, blacklist, player_list, unit_list)
 
     def get_units_in_area(
             self,
@@ -278,30 +279,27 @@ class UnitManager(AoE2Object):
         return [unit for unit in unit_list if x1 <= unit.x <= x2 and y1 <= unit.y <= y2 and unit.player in players]
 
     @staticmethod
-    def change_ownership(unit: Unit | List[Unit], to_player: int | Player) -> None:
+    def change_ownership(units: Unit | List[Unit], to_player: int | Player) -> None:
         """
         Changes a unit's ownership to the given player.
 
         Args:
-            unit: The unit object which ownership will be changed
+            units: The unit object which ownership will be changed
             to_player: The player that'll get ownership over the unit (using Player enum)
         """
-        if isinstance(unit, list):
-            for u in unit:
-                u.player = to_player
-        else:
+        for unit in listify(units):
             unit.player = to_player
 
-    def get_new_reference_id(self) -> int:
+    def get_new_unit_id(self) -> int:
         """
         Get a new ID each time the function is called. Starting from the current highest ID.
 
         Returns:
             The newly generated ID
         """
-        return next(self.reference_id_generator)
+        return next(self.unit_id_generator)
 
-    def find_highest_reference_id(self) -> int:
+    def find_highest_unit_id(self) -> int:
         """
         Find the highest ID in the map. Searches through all units for the highest ID.
 
@@ -311,28 +309,28 @@ class UnitManager(AoE2Object):
         highest_id = 0  # If no units, default to 0
         for player in Player.all():
             for unit in self.units[player]:
-                highest_id = max(highest_id, unit.reference_id)
+                highest_id = max(highest_id, unit.id)
         return highest_id
 
-    def remove_unit(self, reference_id: int = None, unit: Unit = None) -> None:
+    def remove_unit(self, id: int = None, unit: Unit = None) -> None:
         """
-        Removes a unit. Please note that `unit=...` is a lot faster than `reference_id=...` due to reference_id having
+        Removes a unit. Please note that `unit=...` is a lot faster than `id=...` due to id having
         to search through all units on the map. And unit has an ownership (player) attribute which is used for knowing
         which list to remove the unit from.
 
         Args:
-            reference_id: The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
+            id: The id of the unit. Note that this is NOT a unit constant (So NOT: UnitInfo.ARCHER)
             unit: The Unit object to be removed.
         """
-        if reference_id is not None and unit is not None:
+        if id is not None and unit is not None:
             raise ValueError("Cannot use both unit_ref_id and unit arguments. Use one or the other.")
-        if reference_id is None and unit is None:
+        if id is None and unit is None:
             raise ValueError("Both unit_ref_id and unit arguments were unused. Use one.")
 
-        if reference_id is not None:
+        if id is not None:
             for player in range(0, 9):
                 for i, unit in enumerate(self.units[player]):
-                    if unit.reference_id == reference_id:
+                    if unit.id == id:
                         del self.units[player][i]
                         return
         elif unit is not None:

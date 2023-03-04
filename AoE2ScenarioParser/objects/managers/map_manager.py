@@ -5,7 +5,7 @@ import math
 from typing import List, Union, Tuple, Set, Optional
 
 from AoE2ScenarioParser.helper.coordinates import xy_to_i
-from AoE2ScenarioParser.helper.list_functions import list_chuncks
+from AoE2ScenarioParser.helper.list_functions import list_chunks
 from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
@@ -74,13 +74,13 @@ class MapManager(AoE2Object):
         new_terrain = []
         if difference < 0:
             # Remove ends of rows (x) & remove final rows entirely (y)
-            for index, chunk in enumerate(list_chuncks(self.terrain, old_size)):
+            for index, chunk in enumerate(list_chunks(self.terrain, old_size)):
                 if index == new_size:
                     break
                 new_terrain.extend(chunk[:new_size])
         elif difference > 0:
             # Add ends to rows (x) & add entirely new rows  (y)
-            chunk_gen = list_chuncks(self.terrain, old_size)
+            chunk_gen = list_chunks(self.terrain, old_size)
             for index in range(new_size):
                 if index < old_size:
                     row = next(chunk_gen) + [TerrainTile(uuid=self._uuid) for _ in range(difference)]

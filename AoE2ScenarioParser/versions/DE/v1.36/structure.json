@@ -1534,7 +1534,7 @@
                                 "type": "f32",
                                 "default": 0
                             },
-                            "reference_id": {
+                            "id": {
                                 "type": "s32",
                                 "default": 0
                             },

@@ -24,7 +24,7 @@ class Unit(AoE2Object):
             RetrieverObjectLink("x"),
             RetrieverObjectLink("y"),
             RetrieverObjectLink("z"),
-            RetrieverObjectLink("reference_id"),
+            RetrieverObjectLink("id"),
             RetrieverObjectLink("unit_const"),
             RetrieverObjectLink("status"),
             RetrieverObjectLink("rotation"),
@@ -33,19 +33,20 @@ class Unit(AoE2Object):
         ])
     ]
 
-    def __init__(self,
-                 player: int | Player,
-                 x: float,
-                 y: float,
-                 z: float,
-                 reference_id: int,
-                 unit_const: int,
-                 status: int,
-                 rotation: float,
-                 initial_animation_frame: int,
-                 garrisoned_in_id: int,
-                 **kwargs
-                 ):
+    def __init__(
+            self,
+            player: int | Player,
+            x: float,
+            y: float,
+            z: float,
+            id: int,
+            unit_const: int,
+            status: int,
+            rotation: float,
+            initial_animation_frame: int,
+            garrisoned_in_id: int,
+            **kwargs
+    ):
         raise_if_not_int_subclass({'unit_const': unit_const})
 
         super().__init__(**kwargs)
@@ -54,7 +55,7 @@ class Unit(AoE2Object):
         self.x: float = x
         self.y: float = y
         self.z: float = z
-        self.reference_id: int = reference_id
+        self.id: int = id
         self.unit_const: int = unit_const
         self.status: int = status
         self.rotation: float = rotation

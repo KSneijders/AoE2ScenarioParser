@@ -159,7 +159,7 @@ Two ways to delete a unit:
 
 ```py
 unit_manager.remove_unit(unit=unit)
-unit_manager.remove_unit(reference_id=unit.reference_id)
+unit_manager.remove_unit(id=unit.id)
 ```
 
 If you want to remove all units from the map or a single player 
