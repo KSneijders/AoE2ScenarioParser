@@ -360,7 +360,7 @@ TerrainId.FOREST_OAK  # 10
 TerrainId.UNDERBUSH_LEAVES  # 71
 
 # Changing the terrain could be done like so:
-map_manager.terrain[0].terrain_id = TerrainId.GRASS_1
+map_manager.terrain[0].type = TerrainId.GRASS_1
 ```
 
 ---

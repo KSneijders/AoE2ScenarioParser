@@ -220,7 +220,7 @@ These are also the same objects returned by the Map Manager.
 ```py
 for index, chunk in enumerate(pattern.to_chunks(as_terrain=True)):
     for terrain_tile in chunk:
-        terrain_tile.terrain_id = TerrainId.BLACK if index % 2 == 0 else TerrainId.ICE
+        terrain_tile.type = TerrainId.BLACK if index % 2 == 0 else TerrainId.ICE
 ```
 
 So the code above loops through all the 3x3 squares returned by the `to_chunks` function.
@@ -231,13 +231,13 @@ This will alternate the tiles between the two terrain types.
 There's one small adjustment we need to make. Because the map 120 tiles and the squares have a length of 3 we can fit
 40 squares per row. This is an even number. So just alternating `BLACK` and `ICE` terrain based on index will cause
 it to create lines instead of alternating each row. We can fix this by adding the row with the index and reduce that
-by modulo 2 to get our ideal situation. 
+by modulo 2 to get our ideal situation.
 
 ```py
 for index, chunk in enumerate(pattern.to_chunks(as_terrain=True)):
     for terrain_tile in chunk:
         row = index // (map_manager.map_size / 3)  # 3 as the size of the grid blocks
-        terrain_tile.terrain_id = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
+        terrain_tile.type = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
 ```
 
 Another way to get around this is make sure the squares fit an odd amount of times in the length of the map. 
@@ -255,5 +255,5 @@ area.select_entire_map().use_pattern_grid(block_size=3, gap_size=0)
 for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
     for terrain_tile in chunk:
         row = index // (map_manager.map_size / 3)  # 3 as the size of the grid blocks
-        terrain_tile.terrain_id = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
+        terrain_tile.type = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
 ```
