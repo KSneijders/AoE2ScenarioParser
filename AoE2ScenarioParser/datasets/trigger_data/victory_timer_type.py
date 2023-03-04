@@ -5,8 +5,7 @@ from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
 class VictoryTimerType(_DataSetIntEnums):
     """
-    This enum class provides the integer values used to reference the different ages in the game. These values are
-    used by the 'Current Age' player resource
+    This enum class provides the integer values used to reference the different types of victory timer types.
 
     **Examples**
 
