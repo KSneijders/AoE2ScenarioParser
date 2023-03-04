@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.data_objects.player.player.PlayerData
+::: AoE2ScenarioParser.objects.data_objects.player.player_data.PlayerData
