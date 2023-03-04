@@ -2963,8 +2963,7 @@ class SecondaryGameMode(_DataSetIntFlags):
 
 class VictoryTimerType(_DataSetIntEnums):
     """
-    This enum class provides the integer values used to reference the different ages in the game. These values are
-    used by the 'Current Age' player resource
+    This enum class provides the integer values used to reference the different types of victory timer types.
 
     **Examples**
 
