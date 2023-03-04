@@ -799,7 +799,7 @@ class TriggerManager(AoE2Object):
             index = identifier
             trigger = self.triggers[index]
         else:
-            index = identifier.trigger_id
+            index = identifier.id
             trigger = identifier
 
         return index, trigger
