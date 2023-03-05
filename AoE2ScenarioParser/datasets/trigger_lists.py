@@ -2365,9 +2365,14 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Only generates gold while collecting wood from trees, and not when cutting them down
     """
-    UNUSED_RESOURCE_267 = 267
+    FORAGING_WOOD_PRODUCTIVITY = 267
     """
-    - Purpose: Unused
+    - Purpose: Forager foraging wood generation rate per 100 seconds
+
+    - Default Values:
+
+        - 0:  Default
+        - 10.4753:  (0.104753 w/s per forager) Portuguese
     """
     UNUSED_RESOURCE_268 = 268
     """
@@ -2958,8 +2963,7 @@ class SecondaryGameMode(_DataSetIntFlags):
 
 class VictoryTimerType(_DataSetIntEnums):
     """
-    This enum class provides the integer values used to reference the different ages in the game. These values are
-    used by the 'Current Age' player resource
+    This enum class provides the integer values used to reference the different types of victory timer types.
 
     **Examples**
 

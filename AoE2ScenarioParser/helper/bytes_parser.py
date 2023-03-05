@@ -93,6 +93,7 @@ def handle_end_of_file_mark(igenerator: IncrementalGenerator, retriever: 'Retrie
         retriever: The retriever to check if it's the end of file mark
     """
     if is_end_of_file_mark(retriever) and settings.NOTIFY_UNKNOWN_BYTES:
+        igenerator.progress -= retriever.datatype.length
         retrieved_bytes = igenerator.get_remaining_bytes()
         print("\n\n" + "\n".join([
             "The file being read has more bytes than anticipated.",

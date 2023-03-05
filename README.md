@@ -59,7 +59,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | 1.44                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[54480] (October 5th, 2021) <br> **Unchanged in**: <br> - Hotfix [54684] (October 6th, 2021)                                                                                                                                                                                                                                                                                                                                           |
 | 1.45                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[56005] (November 17th, 2021) <br> **Unchanged in**: <br> - Update [58259] (January 31st, 2022)                                                                                                                                                                                                                                                                                                                                        |
 | 1.46                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[61321] (April 27th, 2022)  <br> **Unchanged in**: <br> - Update [63482] (June 28th, 2021) <br> - Hotfix [63581] (July 6th, 2021)                                                                                                                                                                                                                                                                                                      |
-| 1.47                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[66692] (August 29th, 2022)                                                                                                                                                                                                                                                                                                                                                                                                            |
+| 1.47                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update:[66692] (August 29th, 2022)  <br> **Unchanged in**: <br> - Update [73855] (December 7th, 2022) <br> - Update 75350 (Console update) (January 31st, 2022) <br> - ~~Update [77209] (February 23rd, 2022)~~ **Rolled back**                                                                                                                                                                                                               |
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 [36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
@@ -89,6 +89,8 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 [63482]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-63482/
 [63581]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-63482#Hotfix-63581
 [66692]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-66692/
+[73855]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-73855/
+[77209]: https://www.ageofempires.com/news/age-of-empires-ii-update-77209/
 
 # Authors
 

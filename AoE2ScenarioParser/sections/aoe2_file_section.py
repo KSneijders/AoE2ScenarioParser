@@ -123,7 +123,10 @@ class AoE2FileSection:
             An AoE2FileSection instance representing the given file section structure
         """
         retriever_map = {}
+        log_all_retrievers = structure.get('log', False)
         for name, attr in structure.get('retrievers').items():
+            if log_all_retrievers:
+                attr['log'] = True
             retriever_map[name] = Retriever.from_structure(name, attr)
 
         structs = model_dict_from_structure(structure)

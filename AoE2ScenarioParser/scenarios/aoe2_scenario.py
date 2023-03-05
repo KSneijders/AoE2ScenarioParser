@@ -139,6 +139,7 @@ class AoE2Scenario:
         scenario._load_header_section(igenerator)
         scenario._load_content_sections(igenerator)
         s_print(f"Parsing scenario file finished successfully.", final=True, time=True)
+        scenario.igenerator = igenerator
 
         scenario._object_manager = AoE2ObjectManager(scenario.uuid)
         scenario._object_manager.setup()
@@ -352,7 +353,9 @@ class AoE2Scenario:
             self,
             other: AoE2Scenario,
             filename: str = "differences.txt",
-            commit: bool = False
+            commit: bool = False,
+            *,
+            allow_multiple_versions: bool = False
     ) -> None:
         """
         Compare a scenario to a given scenario and report the differences found
@@ -361,8 +364,10 @@ class AoE2Scenario:
             other: The scenario to compare it to
             filename: The debug file to write the differences to (Defaults to "differences.txt")
             commit: If the scenarios need to commit their manager changes before comparing (Defaults to False)
+            allow_multiple_versions: Allow comparison between multiple versions. (Please note that this is not tested
+                thoroughly at all)
         """
-        debug_compare(self, other, filename, commit)
+        debug_compare(self, other, filename, commit, allow_multiple_versions=allow_multiple_versions)
 
     def _debug_write_from_source(self, filename: str, datatype: str, write_bytes: bool = True) -> None:
         """

@@ -1506,6 +1506,22 @@
                 "comment": "Uselessness confirmed by developer",
                 "type": "9",
                 "default": "000000000000000000"
+            },
+            "unknown_bytes2": {
+                "type": "8",
+                "default": "0000000000000000",
+                "comment": "Introduced these weird bytes on console patch (31-01-23)",
+
+                "dependencies": {
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    },
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:trigger_version",
+                        "eval": "1 if trigger_version == 3.5 else 0"
+                    }
+                }
             }
         },
         "structs": {
