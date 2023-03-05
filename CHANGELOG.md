@@ -9,11 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.1.51 - 2023-March-05
 
+### Added
+
+- `Attribute.FORAGING_WOOD_PRODUCTIVITY` -- [#40] (Alian)
+
 ### Fixed
 
 - Warning showing more bytes were found in scenarios
   - Present since 31st of January console update with '_no functional changes_'.
 - Minor docstring copypasta mistake (`VictoryTimerType`)
+
+[#40]: https://github.com/KSneijders/AoE2ScenarioParser/pull/40
 
 ---
 
