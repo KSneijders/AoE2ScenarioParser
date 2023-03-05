@@ -33,7 +33,7 @@ class PlayerAttribute(_DataSetIntEnums):
         global _attribute_dataset_editor_names
 
         if _attribute_dataset_editor_names is None:
-            with (Path(__file__).parent / 'sources' / 'resource_editor_names.json').open() as file:
+            with (Path(__file__).parent.parent / 'sources' / 'resource_editor_names.json').open() as file:
                 _attribute_dataset_editor_names = json.load(file)
 
         return _attribute_dataset_editor_names[self]
