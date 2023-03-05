@@ -77,11 +77,31 @@ def compare_retrievers(
 
     # If it's a file section, go through all retrievers in its map
     if isinstance(obj1, AoE2FileSection):
-        for retr_key in obj1.retriever_map.keys():
-            retriever1: Retriever = obj1.retriever_map[retr_key]
-            retriever2: Retriever = obj2.retriever_map[retr_key]
+        retr2_keys = list(obj2.retriever_map.keys())
 
-            compare_retrievers(output_file, retriever1, retriever2, path + [retr_key])
+        for retr_key in obj1.retriever_map.keys():
+            retriever1 = obj1.retriever_map[retr_key]
+
+            if retr_key in obj2.retriever_map:
+                retriever2 = obj2.retriever_map[retr_key]
+                compare_retrievers(output_file, retriever1, retriever2, path + [retr_key])
+
+                retr2_keys.remove(retr_key)
+            else:
+                write_difference_to_file(
+                    output_file, path + [retr_key], "TARGET MISSING RETRIEVER",
+                    (typename(retriever1.data), None),
+                    (retriever1.data, None)
+                )
+
+        for retr2_key in retr2_keys:
+            retriever2 = obj2.retriever_map[retr2_key]
+            write_difference_to_file(
+                output_file, path + [retr2_key], "SOURCE MISSING RETRIEVER",
+                (None, typename(retriever2.data)),
+                (None, retriever2.data)
+            )
+
         return
 
     # If it's a retriever, check its data and go through it if necessary (when it's a list)
@@ -137,7 +157,9 @@ def debug_compare(
         scenario: 'AoE2Scenario',
         other: 'AoE2Scenario',
         filename,
-        commit: bool = False
+        commit: bool = False,
+        *,
+        allow_multiple_versions: bool=False,
 ) -> None:
     """
     Compare two scenario files and report the differences found
@@ -147,6 +169,7 @@ def debug_compare(
         other: The scenario to compare it to
         filename: The debug file to write the differences to
         commit: If the scenarios need to commit their manager changes before comparing (Defaults to False)
+        allow_multiple_versions:
     """
     if commit:
         for scn in scenario, other:
@@ -154,8 +177,9 @@ def debug_compare(
                 scn.commit()
 
     s_print(f"Searching for differences between scenarios...")
-    if other.game_version != scenario.game_version or other.scenario_version != scenario.scenario_version:
-        raise ValueError("Scenarios must be from the same game & have the same version.")
+    if not allow_multiple_versions:
+        if other.game_version != scenario.game_version or other.scenario_version != scenario.scenario_version:
+            raise ValueError("Scenarios must be from the same game & have the same version.")
 
     with open(filename, 'w', encoding=settings.MAIN_CHARSET) as output_file:
         for section_key in other.sections.keys():

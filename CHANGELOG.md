@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.51 - 2023-March-05
+
+### Fixed
+
+- Warning showing more bytes were found in scenarios
+  - Present since 31st of January console update with '_no functional changes_'.
+- Minor docstring copypasta mistake (`VictoryTimerType`)
+
+---
+
 ## 0.1.50 - 2023-January-20
 
 ### Added
