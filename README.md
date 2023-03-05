@@ -12,6 +12,7 @@ the in-game editor.
 - [Getting Started](https://ksneijders.github.io/AoE2ScenarioParser/getting_started/)
 - [Hello World Example](https://ksneijders.github.io/AoE2ScenarioParser/hello_world/)
 - [Discord Server](https://discord.gg/DRUtmugXT3)
+- [API Docs](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/aoe2_scenario/)
 
 ## Documentation
 
@@ -98,6 +99,6 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 
 # License
 
-GNU General Public License v3.0: Please see the [LICENSE file].
+MIT License: Please see the [LICENSE file].
 
 [license file]: https://github.com/KSneijders/AoE2ScenarioParser/blob/dev/LICENSE
