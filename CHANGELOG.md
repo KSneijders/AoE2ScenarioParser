@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.52 - 2023-March-15
+
+### Fixed
+
+- Issue when updating `TerrainTile` list in the map manager
+- Not all player resource names being present in the resource name file
+
+---
+
 ## 0.1.51 - 2023-March-05
 
 ### Added
