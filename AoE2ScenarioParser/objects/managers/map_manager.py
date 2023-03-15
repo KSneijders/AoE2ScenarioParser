@@ -56,6 +56,7 @@ class MapManager(AoE2Object):
             return self._map_height
         else:
             raise ValueError("Map is not a square. Use the attributes 'map_width' and 'map_height' instead.")
+
     @map_size.setter
     def map_size(self, new_size: int):
         old_size = self._map_width
@@ -95,7 +96,7 @@ class MapManager(AoE2Object):
         def reset_indices(lst):
             tile: TerrainTile
             for index, tile in enumerate(lst):
-                reset_terrain_index(tile, index)
+                tile._reset_terrain_index(index)
 
         if value is not None:
             self._terrain = UuidList(
