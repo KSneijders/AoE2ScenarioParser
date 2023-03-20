@@ -102,7 +102,7 @@ class MapManager(AoE2Object):
         def reset_indices(lst):
             tile: TerrainTile
             for index, tile in enumerate(lst):
-                reset_terrain_index(tile, index)
+                tile._reset_terrain_index(index)
 
         if value is not None:
             self._terrain = UuidList(
