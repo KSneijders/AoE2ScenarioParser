@@ -25,6 +25,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
 from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+from AoE2ScenarioParser.sections.bfp.scenario_structure import ScenarioStructure
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -88,6 +89,14 @@ class AoE2Scenario:
         self._file = None
         self._file_header = None
         self._decompressed_file_data = None
+
+    @classmethod
+    def from_file_bfp(cls: Type[Scenario], path: str) -> ScenarioStructure:
+        scenario = ScenarioStructure.from_file(path, strict=False)
+        print(scenario)
+        return scenario
+        # for retriever in scenario.file_header._retrievers:
+        #     print(retriever.p_name, getattr(scenario.file_header, retriever.p_name))
 
     @classmethod
     def from_file(cls: Type[Scenario], path: str, game_version: str = "DE", name: str = "") -> Scenario:
