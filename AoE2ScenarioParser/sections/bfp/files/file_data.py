@@ -1,15 +1,9 @@
 from __future__ import annotations
 
 from binary_file_parser import Retriever, BaseStruct
-from binary_file_parser.types import bool32, Bytes, str32, str16, nt_str32, Array32
+from binary_file_parser.types import bool32, Bytes, str32, str16, Array32
 
-
-class AiFile2(BaseStruct):
-    file_name: str = Retriever(nt_str32, default="")
-    per_content: str = Retriever(nt_str32, default="")
-
-    def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):
-        super().__init__(struct_version, parent, initialise_defaults)
+from AoE2ScenarioParser.sections.bfp.files.ai_file import AiFile
 
 
 class FileData(BaseStruct):
@@ -28,7 +22,7 @@ class FileData(BaseStruct):
     script_file_content: str = Retriever(str32,                     default="")
     ai_files_present: bool   = Retriever(bool32,                    default=False, on_set=[set_ai_files_repeat], on_write=[update_ai_files_present])
     unknown4: bytes          = Retriever(Bytes[4],                  default=b"\x00" * 4)
-    ai_files: list[AiFile2]  = Retriever(Array32[AiFile2],          default=[], repeat=0)
+    ai_files: list[AiFile]  = Retriever(Array32[AiFile], default=[], repeat=0)
     # formatter:on
 
     def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):

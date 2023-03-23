@@ -3,7 +3,7 @@ from __future__ import annotations
 from binary_file_parser import Retriever, BaseStruct
 from binary_file_parser.types import bool32, Bytes, uint32, uint8, StackedArray32s
 
-from AoE2ScenarioParser.sections.bfp.map_data import View
+from AoE2ScenarioParser.sections.bfp.map.view import View
 
 
 class Options(BaseStruct):

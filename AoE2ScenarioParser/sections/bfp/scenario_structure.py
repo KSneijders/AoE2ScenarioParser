@@ -3,19 +3,19 @@ import zlib
 from binary_file_parser import Retriever, BaseStruct
 from binary_file_parser.types import ByteStream
 
-from AoE2ScenarioParser.sections.bfp.background_image import BackgroundImage
+from AoE2ScenarioParser.sections.bfp.background_image.background_image import BackgroundImage
 from AoE2ScenarioParser.sections.bfp.cynematics import Cinematics
 from AoE2ScenarioParser.sections.bfp.diplomacy import Diplomacy
-from AoE2ScenarioParser.sections.bfp.file_data import FileData
+from AoE2ScenarioParser.sections.bfp.files.file_data import FileData
 from AoE2ScenarioParser.sections.bfp.global_victory import GlobalVictory
-from AoE2ScenarioParser.sections.bfp.map_data import MapData
-from AoE2ScenarioParser.sections.bfp.meta_data import MetaData
+from AoE2ScenarioParser.sections.bfp.map.map_data import MapData
+from AoE2ScenarioParser.sections.bfp.meta_data.meta_data import MetaData
 from AoE2ScenarioParser.sections.bfp.file_header import FileHeader
 from AoE2ScenarioParser.sections.bfp.messages import Messages
 from AoE2ScenarioParser.sections.bfp.options import Options
-from AoE2ScenarioParser.sections.bfp.player_data_block_2 import PlayerDataBlock2
-from AoE2ScenarioParser.sections.bfp.trigger_data import TriggerData
-from AoE2ScenarioParser.sections.bfp.unit_data import UnitData
+from AoE2ScenarioParser.sections.bfp.player_data_block_2.player_data_block_2 import PlayerDataBlock2
+from AoE2ScenarioParser.sections.bfp.triggers.trigger_data import TriggerData
+from AoE2ScenarioParser.sections.bfp.units.unit_data import UnitData
 
 
 class ScenarioStructure(BaseStruct):

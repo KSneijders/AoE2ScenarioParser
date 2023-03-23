@@ -1,0 +1,80 @@
+from __future__ import annotations
+
+from binary_file_parser import BaseStruct, Retriever
+from binary_file_parser.types import bool32, bool8, int32, uint32, Bytes, nt_str32
+
+from AoE2ScenarioParser.sections.bfp.triggers.condition import Condition
+from AoE2ScenarioParser.sections.bfp.triggers.effect import Effect
+
+
+class Trigger(BaseStruct):
+    @staticmethod
+    def set_effects_repeat(_, instance: Trigger):
+        Retriever.set_repeat(Trigger.effects, instance, instance.num_effects)
+
+    @staticmethod
+    def set_effect_display_orders_repeat(_, instance: Trigger):
+        Retriever.set_repeat(Trigger.effect_display_orders, instance, instance.num_effects)
+
+    @staticmethod
+    def set_conditions_repeat(_, instance: Trigger):
+        Retriever.set_repeat(Trigger.conditions, instance, instance.num_conditions)
+
+    @staticmethod
+    def set_condition_display_orders_repeat(_, instance: Trigger):
+        Retriever.set_repeat(Trigger.condition_display_orders, instance, instance.num_conditions)
+
+    @staticmethod
+    def update_num_effects(_, instance: Trigger):
+        instance.num_effects = len(instance.effects)
+
+        if len(instance.effect_display_orders) != instance.num_effects:
+            highest_display_order = max(instance.effect_display_orders)
+            if highest_display_order != instance.num_effects - 1:
+                raise ValueError("effect display order array out of sync")
+            instance.effect_display_orders.extend(range(highest_display_order + 1, instance.num_effects))
+
+    @staticmethod
+    def update_num_conditions(_, instance: Trigger):
+        instance.num_conditions = len(instance.conditions)
+
+        if len(instance.condition_display_orders) != instance.num_conditions:
+            highest_display_order = max(instance.condition_display_orders)
+            if highest_display_order != instance.num_conditions - 1:
+                raise ValueError("condition display order array out of sync")
+            instance.condition_display_orders.extend(range(highest_display_order + 1, instance.num_conditions))
+
+    # formatter:off
+    enabled: bool                          = Retriever(bool32,                       default=True)
+    looping: bool                          = Retriever(bool8,                        default=False)
+    description_str_id_id_2_4_1_40: int    = Retriever(int32, max_ver=(2, 4, 1, 40), default=-1)
+    description_str_id_id_2_4_1_41: int    = Retriever(int32, min_ver=(2, 4, 1, 41), default=0)
+    display_as_objective: bool             = Retriever(bool8,                        default=False)
+    objective_description_order: int       = Retriever(uint32,                       default=0)
+    make_header: bool                      = Retriever(bool8,                        default=False)
+    short_description_str_id_2_4_1_40: int = Retriever(int32, max_ver=(2, 4, 1, 40), default=-1)
+    short_description_str_id_2_4_1_41: int = Retriever(int32, min_ver=(2, 4, 1, 41), default=0)
+    display_on_screen: bool                = Retriever(bool8,                        default=False)
+    unknown: bytes                         = Retriever(Bytes[5],                     default=b"\x00" * 5)
+    mute_objectives: bool                  = Retriever(bool8,                        default=False)
+    description: str                       = Retriever(nt_str32,                     default="")
+    name: str                              = Retriever(nt_str32,                     default="Trigger 0")
+    short_description: str                 = Retriever(nt_str32,                     default="")
+    num_effects: int                       = Retriever(uint32,                       default=0,
+                                                       on_set=[set_effects_repeat, set_effect_display_orders_repeat],
+                                                       on_write=[update_num_effects])
+    """originally int32"""
+    effects: list[Effect]                  = Retriever(Effect, default=Effect(), repeat=0)
+    effect_display_orders: list[int]       = Retriever(uint32,                       default=0, repeat=0)
+    """originally int32"""
+    num_conditions: int                    = Retriever(uint32,                       default=0,
+                                                       on_set=[set_conditions_repeat, set_condition_display_orders_repeat],
+                                                       on_write=[update_num_conditions])
+    """originally int32"""
+    conditions: list[Condition]            = Retriever(Condition, default=Condition(), repeat=0)
+    condition_display_orders: list[int]    = Retriever(uint32,                       default=0, repeat=0)
+    """originally int32"""
+    # formatter:on
+
+    def __init__(self, struct_version: tuple[int, ...] = (3, 5, 1, 47), parent: BaseStruct = None, initialise_defaults=True):
+        super().__init__(struct_version, parent, initialise_defaults)

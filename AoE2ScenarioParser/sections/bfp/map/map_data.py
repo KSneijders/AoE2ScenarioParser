@@ -1,25 +1,10 @@
 from __future__ import annotations
 
 from binary_file_parser import Retriever, BaseStruct
-from binary_file_parser.types import bool8, Bytes, uint32, uint8, int16, str16, int32
+from binary_file_parser.types import bool8, Bytes, uint32, str16
 
-
-class View(BaseStruct):
-    x: int = Retriever(int32, default=-1)
-    y: int = Retriever(int32, default=-1)
-
-    def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):
-        super().__init__(struct_version, parent, initialise_defaults)
-
-
-class Terrain(BaseStruct):
-    terrain_id: int = Retriever(uint8, default=0)
-    elevation: int = Retriever(uint8, default=0)
-    unused: bytes = Retriever(Bytes[3], default=b"\x00\xff\xff")
-    layer: int = Retriever(int16, default=-1)
-
-    def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):
-        super().__init__(struct_version, parent, initialise_defaults)
+from AoE2ScenarioParser.sections.bfp.map.terrain import Terrain
+from AoE2ScenarioParser.sections.bfp.map.view import View
 
 
 class MapData(BaseStruct):
@@ -45,7 +30,7 @@ class MapData(BaseStruct):
     lock_coop_alliances_1_41: bool = Retriever(bool8,    (1, 41), (1, 41),  default=False)
     collide_and_correct: bool      = Retriever(bool8,                       default=False)
     villager_force_drop: bool      = Retriever(bool8,    (1, 37),           default=False)
-    player_views: list[View]       = Retriever(View,     (1, 40),           default=View(), repeat=16)
+    player_views: list[View]       = Retriever(View, (1, 40), default=View(), repeat=16)
     lock_coop_alliances_1_42: bool = Retriever(bool8,    (1, 42),           default=False)
     ai_map_type: int               = Retriever(uint32,   (1, 42), (1, 46),  default=0)
     population_caps: list[int]     = Retriever(uint32,   (1, 44),           default=200, repeat=16)
@@ -55,7 +40,7 @@ class MapData(BaseStruct):
     no_waves_on_shore: bool        = Retriever(bool8,                       default=False)
     width: int                     = Retriever(uint32,                      default=120, on_set=[set_terrain_data_repeat], on_write=[update_width_height])
     height: int                    = Retriever(uint32,                      default=120, on_set=[set_terrain_data_repeat])
-    tiles: list[Terrain]           = Retriever(Terrain,                     default=Terrain(), repeat=14_400)
+    tiles: list[Terrain]           = Retriever(Terrain, default=Terrain(), repeat=14_400)
     # formatter:on
 
     def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):
