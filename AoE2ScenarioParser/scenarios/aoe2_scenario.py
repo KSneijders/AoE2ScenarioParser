@@ -92,7 +92,7 @@ class AoE2Scenario:
 
     @classmethod
     def from_file_bfp(cls: Type[Scenario], path: str) -> ScenarioStructure:
-        scenario = ScenarioStructure.from_file(path, strict=False)
+        scenario = ScenarioStructure.from_file(path, strict=True)
         print(scenario)
         return scenario
         # for retriever in scenario.file_header._retrievers:
