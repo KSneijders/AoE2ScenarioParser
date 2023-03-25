@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.53 - 2023-March-25
+
+## Added
+
+- Ability to read the new 1.48 scenarios (No functional changes found (yet))
+  - This version is available since the pup released _today_ (March 25th)
+
+---
+
 ## 0.1.52 - 2023-March-15
 
 ### Fixed
