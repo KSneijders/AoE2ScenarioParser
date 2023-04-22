@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever
+from binary_file_parser import BaseStruct, Retriever, Version
 from binary_file_parser.types import nt_str16, bool8, Array16, uint8, FixedLenArray, uint32, float32, uint16, Bytes, \
     int32
 
@@ -48,11 +48,11 @@ class PlayerDataBlock3(BaseStruct):
     grand_theft_empires: list[bytes]         = Retriever(Bytes[44],                default=b"\x00" * 44)
     """unknown structure"""
     num_ww_campaign2: int                    = Retriever(uint8,                    default=0, on_set=[set_wwc2_repeat], on_write=[update_num_wwc2])
-    unknown3: int                            = Retriever(uint8,                    default=0, repeat=7)
+    unknown3: int                            = Retriever(uint8,                    default=0,  repeat=7)
     ww_campaign2: list[bytes]                = Retriever(Bytes[32],                default=[], repeat=0)
     """unknown structure"""
     unknown4: int                            = Retriever(int32,                    default=-1)
     # formatter:on
 
-    def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):
-        super().__init__(struct_version, parent, initialise_defaults)
+    def __init__(self, struct_ver: Version = Version((1, 47)), parent: BaseStruct = None, initialise_defaults=True, **retriever_inits):
+        super().__init__(struct_ver, parent, initialise_defaults=initialise_defaults, **retriever_inits)

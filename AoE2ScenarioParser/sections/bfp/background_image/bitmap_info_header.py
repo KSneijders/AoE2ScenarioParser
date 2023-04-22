@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever
+from binary_file_parser import Retriever, BaseStruct, Version
 from binary_file_parser.types import int32, uint32, int16
 
 
@@ -13,6 +13,7 @@ class BitMapInfoHeader(BaseStruct):
     def update_num_colours(_, instance: BitMapInfoHeader):
         instance.num_colours = len(instance.colours)
 
+    # formatter:off
     header_size: int           = Retriever(int32,  default=0)
     width: int                 = Retriever(uint32, default=0)
     height: int                = Retriever(uint32, default=0)
@@ -25,6 +26,7 @@ class BitMapInfoHeader(BaseStruct):
     num_colours: int           = Retriever(uint32, default=0, on_set=[set_colours_repeat], on_write=[update_num_colours])
     num_important_colours: int = Retriever(uint32, default=0)
     colours: list[int]         = Retriever(uint32, default=0, repeat=0)
+    # formatter:on
 
-    def __init__(self, struct_version: tuple[int, ...] = (1, 47), parent: BaseStruct = None, initialise_defaults=True):
-        super().__init__(struct_version, parent, initialise_defaults)
+    def __init__(self, struct_ver: Version = Version((1, 47)), parent: BaseStruct = None, initialise_defaults=True, **retriever_inits):
+        super().__init__(struct_ver, parent, initialise_defaults=initialise_defaults, **retriever_inits)

@@ -1,6 +1,6 @@
 import zlib
 
-from binary_file_parser import Retriever, BaseStruct
+from binary_file_parser import Retriever, BaseStruct, Version
 from binary_file_parser.types import ByteStream
 
 from AoE2ScenarioParser.sections.bfp.background_image.background_image import BackgroundImage
@@ -19,19 +19,21 @@ from AoE2ScenarioParser.sections.bfp.units.unit_data import UnitData
 
 
 class ScenarioStructure(BaseStruct):
-    file_header: FileHeader = Retriever(FileHeader, default=FileHeader())
-    data_header: MetaData = Retriever(MetaData, default=MetaData(), remaining_compressed=True)
-    text_data: Messages = Retriever(Messages, default=Messages())
-    cinematics: Cinematics = Retriever(Cinematics, default=Cinematics())
-    background_image: BackgroundImage = Retriever(BackgroundImage, default=BackgroundImage())
-    player_data2: PlayerDataBlock2 = Retriever(PlayerDataBlock2, default=PlayerDataBlock2())
-    global_victory: GlobalVictory = Retriever(GlobalVictory, default=GlobalVictory())
-    diplomacy: Diplomacy = Retriever(Diplomacy, default=Diplomacy())
-    options: Options = Retriever(Options, default=Options())
-    map_data: MapData = Retriever(MapData, default=MapData())
-    unit_data: UnitData = Retriever(UnitData, default=UnitData())
-    trigger_data: TriggerData = Retriever(TriggerData, default=TriggerData())
-    file_data: FileData = Retriever(FileData, default=FileData(), min_ver=(1, 40))
+    # @formatter:off
+    file_header: FileHeader           = Retriever(FileHeader,                         default=FileHeader())
+    data_header: MetaData             = Retriever(MetaData,                           default=MetaData(), remaining_compressed=True)
+    text_data: Messages               = Retriever(Messages,                           default=Messages())
+    cinematics: Cinematics            = Retriever(Cinematics,                         default=Cinematics())
+    background_image: BackgroundImage = Retriever(BackgroundImage,                    default=BackgroundImage())
+    player_data2: PlayerDataBlock2    = Retriever(PlayerDataBlock2,                   default=PlayerDataBlock2())
+    global_victory: GlobalVictory     = Retriever(GlobalVictory,                      default=GlobalVictory())
+    diplomacy: Diplomacy              = Retriever(Diplomacy,                          default=Diplomacy())
+    options: Options                  = Retriever(Options,                            default=Options())
+    map_data: MapData                 = Retriever(MapData,                            default=MapData())
+    unit_data: UnitData               = Retriever(UnitData,                           default=UnitData())
+    trigger_data: TriggerData         = Retriever(TriggerData,                        default=TriggerData())
+    file_data: FileData               = Retriever(FileData, min_ver=Version((1, 40)), default=FileData())
+    # @formatter:on
 
     @classmethod
     def decompress(cls, bytes_: bytes) -> bytes:
@@ -47,8 +49,8 @@ class ScenarioStructure(BaseStruct):
     def get_version(
             cls,
             stream: ByteStream,
-            struct_version: tuple[int, ...] = (0,),
+            struct_ver: Version = Version((0,)),
             parent: BaseStruct = None,
-    ) -> tuple[int, ...]:
+    ) -> Version:
         ver_str = stream.peek(4).decode("ASCII")
-        return tuple(map(int, ver_str.split(".")))
+        return Version(tuple(map(int, ver_str.split("."))))
