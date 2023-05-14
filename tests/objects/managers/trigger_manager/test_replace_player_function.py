@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState
+from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
@@ -40,7 +40,7 @@ class Test(TestCase):
     def test_replace_player_include_player_x(self):
         trigger = self.tm.add_trigger("Trigger")
         trigger.new_condition.diplomacy_state(
-            quantity=DiplomacyState.NEUTRAL, source_player=Player.ONE, target_player=Player.THREE
+            quantity=DiplomacyStance.NEUTRAL, source_player=Player.ONE, target_player=Player.THREE
         )
 
         self.tm.replace_player(0, to_player=Player.TWO, include_player_source=False)

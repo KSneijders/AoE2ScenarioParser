@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.player_data import StartingAge, Civilization, Player
-from AoE2ScenarioParser.datasets.trigger_data.diplomacy_state import DiplomacyState
+from AoE2ScenarioParser.datasets.trigger_data.diplomacy_stance import DiplomacyStance
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
@@ -107,7 +107,7 @@ class PlayerData(AoE2Object):
         """Read-only value if this player is active or not"""
         return self._active
 
-    def set_player_diplomacy(self, players: Player | int | List[Player | int], diplomacy: DiplomacyState):
+    def set_player_diplomacy(self, players: Player | int | List[Player | int], diplomacy: DiplomacyStance):
         """
         Set the diplomacy of this player to other players.
 

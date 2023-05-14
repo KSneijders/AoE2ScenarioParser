@@ -1,6 +1,6 @@
 ### What to do when you want to add a new effect (same goes for Condition):
 
-1. Add the effect to the `EffectId` dataset.
+1. Add the effect to the `EffectType` dataset.
 2. Add the effect to the `NewEffectSupport` object.
 3. Add the effect to the `effects.json` in the version folder.
 
@@ -10,7 +10,7 @@
 2. Add the attribute to all effects `attributes` list that use the attribute. 
 3. Increase the `static_value` default in the effects structure in the `structure.json`.
 4. Add the attribute to the `empty_attributes` dict in `effects.py`.
-5. Add the attribute to all effects that use it in the `EffectId` docs (`effects.py`).
+5. Add the attribute to all effects that use it in the `EffectType` docs (`effects.py`).
 6. Add the attribute to the `_add_effect` function's parameters in `trigger.py` data object.
 7. Add the attribute to the proper functions in the `NewEffectSupport` object.
 8. Add the attribute to `RetrieverObjectLink` list in the `Effect` data object (Include proper version parameter).
@@ -20,5 +20,5 @@
 
 1. Add the attribute to the effect's `default_attributes` in the `effects.json` in the version folder.
 2. Add the attribute to the effect's `attributes` list that use the attribute.
-3. Add the attribute to the effect's that use it in the `EffectId` docs (`effects.py`).
+3. Add the attribute to the effect's that use it in the `EffectType` docs (`effects.py`).
 4. Add the attribute to the proper functions in the `NewEffectSupport` object.

@@ -74,3 +74,8 @@ The changes listed below will be explained further in an official document at a 
 4. Renamed `Unit` class attribute `unit_const` to `type`
 5. Renamed `Unit` class attribute `reference_id` to `id`
 6. Renamed `TerrainTile` class attribute `terrain_id` to `type`
+
+## Rename datasets for consistency
+
+1. Renamed `EffectId` dataset to `EffectType`
+2. Renamed `DiplomacyState` dataset to `DiplomacyStance`

@@ -5,13 +5,13 @@ The project currently contains multiple datasets. You can get access to the data
 ```py
 # Information about the conditions & effects and their attributes
 from AoE2ScenarioParser.datasets.conditions import ConditionId
-from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.effects import EffectType
 from AoE2ScenarioParser.datasets.player_data import StartingAge, Civilization
 
 from AoE2ScenarioParser.datasets.trigger_data import Age, ActionType, AttackStance, PlayerAttribute, BlastLevel,
 
 ButtonLocation, ChargeEvent, ChargeType, ColorMood, CombatAbility, Comparison, DamageClass, DifficultyLevel,
-DiplomacyState, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState,
+DiplomacyStance, FogVisibility, GarrisonType, HeroStatusFlag, Hotkey, ObjectAttribute, ObjectClass, ObjectState,
 ObjectType, OcclusionMode, Operation, PanelLocation, ProjectileHitMode, ProjectileSmartMode, ProjectileVanishMode,
 SecondaryGameMode, TechnologyState, TerrainRestrictions, TimeUnit, UnitAIAction, UnitTrait, VictoryCondition,
 VictoryTimerType, VisibilityState
@@ -48,11 +48,11 @@ They can still be used if you want the effect & condition IDs for other purposes
 
 ```py
 ConditionId.OBJECTS_IN_AREA  # 5
-EffectId.PATROL  # 19
+EffectType.PATROL  # 19
 ```
 
 ```py
-# Checking the docs for EffectId.CHANGE_DIPLOMACY will show:
+# Checking the docs for EffectType.CHANGE_DIPLOMACY will show:
 """
 Attributes for the **change_diplomacy** effect are:
 - diplomacy
@@ -70,7 +70,7 @@ remember. That's why these datasets have been added:
 
 | Names                | Explanation                                                                         | Example                                      |
 |----------------------|-------------------------------------------------------------------------------------|----------------------------------------------|
-| DiplomacyState       | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.          | `DiplomacyState.ALLY`                        |
+| DiplomacyStance       | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.          | `DiplomacyStance.ALLY`                        |
 | Operation            | Used in many effects. Generally related to variables.                               | `Operation.MULTIPLY`                         |
 | ButtonLocation *     | Used in the `Change Research Location` and `Change Train Location` effects. *       | `ButtonLocation.R2C3`                        |
 | PanelLocation        | Used in the `Display Instructions` effect.                                          | `PanelLocation.CENTER`                       |
@@ -128,7 +128,7 @@ hero_status = HeroStatusFlag.CANNOT_BE_CONVERTED | HeroStatusFlag.DELETE_CONFIRM
 ```py
 trigger = trigger_manager.add_trigger("Inform Betrayal!")
 condition = trigger.new_condition.diplomacy_state(
-    quantity=DiplomacyState.ALLY,  # <-- DiplomacyState dataset
+    quantity=DiplomacyStance.ALLY,  # <-- DiplomacyStance dataset
     source_player=Player.TWO,
     target_player=Player.THREE
 )

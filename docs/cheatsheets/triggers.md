@@ -209,7 +209,7 @@ select in which order all the new triggers should be placed:
 trigger_manager.copy_trigger_tree_per_player(
     from_player=Player.ONE,
     trigger=3,
-    group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.NONE and GroupBy.TRIGGER
+    group_triggers_by=GroupBy.PLAYER,  # Other options: GroupBy.BLANK and GroupBy.TRIGGER
 )
 ```
 

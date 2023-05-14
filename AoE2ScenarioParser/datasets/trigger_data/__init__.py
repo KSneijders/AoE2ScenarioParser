@@ -11,7 +11,7 @@ from .combat_ability import CombatAbility
 from .comparison import Comparison
 from .damage_class import DamageClass
 from .difficulty_level import DifficultyLevel
-from .diplomacy_state import DiplomacyState
+from .diplomacy_stance import DiplomacyStance
 from .fog_visibility import FogVisibility
 from .garrison_type import GarrisonType
 from .hero_status_flag import HeroStatusFlag

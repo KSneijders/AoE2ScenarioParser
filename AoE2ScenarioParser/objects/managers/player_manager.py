@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Dict, Any
 
 from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState
+from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player.player_data import PlayerData
@@ -160,7 +160,7 @@ class PlayerManager(AoE2Object):
             self.players[player].gold = 100
             self.players[player].stone = 200
 
-    def set_diplomacy_teams(self, *args: List[Player | int], diplomacy: DiplomacyState = DiplomacyState.ALLY) \
+    def set_diplomacy_teams(self, *args: List[Player | int], diplomacy: DiplomacyStance = DiplomacyStance.ALLY) \
             -> None:
         """
         Sets all players in list allied with all others in the same list.
@@ -172,7 +172,7 @@ class PlayerManager(AoE2Object):
         Examples:
             To set diplomacy like a 4v4 in ranked. Two teams of 4 with alternating IDs.
 
-                set_diplomacy_teams([1,3,5,7], [2,4,6,8], diplomacy=DiplomacyState.ALLY)
+                set_diplomacy_teams([1,3,5,7], [2,4,6,8], diplomacy=DiplomacyStance.ALLY)
         """
         for team in args:
             for player in team:

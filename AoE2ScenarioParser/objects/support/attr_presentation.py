@@ -8,7 +8,7 @@ from AoE2ScenarioParser.datasets.effects import attribute_presentation as effect
 from AoE2ScenarioParser.datasets.player_data import Player, Color
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.techs import TechInfo
-from AoE2ScenarioParser.datasets.trigger_data import DiplomacyState, Operation, AttackStance, UnitAIAction, \
+from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance, Operation, AttackStance, UnitAIAction, \
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
     ObjectAttribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
     DamageClass, Hotkey, ColorMood, ObjectState, ActionType, VictoryTimerType, PlayerAttribute, ProjectileSmartMode
@@ -80,7 +80,7 @@ def _format_unit_reference_representation(ref_id: int | List[int], uuid: UUID) -
 
 
 _datasets = {
-    "DiplomacyState": DiplomacyState,
+    "DiplomacyStance": DiplomacyStance,
     "Operation": Operation,
     "AttackStance": AttackStance,
     "UnitAIAction": UnitAIAction,

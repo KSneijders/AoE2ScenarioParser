@@ -278,7 +278,7 @@ class Effect(AoE2Object, TriggerComponent):
 
     @property
     def effect_type(self):
-        """The type of the effect (EffectId dataset)"""
+        """The type of the effect (EffectType dataset)"""
         return self._effect_type
 
     @effect_type.setter

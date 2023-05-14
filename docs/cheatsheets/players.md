@@ -117,7 +117,7 @@ The code below creates four teams of two. This sets the players to ally as you c
 ```py
 player_manager.set_diplomacy_teams(
     [1, 2], [3, 4], [5, 6], [7, 8], 
-    diplomacy=DiplomacyState.ALLY
+    diplomacy=DiplomacyStance.ALLY
 )
 ```
 
@@ -132,6 +132,6 @@ For example, below you can see that player one is set to enemy with player 5 and
 
 ```py
 p1 = player_manager.players[Player.ONE]
-p1.set_player_diplomacy(5, DiplomacyState.ENEMY)
-p1.set_player_diplomacy([2, 3, 4], DiplomacyState.ALLY)
+p1.set_player_diplomacy(5, DiplomacyStance.ENEMY)
+p1.set_player_diplomacy([2, 3, 4], DiplomacyStance.ALLY)
 ```

@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class EffectId(IntEnum):
+class EffectType(IntEnum):
     """
     This enum class provides the integer values used to reference the effects in the game. Used in every effect to
     indicate which type of effect it is
@@ -11,7 +11,7 @@ class EffectId(IntEnum):
     >>> EffectType.RESEARCH_TECHNOLOGY
     >>> 2
     """
-    NONE = 0
+    BLANK = 0
     """Attributes for the **none** effect are: \n
     ... none... Just like Conditions... People these days... """
     CHANGE_DIPLOMACY = 1
@@ -586,7 +586,7 @@ class EffectId(IntEnum):
     """Attributes for the **change_color_mood** effect are: \n
     - quantity
     - color_mood
-    
+
     **Version notice**: \n
     This condition was added in: 1.42
     """
@@ -600,7 +600,7 @@ class EffectId(IntEnum):
     - area_y2
     - item_id
     - selected_object_ids
-    
+
     **Version notice**: \n
     This condition was added in: 1.46
     """
@@ -614,73 +614,7 @@ class EffectId(IntEnum):
     - area_y2
     - item_id
     - selected_object_ids
-    
+
     **Version notice**: \n
     This condition was added in: 1.46
     """
-
-
-empty_attributes = {
-    "effect_type": -1,
-    "ai_script_goal": -1,
-    "armour_attack_quantity": -1,
-    "armour_attack_class": -1,
-    "quantity": -1,
-    "tribute_list": -1,
-    "diplomacy": -1,
-    "object_list_unit_id": -1,
-    "source_player": -1,
-    "target_player": -1,
-    "technology": -1,
-    "string_id": -1,
-    "display_time": -1,
-    "trigger_id": -1,
-    "location_x": -1,
-    "location_y": -1,
-    "location_object_reference": -1,
-    "area_x1": -1,
-    "area_y1": -1,
-    "area_x2": -1,
-    "area_y2": -1,
-    "object_group": -1,
-    "object_type": -1,
-    "instruction_panel_position": -1,
-    "attack_stance": -1,
-    "time_unit": -1,
-    "enabled": -1,
-    "food": -1,
-    "wood": -1,
-    "stone": -1,
-    "gold": -1,
-    "item_id": -1,
-    "flash_object": -1,
-    "force_research_technology": -1,
-    "visibility_state": -1,
-    "scroll": -1,
-    "operation": -1,
-    "object_list_unit_id_2": -1,
-    "button_location": -1,
-    "ai_signal_value": -1,
-    "object_attributes": -1,
-    "variable": -1,
-    "timer": -1,
-    "facet": -1,
-    "play_sound": -1,
-    "player_color": -1,
-    "color_mood": -1,
-    "reset_timer": -1,
-    "object_state": -1,
-    "action_type": -1,
-    "message": "",
-    "sound_name": "",
-    "selected_object_ids": -1,
-}
-
-# Set using the version json files
-effect_names = {}
-default_attributes = {}
-attributes = {}
-attribute_presentation = {}
-"""
-This dict maps the effect attributes by their name to the dataset used to represent them
-"""

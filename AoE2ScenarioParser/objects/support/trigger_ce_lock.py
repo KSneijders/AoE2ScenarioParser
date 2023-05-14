@@ -19,7 +19,7 @@ class TriggerCELock:
             lock_conditions: Lock all conditions
             lock_effects: Lock all effects
             lock_condition_type: Lock certain condition types. Example: `ConditionId.OWN_OBJECTS`
-            lock_effect_type: Lock certain effect types. Example: `EffectId.CREATE_OBJECT`
+            lock_effect_type: Lock certain effect types. Example: `EffectType.CREATE_OBJECT`
             lock_condition_ids: Lock certain conditions by their id
             lock_effect_ids: Lock certain effects by their id
         """
