@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.48"
+                "default": "1.49"
             },
             "header_length": {
                 "type": "u32",
@@ -88,7 +88,7 @@
             },
             "version": {
                 "type": "f32",
-                "default": 1.48
+                "default": 1.49
             },
             "tribe_names": {
                 "type": "c256",
@@ -152,11 +152,12 @@
                     },
                     "civilization": {
                         "type": "u32",
-                        "default": 40
+                        "log": true,
+                        "default": 65537
                     },
                     "architecture_set": {
                         "type": "u32",
-                        "default": 40
+                        "default": 65537
                     },
                     "cty_mode": {
                         "type": "u32",
