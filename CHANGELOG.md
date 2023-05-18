@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.54 - 2023-May-18
+
+## Added
+
+- Ability to read the new 1.49 scenarios
+- Added `Romans` to the `Civilization` dataset 
+
+---
+
 ## 0.1.53 - 2023-March-25
 
 ## Added
