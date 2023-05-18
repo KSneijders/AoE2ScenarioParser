@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.47"
+                "default": "1.48"
             },
             "header_length": {
                 "type": "u32",
@@ -88,7 +88,7 @@
             },
             "version": {
                 "type": "f32",
-                "default": 1.42
+                "default": 1.48
             },
             "tribe_names": {
                 "type": "c256",
