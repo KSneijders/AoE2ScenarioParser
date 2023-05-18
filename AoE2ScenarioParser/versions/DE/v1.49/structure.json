@@ -153,11 +153,11 @@
                     "civilization": {
                         "type": "u32",
                         "log": true,
-                        "default": 40
+                        "default": 65537
                     },
                     "architecture_set": {
                         "type": "u32",
-                        "default": 40
+                        "default": 65537
                     },
                     "cty_mode": {
                         "type": "u32",
