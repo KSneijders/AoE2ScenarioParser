@@ -7,12 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.55 - 2023-May-24
+
+## Added
+
+- `version` attribute to the core of AoE2ScenarioParser
+  - Can be used like: `from AoE2ScenarioParser import version`
+
+## Fixed
+
+- Issue with indices not being reset when overwriting maps [[#42]]
+  - This issue also occurred when changing map size
+
+## Removed
+
+- Development logging information
+
+[#42]: https://github.com/KSneijders/AoE2ScenarioParser/issues/42
+
+---
+
 ## 0.1.54 - 2023-May-18
 
 ## Added
 
 - Ability to read the new 1.49 scenarios
-- Added `Romans` to the `Civilization` dataset 
+- `Romans` to the `Civilization` dataset 
 
 ---
 
