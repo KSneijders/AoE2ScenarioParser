@@ -11,9 +11,9 @@ class EffectType(IntEnum):
     >>> EffectType.RESEARCH_TECHNOLOGY
     >>> 2
     """
-    BLANK = 0
+    NONE = 0
     """Attributes for the **none** effect are: \n
-    ... none... Just like Conditions... People these days... """
+    ... none... Just like Conditions... People these days..."""
     CHANGE_DIPLOMACY = 1
     """Attributes for the **change_diplomacy** effect are: \n
     - diplomacy

@@ -5,7 +5,7 @@ from typing import Type
 from binary_file_parser import BaseStruct, Retriever, Version
 
 from AoE2ScenarioParser.datasets.triggers import EffectType
-from AoE2ScenarioParser.objects.data_objects.effects.blank_effect import NoneEffect
+from AoE2ScenarioParser.objects.data_objects.effects.none_effect import NoneEffect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
@@ -34,9 +34,9 @@ class Effect(EffectStruct):
         super().__init__(struct_version, parent, **retriever_inits)
 
     @staticmethod
-    def _make_effect(struct: Effect, type_: EffectType = EffectType.BLANK) -> Effect:
+    def _make_effect(struct: Effect, type_: EffectType = EffectType.NONE) -> Effect:
         effect_cls: Type[Effect] = {
-            EffectType.BLANK: NoneEffect,
+            EffectType.NONE: NoneEffect,
         }[type_]
 
         return effect_cls(
