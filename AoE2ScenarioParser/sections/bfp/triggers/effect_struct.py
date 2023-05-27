@@ -5,8 +5,8 @@ from binary_file_parser.types import int32, str32
 
 
 attr_usage_ids = {
-    "message": {3, 20, 26, 37, 44, 45, 48, 51, 55, 56, 59, 60, 65, 66},
-    "sound_name": {3, 4, 20},
+    "_message": {3, 20, 26, 37, 44, 45, 48, 51, 55, 56, 59, 60, 65, 66},
+    "_sound_name": {3, 4, 20},
 }
 
 

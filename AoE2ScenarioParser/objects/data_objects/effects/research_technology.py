@@ -28,4 +28,5 @@ class ResearchTechnology(Effect):
             force: If the technology should be researched even if it's not available to the civilization of the
                 source_player
         """
-        super().__init__(type=EffectType.RESEARCH_TECHNOLOGY, local_vars=locals(), **kwargs)
+        kwargs["type"] = EffectType.RESEARCH_TECHNOLOGY
+        super().__init__(local_vars=locals(), **kwargs)
