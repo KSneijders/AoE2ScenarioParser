@@ -3,10 +3,30 @@ from __future__ import annotations
 from binary_file_parser import BaseStruct, Retriever, Version
 from binary_file_parser.types import int32, str32
 
+from AoE2ScenarioParser.datasets.triggers import EffectType
 
 attr_usage_ids = {
-    "_message": {3, 20, 26, 37, 44, 45, 48, 51, 55, 56, 59, 60, 65, 66},
-    "_sound_name": {3, 4, 20},
+    "_message": {
+        EffectType.SEND_CHAT,
+        EffectType.DISPLAY_INSTRUCTIONS,
+        EffectType.CHANGE_OBJECT_NAME,
+        EffectType.DISPLAY_TIMER,
+        EffectType.CHANGE_OBJECT_DESCRIPTION,
+        EffectType.CHANGE_PLAYER_NAME,
+        EffectType.CHANGE_CIVILIZATION_NAME,
+        EffectType.MODIFY_ATTRIBUTE,
+        EffectType.SCRIPT_CALL,
+        EffectType.CHANGE_VARIABLE,
+        EffectType.CHANGE_OBJECT_CIVILIZATION_NAME,
+        EffectType.CHANGE_OBJECT_PLAYER_NAME,
+        EffectType.CHANGE_TECHNOLOGY_NAME,
+        EffectType.CHANGE_TECHNOLOGY_DESCRIPTION,
+    },
+    "_sound_name": {
+        EffectType.SEND_CHAT,
+        EffectType.PLAY_SOUND,
+        EffectType.DISPLAY_INSTRUCTIONS,
+    },
 }
 
 

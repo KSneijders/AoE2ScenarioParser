@@ -27,5 +27,4 @@ class ChangeDiplomacy(Effect):
             target_player: The player to change the diplomacy stance towards
             diplomacy_stance: The new diplomacy stance
         """
-        kwargs["type"] = EffectType.CHANGE_DIPLOMACY
-        super().__init__(local_vars = locals(), **kwargs)
+        super().__init__(type=EffectType.CHANGE_DIPLOMACY, local_vars=locals(), **kwargs)
