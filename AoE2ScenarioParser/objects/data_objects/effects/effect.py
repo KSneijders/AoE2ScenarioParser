@@ -6,10 +6,12 @@ from typing import Type
 from binary_file_parser import BaseStruct, Retriever, Version
 
 from AoE2ScenarioParser.datasets.triggers import EffectType
+
+from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
+
 from AoE2ScenarioParser.objects.data_objects.effects.change_diplomacy import ChangeDiplomacy
 from AoE2ScenarioParser.objects.data_objects.effects.none_effect import NoneEffect
 from AoE2ScenarioParser.objects.data_objects.effects.research_technology import ResearchTechnology
-from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 def indentify(repr_str: str, indent = 4) -> str:
@@ -18,11 +20,11 @@ def indentify(repr_str: str, indent = 4) -> str:
 
 class Effect(EffectStruct):
     def __init__(
-            self,
-            struct_ver: Version = Version((3, 5, 1, 47)),
-            parent: BaseStruct = None,
-            local_vars = None,
-            **retriever_inits,
+        self,
+        struct_ver: Version = Version((3, 5, 1, 47)),
+        parent: BaseStruct = None,
+        local_vars = None,
+        **retriever_inits,
     ):
         if len(retriever_inits) > 1:
             super().__init__(struct_ver, parent, **retriever_inits)

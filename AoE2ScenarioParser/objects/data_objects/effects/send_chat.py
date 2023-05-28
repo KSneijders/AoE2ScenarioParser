@@ -1,7 +1,6 @@
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
@@ -14,12 +13,12 @@ class SendChat(Effect):
     sound_name = RetrieverRef(EffectStruct._sound_name)
 
     def __init__(
-            self,
-            source_player: Player,
-            message: str = '',
-            string_id: int = -1,
-            sound_name: str = '',
-            **kwargs,
+        self,
+        source_player: Player,
+        message: str = '',
+        string_id: int = -1,
+        sound_name: str = '',
+        **kwargs,
     ):
         """
         Send a chat message to the source_player

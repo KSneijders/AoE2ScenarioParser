@@ -13,11 +13,11 @@ class ResearchTechnology(Effect):
     force = RetrieverRef(EffectStruct._force_research_technology)
 
     def __init__(
-            self,
-            source_player: Player,
-            technology: TechInfo,
-            force: bool = False,
-            **kwargs,
+        self,
+        source_player: Player,
+        technology: TechInfo,
+        force: bool = False,
+        **kwargs,
     ):
         """
         Research a technology for the source_player
