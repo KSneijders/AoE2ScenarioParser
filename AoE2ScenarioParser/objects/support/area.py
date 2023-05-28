@@ -23,8 +23,8 @@ class Area:
 
         x1, x2 = sorted((corner1[0], corner2[0]))
         y1, y2 = sorted((corner1[1], corner2[1]))
-        self.corner1 = x1, y1
-        self.corner2 = x2, y2
+        self._corner1 = Tile(x1, y1)
+        self._corner2 = Tile(x2, y2)
 
     @property
     def corner1(self) -> Tile:
