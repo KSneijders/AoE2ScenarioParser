@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from typing import NamedTuple, TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterable, overload
 
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.helper import bound
@@ -10,10 +10,19 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.support import TileT
 
 
-class Tile(NamedTuple):
-    """NamedTuple for tiles. use tile.x or tile.y for coord access"""
-    x: int
-    y: int
+class Tile:
+    @overload
+    def __init__(self, x: int, y: int): ...
+    @overload
+    def __init__(self, tile: tuple[int, int]): ...
+
+    def __init__(self, x: int | tuple[int, int], y: int | None = None):
+        if isinstance(x, tuple):
+            if len(x) != 2:
+                raise ValueError("tuple to initialise a Tile must have exactly two coordinates")
+            self.x, self.y = x
+        self.x, self.y = x, y
+
 
     @classmethod
     def from_value(cls, val: TileT | list | dict) -> Tile:
@@ -151,5 +160,18 @@ class Tile(NamedTuple):
         """
         return abs(other.x - self.x) + abs(other.y - self.y)
 
+    def __iter__(self) -> Iterable[int]:
+        return iter((self.x, self.y))
+
+    def __getitem__(self, item: int) -> int:
+        return (self.x, self.y)[item]
+
     def __repr__(self):
         return f"Tile({self.x}, {self.y})"
+
+    def __eq__(self, other):
+        if isinstance(other, Tile):
+            return self.x == other.x and self.y == other.y
+        if isinstance(other, tuple):
+            return self.x == other[0] and self.y == other[1]
+        return False
