@@ -33,4 +33,5 @@ class SendChat(Effect):
             string_id: The string ID of the message. Using this will override the message text
             sound_name: The name of the sound to play with the message
         """
-        super().__init__(type=EffectType.SEND_CHAT, local_vars=locals(), **kwargs)
+        kwargs["type"] = EffectType.SEND_CHAT
+        super().__init__(local_vars=locals(), **kwargs)

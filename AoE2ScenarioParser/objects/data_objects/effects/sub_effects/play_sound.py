@@ -40,4 +40,5 @@ class PlaySound(Effect):
         ) = Tile
         # Todo: How to deal with Tile(x, y) to _location_x _location_y attributes for Effects etc?
 
-        super().__init__(type=EffectType.SEND_CHAT, local_vars=locals(), **kwargs)
+        kwargs["type"] = EffectType.PLAY_SOUND
+        super().__init__(local_vars=locals(), **kwargs)
