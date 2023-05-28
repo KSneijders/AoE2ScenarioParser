@@ -10,8 +10,11 @@ from AoE2ScenarioParser.sections.bfp.triggers.effect_struct import EffectStruct
 
 class ChangeDiplomacy(Effect):
     source_player: Player = RetrieverRef(EffectStruct._source_player)
+    """The player to change the diplomacy stance for"""
     target_player: Player = RetrieverRef(EffectStruct._target_player)
+    """The player to change the diplomacy stance towards"""
     diplomacy_stance: DiplomacyStance = RetrieverRef(EffectStruct._diplomacy)
+    """The new diplomacy stance"""
 
     def __init__(
         self,

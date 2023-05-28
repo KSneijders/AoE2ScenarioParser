@@ -1,5 +1,6 @@
 from binary_file_parser.retrievers import RetrieverRef
 
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.objects.support import Tile
@@ -7,18 +8,21 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class PlaySound(Effect):
-    source_player = RetrieverRef(EffectStruct._source_player)
-    location_x = RetrieverRef(EffectStruct._location_x)
-    location_y = RetrieverRef(EffectStruct._location_y)
-    location_object_reference = RetrieverRef(EffectStruct._location_object_reference)
-    sound_name = RetrieverRef(EffectStruct._sound_name)
+    source_player: Player = RetrieverRef(EffectStruct._source_player)
+    """The player to play the sound for"""
+    sound_name: str = RetrieverRef(EffectStruct._sound_name)
+    """The name of the sound file to play. The wem extension is not required"""
+    location_x: int = RetrieverRef(EffectStruct._location_x)
+    """The location to play the sound at"""
+    location_y: int = RetrieverRef(EffectStruct._location_y)
+    """The location to play the sound at"""
+
 
     def __init__(
         self,
-        source_player,
-        tile: Tile,
-        location_object_reference,
-        sound_name,
+        source_player: Player,
+        sound_name: str,
+        location: Tile = Tile(-1, -1),
         **kwargs,
     ):
         """
@@ -26,12 +30,9 @@ class PlaySound(Effect):
 
         Args:
             source_player: The player to play the sound for
-            tile: The location where to play the sound
-            location_object_reference: The location where to play the sound based on a unit on the map
-            sound_name: The name of the sound to play
+            sound_name: The name of the sound file to play. The wem extension is not required
+            location: The location to play the sound at
         """
-        # Todo: Verify location_object_reference is actually an option and how it works
-        # Todo: Potentially raise ValueError if both or neither tile & location_object_reference is used
 
         (
             kwargs['_location_x'],

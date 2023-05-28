@@ -8,9 +8,12 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class ResearchTechnology(Effect):
-    source_player = RetrieverRef(EffectStruct._source_player)
-    technology = RetrieverRef(EffectStruct._technology)
-    force = RetrieverRef(EffectStruct._force_research_technology)
+    source_player: Player = RetrieverRef(EffectStruct._source_player)
+    """The player to research the technology for"""
+    technology: TechInfo = RetrieverRef(EffectStruct._technology)
+    """The technology to research"""
+    force: bool = RetrieverRef(EffectStruct._force_research_technology)
+    """If enabled, research the technology even if it has already been researched or not available in the tech tree"""
 
     def __init__(
         self,
@@ -25,7 +28,7 @@ class ResearchTechnology(Effect):
         Args:
             source_player: The player to research the technology for
             technology: The technology to research
-            force: If the technology should be researched even if it's not available to the civilization of the
-                source_player
+            force: If enabled, research the technology even if it has already been researched or not available in the
+                tech tree
         """
         super().__init__(type=EffectType.RESEARCH_TECHNOLOGY, local_vars=locals(), **kwargs)

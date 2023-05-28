@@ -7,10 +7,14 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class SendChat(Effect):
-    source_player = RetrieverRef(EffectStruct._source_player)
-    message = RetrieverRef(EffectStruct._message)
-    string_id = RetrieverRef(EffectStruct._string_id)
-    sound_name = RetrieverRef(EffectStruct._sound_name)
+    source_player: Player = RetrieverRef(EffectStruct._source_player)
+    """The player to send the message to"""
+    message: str = RetrieverRef(EffectStruct._message)
+    """The message to send. If left empty, a message sound is still produced"""
+    string_id: int = RetrieverRef(EffectStruct._string_id)
+    """The string ID of the message. Using this will override the message text"""
+    sound_name: str = RetrieverRef(EffectStruct._sound_name)
+    """The name of the sound to play with the message"""
 
     def __init__(
         self,
@@ -25,10 +29,8 @@ class SendChat(Effect):
 
         Args:
             source_player: The player to send the message to
-            message: The message to send
-            string_id: The string ID of the message
+            message: The message to send. If left empty, a message sound is still produced
+            string_id: The string ID of the message. Using this will override the message text
             sound_name: The name of the sound to play with the message
         """
-        # Todo: Verify if 'message' can actually be left blank
-        # Todo: If 'message' can be left blank, raise an exception (ValueError for invalid effect)
         super().__init__(type=EffectType.SEND_CHAT, local_vars=locals(), **kwargs)
