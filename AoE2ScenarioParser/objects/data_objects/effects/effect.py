@@ -9,10 +9,6 @@ from AoE2ScenarioParser.datasets.triggers import EffectType
 
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
-from AoE2ScenarioParser.objects.data_objects.effects.change_diplomacy import ChangeDiplomacy
-from AoE2ScenarioParser.objects.data_objects.effects.none_effect import NoneEffect
-from AoE2ScenarioParser.objects.data_objects.effects.research_technology import ResearchTechnology
-
 
 def indentify(repr_str: str, indent = 4) -> str:
     return f"\n{' '*indent}".join(repr_str.splitlines())
@@ -41,6 +37,8 @@ class Effect(EffectStruct):
 
     @staticmethod
     def _make_effect(struct: EffectStruct) -> Effect:
+        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import *
+
         effect_cls: Type[Effect] = {
             EffectType.NONE: NoneEffect,
             EffectType.CHANGE_DIPLOMACY: ChangeDiplomacy,
