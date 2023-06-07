@@ -14,9 +14,7 @@ class PlaySound(Effect):
     """The player to play the sound for"""
     sound_name: str = RetrieverRef(EffectStruct._sound_name)
     """The name of the sound file to play. The wem extension is not required"""
-    location_x: int = RetrieverRef(EffectStruct._location_x)
-    """The location to play the sound at"""
-    location_y: int = RetrieverRef(EffectStruct._location_y)
+    location: int = RetrieverRef(EffectStruct._location)
     """The location to play the sound at"""
 
     @overload
@@ -39,12 +37,6 @@ class PlaySound(Effect):
             sound_name: The name of the sound file to play. The wem extension is not required
             location: The location to play the sound at
         """
-
-        (
-            kwargs['_location_x'],
-            kwargs['_location_y']
-        ) = Tile
-        # Todo: How to deal with Tile(x, y) to _location_x _location_y attributes for Effects etc?
 
         kwargs["type"] = EffectType.PLAY_SOUND
         super().__init__(local_vars=locals(), **kwargs)
