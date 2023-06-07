@@ -1,3 +1,5 @@
+from typing import overload
+
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
@@ -14,6 +16,11 @@ class ResearchTechnology(Effect):
     """The technology to research"""
     force: bool = RetrieverRef(EffectStruct._force_research_technology)
     """If enabled, research the technology even if it has already been researched or not available in the tech tree"""
+
+    @overload
+    def __init__(self, source_player: Player, technology: TechInfo): ...
+    @overload
+    def __init__(self, source_player: Player, technology: TechInfo, force: bool): ...
 
     def __init__(
         self,
@@ -33,3 +40,4 @@ class ResearchTechnology(Effect):
         """
         kwargs["type"] = EffectType.RESEARCH_TECHNOLOGY
         super().__init__(local_vars=locals(), **kwargs)
+

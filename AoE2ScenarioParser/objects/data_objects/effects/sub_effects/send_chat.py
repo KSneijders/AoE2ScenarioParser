@@ -1,3 +1,5 @@
+from typing import overload
+
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
@@ -15,6 +17,15 @@ class SendChat(Effect):
     """The string ID of the message. Using this will override the message text"""
     sound_name: str = RetrieverRef(EffectStruct._sound_name)
     """The name of the sound to play with the message"""
+
+    @overload
+    def __init__(self, source_player: Player, message: str): ...
+    @overload
+    def __init__(self, source_player: Player, message: str, sound_name: str): ...
+    @overload
+    def __init__(self, source_player: Player, string_id: int): ...
+    @overload
+    def __init__(self, source_player: Player, string_id: int, sound_name: str): ...
 
     def __init__(
         self,

@@ -1,3 +1,5 @@
+from typing import overload
+
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
@@ -17,6 +19,10 @@ class PlaySound(Effect):
     location_y: int = RetrieverRef(EffectStruct._location_y)
     """The location to play the sound at"""
 
+    @overload
+    def __init__(self, source_player: Player, sound_name: str): ...
+    @overload
+    def __init__(self, source_player: Player, sound_name: str, location: Tile): ...
 
     def __init__(
         self,

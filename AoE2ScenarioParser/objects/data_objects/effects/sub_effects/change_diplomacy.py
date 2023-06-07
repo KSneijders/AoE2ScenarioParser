@@ -1,3 +1,5 @@
+from typing import overload
+
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
@@ -15,6 +17,9 @@ class ChangeDiplomacy(Effect):
     """The player to change the diplomacy stance towards"""
     diplomacy_stance: DiplomacyStance = RetrieverRef(EffectStruct._diplomacy)
     """The new diplomacy stance"""
+
+    @overload
+    def __init__(self, source_player: Player, target_player: Player, diplomacy_stance: DiplomacyStance): ...
 
     def __init__(
         self,
