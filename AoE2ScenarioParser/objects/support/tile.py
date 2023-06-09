@@ -3,27 +3,20 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING, Iterable, overload
 
-from binary_file_parser import RetrieverRef, Version
-
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.helper import bound
-from AoE2ScenarioParser.sections.bfp.triggers import TileStruct
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.support import TileT
 
 
-class Tile(TileStruct):
-    x = RetrieverRef(TileStruct._x)
-    y = RetrieverRef(TileStruct._y)
-
+class Tile:
     @overload
     def __init__(self, x: int, y: int): ...
     @overload
     def __init__(self, tile: tuple[int, int]): ...
 
-    def __init__(self, x: int | tuple[int, int], y: int | None = None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, x: int | tuple[int, int], y: int | None = None):
         if isinstance(x, tuple):
             if len(x) != 2:
                 raise ValueError("tuple to initialise a Tile must have exactly two coordinates")
