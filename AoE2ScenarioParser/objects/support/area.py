@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from typing import Iterable, TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING, overload
+
+from binary_file_parser import BaseStruct, Retriever
 
 from AoE2ScenarioParser.objects.support.tile import Tile
 
@@ -8,7 +10,7 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.support.typedefs import TileT
 
 
-class Area:
+class Area(BaseStruct):
     """
     Represents an area selection on a map. An area is defined by two opposite corners of a rectangle.
 
@@ -16,31 +18,27 @@ class Area:
     - Supports index access (``area[0]`` => corner1, ``area[1]`` => corner2)
     - Supports comparison to tuples or other ``Area`` instances
     """
-    def __init__(self, corner1: TileT, corner2: TileT = None):
+
+    @staticmethod
+    def _convert_to_tile(_: Retriever, __: Area, val: TileT) -> Tile:
+        return Tile.from_value(val)
+
+    corner1: Tile = Retriever(Tile, default=Tile(-1, -1), mappers=[_convert_to_tile])
+    corner2: Tile = Retriever(Tile, default=Tile(-1, -1), mappers=[_convert_to_tile])
+
+    @overload
+    def __init__(self, corner1: TileT): ...
+    @overload
+    def __init__(self, corner1: TileT, corner2: TileT): ...
+
+    def __init__(self, corner1: TileT, corner2: TileT = None, **kwargs):
         if corner2 is None:
-            self.corner1 = self.corner2 = Tile(corner1[0], corner1[1])
+            super().__init__(corner1 = Tile(corner1), corner2 = Tile(corner1), **kwargs)
             return
 
         x1, x2 = sorted((corner1[0], corner2[0]))
         y1, y2 = sorted((corner1[1], corner2[1]))
-        self._corner1 = Tile(x1, y1)
-        self._corner2 = Tile(x2, y2)
-
-    @property
-    def corner1(self) -> Tile:
-        return self._corner1
-
-    @corner1.setter
-    def corner1(self, value: TileT):
-        self._corner1 = Tile(*value)
-
-    @property
-    def corner2(self) -> Tile:
-        return self._corner2
-
-    @corner2.setter
-    def corner2(self, value: TileT):
-        self._corner2 = Tile(*value)
+        super().__init__(corner1 = Tile(x1, y1), corner2 = Tile(x2, y2))
 
     @property
     def center_tile(self) -> Tile:
