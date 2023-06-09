@@ -4,6 +4,7 @@ from binary_file_parser import BaseStruct, Retriever, Version
 from binary_file_parser.types import int32, str32
 
 from AoE2ScenarioParser.datasets.triggers import EffectType
+from AoE2ScenarioParser.objects.support import Tile
 
 attr_usage_ids = {
     "_message": {
@@ -73,8 +74,7 @@ class EffectStruct(BaseStruct):
     _unknown2: int                         = Retriever(int32,                                                 default=-1)
     _display_time: int                     = Retriever(int32,                                                 default=-1)
     _trigger_id: int                       = Retriever(int32,                                                 default=-1)
-    _location_x: int                       = Retriever(int32,                                                 default=-1)
-    _location_y: int                       = Retriever(int32,                                                 default=-1)
+    _location: Tile                        = Retriever(Tile,                                                  default=Tile(-1, -1))
     _area_x1: int                          = Retriever(int32,                                                 default=-1)
     _area_y1: int                          = Retriever(int32,                                                 default=-1)
     _area_x2: int                          = Retriever(int32,                                                 default=-1)
