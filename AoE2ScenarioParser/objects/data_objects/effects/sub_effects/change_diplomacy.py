@@ -11,11 +11,11 @@ from AoE2ScenarioParser.sections.bfp.triggers.effect_struct import EffectStruct
 
 
 class ChangeDiplomacy(Effect):
-    source_player: Player = RetrieverRef(EffectStruct._source_player)
+    source_player: Player = RetrieverRef(EffectStruct._source_player)  # type: ignore
     """The player to change the diplomacy stance for"""
-    target_player: Player = RetrieverRef(EffectStruct._target_player)
+    target_player: Player = RetrieverRef(EffectStruct._target_player)  # type: ignore
     """The player to change the diplomacy stance towards"""
-    diplomacy_stance: DiplomacyStance = RetrieverRef(EffectStruct._diplomacy)
+    diplomacy_stance: DiplomacyStance = RetrieverRef(EffectStruct._diplomacy)  # type: ignore
     """The new diplomacy stance"""
 
     @overload
@@ -36,5 +36,8 @@ class ChangeDiplomacy(Effect):
             target_player: The player to change the diplomacy stance towards
             diplomacy_stance: The new diplomacy stance
         """
-        kwargs["type"] = EffectType.CHANGE_DIPLOMACY
         super().__init__(local_vars=locals(), **kwargs)
+
+    @property
+    def type(self) -> EffectType:
+        return EffectType.CHANGE_DIPLOMACY

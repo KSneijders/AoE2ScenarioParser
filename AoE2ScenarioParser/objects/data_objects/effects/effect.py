@@ -6,12 +6,11 @@ from typing import Type
 from binary_file_parser import BaseStruct, Retriever, Version
 
 from AoE2ScenarioParser.datasets.triggers import EffectType
-
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 def indentify(repr_str: str, indent = 4) -> str:
-    return f"\n{' '*indent}".join(repr_str.splitlines())
+    return f"\n{' ' * indent}".join(repr_str.splitlines())
 
 
 class Effect(EffectStruct):
@@ -22,6 +21,8 @@ class Effect(EffectStruct):
         local_vars = None,
         **retriever_inits,
     ):
+        retriever_inits['_type'] = self.type
+
         if len(retriever_inits) > 1:
             super().__init__(struct_ver, parent, **retriever_inits)
             return
@@ -40,10 +41,10 @@ class Effect(EffectStruct):
         from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import *
 
         effect_cls: Type[Effect] = {
-            EffectType.NONE: NoneEffect,
-            EffectType.CHANGE_DIPLOMACY: ChangeDiplomacy,
+            EffectType.NONE:                NoneEffect,
+            EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
             EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
-        }[EffectType(struct.type)]
+        }[EffectType(struct._type)]
 
         return effect_cls(
             **{ref.name: None for ref in effect_cls._refs},
@@ -51,6 +52,11 @@ class Effect(EffectStruct):
             parent = struct.parent,
             **struct.retriever_name_value_map,
         )
+
+    @property
+    def type(self) -> EffectType:
+        """Returns the EffectType of this effect"""
+        raise -1
 
     def __init_subclass__(cls, **kwargs):
         cls._refs, Effect._refs = cls._refs.copy(), []
@@ -64,11 +70,11 @@ class Effect(EffectStruct):
 
             obj = getattr(self, retriever.p_name)
             if isinstance(obj, list):
-                sub_obj_repr_str = (
-                        "[\n    "
-                        + ",\n    ".join(map(lambda x: indentify(repr(x)), obj))
-                        + ",\n]"
-                )
+                sub_obj_repr_str = '\n'.join((
+                    "[",
+                    "\n\t" + "\n\t".join(map(lambda x: indentify(repr(x)), obj)),
+                    "]"
+                ))
             else:
                 sub_obj_repr_str = f"{obj!r}"
 

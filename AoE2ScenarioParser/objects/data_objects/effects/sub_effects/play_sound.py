@@ -10,11 +10,12 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class PlaySound(Effect):
-    source_player: Player = RetrieverRef(EffectStruct._source_player)
+    source_player: Player = RetrieverRef(EffectStruct._source_player)  # type: ignore
     """The player to play the sound for"""
-    sound_name: str = RetrieverRef(EffectStruct._sound_name)
+    sound_name: str = RetrieverRef(EffectStruct._sound_name)  # type: ignore
     """The name of the sound file to play. The wem extension is not required"""
-    location: Tile = RetrieverRef(EffectStruct._location)
+    location: Tile = RetrieverRef(EffectStruct._location)  # type: ignore
+    """The location to play the sound at. If left empty, plays globally"""
 
     @overload
     def __init__(self, source_player: Player, sound_name: str): ...
@@ -34,8 +35,12 @@ class PlaySound(Effect):
         Args:
             source_player: The player to play the sound for
             sound_name: The name of the sound file to play. The wem extension is not required
-            location: The location to play the sound at
+            location: The location to play the sound at. If left empty, plays globally
         """
         location = Tile.from_value(location)
-        kwargs["type"] = EffectType.PLAY_SOUND
+
         super().__init__(local_vars=locals(), **kwargs)
+
+    @property
+    def type(self) -> EffectType:
+        return EffectType.PLAY_SOUND

@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.support import Tile
     from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
     from typing import TypeAlias
-    Trigger, TypeAlias, Tile  # These are functionally redundant, but they tell PyCharm to not remove the 2 imports above
+    var = Trigger, TypeAlias, Tile  # These are functionally redundant, but they tell PyCharm to not remove the 2 imports above
     # It considers the imports unused even though they DO actually help PyCharm understand types in other files...
 
 TriggerIdentifier: 'TypeAlias' = Union[int, 'Trigger']

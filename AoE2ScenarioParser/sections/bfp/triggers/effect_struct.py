@@ -43,7 +43,7 @@ class EffectStruct(BaseStruct):
 
     @staticmethod
     def append_null_term_if_used(retriever: Retriever, instance: EffectStruct):
-        if instance.type in attr_usage_ids[retriever.p_name]:
+        if instance._type in attr_usage_ids[retriever.p_name]:
             val = getattr(instance, retriever.s_name)
             if len(val) > 0 and val[-1] != "\x00":
                 setattr(instance, retriever.s_name, val + "\x00")
@@ -55,7 +55,7 @@ class EffectStruct(BaseStruct):
     # Todo: use datasets for type hinting and do on_read and on_write conversions
     # Todo: override list with ref-list in retriever
     # formatter:off
-    type: int                              = Retriever(int32,                                                 default=-1)
+    _type: int                             = Retriever(int32,                                                 default=-1)
     _static_value_2_2_1_36: int            = Retriever(int32,                 max_ver=Version((2, 2, 1, 37)), default=46)
     _static_value_2_4_1_40: int            = Retriever(int32, Version((2, 4, 1, 40)), Version((2, 4, 1, 41)), default=48)
     _static_value_2_4_1_42: int            = Retriever(int32, Version((2, 4, 1, 42)), Version((2, 4, 1, 43)), default=49)

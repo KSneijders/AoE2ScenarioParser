@@ -9,13 +9,13 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class SendChat(Effect):
-    source_player: Player = RetrieverRef(EffectStruct._source_player)
+    source_player: Player = RetrieverRef(EffectStruct._source_player)  # type: ignore
     """The player to send the message to"""
-    message: str = RetrieverRef(EffectStruct._message)
+    message: str = RetrieverRef(EffectStruct._message)  # type: ignore
     """The message to send. If left empty, a message sound is still produced"""
-    string_id: int = RetrieverRef(EffectStruct._string_id)
+    string_id: int = RetrieverRef(EffectStruct._string_id)  # type: ignore
     """The string ID of the message. Using this will override the message text"""
-    sound_name: str = RetrieverRef(EffectStruct._sound_name)
+    sound_name: str = RetrieverRef(EffectStruct._sound_name)  # type: ignore
     """The name of the sound to play with the message"""
 
     @overload
@@ -44,5 +44,8 @@ class SendChat(Effect):
             string_id: The string ID of the message. Using this will override the message text
             sound_name: The name of the sound to play with the message
         """
-        kwargs["type"] = EffectType.SEND_CHAT
         super().__init__(local_vars=locals(), **kwargs)
+
+    @property
+    def type(self) -> EffectType:
+        return EffectType.SEND_CHAT
