@@ -31,15 +31,15 @@ class TaskObject(Effect):
 
     def __init__(
         self,
-        source_player: Player,
-        object: InfoDatasetBase,
-        location: TileT,
-        location_object: int,
-        area: Area,
-        object_group: ObjectClass,
-        object_type: ObjectType,
-        action_type: ActionType,
-        selected_object_ids: list[int],
+        source_player: Player = 1,
+        object: InfoDatasetBase = -1,
+        location: TileT = Tile(-1, -1),
+        location_object: int = -1,
+        area: Area = Area((-1, -1)),
+        object_group: ObjectClass = -1,
+        object_type: ObjectType = -1,
+        action_type: ActionType = ActionType.DEFAULT,
+        selected_object_ids: list[int] = None,
         **kwargs,
     ):
         """
@@ -56,6 +56,11 @@ class TaskObject(Effect):
             action_type: The type of action to be executed by the effected units (e.g. Guard, Attack Ground or Drop Relic)
             selected_object_ids: The specific existing units to be affected by this effect. If set, ignores all types, groups and area selections
         """
+        location = Tile.from_value(location)
+        area = Area.from_value(area)
+
+        selected_object_ids = selected_object_ids or []
+
         super().__init__(local_vars = locals(), **kwargs)
 
     @property

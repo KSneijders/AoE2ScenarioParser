@@ -30,7 +30,6 @@ class Tile(BaseStruct):
             x, y = coords
         super().__init__(x = x, y = y, **kwargs)
 
-
     @classmethod
     def from_value(cls, val: TileT | list | dict) -> Tile:
         """
