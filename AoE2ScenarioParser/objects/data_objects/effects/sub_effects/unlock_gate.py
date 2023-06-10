@@ -9,7 +9,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class UnlockGate(Effect):
-    gates: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore
+    gates: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
     """The gate(s) to unlock"""
 
     @overload

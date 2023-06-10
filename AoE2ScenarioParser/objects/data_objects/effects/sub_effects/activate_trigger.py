@@ -8,7 +8,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class ActivateTrigger(Effect):
-    trigger: int = RetrieverRef(EffectStruct._trigger_id)  # type:ignore
+    trigger: int = RetrieverRef(EffectStruct._trigger_id)  # type:ignore # Todo: [Object vs Int]
     """The trigger to activate"""
 
     @overload
