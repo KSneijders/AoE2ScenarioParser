@@ -62,4 +62,4 @@ class Tribute(Effect):
 
     @property
     def type(self) -> EffectType:
-        return EffectType.SEND_CHAT
+        return EffectType.TRIBUTE
