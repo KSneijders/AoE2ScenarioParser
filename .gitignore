@@ -207,32 +207,20 @@ dmypy.json
 .history
 
 # End of https://www.gitignore.io/api/python,pycharm,visualstudiocode
-.idea/AoE2 - Scenarios.iml
+
 .idea/misc.xml
 .idea/vcs.xml
 .idea/AoE2ScenarioParser.iml
 .idea/modules.xml
 .idea/inspectionProfiles/profiles_settings.xml
 
-resources/maps/
 AoE2ScenarioParser/app*.py
 .idea/inspectionProfiles/Project_Default.xml
 **/.vscode/settings.json
 /docs/source/_build
 
-tests/results/
-
-tests/source/
-
 AoE2ScenarioParser/local_config.py
 
 .idea/scopes/
-
-.idea/scopes/exclude__vscode.xml
-
-venv/
-
-.idea/codeStyles/codeStyleConfig.xml
 .idea/copyright/profiles_settings.xml
-
-AoE2ScenarioParser/differences.txt
+venv/
