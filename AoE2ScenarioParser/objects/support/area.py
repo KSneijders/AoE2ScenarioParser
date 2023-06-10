@@ -40,6 +40,47 @@ class Area(BaseStruct):
         y1, y2 = sorted((corner1[1], corner2[1]))
         super().__init__(corner1 = Tile(x1, y1), corner2 = Tile(x2, y2))
 
+    # Below definition is more specific, but maybe too specific? 1111
+    # @classmethod
+    # def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
+    @classmethod
+    def from_value(cls, val: Area | Tile | tuple | list | dict) -> Area:
+        """
+        Create an Area object based on a given value
+
+        Args:
+            val: The value used to create an area with
+
+        Returns:
+            A new Area instance if a tuple is given. If an area is given it's directly returned.
+
+        Raises:
+            ValueError: When a value is given that cannot be turned into an Area()
+        """
+        def from_iterable(iterable: list | tuple):
+            """Check content of iterable and return proper Area object"""
+            if len(iterable) == 2:
+                if isinstance(iterable[0], (list, tuple, Tile)):
+                    return Area(*iterable)
+                else:
+                    return Area(Tile.from_value(iterable))
+            elif len(iterable) == 4:
+                return Area(iterable[:2], iterable[2:])
+
+        if isinstance(val, Area):
+            return val
+        elif isinstance(val, Tile):
+            return Area(val)
+        elif isinstance(val, tuple) or isinstance(val, list):
+            if area := from_iterable(val):
+                return area
+        elif isinstance(val, dict):
+            vals = tuple(val.values())
+            if area := from_iterable(vals):
+                return area
+            return Area(**val)
+        raise ValueError(f"Unable to create instance of area from the given value: {val}")
+
     @property
     def center_tile(self) -> Tile:
         """

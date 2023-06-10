@@ -77,3 +77,23 @@ class TestArea(TestCase):
 
         self.assertEqual(Area((3, 3)), Area((3, 3), (3, 3)))
         self.assertEqual(((3, 4), (5, 6)), Area((3, 4), (5, 6)))
+
+    def test_from_value(self):
+        area = Area((0, 1), (0, 1))
+
+        self.assertEqual(area, Area.from_value(Tile(0, 1)))
+        self.assertEqual(area, Area.from_value((0, 1)))
+        self.assertEqual(area, Area.from_value([0, 1]))
+        self.assertEqual(area, Area.from_value({'a': 0, 'b': 1}))
+        self.assertEqual(area, Area.from_value({'corner1': Tile(0, 1)}))
+
+        area = Area((0, 1), (2, 3))
+        self.assertEqual(area, Area.from_value(area))
+        self.assertEqual(area, Area.from_value((Tile(0, 1), Tile(2, 3))))
+        self.assertEqual(area, Area.from_value((0, 1, 2 , 3)))
+        self.assertEqual(area, Area.from_value([0, 1, 2 , 3]))
+        self.assertEqual(area, Area.from_value([Tile(0, 1), Tile(2, 3)]))
+        self.assertEqual(area, Area.from_value([Tile(0, 1), Tile(2, 3)]))
+        self.assertEqual(area, Area.from_value({'a': Tile(0, 1), 'b': Tile(2, 3)}))
+        self.assertEqual(area, Area.from_value({'a': 0, 'b': 1, 'c': 2, 'd': 3}))
+        self.assertEqual(area, Area.from_value({'corner1': Tile(0, 1), 'corner2': Tile(2, 3)}))
