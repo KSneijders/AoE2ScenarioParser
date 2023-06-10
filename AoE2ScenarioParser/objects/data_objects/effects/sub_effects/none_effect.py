@@ -7,8 +7,8 @@ from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
 class NoneEffect(Effect):
 
-    @overload
-    def __init__(self): ...
+    # @overload
+    # def __init__(self): ...
 
     def __init__(self, **kwargs):
         """

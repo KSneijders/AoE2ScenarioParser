@@ -17,11 +17,11 @@ class ResearchTechnology(Effect):
     force: bool = RetrieverRef(EffectStruct._force_research_technology)  # type: ignore
     """If enabled, research the technology even if it has already been researched or not available in the tech tree"""
 
-    @overload
-    def __init__(self, source_player: Player, technology: TechInfo): ...
+    # @overload
+    # def __init__(self, source_player: Player, technology: TechInfo): ...
 
-    @overload
-    def __init__(self, source_player: Player, technology: TechInfo, force: bool): ...
+    # @overload
+    # def __init__(self, source_player: Player, technology: TechInfo, force: bool): ...
 
     def __init__(
         self,

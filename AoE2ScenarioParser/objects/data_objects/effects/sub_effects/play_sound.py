@@ -17,11 +17,11 @@ class PlaySound(Effect):
     location: Tile = RetrieverRef(EffectStruct._location)  # type: ignore
     """The location to play the sound at. If left empty, plays globally"""
 
-    @overload
-    def __init__(self, source_player: Player, sound_name: str): ...
+    # @overload
+    # def __init__(self, source_player: Player, sound_name: str): ...
 
-    @overload
-    def __init__(self, source_player: Player, sound_name: str, location: TileT): ...
+    # @overload
+    # def __init__(self, source_player: Player, sound_name: str, location: TileT): ...
 
     def __init__(
         self,

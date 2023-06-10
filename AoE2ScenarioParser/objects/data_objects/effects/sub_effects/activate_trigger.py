@@ -11,9 +11,9 @@ class ActivateTrigger(Effect):
     trigger: int = RetrieverRef(EffectStruct._trigger_id)  # type:ignore # Todo: [Object vs Int]
     """The trigger to activate"""
 
-    @overload
-    def __init__(self, trigger: int): ...
-
+    # @overload
+    # def __init__(self, trigger: int): ...
+    
     def __init__(
         self,
         trigger: list[int],

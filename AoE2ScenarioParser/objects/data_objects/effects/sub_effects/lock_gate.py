@@ -12,11 +12,11 @@ class LockGate(Effect):
     gates: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
     """The gate(s) to lock"""
 
-    @overload
-    def __init__(self, gates: list[int]): ...
+    # @overload
+    # def __init__(self, gates: list[int]): ...
 
-    @overload
-    def __init__(self, gates: int): ...
+    # @overload
+    # def __init__(self, gates: int): ...
 
     def __init__(
         self,

@@ -18,8 +18,8 @@ class ChangeDiplomacy(Effect):
     diplomacy_stance: DiplomacyStance = RetrieverRef(EffectStruct._diplomacy)  # type: ignore
     """The new diplomacy stance"""
 
-    @overload
-    def __init__(self, source_player: Player, target_player: Player, diplomacy_stance: DiplomacyStance): ...
+    # @overload
+    # def __init__(self, source_player: Player, target_player: Player, diplomacy_stance: DiplomacyStance): ...
 
     def __init__(
         self,

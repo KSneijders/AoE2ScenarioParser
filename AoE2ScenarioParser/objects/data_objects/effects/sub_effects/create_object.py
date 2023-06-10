@@ -20,11 +20,11 @@ class CreateObject(Effect):
     facet: int = RetrieverRef(EffectStruct._facet)  # type: ignore
     """The rotation of the created unit"""
 
-    @overload
-    def __init__(self, source_player: Player, object: InfoDatasetBase, location: TileT): ...
+    # @overload
+    # def __init__(self, source_player: Player, object: InfoDatasetBase, location: TileT): ...
 
-    @overload
-    def __init__(self, source_player: Player, object: InfoDatasetBase, location: TileT, facet: int): ...
+    # @overload
+    # def __init__(self, source_player: Player, object: InfoDatasetBase, location: TileT, facet: int): ...
 
     def __init__(
         self,

@@ -19,13 +19,13 @@ class Tribute(Effect):
     quantity: int = RetrieverRef(EffectStruct._quantity)  # type: ignore
     """The amount of the chosen player attribute to tribute. Every value (positive & negative) is allowed except for -1."""
 
-    @overload
-    def __init__(self,
-        source_player: Player,
-        target_player: Player,
-        attribute: PlayerAttribute,
-        quantity: RetrieverRef
-    ): ...
+    # @overload
+    # def __init__(self,
+    #     source_player: Player,
+    #     target_player: Player,
+    #     attribute: PlayerAttribute,
+    #     quantity: RetrieverRef
+    # ): ...
 
     def __init__(
         self,

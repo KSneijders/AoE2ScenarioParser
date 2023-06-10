@@ -11,8 +11,8 @@ class AiScriptGoal(Effect):
     ai_trigger_id: int = RetrieverRef(EffectStruct._ai_script_goal)  # type:ignore
     """The AI Trigger ID to trigger"""
 
-    @overload
-    def __init__(self, ai_trigger_id: int): ...
+    # @overload
+    # def __init__(self, ai_trigger_id: int): ...
 
     def __init__(
         self,
