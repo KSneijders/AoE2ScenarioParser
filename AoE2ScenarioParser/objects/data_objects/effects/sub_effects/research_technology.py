@@ -19,6 +19,7 @@ class ResearchTechnology(Effect):
 
     @overload
     def __init__(self, source_player: Player, technology: TechInfo): ...
+
     @overload
     def __init__(self, source_player: Player, technology: TechInfo, force: bool): ...
 
@@ -38,7 +39,7 @@ class ResearchTechnology(Effect):
             force: If enabled, research the technology even if it has already been researched or not available in the
                 tech tree
         """
-        super().__init__(local_vars=locals(), **kwargs)
+        super().__init__(local_vars = locals(), **kwargs)
 
     @property
     def type(self) -> EffectType:

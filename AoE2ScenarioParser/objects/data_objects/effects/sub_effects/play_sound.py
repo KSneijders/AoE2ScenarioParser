@@ -19,6 +19,7 @@ class PlaySound(Effect):
 
     @overload
     def __init__(self, source_player: Player, sound_name: str): ...
+
     @overload
     def __init__(self, source_player: Player, sound_name: str, location: TileT): ...
 
@@ -39,7 +40,7 @@ class PlaySound(Effect):
         """
         location = Tile.from_value(location)
 
-        super().__init__(local_vars=locals(), **kwargs)
+        super().__init__(local_vars = locals(), **kwargs)
 
     @property
     def type(self) -> EffectType:

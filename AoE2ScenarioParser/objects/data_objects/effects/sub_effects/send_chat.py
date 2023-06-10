@@ -20,10 +20,13 @@ class SendChat(Effect):
 
     @overload
     def __init__(self, source_player: Player, message: str): ...
+
     @overload
     def __init__(self, source_player: Player, message: str, sound_name: str): ...
+
     @overload
     def __init__(self, source_player: Player, string_id: int): ...
+
     @overload
     def __init__(self, source_player: Player, string_id: int, sound_name: str): ...
 
@@ -44,7 +47,7 @@ class SendChat(Effect):
             string_id: The string ID of the message. Using this will override the message text
             sound_name: The name of the sound to play with the message
         """
-        super().__init__(local_vars=locals(), **kwargs)
+        super().__init__(local_vars = locals(), **kwargs)
 
     @property
     def type(self) -> EffectType:

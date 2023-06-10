@@ -15,7 +15,7 @@ class NoneEffect(Effect):
         A blank effect. In the game this effect is just called 'None'.
         It doesn't do anything at all, not even 'splash'...
         """
-        super().__init__(local_vars=locals(), **kwargs)
+        super().__init__(local_vars = locals(), **kwargs)
 
     @property
     def type(self) -> EffectType:
