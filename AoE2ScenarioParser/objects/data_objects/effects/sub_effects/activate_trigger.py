@@ -20,7 +20,7 @@ class ActivateTrigger(Effect):
         **kwargs,
     ):
         """
-        Play a sound for the source_player
+        Activate a trigger
 
         Args:
             trigger: The trigger to activate

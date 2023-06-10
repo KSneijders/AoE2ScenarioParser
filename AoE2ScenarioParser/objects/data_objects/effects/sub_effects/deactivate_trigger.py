@@ -20,7 +20,7 @@ class DeactivateTrigger(Effect):
         **kwargs,
     ):
         """
-        Play a sound for the source_player
+        Deactivate a trigger
 
         Args:
             trigger: The trigger to deactivate

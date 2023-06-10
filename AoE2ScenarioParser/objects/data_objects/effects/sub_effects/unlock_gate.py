@@ -24,7 +24,7 @@ class UnlockGate(Effect):
         **kwargs,
     ):
         """
-        Play a sound for the source_player
+        Unlock all selected gates
 
         Args:
             gates: The gate(s) to unlock

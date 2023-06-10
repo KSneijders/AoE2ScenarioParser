@@ -24,7 +24,7 @@ class LockGate(Effect):
         **kwargs,
     ):
         """
-        Play a sound for the source_player
+        Lock all selected gates
 
         Args:
             gates: The gate(s) to lock
