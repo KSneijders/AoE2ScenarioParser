@@ -1,9 +1,6 @@
-from typing import overload
-
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.triggers import EffectType
-from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
@@ -29,8 +26,6 @@ class LockGate(Effect):
         Args:
             gates: The gate(s) to lock
         """
-        gates = listify(gates)
-
         super().__init__(local_vars = locals(), **kwargs)
 
     @property

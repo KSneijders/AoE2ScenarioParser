@@ -1,5 +1,3 @@
-from typing import overload
-
 from AoE2ScenarioParser.datasets.triggers import EffectType
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
