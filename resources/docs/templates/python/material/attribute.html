@@ -1,18 +1,3 @@
-{#
-Adjusted template by KSneijders
-
-Copied from:
-  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/attribute.html
-
-Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
-- Changed display to use <tr> and <td> to work with the table created in `children.html`
-- Removed showing the default assigned values for class (instance) attributes
-- Removed some lines working with `show_full_path` as it's not enabled in this project.
-- Added `class-attribute-entry` class to edit font size
-- Added <hr> in the end of the file
-
-#}
-
 {{ log.debug("Rendering " + attribute.path) }}
 
 <div class="doc doc-object doc-attribute">
@@ -29,23 +14,34 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
         {% endif %}
 
         {% if not root or config.show_root_heading %}
-            {% if heading_level == 3 %}
-                {# Module level attributes #}
-                {% filter heading(heading_level,
-                    role="data" if attribute.parent.kind.value == "module" else "attr",
-                    id=html_id,
-                    style="margin-bottom: 2px;",
-                    class="doc doc-heading",
-                    toc_label=attribute.name) %}
-                    {% filter highlight(language="python", inline=True) %}
-                        {{ attribute.name }}
 
-                    {% endfilter %}
+            {% if not is_class %}  {# <-- Added if statement --> #}
+
+                {% filter heading(heading_level,
+                role="data" if attribute.parent.kind.value == "module" else "attr",
+                id=html_id,
+                style="margin-bottom: 2px;",
+                class="doc doc-heading",
+                toc_label=attribute.name) %}  {# <-- Added style tag --> #}
+
+                    {% if config.separate_signature %}
+                        <span class="doc doc-object-name doc-attribute-name">{% if show_full_path %}
+                            {{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}</span>
+                    {% else %}
+                        {% filter highlight(language="python", inline=True) %}
+                            {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
+                            {% if attribute.annotation %}: {{ attribute.annotation }}{% endif %}
+                            {% if attribute.value %} = {{ attribute.value }}{% endif %}
+                        {% endfilter %}
+                    {% endif %}
 
                     {% with labels = attribute.labels %}
                         {% include "labels.html" with context %}
                     {% endwith %}
+
                 {% endfilter %}
+
+                {# <-- (START) @@@@@@@@@@ Added Block @@@@@@@@@@ --> #}
 
                 <div style="padding-left: 32px">
                     {% if attribute.annotation %}
@@ -67,15 +63,20 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                     {% endif %}
                 </div>
 
-            {% elif heading_level == 5 %}
+                {# <-- (End) @@@@@@@@@@ Added Block @@@@@@@@@@ --> #}
+
+            {% else %}  {# <-- Added else statement --> #}
+
+                {# <-- (START) @@@@@@@@@@ Added Block @@@@@@@@@@ --> #}
+
                 {# Class level attributes #}
                 <tr>
                     <td class="class-attribute-entry">
                         {% filter heading(heading_level,
-                            role="data" if attribute.parent.kind.value == "module" else "attr",
-                            id=html_id,
-                            class="doc doc-heading",
-                            toc_label=attribute.name) %}
+                         role="data" if attribute.parent.kind.value == "module" else "attr",
+                         id=html_id,
+                         class="doc doc-heading",
+                         toc_label=attribute.name) %}
                             {% filter highlight(language="python", inline=True) %}
                                 {{ attribute.name }}
                             {% endfilter %}
@@ -85,13 +86,13 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                             {% endwith %}
                         {% endfilter %}
                     </td>
-                    {# <td>
-                      {% if attribute.value %}
-                        {% filter highlight(language="python", inline=True) %}
-                          {{ attribute.value }}
-                        {% endfilter %}
-                      {% endif %}
-                    </td> #}
+                    {# <td> #}
+                    {#  {% if attribute.value %} #}
+                    {#    {% filter highlight(language="python", inline=True) %} #}
+                    {#      {{ attribute.value }} #}
+                    {#    {% endfilter %} #}
+                    {#  {% endif %} #}
+                    {# </td> #}
                     <td>
                         {% if attribute.annotation %}
                             {% with expression = attribute.annotation %}
@@ -100,7 +101,10 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                         {% endif %}
                     </td>
                 </tr>
-            {% endif %}
+
+                {# <-- (End) @@@@@@@@@@ Added Block @@@@@@@@@@ --> #}
+
+            {% endif %}  {# <-- Added endif statement --> #}
 
             {% if config.separate_signature %}
                 {% filter highlight(language="python", inline=False) %}
@@ -115,23 +119,22 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
         {% else %}
             {% if config.show_root_toc_entry %}
                 {% filter heading(heading_level,
-          role="data" if attribute.parent.kind.value == "module" else "attr",
-          id=html_id,
-          toc_label=attribute.path if config.show_root_full_path else attribute.name,
-          hidden=True) %}
+                    role="data" if attribute.parent.kind.value == "module" else "attr",
+                    id=html_id,
+                    toc_label=attribute.path if config.show_root_full_path else attribute.name,
+                    hidden=True) %}
                 {% endfilter %}
             {% endif %}
             {% set heading_level = heading_level - 1 %}
         {% endif %}
 
-        {% if heading_level == 3 %}
-            {# Module level attributes #}
-            <div class="doc doc-contents {% if root %}first{% endif %}" style="padding-left: 32px">
+        {% if not is_class %}  {# <-- Added if statement --> #}
+            <div class="doc doc-contents {% if root %}first{% endif %}">
                 {% with docstring_sections = attribute.docstring.parsed %}
                     {% include "docstring.html" with context %}
                 {% endwith %}
             </div>
-            <hr>
-        {% endif %}
+        {% endif %}  {# <-- Added endif statement --> #}
+
     {% endwith %}
 </div>
