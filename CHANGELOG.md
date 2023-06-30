@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Proper support for `RoR` scenarios. 
   - Scenarios can now easily be converted back and forth by doing:
-    - `sceanrio.variant = ScenarioVariant.AOE2`
+    - `scenario.variant = ScenarioVariant.AOE2`
     - `scenario.variant = ScenarioVariant.ROR`
   - Note: 'Support' does **not** include any `RoR` datasets.
 - Warnings for writing scenarios with an incorrect variant (like legacy variants)
