@@ -1,1 +1,1 @@
-::: objects.data_objects.variable
+::: AoE2ScenarioParser.objects.data_objects.variable

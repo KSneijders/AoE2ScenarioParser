@@ -1,1 +1,1 @@
-::: objects.managers.message_manager
+::: AoE2ScenarioParser.objects.managers.message_manager

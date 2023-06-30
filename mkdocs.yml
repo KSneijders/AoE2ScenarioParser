@@ -12,7 +12,6 @@ plugins:
         default_handler: python
         handlers:
           python:
-            paths: [AoE2ScenarioParser]
             options:
               # Options from: https://mkdocstrings.github.io/python/usage/
               show_if_no_docstring: true

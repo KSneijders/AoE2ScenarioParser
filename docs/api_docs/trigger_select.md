@@ -1,1 +1,1 @@
-::: objects.support.trigger_select
+::: AoE2ScenarioParser.objects.support.trigger_select

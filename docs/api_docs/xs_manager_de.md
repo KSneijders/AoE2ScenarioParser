@@ -1,1 +1,1 @@
-::: objects.managers.de.xs_manager_de
+::: AoE2ScenarioParser.objects.managers.de.xs_manager_de
