@@ -1,2 +1,2 @@
-::: AoE2ScenarioParser.objects.managers.map_manager
+::: objects.managers.map_manager
    

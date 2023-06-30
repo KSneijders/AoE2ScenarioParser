@@ -1,4 +1,4 @@
-::: AoE2ScenarioParser.objects.managers.player_manager
+::: objects.managers.player_manager
     options:
       filters: ["!^_[^_]", "!^__getattribute__"]
 

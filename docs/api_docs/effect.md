@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.data_objects.effect
+::: objects.data_objects.effect

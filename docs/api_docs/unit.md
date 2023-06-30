@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.data_objects.unit
+::: objects.data_objects.unit

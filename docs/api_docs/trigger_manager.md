@@ -1,2 +1,2 @@
-::: AoE2ScenarioParser.objects.managers.trigger_manager
+::: objects.managers.trigger_manager
    

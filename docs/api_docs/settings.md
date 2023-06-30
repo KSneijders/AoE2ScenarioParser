@@ -1,3 +1,3 @@
-::: AoE2ScenarioParser.settings
+::: settings
     options:
         members_order: "source"

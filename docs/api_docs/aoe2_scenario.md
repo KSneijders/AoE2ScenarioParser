@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.scenarios.aoe2_scenario
+::: scenarios.aoe2_scenario

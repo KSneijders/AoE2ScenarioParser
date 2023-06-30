@@ -1,1 +1,1 @@
-::: AoE2ScenarioParser.objects.data_objects.trigger
+::: objects.data_objects.trigger
