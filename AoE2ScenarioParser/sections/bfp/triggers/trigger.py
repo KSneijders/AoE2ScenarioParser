@@ -4,6 +4,7 @@ from binary_file_parser import BaseStruct, Retriever, Version
 from binary_file_parser.types import bool32, bool8, int32, uint32, Bytes, nt_str32
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
+from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 from AoE2ScenarioParser.sections.bfp.triggers.condition import Condition
 
 
@@ -64,7 +65,7 @@ class Trigger(BaseStruct):
                                                        on_set=[set_effects_repeat, set_effect_display_orders_repeat],
                                                        on_write=[update_num_effects])
     """originally int32"""
-    effects: list[Effect]                  = Retriever(Effect, default=Effect(), repeat=0)
+    effects: list[Effect]            = Retriever(EffectStruct, default=EffectStruct(), repeat=0)
     effect_display_orders: list[int]       = Retriever(uint32,                                default=0,        repeat=0)
     """originally int32"""
     num_conditions: int                    = Retriever(uint32,                                default=0,

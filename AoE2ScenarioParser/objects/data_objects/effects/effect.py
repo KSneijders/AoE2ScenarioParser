@@ -21,7 +21,6 @@ class Effect(EffectStruct):
         local_vars = None,
         **retriever_inits,
     ):
-        retriever_inits['_type'] = self.type
 
         if len(retriever_inits) > 1:
             super().__init__(struct_ver, parent, **retriever_inits)
@@ -38,13 +37,15 @@ class Effect(EffectStruct):
 
     @staticmethod
     def _make_effect(struct: EffectStruct) -> Effect:
-        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import *
+        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import NoneEffect
+        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import ChangeDiplomacy
+        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import ResearchTechnology
 
         effect_cls: Type[Effect] = {
             EffectType.NONE:                NoneEffect,
             EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
             EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
-        }[EffectType(struct._type)]
+        }.get(EffectType(struct._type), EffectStruct)
 
         return effect_cls(
             **{ref.name: None for ref in effect_cls._refs},
@@ -56,7 +57,7 @@ class Effect(EffectStruct):
     @property
     def type(self) -> EffectType:
         """Returns the EffectType of this effect"""
-        raise -1
+        return EffectType(self._type)
 
     def __init_subclass__(cls, **kwargs):
         cls._refs, Effect._refs = cls._refs.copy(), []
@@ -64,11 +65,11 @@ class Effect(EffectStruct):
     def __repr__(self):
         repr_builder = StringIO()
         repr_builder.write(f"{self.__class__.__name__}(")
-        for retriever in self._refs:
-            if not retriever.supported(self.struct_ver):
+        for ref in self._refs:
+            if not ref.retriever.supported(self.struct_ver):
                 continue
 
-            obj = getattr(self, retriever.p_name)
+            obj = getattr(self, ref.retriever.p_name)
             if isinstance(obj, list):
                 sub_obj_repr_str = '\n'.join((
                     "[",
@@ -78,6 +79,6 @@ class Effect(EffectStruct):
             else:
                 sub_obj_repr_str = f"{obj!r}"
 
-            repr_builder.write(f"\n    {retriever.p_name} = {indentify(sub_obj_repr_str)},")
+            repr_builder.write(f"\n    {ref.name} = {indentify(sub_obj_repr_str)},")
         repr_builder.write("\n)")
         return repr_builder.getvalue()

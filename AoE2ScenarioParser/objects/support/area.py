@@ -31,7 +31,10 @@ class Area(BaseStruct):
     @overload
     def __init__(self, corner1: TileT, corner2: TileT): ...
 
-    def __init__(self, corner1: TileT, corner2: TileT = None, **kwargs):
+    def __init__(self, corner1: TileT = None, corner2: TileT = None, **kwargs):
+        if corner1 is None:
+            corner1 = (-1, -1)
+
         if corner2 is None:
             super().__init__(corner1 = Tile.from_value(corner1), corner2 = Tile.from_value(corner1), **kwargs)
             return

@@ -35,7 +35,7 @@ class EffectStruct(BaseStruct):
     @staticmethod
     def set_sel_obj_ids_repeat(_, instance: EffectStruct):
         repeat = 0 if instance._num_objects_selected == -1 else instance._num_objects_selected
-        Retriever.set_repeat(instance._selected_object_ids, instance, repeat)
+        Retriever.set_repeat(EffectStruct._selected_object_ids, instance, repeat)
 
     @staticmethod
     def remove_null_term(retriever: Retriever, instance: EffectStruct):
@@ -51,6 +51,10 @@ class EffectStruct(BaseStruct):
     @staticmethod
     def update_num_obj_sel(_, instance: EffectStruct):
         instance._num_objects_selected = len(instance._selected_object_ids)
+
+    def map(self) -> BaseStruct:
+        from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
+        return Effect._make_effect(self)
 
     # Todo: use datasets for type hinting and do on_read and on_write conversions
     # Todo: override list with ref-list in retriever
