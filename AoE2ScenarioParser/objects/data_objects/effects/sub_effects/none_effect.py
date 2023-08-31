@@ -1,5 +1,3 @@
-from AoE2ScenarioParser.datasets.triggers import EffectType
-
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
 
@@ -14,7 +12,3 @@ class NoneEffect(Effect):
         It doesn't do anything at all, not even 'splash'...
         """
         super().__init__(local_vars = locals(), **kwargs)
-
-    @property
-    def type(self) -> EffectType:
-        return EffectType.NONE

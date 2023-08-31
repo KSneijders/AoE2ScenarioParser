@@ -2,7 +2,6 @@ from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
-from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers.effect_struct import EffectStruct
 
@@ -34,7 +33,3 @@ class ChangeDiplomacy(Effect):
             diplomacy_stance: The new diplomacy stance
         """
         super().__init__(local_vars = locals(), **kwargs)
-
-    @property
-    def type(self) -> EffectType:
-        return EffectType.CHANGE_DIPLOMACY

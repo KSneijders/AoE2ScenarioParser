@@ -1,7 +1,6 @@
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.objects.support import Tile, TileT
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
@@ -39,7 +38,3 @@ class PlaySound(Effect):
         location = Tile.from_value(location)
 
         super().__init__(local_vars = locals(), **kwargs)
-
-    @property
-    def type(self) -> EffectType:
-        return EffectType.PLAY_SOUND

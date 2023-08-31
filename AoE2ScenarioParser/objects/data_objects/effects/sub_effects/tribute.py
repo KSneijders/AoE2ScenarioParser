@@ -2,7 +2,6 @@ from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import PlayerAttribute
-from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
@@ -57,7 +56,3 @@ class Tribute(Effect):
             quantity: The amount of the chosen player attribute to tribute. Every value (positive & negative) is allowed except for -1.
         """
         super().__init__(local_vars = locals(), **kwargs)
-
-    @property
-    def type(self) -> EffectType:
-        return EffectType.TRIBUTE

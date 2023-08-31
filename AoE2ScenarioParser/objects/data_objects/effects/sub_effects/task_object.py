@@ -3,7 +3,6 @@ from binary_file_parser.retrievers import RetrieverRef
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.trigger_data import ObjectClass, ObjectType, ActionType
-from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.objects.support import Tile, Area, TileT
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
@@ -62,7 +61,3 @@ class TaskObject(Effect):
         selected_object_ids = selected_object_ids or []
 
         super().__init__(local_vars = locals(), **kwargs)
-
-    @property
-    def type(self) -> EffectType:
-        return EffectType.TASK_OBJECT
