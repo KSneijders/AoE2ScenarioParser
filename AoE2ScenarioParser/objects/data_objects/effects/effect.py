@@ -37,15 +37,37 @@ class Effect(EffectStruct):
 
     @staticmethod
     def _make_effect(struct: EffectStruct) -> Effect:
-        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import NoneEffect
-        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import ChangeDiplomacy
-        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import ResearchTechnology
+        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import (
+            NoneEffect,
+            ChangeDiplomacy,
+            ResearchTechnology,
+            SendChat,
+            PlaySound,
+            Tribute,
+            UnlockGate,
+            LockGate,
+            ActivateTrigger,
+            DeactivateTrigger,
+            AiScriptGoal,
+            CreateObject,
+            TaskObject,
+        )
 
         effect_cls: Type[Effect] = {
             EffectType.NONE:                NoneEffect,
             EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
             EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
-        }.get(EffectType(struct._type), EffectStruct)
+            EffectType.SEND_CHAT:           SendChat,
+            EffectType.PLAY_SOUND:          PlaySound,
+            EffectType.TRIBUTE:             Tribute,
+            EffectType.UNLOCK_GATE:         UnlockGate,
+            EffectType.LOCK_GATE:           LockGate,
+            EffectType.ACTIVATE_TRIGGER:    ActivateTrigger,
+            EffectType.DEACTIVATE_TRIGGER:  DeactivateTrigger,
+            EffectType.AI_SCRIPT_GOAL:      AiScriptGoal,
+            EffectType.CREATE_OBJECT:       CreateObject,
+            EffectType.TASK_OBJECT:         TaskObject,
+        }.get(EffectType(struct._type))
 
         return effect_cls(
             **{ref.name: None for ref in effect_cls._refs},
@@ -59,17 +81,22 @@ class Effect(EffectStruct):
         """Returns the EffectType of this effect"""
         return EffectType(self._type)
 
+    @type.setter
+    def type(self, value: int) -> None:
+        """Returns the EffectType of this effect"""
+        self._type = EffectType(value)
+
     def __init_subclass__(cls, **kwargs):
         cls._refs, Effect._refs = cls._refs.copy(), []
 
     def __repr__(self):
         repr_builder = StringIO()
         repr_builder.write(f"{self.__class__.__name__}(")
-        for ref in self._refs:
-            if not ref.retriever.supported(self.struct_ver):
+        for retriever in self._refs:
+            if not retriever.retriever.supported(self.struct_ver):
                 continue
 
-            obj = getattr(self, ref.retriever.p_name)
+            obj = getattr(self, retriever.retriever.p_name)
             if isinstance(obj, list):
                 sub_obj_repr_str = '\n'.join((
                     "[",
@@ -79,6 +106,6 @@ class Effect(EffectStruct):
             else:
                 sub_obj_repr_str = f"{obj!r}"
 
-            repr_builder.write(f"\n    {ref.name} = {indentify(sub_obj_repr_str)},")
+            repr_builder.write(f"\n    {retriever.name} = {indentify(sub_obj_repr_str)},")
         repr_builder.write("\n)")
         return repr_builder.getvalue()

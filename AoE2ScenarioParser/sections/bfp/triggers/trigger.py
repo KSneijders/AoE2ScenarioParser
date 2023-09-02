@@ -66,14 +66,14 @@ class Trigger(BaseStruct):
                                                        on_set=[set_effects_repeat, set_effect_display_orders_repeat],
                                                        on_write=[update_num_effects])
     """originally int32"""
-    effects: list[Effect]                  = Retriever(EffectStruct,                          default=NoneEffect(),   repeat=0)
+    effects: list[Effect]                  = Retriever(EffectStruct,                          default_factory = lambda sv, p: EffectStruct(sv, p),   repeat=0)
     effect_display_orders: list[int]       = Retriever(uint32,                                default=0,              repeat=0)
     """originally int32"""
     num_conditions: int                    = Retriever(uint32,                                default=0,
                                                        on_set=[set_conditions_repeat, set_condition_display_orders_repeat],
                                                        on_write=[update_num_conditions])
     """originally int32"""
-    conditions: list[Condition]            = Retriever(Condition,                             default=Condition(),    repeat=0)
+    conditions: list[Condition]            = Retriever(Condition,                             default_factory = lambda sv, p: Condition(sv, p),    repeat=0)
     condition_display_orders: list[int]    = Retriever(uint32,                                default=0,              repeat=0)
     """originally int32"""
     # formatter:on

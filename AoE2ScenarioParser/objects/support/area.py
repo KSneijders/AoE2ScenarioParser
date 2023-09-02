@@ -23,8 +23,8 @@ class Area(BaseStruct):
     def _convert_to_tile(_: Retriever, __: Area, val: TileT) -> Tile:
         return Tile.from_value(val)
 
-    corner1: Tile = Retriever(Tile, default=Tile(-1, -1), mappers=[_convert_to_tile])
-    corner2: Tile = Retriever(Tile, default=Tile(-1, -1), mappers=[_convert_to_tile])
+    corner1: Tile = Retriever(Tile, default_factory = lambda _, __: Tile(-1, -1), mappers=[_convert_to_tile])
+    corner2: Tile = Retriever(Tile, default_factory = lambda _, __: Tile(-1, -1), mappers=[_convert_to_tile])
 
     @overload
     def __init__(self, corner1: TileT): ...

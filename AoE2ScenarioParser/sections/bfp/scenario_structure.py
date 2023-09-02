@@ -20,19 +20,19 @@ from AoE2ScenarioParser.sections.bfp.units.unit_data import UnitData
 
 class ScenarioStructure(BaseStruct):
     # @formatter:off
-    file_header: FileHeader           = Retriever(FileHeader,                         default=FileHeader())
-    data_header: MetaData             = Retriever(MetaData,                           default=MetaData(), remaining_compressed=True)
-    text_data: Messages               = Retriever(Messages,                           default=Messages())
-    cinematics: Cinematics            = Retriever(Cinematics,                         default=Cinematics())
-    background_image: BackgroundImage = Retriever(BackgroundImage,                    default=BackgroundImage())
-    player_data2: PlayerDataBlock2    = Retriever(PlayerDataBlock2,                   default=PlayerDataBlock2())
-    global_victory: GlobalVictory     = Retriever(GlobalVictory,                      default=GlobalVictory())
-    diplomacy: Diplomacy              = Retriever(Diplomacy,                          default=Diplomacy())
-    options: Options                  = Retriever(Options,                            default=Options())
-    map_data: MapData                 = Retriever(MapData,                            default=MapData())
-    unit_data: UnitData               = Retriever(UnitData,                           default=UnitData())
-    trigger_data: TriggerData         = Retriever(TriggerData,                        default=TriggerData())
-    file_data: FileData               = Retriever(FileData, min_ver=Version((1, 40)), default=FileData())
+    file_header: FileHeader           = Retriever(FileHeader,                         default_factory = lambda sv, p: FileHeader(sv, p))
+    data_header: MetaData             = Retriever(MetaData,                           default_factory = lambda sv, p: MetaData(sv, p), remaining_compressed=True)
+    text_data: Messages               = Retriever(Messages,                           default_factory = lambda sv, p: Messages(sv, p))
+    cinematics: Cinematics            = Retriever(Cinematics,                         default_factory = lambda sv, p: Cinematics(sv, p))
+    background_image: BackgroundImage = Retriever(BackgroundImage,                    default_factory = lambda sv, p: BackgroundImage(sv, p))
+    player_data2: PlayerDataBlock2    = Retriever(PlayerDataBlock2,                   default_factory = lambda sv, p: PlayerDataBlock2(sv, p))
+    global_victory: GlobalVictory     = Retriever(GlobalVictory,                      default_factory = lambda sv, p: GlobalVictory(sv, p))
+    diplomacy: Diplomacy              = Retriever(Diplomacy,                          default_factory = lambda sv, p: Diplomacy(sv, p))
+    options: Options                  = Retriever(Options,                            default_factory = lambda sv, p: Options(sv, p))
+    map_data: MapData                 = Retriever(MapData,                            default_factory = lambda sv, p: MapData(sv, p))
+    unit_data: UnitData               = Retriever(UnitData,                           default_factory = lambda sv, p: UnitData(sv, p))
+    trigger_data: TriggerData         = Retriever(TriggerData,                        default_factory = lambda sv, p: TriggerData(sv, p))
+    file_data: FileData               = Retriever(FileData, min_ver=Version((1, 40)), default_factory = lambda sv, p: FileData(sv, p))
     # @formatter:on
 
     @classmethod

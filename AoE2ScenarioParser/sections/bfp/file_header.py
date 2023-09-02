@@ -24,7 +24,7 @@ class FileHeader(BaseStruct):
     num_players: int                = Retriever(uint32,                           default=2)
     unknown1: int                   = Retriever(uint32,                           default=1000)
     unknown2: int                   = Retriever(uint32,                           default=1)
-    required_dats: list[int]        = Retriever(Array32[uint32],                  default=[2, 3, 4, 5, 6, 7])
+    required_dats: list[int]        = Retriever(Array32[uint32],                  default_factory=lambda _, __: [2, 3, 4, 5, 6, 7])
     creator: str                    = Retriever(nt_str32,                         default="AoE2SP")
     num_triggers: int               = Retriever(uint32,                           default=0)  # on_write = [update_num_triggers])
     # @formatter:on

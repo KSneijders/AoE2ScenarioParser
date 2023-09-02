@@ -78,8 +78,8 @@ class EffectStruct(BaseStruct):
     _unknown2: int                         = Retriever(int32,                                                 default=-1)
     _display_time: int                     = Retriever(int32,                                                 default=-1)
     _trigger_id: int                       = Retriever(int32,                                                 default=-1)
-    _location: Tile                        = Retriever(Tile,                                                  default=Tile(-1, -1))
-    _area: Area                            = Retriever(Area,                                                  default=Area((-1, -1)))
+    _location: Tile                        = Retriever(Tile,                                                  default_factory=lambda _, __: Tile(-1, -1))
+    _area: Area                            = Retriever(Area,                                                  default_factory=lambda _, __: Area((-1, -1)))
     _object_group: int                     = Retriever(int32,                                                 default=-1)
     _object_type: int                      = Retriever(int32,                                                 default=-1)
     _instruction_panel_position: int       = Retriever(int32,                                                 default=-1)
@@ -115,7 +115,7 @@ class EffectStruct(BaseStruct):
     _message: str                          = Retriever(str32,                                                 default="", on_read=[remove_null_term], on_write=[append_null_term_if_used])
     _sound_name: str                       = Retriever(str32,                                                 default="", on_read=[remove_null_term], on_write=[append_null_term_if_used])
     _selected_object_ids: list[int]        = Retriever(int32,                                                 default=-1, repeat=0)
-    # formatter:on
+    # @formatter:on
 
     def __init__(self, struct_ver: Version = Version((3, 5, 1, 47)), parent: BaseStruct = None, initialise_defaults=True, **retriever_inits):
         super().__init__(struct_ver, parent, initialise_defaults=initialise_defaults, **retriever_inits)

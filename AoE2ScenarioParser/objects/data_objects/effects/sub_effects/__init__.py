@@ -3,3 +3,11 @@ from .none_effect import NoneEffect
 from .play_sound import PlaySound
 from .research_technology import ResearchTechnology
 from .send_chat import SendChat
+from .tribute import Tribute
+from .unlock_gate import UnlockGate
+from .lock_gate import LockGate
+from .activate_trigger import ActivateTrigger
+from .deactivate_trigger import DeactivateTrigger
+from .ai_script_goal import AiScriptGoal
+from .create_object import CreateObject
+from .task_object import TaskObject

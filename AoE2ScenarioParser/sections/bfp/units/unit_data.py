@@ -22,10 +22,10 @@ class UnitData(BaseStruct):
 
     # formatter:off
     num_unit_lists: int                  = Retriever(uint32,           default=9, on_set=[set_units_repeat], on_write=[update_num_unit_lists])
-    player_data4: list[PlayerDataBlock4] = Retriever(PlayerDataBlock4, default=PlayerDataBlock4(), repeat=8)
+    player_data4: list[PlayerDataBlock4] = Retriever(PlayerDataBlock4, default_factory = lambda sv, p: PlayerDataBlock4(sv, p), repeat=8)
     num_players: int                     = Retriever(uint32,           default=9)
-    player_data3: list[PlayerDataBlock3] = Retriever(PlayerDataBlock3, default=PlayerDataBlock3(), repeat=8)
-    units: list[list[Unit]]              = Retriever(Array32[Unit],    default=[])
+    player_data3: list[PlayerDataBlock3] = Retriever(PlayerDataBlock3, default_factory = lambda sv, p: PlayerDataBlock3(sv, p), repeat=8)
+    units: list[list[Unit]]              = Retriever(Array32[Unit],    default_factory = lambda _, __: [])
     # formatter:on
 
     def __init__(self, struct_ver: Version = Version((1, 47)), parent: BaseStruct = None, initialise_defaults=True, **retriever_inits):
