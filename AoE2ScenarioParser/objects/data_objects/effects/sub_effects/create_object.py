@@ -25,10 +25,10 @@ class CreateObject(Effect):
 
     def __init__(
         self,
-        source_player: Player,
-        object: InfoDatasetBase,
-        location: TileT,
-        facet: int = -1,
+        _source_player: Player,
+        _object: InfoDatasetBase,
+        _location: TileT,
+        _facet: int = -1,
         **kwargs,
     ):
         """
@@ -40,6 +40,6 @@ class CreateObject(Effect):
             location: The location where to create the object. If obstructed the creation fails without retrying
             facet: The rotation of the created unit
         """
-        location = Tile.from_value(location)
+        _location = Tile.from_value(_location)
 
         super().__init__(local_vars = locals(), **kwargs)

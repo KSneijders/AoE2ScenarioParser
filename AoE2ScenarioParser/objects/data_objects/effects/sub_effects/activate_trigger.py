@@ -13,13 +13,13 @@ class ActivateTrigger(Effect):
     
     def __init__(
         self,
-        trigger: list[int],
+        _trigger: list[int],
         **kwargs,
     ):
         """
         Activate a trigger
 
         Args:
-            trigger: The trigger to activate
+            _trigger: The trigger to activate
         """
         super().__init__(local_vars = locals(), **kwargs)
