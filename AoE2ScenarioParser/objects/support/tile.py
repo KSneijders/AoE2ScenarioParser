@@ -14,8 +14,8 @@ if TYPE_CHECKING:
 
 
 class Tile(BaseStruct):
-    x: int = Retriever(int32)
-    y: int = Retriever(int32)
+    x: int = Retriever(int32, default = -1)
+    y: int = Retriever(int32, default = -1)
 
     @overload
     def __init__(self, x: int, y: int): ...
