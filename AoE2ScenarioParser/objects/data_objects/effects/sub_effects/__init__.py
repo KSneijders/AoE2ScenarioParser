@@ -11,3 +11,4 @@ from .deactivate_trigger import DeactivateTrigger
 from .ai_script_goal import AiScriptGoal
 from .create_object import CreateObject
 from .task_object import TaskObject
+from .declare_victory import DeclareVictory
