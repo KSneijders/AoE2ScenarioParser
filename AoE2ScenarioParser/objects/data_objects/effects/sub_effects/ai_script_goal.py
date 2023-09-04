@@ -13,7 +13,7 @@ class AiScriptGoal(Effect):
 
     def __init__(
         self,
-        _ai_trigger_id: int,
+        ai_trigger_id: int,
         **kwargs,
     ):
         """
@@ -22,6 +22,6 @@ class AiScriptGoal(Effect):
         using ``event-detected trigger 4``.
 
         Args:
-            _ai_trigger_id: The AI Trigger ID to trigger
+            ai_trigger_id: The AI Trigger ID to trigger
         """
         super().__init__(local_vars = locals(), **kwargs)

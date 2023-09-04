@@ -22,9 +22,9 @@ class PlaySound(Effect):
 
     def __init__(
         self,
-        _source_player: Player,
-        _sound_name: str,
-        _location: TileT = Tile(-1, -1),
+        source_player: Player,
+        sound_name: str,
+        location: TileT = Tile(-1, -1),
         **kwargs,
     ):
         """
@@ -35,6 +35,6 @@ class PlaySound(Effect):
             sound_name: The name of the sound file to play. The wem extension is not required
             location: The location to play the sound at. If left empty, plays globally
         """
-        _location = Tile.from_value(_location)
+        location = Tile.from_value(location)
 
         super().__init__(local_vars = locals(), **kwargs)

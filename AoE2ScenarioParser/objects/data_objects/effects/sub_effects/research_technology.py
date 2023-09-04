@@ -22,9 +22,9 @@ class ResearchTechnology(Effect):
 
     def __init__(
         self,
-        _source_player: Player,
-        _technology: TechInfo,
-        _force: bool = False,
+        source_player: Player,
+        technology: TechInfo,
+        force: bool = False,
         **kwargs,
     ):
         """

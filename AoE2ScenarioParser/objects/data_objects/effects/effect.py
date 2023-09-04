@@ -21,6 +21,7 @@ class Effect(EffectStruct):
         local_vars = None,
         **retriever_inits,
     ):
+
         if len(retriever_inits) > 1:
             super().__init__(struct_ver, parent, **retriever_inits)
             return
@@ -53,34 +54,31 @@ class Effect(EffectStruct):
             DeclareVictory,
         )
 
-        effect_cls: Type[Effect] = {
-            EffectType.NONE:                NoneEffect,
-            EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
-            EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
-            EffectType.SEND_CHAT:           SendChat,
-            EffectType.PLAY_SOUND:          PlaySound,
-            EffectType.TRIBUTE:             Tribute,
-            EffectType.UNLOCK_GATE:         UnlockGate,
-            EffectType.LOCK_GATE:           LockGate,
-            EffectType.ACTIVATE_TRIGGER:    ActivateTrigger,
-            EffectType.DEACTIVATE_TRIGGER:  DeactivateTrigger,
-            EffectType.AI_SCRIPT_GOAL:      AiScriptGoal,
-            EffectType.CREATE_OBJECT:       CreateObject,
-            EffectType.TASK_OBJECT:         TaskObject,
-            EffectType.DECLARE_VICTORY:     DeclareVictory,
-        }.get(EffectType(struct._type))
+        try:
+            effect_cls: Type[Effect] = {
+                EffectType.NONE:                NoneEffect,
+                EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
+                EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
+                EffectType.SEND_CHAT:           SendChat,
+                EffectType.PLAY_SOUND:          PlaySound,
+                EffectType.TRIBUTE:             Tribute,
+                EffectType.UNLOCK_GATE:         UnlockGate,
+                EffectType.LOCK_GATE:           LockGate,
+                EffectType.ACTIVATE_TRIGGER:    ActivateTrigger,
+                EffectType.DEACTIVATE_TRIGGER:  DeactivateTrigger,
+                EffectType.AI_SCRIPT_GOAL:      AiScriptGoal,
+                EffectType.CREATE_OBJECT:       CreateObject,
+                EffectType.TASK_OBJECT:         TaskObject,
+                EffectType.DECLARE_VICTORY:     DeclareVictory,
+            }[EffectType(struct._type)]
+        except ValueError:
+            raise ValueError(f"No Effect found for ID: '{struct._type}'")
 
-        if effect_cls is None:
-            raise ValueError(f"No effect found for ID: '{struct._type}'")
-
-        _map = {
-            **{'_' + ref.name: None for ref in effect_cls._refs},
-            **struct.retriever_name_value_map,
-        }
         return effect_cls(
-            **_map,
+            **{ref.name: None for ref in effect_cls._refs},
             struct_ver = struct.struct_ver,
             parent = struct.parent,
+            **struct.retriever_name_value_map,
         )
 
     @property

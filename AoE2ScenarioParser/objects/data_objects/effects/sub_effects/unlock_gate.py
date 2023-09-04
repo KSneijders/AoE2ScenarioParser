@@ -16,7 +16,7 @@ class UnlockGate(Effect):
 
     def __init__(
         self,
-        _gates: list[int],
+        gates: list[int],
         **kwargs,
     ):
         """

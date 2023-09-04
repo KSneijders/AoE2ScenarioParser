@@ -19,9 +19,9 @@ class ChangeDiplomacy(Effect):
 
     def __init__(
         self,
-        _source_player: Player,
-        _target_player: Player,
-        _diplomacy_stance: DiplomacyStance,
+        source_player: Player,
+        target_player: Player,
+        diplomacy_stance: DiplomacyStance,
         **kwargs,
     ):
         """

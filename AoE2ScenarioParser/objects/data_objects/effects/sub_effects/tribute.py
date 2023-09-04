@@ -26,10 +26,10 @@ class Tribute(Effect):
 
     def __init__(
         self,
-        _source_player: Player,
-        _target_player: Player,
-        _attribute: PlayerAttribute,
-        _quantity: RetrieverRef,
+        source_player: Player,
+        target_player: Player,
+        attribute: PlayerAttribute,
+        quantity: RetrieverRef,
         **kwargs,
     ):
         """

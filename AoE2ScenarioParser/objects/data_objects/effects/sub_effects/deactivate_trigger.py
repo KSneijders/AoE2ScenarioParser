@@ -13,7 +13,7 @@ class DeactivateTrigger(Effect):
 
     def __init__(
         self,
-        _trigger: list[int],
+        trigger: list[int],
         **kwargs,
     ):
         """

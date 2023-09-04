@@ -29,10 +29,10 @@ class SendChat(Effect):
 
     def __init__(
         self,
-        _source_player: Player,
-        _message: str = '',
-        _string_id: int = -1,
-        _sound_name: str = '',
+        source_player: Player,
+        message: str = '',
+        string_id: int = -1,
+        sound_name: str = '',
         **kwargs,
     ):
         """
