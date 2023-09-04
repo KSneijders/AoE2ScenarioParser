@@ -18,10 +18,10 @@ class DeclareVictory(Effect):
         **kwargs,
     ):
         """
-        Declare a player as the winner of the game
+        Declare a player as the winner of the game or declare them defeated
 
         Args:
             source_player: The player who will be victorious or defeated
-            victory: If the player will win or be defeated
+            victory: If the player will be declared victorious or defeated
         """
         super().__init__(local_vars = locals(), **kwargs)
