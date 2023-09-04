@@ -13,7 +13,7 @@ class ActivateTrigger(Effect):
     
     def __init__(
         self,
-        trigger: list[int],
+        trigger: int,
         **kwargs,
     ):
         """
