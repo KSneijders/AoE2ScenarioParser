@@ -5,15 +5,15 @@ from typing import Type
 
 from binary_file_parser import BaseStruct, Retriever, Version
 
-from AoE2ScenarioParser.datasets.triggers import EffectType
-from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
+from AoE2ScenarioParser.datasets.triggers.condition_type import ConditionType
+from AoE2ScenarioParser.sections.bfp.triggers import ConditionStruct
 
 
 def indentify(repr_str: str, indent = 4) -> str:
     return f"\n{' ' * indent}".join(repr_str.splitlines())
 
 
-class Effect(EffectStruct):
+class Condition(ConditionStruct):
     def __init__(
         self,
         struct_ver: Version = Version((3, 5, 1, 47)),
@@ -36,58 +36,32 @@ class Effect(EffectStruct):
         super().__init__(struct_ver, parent, **retriever_inits)
 
     @staticmethod
-    def _make_effect(struct: EffectStruct) -> Effect:
-        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import (
-            NoneEffect,
-            ChangeDiplomacy,
-            ResearchTechnology,
-            SendChat,
-            PlaySound,
-            Tribute,
-            UnlockGate,
-            LockGate,
-            ActivateTrigger,
-            DeactivateTrigger,
-            AiScriptGoal,
-            CreateObject,
-            TaskObject,
-            DeclareVictory,
+    def _make_condition(struct: ConditionStruct) -> Condition:
+        from AoE2ScenarioParser.objects.data_objects.conditions.sub_conditions import (
+            NoneCondition,
         )
 
         try:
-            effect_cls: Type[Effect] = {
-                EffectType.NONE:                NoneEffect,
-                EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
-                EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
-                EffectType.SEND_CHAT:           SendChat,
-                EffectType.PLAY_SOUND:          PlaySound,
-                EffectType.TRIBUTE:             Tribute,
-                EffectType.UNLOCK_GATE:         UnlockGate,
-                EffectType.LOCK_GATE:           LockGate,
-                EffectType.ACTIVATE_TRIGGER:    ActivateTrigger,
-                EffectType.DEACTIVATE_TRIGGER:  DeactivateTrigger,
-                EffectType.AI_SCRIPT_GOAL:      AiScriptGoal,
-                EffectType.CREATE_OBJECT:       CreateObject,
-                EffectType.TASK_OBJECT:         TaskObject,
-                EffectType.DECLARE_VICTORY:     DeclareVictory,
-            }[EffectType(struct._type)]
+            condition_cls: Type[Condition] = {
+                ConditionType.NONE:                NoneCondition,
+            }[ConditionType(struct._type)]
         except ValueError:
-            raise ValueError(f"No Effect found for ID: '{struct._type}'")
+            raise ValueError(f"No Condition found for ID: '{struct._type}'")
 
-        return effect_cls(
-            **{ref.name: None for ref in effect_cls._refs},
+        return condition_cls(
+            **{ref.name: None for ref in condition_cls._refs},
             struct_ver = struct.struct_ver,
             parent = struct.parent,
             **struct.retriever_name_value_map,
         )
 
     @property
-    def type(self) -> EffectType:
+    def type(self) -> ConditionType:
         """Returns the EffectType of this effect"""
-        return EffectType(self._type)
+        return ConditionType(self._type)
 
     def __init_subclass__(cls, **kwargs):
-        cls._refs, Effect._refs = cls._refs.copy(), []
+        cls._refs, Condition._refs = cls._refs.copy(), []
 
     def __repr__(self):
         repr_builder = StringIO()

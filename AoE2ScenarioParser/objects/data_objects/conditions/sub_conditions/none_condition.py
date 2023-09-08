@@ -1,9 +1,9 @@
 from typing import overload
 
-from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
+from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
 
 
-class NoneEffect(Effect):
+class NoneCondition(Condition):
 
     @overload
     def __init__(self): ...
