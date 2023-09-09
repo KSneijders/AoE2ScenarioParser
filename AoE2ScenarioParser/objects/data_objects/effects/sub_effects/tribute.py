@@ -2,11 +2,14 @@ from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import PlayerAttribute
+from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class Tribute(Effect):
+    _type_ = EffectType.TRIBUTE
+
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type: ignore
     """The player to tribute the resources away from"""
     target_player: Player = RetrieverRef(EffectStruct._target_player)  # type: ignore

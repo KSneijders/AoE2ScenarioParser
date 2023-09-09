@@ -1,12 +1,15 @@
 from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.objects.support import Tile, TileT
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class PlaySound(Effect):
+    _type_ = EffectType.PLAY_SOUND
+
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type: ignore
     """The player to play the sound for"""
     sound_name: str = RetrieverRef(EffectStruct._sound_name)  # type: ignore

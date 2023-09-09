@@ -1,10 +1,13 @@
 from binary_file_parser.retrievers import RetrieverRef
 
+from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class AiScriptGoal(Effect):
+    _type_ = EffectType.AI_SCRIPT_GOAL
+
     ai_trigger_id: int = RetrieverRef(EffectStruct._ai_script_goal)  # type:ignore
     """The AI Trigger ID to trigger"""
 

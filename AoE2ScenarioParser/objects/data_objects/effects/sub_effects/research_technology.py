@@ -2,11 +2,14 @@ from binary_file_parser.retrievers import RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.techs import TechInfo
+from AoE2ScenarioParser.datasets.triggers import EffectType
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 
 class ResearchTechnology(Effect):
+    _type_ = EffectType.RESEARCH_TECHNOLOGY
+
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type: ignore
     """The player to research the technology for"""
     technology: TechInfo = RetrieverRef(EffectStruct._technology)  # type: ignore

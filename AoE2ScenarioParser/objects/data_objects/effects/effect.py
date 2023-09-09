@@ -14,6 +14,9 @@ def indentify(repr_str: str, indent = 4) -> str:
 
 
 class Effect(TriggerBfpRepr, EffectStruct):
+    _type_ = EffectType.NONE
+    _type_map: dict[EffectType | int, Type[Effect]] = {}
+
     def __init__(
         self,
         struct_ver: Version = Version((3, 5, 1, 47)),
@@ -21,10 +24,11 @@ class Effect(TriggerBfpRepr, EffectStruct):
         local_vars = None,
         **retriever_inits,
     ):
-
         if len(retriever_inits) > 1:
             super().__init__(struct_ver, parent, **retriever_inits)
             return
+
+        retriever_inits['_type'] = self._type_
 
         for ref in self._refs:
             name = (
@@ -37,42 +41,10 @@ class Effect(TriggerBfpRepr, EffectStruct):
 
     @staticmethod
     def _make_effect(struct: EffectStruct) -> Effect:
-        from AoE2ScenarioParser.objects.data_objects.effects.sub_effects import (
-            NoneEffect,
-            ChangeDiplomacy,
-            ResearchTechnology,
-            SendChat,
-            PlaySound,
-            Tribute,
-            UnlockGate,
-            LockGate,
-            ActivateTrigger,
-            DeactivateTrigger,
-            AiScriptGoal,
-            CreateObject,
-            TaskObject,
-            DeclareVictory,
-        )
-
         try:
-            effect_cls: Type[Effect] = {
-                EffectType.NONE:                NoneEffect,
-                EffectType.CHANGE_DIPLOMACY:    ChangeDiplomacy,
-                EffectType.RESEARCH_TECHNOLOGY: ResearchTechnology,
-                EffectType.SEND_CHAT:           SendChat,
-                EffectType.PLAY_SOUND:          PlaySound,
-                EffectType.TRIBUTE:             Tribute,
-                EffectType.UNLOCK_GATE:         UnlockGate,
-                EffectType.LOCK_GATE:           LockGate,
-                EffectType.ACTIVATE_TRIGGER:    ActivateTrigger,
-                EffectType.DEACTIVATE_TRIGGER:  DeactivateTrigger,
-                EffectType.AI_SCRIPT_GOAL:      AiScriptGoal,
-                EffectType.CREATE_OBJECT:       CreateObject,
-                EffectType.TASK_OBJECT:         TaskObject,
-                EffectType.DECLARE_VICTORY:     DeclareVictory,
-            }[EffectType(struct._type)]
-        except ValueError:
-            raise ValueError(f"No Effect found for ID: '{struct._type}'")
+            effect_cls = Effect._type_map[struct._type]
+        except KeyError:
+            raise TypeError(f"No Effect type found for: '{struct._type}'")
 
         return effect_cls(
             **{ref.name: None for ref in effect_cls._refs},
