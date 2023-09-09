@@ -13,3 +13,5 @@ from .create_object import CreateObject
 from .task_object import TaskObject
 from .declare_victory import DeclareVictory
 from .kill_object import KillObject
+from .remove_object import RemoveObject
+from .change_view import ChangeView
