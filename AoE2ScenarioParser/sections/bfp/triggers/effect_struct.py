@@ -35,7 +35,7 @@ class EffectStruct(BaseStruct):
     @staticmethod
     def set_sel_obj_ids_repeat(_, instance: EffectStruct):
         repeat = 0 if instance._num_objects_selected == -1 else instance._num_objects_selected
-        Retriever.set_repeat(EffectStruct._selected_object_ids, instance, repeat)
+        Retriever.set_repeat(EffectStruct._selected_object_ids, instance, repeat)  # type:ignore
 
     @staticmethod
     def remove_null_term(retriever: Retriever, instance: EffectStruct):

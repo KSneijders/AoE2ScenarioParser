@@ -55,8 +55,10 @@ class TaskObject(Effect):
             action_type: The type of action to be executed by the effected units (e.g. Guard, Attack Ground or Drop Relic)
             selected_object_ids: The specific existing units to be affected by this effect. If set, ignores all types, groups and area selections
         """
-        location = Tile.from_value(location)
-        area = Area.from_value(area)
+        if location:
+            location = Tile.from_value(location)
+        if area:
+            area = Area.from_value(area)
 
         selected_object_ids = selected_object_ids or []
 

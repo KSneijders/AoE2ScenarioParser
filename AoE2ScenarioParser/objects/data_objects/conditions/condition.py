@@ -7,13 +7,14 @@ from binary_file_parser import BaseStruct, Retriever, Version
 
 from AoE2ScenarioParser.datasets.triggers.condition_type import ConditionType
 from AoE2ScenarioParser.sections.bfp.triggers import ConditionStruct
+from AoE2ScenarioParser.sections.bfp.triggers.trigger_bfp_repr import TriggerBfpRepr
 
 
 def indentify(repr_str: str, indent = 4) -> str:
     return f"\n{' ' * indent}".join(repr_str.splitlines())
 
 
-class Condition(ConditionStruct):
+class Condition(TriggerBfpRepr, ConditionStruct):
     def __init__(
         self,
         struct_ver: Version = Version((3, 5, 1, 47)),
@@ -62,24 +63,3 @@ class Condition(ConditionStruct):
 
     def __init_subclass__(cls, **kwargs):
         cls._refs, Condition._refs = cls._refs.copy(), []
-
-    def __repr__(self):
-        repr_builder = StringIO()
-        repr_builder.write(f"{self.__class__.__name__}(")
-        for retriever in self._refs:
-            if not retriever.retriever.supported(self.struct_ver):
-                continue
-
-            obj = getattr(self, retriever.retriever.p_name)
-            if isinstance(obj, list):
-                sub_obj_repr_str = '\n'.join((
-                    "[",
-                    "\n\t" + "\n\t".join(map(lambda x: indentify(repr(x)), obj)),
-                    "]"
-                ))
-            else:
-                sub_obj_repr_str = f"{obj!r}"
-
-            repr_builder.write(f"\n    {retriever.name} = {indentify(sub_obj_repr_str)},")
-        repr_builder.write("\n)")
-        return repr_builder.getvalue()

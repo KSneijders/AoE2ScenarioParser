@@ -10,7 +10,6 @@ class NoneCondition(Condition):
 
     def __init__(self, **kwargs):
         """
-        A blank effect. In the game this effect is just called 'None'.
-        It doesn't do anything at all, not even 'splash'...
+        A blank condition. In the game this condition is just called 'None'
         """
         super().__init__(local_vars = locals(), **kwargs)

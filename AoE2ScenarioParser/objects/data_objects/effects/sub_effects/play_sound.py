@@ -35,6 +35,7 @@ class PlaySound(Effect):
             sound_name: The name of the sound file to play. The wem extension is not required
             location: The location to play the sound at. If left empty, plays globally
         """
-        location = Tile.from_value(location)
+        if location:
+            location = Tile.from_value(location)
 
         super().__init__(local_vars = locals(), **kwargs)

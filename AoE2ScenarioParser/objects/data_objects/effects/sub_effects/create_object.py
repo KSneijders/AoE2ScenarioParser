@@ -40,6 +40,7 @@ class CreateObject(Effect):
             location: The location where to create the object. If obstructed the creation fails without retrying
             facet: The rotation of the created unit
         """
-        location = Tile.from_value(location)
+        if location:
+            location = Tile.from_value(location)
 
         super().__init__(local_vars = locals(), **kwargs)

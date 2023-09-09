@@ -6,13 +6,14 @@ from binary_file_parser import BaseStruct, Retriever, Version
 from binary_file_parser.types import Bytes, bool32, bool8, int32, nt_str32, uint32
 
 from AoE2ScenarioParser.sections.bfp.triggers import ConditionStruct, EffectStruct
+from AoE2ScenarioParser.sections.bfp.triggers.trigger_bfp_repr import TriggerBfpRepr
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
     from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+class Trigger(TriggerBfpRepr, BaseStruct):
 
-class Trigger(BaseStruct):
     @staticmethod
     def set_effects_repeat(_, instance: Trigger):
         Retriever.set_repeat(Trigger.effects, instance, instance.num_effects)
