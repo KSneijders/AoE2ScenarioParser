@@ -31,16 +31,19 @@ class Effect(TriggerBfpRepr, EffectStruct):
         retriever_inits['_type'] = self._type_
 
         for ref in self._refs:
-            name = (
-                ref.retriever.p_name
-                if isinstance(ref.retriever, Retriever)
-                else ref.retriever.get_p_name(struct_ver)
-            )
+            if isinstance(ref.retriever, Retriever):
+                name = ref.retriever.p_name
+            else:
+                name = ref.retriever.get_p_name(struct_ver)
+
             retriever_inits[name] = local_vars[ref.name]
         super().__init__(struct_ver, parent, **retriever_inits)
 
     @staticmethod
     def _make_effect(struct: EffectStruct) -> Effect:
+        # noinspection PyUnresolvedReferences
+        import AoE2ScenarioParser.objects.data_objects.effects.sub_effects
+
         try:
             effect_cls = Effect._type_map[struct._type]
         except KeyError:
