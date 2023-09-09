@@ -12,23 +12,24 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
     from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class Trigger(TriggerBfpRepr, BaseStruct):
 
     @staticmethod
     def set_effects_repeat(_, instance: Trigger):
-        Retriever.set_repeat(Trigger.effects, instance, instance.num_effects)
+        Retriever.set_repeat(Trigger.effects, instance, instance.num_effects)  # type:ignore
 
     @staticmethod
     def set_effect_display_orders_repeat(_, instance: Trigger):
-        Retriever.set_repeat(Trigger.effect_display_orders, instance, instance.num_effects)
+        Retriever.set_repeat(Trigger.effect_display_orders, instance, instance.num_effects)  # type:ignore
 
     @staticmethod
     def set_conditions_repeat(_, instance: Trigger):
-        Retriever.set_repeat(Trigger.conditions, instance, instance.num_conditions)
+        Retriever.set_repeat(Trigger.conditions, instance, instance.num_conditions)  # type:ignore
 
     @staticmethod
     def set_condition_display_orders_repeat(_, instance: Trigger):
-        Retriever.set_repeat(Trigger.condition_display_orders, instance, instance.num_conditions)
+        Retriever.set_repeat(Trigger.condition_display_orders, instance, instance.num_conditions)  # type:ignore
 
     @staticmethod
     def update_num_effects(_, instance: Trigger):
