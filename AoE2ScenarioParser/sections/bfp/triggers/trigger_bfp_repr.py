@@ -1,11 +1,13 @@
 from io import StringIO
 
-from binary_file_parser import BaseStruct
+from binary_file_parser import BaseStruct, RetrieverRef
 from binary_file_parser.retrievers import Retriever
 from binary_file_parser.utils import indentify
 
 
 class TriggerBfpRepr:
+    _retrievers: Retriever
+    _refs: RetrieverRef
 
     def __repr__(self):
         repr_builder = StringIO()
