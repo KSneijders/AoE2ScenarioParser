@@ -1,9 +1,11 @@
 from typing import overload
 
+from AoE2ScenarioParser.datasets.triggers.condition_type import ConditionType
 from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
 
 
 class NoneCondition(Condition):
+    _type_ = ConditionType.NONE
 
     @overload
     def __init__(self): ...

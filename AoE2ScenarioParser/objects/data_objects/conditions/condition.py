@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from io import StringIO
 from typing import Type
 
 from binary_file_parser import BaseStruct, Retriever, Version
@@ -15,6 +14,9 @@ def indentify(repr_str: str, indent = 4) -> str:
 
 
 class Condition(TriggerBfpRepr, ConditionStruct):
+    _type_ = ConditionType.NONE
+    _type_map: dict[ConditionType | int, Type[Condition]] = {}
+
     def __init__(
         self,
         struct_ver: Version = Version((3, 5, 1, 47)),
@@ -38,14 +40,11 @@ class Condition(TriggerBfpRepr, ConditionStruct):
 
     @staticmethod
     def _make_condition(struct: ConditionStruct) -> Condition:
-        from AoE2ScenarioParser.objects.data_objects.conditions.sub_conditions import (
-            NoneCondition,
-        )
+        # noinspection PyUnresolvedReferences
+        import AoE2ScenarioParser.objects.data_objects.conditions.sub_conditions
 
         try:
-            condition_cls: Type[Condition] = {
-                ConditionType.NONE:                NoneCondition,
-            }[ConditionType(struct._type)]
+            condition_cls = Condition._type_map[struct._type]
         except ValueError:
             raise ValueError(f"No Condition found for ID: '{struct._type}'")
 
@@ -63,3 +62,6 @@ class Condition(TriggerBfpRepr, ConditionStruct):
 
     def __init_subclass__(cls, **kwargs):
         cls._refs, Condition._refs = cls._refs.copy(), []
+
+        # Map the ConditionType to the class
+        cls._type_map[cls._type_] = cls
