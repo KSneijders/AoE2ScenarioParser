@@ -14,7 +14,7 @@ class ChangeObjectName (Effect):
     _type_ = EffectType.CHANGE_OBJECT_NAME
 
     object: InfoDatasetBase = RetrieverRef(EffectStruct._object_list_unit_id)  # type:ignore
-    """The specific type of unit to be affected by the effect (NOT a specific unit)"""
+    """The specific TYPE of unit to be affected by the effect (NOT a specific unit)"""
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type:ignore
     """The player owning the object to be renamed, ignored when `selected_object_ids` is used"""
     string_id: int = RetrieverRef(EffectStruct._string_id)  # type:ignore
@@ -29,7 +29,7 @@ class ChangeObjectName (Effect):
     def __init__(
         self,
         object: InfoDatasetBase = -1,
-        source_player: Player = 1,
+        source_player: Player = Player.ONE,
         string_id: int = -1,
         area: Area = Area((-1, -1)),
         name: str = '',
@@ -40,7 +40,7 @@ class ChangeObjectName (Effect):
         Change the name of all objects that are affected by this effect.
 
         Args:
-            object: The specific type of unit to be affected by the effect (NOT a specific unit)
+            object: The specific TYPE of unit to be affected by the effect (NOT a specific unit)
             source_player: The player owning the object to be renamed, ignored when `selected_object_ids` is used
             string_id: The string ID used for the name. Using this will override the name filed
             area: The area in which all matching units are killed. If left empty, the entire map is used. Ignored when `selected_object_ids` is used

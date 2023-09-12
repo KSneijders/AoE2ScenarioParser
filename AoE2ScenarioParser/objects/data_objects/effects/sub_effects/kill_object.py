@@ -15,7 +15,7 @@ class KillObject(Effect):
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type:ignore
     """The player to create the object for"""
     object: InfoDatasetBase = RetrieverRef(EffectStruct._object_list_unit_id)  # type:ignore
-    """The specific type of unit to be affected by the effect (NOT a specific unit)"""
+    """The specific TYPE of unit to be affected by the effect (NOT a specific unit)"""
     area: Area = RetrieverRef(EffectStruct._area)  # type:ignore
     """The area in which all matching units are killed. If left empty, the entire map is used."""
     object_group: ObjectClass = RetrieverRef(EffectStruct._object_group)  # type:ignore
@@ -40,7 +40,7 @@ class KillObject(Effect):
 
         Args:
             source_player: The player to create the object for
-            object: The specific type of unit to be affected by the effect (NOT a specific unit)
+            object: The specific TYPE of unit to be affected by the effect (NOT a specific unit)
             area: The area in which all matching units are killed. If left empty, the entire map is used.
             object_group: The unit group to be affected (e.g. Cavalry or Preditor Animal).
             object_type: The broad unit type to be affected (Civilian, Military, Other or Building).
