@@ -13,7 +13,7 @@ class RemoveObject(Effect):
     _type_ = EffectType.REMOVE_OBJECT
 
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type:ignore
-    """The player to create the object for"""
+    """The player owning the object to be removed, ignored when `selected_object_ids` is used"""
     object: InfoDatasetBase = RetrieverRef(EffectStruct._object_list_unit_id)  # type:ignore
     """The specific type of unit to be affected by the effect (NOT a specific unit)"""
     area: Area = RetrieverRef(EffectStruct._area)  # type:ignore
@@ -39,10 +39,11 @@ class RemoveObject(Effect):
         **kwargs,
     ):
         """
-        Kill units selected through area, type, group or their object directly
+        Remove units selected through area, type, group or their object directly. Units do NOT die, they just get
+        removed from map.
 
         Args:
-            source_player: The player to create the object for.
+            source_player: The player owning the object to be removed.
             object: The specific type of unit to be affected by the effect (NOT a specific unit)
             area: The area in which all matching units are killed. If left empty, the entire map is used.
             object_group: The unit group to be affected (e.g. Cavalry or Preditor Animal).
