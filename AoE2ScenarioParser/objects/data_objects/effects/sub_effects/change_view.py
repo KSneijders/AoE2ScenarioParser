@@ -21,7 +21,7 @@ class ChangeView(Effect):
 
     def __init__(
         self,
-        source_player: Player = 1,
+        source_player: Player = Player.ONE,
         location: Tile = Tile(),
         scroll: bool = True,
         seconds: int = -1,

@@ -16,7 +16,7 @@ class DeclareVictory(Effect):
 
     def __init__(
         self,
-        source_player: Player = 1,
+        source_player: Player = Player.ONE,
         victory: bool = True,
         **kwargs,
     ):

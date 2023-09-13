@@ -15,7 +15,7 @@ class TaskObject(Effect):
     source_player: Player = RetrieverRef(EffectStruct._source_player)  # type:ignore
     """The player to create the object for"""
     object: InfoDatasetBase = RetrieverRef(EffectStruct._object_list_unit_id)  # type:ignore
-    """The specific type of unit to be affected by the effect (NOT a specific unit)"""
+    """The specific TYPE of unit to be affected by the effect (NOT a specific unit)"""
     location: Tile = RetrieverRef(EffectStruct._location)  # type:ignore
     """The location of the task; Where a unit should walk to, or shoot at, or go to work etc."""
     location_object: int = RetrieverRef(EffectStruct._location_object_reference)  # type:ignore
@@ -33,7 +33,7 @@ class TaskObject(Effect):
 
     def __init__(
         self,
-        source_player: Player = 1,
+        source_player: Player = Player.ONE,
         object: InfoDatasetBase = -1,
         location: TileT = Tile(-1, -1),
         location_object: int = -1,
@@ -49,7 +49,7 @@ class TaskObject(Effect):
 
         Args:
             source_player: The player to create the object for
-            object: The specific type of unit to be affected by the effect (NOT a specific unit)
+            object: The specific TYPE of unit to be affected by the effect (NOT a specific unit)
             location: The location of the task; Where a unit should walk to, or shoot at, or go to work etc.
             location_object: The location of the task but referencing a specific existing unit's location. (e.g. a tree for a villager to chop)
             area: The area in which all matching units are affected by this effect. If left empty, the entire map is used.
