@@ -3,10 +3,10 @@ from binary_file_parser.retrievers import RetrieverRef
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 from AoE2ScenarioParser.datasets.triggers import EffectType
-from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.objects.support import TileT, Tile
 from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
+from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
 class CreateObject(Effect):
     _type_ = EffectType.CREATE_OBJECT

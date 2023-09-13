@@ -3,8 +3,9 @@ from binary_file_parser.retrievers import RetrieverRef
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
 from AoE2ScenarioParser.datasets.triggers import EffectType
-from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 from AoE2ScenarioParser.sections.bfp.triggers.effect_struct import EffectStruct
+
+from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
 
 class ChangeDiplomacy(Effect):
