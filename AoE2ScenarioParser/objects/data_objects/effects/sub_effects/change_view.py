@@ -7,6 +7,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class ChangeView(Effect):
     _type_ = EffectType.CHANGE_VIEW
 

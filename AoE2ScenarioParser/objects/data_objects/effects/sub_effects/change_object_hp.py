@@ -9,7 +9,8 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
-class ChangeObjectHp (Effect):
+
+class ChangeObjectHp(Effect):
     _type_ = EffectType.CHANGE_OBJECT_HP
 
     quantity: int = RetrieverRef(EffectStruct._quantity)  # type:ignore
@@ -26,7 +27,9 @@ class ChangeObjectHp (Effect):
     """The broad unit type to be affected (Civilian, Military, Other or Building)."""
     operation: Operation = RetrieverRef(EffectStruct._operation),  # type:ignore
     """The operation to apply to the current value and the given quantity"""
-    selected_object_ids: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
+    selected_object_ids: list[int] = RetrieverRef(
+        EffectStruct._selected_object_ids  # type:ignore 
+    )  # Todo: [Object vs Int]
     """The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area"""
 
     def __init__(

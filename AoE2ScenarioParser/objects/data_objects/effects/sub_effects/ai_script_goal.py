@@ -5,6 +5,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class AiScriptGoal(Effect):
     _type_ = EffectType.AI_SCRIPT_GOAL
 

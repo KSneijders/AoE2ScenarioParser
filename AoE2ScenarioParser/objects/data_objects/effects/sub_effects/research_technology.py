@@ -7,6 +7,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class ResearchTechnology(Effect):
     _type_ = EffectType.RESEARCH_TECHNOLOGY
 

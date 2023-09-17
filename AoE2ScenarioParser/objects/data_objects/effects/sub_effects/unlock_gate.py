@@ -5,6 +5,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class UnlockGate(Effect):
     _type_ = EffectType.UNLOCK_GATE
 

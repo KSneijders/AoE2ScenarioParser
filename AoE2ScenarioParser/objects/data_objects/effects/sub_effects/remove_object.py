@@ -9,6 +9,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class RemoveObject(Effect):
     _type_ = EffectType.REMOVE_OBJECT
 
@@ -24,7 +25,9 @@ class RemoveObject(Effect):
     """The broad unit type to be affected (Civilian, Military, Other or Building)."""
     object_state: ObjectState = RetrieverRef(EffectStruct._object_state)  # type:ignore
     """The state of the object to be removed (e.g. Foundation, Alive, Dead or Dying)"""
-    selected_object_ids: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
+    selected_object_ids: list[int] = RetrieverRef(
+        EffectStruct._selected_object_ids  # type:ignore 
+    )  # Todo: [Object vs Int]
     """The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area"""
 
     def __init__(

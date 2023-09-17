@@ -9,6 +9,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class KillObject(Effect):
     _type_ = EffectType.KILL_OBJECT
 
@@ -22,7 +23,9 @@ class KillObject(Effect):
     """The unit group to be affected (e.g. Cavalry or Preditor Animal)."""
     object_type: ObjectType = RetrieverRef(EffectStruct._object_type)  # type:ignore
     """The broad unit type to be affected (Civilian, Military, Other or Building)."""
-    selected_object_ids: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
+    selected_object_ids: list[int] = RetrieverRef(
+        EffectStruct._selected_object_ids  # type:ignore 
+    )  # Todo: [Object vs Int]
     """The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area"""
 
     def __init__(

@@ -9,6 +9,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class TaskObject(Effect):
     _type_ = EffectType.TASK_OBJECT
 
@@ -28,7 +29,9 @@ class TaskObject(Effect):
     """The broad unit type to be affected (Civilian, Military, Other or Building)."""
     action_type: ActionType = RetrieverRef(EffectStruct._action_type)  # type:ignore
     """The type of action to be executed by the effected units (e.g. Guard, Attack Ground or Drop Relic)"""
-    selected_object_ids: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
+    selected_object_ids: list[int] = RetrieverRef(
+        EffectStruct._selected_object_ids  # type:ignore 
+    )  # Todo: [Object vs Int]
     """The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area"""
 
     def __init__(

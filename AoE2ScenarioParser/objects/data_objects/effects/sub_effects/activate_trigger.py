@@ -5,6 +5,7 @@ from AoE2ScenarioParser.sections.bfp.triggers import EffectStruct
 
 from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
 
+
 class ActivateTrigger(Effect):
     _type_ = EffectType.ACTIVATE_TRIGGER
 
@@ -13,7 +14,7 @@ class ActivateTrigger(Effect):
 
     # @overload
     # def __init__(self, trigger: int): ...
-    
+
     def __init__(
         self,
         trigger: int,
