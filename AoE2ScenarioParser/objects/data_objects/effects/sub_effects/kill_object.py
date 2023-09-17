@@ -23,7 +23,7 @@ class KillObject(Effect):
     object_type: ObjectType = RetrieverRef(EffectStruct._object_type)  # type:ignore
     """The broad unit type to be affected (Civilian, Military, Other or Building)."""
     selected_object_ids: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
-    """The specific existing units to be affected by this effect. If set, ignores all types, groups and area selections"""
+    """The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area"""
 
     def __init__(
         self,
@@ -44,7 +44,7 @@ class KillObject(Effect):
             area: The area in which all matching units are killed. If left empty, the entire map is used.
             object_group: The unit group to be affected (e.g. Cavalry or Preditor Animal).
             object_type: The broad unit type to be affected (Civilian, Military, Other or Building).
-            selected_object_ids: The specific existing units to be affected by this effect. If set, ignores all types, groups and area selections
+            selected_object_ids: The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area
         """
         if area:
             area = Area.from_value(area)

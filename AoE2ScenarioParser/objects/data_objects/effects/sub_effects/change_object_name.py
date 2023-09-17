@@ -24,7 +24,7 @@ class ChangeObjectName (Effect):
     name: str = RetrieverRef(EffectStruct._message)  # type:ignore
     """The name to give to the affected unit(s)"""
     selected_object_ids: list[int] = RetrieverRef(EffectStruct._selected_object_ids)  # type:ignore # Todo: [Object vs Int]
-    """The specific existing units to be affected by this effect. If set, ignores all types, groups and area selections"""
+    """The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area"""
 
     def __init__(
         self,
@@ -45,7 +45,7 @@ class ChangeObjectName (Effect):
             string_id: The string ID used for the name. Using this will override the name filed
             area: The area in which all matching units are killed. If left empty, the entire map is used. Ignored when `selected_object_ids` is used
             name: The name to give to the affected unit(s)
-            selected_object_ids: The specific existing units to be affected by this effect. If set, ignores all types, groups and area selections
+            selected_object_ids: The specific existing units to be affected by this effect. If set, ignores any other type of selection including player, type, group and area
         """
         if area:
             area = Area.from_value(area)
