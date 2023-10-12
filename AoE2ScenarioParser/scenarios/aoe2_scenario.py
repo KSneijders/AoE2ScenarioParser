@@ -10,8 +10,11 @@ from uuid import uuid4, UUID
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.datasets.game_variant import ScenarioVariant
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
-    UnknownStructureError
+    UnknownStructureError, UnsupportedVersionError
+from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectVariantWarning
+from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print, color_string, warn
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
@@ -64,11 +67,23 @@ class AoE2Scenario:
         """The XS manager of the scenario"""
         return self._object_manager.managers['Xs']
 
-    def __init__(self, game_version: str, scenario_version: str, source_location: str, name: str):
+    @property
+    def scenario_version_tuple(self) -> tuple[int, ...]:
+        return tuple(map(int, self.scenario_version.split('.')))
+
+    def __init__(
+        self,
+        game_version: str,
+        scenario_version: str,
+        source_location: str,
+        name: str,
+        variant: ScenarioVariant | None = None
+    ):
         # Scenario meta info
         self.game_version: str = game_version
         self.scenario_version: str = scenario_version
         self.source_location: str = source_location
+        self._variant: ScenarioVariant | None = variant
         self._time_start: float = time.time()
 
         # Actual scenario content
@@ -99,7 +114,12 @@ class AoE2Scenario:
         #     print(retriever.p_name, getattr(scenario.file_header, retriever.p_name))
 
     @classmethod
-    def from_file(cls: Type[Scenario], path: str, game_version: str = "DE", name: str = "") -> Scenario:
+    def from_file(
+        cls: Type[S],
+        path: str,
+        game_version: str,
+        name: str = ""
+    ) -> S:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
 
@@ -126,12 +146,17 @@ class AoE2Scenario:
         s_print("Reading scenario file finished successfully.", final=True, time=True)
 
         scenario_version = _get_file_version(igenerator)
-        scenario: Scenario = cls(game_version, scenario_version, source_location=path, name=name)
+        scenario_variant = _get_scenario_variant(igenerator)
+
+        scenario: S = cls(game_version, scenario_version, source_location=path, name=name, variant=scenario_variant)
+
+        variant: str = 'Unknown' if scenario.variant is None else scenario_variant.to_display_name()
 
         # Log game and scenario version
         s_print("\n############### Attributes ###############", final=True, color="blue")
         s_print(f">>> Game version: '{scenario.game_version}'", final=True, color="blue")
         s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
+        s_print(f">>> Scenario variant: '{variant}'", final=True, color= "blue")
         s_print("##########################################", final=True, color="blue")
 
         s_print(f"Loading scenario structure...", time=True, newline=True)
@@ -309,6 +334,8 @@ class AoE2Scenario:
         if not skip_reconstruction:
             self.commit()
 
+        self._validate_scenario_variant()
+
         s_print("File writing from structure started...", final=True, time=True, newline=True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
 
@@ -349,6 +376,84 @@ class AoE2Scenario:
             trail_generator: Write all the bytes remaining in this generator as a trail
         """
         self._debug_byte_structure_to_file(filename=filename, trail_generator=trail_generator)
+
+    """ #############################################
+    ############### Variant functions ###############
+    ############################################# """
+
+    @property
+    def variant(self) -> ScenarioVariant:
+        return self._variant
+
+    @variant.setter
+    def variant(self, value: None | str | int | ScenarioVariant):
+        if value is None:
+            self._variant = None
+            return
+        elif isinstance(value, ScenarioVariant):
+            self._variant = value
+        elif isinstance(value, int):
+            self._variant = ScenarioVariant(value)
+        elif isinstance(value, str):
+            self._variant = ScenarioVariant[value.upper()]
+        else:
+            raise ValueError(f"Incorrect value used for setting scenario variant: '{value}'")
+
+        self._update_variant_retrievers()
+        self._validate_scenario_variant()
+
+    def _validate_scenario_variant(self):
+        if self.variant is None:
+            self._warn_variant_unknown()
+            return
+
+        # If the header has been adjusted manually (solution before this functionality went live)
+        if self.sections["FileHeader"].unknown_value_2 != self.variant.value:
+            self.variant = self.sections["FileHeader"].unknown_value_2
+
+        if self.variant == ScenarioVariant.ROR and self.scenario_version_tuple < (1, 49):
+            raise UnsupportedVersionError(
+                f"\n\nScenarios with a version below 1.49 (currently: {self.scenario_version}) cannot be written as "
+                f"Return of Rome scenarios.\n"
+                "Upgrade the scenario by saving it in the in-game editor before converting it."
+            )
+
+        if self.variant not in [ScenarioVariant.AOE2, ScenarioVariant.ROR] and settings.SHOW_VARIANT_WARNINGS:
+            applicants = self.variant.applicants()
+            name = self.variant.name
+
+            warn(
+                f"Having the scenario variant set to '{name}' (applies to: '{applicants}') will cause the scenario "
+                f"to not be visible within the Definitive Edition.\n"
+                f"If this is unintentional, you can set `scenario.variant` to 'aoe2' or 'ror'`\n"
+                f"If this is intentional, you can disable this warning using the "
+                f"setting: `SHOW_VARIANT_WARNINGS`", IncorrectVariantWarning
+            )
+
+    def _warn_variant_unknown(self):
+        if not settings.SHOW_VARIANT_WARNINGS:
+            return
+
+        warn(
+            f"The current scenario variant is unknown. It's possible this will cause the scenario to be hidden.\n"
+            f"If this is unintentional, you can set `scenario.variant` to 'aoe2' or 'ror' to make sure it's visible.\n"
+            f"If this is intentional, you can disable this warning using the "
+            f"setting: `SHOW_VARIANT_WARNINGS`", IncorrectVariantWarning
+        )
+
+    def _update_variant_retrievers(self):
+        if self.variant.value == self.sections["FileHeader"].unknown_value_2:
+            return
+
+        dlcs = {
+            ScenarioVariant.LEGACY: [],
+            ScenarioVariant.AOE2: [2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+            ScenarioVariant.ROR: [11]
+        }[self.variant]
+
+        self.sections["FileHeader"].unknown_value_2 = self.variant.value
+        self.sections["FileHeader"].amount_of_unknown_numbers = len(dlcs)
+        self.sections["FileHeader"].unknown_numbers = dlcs
 
     """ #############################################
     ################ Debug functions ################
@@ -515,6 +620,30 @@ def _get_file_version(generator: IncrementalGenerator):
         A string which is the version of the scenario file
     """
     return generator.get_bytes(4, update_progress=False).decode('ASCII')
+
+
+def _get_scenario_variant(generator: IncrementalGenerator) -> ScenarioVariant | None:
+    """
+    Find the bytes of the retriever before the scenario variant bytes. Then use that reference to find out which variant
+    it is. If it's unable to find it, None is returned.
+
+    Args:
+        generator: An IncrementalGenerator object of a scenario file
+
+    Returns:
+        A ScenarioVariant object or None if it couldn't find the variant
+    """
+    try:
+        index = generator.file_content.index(b"\xE8\x03\x00\x00")
+    except ValueError:
+        return None  # Unable to find sequence
+
+    value = generator.file_content[index + 4:index + 8]
+    value = bytes_to_int(value, signed = False)
+    try:
+        return ScenarioVariant(value)
+    except ValueError:
+        return None  # Variant not in Enum
 
 
 def _decompress_bytes(file_content: bytes) -> bytes:

@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.56 - 2023-June-30
+
+### Added
+
+- Proper support for `RoR` scenarios. 
+  - Scenarios can now easily be converted back and forth by doing:
+    - `scenario.variant = ScenarioVariant.AOE2`
+    - `scenario.variant = ScenarioVariant.ROR`
+  - Note: 'Support' does **not** include any `RoR` datasets.
+- Warnings for writing scenarios with an incorrect variant (like legacy variants)
+- A setting to disable said warnings: `settings.SHOW_VARIANT_WARNINGS = False`
+
+---
+
+## 0.1.55 - 2023-May-24
+
+### Added
+
+- `version` attribute to the core of AoE2ScenarioParser
+  - Can be used like: `from AoE2ScenarioParser import version`
+
+### Fixed
+
+- Issue with indices not being reset when overwriting maps [[#42]]
+  - This issue also occurred when changing map size
+
+### Removed
+
+- Development logging information
+
+[#42]: https://github.com/KSneijders/AoE2ScenarioParser/issues/42
+
+---
+
+## 0.1.54 - 2023-May-18
+
+### Added
+
+- Ability to read the new 1.49 scenarios
+- `Romans` to the `Civilization` dataset 
+
+---
+
+## 0.1.53 - 2023-March-25
+
+### Added
+
+- Ability to read the new 1.48 scenarios (No functional changes found (yet))
+  - This version is available since the pup released _today_ (March 25th)
+
+---
+
 ## 0.1.52 - 2023-March-15
 
 ### Fixed

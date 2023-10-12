@@ -1,15 +1,3 @@
-{#
-Adjusted template by KSneijders
-
-Copied from:
-  https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python/templates/material/_base/children.html
-
-Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
-- Changed nodes around attributes list to start a table
-- Added `sort` filter to functions ("|sort(attribute="labels", reverse =true)")
-    Causes properties and class methods to be shown before normal methods
-- Added check for attributes if not just attributes but also functions with 'property' label exist
-#}
 {% if obj.members %}
     {{ log.debug("Rendering children of " + obj.path) }}
 
@@ -31,22 +19,27 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                     {% set extra_level = 0 %}
                 {% endif %}
 
-                {% set is_class = obj.kind|string == 'Kind.CLASS' %}
+                {% set is_class = obj.kind|string == 'Kind.CLASS' %} {# Added assignment #}
 
-                {% with attributes = obj.attributes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
-                    {% if attributes or obj.functions.values()|selectattr('labels')|list|count %}
+                {% with attributes = obj.attributes|filter_objects(filters=config.filters, members_list=members_list, keep_no_docstrings=config.show_if_no_docstring) %}
+                    {% if attributes %}
                         {% if config.show_category_heading %}
                             {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
                         {% endif %}
                         {% with heading_level = heading_level + extra_level %}
-                            {% if not is_class %}
+
+                            {% if not is_class %}  {# Added if statement #}
+
                                 {# Module level attributes #}
                                 {% for attribute in attributes|order_members(config.members_order, members_list) %}
                                     {% if not attribute.is_alias or attribute.is_explicitely_exported %}
                                         {% include "attribute.html" with context %}
                                     {% endif %}
                                 {% endfor %}
-                            {% else %}
+
+                            {% else %}  {# Added else statement #}
+
+                                {# <-- (START) @@@@@@@@@@ Added Block @@@@@@@@@@ --> #}
                                 {# Class level attributes #}
                                 <table>
                                     <tr>
@@ -77,12 +70,15 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                                     {# {% endif %}#}
                                     {# {% endfor %}#}
                                 </table>
-                            {% endif %}
+                                {# <-- (End) @@@@@@@@@@ Added Block @@@@@@@@@@ --> #}
+
+                            {% endif %}  {# Added endif statement #}
+
                         {% endwith %}
                     {% endif %}
                 {% endwith %}
 
-                {% with classes = obj.classes|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                {% with classes = obj.classes|filter_objects(filters=config.filters, members_list=members_list, keep_no_docstrings=config.show_if_no_docstring) %}
                     {% if classes %}
                         {% if config.show_category_heading %}
                             {% filter heading(heading_level, id=html_id ~ "-classes") %}Classes{% endfilter %}
@@ -97,21 +93,16 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                     {% endif %}
                 {% endwith %}
 
-                {% with functions = obj.functions|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                {% with functions = obj.functions|filter_objects(filters=config.filters, members_list=members_list, keep_no_docstrings=config.show_if_no_docstring) %}
                     {% if functions %}
                         {% if config.show_category_heading %}
                             {% filter heading(heading_level, id=html_id ~ "-functions") %}Functions{% endfilter %}
                         {% endif %}
                         {% with heading_level = heading_level + extra_level %}
-                            {% for function in functions|order_members(config.members_order, members_list)
-                                |sort(attribute="labels", reverse =true) %}
-                                {% if 'property' in function.labels %}
-                                    {# pass #}
-                                {% else %}
-                                    {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
-                                        {% if not function.is_alias or function.is_explicitely_exported %}
-                                            {% include "function.html" with context %}
-                                        {% endif %}
+                            {% for function in functions|order_members(config.members_order, members_list) %}
+                                {% if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) %}
+                                    {% if not function.is_alias or function.is_explicitely_exported %}
+                                        {% include "function.html" with context %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -120,7 +111,7 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                 {% endwith %}
 
                 {% if config.show_submodules %}
-                    {% with modules = obj.modules|filter_objects(config.filters, members_list, config.show_if_no_docstring) %}
+                    {% with modules = obj.modules|filter_objects(filters=config.filters, members_list=members_list, keep_no_docstrings=config.show_if_no_docstring) %}
                         {% if modules %}
                             {% if config.show_category_heading %}
                                 {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
@@ -141,27 +132,27 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
         {% else %}
 
             {% for child in obj.members|
-          filter_objects(config.filters, members_list, config.show_if_no_docstring)|
+          filter_objects(filters=config.filters, members_list=members_list, keep_no_docstrings=config.show_if_no_docstring)|
           order_members(config.members_order, members_list) %}
 
-                {% if not (obj.kind.value == "class" and child.name == "__init__" and config.merge_init_into_class) %}
+                {% if not (obj.is_class and child.name == "__init__" and config.merge_init_into_class) %}
 
-                    {% if child.kind.value == "attribute" %}
+                    {% if child.is_attribute %}
                         {% with attribute = child %}
                             {% include "attribute.html" with context %}
                         {% endwith %}
 
-                    {% elif child.kind.value == "class" %}
+                    {% elif child.is_class %}
                         {% with class = child %}
                             {% include "class.html" with context %}
                         {% endwith %}
 
-                    {% elif child.kind.value == "function" %}
+                    {% elif child.is_function %}
                         {% with function = child %}
                             {% include "function.html" with context %}
                         {% endwith %}
 
-                    {% elif child.kind.value == "module" and config.show_submodules %}
+                    {% elif child.is_module and config.show_submodules %}
                         {% with module = child %}
                             {% include "module.html" with context %}
                         {% endwith %}

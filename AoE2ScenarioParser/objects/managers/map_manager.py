@@ -104,6 +104,8 @@ class MapManager(AoE2Object):
             for index, tile in enumerate(lst):
                 tile._reset_terrain_index(index)
 
+        reset_indices(value)
+
         if value is not None:
             self._terrain = UuidList(
                 uuid=self._uuid,

@@ -9,11 +9,10 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
 - Added margin to main <div>
 
 #}
-
 {{ log.debug("Rendering " + function.path) }}
 
-<hr>
-<div class="doc doc-object doc-function" style="margin: 40px 0">
+<hr> {# Added HR tag #}
+<div class="doc doc-object doc-function" style="margin: 40px 0"> {# Added style tag #}
     {% with html_id = function.path %}
 
         {% if root %}
@@ -56,14 +55,12 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                 {% with labels = function.labels %}
                     {% include "labels.html" with context %}
                 {% endwith %}
+
             {% endfilter %}
 
             {% if config.separate_signature %}
-                {% filter highlight(language="python", inline=False) %}
-                    {% filter format_signature(config.line_length) %}
-                        {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
-                        {% include "signature.html" with context %}
-                    {% endfilter %}
+                {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) %}
+                    {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
                 {% endfilter %}
             {% endif %}
 

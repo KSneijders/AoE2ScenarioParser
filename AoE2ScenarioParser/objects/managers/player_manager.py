@@ -4,6 +4,7 @@ from typing import List, Dict, Any
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
+from AoE2ScenarioParser.datasets.object_support import Civilization
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.player.player_data import PlayerData
@@ -300,8 +301,8 @@ class PlayerManager(AoE2Object):
         """Returns the metadata objects for all players"""
         active = self._player_attributes_to_list("active", False, default=0, fill_empty=7)
         human = self._player_attributes_to_list("human", False, default=0, fill_empty=7)
-        civilization = self._player_attributes_to_list("civilization", False, default=40, fill_empty=7)
-        architecture_set = self._player_attributes_to_list("architecture_set", False, default=40, fill_empty=7)
+        civilization = self._player_attributes_to_list("civilization", False, default=Civilization.RANDOM, fill_empty=7)
+        architecture_set = self._player_attributes_to_list("architecture_set", False, default=Civilization.RANDOM, fill_empty=7)
         return UuidList(self._uuid, [
             PlayerMetaData(active[i], human[i], civilization[i], architecture_set[i]) for i in range(len(active))
         ])

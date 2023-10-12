@@ -12,6 +12,7 @@ plugins:
         default_handler: python
         handlers:
           python:
+            paths: [.]
             options:
               # Options from: https://mkdocstrings.github.io/python/usage/
               show_if_no_docstring: true
@@ -49,6 +50,7 @@ nav:
     - XS Script:            "cheatsheets/xs.md"
   - Examples:
     - Intro:                "examples/examples.md"
+    - Operations:           "examples/operations.md"
     - Triggers:             "examples/triggers.md"
   - Community:
     - Guides and Resources: "community/resources.md"

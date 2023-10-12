@@ -36,3 +36,8 @@ class IncorrectArmorAttackUsageWarning(AoE2ScenarioParserWarning):
     This can be intentional if you know what you're doing, so it deserves its own class so it can be disabled.
     """
     pass
+
+
+class IncorrectVariantWarning(AoE2ScenarioParserWarning):
+    """Shown when a user writes a file with a variant that is not AoE2 or RoR"""
+    pass
