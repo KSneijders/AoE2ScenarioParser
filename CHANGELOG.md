@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.57 - 2023-November-01
+
+### Added
+
+- Ability to read the new 1.51 scenarios (Since update on Oct 31st)
+- `Armenians` and `Georgians` to the `Civilization` dataset 
+
+---
+
 ## 0.1.56 - 2023-June-30
 
 ### Added
