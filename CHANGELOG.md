@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.58 - 2023-November-08
+
+### Fixed
+
+- `MapManager` removing entire map when setting the map size to the same value more than once [#43]
+
+[#43]: https://github.com/KSneijders/AoE2ScenarioParser/issues/43
+
+---
+
 ## 0.1.57 - 2023-November-01
 
 ### Added
