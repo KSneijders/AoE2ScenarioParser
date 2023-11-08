@@ -62,6 +62,9 @@ class MapManager(AoE2Object):
         old_size = self._map_width
         difference = new_size - old_size
 
+        if difference == 0:
+            return
+
         self._map_width = new_size
         self._map_height = new_size
 
