@@ -1419,7 +1419,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 2.6
+                "default": 3.5
             },
             "trigger_instruction_start": {
                 "type": "s8",
