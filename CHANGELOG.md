@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.59 - 2023-December-12
+
+### Added
+
+- Support for the **five** new effects added in update **99311** (11-Dec):
+  - `(75) Train Unit`
+  - `(76) Initiate Research`
+  - `(77) Create Object Attack`
+  - `(78) Create Object Armor`
+  - `(79) Modify Attibute By Variable`
+
+---
+
 ## 0.1.58 - 2023-November-08
 
 ### Fixed
@@ -49,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Issue with indices not being reset when overwriting maps [[#42]]
+- Issue with indices not being reset when overwriting maps [#42]
   - This issue also occurred when changing map size
 
 ### Removed
