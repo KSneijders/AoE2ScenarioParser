@@ -1393,7 +1393,6 @@ class NewEffectSupport:
             area_y1: int | None = None,
             area_x2: int | None = None,
             area_y2: int | None = None,
-            item_id: int | None = None,
             selected_object_ids: int | List[int] | None = None,
     ):
         return self._trigger_ref._add_effect(
@@ -1404,7 +1403,6 @@ class NewEffectSupport:
             area_y1=area_y1,
             area_x2=area_x2,
             area_y2=area_y2,
-            item_id=item_id,
             selected_object_ids=selected_object_ids,
         )
 
@@ -1416,7 +1414,6 @@ class NewEffectSupport:
             area_y1: int | None = None,
             area_x2: int | None = None,
             area_y2: int | None = None,
-            item_id: int | None = None,
             selected_object_ids: int | List[int] | None = None,
     ):
         return self._trigger_ref._add_effect(
@@ -1427,6 +1424,126 @@ class NewEffectSupport:
             area_y1=area_y1,
             area_x2=area_x2,
             area_y2=area_y2,
-            item_id=item_id,
             selected_object_ids=selected_object_ids,
+        )
+
+    def train_unit(
+            self,
+            quantity: int | None = None,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            location_x: int | None = None,
+            location_y: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.TRAIN_UNIT,
+            quantity=quantity,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            location_x=location_x,
+            location_y=location_y,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            selected_object_ids=selected_object_ids
+        )
+
+    def initiate_research(
+            self,
+            source_player: int | None = None,
+            technology: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.INITIATE_RESEARCH,
+            source_player=source_player,
+            technology=technology,
+            selected_object_ids=selected_object_ids
+        )
+
+    def create_object_attack(
+            self,
+            armour_attack_quantity: int | None = None,
+            armour_attack_class: int | None = None,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            object_group: int | None = None,
+            object_type: int | None = None,
+            operation: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.CREATE_OBJECT_ATTACK,
+            armour_attack_quantity=armour_attack_quantity,
+            armour_attack_class=armour_attack_class,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            object_group=object_group,
+            object_type=object_type,
+            operation=operation,
+            selected_object_ids=selected_object_ids
+        )
+
+    def create_object_armor(
+            self,
+            armour_attack_quantity: int | None = None,
+            armour_attack_class: int | None = None,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            object_group: int | None = None,
+            object_type: int | None = None,
+            operation: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.CREATE_OBJECT_ARMOR,
+            armour_attack_quantity=armour_attack_quantity,
+            armour_attack_class=armour_attack_class,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            object_group=object_group,
+            object_type=object_type,
+            operation=operation,
+            selected_object_ids=selected_object_ids
+        )
+
+    def modify_attribute_by_variable(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            operation: int | None = None,
+            object_attributes: int | None = None,
+            variable: int | None = None,
+            message: str | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            operation=operation,
+            object_attributes=object_attributes,
+            variable=variable,
+            message=message
         )
