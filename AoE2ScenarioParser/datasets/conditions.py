@@ -14,7 +14,11 @@ class ConditionId(IntEnum):
     NONE = 0
     """
     Attributes for the **none**  condition are:\n
-    ... It's called none... What parameters do **you** think it has?! ❤ 
+    ... ... ... ... 
+    
+    It's called "none"... 
+    
+    What parameters do you think it has??! ❤ 
     """
     BRING_OBJECT_TO_AREA = 1
     """
