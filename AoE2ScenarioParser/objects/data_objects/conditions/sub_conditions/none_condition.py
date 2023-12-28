@@ -1,6 +1,6 @@
 from typing import overload
 
-from AoE2ScenarioParser.datasets.triggers.condition_type import ConditionType
+from AoE2ScenarioParser.datasets.triggers import ConditionType
 from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
 
 
