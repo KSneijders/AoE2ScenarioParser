@@ -228,13 +228,18 @@ class MapManager(AoE2Object):
             xys = [source_tiles[0].xy]
         else:
             source_tiles = self.get_square_2d(x1, y1, x2, y2)
+
+            # Reset current elevation within area
+            for row in source_tiles:
+                for tile in row:
+                    tile.elevation = elevation
+
             xys = set(t.xy for row in source_tiles for t in row)
             edge_tiles = source_tiles[0] + source_tiles[-1]
             for i in range(1, len(source_tiles) - 1):
                 edge_tiles.extend([source_tiles[i][0], source_tiles[i][-1]])
 
         for tile in edge_tiles:
-            tile.elevation = elevation
             self._elevation_tile_recursion(tile, xys)
 
     def _elevation_tile_recursion(
