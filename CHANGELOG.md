@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.60 - 2023-December-29
+
+### Fixed
+
+- `MapManager.set_elevation(...)` When inner area is not level to the edge will result in illegal terrain elevation [#44]
+
+[#44]: https://github.com/KSneijders/AoE2ScenarioParser/issues/44
+
+---
+
 ## 0.1.59 - 2023-December-12
 
 ### Added
