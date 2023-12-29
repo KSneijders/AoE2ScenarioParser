@@ -78,7 +78,7 @@ def main():
     res = requests.get(r"https://raw.githubusercontent.com/Divy1211/AoE2DE_UGC_Guide/main/docs/general/resources/res_desc.json")
     resources = res.json()
 
-    with open("./resources.py", "w") as file:
+    with open("resources.py", "w") as file:
         file.write(gen_res_class(resources))
 
 
