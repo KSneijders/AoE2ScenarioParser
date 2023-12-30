@@ -3,6 +3,7 @@ from typing import TypedDict
 import requests
 import regex
 
+from common import tab, train_case
 
 DefaultValue = str
 UseDesc = str
@@ -15,20 +16,6 @@ class ResDesc(TypedDict):
 ResId = int
 ResDescs = dict[ResId, ResDesc]
 
-
-def tab(string: str) -> str:
-    return f"    {string}"
-
-def train_case(string: str) -> str:
-    string = (
-        string
-        .upper()
-        .replace(" ", "_")
-        .replace("%", "PERCENT")
-    )
-    string = regex.sub(r"[!()/]", "", string)
-
-    return string
 
 def gen_docstr(desc: ResDesc) -> str:
     docstr = [
