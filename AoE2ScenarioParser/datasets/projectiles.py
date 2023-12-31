@@ -215,5 +215,5 @@ class ProjectileInfo(Enum):
     ORGAN_GUN = 1789, (1001, 1003)
     DROMON_GREEK_FIRE = 1798, (1795,)
     CITADELS = 1830, ()
-    SVT = 1867, ()
-    SVT_FIRE = 1868, ()
+    SVT = 1867, (79, 234, 235, 566, 785, 1665, 684, 685, 1102)
+    SVT_FIRE = 1868, (79, 234, 235, 566, 785, 1665, 684, 685, 1102)
