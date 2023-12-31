@@ -430,12 +430,12 @@
         "primary_fire": 375
     },
     "873": {
-        "primary": 364,
-        "primary_fire": 375
+        "primary": 1781,
+        "primary_fire": 1782
     },
     "875": {
-        "primary": 364,
-        "primary_fire": 375
+        "primary": 1781,
+        "primary_fire": 1782
     },
     "885": {
         "primary": 512,
@@ -468,12 +468,10 @@
         "secondary_fire": 476
     },
     "1001": {
-        "primary": 380,
-        "secondary": 1119
+        "primary": 1789
     },
     "1003": {
-        "primary": 380,
-        "secondary": 1119
+        "primary": 1789
     },
     "1004": {
         "primary": 1057,
@@ -703,6 +701,16 @@
     },
     "1709": {
         "primary": 368
+    },
+    "1741": {
+        "primary": 1756
+    },
+    "1743": {
+        "primary": 1756
+    },
+    "1750": {
+        "primary": 1779,
+        "primary_fire": 1780
     },
     "1795": {
         "primary": 508,
