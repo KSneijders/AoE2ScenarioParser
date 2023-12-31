@@ -703,5 +703,22 @@
     },
     "1709": {
         "primary": 368
+    },
+    "1795": {
+        "primary": 508,
+        "primary_fire": 520,
+        "primary_greek_fire": 1798
+    },
+    "1800": {
+        "primary": 503,
+        "primary_fire": 516
+    },
+    "1802": {
+        "primary": 503,
+        "primary_fire": 516
+    },
+    "1806": {
+        "secondary": 54,
+        "secondary_fire": 328
     }
 }
