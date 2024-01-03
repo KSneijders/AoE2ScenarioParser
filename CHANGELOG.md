@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.61 - 2024-Januari-03
+
+> **Dataset update!**
+
+Many thanks to `Alian713` for all his dataset work! ❤️
+
+### Added
+
+- All missing units to the `UnitInfo` dataset (Centurion, Savar, Dromon etc.)
+- All missing technologies to the `TechInfo` dataset (Elite monaspa, Devotion etc.)
+- All missing buildings to the `BuildingInfo` dataset (Fortified Church, Mule cart, yurts, bridges etc.)
+- All missing heroes to the `HeroInfo` dataset
+- All missing miscellaneous objects to the `OtherInfo` dataset (Cliffs, Hunnic Horse etc.)
+- All missing projectiles to the `ProjectileInfo` dataset (See changes to this dataset below)
+- All missing resources to the `Attribute` dataset
+- All missing attributes to the `ObjectAttribute` dataset
+
+### Changed
+
+- The `UnitInfo.CENTURION` (`275`) was renamed to: `UnitInfo.IMPERIAL_CENTURION`
+- The `UnitInfo.LEGIONARY` (`1`) was renamed to: `UnitInfo.IMPERIAL_LEGIONARY`
+- The `Attribute.EXTRA_ELEPHANT_CONVERT_RESIST` (`262`) was renamed to: `Attribute.CIVILIZATION_NAME_OVERRIDE`
+- The `Attribute.UNUSED_RESOURCE_268` (`268`) was renamed to: `Attribute.HUNTER_PRODUCTIVITY`
+- The `Attribute.UNUSED_RESOURCE_269` (`269`) was renamed to: `Attribute.TECHNOLOGY_REWARD_EFFECT`
+- Updated a couple `ProjectileInfo` values to reflect changes in the game [[See changes](https://github.com/KSneijders/AoE2ScenarioParser/commit/6d414f953fdf72ddead5f4e781fa14408a382c7e#diff-19e7450eb9566b3db73077bd8771635eee40ae61f80f106c2622bb96186dd092)]
+
+---
+
 ## 0.1.60 - 2023-December-29
 
 ### Fixed
