@@ -516,13 +516,13 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def civilization_techs() -> Set[TechInfo]:
+    def civilization_techs() -> List[TechInfo]:
         """
         Returns:
             A list of TechInfo objects which represent all civ 'upgrades'. Can be used to detect which civ is being
             played by the player using the 'researched technology' condition.
         """
-        return {
+        return [
             TechInfo.ARMENIANS,
             TechInfo.AZTECS,
             TechInfo.BENGALIS,
@@ -568,7 +568,7 @@ class TechInfo(Enum):
             TechInfo.TURKS,
             TechInfo.VIETNAMESE,
             TechInfo.VIKINGS,
-        }
+        ]
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33
