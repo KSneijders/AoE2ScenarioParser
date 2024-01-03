@@ -62,6 +62,7 @@ class UnitInfo(InfoDatasetBase):
         villagers = {
             "male": [
                 UnitInfo.VILLAGER_MALE,
+                UnitInfo.VILLAGER_MALE_MONASTERY,
                 UnitInfo.VILLAGER_MALE_BUILDER,
                 UnitInfo.VILLAGER_MALE_FARMER,
                 UnitInfo.VILLAGER_MALE_FISHERMAN,
@@ -124,8 +125,10 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.CAMEL_ARCHER,
                     UnitInfo.CAMEL_SCOUT,
                     UnitInfo.CATAPHRACT,
+                    UnitInfo.CENTURION,
                     UnitInfo.CHAKRAM_THROWER,
                     UnitInfo.CHU_KO_NU,
+                    UnitInfo.COMPOSITE_BOWMAN,
                     UnitInfo.CONQUISTADOR,
                     UnitInfo.COUSTILLIER,
                     UnitInfo.FLAMING_CAMEL,
@@ -146,6 +149,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.MAGYAR_HUSZAR,
                     UnitInfo.MAMELUKE,
                     UnitInfo.MANGUDAI,
+                    UnitInfo.MONASPA,
                     UnitInfo.OBUCH,
                     UnitInfo.ORGAN_GUN,
                     UnitInfo.PLUMED_ARCHER,
@@ -170,8 +174,10 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_BOYAR,
                     UnitInfo.ELITE_CAMEL_ARCHER,
                     UnitInfo.ELITE_CATAPHRACT,
+                    UnitInfo.ELITE_CENTURION,
                     UnitInfo.ELITE_CHAKRAM_THROWER,
                     UnitInfo.ELITE_CHU_KO_NU,
+                    UnitInfo.ELITE_COMPOSITE_BOWMAN,
                     UnitInfo.ELITE_CONQUISTADOR,
                     UnitInfo.ELITE_COUSTILLIER,
                     UnitInfo.ELITE_GBETO,
@@ -191,6 +197,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_MAGYAR_HUSZAR,
                     UnitInfo.ELITE_MAMELUKE,
                     UnitInfo.ELITE_MANGUDAI,
+                    UnitInfo.ELITE_MONASPA,
                     UnitInfo.ELITE_OBUCH,
                     UnitInfo.ELITE_ORGAN_GUN,
                     UnitInfo.ELITE_PLUMED_ARCHER,
@@ -211,6 +218,7 @@ class UnitInfo(InfoDatasetBase):
             },
             "non_elite": [
                 UnitInfo.CARAVEL,
+                UnitInfo.CAMEL_SCOUT,
                 UnitInfo.CONDOTTIERO,
                 UnitInfo.CONDOTTIERO_PLACEHOLDER,
                 UnitInfo.FLEMISH_MILITIA,
@@ -223,15 +231,20 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.IMPERIAL_SKIRMISHER,
                 UnitInfo.KONNIK_DISMOUNTED,
                 UnitInfo.KONNIK_KREPOST,
+                UnitInfo.LEGIONARY,
                 UnitInfo.LONGBOAT,
                 UnitInfo.MISSIONARY,
+                UnitInfo.SAVAR,
                 UnitInfo.SERJEANT_DONJON,
                 UnitInfo.SHRIVAMSHA_RIDER,
                 UnitInfo.SLINGER,
                 UnitInfo.TARKAN_STABLE,
                 UnitInfo.THIRISADAI,
                 UnitInfo.TURTLE_SHIP,
-                UnitInfo.WINGED_HUSSAR
+                UnitInfo.WARRIOR_PRIEST,
+                UnitInfo.WARRIOR_PRIEST_WITH_RELIC,
+                UnitInfo.WINGED_HUSSAR,
+                UnitInfo.XOLOTL_WARRIOR
             ],
             "elite": [
                 UnitInfo.ELITE_CARAVEL,
@@ -321,7 +334,7 @@ class UnitInfo(InfoDatasetBase):
     CATAPHRACT = 40, 35, 27, 16101, False
     CAVALIER = 283, 49, 139, 16070, False
     CAVALRY_ARCHER = 39, 19, 34, 16085, False
-    CENTURION = 275, 138, 277, 16451, False
+    IMPERIAL_CENTURION = 275, 138, 277, 16451, False
     CHAMPION = 567, 72, 568, 16469, False
     CHU_KO_NU = 73, 36, 28, 16102, False
     COBRA_CAR = 748, 142, -1, 16658, False
@@ -431,7 +444,7 @@ class UnitInfo(InfoDatasetBase):
     KNIGHT = 38, 1, 111, 16068, False
     KONNIK = 1225, 249, 1252, 16101, False
     KONNIK_DISMOUNTED = 1252, 250, 1257, 16411, False
-    LEGIONARY = 1, 139, 2, 16669, False
+    IMPERIAL_LEGIONARY = 1, 139, 2, 16669, False
     LEITIS = 1234, 253, 1235, 16101, False
     LIGHT_CAVALRY = 546, 91, 547, 16444, False
     LLAMA = 305, 156, 780, 16498, False
@@ -573,3 +586,21 @@ class UnitInfo(InfoDatasetBase):
     ARMORED_ELEPHANT = 1744, 394, 1745, 16494, False
     SIEGE_ELEPHANT = 1746, 395, 1757, 16494, False
     SOGDIAN_CATAPHRACT = 1299, 181, 1401, 1645, False
+    SPEARMAN_DONJON = 1786, 31, 140, 16078, False
+    PIKEMAN_DONJON = 1787, 11, 501, 16408, False
+    HALBERDIER_DONJON = 1788, 104, 502, 16409, False
+    CENTURION = 1790, 405, 1791, 16101, False
+    ELITE_CENTURION = 1792, 405, 1791, 16101, False
+    LEGIONARY = 1793, 139, 1794, 16469, False
+    DROMON = 1795, 406, -1, 16738, False
+    GAZELLE = 1796, 404, 1797, 16071, True
+    COMPOSITE_BOWMAN = 1800, 407, 1801, 16107, False
+    ELITE_COMPOSITE_BOWMAN = 1802, 407, 1801, 16456, False
+    MONASPA = 1803, 408, 1804, 16101, False
+    ELITE_MONASPA = 1805, 408, 1804, 16101, False
+    VILLAGER_MALE_MONASTERY = 1810, 15, 224, 16691, False
+    WARRIOR_PRIEST = 1811, 409, 1812, 16691, False
+    WARRIOR_PRIEST_WITH_RELIC = 1831, 409, 1812, 16380, False
+    SAVAR = 1813, 410, 1814, 16471, False
+    QIZILBASH_WARRIOR = 1817, 412, 1818, 16101, False
+    ELITE_QIZILBASH_WARRIOR = 1829, 412, 1818, 16101, False
