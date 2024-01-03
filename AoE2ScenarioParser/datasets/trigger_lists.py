@@ -1467,7 +1467,7 @@ class Attribute(_DataSetIntEnums):
 
     - Note: Only works for RMS, changing this manually in the editor does nothing but its a way to check starting gold amount
     """
-    ENABLE_PTWC__KIDNAP__LOOT = 95
+    ENABLE_PTWC_KIDNAP_LOOT = 95
     """
     - Purpose: Enable town centre packing for the source player
 
