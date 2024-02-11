@@ -7,9 +7,9 @@ from AoE2ScenarioParser.objects.support import Area
 
 
 class ConditionStruct(BaseStruct):
-    def map(self) -> BaseStruct:
-        from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
-        return Condition._make_condition(self)
+    # def map(self) -> BaseStruct:
+    #     from AoE2ScenarioParser.objects.data_objects.conditions.condition import Condition
+    #     return Condition._make_condition(self)
 
     # Todo: use datasets for type hinting and do on_read and on_write conversions
     # Todo: override list with ref-list in retriever

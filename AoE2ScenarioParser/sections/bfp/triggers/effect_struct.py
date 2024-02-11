@@ -52,9 +52,9 @@ class EffectStruct(BaseStruct):
     def update_num_obj_sel(_, instance: EffectStruct):
         instance._num_objects_selected = len(instance._selected_object_ids)
 
-    def map(self) -> BaseStruct:
-        from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
-        return Effect._make_effect(self)
+    # def map(self) -> BaseStruct:
+    #     from AoE2ScenarioParser.objects.data_objects.effects.effect import Effect
+    #     return Effect._make_effect(self)
 
     # Todo: use datasets for type hinting and do on_read and on_write conversions
     # Todo: override list with ref-list in retriever
