@@ -460,7 +460,13 @@ class Effect(AoE2Object, TriggerComponent):
 
 
 def _set_armour_attack_flag(effect_type, object_attributes) -> bool:
-    return (effect_type in [EffectId.CHANGE_OBJECT_ATTACK, EffectId.CHANGE_OBJECT_ARMOR]) or \
-        (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
-            ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
-        ])
+    aa_effects = [
+        EffectId.CHANGE_OBJECT_ATTACK,
+        EffectId.CHANGE_OBJECT_ARMOR,
+        EffectId.CREATE_OBJECT_ATTACK,
+        EffectId.CREATE_OBJECT_ARMOR,
+    ]
+    return (effect_type in aa_effects) or \
+           (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
+               ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
+           ])

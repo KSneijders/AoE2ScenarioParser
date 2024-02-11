@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import List
+from typing import List, Set
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.trigger_data import Age
@@ -108,9 +108,11 @@ class TechInfo(Enum):
                 TechInfo.ANARCHY,
                 TechInfo.ANDEAN_SLING,
                 TechInfo.ATLATL,
+                TechInfo.BALLISTAS,
                 TechInfo.BEARDED_AXE,
                 TechInfo.CARRACK,
                 TechInfo.CHATRAS,
+                TechInfo.CILICIAN_FLEET,
                 TechInfo.CHIEFTAINS,
                 TechInfo.CORVINIAN_ARMY,
                 TechInfo.DETINETS,
@@ -140,6 +142,7 @@ class TechInfo(Enum):
                 TechInfo.STEPPE_HUSBANDRY,
                 TechInfo.STIRRUPS,
                 TechInfo.STRONGHOLD,
+                TechInfo.SVAN_TOWERS,
                 TechInfo.SZLACHTA_PRIVILEGES,
                 TechInfo.THALASSOCRACY,
                 TechInfo.TIGUI,
@@ -153,14 +156,17 @@ class TechInfo(Enum):
                 TechInfo.ARQUEBUS,
                 TechInfo.ARTILLERY,
                 TechInfo.ATHEISM,
+                TechInfo.AZNAURI_CAVALRY,
                 TechInfo.BAGAINS,
                 TechInfo.BERSERKERGANG,
                 TechInfo.BURGUNDIAN_VINEYARDS,
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
+                TechInfo.COMITATENSES,
                 TechInfo.COUNTERWEIGHTS,
-                TechInfo.FABRIC_SHIELDS,
                 TechInfo.CUMAN_MERCENARIES,
+                TechInfo.FABRIC_SHIELDS,
+                TechInfo.FERETERS,
                 TechInfo.DOUBLE_CROSSBOW,
                 TechInfo.DRILL,
                 TechInfo.DRUZHINA,
@@ -226,8 +232,10 @@ class TechInfo(Enum):
                 TechInfo.ELITE_BOYAR,
                 TechInfo.ELITE_CAMEL_ARCHER,
                 TechInfo.ELITE_CATAPHRACT,
+                TechInfo.ELITE_CENTURION,
                 TechInfo.ELITE_CHAKRAM_THROWER,
                 TechInfo.ELITE_CHU_KO_NU,
+                TechInfo.ELITE_COMPOSITE_BOWMAN,
                 TechInfo.ELITE_CONQUISTADOR,
                 TechInfo.ELITE_COUSTILLIER,
                 TechInfo.ELITE_GBETO,
@@ -247,6 +255,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_MAGYAR_HUSZAR,
                 TechInfo.ELITE_MAMELUKE,
                 TechInfo.ELITE_MANGUDAI,
+                TechInfo.ELITE_MONASPA,
                 TechInfo.ELITE_OBUCH,
                 TechInfo.ELITE_ORGAN_GUN,
                 TechInfo.ELITE_PLUMED_ARCHER,
@@ -272,7 +281,8 @@ class TechInfo(Enum):
                 TechInfo.IMPERIAL_CAMEL_RIDER,
                 TechInfo.IMPERIAL_SKIRMISHER,
                 TechInfo.ELITE_SHRIVAMSHA_RIDER,
-                TechInfo.WINGED_HUSSAR
+                TechInfo.WINGED_HUSSAR,
+                TechInfo.ELITE_QIZILBASH_WARRIOR,
             ]
         }
 
@@ -386,6 +396,7 @@ class TechInfo(Enum):
                 TechInfo.HERESY,
                 TechInfo.SANCTITY,
                 TechInfo.FERVOR,
+                TechInfo.DEVOTION,
             ],
             Age.IMPERIAL_AGE: [
                 TechInfo.FAITH,
@@ -471,21 +482,21 @@ class TechInfo(Enum):
                 BuildingInfo.MILL.ID: [],
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [],
-                BuildingInfo.TOWN_CENTER.ID: [],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.LOOM],
                 BuildingInfo.MARKET.ID: [],
             },
             Age.FEUDAL_AGE: {
                 BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_MINING, TechInfo.STONE_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.DOUBLE_BIT_AXE],
-                BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW, TechInfo.TOWN_WATCH],
                 BuildingInfo.MARKET.ID: [],
             },
             Age.CASTLE_AGE: {
                 BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_SHAFT_MINING, TechInfo.STONE_SHAFT_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.BOW_SAW],
-                BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART],
+                BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART, TechInfo.TOWN_PATROL],
                 BuildingInfo.MARKET.ID: [TechInfo.COINAGE, TechInfo.CARAVAN]
             },
             Age.IMPERIAL_AGE: {
@@ -512,6 +523,7 @@ class TechInfo(Enum):
             played by the player using the 'researched technology' condition.
         """
         return [
+            TechInfo.ARMENIANS,
             TechInfo.AZTECS,
             TechInfo.BENGALIS,
             TechInfo.BERBERS,
@@ -527,11 +539,12 @@ class TechInfo(Enum):
             TechInfo.DRAVIDIANS,
             TechInfo.ETHIOPIANS,
             TechInfo.FRANKS,
+            TechInfo.GEORGIANS,
             TechInfo.GOTHS,
             TechInfo.GURJARAS,
+            TechInfo.HINDUSTANIS,
             TechInfo.HUNS,
             TechInfo.INCAS,
-            TechInfo.INDIANS,
             TechInfo.ITALIANS,
             TechInfo.JAPANESE,
             TechInfo.KHMER,
@@ -545,6 +558,7 @@ class TechInfo(Enum):
             TechInfo.PERSIANS,
             TechInfo.POLES,
             TechInfo.PORTUGUESE,
+            TechInfo.ROMANS,
             TechInfo.SARACENS,
             TechInfo.SICILIANS,
             TechInfo.SLAVS,
@@ -948,3 +962,32 @@ class TechInfo(Enum):
     PAPER_MONEY_AND_DOUBLE_BIT_AXE = 867, -1
     PAPER_MONEY_AND_BOW_SAW = 868, -1
     PAPER_MONEY_AND_TWO_MAN_SAW = 869, -1
+    GAMBESONS = 875, 116
+    ROMANS = 880, -1
+    ELITE_CENTURION = 882, 105
+    BALLISTAS = 883, 33
+    COMITATENSES = 884, 107
+    LEGIONARY = 885, 129
+    DEVOTION = 46, 131
+    ARMENIANS = 915, -1
+    GEORGIANS = 916, -1
+    ELITE_COMPOSITE_BOWMAN = 918, 105
+    ELITE_MONASPA = 920, 105
+    FERETERS = 921, 107
+    CILICIAN_FLEET = 922, 33
+    SVAN_TOWERS = 923, 33
+    AZNAURI_CAVALRY = 924, 107
+    FORTIFIED_CHURCH_ALL = 929, -1
+    FORTIFIED_CHURCH_GEORGIANS = 930, -1
+    FORTIFIED_CHURCH_ARMENIANS = 941, -1
+    FORTIFIED_CHURCH_AND_SVAN_TOWERS = 931, -1
+    MULE_CART_GEORGIANS = 932, -1
+    MULE_CART_ARMENIANS = 932, -1
+    SVAN_TOWERS_AND_CHEMISTRY = 936, -1
+    FORTIFIED_CHURCH_AND_FLETCHING = 943, -1
+    FORTIFIED_CHURCH_AND_BODKIN = 944, -1
+    FORTIFIED_CHURCH_AND_BRACER = 945, -1
+    FORTIFIED_CHURCH_AND_CHEMISTRY = 946, -1
+    FORTIFIED_CHURCH_AND_MURDER_HOLES = 947, -1
+    WARRIOR_PRIEST = 948, -1
+    ELITE_QIZILBASH_WARRIOR = 967, 105

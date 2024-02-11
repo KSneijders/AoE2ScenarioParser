@@ -55,5 +55,7 @@ class Civilization(_DataSetIntEnums):
     BENGALIS = 41
     GURJARAS = 42
     ROMANS = 43
+    ARMENIANS = 44
+    GEORGIANS = 45
     RANDOM = 65537
     FULL_RANDOM = 65539
