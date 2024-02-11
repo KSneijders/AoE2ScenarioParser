@@ -618,3 +618,76 @@ class EffectType(IntEnum):
     **Version notice**: \n
     This condition was added in: 1.46
     """
+    TRAIN_UNIT = 75
+    """Attributes for the **train_unit** effect are: \n
+    - quantity
+    - object_list_unit_id
+    - source_player
+    - location_x
+    - location_y
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - selected_object_ids
+    
+    **Version notice**: \n
+    This effect was added in: 1.51 & Trigger Version 3.5
+    """
+    INITIATE_RESEARCH = 76
+    """Attributes for the **initiate_research** effect are: \n
+    - source_player
+    - technology
+    - selected_object_ids
+    
+    **Version notice**: \n
+    This effect was added in: 1.51 & Trigger Version 3.5
+    """
+    CREATE_OBJECT_ATTACK = 77
+    """Attributes for the **create_object_attack** effect are: \n
+    - armour_attack_quantity
+    - armour_attack_class
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - object_group
+    - object_type
+    - operation
+    - selected_object_ids
+    
+    **Version notice**: \n
+    This effect was added in: 1.51 & Trigger Version 3.5
+    """
+    CREATE_OBJECT_ARMOR = 78
+    """Attributes for the **create_object_armor** effect are: \n
+    - armour_attack_quantity
+    - armour_attack_class
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - object_group
+    - object_type
+    - operation
+    - selected_object_ids
+    
+    **Version notice**: \n
+    This effect was added in: 1.51 & Trigger Version 3.5
+    """
+    MODIFY_ATTRIBUTE_BY_VARIABLE = 79
+    """Attributes for the **modify_attribute_by_variable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - operation
+    - object_attributes
+    - variable
+    - message
+    
+    **Version notice**: \n
+    This effect was added in: 1.51 & Trigger Version 3.5
+    """
