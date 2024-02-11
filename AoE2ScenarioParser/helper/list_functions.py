@@ -20,6 +20,8 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
     """
     Update an order array.
 
+    Remove all IDs which are out of the range or add all missing IDs
+
     Args:
         order_array: The order array like trigger.condition_order
         supposed_length: The length the array should be

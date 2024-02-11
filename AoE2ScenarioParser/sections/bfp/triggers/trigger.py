@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from binary_file_parser import BaseStruct, Retriever, Version
-from binary_file_parser.types import Bytes, bool32, bool8, int32, nt_str32, uint32
+from binary_file_parser.types import Bytes, bool32, bool8, int32, nt_str32, RefList, uint32
 
+from AoE2ScenarioParser.helper.list_functions import update_order_array
 from AoE2ScenarioParser.sections.bfp.triggers import ConditionStruct, EffectStruct
 from AoE2ScenarioParser.sections.bfp.triggers.trigger_bfp_repr import TriggerBfpRepr
 
@@ -34,22 +35,12 @@ class Trigger(TriggerBfpRepr, BaseStruct):
     @staticmethod
     def update_num_effects(_, instance: Trigger):
         instance.num_effects = len(instance.effects)
-
-        if len(instance.effect_display_orders) != instance.num_effects:
-            highest_display_order = max(instance.effect_display_orders)
-            if highest_display_order != instance.num_effects - 1:
-                raise ValueError("effect display order array out of sync")
-            instance.effect_display_orders.extend(range(highest_display_order + 1, instance.num_effects))
+        update_order_array(instance.effect_display_orders, instance.num_effects)
 
     @staticmethod
     def update_num_conditions(_, instance: Trigger):
         instance.num_conditions = len(instance.conditions)
-
-        if len(instance.condition_display_orders) != instance.num_conditions:
-            highest_display_order = max(instance.condition_display_orders)
-            if highest_display_order != instance.num_conditions - 1:
-                raise ValueError("condition display order array out of sync")
-            instance.condition_display_orders.extend(range(highest_display_order + 1, instance.num_conditions))
+        update_order_array(instance.condition_display_orders, instance.num_conditions)
 
     # @formatter:off
     enabled: bool                          = Retriever(bool32,                                default = True)
@@ -70,21 +61,22 @@ class Trigger(TriggerBfpRepr, BaseStruct):
     num_effects: int                       = Retriever(uint32,                                default = 0,
                                                        on_set=[set_effects_repeat, set_effect_display_orders_repeat],
                                                        on_write=[update_num_effects])
-    """originally int32"""
     effects: list[Effect]                  = Retriever(EffectStruct,                          default_factory = lambda sv, p: EffectStruct(sv, p),   repeat=0)
     effect_display_orders: list[int]       = Retriever(uint32,                                default = 0,              repeat=0)
-    """originally int32"""
     num_conditions: int                    = Retriever(uint32,                                default = 0,
                                                        on_set=[set_conditions_repeat, set_condition_display_orders_repeat],
                                                        on_write=[update_num_conditions])
-    """originally int32"""
     conditions: list[Condition]            = Retriever(ConditionStruct,                       default_factory = lambda sv, p: ConditionStruct(sv, p),    repeat=0)
     condition_display_orders: list[int]    = Retriever(uint32,                                default = 0,              repeat=0)
-    """originally int32"""
     # @formatter:on
 
     def __init__(
         self, struct_ver: Version = Version((3, 5, 1, 47)), parent: BaseStruct = None, initialise_defaults = True,
         **retriever_inits
     ):
+        if 'effects' in retriever_inits:
+            retriever_inits['effects'] = RefList(retriever_inits['effects'])
+        if 'conditions' in retriever_inits:
+            retriever_inits['conditions'] = RefList(retriever_inits['conditions'])
+
         super().__init__(struct_ver, parent, initialise_defaults = initialise_defaults, **retriever_inits)
