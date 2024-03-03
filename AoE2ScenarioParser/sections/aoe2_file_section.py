@@ -11,7 +11,6 @@ from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
 
-
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 
@@ -47,13 +46,15 @@ class AoE2FileSection:
     Utilises the AoE2StructModel to create multiple of the same structure. These copies are what is used to store the
     data from a scenario file
     """
-    def __init__(self,
-                 name: str,
-                 retriever_map: Dict[str, 'Retriever'],
-                 uuid: UUID,
-                 struct_models: Dict[str, 'AoE2StructModel'] = None,
-                 level: SectionLevel = SectionLevel.TOP_LEVEL
-                 ):
+
+    def __init__(
+            self,
+            name: str,
+            retriever_map: Dict[str, 'Retriever'],
+            uuid: UUID,
+            struct_models: Dict[str, 'AoE2StructModel'] = None,
+            level: SectionLevel = SectionLevel.TOP_LEVEL
+    ):
         """
         Args:
             name: The name of the file section

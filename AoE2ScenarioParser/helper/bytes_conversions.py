@@ -326,6 +326,6 @@ def _combine_int_str(
         if str(e) == "int too big to convert":
             name: str = retriever.name if retriever else ""
             raise OverflowError(
-                f"{name.capitalize()} is too long. "
+                f"'{name.capitalize()}' is too long. "
                 f"Length must be below {pow(2, length * 8 - 1)}, but is: {len(byte_string)}"
             ) from None

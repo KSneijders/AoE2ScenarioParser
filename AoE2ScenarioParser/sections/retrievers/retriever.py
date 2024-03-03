@@ -84,8 +84,14 @@ class Retriever:
                 for struct in self.data:
                     result.append(struct.get_data_as_bytes())
             else:
-                for value in listify(self.data):
-                    result.append(parse_val_to_bytes(self, value))
+                try:
+                    for value in listify(self.data):
+                        result.append(parse_val_to_bytes(self, value))
+                except Exception as e:
+                    print("\nException occurred during non-struct list creation: ")
+                    print(self)
+                    print(pretty_format_list(result))
+                    raise e
 
             joined_result = b''.join(result)
         else:
@@ -110,14 +116,14 @@ class Retriever:
         if self.datatype.repeat > 0 and len(bytes_list) == 0:
             raise ValueError("Unable to set bytes when no bytes are given")
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
-            raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
+            raise ValueError(f"Unable to set bytes when bytes list isn't equal to repeat (repeat: {self.datatype.repeat} vs list: {len(bytes_list)})")
 
         result = [parse_bytes_to_val(self, entry_bytes) for entry_bytes in bytes_list]
         self.data = bytes_parser.vorl(self, result)
 
     def update_datatype_repeat(self) -> None:
         """Sets all the datatype repeat values to the lengths of their containing lists"""
-        if type(self.data) == list:
+        if type(self.data) is list:
             self.datatype.repeat = len(self.data)
 
     @property

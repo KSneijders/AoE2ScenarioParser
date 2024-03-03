@@ -62,9 +62,9 @@ class DataType:
             type_length (Default: None):
                 A tuple specifying the type and length of a retriever
         """
-        self.var = var
-        self._repeat = repeat
         self.log_value = log_value
+        self.var = var
+        self.repeat = repeat
 
         if type_length is not None:
             self.type, self.length = type_length
@@ -103,7 +103,10 @@ class DataType:
         Args:
             value: The value to set repeat to. The value of an assignment is automatically passed as this argument
         """
-        if self.log_value:
+        if type(value) is not int:
+            raise TypeError(f"Repeat value must be an integer, now: {value}")
+
+        if self.log_value and hasattr(self, '_debug_retriever_name'):
             print(f"[DataType] {self._debug_retriever_name} 'repeat' set to {value} (was: {self._repeat})")
         self._repeat = value
 
@@ -131,7 +134,7 @@ class DataType:
         )
 
     def __repr__(self):
-        return f"[DataType] " + self.to_simple_string()
+        return f"[DataType]  " + self.to_simple_string()
 
 
 def datatype_to_type_length(var: str) -> tuple:
