@@ -33,6 +33,7 @@ class PlayerManager(AoE2Object):
             RetrieverObjectLink("_string_table_player_names", link="string_table_player_names"),
             RetrieverObjectLink("_metadata", link="player_data_1", process_as_object=PlayerMetaData),
             RetrieverObjectLink("_lock_civilizations", link="per_player_lock_civilization"),
+            RetrieverObjectLink("_lock_personalities", link="per_player_lock_personality"),
         ]),
 
         RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
@@ -66,6 +67,7 @@ class PlayerManager(AoE2Object):
             _string_table_player_names: List[int],
             _metadata: List[PlayerMetaData],
             _lock_civilizations: List[int],
+            _lock_personalities: List[int],
             _resources: List[PlayerResources],
             _diplomacy: List[PlayerDiplomacy],
             _allied_victories: List[int],
@@ -99,6 +101,7 @@ class PlayerManager(AoE2Object):
         gaia_last_params = {
             'starting_age': _starting_ages,
             'lock_civ': _lock_civilizations,
+            'lock_personality': _lock_personalities,
             'food': [r.food for r in _resources],
             'wood': [r.wood for r in _resources],
             'gold': [r.gold for r in _resources],
@@ -211,6 +214,11 @@ class PlayerManager(AoE2Object):
     def _lock_civilizations(self):
         """Returns the civ lock bool of all players"""
         return self._player_attributes_to_list("lock_civ", False, default=0, fill_empty=7)
+
+    @property
+    def _lock_personalities(self):
+        """Returns the civ lock bool of all players"""
+        return self._player_attributes_to_list("lock_personality", False, default=0, fill_empty=7)
 
     @property
     def _pop_caps(self):
