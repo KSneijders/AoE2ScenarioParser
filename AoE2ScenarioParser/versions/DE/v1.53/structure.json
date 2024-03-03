@@ -92,12 +92,12 @@
             },
             "player_capacity": {
                 "type": "s32",
-                "developer_note": "The size for all (most) player related arrays",
+                "comment": "[Confirmed by AoE2 Developer] The size for all (most) player related arrays",
                 "default": 0
             },
             "gaia_player_index": {
                 "type": "s32",
-                "developer_note":  "The index of the GAIA player in player related arrays",
+                "comment": "[Confirmed by AoE2 Developer] The index of the GAIA player in player related arrays",
                 "default": 0
             },
             "tribe_names": {
@@ -1443,7 +1443,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 3.5
+                "default": 3.6
             },
             "trigger_instruction_start": {
                 "type": "s8",
@@ -1543,7 +1543,7 @@
                     "on_refresh": {
                         "action": "SET_REPEAT",
                         "target": "self:trigger_version",
-                        "eval": "1 if trigger_version == 3.5 else 0"
+                        "eval": "1 if trigger_version >= 3.5 else 0"
                     }
                 }
             }
@@ -2081,10 +2081,6 @@
     },
     "Files": {
         "retrievers": {
-            "unknown_1": {
-                "type": "8",
-                "default": "0000000000000000"
-            },
             "script_file_path": {
                 "type": "str16",
                 "default": null,
