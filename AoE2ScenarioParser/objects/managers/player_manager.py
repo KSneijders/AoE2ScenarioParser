@@ -291,7 +291,9 @@ class PlayerManager(AoE2Object):
         wood = self._player_attributes_to_list("wood", False, default=0, fill_empty=7)
         gold = self._player_attributes_to_list("gold", False, default=0, fill_empty=7)
         stone = self._player_attributes_to_list("stone", False, default=0, fill_empty=7)
-        color = self._player_attributes_to_list("color", False, default=0, fill_empty=7)
+        color = self._player_attributes_to_list("color", False, default=0)
+        color.extend(range(9, 16))
+
         return UuidList(self._uuid, [
             PlayerResources(food[i], wood[i], gold[i], stone[i], color[i]) for i in range(len(food))
         ])
@@ -300,7 +302,7 @@ class PlayerManager(AoE2Object):
     def _metadata(self) -> List[PlayerMetaData]:
         """Returns the metadata objects for all players"""
         active = self._player_attributes_to_list("active", False, default=0, fill_empty=7)
-        human = self._player_attributes_to_list("human", False, default=0, fill_empty=7)
+        human = self._player_attributes_to_list("human", False, default=1, fill_empty=7)
         civilization = self._player_attributes_to_list("civilization", False, default=Civilization.RANDOM, fill_empty=7)
         architecture_set = self._player_attributes_to_list("architecture_set", False, default=Civilization.RANDOM, fill_empty=7)
         return UuidList(self._uuid, [
@@ -320,7 +322,7 @@ class PlayerManager(AoE2Object):
     @property
     def _string_table_player_names(self) -> List[int]:
         """Returns the string table player names of all players"""
-        return self._player_attributes_to_list("string_table_name_id", None, default=4294967294, fill_empty=8)
+        return self._player_attributes_to_list("string_table_name_id", None, default=-2, fill_empty=8)
 
     def _player_attributes_to_list(
             self,
