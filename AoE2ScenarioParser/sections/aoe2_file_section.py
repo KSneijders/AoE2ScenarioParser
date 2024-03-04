@@ -6,7 +6,8 @@ from uuid import UUID
 
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str, \
+    trunc_string
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
@@ -202,7 +203,7 @@ class AoE2FileSection:
             print("\n\n" + "#" * 120)
             print(f"[{e.__class__.__name__}] Occurred while setting data in:\n\t{retriever}")
             print("#" * 120)
-            print(self.get_byte_structure_as_string())
+            print(trunc_string(self.get_byte_structure_as_string(), length=10000))
             raise e
 
     def _create_struct(self, model: 'AoE2StructModel', igenerator: 'IncrementalGenerator') -> 'AoE2FileSection':
@@ -228,7 +229,7 @@ class AoE2FileSection:
             print(f"[{e.__class__.__name__}] Occurred while setting data in: {struct.name}"
                   f"\n\tContent of {self.name}:")
             print("#" * 120)
-            print(self.get_byte_structure_as_string())
+            print(trunc_string(self.get_byte_structure_as_string(), length=10000))
             raise e
 
         return struct

@@ -119,7 +119,7 @@ def trunc_string(string: str | bytes, length=30, add_ellipsis=True) -> str | byt
     Truncates string to a certain length and possibly adds ellipsis to said string.
 
     Args:
-        string: The string to truncate if over the given length
+        string: The string to truncate if its length is longer than the specified max (see length)
         length: The max given length the string can be
         add_ellipsis: If ellipsis should be added if the string is truncated
 
@@ -142,8 +142,8 @@ def add_tabs(string: str, tabs: int) -> str:
     Returns:
         The tabbed string
     """
-    splitted_string = string.splitlines(keepends=True)
-    return ("\t" * tabs) + ("\t" * tabs).join(splitted_string)
+    split_string = string.splitlines(keepends=True)
+    return ("\t" * tabs) + ("\t" * tabs).join(split_string) 
 
 
 def create_inline_line(entries: List[Any]):

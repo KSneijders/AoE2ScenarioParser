@@ -42,7 +42,10 @@ class AoE2StructModel:
             An AoE2StructModel instance representing the given structure
         """
         retriever_map = {}
+        log_all_retrievers = structure.get('log', False)
         for retriever_name, attr in structure.get('retrievers').items():
+            if log_all_retrievers:
+                attr['log'] = True
             retriever_map[retriever_name] = Retriever.from_structure(retriever_name, attr)
         structs = model_dict_from_structure(structure)
 
