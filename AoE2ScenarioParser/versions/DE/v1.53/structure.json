@@ -2107,9 +2107,28 @@
                     }
                 }
             },
-            "unknown_4": {
-                "type": "4",
-                "default": "00000000"
+            "ai_error_present": {
+                "type": "u32",
+                "comment": "Boolean field",
+                "default": 0,
+                "dependencies": {
+                    "on_commit": {
+                        "action": "SET_VALUE",
+                        "target": "self:ai_error",
+                        "eval": "0 if ai_error else 1"
+                    }
+                }
+            },
+            "ai_error": {
+                "type": "struct:AIError",
+                "default": null,
+                "is_list": false,
+                "dependencies": {
+                    "on_construct": {
+                        "action": "SET_REPEAT",
+                        "target": "self:ai_files_present"
+                    }
+                }
             },
             "number_of_ai_files": {
                 "type": "u32",
@@ -2162,6 +2181,28 @@
             }
         },
         "structs": {
+            "AIError": {
+                "retrievers": {
+                    "ai_file": {
+                        "type": "c260",
+                        "comment": "Includes [AoE2 Developer Quote:] 'uninitialized garbage' after first null termination",
+                        "default": ""
+                    },
+                    "line_number": {
+                        "type": "s32",
+                        "default": 0
+                    },
+                    "message": {
+                        "type": "c128",
+                        "default": 0
+                    },
+                    "error_code": {
+                        "type": "s32",
+                        "comment": "ERR2002: 13 | ERR2004: 12 | ERR2011: 8 | ERR2013: 26 | ERR3001: 5 ... ... I don't understand either 11",
+                        "default": 0
+                    }
+                }
+            },
             "AI2Struct": {
                 "retrievers": {
                     "ai_file_name": {
