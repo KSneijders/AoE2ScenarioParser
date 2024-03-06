@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.62 - 2024-March-06
+
+### Added
+
+- Ability to read the new 1.53 scenarios
+  - This version is available since the pup (March 1st)
+- The **new** `lock_personality` boolean to a `Player` object
+
+---
+
 ## 0.1.61 - 2024-Januari-03
 
 > **Dataset update!**

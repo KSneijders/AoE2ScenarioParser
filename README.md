@@ -63,6 +63,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | 1.48                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [81058] (April 11th, 2023) <br> **Unchanged in**: <br> - Hotfix [82587] (April 28th, 2023)                                                                                                                                                                                                                                                                                                                                             |
 | 1.49                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [83607] (May 16th, 2023) <br> **Unchanged in**: <br> - Hotfix [85208] (June 1st, 2023) <br> - Hotfix [85614] (June 6th, 2023) <br> - Update [87863] (June 27th, 2023) <br> - Update [90260] (July 26th, 2023) <br> - Update [93001] (September 6th, 2023)                                                                                                                                                                              |
 | 1.51                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [95810] (October 31th, 2023) <br> **Unchanged in**: <br> - Update [99311] (December 11th, 2023)                                                                                                                                                                                                                                                                                                                                        |
+| 1.53                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [PUP: 106392] (March 1st, 2024)                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 [36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
@@ -105,6 +106,7 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 [93001]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-93001/
 [95810]: https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/
 [99311]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-99311/
+[PUP: 106392]: https://steamcommunity.com/app/813780/discussions/28/4300445619234521829/
 
 # Authors
 

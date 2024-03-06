@@ -100,14 +100,14 @@ def bytes_to_str(
             continue
 
     # Return the string as bytes when it cannot be decoded. This will leave it as-is.
-    truncated = trunc_bytes(byte_elements, 25)
+    truncated = trunc_string(byte_elements, 25)
     warn(f"Unable to decode bytes using '{charset}' and '{fallback_charset}', bytes: \n\t{truncated}",
          category=ByteDecodeWarning)
     return byte_elements
 
 
 def str_to_bytes(
-        string: str,
+        string: str | bytes,
         charset: str = settings.MAIN_CHARSET,
         fallback_charset: str = settings.FALLBACK_CHARSET
 ) -> bytes:
@@ -130,6 +130,10 @@ def str_to_bytes(
             return string.encode(c)
         except ValueError:
             continue
+        except AttributeError as e:
+            if type(string) is bytes:
+                return string
+            raise e
     raise ValueError(f"Unable to encode string using '{charset}' and '{fallback_charset}'. String:\n\t{q_str(string)}")
 
 
@@ -326,6 +330,6 @@ def _combine_int_str(
         if str(e) == "int too big to convert":
             name: str = retriever.name if retriever else ""
             raise OverflowError(
-                f"{name.capitalize()} is too long. "
+                f"'{name.capitalize()}' is too long. "
                 f"Length must be below {pow(2, length * 8 - 1)}, but is: {len(byte_string)}"
             ) from None

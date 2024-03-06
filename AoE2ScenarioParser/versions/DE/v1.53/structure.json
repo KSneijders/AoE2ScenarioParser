@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.48"
+                "default": "1.49"
             },
             "header_length": {
                 "type": "u32",
@@ -88,7 +88,17 @@
             },
             "version": {
                 "type": "f32",
-                "default": 1.48
+                "default": 1.53
+            },
+            "player_capacity": {
+                "type": "s32",
+                "comment": "[Confirmed by AoE2 Developer] The size for all (most) player related arrays",
+                "default": 0
+            },
+            "gaia_player_index": {
+                "type": "s32",
+                "comment": "[Confirmed by AoE2 Developer] The index of the GAIA player in player related arrays",
+                "default": 0
             },
             "tribe_names": {
                 "type": "c256",
@@ -130,6 +140,11 @@
                 "repeat": 16,
                 "default": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             },
+            "per_player_lock_personality": {
+                "type": "u32",
+                "repeat": 16,
+                "default": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
             "unknown": {
                 "type": "9",
                 "default": "010000000000000000"
@@ -152,11 +167,11 @@
                     },
                     "civilization": {
                         "type": "u32",
-                        "default": 40
+                        "default": 65537
                     },
                     "architecture_set": {
                         "type": "u32",
-                        "default": 40
+                        "default": 65537
                     },
                     "cty_mode": {
                         "type": "u32",
@@ -1236,8 +1251,16 @@
                     },
                     "diplomacy_for_ai_system": {
                         "type": "u32",
-                        "repeat": 9,
-                        "default": [0, 1, 4, 4, 4, 4, 4, 4, 4]
+                        "default": [0, 1, 4, 4, 4, 4, 4, 4, 4],
+                        "dependencies": {
+                            "on_refresh": {
+                                "action": "SET_REPEAT",
+                                "target": "self:player_count_for_diplomacy"
+                            },
+                            "on_construct": {
+                                "action": "REFRESH_SELF"
+                            }
+                        }
                     },
                     "color": {
                         "type": "u32",
@@ -1245,12 +1268,12 @@
                     },
                     "victory_version": {
                         "type": "f32",
-                        "default": 2.0,
+                        "default": 2.1,
                         "dependencies": {
                             "on_refresh": {
                                 "action": "SET_VALUE",
                                 "target": "self:unknown_2",
-                                "eval": "2 if len(unknown_2) == 7 else 0"
+                                "eval": "2.1 if len(unknown_2) == 7 else 0"
                             }
                         }
                     },
@@ -1272,7 +1295,7 @@
                             "on_refresh": {
                                 "action": "SET_REPEAT",
                                 "target": "self:victory_version",
-                                "eval": "7 if victory_version == 2 else 0"
+                                "eval": "7 if victory_version >= 2 else 0"
                             },
                             "on_construct": {
                                 "action": "REFRESH_SELF"
@@ -1308,7 +1331,7 @@
                             "on_refresh": {
                                 "action": "SET_REPEAT",
                                 "target": "self:victory_version",
-                                "eval": "1 if victory_version == 2 else 0"
+                                "eval": "1 if round(victory_version, 2) >= 2 else 0"
                             },
                             "on_construct": {
                                 "action": "REFRESH_SELF"
@@ -1326,7 +1349,8 @@
                         "dependencies": {
                             "on_refresh": {
                                 "action": "SET_REPEAT",
-                                "target": "self:unknown_5"
+                                "target": "self:unknown_5",
+                                "eval": "0 if type(unknown_5) is list else unknown_5"
                             },
                             "on_construct": {
                                 "action": "REFRESH_SELF"
@@ -1419,7 +1443,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 2.6
+                "default": 3.6
             },
             "trigger_instruction_start": {
                 "type": "s8",
@@ -1519,7 +1543,7 @@
                     "on_refresh": {
                         "action": "SET_REPEAT",
                         "target": "self:trigger_version",
-                        "eval": "1 if trigger_version == 3.5 else 0"
+                        "eval": "1 if trigger_version >= 3.5 else 0"
                     }
                 }
             }
@@ -2083,9 +2107,28 @@
                     }
                 }
             },
-            "unknown_4": {
-                "type": "4",
-                "default": "00000000"
+            "ai_error_present": {
+                "type": "u32",
+                "comment": "Boolean field",
+                "default": 0,
+                "dependencies": {
+                    "on_commit": {
+                        "action": "SET_VALUE",
+                        "target": "self:ai_error",
+                        "eval": "0 if ai_error else 1"
+                    }
+                }
+            },
+            "ai_error": {
+                "type": "struct:AIError",
+                "default": null,
+                "is_list": false,
+                "dependencies": {
+                    "on_construct": {
+                        "action": "SET_REPEAT",
+                        "target": "self:ai_files_present"
+                    }
+                }
             },
             "number_of_ai_files": {
                 "type": "u32",
@@ -2138,6 +2181,28 @@
             }
         },
         "structs": {
+            "AIError": {
+                "retrievers": {
+                    "ai_file": {
+                        "type": "c260",
+                        "comment": "Includes [AoE2 Developer Quote:] 'uninitialized garbage' after first null termination",
+                        "default": ""
+                    },
+                    "line_number": {
+                        "type": "s32",
+                        "default": 0
+                    },
+                    "message": {
+                        "type": "c128",
+                        "default": 0
+                    },
+                    "error_code": {
+                        "type": "s32",
+                        "comment": "ERR2002: 13 | ERR2004: 12 | ERR2011: 8 | ERR2013: 26 | ERR3001: 5 ... ... I don't understand either 11",
+                        "default": 0
+                    }
+                }
+            },
             "AI2Struct": {
                 "retrievers": {
                     "ai_file_name": {
