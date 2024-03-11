@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.63 - 2024-March-12
+
+### Fixed
+
+- Error on reading non-pup scenarios (since `v0.1.62`)
+
+---
+
 ## 0.1.62 - 2024-March-06
 
 ### Added
