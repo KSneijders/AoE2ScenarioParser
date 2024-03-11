@@ -33,7 +33,7 @@ class PlayerManager(AoE2Object):
             RetrieverObjectLink("_string_table_player_names", link="string_table_player_names"),
             RetrieverObjectLink("_metadata", link="player_data_1", process_as_object=PlayerMetaData),
             RetrieverObjectLink("_lock_civilizations", link="per_player_lock_civilization"),
-            RetrieverObjectLink("_lock_personalities", link="per_player_lock_personality"),
+            RetrieverObjectLink("_lock_personalities", link="per_player_lock_personality", support=Support(since=1.53)),
         ]),
 
         RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
