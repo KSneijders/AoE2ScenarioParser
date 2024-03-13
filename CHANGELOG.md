@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.64 - 2024-March-13
+
+### Fixed
+
+- Default cliffs missing from `OtherInfo` dataset
+  - Unit IDs: 264 to 272
+
+---
+
 ## 0.1.63 - 2024-March-12
 
 ### Fixed
