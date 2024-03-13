@@ -308,6 +308,15 @@ class OtherInfo(InfoDatasetBase):
     REKHA_DEUL_TEMPLE = 1778, -1, -1, 16756, True
     INDIAN_RUINS = 1784, -1, -1, 16757, True
     SVAN_TOWER = 1807, -1, -1, 16756, True
+    CLIFF_DEFAULT_1 = 264, -1, -1, 16249, True
+    CLIFF_DEFAULT_2 = 265, -1, -1, 16249, True
+    CLIFF_DEFAULT_3 = 266, -1, -1, 16249, True
+    CLIFF_DEFAULT_4 = 267, -1, -1, 16249, True
+    CLIFF_DEFAULT_5 = 268, -1, -1, 16249, True
+    CLIFF_DEFAULT_6 = 269, -1, -1, 16249, True
+    CLIFF_DEFAULT_7 = 270, -1, -1, 16249, True
+    CLIFF_DEFAULT_8 = 271, -1, -1, 16249, True
+    CLIFF_DEFAULT_9 = 272, -1, -1, 16249, True
     CLIFF_DESERT_1 = 1849, -1, -1, 16249, True
     CLIFF_DESERT_2 = 1850, -1, -1, 16249, True
     CLIFF_DESERT_3 = 1851, -1, -1, 16249, True
