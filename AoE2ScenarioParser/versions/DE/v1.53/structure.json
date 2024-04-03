@@ -2126,7 +2126,7 @@
                 "dependencies": {
                     "on_construct": {
                         "action": "SET_REPEAT",
-                        "target": "self:ai_files_present"
+                        "target": "self:ai_error_present"
                     }
                 }
             },
