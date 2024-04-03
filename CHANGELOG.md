@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.65 - 2024-April-03
+
+### Fixed
+
+- Issue with reading scenarios with AI files
+
+---
+
 ## 0.1.64 - 2024-March-13
 
 ### Fixed
