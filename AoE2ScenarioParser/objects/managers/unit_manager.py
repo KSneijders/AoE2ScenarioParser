@@ -56,6 +56,60 @@ class UnitManager(AoE2Object):
             for unit in self.units[player]:
                 unit._player = player
 
+    def clone_unit(
+            self,
+            unit: Unit,
+            player: int | PlayerId = None,
+            unit_const: int = None,
+            x: float = None,
+            y: float = None,
+            z: float = None,
+            rotation: float = None,
+            garrisoned_in_id: int = None,
+            animation_frame: int = None,
+            status: int = None,
+            reference_id: int = None,
+            tile: Tile | Tuple[int, int] = None,
+    ) -> Unit:
+        """
+        Clones an existing unit with the adjusted variables. Everything except the initial unit is optional.
+        When arguments are provided, they will override the corresponding values in the cloned unit.
+
+        Args:
+            unit: The unit to clone
+            player: The player to set the cloned unit to (If not provided, the original player will be used)
+            unit_const: The unit you're placing (If not provided, the original unit constant will be used)
+            x: The X coordinate of the cloned unit (If not provided, the original x coordinate will be used)
+            y: The Y coordinate of the cloned unit (If not provided, the original y coordinate will be used)
+            z: The Z coordinate of the cloned unit (If not provided, the original z coordinate will be used)
+            rotation: The rotation of the cloned unit (If not provided, the original rotation will be used)
+            garrisoned_in_id: The id of the garrisoned unit (If not provided, the original garrisoned id will be used)
+            animation_frame: The animation frame of the cloned unit (If not provided, the original animation frame will be used)
+            status: The status of the cloned unit (If not provided, the original status will be used)
+            reference_id: Reference id of the cloned unit (If not provided, a new reference id will be generated)
+            tile: The tile of the cloned unit (If not provided, the original x,y coordinates will be used)
+
+        Returns:
+            The cloned unit
+        """
+
+        if (x is not None or y is not None) and tile is not None:
+            raise ValueError("Cannot use both x,y notation and tile notation at the same time")
+
+        return self.add_unit(
+            player=player or unit.player,
+            unit_const=unit_const or unit.unit_const,
+            x=x or unit.x,
+            y=y or unit.y,
+            z=z or unit.z,
+            rotation=rotation or unit.rotation,
+            garrisoned_in_id=garrisoned_in_id or unit.garrisoned_in_id,
+            animation_frame=animation_frame or unit.initial_animation_frame,
+            status=status or unit.status,
+            reference_id=reference_id,
+            tile=tile,
+        )
+
     def add_unit(
             self,
             player: int | PlayerId,
