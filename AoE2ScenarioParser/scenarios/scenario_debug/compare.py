@@ -34,19 +34,26 @@ def write_difference_to_file(
     val0_type, val1_type = typename(data[0]), typename(data[1])
     max_type_len = max(len(val0_type), len(val1_type))
 
-    if isinstance(data[0], list):
+    if isinstance(data[0], list) and isinstance(data[1], list):
         l0, l1 = len(data[0]), len(data[1])
         val0_str = f"{data[0][0:4]}" + (f" ... (4 / {l0})" if l0 - 4 > 0 else "")
         val1_str = f"{data[1][0:4]}" + (f" ... (4 / {l1})" if l1 - 4 > 0 else "")
     else:
-        val0_str = q_str(data[0])
-        val1_str = q_str(data[1])
+        val0_str = q_str(data[0]).replace('\r', '')
+        val1_str = q_str(data[1]).replace('\r', '')
+
+    diff = []
+    for i in range(0, len(difference)):
+        string = q_str(difference[i]).replace('\n', '\\n').replace('\r', '')
+        string = (string[:47] + '...') if len(string) > 50 else string
+
+        diff.append(string)
 
     file.write('\n\n\n' + '\n'.join([
         ' > '.join(path),
         add_tabs(
             '\n'.join([
-                f'{reason} ({q_str(difference[0])} vs {q_str(difference[1])})',
+                f'{reason} ({diff[0]} vs {diff[1]})',
                 f'Values:',
                 add_tabs('\n'.join([
                     f'{add_suffix_chars(val0_type, " ", max_type_len)} | {val0_str}',
