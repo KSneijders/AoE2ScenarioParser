@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import math
 from enum import Enum
-from typing import Dict, TYPE_CHECKING, List, Tuple, Iterable
+from typing import Dict, TYPE_CHECKING, List, Tuple, Iterable, Literal
 from uuid import UUID
 
 from ordered_set import OrderedSet
@@ -382,9 +382,9 @@ class Area:
         Sets the area object to only use the corners pattern within the selection.
 
         Args:
-            corner_size: The size along both the x and y axis of the corner areas
-            corner_size_x: The size along the x axis of the corner areas
-            corner_size_y: The size along the y axis of the corner areas
+            corner_size: The size along both the x and y-axis of the corner areas
+            corner_size_x: The size along the x-axis of the corner areas
+            corner_size_y: The size along the y-axis of the corner areas
 
         Returns:
             This area object
@@ -444,11 +444,11 @@ class Area:
 
     def invert(self) -> Area:
         """
-        Inverts the inverted boolean. Causes the `to_coords` to return the inverted selection. (Especially useful for
-        the grid state. Not as useful for the edge which would be the same as shrinking the selection. When used with
-        the fill state an empty set is returned.
+        Inverts the inverted boolean. Causes the `to_coords` to return the inverted selection. This function is
+        especially useful for the grid state. It's not as useful for the edge which would be the same as shrinking the
+        selection. When used with the fill state an empty set is returned.
 
-        **Please note:** This inverts the INTERNAL selection. Tiles OUTSIDE of the selection will NOT be returned.
+        **Please note:** This inverts the INTERNAL selection. Tiles OUTSIDE the selection will NOT be returned.
         """
         self.inverted = not self.inverted
         return self
@@ -503,6 +503,33 @@ class Area:
             self.attr(key, value)
         return self
 
+    def move(self, offset_x: int = 0, offset_y: int = 0):
+        """Moves the selection area in a given direction relative to its current position"""
+        self.x1 += offset_x
+        self.y1 += offset_y
+        self.x2 += offset_x
+        self.y2 += offset_y
+        return self
+
+    def move_to(self, corner: Literal['west', 'north', 'east', 'south'], x: int, y: int):
+        """
+        Moves the selection area to a given coordinate, placed from the given corner.
+        For center placement, use ``.center(...)``
+        """
+        width = self.get_width() - 1
+        height = self.get_height() - 1
+
+        if corner == 'west':
+            self.x1, self.y1, self.x2, self.y2 = x, y, x + width, y + height
+        elif corner == 'north':
+            self.x1, self.y1, self.x2, self.y2 = x - width, y, x, y + height
+        elif corner == 'east':
+            self.x1, self.y1, self.x2, self.y2 = x - width, y - height, x, y
+        elif corner == 'south':
+            self.x1, self.y1, self.x2, self.y2 = x, y - height, x + width, y
+
+        return self
+
     def size(self, n: int) -> Area:
         """
         Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
@@ -518,7 +545,7 @@ class Area:
 
     def height(self, n: int) -> Area:
         """
-        Sets the height (y axis) of the selection. Shrinks/Expands both sides equally.
+        Sets the height (y-axis) of the selection. Shrinks/Expands both sides equally.
         If the expansion hits the edge of the map, it'll expand on the other side.
         """
         c1, c2 = self._get_length_change(n, self.get_height(), self.y1, self.y2)
@@ -529,7 +556,7 @@ class Area:
 
     def width(self, n: int) -> Area:
         """
-        Sets the width (x axis) of the selection. Shrinks/Expands both sides equally.
+        Sets the width (x-axis) of the selection. Shrinks/Expands both sides equally.
         If the expansion hits the edge of the map, it'll expand on the other side.
         """
         c1, c2 = self._get_length_change(n, self.get_width(), self.x1, self.x2)
@@ -691,6 +718,15 @@ class Area:
             is_within = True
         return self._invert_if_inverted(is_within)
 
+    def is_within_bounds(self) -> bool:
+        """Check if the current selection is within the map"""
+        self._force_map_size()
+
+        return 0 <= self._x1 < self.map_size \
+            and 0 <= self._y1 < self.map_size \
+            and 0 <= self._x2 < self.map_size \
+            and 0 <= self._y2 < self.map_size
+
     # ============================ Miscellaneous functions ============================
 
     def copy(self) -> Area:
@@ -700,7 +736,7 @@ class Area:
 
         Examples:
 
-            Get a grid and the edge around it::
+            Get a grid and the surrounding edge::
 
                 area = Area.select(10,10,20,20)
                 edge = area.copy().expand(1).use_only_edge().to_coords()
@@ -755,12 +791,12 @@ class Area:
     def _is_a_corner_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is a corner tile."""
         return ((self.x1 <= x < self.x1 + self.corner_size_x) or (self.x2 - self.corner_size_x < x <= self.x2)) and \
-               ((self.y1 <= y < self.y1 + self.corner_size_y) or (self.y2 - self.corner_size_y < y <= self.y2))
+            ((self.y1 <= y < self.y1 + self.corner_size_y) or (self.y2 - self.corner_size_y < y <= self.y2))
 
     def _is_a_grid_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
         return (x - self.x1) % (self.block_size_x + self.gap_size_x) < self.block_size_x and \
-               (y - self.y1) % (self.block_size_y + self.gap_size_y) < self.block_size_y
+            (y - self.y1) % (self.block_size_y + self.gap_size_y) < self.block_size_y
 
     def _is_a_line_tile(self, x: int, y: int) -> bool:
         """If a given (x,y) location is within the grid selection."""
@@ -821,7 +857,7 @@ class Area:
                 return 0
             per_row = math.ceil(self.get_height() / (self.block_size_x + self.gap_size_x))
             return (tile.x - self.x1) // (self.block_size_x + self.gap_size_x) + \
-                   (tile.y - self.y1) // (self.block_size_y + self.gap_size_y) * per_row
+                (tile.y - self.y1) // (self.block_size_y + self.gap_size_y) * per_row
 
         elif self.state == AreaState.LINES:
             if self.axis == "x":
