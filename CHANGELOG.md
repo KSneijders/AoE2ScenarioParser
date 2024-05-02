@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.66 - 2024-May-02
+
+### Added
+
+- 3 new functions to the `Area` object
+  - `move()` move the selection relatively by an x/y offset
+  - `move_to()` move the selection to a coordinate from on any corner of the selection
+  - `is_within_bounds()` see if the selection is currently within the bounds of a map size
+- 1 function to the `UnitManager`
+  - `clone_unit()` clone an existing unit and only edit attributes you like to edit
+
+### Fixed
+
+- Missing `TechInfo.SAVAR` entry
+- XS code being duplicated if it was added through the `XsManagerDE.add_script(...)` and it was called in between two `XsManagerDE.initialise_xs_trigger()` calls
+
+---
+
 ## 0.1.65 - 2024-April-03
 
 ### Fixed

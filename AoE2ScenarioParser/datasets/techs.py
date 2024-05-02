@@ -283,6 +283,7 @@ class TechInfo(Enum):
                 TechInfo.ELITE_SHRIVAMSHA_RIDER,
                 TechInfo.WINGED_HUSSAR,
                 TechInfo.ELITE_QIZILBASH_WARRIOR,
+                TechInfo.SAVAR,
             ]
         }
 
@@ -727,7 +728,6 @@ class TechInfo(Enum):
     HORSE_COLLAR = 14, 2
     HOWDAH = 626, 33
     HUNS = 545, -1
-    HUNTING_DOGS = 526, 94
     HUSBANDRY = 39, 10
     HUSSAR = 428, 122
     ILLUMINATION = 233, 84
@@ -991,3 +991,4 @@ class TechInfo(Enum):
     FORTIFIED_CHURCH_AND_MURDER_HOLES = 947, -1
     WARRIOR_PRIEST = 948, -1
     ELITE_QIZILBASH_WARRIOR = 967, 105
+    SAVAR = 526, 130
