@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## Unreleased
+## 0.1.66 - 2024-May-02
 
 ### Added
 
@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Missing `TechInfo.SAVAR` entry
+- XS code being duplicated if it was added through the `XsManagerDE.add_script(...)` and it was called in between two `XsManagerDE.initialise_xs_trigger()` calls
 
 ---
 

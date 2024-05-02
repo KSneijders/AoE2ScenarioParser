@@ -72,6 +72,9 @@ class XsManagerDE(AoE2Object):
         Args:
             insert_index: The index where the xs trigger is added. Will be added at the end of the list if left empty
         """
+        if self._initialized:
+            return
+
         try:
             self._xs_trigger.new_effect.script_call(message="")
         except UnsupportedAttributeError:
