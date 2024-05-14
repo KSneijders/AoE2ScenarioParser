@@ -6,11 +6,11 @@ from uuid import UUID
 
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str, \
+    trunc_string
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
-
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
@@ -47,13 +47,15 @@ class AoE2FileSection:
     Utilises the AoE2StructModel to create multiple of the same structure. These copies are what is used to store the
     data from a scenario file
     """
-    def __init__(self,
-                 name: str,
-                 retriever_map: Dict[str, 'Retriever'],
-                 uuid: UUID,
-                 struct_models: Dict[str, 'AoE2StructModel'] = None,
-                 level: SectionLevel = SectionLevel.TOP_LEVEL
-                 ):
+
+    def __init__(
+            self,
+            name: str,
+            retriever_map: Dict[str, 'Retriever'],
+            uuid: UUID,
+            struct_models: Dict[str, 'AoE2StructModel'] = None,
+            level: SectionLevel = SectionLevel.TOP_LEVEL
+    ):
         """
         Args:
             name: The name of the file section
@@ -201,7 +203,7 @@ class AoE2FileSection:
             print("\n\n" + "#" * 120)
             print(f"[{e.__class__.__name__}] Occurred while setting data in:\n\t{retriever}")
             print("#" * 120)
-            print(self.get_byte_structure_as_string())
+            print(trunc_string(self.get_byte_structure_as_string(), length=10000))
             raise e
 
     def _create_struct(self, model: 'AoE2StructModel', igenerator: 'IncrementalGenerator') -> 'AoE2FileSection':
@@ -227,28 +229,10 @@ class AoE2FileSection:
             print(f"[{e.__class__.__name__}] Occurred while setting data in: {struct.name}"
                   f"\n\tContent of {self.name}:")
             print("#" * 120)
-            print(self.get_byte_structure_as_string())
+            print(trunc_string(self.get_byte_structure_as_string(), length=10000))
             raise e
 
         return struct
-
-    # Todo: Remove if unused
-    # def set_data(self, data):
-    #     retrievers = list(self.retriever_map.values())
-    #
-    #     if len(data) == len(retrievers):
-    #         for i in range(len(data)):
-    #             retrievers[i].data = data[i]
-    #
-    #             if hasattr(retrievers[i], 'on_construct'):
-    #                 handle_retriever_dependency(retrievers[i], "construct", self, self._uuid)
-    #     else:
-    #         print(f"\nError in: {self.__class__.__name__}")
-    #         print(f"Data: (len: {len(data)}) "
-    #               f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(data)])}")
-    #         print(f"Retrievers: (len: {len(retrievers)}) "
-    #               f"{pretty_format_list([f'{i}: {str(x)}' for i, x in enumerate(self.retriever_map.values())])}")
-    #         raise ValueError("Data list isn't the same size as the DataType list")
 
     def __getattr__(self, item):
         """Providing a default way to access retriever data labeled 'name'"""

@@ -679,6 +679,19 @@ class TestAreaPattern(TestCase):
         self.assertEqual(False, self.area_pattern.is_within_selection((5, 4)))
         self.assertEqual(False, self.area_pattern.is_within_selection((5, 13)))
 
+    def test_area_is_within_bounds(self):
+        self.area_pattern.select(0, 0, 10, 10)
+        self.assertEqual(True, self.area.is_within_bounds())
+        self.area_pattern.move(offset_x=-1)
+        self.assertEqual(False, self.area.is_within_bounds())
+        # Select exactly the right-most corner
+        self.area_pattern.select_centered(139, 139, 7, 7)
+        self.assertEqual(True, self.area.is_within_bounds())
+        self.area_pattern.move(offset_x=1)
+        self.assertEqual(False, self.area.is_within_bounds())
+        self.area_pattern.move(offset_x=-1, offset_y=1)
+        self.assertEqual(False, self.area.is_within_bounds())
+
     def test_area_is_edge_tile(self):
         self.area_pattern.select((3, 5), (8, 11)).use_only_edge()
         self.assertEqual(True, self.area_pattern.is_within_selection((3, 5)))
@@ -713,6 +726,48 @@ class TestAreaPattern(TestCase):
         self.assertNotEqual(pattern.state, self.area_pattern.state)
         self.assertNotEqual(pattern.inverted, self.area_pattern.inverted)
         self.assertNotEqual(pattern.axis, self.area_pattern.axis)
+
+    def test_area_move(self):
+        self.area_pattern = AreaPattern.from_tiles((0, 1), (2, 3))
+
+        self.area_pattern.move(offset_x=10)
+        self.assertEqual(10, self.area_pattern.x1)
+        self.assertEqual(1, self.area_pattern.y1)
+        self.assertEqual(12, self.area_pattern.x2)
+        self.assertEqual(3, self.area_pattern.y2)
+
+        self.area_pattern.move(offset_y=10)
+        self.assertEqual(10, self.area_pattern.x1)
+        self.assertEqual(11, self.area_pattern.y1)
+        self.assertEqual(12, self.area_pattern.x2)
+        self.assertEqual(13, self.area_pattern.y2)
+
+        self.area_pattern.move(offset_x=-5, offset_y=-5)
+        self.assertEqual(5, self.area_pattern.x1)
+        self.assertEqual(6, self.area_pattern.y1)
+        self.assertEqual(7, self.area_pattern.x2)
+        self.assertEqual(8, self.area_pattern.y2)
+
+    def test_area_move_to(self):
+        self.area_pattern = AreaPattern.from_tiles((0, 0), (3, 4))
+
+        dimensions = self.area_pattern.area.dimensions
+
+        self.area_pattern.move_to(x=20, y=20, corner="north")
+        self.assertTupleEqual(((17, 20), (20, 24)), self.area_pattern.get_selection())
+        self.assertTupleEqual(dimensions, self.area_pattern.area.dimensions)
+
+        self.area_pattern.move_to(x=20, y=20, corner="east")
+        self.assertTupleEqual(((17, 16), (20, 20)), self.area_pattern.get_selection())
+        self.assertTupleEqual(dimensions, self.area_pattern.area.dimensions)
+
+        self.area_pattern.move_to(x=20, y=20, corner="south")
+        self.assertTupleEqual(((20, 16), (23, 20)), self.area_pattern.get_selection())
+        self.assertTupleEqual(dimensions, self.area_pattern.area.dimensions)
+
+        self.area_pattern.move_to(x=20, y=20, corner="west")
+        self.assertTupleEqual(((20, 20), (23, 24)), self.area_pattern.get_selection())
+        self.assertTupleEqual(dimensions, self.area_pattern.area.dimensions)
 
     def test_area_instantiate_without_map_size(self):
         self.area_pattern = AreaPattern.from_tiles((0, 1), (2, 3))

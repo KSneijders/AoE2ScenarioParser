@@ -1,4 +1,4 @@
 deprecation
 typing_extensions
-ordered-set==4.0.2
-binary-file-parser>=0.1.1
+ordered-set==4.1.0
+binary-file-parser>=0.1.3

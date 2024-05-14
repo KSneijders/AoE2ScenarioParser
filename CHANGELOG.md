@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.66 - 2024-May-02
+
+### Added
+
+- 3 new functions to the `Area` object
+  - `move()` move the selection relatively by an x/y offset
+  - `move_to()` move the selection to a coordinate from on any corner of the selection
+  - `is_within_bounds()` see if the selection is currently within the bounds of a map size
+- 1 function to the `UnitManager`
+  - `clone_unit()` clone an existing unit and only edit attributes you like to edit
+
+### Fixed
+
+- Missing `TechInfo.SAVAR` entry
+- XS code being duplicated if it was added through the `XsManagerDE.add_script(...)` and it was called in between two `XsManagerDE.initialise_xs_trigger()` calls
+
+---
+
+## 0.1.65 - 2024-April-03
+
+### Fixed
+
+- Issue with reading scenarios with AI files
+
+---
+
+## 0.1.64 - 2024-March-13
+
+### Fixed
+
+- Default cliffs missing from `OtherInfo` dataset
+  - Unit IDs: 264 to 272
+
+---
+
+## 0.1.63 - 2024-March-12
+
+### Fixed
+
+- Error on reading non-pup scenarios (since `v0.1.62`)
+
+---
+
+## 0.1.62 - 2024-March-06
+
+### Added
+
+- Ability to read the new 1.53 scenarios
+  - This version is available since the pup (March 1st)
+- The **new** `lock_personality` boolean to a `Player` object
+
+---
+
 ## 0.1.61 - 2024-Januari-03
 
 > **Dataset update!**

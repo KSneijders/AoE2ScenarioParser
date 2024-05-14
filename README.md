@@ -62,7 +62,8 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 | 1.47                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [66692] (August 29th, 2022) <br> **Unchanged in**: <br> - Update [73855] (December 7th, 2022) <br> - Update 75350 (Console update) (January 31st, 2023) <br> - Update [78174] (March 8th, 2023) <br> - Hotfix [78757] (March 8th, 2023)                                                                                                                                                                                                |
 | 1.48                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [81058] (April 11th, 2023) <br> **Unchanged in**: <br> - Hotfix [82587] (April 28th, 2023)                                                                                                                                                                                                                                                                                                                                             |
 | 1.49                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [83607] (May 16th, 2023) <br> **Unchanged in**: <br> - Hotfix [85208] (June 1st, 2023) <br> - Hotfix [85614] (June 6th, 2023) <br> - Update [87863] (June 27th, 2023) <br> - Update [90260] (July 26th, 2023) <br> - Update [93001] (September 6th, 2023)                                                                                                                                                                              |
-| 1.51                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [95810] (October 31th, 2023) <br> **Unchanged in**: <br> - Update [99311] (December 11th, 2023)                                                                                                                                                                                                                                                                                                                                        |
+| 1.51                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [95810] (October 31th, 2023) <br> **Unchanged in**: <br> - Update [99311] (December 11th, 2023) <br> - Update [104954] (February 23th, 2024)                                                                                                                                                                                                                                                                                                                                        |
+| 1.53                  | :heavy_check_mark: | :heavy_check_mark: | Version since game update: [107882] (March 13th, 2024) <br> **Unchanged in**: <br> - Update [108769] (March 26th, 2024)                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 [36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
@@ -105,6 +106,10 @@ Current up-to-date progress can be found on the [changelog.md] page. (Check the 
 [93001]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-93001/
 [95810]: https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/
 [99311]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-99311/
+[104954]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-104954/
+[107882]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-107882/
+[108769]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-108769/
+
 
 # Authors
 

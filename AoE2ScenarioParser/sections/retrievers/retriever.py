@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pickle
+from time import sleep
 from typing import Dict, List, Any
 
 from AoE2ScenarioParser import settings
@@ -9,7 +10,7 @@ from AoE2ScenarioParser.helper import bytes_parser, string_manipulations
 from AoE2ScenarioParser.helper.bytes_conversions import parse_bytes_to_val, parse_val_to_bytes
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.helper.printers import warn, s_print
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.dependencies.retriever_dependency import RetrieverDependency
 from AoE2ScenarioParser.sections.retrievers.datatype import DataType
@@ -46,6 +47,7 @@ class Retriever:
             datatype: DataType = DataType(),
             is_list: bool | None = None,
             log_value: bool = False,
+            data: Any = None
     ):
         """
         Args:
@@ -63,7 +65,7 @@ class Retriever:
         self.is_list: bool = is_list
         self.log_value: bool = log_value
         self.is_dirty: bool = False
-        self._data: Any = None
+        self._data: Any = data
 
         if log_value:
             self.datatype.log_value = True
@@ -81,11 +83,20 @@ class Retriever:
         if self.data is not None and self.datatype.repeat != 0:
             result = []
             if self.datatype.type == "struct":
-                for struct in self.data:
-                    result.append(struct.get_data_as_bytes())
+                if isinstance(self.data, list):
+                    for struct in self.data:
+                        result.append(struct.get_data_as_bytes())
+                else:
+                    result.append(self.data.get_data_as_bytes())
             else:
-                for value in listify(self.data):
-                    result.append(parse_val_to_bytes(self, value))
+                try:
+                    for value in listify(self.data):
+                        result.append(parse_val_to_bytes(self, value))
+                except Exception as e:
+                    print("\nException occurred during non-struct list creation: ")
+                    print(self)
+                    print(pretty_format_list(result))
+                    raise e
 
             joined_result = b''.join(result)
         else:
@@ -110,14 +121,14 @@ class Retriever:
         if self.datatype.repeat > 0 and len(bytes_list) == 0:
             raise ValueError("Unable to set bytes when no bytes are given")
         if self.datatype.repeat > 0 and self.datatype.repeat != len(bytes_list):
-            raise ValueError("Unable to set bytes when bytes list isn't equal to repeat")
+            raise ValueError(f"Unable to set bytes when bytes list isn't equal to repeat (repeat: {self.datatype.repeat} vs list: {len(bytes_list)})")
 
         result = [parse_bytes_to_val(self, entry_bytes) for entry_bytes in bytes_list]
         self.data = bytes_parser.vorl(self, result)
 
     def update_datatype_repeat(self) -> None:
         """Sets all the datatype repeat values to the lengths of their containing lists"""
-        if type(self.data) == list:
+        if type(self.data) is list:
             self.datatype.repeat = len(self.data)
 
     @property
@@ -219,6 +230,7 @@ class Retriever:
                     _evaluate_is_list_attribute(retriever, r_dep)
                     dependency_list.append(r_dep)
                 setattr(retriever, dependency_name, dependency_list)
+
         return retriever
 
     def print_value_update(self, old: Any, new: Any) -> None:

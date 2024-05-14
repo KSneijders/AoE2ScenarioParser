@@ -33,6 +33,7 @@ class PlayerManager(AoE2Object):
             RetrieverObjectLink("_string_table_player_names", link="string_table_player_names"),
             RetrieverObjectLink("_metadata", link="player_data_1", process_as_object=PlayerMetaData),
             RetrieverObjectLink("_lock_civilizations", link="per_player_lock_civilization"),
+            RetrieverObjectLink("_lock_personalities", link="per_player_lock_personality", support=Support(since=1.53)),
         ]),
 
         RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
@@ -66,6 +67,7 @@ class PlayerManager(AoE2Object):
             _string_table_player_names: List[int],
             _metadata: List[PlayerMetaData],
             _lock_civilizations: List[int],
+            _lock_personalities: List[int],
             _resources: List[PlayerResources],
             _diplomacy: List[PlayerDiplomacy],
             _allied_victories: List[int],
@@ -99,6 +101,7 @@ class PlayerManager(AoE2Object):
         gaia_last_params = {
             'starting_age': _starting_ages,
             'lock_civ': _lock_civilizations,
+            'lock_personality': _lock_personalities,
             'food': [r.food for r in _resources],
             'wood': [r.wood for r in _resources],
             'gold': [r.gold for r in _resources],
@@ -213,6 +216,11 @@ class PlayerManager(AoE2Object):
         return self._player_attributes_to_list("lock_civ", False, default=0, fill_empty=7)
 
     @property
+    def _lock_personalities(self):
+        """Returns the civ lock bool of all players"""
+        return self._player_attributes_to_list("lock_personality", False, default=0, fill_empty=7)
+
+    @property
     def _pop_caps(self):
         """Returns the population cap of all players"""
         return self._player_attributes_to_list("population_cap", None, default=200, fill_empty=8)
@@ -291,7 +299,9 @@ class PlayerManager(AoE2Object):
         wood = self._player_attributes_to_list("wood", False, default=0, fill_empty=7)
         gold = self._player_attributes_to_list("gold", False, default=0, fill_empty=7)
         stone = self._player_attributes_to_list("stone", False, default=0, fill_empty=7)
-        color = self._player_attributes_to_list("color", False, default=0, fill_empty=7)
+        color = self._player_attributes_to_list("color", False, default=0)
+        color.extend(range(9, 16))
+
         return UuidList(self._uuid, [
             PlayerResources(food[i], wood[i], gold[i], stone[i], color[i]) for i in range(len(food))
         ])
@@ -300,7 +310,7 @@ class PlayerManager(AoE2Object):
     def _metadata(self) -> List[PlayerMetaData]:
         """Returns the metadata objects for all players"""
         active = self._player_attributes_to_list("active", False, default=0, fill_empty=7)
-        human = self._player_attributes_to_list("human", False, default=0, fill_empty=7)
+        human = self._player_attributes_to_list("human", False, default=1, fill_empty=7)
         civilization = self._player_attributes_to_list("civilization", False, default=Civilization.RANDOM, fill_empty=7)
         architecture_set = self._player_attributes_to_list("architecture_set", False, default=Civilization.RANDOM, fill_empty=7)
         return UuidList(self._uuid, [
@@ -320,7 +330,7 @@ class PlayerManager(AoE2Object):
     @property
     def _string_table_player_names(self) -> List[int]:
         """Returns the string table player names of all players"""
-        return self._player_attributes_to_list("string_table_name_id", None, default=4294967294, fill_empty=8)
+        return self._player_attributes_to_list("string_table_name_id", None, default=-2, fill_empty=8)
 
     def _player_attributes_to_list(
             self,

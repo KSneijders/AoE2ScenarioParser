@@ -45,6 +45,7 @@ class PlayerData(AoE2Object):
             player_id: int,
             starting_age: int,
             lock_civ: int,
+            lock_personality: int,
             food: int,
             wood: int,
             gold: int,
@@ -75,6 +76,7 @@ class PlayerData(AoE2Object):
         self._active: bool = active
         self.starting_age: int = dataset_or_value(StartingAge, starting_age)
         self.lock_civ: bool = bool(lock_civ)
+        self.lock_personality: bool = bool(lock_personality)
         self.food: int = food
         self.wood: int = wood
         self.gold: int = gold

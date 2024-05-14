@@ -371,6 +371,33 @@ class AreaPattern:
             self.attr(key, value)
         return self
 
+    def move(self, offset_x: int = 0, offset_y: int = 0):
+        """Moves the selection area in a given direction relative to its current position"""
+        self.x1 += offset_x
+        self.y1 += offset_y
+        self.x2 += offset_x
+        self.y2 += offset_y
+        return self
+
+    def move_to(self, corner: Literal['west', 'north', 'east', 'south'], x: int, y: int):
+        """
+        Moves the selection area to a given coordinate, placed from the given corner.
+        For center placement, use ``.center(...)``
+        """
+        width = self.area.get_width() - 1
+        height = self.area.get_height() - 1
+
+        if corner == 'west':
+            self.x1, self.y1, self.x2, self.y2 = x, y, x + width, y + height
+        elif corner == 'north':
+            self.x1, self.y1, self.x2, self.y2 = x - width, y, x, y + height
+        elif corner == 'east':
+            self.x1, self.y1, self.x2, self.y2 = x - width, y - height, x, y
+        elif corner == 'south':
+            self.x1, self.y1, self.x2, self.y2 = x, y - height, x + width, y
+
+        return self
+
     def size(self, n: int) -> AreaPattern:
         """
         Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
@@ -530,13 +557,13 @@ class AreaPattern:
 
     def is_within_selection(self, tile: TileT) -> bool:
         """
-        If a given (x, y) location is within the selection.
+        If a given ``(x, y)`` location is within the selection.
 
         Args:
             tile: The location to check
 
         Returns:
-            True if (x, y) is within the selection, False otherwise
+            ``True`` if (x, y) is within the selection, ``False`` otherwise
         """
         if not self.area.contains(tile):
             return False
@@ -548,6 +575,18 @@ class AreaPattern:
             self.state == AreaState.LINES and self._is_on_line(tile),
             self.state == AreaState.CORNERS and self._is_in_corner(tile),
         )) ^ self.inverted
+
+    def is_within_bounds(self) -> bool:
+        """
+        If the current selection is within the bounds of the map.
+
+        Returns:
+            ``True`` if both corners area: ``0 <= corner < map_size``, ``False`` otherwise
+        """
+        return 0 <= self.area.corner1.x < self.map_size \
+            and 0 <= self.area.corner1.y < self.map_size \
+            and 0 <= self.area.corner2.x < self.map_size \
+            and 0 <= self.area.corner2.y < self.map_size
 
     # ============================ Miscellaneous functions ============================
 
