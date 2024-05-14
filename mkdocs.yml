@@ -81,7 +81,8 @@ nav:
     - Units:
       - UnitManager:        "api_docs/units/unit_manager.md"
       - Unit:               "api_docs/units/unit.md"
-    - XsManager:            "api_docs/xs_manager.md"
+    - XS:
+      - XsManager:            "api_docs/xs/xs_manager.md"
     - Support:
       - Area:               "api_docs/support/area.md"
       - Tile:               "api_docs/support/tile.md"
