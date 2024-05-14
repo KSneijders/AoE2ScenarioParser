@@ -37,8 +37,7 @@ class Test(TestCase):
 
     def test_str_to_bytes(self):
         self.assertEqual(str_to_bytes('Test String'), b'Test String')
-
-        self.assertRaises(AttributeError, lambda x: str_to_bytes(x), b'Test String')
+        self.assertEqual(str_to_bytes(b'Test String'), b'Test String')
 
     def test_bytes_to_int(self):
         self.assertEqual(bytes_to_int(b'\x20\x81', signed=True), -32480)

@@ -102,7 +102,7 @@ class AreaPattern:
     @property
     def map_size(self) -> int:
         if self.uuid is not None:
-            return getters.get_map_size(self.uuid) - 1
+            return getters.get_map_size(self.uuid)
         if self._map_size is not None:
             return self._map_size
         raise ValueError(
@@ -373,10 +373,10 @@ class AreaPattern:
 
     def move(self, offset_x: int = 0, offset_y: int = 0):
         """Moves the selection area in a given direction relative to its current position"""
-        self.x1 += offset_x
-        self.y1 += offset_y
-        self.x2 += offset_x
-        self.y2 += offset_y
+        self.area.corner1.x += offset_x
+        self.area.corner1.y += offset_y
+        self.area.corner2.x += offset_x
+        self.area.corner2.y += offset_y
         return self
 
     def move_to(self, corner: Literal['west', 'north', 'east', 'south'], x: int, y: int):
@@ -384,17 +384,17 @@ class AreaPattern:
         Moves the selection area to a given coordinate, placed from the given corner.
         For center placement, use ``.center(...)``
         """
-        width = self.area.get_width() - 1
-        height = self.area.get_height() - 1
+        width = self.area.width - 1
+        height = self.area.height - 1
 
         if corner == 'west':
-            self.x1, self.y1, self.x2, self.y2 = x, y, x + width, y + height
+            self.area = Area((x, y), (x + width, y + height))
         elif corner == 'north':
-            self.x1, self.y1, self.x2, self.y2 = x - width, y, x, y + height
+            self.area = Area((x - width, y), (x, y + height))
         elif corner == 'east':
-            self.x1, self.y1, self.x2, self.y2 = x - width, y - height, x, y
+            self.area = Area((x - width, y - height), (x, y))
         elif corner == 'south':
-            self.x1, self.y1, self.x2, self.y2 = x, y - height, x + width, y
+            self.area = Area((x, y - height), (x + width, y))
 
         return self
 
@@ -452,10 +452,10 @@ class AreaPattern:
         """
         If the area_pattern selection is off the map, shift the excess area_pattern inside the map without shrinkage
         """
-        # first get a new area_pattern object with the excess tiles cut out, then check
-        # how many extra tiles need to be re-added.
-        # Re-add that many tiles to both sides of the new area_pattern and then
-        # just cut the excess off again to get the shifted version of the old area_pattern
+        # First, get a new area_pattern object with the excess tiles cut off.
+        # Then, check how many extra tiles need to be re-added by comparing the width and height.
+        # After that, add that many tiles to both sides of the new area_pattern and then cut the excess off again to
+        # get the shifted version of the old area_pattern
 
         new_area = self.area.bound(self.map_size)
         diff_width = self.area.width - new_area.width
@@ -583,10 +583,10 @@ class AreaPattern:
         Returns:
             ``True`` if both corners area: ``0 <= corner < map_size``, ``False`` otherwise
         """
-        return 0 <= self.area.corner1.x < self.map_size \
-            and 0 <= self.area.corner1.y < self.map_size \
-            and 0 <= self.area.corner2.x < self.map_size \
-            and 0 <= self.area.corner2.y < self.map_size
+        return 0 <= self.area.corner1.x < self.map_size - 1 \
+            and 0 <= self.area.corner1.y < self.map_size - 1 \
+            and 0 <= self.area.corner2.x < self.map_size - 1 \
+            and 0 <= self.area.corner2.y < self.map_size - 1
 
     # ============================ Miscellaneous functions ============================
 

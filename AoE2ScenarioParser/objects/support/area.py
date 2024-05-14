@@ -45,11 +45,8 @@ class Area(BaseStruct):
         y1, y2 = sorted((corner1[1], corner2[1]))
         super().__init__(corner1 = Tile(x1, y1), corner2 = Tile(x2, y2))
 
-    # Below definition is more specific, but maybe too specific? 1111
-    # @classmethod
-    # def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
     @classmethod
-    def from_value(cls, val: Area | Tile | tuple | list | dict) -> Area:
+    def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
         """
         Create an Area object based on a given value
 
@@ -114,6 +111,11 @@ class Area(BaseStruct):
         """The dimensions of this area (inclusive)"""
         return self.width, self.height
 
+    @property
+    def corners(self) -> tuple[TileT, TileT]:
+        """The dimensions of this area (inclusive)"""
+        return self.corner1, self.corner2
+
     def resolve_negative_coords(self, map_size: int = None) -> Area:
         """
         Converts negative coordinates to the non-negative value. Like: ``-1 == 119`` when ``map_size = 120``
@@ -159,6 +161,9 @@ class Area(BaseStruct):
             self.corner1.x <= x <= self.corner2.x
             and self.corner1.y <= y <= self.corner2.y
         )
+
+    def __hash__(self):
+        return hash((self.corner1, self.corner2))
 
     def __iter__(self) -> Iterable[Tile]:
         return iter((self.corner1, self.corner2))

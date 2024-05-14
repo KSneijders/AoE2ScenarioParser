@@ -171,6 +171,9 @@ class Tile(BaseStruct):
         """
         return abs(other.x - self.x) + abs(other.y - self.y)
 
+    def __hash__(self):
+        return hash((self.x, self.y))
+
     def __iter__(self) -> Iterable[int]:
         return iter((self.x, self.y))
 
