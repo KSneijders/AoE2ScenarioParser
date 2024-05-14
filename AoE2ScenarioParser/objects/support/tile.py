@@ -14,8 +14,8 @@ if TYPE_CHECKING:
 
 
 class Tile(BaseStruct):
-    x: int = Retriever(int32, default = -1)
-    y: int = Retriever(int32, default = -1)
+    x: int = Retriever(int32, default=-1)
+    y: int = Retriever(int32, default=-1)
 
     @overload
     def __init__(self): ...
@@ -33,7 +33,7 @@ class Tile(BaseStruct):
             if len(coords) != 2:
                 raise ValueError("tuple to initialise a Tile must have exactly two coordinates")
             x, y = coords
-        super().__init__(x = x, y = y, **kwargs)
+        super().__init__(x=x, y=y, **kwargs)
 
     @classmethod
     def from_value(cls, val: TileT | list | dict) -> Tile:
@@ -149,7 +149,7 @@ class Tile(BaseStruct):
 
     def dist(self, other: Tile) -> float:
         """
-        Get the euclidean distance between two tiles
+        Get the Euclidean distance between two tiles
 
         Args:
             other: The tile to find the distance to

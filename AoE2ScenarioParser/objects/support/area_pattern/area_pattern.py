@@ -47,14 +47,14 @@ class AreaPattern:
             map_size: The size of the map this area_pattern object will handle
             uuid: The UUID of the scenario this area_pattern belongs to
 
-        Raises
+        Raises:
             ValueError: If insufficient information is provided to create a tile pattern selection
         """
         if all((map_size is None, uuid is None, area is None, corner1 is None)):
             raise ValueError("Cannot create AreaPattern. At least one of map_size, uuid, area or corner1 is required.")
 
         if isinstance(area, tuple):
-            area = Area(*area)
+            area: Area = Area(*area)
 
         self.uuid: UUID = uuid
         self._map_size = None
@@ -69,9 +69,9 @@ class AreaPattern:
                 corner1 = Tile(x, y)
             if corner2 is None:
                 corner2 = corner1
-            area = Area(corner1, corner2)
+            area: Area = Area(corner1, corner2)
 
-        self.area = cast(Area, area).resolve_negative_coords(self._map_size)
+        self.area = area.resolve_negative_coords(self._map_size)
         self.state: AreaState = AreaState.RECT
         self.inverted: bool = False
 
@@ -329,11 +329,12 @@ class AreaPattern:
     def attr(self, key: str | AreaAttr, value: int) -> AreaPattern:
         """Sets the attribute to the given value. AreaAttr or str can be used as key"""
         if isinstance(key, AreaAttr):
-            key = key.value
+            key: str = key.value
 
-        keys: List[str] = [key]
         if key in ['line_width', 'gap_size', 'corner_size', 'block_size']:
             keys = [key + '_x', key + '_y']
+        else:
+            keys = [key]
 
         for key in keys:
             setattr(self, key, value)
@@ -597,15 +598,15 @@ class AreaPattern:
 
         Examples:
 
-            Get a grid and the surrounding edge::
+            area_pattern = AreaPattern((10,10), (20,20))
+            edge = area_pattern.copy().expand(1).use_only_edge().to_coords()
 
-                area_pattern = Area.select(10,10,20,20)
-                edge = area_pattern.copy().expand(1).use_only_edge().to_coords()
-                # Without copy you'd have to undo all changes above. In this case that'd be: `.shrink(1)`
-                grid = area_pattern.use_pattern_grid().to_coords()
+            # Without copy you'd have to undo the changes above.
+            # Which, in this case would be: `.shrink(1)`
+            grid = area_pattern.use_pattern_grid().to_coords()
 
         Returns:
-            A copy of this Area object
+            A copy of this AreaPattern object
         """
         return copy.copy(self)
 

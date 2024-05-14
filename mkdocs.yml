@@ -58,7 +58,8 @@ nav:
     - Projects:             "community/projects.md"
   - API Docs (Beta):
     - AoE2Scenario:         "api_docs/aoe2_scenario.md"
-    - MessageManager:       "api_docs/message_manager.md"
+    - Messages:
+      - MessageManager:     "api_docs/messages/message_manager.md"
     - Map:
       - MapManager:         "api_docs/map/map_manager.md"
       - TerrainTile:        "api_docs/map/terrain_tile.md"

@@ -2,7 +2,6 @@
   <code_scheme name="Project" version="173">
     <Python>
       <option name="SPACE_AROUND_EQ_IN_NAMED_PARAMETER" value="true" />
-      <option name="SPACE_AROUND_EQ_IN_KEYWORD_ARGUMENT" value="true" />
       <option name="ALIGN_COLLECTIONS_AND_COMPREHENSIONS" value="false" />
       <option name="ALIGN_MULTILINE_IMPORTS" value="false" />
       <option name="NEW_LINE_AFTER_COLON" value="true" />

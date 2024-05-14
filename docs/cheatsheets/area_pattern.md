@@ -1,6 +1,6 @@
 # AreaPattern
 
-The [``AreaPattern``](../../api_docs/area_pattern/#AoE2ScenarioParser.objects.support.area_pattern.area_pattern.AreaPattern) object is a powerful object to get access to specific regions on the map. 
+The [``AreaPattern``](../api_docs/support/area_pattern/area_pattern.md) object is a powerful object to get access to specific regions on the map. 
 This page will try to explain a bit on how to use it and what the possibilities are. For a detailed documentation of its API, see the linked page.
 
 First of all, the `AreaPattern` object uses "Method Chaining". 
@@ -211,7 +211,7 @@ Now that we have the grid, let's add the final piece where we change the terrain
 We can use the function `to_chunks()` to return our grid as 'chunks'.
 
 Chunks will be returned in a list and every chunk will be returned as an `OrderedSet`.
-These `OrderedSet`s will contain [`Tile`](../../api_docs/tile/#AoE2ScenarioParser.objects.support.tile.Tile) objects by default. These objects just contain their `x` and `y` values.
+These `OrderedSet`s will contain [`Tile`](../api_docs/support/tile.md) objects by default. These objects just contain their `x` and `y` values.
 We can change this behaviour with the `as_terrain` parameter. 
 Setting this to `True` will return the `OrderedSet`s with `TerrainTile` objects. 
 These objects allow you to directly change the terrain on this tile. 
