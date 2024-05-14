@@ -7,6 +7,7 @@ Copied from:
 Changes:  (Documented to be able to migrate to 'Block-level customization' when it's ready)
 - Added lines between functions (see <hr> above main div)
 - Added margin to main <div>
+- Added check for if a docstring contains parameters
 
 #}
 {{ log.debug("Rendering " + function.path) }}
@@ -81,7 +82,14 @@ Changes:  (Documented to be able to migrate to 'Block-level customization' when 
                 {% include "docstring.html" with context %}
             {% endwith %}
 
-            {% if not function.docstring and function.parameters|count > 0 %}
+            {% set ns = namespace(hasParams=false) %}
+
+            {# Check if there is a section where: `section.kind.value` === 'parameters' #}
+            {% if function.docstring.parsed|map(attribute="kind")|selectattr("value", "equalto", "parameters")|first %}
+                {% set ns.hasParams = true %}
+            {% endif %}
+
+            {% if not ns.hasParams and function.parameters|count > 0 %}
                 {% with section = function.parameters %}
                     {% include "docstring/undocumented_parameters.html" with context %}
                 {% endwith %}
