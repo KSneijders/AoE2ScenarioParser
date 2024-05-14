@@ -56,7 +56,7 @@ nav:
     - Guides and Resources: "community/resources.md"
     - Tools:                "community/tools.md"
     - Projects:             "community/projects.md"
-  - API Docs (Beta):
+  - API Docs:
     - AoE2Scenario:         "api_docs/aoe2_scenario.md"
     - Messages:
       - MessageManager:     "api_docs/messages/message_manager.md"
