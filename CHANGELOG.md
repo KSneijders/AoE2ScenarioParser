@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.67 - 2024-May-18
+
+### Fixed
+
+- Effect `change_object_civilization_name` missing the `source_player` attribute
+
+---
+
 ## 0.1.66 - 2024-May-02
 
 ### Added

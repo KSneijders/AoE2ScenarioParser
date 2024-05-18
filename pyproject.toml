@@ -1,0 +1,39 @@
+[project]
+name = "AoE2ScenarioParser"
+version = "<VERSION_HERE>"
+authors = [
+    { name = "Kerwin Sneijders", email = "ksneijders-dev@hotmail.com" },
+]
+description = """This is a project for editing parts of an 'aoe2scenario' file from Age of Empires 2 Definitive Edition"""
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "deprecation",
+    "typing_extensions",
+    "ordered-set==4.1.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/KSneijders/AoE2ScenarioParser"
+"Bug Tracker" = "https://github.com/KSneijders/AoE2ScenarioParser/issues"
+"Documentation" = "https://ksneijders.github.io/AoE2ScenarioParser/"
+"API Docs" = "https://ksneijders.github.io/AoE2ScenarioParser/api_docs/aoe2_scenario/"
+"Changelog" = "https://github.com/KSneijders/AoE2ScenarioParser/blob/master/CHANGELOG.md"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["AoE2ScenarioParser*"]
+
+[tool.setuptools.package-data]
+AoE2ScenarioParser = [
+    'datasets/sources/*.json',
+    'versions/*/*/*.json'
+]

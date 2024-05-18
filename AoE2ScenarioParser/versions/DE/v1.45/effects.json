@@ -4021,6 +4021,7 @@
     "59": {
         "name": "change_object_civilization_name",
         "attributes": [
+            "source_player",
             "string_id",
             "area_x1",
             "area_y1",
@@ -4038,7 +4039,7 @@
             "tribute_list": -1,
             "diplomacy": -1,
             "object_list_unit_id": -1,
-            "source_player": -1,
+            "source_player": 1,
             "target_player": -1,
             "technology": -1,
             "string_id": -1,

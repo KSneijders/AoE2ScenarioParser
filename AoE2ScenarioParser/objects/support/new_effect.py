@@ -1152,6 +1152,7 @@ class NewEffectSupport:
 
     def change_object_civilization_name(
             self,
+            source_player: int | None = None,
             string_id: int | None = None,
             area_x1: int | None = None,
             area_y1: int | None = None,
@@ -1162,6 +1163,7 @@ class NewEffectSupport:
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_CIVILIZATION_NAME,
+            source_player=source_player,
             string_id=string_id,
             area_x1=area_x1,
             area_y1=area_y1,
