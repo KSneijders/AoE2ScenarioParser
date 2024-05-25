@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.68 - 2024-May-25
+
+### Added
+
+- Ability to register functions to run on scenario write for easier 3rd party support  
+
+---
+
 ## 0.1.67 - 2024-May-18
 
 ### Fixed
