@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any
+from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Callable
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -39,6 +39,8 @@ S: TypeVar = TypeVar('S', bound='AoE2Scenario')
 A type variable (generic) that represents an instance of the AoE2Scenario class or any of its 
 subclasses (e.g. `AoE2DEScenario`) 
 """
+Func: TypeVar = TypeVar('Func', bound='Callable[[Any], Any]')
+"""A type variable (generic) that represents a function"""
 
 
 class AoE2Scenario:
@@ -68,6 +70,11 @@ class AoE2Scenario:
     def message_manager(self) -> MessageManager:
         """The message manager of the scenario"""
         return self._object_manager.managers['Message']
+
+    def on_write(self, func: Func) -> Func:
+        """Register a function to be called on write (intended to be used as a decorator)"""
+        self._on_write_funcs.append(func)
+        return func
 
     @property
     def scenario_version_tuple(self) -> tuple[int, ...]:
@@ -106,6 +113,9 @@ class AoE2Scenario:
         self._file = None
         self._file_header = None
         self._decompressed_file_data = None
+
+        # Callbacks
+        self._on_write_funcs = []
 
     @classmethod
     def from_file(
@@ -325,6 +335,10 @@ class AoE2Scenario:
         """
         if settings.ALLOW_OVERWRITING_SOURCE and self.source_location == filename:
             raise ValueError("Overwriting the source scenario file is discouraged & disallowed. ")
+
+        for func in self._on_write_funcs:
+            func(self)
+
         if not skip_reconstruction:
             self.commit()
 
