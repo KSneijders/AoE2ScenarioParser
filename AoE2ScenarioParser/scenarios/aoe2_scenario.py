@@ -115,11 +115,11 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(
-        cls: Type[S],
+        cls: Type[Scenario],
         path: str,
         game_version: str,
         name: str = ""
-    ) -> S:
+    ) -> Scenario:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
 
@@ -148,7 +148,7 @@ class AoE2Scenario:
         scenario_version = _get_file_version(igenerator)
         scenario_variant = _get_scenario_variant(igenerator)
 
-        scenario: S = cls(game_version, scenario_version, source_location=path, name=name, variant=scenario_variant)
+        scenario: Scenario = cls(game_version, scenario_version, source_location=path, name=name, variant=scenario_variant)
 
         variant: str = 'Unknown' if scenario.variant is None else scenario_variant.to_display_name()
 
