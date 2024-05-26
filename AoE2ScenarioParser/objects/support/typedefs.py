@@ -19,3 +19,6 @@ Scenario: TypeVar = TypeVar('Scenario', bound='AoE2Scenario')
 """A type variable (generic) that represents an instance of the AoE2Scenario class or any of its subclasses"""
 
 T: TypeVar = TypeVar('T')
+
+Func: TypeVar = TypeVar('Func', bound='Callable[[Any], Any]')
+"""A type variable (generic) that represents a function"""

@@ -22,7 +22,7 @@ from AoE2ScenarioParser.helper.version_check import python_version_check
 from AoE2ScenarioParser.objects.aoe2_object_manager import AoE2ObjectManager
 from AoE2ScenarioParser.objects.managers import TriggerManager, UnitManager, MapManager, PlayerManager, \
     MessageManager, XsManager
-from AoE2ScenarioParser.objects.support.typedefs import Scenario
+from AoE2ScenarioParser.objects.support.typedefs import Func, Scenario
 from AoE2ScenarioParser.scenarios.scenario_debug.compare import debug_compare
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
