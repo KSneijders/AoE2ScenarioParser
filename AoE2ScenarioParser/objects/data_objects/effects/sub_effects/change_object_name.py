@@ -1,4 +1,4 @@
-from typing import overload
+
 
 from binary_file_parser.retrievers import RetrieverRef
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import itertools
 import math
-from typing import List, Union, Tuple, Set, Optional
+from typing import List,  Tuple, Set
 
 from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.list_functions import list_chunks

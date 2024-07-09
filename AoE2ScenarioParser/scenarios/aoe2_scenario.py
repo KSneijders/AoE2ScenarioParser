@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Callable
+from typing import Dict, TYPE_CHECKING,  Type, Any
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
