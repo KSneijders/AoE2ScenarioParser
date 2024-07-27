@@ -339,6 +339,9 @@ class AoE2Scenario:
         for func in self._on_write_funcs:
             func(self)
 
+        # Update the internal file name to match the output filename
+        self._update_internal_filename(filename)
+
         if not skip_reconstruction:
             self.commit()
 
@@ -462,6 +465,9 @@ class AoE2Scenario:
         self.sections["FileHeader"].unknown_value_2 = self.variant.value
         self.sections["FileHeader"].amount_of_unknown_numbers = len(dlcs)
         self.sections["FileHeader"].unknown_numbers = dlcs
+
+    def _update_internal_filename(self, filename: str) -> None:
+        self.sections['DataHeader'].filename = Path(filename).stem
 
     """ #############################################
     ################ Debug functions ################

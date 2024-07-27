@@ -164,13 +164,13 @@ class Attribute(_DataSetIntEnums):
     - Note: Nothing happens when you change this, probably for mods only
     """
     ENABLE_MONK_CONVERSION = 27
-    """
+    r"""
     - Purpose: Boolean: allow enemy monk conversions
 
     - Default Values:
 
         - 0:  No (default)
-        - $\geq$ 1:  Yes, after Atonement
+        - ≥1:  Yes, after Atonement
     """
     ENABLE_BUILDING_CONVERSION = 28
     """
@@ -180,7 +180,7 @@ class Attribute(_DataSetIntEnums):
 
         - 0:  No (default)
         - 1:  Yes, after Redemption
-        - $\geq$2:  Monks can convert buildings from range
+        - ≥2:  Monks can convert buildings from range
     """
     UNUSED_RESOURCE_029 = 29
     """
@@ -589,7 +589,7 @@ class Attribute(_DataSetIntEnums):
 
         - 0:  Default
         - 1:  Allows the TC to be packed and moved
-        - $\geq$2:  No noticeable effect
+        - ≥2:  No noticeable effect
 
     - Note: Enabling kidnap/loot requires modding the units to have the kidnap/pillage action
     """
@@ -609,7 +609,7 @@ class Attribute(_DataSetIntEnums):
     - Default Values:
 
         - 0:  Default
-        - $\geq$1:  Celts
+        - ≥1:  Celts
 
     - Note: If this is set to a non zero value, other players' sheep convert to you even if they have a unit in their LOS, unless this is also a non zero value for them. Celt sheep bonus
     """
@@ -1163,7 +1163,7 @@ class Attribute(_DataSetIntEnums):
         - 0:  Default
         - 5:  Vietnamese
 
-    - Note: The bonus works for all values $\geq$1, the choice of setting it to 5 for vietnamese seems arbitrary
+    - Note: The bonus works for all values ≥1, the choice of setting it to 5 for vietnamese seems arbitrary
     """
     RELICS_VISIBLE_ON_MAP = 210
     """
