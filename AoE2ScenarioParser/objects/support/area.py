@@ -90,7 +90,7 @@ class Area:
 
         self.uuid: UUID = uuid
         if map_size is not None:
-            self._map_size_value = map_size - 1
+            self._map_size_value = map_size
         else:
             self._map_size_value = None
 
@@ -194,7 +194,7 @@ class Area:
     @property
     def _map_size(self) -> int:
         if self.uuid is not None:
-            return getters.get_map_size(self.uuid) - 1
+            return getters.get_map_size(self.uuid)
         elif self._map_size_value is not None:
             return self._map_size_value
         else:
@@ -206,6 +206,11 @@ class Area:
             return self._map_size
         except ValueError:
             return 999_999_999
+
+    @property
+    def maximum_coordinate(self) -> int:
+        """The maximum coordinate for the X or Y axis (like how 0 is the minimum)"""
+        return self._map_size_safe - 1
 
     def associate_scenario(self, scenario: AoE2Scenario) -> None:
         """
@@ -593,11 +598,11 @@ class Area:
         diff_x, diff_y = math.floor(x - center_x), math.floor(y - center_y)
         if diff_x < 0 and abs(diff_x) > self.x1:
             diff_x = -self.x1
-        elif diff_x > 0 and diff_x > (distance_x := self._map_size - self.x2):
+        elif diff_x > 0 and diff_x > (distance_x := self.maximum_coordinate - self.x2):
             diff_x = distance_x
         if diff_y < 0 and abs(diff_y) > self.y1:
             diff_y = -self.y1
-        elif diff_y > 0 and diff_y > (distance_y := self._map_size - self.y2):
+        elif diff_y > 0 and diff_y > (distance_y := self.maximum_coordinate - self.y2):
             diff_y = distance_y
         self.x1 += diff_x
         self.y1 += diff_y
@@ -807,13 +812,13 @@ class Area:
         raise ValueError("Invalid axis value. Should be either x or y")
 
     def _minmax_val(self, val: int | float) -> int | float:
-        """Keeps a given value within the bounds of ``0 <= val <= map_size``."""
-        return max(0, min(val, self._map_size_safe))
+        """Keeps a given value within the bounds of ``0 <= val < map_size``."""
+        return max(0, min(val, self.maximum_coordinate))
 
     def _negative_coord(self, *args: int) -> List[int]:
         """Converts negative coordinates to the non negative value. Like: ``-1 == 119`` when ``map_size = 119``"""
         return [
-            (self._map_size + coord + 1) if coord and coord < 0 else coord
+            (self._map_size + coord) if coord and coord < 0 else coord
             for coord in args
         ]
 
@@ -828,7 +833,7 @@ class Area:
         self._force_association()
         terrain = getters.get_terrain(self.uuid)
         map_size = self._map_size
-        return OrderedSet(terrain[xy_to_i(x, y, map_size + 1)] for (x, y) in tiles)
+        return OrderedSet(terrain[xy_to_i(x, y, map_size)] for (x, y) in tiles)
 
     def _get_chunk_id(self, tile: Tile) -> int:
         """

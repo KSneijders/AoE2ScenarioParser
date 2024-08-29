@@ -28,8 +28,8 @@ class TestArea(TestCase):
         self.area.select_entire_map()
         self.assertEqual(0, self.area.x1)
         self.assertEqual(0, self.area.y1)
-        self.assertEqual(self.area._map_size, self.area.x2)
-        self.assertEqual(self.area._map_size, self.area.y2)
+        self.assertEqual(self.area.maximum_coordinate, self.area.x2)
+        self.assertEqual(self.area.maximum_coordinate, self.area.y2)
 
     def test_area_select(self):
         self.area.select(10, 11, 20, 22)
@@ -117,12 +117,13 @@ class TestArea(TestCase):
         self.area.expand_y2(100)  # ====== Y2 ======
         self.assertEqual(120, self.area.y2)
         self.area.expand_y2(50)
-        self.assertEqual(self.area._map_size, self.area.y2)
+        self.assertEqual(self.area.map_size - 1, self.area.y2)
 
+        map_size = self.area.map_size
         self.area.select(10, 10, 20, 20).expand(2)  # ====== All ======
         self.assertEqual(((8, 8), (22, 22)), self.area.get_selection())
         self.area.expand(500)
-        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
+        self.assertEqual(((0, 0), (map_size - 1, map_size - 1)), self.area.get_selection())
 
     def test_area_to_terrain_tiles(self):
         self.area.associate_scenario(SCN)
@@ -153,9 +154,9 @@ class TestArea(TestCase):
         self.assertEqual(((0, 0), (12, 5)), self.area.get_selection())
 
         self.area.select(10, 10, 20, 20)
-        w, h = self.area.get_dimensions()
+        original_dimensions = self.area.get_dimensions()
         self.area.center(0, 0).center(20, 20)
-        self.assertEqual((w, h), self.area.get_dimensions())
+        self.assertEqual(original_dimensions, self.area.get_dimensions())
 
         self.area.select_centered(5, 5, 4, 4)
         self.assertEqual((5, 5), self.area.get_center_int())
@@ -169,9 +170,12 @@ class TestArea(TestCase):
         self.assertEqual((7.5, 5.0), self.area.get_center())
         self.assertEqual(((0, 0), (15, 10)), self.area.get_selection())
 
-        self.area.select(100, 80, 130, 128).center_bounded(140, 140)
-        self.assertEqual((128.0, 119.0), self.area.get_center())
-        self.assertEqual(((113, 95), (self.area._map_size, self.area._map_size)), self.area.get_selection())
+        max_ = self.area.maximum_coordinate
+        self.area.select(100, 80, 130, 128)
+        self.assertEqual((115, 104), self.area.get_center())
+        self.area.center_bounded(140, 140)
+        self.assertEqual((128, 119), self.area.get_center())
+        self.assertEqual(((113, 95), (max_, max_)), self.area.get_selection())
 
     def test_area_size(self):
         self.area.center(8, 8).size(9)
@@ -180,8 +184,9 @@ class TestArea(TestCase):
         self.area.size(10)
         self.assertEqual(((3, 3), (12, 12)), self.area.get_selection())
 
+        max_ = self.area.maximum_coordinate
         self.area.center(5, 5).size(300)
-        self.assertEqual(((0, 0), (self.area._map_size, self.area._map_size)), self.area.get_selection())
+        self.assertEqual(((0, 0), (max_, max_)), self.area.get_selection())
 
         # Set size should also work when called first
         self.area = Area(self.area._map_size)
@@ -611,6 +616,10 @@ class TestArea(TestCase):
         self.area.select(3, 5, 8, 11)
         self.assertEqual(6, self.area.get_width())
 
+        self.area = Area(10)
+        self.area.select(3, 4, 9, 9)
+        self.assertEqual(7, self.area.get_width())
+
     def test_area_get_height(self):
         self.area.select(3, 5, 8, 11)
         self.assertEqual(7, self.area.get_height())
@@ -627,16 +636,18 @@ class TestArea(TestCase):
 
     def test_area_is_within_bounds(self):
         self.area.select(0, 0, 10, 10)
-        self.assertEqual(True, self.area.is_within_bounds())
+        self.assertTrue(self.area.is_within_bounds())
         self.area.move(offset_x=-1)
-        self.assertEqual(False, self.area.is_within_bounds())
+        self.assertFalse(self.area.is_within_bounds())
         # Select exactly the right-most corner
-        self.area.select_centered(139, 139, 7, 7)
-        self.assertEqual(True, self.area.is_within_bounds())
+        self.area.select_centered(140, 140, 7, 7)
+        self.assertTrue(self.area.is_within_bounds())
         self.area.move(offset_x=1)
-        self.assertEqual(False, self.area.is_within_bounds())
+        self.assertFalse(self.area.is_within_bounds())
         self.area.move(offset_x=-1, offset_y=1)
-        self.assertEqual(False, self.area.is_within_bounds())
+        self.assertFalse(self.area.is_within_bounds())
+        self.area.move(offset_y=-1)
+        self.assertTrue(self.area.is_within_bounds())
 
     def test_area_is_edge_tile(self):
         self.area.select(3, 5, 8, 11).use_only_edge()
@@ -701,23 +712,23 @@ class TestArea(TestCase):
     def test_area_move_to(self):
         self.area = Area(x1=0, y1=0, x2=3, y2=4)
 
-        dimensions = self.area.get_dimensions()
+        original_dimensions = self.area.get_dimensions()
 
         self.area.move_to(x=20, y=20, corner="north")
         self.assertTupleEqual(((17, 20), (20, 24)), self.area.get_selection())
-        self.assertTupleEqual(dimensions, self.area.get_dimensions())
+        self.assertTupleEqual(original_dimensions, self.area.get_dimensions())
 
         self.area.move_to(x=20, y=20, corner="east")
         self.assertTupleEqual(((17, 16), (20, 20)), self.area.get_selection())
-        self.assertTupleEqual(dimensions, self.area.get_dimensions())
+        self.assertTupleEqual(original_dimensions, self.area.get_dimensions())
 
         self.area.move_to(x=20, y=20, corner="south")
         self.assertTupleEqual(((20, 16), (23, 20)), self.area.get_selection())
-        self.assertTupleEqual(dimensions, self.area.get_dimensions())
+        self.assertTupleEqual(original_dimensions, self.area.get_dimensions())
 
         self.area.move_to(x=20, y=20, corner="west")
         self.assertTupleEqual(((20, 20), (23, 24)), self.area.get_selection())
-        self.assertTupleEqual(dimensions, self.area.get_dimensions())
+        self.assertTupleEqual(original_dimensions, self.area.get_dimensions())
 
     def test_area_instantiate_without_map_size(self):
         self.area = Area(x1=0, y1=1, x2=2, y2=3)

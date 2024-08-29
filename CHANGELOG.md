@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.70 - 2024-August-29
+
+### Added
+
+- A new property to the `Area` object: `Area.maximum_coordinate`
+  - Mimics the previous behaviour of `Area.map_size` (read fix below)
+
+### Fixed
+
+- The `Area` object returning the wrong `map_size` value (returned `map_size - 1`)
+  - This also impacts multiple related functions which used it internally
+
+---
+
 ## 0.1.69 - 2024-July-27
 
 Many thanks to `Alian713` for all his dataset work! ❤️
