@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.69 - 2024-July-27
+
+Many thanks to `Alian713` for all his dataset work! ❤️
+
+### Fixed
+
+- Outdated datasets (Updated to match UGC Guide)  (Thanks Alian)
+- Internal scenario name not matching new filename on writing
+  - Affected the names of data files created by XS 
+
+---
+
 ## 0.1.68 - 2024-May-25
 
 ### Added
