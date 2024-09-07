@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.71 - 2024-September-07
+
+### Added
+
+- The `remove_triggers` function to the `TriggerManager`
+  - This function doesn't break display order or changes execution order and also keeps all activation effects properly linked
+
+### Fixed
+
+- `scenario.actions.load_data_triggers()` function overwriting the trigger display order 
+
+---
+
+## 0.1.70 - 2024-August-29
+
+### Added
+
+- A new property to the `Area` object: `Area.maximum_coordinate`
+  - Mimics the previous behaviour of `Area.map_size` (read fix below)
+
+### Fixed
+
+- The `Area` object returning the wrong `map_size` value (returned `map_size - 1`)
+  - This also impacts multiple related functions which used it internally
+
+---
+
+## 0.1.69 - 2024-July-27
+
+Many thanks to `Alian713` for all his dataset work! ❤️
+
+### Fixed
+
+- Outdated datasets (Updated to match UGC Guide)  (Thanks Alian)
+- Internal scenario name not matching new filename on writing
+  - Affected the names of data files created by XS 
+
+---
+
 ## 0.1.68 - 2024-May-25
 
 ### Added

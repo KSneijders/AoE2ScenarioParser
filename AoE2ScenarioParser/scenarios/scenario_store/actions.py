@@ -72,10 +72,8 @@ def remove_triggers(uuid: UUID, trigger_ids: List[int]) -> None:
     """
     scenario = store.get_scenario(uuid)
     if scenario:
-        scenario.trigger_manager.triggers = [
-            trigger for trigger in scenario.trigger_manager.triggers if trigger.id not in trigger_ids
-        ]
-        scenario.trigger_manager.reorder_triggers()
+        trigger_ids.sort(reverse=True)
+        scenario.trigger_manager.remove_triggers(trigger_ids)
 
 
 def new_area_pattern_object(uuid: UUID) -> Optional['AreaPattern']:
