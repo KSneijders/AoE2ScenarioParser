@@ -140,7 +140,7 @@ class Area:
             self.corner2.bound(map_size)
         )
 
-    def contains(self, tile: tuple) -> bool:
+    def contains(self, tile: TileT) -> bool:
         """
         Checks if a tile is within this area
 
