@@ -341,7 +341,7 @@ class TriggerManager(AoE2Object):
             new_trigger_id_order = new_trigger_id_order[:split_index] + trigger_ids + new_trigger_id_order[split_index:]
         self.reorder_triggers(new_trigger_id_order)
 
-    def reorder_triggers(self, new_id_order: List[int] = None):
+    def reorder_triggers(self, new_id_order: List[int] = None, ) -> None:
         """
         Reorder all triggers to a given order of IDs. This function reorders triggers BUT keeps ``(de)activate trigger``
         effects linked properly!
@@ -411,11 +411,7 @@ class TriggerManager(AoE2Object):
             id_swap[index] = trigger.trigger_id
 
         for trigger in new_triggers:
-            activation_effects = [
-                effect for effect in trigger.effects if
-                effect.effect_type in [EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER]
-            ]
-            for effect in activation_effects:
+            for effect in get_activation_effects(trigger):
                 effect.trigger_id = id_swap[effect.trigger_id]
 
         return new_triggers
@@ -577,16 +573,43 @@ class TriggerManager(AoE2Object):
 
     def remove_trigger(self, trigger_select: int | TriggerSelect) -> None:
         """
-        Remove a trigger
+        Removes a trigger BUT keeps ``(de)activate trigger`` effects linked properly!
 
         Args:
             trigger_select: The ID of the trigger or an object used to identify which trigger to select.
         """
-        trigger_index, display_index, trigger = self._validate_and_retrieve_trigger_info(trigger_select)
+        self.remove_triggers([trigger_select])
 
-        del self.triggers[trigger_index]
+    def remove_triggers(self, trigger_selects: List[int | TriggerSelect]) -> None:
+        """
+        Removes a list of triggers BUT keeps ``(de)activate trigger`` effects linked properly!
 
-        self.reorder_triggers()
+        Args:
+            trigger_selects: The list with trigger IDs
+        """
+        removing_trigger_ids = [
+            self._validate_and_retrieve_trigger_info(trigger_select)[0] for trigger_select in trigger_selects
+        ]
+        removing_trigger_ids.sort(reverse=True)
+
+        new_display_order = self.compute_updated_display_order(removing_trigger_ids)
+
+        for trigger_id in removing_trigger_ids:
+            del self.triggers[trigger_id]
+
+        index_changes = {}
+        for new_index, trigger in enumerate(self.triggers):
+            if new_index != trigger.trigger_id:
+                index_changes[trigger.trigger_id] = new_index
+                trigger.trigger_id = new_index
+
+        # Find and update all (de)activation effect trigger references
+        for trigger in self.triggers:
+            for effect in get_activation_effects(trigger):
+                if effect.trigger_id in index_changes:
+                    effect.trigger_id = index_changes[effect.trigger_id]
+
+        self.trigger_display_order = new_display_order
 
     def _find_trigger_tree_nodes_recursively(self, trigger, known_node_indexes: List[int]) -> None:
         found_node_indexes = TriggerManager._find_trigger_tree_nodes(trigger)
@@ -741,6 +764,27 @@ class TriggerManager(AoE2Object):
 
     def __str__(self) -> str:
         return self.get_content_as_string()
+
+    def compute_updated_display_order(self, removing_trigger_ids: List[int]):
+        new_display_order = []
+        for index in self.trigger_display_order:
+            subtract = 0
+            skip = False
+
+            for removing_index in removing_trigger_ids:
+                if removing_index == index:
+                    skip = True
+                    break
+
+                if index > removing_index:
+                    subtract += 1
+
+            if skip:
+                continue
+
+            new_display_order.append(index - subtract)
+
+        return new_display_order
 
 
 def get_activation_effects(trigger: Trigger) -> List[Effect]:

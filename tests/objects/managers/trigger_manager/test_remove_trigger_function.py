@@ -31,3 +31,71 @@ class Test(TestCase):
 
         self.tm.remove_trigger(1)
         self.assertEqual(t0.effects[0].trigger_id, t2.trigger_id)
+
+    def test_remove_trigger_verify_display_order(self):
+        self.tm.add_trigger('Trigger0')
+        self.tm.add_trigger('Trigger1')
+        self.tm.add_trigger('Trigger2')
+        self.tm.add_trigger('Trigger3')
+
+        self.tm.trigger_display_order = [0, 1, 2, 3]
+
+        self.tm.remove_trigger(1)
+        self.assertEqual(self.tm.trigger_display_order, [0, 1, 2])
+
+        self.tm.triggers = []
+        self.tm.add_trigger('Trigger0')
+        self.tm.add_trigger('Trigger1')
+        self.tm.add_trigger('Trigger2')
+        self.tm.add_trigger('Trigger3')
+
+        self.tm.trigger_display_order = [2, 3, 1, 0]
+
+        self.tm.remove_trigger(1)
+        self.assertEqual(self.tm.trigger_display_order, [1, 2, 0])
+
+    def test_remove_triggers(self):
+        self.tm.add_trigger("Trigger0")
+        self.tm.add_trigger("Trigger1")
+        self.tm.add_trigger("Trigger2")
+        self.tm.add_trigger("Trigger3")
+
+        self.tm.remove_triggers([1, 2])
+        self.assertListEqual([t.name for t in self.tm.triggers], ["Trigger0", "Trigger3"])
+
+        self.tm.remove_triggers([1])
+        self.assertEqual(self.tm.triggers[0].name, "Trigger0")
+
+    def test_remove_triggers_verify_activation_effects(self):
+        t0 = self.tm.add_trigger("Trigger0")
+        t0.new_effect.activate_trigger(2)
+        self.tm.add_trigger("Trigger1")
+        t2 = self.tm.add_trigger("Trigger2")
+        t3 = self.tm.add_trigger("Trigger3")
+        t3.new_effect.activate_trigger(2)
+
+        self.tm.remove_triggers([1])
+        self.assertEqual(t0.effects[0].trigger_id, t2.trigger_id)
+        self.assertEqual(t3.effects[0].trigger_id, t2.trigger_id)
+
+    def test_remove_triggers_verify_display_order(self):
+        self.tm.add_trigger('Trigger0')
+        self.tm.add_trigger('Trigger1')
+        self.tm.add_trigger('Trigger2')
+        self.tm.add_trigger('Trigger3')
+
+        self.tm.trigger_display_order = [1, 2, 3, 0]
+
+        self.tm.remove_triggers([1, 2])
+        self.assertEqual(self.tm.trigger_display_order, [1, 0])
+
+        self.tm.triggers = []
+        self.tm.add_trigger('Trigger0')
+        self.tm.add_trigger('Trigger1')
+        self.tm.add_trigger('Trigger2')
+        self.tm.add_trigger('Trigger3')
+
+        self.tm.trigger_display_order = [2, 3, 1, 0]
+
+        self.tm.remove_triggers([1])
+        self.assertEqual(self.tm.trigger_display_order, [1, 2, 0])

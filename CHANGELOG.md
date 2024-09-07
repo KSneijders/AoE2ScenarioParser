@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.71 - 2024-September-07
+
+### Added
+
+- The `remove_triggers` function to the `TriggerManager`
+  - This function doesn't break display order or changes execution order and also keeps all activation effects properly linked
+
+### Fixed
+
+- `scenario.actions.load_data_triggers()` function overwriting the trigger display order 
+
+---
+
 ## 0.1.70 - 2024-August-29
 
 ### Added
