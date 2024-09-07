@@ -10,8 +10,8 @@ class OcclusionMode(_DataSetIntFlags):
 
     **Examples**
 
-    >>> OcclusionMode.NO_OUTLINE
-    <OcclusionMode.NO_OUTLINE: 0>
+    >>> OcclusionMode.NO_OCCLUSION
+    <OcclusionMode.NO_OCCLUSION: 0>
     """
     NO_OCCLUSION = 0
     """

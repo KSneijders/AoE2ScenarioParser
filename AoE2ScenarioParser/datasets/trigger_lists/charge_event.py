@@ -9,8 +9,8 @@ class ChargeEvent(_DataSetIntEnums):
 
     **Examples**
 
-    >>> ChargeEvent.DEPLETES_CHARGE_ON_ATTACKING
-    <ChargeEvent.DEPLETES_CHARGE_ON_ATTACKING: 1>
+    >>> ChargeEvent.CHARGE_DEPLETED_ON_ATTACK
+    <ChargeEvent.CHARGE_DEPLETED_ON_ATTACK: 1>
     """
     NO_CHARGE_DEPLETED = 0
     CHARGE_DEPLETED_ON_ATTACK = 1
