@@ -133,6 +133,7 @@ class Tile:
             return Tile(math.floor(x), math.floor(y))
         return Tile(math.ceil(x), math.ceil(y))
 
+    # Todo: Use Position object here once it is implemented
     def mid_point(self, other: Tile) -> tuple[float, float]:
         """
         Returns the mid-point between the two tiles as 2 floats

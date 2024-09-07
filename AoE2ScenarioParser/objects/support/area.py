@@ -84,6 +84,7 @@ class Area:
         """
         return self.corner1.mid_tile(self.corner2)
 
+    # Todo: Use Position object here once it is implemented
     @property
     def center_point(self) -> tuple[float, float]:
         """the point in the center of this area as coordinates"""
