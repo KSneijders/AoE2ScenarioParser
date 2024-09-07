@@ -2,15 +2,14 @@ from __future__ import annotations
 
 from typing import Iterable, TYPE_CHECKING, overload
 
-from binary_file_parser import BaseStruct, Retriever
-
 from AoE2ScenarioParser.objects.support.tile import Tile
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.support.typedefs import TileT
 
 
-class Area(BaseStruct):
+# Todo: Add immutability to class
+class Area:
     """
     Represents an area selection on a map. An area is defined by two opposite corners of a rectangle.
 
@@ -19,13 +18,6 @@ class Area(BaseStruct):
     - Supports comparison to tuples or other ``Area`` instances
     """
 
-    @staticmethod
-    def _convert_to_tile(_: Retriever, __: Area, val: TileT) -> Tile:
-        return Tile.from_value(val)
-
-    corner1: Tile = Retriever(Tile, default_factory = lambda _, __: Tile(-1, -1), mappers=[_convert_to_tile])
-    corner2: Tile = Retriever(Tile, default_factory = lambda _, __: Tile(-1, -1), mappers=[_convert_to_tile])
-
     @overload
     def __init__(self): ...
     @overload
@@ -33,17 +25,18 @@ class Area(BaseStruct):
     @overload
     def __init__(self, corner1: TileT, corner2: TileT): ...
 
-    def __init__(self, corner1: TileT = None, corner2: TileT = None, **kwargs):
+    def __init__(self, corner1: TileT = None, corner2: TileT = None):
         if corner1 is None:
             corner1 = (-1, -1)
 
         if corner2 is None:
-            super().__init__(corner1 = Tile.from_value(corner1), corner2 = Tile.from_value(corner1), **kwargs)
-            return
+            corner2 = corner1
 
         x1, x2 = sorted((corner1[0], corner2[0]))
         y1, y2 = sorted((corner1[1], corner2[1]))
-        super().__init__(corner1 = Tile(x1, y1), corner2 = Tile(x2, y2))
+
+        self.corner1 = Tile(x1, x2)
+        self.corner2 = Tile(y1, y2)
 
     @classmethod
     def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
