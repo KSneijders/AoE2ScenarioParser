@@ -30,8 +30,8 @@ class Area:
         x1, x2 = sorted((corner1[0], corner2[0]))
         y1, y2 = sorted((corner1[1], corner2[1]))
 
-        self.corner1 = Tile(x1, x2)
-        self.corner2 = Tile(y1, y2)
+        self.corner1 = Tile(x1, y1)
+        self.corner2 = Tile(x2, y2)
 
     @classmethod
     def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
