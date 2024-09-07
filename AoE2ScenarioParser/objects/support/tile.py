@@ -14,16 +14,11 @@ if TYPE_CHECKING:
 class Tile:
 
     @overload
-    def __init__(self): ...
-    @overload
     def __init__(self, x: int, y: int): ...
     @overload
     def __init__(self, tile: tuple[int, int]): ...
 
-    def __init__(self, x: int | tuple[int, int] = None, y: int = None):
-        if x is None:
-            x, y = -1, -1
-
+    def __init__(self, x: int | tuple[int, int], y: int = None):
         if isinstance(x, tuple):
             coords = x
             if len(coords) != 2:

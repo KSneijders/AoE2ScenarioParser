@@ -19,16 +19,11 @@ class Area:
     """
 
     @overload
-    def __init__(self): ...
-    @overload
     def __init__(self, corner1: TileT): ...
     @overload
     def __init__(self, corner1: TileT, corner2: TileT): ...
 
-    def __init__(self, corner1: TileT = None, corner2: TileT = None):
-        if corner1 is None:
-            corner1 = (-1, -1)
-
+    def __init__(self, corner1: TileT, corner2: TileT = None):
         if corner2 is None:
             corner2 = corner1
 
