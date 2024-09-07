@@ -33,7 +33,7 @@ const collapseToC = () => {
             if (!label || !('click' in label) || index >= path.length)
                 return;
 
-            const labelName = label.innerText.toLowerCase().trim();
+            const labelName = label.innerText.toLowerCase();  /* Do not trim */
             const pathName = path[index].toLowerCase().replace('_', '');
 
             console.log(`\tLabel: [${labelName}] // Path: [${pathName}]`)
@@ -41,10 +41,10 @@ const collapseToC = () => {
             const collapseElement = labelName !== pathName;
 
             if (collapseElement) {
-                label.click();  /* Close it */
+                label.click();  /* Close the menu item */
             } else {
-                console.log(`Match! Continue index to: ${index}`)
                 index++;
+                console.log(`Match! Continue index to: ${index}`)
             }
 
             if (input) {
