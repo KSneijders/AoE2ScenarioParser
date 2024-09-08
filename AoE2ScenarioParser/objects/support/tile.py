@@ -76,19 +76,19 @@ class Tile:
         """
         return xy_to_i(self.x, self.y, map_size)
 
-    def bound(self, map_size: int) -> Tile:
+    def bound(self, limit: int) -> Tile:
         """
-        Create a new tile object with the same coords as this tile but bounded between 0 and map_size
+        Create a new tile object with the same coords as this tile but bounded between 0 and the given limit
 
         Args:
-            map_size: the map size
+            limit: the maximum coordinate value
 
         Returns:
             A new tile object with the bounded coordinates
         """
         return Tile(
-            bound(self.x, (0, map_size)),
-            bound(self.y, (0, map_size)),
+            bound(self.x, (0, limit)),
+            bound(self.y, (0, limit)),
         )
 
     def resolve_negative_coords(self, map_size: int = None) -> Tile:

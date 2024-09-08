@@ -77,7 +77,7 @@ class AreaPattern:
         self.uuid: UUID | None = uuid
         self.map_size = map_size_result
 
-        self.area: Area = area.resolve_negative_coords(self._map_size)
+        self.area: Area = area.resolve_negative_coords(map_size_result)
         self.state: AreaState = AreaState.RECT
         self.inverted: bool = False
 
@@ -214,12 +214,12 @@ class AreaPattern:
                 )
             chunks.setdefault(chunk_id, []).append(tile)
 
-        map_size = self._map_size
+        map_size = self.map_size
         chunks_ordered: List[OrderedSet[Tile | TerrainTile]] = []
         for chunk_id, chunk_tiles in chunks.items():
             tiles = self._tiles_to_terrain_tiles(chunk_tiles) if as_terrain else chunk_tiles
             chunks_ordered.append(
-                OrderedSet(sorted(tiles, key=lambda t: t.y * map_size + t.x))
+                OrderedSet(sorted(tiles, key=lambda t: xy_to_i(t.x, t.y, map_size)))
             )
 
         return chunks_ordered
@@ -457,7 +457,7 @@ class AreaPattern:
         """
         If the area_pattern selection is off the map, shrink the area_pattern to fit inside the map
         """
-        self.area = self.area.bound(self.map_size)
+        self.area = self.area.bound(self.maximum_coordinate)
         return self
 
     def shift_overflow(self) -> AreaPattern:
@@ -469,13 +469,13 @@ class AreaPattern:
         # After that, add that many tiles to both sides of the new area_pattern and then cut the excess off again to
         # get the shifted version of the old area_pattern
 
-        new_area = self.area.bound(self.map_size)
+        new_area = self.area.bound(self.maximum_coordinate)
         diff_width = self.area.width - new_area.width
         diff_height = self.area.height - new_area.height
         self.area = Area(
             (new_area.corner1.x - diff_width, new_area.corner1.y - diff_height),
             (new_area.corner2.x + diff_width, new_area.corner2.y + diff_height),
-        ).bound(self._map_size)
+        ).bound(self.maximum_coordinate)
         return self
 
     def center(self, tile: TileT) -> AreaPattern:
@@ -507,8 +507,8 @@ class AreaPattern:
         corner1 = Tile(*corner1)
         corner2 = Tile(*corner2)
         self.area = Area(
-            corner1.resolve_negative_coords(self._map_size),
-            corner2.resolve_negative_coords(self._map_size),
+            corner1.resolve_negative_coords(self.map_size),
+            corner2.resolve_negative_coords(self.map_size),
         )
         return self
 
@@ -595,10 +595,10 @@ class AreaPattern:
         Returns:
             ``True`` if both corners area: ``0 <= corner < map_size``, ``False`` otherwise
         """
-        return 0 <= self.area.corner1.x < self.map_size - 1 \
-            and 0 <= self.area.corner1.y < self.map_size - 1 \
-            and 0 <= self.area.corner2.x < self.map_size - 1 \
-            and 0 <= self.area.corner2.y < self.map_size - 1
+        return 0 <= self.area.corner1.x < self.map_size \
+            and 0 <= self.area.corner1.y < self.map_size \
+            and 0 <= self.area.corner2.x < self.map_size \
+            and 0 <= self.area.corner2.y < self.map_size
 
     # ============================ Miscellaneous functions ============================
 
@@ -629,7 +629,6 @@ class AreaPattern:
             scenario: The scenario to link with
         """
         self.uuid = scenario.uuid
-        self.map_size = getters.get_map_size(self.uuid)
         return self
 
     # ============================ Support functions ============================
@@ -693,7 +692,7 @@ class AreaPattern:
         """
         map_size = self.map_size
         terrain = getters.get_terrain(self.uuid)
-        return OrderedSet(terrain[xy_to_i(x, y, map_size + 1)] for (x, y) in tiles)
+        return OrderedSet(terrain[xy_to_i(x, y, map_size)] for (x, y) in tiles)
 
     def _calc_grid_chunk_id(self, tile: TileT):
         """

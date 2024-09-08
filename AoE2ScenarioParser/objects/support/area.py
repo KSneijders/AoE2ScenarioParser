@@ -120,19 +120,19 @@ class Area:
             self.corner2.resolve_negative_coords(map_size)
         )
 
-    def bound(self, map_size: int) -> Area:
+    def bound(self, limit: int) -> Area:
         """
-        Update the corners to be bounded between 0 and map_size
+        Update the corners to be bounded between 0 and the given limit
 
         Args:
-            map_size: the map size
+            limit: the maximum coordinate value
 
         Returns:
             A copy of the area object but with bounded corners
         """
         return Area(
-            self.corner1.bound(map_size),
-            self.corner2.bound(map_size)
+            self.corner1.bound(limit),
+            self.corner2.bound(limit)
         )
 
     def contains(self, tile: TileT) -> bool:

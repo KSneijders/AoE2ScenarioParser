@@ -687,7 +687,7 @@ class TestAreaPattern(TestCase):
         self.area_pattern.move(offset_x=-1)
         self.assertEqual(False, self.area_pattern.is_within_bounds())
         # Select exactly the right-most corner
-        self.area_pattern.select_centered((139, 139), dx=7, dy=7)
+        self.area_pattern.select_centered((140, 140), dx=7, dy=7)
         self.assertEqual(True, self.area_pattern.is_within_bounds())
         self.area_pattern.move(offset_x=1)
         self.assertEqual(False, self.area_pattern.is_within_bounds())
