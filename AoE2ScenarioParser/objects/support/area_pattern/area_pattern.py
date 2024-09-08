@@ -51,27 +51,33 @@ class AreaPattern:
             ValueError: If insufficient information is provided to create a tile pattern selection
         """
         if all((map_size is None, uuid is None, area is None, corner1 is None)):
-            raise ValueError("Cannot create AreaPattern. At least one of map_size, uuid, area or corner1 is required.")
+            raise ValueError("Cannot create AreaPattern. At least one of [map_size], [uuid], [area] or [corner1] is required.")
+        if map_size is not None and uuid is not None:
+            raise ValueError("Cannot create AreaPattern with both [map_size] and [uuid]")
+        if area is not None and (corner1 is not None or corner2 is not None):
+            raise ValueError("Cannot create AreaPattern with both [area] and [corner<x>]")
 
         if isinstance(area, tuple):
-            area: Area = Area(*area)
+            area = Area(*area)
 
-        self.uuid: UUID = uuid
-        self._map_size = None
+        map_size_result = None
         if uuid:
-            self._map_size = getters.get_map_size(uuid)
-        if map_size:
-            self.map_size = map_size
+            map_size_result = getters.get_map_size(uuid)
+        elif map_size:
+            map_size_result = map_size
 
         if area is None:
             if corner1 is None:
-                x = y = self._map_size // 2  # select the centre tile
+                x = y = map_size_result // 2  # select the centre tile
                 corner1 = Tile(x, y)
             if corner2 is None:
                 corner2 = corner1
-            area: Area = Area(corner1, corner2)
+            area = Area(corner1, corner2)
 
-        self.area = area.resolve_negative_coords(self._map_size)
+        self.uuid: UUID | None = uuid
+        self.map_size = map_size_result
+
+        self.area: Area = area.resolve_negative_coords(self._map_size)
         self.state: AreaState = AreaState.RECT
         self.inverted: bool = False
 
@@ -121,9 +127,14 @@ class AreaPattern:
         self._map_size = value
 
     @property
+    def maximum_coordinate(self):
+        """Get the highest possible coordinate for the current map (based on the size)"""
+        return self.map_size - 1
+
+    @property
     def area_bounded(self) -> Area:
         """Get the four values of the selection as: ((x1, y1), (x2, y2))"""
-        return self.area.bound(self.map_size)
+        return self.area.bound(self.maximum_coordinate)
 
     # ============================ Conversion functions ============================
 
@@ -474,7 +485,7 @@ class AreaPattern:
         x, y = tile
         center = self.area.center_tile
         dx, dy = x - center.x, y - center.y
-        (x1, y1), (x2, y2) = self.area
+        (x1, y1), (x2, y2) = self.area.corners
         self.area = Area(
             (x1+dx, y1+dy),
             (x2+dx, y2+dy),
@@ -485,7 +496,7 @@ class AreaPattern:
         """Sets the selection to the entire map"""
         self.area = Area(
             (0, 0),
-            (self.map_size, self.map_size),
+            (self.maximum_coordinate, self.maximum_coordinate),
         )
         return self
 
@@ -549,8 +560,8 @@ class AreaPattern:
         """Expands the selection from the top corner by shifting the bottom corner up by (dx, dy)"""
         corner2 = self.area.corner2
         self.area.corner2 = Tile(
-            min(corner2.x + dx, self._map_size or sys.maxsize),
-            min(corner2.y + dy, self._map_size or sys.maxsize),
+            min(corner2.x + dx, self.maximum_coordinate or sys.maxsize),
+            min(corner2.y + dy, self.maximum_coordinate or sys.maxsize),
         )
         return self
 

@@ -10,15 +10,17 @@ class TestAreaPattern(TestCase):
     area_pattern: AreaPattern
 
     def setUp(self) -> None:
-        self.area_pattern = AreaPattern(map_size=144)
+        self.map_size = 144
+        self.maximum_coordinate = self.map_size - 1
+        self.area_pattern = AreaPattern(map_size=self.map_size)
 
     def test_select_entire_map(self):
         self.area_pattern.select_entire_map()
         (x1, y1), (x2, y2) = self.area_pattern.area
         self.assertEqual(0, x1)
         self.assertEqual(0, y1)
-        self.assertEqual(self.area_pattern._map_size, x2)
-        self.assertEqual(self.area_pattern._map_size, y2)
+        self.assertEqual(self.maximum_coordinate, x2)
+        self.assertEqual(self.maximum_coordinate, y2)
 
     def test_select(self):
         self.area_pattern.select((10, 11), (20, 22))
@@ -118,12 +120,12 @@ class TestAreaPattern(TestCase):
         self.area_pattern.expand_top_corner_by(dy=100)
         self.assertEqual(120, area.corner2.y)
         self.area_pattern.expand_top_corner_by(dy=50)
-        self.assertEqual(self.area_pattern._map_size, area.corner2.y)
+        self.assertEqual(self.maximum_coordinate, area.corner2.y)
 
         self.area_pattern.select((10, 10), (20, 20)).expand(2)
         self.assertEqual(((8, 8), (22, 22)), self.area_pattern.area)
         self.area_pattern.expand(500)
-        self.assertEqual(((0, 0), (self.area_pattern._map_size, self.area_pattern._map_size)), self.area_pattern.area)
+        self.assertEqual(((0, 0), (self.maximum_coordinate, self.maximum_coordinate)), self.area_pattern.area)
 
     # Todo: Fix TerrainTile after it is implemented
     # @patch('AoE2ScenarioParser.scenarios.scenario_store.getters.get_terrain')
@@ -179,12 +181,12 @@ class TestAreaPattern(TestCase):
         self.area_pattern.center((5, 5)).size(300)
         self.assertEqual(((-145, -145), (154, 154)), self.area_pattern.area)
         self.assertEqual(
-            ((0, 0), (self.area_pattern._map_size, self.area_pattern._map_size)),
+            ((0, 0), (self.maximum_coordinate, self.maximum_coordinate)),
             self.area_pattern.area_bounded
         )
 
     def test_set_size_then_center(self):
-        self.area_pattern = AreaPattern(map_size=self.area_pattern._map_size)
+        self.area_pattern = AreaPattern(map_size=self.area_pattern.map_size)
         self.area_pattern.size(9).center((8, 8))
         self.assertEqual(((4, 4), (12, 12)), self.area_pattern.area)
 
