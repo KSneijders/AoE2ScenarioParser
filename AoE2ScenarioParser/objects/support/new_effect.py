@@ -2,10 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from typing_extensions import deprecated
-
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 
 
@@ -946,22 +943,6 @@ class NewEffectSupport:
             EffectId.CHANGE_TRAIN_LOCATION,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
-            object_list_unit_id_2=object_list_unit_id_2,
-            button_location=button_location,
-        )
-
-    @deprecated('Use `change_technology_location` instead')
-    def change_research_location(
-            self,
-            source_player: int | None = None,
-            technology: int | None = None,
-            object_list_unit_id_2: int | None = None,
-            button_location: int | None = None,
-    ) -> Effect:
-        return self._trigger_ref._add_effect(
-            EffectId.CHANGE_TECHNOLOGY_LOCATION,
-            source_player=source_player,
-            technology=technology,
             object_list_unit_id_2=object_list_unit_id_2,
             button_location=button_location,
         )
