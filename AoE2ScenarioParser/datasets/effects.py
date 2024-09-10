@@ -413,8 +413,8 @@ class EffectId(IntEnum):
     - source_player
     - object_list_unit_id_2
     - button_location"""
-    CHANGE_RESEARCH_LOCATION = 47
-    """Attributes for the **change_research_location** effect are: \n
+    CHANGE_TECHNOLOGY_LOCATION = 47
+    """Attributes for the **change_technology_location** effect are: \n
     - source_player
     - technology
     - object_list_unit_id_2
