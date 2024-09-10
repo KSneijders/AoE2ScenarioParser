@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.72 - 2024-September-10
+
+### Renamed
+
+- The effect `CHANGE_RESEARCH_LOCATION` to `CHANGE_TECHNOLOGY_LOCATION`
+  - Fixes an inconsistency with the in-game name (renamed a while ago)
+  - Kept an alias of the old function `change_research_location` with deprecation warning
+
+### Fixed
+
+- `PlayerAttribute.<X>.editor_name` not working
+  - Updated the `json` file used by the `editor_name` property to reflect the new in-game names
+
+---
+
 ## 0.1.71 - 2024-September-07
 
 ### Added
