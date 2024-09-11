@@ -88,17 +88,52 @@ class Area:
     @property
     def width(self) -> int:
         """The width (along x-axis) of the area (inclusive)"""
-        return self.corner2.x - self.corner1.x + 1
+        return self.x2 - self.x1 + 1
 
     @property
     def height(self) -> int:
         """The height (along y-axis) of the area (inclusive)"""
-        return self.corner2.y - self.corner1.y + 1
+        return self.y2 - self.y1 + 1
+
+    @property
+    def width_range(self) -> range:
+        """A range object looping over the x coordinates along the entire width"""
+        return range(self.x1, self.x2 + 1)
+
+    @property
+    def height_range(self) -> range:
+        """A range object looping over the y coordinates along the entire height"""
+        return range(self.y1, self.y2 + 1)
+
+    @property
+    def x1(self) -> int:
+        """The x coordinate of the west-most (lowest x & y) corner"""
+        return self.corner1.x
+
+    @property
+    def y1(self) -> int:
+        """The y coordinate of the west-most (lowest x & y) corner"""
+        return self.corner1.y
+
+    @property
+    def x2(self) -> int:
+        """The x coordinate of the east-most (highest x & y) corner"""
+        return self.corner2.x
+
+    @property
+    def y2(self) -> int:
+        """The y coordinate of the east-most (highest x & y) corner"""
+        return self.corner2.y
 
     @property
     def dimensions(self) -> tuple[int, int]:
         """The dimensions of this area (inclusive)"""
         return self.width, self.height
+
+    @property
+    def surface_area(self) -> int:
+        """The total surface area in number of tiles of this area"""
+        return self.width * self.height
 
     @property
     def corners(self) -> tuple[TileT, TileT]:
