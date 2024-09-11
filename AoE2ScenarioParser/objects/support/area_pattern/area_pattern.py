@@ -165,11 +165,10 @@ class AreaPattern:
         if as_terrain and self.uuid is None:
             self._raise_unlinked_scenario_error()
 
-        (x1, y1), (x2, y2) = self.area
         tiles = OrderedSet(
             Tile(x, y)
-            for y in range(y1, y2 + 1)
-            for x in range(x1, x2 + 1)
+            for y in self.area.height_range
+            for x in self.area.width_range
             if self.is_within_selection((x, y))
         )
         return self._tiles_to_terrain_tiles(tiles) if as_terrain else tiles
