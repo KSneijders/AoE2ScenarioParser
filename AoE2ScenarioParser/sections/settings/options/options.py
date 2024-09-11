@@ -28,7 +28,7 @@ class Options(BaseStruct):
     str_sign1: int                          = Retriever(uint16,                      min_ver = Version((1, 30)),                             default = 2656)
     water_definition: str                   = Retriever(str16,                       min_ver = Version((1, 30)),                             default = "")
     str_sign2: int                          = Retriever(uint16,                      min_ver = Version((1, 32)),                             default = 2656)
-    colour_mood: str                        = Retriever(str16,                       min_ver = Version((1, 32)),                             default = "Empty")
+    color_mood: str                         = Retriever(str16,                       min_ver = Version((1, 32)),                             default = "Empty")
     str_sign3: int                          = Retriever(uint16,                      min_ver = Version((1, 40)),                             default = 2656)
     script_name: str                        = Retriever(str16,                       min_ver = Version((1, 40)),                             default = "")
     _lock_coop_alliances1: bool             = Retriever(bool8,                       min_ver = Version((1, 41)), max_ver = Version((1, 41)), default = False)
