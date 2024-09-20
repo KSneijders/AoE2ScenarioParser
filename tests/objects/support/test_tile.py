@@ -83,3 +83,15 @@ class TestTile(TestCase):
         self.assertEqual(Tile(1, 2), Tile.from_value((1, 2)))
         self.assertEqual(Tile(1, 2), Tile.from_value([1, 2]))
         self.assertEqual(Tile(1, 2), Tile.from_value({'x': 1, 'y': 2}))
+
+    def test_is_within_bounds(self):
+        tile = Tile(34, 4)
+
+        self.assertTrue(tile.is_within_bounds(50))
+        self.assertTrue(tile.is_within_bounds(35))
+        self.assertFalse(tile.is_within_bounds(34))
+
+        tile = Tile(-1, -20)
+        self.assertTrue(tile.is_within_bounds(50))
+        self.assertTrue(tile.is_within_bounds(35))
+        self.assertFalse(tile.is_within_bounds(19))

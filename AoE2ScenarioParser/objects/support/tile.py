@@ -14,9 +14,12 @@ if TYPE_CHECKING:
 class Tile:
 
     @overload
-    def __init__(self, x: int, y: int): ...
+    def __init__(self, x: int, y: int):
+        ...
+
     @overload
-    def __init__(self, tile: tuple[int, int]): ...
+    def __init__(self, tile: tuple[int, int]):
+        ...
 
     def __init__(self, x: int | tuple[int, int], y: int = None):
         if isinstance(x, tuple):
@@ -165,6 +168,20 @@ class Tile:
         """
         return abs(other.x - self.x) + abs(other.y - self.y)
 
+    def is_within_bounds(self, map_size: int):
+        """
+        If a given tile is within the bounds of the given map_size (allowing negative coordinates)
+
+        Args:
+            map_size: The map_size of the map
+
+        Returns:
+            True if this tile is within the bounds of the given map_size
+        """
+        tile = self.resolve_negative_coords(map_size)
+
+        return 0 <= tile.x < map_size and 0 <= tile.y < map_size
+
     def __hash__(self):
         return hash((self.x, self.y))
 
@@ -176,6 +193,15 @@ class Tile:
 
     def __repr__(self):
         return f"Tile({self.x}, {self.y})"
+
+    def __lt__(self, other) -> bool:
+        if isinstance(other, Tile) or isinstance(other, tuple):
+            other_x, other_y = other
+
+            return self.y < other_y \
+                or self.y == other_y and self.x < other_x
+
+        super().__lt__(other)
 
     def __eq__(self, other):
         if isinstance(other, Tile):

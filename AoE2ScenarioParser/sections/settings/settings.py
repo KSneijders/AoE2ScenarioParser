@@ -30,7 +30,6 @@ class Settings(BaseStruct):
         ver_str = f"{float32._from_bytes(stream.peek(8)[4:]):.2f}"
         return Version(map(int, ver_str.split(".")))
 
-
     def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
         # todo: correctly initialise struct_ver `from_default` for all self versioned structs
         #  for default values that are different across different versions, use default_factory

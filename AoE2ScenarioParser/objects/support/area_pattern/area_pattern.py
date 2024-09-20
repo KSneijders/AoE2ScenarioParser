@@ -3,10 +3,11 @@ from __future__ import annotations
 import copy
 import math
 import sys
-from typing import TYPE_CHECKING, Iterable, Literal, NoReturn, List, Dict, cast
+from typing import Any, Callable, TYPE_CHECKING, Iterable, Literal, NoReturn, List, Dict, cast
 from uuid import UUID
 
 from ordered_set import OrderedSet
+from typing_extensions import deprecated
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnlinkedScenarioError, UnchunkableConfigurationError
 from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
@@ -15,7 +16,8 @@ from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.area_pattern import AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.area import Area
 from AoE2ScenarioParser.objects.support.tile import Tile
-from AoE2ScenarioParser.objects.support.typedefs import AreaT, TileT
+from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
+from AoE2ScenarioParser.objects.support.typedefs import AreaT, T, TileT
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 if TYPE_CHECKING:
@@ -23,7 +25,7 @@ if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
 
 
-class AreaPattern:
+class AreaPattern(TileSequence):
     _recursion_steps = [Tile(0, -1), Tile(1, 0), Tile(0, 1), Tile(-1, 0)]
     """Values used for recursion steps"""
 
@@ -138,20 +140,20 @@ class AreaPattern:
 
     # ============================ Conversion functions ============================
 
-    def to_coords(self, as_terrain: bool = False) -> OrderedSet[Tile | TerrainTile]:
+    def to_coords(self) -> OrderedSet[Tile]:
         """
-        Converts the selection to an OrderedSet of (x, y) coordinates
+        Alias for `to_tiles()`.
 
-        Args:
-            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
-                are returned as TerrainTiles.
+        This function is an alias for `to_tiles`. It performs the same action.
+        """
+        return self.to_tiles()
+
+    def to_tiles(self) -> OrderedSet[Tile]:
+        """
+        Converts the chosen pattern to an OrderedSet of Tile objects
 
         Returns:
-            An OrderedSet of Tiles ((x, y) named tuple) of the selection.
-
-        Raises:
-            UnlinkedScenarioError: When as_terrain is set to True, but no scenario is linked with this TerrainTile
-                object
+            An OrderedSet of Tile objects of the chosen pattern
 
         Examples:
             The selection: ``((3,3), (5,5))`` would result in an OrderedSet with a length of 9::
@@ -162,41 +164,25 @@ class AreaPattern:
                     ...,   (4,5), (5,5)
                 ]
         """
-        if as_terrain and self.uuid is None:
-            self._raise_unlinked_scenario_error()
-
-        tiles = OrderedSet(
+        return OrderedSet(
             Tile(x, y)
             for y in self.area.height_range
             for x in self.area.width_range
             if self.is_within_selection((x, y))
         )
-        return self._tiles_to_terrain_tiles(tiles) if as_terrain else tiles
 
-    def to_chunks(
-            self,
-            as_terrain: bool = False
-    ) -> List[OrderedSet[Tile | TerrainTile]]:
+    def to_chunks(self) -> List[OrderedSet[Tile]]:
         """
         Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
         The separation between chunks is based on if they're connected to each other.
         So the tiles must share an edge (i.e. they should be non-diagonal).
 
-        Args:
-            as_terrain: If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinates
-                are returned as TerrainTiles.
-
         Returns:
-            A list of OrderedSets of Tiles ((x, y) named tuple) of the selection.
+            A list of OrderedSets of Tile objects of the selection.
 
         Raises:
-            UnlinkedScenarioError: When as_terrain is set to True, but no scenario is linked with this
-                TerrainTile object
             UnchunkableConfigurationError: When a pattern configuration makes the chunk segregation indeterminate
         """
-        if as_terrain and self.uuid is None:
-            self._raise_unlinked_scenario_error()
-
         tiles = self.to_coords()
 
         # Shortcut for states that CANNOT be more than one chunk
@@ -216,12 +202,26 @@ class AreaPattern:
         map_size = self.map_size
         chunks_ordered: List[OrderedSet[Tile | TerrainTile]] = []
         for chunk_id, chunk_tiles in chunks.items():
-            tiles = self._tiles_to_terrain_tiles(chunk_tiles) if as_terrain else chunk_tiles
             chunks_ordered.append(
-                OrderedSet(sorted(tiles, key=lambda t: xy_to_i(t.x, t.y, map_size)))
+                OrderedSet(sorted(chunk_tiles, key=lambda t: xy_to_i(t.x, t.y, map_size)))
             )
 
         return chunks_ordered
+
+    def map(self, callback: Callable[[Tile], T]) -> dict[Tile, T]:
+        """
+        Map every tile inside this area pattern. Applies the given callable to every tile in this pattern.
+        Returns as a dict where the tile used in the callback is the key
+
+        Args:
+            callback: The callable to be applied to every tile
+
+        Returns:
+            A dict containing `{key: <return of callable>}` for each tile in this pattern
+        """
+        return {
+            tile: callback(tile) for tile in self.to_coords()
+        }
 
     # ============================ Use functions ============================
 

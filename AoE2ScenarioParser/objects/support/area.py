@@ -1,15 +1,16 @@
 from __future__ import annotations
 
-from typing import Iterable, TYPE_CHECKING, overload
+from typing import Callable, Iterable, TYPE_CHECKING, overload
 
 from AoE2ScenarioParser.objects.support.tile import Tile
+from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.objects.support.typedefs import TileT
+    from AoE2ScenarioParser.objects.support.typedefs import T, TileT
 
 
 # Todo: Add immutability to class
-class Area:
+class Area(TileSequence):
     """
     Represents an area selection on a map. An area is defined by two opposite corners of a rectangle.
 
@@ -19,9 +20,12 @@ class Area:
     """
 
     @overload
-    def __init__(self, corner1: TileT): ...
+    def __init__(self, corner1: TileT):
+        ...
+
     @overload
-    def __init__(self, corner1: TileT, corner2: TileT): ...
+    def __init__(self, corner1: TileT, corner2: TileT):
+        ...
 
     def __init__(self, corner1: TileT, corner2: TileT = None):
         if corner2 is None:
@@ -47,7 +51,8 @@ class Area:
         Raises:
             ValueError: When a value is given that cannot be turned into an Area()
         """
-        def from_iterable(iterable: list | tuple):
+
+        def from_iterable(iterable: list | tuple) -> Area | None:
             """Check content of iterable and return proper Area object"""
             if len(iterable) == 2:
                 if isinstance(iterable[0], (list, tuple, Tile)):
@@ -56,6 +61,7 @@ class Area:
                     return Area(Tile.from_value(iterable))
             elif len(iterable) == 4:
                 return Area(iterable[:2], iterable[2:])
+            return None
 
         if isinstance(val, Area):
             return val
@@ -70,6 +76,10 @@ class Area:
                 return area
             return Area(**val)
         raise ValueError(f"Unable to create instance of area from the given value: {val}")
+
+    def to_tiles(self) -> set[Tile]:
+        """Turn this area into a set of tiles"""
+        return {Tile(x, y) for y in self.height_range for x in self.width_range}
 
     @property
     def center_tile(self) -> Tile:

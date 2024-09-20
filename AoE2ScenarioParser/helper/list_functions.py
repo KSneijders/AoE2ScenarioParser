@@ -1,4 +1,7 @@
-from typing import List, Any, Generator, Iterator
+import itertools
+from typing import Any, Iterable, List
+
+from typing_extensions import Generator
 
 from AoE2ScenarioParser.objects.support.typedefs import T
 
@@ -37,8 +40,17 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
                 order_array.append(i)
 
 
-# Written by: Ned Batchelder @ https://stackoverflow.com/a/312464/7230293
-def list_chunks(list_: List[T], n: int) -> Iterator[List[T]]:
-    """Yield successive n-sized chunks from given list"""
-    for i in range(0, len(list_), n):
-        yield list_[i:i + n]
+def list_chunks(iterable: Iterable[T], n: int):
+    return list(list(item) for item in chunk(iterable, n))
+
+
+def tuple_chunks(iterable: Iterable[T], n: int):
+    return tuple(tuple(item) for item in chunk(iterable, n))
+
+
+# Todo: Replace entire function by itertools.batched() when on PY 3.12
+def chunk(it: Iterable[T], n: int) -> Generator[Iterable[T], Any, None]:
+    it = iter(it)
+
+    while (nxt := next(it, None)) is not None:
+        yield itertools.islice(itertools.chain([nxt], it), n)
