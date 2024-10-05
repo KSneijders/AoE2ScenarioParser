@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.73 - 2024-October-05
+
+### Added
+
+- Placeholder Technologies to the `TechInfo` dataset -- Credits: [mardaravicius](https://github.com/KSneijders/AoE2ScenarioParser/pull/48)
+  - `TechInfo.TECHNOLOGY_PLACEHOLDER_01` (Until 10 (incl))
+
+---
+
 ## 0.1.72 - 2024-September-10
 
 ### Renamed
