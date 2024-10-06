@@ -33,8 +33,7 @@ class ButtonLocation(_DataSetIntEnums):
     r3c2 = 12
     r3c3 = 13
     r3c4 = 14
-
-    # r3c5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
+    r3c5 = 15
 
     def attribute_presentation(self):
         val = self.value or 1  # Change VAL 0 to 1
