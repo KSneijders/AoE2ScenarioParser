@@ -1,0 +1,3584 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/area/">
+      
+      
+        <link rel="prev" href="../../support/">
+      
+      
+        <link rel="next" href="../data_triggers/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>AreaPattern - AoE2 Scenario Parser Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../_assets/css/api_docs_extra.css">
+    
+      <link rel="stylesheet" href="../../_assets/css/api_docs_toc.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#area" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AoE2 Scenario Parser Documentation" class="md-header__button md-logo" aria-label="AoE2 Scenario Parser Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AoE2 Scenario Parser Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AreaPattern
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/KSneijders/AoE2ScenarioParser" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AoE2ScenarioParser
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  AoE2SP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Cheatsheets
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/examples/" class="md-tabs__link">
+          
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../community/resources/" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api_docs/aoe2_scenario/" class="md-tabs__link">
+          
+  
+  API Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AoE2 Scenario Parser Documentation" class="md-nav__button md-logo" aria-label="AoE2 Scenario Parser Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AoE2 Scenario Parser Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/KSneijders/AoE2ScenarioParser" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AoE2ScenarioParser
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AoE2SP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            AoE2SP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hello_world/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello World
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    AreaPattern
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    AreaPattern
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-would-i-use-the-area-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why would I use the Area object?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-stack-of-units" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a stack of units
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#castle-surrounded-by-walls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Castle surrounded by walls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkers-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checkers pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-convert-to-other-datatype" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to convert to other datatype:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-get-information-from-the-area-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to get information from the Area object:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-set-what-patternselection-format-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to set what pattern/selection format to use:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-change-the-selection-in-one-way-or-another" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to change the selection in one way or another:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-relevant-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other relevant functions:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Datasets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../players/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Players
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../units/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Units
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XS Script
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/operations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/resources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guides and Resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/projects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Docs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            API Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/aoe2_scenario/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AoE2Scenario
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/aoe2_de_scenario/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AoE2DEScenario
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/settings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Map
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Map
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/map/map_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MapManager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/map/map_manager_de/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MapManagerDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/map/terrain_tile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TerrainTile
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Messages
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Messages
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/messages/message_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MessageManager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Player
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            Player
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/player/player_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PlayerManager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/player/player/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PlayerData
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Trigger
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            Trigger
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/trigger_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TriggerManager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/trigger_manager_de/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TriggerManagerDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/trigger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trigger
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7_4" id="__nav_5_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Effects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Effects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/effects/effect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Effect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/effects/new_effect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NewEffect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7_5" id="__nav_5_7_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Conditions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            Conditions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/conditions/condition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Condition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/conditions/new_condition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NewCondition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/variable/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/trigger_select/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TriggerSelect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/trigger/trigger_ce_lock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TriggerCeLock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Units
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            Units
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/units/unit_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnitManager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/units/unit_manager_de/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnitManagerDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/units/unit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    XS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            XS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/xs/xs_manager_de/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XsManager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_10">
+            <span class="md-nav__icon md-icon"></span>
+            Support
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/support/area/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Area
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/support/area_attr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AreaAttr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_docs/support/area_state/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AreaState
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-would-i-use-the-area-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why would I use the Area object?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-stack-of-units" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a stack of units
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#castle-surrounded-by-walls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Castle surrounded by walls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkers-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checkers pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-convert-to-other-datatype" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to convert to other datatype:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-get-information-from-the-area-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to get information from the Area object:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-set-what-patternselection-format-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to set what pattern/selection format to use:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-change-the-selection-in-one-way-or-another" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions to change the selection in one way or another:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-relevant-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other relevant functions:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="area">Area<a class="headerlink" href="#area" title="Permanent link">&para;</a></h1>
+<p>The <code>Area</code> object is a powerful object to get access to specific regions on the map. 
+This page will try to explain a bit on how to use it and what the possibilities are.</p>
+<p>First of all, the <code>Area</code> object uses "Method Chaining". 
+This means that methods inside the <code>Area</code> object return the <code>Area</code> object itself.
+This allows you to call another method straight after the first: </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">z</span><span class="p">()</span>
+<span class="c1"># With method chaining you can do:</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span><span class="o">.</span><span class="n">z</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>This is perfect for a highly configurable and flexible objects like the <code>Area</code> object.</p>
+<hr />
+<h2 id="why-would-i-use-the-area-object">Why would I use the <code>Area</code> object?<a class="headerlink" href="#why-would-i-use-the-area-object" title="Permanent link">&para;</a></h2>
+<p>If you want to do anything with more than a single coordinate, it's quite the hassle sometimes.
+That's the problem this object is <em>trying</em> (feature suggestions always welcome!) to solve.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>Area</code> object strength comes from selecting specific pattern/tiles. If you want to do a similar thing with 
+every tile on the map this object won't help you much. </p>
+</div>
+<hr />
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Below are a couple examples that show why this object can be very useful when working with coordinates.</p>
+<h3 id="creating-a-stack-of-units">Creating a stack of units<a class="headerlink" href="#creating-a-stack-of-units" title="Permanent link">&para;</a></h3>
+<p>Let's say you want to place 16 units, in a 4x4 area on the map. 
+This is not necessarily difficult to do, it'd probably look something like the following:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">54</span><span class="p">):</span>
+        <span class="n">unit_manager</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span>
+            <span class="n">player</span><span class="o">=</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> 
+            <span class="n">unit_const</span><span class="o">=</span><span class="n">UnitInfo</span><span class="o">.</span><span class="n">KNIGHT</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> 
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="mf">.5</span><span class="p">,</span> 
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="mf">.5</span>
+        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>This would create 16 units in a 4x4 area and isn't too bad to read or write.
+Though, having an object which manages the area would be a lot cleaner than looping through coordinates.
+So, let's see how we'd do it with the <code>Area</code> object.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>  <span class="c1"># Create a new area object</span>
+
+<span class="c1"># Select the area and convert it to a set of all coordinates inside of it</span>
+<span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">area</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">53</span><span class="p">)</span><span class="o">.</span><span class="n">to_coords</span><span class="p">():</span>
+    <span class="c1"># Every tile is a NamedTuple with an &#39;x&#39; and &#39;y&#39; value</span>
+    <span class="n">unit_manager</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span>
+        <span class="n">player</span><span class="o">=</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> 
+        <span class="n">unit_const</span><span class="o">=</span><span class="n">UnitInfo</span><span class="o">.</span><span class="n">KNIGHT</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> 
+        <span class="n">x</span><span class="o">=</span><span class="n">tile</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mf">.5</span><span class="p">,</span> 
+        <span class="n">y</span><span class="o">=</span><span class="n">tile</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">.5</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Above we can see the creation of a new <code>Area</code> object through the new Object Factory inside a scenario.
+We use the <code>select</code> method to select our area. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keep in mind that <code>Area.select</code> uses an inclusive selection. 
+This means that doing: <code>area.select(1, 1, 3, 3)</code> will select a 3x3 area.</p>
+</div>
+<hr />
+<h3 id="castle-surrounded-by-walls">Castle surrounded by walls<a class="headerlink" href="#castle-surrounded-by-walls" title="Permanent link">&para;</a></h3>
+<p>Now, the above example was quite a simple one. The real power comes with the configuration!
+So let's take a more complicated example! Like creating a wall around a castle!
+This will be quite the difference, so let's do it in steps, first we create the castle and the area object.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">castle</span> <span class="o">=</span> <span class="n">unit_manager</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> <span class="n">unit_const</span><span class="o">=</span><span class="n">BuildingInfo</span><span class="o">.</span><span class="n">CASTLE</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>Now let's select the area of the castle itself, so the 4x4 area.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">area</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">castle</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">castle</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Or using separate width and height calls:</span>
+<span class="n">area</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">castle</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">castle</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">width</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>This sets the center of the area to the castles coordinates. 
+After that we change the size of the selection from the default (1x1) to (4x4).
+We now have the castle area selected. Let's say we want the wall 6 tiles around the castle.
+Let's expand our selection by 6 tiles.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># On it&#39;s own line</span>
+<span class="n">area</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="c1"># Or add it to the above line</span>
+<span class="n">area</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">castle_object</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">castle_object</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Now we have a 16 by 16 tile area selected.
+The 4x4 from the castle plus the 6 tiles we expanded to all four sides.</p>
+<p>We <em>could</em> do the same thing as above with the knights in the 4x4 but there's a problem.
+The selection covers all those 256 (16*16) tiles. So we'd be filling everything with walls. 
+We just want the edges so, let's do that. For that we use a so called "use" function.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># On it&#39;s own line</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_only_edge</span><span class="p">()</span>
+<span class="c1"># Or, again, add it to the above line</span>
+<span class="n">area</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">castle_object</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">castle_object</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">use_only_edge</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>This tells the area object we only want the outer edge of the selection.
+Now let's convert that to coordinates and place those walls! We can use <code>area.to_coords()</code> again!</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">castle</span> <span class="o">=</span> <span class="n">unit_manager</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> <span class="n">unit_const</span><span class="o">=</span><span class="n">BuildingInfo</span><span class="o">.</span><span class="n">CASTLE</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">area</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">castle</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">castle</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">use_only_edge</span><span class="p">()</span><span class="o">.</span><span class="n">to_coords</span><span class="p">():</span>
+    <span class="n">unit_manager</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span>
+        <span class="n">player</span><span class="o">=</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> <span class="n">unit_const</span><span class="o">=</span><span class="n">BuildingInfo</span><span class="o">.</span><span class="n">STONE_WALL</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">tile</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">tile</span><span class="o">.</span><span class="n">y</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>And that's it! The castle has walls around it. With such ease!</p>
+<p><img alt="Caslte With Walls" src="../../images/area_castle_walls.png" title="area with castle walls" /></p>
+<hr />
+<h3 id="checkers-pattern">Checkers pattern<a class="headerlink" href="#checkers-pattern" title="Permanent link">&para;</a></h3>
+<p>So, let's say we want to create a checkers pattern. 
+Where we create squares of ice and black terrain alternately.
+To do this we basically need all tiles on the map but in separate squares.
+So selecting the entire map alone isn't enough here as we want them all separated.</p>
+<p>So, what we want is blocks of 3x3 over the course of the map. 
+The map we're reading is a tiny 2 player map which has a size of 120 by 120 tiles.</p>
+<p>What we'll do is select the entire map and use the grid pattern. 
+Then we use a block size of 3 and a gap size of 0. This way we get 3x3 areas.</p>
+<p>Though, we cannot use the <code>area.to_coords()</code> function we used before. 
+The reason for that is because the function returns all tiles in the selection. 
+And because we use all tiles in the map, this function will just return a large list of all tiles.
+What we need for this is: <code>area.to_chunks()</code>. Let's get started and see how it works!</p>
+<p>Alright, first, let's create the main <code>Area</code> object and select the entire map. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="n">area</span><span class="o">.</span><span class="n">select_entire_map</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>After that, let's set it so that it uses the grid pattern. You can do this in two ways:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Append to the same line</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="n">area</span><span class="o">.</span><span class="n">select_entire_map</span><span class="p">()</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span>
+
+<span class="c1"># Or add it after the last line</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="n">area</span><span class="o">.</span><span class="n">select_entire_map</span><span class="p">()</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>Now this would be default return a grid with gaps of 1 and blocks of 1x1. We want blocks of 3x3 and no gaps (gap of 0).
+Below you can see the steps and the difference these configurations have:</p>
+<p><img alt="Area grid 1x1 example" src="../../images/area_grid_1x1_example.png" title="Area grid 1x1 example" /></p>
+<p>Now that we know what we want, we can add some configuration to the function, we can do this in four ways, choose 
+the one you like the most (We'll continue with the first option):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># For the third option:</span>
+<span class="kn">from</span> <span class="nn">AoE2ScenarioParser.objects.support.area</span> <span class="kn">import</span> <span class="n">AreaAttr</span>
+
+<span class="o">...</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">(</span><span class="n">block_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gap_size</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;block_size&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;gap_size&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">AreaAttr</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">AreaAttr</span><span class="o">.</span><span class="n">GAP_SIZE</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">area</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">()</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">block_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gap_size</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">You can differentiate the X and Y</p>
+<p>In many functions you can use the general option like <code>gap_size</code>. 
+But there's also options for <code>gap_size_x</code> and <code>gap_size_y</code> if you want different selections.</p>
+</div>
+<p>Now that we have the grid, let's add the final piece where we change the terrain itself. 
+We can use the function <code>to_chunks()</code> to return our grid as 'chunks'.</p>
+<p>Chunks will be returned in a list and every chunk will be returned as an <code>OrderedSet</code>.
+These <code>OrderedSet</code>s will contain <code>Tile</code> objects by default. These objects just contain their <code>x</code> and <code>y</code> values.
+We can change this behaviour with the <code>as_terrain</code> parameter. 
+Setting this to <code>True</code> will return the <code>OrderedSet</code>s with <code>TerrainTile</code> objects. 
+These objects allow you to directly change the terrain on this tile. 
+These are also the same objects returned by the Map Manager.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">area</span><span class="o">.</span><span class="n">to_chunks</span><span class="p">(</span><span class="n">as_terrain</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">terrain_tile</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">:</span>
+        <span class="n">terrain_tile</span><span class="o">.</span><span class="n">terrain_id</span> <span class="o">=</span> <span class="n">TerrainId</span><span class="o">.</span><span class="n">BLACK</span> <span class="k">if</span> <span class="n">index</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">TerrainId</span><span class="o">.</span><span class="n">ICE</span>
+</code></pre></div></td></tr></table></div>
+<p>So the code above loops through all the 3x3 squares returned by the <code>to_chunks</code> function.
+Then for each square it loops through all the terrain tiles in the <code>OrderedSet</code>.
+We then set the terrain to <code>BLACK</code> or <code>ICE</code> depending on the index reduced by modulo 2.
+This will alternate the tiles between the two terrain types.</p>
+<p>There's one small adjustment we need to make. Because the map 120 tiles and the squares have a length of 3 we can fit
+40 squares per row. This is an even number. So just alternating <code>BLACK</code> and <code>ICE</code> terrain based on index will cause
+it to create lines instead of alternating each row. We can fix this by adding the row with the index and reduce that
+by modulo 2 to get our ideal situation. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">area</span><span class="o">.</span><span class="n">to_chunks</span><span class="p">(</span><span class="n">as_terrain</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">terrain_tile</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">index</span> <span class="o">//</span> <span class="p">(</span><span class="n">map_manager</span><span class="o">.</span><span class="n">map_size</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 3 as the size of the grid blocks</span>
+        <span class="n">terrain_tile</span><span class="o">.</span><span class="n">terrain_id</span> <span class="o">=</span> <span class="n">TerrainId</span><span class="o">.</span><span class="n">BLACK</span> <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">row</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">TerrainId</span><span class="o">.</span><span class="n">ICE</span>
+</code></pre></div></td></tr></table></div>
+<p>Another way to get around this is make sure the squares fit an odd amount of times in the length of the map. 
+So using the earlier loop, without the row, with a map size of 117 (39 times) would result in the same pattern as the 
+code above.</p>
+<p><img alt="area checkers example result" src="../../images/area_checkers_example_result.png" title="area checkers example result" /></p>
+<p>The entire code block for this example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">area</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="n">area</span><span class="o">.</span><span class="n">select_entire_map</span><span class="p">()</span><span class="o">.</span><span class="n">use_pattern_grid</span><span class="p">(</span><span class="n">block_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gap_size</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">area</span><span class="o">.</span><span class="n">to_chunks</span><span class="p">(</span><span class="n">as_terrain</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">terrain_tile</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">index</span> <span class="o">//</span> <span class="p">(</span><span class="n">map_manager</span><span class="o">.</span><span class="n">map_size</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 3 as the size of the grid blocks</span>
+        <span class="n">terrain_tile</span><span class="o">.</span><span class="n">terrain_id</span> <span class="o">=</span> <span class="n">TerrainId</span><span class="o">.</span><span class="n">BLACK</span> <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">row</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">TerrainId</span><span class="o">.</span><span class="n">ICE</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h3 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
+<p>In this section the functions are shown. This will <strong>eventually</strong> be replaced by a proper API doc for everything. But 
+until then, this will have to do. Enjoy!</p>
+<h4 id="functions-to-convert-to-other-datatype">Functions to convert to other datatype:<a class="headerlink" href="#functions-to-convert-to-other-datatype" title="Permanent link">&para;</a></h4>
+<hr />
+<p>.to_coords(as_terrain)</p>
+<p>Converts the selection to an OrderedSet of (x, y) coordinates</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>as_terrain</td>
+<td>bool</td>
+<td>False</td>
+<td>If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinatesare returned as TerrainTiles.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>OrderedSet[Tile | 'TerrainTile']</code></p>
+<hr />
+<p>.to_chunks(as_terrain)</p>
+<p>Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates. The separation between chunks is based on if they're connected to each other. So the tiles must share an edge (i.e. they should be non-diagonal).</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>as_terrain</td>
+<td>bool</td>
+<td>False</td>
+<td>If the returning coordinates should be Tile objects or Terrain Tiles. If True the coordinatesare returned as TerrainTiles.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>List[OrderedSet[Tile | 'TerrainTile']]</code></p>
+<hr />
+<p>.to_dict(prefix)</p>
+<p>Converts the 2 corners of the selection to area keys for use in effects etc. This can be used by adding double stars (**) before this function.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefix</td>
+<td>str</td>
+<td>"area_"</td>
+<td>The prefix of the string before 'x1' (e.g. prefix="coord_" will result in: "coord_x1" as key)</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Dict[str, int]</code></p>
+<hr />
+<h4 id="functions-to-get-information-from-the-area-object">Functions to get information from the <code>Area</code> object:<a class="headerlink" href="#functions-to-get-information-from-the-area-object" title="Permanent link">&para;</a></h4>
+<hr />
+<p>.get_selection()</p>
+<p>Get the four values of the selection as: ((x1, y1), (x2, y2))</p>
+<p>Returns: <code>Tuple[Tuple[int, int], Tuple[int, int]]</code></p>
+<hr />
+<p>.get_raw_selection()</p>
+<p>Get the four values of the selection (even if they are outside the map) as: ((x1, y1), (x2, y2))</p>
+<p>Returns: <code>Tuple[Tuple[int, int], Tuple[int, int]]</code></p>
+<hr />
+<p>.get_center()</p>
+<p>Get center of current selection</p>
+<p>Returns: <code>Tuple[float, float]</code></p>
+<hr />
+<p>.get_center_int()</p>
+<p>Get center of current selection, coords can only be integers. If even length, the value is ceiled</p>
+<p>Returns: <code>Tuple[int, int]</code></p>
+<hr />
+<p>.get_range_x()</p>
+<p>Returns a range object for the x coordinates.</p>
+<p>Returns: <code>range</code></p>
+<hr />
+<p>.get_range_y()</p>
+<p>Returns a range object for the y coordinates.</p>
+<p>Returns: <code>range</code></p>
+<hr />
+<p>.get_width()</p>
+<p>Returns the length of the x side of the selection.</p>
+<p>Returns: <code>int</code></p>
+<hr />
+<p>.get_height()</p>
+<p>Returns the length of the y side of the selection.</p>
+<p>Returns: <code>int</code></p>
+<hr />
+<p>.get_dimensions()</p>
+<p>Returns the lengths of the x &amp; y side of the selection (in that order).</p>
+<p>Returns: <code>Tuple[int, int]</code></p>
+<hr />
+<h4 id="functions-to-set-what-patternselection-format-to-use">Functions to set what pattern/selection format to use:<a class="headerlink" href="#functions-to-set-what-patternselection-format-to-use" title="Permanent link">&para;</a></h4>
+<hr />
+<p>.use_full()</p>
+<p>Sets the area object to use the entire selection</p>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.use_only_edge(line_width, line_width_x, line_width_y)</p>
+<p>Sets the area object to only use the edge of the selection</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>line_width</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the x &amp; y edge line</td>
+</tr>
+<tr>
+<td>line_width_x</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the x edge line</td>
+</tr>
+<tr>
+<td>line_width_y</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the y edge line</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.use_only_corners(corner_size, corner_size_x, corner_size_y)</p>
+<p>Sets the area object to only use the corners pattern within the selection.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>corner_size</td>
+<td>int</td>
+<td>None</td>
+<td>The size along both the x and y axis of the corner areas</td>
+</tr>
+<tr>
+<td>corner_size_x</td>
+<td>int</td>
+<td>None</td>
+<td>The size along the x axis of the corner areas</td>
+</tr>
+<tr>
+<td>corner_size_y</td>
+<td>int</td>
+<td>None</td>
+<td>The size along the y axis of the corner areas</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.use_pattern_grid(block_size, gap_size, block_size_x, block_size_y, gap_size_x, gap_size_y)</p>
+<p>Sets the area object to use a grid pattern within the selection.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>block_size</td>
+<td>int</td>
+<td>None</td>
+<td>The size of the gaps between lines</td>
+</tr>
+<tr>
+<td>gap_size</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the grid lines</td>
+</tr>
+<tr>
+<td>block_size_x</td>
+<td>int</td>
+<td>None</td>
+<td>The size of the x gaps between lines</td>
+</tr>
+<tr>
+<td>block_size_y</td>
+<td>int</td>
+<td>None</td>
+<td>The size of the y gaps between lines</td>
+</tr>
+<tr>
+<td>gap_size_x</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the x grid lines</td>
+</tr>
+<tr>
+<td>gap_size_y</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the y grid lines</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.use_pattern_lines(axis, gap_size, line_width)</p>
+<p>Sets the area object to use a lines pattern within the selection.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>axis</td>
+<td>str</td>
+<td>None</td>
+<td>The axis the lines should follow. Can either be "x" or "y"</td>
+</tr>
+<tr>
+<td>gap_size</td>
+<td>int</td>
+<td>None</td>
+<td>The size of the gaps between lines</td>
+</tr>
+<tr>
+<td>line_width</td>
+<td>int</td>
+<td>None</td>
+<td>The width of the x &amp; y lines</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<h4 id="functions-to-change-the-selection-in-one-way-or-another">Functions to change the selection in one way or another:<a class="headerlink" href="#functions-to-change-the-selection-in-one-way-or-another" title="Permanent link">&para;</a></h4>
+<hr />
+<p>.invert()</p>
+<p>Inverts the inverted boolean. Causes the <code>to_coords</code> to return the inverted selection. (Especially useful for the grid state. Not as useful for the edge which would be the same as shrinking the selection. When used with the fill state an empty set is returned.</p>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.along_axis(axis)</p>
+<p>Sets the axis. Can be either "x" or "y".</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>axis</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.attr(key, value)</p>
+<p>Sets the attribute to the given value. AreaAttr or str can be used as key</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>str | AreaAttr</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>value</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.attrs(x1, y1, x2, y2, gap_size, gap_size_x, gap_size_y, line_width, line_width_x, line_width_y, axis, corner_size, corner_size_x, corner_size_y, block_size, block_size_x, block_size_y)</p>
+<p>Sets multiple attributes to the corresponding values.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x1</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y1</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>x2</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y2</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>gap_size</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>gap_size_x</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>gap_size_y</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>line_width</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>line_width_x</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>line_width_y</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>axis</td>
+<td>str</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>corner_size</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>corner_size_x</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>corner_size_y</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>block_size</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>block_size_x</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>block_size_y</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.size(n)</p>
+<p>Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become <code>((3,3), (5,5))</code> </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.height(n)</p>
+<p>Sets the height (y axis) of the selection. Shrinks/Expands both sides equally. If the expansion hits the edge of the map, it'll expand on the other side. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.width(n)</p>
+<p>Sets the width (x axis) of the selection. Shrinks/Expands both sides equally. If the expansion hits the edge of the map, it'll expand on the other side. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.center(x, y)</p>
+<p>Moves the selection center to a given position. When the given center forces the selection of the edge of the map the off-map tiles will not be returned. When moving the selection back into the map the tiles will be returned again.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.center_bounded(x, y)</p>
+<p>Moves the selection center to a given position on the map. This function makes sure it cannot go over the edge of the map. The selection will be forced against the edge of the map and the selection will not be decreased in size. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.select_entire_map()</p>
+<p>Sets the selection to the entire map</p>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.select(x1, y1, x2, y2)</p>
+<p>Sets the selection to the given coordinates</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x1</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y1</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>x2</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y2</td>
+<td>int</td>
+<td>None</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.select_centered(x, y, dx, dy)</p>
+<p>Sets the selection to the given coordinates</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>y</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>dx</td>
+<td>int</td>
+<td>1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>dy</td>
+<td>int</td>
+<td>1</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.shrink(n)</p>
+<p>Shrinks the selection from all sides</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.shrink_x1(n)</p>
+<p>Shrinks the selection from the first corner on the X axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.shrink_y1(n)</p>
+<p>Shrinks the selection from the first corner on the Y axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.shrink_x2(n)</p>
+<p>Shrinks the selection from the second corner on the X axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.shrink_y2(n)</p>
+<p>Shrinks the selection from the second corner on the Y axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.expand(n)</p>
+<p>Expands the selection from all sides</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.expand_x1(n)</p>
+<p>Expands the selection from the first corner on the X axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.expand_y1(n)</p>
+<p>Expands the selection from the first corner on the Y axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.expand_x2(n)</p>
+<p>Expands the selection from the second corner on the X axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<p>.expand_y2(n)</p>
+<p>Expands the selection from the second corner on the Y axis by n</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>Area</code></p>
+<hr />
+<h4 id="other-relevant-functions">Other relevant functions:<a class="headerlink" href="#other-relevant-functions" title="Permanent link">&para;</a></h4>
+<hr />
+<p>.is_within_selection(x, y, tile)</p>
+<p>If a given (x,y) location is within the selection.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>int</td>
+<td>-1</td>
+<td>The X coordinate</td>
+</tr>
+<tr>
+<td>y</td>
+<td>int</td>
+<td>-1</td>
+<td>The Y coordinate</td>
+</tr>
+<tr>
+<td>tile</td>
+<td>Tile</td>
+<td>None</td>
+<td>A Tile object, replacing the x &amp; y coordinates</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>bool</code></p>
+<hr />
+<p>.associate_scenario(scenario)</p>
+<p>Associate area with scenario. Saves scenario UUID in this area object.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scenario</td>
+<td>AoE2Scenario</td>
+<td>-</td>
+<td>The scenario to associate with</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: <code>None</code></p>
+<hr />
+<p>.copy()</p>
+<p>Copy this instance of an Area. Useful for when you want to do multiple extractions (to_...) from the same source with small tweaks.</p>
+<p>Returns: <code>Area</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "search.share", "navigation.expand"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../_assets/js/api_docs_toc.js"></script>
+      
+    
+  </body>
+</html>
