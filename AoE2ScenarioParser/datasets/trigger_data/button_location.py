@@ -15,6 +15,8 @@ class ButtonLocation(_DataSetIntEnums):
 
     >>> ButtonLocation.R2C2
     <ButtonLocation.R2C2: 7>
+    >>> ButtonLocation.R1C5.dock_page2
+    25
     >>> ButtonLocation.R3C1.attribute_presentation()
     'row_3_col_1'
     """
@@ -33,13 +35,24 @@ class ButtonLocation(_DataSetIntEnums):
     R3C2 = 12
     R3C3 = 13
     R3C4 = 14
-    # R3C5 = 15  # Doesn't actually work in-game. Probably to make space for the arrow key.
+    R3C5 = 15
 
     def attribute_presentation(self):
         val = self.value or 1  # Change VAL 0 to 1
         row = math.ceil(val / 5)
         col = val - (row - 1) * 5
         return f"row_{row}_col_{col}"
+
+    @property
+    def dock_page2(self):
+        """
+        Returns the button location for the second page.
+        Used as a suffix to the usual button selection: ``ButtonLocation.R1C1.dock_page2``
+
+        Returns:
+            The value representing the button location for the second page
+        """
+        return self.value + 20
 
     @classmethod
     def row_col(cls, row: int, col: int) -> int:

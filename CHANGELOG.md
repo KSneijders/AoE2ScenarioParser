@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.1.74 - 2024-October-10
+
+### Added
+
+- `r3c5` to the `ButtonLocation` dataset (`value = 15`) -- Credits: [mardaravicius](https://github.com/KSneijders/AoE2ScenarioParser/pull/49)
+- `dock_page2` to the `ButtonLocation` dataset (`value += 20`) -- Credits: [mardaravicius](https://github.com/KSneijders/AoE2ScenarioParser/pull/49)
+  - Example: `ButtonLocation.r1c5.dock_page2  # Result: (5 + 20) = 25`  
+
+---
+
 ## 0.1.73 - 2024-October-05
 
 ### Added
