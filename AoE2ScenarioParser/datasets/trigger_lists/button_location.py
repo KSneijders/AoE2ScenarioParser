@@ -47,7 +47,7 @@ class ButtonLocation(_DataSetIntEnums):
     def dock_page2(self):
         """
         Returns the button location for the second page.
-        Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.page2``
+        Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.dock_page2``
 
         Returns:
             The value representing the button location for the second page
