@@ -15,6 +15,8 @@ class ButtonLocation(_DataSetIntEnums):
 
     >>> ButtonLocation.r2c2
     <ButtonLocation.r2c2: 7>
+    >>> ButtonLocation.r1c5.dock_page2
+    25
     >>> ButtonLocation.r3c1.attribute_presentation()
     'row_3_col_1'
     """
@@ -40,6 +42,17 @@ class ButtonLocation(_DataSetIntEnums):
         row = math.ceil(val / 5)
         col = val - (row - 1) * 5
         return f"row_{row}_col_{col}"
+
+    @property
+    def dock_page2(self):
+        """
+        Returns the button location for the second page.
+        Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.page2``
+
+        Returns:
+            The value representing the button location for the second page
+        """
+        return self.value + 20
 
     @classmethod
     def row_col(cls, row: int, col: int) -> int:
