@@ -4,6 +4,9 @@ from unittest import TestCase
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 
 
+# Todo: REMOVE BEFORE V1 RELEASE
+
+
 class U:
     """Mock object like AoE2Object"""
 
@@ -24,7 +27,6 @@ class NU:
 
     def __repr__(self):
         return f"u'{self._uuid}'"
-
 
 class TestUuidList(TestCase):
     lst: UuidList

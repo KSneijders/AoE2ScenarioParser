@@ -6,6 +6,9 @@ from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_depen
 _initialise_version_dependencies("DE", '1.47')
 
 
+# Todo: REWRITE BEFORE V1 RELEASE!
+
+
 class Test(TestCase):
     tm: TriggerManager
 
