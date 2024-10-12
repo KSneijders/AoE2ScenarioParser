@@ -11,8 +11,11 @@ from ordered_set import OrderedSet
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.list_functions import tuple_chunks
 from AoE2ScenarioParser.helper.maffs import sign
-from AoE2ScenarioParser.objects.support import Area, AreaPattern, AreaT, Tile, TileT
-from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
+from AoE2ScenarioParser.objects.support import (
+    Area, AreaPattern, AreaT, TerrainData, TerrainDataRow, Tile,
+    TileSequence, TileT,
+)
+from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import MapData, Options, ScenarioSections, Settings, TerrainTile
 
 
@@ -26,10 +29,10 @@ class MapManager(Manager):
     _map_height: int            = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.height))
     # @formatter:on
 
-    _terrain_2d: tuple[tuple[TerrainTile, ...], ...] | None = None
+    _terrain_2d: TerrainData | None = None
 
     @property
-    def terrain(self) -> tuple[tuple[TerrainTile, ...], ...]:
+    def terrain(self) -> TerrainData:
         if self._terrain_2d is None:
             self.terrain = self._terrain
         return self._terrain_2d
@@ -96,7 +99,58 @@ class MapManager(Manager):
         self._map_width = value
         self._map_height = value
 
-    # Todo: Add more tests
+    def change_map_size(
+        self,
+        new_map_size: int,
+        direction: Direction = Direction.EAST,
+    ) -> None:
+        if new_map_size == self.map_size:
+            return
+
+        def create_tiles(length: int) -> TerrainDataRow:
+            return tuple(TerrainTile() for _ in range(length))
+
+        def create_tile_rows(length: int) -> TerrainData:
+            return tuple(create_tiles(length) for _ in range(length))
+
+        def add_rows(terrain: TerrainData, num_rows: int, in_front: bool) -> TerrainData:
+            new_rows = create_tile_rows(num_rows)
+            return new_rows + terrain if in_front else terrain + new_rows
+
+        def add_cols(terrain: TerrainData, num_cols: int, in_front: bool) -> TerrainData:
+            return tuple(
+                (create_tiles(num_cols) + row) if in_front else (row + create_tiles(num_cols))
+                    for row in terrain
+            )
+
+        def slice_rows(terrain: TerrainData, num_rows: int, from_front: bool):
+            if from_front:
+                return terrain[num_rows:]
+            else:
+                return terrain[:-num_rows]
+
+        def slice_cols(terrain: TerrainData, num_cols: int, from_front: bool):
+            return tuple(row[num_cols:] if from_front else row[:-num_cols] for row in terrain)
+
+        # Todo: Move units
+        # Todo: Move trigger
+        # Todo: Fix elevation after extending (?)
+        # Todo: ADD TESTSS!!! NOT TESTED YET!!
+
+        diff = new_map_size - self.map_size
+        is_expanding = diff > 0
+        abs_diff = abs(diff)
+
+        terrain_2d = self._terrain_2d
+        if is_expanding:
+            terrain_2d = add_rows(terrain_2d, abs_diff, in_front = direction in (Direction.NORTH, Direction.WEST))
+            terrain_2d = add_cols(terrain_2d, abs_diff, in_front = direction in (Direction.SOUTH, Direction.WEST))
+        else:
+            terrain_2d = slice_rows(terrain_2d, abs_diff, from_front = direction in (Direction.NORTH, Direction.WEST))
+            terrain_2d = slice_cols(terrain_2d, abs_diff, from_front = direction in (Direction.SOUTH, Direction.WEST))
+
+        self.terrain = terrain_2d
+
     def terrain_from(
         self,
         tile_sequence: TileSequence | Tile | Iterable[TileSequence | Tile],
@@ -116,6 +170,8 @@ class MapManager(Manager):
         Returns:
             A dict with the tile as key and the corresponding TerrainTile as value
         """
+
+        # Todo: Add more tests
 
         def to_terrain_dict(obj: TileSequence | Tile) -> dict[Tile, TerrainTile] | None:
             if isinstance(obj, TileSequence):
