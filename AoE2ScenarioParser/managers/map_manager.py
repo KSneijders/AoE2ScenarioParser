@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import itertools
+import math
 from collections.abc import Iterable
-from typing import Generator
+from typing import Generator, Sequence
 
 from binary_file_parser import Manager, ret, RetrieverRef
 from ordered_set import OrderedSet
@@ -17,31 +18,55 @@ from AoE2ScenarioParser.sections import MapData, Options, ScenarioSections, Sett
 
 class MapManager(Manager):
     # @formatter:off
-    color_mood: str            = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.color_mood))
-    collide_and_correct: bool  = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.collide_and_correct))
-    villager_force_drop: bool  = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.villager_force_drop))
-    # TODO: Make 2D - Just simpler. 1D just makes stuff harder to use
+    color_mood: str             = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.color_mood))
+    collide_and_correct: bool   = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.collide_and_correct))
+    villager_force_drop: bool   = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.villager_force_drop))
     _terrain: list[TerrainTile] = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.terrain_tiles))
-    _map_width: int            = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.width))
-    _map_height: int           = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.height))
+    _map_width: int             = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.width))
+    _map_height: int            = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.height))
     # @formatter:on
 
-    _terrain_data_2d_temp: tuple[tuple[TerrainTile]] | None = None
+    _terrain_2d: tuple[tuple[TerrainTile, ...], ...] | None = None
 
     @property
-    def terrain_data_2d_temp(self):
-        if not self._terrain_data_2d_temp:
-            self._terrain_data_2d_temp = tuple_chunks(self.terrain, self.map_size)
-        return self._terrain_data_2d_temp
-
-    @property
-    def terrain(self):
-        return self._terrain
+    def terrain(self) -> tuple[tuple[TerrainTile, ...], ...]:
+        if self._terrain_2d is None:
+            self.terrain = self._terrain
+        return self._terrain_2d
 
     @terrain.setter
-    def terrain(self, value):
-        self._terrain_data_2d_temp = None
-        self._terrain = value
+    def terrain(self, value: Sequence[Sequence[TerrainTile]] | Sequence[TerrainTile]) -> None:
+        if len(value) == 0:
+            raise ValueError(f"Terrain sequence must at least contain one TerrainTile")
+
+        first = value[0]
+        if isinstance(value, Sequence) and isinstance(first, Sequence):
+            map_size = len(value)
+            if any(map(lambda x: len(x) != map_size, value)):
+                raise ValueError(
+                    f"Encountered unexpected length for nested sequence, "
+                    f"expected {map_size} sequences with length {map_size}"
+                )
+
+            self._terrain_2d = tuple(map(tuple, value))
+            self._terrain = list(itertools.chain(*value))
+        elif isinstance(value, Sequence) and isinstance(first, TerrainTile):
+            value: Sequence[TerrainTile]  # ThxPyCharm
+
+            if math.sqrt(len(value)) % 1 != 0:
+                raise ValueError(
+                    f"Invalid length given for terrain sequence, should be perfect square. Got: {len(value)}"
+                )
+
+            map_size = math.floor(math.sqrt(len(value)))
+
+            self._terrain_2d = tuple_chunks(value, map_size)
+            self._terrain = list(value)
+        else:
+            raise ValueError("Invalid value given for terrain")
+
+        self._map_width = map_size
+        self._map_height = map_size
 
     @property
     def map_width(self) -> int:
@@ -86,6 +111,7 @@ class MapManager(Manager):
         Returns:
             A dict with the tile as key and the corresponding TerrainTile as value
         """
+
         def to_terrain_dict(obj: TileSequence | Tile) -> dict[Tile, TerrainTile] | None:
             if isinstance(obj, TileSequence):
                 return obj.map(self.get_tile)
@@ -146,7 +172,7 @@ class MapManager(Manager):
                 raise ValueError('Parameter [i] needs to be [0 <= i < map_size]')
             x, y = i_to_xy(i, self.map_size)
 
-        return self.terrain_data_2d_temp[y][x]
+        return self.terrain[y][x]
 
     def get_tile_safe(self, tile: TileT = None, i: int = None) -> TerrainTile | None:
         """
