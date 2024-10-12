@@ -272,16 +272,17 @@ class MapManager(Manager):
             terrain.elevation = elevation
 
         for terrain_tile in self.terrain_from(edge_tiles).values():
-            self._elevation_tile_recursion(terrain_tile, tiles)
+            self._update_elevation_around_terrain_tile(terrain_tile, tiles)
 
-    def _elevation_tile_recursion(
+    def _update_elevation_around_terrain_tile(
         self,
         terrain_tile: TerrainTile,
         initial: set[Tile],
         visited: set[Tile] = None
     ):
         """
-        Elevation recursive function. Used in the set_elevation function
+        Updates the elevation around the given TerrainTile and calls itself for all surrounding neighbours
+        that need to be updated.
 
         Args:
             terrain_tile: The TerrainTile to check around
@@ -315,4 +316,4 @@ class MapManager(Manager):
                 neighbour.elevation = terrain_tile.elevation
             elif abs(neighbour.elevation - terrain_tile.elevation) > 1:
                 neighbour.elevation = terrain_tile.elevation + int(sign(neighbour.elevation, terrain_tile.elevation))
-                self._elevation_tile_recursion(neighbour, initial, visited)
+                self._update_elevation_around_terrain_tile(neighbour, initial, visited)
