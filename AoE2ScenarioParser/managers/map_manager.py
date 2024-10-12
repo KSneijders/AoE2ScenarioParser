@@ -65,6 +65,11 @@ class MapManager(Manager):
         else:
             raise ValueError("Invalid value given for terrain")
 
+        # Assign a Tile reference to all TerrainTiles for ease of access
+        for y, row in enumerate(self._terrain_2d):
+            for x, tile in enumerate(row):
+                tile._tile = Tile(x, y)
+
         self._map_width = map_size
         self._map_height = map_size
 
@@ -250,12 +255,14 @@ class MapManager(Manager):
         area = Area.from_value(area)
 
         if area.surface_area == 1:
+            result = self.terrain_from(area.corner1)
+
             tiles = {area.corner1}
             edge_tiles = [area.corner1]
         else:
             area_pattern = AreaPattern(area, map_size = self.map_size)
 
-            result: dict[Tile, TerrainTile] = self.terrain_from(area_pattern)
+            result = self.terrain_from(area_pattern)
 
             tiles = {*area_pattern.to_coords()}
             edge_tiles = area_pattern.use_only_edge().to_coords()
@@ -264,23 +271,25 @@ class MapManager(Manager):
         for terrain in result.values():
             terrain.elevation = elevation
 
-        for tile in edge_tiles:
-            self._elevation_tile_recursion(tile, tiles)
+        for terrain_tile in self.terrain_from(edge_tiles).values():
+            self._elevation_tile_recursion(terrain_tile, tiles)
 
     def _elevation_tile_recursion(
         self,
-        tile: Tile,
-        xys: set[Tile],
+        terrain_tile: TerrainTile,
+        initial: set[Tile],
         visited: set[Tile] = None
     ):
         """
         Elevation recursive function. Used in the set_elevation function
 
         Args:
-            tile: The Tile to check around
-            xys: The Tiles from the initial square
+            terrain_tile: The TerrainTile to check around
+            initial: The Tiles from the initial square
             visited: The visited Tiles with this recursion tree path
         """
+        tile = terrain_tile.tile
+
         visited = set() if visited is None else visited.copy()
         visited.add(tile)
 
@@ -291,7 +300,7 @@ class MapManager(Manager):
             xx, yy = tile.x + x_offset, tile.y + y_offset
 
             neighbour_tile = Tile(xx, yy)
-            if neighbour_tile in xys or neighbour_tile in visited:
+            if neighbour_tile in initial or neighbour_tile in visited:
                 continue
 
             neighbour = self.get_tile_safe(neighbour_tile)
@@ -302,10 +311,8 @@ class MapManager(Manager):
             if behind is None:
                 continue
 
-            source = self.get_tile(tile)
-
-            if neighbour.elevation < source.elevation == behind.elevation:
-                neighbour.elevation = source.elevation
-            elif abs(neighbour.elevation - source.elevation) > 1:
-                neighbour.elevation = source.elevation + int(sign(neighbour.elevation, source.elevation))
-                self._elevation_tile_recursion(neighbour_tile, xys, visited)
+            if neighbour.elevation < terrain_tile.elevation == behind.elevation:
+                neighbour.elevation = terrain_tile.elevation
+            elif abs(neighbour.elevation - terrain_tile.elevation) > 1:
+                neighbour.elevation = terrain_tile.elevation + int(sign(neighbour.elevation, terrain_tile.elevation))
+                self._elevation_tile_recursion(neighbour, initial, visited)
