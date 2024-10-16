@@ -50,7 +50,7 @@ class IncrementalGenerator:
         if n <= 0:
             return b''
         result = self.file_content[self.progress:self.progress + n]
-        if not result:
+        if not result or len(result) != n:
             remaining = len(self.get_remaining_bytes())
             raise EndOfFileError(f"End of file reached. (Requested: {n} bytes, only {remaining} left.")
         if update_progress:

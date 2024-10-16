@@ -244,7 +244,7 @@ class AoE2Scenario:
             try:
                 section = self._create_and_load_section(section_name, data_igenerator)
                 self._add_to_sections(section)
-            except (ValueError, TypeError) as e:
+            except Exception as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tSection: {section_name}\n")
                 self.write_error_file(trail_generator=data_igenerator)
                 raise e

@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 from enum import Enum
+from struct import error
 from typing import Dict, List, TYPE_CHECKING
 from uuid import UUID
 
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnknownErrorDuringReadingIterationError
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.list_functions import listify
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str, \
-    trunc_string
+    trunc_string, add_tabs
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
@@ -160,26 +163,48 @@ class AoE2FileSection:
         """
         total_length = 0
         for retriever in self.retriever_map.values():
-            handle_retriever_dependency(retriever, "construct", self, self._uuid)
-            if retriever.datatype.type == "struct":
-                struct_name = retriever.datatype.get_struct_name()
+            try:
+                handle_retriever_dependency(retriever, "construct", self, self._uuid)
+                if retriever.datatype.type == "struct":
+                    struct_name = retriever.datatype.get_struct_name()
 
-                structs = []
-                for _ in range(retriever.datatype.repeat):
-                    model = self.struct_models.get(struct_name)
-                    if model is None:
-                        raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
+                    structs: List['AoE2FileSection'] = []
+                    for i in range(retriever.datatype.repeat):
+                        try:
+                            model = self.struct_models.get(struct_name)
+                            if model is None:
+                                raise ValueError(f"Model '{struct_name}' not found. Likely not defined in structure.")
 
-                    struct = self._create_struct(model, igenerator)
-                    structs.append(struct)
+                            struct = self._create_struct(model, igenerator)
+                            structs.append(struct)
 
-                    total_length += struct.byte_length
-                retriever.set_data(structs, affect_dirty=False)
-            else:
-                retrieved_bytes = bytes_parser.retrieve_bytes(igenerator, retriever)
-                self._fill_retriever_with_bytes(retriever, retrieved_bytes)
+                            total_length += struct.byte_length
+                        except Exception as e:
+                            if len(structs) == 0:
+                                raise e
 
-                total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
+                            print("#" * 100)
+                            print(" " * 33 + "CURRENT PROGRESS STRUCTURE CONTENT")
+                            print("#" * 100 + '\n\n')
+
+                            length = len(structs) - 1
+                            for index, struct in enumerate(structs):
+                                print(f"[Index: {index}/{length}] " + struct.get_byte_structure_as_string().lstrip())
+
+                            raise e
+
+                    retriever.set_data(structs, affect_dirty=False)
+                else:
+                    retrieved_bytes = bytes_parser.retrieve_bytes(igenerator, retriever)
+                    self._fill_retriever_with_bytes(retriever, retrieved_bytes)
+
+                    total_length += sum([len(raw_bytes) for raw_bytes in retrieved_bytes])
+
+            except Exception as e:
+                print("\nCurrent Struct Progress: ")
+                print(add_tabs(self.get_byte_structure_as_string(), 1))
+                print("\n\n")
+                raise e
 
         self.byte_length = total_length
 
@@ -199,11 +224,12 @@ class AoE2FileSection:
         """
         try:
             retriever.set_data_from_bytes(retrieved_bytes)
-        except ValueError as e:
+        except Exception as e:
             print("\n\n" + "#" * 120)
             print(f"[{e.__class__.__name__}] Occurred while setting data in:\n\t{retriever}")
             print("#" * 120)
-            print(trunc_string(self.get_byte_structure_as_string(), length=10000))
+            # print(trunc_string(self.get_byte_structure_as_string(), length=10000))
+            print(self.get_byte_structure_as_string())
             raise e
 
     def _create_struct(self, model: 'AoE2StructModel', igenerator: 'IncrementalGenerator') -> 'AoE2FileSection':
@@ -224,13 +250,14 @@ class AoE2FileSection:
 
         try:
             struct.set_data_from_generator(igenerator)
-        except (TypeError, ValueError) as e:
+        except Exception as exception:
             print("\n" + "#" * 120)
-            print(f"[{e.__class__.__name__}] Occurred while setting data in: {struct.name}"
+            print(f"[{exception.__class__.__name__}] Occurred while setting data in: {struct.name}"
                   f"\n\tContent of {self.name}:")
             print("#" * 120)
-            print(trunc_string(self.get_byte_structure_as_string(), length=10000))
-            raise e
+            # print(trunc_string(self.get_byte_structure_as_string(), length=10000))
+            print(self.get_byte_structure_as_string())
+            raise exception
 
         return struct
 
