@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.0 - 2024-October-16
+
+### Added
+
+- **Ability to read the new 1.54 scenarios**
+  - This version is available since Update Preview 125283 (October 14, 2024)
+  - ⚠️ Very limited implementation - No new features from the update have been implemented yet ⚠️ 
+
+---
+
 ## 0.1.74 - 2024-October-10
 
 ### Added

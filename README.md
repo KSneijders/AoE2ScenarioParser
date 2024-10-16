@@ -35,7 +35,7 @@ If you have any questions regarding `AoE2ScenarioParser`? [Join the discord]!
 
 **Every Single Scenario Version from Age of Empires 2 Definitive Edition is SUPPORTED!** 
 
-> Support: `1.36` _Version at Release (November 14th, 2019)_ → `1.53` _Current Version (Since: March 13th, 2024)_
+> Support: `1.36` _Version at Release (November 14th, 2019)_ → `1.54` _Current Version (Since: October 14, 2024)_
 
 Every single version of **Age of Empires 2 Definitive Edition** is supported! 
 If a new version of **Age of Empires 2 Definitive Edition** just released it can take a bit for it to be able to be read. 
