@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## 0.2.0 - 2024-October-16
+## 0.2.2 - 2024-October-16
+
+> _Due to earlier version release testing `0.2.0` and `0.2.1` were pushed to `test.pypi.org` blocking those versions forever... F_
 
 ### Added
 
