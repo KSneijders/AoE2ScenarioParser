@@ -1699,7 +1699,7 @@
                             },
                             "static_value_46": {
                                 "type": "s32",
-                                "default": 52
+                                "default": 58
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -1916,27 +1916,27 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "1_54_unknown_1": {
+                            "resource_1": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "1_54_unknown_2": {
+                            "resource_1_value": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "1_54_unknown_3": {
+                            "resource_2": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "1_54_unknown_4": {
+                            "resource_2_value": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "1_54_unknown_5": {
+                            "resource_3": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "1_54_unknown_6": {
+                            "resource_3_value": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -1965,12 +1965,14 @@
                                     }
                                 }
                             },
-                            "1_54_unknown_7_str?": {
+                            "unused_string_1": {
                                 "type": "str32",
+                                "comment": "AoE2 Developer Quote: 'The 2 strings are unused'",
                                 "default": ""
                             },
-                            "1_54_unknown_8_str?": {
+                            "unused_string_2": {
                                 "type": "str32",
+                                "comment": "AoE2 Developer Quote: 'The 2 strings are unused'",
                                 "default": ""
                             }
                         }

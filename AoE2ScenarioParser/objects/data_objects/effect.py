@@ -83,9 +83,17 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("reset_timer", support=Support(since=1.44)),
             RetrieverObjectLink("object_state", support=Support(since=1.44)),
             RetrieverObjectLink("action_type", support=Support(since=1.44)),
+            RetrieverObjectLink("resource_1", support=Support(since=1.45)),
+            RetrieverObjectLink("resource_1_value", support=Support(since=1.45)),
+            RetrieverObjectLink("resource_2", support=Support(since=1.45)),
+            RetrieverObjectLink("resource_2_value", support=Support(since=1.45)),
+            RetrieverObjectLink("resource_3", support=Support(since=1.45)),
+            RetrieverObjectLink("resource_3_value", support=Support(since=1.45)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
+            RetrieverObjectLink("unused_string_1", support=Support(since=1.45)),
+            RetrieverObjectLink("unused_string_2", support=Support(since=1.45)),
         ])
     ]
 
@@ -142,9 +150,17 @@ class Effect(AoE2Object, TriggerComponent):
             reset_timer: int = None,
             object_state: int = None,
             action_type: int = None,
+            resource_1: int = None,
+            resource_1_value: int = None,
+            resource_2: int = None,
+            resource_2_value: int = None,
+            resource_3: int = None,
+            resource_3_value: int = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
+            unused_string_1: str = None,
+            unused_string_2: str = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -227,12 +243,20 @@ class Effect(AoE2Object, TriggerComponent):
         self.play_sound: int = play_sound
         self.player_color: int = player_color
         self.color_mood: int = color_mood
-        self.reset_timer = reset_timer
-        self.object_state = object_state
-        self.action_type = action_type
+        self.reset_timer: int = reset_timer
+        self.object_state: int = object_state
+        self.action_type: int = action_type
+        self.resource_1: int = resource_1
+        self.resource_1_value: int = resource_1_value
+        self.resource_2: int = resource_2
+        self.resource_2_value: int = resource_2_value
+        self.resource_3: int = resource_3
+        self.resource_3_value: int = resource_3_value
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
+        self.unused_string_1: str = unused_string_1
+        self.unused_string_2: str = unused_string_2
 
     @property
     def legacy_location_object_reference(self) -> int:
