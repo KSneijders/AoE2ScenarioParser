@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.3 - 2024-October-16
+
+### Added
+
+- Support for the **new** `Unit.caption_string_id` attribute
+- Support for the 6 **new** `Effect` attributes:
+  - `resource_1` & `resource_1_quantity`
+  - `resource_2` & `resource_2_quantity`
+  - `resource_3` & `resource_3_quantity`
+- Support for the **new** `Effect` attributes in the following effects:
+  - `change_object_cost`
+  - `change_technology_cost`
+  - This is reflected in the `trigger.new_effect.<effect>` functions and the `EffectId` documentation.
+  - Example:
+      ```py
+      from AoE2ScenarioParser.datasets.trigger_lists import Attribute
+      ...
+      trigger.new_effect.change_object_cost(
+          resource_1=Attribute.WOOD_STORAGE,
+          resource_1_quantity=20,
+          resource_2=Attribute.GOLD_STORAGE,
+          resource_2_quantity=80,
+      )
+      ```
+
+### Removed 
+
+> ⚠️ BREAKING CHANGE
+
+- Support for the `wood`, `food`, `gold` and `stone` attributes in the following effects:
+  - `change_object_cost`
+  - `change_technology_cost`
+  - Switch to the new `resource_X` and `resource_X_value` properties
+  - This is reflected in the `trigger.new_effect.<effect>` functions and the `EffectId` documentation.
+
+---
+
 ## 0.2.2 - 2024-October-16
 
 > _Due to earlier version release testing `0.2.0` and `0.2.1` were pushed to `test.pypi.org` blocking those versions forever... F_
