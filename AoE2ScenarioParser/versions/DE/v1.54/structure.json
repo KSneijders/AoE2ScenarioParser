@@ -1920,7 +1920,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "resource_1_value": {
+                            "resource_1_quantity": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -1928,7 +1928,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "resource_2_value": {
+                            "resource_2_quantity": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -1936,7 +1936,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "resource_3_value": {
+                            "resource_3_quantity": {
                                 "type": "s32",
                                 "default": -1
                             },

@@ -824,22 +824,22 @@ class NewEffectSupport:
             object_list_unit_id: int | None = None,
             source_player: int | None = None,
             resource_1: int | None = None,
-            resource_1_value: int | None = None,
+            resource_1_quantity: int | None = None,
             resource_2: int | None = None,
-            resource_2_value: int | None = None,
+            resource_2_quantity: int | None = None,
             resource_3: int | None = None,
-            resource_3_value: int | None = None,
+            resource_3_quantity: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_COST,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             resource_1=resource_1,
-            resource_1_value=resource_1_value,
+            resource_1_quantity=resource_1_quantity,
             resource_2=resource_2,
-            resource_2_value=resource_2_value,
+            resource_2_quantity=resource_2_quantity,
             resource_3=resource_3,
-            resource_3_value=resource_3_value,
+            resource_3_quantity=resource_3_quantity,
         )
 
     def set_player_visibility(
@@ -1268,22 +1268,22 @@ class NewEffectSupport:
             source_player: int | None = None,
             technology: int | None = None,
             resource_1: int | None = None,
-            resource_1_value: int | None = None,
+            resource_1_quantity: int | None = None,
             resource_2: int | None = None,
-            resource_2_value: int | None = None,
+            resource_2_quantity: int | None = None,
             resource_3: int | None = None,
-            resource_3_value: int | None = None,
+            resource_3_quantity: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_TECHNOLOGY_COST,
             source_player=source_player,
             technology=technology,
             resource_1=resource_1,
-            resource_1_value=resource_1_value,
+            resource_1_quantity=resource_1_quantity,
             resource_2=resource_2,
-            resource_2_value=resource_2_value,
+            resource_2_quantity=resource_2_quantity,
             resource_3=resource_3,
-            resource_3_value=resource_3_value,
+            resource_3_quantity=resource_3_quantity,
         )
 
     def change_technology_research_time(

@@ -53,11 +53,11 @@
             "object_state": "ObjectState",
             "action_type": "ActionType",
             "resource_1": "Attribute",
-            "resource_1_value": "",
+            "resource_1_quantity": "",
             "resource_2": "Attribute",
-            "resource_2_value":  "",
+            "resource_2_quantity":  "",
             "resource_3": "Attribute",
-            "resource_3_value":  "",
+            "resource_3_quantity":  "",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]"
@@ -120,11 +120,11 @@
             "object_state": -1,
             "action_type": -1,
             "resource_1":  -1,
-            "resource_1_value": -1,
+            "resource_1_quantity": -1,
             "resource_2":  -1,
-            "resource_2_value": -1,
+            "resource_2_quantity": -1,
             "resource_3":  -1,
-            "resource_3_value": -1,
+            "resource_3_quantity": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": [],
@@ -2783,21 +2783,21 @@
             "object_list_unit_id",
             "source_player",
             "resource_1",
-            "resource_1_value",
+            "resource_1_quantity",
             "resource_2",
-            "resource_2_value",
+            "resource_2_quantity",
             "resource_3",
-            "resource_3_value"
+            "resource_3_quantity"
         ],
         "default_attributes": {
             "effect_type": 40,
             "source_player": 1,
             "resource_1":  0,
-            "resource_1_value":  0,
+            "resource_1_quantity":  0,
             "resource_2":  0,
-            "resource_2_value":  0,
+            "resource_2_quantity":  0,
             "resource_3":  0,
-            "resource_3_value":  0
+            "resource_3_quantity":  0
         }
     },
     "41": {
@@ -4266,11 +4266,11 @@
             "source_player",
             "technology",
             "resource_1",
-            "resource_1_value",
+            "resource_1_quantity",
             "resource_2",
-            "resource_2_value",
+            "resource_2_quantity",
             "resource_3",
-            "resource_3_value"
+            "resource_3_quantity"
         ],
         "default_attributes": {
             "effect_type": 63,

@@ -363,11 +363,11 @@ class EffectId(IntEnum):
     - object_list_unit_id
     - source_player
     - resource_1
-    - resource_1_value
+    - resource_1_quantity
     - resource_2
-    - resource_2_value
+    - resource_2_quantity
     - resource_3
-    - resource_3_value"""
+    - resource_3_quantity"""
     SET_PLAYER_VISIBILITY = 41
     """Attributes for the **set_player_visibility** effect are: \n
     - source_player
@@ -534,11 +534,11 @@ class EffectId(IntEnum):
     - source_player
     - technology
     - resource_1
-    - resource_1_value
+    - resource_1_quantity
     - resource_2
-    - resource_2_value
+    - resource_2_quantity
     - resource_3
-    - resource_3_value"""
+    - resource_3_quantity"""
     CHANGE_TECHNOLOGY_RESEARCH_TIME = 64
     """Attributes for the **change_technology_research_time** effect are: \n
     - quantity
@@ -747,11 +747,11 @@ empty_attributes = {
     "object_state": -1,
     "action_type": -1,
     "resource_1": -1,
-    "resource_1_value": -1,
+    "resource_1_quantity": -1,
     "resource_2": -1,
-    "resource_2_value": -1,
+    "resource_2_quantity": -1,
     "resource_3": -1,
-    "resource_3_value": -1,
+    "resource_3_quantity": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,
