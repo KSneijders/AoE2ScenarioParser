@@ -9,6 +9,13 @@ class InvalidScenarioStructureError(AoE2ScenarioParserError):
     pass
 
 
+class UnknownErrorDuringReadingIterationError(AoE2ScenarioParserError):
+    def __init__(self, iteration: int, *args):
+        super().__init__(*args)
+
+        self.iteration = iteration
+
+
 class UnknownScenarioStructureError(AoE2ScenarioParserError):
     pass
 
