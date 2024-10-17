@@ -18,6 +18,7 @@ class Unit(BaseStruct):
     frame: int             = Retriever(uint16, min_ver = Version((1, 15)), default = 0)
     garrisoned_in_ref: int = Retriever(int32,  min_ver = Version((1, 13)), default = -1)
     """another object's reference_id. -1 (and 0 for v1.12+) mean None"""
+    caption_string_id: int = Retriever(int32,  min_ver = Version((1, 54)), default = -1)
     # @formatter:on
 
     def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):

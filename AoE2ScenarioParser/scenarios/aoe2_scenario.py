@@ -11,6 +11,6 @@ class AoE2Scenario:
 
     @classmethod
     def from_file_bfp(cls: Type[Scenario], path: str) -> ScenarioSections:
-        scenario = ScenarioSections.from_file(path, strict = True)
+        scenario = ScenarioSections.from_file(path, strict=True)
 
         return scenario

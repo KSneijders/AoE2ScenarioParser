@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever, RetrieverCombiner, Version
+from binary_file_parser import BaseStruct, ret, Retriever, RetrieverCombiner, Version
 from binary_file_parser.types import (
     Array32, uint32,
 )
@@ -40,7 +40,7 @@ class UnitData(BaseStruct):
     scenario_player_data: list[ScenarioPlayerData] = Retriever(ScenarioPlayerData,                             default_factory = ScenarioPlayerData,                repeat = 8)
     _units_de: list[list[Unit]]                    = Retriever(Array32[Unit],      min_ver = Version((1, 36)), default_factory = lambda _: [],                      repeat = 9)
 
-    units: list[list[Unit]]                        = RetrieverCombiner(_units_de, _units_aoc)
+    units: list[list[Unit]]                        = RetrieverCombiner(ret(_units_de), ret(_units_aoc))
     # @formatter:on
 
     def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
