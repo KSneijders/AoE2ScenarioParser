@@ -5,6 +5,7 @@ from enum import Enum
 from typing import List, Any, Dict, TYPE_CHECKING, Optional
 from uuid import UUID
 
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
@@ -97,7 +98,10 @@ class AoE2Object:
 
         self_dict = {}
         for attr in attrs:
-            value = getattr(self, attr)
+            try:
+                value = getattr(self, attr)
+            except UnsupportedAttributeError as e:
+                continue
             if isinstance(value, Enum):
                 self_dict[attr] = value.name
             else:

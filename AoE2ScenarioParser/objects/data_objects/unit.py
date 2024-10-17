@@ -11,6 +11,7 @@ from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import actions
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
+from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class Unit(AoE2Object):
@@ -30,6 +31,7 @@ class Unit(AoE2Object):
             RetrieverObjectLink("rotation"),
             RetrieverObjectLink("initial_animation_frame"),
             RetrieverObjectLink("garrisoned_in_id"),
+            RetrieverObjectLink("caption_string_id", support=Support(since=1.54)),
         ])
     ]
 
@@ -45,6 +47,7 @@ class Unit(AoE2Object):
             rotation: float,
             initial_animation_frame: int,
             garrisoned_in_id: int,
+            caption_string_id: int,
             **kwargs
     ):
         raise_if_not_int_subclass({'type': type})
@@ -61,6 +64,7 @@ class Unit(AoE2Object):
         self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
+        self.caption_string_id: int = caption_string_id
 
     @property
     def player(self) -> Player:

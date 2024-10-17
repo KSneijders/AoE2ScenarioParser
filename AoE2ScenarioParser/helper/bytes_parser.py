@@ -52,6 +52,7 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> 
     var_type, var_len = retriever.datatype.type_and_length
     retrieved_bytes = []
 
+    i = 0
     try:
         for i in range(retriever.datatype.repeat):
             if var_type != "str":  # (Signed) ints, floats, chars, plain bytes etc.
@@ -61,11 +62,15 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> 
                 string_length = bytes_to_int(int_bytes, signed=True)
                 string_bytes = igenerator.get_bytes(string_length)
                 retrieved_bytes.append(int_bytes + string_bytes)
-    except EndOfFileError:
+    except EndOfFileError as e:
         # END_OF_FILE_MARK retriever should always go in here
         if is_end_of_file_mark(retriever):
             retriever.datatype.repeat = 0
             return []
+        else:
+            print(f"\n\nError while setting bytes on retriever: \n\t{retriever} [Iteration: {i + 1}/{retriever.datatype.repeat}]")
+
+            raise e
 
     # If more bytes present in the file after END_OF_FILE_MARK
     handle_end_of_file_mark(igenerator, retriever)

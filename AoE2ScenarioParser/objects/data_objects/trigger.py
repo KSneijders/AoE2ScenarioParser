@@ -8,6 +8,7 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
@@ -158,25 +159,31 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
-    def _add_effect(
-            self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None, armour_attack_class=None,
-            quantity=None, tribute_list=None, diplomacy=None, object_list_unit_id=None, source_player=None,
-            target_player=None, technology=None, string_id=None, display_time=None, trigger_id=None, location_x=None,
-            location_y=None, location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
-            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None, time_unit=None,
-            enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None, flash_object=None,
-            force_research_technology=None, visibility_state=None, scroll=None, operation=None,
-            object_list_unit_id_2=None, button_location=None, ai_signal_value=None, object_attributes=None,
-            variable=None, timer=None, facet=None, play_sound=None, message=None, player_color=None, sound_name=None,
-            selected_object_ids=None, color_mood=None, reset_timer=None, object_state=None, action_type=None
-    ) -> Effect:
+    def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
+                    armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
+                    object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
+                    display_time=None, trigger_id=None, location_x=None, location_y=None,
+                    location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
+                    object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
+                    time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
+                    flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
+                    operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
+                    object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
+                    player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
+                    object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
+                    resource_2_quantity=None, resource_3=None, resource_3_quantity=None, unused_string_1=None,
+                    unused_string_2=None, ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
             sv = getters.get_scenario_version(self._uuid)
             try:
-                return effect_dataset.default_attributes[eff_type]
+                # Get None defaults and overwrite them with effect specific defaults
+                none_default = effect_dataset.default_attributes[0]
+                effect_default = effect_dataset.default_attributes[eff_type]
+
+                return {**none_default, **effect_default}
             except KeyError:
                 effect = EffectId(eff_type)
                 raise UnsupportedAttributeError(
@@ -205,7 +212,11 @@ class Trigger(AoE2Object, TriggerComponent):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
             sv = getters.get_scenario_version(self._uuid)
             try:
-                return condition_dataset.default_attributes[cond_type]
+                # Get None defaults and overwrite them with condition specific defaults
+                none_default = condition_dataset.default_attributes[0]
+                condition_default = condition_dataset.default_attributes[cond_type]
+
+                return {**none_default, **condition_default}
             except KeyError:
                 condition = ConditionId(cond_type)
                 raise UnsupportedAttributeError(
