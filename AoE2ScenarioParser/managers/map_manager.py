@@ -20,6 +20,8 @@ from AoE2ScenarioParser.sections import MapData, Options, ScenarioSections, Sett
 
 
 class MapManager(Manager):
+    _struct: ScenarioSections
+
     # @formatter:off
     color_mood: str             = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.color_mood))
     collide_and_correct: bool   = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.collide_and_correct))
@@ -45,10 +47,11 @@ class MapManager(Manager):
         first = value[0]
         if isinstance(value, Sequence) and isinstance(first, Sequence):
             map_size = len(value)
-            if any(map(lambda x: len(x) != map_size, value)):
+            invalid = next((len(row) for row in value if len(row) != map_size), None)
+            if invalid is not None:
                 raise ValueError(
                     f"Encountered unexpected length for nested sequence, "
-                    f"expected {map_size} sequences with length {map_size}"
+                    f"expected sequence with: {map_size}x{map_size}. Found length: {invalid}"
                 )
 
             self._terrain_2d = tuple(map(tuple, value))
@@ -93,29 +96,27 @@ class MapManager(Manager):
 
     @map_size.setter
     def map_size(self, value):
-        # Todo: Implement terrain data changes
-        # Todo: Don't implement here, use change_map_size function
+        self.change_map_size(new_map_size = value, direction = Direction.EAST)
 
-        self._map_width = value
-        self._map_height = value
+    def shrink_map_by(self, n: int, direction: Direction = Direction.EAST) -> None:
+        self.change_map_size(self.map_size - n, direction)
 
-    def change_map_size(
-        self,
-        new_map_size: int,
-        direction: Direction = Direction.EAST,
-    ) -> None:
+    def expand_map_by(self, n: int, direction: Direction = Direction.EAST) -> None:
+        self.change_map_size(self.map_size + n, direction)
+
+    def change_map_size(self, new_map_size: int, direction: Direction = Direction.EAST) -> None:
         if new_map_size == self.map_size:
             return
 
         def create_tiles(length: int) -> TerrainDataRow:
             return tuple(TerrainTile() for _ in range(length))
 
-        def create_tile_rows(length: int) -> TerrainData:
-            return tuple(create_tiles(length) for _ in range(length))
+        def create_tile_rows(length: int, size: int) -> TerrainData:
+            return tuple(create_tiles(size) for _ in range(length))
 
         def add_rows(terrain: TerrainData, num_rows: int, in_front: bool) -> TerrainData:
-            new_rows = create_tile_rows(num_rows)
-            return new_rows + terrain if in_front else terrain + new_rows
+            new_rows = create_tile_rows(num_rows, size = len(terrain))
+            return (new_rows + terrain) if in_front else (terrain + new_rows)
 
         def add_cols(terrain: TerrainData, num_cols: int, in_front: bool) -> TerrainData:
             return tuple(
@@ -132,16 +133,17 @@ class MapManager(Manager):
         def slice_cols(terrain: TerrainData, num_cols: int, from_front: bool):
             return tuple(row[num_cols:] if from_front else row[:-num_cols] for row in terrain)
 
-        # Todo: Move units
-        # Todo: Move trigger
+        # Todo: Move units using: ``self._struct.unit_manager...``
+        # Todo: Move trigger  using: ``self._struct.trigger_manager...``
         # Todo: Fix elevation after extending (?)
         # Todo: ADD TESTSS!!! NOT TESTED YET!!
+        # Todo: Add Tile preset for new tile generation
 
         diff = new_map_size - self.map_size
         is_expanding = diff > 0
         abs_diff = abs(diff)
 
-        terrain_2d = self._terrain_2d
+        terrain_2d = self.terrain
         if is_expanding:
             terrain_2d = add_rows(terrain_2d, abs_diff, in_front = direction in (Direction.NORTH, Direction.WEST))
             terrain_2d = add_cols(terrain_2d, abs_diff, in_front = direction in (Direction.SOUTH, Direction.WEST))
