@@ -518,7 +518,8 @@ class Area:
 
     def move_to(self, corner: Literal['west', 'north', 'east', 'south'], x: int, y: int):
         """
-        Moves the selection area to a given coordinate, placed from the given corner.
+        Moves the selection area to the given coordinate by placing the given corner of this area on the coordinate.
+
         For center placement, use ``.center(...)``
         """
         width = self.get_width() - 1
