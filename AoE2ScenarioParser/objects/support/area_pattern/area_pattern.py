@@ -15,6 +15,7 @@ from AoE2ScenarioParser.helper.coordinates import xy_to_i
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.area_pattern import AreaState, AreaAttr
 from AoE2ScenarioParser.objects.support.area import Area
+from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
 from AoE2ScenarioParser.objects.support.typedefs import AreaT, T, TileT
@@ -382,29 +383,32 @@ class AreaPattern(TileSequence):
             self.attr(key, value)
         return self
 
-    def move(self, offset_x: int = 0, offset_y: int = 0):
+    def move(self, x_offset: int = 0, y_offset: int = 0):
         """Moves the selection area in a given direction relative to its current position"""
-        self.area.corner1.x += offset_x
-        self.area.corner1.y += offset_y
-        self.area.corner2.x += offset_x
-        self.area.corner2.y += offset_y
+        self.area.corner1.x += x_offset
+        self.area.corner1.y += y_offset
+        self.area.corner2.x += x_offset
+        self.area.corner2.y += y_offset
         return self
 
-    def move_to(self, corner: Literal['west', 'north', 'east', 'south'], x: int, y: int):
+    def move_to(self, corner: Direction, tile: TileT):
         """
-        Moves the selection area to a given coordinate, placed from the given corner.
+        Moves the selection area to the given coordinate by placing the given corner of this area on the coordinate.
+
         For center placement, use ``.center(...)``
         """
         width = self.area.width - 1
         height = self.area.height - 1
 
-        if corner == 'west':
+        x, y = Tile.from_value(tile)
+
+        if corner == Direction.WEST:
             self.area = Area((x, y), (x + width, y + height))
-        elif corner == 'north':
+        elif corner == Direction.NORTH:
             self.area = Area((x - width, y), (x, y + height))
-        elif corner == 'east':
+        elif corner == Direction.EAST:
             self.area = Area((x - width, y - height), (x, y))
-        elif corner == 'south':
+        elif corner == Direction.SOUTH:
             self.area = Area((x, y - height), (x + width, y))
 
         return self

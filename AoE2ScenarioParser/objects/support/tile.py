@@ -168,17 +168,18 @@ class Tile:
         """
         return abs(other.x - self.x) + abs(other.y - self.y)
 
-    def is_within_bounds(self, map_size: int):
+    def is_within_bounds(self, map_size: int, resolve_negative_coords: bool = True) -> bool:
         """
         If a given tile is within the bounds of the given map_size (allowing negative coordinates)
 
         Args:
             map_size: The map_size of the map
+            resolve_negative_coords: If negative coordinates should be resolved to wrap to the other side of the map
 
         Returns:
             True if this tile is within the bounds of the given map_size
         """
-        tile = self.resolve_negative_coords(map_size)
+        tile = self.resolve_negative_coords(map_size) if resolve_negative_coords else self
 
         return 0 <= tile.x < map_size and 0 <= tile.y < map_size
 

@@ -7,7 +7,9 @@ from typing import Generator, Sequence
 
 from binary_file_parser import Manager, ret, RetrieverRef
 from ordered_set import OrderedSet
+from typing_extensions import Sized
 
+from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.list_functions import tuple_chunks
 from AoE2ScenarioParser.helper.maffs import sign
@@ -108,11 +110,11 @@ class MapManager(Manager):
         if new_map_size == self.map_size:
             return
 
-        def create_tiles(length: int) -> TerrainDataRow:
-            return tuple(TerrainTile() for _ in range(length))
+        def create_tiles(size: int) -> TerrainDataRow:
+            return tuple(TerrainTile() for _ in range(size))
 
-        def create_tile_rows(length: int, size: int) -> TerrainData:
-            return tuple(create_tiles(size) for _ in range(length))
+        def create_tile_rows(amount: int, size: int) -> TerrainData:
+            return tuple(create_tiles(size) for _ in range(amount))
 
         def add_rows(terrain: TerrainData, num_rows: int, in_front: bool) -> TerrainData:
             new_rows = create_tile_rows(num_rows, size = len(terrain))
@@ -133,18 +135,24 @@ class MapManager(Manager):
         def slice_cols(terrain: TerrainData, num_cols: int, from_front: bool):
             return tuple(row[num_cols:] if from_front else row[:-num_cols] for row in terrain)
 
-        # Todo: Move units using: ``self._struct.unit_manager...``
-        # Todo: Move trigger  using: ``self._struct.trigger_manager...``
-        # Todo: Fix elevation after extending (?)
-        # Todo: ADD TESTSS!!! NOT TESTED YET!!
-        # Todo: Add Tile preset for new tile generation
+        # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
+        # Todo: !!!!!! ADD TESTSS FOR terrain_from!
+        # Todo: !Move units using: ``self._struct.unit_manager...``
+        # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
+        # Todo: !! Add Tile preset for new tile generation
+        # TODO: !!!Move AreaPattern logic which modifies JUST the map, to Area add function in AreaPattern calling each
 
         diff = new_map_size - self.map_size
-        is_expanding = diff > 0
+        is_expansion = diff > 0
         abs_diff = abs(diff)
 
+        x_offset = abs_diff if direction in (Direction.SOUTH, Direction.WEST) else 0
+        y_offset = abs_diff if direction in (Direction.NORTH, Direction.WEST) else 0
+
+        original_area = self.get_area_pattern().move(x_offset, y_offset)
+
         terrain_2d = self.terrain
-        if is_expanding:
+        if is_expansion:
             terrain_2d = add_rows(terrain_2d, abs_diff, in_front = direction in (Direction.NORTH, Direction.WEST))
             terrain_2d = add_cols(terrain_2d, abs_diff, in_front = direction in (Direction.SOUTH, Direction.WEST))
         else:
@@ -152,6 +160,16 @@ class MapManager(Manager):
             terrain_2d = slice_cols(terrain_2d, abs_diff, from_front = direction in (Direction.SOUTH, Direction.WEST))
 
         self.terrain = terrain_2d
+
+        # Fix elevation
+        if is_expansion:
+            outline_original_area = original_area.copy().use_only_edge(line_width = 1)
+
+            terrain_tiles = self.terrain_from(outline_original_area)
+            protected_tiles = set(terrain_tiles.keys())
+
+            for terrain_tile in terrain_tiles.values():
+                self._update_elevation_around_terrain_tile(terrain_tile, protected = protected_tiles)
 
     def terrain_from(
         self,
@@ -172,16 +190,6 @@ class MapManager(Manager):
         Returns:
             A dict with the tile as key and the corresponding TerrainTile as value
         """
-
-        # Todo: Add more tests
-
-        def to_terrain_dict(obj: TileSequence | Tile) -> dict[Tile, TerrainTile] | None:
-            if isinstance(obj, TileSequence):
-                return obj.map(self.get_tile)
-            if isinstance(obj, Tile):
-                return {obj: self.get_tile(obj)}
-            return None
-
         def to_tiles(obj: TileSequence | Tile) -> OrderedSet[Tile] | set[Tile]:
             if isinstance(obj, TileSequence):
                 return obj.to_tiles()
@@ -190,7 +198,7 @@ class MapManager(Manager):
             return set()
 
         if isinstance(tile_sequence, (TileSequence, Tile)):
-            return to_terrain_dict(tile_sequence)
+            tile_sequence = [tile_sequence]
 
         tiles = set()
         if isinstance(tile_sequence, Iterable):
@@ -222,11 +230,9 @@ class MapManager(Manager):
         if i and tile or not i and not tile:
             raise ValueError('The use of exactly one of the parameters [i] or [tile] is required')
 
-        # Will never stay None but PyCharm really thinks it does
         x = y = None
-
         if tile is not None:
-            if not Tile.from_value(tile).is_within_bounds(self.map_size):
+            if not Tile.from_value(tile).is_within_bounds(self.map_size, resolve_negative_coords = False):
                 raise ValueError('Parameter [tile] needs to be within the bounds of the map')
             x, y = tile
 
@@ -234,6 +240,9 @@ class MapManager(Manager):
             if not 0 <= i < self.map_size:
                 raise ValueError('Parameter [i] needs to be [0 <= i < map_size]')
             x, y = i_to_xy(i, self.map_size)
+
+        if x is None or y is None:
+            raise ValueError(f'Unable to determine coordinates based on given value: [{tile or i}]')
 
         return self.terrain[y][x]
 
@@ -280,6 +289,12 @@ class MapManager(Manager):
             A two-dimensional list (of lists) of TerrainTiles based on given area
         """
         return [row for row in self._get_square_rows(area)]
+
+    def get_area(self) -> Area:
+        return Area((0, 0), (self.map_size - 1, self.map_size - 1))
+
+    def get_area_pattern(self) -> AreaPattern:
+        return AreaPattern(area = self.get_area(), map_size = self.map_size)
 
     def _get_square_rows(self, area: AreaT) -> Generator[list[TerrainTile], None, None]:
         """
@@ -330,12 +345,12 @@ class MapManager(Manager):
             terrain.elevation = elevation
 
         for terrain_tile in self.terrain_from(edge_tiles).values():
-            self._update_elevation_around_terrain_tile(terrain_tile, tiles)
+            self._update_elevation_around_terrain_tile(terrain_tile, protected = tiles)
 
     def _update_elevation_around_terrain_tile(
         self,
         terrain_tile: TerrainTile,
-        initial: set[Tile],
+        protected: set[Tile],
         visited: set[Tile] = None
     ):
         """
@@ -344,7 +359,7 @@ class MapManager(Manager):
 
         Args:
             terrain_tile: The TerrainTile to check around
-            initial: The Tiles from the initial square
+            protected: Tiles that should not be changed by this call
             visited: The visited Tiles with this recursion tree path
         """
         tile = terrain_tile.tile
@@ -359,7 +374,7 @@ class MapManager(Manager):
             xx, yy = tile.x + x_offset, tile.y + y_offset
 
             neighbour_tile = Tile(xx, yy)
-            if neighbour_tile in initial or neighbour_tile in visited:
+            if neighbour_tile in protected or neighbour_tile in visited:
                 continue
 
             neighbour = self.get_tile_safe(neighbour_tile)
@@ -367,11 +382,9 @@ class MapManager(Manager):
                 continue
 
             behind = self.get_tile_safe((tile.x + x_offset * 2, tile.y + y_offset * 2))
-            if behind is None:
-                continue
 
-            if neighbour.elevation < terrain_tile.elevation == behind.elevation:
+            if behind is not None and neighbour.elevation < terrain_tile.elevation == behind.elevation:
                 neighbour.elevation = terrain_tile.elevation
             elif abs(neighbour.elevation - terrain_tile.elevation) > 1:
                 neighbour.elevation = terrain_tile.elevation + int(sign(neighbour.elevation, terrain_tile.elevation))
-                self._update_elevation_around_terrain_tile(neighbour, initial, visited)
+                self._update_elevation_around_terrain_tile(neighbour, protected, visited)

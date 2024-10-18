@@ -618,14 +618,14 @@ def test_area_is_within_selection(area_pattern):
 def test_area_is_within_bounds(area_pattern):
     area_pattern.select((0, 0), (10, 10))
     assert area_pattern.is_within_bounds()
-    area_pattern.move(offset_x = -1)
+    area_pattern.move(x_offset = -1)
     assert not area_pattern.is_within_bounds()
     # Select exactly the right-most corner
     area_pattern.select_centered((140, 140), dx = 7, dy = 7)
     assert area_pattern.is_within_bounds()
-    area_pattern.move(offset_x = 1)
+    area_pattern.move(x_offset = 1)
     assert not area_pattern.is_within_bounds()
-    area_pattern.move(offset_x = -1, offset_y = 1)
+    area_pattern.move(x_offset = -1, y_offset = 1)
     assert not area_pattern.is_within_bounds()
 
 
@@ -680,13 +680,13 @@ def test_area_copy(area_pattern):
 def test_area_move():
     area_pattern = AreaPattern.from_tiles((0, 1), (2, 3))
 
-    area_pattern.move(offset_x = 10)
+    area_pattern.move(x_offset = 10)
     assert ((10, 1), (12, 3)) == area_pattern.area.corners
 
-    area_pattern.move(offset_y = 10)
+    area_pattern.move(y_offset = 10)
     assert ((10, 11), (12, 13)) == area_pattern.area.corners
 
-    area_pattern.move(offset_x = -5, offset_y = -5)
+    area_pattern.move(x_offset = -5, y_offset = -5)
     assert ((5, 6), (7, 8)) == area_pattern.area.corners
 
 

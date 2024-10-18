@@ -15,8 +15,6 @@ class SecondaryGameMode(_DataSetIntFlags):
     <HeroStatusFlag.SUDDEN_DEATH|REGICIDE: 6>
     """
 
-    # todo: we can probably add this to the base dataset int flags class, I have an idea on how to generic-ify this
-    #  method although idk if its actually good - Alian
     @staticmethod
     def combine(
             empire_wars: bool = False,
