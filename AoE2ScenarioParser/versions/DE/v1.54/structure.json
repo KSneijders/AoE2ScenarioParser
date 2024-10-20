@@ -1435,7 +1435,7 @@
                             },
                             "caption_string_id": {
                                 "type": "s32",
-                                "default": ""
+                                "default": -1
                             }
                         }
                     }
