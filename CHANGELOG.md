@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.5 - 2024-October-17
+
+### Fixed
+
+- Error when calling `UnitManager.add_unit(...)` (missing the `caption_string_id` param)
+
+---
+
 ## 0.2.4 - 2024-October-17
 
 ### Fixed
