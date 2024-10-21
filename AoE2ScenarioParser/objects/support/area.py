@@ -317,7 +317,7 @@ class Area:
             prefix: The prefix of the string before 'x1' (e.g. prefix="coord_" will result in: "coord_x1" as key)
 
         Returns:
-            A dict with area_x1, area_y1, area_x2, area_y2 as keys and their respective values.
+            A dict with area_x1, area_y1, area_x2, area_y2 as keys and their respective values (if prefix is unchanged).
         """
         return {f"{prefix}{key}": getattr(self, key) for key in ['x1', 'y1', 'x2', 'y2']}
 
