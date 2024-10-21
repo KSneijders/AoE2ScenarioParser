@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.6 - Unreleased
+
+### Added
+
+- Added `Tile.to_dict()` function
+  - `Tile(4, 6).to_dict()` would result in: `{'location_x': 4, 'location_y': 6}`
+
+---
+
 ## 0.2.5 - 2024-October-20
 
 ### Fixed
