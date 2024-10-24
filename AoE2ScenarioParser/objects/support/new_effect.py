@@ -5,6 +5,7 @@ from typing import List
 from typing_extensions import deprecated
 
 from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 
 
@@ -1565,16 +1566,25 @@ class NewEffectSupport:
             object_attributes: int | None = None,
             variable: int | None = None,
             message: str | None = None,
+            armour_attack_class: int | None = None,
     ):
-        return self._trigger_ref._add_effect(
+        if (armour_attack_class is not None and object_attributes != ObjectAttribute.ATTACK and
+                object_attributes != ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+        effect = self._trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             operation=operation,
             object_attributes=object_attributes,
             variable=variable,
-            message=message
+            message=message,
         )
+        if object_attributes == ObjectAttribute.ATTACK or object_attributes == ObjectAttribute.ARMOR:
+            combined_var = effect._aa_to_quantity(variable, armour_attack_class)
+            effect.variable = combined_var
+
+        return effect
 
     def set_object_cost(
             self,
@@ -1673,8 +1683,13 @@ class NewEffectSupport:
             object_attributes: int | None = None,
             variable: int | None = None,
             message: str | None = None,
+            armour_attack_class: int | None = None,
     ):
-        return self._trigger_ref._add_effect(
+        if (armour_attack_class is not None and object_attributes != ObjectAttribute.ATTACK and
+                object_attributes != ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
+        effect = self._trigger_ref._add_effect(
             EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
@@ -1683,6 +1698,11 @@ class NewEffectSupport:
             variable=variable,
             message=message
         )
+        if object_attributes == ObjectAttribute.ATTACK or object_attributes == ObjectAttribute.ARMOR:
+            combined_var = effect._aa_to_quantity(variable, armour_attack_class)
+            effect.variable = combined_var
+
+        return effect
 
     def change_object_caption(
             self,
