@@ -74,7 +74,7 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("button_location"),
             RetrieverObjectLink("ai_signal_value"),
             RetrieverObjectLink("object_attributes"),
-            RetrieverObjectLink("variable"),
+            RetrieverObjectLink("_variable_ref", link="variable"),
             RetrieverObjectLink("timer"),
             RetrieverObjectLink("facet"),
             RetrieverObjectLink("play_sound"),
@@ -161,6 +161,8 @@ class Effect(AoE2Object, TriggerComponent):
             selected_object_ids: List[int] = None,
             unused_string_1: str = None,
             unused_string_2: str = None,
+            # Used for variable retrieval in armour/attack effects (source=variable only)
+            _variable_ref: int = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -170,13 +172,17 @@ class Effect(AoE2Object, TriggerComponent):
         if selected_object_ids is None:
             selected_object_ids = []
 
-        # Set flags
-        self._armour_attack_flag = _set_armour_attack_flag(effect_type, object_attributes)
+        # Set armour/attack flags
+        self._armour_attack_source = _get_armour_attack_source(effect_type, object_attributes)
 
-        # Handle armour effect attributes:
-        #   When effect is created through trigger.new_effect, aa values will be -1.
-        #   If created while reading a scenario, they both default to None.
-        if self._armour_attack_flag:
+        if self._armour_attack_source == 'variable':
+            # If effect created through reading scenario file
+            if _variable_ref is not None and armour_attack_class is None:
+                armour_attack_class, variable = self._quantity_to_aa(_variable_ref)
+            # If created through new_effect with variable and armour_attack_class values
+            else:
+                pass
+        elif self._armour_attack_source == 'quantity':
             # If effect created through reading scenario file
             if quantity is not None and armour_attack_class is None and armour_attack_quantity is None:
                 armour_attack_class, armour_attack_quantity = self._quantity_to_aa(quantity)
@@ -310,6 +316,10 @@ class Effect(AoE2Object, TriggerComponent):
         self._update_armour_attack_flag()
 
     @property
+    def _armour_attack_flag(self):
+        return self._armour_attack_source is not None
+
+    @property
     def armour_attack_quantity(self):
         """Helper property for handling the armour_attack related values"""
         return self._armour_attack_quantity
@@ -334,16 +344,16 @@ class Effect(AoE2Object, TriggerComponent):
         self._armour_attack_class = value
 
     @property
-    def quantity(self):
+    def quantity(self) -> int:
         """Getter for quantity, even if it is combined with `armour_attack_quantity` and `armour_attack_class`"""
-        if self._armour_attack_flag:
+        if self._armour_attack_source == 'quantity':
             return self._aa_to_quantity(self.armour_attack_quantity, self.armour_attack_class)
         return self._quantity
 
     @quantity.setter
     def quantity(self, value):
-        # Quantity by default, when unused is []
-        if value is not None and value != [] and self._armour_attack_flag:
+        # Quantity by default, when unused is [], or
+        if self._armour_attack_source == 'quantity' and value not in (None, []):
             warn(
                 message="Setting 'effect.quantity' directly in an effect that uses armour/attack attributes "
                         "might result in unintended behaviour.\nPlease use the 'effect.armour_attack_quantity' "
@@ -352,6 +362,13 @@ class Effect(AoE2Object, TriggerComponent):
             )
             self.armour_attack_class, self.armour_attack_quantity = self._quantity_to_aa(value)
         self._quantity = value
+
+    @property
+    def _variable_ref(self) -> int | None:
+        """Variable only used for byte retrieval of Effect"""
+        if self._armour_attack_source == 'variable':
+            return self._aa_to_quantity(self.variable, self.armour_attack_class)
+        return self.variable
 
     @property
     def selected_object_ids(self) -> List[int]:
@@ -412,7 +429,7 @@ class Effect(AoE2Object, TriggerComponent):
         return return_string
 
     def _update_armour_attack_flag(self):
-        self._armour_attack_flag = _set_armour_attack_flag(self.effect_type, self.object_attributes)
+        self._armour_attack_source = _get_armour_attack_source(self.effect_type, self.object_attributes)
 
     def _quantity_to_aa(self, quantity: int) -> Tuple[int, int]:
         """
@@ -473,14 +490,30 @@ class Effect(AoE2Object, TriggerComponent):
         return f"[Effect] {self.get_content_as_string(include_effect_definition=True)}"
 
 
-def _set_armour_attack_flag(effect_type, object_attributes) -> bool:
+def _is_quantity_based_aa_effect(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> bool:
     aa_effects = [
         EffectId.CHANGE_OBJECT_ATTACK,
         EffectId.CHANGE_OBJECT_ARMOR,
         EffectId.CREATE_OBJECT_ATTACK,
         EffectId.CREATE_OBJECT_ARMOR,
     ]
+    partial_aa_attribute_effects = [EffectId.MODIFY_ATTRIBUTE]
+    partial_aa_attributes = [ObjectAttribute.ATTACK, ObjectAttribute.ARMOR]
+
     return (effect_type in aa_effects) or \
-           (effect_type == EffectId.MODIFY_ATTRIBUTE and object_attributes in [
-               ObjectAttribute.ATTACK, ObjectAttribute.ARMOR
-           ])
+        (effect_type in partial_aa_attribute_effects and object_attributes in partial_aa_attributes)
+
+
+def _is_variable_based_aa_effect(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> bool:
+    partial_aa_attribute_effects = [EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE, EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE]
+    partial_aa_attributes = [ObjectAttribute.ATTACK, ObjectAttribute.ARMOR]
+
+    return effect_type in partial_aa_attribute_effects and object_attributes in partial_aa_attributes
+
+
+def _get_armour_attack_source(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> str | None:
+    if _is_quantity_based_aa_effect(effect_type, object_attributes):
+        return 'quantity'
+    if _is_variable_based_aa_effect(effect_type, object_attributes):
+        return 'variable'
+    return None

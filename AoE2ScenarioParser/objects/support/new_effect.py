@@ -1568,11 +1568,12 @@ class NewEffectSupport:
             message: str | None = None,
             armour_attack_class: int | None = None,
     ):
-        if (armour_attack_class is not None and object_attributes != ObjectAttribute.ATTACK and
-                object_attributes != ObjectAttribute.ARMOR):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
             raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
-        effect = self._trigger_ref._add_effect(
+
+        return self._trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE,
+            armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             operation=operation,
@@ -1580,11 +1581,6 @@ class NewEffectSupport:
             variable=variable,
             message=message,
         )
-        if armour_attack_class is not None and armour_attack_class > -1:
-            combined_var = effect._aa_to_quantity(variable, armour_attack_class)
-            effect.variable = combined_var
-
-        return effect
 
     def set_object_cost(
             self,
@@ -1685,12 +1681,12 @@ class NewEffectSupport:
             message: str | None = None,
             armour_attack_class: int | None = None,
     ):
-        if (armour_attack_class is not None and object_attributes != ObjectAttribute.ATTACK and
-                object_attributes != ObjectAttribute.ARMOR):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
             raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
 
-        effect = self._trigger_ref._add_effect(
+        return self._trigger_ref._add_effect(
             EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE,
+            armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             operation=operation,
@@ -1698,11 +1694,6 @@ class NewEffectSupport:
             variable=variable,
             message=message
         )
-        if armour_attack_class is not None and armour_attack_class > -1:
-            combined_var = effect._aa_to_quantity(variable, armour_attack_class)
-            effect.variable = combined_var
-
-        return effect
 
     def change_object_caption(
             self,
