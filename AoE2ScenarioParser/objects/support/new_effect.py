@@ -5,6 +5,7 @@ from typing import List
 from typing_extensions import deprecated
 
 from AoE2ScenarioParser.datasets.effects import EffectId
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 
 
@@ -1565,15 +1566,20 @@ class NewEffectSupport:
             object_attributes: int | None = None,
             variable: int | None = None,
             message: str | None = None,
+            armour_attack_class: int | None = None,
     ):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
         return self._trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE,
+            armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             operation=operation,
             object_attributes=object_attributes,
             variable=variable,
-            message=message
+            message=message,
         )
 
     def set_object_cost(
@@ -1673,9 +1679,14 @@ class NewEffectSupport:
             object_attributes: int | None = None,
             variable: int | None = None,
             message: str | None = None,
+            armour_attack_class: int | None = None,
     ):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
         return self._trigger_ref._add_effect(
             EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE,
+            armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             operation=operation,
