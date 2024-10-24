@@ -177,7 +177,7 @@ class Effect(AoE2Object, TriggerComponent):
 
         if self._armour_attack_source == 'variable':
             # If effect created through reading scenario file
-            if _variable_ref is not None and armour_attack_class is None:
+            if _variable_ref is not None and variable is None and armour_attack_class is None:
                 armour_attack_class, variable = self._quantity_to_aa(_variable_ref)
             # If created through new_effect with variable and armour_attack_class values
             else:
