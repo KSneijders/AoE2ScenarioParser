@@ -5431,16 +5431,14 @@
             "operation",
             "object_attributes",
             "variable",
-            "message",
-            "string_id"
+            "message"
         ],
         "default_attributes": {
             "effect_type": 87,
             "source_player": 1,
             "operation": 1,
             "object_attributes": 0,
-            "variable": 0,
-            "string_id": 18427
+            "variable": 0
         }
     },
     "88": {
