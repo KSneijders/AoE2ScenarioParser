@@ -1580,7 +1580,7 @@ class NewEffectSupport:
             variable=variable,
             message=message,
         )
-        if object_attributes == ObjectAttribute.ATTACK or object_attributes == ObjectAttribute.ARMOR:
+        if armour_attack_class is not None and armour_attack_class > -1:
             combined_var = effect._aa_to_quantity(variable, armour_attack_class)
             effect.variable = combined_var
 
@@ -1698,7 +1698,7 @@ class NewEffectSupport:
             variable=variable,
             message=message
         )
-        if object_attributes == ObjectAttribute.ATTACK or object_attributes == ObjectAttribute.ARMOR:
+        if armour_attack_class is not None and armour_attack_class > -1:
             combined_var = effect._aa_to_quantity(variable, armour_attack_class)
             effect.variable = combined_var
 
