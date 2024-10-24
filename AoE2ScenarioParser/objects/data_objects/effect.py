@@ -178,14 +178,14 @@ class Effect(AoE2Object, TriggerComponent):
         if self._armour_attack_source == 'variable':
             # If effect created through reading scenario file
             if _variable_ref is not None and variable is None and armour_attack_class is None:
-                armour_attack_class, variable = self._quantity_to_aa(_variable_ref)
+                armour_attack_class, variable = self._split_aa_value(_variable_ref)
             # If created through new_effect with variable and armour_attack_class values
             else:
                 pass
         elif self._armour_attack_source == 'quantity':
             # If effect created through reading scenario file
             if quantity is not None and armour_attack_class is None and armour_attack_quantity is None:
-                armour_attack_class, armour_attack_quantity = self._quantity_to_aa(quantity)
+                armour_attack_class, armour_attack_quantity = self._split_aa_value(quantity)
                 quantity = None
             # If effect created through new_effect with aa values defined
             elif value_is_valid(armour_attack_class) or value_is_valid(armour_attack_quantity):
@@ -347,7 +347,7 @@ class Effect(AoE2Object, TriggerComponent):
     def quantity(self) -> int:
         """Getter for quantity, even if it is combined with `armour_attack_quantity` and `armour_attack_class`"""
         if self._armour_attack_source == 'quantity':
-            return self._aa_to_quantity(self.armour_attack_quantity, self.armour_attack_class)
+            return self._merge_aa_values(self.armour_attack_class, self.armour_attack_quantity)
         return self._quantity
 
     @quantity.setter
@@ -360,14 +360,14 @@ class Effect(AoE2Object, TriggerComponent):
                         "and 'effect.armour_attack_class' attributes instead.",
                 category=IncorrectArmorAttackUsageWarning
             )
-            self.armour_attack_class, self.armour_attack_quantity = self._quantity_to_aa(value)
+            self.armour_attack_class, self.armour_attack_quantity = self._split_aa_value(value)
         self._quantity = value
 
     @property
     def _variable_ref(self) -> int | None:
         """Variable only used for byte retrieval of Effect"""
         if self._armour_attack_source == 'variable':
-            return self._aa_to_quantity(self.variable, self.armour_attack_class)
+            return self._merge_aa_values(self.armour_attack_class, self.variable)
         return self.variable
 
     @property
@@ -431,7 +431,7 @@ class Effect(AoE2Object, TriggerComponent):
     def _update_armour_attack_flag(self):
         self._armour_attack_source = _get_armour_attack_source(self.effect_type, self.object_attributes)
 
-    def _quantity_to_aa(self, quantity: int) -> Tuple[int, int]:
+    def _split_aa_value(self, quantity: int) -> Tuple[int, int]:
         """
         A function to convert the initial quantity value to the quantity and armor/attack values.
         Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
@@ -467,7 +467,7 @@ class Effect(AoE2Object, TriggerComponent):
             return quantity >> 16, quantity & 65535
         return quantity >> 8, quantity & 255
 
-    def _aa_to_quantity(self, aa_quantity: int, aa_class: int) -> int:
+    def _merge_aa_values(self, aa_class: int, aa_quantity: int) -> int:
         """
         A function to convert the quantity and armor/attack field to a quantity value.
         Unfortunately this problem has to be solved in the object due to how specific this was implemented in DE.
