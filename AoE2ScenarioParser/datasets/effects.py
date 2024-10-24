@@ -704,7 +704,7 @@ class EffectId(IntEnum):
     This effect was added in: 1.54 & Trigger Version 3.5
     """
     LOAD_KEY_VALUE = 81
-    """Attributes for the **store_key_value** effect are: \n
+    """Attributes for the **load_key_value** effect are: \n
     - variable
     - message
     - quantity
