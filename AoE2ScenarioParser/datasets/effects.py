@@ -701,7 +701,7 @@ class EffectId(IntEnum):
     - tribute_list
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     LOAD_KEY_VALUE = 81
     """Attributes for the **load_key_value** effect are: \n
@@ -710,7 +710,7 @@ class EffectId(IntEnum):
     - quantity
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     STORE_KEY_VALUE = 82
     """Attributes for the **store_key_value** effect are: \n
@@ -718,14 +718,14 @@ class EffectId(IntEnum):
     - message
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     DELETE_KEY = 83
     """Attributes for the **delete_key** effect are: \n
     - message
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_TECHNOLOGY_ICON = 84
     """Attributes for the **change_technology_icon** effect are: \n
@@ -734,7 +734,7 @@ class EffectId(IntEnum):
     - quantity
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_TECHNOLOGY_HOTKEY = 85
     """Attributes for the **change_technology_hotkey** effect are: \n
@@ -743,7 +743,7 @@ class EffectId(IntEnum):
     - quantity
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     MODIFY_VARIABLE_BY_RESOURCE = 86
     """Attributes for the **modify_variable_by_resource** effect are: \n
@@ -753,7 +753,7 @@ class EffectId(IntEnum):
     - variable
         
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     MODIFY_VARIABLE_BY_ATTRIBUTE = 87
     """Attributes for the **modify_variable_by_attribute** effect are: \n
@@ -765,7 +765,7 @@ class EffectId(IntEnum):
     - message
 
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_OBJECT_CAPTION = 88
     """Attributes for the **change_object_caption** effect are: \n
@@ -779,14 +779,14 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_PLAYER_COLOR = 89
     """Attributes for the **change_player_color** effect are: \n
     - source_player
     - player_color
     **Version notice**: \n
-    This effect was added in: 1.54 & Trigger Version 3.5
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
 
 
