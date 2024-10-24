@@ -122,7 +122,7 @@ class UnitManager(AoE2Object):
             animation_frame: int = 0,
             status: int = 2,
             reference_id: int = None,
-            caption_string_id: int = None,
+            caption_string_id: int = -1,
             tile: Tile | Tuple[int, int] = None,
     ) -> Unit:
         """

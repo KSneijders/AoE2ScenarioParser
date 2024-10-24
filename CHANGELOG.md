@@ -16,6 +16,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.6 - 2024-October-24
+
+### Fixed
+
+- Incorrect default for `caption_string_id` in `UnitManager.add_unit(...)` causing crash on scenario load in the editor
+
+---
+
 ## 0.2.5 - 2024-October-20
 
 ### Fixed
