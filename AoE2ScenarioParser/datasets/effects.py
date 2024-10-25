@@ -689,6 +689,7 @@ class EffectId(IntEnum):
     - object_attributes
     - variable
     - message
+    - armour_attack_class
     
     **Version notice**: \n
     This effect was added in: 1.51 & Trigger Version 3.5
@@ -763,6 +764,7 @@ class EffectId(IntEnum):
     - object_attributes
     - variable
     - message
+    - armour_attack_class
 
     **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9

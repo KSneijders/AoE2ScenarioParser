@@ -5275,7 +5275,8 @@
             "operation",
             "object_attributes",
             "variable",
-            "message"
+            "message",
+            "armour_attack_class"
         ],
         "default_attributes": {
             "effect_type": 79,
@@ -5431,7 +5432,8 @@
             "operation",
             "object_attributes",
             "variable",
-            "message"
+            "message",
+            "armour_attack_class"
         ],
         "default_attributes": {
             "effect_type": 87,
