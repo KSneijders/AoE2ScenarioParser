@@ -4,7 +4,6 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import R
 
 
 class PlayerInitialView(AoE2Object):
-    """Object for handling a tile in the map."""
 
     _link_list = [
         RetrieverObjectLinkGroup("Map", "initial_player_views[__index__]", group=[
