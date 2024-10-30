@@ -12,7 +12,7 @@ from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 class DataHeader(BaseStruct):
     # @formatter:off
     next_unit_ref: int                           = Retriever(uint32,                                         default = 0)
-    version: float                               = Retriever(float32,                                        default = 1.53)
+    version: float                               = Retriever(float32,                                        default = 1.54)
     num_max_players: int                         = Retriever(int32,              min_ver = Version((1, 53)), default = 0)
     gaia_player_idx: int                         = Retriever(int32,              min_ver = Version((1, 53)), default = 0)
     tribe_names: list[str]                       = Retriever(FixedLenNTStr[256], min_ver = Version((1, 14)), default = "",                        repeat = 16)

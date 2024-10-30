@@ -27,7 +27,7 @@ class Effect(BaseStruct):
 
     # @formatter:off
     type: int                       = Retriever(int32,          default = -1)
-    _properties: list[int]          = Retriever(Array32[int32], default_factory = lambda v: [-1]*52, on_set = [s1], on_write = [s2])
+    _properties: list[int]          = Retriever(Array32[int32], default_factory = lambda v: [-1]*58, on_set = [s1], on_write = [s2])
     message: str                    = Retriever(nt_str32,       default = "")
     sound_name: str                 = Retriever(nt_str32,       default = "")
     selected_object_ids: list[int]  = Retriever(int32,          default = -1, repeat = 0)
@@ -102,6 +102,12 @@ class Effect(BaseStruct):
     reset_timer: int                = RetrieverRef(ret(_properties), 49)
     object_state: int               = RetrieverRef(ret(_properties), 50)
     action_type: int                = RetrieverRef(ret(_properties), 51)
+    resource1: int                  = RetrieverRef(ret(_properties), 52)
+    resource1_quantity: int         = RetrieverRef(ret(_properties), 53)
+    resource2: int                  = RetrieverRef(ret(_properties), 54)
+    resource2_quantity: int         = RetrieverRef(ret(_properties), 55)
+    resource3: int                  = RetrieverRef(ret(_properties), 56)
+    resource3_quantity: int         = RetrieverRef(ret(_properties), 57)
     # @formatter:on
 
     # def map(self) -> BaseStruct:
