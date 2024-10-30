@@ -31,8 +31,8 @@ class Effect(BaseStruct):
     message: str                    = Retriever(nt_str32,       default = "")
     sound_name: str                 = Retriever(nt_str32,       default = "")
     selected_object_ids: list[int]  = Retriever(int32,          default = -1, repeat = 0)
-    unused_string1: str             = Retriever(nt_str32,       default = "", min_ver = Version((1, 54)))
-    unused_string2: str             = Retriever(nt_str32,       default = "", min_ver = Version((1, 54)))
+    unused_string1: str             = Retriever(nt_str32,       default = "", min_ver = Version((3, 9)))
+    unused_string2: str             = Retriever(nt_str32,       default = "", min_ver = Version((3, 9)))
 
     # refs
     # todo: move these into their own effects in subclasses
