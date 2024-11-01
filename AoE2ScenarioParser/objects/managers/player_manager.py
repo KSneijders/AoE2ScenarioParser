@@ -11,6 +11,7 @@ from AoE2ScenarioParser.objects.data_objects.player.player import Player
 from AoE2ScenarioParser.objects.data_objects.player.player_data_four import PlayerDataFour
 from AoE2ScenarioParser.objects.data_objects.player.player_data_three import PlayerDataThree
 from AoE2ScenarioParser.objects.data_objects.player.player_diplomacy import PlayerDiplomacy
+from AoE2ScenarioParser.objects.data_objects.player.player_initial_view import PlayerInitialView
 from AoE2ScenarioParser.objects.data_objects.player.player_meta_data import PlayerMetaData
 from AoE2ScenarioParser.objects.data_objects.player.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
@@ -53,6 +54,7 @@ class PlayerManager(AoE2Object):
         ]),
 
         RetrieverObjectLink("_pop_caps", "Map", "per_player_population_cap", support=Support(since=1.44)),
+        RetrieverObjectLink("_initial_player_views", "Map", "initial_player_views", support=Support(since=1.40), process_as_object=PlayerInitialView),
 
         RetrieverObjectLinkGroup("Units", group=[
             RetrieverObjectLink("_player_data_4", link="player_data_4", process_as_object=PlayerDataFour),
@@ -74,6 +76,7 @@ class PlayerManager(AoE2Object):
             _starting_ages: List[int],
             _base_priorities: List[int],
             _pop_caps: List[int],
+            _initial_player_views: List[PlayerInitialView],
             _player_data_4: List[PlayerDataFour],
             _player_data_3: List[PlayerDataThree],
             **kwargs
@@ -84,7 +87,10 @@ class PlayerManager(AoE2Object):
         for type_ in ['tech', 'building', 'unit']:
             disables[type_] = [kwargs[f'_disabled_{type_}_ids_player_{p}'] for p in range(1, 9)]
 
-        gaia_first_params = {}
+        gaia_first_params = {
+            'initial_player_view_x': [ipv.location_x for ipv in _initial_player_views],
+            'initial_player_view_y': [ipv.location_y for ipv in _initial_player_views],
+        }
         no_gaia_params = {
             'population_cap': [int(pd.population_limit) for pd in _player_data_4],
             'tribe_name': _tribe_names,
@@ -331,6 +337,13 @@ class PlayerManager(AoE2Object):
     def _string_table_player_names(self) -> List[int]:
         """Returns the string table player names of all players"""
         return self._player_attributes_to_list("string_table_name_id", None, default=-2, fill_empty=8)
+
+    @property
+    def _initial_player_views(self):
+        x = self._player_attributes_to_list("initial_player_view_x", gaia_first=True, default=-1, fill_empty=7)
+        y = self._player_attributes_to_list("initial_player_view_y", gaia_first=True, default=-1, fill_empty=7)
+
+        return UuidList(self._uuid, [PlayerInitialView(x[i], y[i]) for i in range(len(x))])
 
     def _player_attributes_to_list(
             self,

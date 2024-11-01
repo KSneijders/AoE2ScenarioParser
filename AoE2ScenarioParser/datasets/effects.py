@@ -689,9 +689,106 @@ class EffectId(IntEnum):
     - object_attributes
     - variable
     - message
+    - armour_attack_class
     
     **Version notice**: \n
     This effect was added in: 1.51 & Trigger Version 3.5
+    """
+    SET_OBJECT_COST = 80
+    """Attributes for the **set_object_cost** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - quantity
+    - tribute_list
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    LOAD_KEY_VALUE = 81
+    """Attributes for the **load_key_value** effect are: \n
+    - variable
+    - message
+    - quantity
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    STORE_KEY_VALUE = 82
+    """Attributes for the **store_key_value** effect are: \n
+    - variable
+    - message
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    DELETE_KEY = 83
+    """Attributes for the **delete_key** effect are: \n
+    - message
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    CHANGE_TECHNOLOGY_ICON = 84
+    """Attributes for the **change_technology_icon** effect are: \n
+    - technology
+    - source_player
+    - quantity
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    CHANGE_TECHNOLOGY_HOTKEY = 85
+    """Attributes for the **change_technology_hotkey** effect are: \n
+    - technology
+    - source_player
+    - quantity
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    MODIFY_VARIABLE_BY_RESOURCE = 86
+    """Attributes for the **modify_variable_by_resource** effect are: \n
+    - tribute_list
+    - source_player
+    - operation
+    - variable
+        
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    MODIFY_VARIABLE_BY_ATTRIBUTE = 87
+    """Attributes for the **modify_variable_by_attribute** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - operation
+    - object_attributes
+    - variable
+    - message
+    - armour_attack_class
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    CHANGE_OBJECT_CAPTION = 88
+    """Attributes for the **change_object_caption** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - string_id
+    - message
+    - selected_object_ids
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    CHANGE_PLAYER_COLOR = 89
+    """Attributes for the **change_player_color** effect are: \n
+    - source_player
+    - player_color
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 3.9
     """
 
 

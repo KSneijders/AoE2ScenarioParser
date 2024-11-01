@@ -27,8 +27,8 @@ class UnitManager(AoE2Object):
     ):
         super().__init__(**kwargs)
 
-        self.units = [pu.units for pu in _player_units]
-        self.reference_id_generator = create_id_generator(next_unit_id)
+        self.units: List[List[Unit]] = [pu.units for pu in _player_units]
+        self.reference_id_generator: Generator[int] = create_id_generator(next_unit_id)
 
     @property
     def next_unit_id(self):

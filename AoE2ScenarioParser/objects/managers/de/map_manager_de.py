@@ -1,5 +1,6 @@
 from typing import List
 
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -34,3 +35,23 @@ class MapManagerDE(MapManager):
         self.map_color_mood: str = map_color_mood
         self.collide_and_correct: bool = collide_and_correct
         self.villager_force_drop: bool = villager_force_drop
+
+    @property
+    def collide_and_correct(self):
+        warn("Moved to the OptionManager. Use: `option_manager.collide_and_correct` instead", DeprecationWarning)
+        return self._collide_and_correct
+
+    @collide_and_correct.setter
+    def collide_and_correct(self, value):
+        warn("Moved to the OptionManager. Use: `option_manager.collide_and_correct` instead", DeprecationWarning)
+        self._collide_and_correct = value
+
+    @property
+    def villager_force_drop(self):
+        warn("Moved to the OptionManager. Use: `option_manager.villager_force_drop` instead", DeprecationWarning)
+        return self._villager_force_drop
+
+    @villager_force_drop.setter
+    def villager_force_drop(self, value):
+        warn("Moved to the OptionManager. Use: `option_manager.villager_force_drop` instead", DeprecationWarning)
+        self._villager_force_drop = value

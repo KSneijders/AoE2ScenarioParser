@@ -193,10 +193,10 @@ class BuildingInfo(InfoDatasetBase):
     YURT_F = 717, 80, 1452, 16599, False
     YURT_G = 718, 80, 1453, 16600, False
     YURT_H = 719, 79, 1454, 16601, False
-    YURT_I = 1831, 90, 1532, 16598, False
-    YURT_J = 1832, 90, 1533, 16599, False
-    YURT_K = 1833, 90, 1534, 16600, False
-    YURT_L = 1834, 91, 1532, 16601, False
+    YURT_I = 1832, 90, 1532, 16598, False
+    YURT_J = 1833, 90, 1533, 16599, False
+    YURT_K = 1834, 90, 1534, 16600, False
+    YURT_L = 1835, 91, 1532, 16601, False
     DONJON = 1665, 84, 1525, 16350, False
     TRADE_WORKSHOP_BR = 1647, 17, 1429, 16174, False
     TRADE_WORKSHOP_TG = 179, 17, 1429, 16174, False

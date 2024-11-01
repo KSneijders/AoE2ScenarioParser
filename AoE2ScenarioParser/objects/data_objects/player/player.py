@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import Optional, List, overload
+from typing import Optional, List
 
 from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
 
@@ -39,6 +40,8 @@ class Player(AoE2Object):
         'base_priority',
         'tribe_name',
         'string_table_name_id',
+        'initial_player_view_x',
+        'initial_player_view_y',
     ]
 
     def __init__(
@@ -69,6 +72,8 @@ class Player(AoE2Object):
             tribe_name: Optional[str] = None,
             base_priority: Optional[int] = None,
             string_table_name_id: Optional[int] = None,
+            initial_player_view_x: Optional[int] = None,
+            initial_player_view_y: Optional[int] = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -90,8 +95,8 @@ class Player(AoE2Object):
         # Optionals due to GAIA not having such value
         self.population_cap: Optional[int] = population_cap
         self.diplomacy: Optional[List[int]] = diplomacy
-        self.initial_camera_x: Optional[int] = initial_camera_x
-        self.initial_camera_y: Optional[int] = initial_camera_y
+        self._initial_camera_x: Optional[int] = initial_camera_x  # ← Deprecated
+        self._initial_camera_y: Optional[int] = initial_camera_y  # ← Deprecated
         self.allied_victory: Optional[bool] = bool(allied_victory) if allied_victory is not None else None
         self.disabled_techs: Optional[List[int]] = disabled_techs
         self.disabled_buildings: Optional[List[int]] = disabled_buildings
@@ -99,6 +104,28 @@ class Player(AoE2Object):
         self.tribe_name: Optional[str] = tribe_name
         self.base_priority: Optional[int] = base_priority
         self.string_table_name_id: Optional[int] = string_table_name_id
+        self.initial_player_view_x: Optional[int] = initial_player_view_x
+        self.initial_player_view_y: Optional[int] = initial_player_view_y
+
+    @property
+    def initial_camera_x(self):
+        warn("Unused by scenario. Use: `initial_player_view_x` instead", DeprecationWarning)
+        return self._initial_camera_x
+
+    @initial_camera_x.setter
+    def initial_camera_x(self, value):
+        warn("Unused by scenario. Use: `initial_player_view_x` instead", DeprecationWarning)
+        self._initial_camera_x = value
+
+    @property
+    def initial_camera_y(self):
+        warn("Unused by scenario. Use: `initial_player_view_y` instead", DeprecationWarning)
+        return self._initial_camera_y
+
+    @initial_camera_y.setter
+    def initial_camera_y(self, value):
+        warn("Unused by scenario. Use: `initial_player_view_y` instead", DeprecationWarning)
+        self._initial_camera_y = value
 
     @property
     def player_id(self):

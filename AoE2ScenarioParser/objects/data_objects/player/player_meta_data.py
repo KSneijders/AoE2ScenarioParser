@@ -7,7 +7,6 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class PlayerMetaData(AoE2Object):
-    """Object for handling a tile in the map."""
 
     _link_list = [
         RetrieverObjectLinkGroup("DataHeader", "player_data_1[__index__]", group=[

@@ -5,7 +5,7 @@ from typing import List
 from typing_extensions import deprecated
 
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectAttribute
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 
 
@@ -1566,13 +1566,167 @@ class NewEffectSupport:
             object_attributes: int | None = None,
             variable: int | None = None,
             message: str | None = None,
+            armour_attack_class: int | None = None,
     ):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
         return self._trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE,
+            armour_attack_class=armour_attack_class,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            operation=operation,
+            object_attributes=object_attributes,
+            variable=variable,
+            message=message,
+        )
+
+    def set_object_cost(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            quantity: int | None = None,
+            tribute_list: int | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.SET_OBJECT_COST,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            quantity=quantity,
+            tribute_list=tribute_list,
+        )
+
+    def load_key_value(
+            self,
+            variable: int | None = None,
+            message: str | None = None,
+            quantity: int | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.LOAD_KEY_VALUE,
+            variable=variable,
+            message=message,
+            quantity=quantity,
+        )
+
+    def store_key_value(
+            self,
+            variable: int | None = None,
+            message: str | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.STORE_KEY_VALUE,
+            variable=variable,
+            message=message,
+        )
+
+    def delete_key(
+            self,
+            message: str | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.DELETE_KEY,
+            message=message,
+        )
+
+    def change_technology_icon(
+            self,
+            technology: int | None = None,
+            source_player: int | None = None,
+            quantity: int | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.CHANGE_TECHNOLOGY_ICON,
+            technology=technology,
+            source_player=source_player,
+            quantity=quantity,
+        )
+
+    def change_technology_hotkey(
+            self,
+            technology: int | None = None,
+            source_player: int | None = None,
+            quantity: int | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.CHANGE_TECHNOLOGY_HOTKEY,
+            technology=technology,
+            source_player=source_player,
+            quantity=quantity,
+        )
+
+    def modify_variable_by_resource(
+            self,
+            tribute_list: int | None = None,
+            source_player: int | None = None,
+            operation: int | None = None,
+            variable: int | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_VARIABLE_BY_RESOURCE,
+            tribute_list=tribute_list,
+            source_player=source_player,
+            operation=operation,
+            variable=variable,
+        )
+
+    def modify_variable_by_attribute(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            operation: int | None = None,
+            object_attributes: int | None = None,
+            variable: int | None = None,
+            message: str | None = None,
+            armour_attack_class: int | None = None,
+    ):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE,
+            armour_attack_class=armour_attack_class,
             object_list_unit_id=object_list_unit_id,
             source_player=source_player,
             operation=operation,
             object_attributes=object_attributes,
             variable=variable,
             message=message
+        )
+
+    def change_object_caption(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            string_id: int | None = None,
+            message: str | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.CHANGE_OBJECT_CAPTION,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            string_id=string_id,
+            message=message,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            selected_object_ids=selected_object_ids,
+        )
+
+    def change_player_color(
+            self,
+            source_player: int | None = None,
+            player_color: int | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.CHANGE_PLAYER_COLOR,
+            source_player=source_player,
+            player_color=player_color,
         )

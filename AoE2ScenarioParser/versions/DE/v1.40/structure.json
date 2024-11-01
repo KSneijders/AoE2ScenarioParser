@@ -1185,9 +1185,10 @@
                 "type": "u8",
                 "default": 0
             },
-            "unknown": {
-                "type": "128",
-                "default": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            "initial_player_views": {
+                "type": "struct:PlayerView",
+                "default": null,
+                "repeat": 16
             },
             "player_1_camera_y": {
                 "type": "s32",
@@ -1249,6 +1250,18 @@
             }
         },
         "structs": {
+            "PlayerView" : {
+                "retrievers": {
+                    "location_x": {
+                        "type": "s32",
+                        "default": 0
+                    },
+                    "location_y": {
+                        "type": "s32",
+                        "default": 0
+                    }
+                }
+            },
             "TerrainStruct": {
                 "retrievers": {
                     "terrain_id": {

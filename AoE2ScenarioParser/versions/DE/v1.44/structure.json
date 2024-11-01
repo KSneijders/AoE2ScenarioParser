@@ -1185,9 +1185,10 @@
                 "type": "u8",
                 "default": 0
             },
-            "unknown": {
-                "type": "128",
-                "default": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            "initial_player_views": {
+                "type": "struct:PlayerView",
+                "default": null,
+                "repeat": 16
             },
             "lock_coop_alliances": {
                 "type": "u8",
@@ -1202,9 +1203,9 @@
                 "type": "u32",
                 "default": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
             },
-            "unknown_3": {
-                "type": "4",
-                "default": "0df0adde"
+            "secondary_game_modes": {
+                "type": "u32",
+                "default": 0
             },
             "unknown_4": {
                 "type": "4",
@@ -1262,6 +1263,18 @@
             }
         },
         "structs": {
+            "PlayerView" : {
+                "retrievers": {
+                    "location_x": {
+                        "type": "s32",
+                        "default": 0
+                    },
+                    "location_y": {
+                        "type": "s32",
+                        "default": 0
+                    }
+                }
+            },
             "TerrainStruct": {
                 "retrievers": {
                     "terrain_id": {

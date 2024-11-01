@@ -5,7 +5,6 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 
 
 class PlayerDiplomacy(AoE2Object):
-    """Object for handling a tile in the map."""
 
     _link_list = [
         RetrieverObjectLink("diplomacy_stance", "Diplomacy", "per_player_diplomacy[__index__].stance_with_each_player"),

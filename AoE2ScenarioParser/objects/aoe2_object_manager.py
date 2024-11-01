@@ -10,6 +10,7 @@ from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerMan
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
+from AoE2ScenarioParser.objects.managers.option_manager import OptionManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 
@@ -21,6 +22,7 @@ managers: Dict[str, Dict[str, Type[AoE2Object]]] = {
         'Unit': UnitManagerDE,
         'Trigger': TriggerManagerDE,
         'Xs': XsManagerDE,
+        'Option': OptionManager,
     }
 }
 
