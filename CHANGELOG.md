@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.8 - 2024-November-01
+
+- Fixed issues with reading older scenarios
+- Fixed issue with creating a new effect with specific combination of attributes
+
+---
+
 ## 0.2.7 - 2024-November-01
 
 ### Added
