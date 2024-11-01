@@ -7,6 +7,7 @@ from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerMan
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
 from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
+from AoE2ScenarioParser.objects.managers.option_manager import OptionManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario, S
 
@@ -44,6 +45,10 @@ class AoE2DEScenario(AoE2Scenario):
     @property
     def message_manager(self) -> MessageManager:
         return self._object_manager.managers['Message']
+
+    @property
+    def option_manager(self) -> OptionManager:
+        return self._object_manager.managers['Option']
 
     @classmethod
     def from_file(cls: Type[S], path: str, game_version: str = "DE", name: str = "") -> S:
