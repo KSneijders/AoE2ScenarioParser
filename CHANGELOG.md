@@ -45,6 +45,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Incorrect IDs for `BuildingInfo`: `YURT_I`, `YURT_J`, `YURT_K`, `YURT_L`
 
+### Changed
+
+- Deprecated two attributes in the MapManager
+  - `MapManager.collide_and_correct` moved to `OptionManager.collide_and_correct`
+  - `MapManager.villager_force_drop` moved to `OptionManager.villager_force_drop` 
+
 ---
 
 ## 0.2.6 - 2024-October-24
