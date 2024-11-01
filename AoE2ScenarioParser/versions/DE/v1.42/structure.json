@@ -1198,9 +1198,9 @@
                 "type": "s32",
                 "default": 0
             },
-            "unknown_3": {
-                "type": "4",
-                "default": "0df0adde"
+            "secondary_game_modes": {
+                "type": "u32",
+                "default": 0
             },
             "unknown_4": {
                 "type": "4",

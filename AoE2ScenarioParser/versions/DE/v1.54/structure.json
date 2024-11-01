@@ -1032,9 +1032,9 @@
                 "type": "u32",
                 "default": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
             },
-            "unknown_3": {
-                "type": "4",
-                "default": "00000000"
+            "secondary_game_modes": {
+                "type": "u32",
+                "default": 0
             },
             "unknown_5": {
                 "type": "4",
