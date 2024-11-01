@@ -88,8 +88,8 @@ class PlayerManager(AoE2Object):
             disables[type_] = [kwargs[f'_disabled_{type_}_ids_player_{p}'] for p in range(1, 9)]
 
         gaia_first_params = {
-            'initial_player_view_x': [ipv.location_x for ipv in _initial_player_views],
-            'initial_player_view_y': [ipv.location_y for ipv in _initial_player_views],
+            'initial_player_view_x': [ipv.location_x for ipv in _initial_player_views or []],
+            'initial_player_view_y': [ipv.location_y for ipv in _initial_player_views or []],
         }
         no_gaia_params = {
             'population_cap': [int(pd.population_limit) for pd in _player_data_4],
@@ -123,6 +123,10 @@ class PlayerManager(AoE2Object):
         player_attributes: Dict[int, Dict] = {i: {'player_id': PlayerId(i)} for i in range(9)}
         for param_set, gaia_first in param_sets:
             for key, lst in param_set.items():
+                # If a property is not supported, fill it with Nones and skip it
+                if lst is None or isinstance(lst, list) and len(lst) == 0:
+                    _spread_player_attributes(player_attributes, key, [None] * 16, gaia_first)
+                    continue
                 _spread_player_attributes(player_attributes, key, lst, gaia_first)
 
         self.players = [Player(**player_attributes[p]) for p in PlayerId.all()]

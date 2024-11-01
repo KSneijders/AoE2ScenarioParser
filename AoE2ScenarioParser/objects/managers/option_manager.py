@@ -27,7 +27,7 @@ class OptionManager(AoE2Object):
         RetrieverObjectLinkGroup("Map", group=[
             RetrieverObjectLink("collide_and_correct"),
             RetrieverObjectLink("villager_force_drop", support=Support(since=1.37)),
-            RetrieverObjectLink("lock_coop_alliances"),
+            RetrieverObjectLink("lock_coop_alliances", support=Support(since=1.42)),
             RetrieverObjectLink("secondary_game_modes", support=Support(since=1.42)),
         ]),
     ]
@@ -64,8 +64,8 @@ class OptionManager(AoE2Object):
         self.random_start_points: bool = bool(random_start_points)
         self.allow_players_choose_teams: bool = bool(allow_players_choose_teams)
         self.collide_and_correct: bool = bool(collide_and_correct)
-        self.villager_force_drop: bool = bool(villager_force_drop)
-        self.lock_coop_alliances: bool = bool(lock_coop_alliances)
+        self.villager_force_drop: bool = bool(villager_force_drop) if villager_force_drop is not None else None
+        self.lock_coop_alliances: bool = bool(lock_coop_alliances) if lock_coop_alliances is not None else None
 
     @property
     def victory_years(self) -> float:
