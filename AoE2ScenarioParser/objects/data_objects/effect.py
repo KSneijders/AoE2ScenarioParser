@@ -194,6 +194,7 @@ class Effect(AoE2Object, TriggerComponent):
             else:
                 pass
         else:
+            variable = _variable_ref
             armour_attack_class = armour_attack_quantity = None
 
         area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
