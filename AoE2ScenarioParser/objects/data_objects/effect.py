@@ -193,8 +193,10 @@ class Effect(AoE2Object, TriggerComponent):
             # If created through new_effect with quantity defined instead of the aa values. Handled by quantity property
             else:
                 pass
-        else:
+        elif variable is None and _variable_ref is not None:
+            # If effect created through reading scenario file and is a normal effect, just set the normal attribute
             variable = _variable_ref
+        else:
             armour_attack_class = armour_attack_quantity = None
 
         area_x1, area_y1, area_x2, area_y2 = validate_coords(area_x1, area_y1, area_x2, area_y2)
