@@ -60,7 +60,9 @@
             "resource_3_quantity":  "",
             "message": "str",
             "sound_name": "str",
-            "selected_object_ids": "Unit[]"
+            "selected_object_ids": "Unit[]",
+            "unused_string_1": "",
+            "unused_string_2": ""
         }
     },
     "0": {
@@ -5421,7 +5423,8 @@
             "tribute_list": 0,
             "source_player": 1,
             "operation": 1,
-            "variable": 0
+            "variable": 0,
+            "armour_attack_class": 0
         }
     },
     "87": {
@@ -5440,7 +5443,8 @@
             "source_player": 1,
             "operation": 1,
             "object_attributes": 0,
-            "variable": 0
+            "variable": 0,
+            "armour_attack_class": 0
         }
     },
     "88": {
