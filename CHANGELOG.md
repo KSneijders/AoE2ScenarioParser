@@ -7,10 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.9 - 2024-November-02
+
+### Fixed
+
+- Fixed a bug corrupting scenarios when effects without variables were used
+
+---
+
 ## 0.2.8 - 2024-November-01
 
-- Fixed issues with reading older scenarios
-- Fixed issue with creating a new effect with specific combination of attributes
+### Fixed
+
+- Issues with reading older scenarios
+- Issue with creating a new effect with specific combination of attributes
 
 ---
 
