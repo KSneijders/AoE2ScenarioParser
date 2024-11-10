@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import math
 from typing import Callable, Iterable, TYPE_CHECKING, overload
 
+from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
 
@@ -163,6 +165,70 @@ class Area(TileSequence):
         return Area(
             self.corner1.resolve_negative_coords(map_size),
             self.corner2.resolve_negative_coords(map_size)
+        )
+
+    def move(self, x_offset: int = 0, y_offset: int = 0) -> Area:
+        """
+        Moves the selection by the given offsets
+
+        Args:
+            x_offset: The amount to move the selection on the x-axis (West to East)
+            y_offset: The amount to move the selection on the y-axis (North to South)
+
+        Returns:
+            A copy of the area object but offset by the given values
+        """
+        return Area(
+            (self.corner1.x + x_offset, self.corner1.y + y_offset),
+            (self.corner2.x + x_offset, self.corner2.y + y_offset),
+        )
+
+    def move_to(self, corner: Direction, tile: TileT):
+        """
+        Moves the selection to the given coordinate by placing the given corner of this area on the coordinate.
+
+        For center placement, use ``.center(...)``
+
+        Args:
+            corner: The corner used to align the selection onto the given tile
+            tile: The coordinate to place the selection onto
+
+        Returns:
+            A copy of the area object but moved to the given tile aligned using the given corner.
+        """
+        width = self.width - 1
+        height = self.height - 1
+
+        x, y = Tile.from_value(tile)
+
+        if corner == Direction.WEST:
+            return Area((x, y), (x + width, y + height))
+        elif corner == Direction.NORTH:
+            return Area((x - width, y), (x, y + height))
+        elif corner == Direction.EAST:
+            return Area((x - width, y - height), (x, y))
+        elif corner == Direction.SOUTH:
+            return Area((x, y - height), (x + width, y))
+        else:
+            raise ValueError(f"Invalid direction: '{corner}'")
+
+    def size(self, n: int):
+        """
+        Sets the selection to a size around the center.
+        If center is (4,4) with a size of 3 the selection will become ``((3,3), (5,5))``.
+
+        Args:
+            n: The new size to set the selection to
+
+        Returns:
+            A copy of the area object with size ``n``
+        """
+        center = self.center_tile
+        n -= 1  # Ignore center tile
+
+        return Area(
+            (center.x - math.ceil(n / 2), center.y - math.ceil(n / 2)),
+            (center.x + math.floor(n / 2), center.y + math.floor(n / 2)),
         )
 
     def bound(self, limit: int) -> Area:

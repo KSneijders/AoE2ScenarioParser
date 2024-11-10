@@ -375,7 +375,7 @@ class AreaPattern(TileSequence):
         Sets multiple attributes to the corresponding values.
 
         Returns:
-            This area_pattern object
+            This AreaPattern object
         """
         for key, value in locals().items():
             if value is None or key == 'self':
@@ -383,50 +383,57 @@ class AreaPattern(TileSequence):
             self.attr(key, value)
         return self
 
+    # Todo: Move tests to area tests
     def move(self, x_offset: int = 0, y_offset: int = 0):
-        """Moves the selection area in a given direction relative to its current position"""
-        self.area.corner1.x += x_offset
-        self.area.corner1.y += y_offset
-        self.area.corner2.x += x_offset
-        self.area.corner2.y += y_offset
+        """
+        Moves the selection by the given offsets
+
+        Args:
+            x_offset: The amount to move the selection on the x-axis (West to East)
+            y_offset: The amount to move the selection on the y-axis (North to South)
+
+        Returns:
+            This AreaPattern object with the underlying area adjusted accordingly
+        """
+        self.area = self.area.move(x_offset, y_offset)
+
         return self
 
+    # Todo: Move tests to area tests
     def move_to(self, corner: Direction, tile: TileT):
         """
-        Moves the selection area to the given coordinate by placing the given corner of this area on the coordinate.
+        Moves the selection to the given coordinate by placing the given corner of this area on the coordinate.
 
         For center placement, use ``.center(...)``
+
+        Args:
+            corner: The corner used to align the selection onto the given tile
+            tile: The coordinate to place the selection onto
+
+        Returns:
+            This AreaPattern object with the underlying area adjusted accordingly
         """
-        width = self.area.width - 1
-        height = self.area.height - 1
-
-        x, y = Tile.from_value(tile)
-
-        if corner == Direction.WEST:
-            self.area = Area((x, y), (x + width, y + height))
-        elif corner == Direction.NORTH:
-            self.area = Area((x - width, y), (x, y + height))
-        elif corner == Direction.EAST:
-            self.area = Area((x - width, y - height), (x, y))
-        elif corner == Direction.SOUTH:
-            self.area = Area((x, y - height), (x + width, y))
+        self.area = self.area.move_to(corner, tile)
 
         return self
 
+    # Todo: Move tests to area tests
     def size(self, n: int) -> AreaPattern:
         """
-        Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
-        ``((3,3), (5,5))``
-        """
-        center = self.area.center_tile
-        n -= 1  # Ignore center tile
+        Sets the selection to a size around the center.
+        If center is (4,4) with a size of 3 the selection will become ``((3,3), (5,5))``.
 
-        self.area = Area(
-            (center.x - math.ceil(n / 2), center.y - math.ceil(n / 2)),
-            (center.x + math.floor(n / 2), center.y + math.floor(n / 2)),
-        )
+        Args:
+            n: The new size to set the selection to
+
+        Returns:
+            This AreaPattern object with the underlying area adjusted accordingly
+        """
+        self.area = self.area.size(n)
+
         return self
 
+    # Todo: height is a read-only property (NOT FUNCTION) on Area. How to make this work?
     def height(self, n: int) -> AreaPattern:
         """
         Sets the height (y-axis) of the selection. Shrinks/Expands both sides equally.
@@ -441,6 +448,7 @@ class AreaPattern(TileSequence):
         )
         return self
 
+    # Todo: width is a read-only property (NOT FUNCTION) on Area. How to make this work?
     def width(self, n: int) -> AreaPattern:
         """
         Sets the width (x-axis) of the selection. Shrinks/Expands both sides equally.
