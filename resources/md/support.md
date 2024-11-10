@@ -61,6 +61,7 @@ The table includes all versions which have existed since release together with t
 [90260]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-90260/
 [93001]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-93001/
 [95810]: https://www.ageofempires.com/news/preview-age-of-empires-ii-definitive-edition-update-95810/
+[99311]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-99311/
 [104954]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-104954/
 [107882]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-107882/
 [108769]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-108769/

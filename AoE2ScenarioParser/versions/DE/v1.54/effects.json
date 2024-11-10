@@ -60,7 +60,9 @@
             "resource_3_quantity":  "",
             "message": "str",
             "sound_name": "str",
-            "selected_object_ids": "Unit[]"
+            "selected_object_ids": "Unit[]",
+            "unused_string_1": "",
+            "unused_string_2": ""
         }
     },
     "0": {
@@ -5275,7 +5277,8 @@
             "operation",
             "object_attributes",
             "variable",
-            "message"
+            "message",
+            "armour_attack_class"
         ],
         "default_attributes": {
             "effect_type": 79,
@@ -5331,6 +5334,147 @@
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
+        }
+    },
+    "80": {
+        "name": "set_object_cost",
+        "attributes": [
+            "object_list_unit_id",
+            "source_player",
+            "quantity",
+            "tribute_list"
+        ],
+        "default_attributes": {
+            "effect_type": 80,
+            "tribute_list": 0,
+            "source_player": 1
+        }
+    },
+    "81": {
+        "name": "load_key_value",
+        "attributes": [
+            "variable",
+            "message",
+            "quantity"
+        ],
+        "default_attributes": {
+            "effect_type": 81,
+            "variable": 0
+        }
+    },
+    "82": {
+        "name": "store_key_value",
+        "attributes": [
+            "variable",
+            "message"
+        ],
+        "default_attributes": {
+            "effect_type": 82,
+            "variable": 0
+        }
+    },
+    "83": {
+        "name": "delete_key",
+        "attributes": [
+            "message"
+        ],
+        "default_attributes": {
+            "effect_type": 83
+        }
+    },
+    "84": {
+        "name": "change_technology_icon",
+        "attributes": [
+            "technology",
+            "source_player",
+            "quantity"
+        ],
+        "default_attributes": {
+            "effect_type": 84,
+            "quantity": 33,
+            "source_player": 1,
+            "technology": 16
+        }
+    },
+    "85": {
+        "name": "change_technology_hotkey",
+        "attributes": [
+            "technology",
+            "source_player",
+            "quantity"
+        ],
+        "default_attributes": {
+            "effect_type": 85,
+            "quantity": 18427,
+            "source_player": 1,
+            "technology": 16
+        }
+    },
+    "86": {
+        "name": "modify_variable_by_resource",
+        "attributes": [
+            "tribute_list",
+            "source_player",
+            "operation",
+            "variable"
+        ],
+        "default_attributes": {
+            "effect_type": 86,
+            "tribute_list": 0,
+            "source_player": 1,
+            "operation": 1,
+            "variable": 0,
+            "armour_attack_class": 0
+        }
+    },
+    "87": {
+        "name": "modify_variable_by_attribute",
+        "attributes": [
+            "object_list_unit_id",
+            "source_player",
+            "operation",
+            "object_attributes",
+            "variable",
+            "message",
+            "armour_attack_class"
+        ],
+        "default_attributes": {
+            "effect_type": 87,
+            "source_player": 1,
+            "operation": 1,
+            "object_attributes": 0,
+            "variable": 0,
+            "armour_attack_class": 0
+        }
+    },
+    "88": {
+        "name": "change_object_caption",
+        "attributes": [
+            "object_list_unit_id",
+            "source_player",
+            "string_id",
+            "message",
+            "area_x1",
+            "area_y1",
+            "area_x2",
+            "area_y2",
+            "selected_object_ids"
+        ],
+        "default_attributes": {
+            "effect_type": 88,
+            "source_player": 1
+        }
+    },
+    "89": {
+        "name": "change_player_color",
+        "attributes": [
+            "source_player",
+            "player_color"
+        ],
+        "default_attributes": {
+            "effect_type": 89,
+            "source_player": 1,
+            "player_color": 0
         }
     }
 }

@@ -36,31 +36,35 @@ scenario.write_to_file(f"{scenario_folder}{scenario_name}_output.aoe2scenario")
 
 Players have many attributes, below is a list of most of their attributes which you can change.
 
-| Attribute name       | Type      | Dataset      | Attributes |
-|----------------------|-----------|--------------|------------|
-| player_id            | int       | -            | Read only  |
-| active               | bool      | -            | Read only  |
-| starting_age         | int       | StartingAge  |            |
-| lock_civ             | bool      | -            |            |
-| population_cap       | int       | -            |            |
-| food                 | int       | -            |            |
-| wood                 | int       | -            |            |
-| gold                 | int       | -            |            |
-| stone                | int       | -            |            |
-| color                | int       | Color        |            |
-| human                | bool      | -            |            |
-| civilization         | int       | Civilization |            |
-| architecture_set     | int       | Civilization |            |
-| diplomacy            | List[int] | -            | Non-GAIA   |
-| initial_camera_x     | int       | -            | Non-GAIA   |
-| initial_camera_y     | int       | -            | Non-GAIA   |
-| allied_victory       | bool      | -            | Non-GAIA   |
-| disabled_techs       | List[int] | -            | Non-GAIA   |
-| disabled_buildings   | List[int] | -            | Non-GAIA   |
-| disabled_units       | List[int] | -            | Non-GAIA   |
-| tribe_name           | str       | -            | Non-GAIA   |
-| base_priority        | int       | -            | Non-GAIA   |
-| string_table_name_id | int       | -            | Non-GAIA   |
+| Attribute name        | Type      | Dataset      | Attributes |
+|-----------------------|-----------|--------------|------------|
+| player_id             | int       | -            | Read only  |
+| active                | bool      | -            | Read onl   |
+| starting_age          | int       | StartingAge  |            |
+| lock_civ              | bool      | -            |            |
+| population_cap        | int       | -            |            |
+| food                  | int       | -            |            |
+| wood                  | int       | -            |            |
+| gold                  | int       | -            |            |
+| stone                 | int       | -            |            |
+| color                 | int       | ColorId      |            |
+| human                 | bool      | -            |            |
+| civilization          | int       | Civilization |            |
+| architecture_set      | int       | Civilization |            |
+| diplomacy             | List[int] | -            | Non-GAIA   |
+| ~~initial_camera_x~~* | int       | -            | Non-GAIA   |
+| ~~initial_camera_y~~* | int       | -            | Non-GAIA   |
+| allied_victory        | bool      | -            | Non-GAIA   |
+| disabled_techs        | List[int] | -            | Non-GAIA   |
+| disabled_buildings    | List[int] | -            | Non-GAIA   |
+| disabled_units        | List[int] | -            | Non-GAIA   |
+| tribe_name            | str       | -            | Non-GAIA   |
+| base_priority         | int       | -            | Non-GAIA   |
+| string_table_name_id  | int       | -            | Non-GAIA   |
+| initial_player_view_x | int       | -            | Non-GAIA   |
+| initial_player_view_y | int       | -            | Non-GAIA   |
+
+*: Deprecated properties which don't affect anything
 
 ## Active Players
 

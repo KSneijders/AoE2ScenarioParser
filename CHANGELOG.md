@@ -7,6 +7,101 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.11 - 2024-November-02
+
+### Fixed
+
+- Fixed the same bug corrupting scenarios - missed even more edge cases...
+
+---
+
+## 0.2.10 - 2024-November-02
+
+### Fixed
+
+- Fixed the same bug corrupting scenarios - missed other edge cases
+
+---
+
+## 0.2.9 - 2024-November-02
+
+### Fixed
+
+- Fixed a bug corrupting scenarios
+
+---
+
+## 0.2.8 - 2024-November-01
+
+### Fixed
+
+- Issues with reading older scenarios
+- Issue with creating a new effect with specific combination of attributes
+
+---
+
+## 0.2.7 - 2024-November-01
+
+### Added
+
+- Support for 10 new effects:
+  - `trigger.new_effect.set_object_cost(...)`
+  - `trigger.new_effect.load_key_value(...)`
+  - `trigger.new_effect.store_key_value(...)`
+  - `trigger.new_effect.delete_key(...)`
+  - _Note that the "load", "store" and "delete" key effects are campaign only_.
+  - `trigger.new_effect.change_technology_icon(...)`
+  - `trigger.new_effect.change_technology_hotkey(...)`
+  - `trigger.new_effect.modify_variable_by_resource(...)`
+  - `trigger.new_effect.modify_variable_by_attribute(...)`
+  - `trigger.new_effect.change_object_caption(...)`
+  - `trigger.new_effect.change_player_color(...)`
+- Support for setting Player starting views:
+  - `moved.player_manager.players[PlayerId.ONE].initial_player_view_x = ...`
+  - `moved.player_manager.players[PlayerId.ONE].initial_player_view_y = ...`
+- A new function to the `Tile` object: `tile.to_dict()` (Similar to `area.to_dict()`)
+  - `Tile(4, 6).to_dict()` would result in: `{'location_x': 4, 'location_y': 6}`
+- The `OptionManager` for global options in the scenario:
+  - `OptionManager.victory_condition`
+  - `OptionManager.victory_score`
+  - `OptionManager.victory_years`
+  - `OptionManager.victory_custom_conditions_required`
+  - `OptionManager.secondary_game_modes`
+  - `OptionManager.lock_teams`
+  - `OptionManager.random_start_points`
+  - `OptionManager.allow_players_choose_teams`
+  - `OptionManager.collide_and_correct`
+  - `OptionManager.villager_force_drop`
+  - `OptionManager.lock_coop_alliances`
+
+### Fixed
+
+- Incorrect IDs for `BuildingInfo`: `YURT_I`, `YURT_J`, `YURT_K`, `YURT_L`
+
+### Changed
+
+- Deprecated two attributes in the MapManager
+  - `MapManager.collide_and_correct` moved to `OptionManager.collide_and_correct`
+  - `MapManager.villager_force_drop` moved to `OptionManager.villager_force_drop` 
+
+---
+
+## 0.2.6 - 2024-October-24
+
+### Fixed
+
+- Incorrect default for `caption_string_id` in `UnitManager.add_unit(...)` causing crash on scenario load in the editor
+
+---
+
+## 0.2.5 - 2024-October-20
+
+### Fixed
+
+- Error when calling `UnitManager.add_unit(...)` (missing the `caption_string_id` param)
+
+---
+
 ## 0.2.4 - 2024-October-17
 
 ### Fixed

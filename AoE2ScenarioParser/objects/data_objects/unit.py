@@ -46,8 +46,8 @@ class Unit(AoE2Object):
             status: int,
             rotation: float,
             initial_animation_frame: int,
-            garrisoned_in_id: int,
-            caption_string_id: int,
+            garrisoned_in_id: int = -1,
+            caption_string_id: int = -1,
             **kwargs
     ):
         raise_if_not_int_subclass({'type': type})
@@ -95,3 +95,20 @@ class Unit(AoE2Object):
             return pretty_format_name(unit_enum.name)
         else:
             return f"Unknown{self.type}"  # e.g."Unknown411"
+
+    def __repr__(self):
+        arguments = [
+            'player=' + str(PlayerId(self.player)),
+            'x=' + str(self.x),
+            'y=' + str(self.y),
+            ('z=' + str(self.z)) if self.z else None,
+            'reference_id=' + str(self.reference_id),
+            'unit_const=' + str(self.unit_const),
+            'status=' + str(self.status),
+            'rotation=' + str(self.rotation),
+            'initial_animation_frame=' + str(self.initial_animation_frame),
+            ('garrisoned_in_id=' + str(self.garrisoned_in_id)) if self.garrisoned_in_id != -1 else None,
+            ('caption_string_id=' + str(self.caption_string_id)) if self.caption_string_id != -1 else None,
+        ]
+
+        return 'Unit(' + ', '.join(filter(None, arguments)) + ')'

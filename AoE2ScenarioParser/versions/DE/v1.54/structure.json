@@ -1018,9 +1018,10 @@
                 "type": "u8",
                 "default": 0
             },
-            "unknown": {
-                "type": "128",
-                "default": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            "initial_player_views": {
+                "type": "struct:PlayerView",
+                "default": null,
+                "repeat": 16
             },
             "lock_coop_alliances": {
                 "type": "u8",
@@ -1031,9 +1032,9 @@
                 "type": "u32",
                 "default": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
             },
-            "unknown_3": {
-                "type": "4",
-                "default": "00000000"
+            "secondary_game_modes": {
+                "type": "u32",
+                "default": 0
             },
             "unknown_5": {
                 "type": "4",
@@ -1095,6 +1096,18 @@
             }
         },
         "structs": {
+            "PlayerView" : {
+                "retrievers": {
+                    "location_x": {
+                        "type": "s32",
+                        "default": 0
+                    },
+                    "location_y": {
+                        "type": "s32",
+                        "default": 0
+                    }
+                }
+            },
             "TerrainStruct": {
                 "retrievers": {
                     "terrain_id": {
@@ -1203,10 +1216,12 @@
                     },
                     "editor_camera_x": {
                         "type": "f32",
+                        "comment": "Location looked at last in the editor with the player (__index__) selected",
                         "default": 72.0
                     },
                     "editor_camera_y": {
                         "type": "f32",
+                        "comment": "Location looked at last in the editor with the player (__index__) selected",
                         "default": 72.0
                     },
                     "initial_camera_x": {
@@ -1435,7 +1450,7 @@
                             },
                             "caption_string_id": {
                                 "type": "s32",
-                                "default": ""
+                                "default": -1
                             }
                         }
                     }

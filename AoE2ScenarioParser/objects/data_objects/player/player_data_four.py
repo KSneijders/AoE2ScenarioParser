@@ -4,7 +4,6 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import R
 
 
 class PlayerDataFour(AoE2Object):
-    """Object for handling a tile in the map."""
 
     _link_list = [
         RetrieverObjectLinkGroup("Units", "player_data_4[__index__]", group=[
