@@ -7,11 +7,10 @@ from typing import Generator, Sequence
 
 from binary_file_parser import Manager, ret, RetrieverRef
 from ordered_set import OrderedSet
-from typing_extensions import Sized
+from typing_extensions import Literal
 
-from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
-from AoE2ScenarioParser.helper.list_functions import tuple_chunks
+from AoE2ScenarioParser.helper.list_functions import chunk, list_chunks, tuple_chunks
 from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.objects.support import (
     Area, AreaPattern, AreaT, TerrainData, TerrainDataRow, Tile,
@@ -98,16 +97,62 @@ class MapManager(Manager):
 
     @map_size.setter
     def map_size(self, value):
-        self.change_map_size(new_map_size = value, direction = Direction.EAST)
+        self.change_map_size(map_size = value, direction = Direction.EAST)
 
-    def shrink_map_by(self, n: int, direction: Direction = Direction.EAST) -> None:
-        self.change_map_size(self.map_size - n, direction)
+    def shrink_map_by(
+        self,
+        shrink_by: int,
+        direction: Direction = Direction.EAST,
+        units_overflow_action: Literal['remove', 'error'] = 'error',
+        # TODO: CHECK IF GAME CRASHES IF THESE ARE OUT OF BOUNDS
+        triggers_overflow_action: Literal['remove', 'error'] = 'error',
+        # TODO: CHECK IF GAME CRASHES IF THESE ARE OUT OF BOUNDS
+    ) -> None:
+        """
+        Shrink the map by the given value from the given direction. Also moves units & triggers to their new relative
+        location if necessary.
 
-    def expand_map_by(self, n: int, direction: Direction = Direction.EAST) -> None:
-        self.change_map_size(self.map_size + n, direction)
+        Args:
+            shrink_by: The size to expand the map by (with a 20x20 map, setting this to 10, would result in a 30x30 map)
+            direction: The direction to where the map is increased. (New area is created at this corner)
+            units_overflow_action: What should be done with units if they are out of the map after shrinking it.
+            triggers_overflow_action:
 
-    def change_map_size(self, new_map_size: int, direction: Direction = Direction.EAST) -> None:
-        if new_map_size == self.map_size:
+        See Also:
+            ``change_map_size``: For more information on specifics
+        """
+        self.change_map_size(self.map_size - shrink_by, direction)
+
+    def expand_map_by(self, expand_by: int, direction: Direction = Direction.EAST) -> None:
+        """
+        Expand the map by the given value in the given direction. Also moves units & triggers to their new relative
+        location if necessary.
+
+        Args:
+            expand_by: The size to expand the map by (with a 20x20 map, setting this to 10, would result in a 30x30 map)
+            direction: The direction to where the map is increased. (New area is created at this corner)
+
+        See Also:
+            change_map_size: For more information
+        """
+        self.change_map_size(self.map_size + expand_by, direction)
+
+    def change_map_size(
+        self,
+        map_size: int,
+        direction: Direction = Direction.EAST
+    ) -> None:
+        """
+        Change the map size from the given direction. The direction indicates from which corner it will shrink or
+        expand. So given direction ``Direction.NORTH`` means both shrinking or expanding changes than section of the
+        map and the south section is completely not effected. Also moves units & triggers to their new relative
+        location if necessary.
+
+        Args:
+            map_size: The new map size of the map (with a 20x20 map, setting this to 10, would result in a 10x10 map)
+            direction: The direction from which the map is affected
+        """
+        if map_size == self.map_size:
             return
 
         def create_tiles(size: int) -> TerrainDataRow:
@@ -136,13 +181,11 @@ class MapManager(Manager):
             return tuple(row[num_cols:] if from_front else row[:-num_cols] for row in terrain)
 
         # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
-        # Todo: !!!!!! ADD TESTSS FOR terrain_from!
         # Todo: !Move units using: ``self._struct.unit_manager...``
         # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
         # Todo: !! Add Tile preset for new tile generation
-        # TODO: !!!Move AreaPattern logic which modifies JUST the map, to Area add function in AreaPattern calling each
 
-        diff = new_map_size - self.map_size
+        diff = map_size - self.map_size
         is_expansion = diff > 0
         abs_diff = abs(diff)
 
@@ -195,7 +238,7 @@ class MapManager(Manager):
                 return obj.to_tiles()
             if isinstance(obj, Tile):
                 return {obj}
-            return set()
+            raise TypeError("Invalid argument type, should be either Tile, Area or AreaPattern")
 
         if isinstance(tile_sequence, (TileSequence, Tile)):
             tile_sequence = [tile_sequence]
@@ -273,10 +316,7 @@ class MapManager(Manager):
         Returns:
             A one-dimensional list of TerrainTiles based on given area
         """
-        result = []
-        for row in self._get_square_rows(area):
-            result.extend(row)
-        return result
+        return list(self.terrain_from(Area.from_value(area)).values())
 
     def get_square_2d(self, area: AreaT) -> list[list[TerrainTile]]:
         """
@@ -288,31 +328,15 @@ class MapManager(Manager):
         Returns:
             A two-dimensional list (of lists) of TerrainTiles based on given area
         """
-        return [row for row in self._get_square_rows(area)]
+        area = Area.from_value(area)
+
+        return list_chunks(self.terrain_from(area).values(), area.width)
 
     def get_area(self) -> Area:
         return Area((0, 0), (self.map_size - 1, self.map_size - 1))
 
     def get_area_pattern(self) -> AreaPattern:
         return AreaPattern(area = self.get_area(), map_size = self.map_size)
-
-    def _get_square_rows(self, area: AreaT) -> Generator[list[TerrainTile], None, None]:
-        """
-        Returns rows of TerrainTiles in a list one by one through a generator
-
-        Args:
-            area: The location (x1,y1,x2,y2) of the wanted area
-
-        Returns:
-            A generator generating single rows of TerrainTiles
-        """
-        area = Area.from_value(area)
-
-        for y in range(area.height):
-            i1 = xy_to_i(area.x1, y, self.map_size)
-            i2 = xy_to_i(area.x2, y, self.map_size)
-            tiles = self.terrain[i1:i2 + 1]
-            yield tiles
 
     def set_elevation(self, area: AreaT, elevation: int) -> None:
         """

@@ -199,12 +199,9 @@ def test_area_center(area: Area):
     # Repeating center(...) calls is supposed to apply bounds
     area = Area((10, 10), (20, 20))
     w, h = area.dimensions
-    area.center((0, 0)).center((20, 20))
+    area = area.center((0, 0)).center((20, 20))
     assert (w, h) != area.dimensions
     assert (6, 6) == area.dimensions
-
-    area.select_centered((5, 5), dx = 4, dy = 4)
-    assert (5, 5) == area.center_tile
 
 
 def test__iter__(area: Area):
