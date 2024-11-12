@@ -1,6 +1,7 @@
 import pytest
 
 from AoE2ScenarioParser.objects.support import Area, Tile
+from AoE2ScenarioParser.objects.support.enums.direction import Direction
 
 
 @pytest.fixture
@@ -67,6 +68,145 @@ def test_contains(area: Area):
     assert not area.contains(Tile(6, 2))
 
 
+def test_area_size(area: Area):
+    area = area.size(3)
+    assert ((3, 3), (5, 5)) == area.corners
+    assert area.dimensions == (3, 3)
+
+    area = area.size(width = 10)
+    assert ((0, 3), (8, 5)) == area.corners
+    assert area.dimensions == (9, 3)
+
+    area = area.size(height = 6)
+    assert ((0, 1), (8, 6)) == area.corners
+    assert area.dimensions == (9, 6)
+
+    area = area.size(size = 3, height = 7)
+    assert ((3, 1), (5, 7)) == area.corners
+    assert area.dimensions == (3, 7)
+
+    area = area.size(size = 5, width = 4)
+    assert ((2, 2), (5, 6)) == area.corners
+    assert area.dimensions == (4, 5)
+
+    # No changes to area when necessary
+    area = Area((11, 11), (20, 20)).size(10)
+    assert ((11, 11), (20, 20)) == area.corners
+    assert area.dimensions == (10, 10)
+
+    # No changes to area when necessary
+    area = Area((12, 12), (20, 20)).size(9)
+    assert ((12, 12), (20, 20)) == area.corners
+    assert area.dimensions == (9, 9)
+
+
+def test_move(area: Area):
+    area = area.move(x_offset = 10)
+    assert ((12, 2), (15, 6)) == area.corners
+
+    area = area.move(y_offset = 10)
+    assert ((12, 12), (15, 16)) == area.corners
+
+    area = area.move(x_offset = -5, y_offset = -5)
+    assert ((7, 7), (10, 11)) == area.corners
+
+    area = Area((3, 3), (5, 6)).move(x_offset = -5, y_offset = -5)
+    assert ((0, 0), (0, 1)) == area.corners
+
+
+def test_move_to(area: Area):
+    dimensions = area.dimensions
+
+    area = area.move_to(Tile(20, 20), Direction.NORTH)
+    assert ((17, 20), (20, 24)) == area.corners
+    assert dimensions == area.dimensions
+
+    area = area.move_to(Tile(20, 20), Direction.EAST)
+    assert ((17, 16), (20, 20)) == area.corners
+    assert dimensions == area.dimensions
+
+    area = area.move_to(Tile(20, 20), Direction.SOUTH)
+    assert ((20, 16), (23, 20)) == area.corners
+    assert dimensions == area.dimensions
+
+    area = area.move_to(Tile(20, 20), Direction.WEST)
+    assert ((20, 20), (23, 24)) == area.corners
+    assert dimensions == area.dimensions
+
+    with pytest.raises(ValueError, match = "Invalid tile: No negative coordinates allowed"):
+        area.move_to(Tile(-5, -5), Direction.NORTH)
+
+
+def test_shrink():
+    area = Area((10, 11), (20, 22)).shrink_corner1_by(dx = 5)
+
+    assert 15 == area.corner1.x
+    area = area.shrink_corner1_by(dx = 10)
+    assert 20 == area.corner1.x
+    area = area.shrink_corner1_by(dy = 6)
+    assert 17 == area.corner1.y
+    area = area.shrink_corner2_by(dx = 3)
+    assert 20 == area.corner2.x
+    area = area.shrink_corner2_by(dy = 3)
+    assert 19 == area.corner2.y
+    area = area.shrink_corner2_by(dy = 8)
+    assert 17 == area.corner2.y
+
+    area = Area((10, 11), (20, 22)).shrink(2)
+    assert ((12, 13), (18, 20)) == area
+
+    # Expect this to be in the center of the selection, not either corner
+    area = area.shrink(1000)
+    assert ((15, 17), (15, 17)) == area
+
+
+def test_expand():
+    area = Area((10, 10), (20, 20)).expand_corner1_by(dx = 5)
+
+    assert 5 == area.corner1.x
+    area = area.expand_corner1_by(dx = 10)
+    assert 0 == area.corner1.x
+    area = area.expand_corner1_by(dy = 6)
+    assert 4 == area.corner1.y
+    area = area.expand_corner2_by(dx = 50)
+    assert 70 == area.corner2.x
+    area = area.expand_corner2_by(dy = 100)
+    assert 120 == area.corner2.y
+    area = area.expand_corner2_by(dy = 50)
+    assert 170 == area.corner2.y
+
+    area = Area((10, 10), (20, 20)).expand(2)
+    assert ((8, 8), (22, 22)) == area
+    area = area.expand(500)
+    assert ((0, 0), (522, 522)) == area
+
+
+def test_area_center(area: Area):
+    assert ((8, 8), (8, 8)) == Area((0, 0)).center((8, 8))
+
+    area = Area((3, 3), (5, 5))
+    assert (4, 4) == area.center_tile
+    area = Area((3, 3), (6, 6))
+    assert (5, 5) == area.center_tile
+
+    area = Area((3, 3), (5, 5)).center((8, 8))
+    assert (8, 8) == area.center_tile
+    assert ((7, 7), (9, 9)) == area
+
+    area = Area((5, 10), (20, 20)).center((5, 0))
+    assert ((0, 0), (12, 5)) == area
+
+    # Repeating center(...) calls is supposed to apply bounds
+    area = Area((10, 10), (20, 20))
+    w, h = area.dimensions
+    area.center((0, 0)).center((20, 20))
+    assert (w, h) != area.dimensions
+    assert (6, 6) == area.dimensions
+
+    area.select_centered((5, 5), dx = 4, dy = 4)
+    assert (5, 5) == area.center_tile
+
+
 def test__iter__(area: Area):
     tiles = (area.corner1, area.corner2)
     for i, t in enumerate(area):
@@ -106,3 +246,8 @@ def test_from_value(area: Area):
     assert area == Area.from_value({'a': Tile(0, 1), 'b': Tile(2, 3)})
     assert area == Area.from_value({'a': 0, 'b': 1, 'c': 2, 'd': 3})
     assert area == Area.from_value({'corner1': Tile(0, 1), 'corner2': Tile(2, 3)})
+
+
+def test_apply_bounding_enabled(area: Area):
+    area = area.move(-5, -5)
+    assert ((0, 0), (0, 1)) == area

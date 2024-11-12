@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 import math
-from typing import Callable, Iterable, TYPE_CHECKING, overload
+import sys
+from os import system
+from typing import Iterable, overload, TYPE_CHECKING
 
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.objects.support.typedefs import T, TileT
+    from AoE2ScenarioParser.objects.support.typedefs import TileT
 
 
 # Todo: Add immutability to class
@@ -39,6 +41,9 @@ class Area(TileSequence):
         self.corner1 = Tile(x1, y1)
         self.corner2 = Tile(x2, y2)
 
+        self._apply_bounding = True
+        """If the area should automatically bound the EAST corner so the corner cannot go below (0, 0)"""
+
     @classmethod
     def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
         """
@@ -56,19 +61,21 @@ class Area(TileSequence):
 
         def from_iterable(iterable: list | tuple) -> Area | None:
             """Check content of iterable and return proper Area object"""
+            if len(iterable) == 1:
+                return cls(*iterable)
             if len(iterable) == 2:
                 if isinstance(iterable[0], (list, tuple, Tile)):
-                    return Area(*iterable)
+                    return cls(*iterable)
                 else:
-                    return Area(Tile.from_value(iterable))
+                    return cls(Tile.from_value(iterable))
             elif len(iterable) == 4:
-                return Area(iterable[:2], iterable[2:])
+                return cls(iterable[:2], iterable[2:])
             return None
 
-        if isinstance(val, Area):
+        if isinstance(val, cls):
             return val
         elif isinstance(val, Tile):
-            return Area(val)
+            return cls(val)
         elif isinstance(val, tuple) or isinstance(val, list):
             if area := from_iterable(val):
                 return area
@@ -76,7 +83,7 @@ class Area(TileSequence):
             vals = tuple(val.values())
             if area := from_iterable(vals):
                 return area
-            return Area(**val)
+            return cls(**val)
         raise ValueError(f"Unable to create instance of area from the given value: {val}")
 
     def to_tiles(self) -> set[Tile]:
@@ -162,7 +169,7 @@ class Area(TileSequence):
         Returns:
             A copy of the area object but with the corners converted if necessary
         """
-        return Area(
+        return self.create(
             self.corner1.resolve_negative_coords(map_size),
             self.corner2.resolve_negative_coords(map_size)
         )
@@ -178,12 +185,12 @@ class Area(TileSequence):
         Returns:
             A copy of the area object but offset by the given values
         """
-        return Area(
-            (self.corner1.x + x_offset, self.corner1.y + y_offset),
-            (self.corner2.x + x_offset, self.corner2.y + y_offset),
-        )
+        corner1 = Tile(self.corner1.x + x_offset, self.corner1.y + y_offset)
+        corner2 = Tile(self.corner2.x + x_offset, self.corner2.y + y_offset)
 
-    def move_to(self, corner: Direction, tile: TileT):
+        return self.create(corner1, corner2)
+
+    def move_to(self, tile: TileT, corner: Direction):
         """
         Moves the selection to the given coordinate by placing the given corner of this area on the coordinate.
 
@@ -196,39 +203,172 @@ class Area(TileSequence):
         Returns:
             A copy of the area object but moved to the given tile aligned using the given corner.
         """
+        x, y = Tile.from_value(tile)
+
+        if x < 0 or y < 0:
+            raise ValueError("Invalid tile: No negative coordinates allowed")
+
         width = self.width - 1
         height = self.height - 1
 
-        x, y = Tile.from_value(tile)
-
         if corner == Direction.WEST:
-            return Area((x, y), (x + width, y + height))
+            return self.create((x, y), (x + width, y + height))
         elif corner == Direction.NORTH:
-            return Area((x - width, y), (x, y + height))
+            return self.create((x - width, y), (x, y + height))
         elif corner == Direction.EAST:
-            return Area((x - width, y - height), (x, y))
+            return self.create((x - width, y - height), (x, y))
         elif corner == Direction.SOUTH:
-            return Area((x, y - height), (x + width, y))
+            return self.create((x, y - height), (x + width, y))
         else:
             raise ValueError(f"Invalid direction: '{corner}'")
 
-    def size(self, n: int):
+    def shrink(self, n: int) -> Area:
         """
-        Sets the selection to a size around the center.
-        If center is (4,4) with a size of 3 the selection will become ``((3,3), (5,5))``.
+        Shrinks the selection by the given amount of tiles from all sides
 
         Args:
-            n: The new size to set the selection to
+            n: The amount of tiles to shrink
 
         Returns:
-            A copy of the area object with size ``n``
+            A copy of the area object but shrunken
+        """
+        width, height = self.dimensions
+
+        return self.size(width = width - n * 2, height = height - n * 2)
+
+    def shrink_corner1_by(self, *, dx: int = 0, dy: int = 0) -> Area:
+        """
+        Shrinks the selection from the west-corner by moving the west-corner by the given offset
+
+        Args:
+            dx: The amount of offset on the corner1 x-axis to be applied
+            dy: The amount of offset on the corner1 y-axis to be applied
+
+        Returns:
+            A copy of the area object but shrunken from corner1
+        """
+        corner1, corner2 = self.corners
+        corner1 = Tile(
+            min(corner1.x + dx, corner2.x),
+            min(corner1.y + dy, corner2.y),
+        )
+        return self.create(corner1, corner2)
+
+    def shrink_corner2_by(self, *, dx: int = 0, dy: int = 0) -> Area:
+        """
+        Shrinks the selection from the east-corner by moving the east-corner by the given offset
+
+        Args:
+            dx: The amount of offset on the corner2 x-axis to be applied
+            dy: The amount of offset on the corner2 y-axis to be applied
+
+        Returns:
+            A copy of the area object but shrunken from corner2
+        """
+        corner1, corner2 = self.corners
+        corner2 = Tile(
+            max(corner1.x, corner2.x - dx),
+            max(corner1.y, corner2.y - dy),
+        )
+        return self.create(corner1, corner2)
+
+    def expand(self, n: int) -> Area:
+        """
+        Expands the selection by the given amount of tiles from all sides
+
+        Args:
+            n: The amount of tiles to expand
+
+        Returns:
+            A copy of the area object but expanded
+        """
+        width, height = self.dimensions
+
+        return self.size(width = width + n * 2, height = height + n * 2)
+
+    def expand_corner1_by(self, *, dx: int = 0, dy: int = 0) -> Area:
+        """
+        Expands the selection from the west-corner by moving the west-corner by the given offset
+
+        Args:
+            dx: The amount of offset on the corner1 x-axis to be applied
+            dy: The amount of offset on the corner1 y-axis to be applied
+
+        Returns:
+            A copy of the area object but expanded from corner1
+        """
+        corner1, corner2 = self.corners
+        corner1 = Tile(self._bound(corner1.x - dx), self._bound(corner1.y - dy))
+
+        return self.create(corner1, corner2)
+
+    def expand_corner2_by(self, *, dx: int = 0, dy: int = 0) -> Area:
+        """
+        Expands the selection from the east-corner by moving the east-corner by the given offset
+
+        Args:
+            dx: The amount of offset on the corner2 x-axis to be applied
+            dy: The amount of offset on the corner2 y-axis to be applied
+
+        Returns:
+            A copy of the area object but expanded from corner2
+        """
+        corner1, corner2 = self.corners
+        corner2 = Tile(corner2.x + dx, corner2.y + dy)
+        return self.create(corner1, corner2)
+
+    def size(self, size: int = None, *, width: int = None, height: int = None) -> Area:
+        """
+        Sets the selection to a size around the center. Using the same logic as the game for rounding when even numbers
+         are used.
+
+        Examples:
+            - If the center is ``(4,4)`` and ``size=3`` is given, the selection will become ``((3,3),(5,5))``
+            - If the center is ``(4,4)`` and ``width=3`` is given, the selection will become ``((3,4),(5,4))``
+            - If the center is ``(4,4)`` and ``width=3,height=5`` is given, the selection will become ``((3,2),(5,6))``
+
+        Args:
+            size: The new width and height of the area
+            width: The new width (x-axis) of the area, overwrites the size parameter if used
+            height: The new height (y-axis) of the area, overwrites the size parameter if used
+
+        Returns:
+            A copy of the area object with the new sizes
         """
         center = self.center_tile
-        n -= 1  # Ignore center tile
 
-        return Area(
-            (center.x - math.ceil(n / 2), center.y - math.ceil(n / 2)),
-            (center.x + math.floor(n / 2), center.y + math.floor(n / 2)),
+        # Ignore the center tile
+        new_width = self._bound((width or size or self.width) - 1)
+        new_height = self._bound((height or size or self.height) - 1)
+
+        corner1 = Tile(
+            self._bound(center.x - math.ceil(new_width / 2)),
+            self._bound(center.y - math.ceil(new_height / 2))
+        )
+        corner2 = Tile(
+            center.x + math.floor(new_width / 2),
+            center.y + math.floor(new_height / 2)
+        )
+
+        return self.create(corner1, corner2)
+
+    def center(self, tile: TileT) -> Area:
+        """
+        Move the center of the area to the given tile
+
+        Args:
+            tile: The tile to center the area on
+
+        Returns:
+            A copy of the area object but centered on the given tile
+        """
+        x, y = tile
+        center = self.center_tile
+        dx, dy = x - center.x, y - center.y
+        (x1, y1), (x2, y2) = self.corners
+        return self.create(
+            (x1 + dx, y1 + dy),
+            (x2 + dx, y2 + dy),
         )
 
     def bound(self, limit: int) -> Area:
@@ -241,7 +381,7 @@ class Area(TileSequence):
         Returns:
             A copy of the area object but with bounded corners
         """
-        return Area(
+        return self.create(
             self.corner1.bound(limit),
             self.corner2.bound(limit)
         )
@@ -262,6 +402,21 @@ class Area(TileSequence):
             and self.corner1.y <= y <= self.corner2.y
         )
 
+    def _bound(self, coordinate: int) -> int:
+        """Apply bounding to make sure the coordinate does not become below 0 (unless the flag is disabled)"""
+        return max(0, coordinate) if self._apply_bounding else coordinate
+
+    def create(self, corner1: TileT, corner2: TileT = None):
+        """Create a new instance of an Area object remembering the "apply bounding" flag"""
+        if self._apply_bounding:
+            corner1 = Tile.from_value(corner1).bound(sys.maxsize)
+            corner2 = Tile.from_value(corner2).bound(sys.maxsize) if corner2 is not None else corner1
+
+        area = self.__class__(corner1, corner2)
+        area._apply_bounding = self._apply_bounding
+
+        return area
+
     def __hash__(self):
         return hash((self.corner1, self.corner2))
 
@@ -270,6 +425,11 @@ class Area(TileSequence):
 
     def __getitem__(self, item: int) -> Tile:
         return (self.corner1, self.corner2)[item]
+
+    def __str__(self) -> str:
+        bound_text = '' if self._apply_bounding else ', [No bounding]'
+
+        return f"Area({self.corner1}, {self.corner2}{bound_text})"
 
     def __repr__(self) -> str:
         return f"Area({self.corner1}, {self.corner2})"

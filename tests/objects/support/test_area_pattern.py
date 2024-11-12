@@ -2,6 +2,7 @@ import pytest
 
 from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.objects.support.area_pattern import AreaAttr, AreaPattern, AreaState
+from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.objects.support.tile import Tile
 
 map_size = 144
@@ -94,48 +95,6 @@ def test_select_centered_mixed(area_pattern):
     assert 7 == y2
 
 
-def test_shrink(area_pattern):
-    area_pattern.select((10, 11), (20, 22)).shrink_bottom_corner_by(dx = 5)
-    area = area_pattern.area
-    assert 15 == area.corner1.x
-    area_pattern.shrink_bottom_corner_by(dx = 10)
-    assert 20 == area.corner1.x
-    area_pattern.shrink_bottom_corner_by(dy = 6)
-    assert 17 == area.corner1.y
-    area_pattern.shrink_top_corner_by(dx = 3)
-    assert 20 == area.corner2.x
-    area_pattern.shrink_top_corner_by(dy = 3)
-    assert 19 == area.corner2.y
-    area_pattern.shrink_top_corner_by(dy = 8)
-    assert 17 == area.corner2.y
-
-    area_pattern.select((10, 11), (20, 22)).shrink(2)
-    assert ((12, 13), (18, 20)) == area_pattern.area
-    area_pattern.shrink(1000)
-    assert ((18, 20), (18, 20)) == area_pattern.area
-
-
-def test_expand(area_pattern):
-    area_pattern.select((10, 10), (20, 20)).expand_bottom_corner_by(dx = 5)
-    area = area_pattern.area
-    assert 5 == area.corner1.x
-    area_pattern.expand_bottom_corner_by(dx = 10)
-    assert 0 == area.corner1.x
-    area_pattern.expand_bottom_corner_by(dy = 6)
-    assert 4 == area.corner1.y
-    area_pattern.expand_top_corner_by(dx = 50)
-    assert 70 == area.corner2.x
-    area_pattern.expand_top_corner_by(dy = 100)
-    assert 120 == area.corner2.y
-    area_pattern.expand_top_corner_by(dy = 50)
-    assert maximum_coordinate == area.corner2.y
-
-    area_pattern.select((10, 10), (20, 20)).expand(2)
-    assert ((8, 8), (22, 22)) == area_pattern.area
-    area_pattern.expand(500)
-    assert ((0, 0), (maximum_coordinate, maximum_coordinate)) == area_pattern.area
-
-
 def test_area_selection(area_pattern):
     assert ((3, 3), (5, 5)) == area_pattern.select((3, 3), (5, 5)).area
 
@@ -153,13 +112,14 @@ def test_area_center(area_pattern):
     assert ((7, 7), (9, 9)) == area_pattern.area
 
     area_pattern.select((5, 10), (20, 20)).center((5, 0))
-    assert ((-3, -5), (12, 5)) == area_pattern.area
-    assert ((0, 0), (12, 5)) == area_pattern.area_bounded
+    assert ((0, 0), (12, 5)) == area_pattern.area
 
+    # Repeating center(...) calls is supposed to apply bounds
     area_pattern.select((10, 10), (20, 20))
     w, h = area_pattern.area.dimensions
     area_pattern.center((0, 0)).center((20, 20))
-    assert (w, h) == area_pattern.area.dimensions
+    assert (w, h) != area_pattern.area.dimensions
+    assert (6, 6) == area_pattern.area.dimensions
 
     area_pattern.select_centered((5, 5), dx = 4, dy = 4)
     assert (5, 5) == area_pattern.area.center_tile
@@ -173,8 +133,7 @@ def test_set_center_then_size(area_pattern):
     assert ((3, 3), (12, 12)) == area_pattern.area
 
     area_pattern.center((5, 5)).size(300)
-    assert ((-145, -145), (154, 154)) == area_pattern.area
-    assert ((0, 0), (maximum_coordinate, maximum_coordinate)) == area_pattern.area_bounded
+    assert ((0, 0), (maximum_coordinate, maximum_coordinate)) == area_pattern.area
 
 
 def test_set_size_then_center(area_pattern):
@@ -189,26 +148,59 @@ def test_set_size_then_center(area_pattern):
 
 def test_area_height(area_pattern):
     area_pattern.center((8, 8))
-    area_pattern.height(3)
+    area_pattern.size(height=3)
     assert ((8, 7), (8, 9)) == area_pattern.area
-    area_pattern.height(10)
+    area_pattern.size(height=10)
     assert ((8, 3), (8, 12)) == area_pattern.area
-    area_pattern.height(4)
+    area_pattern.size(height=4)
     assert ((8, 6), (8, 9)) == area_pattern.area
-    area_pattern.height(1)
+    area_pattern.size(height=1)
     assert ((8, 8), (8, 8)) == area_pattern.area
 
 
 def test_area_width(area_pattern):
     area_pattern.center((8, 8))
-    area_pattern.width(6)
+    area_pattern.size(width=6)
     assert ((5, 8), (10, 8)) == area_pattern.area
-    area_pattern.width(11)
+    area_pattern.size(width=11)
     assert ((3, 8), (13, 8)) == area_pattern.area
-    area_pattern.width(8)
+    area_pattern.size(width=8)
     assert ((4, 8), (11, 8)) == area_pattern.area
-    area_pattern.width(3)
+    area_pattern.size(width=3)
     assert ((7, 8), (9, 8)) == area_pattern.area
+
+
+def test_cut_bounds(area_pattern):
+    area_pattern.cut_bounds().select((3, 3), (7, 7))
+    assert area_pattern.area.dimensions == (5, 5)
+
+    area_pattern.center((3, 0))
+    assert area_pattern.area.dimensions == (5, 3)
+
+    area_pattern.center((0, 0))
+    assert area_pattern.area.dimensions == (3, 2)
+
+    # Expand should add 10 to all sides but dimensions should only increase by 10
+    # Because North & West bounds block expansion
+    area_pattern.expand(10)
+    assert area_pattern.area.dimensions == (13, 12)
+
+
+def test_shift_bounds(area_pattern):
+    area_pattern.shift_bounds().select((3, 3), (7, 7))
+    assert area_pattern.area.dimensions == (5, 5)
+
+    area_pattern.center((3, 0))
+    assert area_pattern.area.dimensions == (5, 5)
+
+    area_pattern.center((0, 0))
+    assert area_pattern.area.dimensions == (5, 5)
+
+    # Expand should add 10 to all sides but dimensions should only increase by 10
+    # Because North & West bounds block expansion
+    area_pattern.expand(10)
+    print(area_pattern.area)
+    assert area_pattern.area.dimensions == (25, 25)
 
 
 def test_area_use_full(area_pattern):
@@ -224,7 +216,7 @@ def test_area_use_full(area_pattern):
                (3, 5), (4, 5), (5, 5),
            } == area_pattern.to_coords()
 
-    area_pattern.shrink_bottom_corner_by(dx = 1)
+    area_pattern.shrink_corner1_by(dx = 1)
     assert {
                (4, 3), (5, 3),
                (4, 4), (5, 4),
@@ -615,20 +607,6 @@ def test_area_is_within_selection(area_pattern):
     assert not area_pattern.is_within_selection((5, 13))
 
 
-def test_area_is_within_bounds(area_pattern):
-    area_pattern.select((0, 0), (10, 10))
-    assert area_pattern.is_within_bounds()
-    area_pattern.move(x_offset = -1)
-    assert not area_pattern.is_within_bounds()
-    # Select exactly the right-most corner
-    area_pattern.select_centered((140, 140), dx = 7, dy = 7)
-    assert area_pattern.is_within_bounds()
-    area_pattern.move(x_offset = 1)
-    assert not area_pattern.is_within_bounds()
-    area_pattern.move(x_offset = -1, y_offset = 1)
-    assert not area_pattern.is_within_bounds()
-
-
 def test_area_is_edge_tile(area_pattern):
     area_pattern.select((3, 5), (8, 11)).use_only_edge()
     assert area_pattern.is_within_selection((3, 5))
@@ -661,7 +639,6 @@ def test_area_copy(area_pattern):
     area_pattern.attrs(line_width_x = 5, line_width_y = 6, gap_size_x = 7, gap_size_y = 8)
     area_pattern.use_pattern_grid().invert()
     area_pattern.map_size = 20
-    area_pattern.uuid = "TEST_UUID"  # Must match an actual UUID if you've set one
     area_pattern.axis = "y"
 
     # @formatter:off
@@ -670,46 +647,10 @@ def test_area_copy(area_pattern):
     assert pattern.line_width_y != area_pattern.line_width_y
     assert pattern.gap_size_x   != area_pattern.gap_size_x
     assert pattern.gap_size_y   != area_pattern.gap_size_y
-    assert pattern.uuid         != area_pattern.uuid
     assert pattern.state        != area_pattern.state
     assert pattern.inverted     != area_pattern.inverted
     assert pattern.axis         != area_pattern.axis
     # @formatter:on
-
-
-def test_area_move():
-    area_pattern = AreaPattern.from_tiles((0, 1), (2, 3))
-
-    area_pattern.move(x_offset = 10)
-    assert ((10, 1), (12, 3)) == area_pattern.area.corners
-
-    area_pattern.move(y_offset = 10)
-    assert ((10, 11), (12, 13)) == area_pattern.area.corners
-
-    area_pattern.move(x_offset = -5, y_offset = -5)
-    assert ((5, 6), (7, 8)) == area_pattern.area.corners
-
-
-def test_area_move_to():
-    area_pattern = AreaPattern.from_tiles((0, 0), (3, 4))
-
-    dimensions = area_pattern.area.dimensions
-
-    area_pattern.move_to(x = 20, y = 20, corner = "north")
-    assert ((17, 20), (20, 24)) == area_pattern.area.corners
-    assert dimensions == area_pattern.area.dimensions
-
-    area_pattern.move_to(x = 20, y = 20, corner = "east")
-    assert ((17, 16), (20, 20)) == area_pattern.area.corners
-    assert dimensions == area_pattern.area.dimensions
-
-    area_pattern.move_to(x = 20, y = 20, corner = "south")
-    assert ((20, 16), (23, 20)) == area_pattern.area.corners
-    assert dimensions == area_pattern.area.dimensions
-
-    area_pattern.move_to(x = 20, y = 20, corner = "west")
-    assert ((20, 20), (23, 24)) == area_pattern.area.corners
-    assert dimensions == area_pattern.area.dimensions
 
 
 def test_area_instantiate_without_map_size():
@@ -723,13 +664,15 @@ def test_area_instantiate_without_map_size():
 def test_map_size_functions_without_map_size():
     area_pattern = AreaPattern.from_tiles((10, 10), (12, 12))
 
-    with pytest.raises(ValueError, match = "No UUID or map_size was set"):
-        area_pattern.center((5, 5)).cut_overflow()
-        area_pattern.shift_overflow()
+    with pytest.raises(ValueError, match = "No map size was configured for this AreaPattern"):
         area_pattern.select_entire_map()
+    with pytest.raises(ValueError, match = "No map size was configured for this AreaPattern"):
+        # noinspection PyStatementEffect
+        area_pattern.area_bounded
 
-    area_pattern.width(5)
-    assert ((3, 4), (7, 6)) == area_pattern.area
+    # Verify above functions did not impact selection
+    area_pattern.size(width=5)
+    assert ((9, 10), (13, 12)) == area_pattern.area
 
 
 def test_area_corners():
