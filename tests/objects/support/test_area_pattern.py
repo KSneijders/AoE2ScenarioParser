@@ -159,21 +159,31 @@ def test_bound(area_pattern):
     assert area_pattern.area.dimensions == (13, 12)
 
 
-def test_shift_bounds(area_pattern):
-    area_pattern.shift().select((3, 3), (7, 7))
+def test_shift(area_pattern):
+    area_pattern.select((3, 3), (7, 7)).shift()
     assert area_pattern.area.dimensions == (5, 5)
 
     area_pattern.center((3, 0))
+    assert not area_pattern.is_within_bounds()
+    area_pattern.shift()
+    assert area_pattern.is_within_bounds()
     assert area_pattern.area.dimensions == (5, 5)
 
     area_pattern.center((0, 0))
+    assert not area_pattern.is_within_bounds()
+    area_pattern.shift()
+    assert area_pattern.is_within_bounds()
     assert area_pattern.area.dimensions == (5, 5)
 
-    # Expand should add 10 to all sides but dimensions should only increase by 10
-    # Because North & West bounds block expansion
     area_pattern.expand(10)
-    print(area_pattern.area)
     assert area_pattern.area.dimensions == (25, 25)
+    assert not area_pattern.is_within_bounds()
+    area_pattern.shift()
+    assert area_pattern.is_within_bounds()
+    assert area_pattern.area.dimensions == (25, 25)
+
+    area_pattern.select_entire_map().expand(5).shift()
+    assert area_pattern.area.dimensions == (map_size, map_size)
 
 
 def test_area_use_full(area_pattern):
