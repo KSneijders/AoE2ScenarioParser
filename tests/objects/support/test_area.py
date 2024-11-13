@@ -21,7 +21,7 @@ def test_init(area: Area):
     assert Area((2, 2), (4, 4)) == Area((4, 4), (2, 2))
 
 
-def test_center(area: Area):
+def test_center_tile(area: Area):
     """Short test as the specific logic is tested within the Tile class"""
     assert Tile(4, 4) == area.center_tile
 
@@ -49,9 +49,24 @@ def test_resolve_negative_coords(area: Area):
 
 
 def test_bound(area: Area):
-    assert Area((2, 2), (4, 4)) == area.bound(4)
-    assert Area((2, 2), (3, 4)) == Area((2, 2), (3, 6)).bound(4)
-    assert Area((0, 0)) == Area((-1, -1)).bound(4)
+    assert area.bound(4) == Area((2, 2), (4, 4))
+    assert Area((2, 2), (3, 6)).bound(4) == Area((2, 2), (3, 4))
+
+    # Corner 1 and Corner 2 out of east bounds
+    with pytest.raises(
+        ValueError, match = 'Unable to bound area when area does not cover any tiles within given bounds'
+    ):
+        Area((-1, -2), (-2, -1)).bound(4)
+    # Corner 1 and Corner 2 out of west bounds
+    with pytest.raises(
+        ValueError, match = 'Unable to bound area when area does not cover any tiles within given bounds'
+    ):
+        Area((5, 5), (6, 6)).bound(4)
+
+    # Corner 1 out of east bounds
+    assert Area((-1, -1), (3, 3)).bound(4) == Area((0, 0), (3, 3))
+    # Corner 1 out of east bounds, Corner 2 out of west bounds
+    assert Area((-1, -1), (3, 6)).bound(4) == Area((0, 0), (3, 4))
 
 
 def test_contains(area: Area):
@@ -74,12 +89,12 @@ def test_area_size(area: Area):
     assert area.dimensions == (3, 3)
 
     area = area.size(width = 10)
-    assert ((0, 3), (8, 5)) == area.corners
-    assert area.dimensions == (9, 3)
+    assert ((-1, 3), (8, 5)) == area.corners
+    assert area.dimensions == (10, 3)
 
     area = area.size(height = 6)
-    assert ((0, 1), (8, 6)) == area.corners
-    assert area.dimensions == (9, 6)
+    assert ((-1, 1), (8, 6)) == area.corners
+    assert area.dimensions == (10, 6)
 
     area = area.size(size = 3, height = 7)
     assert ((3, 1), (5, 7)) == area.corners
@@ -102,16 +117,16 @@ def test_area_size(area: Area):
 
 def test_move(area: Area):
     area = area.move(x_offset = 10)
-    assert ((12, 2), (15, 6)) == area.corners
+    assert area.corners == ((12, 2), (15, 6))
 
     area = area.move(y_offset = 10)
-    assert ((12, 12), (15, 16)) == area.corners
+    assert area.corners == ((12, 12), (15, 16))
 
     area = area.move(x_offset = -5, y_offset = -5)
-    assert ((7, 7), (10, 11)) == area.corners
+    assert area.corners == ((7, 7), (10, 11))
 
     area = Area((3, 3), (5, 6)).move(x_offset = -5, y_offset = -5)
-    assert ((0, 0), (0, 1)) == area.corners
+    assert area.corners == ((-2, -2), (0, 1))
 
 
 def test_move_to(area: Area):
@@ -140,68 +155,67 @@ def test_move_to(area: Area):
 def test_shrink():
     area = Area((10, 11), (20, 22)).shrink_corner1_by(dx = 5)
 
-    assert 15 == area.corner1.x
+    assert area.corner1.x == 15
     area = area.shrink_corner1_by(dx = 10)
-    assert 20 == area.corner1.x
+    assert area.corner1.x == 20
     area = area.shrink_corner1_by(dy = 6)
-    assert 17 == area.corner1.y
+    assert area.corner1.y == 17
     area = area.shrink_corner2_by(dx = 3)
-    assert 20 == area.corner2.x
+    assert area.corner2.x == 20
     area = area.shrink_corner2_by(dy = 3)
-    assert 19 == area.corner2.y
+    assert area.corner2.y == 19
     area = area.shrink_corner2_by(dy = 8)
-    assert 17 == area.corner2.y
+    assert area.corner2.y == 17
 
     area = Area((10, 11), (20, 22)).shrink(2)
-    assert ((12, 13), (18, 20)) == area
+    assert area == ((12, 13), (18, 20))
 
     # Expect this to be in the center of the selection, not either corner
     area = area.shrink(1000)
-    assert ((15, 17), (15, 17)) == area
+    assert area == ((15, 17), (15, 17))
 
 
 def test_expand():
     area = Area((10, 10), (20, 20)).expand_corner1_by(dx = 5)
 
-    assert 5 == area.corner1.x
+    assert area.corner1.x == 5
     area = area.expand_corner1_by(dx = 10)
-    assert 0 == area.corner1.x
+    assert area.corner1.x == -5
     area = area.expand_corner1_by(dy = 6)
-    assert 4 == area.corner1.y
+    assert area.corner1.y == 4
     area = area.expand_corner2_by(dx = 50)
-    assert 70 == area.corner2.x
+    assert area.corner2.x == 70
     area = area.expand_corner2_by(dy = 100)
-    assert 120 == area.corner2.y
+    assert area.corner2.y == 120
     area = area.expand_corner2_by(dy = 50)
-    assert 170 == area.corner2.y
+    assert area.corner2.y == 170
 
     area = Area((10, 10), (20, 20)).expand(2)
-    assert ((8, 8), (22, 22)) == area
+    assert area == ((8, 8), (22, 22))
     area = area.expand(500)
-    assert ((0, 0), (522, 522)) == area
+    assert area == ((-492, -492), (522, 522))
 
 
-def test_area_center(area: Area):
-    assert ((8, 8), (8, 8)) == Area((0, 0)).center((8, 8))
+def test_center(area: Area):
+    assert Area((0, 0)).center((8, 8)) == ((8, 8), (8, 8))
 
     area = Area((3, 3), (5, 5))
-    assert (4, 4) == area.center_tile
+    assert area.center_tile == (4, 4)
     area = Area((3, 3), (6, 6))
-    assert (5, 5) == area.center_tile
+    assert area.center_tile == (5, 5)
 
     area = Area((3, 3), (5, 5)).center((8, 8))
-    assert (8, 8) == area.center_tile
-    assert ((7, 7), (9, 9)) == area
+    assert area.center_tile == (8, 8)
+    assert area == ((7, 7), (9, 9))
 
     area = Area((5, 10), (20, 20)).center((5, 0))
-    assert ((0, 0), (12, 5)) == area
+    assert area == ((-3, -5), (12, 5))
 
-    # Repeating center(...) calls is supposed to apply bounds
+    # Repeating center(...) calls is not supposed to apply bounds
     area = Area((10, 10), (20, 20))
     w, h = area.dimensions
     area = area.center((0, 0)).center((20, 20))
-    assert (w, h) != area.dimensions
-    assert (6, 6) == area.dimensions
+    assert area.dimensions == (w, h)
 
 
 def test__iter__(area: Area):
@@ -243,8 +257,3 @@ def test_from_value(area: Area):
     assert area == Area.from_value({'a': Tile(0, 1), 'b': Tile(2, 3)})
     assert area == Area.from_value({'a': 0, 'b': 1, 'c': 2, 'd': 3})
     assert area == Area.from_value({'corner1': Tile(0, 1), 'corner2': Tile(2, 3)})
-
-
-def test_apply_bounding_enabled(area: Area):
-    area = area.move(-5, -5)
-    assert ((0, 0), (0, 1)) == area

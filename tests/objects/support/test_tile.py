@@ -95,13 +95,14 @@ def test_from_value():
 
 
 def test_is_within_bounds():
+    # Without: resolve_negative_coords
     tile = Tile(34, 4)
-
     assert tile.is_within_bounds(50) is True
     assert tile.is_within_bounds(35) is True
     assert tile.is_within_bounds(34) is False
 
+    # With: resolve_negative_coords
     tile = Tile(-1, -20)
-    assert tile.is_within_bounds(50) is True
-    assert tile.is_within_bounds(35) is True
-    assert tile.is_within_bounds(19) is False
+    assert tile.is_within_bounds(50, resolve_negative_coords = True) is True
+    assert tile.is_within_bounds(35, resolve_negative_coords = True) is True
+    assert tile.is_within_bounds(19, resolve_negative_coords = True) is False

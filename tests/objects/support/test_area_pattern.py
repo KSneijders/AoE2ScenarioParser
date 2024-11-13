@@ -2,7 +2,6 @@ import pytest
 
 from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.objects.support.area_pattern import AreaAttr, AreaPattern, AreaState
-from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.objects.support.tile import Tile
 
 map_size = 144
@@ -99,41 +98,15 @@ def test_area_selection(area_pattern):
     assert ((3, 3), (5, 5)) == area_pattern.select((3, 3), (5, 5)).area
 
 
-def test_area_center(area_pattern):
-    assert ((8, 8), (8, 8)) == area_pattern.center((8, 8)).area
-
-    area_pattern.select((3, 3), (5, 5))
-    assert (4, 4) == area_pattern.area.center_tile
-    area_pattern.select((3, 3), (6, 6))
-    assert (5, 5) == area_pattern.area.center_tile
-
-    area_pattern.select((3, 3), (5, 5)).center((8, 8))
-    assert (8, 8) == area_pattern.area.center_tile
-    assert ((7, 7), (9, 9)) == area_pattern.area
-
-    area_pattern.select((5, 10), (20, 20)).center((5, 0))
-    assert ((0, 0), (12, 5)) == area_pattern.area
-
-    # Repeating center(...) calls is supposed to apply bounds
-    area_pattern.select((10, 10), (20, 20))
-    w, h = area_pattern.area.dimensions
-    area_pattern.center((0, 0)).center((20, 20))
-    assert (w, h) != area_pattern.area.dimensions
-    assert (6, 6) == area_pattern.area.dimensions
-
-    area_pattern.select_centered((5, 5), dx = 4, dy = 4)
-    assert (5, 5) == area_pattern.area.center_tile
-
-
 def test_set_center_then_size(area_pattern):
     area_pattern.center((8, 8)).size(9)
-    assert ((4, 4), (12, 12)) == area_pattern.area
+    assert area_pattern.area == ((4, 4), (12, 12))
 
     area_pattern.size(10)
-    assert ((3, 3), (12, 12)) == area_pattern.area
+    assert area_pattern.area == ((3, 3), (12, 12))
 
     area_pattern.center((5, 5)).size(300)
-    assert ((0, 0), (maximum_coordinate, maximum_coordinate)) == area_pattern.area
+    assert area_pattern.area == ((-145, -145), (154, 154))
 
 
 def test_set_size_then_center(area_pattern):
@@ -170,24 +143,24 @@ def test_area_width(area_pattern):
     assert ((7, 8), (9, 8)) == area_pattern.area
 
 
-def test_cut_bounds(area_pattern):
-    area_pattern.cut_bounds().select((3, 3), (7, 7))
+def test_bound(area_pattern):
+    area_pattern.bound().select((3, 3), (7, 7))
     assert area_pattern.area.dimensions == (5, 5)
 
-    area_pattern.center((3, 0))
+    area_pattern.center((3, 0)).bound()
     assert area_pattern.area.dimensions == (5, 3)
 
-    area_pattern.center((0, 0))
+    area_pattern.center((0, 0)).bound()
     assert area_pattern.area.dimensions == (3, 2)
 
     # Expand should add 10 to all sides but dimensions should only increase by 10
     # Because North & West bounds block expansion
-    area_pattern.expand(10)
+    area_pattern.expand(10).bound()
     assert area_pattern.area.dimensions == (13, 12)
 
 
 def test_shift_bounds(area_pattern):
-    area_pattern.shift_bounds().select((3, 3), (7, 7))
+    area_pattern.shift().select((3, 3), (7, 7))
     assert area_pattern.area.dimensions == (5, 5)
 
     area_pattern.center((3, 0))
@@ -594,6 +567,24 @@ def test_area_use_grid_with_configs_abuse_as_lines3(area_pattern):
             (3, 7), (4, 7), (5, 7), (6, 7),
         } == area_pattern.to_coords()
     # @formatter:on
+
+
+def test_area_is_within_bounds(area_pattern):
+    area_pattern.select((0, 0), (10, 10))
+    assert area_pattern.is_within_bounds()
+
+    area_pattern.move(x_offset = -1)
+    assert not area_pattern.is_within_bounds()
+
+    # Select exactly the right-most corner
+    area_pattern.select_centered((140, 140), dx = 7, dy = 7)
+    assert area_pattern.is_within_bounds()
+
+    area_pattern.move(x_offset = 1)
+    assert not area_pattern.is_within_bounds()
+
+    area_pattern.move(x_offset = -1, y_offset = 1)
+    assert not area_pattern.is_within_bounds()
 
 
 def test_area_is_within_selection(area_pattern):

@@ -169,7 +169,7 @@ class Area(TileSequence):
         Returns:
             A copy of the area object but with the corners converted if necessary
         """
-        return self.create(
+        return Area(
             self.corner1.resolve_negative_coords(map_size),
             self.corner2.resolve_negative_coords(map_size)
         )
@@ -188,7 +188,7 @@ class Area(TileSequence):
         corner1 = Tile(self.corner1.x + x_offset, self.corner1.y + y_offset)
         corner2 = Tile(self.corner2.x + x_offset, self.corner2.y + y_offset)
 
-        return self.create(corner1, corner2)
+        return Area(corner1, corner2)
 
     def move_to(self, tile: TileT, corner: Direction):
         """
@@ -212,13 +212,13 @@ class Area(TileSequence):
         height = self.height - 1
 
         if corner == Direction.WEST:
-            return self.create((x, y), (x + width, y + height))
+            return Area((x, y), (x + width, y + height))
         elif corner == Direction.NORTH:
-            return self.create((x - width, y), (x, y + height))
+            return Area((x - width, y), (x, y + height))
         elif corner == Direction.EAST:
-            return self.create((x - width, y - height), (x, y))
+            return Area((x - width, y - height), (x, y))
         elif corner == Direction.SOUTH:
-            return self.create((x, y - height), (x + width, y))
+            return Area((x, y - height), (x + width, y))
         else:
             raise ValueError(f"Invalid direction: '{corner}'")
 
@@ -234,7 +234,10 @@ class Area(TileSequence):
         """
         width, height = self.dimensions
 
-        return self.size(width = width - n * 2, height = height - n * 2)
+        width = max(1, width - n * 2)
+        height = max(1, height - n * 2)
+
+        return self.size(width = width, height = height)
 
     def shrink_corner1_by(self, *, dx: int = 0, dy: int = 0) -> Area:
         """
@@ -252,7 +255,7 @@ class Area(TileSequence):
             min(corner1.x + dx, corner2.x),
             min(corner1.y + dy, corner2.y),
         )
-        return self.create(corner1, corner2)
+        return Area(corner1, corner2)
 
     def shrink_corner2_by(self, *, dx: int = 0, dy: int = 0) -> Area:
         """
@@ -270,7 +273,7 @@ class Area(TileSequence):
             max(corner1.x, corner2.x - dx),
             max(corner1.y, corner2.y - dy),
         )
-        return self.create(corner1, corner2)
+        return Area(corner1, corner2)
 
     def expand(self, n: int) -> Area:
         """
@@ -298,9 +301,9 @@ class Area(TileSequence):
             A copy of the area object but expanded from corner1
         """
         corner1, corner2 = self.corners
-        corner1 = Tile(self._bound(corner1.x - dx), self._bound(corner1.y - dy))
+        corner1 = Tile(corner1.x - dx, corner1.y - dy)
 
-        return self.create(corner1, corner2)
+        return Area(corner1, corner2)
 
     def expand_corner2_by(self, *, dx: int = 0, dy: int = 0) -> Area:
         """
@@ -315,7 +318,8 @@ class Area(TileSequence):
         """
         corner1, corner2 = self.corners
         corner2 = Tile(corner2.x + dx, corner2.y + dy)
-        return self.create(corner1, corner2)
+
+        return Area(corner1, corner2)
 
     def size(self, size: int = None, *, width: int = None, height: int = None) -> Area:
         """
@@ -338,19 +342,13 @@ class Area(TileSequence):
         center = self.center_tile
 
         # Ignore the center tile
-        new_width = self._bound((width or size or self.width) - 1)
-        new_height = self._bound((height or size or self.height) - 1)
+        new_width = (width or size or self.width) - 1
+        new_height = (height or size or self.height) - 1
 
-        corner1 = Tile(
-            self._bound(center.x - math.ceil(new_width / 2)),
-            self._bound(center.y - math.ceil(new_height / 2))
-        )
-        corner2 = Tile(
-            center.x + math.floor(new_width / 2),
-            center.y + math.floor(new_height / 2)
-        )
+        corner1 = Tile(center.x - math.ceil(new_width / 2), center.y - math.ceil(new_height / 2))
+        corner2 = Tile(center.x + math.floor(new_width / 2), center.y + math.floor(new_height / 2))
 
-        return self.create(corner1, corner2)
+        return Area(corner1, corner2)
 
     def center(self, tile: TileT) -> Area:
         """
@@ -366,25 +364,56 @@ class Area(TileSequence):
         center = self.center_tile
         dx, dy = x - center.x, y - center.y
         (x1, y1), (x2, y2) = self.corners
-        return self.create(
-            (x1 + dx, y1 + dy),
-            (x2 + dx, y2 + dy),
-        )
+
+        return Area((x1 + dx, y1 + dy), (x2 + dx, y2 + dy))
 
     def bound(self, limit: int) -> Area:
         """
         Update the corners to be bounded between 0 and the given limit
 
         Args:
-            limit: the maximum coordinate value
+            limit: The limit used for bound checks
 
         Returns:
             A copy of the area object but with bounded corners
         """
-        return self.create(
+        if not self.covers_tiles_within_bounds(limit):
+            raise ValueError("Unable to bound area when area does not cover any tiles within given bounds")
+
+        return Area(
             self.corner1.bound(limit),
             self.corner2.bound(limit)
         )
+
+    def covers_tiles_within_bounds(self, limit: int) -> bool:
+        """
+        If this Area covers tiles that are within bounds. Even if both corners are out of bounds, if those bounds are
+        opposite sides, tiles within bounds are still covered.
+
+        Args:
+            limit: The limit used for bound checks
+
+        Returns:
+            True if the area covers any tiles that are within bounds
+        """
+        both_below_zero = (self.x1 < 0 or self.y1 < 0) and (self.x2 < 0 or self.y2 < 0)
+        both_above_limit = (self.x1 > limit or self.y1 > limit) and (self.x2 > limit or self.y2 > limit)
+
+        return not (both_below_zero or both_above_limit)
+
+    def is_within_bounds(self, bound: int, resolve_negative_coords: bool = False) -> bool:
+        """
+        If this area is within the bounds of the given limit (allowing negative coordinates)
+
+        Args:
+            bound: The limit used for bound checks
+            resolve_negative_coords: If negative coordinates should be resolved to wrap to the other side of the map
+
+        Returns:
+            True if this tile is within the bounds of the given map_size
+        """
+        return self.corner1.is_within_bounds(bound, resolve_negative_coords) \
+            and self.corner2.is_within_bounds(bound, resolve_negative_coords)
 
     def contains(self, tile: TileT) -> bool:
         """
@@ -401,21 +430,6 @@ class Area(TileSequence):
             self.corner1.x <= x <= self.corner2.x
             and self.corner1.y <= y <= self.corner2.y
         )
-
-    def _bound(self, coordinate: int) -> int:
-        """Apply bounding to make sure the coordinate does not become below 0 (unless the flag is disabled)"""
-        return max(0, coordinate) if self._apply_bounding else coordinate
-
-    def create(self, corner1: TileT, corner2: TileT = None):
-        """Create a new instance of an Area object remembering the "apply bounding" flag"""
-        if self._apply_bounding:
-            corner1 = Tile.from_value(corner1).bound(sys.maxsize)
-            corner2 = Tile.from_value(corner2).bound(sys.maxsize) if corner2 is not None else corner1
-
-        area = self.__class__(corner1, corner2)
-        area._apply_bounding = self._apply_bounding
-
-        return area
 
     def __hash__(self):
         return hash((self.corner1, self.corner2))

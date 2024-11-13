@@ -57,9 +57,6 @@ class AreaPattern(TileSequence):
         else:
             area = Area.from_value(area)
 
-        # Configs
-        self.shift_bounds_on_set: bool = False
-
         self.map_size = map_size
 
         self.area: Area = area.resolve_negative_coords(map_size)
@@ -100,22 +97,6 @@ class AreaPattern(TileSequence):
     @map_size.setter
     def map_size(self, value: int | None) -> None:
         self._map_size = max(1, value) if value is not None else None
-
-    @property
-    def area(self) -> Area:
-        return self._area
-
-    @area.setter
-    def area(self, area: Area):
-        if self._map_size:
-            if self.shift_bounds_on_set:
-                area = self._shift_area_bounds(area)
-            else:
-                area = area.bound(self.maximum_coordinate)
-
-        # Set the area object to not manage bounding
-        area._apply_bounding = False
-        self._area = area
 
     @property
     def maximum_coordinate(self) -> int:
@@ -507,7 +488,6 @@ class AreaPattern(TileSequence):
 
         return self
 
-    # Todo: Move tests to area tests
     def center(self, tile: TileT) -> AreaPattern:
         """
         Move the center of the area to the given tile
@@ -551,18 +531,18 @@ class AreaPattern(TileSequence):
 
     # ============================ Config functions ============================
 
-    def cut_bounds(self) -> AreaPattern:
+    def bound(self) -> AreaPattern:
         """
         If the Area selection is (partially) outside the map, shrink the area to fit inside the map
 
         Returns:
             This AreaPattern object with the underlying area adjusted accordingly
         """
-        self.shift_bounds_on_set = False
+        self.area = self.area.bound(self.maximum_coordinate)
 
         return self
 
-    def shift_bounds(self) -> AreaPattern:
+    def shift(self) -> AreaPattern:
         """
         If the Area selection is (partially) outside the map, shift the overflowing area to fit inside the map without
         changing the area dimensions.
@@ -570,7 +550,19 @@ class AreaPattern(TileSequence):
         Returns:
             This AreaPattern object with the underlying area adjusted accordingly
         """
-        self.shift_bounds_on_set = True
+        # First, get a new bounded Area object.
+        # Then, check how many extra tiles need to be re-added by comparing the width and height.
+        # After that, add that many tiles to both sides of the new area_pattern and then cut the excess off again to
+        # get the shifted version of the old area_pattern
+        bounded = self.area.bound(self.maximum_coordinate)
+
+        diff_width = self.area.width - bounded.width
+        diff_height = self.area.height - bounded.height
+
+        corner1 = (bounded.x1 - diff_width, bounded.y1 - diff_height)
+        corner2 = (bounded.x2 + diff_width, bounded.y2 + diff_height)
+
+        self.area = Area(corner1, corner2).bound(self.maximum_coordinate)
 
         return self
 
@@ -598,6 +590,18 @@ class AreaPattern(TileSequence):
                 self.state == AreaState.CORNERS and self._is_in_corner(tile),
             )
         ) ^ self.inverted
+
+    def is_within_bounds(self, resolve_negative_coords: bool = False) -> bool:
+        """
+        If the current selection is within the bounds of the map.
+
+        Args:
+            resolve_negative_coords: If negative coordinates should be wrapped around
+
+        Returns:
+            ``True`` if both corners area: ``0 <= corner < map_size``, ``False`` otherwise
+        """
+        return self.area.is_within_bounds(self.map_size, resolve_negative_coords)
 
     # ============================ Miscellaneous functions ============================
 
@@ -746,24 +750,6 @@ class AreaPattern(TileSequence):
         if self.state == AreaState.CORNERS:
             return self._calc_corner_chunk_id(tile)
         return -1
-
-    def _shift_area_bounds(self, area: Area) -> Area:
-        """
-        If the Area selection is (partially) outside the map, shift the overflowing area to fit inside the map without
-        changing the area dimensions.
-
-        Returns:
-            This AreaPattern object with the underlying area adjusted accordingly
-        """
-        new_area = area.bound(self.maximum_coordinate)
-
-        diff_width = area.width - new_area.width
-        diff_height = area.height - new_area.height
-
-        corner1 = Tile(new_area.corner1.x - diff_width, new_area.corner1.y - diff_height)
-        corner2 = Tile(new_area.corner2.x + diff_width, new_area.corner2.y + diff_height)
-
-        return Area(corner1, corner2).bound(self.maximum_coordinate)
 
     def __repr__(self) -> str:
         return f"AreaPattern(area_pattern={self.area}, state={self.state.name})"
