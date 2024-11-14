@@ -31,3 +31,7 @@ class ActionType(_DataSetIntEnums):
     PACK = 15
     UNPACK = 16
     ATTACK_MOVE = 17
+    LINE_FORMATION = 18
+    BOX_FORMATION = 19
+    STAGGERED_FORMATION = 20
+    FLANK_FORMATION = 21

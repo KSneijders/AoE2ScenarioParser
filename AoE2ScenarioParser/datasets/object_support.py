@@ -76,5 +76,8 @@ class Civilization(_DataSetIntEnums):
     ROMANS = 43
     ARMENIANS = 44
     GEORGIANS = 45
+    ACHAEMENIDS = 46
+    ATHENIANS = 47
+    SPARTANS = 48
     RANDOM = 65537
     FULL_RANDOM = 65539
