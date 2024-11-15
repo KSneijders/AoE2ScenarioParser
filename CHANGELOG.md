@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.12 - 2024-November-16
+
+### Added
+
+- Support for the new civilizations -- Credits: [mardaravicius](https://github.com/KSneijders/AoE2ScenarioParser/pull/52)
+  - `Civilization.ACHAEMENIDS = 46`
+  - `Civilization.ATHENIANS = 47`
+  - `Civilization.SPARTANS = 48`
+- Support for the new blank technologies -- Credits: [mardaravicius](https://github.com/KSneijders/AoE2ScenarioParser/pull/52)
+  - `TechInfo.BLANK_TECHNOLOGY_0` to `TechInfo.BLANK_TECHNOLOGY_19` 
+- Support for the new action types -- Credits: [mardaravicius](https://github.com/KSneijders/AoE2ScenarioParser/pull/52)
+  - `ActionType.LINE_FORMATION` = 18
+  - `ActionType.BOX_FORMATION` = 19
+  - `ActionType.STAGGERED_FORMATION` = 20
+  - `ActionType.FLANK_FORMATION` = 21
+
+### Improved
+
+- Type hinting for triggers and some other object lists
+
+---
+
 ## 0.2.11 - 2024-November-02
 
 ### Fixed
