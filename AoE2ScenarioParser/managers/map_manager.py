@@ -3,14 +3,14 @@ from __future__ import annotations
 import itertools
 import math
 from collections.abc import Iterable
-from typing import Generator, Sequence
+from typing import Sequence
 
 from binary_file_parser import Manager, ret, RetrieverRef
 from ordered_set import OrderedSet
 from typing_extensions import Literal
 
-from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
-from AoE2ScenarioParser.helper.list_functions import chunk, list_chunks, tuple_chunks
+from AoE2ScenarioParser.helper.coordinates import i_to_xy
+from AoE2ScenarioParser.helper.list_functions import list_chunks, tuple_chunks
 from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.objects.support import (
     Area, AreaPattern, AreaT, TerrainData, TerrainDataRow, Tile,
@@ -75,6 +75,8 @@ class MapManager(Manager):
         # Assign a Tile reference to all TerrainTiles for ease of access
         for y, row in enumerate(self._terrain_2d):
             for x, tile in enumerate(row):
+                if not isinstance(tile, TerrainTile):
+                    raise TypeError(f"Invalid object encountered in terrain sequence. Tile: ({x},{y}) & Type: `{type(tile)}`")
                 tile._tile = Tile(x, y)
 
         self._map_width = map_size

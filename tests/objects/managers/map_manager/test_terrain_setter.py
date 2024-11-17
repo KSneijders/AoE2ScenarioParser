@@ -4,7 +4,7 @@ import pytest
 
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import Tile
-from AoE2ScenarioParser.sections import TerrainTile
+from AoE2ScenarioParser.sections import TerrainTile, Unit
 from objects.managers.map_manager import MockMapManager
 
 
@@ -58,3 +58,39 @@ def test_terrain_setter_verify_assigned_tile(mm: MapManager):
     tiles = [terrain.tile for row in mm.terrain for terrain in row]
 
     assert tiles == [Tile(x, y) for y in range(3) for x in range(3)]
+
+
+def test_terrain_setter_invalid_sequence_lengths(mm: MapManager):
+    # Empy lists
+    with pytest.raises(ValueError, match = r'Terrain sequence must at least contain one TerrainTile'):
+        mm.terrain = []
+    with pytest.raises(ValueError, match = r'Encountered unexpected length for nested sequence.*3x3\. Found length: 0'):
+        mm.terrain = [[], [], []]
+
+    # Incorrect nested lists
+    with pytest.raises(ValueError, match = r'Encountered unexpected length for nested sequence.*2x2\. Found length: 1'):
+        mm.terrain = [[TerrainTile()], [TerrainTile(), TerrainTile()]]
+    with pytest.raises(ValueError, match = r'Encountered unexpected length for nested sequence.*2x2\. Found length: 1'):
+        mm.terrain = [[TerrainTile(), TerrainTile()], [TerrainTile()]]
+
+    # Incorrect single dimensions sizes
+    with pytest.raises(ValueError, match = r'Invalid length given for terrain sequence.*Got: 2'):
+        mm.terrain = [TerrainTile(), TerrainTile()]
+    with pytest.raises(ValueError, match = r'Invalid length given for terrain sequence.*Got: 5'):
+        mm.terrain = [TerrainTile(), TerrainTile(), TerrainTile(), TerrainTile(), TerrainTile()]
+
+    # ... User error? - Any exception is good (it should just fail)
+    with pytest.raises(BaseException):
+        mm.terrain = [TerrainTile(), [TerrainTile(), TerrainTile()]]
+    with pytest.raises(BaseException):
+        mm.terrain = [TerrainTile(), [TerrainTile(), TerrainTile()], None, None]
+    with pytest.raises(BaseException):
+        mm.terrain = [[TerrainTile(), None], TerrainTile()]
+    with pytest.raises(BaseException):
+        mm.terrain = [[None, None], [None, None]]
+    with pytest.raises(BaseException):
+        mm.terrain = [None]
+    with pytest.raises(BaseException):
+        mm.terrain = [[Unit()]]  # Just anything goes (wrong) at this point 11
+    with pytest.raises(BaseException):
+        mm.terrain = [Unit()]
