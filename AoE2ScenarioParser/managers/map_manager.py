@@ -13,11 +13,12 @@ from AoE2ScenarioParser.helper.coordinates import i_to_xy
 from AoE2ScenarioParser.helper.list_functions import list_chunks, tuple_chunks
 from AoE2ScenarioParser.helper.maffs import sign
 from AoE2ScenarioParser.objects.support import (
-    Area, AreaPattern, AreaT, TerrainData, TerrainDataRow, Tile,
+    Area, AreaPattern, AreaT, TerrainData, Tile,
     TileSequence, TileT,
 )
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import MapData, Options, ScenarioSections, Settings, TerrainTile
+from managers.support.terrain_data_support import TerrainDataSupport
 
 
 class MapManager(Manager):
@@ -76,7 +77,9 @@ class MapManager(Manager):
         for y, row in enumerate(self._terrain_2d):
             for x, tile in enumerate(row):
                 if not isinstance(tile, TerrainTile):
-                    raise TypeError(f"Invalid object encountered in terrain sequence. Tile: ({x},{y}) & Type: `{type(tile)}`")
+                    raise TypeError(
+                        f"Invalid object encountered in terrain sequence. Tile: ({x},{y}) & Type: `{type(tile)}`"
+                    )
                 tile._tile = Tile(x, y)
 
         self._map_width = map_size
@@ -105,10 +108,8 @@ class MapManager(Manager):
         self,
         shrink_by: int,
         direction: Direction = Direction.EAST,
-        units_overflow_action: Literal['remove', 'error'] = 'error',
-        # TODO: CHECK IF GAME CRASHES IF THESE ARE OUT OF BOUNDS
-        triggers_overflow_action: Literal['remove', 'error'] = 'error',
-        # TODO: CHECK IF GAME CRASHES IF THESE ARE OUT OF BOUNDS
+        unit_overflow_action: Literal['remove', 'error'] = 'error',
+        trigger_overflow_action: Literal['remove', 'error'] = 'error',
     ) -> None:
         """
         Shrink the map by the given value from the given direction. Also moves units & triggers to their new relative
@@ -117,15 +118,26 @@ class MapManager(Manager):
         Args:
             shrink_by: The size to expand the map by (with a 20x20 map, setting this to 10, would result in a 30x30 map)
             direction: The direction to where the map is increased. (New area is created at this corner)
-            units_overflow_action: What should be done with units if they are out of the map after shrinking it.
-            triggers_overflow_action:
+            unit_overflow_action: What action should be taken with units if they are out of the map after shrinking it.
+            trigger_overflow_action: What action should be taken with triggers (effects / conditions) if they are
+                partially out of the map after shrinking it.
 
         See Also:
             ``change_map_size``: For more information on specifics
         """
-        self.change_map_size(self.map_size - shrink_by, direction)
+        self.change_map_size(
+            map_size = self.map_size - shrink_by,
+            direction = direction,
+            unit_overflow_action = unit_overflow_action,
+            trigger_overflow_action = trigger_overflow_action
+        )
 
-    def expand_map_by(self, expand_by: int, direction: Direction = Direction.EAST) -> None:
+    def expand_map_by(
+        self,
+        expand_by: int,
+        direction: Direction = Direction.EAST,
+        terrain_template: TerrainTile = None,
+    ) -> None:
         """
         Expand the map by the given value in the given direction. Also moves units & triggers to their new relative
         location if necessary.
@@ -133,16 +145,26 @@ class MapManager(Manager):
         Args:
             expand_by: The size to expand the map by (with a 20x20 map, setting this to 10, would result in a 30x30 map)
             direction: The direction to where the map is increased. (New area is created at this corner)
+            terrain_template: The tile template to use for all new tiles that will be created. Use a TerrainTile
+                instance as a Template like: ```TerrainTile(...)``.
 
         See Also:
             change_map_size: For more information
         """
-        self.change_map_size(self.map_size + expand_by, direction)
+        self.change_map_size(
+            map_size = self.map_size + expand_by,
+            direction = direction,
+            terrain_template = terrain_template
+        )
 
     def change_map_size(
         self,
         map_size: int,
-        direction: Direction = Direction.EAST
+        direction: Direction = Direction.EAST,
+        *,
+        terrain_template: TerrainTile = None,
+        unit_overflow_action: Literal['remove', 'error'] = 'error',
+        trigger_overflow_action: Literal['remove', 'error'] = 'error',
     ) -> None:
         """
         Change the map size from the given direction. The direction indicates from which corner it will shrink or
@@ -153,39 +175,14 @@ class MapManager(Manager):
         Args:
             map_size: The new map size of the map (with a 20x20 map, setting this to 10, would result in a 10x10 map)
             direction: The direction from which the map is affected
+            terrain_template: The tile template to use for all new tiles that will be created. Use a TerrainTile
+                instance as a Template like: ```TerrainTile(...)``.
+            unit_overflow_action: What action should be taken with units if they are out of the map after shrinking it.
+            trigger_overflow_action: What action should be taken with triggers (effects / conditions) if they are
+                partially out of the map after shrinking it.
         """
         if map_size == self.map_size:
             return
-
-        def create_tiles(size: int) -> TerrainDataRow:
-            return tuple(TerrainTile() for _ in range(size))
-
-        def create_tile_rows(amount: int, size: int) -> TerrainData:
-            return tuple(create_tiles(size) for _ in range(amount))
-
-        def add_rows(terrain: TerrainData, num_rows: int, in_front: bool) -> TerrainData:
-            new_rows = create_tile_rows(num_rows, size = len(terrain))
-            return (new_rows + terrain) if in_front else (terrain + new_rows)
-
-        def add_cols(terrain: TerrainData, num_cols: int, in_front: bool) -> TerrainData:
-            return tuple(
-                (create_tiles(num_cols) + row) if in_front else (row + create_tiles(num_cols))
-                    for row in terrain
-            )
-
-        def slice_rows(terrain: TerrainData, num_rows: int, from_front: bool):
-            if from_front:
-                return terrain[num_rows:]
-            else:
-                return terrain[:-num_rows]
-
-        def slice_cols(terrain: TerrainData, num_cols: int, from_front: bool):
-            return tuple(row[num_cols:] if from_front else row[:-num_cols] for row in terrain)
-
-        # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
-        # Todo: !Move units using: ``self._struct.unit_manager...``
-        # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
-        # Todo: !! Add Tile preset for new tile generation
 
         diff = map_size - self.map_size
         is_expansion = diff > 0
@@ -196,18 +193,19 @@ class MapManager(Manager):
 
         original_area = self.get_area_pattern().move(x_offset, y_offset)
 
-        terrain_2d = self.terrain
-        if is_expansion:
-            terrain_2d = add_rows(terrain_2d, abs_diff, in_front = direction in (Direction.NORTH, Direction.WEST))
-            terrain_2d = add_cols(terrain_2d, abs_diff, in_front = direction in (Direction.SOUTH, Direction.WEST))
-        else:
-            terrain_2d = slice_rows(terrain_2d, abs_diff, from_front = direction in (Direction.NORTH, Direction.WEST))
-            terrain_2d = slice_cols(terrain_2d, abs_diff, from_front = direction in (Direction.SOUTH, Direction.WEST))
+        # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
+        # Todo: !Move units using: ``self._struct.unit_manager...``
+        # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
 
-        self.terrain = terrain_2d
+        terrain_support = TerrainDataSupport(self)
+        self.terrain = terrain_support.compute_resized_terrain_data(
+            new_map_size = map_size,
+            direction = direction,
+            terrain_template = terrain_template
+        )
 
-        # Fix elevation
         if is_expansion:
+            # Fix elevation of newly generated tiles
             outline_original_area = original_area.copy().use_only_edge(line_width = 1)
 
             terrain_tiles = self.terrain_from(outline_original_area)
@@ -215,6 +213,10 @@ class MapManager(Manager):
 
             for terrain_tile in terrain_tiles.values():
                 self._update_elevation_around_terrain_tile(terrain_tile, protected = protected_tiles)
+        else:
+            ...
+            # Todo self._struct.unit_manager(...)
+            # Todo self._struct.trigger_manager(...)
 
     def terrain_from(
         self,
@@ -235,6 +237,7 @@ class MapManager(Manager):
         Returns:
             A dict with the tile as key and the corresponding TerrainTile as value
         """
+
         def to_tiles(obj: TileSequence | Tile) -> OrderedSet[Tile] | set[Tile]:
             if isinstance(obj, TileSequence):
                 return obj.to_tiles()
