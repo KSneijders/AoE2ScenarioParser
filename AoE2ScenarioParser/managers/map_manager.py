@@ -63,7 +63,7 @@ class MapManager(Manager):
 
             if math.sqrt(len(value)) % 1 != 0:
                 raise ValueError(
-                    f"Invalid length given for terrain sequence, should be perfect square. Got: {len(value)}"
+                    f"Invalid length for terrain sequence, should be perfect square. Got: {len(value)}"
                 )
 
             map_size = math.floor(math.sqrt(len(value)))
@@ -77,9 +77,7 @@ class MapManager(Manager):
         for y, row in enumerate(self._terrain_2d):
             for x, tile in enumerate(row):
                 if not isinstance(tile, TerrainTile):
-                    raise TypeError(
-                        f"Invalid object encountered in terrain sequence. Tile: ({x},{y}) & Type: `{type(tile)}`"
-                    )
+                    raise TypeError(f"Invalid object in terrain sequence. Tile: ({x},{y}) & Type: `{type(tile)}`")
                 tile._tile = Tile(x, y)
 
         self._map_width = map_size
