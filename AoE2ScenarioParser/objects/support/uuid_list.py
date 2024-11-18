@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from typing import Iterable, Sequence, TypeVar, List, Generic, Iterator
+from typing import Iterable, Sequence, TypeVar, List, Generic, Iterator, overload
 from uuid import UUID
 
 from typing_extensions import SupportsIndex
@@ -99,6 +99,16 @@ class UuidList(list, Generic[_T]):
 
     def sort(self: List, *, key: None = ..., reverse: bool = ...) -> None:
         super().sort(key=key, reverse=reverse)
+
+    @overload
+    def __getitem__(self, __i: SupportsIndex) -> _T: ...
+
+    @overload
+    def __getitem__(self, __s: slice) -> list[_T]: ...
+
+    def __getitem__(self, __i):
+        """Only overwritten because Python Generics are... 'Interesting'"""
+        return super().__getitem__(__i)
 
     def __setitem__(self, i: SupportsIndex, o: _T | Iterable[_T]) -> None:
         """
