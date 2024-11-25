@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import itertools
 import math
+from collections import deque
 from collections.abc import Iterable
 from typing import Sequence
 
@@ -206,15 +207,20 @@ class MapManager(Manager):
             # Fix elevation of newly generated tiles
             outline_original_area = original_area.copy().use_only_edge(line_width = 1)
 
-            terrain_tiles = self.terrain_from(outline_original_area)
-            protected_tiles = set(terrain_tiles.keys())
+            # terrain_tiles = self.terrain_from(outline_original_area)
+            # protected_tiles = set(terrain_tiles.keys())
 
-            for terrain_tile in terrain_tiles.values():
-                self._update_elevation_around_terrain_tile(terrain_tile, protected = protected_tiles)
+            self._update_elevation_around_tiles(outline_original_area.to_coords())
+
         else:
             ...
             # Todo self._struct.unit_manager(...)
             # Todo self._struct.trigger_manager(...)
+
+        return self.get_area_pattern() \
+            .select_entire_map() \
+            .to_coords() \
+            .difference(original_area.to_coords())
 
     def terrain_from(
         self,
@@ -371,47 +377,60 @@ class MapManager(Manager):
         for terrain in result.values():
             terrain.elevation = elevation
 
-        for terrain_tile in self.terrain_from(edge_tiles).values():
-            self._update_elevation_around_terrain_tile(terrain_tile, protected = tiles)
+        self._update_elevation_around_tiles(edge_tiles)
 
-    def _update_elevation_around_terrain_tile(
-        self,
-        terrain_tile: TerrainTile,
-        protected: set[Tile],
-        visited: set[Tile] = None
-    ):
+    def _update_elevation_around_tiles(self, queue: Iterable[Tile]) -> None:
         """
-        Updates the elevation around the given TerrainTile and calls itself for all surrounding neighbours
-        that need to be updated.
+        Updates the elevation around the given tiles
 
         Args:
-            terrain_tile: The TerrainTile to check around
-            protected: Tiles that should not be changed by this call
-            visited: The visited Tiles with this recursion tree path
+            queue: A queue of tiles that will be checked and tiles around them will be adjusted accordingly
         """
-        tile = terrain_tile.tile
+        if not isinstance(queue, deque):
+            queue = deque(queue)
 
-        visited = set() if visited is None else visited.copy()
-        visited.add(tile)
+        while len(queue):
+            tile = queue.popleft()
+            terrain_tile = self.get_tile_safe(tile)
 
-        for x_offset, y_offset in itertools.product(range(-1, 2), repeat = 2):
-            if x_offset == 0 and y_offset == 0:
+            if terrain_tile is None:
                 continue
 
-            xx, yy = tile.x + x_offset, tile.y + y_offset
+            for x_offset, y_offset in itertools.product(range(-1, 2), repeat = 2):
+                if x_offset == 0 and y_offset == 0:
+                    continue
 
-            neighbour_tile = Tile(xx, yy)
-            if neighbour_tile in protected or neighbour_tile in visited:
-                continue
+                xx, yy = tile.x + x_offset, tile.y + y_offset
+                neighbour = self.get_tile_safe((xx, yy))
+                if neighbour is None:
+                    continue
 
-            neighbour = self.get_tile_safe(neighbour_tile)
-            if neighbour is None:
-                continue
+                if abs(neighbour.elevation - terrain_tile.elevation) > 1:
+                    neighbour.elevation = terrain_tile.elevation + sign(neighbour.elevation, terrain_tile.elevation)
 
-            behind = self.get_tile_safe((tile.x + x_offset * 2, tile.y + y_offset * 2))
+                    if neighbour.tile not in queue:
+                        queue.append(neighbour.tile)
 
-            if behind is not None and neighbour.elevation < terrain_tile.elevation == behind.elevation:
-                neighbour.elevation = terrain_tile.elevation
-            elif abs(neighbour.elevation - terrain_tile.elevation) > 1:
-                neighbour.elevation = terrain_tile.elevation + int(sign(neighbour.elevation, terrain_tile.elevation))
-                self._update_elevation_around_terrain_tile(neighbour, protected, visited)
+                xx, yy = tile.x + x_offset * 2, tile.y + y_offset * 2
+                behind = self.get_tile_safe((xx, yy))
+                if behind is None:
+                    continue
+
+                if not neighbour.elevation < terrain_tile.elevation == behind.elevation:
+                    continue
+
+                if x_offset == 0 or y_offset == 0:
+                    neighbour.elevation = terrain_tile.elevation
+                    continue
+
+                edge_adjacent_equal_elevation_count = 0
+                neighbour_tile: Tile = neighbour.tile
+
+                for xx_offset, yy_offset in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    neighbour_neighbour = self.get_tile_safe((neighbour_tile.x + xx_offset, neighbour_tile.y + yy_offset))
+
+                    if neighbour_neighbour and neighbour_neighbour.elevation == terrain_tile.elevation:
+                        edge_adjacent_equal_elevation_count += 1
+
+                if edge_adjacent_equal_elevation_count != 2:
+                    neighbour.elevation = terrain_tile.elevation
