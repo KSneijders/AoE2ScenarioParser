@@ -1,11 +1,15 @@
-from managers import MapManager
-from objects.support import TerrainData, TerrainDataRow
-from objects.support.enums.direction import Direction
-from sections import TerrainTile
+from typing import TYPE_CHECKING
+
+from AoE2ScenarioParser.objects.support import TerrainData, TerrainDataRow
+from AoE2ScenarioParser.objects.support.enums.direction import Direction
+from AoE2ScenarioParser.sections import TerrainTile
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.managers import MapManager
 
 
 class TerrainDataSupport:
-    def __init__(self, map_manager: MapManager):
+    def __init__(self, map_manager: 'MapManager'):
         """
         A support object used for resizing terrain data
 

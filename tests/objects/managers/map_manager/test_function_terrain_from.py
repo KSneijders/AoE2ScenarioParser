@@ -2,7 +2,7 @@ import pytest
 
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import Area, Tile
-from objects.managers.map_manager import MockMapManager
+from tests.objects.managers.map_manager import MockMapManager
 
 
 @pytest.fixture

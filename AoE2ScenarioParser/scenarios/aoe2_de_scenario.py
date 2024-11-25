@@ -34,7 +34,7 @@ __READ_THE_STATEMENT_BELOW__ = '\n'.join([
     ">>> `pip install 'AoE2ScenarioParser==<VERSION>' --force-reinstall`",  # TODO: <-- ADD LAST VERSION BEFORE v1.0.0
     "",
     "Please note:",
-    "If you decide to downgrade, newer versions of AoE2:DE will not be supported by older versions of the parser.",
+    "If you decide to downgrade, newer versions of AoE2:DE will not be supported by older versions of the parser.",  # TODO: <-- THIS IS PROBABLY NOT TRUE - RE-EVALUATE!!!!!
     "",
 ])
 # @formatter:on

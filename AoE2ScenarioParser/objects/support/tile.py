@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from typing import TYPE_CHECKING, Iterable, overload
+from typing import Iterable, overload, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.helper.helper import bound
@@ -28,8 +28,8 @@ class Tile:
                 raise ValueError("tuple to initialise a Tile must have exactly two coordinates")
             x, y = coords
 
-        self.x = x
-        self.y = y
+        self.x: int = x
+        self.y: int = y
 
     @classmethod
     def from_value(cls, val: TileT | list | dict) -> Tile:

@@ -14,6 +14,6 @@ def sign(a: int | float, b: int | float) -> int:
         b: The second number
 
     Returns:
-        Returns 1 if a is higher than b, -1 if b is higher than a, and 0 when they're equal
+        Returns 1 if "a" is higher than "b", -1 if "b" is higher than "a", and 0 when they're equal
     """
-    return 0 if a == b else math.copysign(1, a - b)
+    return 0 if a == b else int(math.copysign(1, a - b))

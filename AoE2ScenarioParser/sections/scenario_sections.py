@@ -6,6 +6,7 @@ from os import path
 
 from binary_file_parser import BaseStruct, ByteStream, Retriever, Version, VersionError
 
+import settings
 from AoE2ScenarioParser.sections import FileData
 from AoE2ScenarioParser.sections.file_header import FileHeader
 from AoE2ScenarioParser.sections.map_data import MapData
@@ -74,12 +75,12 @@ class ScenarioSections(BaseStruct):
 
     @classmethod
     def from_file(cls, file_name: str, *, file_version: Version = Version((0,)), strict = True) -> ScenarioSections:
-        return cls._from_file(file_name, file_version=file_version, strict=strict)
+        return cls._from_file(file_name, file_version=file_version, strict=strict, show_progress = settings.PRINT_STATUS_UPDATES)
 
     def to_file(self, file_name: str, overwrite_original_file_name = True):
         if overwrite_original_file_name:
             self.settings.data_header.file_name = path.basename(file_name)
-        super()._to_file(file_name)
+        super()._to_file(file_name, show_progress = settings.PRINT_STATUS_UPDATES)
 
     def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
         # todo: correctly initialise struct_ver `from_default` for all self versioned structs

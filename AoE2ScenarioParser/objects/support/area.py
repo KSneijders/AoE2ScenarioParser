@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import math
-import sys
-from os import system
 from typing import Iterable, overload, TYPE_CHECKING
 
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
@@ -10,7 +8,7 @@ from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.objects.support.tile_sequence import TileSequence
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.objects.support.typedefs import TileT
+    from AoE2ScenarioParser.objects.support.typedefs import AreaT, TileT
 
 
 # Todo: Add immutability to class
@@ -45,7 +43,7 @@ class Area(TileSequence):
         """If the area should automatically bound the EAST corner so the corner cannot go below (0, 0)"""
 
     @classmethod
-    def from_value(cls, val: Area | TileT | tuple[TileT, TileT] | tuple[int, int, int, int] | list | dict) -> Area:
+    def from_value(cls, val: AreaT | TileT | tuple[int, int, int, int] | list | dict) -> Area:
         """
         Create an Area object based on a given value
 

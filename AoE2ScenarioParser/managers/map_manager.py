@@ -12,13 +12,13 @@ from typing_extensions import Literal
 from AoE2ScenarioParser.helper.coordinates import i_to_xy
 from AoE2ScenarioParser.helper.list_functions import list_chunks, tuple_chunks
 from AoE2ScenarioParser.helper.maffs import sign
+from AoE2ScenarioParser.managers.support import TerrainDataSupport
 from AoE2ScenarioParser.objects.support import (
     Area, AreaPattern, AreaT, TerrainData, Tile,
     TileSequence, TileT,
 )
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import MapData, Options, ScenarioSections, Settings, TerrainTile
-from managers.support.terrain_data_support import TerrainDataSupport
 
 
 class MapManager(Manager):
@@ -108,7 +108,7 @@ class MapManager(Manager):
         direction: Direction = Direction.EAST,
         unit_overflow_action: Literal['remove', 'error'] = 'error',
         trigger_overflow_action: Literal['remove', 'error'] = 'error',
-    ) -> None:
+    ) -> OrderedSet[Tile]:
         """
         Shrink the map by the given value from the given direction. Also moves units & triggers to their new relative
         location if necessary.
@@ -123,7 +123,7 @@ class MapManager(Manager):
         See Also:
             ``change_map_size``: For more information on specifics
         """
-        self.change_map_size(
+        return self.change_map_size(
             map_size = self.map_size - shrink_by,
             direction = direction,
             unit_overflow_action = unit_overflow_action,
@@ -135,7 +135,7 @@ class MapManager(Manager):
         expand_by: int,
         direction: Direction = Direction.EAST,
         terrain_template: TerrainTile = None,
-    ) -> None:
+    ) -> OrderedSet[Tile]:
         """
         Expand the map by the given value in the given direction. Also moves units & triggers to their new relative
         location if necessary.
@@ -149,7 +149,7 @@ class MapManager(Manager):
         See Also:
             change_map_size: For more information
         """
-        self.change_map_size(
+        return self.change_map_size(
             map_size = self.map_size + expand_by,
             direction = direction,
             terrain_template = terrain_template
@@ -163,7 +163,7 @@ class MapManager(Manager):
         terrain_template: TerrainTile = None,
         unit_overflow_action: Literal['remove', 'error'] = 'error',
         trigger_overflow_action: Literal['remove', 'error'] = 'error',
-    ) -> None:
+    ) -> OrderedSet[Tile]:
         """
         Change the map size from the given direction. The direction indicates from which corner it will shrink or
         expand. So given direction ``Direction.NORTH`` means both shrinking or expanding changes than section of the
@@ -180,7 +180,7 @@ class MapManager(Manager):
                 partially out of the map after shrinking it.
         """
         if map_size == self.map_size:
-            return
+            return OrderedSet()
 
         diff = map_size - self.map_size
         is_expansion = diff > 0
@@ -341,9 +341,9 @@ class MapManager(Manager):
     def get_area_pattern(self) -> AreaPattern:
         return AreaPattern(area = self.get_area(), map_size = self.map_size)
 
-    def set_elevation(self, area: AreaT, elevation: int) -> None:
+    def set_elevation(self, area: AreaT | TileT, elevation: int) -> None:
         """
-        Sets elevation like the in-game elevation mechanics.
+        Sets elevation  elevation mechanics.
         Can set a hill to a certain height and all tiles around it are adjusted accordingly.
 
         Args:
