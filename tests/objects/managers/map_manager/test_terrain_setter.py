@@ -1,11 +1,9 @@
-from contextlib import nullcontext as does_not_raise
-
 import pytest
 
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import Tile
 from AoE2ScenarioParser.sections import TerrainTile, Unit
-from objects.managers.map_manager import MockMapManager
+from tests.objects.managers.map_manager import MockMapManager
 
 
 @pytest.fixture
@@ -20,7 +18,7 @@ def test_terrain_setter_set_1d_sequence(mm: MapManager):
     mm.terrain = [TerrainTile() for _ in range(9)]
     assert mm.map_size == 3
 
-    with pytest.raises(ValueError, match = 'Invalid length given for terrain sequence'):
+    with pytest.raises(ValueError, match = 'Invalid length for terrain sequence'):
         mm.terrain = [TerrainTile() for _ in range(5)]
         mm.terrain = [TerrainTile() for _ in range(12)]
 
@@ -74,9 +72,9 @@ def test_terrain_setter_invalid_sequence_lengths(mm: MapManager):
         mm.terrain = [[TerrainTile(), TerrainTile()], [TerrainTile()]]
 
     # Incorrect single dimensions sizes
-    with pytest.raises(ValueError, match = r'Invalid length given for terrain sequence.*Got: 2'):
+    with pytest.raises(ValueError, match = r'Invalid length for terrain sequence.*Got: 2'):
         mm.terrain = [TerrainTile(), TerrainTile()]
-    with pytest.raises(ValueError, match = r'Invalid length given for terrain sequence.*Got: 5'):
+    with pytest.raises(ValueError, match = r'Invalid length for terrain sequence.*Got: 5'):
         mm.terrain = [TerrainTile(), TerrainTile(), TerrainTile(), TerrainTile(), TerrainTile()]
 
     # ... User error? - Any exception is good (it should just fail)
