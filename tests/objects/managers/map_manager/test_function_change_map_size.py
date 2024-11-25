@@ -4,9 +4,11 @@ import random
 import pytest
 from binary_file_parser import Version
 
+from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
-from objects.managers.map_manager import MockMapManager
+from AoE2ScenarioParser.sections import TerrainTile
+from tests.objects.managers.map_manager import MockMapManager
 
 
 @pytest.fixture
@@ -68,7 +70,9 @@ def test_terrain_expand_map_by(mm: MapManager):
     assert_square_size(mm.terrain, 8)
 
 
-def test_terrain_change_map_size__shrink_to_x_north(mm: MapManager, direction_params: tuple[Direction, int, int], shrink_size: int):
+def test_terrain_change_map_size__shrink_to_x(
+    mm: MapManager, direction_params: tuple[Direction, int, int], shrink_size: int
+):
     direction, xo, yo = direction_params
 
     x_offset = (mm.map_size - shrink_size) * xo
@@ -84,7 +88,9 @@ def test_terrain_change_map_size__shrink_to_x_north(mm: MapManager, direction_pa
     assert mm.terrain == new_terrain_2d
 
 
-def test_terrain_change_map_size__expand_to_x_north(mm: MapManager, direction_params: tuple[Direction, int, int], expand_size: int):
+def test_terrain_change_map_size__expand_to_x(
+    mm: MapManager, direction_params: tuple[Direction, int, int], expand_size: int
+):
     direction, xo, yo = direction_params
 
     previous_terrain = mm.terrain
@@ -102,7 +108,25 @@ def test_terrain_change_map_size__expand_to_x_north(mm: MapManager, direction_pa
 
     assert previous_terrain == previous_terrain_after_change
 
+
+def test_terrain_change_map_size_with_terrain_template(mm: MapManager):
+    template = TerrainTile(type = TerrainId.DIRT_1, elevation = 4, zone = 3, mask_type = 2, layer_type = 1)
+
+    new_tiles = mm.expand_map_by(5, terrain_template = template)
+    elevations = {5: 2, 6: 3, 7: 4, 8: 4, 9: 4}
+
+    print('\n\n\n')
+    for tile, terrain_tile in mm.terrain_from(new_tiles).items():
+        print(tile, terrain_tile.elevation)
+
+        coord = max(*tile)
+        expected_elevation = elevations[coord] if coord in elevations else 1
+
+        assert terrain_tile.elevation == expected_elevation
+        assert terrain_tile.zone == 3
+        assert terrain_tile.mask_type == 2
+        assert terrain_tile.layer_type == 1
+
 # Todo: Add tests for terrain preset
 # Todo: Add tests for elevation smoothing (doesn't have to be thorough, just testing that it works
 #   More in-depth tests should be done for the set_elevation function specifically
-
