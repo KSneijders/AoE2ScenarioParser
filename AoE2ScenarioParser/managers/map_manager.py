@@ -103,6 +103,14 @@ class MapManager(Manager):
     def map_size(self, value):
         self.change_map_size(map_size = value, direction = Direction.EAST)
 
+    @property
+    def area(self):
+        return self.get_area()
+
+    @property
+    def area_pattern(self):
+        return self.get_area_pattern()
+
     def shrink_map_by(
         self,
         shrink_by: int,
@@ -346,10 +354,27 @@ class MapManager(Manager):
         return list_chunks(self.terrain_from(area).values(), area.width)
 
     def get_area(self) -> Area:
+        """
+        Get an area object spanning the entire map::
+
+            ((0, 0), (n - 1, n - 1))
+
+        Returns:
+            A new Area object
+        """
         return Area((0, 0), (self.map_size - 1, self.map_size - 1))
 
-    def get_area_pattern(self) -> AreaPattern:
-        return AreaPattern(area = self.get_area(), map_size = self.map_size)
+    def get_area_pattern(self, selection: AreaT | TileT = None) -> AreaPattern:
+        """
+        Get an area pattern object spanning the given area or the entire map if default
+
+        Args:
+            selection: The area-like or tile-like object used for the selection. Defaults to the entire map
+
+        Returns:
+            A new AreaPattern object
+        """
+        return AreaPattern(area = selection or self.get_area(), map_size = self.map_size)
 
     def set_elevation(self, area: AreaT | TileT, elevation: int) -> None:
         """
