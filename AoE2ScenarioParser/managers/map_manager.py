@@ -217,8 +217,12 @@ class MapManager(Manager):
             # Todo self._struct.unit_manager(...)
             # Todo self._struct.trigger_manager(...)
 
+        # Shrinking changes the original area coordinates which results in a "difference" below whilst it should never
+        # return any tiles. This is faster & prevents the issue caused below.
+        if not is_expansion:
+            return OrderedSet()
+
         return self.get_area_pattern() \
-            .select_entire_map() \
             .to_coords() \
             .difference(original_area.to_coords())
 
