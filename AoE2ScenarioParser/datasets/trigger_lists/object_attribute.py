@@ -517,6 +517,45 @@ class ObjectAttribute(_DataSetIntEnums):
 
         Special abilities are an unused feature in AoE2, they were planned but never made it into AoK
     """
+    OBSTRUCTION_TYPE = 78
+    """
+    Controls unit outline and collision
+
+    - Flags:
+
+        - 0: Square outline, and passable
+        - 1: Same as 0
+        - 2: Solid square outline, and has collision box
+        - 3: Square outline, and has collision box
+        - 4: No outline, and passable
+        - 5: Round outline, and has collision box
+        - 10: Same as 2, but designed for mountains
+    """
+    BLOCKAGE_CLASS = 79
+    """
+    Controls unit blockage class
+    
+    - Flags:
+
+        - 0: Forces default obstruction type
+        - 1: Resource
+        - 2: Unit
+        - 3: Building
+        - 4: Wall
+        - 5: Gate, allows trespassing
+        - 6: Cliff, blocks walling
+    """
+    SELECTION_EFFECT = 80
+    """
+    Controls unit hit point bar and outline
+    
+    - Flags:
+
+        - 0: Has hit point bar
+        - 1: Has hit point bar and outline
+        - 2: No hit point bar or outline
+        - 3: No hit point bar, but has outline
+    """
     RESOURCE_COSTS = 100
     """
     Refers to the first resource cost of a unit. Refer to A.G.E. to see which resource cost that is
