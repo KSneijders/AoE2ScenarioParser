@@ -552,8 +552,8 @@ class ObjectAttribute(_DataSetIntEnums):
     - Flags:
 
         - 0: Has hit point bar
-        - 1: Has hit point bar and outline
-        - 2: No hit point bar or outline
+        - 1: Has hit point bar, and outline
+        - 2: No hit point bar, or outline
         - 3: No hit point bar, but has outline
     """
     RESOURCE_COSTS = 100
