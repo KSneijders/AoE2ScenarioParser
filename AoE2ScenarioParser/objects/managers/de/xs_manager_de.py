@@ -1,10 +1,11 @@
+import tempfile
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError
-
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
+from AoE2ScenarioParser.objects.support.xs_check import XsCheck
 from AoE2ScenarioParser.scenarios.scenario_store import actions
 from AoE2ScenarioParser.scenarios.scenario_store.getters import get_scenario_version
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
@@ -27,6 +28,9 @@ class XsManagerDE(AoE2Object):
         You can work around this issue by using: ```xs_manager.add_script(xs_file_path='path/to/script.xs')```
         For more information check out: https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs/
         """
+
+        # Instantiate the xs-check helper
+        self.xs_check = XsCheck()
 
         # --- XS Script Call Trigger ---
         self._initialized = False
@@ -85,23 +89,64 @@ class XsManagerDE(AoE2Object):
         self._initialized = True
         actions.import_triggers(self._uuid, [self.xs_trigger], insert_index, deepcopy=False)
 
-    def _append_to_xs(self, title, string) -> None:
-        self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{string}\n\n"
+    def _append_to_xs(self, title, xs) -> None:
+        self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{xs}\n\n"
 
-    def add_script(self, xs_file_path: str = "", xs_string: str = ""):
+    def add_script(self, xs_file_path: str = "", xs_string: str = "", validate: bool = False):
         """
         Add a script to the script call effect in the XS trigger
 
         Args:
             xs_file_path: Path to an XS file
             xs_string: Raw XS
+            validate: If the given XS code should be validated using ``Alian713/xs-check`` → https://github.com/Divy1211/xs-check
         """
+        strings = {}
+
         if xs_file_path:
             path = Path(xs_file_path)
             with path.open() as xs_file:
-                self._append_to_xs(path.name, xs_file.read())
+                strings[path.name] = xs_file.read()
+
         if xs_string:
-            self._append_to_xs(f"XS string", xs_string)
+            strings['XS string'] = xs_string
+
+        for key, xs in strings.items():
+            if validate:
+                self.validate(xs=xs)
+
+            self._append_to_xs(key, strings)
+
+    def validate(self, xs: str = "", xs_path: Union[Path, str] = "") -> True:
+        """
+        Validate a given string
+
+        Args:
+            xs: The XS string (not file path) to validate
+            xs_path: A path to an XS file
+
+        Throws:
+            XsCheckValidationError: When xs-check encounters an error
+
+        Returns:
+            True when the validation succeeds without errors. Throws an XsCheckValidationError otherwise
+        """
+        if not xs and not xs_path:
+            raise ValueError("Unable to validate XS without XS string or Path")
+
+        file = None
+
+        if xs_path:
+            file = xs_path if isinstance(xs_path, Path) else Path(xs_path)
+
+            if not file.is_file():
+                raise ValueError(f"File '{xs_path}' does not exist")
+        if xs:
+            _, path = tempfile.mkstemp()
+            file = Path(path)
+            file.write_text(xs, encoding='utf-8')
+
+        return self.xs_check.validate(str(file.absolute()))
 
     def _debug_write_script_to_file(self, filename: str = "xs.txt"):
         with open(filename, 'w') as file:
