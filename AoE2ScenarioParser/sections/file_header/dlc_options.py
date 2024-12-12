@@ -22,8 +22,11 @@ class DLCOptions(BaseStruct):
     - 8: LotW
     - 9: DotD
     - 10: DI
-    - 11: RoR
-    - 12: TMR
+    - 11: RoR dataset
+    - 12: Romans
+    - 13: TMR
+    - 14: VnV
+    - 15: Chronicles
     """
     # @formatter:on
 
