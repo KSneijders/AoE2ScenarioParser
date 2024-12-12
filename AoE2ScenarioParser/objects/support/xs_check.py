@@ -1,47 +1,54 @@
+import os
 import re
-import shutil
 import subprocess
 import tempfile
 import time
 from pathlib import Path
-from typing import Optional, Union, Tuple, Dict
+from typing import Optional, Union, Tuple, Set
 
+from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.exceptions.asp_exceptions import XsCheckValidationError
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 
 class XsCheck:
-    # https://github.com/Divy1211/xs-check/releases/download/v0.1.2/xs-check.exe
-    supported_versions: Dict[Tuple, str] = {
-        (0, 1, 1): '',
-        (0, 1, 2): '',
-        (0, 1, 3): ''
+    supported_versions: Set[Tuple] = {
+        (0, 1, 1),
+        (0, 1, 2),
+        (0, 1, 3),
     }
 
     def __init__(self):
+        self.enabled = True
         self.xs_encoding = 'utf-8'
         self.allow_unsupported_versions: bool = False
 
         self.path = None
+        """The path for a custom XS check binary (One that is not shipped with AoE2ScenarioParser"""
+        self.default_folder = Path(__file__).parent.parent.parent / 'dependencies' / 'xs-check'
         """The path for the XS check binary"""
-        self._path_lookup = False
-        """If an automatic path lookup (from PATH) has been done for xs-check"""
 
-        # self.allow_xs_check_download = False
-        # """If ASP is allowed to download the xs-check executable from GitHub"""
+    @property
+    def is_enabled(self):
+        return self.enabled and settings.ENABLE_XS_CHECK_INTEGRATION
+
+    @property
+    def is_disabled(self):
+        return not self.is_enabled
 
     @property
     def path(self) -> Optional[Path]:
-        if not self._path_lookup and self._path is None:
-            self._path_lookup = True
-            self.path = shutil.which('xs-check')
+        if self._path is None:
+            extension = '.exe' if os.name == 'nt' else ''
+
+            return self.default_folder / ('xs-check' + extension)
 
         return self._path
 
     @path.setter
     def path(self, value: Optional[Union[Path, str]]):
         if value is None:
-            self._path = value
+            self._path = None
             return
 
         path = value if isinstance(value, Path) else Path(value)
@@ -52,7 +59,10 @@ class XsCheck:
 
         if not self.is_supported_xs_check_binary():
             version = self.get_version()
-            raise ValueError(f'Invalid xs-check binary given with version "{version}" at "{path}"')
+            raise ValueError(
+                f'Unsupported xs-check binary given with version "{version}" at "{path}". '
+                f'You can try `xs_manager.xs_check.allow_unsupported_versions = True` to override this check'
+            )
 
     def validate(self, xs_file: Optional[Union[Path, str]]) -> True:
         """
@@ -65,11 +75,14 @@ class XsCheck:
             XsCheckValidationError: When xs-check encounters an error
 
         Returns:
-            True if no errors are found, an ``XsCheckValidationError`` is thrown otherwise
+            True if no errors are found or xs-check has been disabled, an ``XsCheckValidationError`` is thrown otherwise
         """
-        xs_path = str(xs_file.absolute()) if isinstance(xs_file, Path) else xs_file
+        if self.is_disabled:
+            return True
 
-        output = self._xs_check_call(xs_path)
+        xs_file_path = str(xs_file.absolute()) if isinstance(xs_file, Path) else xs_file
+
+        output = self._xs_check_call(xs_file_path)
 
         if output.startswith('No errors found in file'):
             return True
@@ -91,7 +104,7 @@ class XsCheck:
             xs_file: The XS file to validate
 
         Returns:
-            True if no errors are found, False otherwise
+            True if no errors are found or xs-check has been disabled, False otherwise
         """
         try:
             return self.validate(xs_file)
@@ -134,6 +147,7 @@ class XsCheck:
         Returns:
             The xs-check version
         """
+
         def is_match(result: re.Match) -> bool:
             return result is not None and len(result.groups()) == 1
 
@@ -153,17 +167,15 @@ class XsCheck:
             The STDOUT from the call as a string
         """
         if self.path is None:
-            raise ValueError('Unable to locate xs-check, please specify a path using xs_manager.xs_check.path = \'<path>\'')
+            raise ValueError(
+                'Unable to locate xs-check, please specify a path using xs_manager.xs_check.path = \'<path>\'')
 
         # Make temp files to capture xs-check output
         stdout_file, stdout_path = tempfile.mkstemp()
         stderr_file, stderr_path = tempfile.mkstemp()
 
         command = [self.path, *args]
-        try:
-            exitcode = subprocess.call(command, timeout=5, stdout=stdout_file, stderr=stderr_file)
-        except Exception as e:
-            raise ValueError("ad")
+        exitcode = subprocess.call(command, timeout=5, stdout=stdout_file, stderr=stderr_file)
 
         if exitcode != 0:
             error = Path(stderr_path).read_text(encoding=self.xs_encoding)
