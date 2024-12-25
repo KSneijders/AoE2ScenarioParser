@@ -70,3 +70,7 @@ class Test(TestCase):
         self.assertEqual(te0.location_x, ce0.location_x)
         self.assertEqual(te0.location_y, ce0.location_y)
         self.assertEqual(te0.area_x2, ce0.area_x2)  # Random value
+
+        self.assertEqual(te0._armour_attack_quantity, ce0._armour_attack_quantity)
+        self.assertEqual(te0._armour_attack_class, ce0._armour_attack_class)
+        self.assertEqual(te0._armour_attack_source, ce0._armour_attack_source)
