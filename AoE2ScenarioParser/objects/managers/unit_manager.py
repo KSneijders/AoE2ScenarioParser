@@ -35,7 +35,7 @@ class UnitManager(AoE2Object):
         return self.get_new_reference_id()
 
     @property
-    def units(self):
+    def units(self) -> List[List[Unit]]:
         return self._units
 
     @units.setter
