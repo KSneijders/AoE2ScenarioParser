@@ -35,3 +35,6 @@ from .unit_trait import *
 from .victory_condition import *
 from .victory_timer_type import *
 from .visibility_state import *
+from .blockage_class import BlockageClass
+from .obstruction_type import ObstructionType
+from .selection_effect import SelectionEffect
