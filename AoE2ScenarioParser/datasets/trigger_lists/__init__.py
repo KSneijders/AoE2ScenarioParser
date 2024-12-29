@@ -25,7 +25,7 @@ from .operation import *
 from .panel_location import *
 from .projectile_smart_mode import *
 from .projectile_vanish_mode import *
-from .prrojectile_hit_mode import *
+from .projectile_hit_mode import *
 from .secondary_game_mode import *
 from .technology_state import *
 from .terrain_restrictions import *
