@@ -32,6 +32,6 @@ from .terrain_restrictions import *
 from .time_unit import *
 from .unit_action import *
 from .unit_trait import *
-from .victorry_condition import *
+from .victory_condition import *
 from .victory_timer_type import *
 from .visibility_state import *
