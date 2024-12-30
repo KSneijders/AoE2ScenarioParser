@@ -92,6 +92,24 @@ nav:
       - Area:               "api_docs/support/area.md"
       - AreaAttr:           "api_docs/support/area_attr.md"
       - AreaState:          "api_docs/support/area_state.md"
+    - Datasets:
+      - BuildingInfo:       "api_docs/datasets/buildings.md"
+      - ConditionId:        "api_docs/datasets/conditions.md"
+      - EffectId:            "api_docs/datasets/effects.md"
+      - HeroInfo:             "api_docs/datasets/heroes.md"
+      - StartingAge:     "api_docs/datasets/starting_age.md"
+      - Civilization:     "api_docs/datasets/civilization.md"
+      - OtherInfo:              "api_docs/datasets/other.md"
+      - PlayerId:            "api_docs/datasets/players.md"
+      - PlayerColorId:            "api_docs/datasets/player_color_id.md"
+      - ColorId:            "api_docs/datasets/color_id.md"
+      - ProjectileInfo:        "api_docs/datasets/projectiles.md"
+      - ScenarioVariant:       "api_docs/datasets/scenario_variant.md"
+      - TechInfo:              "api_docs/datasets/techs.md"
+      - TerrainId:           "api_docs/datasets/terrains.md"
+      - UnitInfo:              "api_docs/datasets/units.md"
+      - Support:
+        - InfoDatasetBase:  "api_docs/datasets/support/info_dataset_base.md"
 
 
 markdown_extensions:
