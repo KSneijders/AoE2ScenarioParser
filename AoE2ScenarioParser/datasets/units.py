@@ -7,8 +7,6 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class UnitInfo(InfoDatasetBase):
     """
-    **Description**
-
     This class provides information about most of the units in the game. Information about the following properties of
     a unit is found in this class:
      - Unit ID

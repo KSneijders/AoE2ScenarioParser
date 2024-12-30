@@ -7,8 +7,6 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class OtherInfo(InfoDatasetBase):
     """
-    **Description**
-
     This enum class provides information about the 'Other' units in the game in the game. Information about the
     following properties of a building is found in this class:
      - Unit ID

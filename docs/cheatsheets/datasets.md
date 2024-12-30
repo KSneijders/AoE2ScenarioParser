@@ -69,6 +69,7 @@ remember. That's why these datasets have been added:
 | Names                | Explanation                                                                         | Example                                      |
 |----------------------|-------------------------------------------------------------------------------------|----------------------------------------------|
 | ActionType           | Used in the `Task Object` effect.                                                   | `ActionType.ATTACK_GROUND`                   |
+| Age                  | Used in the `Modify Resource` effect. With the `Current Age` resource.              | `Age.CASTLE_AGE`                             |
 | AttackStance         | Used in the `Change Object Stance` effect.                                          | `AttackStance.AGGRESSIVE_STANCE`             |
 | Attribute            | Used in the `Accumulate Attribute` effect.                                          | `Attribute.ALL_TECHS_ACHIEVED`               |
 | BlastLevel           | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute`.      | `BlastLevel.NEARBY_UNITS`                    |
