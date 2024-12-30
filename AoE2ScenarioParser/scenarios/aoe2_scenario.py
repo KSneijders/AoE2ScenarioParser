@@ -10,7 +10,7 @@ from uuid import uuid4, UUID
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser import settings
-from AoE2ScenarioParser.datasets.game_variant import ScenarioVariant
+from AoE2ScenarioParser.datasets.scenario_variant import ScenarioVariant
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError, UnsupportedVersionError
 from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectVariantWarning
