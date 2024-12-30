@@ -13,6 +13,7 @@ class ProjectileInfo(Enum):
     """
     This enum class provides information about the projectiles in the game. Information about the following properties
     of a projectile is found in this class:
+
      - Projectile ID
      - The units that use the projectile
 

@@ -9,6 +9,7 @@ class OtherInfo(InfoDatasetBase):
     """
     This enum class provides information about the 'Other' units in the game in the game. Information about the
     following properties of a building is found in this class:
+
      - Unit ID
      - Icon ID
      - Dead Unit ID

@@ -5,6 +5,7 @@ class HeroInfo(InfoDatasetBase):
     """
     This enum class provides information about most of the heroes in the game. Information about the following
     properties of a hero is found in this class:
+
      - Unit ID
      - Icon ID
      - Dead Unit ID

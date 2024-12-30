@@ -9,6 +9,7 @@ class UnitInfo(InfoDatasetBase):
     """
     This class provides information about most of the units in the game. Information about the following properties of
     a unit is found in this class:
+
      - Unit ID
      - Icon ID
      - Dead Unit ID
