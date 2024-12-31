@@ -1684,7 +1684,7 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 
 -   **The way a file is read is now done using:** `AoE2Scenario.from_file(filename)`. Nothing changed - just add "_.from_file_" between the class and the brackets :)
 -   Within the library the use of `\x00` character for line endings is no longer a necessity.
-    -   This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
+    -   This mainly affects checking names: (e.g. `trigger.name == "name\x00"`) (Credits: Alian713)
 -   The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
 -   Renamend `Operator` to `Operation`.
 -   Managers can now be accessed directly from the scenario. Eg: `scenario.trigger_manager`.
