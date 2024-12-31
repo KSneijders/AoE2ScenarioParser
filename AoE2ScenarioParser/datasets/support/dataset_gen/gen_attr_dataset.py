@@ -4,18 +4,21 @@ import requests
 
 from common import tab, train_case
 
-
 UseDesc = str
 FlagValue = str
 FlagDesc = str
+
+
 class AttrDesc(TypedDict):
     name: str
     desc: str
     notes: list[UseDesc]
     flags: dict[FlagValue, FlagDesc]
 
+
 AttrId = int
 AttrDescs = dict[AttrId, AttrDesc]
+
 
 def gen_docstr(desc: AttrDesc) -> str:
     docstr = [
@@ -43,26 +46,44 @@ def gen_docstr(desc: AttrDesc) -> str:
             *map(tab, desc["notes"]),
         ])
 
-    docstr.append('"'*3)
+    docstr.append('"' * 3)
     return "\n    ".join(docstr)
 
+
 def gen_attr_class(attrs: AttrDescs) -> str:
-    klass = [r"class ObjectAttribute(_DataSetIntEnums):"]
+    lines = [
+        'from __future__ import annotations',
+        '',
+        'from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums',
+        '',
+        '',
+        r'class ObjectAttribute(_DataSetIntEnums):',
+        '''    """''',
+        '    This enum class provides the integer values used to reference all the different object attributes in the game. Used',
+        '    in the \'Modify Attribute\' effect to control which attribute of an object is modified.',
+        '',
+        '    **Examples**',
+        '',
+        '    >>> ObjectAttribute.LINE_OF_SIGHT',
+        '    <ObjectAttribute.LINE_OF_SIGHT: 1>',
+        '''    """''',
+    ]
 
     for id_, desc in attrs.items():
-        klass.extend([
+        lines.extend([
             tab(train_case(desc["name"]) + f" = {id_}"),
             gen_docstr(desc)
         ])
 
-    return "\n".join(klass)
+    return "\n".join(lines)
 
 
 def main():
-    res = requests.get(r"https://raw.githubusercontent.com/Divy1211/AoE2DE_UGC_Guide/main/docs/general/attributes/attributes.json")
+    url = r"https://raw.githubusercontent.com/Divy1211/AoE2DE_UGC_Guide/main/docs/general/attributes/attributes.json"
+    res = requests.get(url)
     attrs = res.json()
 
-    with open("attributes.py", "w") as file:
+    with open("../../trigger_lists/object_attribute.py", "w") as file:
         file.write(gen_attr_class(attrs))
 
 

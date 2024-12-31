@@ -11,10 +11,9 @@ with (Path(__file__).parent / 'sources' / f'unit_projectile_info.json').open() a
 
 class ProjectileInfo(Enum):
     """
-    **Description**
-
     This enum class provides information about the projectiles in the game. Information about the following properties
     of a projectile is found in this class:
+
      - Projectile ID
      - The units that use the projectile
 

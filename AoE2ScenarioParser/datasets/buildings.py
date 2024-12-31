@@ -3,15 +3,14 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class BuildingInfo(InfoDatasetBase):
     """
-    **Description**
-
     This is an enum class which provides information about most of the buildings in the game. Information about the
     following properties of a building is found in this class:
+
      - Unit ID
      - Icon ID
      - Dead Unit ID
      - HotKey ID
-     - If the building is a gaia only unit (eg. ruins)
+     - If the building is a gaia only unit (e.g. ruins)
 
     **Inherited Methods from class InfoDatasetBase**
 

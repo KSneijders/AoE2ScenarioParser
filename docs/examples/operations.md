@@ -15,15 +15,15 @@ Convert a scenario from AoE2 to **Return of Rome**.
 ```py
 # Import the scenario object & scenario variant dataset
 from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
-from AoE2ScenarioParser.datasets.game_variant import ScenarioVariant
+from AoE2ScenarioParser.datasets.scenario_variant import ScenarioVariant
 
 # Define Scenario file
 scenario = AoE2DEScenario.from_file(file_path_here)
 
 # To Return of Rome scenario:
-scenario.variant = ScenarioVariant.ROR  
+scenario.variant = ScenarioVariant.ROR
 # To usual Age 2 scenario:
-scenario.variant = ScenarioVariant.AOE2  
+scenario.variant = ScenarioVariant.AOE2
 
 scenario.write_to_file(file_output_path_here)
 ```

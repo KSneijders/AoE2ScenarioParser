@@ -7,6 +7,14 @@
 
 # Getting Started
 
+Installing using `pip`:
+
+```sh
+pip install AoE2ScenarioParser
+```
+
+More documentation about installing etc. can be found below.
+
 ## Documentation
 
 Documentation for installation, usage, examples, cheatsheets and API docs can be found on **[GitHub Pages]**.

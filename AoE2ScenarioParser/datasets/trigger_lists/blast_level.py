@@ -33,18 +33,6 @@ class BlastLevel(_DataSetIntEnums):
     """
     Deal a fixed 5 HP of damage to nearby units
     """
-    FIFTY_PERCENT = 8
-    """
-    Deal 50% of unit's own damage to nearby units
-    """
-    TWENTY_FIVE_PERCENT = 16
-    """
-    Deal 25% of unit's own damage to nearby units
-    """
-    THIRTY_THREE_PERCENT = 32
-    """
-    Deal 33% of unit's own damage to nearby units
-    """
     DISTANCE_ATTENUATION = 64
     """
     Attenuate damage as distance from the centre of attack increases (infantry only)

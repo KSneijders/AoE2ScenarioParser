@@ -32,7 +32,7 @@ That's the problem this object is _trying_ (feature suggestions always welcome!)
 
 ## API Documentation
 
-For the API Documentation for the Area object, go here: [Area API Documentation](/AoE2ScenarioParser/api_docs/support/area/#AoE2ScenarioParser.objects.support.area.Area).
+For the API Documentation for the Area object, go here: [Area API Documentation](../api_docs/support/area.md).
 
 ## Examples
 
@@ -266,4 +266,4 @@ for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
 
 The API Documentation has existed for some time, and the temporary docs here, have been removed.
 
-They've been moved here: [Area API Documentation](/AoE2ScenarioParser/api_docs/support/area/#AoE2ScenarioParser.objects.support.area.Area).
+They've been moved here: [Area API Documentation](../api_docs/support/area.md).
