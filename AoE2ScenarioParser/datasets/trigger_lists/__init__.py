@@ -30,7 +30,7 @@ from .secondary_game_mode import *
 from .technology_state import *
 from .terrain_restrictions import *
 from .time_unit import *
-from .unit_action import *
+from .unit_ai_action import *
 from .unit_trait import *
 from .victory_condition import *
 from .victory_timer_type import *
