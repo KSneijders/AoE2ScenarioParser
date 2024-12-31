@@ -1,0 +1,1 @@
+::: AoE2ScenarioParser.datasets.trigger_lists.panel_location.PanelLocation
