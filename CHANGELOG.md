@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.13 - 2024-December-31
+
+Datasets are now in the API docs! [They should appear here](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/datasets/trigger_lists/action_type/)!  
+_(Predicting the URL)_
+
+### Added
+
+- Three new datasets: (For use in a `Modify Attribute` Effect with the corresponding attribute selected)
+  - `BlockageClass` dataset 
+  - `ObstructionType` dataset
+  - `SelectionEffect` dataset
+
+### Renamed
+
+- `unit_action` dataset module to `unit_ai_action` — **NOT** the class itself (Was already `UnitAiAction`)
+- `game_variant` dataset module to `scenario_variant` — **NOT** the class itself (Was already `ScenarioVariant`)
+
+### Improved
+
+- Type hinting for unit objects when accessed through `unit_manager.units`
+
+### Fixed
+
+- Copying triggers (using any trigger manager copy function) resulted in missing attributes on triggers / effects
+- Creating units with older scenario versions
+
+### Removed
+
+- Legacy `BlastLevel` attributes. For more info, see this [commit description](https://github.com/KSneijders/AoE2ScenarioParser/commit/aaaaec803072f2fed714fbae27a74e8e52c9f137)
+
+---
+
 ## 0.2.12 - 2024-November-16
 
 ### Added
