@@ -1,0 +1,1 @@
+::: AoE2ScenarioParser.datasets.trigger_lists.button_location.ButtonLocation

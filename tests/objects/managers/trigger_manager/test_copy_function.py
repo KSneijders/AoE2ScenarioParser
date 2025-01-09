@@ -70,3 +70,21 @@ class Test(TestCase):
         self.assertEqual(te0.location_x, ce0.location_x)
         self.assertEqual(te0.location_y, ce0.location_y)
         self.assertEqual(te0.area_x2, ce0.area_x2)  # Random value
+
+        self.assertEqual(te0._armour_attack_quantity, ce0._armour_attack_quantity)
+        self.assertEqual(te0._armour_attack_class, ce0._armour_attack_class)
+        self.assertEqual(te0._armour_attack_source, ce0._armour_attack_source)
+
+        # Make sure effect/condition util is assigned correctly
+        # The original are still linked to the original trigger
+        self.assertEqual(trigger.new_effect._trigger_ref, trigger)
+        self.assertEqual(trigger.new_condition._trigger_ref, trigger)
+        # They are not None
+        self.assertIsNotNone(copy.new_effect)
+        self.assertIsNotNone(copy.new_condition)
+        # They are not the same as the original
+        self.assertNotEqual(trigger.new_effect, copy.new_effect)
+        self.assertNotEqual(trigger.new_condition, copy.new_condition)
+        # They are linked to the copy
+        self.assertEqual(copy.new_effect._trigger_ref, copy)
+        self.assertEqual(copy.new_condition._trigger_ref, copy)

@@ -518,7 +518,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     OBSTRUCTION_TYPE = 78
     """
-    Controls unit outline and collision
+    Controls unit outline and collision. Use the ``ObstructionType`` dataset for auto completion
     
     - Flags:
     
@@ -532,7 +532,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BLOCKAGE_CLASS = 79
     """
-    Controls unit blockage class
+    Controls unit blockage class. Use the ``BlockageClass`` dataset for auto completion
     
     - Flags:
     
@@ -546,7 +546,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     SELECTION_EFFECT = 80
     """
-    Controls unit hit point bar and outline
+    Controls unit hit point bar and outline. Use the ``SelectionEffect`` dataset for auto completion
     
     - Flags:
     

@@ -7,15 +7,14 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class UnitInfo(InfoDatasetBase):
     """
-    **Description**
-
     This class provides information about most of the units in the game. Information about the following properties of
     a unit is found in this class:
+
      - Unit ID
      - Icon ID
      - Dead Unit ID
      - HotKey ID
-     - If the unit is a gaia only unit (eg. deer, boar, etc.)
+     - If the unit is a gaia only unit (e.g. deer, boar, etc.)
 
     **Methods**
 

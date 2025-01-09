@@ -5,6 +5,11 @@ from typing import List
 
 
 class PlayerId(IntEnum):
+    """
+    This enum class provides the integer values used to reference each player in the game. Use these over specifying
+    player number directly to improve code readability
+    """
+
     @staticmethod
     def all(exclude_gaia: bool = False) -> List[PlayerId]:
         """
@@ -21,10 +26,6 @@ class PlayerId(IntEnum):
             PlayerId.FIVE, PlayerId.SIX, PlayerId.SEVEN, PlayerId.EIGHT
         ]
 
-    """
-    This enum class provides the integer values used to reference each player in the game. Use these over specifying
-    player number directly to improve code readability
-    """
     GAIA = 0
     ONE = 1
     TWO = 2

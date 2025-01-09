@@ -12,6 +12,7 @@ class TechInfo(Enum):
     """
     This enum class provides information about most of the techs in the game. Information about the
     following properties of a tech is found in this class:
+
      - Tech ID
      - Icon ID
 

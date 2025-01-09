@@ -74,7 +74,7 @@ class InfoDatasetBase(Enum):
     def IS_GAIA_ONLY(self) -> bool:
         """
         Returns:
-            A boolean value indicating if the specified unit is a gaia only unit (eg. Deer)
+            A boolean value indicating if the specified unit is a gaia only unit (e.g. Deer)
         """
         return self._get_property('gaia_only')
 
@@ -160,7 +160,7 @@ class InfoDatasetBase(Enum):
     def gaia_only(cls) -> List[InfoDatasetBase]:
         """
         Returns:
-            A list of all the gaia only units (eg. Deer)
+            A list of all the gaia only units (e.g. Deer)
         """
         return cls._gaia_filter(gaia_only=True)
 
@@ -168,7 +168,7 @@ class InfoDatasetBase(Enum):
     def non_gaia(cls) -> List[InfoDatasetBase]:
         """
         Returns:
-            A list of all the units excluding gaia only units (eg. militia)
+            A list of all the units excluding gaia only units (e.g. militia)
         """
         return cls._gaia_filter(gaia_only=False)
 
