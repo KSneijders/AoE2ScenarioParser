@@ -49,29 +49,7 @@ class XsManagerDE(AoE2Object):
         )
 
         # Register this function to run on write
-        self.get_scenario().on_write(lambda scenario: self.on_write_register_xs_validation(scenario))
-
-    def on_write_register_xs_validation(self, scenario: 'AoE2DEScenario'):
-        if self.xs_check.is_disabled:
-            return
-
-        def on_write_run_xs_validation(scenario: 'AoE2DEScenario'):
-            xs_snippets = []
-            for trigger in scenario.trigger_manager.triggers:
-                for condition in trigger.conditions:
-                    if condition.xs_function:
-                        xs_snippets.append(condition.xs_function)
-                for effect in trigger.effects:
-                    if effect.effect_type == EffectId.SCRIPT_CALL and effect.message != '':
-                        xs_snippets.append(effect.message)
-
-            xs_code = '\n'.join(xs_snippets)
-            if not xs_code:
-                return
-
-            self.validate(xs=xs_code)
-
-        scenario.on_write(on_write_run_xs_validation)
+        self.get_scenario().on_write(self.on_write_register_xs_validation)
 
     @property
     def script_name(self):
@@ -178,6 +156,28 @@ class XsManagerDE(AoE2Object):
             file.write_text(xs)
 
         return self.xs_check.validate(str(file.absolute()))
+
+    def on_write_register_xs_validation(self, scenario: 'AoE2DEScenario'):
+        if self.xs_check.is_disabled:
+            return
+
+        def on_write_run_xs_validation(scenario: 'AoE2DEScenario'):
+            xs_snippets = []
+            for trigger in scenario.trigger_manager.triggers:
+                for condition in trigger.conditions:
+                    if condition.xs_function:
+                        xs_snippets.append(condition.xs_function)
+                for effect in trigger.effects:
+                    if effect.effect_type == EffectId.SCRIPT_CALL and effect.message != '':
+                        xs_snippets.append(effect.message)
+
+            xs_code = '\n'.join(xs_snippets)
+            if not xs_code:
+                return
+
+            self.validate(xs=xs_code)
+
+        scenario.on_write(on_write_run_xs_validation)
 
     def _debug_write_script_to_file(self, filename: str = "xs.txt"):
         with open(filename, 'w') as file:

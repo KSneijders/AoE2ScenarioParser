@@ -12,11 +12,7 @@ from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 
 class XsCheck:
-    supported_versions: Set[Tuple] = {
-        (0, 1, 1),
-        (0, 1, 2),
-        (0, 1, 3),
-    }
+    version: Tuple[int, int, int] = (0, 1, 5)
 
     def __init__(self):
         self.enabled = True
@@ -39,7 +35,12 @@ class XsCheck:
     @property
     def path(self) -> Optional[Path]:
         if self._path is None:
-            extension = '.exe' if os.name == 'nt' else ''
+            if os.name == 'nt':
+                extension = '.exe'
+            elif os.name == 'posix':
+                extension = ''
+            else:
+                raise Exception('Unsupported platform')
 
             return self.default_folder / ('xs-check' + extension)
 
@@ -82,7 +83,7 @@ class XsCheck:
 
         xs_file_path = str(xs_file.absolute()) if isinstance(xs_file, Path) else xs_file
 
-        output = self._xs_check_call(xs_file_path)
+        output = self._call(xs_file_path)
 
         if output.startswith('No errors found in file'):
             return True
@@ -119,9 +120,15 @@ class XsCheck:
         Returns:
             True if it is supported, False otherwise
         """
+        if self.allow_unsupported_versions:
+            return True
+
         version_tuple = self.get_version()
 
-        return version_tuple in self.supported_versions or self.allow_unsupported_versions
+        if version_tuple <= (0, 1, 5):
+            return True
+
+        return False
 
     def get_version(self) -> Tuple[int, ...]:
         """
@@ -130,7 +137,7 @@ class XsCheck:
         Returns:
             A tuple containing the version xs-check number
         """
-        stdout = self._xs_check_call('-v')
+        stdout = self._call('-v')
 
         version_string = self._get_version_from_xs_check_v_string(stdout)
 
@@ -156,7 +163,7 @@ class XsCheck:
 
         raise ValueError(f'Unable to locate version from xs-check string: "{stdout}"')
 
-    def _xs_check_call(self, *args: str):
+    def _call(self, *args: str):
         """
         Call XS Check
 
