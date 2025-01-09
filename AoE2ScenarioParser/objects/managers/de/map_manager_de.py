@@ -1,5 +1,6 @@
 from typing import List
 
+from AoE2ScenarioParser.datasets.trigger_lists import ColorMood
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
 from AoE2ScenarioParser.objects.managers.map_manager import MapManager
@@ -31,6 +32,9 @@ class MapManagerDE(MapManager):
                  **kwargs,
                  ):
         super().__init__(map_width, map_height, terrain, **kwargs)
+
+        if map_color_mood.upper() in ColorMood.__members__:
+            map_color_mood = ColorMood[map_color_mood.upper()]
 
         self.map_color_mood: str = map_color_mood
         self.collide_and_correct: bool = collide_and_correct
