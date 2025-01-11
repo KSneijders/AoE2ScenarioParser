@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.14 - 2025-Januari-11
+
+[Datasets documentation](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/datasets/trigger_lists/action_type/) has been improved:
+
+- Ordering of attributes within datasets has been matched to source instead of alphabetically.
+  - So (for example) the order of ages is no longer: "Castle Age, Dark Age, Feudal Age, Imperial Age"
+- Invalid links from UGC site have been filtered out
+
+### Changed
+
+- `MapManager.map_color_mood` will now return the `ColorMood` enum when possible
+
+---
+
 ## 0.2.13 - 2024-December-31
 
 Datasets are now in the API docs! [They should appear here](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/datasets/trigger_lists/action_type/)!  
