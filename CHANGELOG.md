@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.2.15 - 2025-Januari-17
+
+### Updated
+
+- `PanelLocation` attributes updated to be consistent with in-game names
+  - `PanelLocation.BETWEEN` → `PanelLocation.MIDDLE`
+  - `PanelLocation.CENTER` → `PanelLocation.BOTTOM`
+
+### Fixed
+
+- `MapManager.map_color_mood` causing an error on write in certain conditions
+
+---
+
 ## 0.2.14 - 2025-Januari-11
 
 [Datasets documentation](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/datasets/trigger_lists/action_type/) has been improved:

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from AoE2ScenarioParser.datasets.trigger_lists import ColorMood
 from AoE2ScenarioParser.helper.printers import warn
@@ -13,7 +13,7 @@ class MapManagerDE(MapManager):
     """Manager of all DE map related features"""
     _link_list = [
         RetrieverObjectLinkGroup("Map", group=[
-            RetrieverObjectLink("map_color_mood"),
+            RetrieverObjectLink("_map_color_mood", link="map_color_mood"),
             RetrieverObjectLink("collide_and_correct"),
             RetrieverObjectLink("villager_force_drop", support=Support(since=1.37)),
             RetrieverObjectLink("map_width"),
@@ -23,22 +23,30 @@ class MapManagerDE(MapManager):
     ]
 
     def __init__(self,
-                 map_color_mood: str,
+                 _map_color_mood: str,
                  collide_and_correct: bool,
                  villager_force_drop: bool,
                  map_width: int,
                  map_height: int,
                  terrain: List[TerrainTile],
-                 **kwargs,
-                 ):
+                 **kwargs):
         super().__init__(map_width, map_height, terrain, **kwargs)
 
-        if map_color_mood.upper() in ColorMood.__members__:
-            map_color_mood = ColorMood[map_color_mood.upper()]
+        if _map_color_mood.upper() in ColorMood.__members__:
+            map_color_mood = ColorMood[_map_color_mood.upper()]
+        else:
+            map_color_mood = _map_color_mood
 
-        self.map_color_mood: str = map_color_mood
+        self.map_color_mood: Union[str, ColorMood] = map_color_mood
         self.collide_and_correct: bool = collide_and_correct
         self.villager_force_drop: bool = villager_force_drop
+
+    @property
+    def _map_color_mood(self):
+        """Purely here to convert the Enum back to string"""
+        if isinstance(self.map_color_mood, ColorMood):
+            return self.map_color_mood.name.lower()
+        return self.map_color_mood
 
     @property
     def collide_and_correct(self):
