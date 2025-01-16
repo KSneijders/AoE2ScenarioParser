@@ -15,7 +15,7 @@ class PanelLocation(_DataSetIntEnums):
     """
     TOP = 0
     """Panel at the top of the screen. ~13% from the top"""
-    BETWEEN = 1
+    MIDDLE = 1
     """Panel between the top and the center of the screen. ~33% from the top"""
-    CENTER = 2
+    BOTTOM = 2
     """Panel close to the center of the screen. ~45% from the top"""
