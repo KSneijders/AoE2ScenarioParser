@@ -14,9 +14,10 @@ jobs:
 
       - name: Remove testing and other doc artifacts (As much as feasible at the moment)
         run: |
-             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec sed -i 's/    >>> .*//' {} + 
-             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec sed -i 's/    <.*: .*>//' {} + 
-             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec sed -i 's/    \*\*\(?:\|Examples\|Methods\|Inherited\)\*\*:\?//' {} + 
+             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec perl -i -pe 's/    >>> .*//' {} +
+             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec perl -i -pe 's/    <.*: .*>//' {} +
+             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec perl -i -pe 's/    \*\*\(?:\|Examples\|Methods\|Inherited\)\*\*:\?//' {} +
+             find AoE2ScenarioParser/datasets -maxdepth 2 -name '*.py' -exec perl -i -pe 's/\[([A-Za-z0-9 ]*)\]\((?!https)[^(]+\)/$1/g' {} +
 
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
