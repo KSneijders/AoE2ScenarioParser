@@ -8,6 +8,7 @@ from typing import Optional, Union, Tuple, Set
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.exceptions.asp_exceptions import XsCheckValidationError
+from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 
 
@@ -18,6 +19,9 @@ class XsCheck:
         self.enabled = True
         self.xs_encoding = 'utf-8'
         self.allow_unsupported_versions: bool = False
+        """If XS-Check should be checked for compatibility"""
+        self.raise_on_error: bool = False
+        """If a Python error should be raised if XS-Check encounters an error"""
 
         self.path = None
         """The path for a custom XS check binary (One that is not shipped with AoE2ScenarioParser"""
@@ -65,12 +69,13 @@ class XsCheck:
                 f'You can try `xs_manager.xs_check.allow_unsupported_versions = True` to override this check'
             )
 
-    def validate(self, xs_file: Optional[Union[Path, str]]) -> True:
+    def validate(self, xs_file: Optional[Union[Path, str]], show_tmpfile: bool = True) -> True:
         """
         Validates the XS file and throws an exception if xs-check finds an error
 
         Args:
             xs_file: The XS file to validate
+            show_tmpfile: If a reference to the tmp file should be displayed
 
         Throws:
             XsCheckValidationError: When xs-check encounters an error
@@ -88,14 +93,35 @@ class XsCheck:
         if output.startswith('No errors found in file'):
             return True
 
+        # Do not show temp file name as it might be confusing
+        output = output.replace(xs_file_path, 'AoE2ScenarioParser.xs')
+
         version = '.'.join(str(v) for v in self.get_version())
 
-        print(f"\nxs-check:{version} output: [ Provided by: https://github.com/Divy1211/xs-check/ ]\n")
-        print(add_tabs(output, 1))
+        s_print('\n' + ('-' * 25) + '<[ XS-CHECK VALIDATION ]>' + ('-' * 25), final=True)
+
+        s_print(f"\nxs-check:{version} output: [ Provided by: https://github.com/Divy1211/xs-check/ ]\n", final=True)
+        s_print(add_tabs(output, 1), final=True)
+
+        # Remove unwanted characters from output (Color highlighting etc.)
+        plain_output = re.sub(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])", '', output)
+
+        matches = re.findall(r'/\*(T\d+[CE]\d+)\*/', plain_output)
+        for match in matches:
+            text = match.group(0)
+
+            s_print("\t", final=True)
+
+        if show_tmpfile:
+            display_path = xs_file_path.replace('\\', '/')
+            s_print(f"Open the file below to view the entire XS file:\n\tfile:///{display_path}", final=True)
 
         time.sleep(.5)
 
-        raise XsCheckValidationError("Xs-Check failed validation, see errors above", xs_check_errors=output)
+        if self.raise_on_error:
+            raise XsCheckValidationError("Xs-Check failed validation, see errors above", xs_check_errors=output)
+
+        s_print('\n' + ('-' * 25) + '<[ END XS-CHECK VALIDATION ]>' + ('-' * 25) + '\n\n', final=True)
 
     def validate_safe(self, xs_file: Optional[Union[Path, str]]) -> True:
         """
