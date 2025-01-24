@@ -182,7 +182,7 @@ class XsCheck:
         stderr_file, stderr_path = tempfile.mkstemp()
 
         command = [self.path, *args]
-        exitcode = subprocess.call(command, timeout=5, stdout=stdout_file, stderr=stderr_file)
+        exitcode = subprocess.call(command, timeout=60, stdout=stdout_file, stderr=stderr_file)
 
         if exitcode != 0:
             error = Path(stderr_path).read_text(encoding=self.xs_encoding)
