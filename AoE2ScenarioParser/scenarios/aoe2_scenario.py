@@ -81,12 +81,12 @@ class AoE2Scenario:
         return tuple(map(int, self.scenario_version.split('.')))
 
     def __init__(
-        self,
-        game_version: str,
-        scenario_version: str,
-        source_location: str,
-        name: str,
-        variant: ScenarioVariant | None = None
+            self,
+            game_version: str,
+            scenario_version: str,
+            source_location: str,
+            name: str,
+            variant: ScenarioVariant | None = None
     ):
         # Scenario meta info
         self.game_version: str = game_version
@@ -119,10 +119,10 @@ class AoE2Scenario:
 
     @classmethod
     def from_file(
-        cls: Type[S],
-        path: str,
-        game_version: str,
-        name: str = ""
+            cls: Type[S],
+            path: str,
+            game_version: str,
+            name: str = ""
     ) -> S:
         """
         Creates and returns an instance of the AoE2Scenario class from the given scenario file
@@ -160,7 +160,7 @@ class AoE2Scenario:
         s_print("\n############### Attributes ###############", final=True, color="blue")
         s_print(f">>> Game version: '{scenario.game_version}'", final=True, color="blue")
         s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
-        s_print(f">>> Scenario variant: '{variant}'", final=True, color= "blue")
+        s_print(f">>> Scenario variant: '{variant}'", final=True, color="blue")
         s_print("##########################################", final=True, color="blue")
 
         s_print(f"Loading scenario structure...", time=True, newline=True)
@@ -182,9 +182,9 @@ class AoE2Scenario:
 
     @staticmethod
     def get_scenario(
-        uuid: UUID = None,
-        obj: 'AoE2Object' = None,
-        name: str = None
+            uuid: UUID = None,
+            obj: 'AoE2Object' = None,
+            name: str = None
     ) -> S:
         """
         Get scenario through a UUID, a related object or the name of a scenario.
@@ -305,7 +305,12 @@ class AoE2Scenario:
     ####################################### Write functions ######################################
     ########################################################################################## """
 
-    def write_to_file(self, filename: str, skip_reconstruction: bool = False) -> None:
+    def write_to_file(
+            self,
+            filename: str,
+            skip_reconstruction: bool = False,
+            skip_validation: bool = False,
+    ) -> None:
         """
         Writes the scenario to a new file with the given filename
 
@@ -313,12 +318,35 @@ class AoE2Scenario:
             filename: The location to write the file to
             skip_reconstruction: If reconstruction should be skipped. If true, this will ignore all changes made
                 using the managers (For example all changes made using trigger_manager).
+            skip_validation: If validation should be skipped. If true, no blocking checks will be done when writing.
 
         Raises:
             ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
                 the same as the filename being written to
         """
+        if not skip_validation:
+            self._validate_before_write(filename)
+
+        self._prepare_writing(filename)
         self._write_from_structure(filename, skip_reconstruction)
+
+    def _validate_before_write(self, filename: str):
+        """
+        Validates aspects of the scenario before writing the file
+
+        Args:
+            filename: The location to write the file to
+        """
+        if settings.ALLOW_OVERWRITING_SOURCE and self.source_location == filename:
+            raise ValueError("Overwriting the source scenario file is discouraged & disallowed. ")
+
+        self._validate_scenario_variant()
+
+    def _prepare_writing(self, filename: str):
+        for func in self._on_write_funcs:
+            func(self)
+
+        self._internal_on_write(filename)
 
     def _write_from_structure(self, filename: str, skip_reconstruction: bool = False) -> None:
         """
@@ -333,19 +361,8 @@ class AoE2Scenario:
             ValueError: if the setting DISABLE_ERROR_ON_OVERWRITING_SOURCE is not disabled and the source filename is
                 the same as the filename being written to
         """
-        if settings.ALLOW_OVERWRITING_SOURCE and self.source_location == filename:
-            raise ValueError("Overwriting the source scenario file is discouraged & disallowed. ")
-
-        for func in self._on_write_funcs:
-            func(self)
-
-        # Update the internal file name to match the output filename
-        self._update_internal_filename(filename)
-
         if not skip_reconstruction:
             self.commit()
-
-        self._validate_scenario_variant()
 
         s_print("File writing from structure started...", final=True, time=True, newline=True)
         binary = _get_file_section_data(self.sections.get('FileHeader'))
@@ -365,6 +382,10 @@ class AoE2Scenario:
         s_print("File writing finished successfully.", final=True, time=True)
         s_print(f"File successfully written to: " + color_string(f"'{filename}'", "magenta"), final=True, time=True)
         s_print(f"Execution time from scenario read: {etime}s", final=True, time=True)
+
+    def _internal_on_write(self, filename: str):
+        # Update the internal file name to match the output filename
+        self.sections['DataHeader'].filename = Path(filename).stem
 
     def write_error_file(self, filename: str = "error_file.txt", trail_generator: IncrementalGenerator = None) -> None:
         """
@@ -465,9 +486,6 @@ class AoE2Scenario:
         self.sections["FileHeader"].unknown_value_2 = self.variant.value
         self.sections["FileHeader"].amount_of_unknown_numbers = len(dlcs)
         self.sections["FileHeader"].unknown_numbers = dlcs
-
-    def _update_internal_filename(self, filename: str) -> None:
-        self.sections['DataHeader'].filename = Path(filename).stem
 
     """ #############################################
     ################ Debug functions ################
@@ -654,7 +672,7 @@ def _get_scenario_variant(generator: IncrementalGenerator) -> ScenarioVariant | 
         return None  # Unable to find sequence
 
     value = generator.file_content[index + 4:index + 8]
-    value = bytes_to_int(value, signed = False)
+    value = bytes_to_int(value, signed=False)
     try:
         return ScenarioVariant(value)
     except ValueError:

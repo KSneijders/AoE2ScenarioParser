@@ -1,10 +1,9 @@
 import tempfile
 from pathlib import Path
-from typing import Optional, Union, TYPE_CHECKING
+from typing import Optional, Union, TYPE_CHECKING, List, Tuple
 
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.xs_check import XsCheck
@@ -13,9 +12,8 @@ from AoE2ScenarioParser.scenarios.scenario_store.getters import get_scenario_ver
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
-
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    pass
 
 
 class XsManagerDE(AoE2Object):
@@ -36,7 +34,7 @@ class XsManagerDE(AoE2Object):
         """
 
         # Instantiate the xs-check helper
-        self.xs_check = XsCheck()
+        self.xs_check = XsCheck(self._uuid)
 
         # --- XS Script Call Trigger ---
         self._initialized = False
@@ -47,9 +45,6 @@ class XsManagerDE(AoE2Object):
                         "this trigger adds the entire script to an effect script call. This will add the script to"
                         "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser",
         )
-
-        # Register this function to run on write
-        self.get_scenario().on_write(self.on_write_register_xs_validation)
 
     @property
     def script_name(self):
@@ -98,7 +93,7 @@ class XsManagerDE(AoE2Object):
         self._initialized = True
         actions.import_triggers(self._uuid, [self.xs_trigger], insert_index, deepcopy=False)
 
-    def _append_to_xs(self, title, xs) -> None:
+    def _append_to_xs(self, title: str, xs: str) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{xs}\n\n"
 
     def add_script(self, xs_file_path: str = "", xs_string: str = "", validate: bool = False):
@@ -157,28 +152,54 @@ class XsManagerDE(AoE2Object):
 
         return self.xs_check.validate(str(file.absolute()))
 
-    def on_write_register_xs_validation(self, scenario: 'AoE2DEScenario'):
+    def _get_scenario_xs(self, include_short_code: bool = False) -> str:
+        """
+        Get all XS code in the scenario from effects and conditions
+
+        Args:
+            include_short_code: If Trigger, Effect/Condition information should be prefixed to each line
+
+        Returns:
+            All XS code in the scenario (from effects and conditions)
+        """
+        scenario = self.get_scenario()
+
+        xs_snippet_map: List[Tuple[str, str]] = []
+        for trigger in scenario.trigger_manager.triggers:
+            for index, condition in enumerate(trigger.conditions):
+                if condition.xs_function:
+                    short_code = f"T{trigger.trigger_id}C{index}"
+                    xs_snippet_map.append((short_code, condition.xs_function))
+            for index, effect in enumerate(trigger.effects):
+                if effect.effect_type == EffectId.SCRIPT_CALL and effect.message != '':
+                    short_code = f"T{trigger.trigger_id}E{index}"
+                    xs_snippet_map.append((short_code, effect.message))
+
+        xs_snippets: List[str]
+        if include_short_code:
+            xs_snippets: List[str] = [
+                '\n'.join([
+                    f"/*{xs_snippet[0]}*/ {line}" if include_short_code else line
+                    for line in xs_snippet[1].splitlines()
+                ])
+                for xs_snippet in xs_snippet_map
+            ]
+        else:
+            xs_snippets = [xs_snippet[1] for xs_snippet in xs_snippet_map]
+
+        return '\n'.join(xs_snippets)
+
+    def validate_scenario_xs(self):
         if self.xs_check.is_disabled:
             return
 
-        def on_write_run_xs_validation(scenario: 'AoE2DEScenario'):
-            xs_snippets = []
-            for trigger in scenario.trigger_manager.triggers:
-                for condition in trigger.conditions:
-                    if condition.xs_function:
-                        xs_snippets.append(condition.xs_function)
-                for effect in trigger.effects:
-                    if effect.effect_type == EffectId.SCRIPT_CALL and effect.message != '':
-                        xs_snippets.append(effect.message)
+        xs_code = self._get_scenario_xs(include_short_code=True)
 
-            xs_code = '\n'.join(xs_snippets)
-            if not xs_code:
-                return
+        if not xs_code:
+            return
 
-            self.validate(xs=xs_code)
-
-        scenario.on_write(on_write_run_xs_validation)
+        self.validate(xs=xs_code)
 
     def _debug_write_script_to_file(self, filename: str = "xs.txt"):
         with open(filename, 'w') as file:
-            file.write(self.xs_trigger.effects[0].message)
+            file.write(self._get_scenario_xs())
