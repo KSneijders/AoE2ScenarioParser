@@ -4,7 +4,6 @@ from typing import Optional, Union, TYPE_CHECKING, List, Tuple
 
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_list
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.xs_check import XsCheck
@@ -14,7 +13,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+    pass
 
 
 class XsManagerDE(AoE2Object):
@@ -35,7 +34,7 @@ class XsManagerDE(AoE2Object):
         """
 
         # Instantiate the xs-check helper
-        self.xs_check = XsCheck()
+        self.xs_check = XsCheck(self._uuid)
 
         # --- XS Script Call Trigger ---
         self._initialized = False
@@ -94,7 +93,7 @@ class XsManagerDE(AoE2Object):
         self._initialized = True
         actions.import_triggers(self._uuid, [self.xs_trigger], insert_index, deepcopy=False)
 
-    def _append_to_xs(self, title, xs) -> None:
+    def _append_to_xs(self, title: str, xs: str) -> None:
         self.xs_trigger.effects[0].message += f"// {'-' * 25} {title} {'-' * 25}\n{xs}\n\n"
 
     def add_script(self, xs_file_path: str = "", xs_string: str = "", validate: bool = False):
@@ -173,7 +172,7 @@ class XsManagerDE(AoE2Object):
                     xs_snippet_map.append((short_code, condition.xs_function))
             for index, effect in enumerate(trigger.effects):
                 if effect.effect_type == EffectId.SCRIPT_CALL and effect.message != '':
-                    short_code = f"T{trigger.trigger_id}C{index}"
+                    short_code = f"T{trigger.trigger_id}E{index}"
                     xs_snippet_map.append((short_code, effect.message))
 
         xs_snippets: List[str]

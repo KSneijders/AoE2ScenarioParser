@@ -5,17 +5,24 @@ import tempfile
 import time
 from pathlib import Path
 from typing import Optional, Union, Tuple, Set
+from uuid import UUID
 
 from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.datasets.conditions import ConditionId
+from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import XsCheckValidationError
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.helper.printers import s_print
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 
 class XsCheck:
     version: Tuple[int, int, int] = (0, 1, 5)
 
-    def __init__(self):
+    def __init__(self, uuid: UUID):
+        self._uuid: UUID = uuid
+
         self.enabled = True
         self.xs_encoding = 'utf-8'
         self.allow_unsupported_versions: bool = False
@@ -98,30 +105,23 @@ class XsCheck:
 
         version = '.'.join(str(v) for v in self.get_version())
 
-        s_print('\n' + ('-' * 25) + '<[ XS-CHECK VALIDATION ]>' + ('-' * 25), final=True)
+        s_print('\n' + ('-' * 25) + '<[ XS-CHECK VALIDATION RESULT ]>' + ('-' * 25), final=True)
 
         s_print(f"\nxs-check:{version} output: [ Provided by: https://github.com/Divy1211/xs-check/ ]\n", final=True)
         s_print(add_tabs(output, 1), final=True)
 
-        # Remove unwanted characters from output (Color highlighting etc.)
-        plain_output = re.sub(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])", '', output)
-
-        matches = re.findall(r'/\*(T\d+[CE]\d+)\*/', plain_output)
-        for match in matches:
-            text = match.group(0)
-
-            s_print("\t", final=True)
+        self._print_parsed_xs_check_errors(output)
 
         if show_tmpfile:
             display_path = xs_file_path.replace('\\', '/')
-            s_print(f"Open the file below to view the entire XS file:\n\tfile:///{display_path}", final=True)
+            s_print(f"\nOpen the file below to view the entire XS file:\n\tfile:///{display_path}", final=True)
 
         time.sleep(.5)
 
         if self.raise_on_error:
             raise XsCheckValidationError("Xs-Check failed validation, see errors above", xs_check_errors=output)
 
-        s_print('\n' + ('-' * 25) + '<[ END XS-CHECK VALIDATION ]>' + ('-' * 25) + '\n\n', final=True)
+        s_print('\n' + ('-' * 25) + '<[ END XS-CHECK VALIDATION RESULT ]>' + ('-' * 25), final=True)
 
     def validate_safe(self, xs_file: Optional[Union[Path, str]]) -> True:
         """
@@ -216,3 +216,35 @@ class XsCheck:
             raise ValueError(f"A non-zero exit code ({exitcode}) was returned by xs-check: '{error}'")
 
         return Path(stdout_path).read_text(encoding=self.xs_encoding)
+
+    def _print_parsed_xs_check_errors(self, output: str) -> None:
+        # Remove unwanted characters from output (Color highlighting etc.)
+        plain_output = re.sub(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])', '', output)
+
+        prev_trigger_index = None
+        matches = re.findall(r'/\*T(\d+)([CE])(\d+)\*/', plain_output)
+
+        if len(matches) == 0:
+            return
+
+        s_print(f"\nXS-Check errors origins:\n", final=True)
+        for match in matches:
+            trigger_index, ce_type, ce_index = match
+
+            trigger = getters.get_trigger(self._uuid, int(trigger_index))
+            if ce_type == 'C':
+                obj = 'Condition'
+                type_ = trigger.conditions[int(ce_index)].condition_type
+                obj_name = pretty_format_name(ConditionId(type_).name)
+            elif ce_type == 'E':
+                obj = 'Effect'
+                type_ = trigger.effects[int(ce_index)].effect_type
+                obj_name = pretty_format_name(EffectId(type_).name)
+            else:
+                continue
+
+            if prev_trigger_index != trigger_index:
+                s_print(f"  ⇒ [Trigger #{trigger_index}] '{trigger.name}'", final=True)
+
+            s_print(f"     ↳ [{obj} #{ce_index}] {obj_name} {obj}", final=True)
+        s_print(f"", final=True)
