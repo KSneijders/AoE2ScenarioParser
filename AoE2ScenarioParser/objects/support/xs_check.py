@@ -18,7 +18,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 
 class XsCheck:
-    version: Tuple[int, int, int] = (0, 1, 5)
+    version: Tuple[int, int, int] = (0, 2, 0)
 
     def __init__(self, uuid: UUID):
         self._uuid: UUID = uuid
@@ -70,11 +70,7 @@ class XsCheck:
         self._path = path
 
         if not self.is_supported_xs_check_binary():
-            version = self.get_version()
-            raise ValueError(
-                f'Unsupported xs-check binary given with version "{version}" at "{path}". '
-                f'You can try `xs_manager.xs_check.allow_unsupported_versions = True` to override this check'
-            )
+            self._raise_unsupported()
 
     def validate(self, xs_file: Optional[Union[Path, str]], show_tmpfile: bool = True) -> True:
         """
@@ -92,6 +88,9 @@ class XsCheck:
         """
         if self.is_disabled:
             return True
+
+        if not self.is_supported_xs_check_binary():
+            self._raise_unsupported()
 
         xs_file_path = str(xs_file.absolute()) if isinstance(xs_file, Path) else xs_file
 
@@ -151,7 +150,7 @@ class XsCheck:
 
         version_tuple = self.get_version()
 
-        if version_tuple <= (0, 1, 5):
+        if (0, 1, 2) <= version_tuple <= (0, 2, 0):
             return True
 
         return False
@@ -199,10 +198,6 @@ class XsCheck:
         Returns:
             The STDOUT from the call as a string
         """
-        if self.path is None:
-            raise ValueError(
-                'Unable to locate xs-check, please specify a path using xs_manager.xs_check.path = \'<path>\'')
-
         # Make temp files to capture xs-check output
         stdout_file, stdout_path = tempfile.mkstemp()
         stderr_file, stderr_path = tempfile.mkstemp()
@@ -248,3 +243,10 @@ class XsCheck:
 
             s_print(f"     ↳ [{obj} #{ce_index}] {obj_name} {obj}", final=True)
         s_print(f"", final=True)
+
+    def _raise_unsupported(self):
+        version = '.'.join(str(v) for v in self.get_version())
+        raise ValueError(
+            f'Unsupported xs-check binary given with version "{version}" at "{self._path}". \n'
+            f'You can try `xs_manager.xs_check.allow_unsupported_versions = True` to override this check'
+        )
