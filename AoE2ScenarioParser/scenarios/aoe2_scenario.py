@@ -758,7 +758,6 @@ def _get_version_default_scenario_filepath(game_version: str, scenario_version: 
 
     default_scx_path = (vdir / game_version / f'v{scenario_version}' / f'default.aoe2scenario')
 
-    print(default_scx_path)
     if not default_scx_path.exists():
         v = f"{game_version}:{scenario_version}"
         raise UnknownStructureError(f"The structure could not be found with: {v}")
