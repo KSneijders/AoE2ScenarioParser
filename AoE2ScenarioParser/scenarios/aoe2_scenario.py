@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Callable
+from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Callable, Union, Tuple
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -116,6 +116,29 @@ class AoE2Scenario:
 
         # Callbacks
         self._on_write_funcs = []
+
+    @classmethod
+    def from_default(
+            cls: Type[S],
+            scenario_version: Union[str, Tuple[int, int]],
+            game_version: str,
+    ) -> S:
+        """
+        Creates and returns a default instance of the AoE2Scenario class
+
+        Args:
+            scenario_version: The scenario version to generate
+            game_version:
+
+        Returns:
+            An instance of the AoE2DEScenario class which is the object representation of the default scenario
+        """
+        if isinstance(scenario_version, tuple):
+            scenario_version = '.'.join(map(str, scenario_version))
+
+        filepath = _get_version_default_scenario_filepath(game_version, scenario_version)
+
+        return cls.from_file(filepath, game_version=game_version)
 
     @classmethod
     def from_file(
@@ -578,7 +601,7 @@ def _initialise_version_dependencies(game_version: str, scenario_version: str) -
         game_version: The version of the game to initialise the dependencies for
         scenario_version: The version of the scenario to initialise the dependencies for
     """
-    condition_json = _get_version_dependant_structure_file(game_version, scenario_version, "conditions")
+    condition_json = _get_version_dependent_structure_file(game_version, scenario_version, "conditions")
 
     for condition_id, structure in condition_json.items():
         condition_id = int(condition_id)
@@ -592,7 +615,7 @@ def _initialise_version_dependencies(game_version: str, scenario_version: str) -
         conditions.attributes[condition_id] = structure['attributes']
         conditions.attribute_presentation[condition_id] = structure.get('attribute_presentation', {})
 
-    effect_json = _get_version_dependant_structure_file(game_version, scenario_version, "effects")
+    effect_json = _get_version_dependent_structure_file(game_version, scenario_version, "effects")
 
     for effect_id, structure in effect_json.items():
         effect_id = int(effect_id)
@@ -701,9 +724,9 @@ def _get_version_directory_path() -> Path:
     return Path(__file__).parent.parent / 'versions'
 
 
-def _get_version_dependant_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
+def _get_version_dependent_structure_file(game_version: str, scenario_version: str, name: str) -> dict:
     """
-    Returns a structure file dependant on the version of the scenario (AND game version).
+    Returns a structure file dependent on the version of the scenario (AND game version).
     Files are retrieved based on the game and scenario version given.
 
     Args:
@@ -724,6 +747,32 @@ def _get_version_dependant_structure_file(game_version: str, scenario_version: s
     except FileNotFoundError:  # Unsupported version
         v = f"{game_version}:{scenario_version}"
         raise UnknownStructureError(f"The structure {name} could not be found with: {v}")
+
+
+def _get_version_default_scenario_filepath(game_version: str, scenario_version: str) -> str:
+    """
+    Returns a structure file dependent on the version of the scenario (AND game version).
+    Files are retrieved based on the game and scenario version given.
+
+    Args:
+        game_version: The version of the game to return the structure file for
+        scenario_version: The scenario version to return the structure file for
+
+    Returns:
+        A file path to the default scenario for the given game and scenario version
+
+    Raises:
+        UnknownStructureError: if a json specified versions is not found
+    """
+    vdir = _get_version_directory_path()
+
+    default_scx_path = (vdir / game_version / f'v{scenario_version}' / f'default.aoe2scenario')
+
+    if not default_scx_path.exists():
+        v = f"{game_version}:{scenario_version}"
+        raise UnknownStructureError(f"The structure could not be found with: {v}")
+
+    return str(default_scx_path.absolute())
 
 
 def _get_structure(game_version: str, scenario_version: str) -> Dict[str, Any]:
