@@ -3,7 +3,7 @@
         "retrievers": {
             "version": {
                 "type": "c4",
-                "default": "1.49"
+                "default": "1.54"
             },
             "header_length": {
                 "type": "u32",
