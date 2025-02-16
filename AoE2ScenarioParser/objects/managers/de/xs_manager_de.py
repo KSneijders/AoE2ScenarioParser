@@ -146,7 +146,7 @@ class XsManagerDE(AoE2Object):
             if not file.is_file():
                 raise ValueError(f"File '{xs_path}' does not exist")
         if xs:
-            _, path = tempfile.mkstemp()
+            _, path = tempfile.mkstemp(suffix='.xs')
             file = Path(path)
             file.write_text(xs)
 
