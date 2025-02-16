@@ -36,5 +36,7 @@ include = ["AoE2ScenarioParser*"]
 AoE2ScenarioParser = [
     'datasets/sources/*.json',
     'versions/*/*/*.json',
-    'versions/*/*/*.aoe2_scenario'
+    'versions/*/*/*.aoe2_scenario',
+    'dependencies/xs-check/xs-check.exe',
+    'dependencies/xs-check/xs-check',
 ]

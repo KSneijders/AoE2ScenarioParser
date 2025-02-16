@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Type, Union, Tuple, Optional
 
+from AoE2ScenarioParser.exceptions.asp_exceptions import XsCheckValidationError
 from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
@@ -79,6 +80,14 @@ class AoE2DEScenario(AoE2Scenario):
             An instance of the AoE2DEScenario class which is the object representation of the given scenario file
         """
         return super().from_file(path=path, game_version=game_version, name=name)
+
+    def _internal_on_write(self, filename: str):
+        super()._internal_on_write(filename)
+
+        try:
+            self.xs_manager.validate_scenario_xs()
+        except XsCheckValidationError as e:
+            raise XsCheckValidationError(str(e), xs_check_errors=e.xs_check_errors) from None
 
     def _write_as_default_scenario(self):
         """Create an empty default scenario. Meant for internal use only."""

@@ -90,6 +90,7 @@ nav:
       - Unit:               "api_docs/units/unit.md"
     - XS:
       - XsManager:          "api_docs/xs/xs_manager_de.md"
+      - XsCheck:            "api_docs/xs/xs_check.md"
     - Support:
       - Area:               "api_docs/support/area.md"
       - AreaAttr:           "api_docs/support/area_attr.md"

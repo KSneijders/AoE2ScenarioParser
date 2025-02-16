@@ -44,5 +44,12 @@ class ScenarioWritingError(AoE2ScenarioParserError):
     pass
 
 
+class XsCheckValidationError(AoE2ScenarioParserError):
+    def __init__(self, *args, xs_check_errors: str):
+        super().__init__(*args)
+
+        self.xs_check_errors = xs_check_errors
+
+
 def type_error_message(value, include_hint=True):
     return f"Expected int, found: {value.__class__}. " + (f"Maybe you meant: '{value}.ID'?" if include_hint else "")
