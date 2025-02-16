@@ -123,6 +123,16 @@ class AoE2Scenario:
             scenario_version: Union[str, Tuple[int, int]],
             game_version: str,
     ) -> S:
+        """
+        Creates and returns a default instance of the AoE2Scenario class
+
+        Args:
+            scenario_version: The scenario version to generate
+            game_version:
+
+        Returns:
+            An instance of the AoE2DEScenario class which is the object representation of the default scenario
+        """
         if isinstance(scenario_version, tuple):
             scenario_version = '.'.join(map(str, scenario_version))
 

@@ -53,11 +53,7 @@ class AoE2DEScenario(AoE2Scenario):
         return self._object_manager.managers['Option']
 
     @classmethod
-    def from_default(
-            cls,
-            scenario_version: Optional[Union[str, Tuple[int, int]]] = None,
-            **kwargs
-    ) -> S:
+    def from_default(cls: Type[S], scenario_version: Optional[Union[str, Tuple[int, int]]] = None, **kwargs) -> S:
         """
         Creates and returns a default instance of the AoE2DEScenario class
 
