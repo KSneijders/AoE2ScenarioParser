@@ -75,3 +75,4 @@ class ObjectClass(_DataSetIntEnums):
     KING = 59
     MISC_BUILDING = 60
     CONTROLLED_ANIMAL = 61
+    OYSTERS = 63

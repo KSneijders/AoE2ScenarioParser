@@ -151,7 +151,19 @@ class TechInfo(Enum):
                 TechInfo.WAGENBURG_TACTICS,
                 TechInfo.YASAMA,
                 TechInfo.YEOMEN,
-                TechInfo.ZEALOTRY
+                TechInfo.ZEALOTRY,
+                TechInfo.SPARABARAS,
+                TechInfo.REED_ARROWS,
+                TechInfo.TAXIARCHS,
+                TechInfo.IPHICRATEAN_TACTICS,
+                TechInfo.HELOT_LEVIES,
+                TechInfo.XYPHOS,
+                TechInfo.SCYTHED_CHARIOTS,
+                TechInfo.KARDA,
+                TechInfo.EISPHORA,
+                TechInfo.DELIAN_LEAGUE,
+                TechInfo.KRYPTEIA,
+                TechInfo.PELOPONNESIAN_LEAGUE,
             ],
             "imp_age": [
                 TechInfo.ARQUEBUS,
@@ -272,6 +284,9 @@ class TechInfo(Enum):
                 TechInfo.ELITE_WAR_ELEPHANT,
                 TechInfo.ELITE_WAR_WAGON,
                 TechInfo.ELITE_WOAD_RAIDER,
+                TechInfo.ELITE_IMMORTAL,
+                TechInfo.ELITE_STRATEGOS,
+                TechInfo.ELITE_HIPPEUS,
             ],
             "non_castle": [
                 TechInfo.ELITE_CARAVEL,
@@ -285,6 +300,10 @@ class TechInfo(Enum):
                 TechInfo.WINGED_HUSSAR,
                 TechInfo.ELITE_QIZILBASH_WARRIOR,
                 TechInfo.SAVAR,
+                TechInfo.EPHORATE,
+                TechInfo.MORAI,
+                TechInfo.SKEUOPHOROI,
+                TechInfo.HIPPAGRETAI,
             ]
         }
 
@@ -1003,6 +1022,39 @@ class TechInfo(Enum):
     TECHNOLOGY_PLACEHOLDER_08 = 975, 107
     TECHNOLOGY_PLACEHOLDER_09 = 976, 107
     TECHNOLOGY_PLACEHOLDER_10 = 977, 107
+    SPARABARAS = 1110, 164
+    REED_ARROWS = 1111, 165
+    SCYTHED_CHARIOTS = 1112, 166
+    KARDA = 1113, 167
+    ELITE_IMMORTAL = 1115, 105
+    TAXIARCHS = 1120, 164
+    IPHICRATEAN_TACTICS = 1121, 165
+    EISPHORA = 1122, 166
+    DELIAN_LEAGUE = 1123, 167
+    ELITE_STRATEGOS = 1125, 105
+    HELOT_LEVIES = 1130, 164
+    KRYPTEIA = 1131, 166
+    XYPHOS = 1132, 165
+    PELOPONNESIAN_LEAGUE = 1133, 167
+    ELITE_HIPPEUS = 1135, 105
+    ELITE_HOPLITE = 1137, 188
+    WAR_LEMBOS = 1144, 190
+    HEAVY_LEMBOS = 1145, 191
+    ELITE_LEMBOS = 1146, 192
+    BIREME = 1148, 193
+    TRIREME = 1149, 194
+    WAR_GALLEY_ANTIQUITY = 1151, 195
+    ELITE_GALLEY = 1152, 196
+    INCENDIARY_SHIP = 1154, 39
+    HEAVY_INCENDIARY_SHIP = 1155, 250
+    ONAGER_SHIP = 1159, 197
+    SCOOP_NETS = 1161, 41
+    DRUMS = 1162, 99
+    HYPOZOMATA = 1165, 169
+    SHIPWRIGHT_ANTIQUITY = 1167, 97
+    ELITE_WAR_CHARRIOT = 1171, 184
+    BATTLE_DRILLS = 1173, 168
+    CHAMPION_ANTIQUITY = 1174, 44
     BLANK_TECHNOLOGY_0 = 1180, -1
     BLANK_TECHNOLOGY_1 = 1181, -1
     BLANK_TECHNOLOGY_2 = 1182, -1
@@ -1013,6 +1065,20 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_7 = 1187, -1
     BLANK_TECHNOLOGY_8 = 1188, -1
     BLANK_TECHNOLOGY_9 = 1189, -1
+    ECONOMIC_TOWN_CENTER = 1195, 171
+    MILITARY_TOWN_CENTER = 1196, 170
+    DEFENSIVE_TOWN_CENTER = 1197, 172
+    FREE_LEMBOS_SPAWN = 1198, -1
+    ECONOMIC_POLICY = 1202, 155
+    NAVAL_POLICY = 1203, 156
+    MILITARY_POLICY = 1204, 154
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD = 1215, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD = 1216, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD = 1217, 159
+    EPHORATE = 1223, 163
+    MORAI = 1224, 162
+    SKEUOPHOROI = 1225, 160
+    HIPPAGRETAI = 1226, 161
     BLANK_TECHNOLOGY_10 = 1240, -1
     BLANK_TECHNOLOGY_11 = 1241, -1
     BLANK_TECHNOLOGY_12 = 1242, -1
@@ -1023,3 +1089,6 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_17 = 1247, -1
     BLANK_TECHNOLOGY_18 = 1248, -1
     BLANK_TECHNOLOGY_19 = 1249, -1
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159
