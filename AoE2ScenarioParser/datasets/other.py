@@ -354,7 +354,7 @@ class OtherInfo(InfoDatasetBase):
     MESOPOTAMIAN_TOMB = 2287, -1, -1, 16717, True
     FIRE_SHRINE = 2288, -1, -1, 16717, True
     TREASURE_CHEST = 2289, -1, -1, 16717, True
-    GRAPEVINE = 2290, -1, -1, 16717, False
+    GRAPEVINE = 2290, -1, -1, 16717, True
     LEATHERWORKING_EQUIPMENT = 2291, -1, -1, 16717, True
     WEAPON_RACK = 2293, -1, -1, 16757, True
     SACRED_TREE = 2294, -1, -1, 16717, True
