@@ -216,6 +216,6 @@ class ProjectileInfo(Enum):
     CITADELS = 1830, ()
     SVT = 1867, ()
     SVT_FIRE = 1868, ()
-    LETHIATHAN = 2226, (2140,)
+    LEVIATHAN = 2226, (2140,)
     GASTRAPHETES = 2307, ()
     POLYCRITUS = 2342, (2319,)
