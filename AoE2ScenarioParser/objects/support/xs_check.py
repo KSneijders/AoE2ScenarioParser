@@ -24,7 +24,9 @@ class XsCheck:
         self._uuid: UUID = uuid
 
         self.enabled = True
+        """If XS-Check is enabled or not"""
         self.xs_encoding = 'utf-8'
+        """The encoding that should be used for reading and writing the file with the XS script"""
         self.allow_unsupported_versions: bool = False
         """If XS-Check should be checked for compatibility"""
         self.raise_on_error: bool = False
@@ -32,8 +34,12 @@ class XsCheck:
 
         self.path = None
         """The path for a custom XS check binary (One that is not shipped with AoE2ScenarioParser"""
-        self.default_folder = Path(__file__).parent.parent.parent / 'dependencies' / 'xs-check'
-        """The path for the XS check binary"""
+
+        self.timeout_seconds = 60
+        """The timeout for the XS-Check call in seconds"""
+
+        self._default_folder = Path(__file__).parent.parent.parent / 'dependencies' / 'xs-check'
+        """The folder path to look for the XS check binaries (shipped with AoE2ScenarioParser)"""
 
     @property
     def is_enabled(self):
@@ -45,6 +51,7 @@ class XsCheck:
 
     @property
     def path(self) -> Optional[Path]:
+        """The path for a custom XS check binary (One that is not shipped with AoE2ScenarioParser"""
         if self._path is None:
             if os.name == 'nt':
                 extension = '.exe'
@@ -53,7 +60,7 @@ class XsCheck:
             else:
                 raise Exception('Unsupported platform')
 
-            return self.default_folder / ('xs-check' + extension)
+            return self._default_folder / ('xs-check' + extension)
 
         return self._path
 
@@ -65,7 +72,7 @@ class XsCheck:
 
         path = value if isinstance(value, Path) else Path(value)
         if not path.is_file():
-            raise ValueError(f'Unable to find xs-check executable at "{path}"')
+            raise ValueError(f'Unable to find xs-check binary at "{path}"')
 
         self._path = path
 
@@ -122,7 +129,7 @@ class XsCheck:
 
         s_print('\n' + ('-' * 25) + '<[ END XS-CHECK VALIDATION RESULT ]>' + ('-' * 25), final=True)
 
-    def validate_safe(self, xs_file: Optional[Union[Path, str]]) -> True:
+    def validate_safe(self, xs_file: Optional[Union[Path, str]]) -> bool:
         """
         Validates the XS file and and returns a boolean based on if errors were found
 
@@ -157,7 +164,7 @@ class XsCheck:
 
     def get_version(self) -> Tuple[int, ...]:
         """
-        Get the version from the xs-check executable
+        Get the version from the xs-check binary
 
         Returns:
             A tuple containing the version xs-check number
@@ -203,7 +210,7 @@ class XsCheck:
         stderr_file, stderr_path = tempfile.mkstemp()
 
         command = [self.path, *args]
-        exitcode = subprocess.call(command, timeout=60, stdout=stdout_file, stderr=stderr_file)
+        exitcode = subprocess.call(command, timeout=self.timeout_seconds, stdout=stdout_file, stderr=stderr_file)
 
         if exitcode != 0:
             error = Path(stderr_path).read_text(encoding=self.xs_encoding)
