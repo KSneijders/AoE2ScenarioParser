@@ -17,6 +17,8 @@ _Thanks Alian for the wonderful [XS Check] library!_
   - XS Check will automatically verify all XS and show errors without having to launch the scenario! 
   - Check out the **new** [XS Check cheatsheet](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs_check/) for examples and configurations!
   - Also check out the **new** [XS Check API docs](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/xs/xs_check/) for everything else!
+- `from_default` functionality on `AoE2DEScenario` to start working on a scenario without needing a base scenario.
+  - Can be used like: `scenario = AoE2DEScenario.from_default()` instead of `scenario = AoE2DEScenario.from_file(...)`
 
 [XS Check]: https://github.com/Divy1211/xs-check
 
