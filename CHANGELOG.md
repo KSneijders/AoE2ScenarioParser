@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.3.0 - 2025-Februari-28
+
+### Added
+
+_Thanks Alian for the wonderful [XS Check] library!_
+
+- [XS Check] integration into AoE2ScenarioParser. 
+  - XS Check will automatically verify all XS and show errors without having to launch the scenario! 
+  - Check out the **new** [XS Check cheatsheet](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs_check/) for examples and configurations!
+  - Also check out the **new** [XS Check API docs](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/xs/xs_check/) for everything else!
+
+[XS Check]: https://github.com/Divy1211/xs-check
+
+---
+
 ## 0.2.15 - 2025-Januari-17
 
 ### Updated
