@@ -48,6 +48,7 @@ nav:
     - Triggers:             "cheatsheets/triggers.md"
     - Units:                "cheatsheets/units.md"
     - XS Script:            "cheatsheets/xs.md"
+    - XS Check:            "cheatsheets/xs_check.md"
   - Examples:
     - Intro:                "examples/examples.md"
     - Operations:           "examples/operations.md"
@@ -90,6 +91,7 @@ nav:
       - Unit:               "api_docs/units/unit.md"
     - XS:
       - XsManager:          "api_docs/xs/xs_manager_de.md"
+      - XsCheck:            "api_docs/xs/xs_check.md"
     - Support:
       - Area:               "api_docs/support/area.md"
       - AreaAttr:           "api_docs/support/area_attr.md"
