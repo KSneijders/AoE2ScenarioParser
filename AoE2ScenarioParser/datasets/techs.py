@@ -226,13 +226,15 @@ class TechInfo(Enum):
     @staticmethod
     def unique_unit_upgrades(
             exclude_castle_techs: bool = False,
-            exclude_non_castle_techs: bool = False
+            exclude_non_castle_techs: bool = False,
+            include_chronicles: bool = False,
     ) -> List[TechInfo]:
         """
         Args:
             exclude_castle_techs: if set to `False`, excludes the castle unique unit techs from the list of techs returned
             exclude_non_castle_techs: if set to `False`, excludes the non castle unique unit techs from the list of techs
                 returned
+            include_chronicles: if set to `True`, includes the chronicles techs to the list of techs returned
 
         Returns:
             A list of unique unite upgrade tech IDs
@@ -284,9 +286,6 @@ class TechInfo(Enum):
                 TechInfo.ELITE_WAR_ELEPHANT,
                 TechInfo.ELITE_WAR_WAGON,
                 TechInfo.ELITE_WOAD_RAIDER,
-                TechInfo.ELITE_IMMORTAL,
-                TechInfo.ELITE_STRATEGOS,
-                TechInfo.ELITE_HIPPEUS,
             ],
             "non_castle": [
                 TechInfo.ELITE_CARAVEL,
@@ -300,24 +299,40 @@ class TechInfo(Enum):
                 TechInfo.WINGED_HUSSAR,
                 TechInfo.ELITE_QIZILBASH_WARRIOR,
                 TechInfo.SAVAR,
-                TechInfo.EPHORATE,
-                TechInfo.MORAI,
-                TechInfo.SKEUOPHOROI,
-                TechInfo.HIPPAGRETAI,
-            ]
+            ],
+            "chronicles": {
+                "castle": [
+                    TechInfo.ELITE_IMMORTAL,
+                    TechInfo.ELITE_STRATEGOS,
+                    TechInfo.ELITE_HIPPEUS,
+                ],
+                "non_castle": [
+                    TechInfo.EPHORATE,
+                    TechInfo.MORAI,
+                ],
+            }
         }
 
         techs_to_return = []
 
-        if not exclude_castle_techs:
-            techs_to_return.extend(unique_techs["castle"])
-        if not exclude_non_castle_techs:
-            techs_to_return.extend(unique_techs["non_castle"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                techs = unique_techs
+            else:
+                techs = unique_techs[addon]
+            if not exclude_castle_techs:
+                techs_to_return.extend(techs["castle"])
+            if not exclude_non_castle_techs:
+                techs_to_return.extend(techs["non_castle"])
 
         return techs_to_return
 
     @staticmethod
-    def town_center_techs(ages: int | List[int] = None):
+    def town_center_techs(ages: int | List[int] = None) -> List[TechInfo]:
         """
         Args:
             ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -331,17 +346,17 @@ class TechInfo(Enum):
         upgrades = {
             Age.DARK_AGE: [
                 TechInfo.LOOM,
-                TechInfo.FEUDAL_AGE
+                TechInfo.FEUDAL_AGE,
             ],
             Age.FEUDAL_AGE: [
                 TechInfo.WHEELBARROW,
                 TechInfo.TOWN_WATCH,
-                TechInfo.CASTLE_AGE
+                TechInfo.CASTLE_AGE,
             ],
             Age.CASTLE_AGE: [
                 TechInfo.HAND_CART,
                 TechInfo.TOWN_PATROL,
-                TechInfo.IMPERIAL_AGE
+                TechInfo.IMPERIAL_AGE,
             ],
             Age.IMPERIAL_AGE: [],
         }
@@ -371,21 +386,21 @@ class TechInfo(Enum):
                 TechInfo.SCALE_MAIL_ARMOR,
                 TechInfo.SCALE_BARDING_ARMOR,
                 TechInfo.FLETCHING,
-                TechInfo.PADDED_ARCHER_ARMOR
+                TechInfo.PADDED_ARCHER_ARMOR,
             ],
             Age.CASTLE_AGE: [
                 TechInfo.IRON_CASTING,
                 TechInfo.CHAIN_MAIL_ARMOR,
                 TechInfo.CHAIN_BARDING_ARMOR,
                 TechInfo.BODKIN_ARROW,
-                TechInfo.LEATHER_ARCHER_ARMOR
+                TechInfo.LEATHER_ARCHER_ARMOR,
             ],
             Age.IMPERIAL_AGE: [
                 TechInfo.BLAST_FURNACE,
                 TechInfo.PLATE_MAIL_ARMOR,
                 TechInfo.PLATE_BARDING_ARMOR,
                 TechInfo.BRACER,
-                TechInfo.RING_ARCHER_ARMOR
+                TechInfo.RING_ARCHER_ARMOR,
             ],
         }
 
@@ -423,7 +438,7 @@ class TechInfo(Enum):
                 TechInfo.FAITH,
                 TechInfo.ILLUMINATION,
                 TechInfo.BLOCK_PRINTING,
-                TechInfo.THEOCRACY
+                TechInfo.THEOCRACY,
             ],
         }
 
@@ -463,7 +478,7 @@ class TechInfo(Enum):
                 TechInfo.SIEGE_ENGINEERS,
                 TechInfo.KEEP,
                 TechInfo.ARROWSLITS,
-                TechInfo.BOMBARD_TOWER
+                TechInfo.BOMBARD_TOWER,
             ],
         }
 
@@ -493,7 +508,7 @@ class TechInfo(Enum):
                 BuildingInfo.MINING_CAMP.ID,
                 BuildingInfo.LUMBER_CAMP.ID,
                 BuildingInfo.TOWN_CENTER.ID,
-                BuildingInfo.MARKET.ID
+                BuildingInfo.MARKET.ID,
             ]
         else:
             buildings = listify(buildings)
@@ -525,7 +540,7 @@ class TechInfo(Enum):
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.TWO_MAN_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [],
-                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS]
+                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS],
             },
         }
 
@@ -537,13 +552,15 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def civilization_techs() -> List[TechInfo]:
+    def civilization_techs(include_chronicles: bool = False) -> List[TechInfo]:
         """
+        Args:
+            include_chronicles: if set to `True`, includes the chronicles techs to the list of techs returned
         Returns:
             A list of TechInfo objects which represent all civ 'upgrades'. Can be used to detect which civ is being
             played by the player using the 'researched technology' condition.
         """
-        return [
+        base_techs = [
             TechInfo.ARMENIANS,
             TechInfo.AZTECS,
             TechInfo.BENGALIS,
@@ -590,6 +607,16 @@ class TechInfo(Enum):
             TechInfo.VIETNAMESE,
             TechInfo.VIKINGS,
         ]
+        chronicles_techs = [
+            TechInfo.ACHAEMENIDS,
+            TechInfo.ATHENIANS,
+            TechInfo.SPARTANS,
+        ]
+        techs = []
+        techs.extend(base_techs)
+        if include_chronicles:
+            techs.extend(chronicles_techs)
+        return techs
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33
@@ -1072,9 +1099,9 @@ class TechInfo(Enum):
     ECONOMIC_POLICY = 1202, 155
     NAVAL_POLICY = 1203, 156
     MILITARY_POLICY = 1204, 154
-    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD = 1215, 158
-    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD = 1216, 157
-    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD = 1217, 159
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_PORT = 1215, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_PORT = 1216, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_PORT = 1217, 159
     EPHORATE = 1223, 163
     MORAI = 1224, 162
     SKEUOPHOROI = 1225, 160
@@ -1089,6 +1116,9 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_17 = 1247, -1
     BLANK_TECHNOLOGY_18 = 1248, -1
     BLANK_TECHNOLOGY_19 = 1249, -1
+    ACHAEMENIDS = 1258, -1
+    ATHENIANS = 1259, -1
+    SPARTANS = 1260, -1
     TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
     TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
     TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159

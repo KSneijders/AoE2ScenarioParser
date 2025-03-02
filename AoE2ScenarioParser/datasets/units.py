@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
+from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -104,7 +105,8 @@ class UnitInfo(InfoDatasetBase):
             exclude_elite_units: bool = False,
             exclude_non_elite_units: bool = False,
             exclude_castle_units: bool = False,
-            exclude_non_castle_units: bool = False
+            exclude_non_castle_units: bool = False,
+            include_chronicles: bool = False,
     ) -> List[UnitInfo]:
         """
         Args:
@@ -112,6 +114,7 @@ class UnitInfo(InfoDatasetBase):
             exclude_non_elite_units: if set to `False`, exclude the non elite unique units
             exclude_castle_units: if set to `False`, exclude the castle unique units
             exclude_non_castle_units: if set to `False`, excludes the unique units not trained at the castle
+            include_chronicles: if set to `True`, will include all unique units added in the chronicles dlc
 
         Returns:
             A list of unique unit UniInfo objects
@@ -167,10 +170,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.WAR_ELEPHANT,
                     UnitInfo.WAR_WAGON,
                     UnitInfo.WOAD_RAIDER,
-                    UnitInfo.IMMORTAL_MELEE,
-                    UnitInfo.IMMORTAL_RANGED,
-                    UnitInfo.STRATEGOS,
-                    UnitInfo.HIPPEUS,
                 ],
                 "elite": [
                     UnitInfo.ELITE_ARAMBAI,
@@ -219,10 +218,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_WAR_ELEPHANT,
                     UnitInfo.ELITE_WAR_WAGON,
                     UnitInfo.ELITE_WOAD_RAIDER,
-                    UnitInfo.ELITE_IMMORTAL_MELEE,
-                    UnitInfo.ELITE_IMMORTAL_RANGED,
-                    UnitInfo.ELITE_STRATEGOS,
-                    UnitInfo.ELITE_HIPPEUS,
                 ]
             },
             "non_elite": [
@@ -253,7 +248,6 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.WARRIOR_PRIEST,
                 UnitInfo.WARRIOR_PRIEST_WITH_RELIC,
                 UnitInfo.WINGED_HUSSAR,
-                UnitInfo.XOLOTL_WARRIOR,
             ],
             "elite": [
                 UnitInfo.ELITE_CARAVEL,
@@ -267,21 +261,62 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.ELITE_SHRIVAMSHA_RIDER,
                 UnitInfo.ELITE_TARKAN_STABLE,
                 UnitInfo.ELITE_TURTLE_SHIP,
-            ]
+            ],
+            "chronicles": {
+                "castle": {
+                    "non_elite": [
+                        UnitInfo.IMMORTAL_MELEE,
+                        UnitInfo.IMMORTAL_RANGED,
+                        UnitInfo.STRATEGOS,
+                        UnitInfo.STRATEGOS_WITH_TAXIARCHS,
+                        UnitInfo.HIPPEUS,
+                        UnitInfo.HIPPEUS_2,
+                    ],
+                    "elite": [
+                        UnitInfo.ELITE_IMMORTAL_MELEE,
+                        UnitInfo.ELITE_IMMORTAL_RANGED,
+                        UnitInfo.ELITE_STRATEGOS,
+                        UnitInfo.ELITE_STRATEGOS_WITH_TAXIARCHS,
+                        UnitInfo.ELITE_HIPPEUS,
+                        UnitInfo.ELITE_HIPPEUS_2,
+                    ]
+                },
+                "non_elite": [
+                    HeroInfo.POLEMARCH,
+                    HeroInfo.POLEMARCH_2,
+                    HeroInfo.POLEMARCH_3,
+                    HeroInfo.POLEMARCH_4,
+                    HeroInfo.POLEMARCH_3_WITH_EPHORATE,
+                    HeroInfo.POLEMARCH_4_WITH_EPHORATE,
+                    HeroInfo.POLEMARCH_3_WITH_MORAI,
+                    HeroInfo.POLEMARCH_4_WITH_MORAI,
+                ],
+                "elite": [
+                ],
+            },
         }
 
         units_to_return = []
 
-        if not exclude_non_elite_units:
-            if not exclude_non_castle_units:
-                units_to_return.extend(unique_units["non_elite"])
-            if not exclude_castle_units:
-                units_to_return.extend(unique_units["castle"]["non_elite"])
-        if not exclude_elite_units:
-            if not exclude_non_castle_units:
-                units_to_return.extend(unique_units["elite"])
-            if not exclude_castle_units:
-                units_to_return.extend(unique_units["castle"]["elite"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                units = unique_units
+            else:
+                units = unique_units[addon]
+            if not exclude_non_elite_units:
+                if not exclude_non_castle_units:
+                    units_to_return.extend(units["non_elite"])
+                if not exclude_castle_units:
+                    units_to_return.extend(units["castle"]["non_elite"])
+            if not exclude_elite_units:
+                if not exclude_non_castle_units:
+                    units_to_return.extend(units["elite"])
+                if not exclude_castle_units:
+                    units_to_return.extend(units["castle"]["elite"])
 
         return units_to_return
 
@@ -619,10 +654,16 @@ class UnitInfo(InfoDatasetBase):
     ELITE_IMMORTAL_MELEE = 2102, 2103, 621, 16104, False
     STRATEGOS = 2104, 2106, 624, 16104, False
     ELITE_STRATEGOS = 2105, 2106, 624, 16104, False
+    STRATEGOS_WITH_TAXIARCHS = 2227, 2106, 624, 16104, False
+    ELITE_STRATEGOS_WITH_TAXIARCHS = 2228, 2106, 624, 16104, False
     HIPPEUS = 2107, 2109, 623, 16104, False
     ELITE_HIPPEUS = 2108, 2109, 623, 16104, False
+    HIPPEUS_2 = 2168, 2109, 623, -1, False
+    ELITE_HIPPEUS_2 = 2169, 2109, 623, -1, False
     HOPLITE = 2110, 2112, 625, 416013, False
     ELITE_HOPLITE = 2111, 2301, 626, 416013, False
+    HOPLITE_WITH_XYPHOS = 2187, 2112, 625, 416013, False
+    ELITE_HOPLITE_WITH_XYPHOS = 2188, 2301, 626, 416013, False
     LEMBOS = 2123, -1, 656, 416006, False
     WAR_LEMBOS = 2124, -1, 657, 416006, False
     HEAVY_LEMBOS = 2125, -1, 658, 416006, False
