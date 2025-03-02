@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import List
 
-from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -302,14 +301,6 @@ class UnitInfo(InfoDatasetBase):
                     ]
                 },
                 "non_elite": [
-                    HeroInfo.POLEMARCH,
-                    HeroInfo.POLEMARCH_2,
-                    HeroInfo.POLEMARCH_3,
-                    HeroInfo.POLEMARCH_4,
-                    HeroInfo.POLEMARCH_3_WITH_EPHORATE,
-                    HeroInfo.POLEMARCH_4_WITH_EPHORATE,
-                    HeroInfo.POLEMARCH_3_WITH_MORAI,
-                    HeroInfo.POLEMARCH_4_WITH_MORAI,
                 ],
                 "elite": [
                 ],
