@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Set
+from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.trigger_lists import Age
@@ -93,13 +93,18 @@ class TechInfo(Enum):
         raise KeyError(f"A technology with icon id '{tech_icon_id}' was not found in the dataset")
 
     @staticmethod
-    def unique_techs(exclude_castle_techs: bool = False, exclude_imp_techs: bool = False) -> List[TechInfo]:
+    def unique_techs(
+            exclude_castle_techs: bool = False,
+            exclude_imp_techs: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[TechInfo]:
         """
         Get the list of all the unique techs in the game
 
         Args:
             exclude_castle_techs: if set to `True`,  exclude the castle age techs
             exclude_imp_techs: if set to `True`,  exclude the imperial age techs
+            include_chronicles: if set to `True`, includes the chronicles techs
 
         Returns:
             A list of TechInfo objects which are all the unique techs in the game
@@ -152,12 +157,6 @@ class TechInfo(Enum):
                 TechInfo.YASAMA,
                 TechInfo.YEOMEN,
                 TechInfo.BIMARISTAN,
-                TechInfo.SPARABARAS,
-                TechInfo.REED_ARROWS,
-                TechInfo.TAXIARCHS,
-                TechInfo.IPHICRATEAN_TACTICS,
-                TechInfo.HELOT_LEVIES,
-                TechInfo.XYPHOS,
             ],
             "imp_age": [
                 TechInfo.ARQUEBUS,
@@ -205,21 +204,42 @@ class TechInfo(Enum):
                 TechInfo.TOWER_SHIELDS,
                 TechInfo.WARWOLF,
                 TechInfo.WOOTZ_STEEL,
-                TechInfo.SCYTHED_CHARIOTS,
-                TechInfo.KARDA,
-                TechInfo.EISPHORA,
-                TechInfo.DELIAN_LEAGUE,
-                TechInfo.KRYPTEIA,
-                TechInfo.PELOPONNESIAN_LEAGUE,
-            ]
+            ],
+            "chronicles": {
+                "castle_age": [
+                    TechInfo.SPARABARAS,
+                    TechInfo.REED_ARROWS,
+                    TechInfo.TAXIARCHS,
+                    TechInfo.IPHICRATEAN_TACTICS,
+                    TechInfo.HELOT_LEVIES,
+                    TechInfo.XYPHOS,
+                ],
+                "imp_age": [
+                    TechInfo.SCYTHED_CHARIOTS,
+                    TechInfo.KARDA,
+                    TechInfo.EISPHORA,
+                    TechInfo.DELIAN_LEAGUE,
+                    TechInfo.KRYPTEIA,
+                    TechInfo.PELOPONNESIAN_LEAGUE,
+                ],
+            },
         }
 
         techs_to_return = []
 
-        if not exclude_castle_techs:
-            techs_to_return.extend(unique_techs["castle_age"])
-        if not exclude_imp_techs:
-            techs_to_return.extend(unique_techs["imp_age"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                techs = unique_techs
+            else:
+                techs = unique_techs[addon]
+            if not exclude_castle_techs:
+                techs_to_return.extend(techs["castle_age"])
+            if not exclude_imp_techs:
+                techs_to_return.extend(techs["imp_age"])
 
         return techs_to_return
 

@@ -50,11 +50,16 @@ class UnitInfo(InfoDatasetBase):
     """
 
     @staticmethod
-    def vils(exclude_female: bool = False, exclude_male: bool = False) -> List[UnitInfo]:
+    def vils(
+            exclude_female: bool = False,
+            exclude_male: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[UnitInfo]:
         """
         Args:
             exclude_female: if set to true, exclude the female villagers
             exclude_male: if set to true, exclude the male villagers
+            include_chronicles: if set to `True`, include chronicles villagers
 
         Returns:
             A list of villager UnitInfo objects
@@ -73,7 +78,6 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.VILLAGER_MALE_REPAIRER,
                 UnitInfo.VILLAGER_MALE_SHEPHERD,
                 UnitInfo.VILLAGER_MALE_STONE_MINER,
-                UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
             ],
             "female": [
                 UnitInfo.VILLAGER_FEMALE,
@@ -87,16 +91,32 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.VILLAGER_FEMALE_REPAIRER,
                 UnitInfo.VILLAGER_FEMALE_SHEPHERD,
                 UnitInfo.VILLAGER_FEMALE_STONE_MINER,
-                UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
-            ]
+            ],
+            "chronicles": {
+                "male": [
+                    UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
+                ],
+                "female": [
+                    UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
+                ],
+            },
         }
 
         units_to_return = []
 
-        if not exclude_female:
-            units_to_return.extend(villagers["female"])
-        if not exclude_male:
-            units_to_return.extend(villagers["male"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                units = villagers
+            else:
+                units = villagers[addon]
+            if not exclude_female:
+                units_to_return.extend(units["female"])
+            if not exclude_male:
+                units_to_return.extend(units["male"])
 
         return units_to_return
 
