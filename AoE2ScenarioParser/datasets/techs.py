@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Set
+from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.trigger_lists import Age
@@ -93,13 +93,18 @@ class TechInfo(Enum):
         raise KeyError(f"A technology with icon id '{tech_icon_id}' was not found in the dataset")
 
     @staticmethod
-    def unique_techs(exclude_castle_techs: bool = False, exclude_imp_techs: bool = False) -> List[TechInfo]:
+    def unique_techs(
+            exclude_castle_techs: bool = False,
+            exclude_imp_techs: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[TechInfo]:
         """
         Get the list of all the unique techs in the game
 
         Args:
             exclude_castle_techs: if set to `True`,  exclude the castle age techs
             exclude_imp_techs: if set to `True`,  exclude the imperial age techs
+            include_chronicles: if set to `True`, includes the chronicles techs
 
         Returns:
             A list of TechInfo objects which are all the unique techs in the game
@@ -151,7 +156,7 @@ class TechInfo(Enum):
                 TechInfo.WAGENBURG_TACTICS,
                 TechInfo.YASAMA,
                 TechInfo.YEOMEN,
-                TechInfo.ZEALOTRY
+                TechInfo.BIMARISTAN,
             ],
             "imp_age": [
                 TechInfo.ARQUEBUS,
@@ -159,7 +164,7 @@ class TechInfo(Enum):
                 TechInfo.ATHEISM,
                 TechInfo.AZNAURI_CAVALRY,
                 TechInfo.BAGAINS,
-                TechInfo.BERSERKERGANG,
+                TechInfo.BOGSVEIGAR,
                 TechInfo.BURGUNDIAN_VINEYARDS,
                 TechInfo.CHIVALRY,
                 TechInfo.CRENELLATIONS,
@@ -184,7 +189,7 @@ class TechInfo(Enum):
                 TechInfo.LOGISTICA,
                 TechInfo.MAGHREBI_CAMELS,
                 TechInfo.MAHAYANA,
-                TechInfo.MAHOUTS,
+                TechInfo.CITADELS,
                 TechInfo.MANIPUR_CAVALRY,
                 TechInfo.PAPER_MONEY,
                 TechInfo.PERFUSION,
@@ -199,28 +204,57 @@ class TechInfo(Enum):
                 TechInfo.TOWER_SHIELDS,
                 TechInfo.WARWOLF,
                 TechInfo.WOOTZ_STEEL,
-            ]
+            ],
+            "chronicles": {
+                "castle_age": [
+                    TechInfo.SPARABARAS,
+                    TechInfo.REED_ARROWS,
+                    TechInfo.TAXIARCHS,
+                    TechInfo.IPHICRATEAN_TACTICS,
+                    TechInfo.HELOT_LEVIES,
+                    TechInfo.XYPHOS,
+                ],
+                "imp_age": [
+                    TechInfo.SCYTHED_CHARIOTS,
+                    TechInfo.KARDA,
+                    TechInfo.EISPHORA,
+                    TechInfo.DELIAN_LEAGUE,
+                    TechInfo.KRYPTEIA,
+                    TechInfo.PELOPONNESIAN_LEAGUE,
+                ],
+            },
         }
 
         techs_to_return = []
 
-        if not exclude_castle_techs:
-            techs_to_return.extend(unique_techs["castle_age"])
-        if not exclude_imp_techs:
-            techs_to_return.extend(unique_techs["imp_age"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                techs = unique_techs
+            else:
+                techs = unique_techs[addon]
+            if not exclude_castle_techs:
+                techs_to_return.extend(techs["castle_age"])
+            if not exclude_imp_techs:
+                techs_to_return.extend(techs["imp_age"])
 
         return techs_to_return
 
     @staticmethod
     def unique_unit_upgrades(
             exclude_castle_techs: bool = False,
-            exclude_non_castle_techs: bool = False
+            exclude_non_castle_techs: bool = False,
+            include_chronicles: bool = False,
     ) -> List[TechInfo]:
         """
         Args:
             exclude_castle_techs: if set to `False`, excludes the castle unique unit techs from the list of techs returned
             exclude_non_castle_techs: if set to `False`, excludes the non castle unique unit techs from the list of techs
                 returned
+            include_chronicles: if set to `True`, includes the chronicles techs to the list of techs returned
 
         Returns:
             A list of unique unite upgrade tech IDs
@@ -285,20 +319,40 @@ class TechInfo(Enum):
                 TechInfo.WINGED_HUSSAR,
                 TechInfo.ELITE_QIZILBASH_WARRIOR,
                 TechInfo.SAVAR,
-            ]
+            ],
+            "chronicles": {
+                "castle": [
+                    TechInfo.ELITE_IMMORTAL,
+                    TechInfo.ELITE_STRATEGOS,
+                    TechInfo.ELITE_HIPPEUS,
+                ],
+                "non_castle": [
+                    TechInfo.EPHORATE,
+                    TechInfo.MORAI,
+                ],
+            }
         }
 
         techs_to_return = []
 
-        if not exclude_castle_techs:
-            techs_to_return.extend(unique_techs["castle"])
-        if not exclude_non_castle_techs:
-            techs_to_return.extend(unique_techs["non_castle"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                techs = unique_techs
+            else:
+                techs = unique_techs[addon]
+            if not exclude_castle_techs:
+                techs_to_return.extend(techs["castle"])
+            if not exclude_non_castle_techs:
+                techs_to_return.extend(techs["non_castle"])
 
         return techs_to_return
 
     @staticmethod
-    def town_center_techs(ages: int | List[int] = None):
+    def town_center_techs(ages: int | List[int] = None) -> List[TechInfo]:
         """
         Args:
             ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -312,17 +366,17 @@ class TechInfo(Enum):
         upgrades = {
             Age.DARK_AGE: [
                 TechInfo.LOOM,
-                TechInfo.FEUDAL_AGE
+                TechInfo.FEUDAL_AGE,
             ],
             Age.FEUDAL_AGE: [
                 TechInfo.WHEELBARROW,
                 TechInfo.TOWN_WATCH,
-                TechInfo.CASTLE_AGE
+                TechInfo.CASTLE_AGE,
             ],
             Age.CASTLE_AGE: [
                 TechInfo.HAND_CART,
                 TechInfo.TOWN_PATROL,
-                TechInfo.IMPERIAL_AGE
+                TechInfo.IMPERIAL_AGE,
             ],
             Age.IMPERIAL_AGE: [],
         }
@@ -352,21 +406,21 @@ class TechInfo(Enum):
                 TechInfo.SCALE_MAIL_ARMOR,
                 TechInfo.SCALE_BARDING_ARMOR,
                 TechInfo.FLETCHING,
-                TechInfo.PADDED_ARCHER_ARMOR
+                TechInfo.PADDED_ARCHER_ARMOR,
             ],
             Age.CASTLE_AGE: [
                 TechInfo.IRON_CASTING,
                 TechInfo.CHAIN_MAIL_ARMOR,
                 TechInfo.CHAIN_BARDING_ARMOR,
                 TechInfo.BODKIN_ARROW,
-                TechInfo.LEATHER_ARCHER_ARMOR
+                TechInfo.LEATHER_ARCHER_ARMOR,
             ],
             Age.IMPERIAL_AGE: [
                 TechInfo.BLAST_FURNACE,
                 TechInfo.PLATE_MAIL_ARMOR,
                 TechInfo.PLATE_BARDING_ARMOR,
                 TechInfo.BRACER,
-                TechInfo.RING_ARCHER_ARMOR
+                TechInfo.RING_ARCHER_ARMOR,
             ],
         }
 
@@ -404,7 +458,7 @@ class TechInfo(Enum):
                 TechInfo.FAITH,
                 TechInfo.ILLUMINATION,
                 TechInfo.BLOCK_PRINTING,
-                TechInfo.THEOCRACY
+                TechInfo.THEOCRACY,
             ],
         }
 
@@ -444,7 +498,7 @@ class TechInfo(Enum):
                 TechInfo.SIEGE_ENGINEERS,
                 TechInfo.KEEP,
                 TechInfo.ARROWSLITS,
-                TechInfo.BOMBARD_TOWER
+                TechInfo.BOMBARD_TOWER,
             ],
         }
 
@@ -474,7 +528,7 @@ class TechInfo(Enum):
                 BuildingInfo.MINING_CAMP.ID,
                 BuildingInfo.LUMBER_CAMP.ID,
                 BuildingInfo.TOWN_CENTER.ID,
-                BuildingInfo.MARKET.ID
+                BuildingInfo.MARKET.ID,
             ]
         else:
             buildings = listify(buildings)
@@ -506,7 +560,7 @@ class TechInfo(Enum):
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.TWO_MAN_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [],
-                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS]
+                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS],
             },
         }
 
@@ -518,13 +572,15 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def civilization_techs() -> List[TechInfo]:
+    def civilization_techs(include_chronicles: bool = False) -> List[TechInfo]:
         """
+        Args:
+            include_chronicles: if set to `True`, includes the chronicles techs to the list of techs returned
         Returns:
             A list of TechInfo objects which represent all civ 'upgrades'. Can be used to detect which civ is being
             played by the player using the 'researched technology' condition.
         """
-        return [
+        base_techs = [
             TechInfo.ARMENIANS,
             TechInfo.AZTECS,
             TechInfo.BENGALIS,
@@ -571,6 +627,16 @@ class TechInfo(Enum):
             TechInfo.VIETNAMESE,
             TechInfo.VIKINGS,
         ]
+        chronicles_techs = [
+            TechInfo.ACHAEMENIDS,
+            TechInfo.ATHENIANS,
+            TechInfo.SPARTANS,
+        ]
+        techs = []
+        techs.extend(base_techs)
+        if include_chronicles:
+            techs.extend(chronicles_techs)
+        return techs
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33
@@ -589,7 +655,7 @@ class TechInfo(Enum):
     BANKING = 17, 3
     BEARDED_AXE = 83, 107
     BERBERS = 583, -1
-    BERSERKERGANG = 49, 107
+    BOGSVEIGAR = 49, 107
     BLAST_FURNACE = 75, 21
     BLOCK_PRINTING = 230, 82
     BLOODLINES = 435, 110
@@ -757,7 +823,7 @@ class TechInfo(Enum):
     MADRASAH = 490, 33
     MAGHREBI_CAMELS = 579, 107
     MAGYARS = 550, -1
-    MAHOUTS = 7, 107
+    CITADELS = 7, 107
     MALAY = 651, -1
     MALIANS = 582, -1
     MAN_AT_ARMS = 222, 85
@@ -885,7 +951,7 @@ class TechInfo(Enum):
     RESOURCES_LAST_300_PERCENT_LONGER = 747, -1
     DISABLE_FREE_TRANSPORT = 229, -1
     AUTO_UPGRADE_SCOUT_FEUDAL_AGE = 20, 0
-    COMPASS = 28, 827
+    BIMARISTAN = 28, 33
     SPANISH_CANNON_GALLEON = 57, 0
     WALLS_HP_CASTLE_AGE = 71, -1
     PALISADE_WALLS_HP_FEUDAL_AGE = 72, -1
@@ -1003,6 +1069,39 @@ class TechInfo(Enum):
     TECHNOLOGY_PLACEHOLDER_08 = 975, 107
     TECHNOLOGY_PLACEHOLDER_09 = 976, 107
     TECHNOLOGY_PLACEHOLDER_10 = 977, 107
+    SPARABARAS = 1110, 164
+    REED_ARROWS = 1111, 165
+    SCYTHED_CHARIOTS = 1112, 166
+    KARDA = 1113, 167
+    ELITE_IMMORTAL = 1115, 105
+    TAXIARCHS = 1120, 164
+    IPHICRATEAN_TACTICS = 1121, 165
+    EISPHORA = 1122, 166
+    DELIAN_LEAGUE = 1123, 167
+    ELITE_STRATEGOS = 1125, 105
+    HELOT_LEVIES = 1130, 164
+    KRYPTEIA = 1131, 166
+    XYPHOS = 1132, 165
+    PELOPONNESIAN_LEAGUE = 1133, 167
+    ELITE_HIPPEUS = 1135, 105
+    ELITE_HOPLITE = 1137, 188
+    WAR_LEMBOS = 1144, 190
+    HEAVY_LEMBOS = 1145, 191
+    ELITE_LEMBOS = 1146, 192
+    BIREME = 1148, 193
+    TRIREME = 1149, 194
+    WAR_GALLEY_ANTIQUITY = 1151, 195
+    ELITE_GALLEY = 1152, 196
+    INCENDIARY_SHIP = 1154, 39
+    HEAVY_INCENDIARY_SHIP = 1155, 250
+    ONAGER_SHIP = 1159, 197
+    SCOOP_NETS = 1161, 41
+    DRUMS = 1162, 99
+    HYPOZOMATA = 1165, 169
+    SHIPWRIGHT_ANTIQUITY = 1167, 97
+    ELITE_WAR_CHARRIOT = 1171, 184
+    BATTLE_DRILLS = 1173, 168
+    CHAMPION_ANTIQUITY = 1174, 44
     BLANK_TECHNOLOGY_0 = 1180, -1
     BLANK_TECHNOLOGY_1 = 1181, -1
     BLANK_TECHNOLOGY_2 = 1182, -1
@@ -1013,6 +1112,20 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_7 = 1187, -1
     BLANK_TECHNOLOGY_8 = 1188, -1
     BLANK_TECHNOLOGY_9 = 1189, -1
+    ECONOMIC_TOWN_CENTER = 1195, 171
+    MILITARY_TOWN_CENTER = 1196, 170
+    DEFENSIVE_TOWN_CENTER = 1197, 172
+    FREE_LEMBOS_SPAWN = 1198, -1
+    ECONOMIC_POLICY = 1202, 155
+    NAVAL_POLICY = 1203, 156
+    MILITARY_POLICY = 1204, 154
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_PORT = 1215, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_PORT = 1216, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_PORT = 1217, 159
+    EPHORATE = 1223, 163
+    MORAI = 1224, 162
+    SKEUOPHOROI = 1225, 160
+    HIPPAGRETAI = 1226, 161
     BLANK_TECHNOLOGY_10 = 1240, -1
     BLANK_TECHNOLOGY_11 = 1241, -1
     BLANK_TECHNOLOGY_12 = 1242, -1
@@ -1023,3 +1136,9 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_17 = 1247, -1
     BLANK_TECHNOLOGY_18 = 1248, -1
     BLANK_TECHNOLOGY_19 = 1249, -1
+    ACHAEMENIDS = 1258, -1
+    ATHENIANS = 1259, -1
+    SPARTANS = 1260, -1
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159

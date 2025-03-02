@@ -216,3 +216,9 @@ class BuildingInfo(InfoDatasetBase):
     CHAPEL = 1836, -1, -1, 16225, False
     CASTLE_RUINS = 1837, -1, -1, 16757, True
     CHURCH_RUINS = 1836, -1, -1, 16757, True
+    SHIPYARD = 2119, -1, 111, 416002, False
+    PORT = 2172, -1, 110, 416001, False
+    GREEK_ARMY_TENT = 2176, 2177, 77, 16522, False
+    GREEK_COMMANDER_TENT = 2262, 2263, 77, 16522, False
+    SAPPER_TUNNEL = 2281, 144, 112, 16717, False
+    ORACLE_TEMPLE = 2348, 1421, 10, -1, False

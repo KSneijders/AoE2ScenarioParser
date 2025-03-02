@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
+from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -49,11 +50,16 @@ class UnitInfo(InfoDatasetBase):
     """
 
     @staticmethod
-    def vils(exclude_female: bool = False, exclude_male: bool = False) -> List[UnitInfo]:
+    def vils(
+            exclude_female: bool = False,
+            exclude_male: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[UnitInfo]:
         """
         Args:
             exclude_female: if set to true, exclude the female villagers
             exclude_male: if set to true, exclude the male villagers
+            include_chronicles: if set to `True`, include chronicles villagers
 
         Returns:
             A list of villager UnitInfo objects
@@ -85,15 +91,32 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.VILLAGER_FEMALE_REPAIRER,
                 UnitInfo.VILLAGER_FEMALE_SHEPHERD,
                 UnitInfo.VILLAGER_FEMALE_STONE_MINER,
-            ]
+            ],
+            "chronicles": {
+                "male": [
+                    UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
+                ],
+                "female": [
+                    UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
+                ],
+            },
         }
 
         units_to_return = []
 
-        if not exclude_female:
-            units_to_return.extend(villagers["female"])
-        if not exclude_male:
-            units_to_return.extend(villagers["male"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                units = villagers
+            else:
+                units = villagers[addon]
+            if not exclude_female:
+                units_to_return.extend(units["female"])
+            if not exclude_male:
+                units_to_return.extend(units["male"])
 
         return units_to_return
 
@@ -102,7 +125,8 @@ class UnitInfo(InfoDatasetBase):
             exclude_elite_units: bool = False,
             exclude_non_elite_units: bool = False,
             exclude_castle_units: bool = False,
-            exclude_non_castle_units: bool = False
+            exclude_non_castle_units: bool = False,
+            include_chronicles: bool = False,
     ) -> List[UnitInfo]:
         """
         Args:
@@ -110,6 +134,7 @@ class UnitInfo(InfoDatasetBase):
             exclude_non_elite_units: if set to `False`, exclude the non elite unique units
             exclude_castle_units: if set to `False`, exclude the castle unique units
             exclude_non_castle_units: if set to `False`, excludes the unique units not trained at the castle
+            include_chronicles: if set to `True`, will include all unique units added in the chronicles dlc
 
         Returns:
             A list of unique unit UniInfo objects
@@ -243,7 +268,6 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.WARRIOR_PRIEST,
                 UnitInfo.WARRIOR_PRIEST_WITH_RELIC,
                 UnitInfo.WINGED_HUSSAR,
-                UnitInfo.XOLOTL_WARRIOR
             ],
             "elite": [
                 UnitInfo.ELITE_CARAVEL,
@@ -257,21 +281,62 @@ class UnitInfo(InfoDatasetBase):
                 UnitInfo.ELITE_SHRIVAMSHA_RIDER,
                 UnitInfo.ELITE_TARKAN_STABLE,
                 UnitInfo.ELITE_TURTLE_SHIP,
-            ]
+            ],
+            "chronicles": {
+                "castle": {
+                    "non_elite": [
+                        UnitInfo.IMMORTAL_MELEE,
+                        UnitInfo.IMMORTAL_RANGED,
+                        UnitInfo.STRATEGOS,
+                        UnitInfo.STRATEGOS_WITH_TAXIARCHS,
+                        UnitInfo.HIPPEUS,
+                        UnitInfo.HIPPEUS_2,
+                    ],
+                    "elite": [
+                        UnitInfo.ELITE_IMMORTAL_MELEE,
+                        UnitInfo.ELITE_IMMORTAL_RANGED,
+                        UnitInfo.ELITE_STRATEGOS,
+                        UnitInfo.ELITE_STRATEGOS_WITH_TAXIARCHS,
+                        UnitInfo.ELITE_HIPPEUS,
+                        UnitInfo.ELITE_HIPPEUS_2,
+                    ]
+                },
+                "non_elite": [
+                    HeroInfo.POLEMARCH,
+                    HeroInfo.POLEMARCH_2,
+                    HeroInfo.POLEMARCH_3,
+                    HeroInfo.POLEMARCH_4,
+                    HeroInfo.POLEMARCH_3_WITH_EPHORATE,
+                    HeroInfo.POLEMARCH_4_WITH_EPHORATE,
+                    HeroInfo.POLEMARCH_3_WITH_MORAI,
+                    HeroInfo.POLEMARCH_4_WITH_MORAI,
+                ],
+                "elite": [
+                ],
+            },
         }
 
         units_to_return = []
 
-        if not exclude_non_elite_units:
-            if not exclude_non_castle_units:
-                units_to_return.extend(unique_units["non_elite"])
-            if not exclude_castle_units:
-                units_to_return.extend(unique_units["castle"]["non_elite"])
-        if not exclude_elite_units:
-            if not exclude_non_castle_units:
-                units_to_return.extend(unique_units["elite"])
-            if not exclude_castle_units:
-                units_to_return.extend(unique_units["castle"]["elite"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if addon == "base":
+                units = unique_units
+            else:
+                units = unique_units[addon]
+            if not exclude_non_elite_units:
+                if not exclude_non_castle_units:
+                    units_to_return.extend(units["non_elite"])
+                if not exclude_castle_units:
+                    units_to_return.extend(units["castle"]["non_elite"])
+            if not exclude_elite_units:
+                if not exclude_non_castle_units:
+                    units_to_return.extend(units["elite"])
+                if not exclude_castle_units:
+                    units_to_return.extend(units["castle"]["elite"])
 
         return units_to_return
 
@@ -528,6 +593,8 @@ class UnitInfo(InfoDatasetBase):
     VILLAGER_FEMALE_SHEPHERD = 590, 331, 591, 16496, False
     VILLAGER_MALE_STONE_MINER = 124, 336, 229, 16126, False
     VILLAGER_FEMALE_STONE_MINER = 220, 335, 221, 16126, False
+    VILLAGER_MALE_OYSTER_GATHERER = 2333, 229, 334, 16482, False
+    VILLAGER_FEMALE_OYSTER_GATHERER = 2334, 221, 333, 16482, False
     VMDL = 206, 337, -1, 16656, False
     WAR_ELEPHANT = 239, 43, 136, 16109, False
     WAR_GALLEY = 21, 25, -1, 16091, False
@@ -603,3 +670,56 @@ class UnitInfo(InfoDatasetBase):
     SAVAR = 1813, 410, 1814, 16471, False
     QIZILBASH_WARRIOR = 1817, 412, 1818, 16101, False
     ELITE_QIZILBASH_WARRIOR = 1829, 412, 1818, 16101, False
+    IMMORTAL_MELEE = 2101, 2103, 621, 16104, False
+    ELITE_IMMORTAL_MELEE = 2102, 2103, 621, 16104, False
+    STRATEGOS = 2104, 2106, 624, 16104, False
+    ELITE_STRATEGOS = 2105, 2106, 624, 16104, False
+    STRATEGOS_WITH_TAXIARCHS = 2227, 2106, 624, 16104, False
+    ELITE_STRATEGOS_WITH_TAXIARCHS = 2228, 2106, 624, 16104, False
+    HIPPEUS = 2107, 2109, 623, 16104, False
+    ELITE_HIPPEUS = 2108, 2109, 623, 16104, False
+    HIPPEUS_2 = 2168, 2109, 623, -1, False
+    ELITE_HIPPEUS_2 = 2169, 2109, 623, -1, False
+    HOPLITE = 2110, 2112, 625, 416013, False
+    ELITE_HOPLITE = 2111, 2301, 626, 416013, False
+    HOPLITE_WITH_XYPHOS = 2187, 2112, 625, 416013, False
+    ELITE_HOPLITE_WITH_XYPHOS = 2188, 2301, 626, 416013, False
+    LEMBOS = 2123, -1, 656, 416006, False
+    WAR_LEMBOS = 2124, -1, 657, 416006, False
+    HEAVY_LEMBOS = 2125, -1, 658, 416006, False
+    ELITE_LEMBOS = 2126, -1, 659, 416006, False
+    MONOREME = 2127, -1, 661, 416007, False
+    BIREME = 2128, -1, 662, 416007, False
+    TRIREME = 2129, -1, 663, 416007, False
+    GALLEY_ANTIQUITY = 2130, -1, 664, 416008, False
+    WAR_GALLEY_ANTIQUITY = 2131, -1, 666, 416008, False
+    ELITE_GALLEY = 2132, -1, 665, 416008, False
+    INCENDIARY_RAFT = 2133, -1, 667, 416009, False
+    INCENDIARY_SHIP = 2134, -1, 668, 416009, False
+    HEAVY_INCENDIARY_SHIP = 2135, -1, 669, 416009, False
+    CATAPULT_SHIP = 2138, -1, 671, 416011, False
+    ONAGER_SHIP = 2139, -1, 672, 416011, False
+    LEVIATHAN = 2140, -1, 670, 416012, False
+    TRANSPORT_SHIP_ANTIQUITY = 2148, -1, 655, 416005, False
+    MERCHANT_SHIP = 2149, -1, 660, 416004, False
+    WAR_CHARIOT = 2150, 2302, 627, 416015, False
+    ELITE_WAR_CHARIOT = 2151, 2303, 628, 416015, False
+    IMMORTAL_RANGED = 2174, 2304, 630, 16101, False
+    ELITE_IMMORTAL_RANGED = 2175, 2304, 630, 16101, False
+    RHODIAN_SLINGER = 2320, 2367, 693, 16743, False
+    MERCENARY_HOPLITE = 2321, 2361, 691, 416013, False
+    GREEK_NOBLE_CAVALRY = 2322, 2369, 684, 416016, False
+    SCYTHIAN_AXE_CAVALRY = 2323, 2374, 687, 416016, False
+    BACTRIAN_ARCHER = 2324, 2366, 686, 416016, False
+    EKDROMOS = 2325, 2357, 685, 416016, False
+    CRETAN_ARCHER = 2326, 2365, 683, 416016, False
+    CAMEL_RAIDER = 2327, 2368, 681, 16416, False
+    TARANTINE_CAVALRY = 2328, 2375, 689, 16417, False
+    SPARABARA = 2329, 2372, 692, 16101, False
+    SAKAN_AXEMAN = 2330, 2358, 688, 416016, False
+    SICKLE_WARRIOR = 2331, 2362, 690, 16101, False
+    MERCENARY_PELTAST = 2332, 2377, 694, 16087, False
+    LYSANDERS_RAIDER = 2349, 2361, 691, 416016, False
+    HINT_OBJECT = 2238, -1, -1, 16000, False
+    MOUFLON = 2340, 2341, 267, 16071, True
+    GOAT_UNCONVERTIBLE = 2381, 1061, 200, 16061, False
