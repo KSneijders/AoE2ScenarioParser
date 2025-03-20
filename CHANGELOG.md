@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## UNRELEASED - 2025-March-20
+
+### Fixed
+
+- Direct function calls in conditions and effects being added to the script provided to XS-Check 
+
+---
+
 ## 0.3.0 - 2025-Februari-28
 
 ### Added
