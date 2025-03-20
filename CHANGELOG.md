@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for setting ignores on XS-Check
   - `XsManager.xs_check.ignores` is a `set` of warnings that will be ignored when processing
   - `XsManager.xs_check.additional_args` is a `list` of arguments that will be appended to the XS-Check calls
+- Support for the Xs-Check `v0.2.2` — View the `v0.2.2` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.2
 
 ### Fixed
 
