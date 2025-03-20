@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 import time
 from pathlib import Path
-from typing import Optional, Union, Tuple, Set
+from typing import Optional, Union, Tuple, Set, List
 from uuid import UUID
 
 from AoE2ScenarioParser import settings
@@ -31,6 +31,10 @@ class XsCheck:
         """If XS-Check should be checked for compatibility"""
         self.raise_on_error: bool = False
         """If a Python error should be raised if XS-Check encounters an error"""
+        self.ignores: Set[str] = set()
+        """A set of warnings to ignore"""
+        self.additional_args: List[str] = []
+        """A list of additional arguments to append to the validation calls"""
 
         self.path = None
         """The path for a custom XS check binary (One that is not shipped with AoE2ScenarioParser"""
@@ -101,7 +105,11 @@ class XsCheck:
 
         xs_file_path = str(xs_file.absolute()) if isinstance(xs_file, Path) else xs_file
 
-        output = self._call(xs_file_path)
+        args = [xs_file_path, *self.additional_args]
+        if len(self.ignores) > 0:
+            args.extend(['--ignores', *self.ignores])
+
+        output = self._call(*args)
 
         if output.startswith('No errors found in file'):
             return True
