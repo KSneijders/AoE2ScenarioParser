@@ -1,9 +1,12 @@
+import re
 import tempfile
 from pathlib import Path
 from typing import Optional, Union, TYPE_CHECKING, List, Tuple
 
+from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
-from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError
+from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError, UnsupportedVersionError, \
+    XsValidationError
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.xs_check import XsCheck
@@ -167,20 +170,27 @@ class XsManagerDE(AoE2Object):
         xs_snippet_map: List[Tuple[str, str]] = []
         for trigger in scenario.trigger_manager.triggers:
             for index, condition in enumerate(trigger.conditions):
-                if condition.xs_function:
-                    short_code = f"T{trigger.trigger_id}C{index}"
-                    xs_snippet_map.append((short_code, condition.xs_function))
+                if condition.condition_type == ConditionId.SCRIPT_CALL and condition.xs_function:
+                    xs_string = condition.xs_function
+                    origin = f"[Trigger #{trigger.trigger_id}] '{trigger.name}' → Condition #{index}"
+
+                    if self._should_be_checked_by_xs_check(xs_string, origin):
+                        short_code = f"T{trigger.trigger_id}C{index}"
+                        xs_snippet_map.append((short_code, condition.xs_function))
             for index, effect in enumerate(trigger.effects):
-                if effect.effect_type == EffectId.SCRIPT_CALL and effect.message != '':
-                    short_code = f"T{trigger.trigger_id}E{index}"
-                    xs_snippet_map.append((short_code, effect.message))
+                if effect.effect_type == EffectId.SCRIPT_CALL and effect.message:
+                    xs_string = effect.message
+                    origin = f"[Trigger #{trigger.trigger_id}] '{trigger.name}' → Effect #{index}"
+
+                    if self._should_be_checked_by_xs_check(xs_string, origin):
+                        short_code = f"T{trigger.trigger_id}E{index}"
+                        xs_snippet_map.append((short_code, effect.message))
 
         xs_snippets: List[str]
         if include_short_code:
             xs_snippets: List[str] = [
                 '\n'.join([
-                    f"/*{xs_snippet[0]}*/ {line}" if include_short_code else line
-                    for line in xs_snippet[1].splitlines()
+                    f"/*{xs_snippet[0]}*/ {line}" for line in xs_snippet[1].splitlines()
                 ])
                 for xs_snippet in xs_snippet_map
             ]
@@ -188,6 +198,27 @@ class XsManagerDE(AoE2Object):
             xs_snippets = [xs_snippet[1] for xs_snippet in xs_snippet_map]
 
         return '\n'.join(xs_snippets)
+
+    def _should_be_checked_by_xs_check(self, xs_string: str, origin: str) -> bool:
+        match = re.match(r'\w+(?:\((.*)\))?;?$', xs_string)
+
+        # The string is NOT a function call (instead it is a function definition)
+        if match is None:
+            return True
+
+        params = match.group(1)
+        # The string is a function call without params (which is a good thing)
+        if params is None or not params.strip():
+            return False
+
+        target_xs_string = (xs_string + ';') if not xs_string.endswith(';') else xs_string
+
+        # Raise an error as this will fail completely silent in XS which is never desired.
+        raise XsValidationError(
+            f'Calling functions with params is not supported by AoE2:DE and will silently fail.\n'
+            f'\tFound in: {origin}\n'
+            f'\tPlease change: "{xs_string}" to "<return type of called func> <random unique func name>() {{ {target_xs_string} }}" instead.'
+        )
 
     def validate_scenario_xs(self):
         if self.xs_check.is_disabled:

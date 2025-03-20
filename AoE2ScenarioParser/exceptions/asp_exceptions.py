@@ -44,6 +44,10 @@ class ScenarioWritingError(AoE2ScenarioParserError):
     pass
 
 
+class XsValidationError(AoE2ScenarioParserError):
+    pass
+
+
 class XsCheckValidationError(AoE2ScenarioParserError):
     def __init__(self, *args, xs_check_errors: str):
         super().__init__(*args)
