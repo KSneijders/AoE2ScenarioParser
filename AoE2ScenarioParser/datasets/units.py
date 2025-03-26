@@ -49,51 +49,71 @@ class UnitInfo(InfoDatasetBase):
     """
 
     @staticmethod
-    def vils(exclude_female: bool = False, exclude_male: bool = False) -> List[UnitInfo]:
+    def vils(
+            exclude_female: bool = False,
+            exclude_male: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[UnitInfo]:
         """
         Args:
             exclude_female: if set to true, exclude the female villagers
             exclude_male: if set to true, exclude the male villagers
+            include_chronicles: if set to `True`, include chronicles villagers
 
         Returns:
             A list of villager UnitInfo objects
         """
         villagers = {
-            "male": [
-                UnitInfo.VILLAGER_MALE,
-                UnitInfo.VILLAGER_MALE_MONASTERY,
-                UnitInfo.VILLAGER_MALE_BUILDER,
-                UnitInfo.VILLAGER_MALE_FARMER,
-                UnitInfo.VILLAGER_MALE_FISHERMAN,
-                UnitInfo.VILLAGER_MALE_FORAGER,
-                UnitInfo.VILLAGER_MALE_GOLD_MINER,
-                UnitInfo.VILLAGER_MALE_HUNTER,
-                UnitInfo.VILLAGER_MALE_LUMBERJACK,
-                UnitInfo.VILLAGER_MALE_REPAIRER,
-                UnitInfo.VILLAGER_MALE_SHEPHERD,
-                UnitInfo.VILLAGER_MALE_STONE_MINER,
-            ],
-            "female": [
-                UnitInfo.VILLAGER_FEMALE,
-                UnitInfo.VILLAGER_FEMALE_BUILDER,
-                UnitInfo.VILLAGER_FEMALE_FARMER,
-                UnitInfo.VILLAGER_FEMALE_FISHERMAN,
-                UnitInfo.VILLAGER_FEMALE_FORAGER,
-                UnitInfo.VILLAGER_FEMALE_GOLD_MINER,
-                UnitInfo.VILLAGER_FEMALE_HUNTER,
-                UnitInfo.VILLAGER_FEMALE_LUMBERJACK,
-                UnitInfo.VILLAGER_FEMALE_REPAIRER,
-                UnitInfo.VILLAGER_FEMALE_SHEPHERD,
-                UnitInfo.VILLAGER_FEMALE_STONE_MINER,
-            ]
+            "base": {
+                "male": [
+                    UnitInfo.VILLAGER_MALE,
+                    UnitInfo.VILLAGER_MALE_MONASTERY,
+                    UnitInfo.VILLAGER_MALE_BUILDER,
+                    UnitInfo.VILLAGER_MALE_FARMER,
+                    UnitInfo.VILLAGER_MALE_FISHERMAN,
+                    UnitInfo.VILLAGER_MALE_FORAGER,
+                    UnitInfo.VILLAGER_MALE_GOLD_MINER,
+                    UnitInfo.VILLAGER_MALE_HUNTER,
+                    UnitInfo.VILLAGER_MALE_LUMBERJACK,
+                    UnitInfo.VILLAGER_MALE_REPAIRER,
+                    UnitInfo.VILLAGER_MALE_SHEPHERD,
+                    UnitInfo.VILLAGER_MALE_STONE_MINER,
+                ],
+                "female": [
+                    UnitInfo.VILLAGER_FEMALE,
+                    UnitInfo.VILLAGER_FEMALE_BUILDER,
+                    UnitInfo.VILLAGER_FEMALE_FARMER,
+                    UnitInfo.VILLAGER_FEMALE_FISHERMAN,
+                    UnitInfo.VILLAGER_FEMALE_FORAGER,
+                    UnitInfo.VILLAGER_FEMALE_GOLD_MINER,
+                    UnitInfo.VILLAGER_FEMALE_HUNTER,
+                    UnitInfo.VILLAGER_FEMALE_LUMBERJACK,
+                    UnitInfo.VILLAGER_FEMALE_REPAIRER,
+                    UnitInfo.VILLAGER_FEMALE_SHEPHERD,
+                    UnitInfo.VILLAGER_FEMALE_STONE_MINER,
+                ],
+            },
+            "chronicles": {
+                "male": [
+                    UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
+                ],
+                "female": [
+                    UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
+                ],
+            },
         }
 
         units_to_return = []
 
-        if not exclude_female:
-            units_to_return.extend(villagers["female"])
-        if not exclude_male:
-            units_to_return.extend(villagers["male"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if not exclude_female:
+                units_to_return.extend(villagers[addon]["female"])
+            if not exclude_male:
+                units_to_return.extend(villagers[addon]["male"])
 
         return units_to_return
 
@@ -102,7 +122,8 @@ class UnitInfo(InfoDatasetBase):
             exclude_elite_units: bool = False,
             exclude_non_elite_units: bool = False,
             exclude_castle_units: bool = False,
-            exclude_non_castle_units: bool = False
+            exclude_non_castle_units: bool = False,
+            include_chronicles: bool = False,
     ) -> List[UnitInfo]:
         """
         Args:
@@ -110,168 +131,199 @@ class UnitInfo(InfoDatasetBase):
             exclude_non_elite_units: if set to `False`, exclude the non elite unique units
             exclude_castle_units: if set to `False`, exclude the castle unique units
             exclude_non_castle_units: if set to `False`, excludes the unique units not trained at the castle
+            include_chronicles: if set to `True`, will include all unique units added in the chronicles dlc
 
         Returns:
             A list of unique unit UniInfo objects
         """
         unique_units = {
-            "castle": {
+            "base": {
+                "castle": {
+                    "non_elite": [
+                        UnitInfo.ARAMBAI,
+                        UnitInfo.BALLISTA_ELEPHANT,
+                        UnitInfo.BERSERK,
+                        UnitInfo.BOYAR,
+                        UnitInfo.CAMEL_ARCHER,
+                        UnitInfo.CAMEL_SCOUT,
+                        UnitInfo.CATAPHRACT,
+                        UnitInfo.CENTURION,
+                        UnitInfo.CHAKRAM_THROWER,
+                        UnitInfo.CHU_KO_NU,
+                        UnitInfo.COMPOSITE_BOWMAN,
+                        UnitInfo.CONQUISTADOR,
+                        UnitInfo.COUSTILLIER,
+                        UnitInfo.FLAMING_CAMEL,
+                        UnitInfo.GBETO,
+                        UnitInfo.GENOESE_CROSSBOWMAN,
+                        UnitInfo.GHULAM,
+                        UnitInfo.HUSKARL,
+                        UnitInfo.HUSSITE_WAGON,
+                        UnitInfo.JAGUAR_WARRIOR,
+                        UnitInfo.JANISSARY,
+                        UnitInfo.KAMAYUK,
+                        UnitInfo.KARAMBIT_WARRIOR,
+                        UnitInfo.KESHIK,
+                        UnitInfo.KIPCHAK,
+                        UnitInfo.KONNIK,
+                        UnitInfo.LEITIS,
+                        UnitInfo.LONGBOWMAN,
+                        UnitInfo.MAGYAR_HUSZAR,
+                        UnitInfo.MAMELUKE,
+                        UnitInfo.MANGUDAI,
+                        UnitInfo.MONASPA,
+                        UnitInfo.OBUCH,
+                        UnitInfo.ORGAN_GUN,
+                        UnitInfo.PLUMED_ARCHER,
+                        UnitInfo.RATHA_MELEE,
+                        UnitInfo.RATHA_RANGED,
+                        UnitInfo.RATTAN_ARCHER,
+                        UnitInfo.SAMURAI,
+                        UnitInfo.SERJEANT,
+                        UnitInfo.SHOTEL_WARRIOR,
+                        UnitInfo.TARKAN,
+                        UnitInfo.TEUTONIC_KNIGHT,
+                        UnitInfo.THROWING_AXEMAN,
+                        UnitInfo.URUMI_SWORDSMAN,
+                        UnitInfo.WAR_ELEPHANT,
+                        UnitInfo.WAR_WAGON,
+                        UnitInfo.WOAD_RAIDER,
+                    ],
+                    "elite": [
+                        UnitInfo.ELITE_ARAMBAI,
+                        UnitInfo.ELITE_BALLISTA_ELEPHANT,
+                        UnitInfo.ELITE_BERSERK,
+                        UnitInfo.ELITE_BOYAR,
+                        UnitInfo.ELITE_CAMEL_ARCHER,
+                        UnitInfo.ELITE_CATAPHRACT,
+                        UnitInfo.ELITE_CENTURION,
+                        UnitInfo.ELITE_CHAKRAM_THROWER,
+                        UnitInfo.ELITE_CHU_KO_NU,
+                        UnitInfo.ELITE_COMPOSITE_BOWMAN,
+                        UnitInfo.ELITE_CONQUISTADOR,
+                        UnitInfo.ELITE_COUSTILLIER,
+                        UnitInfo.ELITE_GBETO,
+                        UnitInfo.ELITE_GENOESE_CROSSBOWMAN,
+                        UnitInfo.ELITE_GHULAM,
+                        UnitInfo.ELITE_HUSKARL,
+                        UnitInfo.ELITE_HUSSITE_WAGON,
+                        UnitInfo.ELITE_JAGUAR_WARRIOR,
+                        UnitInfo.ELITE_JANISSARY,
+                        UnitInfo.ELITE_KAMAYUK,
+                        UnitInfo.ELITE_KARAMBIT_WARRIOR,
+                        UnitInfo.ELITE_KESHIK,
+                        UnitInfo.ELITE_KIPCHAK,
+                        UnitInfo.ELITE_KONNIK,
+                        UnitInfo.ELITE_LEITIS,
+                        UnitInfo.ELITE_LONGBOWMAN,
+                        UnitInfo.ELITE_MAGYAR_HUSZAR,
+                        UnitInfo.ELITE_MAMELUKE,
+                        UnitInfo.ELITE_MANGUDAI,
+                        UnitInfo.ELITE_MONASPA,
+                        UnitInfo.ELITE_OBUCH,
+                        UnitInfo.ELITE_ORGAN_GUN,
+                        UnitInfo.ELITE_PLUMED_ARCHER,
+                        UnitInfo.ELITE_RATHA_MELEE,
+                        UnitInfo.ELITE_RATHA_RANGED,
+                        UnitInfo.ELITE_RATTAN_ARCHER,
+                        UnitInfo.ELITE_SAMURAI,
+                        UnitInfo.ELITE_SERJEANT,
+                        UnitInfo.ELITE_SHOTEL_WARRIOR,
+                        UnitInfo.ELITE_TARKAN,
+                        UnitInfo.ELITE_TEUTONIC_KNIGHT,
+                        UnitInfo.ELITE_THROWING_AXEMAN,
+                        UnitInfo.ELITE_URUMI_SWORDSMAN,
+                        UnitInfo.ELITE_WAR_ELEPHANT,
+                        UnitInfo.ELITE_WAR_WAGON,
+                        UnitInfo.ELITE_WOAD_RAIDER,
+                    ]
+                },
                 "non_elite": [
-                    UnitInfo.ARAMBAI,
-                    UnitInfo.BALLISTA_ELEPHANT,
-                    UnitInfo.BERSERK,
-                    UnitInfo.BOYAR,
-                    UnitInfo.CAMEL_ARCHER,
+                    UnitInfo.CARAVEL,
                     UnitInfo.CAMEL_SCOUT,
-                    UnitInfo.CATAPHRACT,
-                    UnitInfo.CENTURION,
-                    UnitInfo.CHAKRAM_THROWER,
-                    UnitInfo.CHU_KO_NU,
-                    UnitInfo.COMPOSITE_BOWMAN,
-                    UnitInfo.CONQUISTADOR,
-                    UnitInfo.COUSTILLIER,
-                    UnitInfo.FLAMING_CAMEL,
-                    UnitInfo.GBETO,
-                    UnitInfo.GENOESE_CROSSBOWMAN,
-                    UnitInfo.GHULAM,
-                    UnitInfo.HUSKARL,
-                    UnitInfo.HUSSITE_WAGON,
-                    UnitInfo.JAGUAR_WARRIOR,
-                    UnitInfo.JANISSARY,
-                    UnitInfo.KAMAYUK,
-                    UnitInfo.KARAMBIT_WARRIOR,
-                    UnitInfo.KESHIK,
-                    UnitInfo.KIPCHAK,
-                    UnitInfo.KONNIK,
-                    UnitInfo.LEITIS,
-                    UnitInfo.LONGBOWMAN,
-                    UnitInfo.MAGYAR_HUSZAR,
-                    UnitInfo.MAMELUKE,
-                    UnitInfo.MANGUDAI,
-                    UnitInfo.MONASPA,
-                    UnitInfo.OBUCH,
-                    UnitInfo.ORGAN_GUN,
-                    UnitInfo.PLUMED_ARCHER,
-                    UnitInfo.RATHA_MELEE,
-                    UnitInfo.RATHA_RANGED,
-                    UnitInfo.RATTAN_ARCHER,
-                    UnitInfo.SAMURAI,
-                    UnitInfo.SERJEANT,
-                    UnitInfo.SHOTEL_WARRIOR,
-                    UnitInfo.TARKAN,
-                    UnitInfo.TEUTONIC_KNIGHT,
-                    UnitInfo.THROWING_AXEMAN,
-                    UnitInfo.URUMI_SWORDSMAN,
-                    UnitInfo.WAR_ELEPHANT,
-                    UnitInfo.WAR_WAGON,
-                    UnitInfo.WOAD_RAIDER,
+                    UnitInfo.CONDOTTIERO,
+                    UnitInfo.CONDOTTIERO_PLACEHOLDER,
+                    UnitInfo.FLEMISH_MILITIA,
+                    UnitInfo.FLEMISH_MILITIA_FEMALE,
+                    UnitInfo.FLEMISH_MILITIA_MALE,
+                    UnitInfo.GENITOUR,
+                    UnitInfo.HOUFNICE,
+                    UnitInfo.HUSKARL_BARRACKS,
+                    UnitInfo.IMPERIAL_CAMEL_RIDER,
+                    UnitInfo.IMPERIAL_SKIRMISHER,
+                    UnitInfo.KONNIK_DISMOUNTED,
+                    UnitInfo.KONNIK_KREPOST,
+                    UnitInfo.LEGIONARY,
+                    UnitInfo.LONGBOAT,
+                    UnitInfo.MISSIONARY,
+                    UnitInfo.SAVAR,
+                    UnitInfo.SERJEANT_DONJON,
+                    UnitInfo.SHRIVAMSHA_RIDER,
+                    UnitInfo.SLINGER,
+                    UnitInfo.TARKAN_STABLE,
+                    UnitInfo.THIRISADAI,
+                    UnitInfo.TURTLE_SHIP,
+                    UnitInfo.WARRIOR_PRIEST,
+                    UnitInfo.WARRIOR_PRIEST_WITH_RELIC,
+                    UnitInfo.WINGED_HUSSAR,
                 ],
                 "elite": [
-                    UnitInfo.ELITE_ARAMBAI,
-                    UnitInfo.ELITE_BALLISTA_ELEPHANT,
-                    UnitInfo.ELITE_BERSERK,
-                    UnitInfo.ELITE_BOYAR,
-                    UnitInfo.ELITE_CAMEL_ARCHER,
-                    UnitInfo.ELITE_CATAPHRACT,
-                    UnitInfo.ELITE_CENTURION,
-                    UnitInfo.ELITE_CHAKRAM_THROWER,
-                    UnitInfo.ELITE_CHU_KO_NU,
-                    UnitInfo.ELITE_COMPOSITE_BOWMAN,
-                    UnitInfo.ELITE_CONQUISTADOR,
-                    UnitInfo.ELITE_COUSTILLIER,
-                    UnitInfo.ELITE_GBETO,
-                    UnitInfo.ELITE_GENOESE_CROSSBOWMAN,
-                    UnitInfo.ELITE_GHULAM,
-                    UnitInfo.ELITE_HUSKARL,
-                    UnitInfo.ELITE_HUSSITE_WAGON,
-                    UnitInfo.ELITE_JAGUAR_WARRIOR,
-                    UnitInfo.ELITE_JANISSARY,
-                    UnitInfo.ELITE_KAMAYUK,
-                    UnitInfo.ELITE_KARAMBIT_WARRIOR,
-                    UnitInfo.ELITE_KESHIK,
-                    UnitInfo.ELITE_KIPCHAK,
-                    UnitInfo.ELITE_KONNIK,
-                    UnitInfo.ELITE_LEITIS,
-                    UnitInfo.ELITE_LONGBOWMAN,
-                    UnitInfo.ELITE_MAGYAR_HUSZAR,
-                    UnitInfo.ELITE_MAMELUKE,
-                    UnitInfo.ELITE_MANGUDAI,
-                    UnitInfo.ELITE_MONASPA,
-                    UnitInfo.ELITE_OBUCH,
-                    UnitInfo.ELITE_ORGAN_GUN,
-                    UnitInfo.ELITE_PLUMED_ARCHER,
-                    UnitInfo.ELITE_RATHA_MELEE,
-                    UnitInfo.ELITE_RATHA_RANGED,
-                    UnitInfo.ELITE_RATTAN_ARCHER,
-                    UnitInfo.ELITE_SAMURAI,
-                    UnitInfo.ELITE_SERJEANT,
-                    UnitInfo.ELITE_SHOTEL_WARRIOR,
-                    UnitInfo.ELITE_TARKAN,
-                    UnitInfo.ELITE_TEUTONIC_KNIGHT,
-                    UnitInfo.ELITE_THROWING_AXEMAN,
-                    UnitInfo.ELITE_URUMI_SWORDSMAN,
-                    UnitInfo.ELITE_WAR_ELEPHANT,
-                    UnitInfo.ELITE_WAR_WAGON,
-                    UnitInfo.ELITE_WOAD_RAIDER,
-                ]
+                    UnitInfo.ELITE_CARAVEL,
+                    UnitInfo.ELITE_GENITOUR,
+                    UnitInfo.ELITE_HUSKARL_BARRACKS,
+                    UnitInfo.ELITE_KIPCHAK_CUMAN_MERCENARIES,
+                    UnitInfo.ELITE_KONNIK_DISMOUNTED,
+                    UnitInfo.ELITE_KONNIK_KREPOST,
+                    UnitInfo.ELITE_LONGBOAT,
+                    UnitInfo.ELITE_SERJEANT_DONJON,
+                    UnitInfo.ELITE_SHRIVAMSHA_RIDER,
+                    UnitInfo.ELITE_TARKAN_STABLE,
+                    UnitInfo.ELITE_TURTLE_SHIP,
+                ],
             },
-            "non_elite": [
-                UnitInfo.CARAVEL,
-                UnitInfo.CAMEL_SCOUT,
-                UnitInfo.CONDOTTIERO,
-                UnitInfo.CONDOTTIERO_PLACEHOLDER,
-                UnitInfo.FLEMISH_MILITIA,
-                UnitInfo.FLEMISH_MILITIA_FEMALE,
-                UnitInfo.FLEMISH_MILITIA_MALE,
-                UnitInfo.GENITOUR,
-                UnitInfo.HOUFNICE,
-                UnitInfo.HUSKARL_BARRACKS,
-                UnitInfo.IMPERIAL_CAMEL_RIDER,
-                UnitInfo.IMPERIAL_SKIRMISHER,
-                UnitInfo.KONNIK_DISMOUNTED,
-                UnitInfo.KONNIK_KREPOST,
-                UnitInfo.LEGIONARY,
-                UnitInfo.LONGBOAT,
-                UnitInfo.MISSIONARY,
-                UnitInfo.SAVAR,
-                UnitInfo.SERJEANT_DONJON,
-                UnitInfo.SHRIVAMSHA_RIDER,
-                UnitInfo.SLINGER,
-                UnitInfo.TARKAN_STABLE,
-                UnitInfo.THIRISADAI,
-                UnitInfo.TURTLE_SHIP,
-                UnitInfo.WARRIOR_PRIEST,
-                UnitInfo.WARRIOR_PRIEST_WITH_RELIC,
-                UnitInfo.WINGED_HUSSAR,
-                UnitInfo.XOLOTL_WARRIOR
-            ],
-            "elite": [
-                UnitInfo.ELITE_CARAVEL,
-                UnitInfo.ELITE_GENITOUR,
-                UnitInfo.ELITE_HUSKARL_BARRACKS,
-                UnitInfo.ELITE_KIPCHAK_CUMAN_MERCENARIES,
-                UnitInfo.ELITE_KONNIK_DISMOUNTED,
-                UnitInfo.ELITE_KONNIK_KREPOST,
-                UnitInfo.ELITE_LONGBOAT,
-                UnitInfo.ELITE_SERJEANT_DONJON,
-                UnitInfo.ELITE_SHRIVAMSHA_RIDER,
-                UnitInfo.ELITE_TARKAN_STABLE,
-                UnitInfo.ELITE_TURTLE_SHIP,
-            ]
+            "chronicles": {
+                "castle": {
+                    "non_elite": [
+                        UnitInfo.IMMORTAL_MELEE,
+                        UnitInfo.IMMORTAL_RANGED,
+                        UnitInfo.STRATEGOS,
+                        UnitInfo.STRATEGOS_WITH_TAXIARCHS,
+                        UnitInfo.HIPPEUS,
+                        UnitInfo.HIPPEUS_WITH_AURA,
+                    ],
+                    "elite": [
+                        UnitInfo.ELITE_IMMORTAL_MELEE,
+                        UnitInfo.ELITE_IMMORTAL_RANGED,
+                        UnitInfo.ELITE_STRATEGOS,
+                        UnitInfo.ELITE_STRATEGOS_WITH_TAXIARCHS,
+                        UnitInfo.ELITE_HIPPEUS,
+                        UnitInfo.ELITE_HIPPEUS_WITH_AURA,
+                    ]
+                },
+                "non_elite": [
+                ],
+                "elite": [
+                ],
+            },
         }
 
         units_to_return = []
 
-        if not exclude_non_elite_units:
-            if not exclude_non_castle_units:
-                units_to_return.extend(unique_units["non_elite"])
-            if not exclude_castle_units:
-                units_to_return.extend(unique_units["castle"]["non_elite"])
-        if not exclude_elite_units:
-            if not exclude_non_castle_units:
-                units_to_return.extend(unique_units["elite"])
-            if not exclude_castle_units:
-                units_to_return.extend(unique_units["castle"]["elite"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if not exclude_non_elite_units:
+                if not exclude_non_castle_units:
+                    units_to_return.extend(unique_units[addon]["non_elite"])
+                if not exclude_castle_units:
+                    units_to_return.extend(unique_units[addon]["castle"]["non_elite"])
+            if not exclude_elite_units:
+                if not exclude_non_castle_units:
+                    units_to_return.extend(unique_units[addon]["elite"])
+                if not exclude_castle_units:
+                    units_to_return.extend(unique_units[addon]["castle"]["elite"])
 
         return units_to_return
 
@@ -528,6 +580,8 @@ class UnitInfo(InfoDatasetBase):
     VILLAGER_FEMALE_SHEPHERD = 590, 331, 591, 16496, False
     VILLAGER_MALE_STONE_MINER = 124, 336, 229, 16126, False
     VILLAGER_FEMALE_STONE_MINER = 220, 335, 221, 16126, False
+    VILLAGER_MALE_OYSTER_GATHERER = 2333, 229, 334, 16482, False
+    VILLAGER_FEMALE_OYSTER_GATHERER = 2334, 221, 333, 16482, False
     VMDL = 206, 337, -1, 16656, False
     WAR_ELEPHANT = 239, 43, 136, 16109, False
     WAR_GALLEY = 21, 25, -1, 16091, False
@@ -603,3 +657,56 @@ class UnitInfo(InfoDatasetBase):
     SAVAR = 1813, 410, 1814, 16471, False
     QIZILBASH_WARRIOR = 1817, 412, 1818, 16101, False
     ELITE_QIZILBASH_WARRIOR = 1829, 412, 1818, 16101, False
+    IMMORTAL_MELEE = 2101, 2103, 621, 16104, False
+    ELITE_IMMORTAL_MELEE = 2102, 2103, 621, 16104, False
+    STRATEGOS = 2104, 2106, 624, 16104, False
+    ELITE_STRATEGOS = 2105, 2106, 624, 16104, False
+    STRATEGOS_WITH_TAXIARCHS = 2227, 2106, 624, 16104, False
+    ELITE_STRATEGOS_WITH_TAXIARCHS = 2228, 2106, 624, 16104, False
+    HIPPEUS = 2107, 2109, 623, 16104, False
+    ELITE_HIPPEUS = 2108, 2109, 623, 16104, False
+    HIPPEUS_WITH_AURA = 2168, 2109, 623, -1, False
+    ELITE_HIPPEUS_WITH_AURA = 2169, 2109, 623, -1, False
+    HOPLITE = 2110, 2112, 625, 416013, False
+    ELITE_HOPLITE = 2111, 2301, 626, 416013, False
+    HOPLITE_WITH_XYPHOS = 2187, 2112, 625, 416013, False
+    ELITE_HOPLITE_WITH_XYPHOS = 2188, 2301, 626, 416013, False
+    LEMBOS = 2123, -1, 656, 416006, False
+    WAR_LEMBOS = 2124, -1, 657, 416006, False
+    HEAVY_LEMBOS = 2125, -1, 658, 416006, False
+    ELITE_LEMBOS = 2126, -1, 659, 416006, False
+    MONOREME = 2127, -1, 661, 416007, False
+    BIREME = 2128, -1, 662, 416007, False
+    TRIREME = 2129, -1, 663, 416007, False
+    GALLEY_ANTIQUITY = 2130, -1, 664, 416008, False
+    WAR_GALLEY_ANTIQUITY = 2131, -1, 666, 416008, False
+    ELITE_GALLEY = 2132, -1, 665, 416008, False
+    INCENDIARY_RAFT = 2133, -1, 667, 416009, False
+    INCENDIARY_SHIP = 2134, -1, 668, 416009, False
+    HEAVY_INCENDIARY_SHIP = 2135, -1, 669, 416009, False
+    CATAPULT_SHIP = 2138, -1, 671, 416011, False
+    ONAGER_SHIP = 2139, -1, 672, 416011, False
+    LEVIATHAN = 2140, -1, 670, 416012, False
+    TRANSPORT_SHIP_ANTIQUITY = 2148, -1, 655, 416005, False
+    MERCHANT_SHIP = 2149, -1, 660, 416004, False
+    WAR_CHARIOT = 2150, 2302, 627, 416015, False
+    ELITE_WAR_CHARIOT = 2151, 2303, 628, 416015, False
+    IMMORTAL_RANGED = 2174, 2304, 630, 16101, False
+    ELITE_IMMORTAL_RANGED = 2175, 2304, 630, 16101, False
+    RHODIAN_SLINGER = 2320, 2367, 693, 16743, False
+    MERCENARY_HOPLITE = 2321, 2361, 691, 416013, False
+    GREEK_NOBLE_CAVALRY = 2322, 2369, 684, 416016, False
+    SCYTHIAN_AXE_CAVALRY = 2323, 2374, 687, 416016, False
+    BACTRIAN_ARCHER = 2324, 2366, 686, 416016, False
+    EKDROMOS = 2325, 2357, 685, 416016, False
+    CRETAN_ARCHER = 2326, 2365, 683, 416016, False
+    CAMEL_RAIDER = 2327, 2368, 681, 16416, False
+    TARANTINE_CAVALRY = 2328, 2375, 689, 16417, False
+    SPARABARA = 2329, 2372, 692, 16101, False
+    SAKAN_AXEMAN = 2330, 2358, 688, 416016, False
+    SICKLE_WARRIOR = 2331, 2362, 690, 16101, False
+    MERCENARY_PELTAST = 2332, 2377, 694, 16087, False
+    LYSANDERS_RAIDER = 2349, 2361, 691, 416016, False
+    HINT_OBJECT = 2238, -1, -1, 16000, False
+    MOUFLON = 2340, 2341, 267, 16071, True
+    GOAT_UNCONVERTIBLE = 2381, 1061, 200, 16061, False

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Set
+from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.trigger_lists import Age
@@ -93,212 +93,262 @@ class TechInfo(Enum):
         raise KeyError(f"A technology with icon id '{tech_icon_id}' was not found in the dataset")
 
     @staticmethod
-    def unique_techs(exclude_castle_techs: bool = False, exclude_imp_techs: bool = False) -> List[TechInfo]:
+    def unique_techs(
+            exclude_castle_techs: bool = False,
+            exclude_imp_techs: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[TechInfo]:
         """
         Get the list of all the unique techs in the game
 
         Args:
             exclude_castle_techs: if set to `True`,  exclude the castle age techs
             exclude_imp_techs: if set to `True`,  exclude the imperial age techs
+            include_chronicles: if set to `True`, includes the chronicles techs
 
         Returns:
             A list of TechInfo objects which are all the unique techs in the game
         """
         unique_techs = {
-            "castle_age": [
-                TechInfo.ANARCHY,
-                TechInfo.ANDEAN_SLING,
-                TechInfo.ATLATL,
-                TechInfo.BALLISTAS,
-                TechInfo.BEARDED_AXE,
-                TechInfo.CARRACK,
-                TechInfo.CHATRAS,
-                TechInfo.CILICIAN_FLEET,
-                TechInfo.CHIEFTAINS,
-                TechInfo.CORVINIAN_ARMY,
-                TechInfo.DETINETS,
-                TechInfo.FIRST_CRUSADE,
-                TechInfo.GRAND_TRUNK_ROAD,
-                TechInfo.GREAT_WALL,
-                TechInfo.GREEK_FIRE,
-                TechInfo.HILL_FORTS,
-                TechInfo.HOWDAH,
-                TechInfo.HULCHE_JAVELINEERS,
-                TechInfo.INQUISITION,
-                TechInfo.IRONCLAD,
-                TechInfo.KAMANDARAN,
-                TechInfo.KASBAH,
-                TechInfo.KSHATRIYAS,
-                TechInfo.NOMADS,
-                TechInfo.MADRASAH,
-                TechInfo.MARAUDERS,
-                TechInfo.MEDICAL_CORPS,
-                TechInfo.PAIKS,
-                TechInfo.EUPSEONG,
-                TechInfo.PAVISE,
-                TechInfo.ROYAL_HEIRS,
-                TechInfo.SHATAGNI,
-                TechInfo.SILK_ARMOR,
-                TechInfo.SIPAHI,
-                TechInfo.STEPPE_HUSBANDRY,
-                TechInfo.STIRRUPS,
-                TechInfo.STRONGHOLD,
-                TechInfo.SVAN_TOWERS,
-                TechInfo.SZLACHTA_PRIVILEGES,
-                TechInfo.THALASSOCRACY,
-                TechInfo.TIGUI,
-                TechInfo.TUSK_SWORDS,
-                TechInfo.WAGENBURG_TACTICS,
-                TechInfo.YASAMA,
-                TechInfo.YEOMEN,
-                TechInfo.ZEALOTRY
-            ],
-            "imp_age": [
-                TechInfo.ARQUEBUS,
-                TechInfo.ARTILLERY,
-                TechInfo.ATHEISM,
-                TechInfo.AZNAURI_CAVALRY,
-                TechInfo.BAGAINS,
-                TechInfo.BERSERKERGANG,
-                TechInfo.BURGUNDIAN_VINEYARDS,
-                TechInfo.CHIVALRY,
-                TechInfo.CRENELLATIONS,
-                TechInfo.COMITATENSES,
-                TechInfo.COUNTERWEIGHTS,
-                TechInfo.CUMAN_MERCENARIES,
-                TechInfo.FABRIC_SHIELDS,
-                TechInfo.FERETERS,
-                TechInfo.DOUBLE_CROSSBOW,
-                TechInfo.DRILL,
-                TechInfo.DRUZHINA,
-                TechInfo.EL_DORADO,
-                TechInfo.FARIMBA,
-                TechInfo.FLEMISH_REVOLUTION,
-                TechInfo.FORCED_LEVY,
-                TechInfo.FRONTIER_GUARDS,
-                TechInfo.FUROR_CELTICA,
-                TechInfo.GARLAND_WARS,
-                TechInfo.HUSSITE_REFORMS,
-                TechInfo.KATAPARUTO,
-                TechInfo.LECHITIC_LEGACY,
-                TechInfo.LOGISTICA,
-                TechInfo.MAGHREBI_CAMELS,
-                TechInfo.MAHAYANA,
-                TechInfo.MAHOUTS,
-                TechInfo.MANIPUR_CAVALRY,
-                TechInfo.PAPER_MONEY,
-                TechInfo.PERFUSION,
-                TechInfo.RECURVE_BOW,
-                TechInfo.ROCKETRY,
-                TechInfo.HAUBERK,
-                TechInfo.SHINKICHON,
-                TechInfo.SILK_ROAD,
-                TechInfo.SUPREMACY,
-                TechInfo.TIMURID_SIEGECRAFT,
-                TechInfo.TORSION_ENGINES,
-                TechInfo.TOWER_SHIELDS,
-                TechInfo.WARWOLF,
-                TechInfo.WOOTZ_STEEL,
-            ]
+            "base": {
+                "castle_age": [
+                    TechInfo.ANARCHY,
+                    TechInfo.ANDEAN_SLING,
+                    TechInfo.ATLATL,
+                    TechInfo.BALLISTAS,
+                    TechInfo.BEARDED_AXE,
+                    TechInfo.CARRACK,
+                    TechInfo.CHATRAS,
+                    TechInfo.CILICIAN_FLEET,
+                    TechInfo.CHIEFTAINS,
+                    TechInfo.CORVINIAN_ARMY,
+                    TechInfo.DETINETS,
+                    TechInfo.FIRST_CRUSADE,
+                    TechInfo.GRAND_TRUNK_ROAD,
+                    TechInfo.GREAT_WALL,
+                    TechInfo.GREEK_FIRE,
+                    TechInfo.HILL_FORTS,
+                    TechInfo.HOWDAH,
+                    TechInfo.HULCHE_JAVELINEERS,
+                    TechInfo.INQUISITION,
+                    TechInfo.IRONCLAD,
+                    TechInfo.KAMANDARAN,
+                    TechInfo.KASBAH,
+                    TechInfo.KSHATRIYAS,
+                    TechInfo.NOMADS,
+                    TechInfo.MADRASAH,
+                    TechInfo.MARAUDERS,
+                    TechInfo.MEDICAL_CORPS,
+                    TechInfo.PAIKS,
+                    TechInfo.EUPSEONG,
+                    TechInfo.PAVISE,
+                    TechInfo.ROYAL_HEIRS,
+                    TechInfo.SHATAGNI,
+                    TechInfo.SILK_ARMOR,
+                    TechInfo.SIPAHI,
+                    TechInfo.STEPPE_HUSBANDRY,
+                    TechInfo.STIRRUPS,
+                    TechInfo.STRONGHOLD,
+                    TechInfo.SVAN_TOWERS,
+                    TechInfo.SZLACHTA_PRIVILEGES,
+                    TechInfo.THALASSOCRACY,
+                    TechInfo.TIGUI,
+                    TechInfo.TUSK_SWORDS,
+                    TechInfo.WAGENBURG_TACTICS,
+                    TechInfo.YASAMA,
+                    TechInfo.YEOMEN,
+                    TechInfo.BIMARISTAN,
+                ],
+                "imp_age": [
+                    TechInfo.ARQUEBUS,
+                    TechInfo.ARTILLERY,
+                    TechInfo.ATHEISM,
+                    TechInfo.AZNAURI_CAVALRY,
+                    TechInfo.BAGAINS,
+                    TechInfo.BOGSVEIGAR,
+                    TechInfo.BURGUNDIAN_VINEYARDS,
+                    TechInfo.CHIVALRY,
+                    TechInfo.CRENELLATIONS,
+                    TechInfo.COMITATENSES,
+                    TechInfo.COUNTERWEIGHTS,
+                    TechInfo.CUMAN_MERCENARIES,
+                    TechInfo.FABRIC_SHIELDS,
+                    TechInfo.FERETERS,
+                    TechInfo.DOUBLE_CROSSBOW,
+                    TechInfo.DRILL,
+                    TechInfo.DRUZHINA,
+                    TechInfo.EL_DORADO,
+                    TechInfo.FARIMBA,
+                    TechInfo.FLEMISH_REVOLUTION,
+                    TechInfo.FORCED_LEVY,
+                    TechInfo.FRONTIER_GUARDS,
+                    TechInfo.FUROR_CELTICA,
+                    TechInfo.GARLAND_WARS,
+                    TechInfo.HUSSITE_REFORMS,
+                    TechInfo.KATAPARUTO,
+                    TechInfo.LECHITIC_LEGACY,
+                    TechInfo.LOGISTICA,
+                    TechInfo.MAGHREBI_CAMELS,
+                    TechInfo.MAHAYANA,
+                    TechInfo.CITADELS,
+                    TechInfo.MANIPUR_CAVALRY,
+                    TechInfo.PAPER_MONEY,
+                    TechInfo.PERFUSION,
+                    TechInfo.RECURVE_BOW,
+                    TechInfo.ROCKETRY,
+                    TechInfo.HAUBERK,
+                    TechInfo.SHINKICHON,
+                    TechInfo.SILK_ROAD,
+                    TechInfo.SUPREMACY,
+                    TechInfo.TIMURID_SIEGECRAFT,
+                    TechInfo.TORSION_ENGINES,
+                    TechInfo.TOWER_SHIELDS,
+                    TechInfo.WARWOLF,
+                    TechInfo.WOOTZ_STEEL,
+                ],
+            },
+            "chronicles": {
+                "castle_age": [
+                    TechInfo.SPARABARAS,
+                    TechInfo.REED_ARROWS,
+                    TechInfo.TAXIARCHS,
+                    TechInfo.IPHICRATEAN_TACTICS,
+                    TechInfo.HELOT_LEVIES,
+                    TechInfo.XYPHOS,
+                ],
+                "imp_age": [
+                    TechInfo.SCYTHED_CHARIOTS,
+                    TechInfo.KARDA,
+                    TechInfo.EISPHORA,
+                    TechInfo.DELIAN_LEAGUE,
+                    TechInfo.KRYPTEIA,
+                    TechInfo.PELOPONNESIAN_LEAGUE,
+                ],
+            },
         }
 
         techs_to_return = []
 
-        if not exclude_castle_techs:
-            techs_to_return.extend(unique_techs["castle_age"])
-        if not exclude_imp_techs:
-            techs_to_return.extend(unique_techs["imp_age"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if not exclude_castle_techs:
+                techs_to_return.extend(unique_techs[addon]["castle_age"])
+            if not exclude_imp_techs:
+                techs_to_return.extend(unique_techs[addon]["imp_age"])
 
         return techs_to_return
 
     @staticmethod
     def unique_unit_upgrades(
             exclude_castle_techs: bool = False,
-            exclude_non_castle_techs: bool = False
+            exclude_non_castle_techs: bool = False,
+            include_chronicles: bool = False,
     ) -> List[TechInfo]:
         """
         Args:
             exclude_castle_techs: if set to `False`, excludes the castle unique unit techs from the list of techs returned
             exclude_non_castle_techs: if set to `False`, excludes the non castle unique unit techs from the list of techs
                 returned
+            include_chronicles: if set to `True`, includes the chronicles techs to the list of techs returned
 
         Returns:
             A list of unique unite upgrade tech IDs
         """
         unique_techs = {
-            "castle": [
-                TechInfo.ELITE_ARAMBAI,
-                TechInfo.ELITE_BALLISTA_ELEPHANT,
-                TechInfo.ELITE_BERSERK,
-                TechInfo.ELITE_BOYAR,
-                TechInfo.ELITE_CAMEL_ARCHER,
-                TechInfo.ELITE_CATAPHRACT,
-                TechInfo.ELITE_CENTURION,
-                TechInfo.ELITE_CHAKRAM_THROWER,
-                TechInfo.ELITE_CHU_KO_NU,
-                TechInfo.ELITE_COMPOSITE_BOWMAN,
-                TechInfo.ELITE_CONQUISTADOR,
-                TechInfo.ELITE_COUSTILLIER,
-                TechInfo.ELITE_GBETO,
-                TechInfo.ELITE_GENOESE_CROSSBOWMAN,
-                TechInfo.ELITE_GHULAM,
-                TechInfo.ELITE_HUSKARL,
-                TechInfo.ELITE_HUSSITE_WAGON,
-                TechInfo.ELITE_JAGUAR_WARRIOR,
-                TechInfo.ELITE_JANISSARY,
-                TechInfo.ELITE_KAMAYUK,
-                TechInfo.ELITE_KARAMBIT_WARRIOR,
-                TechInfo.ELITE_KESHIK,
-                TechInfo.ELITE_KIPCHAK,
-                TechInfo.ELITE_KONNIK,
-                TechInfo.ELITE_LEITIS,
-                TechInfo.ELITE_LONGBOWMAN,
-                TechInfo.ELITE_MAGYAR_HUSZAR,
-                TechInfo.ELITE_MAMELUKE,
-                TechInfo.ELITE_MANGUDAI,
-                TechInfo.ELITE_MONASPA,
-                TechInfo.ELITE_OBUCH,
-                TechInfo.ELITE_ORGAN_GUN,
-                TechInfo.ELITE_PLUMED_ARCHER,
-                TechInfo.ELITE_RATHA,
-                TechInfo.ELITE_RATTAN_ARCHER,
-                TechInfo.ELITE_SAMURAI,
-                TechInfo.ELITE_SERJEANT,
-                TechInfo.ELITE_SHOTEL_WARRIOR,
-                TechInfo.ELITE_TARKAN,
-                TechInfo.ELITE_TEUTONIC_KNIGHT,
-                TechInfo.ELITE_THROWING_AXEMAN,
-                TechInfo.ELITE_URUMI_SWORDSMAN,
-                TechInfo.ELITE_WAR_ELEPHANT,
-                TechInfo.ELITE_WAR_WAGON,
-                TechInfo.ELITE_WOAD_RAIDER,
-            ],
-            "non_castle": [
-                TechInfo.ELITE_CARAVEL,
-                TechInfo.ELITE_GENITOUR,
-                TechInfo.ELITE_LONGBOAT,
-                TechInfo.ELITE_TURTLE_SHIP,
-                TechInfo.HOUFNICE,
-                TechInfo.IMPERIAL_CAMEL_RIDER,
-                TechInfo.IMPERIAL_SKIRMISHER,
-                TechInfo.ELITE_SHRIVAMSHA_RIDER,
-                TechInfo.WINGED_HUSSAR,
-                TechInfo.ELITE_QIZILBASH_WARRIOR,
-                TechInfo.SAVAR,
-            ]
+            "base": {
+                "castle": [
+                    TechInfo.ELITE_ARAMBAI,
+                    TechInfo.ELITE_BALLISTA_ELEPHANT,
+                    TechInfo.ELITE_BERSERK,
+                    TechInfo.ELITE_BOYAR,
+                    TechInfo.ELITE_CAMEL_ARCHER,
+                    TechInfo.ELITE_CATAPHRACT,
+                    TechInfo.ELITE_CENTURION,
+                    TechInfo.ELITE_CHAKRAM_THROWER,
+                    TechInfo.ELITE_CHU_KO_NU,
+                    TechInfo.ELITE_COMPOSITE_BOWMAN,
+                    TechInfo.ELITE_CONQUISTADOR,
+                    TechInfo.ELITE_COUSTILLIER,
+                    TechInfo.ELITE_GBETO,
+                    TechInfo.ELITE_GENOESE_CROSSBOWMAN,
+                    TechInfo.ELITE_GHULAM,
+                    TechInfo.ELITE_HUSKARL,
+                    TechInfo.ELITE_HUSSITE_WAGON,
+                    TechInfo.ELITE_JAGUAR_WARRIOR,
+                    TechInfo.ELITE_JANISSARY,
+                    TechInfo.ELITE_KAMAYUK,
+                    TechInfo.ELITE_KARAMBIT_WARRIOR,
+                    TechInfo.ELITE_KESHIK,
+                    TechInfo.ELITE_KIPCHAK,
+                    TechInfo.ELITE_KONNIK,
+                    TechInfo.ELITE_LEITIS,
+                    TechInfo.ELITE_LONGBOWMAN,
+                    TechInfo.ELITE_MAGYAR_HUSZAR,
+                    TechInfo.ELITE_MAMELUKE,
+                    TechInfo.ELITE_MANGUDAI,
+                    TechInfo.ELITE_MONASPA,
+                    TechInfo.ELITE_OBUCH,
+                    TechInfo.ELITE_ORGAN_GUN,
+                    TechInfo.ELITE_PLUMED_ARCHER,
+                    TechInfo.ELITE_RATHA,
+                    TechInfo.ELITE_RATTAN_ARCHER,
+                    TechInfo.ELITE_SAMURAI,
+                    TechInfo.ELITE_SERJEANT,
+                    TechInfo.ELITE_SHOTEL_WARRIOR,
+                    TechInfo.ELITE_TARKAN,
+                    TechInfo.ELITE_TEUTONIC_KNIGHT,
+                    TechInfo.ELITE_THROWING_AXEMAN,
+                    TechInfo.ELITE_URUMI_SWORDSMAN,
+                    TechInfo.ELITE_WAR_ELEPHANT,
+                    TechInfo.ELITE_WAR_WAGON,
+                    TechInfo.ELITE_WOAD_RAIDER,
+                ],
+                "non_castle": [
+                    TechInfo.ELITE_CARAVEL,
+                    TechInfo.ELITE_GENITOUR,
+                    TechInfo.ELITE_LONGBOAT,
+                    TechInfo.ELITE_TURTLE_SHIP,
+                    TechInfo.HOUFNICE,
+                    TechInfo.IMPERIAL_CAMEL_RIDER,
+                    TechInfo.IMPERIAL_SKIRMISHER,
+                    TechInfo.ELITE_SHRIVAMSHA_RIDER,
+                    TechInfo.WINGED_HUSSAR,
+                    TechInfo.ELITE_QIZILBASH_WARRIOR,
+                    TechInfo.SAVAR,
+                ],
+            },
+            "chronicles": {
+                "castle": [
+                    TechInfo.ELITE_IMMORTAL,
+                    TechInfo.ELITE_STRATEGOS,
+                    TechInfo.ELITE_HIPPEUS,
+                ],
+                "non_castle": [
+                    TechInfo.EPHORATE,
+                    TechInfo.MORAI,
+                ],
+            }
         }
 
         techs_to_return = []
 
-        if not exclude_castle_techs:
-            techs_to_return.extend(unique_techs["castle"])
-        if not exclude_non_castle_techs:
-            techs_to_return.extend(unique_techs["non_castle"])
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if not exclude_castle_techs:
+                techs_to_return.extend(unique_techs[addon]["castle"])
+            if not exclude_non_castle_techs:
+                techs_to_return.extend(unique_techs[addon]["non_castle"])
 
         return techs_to_return
 
     @staticmethod
-    def town_center_techs(ages: int | List[int] = None):
+    def town_center_techs(ages: int | List[int] = None) -> List[TechInfo]:
         """
         Args:
             ages: a list of age IDs (IDs are located in the Age IntEnum dataset). If specified, only techs from these
@@ -312,17 +362,17 @@ class TechInfo(Enum):
         upgrades = {
             Age.DARK_AGE: [
                 TechInfo.LOOM,
-                TechInfo.FEUDAL_AGE
+                TechInfo.FEUDAL_AGE,
             ],
             Age.FEUDAL_AGE: [
                 TechInfo.WHEELBARROW,
                 TechInfo.TOWN_WATCH,
-                TechInfo.CASTLE_AGE
+                TechInfo.CASTLE_AGE,
             ],
             Age.CASTLE_AGE: [
                 TechInfo.HAND_CART,
                 TechInfo.TOWN_PATROL,
-                TechInfo.IMPERIAL_AGE
+                TechInfo.IMPERIAL_AGE,
             ],
             Age.IMPERIAL_AGE: [],
         }
@@ -352,21 +402,21 @@ class TechInfo(Enum):
                 TechInfo.SCALE_MAIL_ARMOR,
                 TechInfo.SCALE_BARDING_ARMOR,
                 TechInfo.FLETCHING,
-                TechInfo.PADDED_ARCHER_ARMOR
+                TechInfo.PADDED_ARCHER_ARMOR,
             ],
             Age.CASTLE_AGE: [
                 TechInfo.IRON_CASTING,
                 TechInfo.CHAIN_MAIL_ARMOR,
                 TechInfo.CHAIN_BARDING_ARMOR,
                 TechInfo.BODKIN_ARROW,
-                TechInfo.LEATHER_ARCHER_ARMOR
+                TechInfo.LEATHER_ARCHER_ARMOR,
             ],
             Age.IMPERIAL_AGE: [
                 TechInfo.BLAST_FURNACE,
                 TechInfo.PLATE_MAIL_ARMOR,
                 TechInfo.PLATE_BARDING_ARMOR,
                 TechInfo.BRACER,
-                TechInfo.RING_ARCHER_ARMOR
+                TechInfo.RING_ARCHER_ARMOR,
             ],
         }
 
@@ -404,7 +454,7 @@ class TechInfo(Enum):
                 TechInfo.FAITH,
                 TechInfo.ILLUMINATION,
                 TechInfo.BLOCK_PRINTING,
-                TechInfo.THEOCRACY
+                TechInfo.THEOCRACY,
             ],
         }
 
@@ -444,7 +494,7 @@ class TechInfo(Enum):
                 TechInfo.SIEGE_ENGINEERS,
                 TechInfo.KEEP,
                 TechInfo.ARROWSLITS,
-                TechInfo.BOMBARD_TOWER
+                TechInfo.BOMBARD_TOWER,
             ],
         }
 
@@ -474,7 +524,7 @@ class TechInfo(Enum):
                 BuildingInfo.MINING_CAMP.ID,
                 BuildingInfo.LUMBER_CAMP.ID,
                 BuildingInfo.TOWN_CENTER.ID,
-                BuildingInfo.MARKET.ID
+                BuildingInfo.MARKET.ID,
             ]
         else:
             buildings = listify(buildings)
@@ -506,7 +556,7 @@ class TechInfo(Enum):
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.TWO_MAN_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [],
-                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS]
+                BuildingInfo.MARKET.ID: [TechInfo.BANKING, TechInfo.GUILDS],
             },
         }
 
@@ -518,13 +568,15 @@ class TechInfo(Enum):
         return techs_to_return
 
     @staticmethod
-    def civilization_techs() -> List[TechInfo]:
+    def civilization_techs(include_chronicles: bool = False) -> List[TechInfo]:
         """
+        Args:
+            include_chronicles: if set to `True`, includes the chronicles techs to the list of techs returned
         Returns:
             A list of TechInfo objects which represent all civ 'upgrades'. Can be used to detect which civ is being
             played by the player using the 'researched technology' condition.
         """
-        return [
+        base_techs = [
             TechInfo.ARMENIANS,
             TechInfo.AZTECS,
             TechInfo.BENGALIS,
@@ -571,6 +623,14 @@ class TechInfo(Enum):
             TechInfo.VIETNAMESE,
             TechInfo.VIKINGS,
         ]
+        chronicles_techs = [
+            TechInfo.ACHAEMENIDS,
+            TechInfo.ATHENIANS,
+            TechInfo.SPARTANS,
+        ]
+        if include_chronicles:
+            base_techs.extend(chronicles_techs)
+        return base_techs
 
     ANARCHY = 16, 33
     ANDEAN_SLING = 516, 33
@@ -589,7 +649,7 @@ class TechInfo(Enum):
     BANKING = 17, 3
     BEARDED_AXE = 83, 107
     BERBERS = 583, -1
-    BERSERKERGANG = 49, 107
+    BOGSVEIGAR = 49, 107
     BLAST_FURNACE = 75, 21
     BLOCK_PRINTING = 230, 82
     BLOODLINES = 435, 110
@@ -757,7 +817,7 @@ class TechInfo(Enum):
     MADRASAH = 490, 33
     MAGHREBI_CAMELS = 579, 107
     MAGYARS = 550, -1
-    MAHOUTS = 7, 107
+    CITADELS = 7, 107
     MALAY = 651, -1
     MALIANS = 582, -1
     MAN_AT_ARMS = 222, 85
@@ -885,7 +945,7 @@ class TechInfo(Enum):
     RESOURCES_LAST_300_PERCENT_LONGER = 747, -1
     DISABLE_FREE_TRANSPORT = 229, -1
     AUTO_UPGRADE_SCOUT_FEUDAL_AGE = 20, 0
-    COMPASS = 28, 827
+    BIMARISTAN = 28, 33
     SPANISH_CANNON_GALLEON = 57, 0
     WALLS_HP_CASTLE_AGE = 71, -1
     PALISADE_WALLS_HP_FEUDAL_AGE = 72, -1
@@ -1003,6 +1063,39 @@ class TechInfo(Enum):
     TECHNOLOGY_PLACEHOLDER_08 = 975, 107
     TECHNOLOGY_PLACEHOLDER_09 = 976, 107
     TECHNOLOGY_PLACEHOLDER_10 = 977, 107
+    SPARABARAS = 1110, 164
+    REED_ARROWS = 1111, 165
+    SCYTHED_CHARIOTS = 1112, 166
+    KARDA = 1113, 167
+    ELITE_IMMORTAL = 1115, 105
+    TAXIARCHS = 1120, 164
+    IPHICRATEAN_TACTICS = 1121, 165
+    EISPHORA = 1122, 166
+    DELIAN_LEAGUE = 1123, 167
+    ELITE_STRATEGOS = 1125, 105
+    HELOT_LEVIES = 1130, 164
+    KRYPTEIA = 1131, 166
+    XYPHOS = 1132, 165
+    PELOPONNESIAN_LEAGUE = 1133, 167
+    ELITE_HIPPEUS = 1135, 105
+    ELITE_HOPLITE = 1137, 188
+    WAR_LEMBOS = 1144, 190
+    HEAVY_LEMBOS = 1145, 191
+    ELITE_LEMBOS = 1146, 192
+    BIREME = 1148, 193
+    TRIREME = 1149, 194
+    WAR_GALLEY_ANTIQUITY = 1151, 195
+    ELITE_GALLEY = 1152, 196
+    INCENDIARY_SHIP = 1154, 39
+    HEAVY_INCENDIARY_SHIP = 1155, 250
+    ONAGER_SHIP = 1159, 197
+    SCOOP_NETS = 1161, 41
+    DRUMS = 1162, 99
+    HYPOZOMATA = 1165, 169
+    SHIPWRIGHT_ANTIQUITY = 1167, 97
+    ELITE_WAR_CHARRIOT = 1171, 184
+    BATTLE_DRILLS = 1173, 168
+    CHAMPION_ANTIQUITY = 1174, 44
     BLANK_TECHNOLOGY_0 = 1180, -1
     BLANK_TECHNOLOGY_1 = 1181, -1
     BLANK_TECHNOLOGY_2 = 1182, -1
@@ -1013,6 +1106,20 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_7 = 1187, -1
     BLANK_TECHNOLOGY_8 = 1188, -1
     BLANK_TECHNOLOGY_9 = 1189, -1
+    ECONOMIC_TOWN_CENTER = 1195, 171
+    MILITARY_TOWN_CENTER = 1196, 170
+    DEFENSIVE_TOWN_CENTER = 1197, 172
+    FREE_LEMBOS_SPAWN = 1198, -1
+    ECONOMIC_POLICY = 1202, 155
+    NAVAL_POLICY = 1203, 156
+    MILITARY_POLICY = 1204, 154
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_PORT = 1215, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_PORT = 1216, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_PORT = 1217, 159
+    EPHORATE = 1223, 163
+    MORAI = 1224, 162
+    SKEUOPHOROI = 1225, 160
+    HIPPAGRETAI = 1226, 161
     BLANK_TECHNOLOGY_10 = 1240, -1
     BLANK_TECHNOLOGY_11 = 1241, -1
     BLANK_TECHNOLOGY_12 = 1242, -1
@@ -1023,3 +1130,9 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_17 = 1247, -1
     BLANK_TECHNOLOGY_18 = 1248, -1
     BLANK_TECHNOLOGY_19 = 1249, -1
+    ACHAEMENIDS = 1258, -1
+    ATHENIANS = 1259, -1
+    SPARTANS = 1260, -1
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159
