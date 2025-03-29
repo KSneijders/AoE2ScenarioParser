@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.3.2 - 2025-March-29
+
+### Added
+
+- Support for setting ignores on XS-Check
+  - `XsManager.xs_check.ignores` is a `set` of warnings that will be ignored when processing
+  - `XsManager.xs_check.additional_args` is a `list` of arguments that will be appended to the XS-Check calls
+- Support for the Xs-Check `v0.2.3` — View the `v0.2.3` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.3
+- Updated many datasets to include objects from the Chronicles DLC! — Credits: by [@mardaravicius] in [#57](https://github.com/KSneijders/AoE2ScenarioParser/pull/57) 
+
+[@mardaravicius]: (https://github.com/mardaravicius)
+
+### Fixed
+
+- Direct function calls in conditions and effects being added to the script provided to XS-Check 
+
+---
+
 ## 0.3.1 - 2025-March-01
 
 ### Fixed

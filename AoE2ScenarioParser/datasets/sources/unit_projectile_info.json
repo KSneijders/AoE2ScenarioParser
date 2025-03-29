@@ -620,10 +620,10 @@
         "secondary_fire": 522
     },
     "1251": {
-        "primary": 746,
-        "primary_fire": 747,
-        "secondary": 746,
-        "secondary_fire": 747
+        "primary": 786,
+        "primary_fire": 787,
+        "secondary": 786,
+        "secondary_fire": 787
     },
     "1259": {
         "primary": 477,
@@ -695,7 +695,11 @@
         "primary": 371,
         "primary_fire": 469
     },
-    "1733": {
+    "1704": {
+        "primary": 1733,
+        "secondary": 1119
+    },
+    "1706": {
         "primary": 1733,
         "secondary": 1119
     },
@@ -728,5 +732,158 @@
     "1806": {
         "secondary": 54,
         "secondary_fire": 328
+    },
+    "2117": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2118": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2119": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2123": {
+        "primary": 676
+    },
+    "2124": {
+        "primary": 676
+    },
+    "2125": {
+        "primary": 676
+    },
+    "2126": {
+        "primary": 676
+    },
+    "2127": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2128": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2129": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2130": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2131": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2132": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2133": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2134": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2135": {
+        "primary": 540,
+        "primary_fire": 541
+    },
+    "2138": {
+        "primary": 656,
+        "primary_fire": 658,
+        "secondary": 369,
+        "secondary_fire": 468
+    },
+    "2139": {
+        "primary": 656,
+        "primary_fire": 658,
+        "secondary": 369,
+        "secondary_fire": 468
+    },
+    "2140": {
+        "primary": 2226
+    },
+    "2141": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2142": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2143": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2172": {
+        "secondary": 512,
+        "secondary_fire": 524
+    },
+    "2174": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "2175": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "2275": {
+        "secondary": 54,
+        "secondary_fire": 328
+    },
+    "2276": {
+        "primary": 54,
+        "primary_fire": 328,
+        "secondary": 54,
+        "secondary_fire": 328
+    },
+    "2277": {
+        "secondary": 54,
+        "secondary_fire": 328
+    },
+    "2308": {
+        "primary": 478,
+        "primary_fire": 476
+    },
+    "2311": {
+        "primary": 540,
+        "primary_fire": 541,
+        "secondary": 540,
+        "secondary_fire": 541
+    },
+    "2319": {
+        "primary": 2342
+    },
+    "2320": {
+        "primary": 187
+    },
+    "2324": {
+        "primary": 507,
+        "primary_fire": 519
+    },
+    "2326": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2328": {
+        "primary": 366,
+        "primary_fire": 377,
+        "secondary": 366,
+        "secondary_fire": 377
+    },
+    "2332": {
+        "primary": 366,
+        "primary_fire": 377,
+        "secondary": 366,
+        "secondary_fire": 377
+    },
+    "2339": {
+        "primary": 373,
+        "primary_fire": 471
     }
 }
