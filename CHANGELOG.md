@@ -25,7 +25,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## 0.3.0 - 2025-Februari-28
+## 0.3.1 - 2025-March-01
+
+### Fixed
+
+- The default scenario file not being added into the final package build
+
+---
+
+## 0.3.0 - 2025-March-01
 
 ### Added
 
