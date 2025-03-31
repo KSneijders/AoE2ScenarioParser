@@ -8,7 +8,6 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
@@ -102,18 +101,13 @@ class Trigger(AoE2Object, TriggerComponent):
         self.new_effect: NewEffectSupport = NewEffectSupport(self)
         self.new_condition: NewConditionSupport = NewConditionSupport(self)
 
-        self._assign_new_ce_support()
-
-    def _deepcopy_entry(self, k, v) -> Any:
-        if k in ['new_effect', 'new_condition']:
-            return None
+    def _deepcopy_entry(self, result, k, v, memo) -> Any:
+        if k == 'new_effect':
+            return NewEffectSupport(result)
+        elif k == 'new_condition':
+            return NewConditionSupport(result)
         else:
-            return super()._deepcopy_entry(k, v)
-
-    def _assign_new_ce_support(self):
-        """Assigns new `new_effect` and `new_condition` objects to this trigger"""
-        self.new_effect = NewEffectSupport(self)
-        self.new_condition = NewConditionSupport(self)
+            return super()._deepcopy_entry(result, k, v, memo)
 
     @property
     def condition_order(self) -> List[int]:

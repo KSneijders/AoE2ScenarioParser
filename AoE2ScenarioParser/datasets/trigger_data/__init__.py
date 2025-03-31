@@ -1,8 +1,8 @@
 from .action_type import ActionType
 from .age import Age
 from .attack_stance import AttackStance
-from .player_attribute import PlayerAttribute
 from .blast_level import BlastLevel
+from .blockage_class import BlockageClass
 from .button_location import ButtonLocation
 from .charge_event import ChargeEvent
 from .charge_type import ChargeType
@@ -20,13 +20,16 @@ from .object_attribute import ObjectAttribute
 from .object_class import ObjectClass
 from .object_state import ObjectState
 from .object_type import ObjectType
+from .obstruction_type import ObstructionType
 from .occlusion_mode import OcclusionMode
 from .operation import Operation
 from .panel_location import PanelLocation
+from .player_attribute import PlayerAttribute
 from .projectile_hit_mode import ProjectileHitMode
 from .projectile_smart_mode import ProjectileSmartMode
 from .projectile_vanish_mode import ProjectileVanishMode
 from .secondary_game_mode import SecondaryGameMode
+from .selection_effect import SelectionEffect
 from .technology_state import TechnologyState
 from .terrain_restrictions import TerrainRestrictions
 from .time_unit import TimeUnit
@@ -35,3 +38,4 @@ from .unit_trait import UnitTrait
 from .victory_condition import VictoryCondition
 from .victory_timer_type import VictoryTimerType
 from .visibility_state import VisibilityState
+

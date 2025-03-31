@@ -30,6 +30,10 @@ That's the problem this object is _trying_ (feature suggestions always welcome!)
 
 ---
 
+## API Documentation
+
+For the API Documentation for the Area object, go here: [Area API Documentation](../api_docs/support/area.md).
+
 ## Examples
 
 Below are a couple examples that show why this object can be very useful when working with coordinates.
@@ -257,3 +261,9 @@ for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
         row = index // (map_manager.map_size / 3)  # 3 as the size of the grid blocks
         terrain_tile.type = TerrainId.BLACK if (index + row) % 2 == 0 else TerrainId.ICE
 ```
+
+---
+
+The API Documentation has existed for some time, and the temporary docs here, have been removed.
+
+They've been moved here: [Area API Documentation](../api_docs/support/area.md).

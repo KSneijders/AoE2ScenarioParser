@@ -7,6 +7,109 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.3.2 - 2025-March-29
+
+### Added
+
+- Support for setting ignores on XS-Check
+  - `XsManager.xs_check.ignores` is a `set` of warnings that will be ignored when processing
+  - `XsManager.xs_check.additional_args` is a `list` of arguments that will be appended to the XS-Check calls
+- Support for the Xs-Check `v0.2.3` — View the `v0.2.3` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.3
+- Updated many datasets to include objects from the Chronicles DLC! — Credits: by [@mardaravicius] in [#57](https://github.com/KSneijders/AoE2ScenarioParser/pull/57) 
+
+[@mardaravicius]: (https://github.com/mardaravicius)
+
+### Fixed
+
+- Direct function calls in conditions and effects being added to the script provided to XS-Check 
+
+---
+
+## 0.3.1 - 2025-March-01
+
+### Fixed
+
+- The default scenario file not being added into the final package build
+
+---
+
+## 0.3.0 - 2025-March-01
+
+### Added
+
+_Thanks Alian for the wonderful [XS Check] library!_
+
+- [XS Check] integration into AoE2ScenarioParser. 
+  - XS Check will automatically verify all XS and show errors without having to launch the scenario! 
+  - Check out the **new** [XS Check cheatsheet](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/xs_check/) for examples and configurations!
+  - Also check out the **new** [XS Check API docs](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/xs/xs_check/) for everything else!
+- `from_default` functionality on `AoE2DEScenario` to start working on a scenario without needing a base scenario.
+  - Can be used like: `scenario = AoE2DEScenario.from_default()` instead of `scenario = AoE2DEScenario.from_file(...)`
+
+[XS Check]: https://github.com/Divy1211/xs-check
+
+---
+
+## 0.2.15 - 2025-Januari-17
+
+### Updated
+
+- `PanelLocation` attributes updated to be consistent with in-game names
+  - `PanelLocation.BETWEEN` → `PanelLocation.MIDDLE`
+  - `PanelLocation.CENTER` → `PanelLocation.BOTTOM`
+
+### Fixed
+
+- `MapManager.map_color_mood` causing an error on write in certain conditions
+
+---
+
+## 0.2.14 - 2025-Januari-11
+
+[Datasets documentation](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/datasets/trigger_lists/action_type/) has been improved:
+
+- Ordering of attributes within datasets has been matched to source instead of alphabetically.
+  - So (for example) the order of ages is no longer: "Castle Age, Dark Age, Feudal Age, Imperial Age"
+- Invalid links from UGC site have been filtered out
+
+### Changed
+
+- `MapManager.map_color_mood` will now return the `ColorMood` enum when possible
+
+---
+
+## 0.2.13 - 2024-December-31
+
+Datasets are now in the API docs! [They should appear here](https://ksneijders.github.io/AoE2ScenarioParser/api_docs/datasets/trigger_lists/action_type/)!  
+_(Predicting the URL)_
+
+### Added
+
+- Three new datasets: (For use in a `Modify Attribute` Effect with the corresponding attribute selected)
+  - `BlockageClass` dataset 
+  - `ObstructionType` dataset
+  - `SelectionEffect` dataset
+
+### Renamed
+
+- `unit_action` dataset module to `unit_ai_action` — **NOT** the class itself (Was already `UnitAiAction`)
+- `game_variant` dataset module to `scenario_variant` — **NOT** the class itself (Was already `ScenarioVariant`)
+
+### Improved
+
+- Type hinting for unit objects when accessed through `unit_manager.units`
+
+### Fixed
+
+- Copying triggers (using any trigger manager copy function) resulted in missing attributes on triggers / effects
+- Creating units with older scenario versions
+
+### Removed
+
+- Legacy `BlastLevel` attributes. For more info, see this [commit description](https://github.com/KSneijders/AoE2ScenarioParser/commit/aaaaec803072f2fed714fbae27a74e8e52c9f137)
+
+---
+
 ## 0.2.12 - 2024-November-16
 
 ### Added
@@ -1684,7 +1787,7 @@ Also, there has been a massive change to the 'back' portion of the project. If y
 
 -   **The way a file is read is now done using:** `AoE2Scenario.from_file(filename)`. Nothing changed - just add "_.from_file_" between the class and the brackets :)
 -   Within the library the use of `\x00` character for line endings is no longer a necessity.
-    -   This mainly affects checking names: (eg. `trigger.name == "name\x00"`) (Credits: Alian713)
+    -   This mainly affects checking names: (e.g. `trigger.name == "name\x00"`) (Credits: Alian713)
 -   The parameter `trigger_id` has been renamed to `trigger_index` in all functions in TriggersObject (trigger_manager)
 -   Renamend `Operator` to `Operation`.
 -   Managers can now be accessed directly from the scenario. Eg: `scenario.trigger_manager`.

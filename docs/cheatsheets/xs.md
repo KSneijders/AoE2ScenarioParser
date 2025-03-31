@@ -2,6 +2,11 @@
 
 For an introduction to the XS scripting language itself, you can check out the [UGC Guide](https://divy1211.github.io/AoE2DE_UGC_Guide/general/xs/beginner/).
 
+## XS-Check
+
+For more information on the XS-Check utility, see the [XS-Check API Docs](./../api_docs/xs/xs_check.md) or 
+the [XS Check Cheatsheet](./xs_check.md).
+
 ## Support
 
 Since the introduction of the XS manager, there have been some improvements to the game supporting XS in multiplayer.

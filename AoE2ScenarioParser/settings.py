@@ -28,3 +28,6 @@ MAIN_CHARSET = "utf-8"
 """The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""
 FALLBACK_CHARSET = "latin-1"
 """The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails"""
+
+ENABLE_XS_CHECK_INTEGRATION = True
+"""If the xs-check integration should be active. If set to False, xs-check will not be used anywhere"""

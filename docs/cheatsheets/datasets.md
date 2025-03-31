@@ -70,42 +70,46 @@ remember. That's why these datasets have been added:
 
 | Names                | Explanation                                                                         | Example                                      |
 |----------------------|-------------------------------------------------------------------------------------|----------------------------------------------|
-| DiplomacyStance       | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.          | `DiplomacyStance.ALLY`                        |
-| Operation            | Used in many effects. Generally related to variables.                               | `Operation.MULTIPLY`                         |
-| ButtonLocation *     | Used in the `Change Research Location` and `Change Train Location` effects. *       | `ButtonLocation.R2C3`                        |
-| PanelLocation        | Used in the `Display Instructions` effect.                                          | `PanelLocation.CENTER`                       |
-| TimeUnit             | Used in the `Display Timer` effect.                                                 | `TimeUnit.YEARS`                             |
-| VisibilityState      | Used in the `Set Player Visibility` effect.                                         | `VisibilityState.EXPLORED`                   |
-| DifficultyLevel      | Used in the `Difficulty Level` condition.                                           | `DifficultyLevel.HARDEST`                    |
-| TechnologyState      | Used in the `Technology State` condition.                                           | `TechnologyState.RESEARCHING`                |
-| Comparison           | Used in many effects and conditions. Generally related to variables.                | `Comparison.EQUAL`                           |
-| ObjectAttribute      | Used in the `Modify Attribute` effect.                                              | `ObjectAttribute.CARRY_CAPACITY`             |
-| PlayerAttribute      | Used in the `Accumulate Attribute` effect.                                          | `PlayerAttribute.ALL_TECHS_ACHIEVED`         |
-| UnitAIAction         | Used in the `Object has Action` condition.                                          | `UnitAIAction.ATTACK`                        |
+| ActionType           | Used in the `Task Object` effect.                                                   | `ActionType.ATTACK_GROUND`                   |
+| Age                  | Used in the `Modify Resource` effect. With the `Current Age` resource.              | `Age.CASTLE_AGE`                             |
 | AttackStance         | Used in the `Change Object Stance` effect.                                          | `AttackStance.AGGRESSIVE_STANCE`             |
-| ObjectType           | Used in every unit selection effect & condition.                                    | `ObjectType.DOPPELGANGER`                    |
-| ObjectClass          | Used in every unit selection effect & condition.                                    | `ObjectClass.INFANTRY`                       |
-| DamageClass          | Used in the `Change Object Attack/Armour` effects.                                  | `DamageClass.SPEARMEN`                       |
-| HeroStatusFlag *     | Can be used for changing the `HERO_STATUS` in `ObjectAttribute`. *                  | `HeroStatusFlag.HERO_REGENERATION`           |
-| Hotkey               | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`.                      | `Hotkey.SPACE`                               |
+| Attribute            | Used in the `Accumulate Attribute` effect.                                          | `Attribute.ALL_TECHS_ACHIEVED`               |
 | BlastLevel           | Can be used for changing the `BLAST_<>_LEVEL` properties in `ObjectAttribute`.      | `BlastLevel.NEARBY_UNITS`                    |
-| TerrainRestrictions  | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`.         | `TerrainRestrictions.LAND`                   |
-| ProjectileSmartMode  | Can be used for changing the `ENABLE_SMART_PROJECTILES` in `ObjectAttribute`.       | `ProjectileSmartMode.TARGET_FUTURE_LOCATION` |
-| ColorMood            | Used in the `Change Color Mood` effect.                                             | `ColorMood.WINTER`                           |
-| ObjectState          | Used in the `Objects in area` condition.                                            | `ObjectState.DEAD`                           |
-| Color                | Used in the player manager for setting the player color.                            | `Color.GREEN`                                |
-| Civilization         | Used in the player manager for setting the player civilization.                     | `Civilization.MAYANS`                        |
-| StartingAge          | Used in the player manager for setting the player starting age.                     | `StartingAge.FEUDAL_AGE`                     |
-| SecondaryGameMode    | Used for setting the secondary victory conditions.                                  | `SecondaryGameMode.SUDDEN_DEATH`             |
-| ChargeType           | Used in the `Modify Attribute` effect. With the `Charge Type` attribute.            | `ChargeType.AREA_ATTACK_CHARGE`              |
+| BlockageClass        | Used in the `Modify Attribute` effect. With the `Blockage Class` attribute.         | `BlockageClass.RESOURCE`                     |
+| ButtonLocation *     | Used in the `Change Research Location` and `Change Train Location` effects. *       | `ButtonLocation.r2c3`                        |
 | ChargeEvent          | Used in the `Modify Attribute` effect. With the `Charge Event` attribute.           | `ChargeEvent.NO_CHARGE_DEPLETED`             |
+| ChargeType           | Used in the `Modify Attribute` effect. With the `Charge Type` attribute.            | `ChargeType.AREA_ATTACK_CHARGE`              |
+| ColorMood            | Used in the `Change Color Mood` effect.                                             | `ColorMood.WINTER`                           |
 | CombatAbility        | Used in the `Modify Attribute` effect. With the `Combat Ability` attribute.         | `CombatAbility.ATTACK_GROUND`                |
+| Comparison           | Used in many effects and conditions. Generally related to variables.                | `Comparison.EQUAL`                           |
+| DamageClass          | Used in the `Change Object Attack/Armour` effects.                                  | `DamageClass.SPEARMEN`                       |
+| DifficultyLevel      | Used in the `Difficulty Level` condition.                                           | `DifficultyLevel.HARDEST`                    |
+| DiplomacyState       | Used in the `Change Diplomacy` effect and the `Diplomacy State` condition.          | `DiplomacyState.ALLY`                        |
 | FogVisibility        | Used in the `Modify Attribute` effect. With the `Fog Visibility` attribute.         | `FogVisibility.ALWAYS_VISIBLE`               |
 | GarrisonType         | Used in the `Modify Attribute` effect. With the `Garrison Type` attribute.          | `GarrisonType.CAVALRY`                       |
+| HeroStatusFlag *     | Can be used for changing the `HERO_STATUS` in `ObjectAttribute`. *                  | `HeroStatusFlag.HERO_REGENERATION`           |
+| Hotkey               | Can be used for changing the `HOTKEY_ID` in `ObjectAttribute`.                      | `Hotkey.SPACE`                               |
+| ObjectAttribute      | Used in the `Modify Attribute` effect.                                              | `ObjectAttribute.CARRY_CAPACITY`             |
+| ObjectClass          | Used in every unit selection effect & condition.                                    | `ObjectClass.INFANTRY`                       |
+| ObjectState          | Used in the `Objects in area` condition.                                            | `ObjectState.DEAD`                           |
+| ObjectType           | Used in every unit selection effect & condition.                                    | `ObjectType.DOPPELGANGER`                    |
+| ObstructionType      | Used in the `Modify Attribute` effect. With the `Obstruction Type` attribute.       | `ObstructionType.SQUARE_OUTLINE_COLLISION`   |
 | OcclusionMode        | Used in the `Modify Attribute` effect. With the `Occlusion Mode` attribute.         | `OcclusionMode.DISPLAY_OUTLINE`              |
+| Operation            | Used in many effects. Generally related to variables.                               | `Operation.MULTIPLY`                         |
+| PanelLocation        | Used in the `Display Instructions` effect.                                          | `PanelLocation.CENTER`                       |
 | ProjectileHitMode    | Used in the `Modify Attribute` effect. With the `Projectile Hit Mode` attribute.    | `ProjectileHitMode.ANY_PLAYER_UNIT`          |
+| ProjectileSmartMode  | Can be used for changing the `ENABLE_SMART_PROJECTILES` in `ObjectAttribute`.       | `ProjectileSmartMode.TARGET_FUTURE_LOCATION` |
 | ProjectileVanishMode | Used in the `Modify Attribute` effect. With the `Projectile Vanish Mode` attribute. | `ProjectileVanishMode.PASS_THROUGH`          |
+| SecondaryGameMode    | Used for setting the secondary victory conditions.                                  | `SecondaryGameMode.SUDDEN_DEATH`             |
+| SelectionEffect      | Used in the `Modify Attribute` effect. With the `Selection Effect` attribute.       | `SelectionEffect.HP_BAR_OUTLINE`             |
+| StartingAge          | Used in the player manager for setting the player starting age.                     | `StartingAge.FEUDAL_AGE`                     |
+| TechnologyState      | Used in the `Technology State` condition.                                           | `TechnologyState.RESEARCHING`                |
+| TerrainRestrictions  | Can be used for changing the `TERRAIN_RESTRICTION_ID` in `ObjectAttribute`.         | `TerrainRestrictions.LAND`                   |
+| TimeUnit             | Used in the `Display Timer` effect.                                                 | `TimeUnit.YEARS`                             |
+| UnitAIAction         | Used in the `Object has Action` condition.                                          | `UnitAIAction.ATTACK`                        |
 | UnitTrait            | Used in the `Modify Attribute` effect. With the `Unit Trait` attribute.             | `UnitTrait.SHIP`                             |
+| VictoryTimerType     | Used in the `Victory Timer` condition.                                              | `VictoryTimerType.KING_OF_THE_HILL_TIMER`    |
+| VisibilityState      | Used in the `Set Player Visibility` effect.                                         | `VisibilityState.EXPLORED`                   |
 
 \*: Means extra functionality listed below.
 

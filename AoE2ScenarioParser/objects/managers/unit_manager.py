@@ -36,7 +36,7 @@ class UnitManager(AoE2Object):
         return self.get_new_unit_id()
 
     @property
-    def units(self):
+    def units(self) -> List[List[Unit]]:
         return self._units
 
     @units.setter
@@ -150,6 +150,10 @@ class UnitManager(AoE2Object):
         """
         if id is None:
             id = self.get_new_unit_id()
+
+        caption_string_id_retriever = Unit._link_list[1].group[9]
+        if not caption_string_id_retriever.support.supports(self.get_scenario().scenario_version):
+            caption_string_id = None
 
         unit = Unit(
             player=player,

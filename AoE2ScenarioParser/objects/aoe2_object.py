@@ -29,11 +29,14 @@ class AoE2Object:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            entry = self._deepcopy_entry(k, v)
-            if entry is None:
-                continue
-            setattr(result, k, entry)
+            setattr(result, k, self._deepcopy_entry(result, k, v, memo))
         return result
+
+    def _deepcopy_entry(self, result, k, v, memo) -> Any:
+        if k in ['_sections', '_link_list']:
+            return getattr(self, k)
+        else:
+            return deepcopy(v, memo)
 
     def get_scenario(self) -> 'AoE2Scenario':
         """ Get the scenario associated with the current object """
@@ -48,13 +51,6 @@ class AoE2Object:
         Keeps indexes of the parents of this object. Should NOT be edited. Used for constructing/committing this object
         """
         return self._instance_number_history
-
-    def _deepcopy_entry(self, k, v):
-        if k in ['_sections', '_link_list']:
-            val = getattr(self, k)
-        else:
-            val = deepcopy(v)
-        return val
 
     @classmethod
     def construct(cls, uuid: UUID, number_hist: List[int] = None, progress: ConstructProgress = None):

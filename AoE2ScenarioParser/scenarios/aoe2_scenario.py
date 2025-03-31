@@ -14,3 +14,9 @@ class AoE2Scenario:
         scenario = ScenarioSections.from_file(path, strict=True)
 
         return scenario
+
+    # Todo: Scenario variant switching
+    # Todo: Resetting internal name on write
+    # Todo: On-write callbacks
+    # Todo: Document from_default() scenario changes (difference between pre-v1 and BFP default)
+    # Todo: Prevent source overwrite (unless configured otherwise)

@@ -3,15 +3,14 @@ from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBas
 
 class BuildingInfo(InfoDatasetBase):
     """
-    **Description**
-
     This is an enum class which provides information about most of the buildings in the game. Information about the
     following properties of a building is found in this class:
+
      - Unit ID
      - Icon ID
      - Dead Unit ID
      - HotKey ID
-     - If the building is a gaia only unit (eg. ruins)
+     - If the building is a gaia only unit (e.g. ruins)
 
     **Inherited Methods from class InfoDatasetBase**
 
@@ -217,3 +216,9 @@ class BuildingInfo(InfoDatasetBase):
     CHAPEL = 1836, -1, -1, 16225, False
     CASTLE_RUINS = 1837, -1, -1, 16757, True
     CHURCH_RUINS = 1836, -1, -1, 16757, True
+    SHIPYARD = 2119, -1, 111, 416002, False
+    PORT = 2172, -1, 110, 416001, False
+    GREEK_ARMY_TENT = 2176, 2177, 77, 16522, False
+    GREEK_COMMANDER_TENT = 2262, 2263, 77, 16522, False
+    SAPPER_TUNNEL = 2281, 144, 112, 16717, False
+    ORACLE_TEMPLE = 2348, 1421, 10, -1, False
