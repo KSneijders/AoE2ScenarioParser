@@ -115,6 +115,19 @@ class Tile:
             (self.y + map_size) if self.y < 0 else self.y,
         )
 
+    def move(self, x_offset: int = 0, y_offset: int = 0) -> Tile:
+        """
+        Moves the tile by the given offsets
+
+        Args:
+            x_offset: The amount to move the tile on the x-axis (West to East)
+            y_offset: The amount to move the tile on the y-axis (North to South)
+
+        Returns:
+            A copy of the tile object but offset by the given values
+        """
+        return Tile(self.x + x_offset, self.y + y_offset)
+
     def mid_tile(self, other: Tile, de_behaviour: bool = True) -> Tile:
         """
         Returns the tile that is in the middle of the current and given tile.

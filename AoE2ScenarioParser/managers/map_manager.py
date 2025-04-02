@@ -100,7 +100,7 @@ class MapManager(Manager):
     @map_size.setter
     def map_size(self, value):
         self.change_map_size(map_size = value, direction = Direction.EAST)
-
+        
     def shrink_map_by(
         self,
         shrink_by: int,
@@ -113,14 +113,17 @@ class MapManager(Manager):
         location if necessary.
 
         Args:
-            shrink_by: The size to expand the map by (with a 20x20 map, setting this to 10, would result in a 30x30 map)
-            direction: The direction to where the map is increased. (New area is created at this corner)
+            shrink_by: The size to shrink the map by (with a 40x40 map, setting this to 10, would result in a 30x30 map)
+            direction: The direction to where the map is decreased. (Area is removed from this corner)
             unit_overflow_action: What action should be taken with units if they are out of the map after shrinking it.
             trigger_overflow_action: What action should be taken with triggers (effects / conditions) if they are
                 partially out of the map after shrinking it.
 
         See Also:
             ``change_map_size``: For more information on specifics
+
+        Returns:
+            An empty OrderedSet.
         """
         return self.change_map_size(
             map_size = self.map_size - shrink_by,
@@ -146,7 +149,10 @@ class MapManager(Manager):
                 instance as a Template like: ```TerrainTile(...)``.
 
         See Also:
-            change_map_size: For more information
+            ``change_map_size``: For more information
+
+        Returns:
+            An OrderedSet with the newly added tiles.
         """
         return self.change_map_size(
             map_size = self.map_size + expand_by,
@@ -160,8 +166,8 @@ class MapManager(Manager):
         direction: Direction = Direction.EAST,
         *,
         terrain_template: TerrainTile = None,
-        unit_overflow_action: Literal['remove', 'error'] = 'error',
-        trigger_overflow_action: Literal['remove', 'error'] = 'error',
+        unit_overflow_action: Literal['remove', 'error'] = 'error',  # Todo: Implement
+        trigger_overflow_action: Literal['remove', 'error'] = 'error',  # Todo: Implement
     ) -> OrderedSet[Tile]:
         """
         Change the map size from the given direction. The direction indicates from which corner it will shrink or
@@ -177,16 +183,20 @@ class MapManager(Manager):
             unit_overflow_action: What action should be taken with units if they are out of the map after shrinking it.
             trigger_overflow_action: What action should be taken with triggers (effects / conditions) if they are
                 partially out of the map after shrinking it.
+
+        Returns:
+            An OrderedSet with the newly added tiles. When shrinking, this OrderedSet will be empty.
         """
         if map_size == self.map_size:
             return OrderedSet()
 
         diff = map_size - self.map_size
         is_expansion = diff > 0
-        abs_diff = abs(diff)
+        is_changing_subject_coords = direction != Direction.EAST
 
-        x_offset = abs_diff if direction in (Direction.SOUTH, Direction.WEST) else 0
-        y_offset = abs_diff if direction in (Direction.NORTH, Direction.WEST) else 0
+        # Calculate the X/Y offset of area differences
+        x_offset = diff if direction in (Direction.SOUTH, Direction.WEST) else 0
+        y_offset = diff if direction in (Direction.NORTH, Direction.WEST) else 0
 
         original_area = self.new_area_pattern().move(x_offset, y_offset)
 
@@ -203,20 +213,18 @@ class MapManager(Manager):
 
         if is_expansion:
             # Fix elevation of newly generated tiles
-            outline_original_area = original_area.copy().use_only_edge(line_width = 1)
+            outline_original_area = original_area.copy() \
+                .use_only_edge(line_width = 1) \
+                .to_coords()
 
-            # terrain_tiles = self.terrain_from(outline_original_area)
-            # protected_tiles = set(terrain_tiles.keys())
+            self._update_elevation_around_tiles(outline_original_area)
 
-            self._update_elevation_around_tiles(outline_original_area.to_coords())
+        if is_changing_subject_coords:
+            self._struct.unit_manager.apply_global_offset(x_offset, y_offset)
+            # self._struct.trigger_manager.apply_global_offset(x_offset, y_offset)
 
-        else:
-            ...
-            # Todo self._struct.unit_manager(...)
-            # Todo self._struct.trigger_manager(...)
-
-        # Shrinking changes the original area coordinates which results in a "difference" below whilst it should never
-        # return any tiles. This is faster & prevents the issue caused below.
+        # Shrinking changes the original area coordinates which results in a "difference" below whilst it
+        # should never return any tiles. This circumvents the "difference" problem and is also faster.
         if not is_expansion:
             return OrderedSet()
 
@@ -368,11 +376,11 @@ class MapManager(Manager):
 
     def set_elevation(self, area: AreaT | TileT, elevation: int) -> None:
         """
-        Sets elevation  elevation mechanics.
-        Can set a hill to a certain height and all tiles around it are adjusted accordingly.
+        Sets elevation according to the in-game elevation mechanics.
+        Can set a hill/valley to a certain height and all tiles around it are adjusted accordingly.
 
         Args:
-            area: The location (x1,y1,x2,y2) of the wanted area
+            area: The area (x1,y1,x2,y2) for the new elevation
             elevation: The elevation height to create within the given area
         """
         tiles: set[Tile]
@@ -446,9 +454,9 @@ class MapManager(Manager):
                 neighbour_tile: Tile = neighbour.tile
 
                 for xx_offset, yy_offset in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-                    neighbour_neighbour = self.get_tile_safe((neighbour_tile.x + xx_offset, neighbour_tile.y + yy_offset))
+                    second_neighbour = self.get_tile_safe((neighbour_tile.x + xx_offset, neighbour_tile.y + yy_offset))
 
-                    if neighbour_neighbour and neighbour_neighbour.elevation == terrain_tile.elevation:
+                    if second_neighbour and second_neighbour.elevation == terrain_tile.elevation:
                         edge_adjacent_equal_elevation_count += 1
 
                 if edge_adjacent_equal_elevation_count != 2:

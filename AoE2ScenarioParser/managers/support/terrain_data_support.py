@@ -5,7 +5,7 @@ from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import TerrainTile
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.managers import MapManager
+    from managers import MapManager
 
 
 class TerrainDataSupport:
@@ -14,7 +14,7 @@ class TerrainDataSupport:
         A support object used for resizing terrain data
 
         Args:
-            map_manager: The map manager of the scenario terrain data to update
+            map_manager: A MapManager object to use for terrain retrieval and calculations
         """
         self.map_manager = map_manager
         self.terrain_template = None
