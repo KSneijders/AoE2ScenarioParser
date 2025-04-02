@@ -101,14 +101,6 @@ class MapManager(Manager):
     def map_size(self, value):
         self.change_map_size(map_size = value, direction = Direction.EAST)
 
-    @property
-    def area(self):
-        return self.get_area()
-
-    @property
-    def area_pattern(self):
-        return self.get_area_pattern()
-
     def shrink_map_by(
         self,
         shrink_by: int,
@@ -196,7 +188,7 @@ class MapManager(Manager):
         x_offset = abs_diff if direction in (Direction.SOUTH, Direction.WEST) else 0
         y_offset = abs_diff if direction in (Direction.NORTH, Direction.WEST) else 0
 
-        original_area = self.get_area_pattern().move(x_offset, y_offset)
+        original_area = self.new_area_pattern().move(x_offset, y_offset)
 
         # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
         # Todo: !Move units using: ``self._struct.unit_manager...``
@@ -228,7 +220,7 @@ class MapManager(Manager):
         if not is_expansion:
             return OrderedSet()
 
-        return self.get_area_pattern() \
+        return self.new_area_pattern() \
             .to_coords() \
             .difference(original_area.to_coords())
 
@@ -351,7 +343,7 @@ class MapManager(Manager):
 
         return list_chunks(self.terrain_from(area).values(), area.width)
 
-    def get_area(self) -> Area:
+    def new_area(self) -> Area:
         """
         Get an area object spanning the entire map::
 
@@ -362,7 +354,7 @@ class MapManager(Manager):
         """
         return Area((0, 0), (self.map_size - 1, self.map_size - 1))
 
-    def get_area_pattern(self, selection: AreaT | TileT = None) -> AreaPattern:
+    def new_area_pattern(self, selection: AreaT | TileT = None) -> AreaPattern:
         """
         Get an area pattern object spanning the given area or the entire map if default
 
@@ -372,7 +364,7 @@ class MapManager(Manager):
         Returns:
             A new AreaPattern object
         """
-        return AreaPattern(area = selection or self.get_area(), map_size = self.map_size)
+        return AreaPattern(area = selection or self.new_area(), map_size = self.map_size)
 
     def set_elevation(self, area: AreaT | TileT, elevation: int) -> None:
         """

@@ -49,7 +49,7 @@ def test_terrain_from_function_area_pattern_args(mm: MapManager):
     expected_tiles = area1.to_tiles() | area3.to_tiles()
 
     area_pattern = mm \
-        .get_area_pattern() \
+        .new_area_pattern() \
         .select((1, 1), (3, 3)) \
         .use_pattern_lines(axis = 'x', gap_size = 1, line_width = 1)
 
