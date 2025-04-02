@@ -87,7 +87,8 @@ class ScenarioSections(BaseStruct):
         #  for default values that are different across different versions, use default_factory
         super().__init__(struct_ver, initialise_defaults=initialise_defaults, **retriever_inits)
 
-        from AoE2ScenarioParser.managers import MessageManager, MapManager
+        from AoE2ScenarioParser.managers import MessageManager, MapManager, UnitManager
 
         self.message_manager = MessageManager(self)
         self.map_manager = MapManager(self)
+        self.unit_manager = UnitManager(self)
