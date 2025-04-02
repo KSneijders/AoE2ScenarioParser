@@ -1,13 +1,18 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from binary_file_parser import Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
+from exceptions.asp_exceptions import InvalidObjectPlacementError
 
 
 class UnitManager(Manager):
     _struct: ScenarioSections
+
+    # Todo: Unit.player (Somehow)
 
     # @formatter:off
     units: list[list[Unit]] = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
@@ -39,15 +44,44 @@ class UnitManager(Manager):
 
         self.units[player].append(unit)
 
-    def apply_global_offset(self, x_offset: int, y_offset: int) -> None:
+    def remove_unit(self, unit: Unit) -> None:
+        """
+        Removes a unit from the scenario.
+
+        Args:
+            unit: The unit to remove
+        """
+        for player_units in self.units:
+            if unit in player_units:
+                player_units.remove(unit)
+                break
+
+    def apply_global_offset(
+        self,
+        x_offset: int,
+        y_offset: int,
+        unit_overflow_action: Literal['remove', 'error']
+    ) -> None:
         """
         Globally applies an X,Y offset to all units in the scenario.
 
         Args:
             x_offset: The X offset to apply to all units in the scenario.
             y_offset: The Y offset to apply to all units in the scenario.
+            unit_overflow_action: The action to perform when units become outside the map. Can be either 'remove'
+                to remove the units in question or 'error' to throw an error when it happens (so no units are removed
+                accidentally).
         """
+        map_size = self._struct.map_manager.map_size
+
         for player_units in self.units:
             for unit in player_units:
                 unit.x += x_offset
                 unit.y += y_offset
+
+                if not (0 <= unit.x < map_size and 0 <= unit.y < map_size):
+                    if unit_overflow_action == 'error':
+                        raise InvalidObjectPlacementError(f"Unit [ref: {unit.reference_id}] placed outside"
+                                                          f" of the map {unit.x, unit.y} after applying offset")
+                    elif unit_overflow_action == 'remove':
+                        self.remove_unit(unit)

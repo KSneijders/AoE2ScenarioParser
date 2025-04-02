@@ -166,7 +166,7 @@ class MapManager(Manager):
         direction: Direction = Direction.EAST,
         *,
         terrain_template: TerrainTile = None,
-        unit_overflow_action: Literal['remove', 'error'] = 'error',  # Todo: Implement
+        unit_overflow_action: Literal['remove', 'error'] = 'error',
         trigger_overflow_action: Literal['remove', 'error'] = 'error',  # Todo: Implement
     ) -> OrderedSet[Tile]:
         """
@@ -180,7 +180,9 @@ class MapManager(Manager):
             direction: The direction from which the map is affected
             terrain_template: The tile template to use for all new tiles that will be created. Use a TerrainTile
                 instance as a Template like: ```TerrainTile(...)``.
-            unit_overflow_action: What action should be taken with units if they are out of the map after shrinking it.
+            unit_overflow_action: The action to perform when units become outside the map. Can be either 'remove'
+                to remove the units in question or 'error' to throw an error when it happens (so no units are removed
+                accidentally).
             trigger_overflow_action: What action should be taken with triggers (effects / conditions) if they are
                 partially out of the map after shrinking it.
 
@@ -192,7 +194,6 @@ class MapManager(Manager):
 
         diff = map_size - self.map_size
         is_expansion = diff > 0
-        is_changing_subject_coords = direction != Direction.EAST
 
         # Calculate the X/Y offset of area differences
         x_offset = diff if direction in (Direction.SOUTH, Direction.WEST) else 0
@@ -219,8 +220,8 @@ class MapManager(Manager):
 
             self._update_elevation_around_tiles(outline_original_area)
 
-        if is_changing_subject_coords:
-            self._struct.unit_manager.apply_global_offset(x_offset, y_offset)
+        if x_offset != 0 and y_offset != 0:
+            self._struct.unit_manager.apply_global_offset(x_offset, y_offset, unit_overflow_action)
             # self._struct.trigger_manager.apply_global_offset(x_offset, y_offset)
 
         # Shrinking changes the original area coordinates which results in a "difference" below whilst it

@@ -19,6 +19,10 @@ class UnknownErrorDuringReadingIterationError(AoE2ScenarioParserError):
         self.iteration = iteration
 
 
+class InvalidObjectPlacementError(AoE2ScenarioParserError):
+    pass
+
+
 class UnknownScenarioStructureError(AoE2ScenarioParserError):
     pass
 
