@@ -389,15 +389,11 @@ class MapManager(Manager):
 
         if area.surface_area == 1:
             result = self.terrain_from(area.corner1)
-
-            tiles = {area.corner1}
             edge_tiles = [area.corner1]
         else:
             area_pattern = AreaPattern(area, map_size = self.map_size)
 
             result = self.terrain_from(area_pattern)
-
-            tiles = {*area_pattern.to_coords()}
             edge_tiles = area_pattern.use_only_edge().to_coords()
 
         # Set the given area to the right elevation
