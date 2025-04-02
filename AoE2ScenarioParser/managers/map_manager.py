@@ -27,8 +27,6 @@ class MapManager(Manager):
 
     # @formatter:off
     color_mood: str             = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.color_mood))
-    collide_and_correct: bool   = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.collide_and_correct))
-    villager_force_drop: bool   = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.options), ret(Options.villager_force_drop))
     _terrain: list[TerrainTile] = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.terrain_tiles))
     _map_width: int             = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.width))
     _map_height: int            = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.height))
