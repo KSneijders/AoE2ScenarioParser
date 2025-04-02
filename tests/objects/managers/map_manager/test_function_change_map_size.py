@@ -1,18 +1,17 @@
 from typing import Iterable
 
 import pytest
-from binary_file_parser import Version
 
 from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import TerrainTile
-from tests.objects.managers.map_manager import MockMapManager
+from tests.objects.managers.map_manager import MockScenarioSections
 
 
 @pytest.fixture
 def mm():
-    return MapManager(MockMapManager(Version((99, 0))))
+    return MapManager(MockScenarioSections())
 
 
 @pytest.fixture(autouse = True)
@@ -160,6 +159,3 @@ def test_terrain_change_map_size_with_terrain_template(mm: MapManager):
         assert terrain_tile.zone == 3
         assert terrain_tile.mask_type == 2
         assert terrain_tile.layer_type == 1
-
-# Todo: Add tests for elevation smoothing (doesn't have to be thorough, just testing that it works
-#   More in-depth tests should be done for the set_elevation function specifically

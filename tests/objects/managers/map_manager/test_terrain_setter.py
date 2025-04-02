@@ -3,12 +3,12 @@ import pytest
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import Tile
 from AoE2ScenarioParser.sections import TerrainTile, Unit
-from tests.objects.managers.map_manager import MockMapManager
+from tests.objects.managers.map_manager import MockScenarioSections
 
 
 @pytest.fixture
 def mm():
-    return MapManager(MockMapManager())
+    return MapManager(MockScenarioSections())
 
 
 def test_terrain_setter_set_1d_sequence(mm: MapManager):
