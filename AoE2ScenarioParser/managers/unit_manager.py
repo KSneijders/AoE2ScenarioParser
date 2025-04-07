@@ -5,8 +5,8 @@ from typing import Literal
 from binary_file_parser import Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
-from exceptions.asp_exceptions import InvalidObjectPlacementError
 
 
 class UnitManager(Manager):
@@ -19,6 +19,7 @@ class UnitManager(Manager):
     _next_unit_reference_id: int = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.next_unit_ref))
     # @formatter:on
 
+    # Todo: Add tests
     @property
     def next_unit_reference_id(self):
         """
@@ -27,10 +28,13 @@ class UnitManager(Manager):
         Returns:
             The newly generated ID
         """
+        unit_reference_id = self._next_unit_reference_id
+
         self._next_unit_reference_id += 1
 
-        return self._next_unit_reference_id
+        return unit_reference_id
 
+    # Todo: Add tests
     def add_unit(self, player: Player, unit: Unit) -> None:
         """
         Adds a unit for the corresponding player to the scenario
@@ -40,10 +44,23 @@ class UnitManager(Manager):
             unit: The unit to add
         """
         if not unit.has_reference_id:
-            unit.reference_id = self._next_unit_reference_id
+            unit.reference_id = self.next_unit_reference_id
 
         self.units[player].append(unit)
 
+    # Todo: Add tests
+    def add_units(self, player: Player, units: list[Unit]) -> None:
+        """
+        Adds units for the corresponding player to the scenario
+
+        Args:
+            player: The player to add the units for
+            units: The units to add
+        """
+        for unit in units:
+            self.add_unit(player, unit)
+
+    # Todo: Add tests
     def remove_unit(self, unit: Unit) -> None:
         """
         Removes a unit from the scenario.
@@ -55,6 +72,17 @@ class UnitManager(Manager):
             if unit in player_units:
                 player_units.remove(unit)
                 break
+
+    # Todo: Add tests
+    def remove_units(self, units: list[Unit]) -> None:
+        """
+        Removes units from the scenario.
+
+        Args:
+            units: The units to remove
+        """
+        for unit in units:
+            self.remove_unit(unit)
 
     def apply_global_offset(
         self,
@@ -75,13 +103,19 @@ class UnitManager(Manager):
         map_size = self._struct.map_manager.map_size
 
         for player_units in self.units:
+            to_be_removed_units = []
+
             for unit in player_units:
                 unit.x += x_offset
                 unit.y += y_offset
 
                 if not (0 <= unit.x < map_size and 0 <= unit.y < map_size):
                     if unit_overflow_action == 'error':
-                        raise InvalidObjectPlacementError(f"Unit [ref: {unit.reference_id}] placed outside"
-                                                          f" of the map {unit.x, unit.y} after applying offset")
+                        raise InvalidObjectPlacementError(
+                            f"Unit [ref: {unit.reference_id}] placed outside"
+                            f" of the map {unit.x, unit.y} after applying offset"
+                        )
                     elif unit_overflow_action == 'remove':
-                        self.remove_unit(unit)
+                        to_be_removed_units.append(unit)
+
+            self.remove_units(to_be_removed_units)

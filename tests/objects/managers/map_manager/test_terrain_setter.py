@@ -3,7 +3,7 @@ import pytest
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import Tile
 from AoE2ScenarioParser.sections import TerrainTile, Unit
-from tests.objects.managers.map_manager import MockScenarioSections
+from tests.objects import MockScenarioSections
 
 
 @pytest.fixture

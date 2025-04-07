@@ -11,7 +11,8 @@ class Unit(BaseStruct):
     x: float               = Retriever(float32, default = 0.5)
     y: float               = Retriever(float32, default = 0.5)
     z: float               = Retriever(float32, default = 0)
-    reference_id: int      = Retriever(int32,   default = 0)
+    reference_id: int      = Retriever(int32,   default = -1)
+    """Default: -1 Is not actually a valid value, but multiple units at 0 is also invalid (single 0 can be valid)"""
     type: int              = Retriever(uint16,  default = 4)
     state: int             = Retriever(uint8,   default = 2)
     rotation: float        = Retriever(float32, default = 0)
@@ -27,4 +28,4 @@ class Unit(BaseStruct):
 
     @property
     def has_reference_id(self):
-        return self.reference_id != 0
+        return self.reference_id != -1

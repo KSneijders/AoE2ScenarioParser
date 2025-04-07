@@ -202,7 +202,6 @@ class MapManager(Manager):
         original_area = self.new_area_pattern().move(x_offset, y_offset)
 
         # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
-        # Todo: !Move units using: ``self._struct.unit_manager...``
         # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
 
         terrain_support = TerrainDataSupport(self)
