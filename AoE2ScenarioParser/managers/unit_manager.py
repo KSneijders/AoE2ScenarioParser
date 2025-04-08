@@ -161,6 +161,8 @@ class UnitManager(Manager):
         self.remove_units(units)
         self.add_units(player, units)
 
+    # Todo: Add import_units functionality which resets all reference IDs
+
     # Todo: Add tests
     def add_unit(self, player: Player, unit: Unit) -> None:
         """
@@ -173,6 +175,9 @@ class UnitManager(Manager):
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
 
+        # Todo: Add player attr tests
+        # Set read-only player attribute for unit
+        unit._player = player
         self.units[player].append(unit)
 
     # Todo: Add tests
