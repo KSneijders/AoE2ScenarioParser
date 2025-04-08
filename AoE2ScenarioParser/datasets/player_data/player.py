@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import List
+from typing import Iterable, List
 
 
 class Player(IntEnum):
@@ -34,3 +34,16 @@ class Player(IntEnum):
             Player.ONE, Player.TWO, Player.THREE, Player.FOUR,
             Player.FIVE, Player.SIX, Player.SEVEN, Player.EIGHT
         ]
+
+    @staticmethod
+    def all_except(players: Iterable[Player]) -> List[Player]:
+        """
+        Return a list of all players without the given players
+
+        Args:
+            players: The list of players to exclude
+
+        Returns:
+            The list of playerIds without the given players
+        """
+        return [player for player in Player.all() if player not in players]
