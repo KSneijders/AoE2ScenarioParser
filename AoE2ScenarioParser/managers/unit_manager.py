@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing import Generator, Iterable, Literal
 
 from binary_file_parser import Manager, ret, RetrieverRef
 
@@ -49,7 +49,7 @@ class UnitManager(Manager):
         self.units[player].append(unit)
 
     # Todo: Add tests
-    def add_units(self, player: Player, units: list[Unit]) -> None:
+    def add_units(self, player: Player, units: Iterable[Unit]) -> None:
         """
         Adds units for the corresponding player to the scenario
 
@@ -74,7 +74,7 @@ class UnitManager(Manager):
                 break
 
     # Todo: Add tests
-    def remove_units(self, units: list[Unit]) -> None:
+    def remove_units(self, units: Iterable[Unit]) -> None:
         """
         Removes units from the scenario.
 
