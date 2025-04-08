@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from math import floor
+
 from binary_file_parser import BaseStruct, Retriever, Version
 from binary_file_parser.types import float32, int32, uint16, uint8
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
+from objects.support import Tile
 
 
 class Unit(BaseStruct):
@@ -23,9 +26,25 @@ class Unit(BaseStruct):
     caption_string_id: int = Retriever(int32,  min_ver = Version((1, 54)), default = -1)
     # @formatter:on
 
+    _player: int | None = None
+
     def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
         super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
 
     @property
+    def tile(self) -> Tile:
+        return Tile(floor(self.x), floor(self.y))
+
+    @tile.setter
+    def tile(self, tile: Tile) -> None:
+        self.x = tile.x + .5
+        self.y = tile.y + .5
+
+    @property
     def has_reference_id(self):
         return self.reference_id != -1
+
+    @property
+    def player(self):
+        """Read-only property for the owner player. Use the Unit Manager to change ownership"""
+        return self._player
