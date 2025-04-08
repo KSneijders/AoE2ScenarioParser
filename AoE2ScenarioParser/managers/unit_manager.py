@@ -6,6 +6,7 @@ from binary_file_parser import Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
+from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
 
@@ -18,6 +19,118 @@ class UnitManager(Manager):
     units: list[list[Unit]] = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
     _next_unit_reference_id: int = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.next_unit_ref))
     # @formatter:on
+
+    # Todo: Add tests
+    def get_all_units(self) -> Generator[Unit]:
+        return (unit for player_units in self.units for unit in player_units)
+
+    # Todo: Add tests
+    def filter_units_by(
+        self,
+        attr: str,
+        attr_values: list[int],
+        is_allowlist: bool = True,
+        players: Iterable[Player] = None,
+        units: Iterable[Unit] = None,
+    ) -> Generator[Unit]:
+        """
+        Filter units based on a given attribute of units
+
+        Args:
+            attr: The attribute to filter by
+            attr_values: The values for the attributes to filter with
+            is_allowlist: Use the given attrs list as allowlist instead of blocklist
+            players: A list of players to filter from. If not used, all players are used.
+            units: A set of units to filter from. If not used, all units are used.
+
+        Returns:
+            A generator of units matching the given attribute requirements
+
+        Raises:
+            AttributeError: If the provided attr does not exist on objects of the Unit class
+        """
+        if units is None:
+            units = self.get_all_units()
+        if players is not None:
+            units = [unit for unit in units if unit.player in players]
+
+        # Both return statements can be combined using: ``(getattr(unit, attr) in attr_values) == is_allowlist``
+        # But splitting them helps performance (not checking against ``is_allowlist`` for each unit)
+        if is_allowlist:
+            return (unit for unit in units if getattr(unit, attr) in attr_values)
+        return (unit for unit in units if getattr(unit, attr) not in attr_values)
+
+    # Todo: Add tests
+    def filter_units_by_type(
+        self,
+        unit_types: list[int],
+        is_allowlist: bool = True,
+        players: Iterable[Player] = None,
+        units: Iterable[Unit] = None,
+    ) -> Generator[Unit]:
+        """
+        Filter unit on their type value.
+
+        Args:
+            unit_types: The types to filter with
+            is_allowlist: Use the given attrs list as allowlist instead of blocklist
+            players: A list of players to filter from. If not used, all players are used.
+            units: A set of units to filter from. If not used, all units are used.
+
+        Returns:
+            A list of units
+        """
+        return self.filter_units_by("type", unit_types, is_allowlist, players, units)
+
+    # Todo: Add tests
+    def filter_units_by_id(
+        self,
+        unit_ids: list[int],
+        is_allowlist: bool = True,
+        players: Iterable[Player] = None,
+        units: Iterable[Unit] = None,
+    ) -> Generator[Unit]:
+        """
+        Filter unit on their id value.
+
+        Args:
+            unit_ids: The unit ids to filter with
+            is_allowlist: Use the given attrs list as allowlist instead of blocklist
+            players: A list of players to filter from. If not used, all players are used.
+            units: A set of units to filter from. If not used, all units are used.
+
+        Returns:
+            A list of units
+        """
+        return self.filter_units_by("id", unit_ids, is_allowlist, players, units)
+
+    # Todo: Add tests
+    def get_units_in_area(
+        self,
+        area: Area,
+        players: Iterable[Player] = None,
+        *,
+        units: list[Unit] = None,
+    ) -> Generator[Unit]:
+        """
+        Get all units in a given area. Optionally filter by given players.
+
+        Args:
+            area: The area to use when filtering units based on location
+            players: An optional iterable of players to filter the units by
+            units: An optional iterable of units to filter, if not used, all units on the map are used. Mainly useful
+                for narrowing down a selection of units from other filters
+
+        Returns:
+            A generator of units in the given area
+        """
+        if units is None:
+            units = self.get_all_units()
+
+        if players is None:
+            return (unit for unit in units if area.contains(unit.tile))
+
+        return (unit for unit in units if area.contains(unit.tile) and unit.player in players)
 
     # Todo: Add tests
     @property
