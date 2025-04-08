@@ -35,6 +35,20 @@ class UnitManager(Manager):
         return unit_reference_id
 
     # Todo: Add tests
+    def change_ownership(self, player: Player, units: Unit | Iterable[Unit]) -> None:
+        """
+        Change the ownership of the given units
+
+        Args:
+            player: The player to switch the units to
+            units: The units to switch ownership of
+        """
+        units = units if isinstance(units, Iterable) else [units]
+
+        self.remove_units(units)
+        self.add_units(player, units)
+
+    # Todo: Add tests
     def add_unit(self, player: Player, unit: Unit) -> None:
         """
         Adds a unit for the corresponding player to the scenario
