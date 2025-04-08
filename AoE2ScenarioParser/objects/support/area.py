@@ -424,10 +424,7 @@ class Area(TileSequence):
             True if the tile is within this area, False otherwise
         """
         x, y = tile
-        return (
-            self.corner1.x <= x <= self.corner2.x
-            and self.corner1.y <= y <= self.corner2.y
-        )
+        return self.x1 <= x <= self.x2 and self.y1 <= y <= self.y2
 
     def __hash__(self):
         return hash((self.corner1, self.corner2))
