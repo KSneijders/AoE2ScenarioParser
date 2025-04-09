@@ -95,7 +95,6 @@ class UnitManager(Manager):
         for unit in units:
             self.add_unit(player, unit)
 
-    # Todo: Add tests
     def remove_unit(self, unit: Unit) -> None:
         """
         Removes a unit from the scenario.
@@ -103,12 +102,9 @@ class UnitManager(Manager):
         Args:
             unit: The unit to remove
         """
-        for player_units in self.units:
-            if unit in player_units:
-                player_units.remove(unit)
-                break
+        if unit in self.units[unit.player]:
+            self.units[unit.player].remove(unit)
 
-    # Todo: Add tests
     def remove_units(self, units: Iterable[Unit]) -> None:
         """
         Removes units from the scenario.
