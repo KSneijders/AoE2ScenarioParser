@@ -23,7 +23,7 @@ class UnitManager(Manager):
         return self._units
 
     @units.setter
-    def units(self, units: list[list[Unit]]):
+    def units(self, units: list[list[Unit]]) -> None:
         if len(units) != 0 and not isinstance(units[0], list):
             raise ValueError("List of units must be nested list")
 
@@ -56,7 +56,7 @@ class UnitManager(Manager):
         return unit_reference_id
 
     # Todo: Add tests
-    def change_ownership(self, player: Player, units: Unit | Iterable[Unit]) -> None:
+    def change_ownership(self, player: Player, units: Unit | Iterable[Unit]) -> list[Unit]:
         """
         Change the ownership of the given units
 
@@ -67,15 +67,18 @@ class UnitManager(Manager):
         units = units if isinstance(units, Iterable) else [units]
 
         self.remove_units(units)
-        self.add_units(player, units)
+        return self.add_units(player, units)
 
-    def add_unit(self, player: Player, unit: Unit) -> None:
+    def add_unit(self, player: Player, unit: Unit) -> Unit:
         """
         Adds a unit for the corresponding player to the scenario
 
         Args:
             player: The player to add the unit for
             unit: The unit to add
+
+        Returns:
+            The added unit
         """
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
@@ -84,16 +87,20 @@ class UnitManager(Manager):
         unit._player = player
         self.units[player].append(unit)
 
-    def add_units(self, player: Player, units: Iterable[Unit]) -> None:
+        return unit
+
+    def add_units(self, player: Player, units: Iterable[Unit]) -> list[Unit]:
         """
         Adds units for the corresponding player to the scenario
 
         Args:
             player: The player to add the units for
             units: The units to add
+
+        Returns:
+            The added units
         """
-        for unit in units:
-            self.add_unit(player, unit)
+        return [self.add_unit(player, unit) for unit in units]
 
     def remove_unit(self, unit: Unit) -> None:
         """
@@ -116,7 +123,7 @@ class UnitManager(Manager):
             self.remove_unit(unit)
 
     # Todo: Add tests
-    def import_units(self, player: Player, units: Iterable[Unit]) -> None:
+    def import_units(self, player: Player, units: Iterable[Unit]) -> list[Unit]:
         """
         Imports units (resetting the reference_id) for the corresponding player to the scenario.
 
@@ -124,9 +131,12 @@ class UnitManager(Manager):
             player: The player to add the unit for
             units: The units to add
         """
+        result = []
         for unit in units:
             unit.reference_id = -1
-            self.add_unit(player, unit)
+            result.append(self.add_unit(player, unit))
+
+        return result
 
     # Todo: Add tests
     def filter_units_by(
@@ -186,7 +196,7 @@ class UnitManager(Manager):
         Returns:
             A list of units
         """
-        return self.filter_units_by("type", unit_types, is_allowlist, players, units=units)
+        return self.filter_units_by("type", unit_types, is_allowlist, players, units = units)
 
     # Todo: Add tests
     def filter_units_by_id(
@@ -209,7 +219,7 @@ class UnitManager(Manager):
         Returns:
             A list of units
         """
-        return self.filter_units_by("id", unit_ids, is_allowlist, players, units=units)
+        return self.filter_units_by("id", unit_ids, is_allowlist, players, units = units)
 
     def get_units_in_area(
         self,
