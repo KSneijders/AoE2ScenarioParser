@@ -22,11 +22,10 @@ class UnitManager(Manager):
     def units(self) -> list[list[Unit]]:
         return self._units
 
-    # Todo: Add tests (player & _next_unit_reference_id)
     @units.setter
     def units(self, units: list[list[Unit]]):
         if len(units) != 0 and not isinstance(units[0], list):
-            raise ValueError("list of units must be nested list")
+            raise ValueError("List of units must be nested list")
 
         units = [units[i] if i < len(units) else [] for i in range(9)]
 
@@ -39,7 +38,6 @@ class UnitManager(Manager):
         self._units = units
         self._next_unit_reference_id = highest_reference_id
 
-    # Todo: Add tests
     def get_all_units(self) -> Generator[Unit]:
         return (unit for player_units in self.units for unit in player_units)
 
