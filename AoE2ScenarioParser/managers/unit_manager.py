@@ -41,7 +41,6 @@ class UnitManager(Manager):
     def get_all_units(self) -> Generator[Unit]:
         return (unit for player_units in self.units for unit in player_units)
 
-    # Todo: Add tests
     @property
     def next_unit_reference_id(self) -> int:
         """

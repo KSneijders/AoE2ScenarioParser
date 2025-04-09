@@ -1,8 +1,8 @@
 import pytest
 
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from datasets.player_data import Player
 from tests.objects import MockScenarioSections
 
 
@@ -38,7 +38,7 @@ def test_units_setter(um: UnitManager):
     assert [len(player_units) for player_units in um.units] == [0] * 9
 
 
-def test_units_setter_reference_id(um: UnitManager):
+def test_units_setter_updates_reference_id(um: UnitManager):
     assert um._next_unit_reference_id == 0
 
     um.units = [
