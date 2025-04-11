@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List
+from typing import List, Union
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_list

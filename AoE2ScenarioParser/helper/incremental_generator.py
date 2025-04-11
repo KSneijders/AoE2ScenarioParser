@@ -51,7 +51,7 @@ class IncrementalGenerator:
             return b''
         result = self.file_content[self.progress:self.progress + n]
         if not result or len(result) != n:
-            remaining = len(self.get_remaining_bytes())
+            remaining = self.get_amount_of_remaining_bytes()
             raise EndOfFileError(f"End of file reached. (Requested: {n} bytes, only {remaining} left.")
         if update_progress:
             self.progress += n
@@ -59,14 +59,23 @@ class IncrementalGenerator:
 
     def get_remaining_bytes(self) -> bytes:
         """
-        Get all of the remaining bytes in the generator
+        Get all the remaining bytes in the generator
 
         Returns:
-            The remaining bytes of the generator
+            The remaining bytes in the generator
         """
         result = self.file_content[self.progress:]
         self.progress = len(self.file_content) - 1
         return result
+
+    def get_amount_of_remaining_bytes(self) -> int:
+        """
+        Get the amount of remaining bytes in the generator
+
+        Returns:
+            The the amount of remaining bytes in the generator
+        """
+        return len(self.file_content) - self.progress
 
     def __repr__(self):
         return f"[IncrementalGenerator] Name: {self.name}\n\tProgress: {self.progress}/{len(self.file_content)}"
