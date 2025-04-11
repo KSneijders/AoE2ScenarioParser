@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.3.3 - 2025-April-11
+
+### Added
+
+- Support for Trigger Version 4.1 that was (accidentally?) pushed with the new patch
+
+---
+
 ## 0.3.2 - 2025-March-29
 
 ### Added
