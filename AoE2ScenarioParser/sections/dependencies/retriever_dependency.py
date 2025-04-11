@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Type
+
 from AoE2ScenarioParser.sections.dependencies.dependency_action import DependencyAction
 from AoE2ScenarioParser.sections.dependencies.dependency_eval import DependencyEval
 from AoE2ScenarioParser.sections.dependencies.dependency_target import DependencyTarget
@@ -11,7 +13,7 @@ class RetrieverDependency:
     """
     def __init__(
             self,
-            dependency_action: DependencyAction,
+            dependency_action: Type[DependencyAction],
             dependency_target: DependencyTarget | None = None,
             dependency_eval: DependencyEval | None = None
     ):

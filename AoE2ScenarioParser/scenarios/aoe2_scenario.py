@@ -243,9 +243,8 @@ class AoE2Scenario:
         Args:
             raw_file_igenerator: The generator to read the header section from
         """
-        header = self._create_and_load_section('FileHeader', raw_file_igenerator)
+        self._create_and_load_section('FileHeader', raw_file_igenerator)
         self._file_header = raw_file_igenerator.file_content[:raw_file_igenerator.progress]
-        self._add_to_sections(header)
 
     def _load_content_sections(self, raw_file_igenerator: IncrementalGenerator) -> None:
         """
@@ -265,14 +264,13 @@ class AoE2Scenario:
             if section_name == "FileHeader":
                 continue
             try:
-                section = self._create_and_load_section(section_name, data_igenerator)
-                self._add_to_sections(section)
+                self._create_and_load_section(section_name, data_igenerator)
             except Exception as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tSection: {section_name}\n")
                 self.write_error_file(trail_generator=data_igenerator)
                 raise e
 
-    def _create_and_load_section(self, name: str, igenerator: IncrementalGenerator) -> AoE2FileSection:
+    def _create_and_load_section(self, name: str, igenerator: IncrementalGenerator) -> None:
         """
         Initialises a file section from its name and fills its retrievers with data from the given generator
 
@@ -285,10 +283,10 @@ class AoE2Scenario:
         """
         s_print(f"\t🔄 Parsing {name}...", color="yellow")
         section = AoE2FileSection.from_structure(name, self.structure.get(name), self.uuid)
+        self._add_to_sections(section)
         s_print(f"\t🔄 Gathering {name} data...", color="yellow")
         section.set_data_from_generator(igenerator)
         s_print(f"\t✔ {name}", final=True, color="green")
-        return section
 
     def _add_to_sections(self, section: AoE2FileSection) -> None:
         """
