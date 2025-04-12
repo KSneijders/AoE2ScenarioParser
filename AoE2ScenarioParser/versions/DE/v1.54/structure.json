@@ -2138,6 +2138,20 @@
                                 "type": "s32",
                                 "default": -1
                             },
+                            "redacted": {
+                                "type": "12",
+                                "is_list": false,
+                                "default": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+                                "comment": "ThxFE for accidentally pushing this...",
+
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "SET_REPEAT",
+                                        "target": "Triggers:trigger_version",
+                                        "eval": "0 if trigger_version <= 3.9 else 1"
+                                    }
+                                }
+                            },
                             "xs_function": {
                                 "type": "str32",
                                 "default": ""
