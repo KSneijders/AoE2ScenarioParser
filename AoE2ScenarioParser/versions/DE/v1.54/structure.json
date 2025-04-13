@@ -1726,9 +1726,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_46": {
+                            "static_value_62": {
                                 "type": "s32",
-                                "default": 58
+                                "default": 62
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2026,9 +2026,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_21": {
+                            "static_value_30": {
                                 "type": "s32",
-                                "default": 27
+                                "default": 30
                             },
                             "quantity": {
                                 "type": "s32",
@@ -2141,7 +2141,7 @@
                             "redacted": {
                                 "type": "12",
                                 "is_list": false,
-                                "default": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+                                "default": "FFFFFFFFFFFFFFFFFFFFFFFF",
                                 "comment": "ThxFE for accidentally pushing this...",
 
                                 "dependencies": {
