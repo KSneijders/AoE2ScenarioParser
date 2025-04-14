@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Optional, List, Tuple, Dict, TYPE_CHECKING
+import re
+from typing import Optional, List, Tuple, Dict, TYPE_CHECKING, AnyStr
 from uuid import UUID
 
 from AoE2ScenarioParser.scenarios.scenario_store import store
@@ -167,21 +168,26 @@ def get_trigger(uuid: UUID, trigger_index: int) -> Optional['Trigger']:
     return None
 
 
-def get_triggers_by_prefix(uuid: UUID, prefix: str | Tuple) -> Optional[List['Trigger']]:
+def get_triggers_by_regex(uuid: UUID, pattern: re.Pattern[AnyStr]) -> Optional[List[Tuple['Trigger', str, str]]]:
     """
-    Get the trigger version of the scenario.
+    Get any triggers whose names match the data triggers syntax ``TYPE : KEY``
 
     Args:
         uuid: The UUID of the scenario
-        prefix: The prefix to check trigger names against
+        pattern: A regex pattern which must capture two groups: a type_ and a key
 
     Returns:
-        Triggers matching the given prefix
+        A list of tuples containing a Trigger, it's type_, and the key
     """
     scenario = store.get_scenario(uuid)
-    if scenario:
-        return [trigger for trigger in scenario.trigger_manager.triggers if trigger.name.startswith(prefix)]
-    return None
+    if not scenario:
+        return None
+
+    return [
+        (trigger, match.group(1).lower(), match.group(2))
+        for trigger in scenario.trigger_manager.triggers
+        if (match := re.match(pattern, trigger.name))
+    ]
 
 
 def get_variable_name(uuid: UUID, variable_index: int) -> Optional[str]:
