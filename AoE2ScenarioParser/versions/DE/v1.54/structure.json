@@ -1565,6 +1565,20 @@
                         "eval": "1 if trigger_version >= 3.5 else 0"
                     }
                 }
+            },
+            "redacted": {
+                "type": "16",
+                "default": "00000000000000000000000000000000",
+                "comment": "ThxFE for accidentally pushing this...",
+                "is_list": false,
+
+                "dependencies": {
+                    "on_construct": {
+                        "action": "SET_REPEAT",
+                        "target": "self:trigger_version",
+                        "eval": "0 if trigger_version <= 3.9 else 1"
+                    }
+                }
             }
         },
         "structs": {
@@ -1712,9 +1726,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_46": {
+                            "static_value_62": {
                                 "type": "s32",
-                                "default": 58
+                                "default": 62
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -1955,6 +1969,20 @@
                                 "type": "s32",
                                 "default": -1
                             },
+                            "redacted": {
+                                "type": "16",
+                                "is_list": false,
+                                "default": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+                                "comment": "ThxFE for accidentally pushing this...",
+
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "SET_REPEAT",
+                                        "target": "Triggers:trigger_version",
+                                        "eval": "0 if trigger_version <= 3.9 else 1"
+                                    }
+                                }
+                            },
                             "message": {
                                 "type": "str32",
                                 "default": ""
@@ -1998,9 +2026,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_21": {
+                            "static_value_30": {
                                 "type": "s32",
-                                "default": 27
+                                "default": 30
                             },
                             "quantity": {
                                 "type": "s32",
@@ -2109,6 +2137,20 @@
                             "include_changeable_weapon_objects": {
                                 "type": "s32",
                                 "default": -1
+                            },
+                            "redacted": {
+                                "type": "12",
+                                "is_list": false,
+                                "default": "FFFFFFFFFFFFFFFFFFFFFFFF",
+                                "comment": "ThxFE for accidentally pushing this...",
+
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "SET_REPEAT",
+                                        "target": "Triggers:trigger_version",
+                                        "eval": "0 if trigger_version <= 3.9 else 1"
+                                    }
+                                }
                             },
                             "xs_function": {
                                 "type": "str32",

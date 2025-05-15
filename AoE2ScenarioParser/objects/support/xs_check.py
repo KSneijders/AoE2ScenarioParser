@@ -18,7 +18,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 
 class XsCheck:
-    version: Tuple[int, int, int] = (0, 2, 3)
+    version: Tuple[int, int, int] = (0, 2, 4)
 
     def __init__(self, uuid: UUID):
         self._uuid: UUID = uuid
@@ -107,7 +107,7 @@ class XsCheck:
 
         args = [xs_file_path, *self.additional_args]
         if len(self.ignores) > 0:
-            args.extend(['--ignores', *self.ignores])
+            args.extend(['--ignores', ','.join(self.ignores)])
 
         output = self._call(*args)
 
@@ -165,7 +165,7 @@ class XsCheck:
 
         version_tuple = self.get_version()
 
-        if (0, 1, 2) <= version_tuple <= (0, 2, 3):
+        if (0, 1, 2) <= version_tuple <= (0, 2, 4):
             return True
 
         return False

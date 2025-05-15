@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.3.6 - 2025-May-15
+
+### Added
+
+- Support for the Xs-Check `v0.2.4` — View the `v0.2.4` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.4
+- New civilizations to the `Civilization` dataset (Jurchens, Khitans, Shu, Wei & Wu)
+
+### Fixes 
+
+- Too many triggers being selected as Data Triggers  — Credits: by [@Alian713] in [#65](https://github.com/KSneijders/AoE2ScenarioParser/pull/65)
+- Incorrect usage of the `--ignores` argument for Xs-Check when using the `xs_check.ignores` set
+
+[@Alian713]: (https://github.com/Divy1211)
+
+---
+
+##  0.3.5 - 2025-April-13
+
+Was: `0.3.4` but got yanked due to producing corrupt scenarios
+
+### Added
+
+- Support for Trigger Version 4.1 that was (accidentally?) pushed with the new patch
+  - (`v0.3.3` added the necessary fixes to triggers and effects... But not conditions)
+
+---
+
+## 0.3.3 - 2025-April-11
+
+### Added
+
+- Support for Trigger Version 4.1 that was (accidentally?) pushed with the new patch
+
+---
+
 ## 0.3.2 - 2025-March-29
 
 ### Added

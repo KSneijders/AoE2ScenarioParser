@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import List, Optional, Iterator, Dict
 from uuid import UUID
 
@@ -15,12 +16,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters, actions
 
 
 class DataTriggers:
-    _scan_options: Dict[str, List[str]] = {
-        "area": ["area", "areas"],
-        "tile": ["tile", "tiles"],
-        "object": ["object", "objects"],
-        "trigger": ["trigger", "triggers"],
-    }
+    _data_trigger_exp = re.compile(r"^(area|tile|object|trigger)s?\s*:\s*(.+)", re.I)
 
     def __init__(self, uuid: UUID) -> None:
         super().__init__()
@@ -33,36 +29,32 @@ class DataTriggers:
         self.triggers: AttrDict[str, List[Trigger]] = AttrDict()
 
     def discover(self, remove_template_triggers: bool) -> None:
-        triggers = getters.get_triggers_by_prefix(
-            self._uuid,
-            tuple(val for lst in self._scan_options.values() for val in lst)
-        )
+        data_triggers = getters.get_triggers_by_regex(self._uuid, self._data_trigger_exp)
 
-        for trigger in triggers:
+        for (trigger, type_, key) in data_triggers:
             object_ids = []
-            tag = self._resolve_data_trigger_name(trigger)
             for ce in loop_trigger_content(trigger):
-                if trigger.name.startswith("area"):
+                if type_ == "area":
                     if area := self._create_area(ce):
-                        self.areas.setdefault(tag, []).append(area)
+                        self.areas.setdefault(key, []).append(area)
 
-                elif trigger.name.startswith("tile"):
+                elif type_ == "tile":
                     if tiles := self._create_tiles(ce):
-                        self.tiles.setdefault(tag, []).extend(tiles)
+                        self.tiles.setdefault(key, []).extend(tiles)
 
-                elif trigger.name.startswith("object"):
+                elif type_ == "object":
                     object_ids.extend(self._get_unit_ids(ce))
                     if objects := self._get_objects_from_area(ce):
-                        self.objects.setdefault(tag, []).extend(objects)
+                        self.objects.setdefault(key, []).extend(objects)
                     if objects := self._get_objects_from_tile(ce):
-                        self.objects.setdefault(tag, []).extend(objects)
+                        self.objects.setdefault(key, []).extend(objects)
 
-                elif trigger.name.startswith("trigger"):
+                elif type_ == "trigger":
                     if found_trigger := self._get_trigger(ce):
-                        self.triggers.setdefault(tag, []).append(found_trigger)
+                        self.triggers.setdefault(key, []).append(found_trigger)
 
             if object_ids:
-                self.objects.setdefault(tag, []).extend(getters.get_units(self._uuid, object_ids)[0])
+                self.objects.setdefault(key, []).extend(getters.get_units(self._uuid, object_ids)[0])
 
         if remove_template_triggers:
             actions.remove_triggers(self._uuid, [t.id for t in triggers])
@@ -105,10 +97,6 @@ class DataTriggers:
             if value_is_valid(ce.selected_object_ids):
                 ids.extend(ce.selected_object_ids)
         return ids
-
-    @staticmethod
-    def _resolve_data_trigger_name(trigger: 'Trigger'):
-        return trigger.name[trigger.name.find(":") + 1:]
 
 
 def loop_trigger_content(trigger: 'Trigger') -> Iterator[Condition | Effect]:
