@@ -22,5 +22,5 @@ class PlayerMetaData(AoE2Object):
 
         self.active: bool = bool(active)
         self.human: bool = bool(human)
-        self.civilization: Civilization = Civilization(civilization)
-        self.architecture_set: Civilization = Civilization(architecture_set) if architecture_set is not None else None
+        self.civilization: int = civilization
+        self.architecture_set: int = architecture_set if architecture_set is not None else None
