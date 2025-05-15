@@ -79,5 +79,11 @@ class Civilization(_DataSetIntEnums):
     ACHAEMENIDS = 46
     ATHENIANS = 47
     SPARTANS = 48
+    SHU = 49
+    WU = 50
+    WEI = 51
+    JURCHENS = 52
+    KITHANS = 53
+
     RANDOM = 65537
     FULL_RANDOM = 65539
