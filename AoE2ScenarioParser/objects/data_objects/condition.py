@@ -30,6 +30,7 @@ class Condition(AoE2Object, TriggerComponent):
             RetrieverObjectLink("source_player"),
             RetrieverObjectLink("technology"),
             RetrieverObjectLink("timer"),
+            RetrieverObjectLink("trigger_id", support=Support(since=1.54)),
             RetrieverObjectLink("area_x1"),
             RetrieverObjectLink("area_y1"),
             RetrieverObjectLink("area_x2"),
@@ -46,6 +47,9 @@ class Condition(AoE2Object, TriggerComponent):
             RetrieverObjectLink("timer_id", support=Support(since=1.46)),
             RetrieverObjectLink("victory_timer_type", support=Support(since=1.46)),
             RetrieverObjectLink("include_changeable_weapon_objects", support=Support(since=1.46)),
+            RetrieverObjectLink("decision_id", support=Support(since=1.54)),
+            RetrieverObjectLink("decision_option", support=Support(since=1.54)),
+            RetrieverObjectLink("variable2", support=Support(since=1.54)),
             RetrieverObjectLink("xs_function", support=Support(since=1.40)),
         ])
     ]
@@ -61,6 +65,7 @@ class Condition(AoE2Object, TriggerComponent):
             source_player: int | IntEnum = None,
             technology: int | IntEnum = None,
             timer: int = None,
+            trigger_id: int = None,
             area_x1: int = None,
             area_y1: int = None,
             area_x2: int = None,
@@ -77,6 +82,9 @@ class Condition(AoE2Object, TriggerComponent):
             timer_id: int = None,
             victory_timer_type: int = None,
             include_changeable_weapon_objects: int = None,
+            decision_id: int = None,
+            decision_option: int = None,
+            variable2: int = None,
             xs_function: str = None,
             **kwargs
     ):
@@ -92,6 +100,7 @@ class Condition(AoE2Object, TriggerComponent):
         self.source_player: int = source_player
         self.technology: int = technology
         self.timer: int = timer
+        self.trigger_id: int = trigger_id
         self.area_x1: int = area_x1
         self.area_y1: int = area_y1
         self.area_x2: int = area_x2
@@ -108,6 +117,9 @@ class Condition(AoE2Object, TriggerComponent):
         self.timer_id: int = timer_id
         self.victory_timer_type: int = victory_timer_type
         self.include_changeable_weapon_objects: int = include_changeable_weapon_objects
+        self.decision_id: int = decision_id
+        self.decision_option: int = decision_option
+        self.variable2: int = variable2
         self.xs_function: str = xs_function
 
         super().__init__(**kwargs)

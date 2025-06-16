@@ -11,6 +11,7 @@
             "source_player": "PlayerId",
             "technology": "TechInfo",
             "timer": "",
+            "trigger_id": "",
             "area_x1": "",
             "area_y1": "",
             "area_x2": "",
@@ -27,6 +28,9 @@
             "timer_id": "",
             "victory_timer_type": "VictoryTimerType",
             "include_changeable_weapon_objects": "bool",
+            "decision_id": "",
+            "decision_option": "",
+            "variable2":  "",
             "xs_function": "str"
         }
     },
@@ -45,6 +49,7 @@
             "source_player": -1,
             "technology": -1,
             "timer": -1,
+            "trigger_id": -1,
             "area_x1": -1,
             "area_y1": -1,
             "area_x2": -1,
@@ -61,6 +66,9 @@
             "timer_id": -1,
             "victory_timer_type": -1,
             "include_changeable_weapon_objects": -1,
+            "decision_id": -1,
+            "decision_option": -1,
+            "variable2":  -1,
             "xs_function": ""
         }
     },
@@ -1330,6 +1338,73 @@
             "victory_timer_type": -1,
             "include_changeable_weapon_objects": -1,
             "xs_function": ""
+        }
+    },
+    "75": {
+        "name": "decision_triggered",
+        "attributes":[
+            "inverted",
+            "decision_id",
+            "decision_option"
+        ],
+        "default_attributes": {
+            "condition_type": 75,
+            "inverted": 0,
+            "decision_option": 0
+        }
+    },
+    "76": {
+        "name":  "object_attacked",
+        "attributes": [
+            "object_list",
+            "quantity",
+            "source_player",
+            "object_group",
+            "object_type",
+            "unit_object",
+            "inverted"
+        ],
+        "default_attributes": {
+            "condition_type": 76,
+            "source_player": 1,
+            "inverted": 0
+        }
+    },
+    "77": {
+        "name":  "hero_power_cast",
+        "attributes": [
+            "source_player"
+        ],
+        "default_attributes": {
+            "condition_type": 77,
+            "source_player": 1
+        }
+    },
+    "78": {
+        "name":  "compare_variables",
+        "attributes": [
+            "inverted",
+            "variable",
+            "comparison",
+            "variable2"
+        ],
+        "default_attributes": {
+           "condition_type": 78,
+           "inverted": 0,
+           "variable": 0,
+           "comparison": 0,
+           "variable2": 0
+        }
+    },
+    "79": {
+        "name":  "trigger_active",
+        "attributes": [
+            "trigger_id",
+            "inverted"
+        ],
+        "default_attributes": {
+            "condition_type": 79,
+            "inverted": 0
         }
     }
 }

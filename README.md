@@ -41,20 +41,23 @@ If you have any questions regarding `AoE2ScenarioParser`? [Join the discord]!
 
 # Support
 
-**Every Single Scenario Version from Age of Empires 2 Definitive Edition is SUPPORTED!** 
+**Every Single Scenario Version\* from Age of Empires 2 Definitive Edition is SUPPORTED!**
 
 > Support: `1.36` _Version at Release (November 14th, 2019)_ → `1.54` _Current Version (Since: October 14, 2024)_
 
-Every single version of **Age of Empires 2 Definitive Edition** is supported! 
-If a new version of **Age of Empires 2 Definitive Edition** just released it can take a bit for it to be able to be read. 
+Every single version of **Age of Empires 2 Definitive Edition** is supported*! 
+If a new version of **Age of Empires 2 Definitive Edition** just released, it can take a bit for it to be able to be read. 
 Check the [Discord Server] for more up-to-date information if this is the case.
 
 If you find a scenario which can be opened by the game itself, but results in an error when using `AoE2ScenarioParser`, 
 please report it as an issue or in the **#bug‑reports** channel in the [Discord Server].
 
-> ⚠️ To view the full-blown support table previously shown in this README, visit: [support]. 
+*: All scenario versions are supported, though older structure versions of the same scenario version are not. 
+For more context see [this Discord post](https://discord.com/channels/866955546182942740/877085102201536553/1372708645711777843).
 
-[support]: https://github.com/KSneijders/AoE2ScenarioParser/blob/master/resources/md/support.md
+To view the full-blown support table previously shown on this page, visit: [support.md]. 
+
+[support.md]: https://github.com/KSneijders/AoE2ScenarioParser/blob/master/resources/md/support.md
 
 # Progress
 
