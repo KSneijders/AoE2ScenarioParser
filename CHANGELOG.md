@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `trigger.new_condition.compare_variables(...)`
   - `trigger.new_condition.trigger_active(...)`
 - A new small dataset: `DecisionOption`
+- 13 new `ColorMood` entries -- Credits: Goku2134 @ Discord
+- 3 new flags to the OtherInfo dataset
 
 ### Dropped support
 
