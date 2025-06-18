@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.0 - UNRELEASED
+
+### Added
+
+- Support for the new Conditions (and the corresponding new attributes) introduced in the last patch:
+  - `trigger.new_condition.decision_triggered(...)`
+  - `trigger.new_condition.object_attacked(...)`
+  - `trigger.new_condition.hero_power_cast(...)`
+  - `trigger.new_condition.compare_variables(...)`
+  - `trigger.new_condition.trigger_active(...)`
+- A new small dataset: `DecisionOption`
+- 13 new `ColorMood` entries -- Credits: Goku2134 @ Discord
+- 3 new flags to the OtherInfo dataset
+
+### Dropped support
+
+Due to limitations within the `AoE2ScenarioParser`'s versioning system, scenarios with a `trigger version` older than the 
+latest `trigger version` for that `scenario version` will no longer be supported. 
+
+Solutions: Save the scenario in-game to upgrade the scenario, or downgrade `AoE2ScenarioParser`.
+
+**For more context, see [this Discord post](https://discord.com/channels/866955546182942740/877085102201536553/1372708645711777843)**. 
+
+---
+
 ##  0.3.6 - 2025-May-15
 
 ### Added

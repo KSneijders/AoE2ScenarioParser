@@ -141,6 +141,9 @@ class OtherInfo(InfoDatasetBase):
     FLAG_K = 1282, -1, -1, 16183, False
     FLAG_L = 1283, -1, -1, 16183, False
     FLAG_M = 1284, -1, -1, 16183, False
+    FLAG_N = 2010, -1, -1, 16183, False
+    FLAG_O = 2011, -1, -1, 16183, False
+    FLAG_P = 2012, -1, -1, 16183, False
     FLARE = 274, -1, -1, 16316, False
     FLARE_A_PERMANENT = 1689, -1, -1, 16316, False
     FLARE_B_PERMANENT = 1785, -1, -1, 16316, False

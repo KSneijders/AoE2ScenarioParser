@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Callable, Union, Tuple
+from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Union, Tuple
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -14,7 +14,7 @@ from AoE2ScenarioParser.datasets.scenario_variant import ScenarioVariant
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidScenarioStructureError, UnknownScenarioStructureError, \
     UnknownStructureError, UnsupportedVersionError
 from AoE2ScenarioParser.exceptions.asp_warnings import IncorrectVariantWarning
-from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
+from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int, bytes_to_double
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
 from AoE2ScenarioParser.helper.printers import s_print, color_string, warn
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
@@ -29,7 +29,7 @@ from AoE2ScenarioParser.scenarios.scenario_debug.compare import debug_compare
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.scenarios.support.object_factory import ObjectFactory
 from AoE2ScenarioParser.scenarios.support.scenario_actions import ScenarioActions
-from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection
+from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection, SectionName
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
@@ -203,6 +203,18 @@ class AoE2Scenario:
 
         return scenario
 
+    def _validate_latest_trigger_data_version(self, trigger_version: float):
+        """
+        Validates the current scenario uses the latest trigger data version for this scenario version.
+        Due to technical limitations inside AoE2ScenarioParser, when multiple trigger data formats are allowed by
+        AoE2:DE, only the latest trigger data format will be allowed by AoE2ScenarioParser.
+        """
+        if self.scenario_version == '1.54' and trigger_version < 4.1:
+            raise UnsupportedVersionError(
+                f"\n\nScenario version: [{self.scenario_version}] with trigger version: [{trigger_version}] cannot be supported. :(\n"
+                "More context on Discord: https://discord.com/channels/866955546182942740/877085102201536553/1372708645711777843"
+            )
+
     @staticmethod
     def get_scenario(
             uuid: UUID = None,
@@ -264,7 +276,13 @@ class AoE2Scenario:
             if section_name == "FileHeader":
                 continue
             try:
+                if section_name == SectionName.TRIGGERS.value:
+                    trigger_version = bytes_to_double(data_igenerator.get_bytes(8, update_progress=False))
+                    self._validate_latest_trigger_data_version(trigger_version)
+
                 self._create_and_load_section(section_name, data_igenerator)
+            except UnsupportedVersionError as e:
+                raise e
             except Exception as e:
                 print(f"\n[{e.__class__.__name__}] AoE2Scenario.parse_file: \n\tSection: {section_name}\n")
                 self.write_error_file(trail_generator=data_igenerator)

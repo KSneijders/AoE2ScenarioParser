@@ -482,3 +482,72 @@ class NewConditionSupport:
             comparison=comparison,
             victory_timer_type=victory_timer_type,
         )
+
+    def decision_triggered(
+            self,
+            inverted: int | None = None,
+            decision_id: int | None = None,
+            decision_option: int | None = None,
+    ):
+        return self._trigger_ref._add_condition(
+            ConditionId.DECISION_TRIGGERED,
+            inverted=inverted,
+            decision_id=decision_id,
+            decision_option=decision_option,
+        )
+
+    def object_attacked(
+            self,
+            object_list: int | None = None,
+            quantity: int | None = None,
+            source_player: int | None = None,
+            object_group: int | None = None,
+            object_type: int | None = None,
+            unit_object: int | None = None,
+            inverted: int | None = None,
+    ):
+        return self._trigger_ref._add_condition(
+            ConditionId.OBJECT_ATTACKED,
+            object_list=object_list,
+            quantity=quantity,
+            source_player=source_player,
+            object_group=object_group,
+            object_type=object_type,
+            unit_object=unit_object,
+            inverted=inverted,
+        )
+
+    def hero_power_cast(
+            self,
+            source_player: int | None = None,
+    ):
+        return self._trigger_ref._add_condition(
+            ConditionId.HERO_POWER_CAST,
+            source_player=source_player,
+        )
+
+    def compare_variables(
+            self,
+            inverted: int | None = None,
+            variable: int | None = None,
+            comparison: int | None = None,
+            variable2: int | None = None,
+    ):
+        return self._trigger_ref._add_condition(
+            ConditionId.COMPARE_VARIABLES,
+            inverted=inverted,
+            variable=variable,
+            comparison=comparison,
+            variable2=variable2,
+        )
+
+    def trigger_active(
+            self,
+            trigger_id: int | None = None,
+            inverted: int | None = None,
+    ):
+        return self._trigger_ref._add_condition(
+            ConditionId.TRIGGER_ACTIVE,
+            trigger_id=trigger_id,
+            inverted=inverted,
+        )
