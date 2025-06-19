@@ -165,8 +165,8 @@ class Trigger(AoE2Object, TriggerComponent):
             object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
             player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
             object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
-            resource_2_quantity=None, resource_3=None, resource_3_quantity=None, unused_string_1=None,
-            unused_string_2=None
+            resource_2_quantity=None, resource_3=None, resource_3_quantity=None, decision_id=None,
+            string_id_option1=None, string_id_option2=None, variable2=None, message_option1=None, message_option2=None,
     ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 

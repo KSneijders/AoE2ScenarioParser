@@ -207,8 +207,7 @@ class ConditionId(IntEnum):
     """
     Attributes for the **script_call** condition are:\n
     - xs_function
-    
-    **Version notice**: \n
+
     This condition was added in: 1.40
     """
     OBJECT_SELECTED_MULTIPLAYER = 26
@@ -217,8 +216,7 @@ class ConditionId(IntEnum):
     - unit_object
     - source_player
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.40
     """
     OBJECT_VISIBLE_MULTIPLAYER = 27
@@ -227,8 +225,7 @@ class ConditionId(IntEnum):
     - unit_object
     - source_player
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.40
     """
     OBJECT_HAS_ACTION = 28
@@ -238,15 +235,13 @@ class ConditionId(IntEnum):
     - next_object
     - inverted
     - unit_ai_action
-    
-    **Version notice**: \n
+
     This condition was added in: 1.40
     """
     OR = 29
     """
     The **OR** condition does not have any attributes
-    
-    **Version notice**: \n
+
     This condition was added in: 1.40
     """
     AI_SIGNAL_MULTIPLAYER = 30
@@ -254,8 +249,7 @@ class ConditionId(IntEnum):
     Attributes for the **ai_signal_multiplayer** condition are:\n
     - ai_signal
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.40
     """
     BUILDING_IS_TRADING = 54
@@ -263,8 +257,7 @@ class ConditionId(IntEnum):
     Attributes for the **building_is_trading** condition are:\n
     - unit_object
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.46
     """
     DISPLAY_TIMER_TRIGGERED = 55
@@ -272,8 +265,7 @@ class ConditionId(IntEnum):
     Attributes for the **display_timer_triggered** condition are:\n
     - timer_id
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.46
     """
     VICTORY_TIMER = 56
@@ -284,15 +276,13 @@ class ConditionId(IntEnum):
     - inverted
     - comparison
     - victory_timer_type
-    
-    **Version notice**: \n
+
     This condition was added in: 1.46
     """
     AND = 57
     """
     The **AND** condition does not have any attributes
-    
-    **Version notice**: \n
+
     This condition was added in: 1.46
     """
     DECISION_TRIGGERED = 75
@@ -301,8 +291,7 @@ class ConditionId(IntEnum):
     - inverted
     - decision_id
     - decision_option
-    
-    **Version notice**: \n
+
     This condition was added in: 1.54 (Trigger version 4.1)
     """
     OBJECT_ATTACKED = 76
@@ -315,16 +304,14 @@ class ConditionId(IntEnum):
     - object_type
     - unit_object
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.54 (Trigger version 4.1)
     """
     HERO_POWER_CAST = 77
     """
     Attributes for the **hero_power_cast** condition are:\n
     - source_player
-    
-    **Version notice**: \n
+
     This condition was added in: 1.54 (Trigger version 4.1)
     """
     COMPARE_VARIABLES = 78
@@ -334,8 +321,7 @@ class ConditionId(IntEnum):
     - variable
     - comparison
     - variable2
-    
-    **Version notice**: \n
+
     This condition was added in: 1.54 (Trigger version 4.1)
     """
     TRIGGER_ACTIVE = 79
@@ -343,8 +329,7 @@ class ConditionId(IntEnum):
     Attributes for the **trigger_active** condition are:\n
     - trigger_id
     - inverted
-    
-    **Version notice**: \n
+
     This condition was added in: 1.54 (Trigger version 4.1)
     """
 

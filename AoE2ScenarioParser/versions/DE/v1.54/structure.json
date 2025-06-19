@@ -1960,10 +1960,25 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "redacted": {
-                                "type": "16",
-                                "default": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                                "comment": "Present since Trigger Version 4.1"
+                            "decision_id": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "string_id_option1": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "string_id_option2": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "variable2": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
                             },
                             "message": {
                                 "type": "str32",
@@ -1990,12 +2005,12 @@
                                     }
                                 }
                             },
-                            "unused_string_1": {
+                            "message_option1": {
                                 "type": "str32",
                                 "comment": "AoE2 Developer Quote: 'The 2 strings are unused'",
                                 "default": ""
                             },
-                            "unused_string_2": {
+                            "message_option2": {
                                 "type": "str32",
                                 "comment": "AoE2 Developer Quote: 'The 2 strings are unused'",
                                 "default": ""
