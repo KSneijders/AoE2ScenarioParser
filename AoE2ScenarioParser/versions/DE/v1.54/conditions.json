@@ -20,7 +20,7 @@
             "object_type": "ObjectType",
             "ai_signal": "",
             "inverted": "bool",
-            "variable": "",
+            "variable": "VariableId",
             "comparison": "Comparison",
             "target_player": "PlayerId",
             "unit_ai_action": "UnitAIAction",
@@ -30,7 +30,7 @@
             "include_changeable_weapon_objects": "bool",
             "decision_id": "",
             "decision_option": "",
-            "variable2":  "",
+            "variable2":  "VariableId",
             "xs_function": "str"
         }
     },

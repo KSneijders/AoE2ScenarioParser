@@ -780,6 +780,7 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
+
     **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
@@ -787,14 +788,72 @@ class EffectId(IntEnum):
     """Attributes for the **change_player_color** effect are: \n
     - source_player
     - player_color
+
     **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     CREATE_DECISION = 90
+    """Attributes for the **create_decision** effect are: \n
+    - decision_id
+    - string_id
+    - message
+    - option_1_string_id
+    - option_1
+    - option_2_string_id
+    - option_2
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
     DISABLE_UNIT_ATTACKABLE = 98
+    """Attributes for the **disable_unit_attackable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - selected_object_ids
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
     ENABLE_UNIT_ATTACKABLE = 99
+    """Attributes for the **enable_unit_attackable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - selected_object_ids
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
     MODIFY_VARIABLE_BY_VARIABLE = 100
+    """Attributes for the **modify_variable_by_variable** effect are: \n
+    - destination_variable
+    - operation
+    - modifier_variable
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
     COUNT_UNITS_INTO_VARIABLE = 101
+    """Attributes for the **modify_variable_by_variable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - object_group
+    - variable
+
+    **Version notice**: \n
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
 
 
 empty_attributes = {
