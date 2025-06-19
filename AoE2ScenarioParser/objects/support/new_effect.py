@@ -1736,20 +1736,20 @@ class NewEffectSupport:
             decision_id: int | None = None,
             string_id: int | None = None,
             message: str | None = None,
-            option_1_string_id: int | None = None,
-            option_1: str | None = None,
-            option_2_string_id: int | None = None,
-            option_2: str | None = None,
+            string_id_option1: int | None = None,
+            message_option1: str | None = None,
+            string_id_option2: int | None = None,
+            message_option2: str | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.CREATE_DECISION,
             decision_id=decision_id,
             string_id=string_id,
             message=message,
-            unused_string_1_id=option_1_string_id,
-            unused_string_1=option_1,
-            unused_string_2_id=option_2_string_id,
-            unused_string_2=option_2,
+            string_id_option1=string_id_option1,
+            message_option1=message_option1,
+            string_id_option2=string_id_option2,
+            message_option2=message_option2,
         )
 
     def disable_unit_attackable(
@@ -1796,15 +1796,28 @@ class NewEffectSupport:
 
     def modify_variable_by_variable(
             self,
-            destination_variable: int | None = None,
+            variable: int | None = None,
             operation: int | None = None,
-            modifier_variable: int | None = None,
+            variable2: int | None = None,
     ):
+        """
+        How it works:
+
+        variable { operation }= variable2
+
+        Examples:
+
+            Operation.SET: variable = variable2
+            Operation.ADD: variable = variable + variable2
+            Operation.SUBTRACT: variable = variable - variable2
+            Operation.DIVIDE: variable = variable / variable2
+            Operation.MULTIPLY: variable = variable * variable2
+        """
         return self._trigger_ref._add_effect(
             EffectId.MODIFY_VARIABLE_BY_VARIABLE,
-            variable=destination_variable,
+            variable=variable,  # Destination!
             operation=operation,
-            variable2=modifier_variable,
+            variable2=variable2,  # Modifier!
         )
 
     def count_units_into_variable(

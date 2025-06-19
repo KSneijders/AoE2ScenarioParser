@@ -29,7 +29,7 @@
             "victory_timer_type": "VictoryTimerType",
             "include_changeable_weapon_objects": "bool",
             "decision_id": "",
-            "decision_option": "",
+            "decision_option": "DecisionOption",
             "variable2":  "VariableId",
             "xs_function": "str"
         }

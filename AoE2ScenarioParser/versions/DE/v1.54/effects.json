@@ -59,14 +59,14 @@
             "resource_3": "Attribute",
             "resource_3_quantity":  "",
             "decision_id": "",
-            "unused_string_1_id": "",
-            "unused_string_2_id": "",
+            "string_id_option1": "",
+            "string_id_option2": "",
             "variable2": "VariableId",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]",
-            "unused_string_1": "",
-            "unused_string_2": ""
+            "message_option1": "",
+            "message_option2": ""
         }
     },
     "0": {
@@ -132,14 +132,14 @@
             "resource_3":  -1,
             "resource_3_quantity": -1,
             "decision_id": -1,
-            "unused_string_1_id": -1,
-            "unused_string_2_id": -1,
+            "string_id_option1": -1,
+            "string_id_option2": -1,
             "variable2": -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": [],
-            "unused_string_1": "",
-            "unused_string_2": ""
+            "message_option1": "",
+            "message_option2": ""
         }
     },
     "1": {
@@ -5491,10 +5491,10 @@
             "decision_id",
             "string_id",
             "message",
-            "unused_string_1_id",
-            "unused_string_1",
-            "unused_string_2_id",
-            "unused_string_2"
+            "string_id_option1",
+            "message_option1",
+            "string_id_option2",
+            "message_option2"
         ],
         "default_attributes": {
             "effect_type": 90,
