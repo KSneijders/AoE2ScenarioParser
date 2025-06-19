@@ -89,6 +89,10 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("resource_2_quantity", support=Support(since=1.54)),
             RetrieverObjectLink("resource_3", support=Support(since=1.54)),
             RetrieverObjectLink("resource_3_quantity", support=Support(since=1.54)),
+            RetrieverObjectLink("decision_id", support=Support(since=1.54)),
+            RetrieverObjectLink("unused_string_1_id", support=Support(since=1.54)),
+            RetrieverObjectLink("unused_string_2_id", support=Support(since=1.54)),
+            RetrieverObjectLink("variable2", support=Support(since=1.54)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
@@ -156,6 +160,10 @@ class Effect(AoE2Object, TriggerComponent):
             resource_2_quantity: int = None,
             resource_3: int = None,
             resource_3_quantity: int = None,
+            decision_id: int = None,
+            unused_string_1_id: int = None,
+            unused_string_2_id: int = None,
+            variable2: int = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
@@ -261,6 +269,10 @@ class Effect(AoE2Object, TriggerComponent):
         self.resource_2_quantity: int = resource_2_quantity
         self.resource_3: int = resource_3
         self.resource_3_quantity: int = resource_3_quantity
+        self.decision_id: int = decision_id
+        self.unused_string_1_id: int = unused_string_1_id
+        self.unused_string_2_id: int = unused_string_2_id
+        self.variable2: int = variable2
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids

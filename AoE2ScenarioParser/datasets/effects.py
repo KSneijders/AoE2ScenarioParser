@@ -790,6 +790,11 @@ class EffectId(IntEnum):
     **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
+    CREATE_DECISION = 90
+    DISABLE_UNIT_ATTACKABLE = 98
+    ENABLE_UNIT_ATTACKABLE = 99
+    MODIFY_VARIABLE_BY_VARIABLE = 100
+    COUNT_UNITS_INTO_VARIABLE = 101
 
 
 empty_attributes = {
@@ -849,6 +854,10 @@ empty_attributes = {
     "resource_2_quantity": -1,
     "resource_3": -1,
     "resource_3_quantity": -1,
+    "decision_id": -1,
+    "unused_string_1_id": -1,
+    "unused_string_2_id": -1,
+    "variable2": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,

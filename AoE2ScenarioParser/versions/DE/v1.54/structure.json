@@ -1960,10 +1960,25 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "redacted": {
-                                "type": "16",
-                                "default": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                                "comment": "Present since Trigger Version 4.1"
+                            "decision_id": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "unused_string_1_id": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "unused_string_2_id": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "variable2": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
                             },
                             "message": {
                                 "type": "str32",

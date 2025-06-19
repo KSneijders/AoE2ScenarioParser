@@ -1730,3 +1730,102 @@ class NewEffectSupport:
             source_player=source_player,
             player_color=player_color,
         )
+
+    def create_decision(
+            self,
+            decision_id: int | None = None,
+            string_id: int | None = None,
+            message: str | None = None,
+            option_1_string_id: int | None = None,
+            option_1: str | None = None,
+            option_2_string_id: int | None = None,
+            option_2: str | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.CREATE_DECISION,
+            decision_id=decision_id,
+            string_id=string_id,
+            message=message,
+            unused_string_1_id=option_1_string_id,
+            unused_string_1=option_1,
+            unused_string_2_id=option_2_string_id,
+            unused_string_2=option_2,
+        )
+
+    def disable_unit_attackable(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.DISABLE_UNIT_ATTACKABLE,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            selected_object_ids=selected_object_ids,
+        )
+
+    def enable_unit_attackable(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.ENABLE_UNIT_ATTACKABLE,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            selected_object_ids=selected_object_ids,
+        )
+
+    def modify_variable_by_variable(
+            self,
+            destination_variable: int | None = None,
+            operation: int | None = None,
+            modifier_variable: int | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_VARIABLE_BY_VARIABLE,
+            variable=destination_variable,
+            operation=operation,
+            variable2=modifier_variable,
+        )
+
+    def count_units_into_variable(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            object_group: int | None = None,
+            variable: int | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.COUNT_UNITS_INTO_VARIABLE,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            object_group=object_group,
+            variable2=variable,
+        )
