@@ -849,7 +849,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - object_group
-    - variable
+    - variableč
 
     **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 4.1

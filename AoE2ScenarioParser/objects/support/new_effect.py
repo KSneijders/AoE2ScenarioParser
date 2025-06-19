@@ -1816,7 +1816,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             object_group: int | None = None,
-            variable: int | None = None,
+            variable2: int | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.COUNT_UNITS_INTO_VARIABLE,
@@ -1827,5 +1827,5 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             object_group=object_group,
-            variable2=variable,
+            variable2=variable2,
         )
