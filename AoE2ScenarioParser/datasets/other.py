@@ -293,10 +293,10 @@ class OtherInfo(InfoDatasetBase):
     QUARRY = 1319, -1, -1, 16717, True
     LUMBER = 1320, -1, -1, 16717, True
     GOODS = 1321, -1, -1, 16717, True
-    FLAME_1 = 1333, -1, -1, 16517, True
-    FLAME_2 = 1334, -1, -1, 16517, True
-    FLAME_3 = 1335, -1, -1, 16517, True
-    FLAME_4 = 1336, -1, -1, 16517, True
+    FLAME1 = 1333, -1, -1, 16517, True
+    FLAME2 = 1334, -1, -1, 16517, True
+    FLAME3 = 1335, -1, -1, 16517, True
+    FLAME4 = 1336, -1, -1, 16517, True
     WATERFALL_BACKGROUND = 1635, -1, -1, 16756, True
     BLOCKER = 1776, -1, -1, 16756, True
     INDIAN_STATUES = 1777, -1, -1, 16717, True

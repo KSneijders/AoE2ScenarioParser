@@ -163,7 +163,6 @@ class TechInfo(Enum):
                     TechInfo.RED_CLIFFS_TACTICS,
                     TechInfo.FORTIFIED_BASTIONS,
                     TechInfo.LAMELLAR_ARMOR,
-
                 ],
                 "imp_age": [
                     TechInfo.ARQUEBUS,
