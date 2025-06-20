@@ -158,6 +158,12 @@ class TechInfo(Enum):
                     TechInfo.YASAMA,
                     TechInfo.YEOMEN,
                     TechInfo.BIMARISTAN,
+                    TechInfo.COILED_SERPENT_ARRAY,
+                    TechInfo.TUNTIAN,
+                    TechInfo.RED_CLIFFS_TACTICS,
+                    TechInfo.FORTIFIED_BASTIONS,
+                    TechInfo.LAMELLAR_ARMOR,
+
                 ],
                 "imp_age": [
                     TechInfo.ARQUEBUS,
@@ -205,6 +211,11 @@ class TechInfo(Enum):
                     TechInfo.TOWER_SHIELDS,
                     TechInfo.WARWOLF,
                     TechInfo.WOOTZ_STEEL,
+                    TechInfo.BOLT_MAGAZINE,
+                    TechInfo.MING_GUANG_ARMOR,
+                    TechInfo.SITTING_TIGER,
+                    TechInfo.THUNDERCLAP_BOMBS,
+                    TechInfo.ORDO_CAVALRY,
                 ],
             },
             "chronicles": {
@@ -305,6 +316,11 @@ class TechInfo(Enum):
                     TechInfo.ELITE_WAR_ELEPHANT,
                     TechInfo.ELITE_WAR_WAGON,
                     TechInfo.ELITE_WOAD_RAIDER,
+                    TechInfo.ELITE_WHITE_FEATHER_GUARD,
+                    TechInfo.ELITE_FIRE_ARCHER,
+                    TechInfo.ELITE_TIGER_CAVALRY,
+                    TechInfo.ELITE_IRON_PAGODA,
+                    TechInfo.ELITE_LIAO_DAO,
                 ],
                 "non_castle": [
                     TechInfo.ELITE_CARAVEL,
@@ -622,6 +638,11 @@ class TechInfo(Enum):
             TechInfo.TURKS,
             TechInfo.VIETNAMESE,
             TechInfo.VIKINGS,
+            TechInfo.SHU,
+            TechInfo.WU,
+            TechInfo.WEI,
+            TechInfo.JURCHENS,
+            TechInfo.KHITANS,
         ]
         chronicles_techs = [
             TechInfo.ACHAEMENIDS,
@@ -863,7 +884,7 @@ class TechInfo(Enum):
     SIEGE_ONAGER = 320, 96
     SIEGE_RAM = 255, 86
     SILK_ARMOR = 687, 33
-    SILK_ROAD = 499, 107
+    SILK_ROAD = 499, 33
     SIPAHI = 491, 33
     SLAVS = 551, -1
     SPANISH = 542, -1
@@ -1093,7 +1114,7 @@ class TechInfo(Enum):
     DRUMS = 1162, 99
     HYPOZOMATA = 1165, 169
     SHIPWRIGHT_ANTIQUITY = 1167, 97
-    ELITE_WAR_CHARRIOT = 1171, 184
+    ELITE_WAR_CHARIOT = 1171, 184
     BATTLE_DRILLS = 1173, 168
     CHAMPION_ANTIQUITY = 1174, 44
     BLANK_TECHNOLOGY_0 = 1180, -1
@@ -1136,3 +1157,31 @@ class TechInfo(Enum):
     TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
     TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
     TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159
+    PIROTECHNIA = 902, 107
+    HEAVY_ROCKET_CART = 980, 133
+    ELITE_FIRE_LANCER = 982, 134
+    ELITE_IRON_PAGODA = 991, 105
+    FORTIFIED_BASTIONS = 996, 33
+    THUNDERCLAP_BOMBS = 997, 107
+    ELITE_LIAO_DAO = 1002, 105
+    LAMELLAR_ARMOR = 1006, 33
+    ORDO_CAVALRY = 1007, 107
+    DRAGON_SHIP = 1010, 135
+    TRANSHUMANCE = 1012, 136
+    PASTORALISM = 1013, 137
+    DOMESTICATION = 1014, 138
+    HEAVY_HEI_GUANG_CAVALRY = 1033, 132
+    ELITE_TIGER_CAVALRY = 1036, 105
+    TUNTIAN = 1061, 33
+    MING_GUANG_ARMOR = 1062, 107
+    ELITE_WHITE_FEATHER_GUARD = 1064, 105
+    BOLT_MAGAZINE = 1069, 107
+    COILED_SERPENT_ARRAY = 1070, 33
+    ELITE_FIRE_ARCHER = 1074, 105
+    RED_CLIFFS_TACTICS = 1080, 33
+    SITTING_TIGER = 1081, 107
+    SHU = 1028, -1
+    WU = 1030, -1
+    WEI = 1039, -1
+    JURCHENS = 986, -1,
+    KHITANS = 988, -1
