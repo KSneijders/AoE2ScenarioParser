@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import List
+
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -38,7 +42,33 @@ class HeroInfo(InfoDatasetBase):
     >>> HeroInfo.WILLIAM_WALLACE.IS_GAIA_ONLY
     >>> False
     """
-    KHOSRAU = 1297, 172, 874, 16311, False
+
+    @staticmethod
+    def trainable_heroes(
+        include_chronicles: bool = False,
+    ) -> List[HeroInfo]:
+        """
+        Args:
+            include_chronicles: if set to `True`, include chronicles heroes
+
+        Returns:
+            A list of all trainable heroes
+        """
+        base = [
+            HeroInfo.LIU_BEI,
+            HeroInfo.CAO_CAO,
+            HeroInfo.SUN_JIAN,
+        ]
+        chronicles = [
+            HeroInfo.POLEMARCH,
+        ]
+        heroes = []
+        heroes.extend(base)
+        if include_chronicles:
+            heroes.extend(chronicles)
+        return heroes
+
+    KHOSRAU = 1297, 172, 1667, 16311, False
     LEIF_ERIKSON = 106, 118, -1, 16457, False
     RICHARD_THE_LIONHEART = 160, 92, 570, 16633, False
     THE_BLACK_PRINCE = 161, 343, 139, 16622, False
@@ -72,7 +102,7 @@ class HeroInfo(InfoDatasetBase):
     FRANCISCO_DE_ORELLANA = 425, 153, 772, 16689, False
     HARALD_HARDRADA = 426, 118, 693, 16293, False
     GONZALO_PIZARRO = 427, 167, 772, 16689, False
-    HROLF_THE_GANGER = 428, 302, 695, 16295, False
+    HROLF_THE_GANGER = 428, 302, 693, 16295, False
     FREDERICK_BARBAROSSA = 429, 154, 181, 16462, False
     JOAN_THE_MAID = 430, 52, 431, 16297, False
     WILLIAM_WALLACE = 432, 363, 433, 16299, False
@@ -97,7 +127,7 @@ class HeroInfo(InfoDatasetBase):
     GODS_OWN_SLING = 683, 94, 194, 16565, False
     ARCHER_OF_THE_EYES = 686, 77, 687, 16568, False
     SUBOTAI = 698, 53, 1618, 16580, False
-    HUNTING_WOLF = 700, 340, 237, 16582, False
+    HUNTING_WOLF = 700, 7, 237, 16582, False
     KUSHLUK = 702, 81, 1638, 16584, False
     TOPA_YUPANQUI = 703, 327, 750, 16669, False
     SHAH = 704, 82, 1337, 16586, False
@@ -106,7 +136,7 @@ class HeroInfo(InfoDatasetBase):
     GODS_OWN_SLING_PACKED = 729, 313, 735, 16611, False
     BAD_NEIGHBOR_PACKED = 730, 313, 735, 16612, False
     GENGHIS_KHAN = 731, 54, 135, 16613, False
-    EMPEROR_IN_A_BARREL = 733, 57, 205, 16615, False
+    EMPEROR_IN_A_BARREL = 733, 57, 1666, 16615, False
     CUSI_YUPANQUI = 749, 306, 1626, 16671, False
     ATTILA_THE_HUN = 777, 119, 1619, 16695, False
     BLEDA_THE_HUN = 779, 120, 1371, 16697, False
@@ -130,18 +160,18 @@ class HeroInfo(InfoDatasetBase):
     HENRY_II = 1040, 325, 500, 16780, False
     YEKUNO_AMLAK = 1064, 208, 1017, 16799, False
     YODIT = 1066, 216, 1625, 16220, False
-    ITZCOATL = 1067, 317, 1221, 16206, False
+    ITZCOATL = 1067, 317, 750, 16206, False
     MUSTAFA_PASHA = 1068, 318, 107, 16207, False
     PACAL_II = 1069, 314, 764, 16208, False
     BABUR = 1070, 316, 300, 16209, False
     ABRAHA_ELEPHANT = 1071, 310, 136, 16210, False
     GUGLIELMO_EMBRIACO = 1072, 312, 867, 16211, False
-    SU_DINGFANG = 1073, 303, 28, 16212, False
+    SU_DINGFANG = 1073, 137, 28, 16212, False
     PACHACUTI = 1074, 319, 1633, 16213, False
     HUAYNA_CAPAC = 1075, 308, 186, 16214, False
-    MIKLOS_TOLDI = 1076, 322, 870, 16215, False
+    MIKLOS_TOLDI = 1076, 100, 870, 16215, False
     LITTLE_JOHN = 1077, 309, 140, 16216, False
-    ZAWISZA_THE_BLACK = 1078, 315, 480, 16217, False
+    ZAWISZA_THE_BLACK = 1078, 384, 480, 16217, False
     SUMANGURU = 1080, 205, 1621, 16218, False
     DAGNAJAN = 1106, 209, 1108, 16232, False
     GIDAJAN = 1109, 245, 1110, 16101, False
@@ -153,7 +183,7 @@ class HeroInfo(InfoDatasetBase):
     UDAYADITYAVARMAN_I = 1163, 241, 732, 16301, False
     JAYAVIRAVARMAN = 1164, 221, 1124, 16101, False
     BAYINNAUNG = 1165, 219, 1637, 16459, False
-    TABINSHWEHTI = 1166, 223, 874, 16101, False
+    TABINSHWEHTI = 1166, 223, 1667, 16101, False
     LE_LOI = 1178, 243, 1623, 16299, False
     LE_LAI = 1180, 242, 1224, 16633, False
     LE_TRIEN = 1181, 237, 568, 16299, False
@@ -163,7 +193,7 @@ class HeroInfo(InfoDatasetBase):
     WANG_TONG = 1185, 240, 1224, 16218, False
     ENVOY = 1186, 244, 1636, 16777, False
     TOKHTAMYSH_KHAN = 1262, 152, 1229, 16101, False
-    IVAYLO = 1265, 257, 1290, 16101, False
+    IVAYLO = 1265, 257, 1629, 16101, False
     TSAR_KONSTANTIN = 1266, 254, 1286, 16101, False
     KOTYAN_KHAN = 1267, 259, 1287, 16580, False
     CUMAN_CHIEF = 1268, 255, 1288, 16533, False
@@ -176,9 +206,7 @@ class HeroInfo(InfoDatasetBase):
     CHAND_BARDAI = 1295, 171, 1329, 16742, False
     SALADIN = 1296, 175, 44, 16453, False
     JARL = 1298, 188, 1628, 16416, False
-    SOGDIAN_CATAPHRACT = 1299, 181, 1401, 16451, False
     OSMAN = 1303, 180, 1632, 16412, False
-    MOUNTED_SAMURAI = 1568, 103, 1569, 16661, False
     SOSSO_GUARD = 1574, 350, 1575, 16101, False
     THE_MIDDLEBROOK = 1631, 353, -1, 16457, False
     EDWARD_LONGSHANKS = 1669, 358, 1670, 16724, False
@@ -205,7 +233,7 @@ class HeroInfo(InfoDatasetBase):
     DMITRY_OF_MOSCOW = 1730, 381, 139, 16639, False
     MIKHAIL_OF_TVER = 1731, 382, 877, 16639, False
     YOUNG_JADWIGA = 1732, 383, 431, 16297, False
-    MIHIRA_BHOJA = 1762, 396, 870, 16779, False
+    MIHIRA_BHOJA = 1762, 396, 1752, 16779, False
     AMOGHAVARSHA = 1763, 397, 1736, 16779, False
     RAJENDRA_CHOLA = 1764, 398, 1765, 16633, False
     GENERAL_ARAIYAN = 1766, 399, 1767, 16218, False
@@ -214,7 +242,6 @@ class HeroInfo(InfoDatasetBase):
     IBRAHIM_LODI = 1771, 402, 1277, 16458, False
     SHAYBANI_KHAN = 1772, 403, 1289, 16458, False
     SHAH_ISMAIL = 1815, 411, 1816, 16639, False
-    ISMAIL = 1815, 411, 1816, 16639, False
     SELIM_THE_GRIM = 1820, 419, 1814, 16471, False
     THOROS = 1821, 413, 1848, 16639, False
     TAMAR = 1822, 414, 1823, 16691, False
@@ -223,26 +250,48 @@ class HeroInfo(InfoDatasetBase):
     ZAKARE = 1826, 422, 1812, 16691, False
     STEPHAN = 1827, 420, 1812, 16691, False
     MLEH = 1828, 418, 568, 16537, False
-    POLEMARCH = 2162, 2163, 622, 416014, False
-    POLEMARCH_2 = 2164, 2163, 622, 416014, False
-    POLEMARCH_3 = 2165, 2163, 622, 416014, False
-    POLEMARCH_4 = 2166, 2163, 622, 416014, False
-    POLEMARCH_3_WITH_EPHORATE = 2167, 2163, 622, 416014, False
-    POLEMARCH_4_WITH_EPHORATE = 2270, 2163, 622, 416014, False
-    POLEMARCH_3_WITH_MORAI = 2171, 2163, 622, 416014, False
-    POLEMARCH_4_WITH_MORAI = 2272, 2163, 622, 416014, False
-    ARTAPHERNES = 2308, 2363, 645, 16412, False
-    DATIS = 2309, 2364, 631, 16444, False
-    ARISTAGORAS = 2310, 2370, 653, 16724, False
-    DIONYSUS = 2311, -1, 632, 416011, False
-    ARTEMISIA = 2312, -1, 646, 416008, False
-    ARISTIDES = 2313, 2376, 644, 416013, False
-    MILTIADES = 2314, 2163, 654, 16070, False
-    THEMISTOCLES = 2315, 2360, 642, 16104, False
-    LEONIDAS = 2316, 2109, 634, 16104, False
-    BRASIDAS = 2317, 2359, 648, 416014, False
-    LYSANDER = 2318, 2371, 635, 16104, False
-    POLYCRITUS = 2319, -1, 640, 416012, False
-    THEMISTOCLES_WARSHIP = 2339, -1, 642, 416008, False
-    CLEON = 2346, 2106, 649, 16104, False
-    DARIUS = 2347, 2303, 651, -1, False
+    POLEMARCH = 2162, 622, 2163, 416014, False
+    POLEMARCH_2 = 2164, 622, 2163, 416014, False
+    POLEMARCH_3 = 2165, 622, 2163, 416014, False
+    POLEMARCH_4 = 2166, 622, 2163, 416014, False
+    POLEMARCH_3_WITH_EPHORATE = 2167, 622, 2163, 416014, False
+    POLEMARCH_4_WITH_EPHORATE = 2270, 622, 2163, 416014, False
+    POLEMARCH_3_WITH_MORAI = 2171, 622, 2163, 416014, False
+    POLEMARCH_4_WITH_MORAI = 2272, 622, 2163, 416014, False
+    ARTAPHERNES = 2308, 645, 2363, 16412, False
+    DATIS = 2309, 631, 2364, 16444, False
+    ARISTAGORAS = 2310, 653, 2370, 16724, False
+    DIONYSIUS = 2311, 632, -1, 416011, False
+    ARTEMISIA = 2312, 646, -1, 416008, False
+    ARISTIDES = 2313, 644, 2376, 416013, False
+    MILTIADES = 2314, 654, 2163, 16070, False
+    THEMISTOCLES = 2315, 642, 2360, 16104, False
+    LEONIDAS = 2316, 634, 2109, 16104, False
+    BRASIDAS = 2317, 648, 2359, 416014, False
+    LYSANDER = 2318, 635, 2371, 16104, False
+    POLYCRITUS = 2319, 640, -1, 416012, False
+    THEMISTOCLES_WARSHIP = 2339, 642, -1, 416008, False
+    CLEON = 2346, 649, 2106, 16104, False
+    DARIUS = 2347, 651, 2303, -1, False
+    ISMAIL = 1819, 416, 449, 16777, False
+    CAO_CAO = 1954, 465, 2, 16381, False
+    LIU_BEI = 1966, 466, 2, 16381, False
+    SUN_JIAN = 1978, 467, 2, 16381, False
+    EMPEROR_IN_A_LITTER = 1988, 529, -1, 16082, False
+    LU_BU = 2032, 443, 2, 16533, False
+    GUAN_YU = 2034, 444, 2, 16697, False
+    ZHUGE_LIANG = 2036, 445, 2, 16740, False
+    ZHANG_FEI = 2038, 446, 2, 16110, False
+    SUN_CE = 2040, 447, 2, 16697, False
+    SUN_QUAN = 2042, 448, 2, 16108, False
+    ZHOU_YU = 2044, 449, 1969, 16456, False
+    DONG_ZHUO = 2045, 450, 1947, 16108, False
+    YUAN_SHAO = 2046, 451, 1953, 16108, False
+    YU_JI = 2047, 452, 1329, 16742, False
+    WHITE_TIGER_YAN = 2048, 453, 1950, 16217, False
+    LIU_BIAO = 2049, 454, 2, 16096, False
+    ZHANG_JUE = 2050, 455, 1329, 16742, False
+    ZHAO_YUN = 2051, 456, 1373, 16108, False
+    CAO_CAO_CAMPAIGN = 2052, 440, 2, 16381, False
+    LIU_BEI_CAMPAIGN = 2053, 441, 2, 16381, False
+    SUN_JIAN_CAMPAIGN = 2054, 442, 2, 16381, False

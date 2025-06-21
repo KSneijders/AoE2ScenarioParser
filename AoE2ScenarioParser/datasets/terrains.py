@@ -39,6 +39,8 @@ class TerrainId(IntEnum):
             TerrainId.WATER_2D_SHORELESS,
             TerrainId.WATER_DEEP_OCEAN,
             TerrainId.WATER_SHALLOW,
+            TerrainId.WATER_YELLOW_SHALLOW,
+            TerrainId.WATER_YELLOW_DEEP,
         ]
 
     @staticmethod
@@ -86,6 +88,8 @@ class TerrainId(IntEnum):
             TerrainId.FOREST_REEDS,
             TerrainId.FOREST_REEDS_BEACH,
             TerrainId.FOREST_REEDS_SHALLOWS,
+            TerrainId.FOREST_PALM_GRASS,
+            TerrainId.FOREST_LUSH_BAMBOO,
         ]
 
     BEACH = 2
@@ -199,3 +203,14 @@ class TerrainId(IntEnum):
     WATER_GREEN = 95
     WATER_MEDIUM = 23
     WATER_SHALLOW = 1
+    OBSOLETE_DIRT_MUD = 44
+    FOREST_PALM_GRASS = 112
+    FOREST_LUSH_BAMBOO = 113
+    WATER_YELLOW_SHALLOW = 114
+    SHALLOWS_YELLOW = 115
+    WATER_YELLOW_DEEP = 116
+    PASTURE = 117
+    PASTURE_DEAD = 118
+    PASTURE_0 = 119
+    PASTURE_33 = 120
+    PASTURE_66 = 121
