@@ -106,7 +106,8 @@
         "secondary_fire": 328
     },
     "122": {
-        "primary": 509
+        "primary": 509,
+        "primary_fire": 521
     },
     "133": {
         "secondary": 512,
@@ -152,7 +153,8 @@
         "secondary": 1119
     },
     "216": {
-        "primary": 509
+        "primary": 509,
+        "primary_fire": 521
     },
     "234": {
         "primary": 504,
