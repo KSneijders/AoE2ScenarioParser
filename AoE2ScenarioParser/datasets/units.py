@@ -57,7 +57,6 @@ class UnitInfo(InfoDatasetBase):
         Args:
             exclude_female: if set to true, exclude the female villagers
             exclude_male: if set to true, exclude the male villagers
-            include_chronicles: if set to `True`, include chronicles villagers
 
         Returns:
             A list of villager UnitInfo objects

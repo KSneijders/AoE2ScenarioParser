@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import List
+
 from AoE2ScenarioParser.datasets.support.info_dataset_base import InfoDatasetBase
 
 
@@ -38,6 +42,31 @@ class HeroInfo(InfoDatasetBase):
     >>> HeroInfo.WILLIAM_WALLACE.IS_GAIA_ONLY
     >>> False
     """
+
+    @staticmethod
+    def trainable_heroes(
+        include_chronicles: bool = False,
+    ) -> List[HeroInfo]:
+        """
+        Args:
+            include_chronicles: if set to `True`, include chronicles heroes
+        Returns:
+            A list of all trainable heroes
+        """
+        base = [
+            HeroInfo.LIU_BEI,
+            HeroInfo.CAO_CAO,
+            HeroInfo.SUN_JIAN,
+        ]
+        chronicles = [
+            HeroInfo.POLEMARCH,
+        ]
+        heroes = []
+        heroes.extend(base)
+        if include_chronicles:
+            heroes.extend(chronicles)
+        return heroes
+
     KHOSRAU = 1297, 172, 1667, 16311, False
     LEIF_ERIKSON = 106, 118, -1, 16457, False
     RICHARD_THE_LIONHEART = 160, 92, 570, 16633, False
