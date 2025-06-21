@@ -50,6 +50,7 @@ class HeroInfo(InfoDatasetBase):
         """
         Args:
             include_chronicles: if set to `True`, include chronicles heroes
+
         Returns:
             A list of all trainable heroes
         """
