@@ -1,7 +1,8 @@
 {
     "4": {
         "primary": 363,
-        "primary_fire": 466
+        "primary_fire": 466,
+        "secondary": 1930
     },
     "5": {
         "primary": 380
@@ -28,11 +29,14 @@
     },
     "21": {
         "primary": 372,
-        "primary_fire": 470
+        "primary_fire": 470,
+        "secondary": 512,
+        "secondary_fire": 524
     },
     "24": {
         "primary": 364,
-        "primary_fire": 375
+        "primary_fire": 375,
+        "secondary": 1930
     },
     "33": {
         "primary": 746,
@@ -102,8 +106,7 @@
         "secondary_fire": 328
     },
     "122": {
-        "primary": 509,
-        "primary_fire": 521
+        "primary": 509
     },
     "133": {
         "secondary": 512,
@@ -129,7 +132,8 @@
         "primary_fire": 475
     },
     "185": {
-        "primary": 187
+        "primary": 187,
+        "primary_fire": 538
     },
     "188": {
         "primary": 676,
@@ -148,8 +152,7 @@
         "secondary": 1119
     },
     "216": {
-        "primary": 509,
-        "primary_fire": 521
+        "primary": 509
     },
     "234": {
         "primary": 504,
@@ -211,7 +214,9 @@
     },
     "442": {
         "primary": 373,
-        "primary_fire": 471
+        "primary_fire": 471,
+        "secondary": 512,
+        "secondary_fire": 524
     },
     "445": {
         "primary": 746,
@@ -229,7 +234,8 @@
     },
     "492": {
         "primary": 507,
-        "primary_fire": 519
+        "primary_fire": 519,
+        "secondary": 1930
     },
     "493": {
         "primary": 364,
@@ -258,7 +264,9 @@
     },
     "539": {
         "primary": 540,
-        "primary_fire": 541
+        "primary_fire": 541,
+        "secondary": 512,
+        "secondary_fire": 524
     },
     "542": {
         "primary": 627,
@@ -409,13 +417,13 @@
         "primary_fire": 471
     },
     "831": {
-        "primary": 767
+        "primary": 1906
     },
     "832": {
-        "primary": 767
+        "primary": 1906
     },
     "844": {
-        "primary": 767
+        "primary": 1906
     },
     "850": {
         "primary": 511,
@@ -536,7 +544,8 @@
         "secondary_fire": 522
     },
     "1075": {
-        "primary": 187
+        "primary": 187,
+        "primary_fire": 538
     },
     "1079": {
         "primary": 366,
@@ -710,16 +719,37 @@
         "primary": 1756
     },
     "1743": {
-        "primary": 1756
+        "primary": 1783
     },
     "1750": {
-        "primary": 1779,
-        "primary_fire": 1780
+        "primary": 373,
+        "primary_fire": 471,
+        "secondary": 1779,
+        "secondary_fire": 1780
+    },
+    "1759": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "1761": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "1769": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "1771": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "1772": {
+        "primary": 477,
+        "primary_fire": 475
     },
     "1795": {
         "primary": 508,
-        "primary_fire": 520,
-        "primary_greek_fire": 1798
+        "primary_fire": 520
     },
     "1800": {
         "primary": 503,
@@ -732,6 +762,74 @@
     "1806": {
         "secondary": 54,
         "secondary_fire": 328
+    },
+    "1904": {
+        "primary": 1906
+    },
+    "1907": {
+        "primary": 1906
+    },
+    "1911": {
+        "primary": 1913
+    },
+    "1923": {
+        "primary": 1926,
+        "primary_fire": 1927,
+        "secondary": 369,
+        "secondary_fire": 468
+    },
+    "1942": {
+        "primary": 1932,
+        "primary_fire": 1933,
+        "secondary": 1934,
+        "secondary_fire": 1935
+    },
+    "1948": {
+        "primary": 1938,
+        "primary_fire": 1939,
+        "secondary": 1934,
+        "secondary_fire": 1935
+    },
+    "1952": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "1962": {
+        "primary": 1964
+    },
+    "1968": {
+        "primary": 1971
+    },
+    "1970": {
+        "primary": 1971
+    },
+    "1980": {
+        "primary": 1957
+    },
+    "2042": {
+        "primary": 477,
+        "primary_fire": 475,
+        "secondary": 510,
+        "secondary_fire": 522
+    },
+    "2044": {
+        "primary": 1931
+    },
+    "2046": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "2049": {
+        "primary": 1964
+    },
+    "2061": {
+        "primary": 2056
+    },
+    "2063": {
+        "primary": 2062
+    },
+    "2065": {
+        "primary": 2057
     },
     "2117": {
         "secondary": 512,
@@ -860,7 +958,8 @@
         "primary": 2342
     },
     "2320": {
-        "primary": 187
+        "primary": 187,
+        "primary_fire": 538
     },
     "2324": {
         "primary": 507,
