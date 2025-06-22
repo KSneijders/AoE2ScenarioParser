@@ -839,15 +839,15 @@
     },
     "1968": {
         "primary": 1971,
-        "primary_red_cliffs_fire": 1972,
+        "primary_red_cliffs": 1972,
         "charge": 1971,
-        "charge_red_cliffs_fire": 1972
+        "charge_red_cliffs": 1972
     },
     "1970": {
         "primary": 1971,
-        "primary_red_cliffs_fire": 1972,
+        "primary_red_cliffs": 1972,
         "charge": 1971,
-        "charge_red_cliffs_fire": 1972
+        "charge_red_cliffs": 1972
     },
     "1980": {
         "primary": 1957
@@ -860,9 +860,9 @@
     },
     "2044": {
         "primary": 1931,
-        "primary_red_cliffs_fire": 1972,
+        "primary_red_cliffs": 1972,
         "charge": 1931,
-        "charge_red_cliffs_fire": 1972
+        "charge_red_cliffs": 1972
     },
     "2046": {
         "primary": 477,
