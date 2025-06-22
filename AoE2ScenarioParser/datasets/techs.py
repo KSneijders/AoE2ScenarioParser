@@ -529,7 +529,7 @@ class TechInfo(Enum):
                 economic buildings (Mill, Mining Camp, Lumber Camp, Town Center and Market) are returned
 
         Returns:
-            A list of TechInfo objects which are the university upgrade techs for the given age
+            A list of TechInfo objects which are the eco upgrade techs for the given age
         """
         ages = list(Age) if ages is None else listify(ages)
 
@@ -553,21 +553,21 @@ class TechInfo(Enum):
                 BuildingInfo.MARKET.ID: [],
             },
             Age.FEUDAL_AGE: {
-                BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR],
+                BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR, TechInfo.DOMESTICATION],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_MINING, TechInfo.STONE_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.DOUBLE_BIT_AXE],
                 BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW, TechInfo.TOWN_WATCH],
                 BuildingInfo.MARKET.ID: [],
             },
             Age.CASTLE_AGE: {
-                BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW],
+                BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW, TechInfo.PASTORALISM],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_SHAFT_MINING, TechInfo.STONE_SHAFT_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.BOW_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART, TechInfo.TOWN_PATROL],
                 BuildingInfo.MARKET.ID: [TechInfo.COINAGE, TechInfo.CARAVAN]
             },
             Age.IMPERIAL_AGE: {
-                BuildingInfo.MILL.ID: [TechInfo.CROP_ROTATION],
+                BuildingInfo.MILL.ID: [TechInfo.CROP_ROTATION, TechInfo.TRANSHUMANCE],
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.TWO_MAN_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [],

@@ -266,8 +266,12 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.XIANBEI_RAIDER,
                     UnitInfo.JIAN_SWORDSMAN,
                     UnitInfo.TRACTION_TREBUCHET,
+                    UnitInfo.MOUNTED_TREBUCHET,
                     UnitInfo.LOU_CHUAN,
                     UnitInfo.DRAGON_SHIP,
+                    UnitInfo.WAR_CHARIOT_BARRAGE,
+                    UnitInfo.WAR_CHARIOT_FOCUS_FIRE,
+                    UnitInfo.GRENADIER,
                 ],
                 "elite": [
                     UnitInfo.ELITE_CARAVEL,
