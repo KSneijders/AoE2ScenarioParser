@@ -10,8 +10,8 @@ class ProjectileSmartMode(_DataSetIntFlags):
 
     **Examples**
 
-    >>> ProjectileSmartMode.HAS_BALLISTICS
-    <ProjectileSmartMode.HAS_BALLISTICS: 1>
+    >>> ProjectileSmartMode.TARGET_FUTURE_LOCATION
+    <ProjectileSmartMode.TARGET_FUTURE_LOCATION: 1>
     """
     TARGET_CURRENT_LOCATION = 0
     TARGET_FUTURE_LOCATION = 1
