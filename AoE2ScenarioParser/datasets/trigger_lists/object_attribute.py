@@ -667,7 +667,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     Blast damage multiplier to non directly targeted units. Blast damage to non directly targeted units is a fixed value if this is negative
     """
-    REGENERATION_HP_PERCEN = 120
+    REGENERATION_HP_PERCENT = 120
     """
     Percentage of the unit’s max HP that is regenerated over a minute
     """
