@@ -52,13 +52,11 @@ class UnitInfo(InfoDatasetBase):
     def vils(
             exclude_female: bool = False,
             exclude_male: bool = False,
-            include_chronicles: bool = False,
     ) -> List[UnitInfo]:
         """
         Args:
             exclude_female: if set to true, exclude the female villagers
             exclude_male: if set to true, exclude the male villagers
-            include_chronicles: if set to `True`, include chronicles villagers
 
         Returns:
             A list of villager UnitInfo objects
@@ -78,6 +76,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_MALE_REPAIRER,
                     UnitInfo.VILLAGER_MALE_SHEPHERD,
                     UnitInfo.VILLAGER_MALE_STONE_MINER,
+                    UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
                 ],
                 "female": [
                     UnitInfo.VILLAGER_FEMALE,
@@ -91,13 +90,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_FEMALE_REPAIRER,
                     UnitInfo.VILLAGER_FEMALE_SHEPHERD,
                     UnitInfo.VILLAGER_FEMALE_STONE_MINER,
-                ],
-            },
-            "chronicles": {
-                "male": [
-                    UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
-                ],
-                "female": [
                     UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
                 ],
             },
@@ -105,15 +97,10 @@ class UnitInfo(InfoDatasetBase):
 
         units_to_return = []
 
-        addons = ["base"]
-        if include_chronicles:
-            addons.append("chronicles")
-
-        for addon in addons:
-            if not exclude_female:
-                units_to_return.extend(villagers[addon]["female"])
-            if not exclude_male:
-                units_to_return.extend(villagers[addon]["male"])
+        if not exclude_female:
+            units_to_return.extend(villagers["base"]["female"])
+        if not exclude_male:
+            units_to_return.extend(villagers["base"]["male"])
 
         return units_to_return
 
@@ -188,6 +175,11 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.WAR_ELEPHANT,
                         UnitInfo.WAR_WAGON,
                         UnitInfo.WOAD_RAIDER,
+                        UnitInfo.WHITE_FEATHER_GUARD,
+                        UnitInfo.FIRE_ARCHER,
+                        UnitInfo.TIGER_CAVALRY,
+                        UnitInfo.IRON_PAGODA,
+                        UnitInfo.LIAO_DAO,
                     ],
                     "elite": [
                         UnitInfo.ELITE_ARAMBAI,
@@ -236,6 +228,11 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.ELITE_WAR_ELEPHANT,
                         UnitInfo.ELITE_WAR_WAGON,
                         UnitInfo.ELITE_WOAD_RAIDER,
+                        UnitInfo.ELITE_WHITE_FEATHER_GUARD,
+                        UnitInfo.ELITE_FIRE_ARCHER,
+                        UnitInfo.ELITE_TIGER_CAVALRY,
+                        UnitInfo.ELITE_IRON_PAGODA,
+                        UnitInfo.ELITE_LIAO_DAO,
                     ]
                 },
                 "non_elite": [
@@ -266,6 +263,13 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.WARRIOR_PRIEST,
                     UnitInfo.WARRIOR_PRIEST_WITH_RELIC,
                     UnitInfo.WINGED_HUSSAR,
+                    UnitInfo.XIANBEI_RAIDER,
+                    UnitInfo.JIAN_SWORDSMAN,
+                    UnitInfo.MOUNTED_TREBUCHET,
+                    UnitInfo.DRAGON_SHIP,
+                    UnitInfo.WAR_CHARIOT_BARRAGE,
+                    UnitInfo.WAR_CHARIOT_FOCUS_FIRE,
+                    UnitInfo.GRENADIER,
                 ],
                 "elite": [
                     UnitInfo.ELITE_CARAVEL,
@@ -327,7 +331,7 @@ class UnitInfo(InfoDatasetBase):
 
         return units_to_return
 
-    BEAR = 486, 151, 489, 16712, True
+    BROWN_BEAR = 486, 151, 489, 16712, True
     BUTTERFLY1 = 1608, -1, -1, 16716, True
     BUTTERFLY2 = 1609, -1, -1, 16716, True
     BUTTERFLY3 = 1610, -1, -1, 16716, True
@@ -356,8 +360,8 @@ class UnitInfo(InfoDatasetBase):
     WILD_BACTRIAN_CAMEL = 1247, 266, 1238, 16735, True
     WILD_BOAR = 48, 98, 356, 16406, True
     WILD_CAMEL = 884, 135, 898, 16735, True
-    WILD_HORSE = 835, 112, 815, 16735, True
-    WOLF = 126, 7, 237, 16075, True
+    WILD_HORSE_A = 835, 112, 815, 16735, True
+    GREY_WOLF = 126, 7, 237, 16075, True
     ZEBRA = 1019, 192, 1020, 16071, True
     MOVEABLE_MAP_REVEALER = 0, -1, -1, 16000, False
     ALFRED_THE_ALPACA = 1300, 177, 1331, 16469, False
@@ -399,56 +403,56 @@ class UnitInfo(InfoDatasetBase):
     DEMOLITION_RAFT = 1104, 202, -1, 16424, False
     DEMOLITION_SHIP = 527, 84, -1, 16424, False
     DONKEY = 846, 158, 848, 16100, False
-    DRAGON_SHIP = 1302, 178, -1, 16739, False
+    DRAGON_SHIP = 1302, 178, -1, 16426, False
     EAGLE_SCOUT = 751, 109, 754, 16671, False
     EAGLE_WARRIOR = 753, 148, 1116, 16671, False
     EASTERN_SWORDSMAN = 894, 186, 895, 16081, False
-    ELEPHANT_ARCHER = 873, 93, 874, 16101, False
-    ELITE_ARAMBAI = 1128, 230, 1127, 16101, False
-    ELITE_BALLISTA_ELEPHANT = 1122, 231, 1121, 16101, False
+    ELEPHANT_ARCHER = 873, 393, 874, 16744, False
+    ELITE_ARAMBAI = 1128, 504, 1127, 16101, False
+    ELITE_BALLISTA_ELEPHANT = 1122, 502, 1121, 16101, False
     ELITE_BATTLE_ELEPHANT = 1134, 246, 1154, 16733, False
-    ELITE_BERSERK = 694, 38, 695, 16576, False
-    ELITE_BOYAR = 878, 114, 877, 16101, False
-    ELITE_CAMEL_ARCHER = 1009, 191, 1008, 16101, False
+    ELITE_BERSERK = 694, 485, 695, 16576, False
+    ELITE_BOYAR = 878, 494, 877, 16101, False
+    ELITE_CAMEL_ARCHER = 1009, 498, 1008, 16101, False
     ELITE_CANNON_GALLEON = 691, 298, -1, 16573, False
-    ELITE_CARAVEL = 1006, 198, -1, 16106, False
-    ELITE_CATAPHRACT = 553, 35, 27, 16451, False
-    ELITE_CHU_KO_NU = 559, 36, 28, 16452, False
-    ELITE_CONQUISTADOR = 773, 106, 772, 16689, False
+    ELITE_CARAVEL = 1006, 497, -1, 16106, False
+    ELITE_CATAPHRACT = 553, 476, 27, 16451, False
+    ELITE_CHU_KO_NU = 559, 482, 28, 16452, False
+    ELITE_CONQUISTADOR = 773, 489, 772, 16689, False
     ELITE_EAGLE_WARRIOR = 752, 149, 1117, 16673, False
-    ELITE_ELEPHANT_ARCHER = 875, 93, 874, 16101, False
-    ELITE_GBETO = 1015, 197, 1014, 16101, False
-    ELITE_GENITOUR = 1012, 201, 1011, 16417, False
-    ELITE_GENOESE_CROSSBOWMAN = 868, 133, 867, 16101, False
-    ELITE_HUSKARL = 555, 50, 62, 16454, False
-    ELITE_JAGUAR_WARRIOR = 726, 110, 750, 16669, False
-    ELITE_JANISSARY = 557, 39, 107, 16455, False
-    ELITE_KAMAYUK = 881, 97, 880, 16460, False
-    ELITE_KARAMBIT_WARRIOR = 1125, 233, 1124, 16101, False
-    ELITE_KESHIK = 1230, 251, 1229, 16101, False
-    ELITE_KIPCHAK = 1233, 252, 1232, 16108, False
-    ELITE_KONNIK = 1227, 249, 1253, 16101, False
-    ELITE_KONNIK_DISMOUNTED = 1253, 250, 1257, 16411, False
-    ELITE_LEITIS = 1236, 253, 1235, 16101, False
-    ELITE_LONGBOAT = 533, 40, -1, 16457, False
-    ELITE_LONGBOWMAN = 530, 41, 115, 16456, False
-    ELITE_MAGYAR_HUSZAR = 871, 99, 870, 16101, False
-    ELITE_MAMELUKE = 556, 37, 44, 16453, False
-    ELITE_MANGUDAI = 561, 42, 135, 16458, False
-    ELITE_ORGAN_GUN = 1003, 190, 1002, 16101, False
-    ELITE_PLUMED_ARCHER = 765, 108, 764, 16685, False
-    ELITE_RATTAN_ARCHER = 1131, 232, 1130, 16101, False
-    ELITE_SAMURAI = 560, 44, 151, 16460, False
-    ELITE_SHOTEL_WARRIOR = 1018, 195, 1017, 16101, False
+    ELITE_ELEPHANT_ARCHER = 875, 93, 1667, 16744, False
+    ELITE_GBETO = 1015, 500, 1014, 16101, False
+    ELITE_GENITOUR = 1012, 499, 1011, 16417, False
+    ELITE_GENOESE_CROSSBOWMAN = 868, 492, 867, 16101, False
+    ELITE_HUSKARL = 555, 478, 62, 16454, False
+    ELITE_JAGUAR_WARRIOR = 726, 486, 750, 16669, False
+    ELITE_JANISSARY = 557, 480, 107, 16455, False
+    ELITE_KAMAYUK = 881, 495, 880, 16460, False
+    ELITE_KARAMBIT_WARRIOR = 1125, 503, 1124, 16101, False
+    ELITE_KESHIK = 1230, 507, 1229, 16101, False
+    ELITE_KIPCHAK = 1233, 508, 1232, 16108, False
+    ELITE_KONNIK = 1227, 506, 1226, 16101, False
+    ELITE_KONNIK_DISMOUNTED = 1253, 510, 1257, 16411, False
+    ELITE_LEITIS = 1236, 509, 1235, 16101, False
+    ELITE_LONGBOAT = 533, 474, -1, 16457, False
+    ELITE_LONGBOWMAN = 530, 472, 115, 16456, False
+    ELITE_MAGYAR_HUSZAR = 871, 493, 870, 16101, False
+    ELITE_MAMELUKE = 556, 479, 44, 16453, False
+    ELITE_MANGUDAI = 561, 484, 135, 16458, False
+    ELITE_ORGAN_GUN = 1003, 496, 1002, 16101, False
+    ELITE_PLUMED_ARCHER = 765, 488, 764, 16685, False
+    ELITE_RATTAN_ARCHER = 1131, 505, 1130, 16101, False
+    ELITE_SAMURAI = 560, 483, 151, 16460, False
+    ELITE_SHOTEL_WARRIOR = 1018, 501, 1017, 16101, False
     ELITE_SKIRMISHER = 6, 21, 100, 16087, False
     ELITE_STEPPE_LANCER = 1372, 274, 1373, 16746, False
-    ELITE_TARKAN = 757, 105, 756, 16677, False
-    ELITE_TEUTONIC_KNIGHT = 554, 45, 181, 16462, False
-    ELITE_THROWING_AXEMAN = 531, 46, 157, 16461, False
-    ELITE_TURTLE_SHIP = 832, 116, -1, 16106, False
-    ELITE_WAR_ELEPHANT = 558, 43, 136, 16459, False
-    ELITE_WAR_WAGON = 829, 117, 828, 16729, False
-    ELITE_WOAD_RAIDER = 534, 47, 233, 16463, False
+    ELITE_TARKAN = 757, 487, 756, 16677, False
+    ELITE_TEUTONIC_KNIGHT = 554, 477, 181, 16462, False
+    ELITE_THROWING_AXEMAN = 531, 473, 157, 16461, False
+    ELITE_TURTLE_SHIP = 832, 491, -1, 16106, False
+    ELITE_WAR_ELEPHANT = 558, 481, 136, 16459, False
+    ELITE_WAR_WAGON = 829, 490, 828, 16729, False
+    ELITE_WOAD_RAIDER = 534, 475, 233, 16463, False
     FAST_FIRE_SHIP = 532, 85, -1, 16429, False
     FIRE_GALLEY = 1103, 203, -1, 16426, False
     FIRE_SHIP = 529, 86, -1, 16426, False
@@ -463,7 +467,7 @@ class UnitInfo(InfoDatasetBase):
     GENOESE_CROSSBOWMAN = 866, 133, 867, 16101, False
     GOAT = 1060, 200, 1061, 16061, False
     GOOSE = 1243, 265, 1244, 16061, False
-    HALBERDIER = 359, 104, 502, 16409, False
+    HALBERDIER = 359, 104, 502, 16078, False
     HAND_CANNONEER = 5, 22, 98, 16086, False
     HEAVY_CAMEL_RIDER = 330, 79, 495, 16417, False
     HEAVY_CAVALRY_ARCHER = 474, 71, 631, 16412, False
@@ -493,7 +497,7 @@ class UnitInfo(InfoDatasetBase):
     KING = 434, 48, 435, 16301, False
     KIPCHAK = 1231, 252, 1232, 16108, False
     KNIGHT = 38, 1, 111, 16068, False
-    KONNIK = 1225, 249, 1252, 16101, False
+    KONNIK = 1225, 249, 1226, 16101, False
     KONNIK_DISMOUNTED = 1252, 250, 1257, 16411, False
     IMPERIAL_LEGIONARY = 1, 139, 2, 16669, False
     LEITIS = 1234, 253, 1235, 16101, False
@@ -523,10 +527,10 @@ class UnitInfo(InfoDatasetBase):
     PETARD = 440, 113, -1, 16660, False
     PHOTONMAN = 1577, 300, 1578, 16043, False
     PIG = 1245, 269, 1246, 16061, False
-    PIKEMAN = 358, 11, 501, 16408, False
+    PIKEMAN = 358, 11, 501, 16078, False
     PLUMED_ARCHER = 763, 108, 764, 16683, False
-    PRIEST = 1023, 294, 1024, 16120, False
-    PRIEST_WITH_RELIC = 1400, 33, 1024, 16380, False
+    PRIEST = 1023, 294, 1024, 16099, False
+    PRIEST_WITH_RELIC = 1400, 294, 1024, 16380, False
     QUEEN = 1292, 168, 1328, 16302, False
     RATTAN_ARCHER = 1129, 232, 1130, 16101, False
     RELIC_CART = 1304, 295, 285, 16082, False
@@ -588,7 +592,7 @@ class UnitInfo(InfoDatasetBase):
     WAR_WAGON = 827, 117, 828, 16727, False
     WATER_BUFFALO = 1142, 224, 1143, 16175, False
     WOAD_RAIDER = 232, 47, 233, 16113, False
-    XOLOTL_WARRIOR = 1570, 351, 1571, 16326, False
+    XOLOTL_WARRIOR = 1570, 351, 1571, 16736, False
     BOARDER_GALLEY = 536, 82, -1, 16703, False
     HUSKARL_BARRACKS = 759, 50, 62, 16748, False
     ELITE_HUSKARL_BARRACKS = 761, 50, 62, 16748, False
@@ -597,12 +601,12 @@ class UnitInfo(InfoDatasetBase):
     GENITOUR_ORIGINAL = 583, 19, 152, 16663, False
     ELITE_GENITOUR_ORIGINAL = 596, 19, 152, 16665, False
     COUSTILLIER = 1655, 355, 1656, 16101, False
-    ELITE_COUSTILLIER = 1657, 355, 1656, 16101, False
+    ELITE_COUSTILLIER = 1657, 511, 1656, 16101, False
     FLEMISH_MILITIA = 1699, 354, 1664, 16735, False
     FLEMISH_MILITIA_MALE = 1663, 354, 1664, 16469, False
     FLEMISH_MILITIA_FEMALE = 1697, 354, 1698, 16469, False
     SERJEANT = 1658, 356, 1662, 16104, False
-    ELITE_SERJEANT = 1659, 356, 1662, 16454, False
+    ELITE_SERJEANT = 1659, 512, 1662, 16454, False
     SERJEANT_DONJON = 1660, 356, 1662, 16101, False
     ELITE_SERJEANT_DONJON = 1661, 356, 1662, 16101, False
     CONDOTTIERO_PLACEHOLDER = 184, 134, 883, 16679, False
@@ -615,98 +619,144 @@ class UnitInfo(InfoDatasetBase):
     RFARC = 571, 17, 572, 16474, False
     MONUMENT_RESOURCE_ENABLER = 1639, 17, 572, 16464, False
     HUSSITE_WAGON = 1704, 370, 1705, 16101, False
-    ELITE_HUSSITE_WAGON = 1706, 370, 1705, 16101, False
+    ELITE_HUSSITE_WAGON = 1706, 514, 1705, 16101, False
     OBUCH = 1701, 369, 1702, 16104, False
-    ELITE_OBUCH = 1703, 369, 1702, 16104, False
+    ELITE_OBUCH = 1703, 513, 1702, 16454, False
     WINGED_HUSSAR = 1707, 371, 1708, 16661, False
     HOUFNICE = 1709, 372, 1710, 16093, False
     URUMI_SWORDSMAN = 1735, 386, 1736, 16104, False
     MONK_WITH_TURKISH_RELIC = 309, 33, 134, 16361, False
     CRUSADER_KNIGHT = 1723, 377, 1724, 16730, False
-    ELITE_URUMI_SWORDSMAN = 1737, 386, 1736, 16454, False
+    ELITE_URUMI_SWORDSMAN = 1737, 515, 1736, 16454, False
     RATHA_MELEE = 1738, 388, 1739, 16101, False
-    ELITE_RATHA_MELEE = 1740, 388, 1739, 16101, False
+    ELITE_RATHA_MELEE = 1740, 516, 1739, 16101, False
     CHAKRAM_THROWER = 1741, 390, 1742, 16111, False
-    ELITE_CHAKRAM_THROWER = 1743, 390, 1742, 16461, False
+    ELITE_CHAKRAM_THROWER = 1743, 517, 1742, 16461, False
     GHULAM = 1747, 385, 1748, 16101, False
-    ELITE_GHULAM = 1749, 385, 1748, 16101, False
+    ELITE_GHULAM = 1749, 518, 1748, 16101, False
     THIRISADAI = 1750, 387, -1, 16106, False
     SHRIVAMSHA_RIDER = 1751, 391, 1752, 16737, False
-    ELITE_SHRIVAMSHA_RIDER = 1753, 391, 1752, 16737, False
+    ELITE_SHRIVAMSHA_RIDER = 1753, 519, 1752, 16737, False
     CAMEL_SCOUT = 1755, 392, 1668, 16416, False
     RATHA_RANGED = 1759, 389, 1760, 16727, False
-    ELITE_RATHA_RANGED = 1761, 389, 1760, 16729, False
+    ELITE_RATHA_RANGED = 1761, 520, 1760, 16729, False
     ARMORED_ELEPHANT = 1744, 394, 1745, 16494, False
     SIEGE_ELEPHANT = 1746, 395, 1757, 16494, False
-    SOGDIAN_CATAPHRACT = 1299, 181, 1401, 1645, False
+    SOGDIAN_CATAPHRACT = 1299, 181, 1401, 16451, False
     SPEARMAN_DONJON = 1786, 31, 140, 16078, False
     PIKEMAN_DONJON = 1787, 11, 501, 16408, False
     HALBERDIER_DONJON = 1788, 104, 502, 16409, False
     CENTURION = 1790, 405, 1791, 16101, False
-    ELITE_CENTURION = 1792, 405, 1791, 16101, False
+    ELITE_CENTURION = 1792, 521, 1791, 16101, False
     LEGIONARY = 1793, 139, 1794, 16469, False
     DROMON = 1795, 406, -1, 16738, False
     GAZELLE = 1796, 404, 1797, 16071, True
     COMPOSITE_BOWMAN = 1800, 407, 1801, 16107, False
-    ELITE_COMPOSITE_BOWMAN = 1802, 407, 1801, 16456, False
+    ELITE_COMPOSITE_BOWMAN = 1802, 522, 1801, 16456, False
     MONASPA = 1803, 408, 1804, 16101, False
-    ELITE_MONASPA = 1805, 408, 1804, 16101, False
+    ELITE_MONASPA = 1805, 523, 1804, 16451, False
     VILLAGER_MALE_MONASTERY = 1810, 15, 224, 16691, False
     WARRIOR_PRIEST = 1811, 409, 1812, 16691, False
     WARRIOR_PRIEST_WITH_RELIC = 1831, 409, 1812, 16380, False
     SAVAR = 1813, 410, 1814, 16471, False
     QIZILBASH_WARRIOR = 1817, 412, 1818, 16101, False
     ELITE_QIZILBASH_WARRIOR = 1829, 412, 1818, 16101, False
-    IMMORTAL_MELEE = 2101, 2103, 621, 16104, False
-    ELITE_IMMORTAL_MELEE = 2102, 2103, 621, 16104, False
-    STRATEGOS = 2104, 2106, 624, 16104, False
-    ELITE_STRATEGOS = 2105, 2106, 624, 16104, False
-    STRATEGOS_WITH_TAXIARCHS = 2227, 2106, 624, 16104, False
-    ELITE_STRATEGOS_WITH_TAXIARCHS = 2228, 2106, 624, 16104, False
-    HIPPEUS = 2107, 2109, 623, 16104, False
-    ELITE_HIPPEUS = 2108, 2109, 623, 16104, False
-    HIPPEUS_WITH_AURA = 2168, 2109, 623, -1, False
-    ELITE_HIPPEUS_WITH_AURA = 2169, 2109, 623, -1, False
-    HOPLITE = 2110, 2112, 625, 416013, False
-    ELITE_HOPLITE = 2111, 2301, 626, 416013, False
-    HOPLITE_WITH_XYPHOS = 2187, 2112, 625, 416013, False
-    ELITE_HOPLITE_WITH_XYPHOS = 2188, 2301, 626, 416013, False
-    LEMBOS = 2123, -1, 656, 416006, False
-    WAR_LEMBOS = 2124, -1, 657, 416006, False
-    HEAVY_LEMBOS = 2125, -1, 658, 416006, False
-    ELITE_LEMBOS = 2126, -1, 659, 416006, False
-    MONOREME = 2127, -1, 661, 416007, False
-    BIREME = 2128, -1, 662, 416007, False
-    TRIREME = 2129, -1, 663, 416007, False
-    GALLEY_ANTIQUITY = 2130, -1, 664, 416008, False
-    WAR_GALLEY_ANTIQUITY = 2131, -1, 666, 416008, False
-    ELITE_GALLEY = 2132, -1, 665, 416008, False
-    INCENDIARY_RAFT = 2133, -1, 667, 416009, False
-    INCENDIARY_SHIP = 2134, -1, 668, 416009, False
-    HEAVY_INCENDIARY_SHIP = 2135, -1, 669, 416009, False
-    CATAPULT_SHIP = 2138, -1, 671, 416011, False
-    ONAGER_SHIP = 2139, -1, 672, 416011, False
-    LEVIATHAN = 2140, -1, 670, 416012, False
-    TRANSPORT_SHIP_ANTIQUITY = 2148, -1, 655, 416005, False
-    MERCHANT_SHIP = 2149, -1, 660, 416004, False
-    WAR_CHARIOT = 2150, 2302, 627, 416015, False
-    ELITE_WAR_CHARIOT = 2151, 2303, 628, 416015, False
-    IMMORTAL_RANGED = 2174, 2304, 630, 16101, False
-    ELITE_IMMORTAL_RANGED = 2175, 2304, 630, 16101, False
-    RHODIAN_SLINGER = 2320, 2367, 693, 16743, False
-    MERCENARY_HOPLITE = 2321, 2361, 691, 416013, False
-    GREEK_NOBLE_CAVALRY = 2322, 2369, 684, 416016, False
-    SCYTHIAN_AXE_CAVALRY = 2323, 2374, 687, 416016, False
-    BACTRIAN_ARCHER = 2324, 2366, 686, 416016, False
-    EKDROMOS = 2325, 2357, 685, 416016, False
-    CRETAN_ARCHER = 2326, 2365, 683, 416016, False
-    CAMEL_RAIDER = 2327, 2368, 681, 16416, False
-    TARANTINE_CAVALRY = 2328, 2375, 689, 16417, False
-    SPARABARA = 2329, 2372, 692, 16101, False
-    SAKAN_AXEMAN = 2330, 2358, 688, 416016, False
-    SICKLE_WARRIOR = 2331, 2362, 690, 16101, False
-    MERCENARY_PELTAST = 2332, 2377, 694, 16087, False
-    LYSANDERS_RAIDER = 2349, 2361, 691, 416016, False
+    IMMORTAL_MELEE = 2101, 621, 2103, 16104, False
+    ELITE_IMMORTAL_MELEE = 2102, 621, 2103, 16104, False
+    STRATEGOS = 2104, 624, 2106, 16104, False
+    ELITE_STRATEGOS = 2105, 624, 2106, 16104, False
+    STRATEGOS_WITH_TAXIARCHS = 2227, 624, 2106, 16104, False
+    ELITE_STRATEGOS_WITH_TAXIARCHS = 2228, 624, 2106, 16104, False
+    HIPPEUS = 2107, 623, 2109, 16104, False
+    ELITE_HIPPEUS = 2108, 623, 2109, 16104, False
+    HIPPEUS_WITH_AURA = 2168, 623, 2109, -1, False
+    ELITE_HIPPEUS_WITH_AURA = 2169, 623, 2109, -1, False
+    HOPLITE = 2110, 625, 2112, 416013, False
+    ELITE_HOPLITE = 2111, 626, 2301, 416013, False
+    HOPLITE_WITH_XYPHOS = 2187, 625, 2112, 416013, False
+    ELITE_HOPLITE_WITH_XYPHOS = 2188, 626, 2301, 416013, False
+    LEMBOS = 2123, 656, -1, 416006, False
+    WAR_LEMBOS = 2124, 657, -1, 416006, False
+    HEAVY_LEMBOS = 2125, 658, -1, 416006, False
+    ELITE_LEMBOS = 2126, 659, -1, 416006, False
+    MONOREME = 2127, 661, -1, 416007, False
+    BIREME = 2128, 662, -1, 416007, False
+    TRIREME = 2129, 663, -1, 416007, False
+    GALLEY_ANTIQUITY = 2130, 664, -1, 416008, False
+    WAR_GALLEY_ANTIQUITY = 2131, 666, -1, 416008, False
+    ELITE_GALLEY = 2132, 665, -1, 416008, False
+    INCENDIARY_RAFT = 2133, 667, -1, 416009, False
+    INCENDIARY_SHIP = 2134, 668, -1, 416009, False
+    HEAVY_INCENDIARY_SHIP = 2135, 669, -1, 416009, False
+    CATAPULT_SHIP = 2138, 671, -1, 416011, False
+    ONAGER_SHIP = 2139, 672, -1, 416011, False
+    LEVIATHAN = 2140, 670, -1, 416012, False
+    TRANSPORT_SHIP_ANTIQUITY = 2148, 655, -1, 416005, False
+    MERCHANT_SHIP = 2149, 660, -1, 416004, False
+    WAR_CHARIOT = 2150, 627, 2302, 416015, False
+    ELITE_WAR_CHARIOT = 2151, 628, 2303, 416015, False
+    IMMORTAL_RANGED = 2174, 630, 2304, 16101, False
+    ELITE_IMMORTAL_RANGED = 2175, 630, 2304, 16101, False
+    RHODIAN_SLINGER = 2320, 693, 2367, 16743, False
+    MERCENARY_HOPLITE = 2321, 691, 2361, 416013, False
+    GREEK_NOBLE_CAVALRY = 2322, 684, 2369, 416016, False
+    SCYTHIAN_AXE_CAVALRY = 2323, 687, 2374, 416016, False
+    BACTRIAN_ARCHER = 2324, 686, 2366, 416016, False
+    EKDROMOS = 2325, 685, 2357, 416016, False
+    CRETAN_ARCHER = 2326, 683, 2365, 416016, False
+    CAMEL_RAIDER = 2327, 681, 2368, 16416, False
+    TARANTINE_CAVALRY = 2328, 689, 2375, 16417, False
+    SPARABARA = 2329, 692, 2372, 16101, False
+    SAKAN_AXEMAN = 2330, 688, 2358, 416016, False
+    SICKLE_WARRIOR = 2331, 690, 2362, 16101, False
+    MERCENARY_PELTAST = 2332, 694, 2377, 16087, False
+    LYSANDERS_RAIDER = 2349, 691, 2361, 416016, False
     HINT_OBJECT = 2238, -1, -1, 16000, False
-    MOUFLON = 2340, 2341, 267, 16071, True
-    GOAT_UNCONVERTIBLE = 2381, 1061, 200, 16061, False
+    MOUFLON = 2340, 267, 2341, 16071, True
+    GOAT_UNCONVERTIBLE = 2381, 200, 1061, 16061, False
+    MOUNTED_SAMURAI = 1568, 103, 1569, 16661, False
+    HUNNIC_HORSE = 1869, 112, 815, 16714, False
+    ARGALI = 1896, 530, 43, 16071, True
+    FIRE_LANCER = 1901, 457, 2, 16671, False
+    ELITE_FIRE_LANCER = 1903, 458, 2, 16671, False
+    ROCKET_CART = 1904, 459, 2, 16095, False
+    HEAVY_ROCKET_CART = 1907, 460, 2, 16095, False
+    IRON_PAGODA = 1908, 461, 2, 16101, False
+    ELITE_IRON_PAGODA = 1910, 524, 2, 16101, False
+    GRENADIER = 1911, 462, 2, 16743, False
+    LIAO_DAO = 1920, 463, 2, 16104, False
+    ELITE_LIAO_DAO = 1922, 525, 2, 16454, False
+    MOUNTED_TREBUCHET = 1923, 464, 2, 16734, False
+    PAGAN_PRIEST = 1940, 349, 1024, 16099, False
+    PAGAN_PRIEST_WITH_RELIC = 1941, 349, 1024, 16380, False
+    TRACTION_TREBUCHET = 1942, 428, 2, 16093, False
+    HEI_GUANG_CAVALRY = 1944, 429, 1945, 16068, False
+    HEAVY_HEI_GUANG_CAVALRY = 1946, 430, 1947, 16070, False
+    LOU_CHUAN = 1948, 431, -1, 16738, False
+    TIGER_CAVALRY = 1949, 432, 1950, 16101, False
+    ELITE_TIGER_CAVALRY = 1951, 526, 1950, 16101, False
+    XIANBEI_RAIDER = 1952, 433, 1953, 16085, False
+    DUMMY_TARGET = 1956, 337, 1956, 16061, True
+    WHITE_FEATHER_GUARD = 1959, 434, 1960, 16667, False
+    ELITE_WHITE_FEATHER_GUARD = 1961, 527, 1960, 16669, False
+    WAR_CHARIOT_FOCUS_FIRE = 1962, 435, 2, 16096, False
+    FIRE_ARCHER = 1968, 436, 1969, 16107, False
+    ELITE_FIRE_ARCHER = 1970, 528, 1969, 16456, False
+    JIAN_SWORDSMAN = 1974, 437, 1975, 16748, False
+    WAR_CHARIOT_BARRAGE = 1980, 435, 2, 16417, False
+    RED_CROWN_CRANE = 2026, 285, -1, 16058, True
+    CHICKEN_A = 2083, 439, 595, 16061, False
+    WILD_CHICKEN_A = 2084, 531, 43, 16071, True
+    CHICKEN_B = 2085, 439, 595, 16061, False
+    WILD_CHICKEN_B = 2086, 531, 43, 16071, True
+    CHICKEN_C = 2087, 439, 595, 16061, False
+    WILD_CHICKEN_C = 2088, 531, 43, 16071, True
+    BLACK_BEAR = 2089, 151, 489, 16712, True
+    POLAR_BEAR = 2090, 532, 489, 16712, True
+    ARABIAN_WOLF = 2091, 533, 237, 16075, True
+    WILD_HORSE_B = 2092, 112, 815, 16735, True
+    WILD_HORSE_C = 2093, 112, 815, 16735, True
+    WILD_HORSE_D = 2094, 112, 815, 16735, True
+    WILD_HORSE_E = 2095, 112, 815, 16735, True
+    MONKEY = 2096, 132, 815, 16735, True
+    PENGUIN_GAIA = 2097, 157, 815, 16735, True

@@ -90,15 +90,17 @@ class OtherInfo(InfoDatasetBase):
             OtherInfo.TREE_RAINFOREST,
             OtherInfo.TREE_REEDS,
             OtherInfo.TREE_SNOW_PINE,
-            OtherInfo.TREE_TD
+            OtherInfo.TREE_TD,
+            OtherInfo.TREE_LUSH_BAMBOO_FOREST,
+            OtherInfo.TREE_ASIAN_PINE,
+            OtherInfo.TREE_PEACH_BLOSSOM,
+            OtherInfo.TREE_WILLOW,
+            OtherInfo.TREE_ASIAN_MAPLE_GREEN,
+            OtherInfo.TREE_ASIAN_MAPLE_AUTUMN,
         ]
 
     ANIMAL_SKELETON = 1091, -1, -1, 16224, True
     BARRELS = 1330, -1, -1, 16757, True
-    BARRICADE_A = 1090, 54, 1472, 16223, True
-    BARRICADE_B = 1218, 54, 1473, 16223, True
-    BARRICADE_C = 1219, 54, 1474, 16223, True
-    BARRICADE_D = 1220, 54, 1475, 16223, True
     BLACK_TILE = 306, -1, -1, 16389, True
     BLUE_TREE = 768, 32, 415, 16277, True
     BONFIRE = 304, -1, -1, 16768, False
@@ -109,7 +111,7 @@ class OtherInfo(InfoDatasetBase):
     BUDDHA_STATUE_B = 1172, -1, -1, 16756, True
     BUDDHA_STATUE_C = 1173, -1, -1, 16756, True
     BUDDHA_STATUE_D = 1174, -1, -1, 16756, True
-    BURNED_BUILDING = 758, -1, -1, 16393, True
+    BURNED_BUILDING_A = 758, -1, -1, 16393, True
     BUSH_A = 302, 32, 415, 16398, True
     BUSH_B = 1053, 32, 415, 16794, True
     BUSH_C = 1054, 32, 415, 16795, True
@@ -119,8 +121,7 @@ class OtherInfo(InfoDatasetBase):
     CRACKS = 241, -1, -1, 16259, True
     CRATER = 723, -1, -1, 16605, True
     DISMANTLED_CART = 1270, 271, -1, 16189, False
-    DOME_OF_THE_ROCK = 690, 37, 1482, 16572, True
-    ES_FLAG = 851, -1, -1, 16751, True
+    ES_FLAG = 851, -1, -1, 16751, False
     FE_FLAG = 1285, -1, -1, 16183, False
     FERN_PATCH = 1175, -1, -1, 16385, True
     FISH_DORADO = 455, 275, -1, 16335, True
@@ -141,9 +142,9 @@ class OtherInfo(InfoDatasetBase):
     FLAG_K = 1282, -1, -1, 16183, False
     FLAG_L = 1283, -1, -1, 16183, False
     FLAG_M = 1284, -1, -1, 16183, False
-    FLAG_N = 2010, -1, -1, 16183, False
-    FLAG_O = 2011, -1, -1, 16183, False
-    FLAG_P = 2012, -1, -1, 16183, False
+    FLAG_N = 2010, -1, -1, 16517, False
+    FLAG_O = 2011, -1, -1, 16517, False
+    FLAG_P = 2012, -1, -1, 16517, False
     FLARE = 274, -1, -1, 16316, False
     FLARE_A_PERMANENT = 1689, -1, -1, 16316, False
     FLARE_B_PERMANENT = 1785, -1, -1, 16316, False
@@ -158,24 +159,22 @@ class OtherInfo(InfoDatasetBase):
     GALLOW = 1095, -1, -1, 16228, True
     GOLD_MINE = 66, 14, -1, 16400, True
     GOTHIC_RELIC = 292, 26, -1, 16356, True
-    GRANARY = 1089, 60, 1499, 16222, True
+    GRANARY = 1089, 60, 1499, 16222, False
     GRASS_DRY = 1359, -1, -1, 16718, True
     GRASS_GREEN = 1358, -1, -1, 16718, True
     GRASS_PATCH_DRY = 1033, -1, -1, 16385, True
     GRASS_PATCH_GREEN = 301, -1, -1, 16385, True
     GRAVE = 820, -1, -1, 16720, True
     GREAT_FISH_MARLIN = 450, 281, -1, 16330, True
-    GREAT_PYRAMID = 696, 57, 1516, 16578, True
     HAY_STACK = 857, -1, -1, 16761, True
     HEAD = 821, -1, -1, 16721, True
     ICE_NAVIGABLE = 728, -1, -1, 16610, True
-    IMPALED_CORPSE = 1315, -1, -1, 16000, False
+    IMPALED_CORPSE = 1315, -1, -1, 16721, False
     JAPANESE_RELIC = 294, 26, -1, 16357, True
     LARGE_TEMP_MAP_REVEAL = 332, -1, -1, 16316, False
-    MAP_REVEALER = 837, -1, -1, 16737, True
+    MAP_REVEALER = 837, -1, -1, 16737, False
     MAP_REVEALER_MEDIUM = 1774, -1, -1, 16737, False
     MAP_REVEALER_GIANT = 1775, -1, -1, 16737, False
-    MOSQUE = 655, 12, 1496, 16552, True
     MOUNTAIN_1 = 310, -1, -1, 16342, True
     MOUNTAIN_2 = 311, -1, -1, 16343, True
     MOUNTAIN_3 = 744, -1, -1, 16647, True
@@ -184,20 +183,17 @@ class OtherInfo(InfoDatasetBase):
     MOUNTAIN_6 = 1042, -1, -1, 16773, True
     MOUNTAIN_7 = 1043, -1, -1, 16774, True
     MOUNTAIN_8 = 1044, -1, -1, 16775, True
-    NINE_BANDS = 720, -1, -1, 16602, True
+    NINE_BANDS = 720, -1, -1, 16602, False
     NUBIAN_PYRAMID = 1563, -1, -1, 16756, True
     OLD_STONE_HEAD = 855, -1, -1, 16756, True
     PAGODA_A = 1201, -1, -1, 16756, True
     PAGODA_B = 1202, -1, -1, 16756, True
     PAGODA_C = 1203, -1, -1, 16756, True
-    PAIFANG_GATE = 1562, -1, -1, 16756, True
+    TORII_GATE = 1562, -1, -1, 16756, True
     PATH_1 = 339, -1, -1, 16387, True
     PATH_2 = 340, -1, -1, 16388, True
     PATH_3 = 341, -1, -1, 16389, True
     PATH_4 = 338, -1, -1, 16386, True
-    PAVILION_A = 624, 43, 1476, 16521, True
-    PAVILION_B = 626, 43, 1477, 16522, True
-    PAVILION_C = 625, 43, 1478, 16523, True
     PERSIAN_RELIC = 295, 26, -1, 16358, True
     PIECE_OF_THE_TRUE_CROSS = 688, -1, -1, 16570, True
     PLANT = 818, -1, -1, 16718, True
@@ -210,7 +206,6 @@ class OtherInfo(InfoDatasetBase):
     PLANT_UNDERBRUSH = 1353, -1, -1, 16718, True
     PLANT_UNDERBRUSH_TROPICAL = 1352, -1, -1, 16718, True
     PLANT_WEEDS = 1364, -1, -1, 16718, True
-    POENARI_CASTLE = 445, 7, 1488, 16318, True
     RELIC = 285, 26, -1, 16350, True
     ROCK_1 = 623, -1, -1, 16520, True
     ROCK_2 = 1323, -1, -1, 16520, True
@@ -229,8 +224,8 @@ class OtherInfo(InfoDatasetBase):
     SARACEN_RELIC = 296, 26, -1, 16359, True
     SEA_ROCKS_1 = 389, -1, -1, 16253, True
     SEA_ROCKS_2 = 396, -1, -1, 16262, True
-    SHIPWRECK_A = 721, -1, -1, 16603, True
-    SHIPWRECK_B = 722, -1, -1, 16604, True
+    SHIPWRECK_A = 721, -1, -1, 16603, False
+    SHIPWRECK_B = 722, -1, -1, 16604, False
     SHORE_FISH = 69, 280, -1, 16501, True
     SIGN = 819, 189, -1, 16719, True
     SKELETON = 710, -1, -1, 16592, True
@@ -243,18 +238,16 @@ class OtherInfo(InfoDatasetBase):
     STATUE_COLUMN = 1322, -1, -1, 16717, True
     STATUE_LEFT = 1343, -1, -1, 16717, True
     STATUE_RIGHT = 1345, -1, -1, 16717, True
-    STELAE_A = 1092, -1, -1, 16225, True
-    STELAE_B = 1093, -1, -1, 16226, True
-    STELAE_C = 1094, -1, -1, 16227, True
+    STELAE_A = 1092, -1, -1, 16225, False
+    STELAE_B = 1093, -1, -1, 16226, False
+    STELAE_C = 1094, -1, -1, 16227, False
     STONE_MINE = 102, 9, -1, 16252, True
     STUMP = 809, -1, -1, 16281, True
     STUPA = 1191, -1, -1, 16756, True
-    TARGET_A = 1564, -1, -1, 16000, False
-    TARGET_B = 1565, -1, -1, 16000, False
+    TARGET_A = 1564, -1, -1, 16721, False
+    TARGET_B = 1565, -1, -1, 16721, False
     TEMPLE_RUIN = 1566, -1, -1, 16757, True
     TEUTONIC_RELIC = 297, 26, -1, 16360, True
-    THE_ACCURSED_TOWER = 684, 45, 1494, 16566, True
-    THE_TOWER_OF_FLIES = 685, 45, 1495, 16567, True
     TORCH_A = 499, -1, -1, 16423, False
     TORCH_B = 1376, -1, -1, 16423, False
     TREE_A = 399, 32, 415, 16265, True
@@ -337,8 +330,7 @@ class OtherInfo(InfoDatasetBase):
     CLIFF_SNOW_7 = 1864, -1, -1, 16249, True
     CLIFF_SNOW_8 = 1865, -1, -1, 16249, True
     CLIFF_SNOW_9 = 1866, -1, -1, 16249, True
-    HUNNIC_HORSE = 1869, 112, 815, 16714, False
-    OYSTERS = 2170, -1, 701, 16400, True
+    OYSTERS = 2170, 701, -1, 16400, True
     MEDITERRANEAN_RUINS = 2234, -1, -1, 16757, True
     MEDITERRANEAN_COURTYARD_WALLS = 2235, -1, -1, 16757, True
     MESOPOTAMIAN_PILLAR = 2251, -1, -1, 16757, True
@@ -368,16 +360,58 @@ class OtherInfo(InfoDatasetBase):
     AURA_QUEST_INDICATOR_SEASHELLS = 2378, -1, -1, 16385, True
     AURA_QUEST_INDICATOR_COINS = 2379, -1, -1, 16385, True
     AURA_QUEST_INDICATOR_GOLD_AND_SHELLS = 2380, -1, -1, 16385, True
-    ACHAEMENID_FLAG_1 = 2253, -1, -1, 16506, False
-    ACHAEMENID_FLAG_2 = 2254, -1, -1, 16506, False
-    ACHAEMENID_FLAG_3 = 2255, -1, -1, 16506, False
-    ATHENIAN_FLAG_1 = 2256, -1, -1, 16506, False
-    ATHENIAN_FLAG_2 = 2257, -1, -1, 16506, False
-    ATHENIAN_FLAG_3 = 2258, -1, -1, 16506, False
-    SPARTAN_FLAG_1 = 2259, -1, -1, 16506, False
-    SPARTAN_FLAG_2 = 2260, -1, -1, 16506, False
-    SPARTAN_FLAG_3 = 2261, -1, -1, 16506, False
+    FLAG_ACHAEMENIDS_1 = 2253, -1, -1, 16506, False
+    FLAG_ACHAEMENIDS_2 = 2254, -1, -1, 16506, False
+    FLAG_ACHAEMENIDS_3 = 2255, -1, -1, 16506, False
+    FLAG_ATHENIANS_1 = 2256, -1, -1, 16506, False
+    FLAG_ATHENIANS_2 = 2257, -1, -1, 16506, False
+    FLAG_ATHENIANS_3 = 2258, -1, -1, 16506, False
+    FLAG_SPARTANS_1 = 2259, -1, -1, 16506, False
+    FLAG_SPARTANS_2 = 2260, -1, -1, 16506, False
+    FLAG_SPARTANS_3 = 2261, -1, -1, 16506, False
     ANTIQUITY_TRANSPORT_SHIPWRECK = 2352, -1, -1, 16603, False
     LEVIATHAN_SHIPWRECK = 2353, -1, -1, 16603, False
     GALLEY_SHIPWRECK = 2354, -1, -1, 16603, False
     CATAPULT_SHIPWRECK = 2355, -1, -1, 16603, False
+    BAMBOO_STUMP = 1536, -1, -1, 16281, True
+    BAOBAB_STUMP = 1537, -1, -1, 16281, True
+    LUSH_BAMBOO_STUMP = 1538, -1, -1, 16281, True
+    FELLED_TREE = 1539, 32, 415, 16265, True
+    FELLED_TREE_BAMBOO = 1540, 32, 737, 16396, True
+    FELLED_TREE_BAOBAB = 1541, 32, 1634, 16793, True
+    FELLED_TREE_LUSH_BAMBOO = 1542, 32, 1985, 16396, True
+    CHAPEL = 1836, -1, -1, 16225, False
+    CASTLE_RUINS = 1837, -1, -1, 16757, True
+    CHURCH_RUINS = 1838, -1, -1, 16757, True
+    TREE_LUSH_BAMBOO_FOREST = 1984, 32, 1985, 16396, True
+    PAPER_LANTERN = 1986, -1, -1, 16721, False
+    CHINESE_RUINS = 1987, -1, -1, 16717, True
+    PAIFANG_GATE_SMALL = 1989, -1, -1, 16756, True
+    PAIFANG_GATE_LARGE = 1990, -1, -1, 16756, True
+    FOUNTAIN = 1991, -1, -1, 16756, True
+    PAGODA_D = 2005, -1, -1, 16756, True
+    PAGODA_E = 2006, -1, -1, 16756, True
+    GARDEN_PAVILION = 2007, -1, -1, 16756, True
+    ROCK_PILLAR = 2008, -1, -1, 16181, True
+    ROCK_LIMESTONE = 2009, -1, -1, 16181, True
+    FLAG_RITUAL_A = 2013, -1, -1, 16517, False
+    FLAG_RITUAL_B = 2014, -1, -1, 16517, False
+    FLAG_RITUAL_C = 2015, -1, -1, 16517, False
+    TREE_ASIAN_PINE = 2016, 32, 415, 16396, True
+    TREE_PEACH_BLOSSOM = 2017, 32, 415, 16396, True
+    ASIAN_CARTS = 2018, -1, -1, 16756, True
+    WEAPON_STACKS = 2019, -1, -1, 16756, True
+    GARDEN_BRIDGE = 2020, -1, -1, 16756, True
+    SIEGE_PROPS = 2021, -1, -1, 16756, True
+    ASIAN_LANTERNS = 2022, -1, -1, 16756, True
+    BURNED_BUILDING_B = 2023, -1, -1, 16756, True
+    ASIAN_MARKET_STALLS = 2024, -1, -1, 16756, True
+    TREE_WILLOW = 2025, 32, 415, 16396, True
+    TREE_ASIAN_MAPLE_GREEN = 2027, 32, 415, 16396, True
+    TREE_ASIAN_MAPLE_AUTUMN = 2028, 32, 415, 16396, True
+    FALLEN_LEAVES_PEACH_BLOSSOM = 2029, -1, -1, 16718, True
+    FALLEN_LEAVES_MAPLE = 2030, -1, -1, 16718, True
+    FALLEN_LEAVES_MAPLE_AUTUMN = 2031, -1, -1, 16718, True
+    HUABIAO_TOTEM = 2058, -1, -1, 16756, True
+    QUE_TOWER = 2059, -1, -1, 16717, True
+    PANDA_ROCK = 2082, -1, -1, 16181, True
