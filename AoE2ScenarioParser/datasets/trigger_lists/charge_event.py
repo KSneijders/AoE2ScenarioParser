@@ -7,6 +7,7 @@ class ChargeEvent(_DataSetIntEnums):
     """
     This enum provides the integer values used to reference the action which depletes a unit's charge
     The meaning of this value depends on `Charge Type`
+
     **Examples**
 
     >>> ChargeEvent.CHARGE_DEPLETED_ON_ATTACK
