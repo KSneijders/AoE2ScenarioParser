@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.2 - 2025-June-23
+
+### Added 
+
+- `HeroInfo.trainable_heroes(...)` to retrieve heroes that can be trained in normal games (Shu, Wei & Wu) — Credits: by [@mardaravicius] in [#69](https://github.com/KSneijders/AoE2ScenarioParser/pull/69)
+
+### Updated
+
+There is a possibility that dataset entry names you're using have changed. If that's the case, look at [the diff](https://github.com/KSneijders/AoE2ScenarioParser/pull/70/files)
+to figure out what the new names are.
+
+- Updated many datasets to support the new units released since the 3K civs were introduced — Credits: by [@mardaravicius] in [#69](https://github.com/KSneijders/AoE2ScenarioParser/pull/69)
+  - `UnitInfo`
+  - `OtherInfo`
+  - `BuildingInfo`
+  - `HeroInfo`
+  - `ProjectileInfo`
+  - `TerrainId`
+
+---
+
 ##  0.4.1 - 2025-June-19
 
 ### Added

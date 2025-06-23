@@ -1,16 +1,13 @@
 from __future__ import annotations
 
 from enum import Enum
-from struct import error
 from typing import Dict, List, TYPE_CHECKING
 from uuid import UUID
 
-from AoE2ScenarioParser.exceptions.asp_exceptions import UnknownErrorDuringReadingIterationError
 from AoE2ScenarioParser.helper import bytes_parser
 from AoE2ScenarioParser.helper.list_functions import listify
-from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, insert_char, add_suffix_chars, q_str, \
-    trunc_string, add_tabs
+    add_tabs
 from AoE2ScenarioParser.sections.aoe2_struct_model import AoE2StructModel, model_dict_from_structure
 from AoE2ScenarioParser.sections.dependencies.dependency import handle_retriever_dependency
 from AoE2ScenarioParser.sections.retrievers.retriever import Retriever, reset_retriever_map
