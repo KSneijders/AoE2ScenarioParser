@@ -238,3 +238,4 @@ venv/
 AoE2ScenarioParser/differences.txt
 
 .secrets
+.DS_Store

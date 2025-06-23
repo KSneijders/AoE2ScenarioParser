@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.1 - 2025-June-19
+
+### Added
+
+- Support for the new Effects (and the corresponding new attributes) introduced in the last patch — Credits: by [@mardaravicius] in [#68](https://github.com/KSneijders/AoE2ScenarioParser/pull/68)
+  - `trigger.new_effect.create_decision(...)`
+  - `trigger.new_effect.disable_unit_attackable(...)`
+  - `trigger.new_effect.enable_unit_attackable(...)`
+  - `trigger.new_effect.modify_variable_by_variable(...)`
+  - `trigger.new_effect.count_units_into_variable(...)`
+
+---
+
 ##  0.4.0 - 2025-June-18
 
 ### Added
@@ -77,7 +90,7 @@ Was: `0.3.4` but got yanked due to producing corrupt scenarios
 - Support for the Xs-Check `v0.2.3` — View the `v0.2.3` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.3
 - Updated many datasets to include objects from the Chronicles DLC! — Credits: by [@mardaravicius] in [#57](https://github.com/KSneijders/AoE2ScenarioParser/pull/57) 
 
-[@mardaravicius]: (https://github.com/mardaravicius)
+[@mardaravicius]: https://github.com/mardaravicius
 
 ### Fixed
 
