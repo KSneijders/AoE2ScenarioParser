@@ -39,3 +39,5 @@ from .blockage_class import BlockageClass
 from .obstruction_type import ObstructionType
 from .selection_effect import SelectionEffect
 from .decision_option import DecisionOption
+from .disable_unit_flag import DisableUnitFlag
+from .attack_priority import AttackPriority
