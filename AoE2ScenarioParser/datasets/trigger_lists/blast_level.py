@@ -33,6 +33,10 @@ class BlastLevel(_DataSetIntEnums):
     """
     Deal a fixed 5 HP of damage to nearby units
     """
+    IGNORE_FRIENDLY_FIRE = 8
+    """
+    Ignore friendly fire
+    """
     DISTANCE_ATTENUATION = 64
     """
     Attenuate damage as distance from the centre of attack increases (infantry only)
