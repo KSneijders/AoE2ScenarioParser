@@ -173,7 +173,7 @@ class TerrainId(IntEnum):
     RICE_FARM = 63
     RICE_FARM_0 = 65
     RICE_FARM_33 = 66
-    RICE_FARM_66 = 67
+    RICE_FARM_67 = 67
     RICE_FARM_DEAD = 64
     ROAD = 24
     ROAD_BROKEN = 25
@@ -213,4 +213,4 @@ class TerrainId(IntEnum):
     PASTURE_DEAD = 118
     PASTURE_0 = 119
     PASTURE_33 = 120
-    PASTURE_66 = 121
+    PASTURE_67 = 121
