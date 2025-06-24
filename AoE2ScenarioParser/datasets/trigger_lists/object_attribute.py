@@ -301,11 +301,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     OBJECT_NAME_ID = 50
     """
-    The string ID to use for the name of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    The string ID to use for the name of an object. A string ID is used for referring to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
     """
     SHORT_DESCRIPTION_ID = 51
     """
-    The string ID for the Short Description of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    The string ID for the Short Description of an object. A string ID is used for referring to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an exercise for the reader
     """
     TERRAIN_RESTRICTION_ID = 53
     """
@@ -417,7 +417,7 @@ class ObjectAttribute(_DataSetIntEnums):
         - -5: Spawn Building on top of the unit (Uses unit set in Trait Piece)
         - -4: Conversion ability (Needs task 104). Charge Target defines the conversion percent chance
         - -3: Active aura ability (Needs task 155 with unused flag 8 set)
-        - -2: Active targetted transform (Uses unit set in Trait Piece). If charge target = -1, use attack ground targeting
+        - -2: Active targeted transform (Uses unit set in Trait Piece). If charge target = -1, use attack ground targeting
         - -1: Active temporary transform (Uses unit set in Trait Piece)
         - 1: Attack charge
         - 2: ??? charge
@@ -461,8 +461,8 @@ class ObjectAttribute(_DataSetIntEnums):
     - Flags:
     
         - 0: Collide only with the targeted unit
-        - 1: Collide with any damage-able units in the path to the targetted unit
-        - 2: Collide with any unit in the path to the targetted unit
+        - 1: Collide with any damage-able units in the path to the targeted unit
+        - 2: Collide with any unit in the path to the targeted unit
     """
     PROJECTILE_VANISH_MODE = 68
     """
@@ -606,7 +606,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     GARRISON_HEAL_RATE = 108
     """
-    The rate measured in HP/s at which garissoned units are healed inside a given building
+    The rate measured in HP/s at which garrisoned units are healed inside a given building
     """
     REGENERATION_RATE = 109
     """
@@ -614,7 +614,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     POPULATION = 110
     """
-    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population heardroom provided by a unit
+    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population headroom provided by a unit
     """
     MINIMUM_CONVERSION_TIME_MODIFIER = 111
     """
