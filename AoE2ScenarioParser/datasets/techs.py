@@ -667,7 +667,7 @@ class TechInfo(Enum):
     BAGAINS = 686, 107
     BALLISTICS = 93, 25
     BANKING = 17, 3
-    BEARDED_AXE = 83, 107
+    BEARDED_AXE = 83, 33
     BERBERS = 583, -1
     BOGSVEIGAR = 49, 107
     BLAST_FURNACE = 75, 21
@@ -697,7 +697,7 @@ class TechInfo(Enum):
     CHATRAS = 628, 33
     CHEMISTRY = 47, 12
     CHINESE = 534, -1
-    CHIVALRY = 493, 33
+    CHIVALRY = 493, 107
     COINAGE = 23, 7
     CONSCRIPTION = 315, 91
     CORVINIAN_ARMY = 514, 33
@@ -730,7 +730,7 @@ class TechInfo(Enum):
     ELITE_CHU_KO_NU = 362, 105
     ELITE_CONQUISTADOR = 60, 105
     ELITE_EAGLE_WARRIOR = 434, 115
-    ELITE_ELEPHANT_ARCHER = 481, 105
+    ELITE_ELEPHANT_ARCHER = 481, 127
     ELITE_GBETO = 567, 105
     ELITE_GENITOUR = 599, 105
     ELITE_GENOESE_CROSSBOWMAN = 468, 105
@@ -807,7 +807,7 @@ class TechInfo(Enum):
     HILL_FORTS = 691, 33
     HOARDINGS = 379, 103
     HORSE_COLLAR = 14, 2
-    HOWDAH = 626, 33
+    HOWDAH = 626, 107
     HUNS = 545, -1
     HUSBANDRY = 39, 10
     HUSSAR = 428, 122
@@ -841,7 +841,7 @@ class TechInfo(Enum):
     MALAY = 651, -1
     MALIANS = 582, -1
     MAN_AT_ARMS = 222, 85
-    MANIPUR_CAVALRY = 627, 107
+    MANIPUR_CAVALRY = 627, 33
     MARAUDERS = 483, 33
     MASONRY = 50, 13
     MAYANS = 544, -1
@@ -1182,5 +1182,5 @@ class TechInfo(Enum):
     SHU = 1028, -1
     WU = 1030, -1
     WEI = 1039, -1
-    JURCHENS = 986, -1,
+    JURCHENS = 986, -1
     KHITANS = 988, -1

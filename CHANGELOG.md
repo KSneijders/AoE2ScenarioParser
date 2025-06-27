@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.3 - 2025-June-27
+
+### Added 
+
+- `AttackPriority` dataset — Credits: by [@mardaravicius] in [#71]
+  - Used in the 'Modify Attribute' effect with the 'Attack Priority' attributes
+- `DisableUnitFlag` dataset — Credits: by [@mardaravicius] in [#71]
+  - Used in the 'Modify Attribute' effect with the 'Disable Unit Flag' attributes
+- New attributes to many datasets — Credits: by [@mardaravicius] in [#71]
+  - `ObjectAttribute`
+  - `CombatAbility`
+  - `ChargeType`
+  - `BlastLevel`
+  - `ObjectClass`
+  - `ProjectileVanishMode`
+
+### Fixes
+
+- Incorrect values in datasets from release v0.4.2 — Credits: by [@mardaravicius] in [#71]
+
+### Updated
+
+- Some names in `TerrainId` to reflect the in-game names — Credits: by [@mardaravicius] in [#71]
+
+[#71]: https://github.com/KSneijders/AoE2ScenarioParser/pull/71
+
+---
+
 ##  0.4.2 - 2025-June-23
 
 ### Added 
@@ -78,7 +106,7 @@ Solutions: Save the scenario in-game to upgrade the scenario, or downgrade `AoE2
 - Too many triggers being selected as Data Triggers  — Credits: by [@Alian713] in [#65](https://github.com/KSneijders/AoE2ScenarioParser/pull/65)
 - Incorrect usage of the `--ignores` argument for Xs-Check when using the `xs_check.ignores` set
 
-[@Alian713]: (https://github.com/Divy1211)
+[@Alian713]: https://github.com/Divy1211
 
 ---
 
