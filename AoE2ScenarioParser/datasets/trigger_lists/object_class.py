@@ -76,3 +76,4 @@ class ObjectClass(_DataSetIntEnums):
     MISC_BUILDING = 60
     CONTROLLED_ANIMAL = 61
     OYSTERS = 63
+    EXPLOSION = 64
