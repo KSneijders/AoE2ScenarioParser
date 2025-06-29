@@ -11,8 +11,8 @@ class DisableUnitFlag(_DataSetIntEnums):
     **Examples**
 
     >>> DisableUnitFlag.DISABLED
-    <DisableUnitFlag.DISABLED: 0>
+    <DisableUnitFlag.DISABLED: 1>
     """
-    DISABLED = 0
-    LIMITED_TRAINING_CAN_NOT_BE_RETRAINED = 1
-    LIMITED_TRAINING_CAN_BE_RETRAINED = 2
+    DISABLED = 1
+    LIMITED_TRAINING_CAN_NOT_BE_RETRAINED = 2
+    LIMITED_TRAINING_CAN_BE_RETRAINED = 4
