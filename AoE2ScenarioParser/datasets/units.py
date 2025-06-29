@@ -77,6 +77,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_MALE_SHEPHERD,
                     UnitInfo.VILLAGER_MALE_STONE_MINER,
                     UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
+                    UnitInfo.VILLAGER_MALE_HERDER,
                 ],
                 "female": [
                     UnitInfo.VILLAGER_FEMALE,
@@ -91,6 +92,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_FEMALE_SHEPHERD,
                     UnitInfo.VILLAGER_FEMALE_STONE_MINER,
                     UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
+                    UnitInfo.VILLAGER_FEMALE_HERDER,
                 ],
             },
         }
@@ -586,6 +588,8 @@ class UnitInfo(InfoDatasetBase):
     VILLAGER_FEMALE_STONE_MINER = 220, 335, 221, 16126, False
     VILLAGER_MALE_OYSTER_GATHERER = 2333, 229, 334, 16482, False
     VILLAGER_FEMALE_OYSTER_GATHERER = 2334, 221, 333, 16482, False
+    VILLAGER_MALE_HERDER = 1892, 332, 226, 16123, False
+    VILLAGER_FEMALE_HERDER = 1891, 331, 215, 16123, False
     VMDL = 206, 337, -1, 16656, False
     WAR_ELEPHANT = 239, 43, 136, 16109, False
     WAR_GALLEY = 21, 25, -1, 16091, False

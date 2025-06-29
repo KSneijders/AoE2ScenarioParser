@@ -703,7 +703,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         - 1: Disabled
         - 2: Limited training. Cannot be retrained after death
-        - 3: Limited training. Can be retrained after death
+        - 4: Limited training. Can be retrained after death
     """
     ATTACK_PRIORITY = 128
     """
@@ -721,8 +721,8 @@ class ObjectAttribute(_DataSetIntEnums):
     
     - Values:
     
-        - >0: Units > Buildings
-        - <0: Buildings > Units 	
+        - >0: Multiplier of Base HP
+        - <0: Fixed value of HP	
     """
     GARRISON_FIREPOWER = 130
     """
