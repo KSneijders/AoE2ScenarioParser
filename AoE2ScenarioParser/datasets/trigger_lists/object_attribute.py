@@ -721,8 +721,8 @@ class ObjectAttribute(_DataSetIntEnums):
     
     - Values:
     
-        - >0: Units > Buildings
-        - <0: Buildings > Units 	
+        - >0: Multiplier of Base HP
+        - <0: Fixed value of HP	
     """
     GARRISON_FIREPOWER = 130
     """
