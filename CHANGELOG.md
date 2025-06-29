@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.4 - 2025-June-29
+
+### Added
+
+- New herder villagers to `UnitInfo` — Credits: by [@mardaravicius] in [#73]
+
+### Fixed
+
+- Incorrect `DisableUnitFlag` values — Credits: by [@mardaravicius] in [#73]
+
+[#73]: https://github.com/KSneijders/AoE2ScenarioParser/pull/73
+
+---
+
 ##  0.4.3 - 2025-June-27
 
 ### Added 
