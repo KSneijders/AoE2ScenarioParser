@@ -50,7 +50,8 @@ class DamageClass(_DataSetIntEnums):
     EAGLE_WARRIORS = 29
     CAMELS = 30
     """Camels use this armour class since and after AK"""
-    UNUSED_ID31 = 31
+    LEITIS_ATTACK = 31
+    """Armor class remains on units but leitis no longer uses it for attacks"""
     CONDOTTIERI = 32
     PROJECTILE_GUNPOWDER_SECONDARY = 33
     FISHING_SHIPS = 34
@@ -58,7 +59,9 @@ class DamageClass(_DataSetIntEnums):
     HEROES_AND_KINGS = 36
     HUSSITE_WAGONS = 37
     UNUSED_ID38 = 38
+    """Skirmishers has this armor class"""
     UNUSED_ID39 = 39
+    """Camels and shotel warriors has this armor class"""
     UNUSED_ID40 = 40
     UNUSED_ID41 = 41
     UNUSED_ID42 = 42

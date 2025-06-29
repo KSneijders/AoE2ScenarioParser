@@ -39,6 +39,8 @@ class TerrainId(IntEnum):
             TerrainId.WATER_2D_SHORELESS,
             TerrainId.WATER_DEEP_OCEAN,
             TerrainId.WATER_SHALLOW,
+            TerrainId.WATER_YELLOW_SHALLOW,
+            TerrainId.WATER_YELLOW_DEEP,
         ]
 
     @staticmethod
@@ -86,6 +88,8 @@ class TerrainId(IntEnum):
             TerrainId.FOREST_REEDS,
             TerrainId.FOREST_REEDS_BEACH,
             TerrainId.FOREST_REEDS_SHALLOWS,
+            TerrainId.FOREST_PALM_GRASS,
+            TerrainId.FOREST_LUSH_BAMBOO,
         ]
 
     BEACH = 2
@@ -157,7 +161,7 @@ class TerrainId(IntEnum):
     MODDABLE_NORMAL_WATER_2 = 98
     MODDABLE_SHALLOWS_1 = 93
     MODDABLE_SHALLOWS_2 = 94
-    OBSOLETE_LEAVES_JUNGLE = 62
+    OBSOLETE_UNDERBRUSH_JUNGLE = 62
     OBSOLETE_ROAD_DESERT = 43
     OBSOLETE_ROAD_FUNGUS = 39
     OBSOLETE_ROAD_GRAVEL = 103
@@ -183,13 +187,13 @@ class TerrainId(IntEnum):
     SNOW_FOUNDATION = 36
     SNOW_LIGHT = 73
     SNOW_STRONG = 74
-    SWAMP = 111
+    SWAMP_SHALLOWS = 111
     SWAMP_BOGLAND = 101
-    UNDERBUSH = 5
-    UNDERBUSH_JUNGLE = 77
-    UNDERBUSH_LEAVES = 71
-    UNDERBUSH_SNOW = 72
-    VERY_EVIL_FOG = 69
+    UNDERBRUSH = 5
+    UNDERBRUSH_JUNGLE = 77
+    UNDERBRUSH_LEAVES = 71
+    UNDERBRUSH_SNOW = 72
+    CORRUPTION = 69
     WATER_2D_BRIDGE = 28
     WATER_2D_SHORELESS = 15
     WATER_AZURE = 58
@@ -199,3 +203,14 @@ class TerrainId(IntEnum):
     WATER_GREEN = 95
     WATER_MEDIUM = 23
     WATER_SHALLOW = 1
+    OBSOLETE_DIRT_MUD = 44
+    FOREST_PALM_GRASS = 112
+    FOREST_LUSH_BAMBOO = 113
+    WATER_YELLOW_SHALLOW = 114
+    SHALLOWS_YELLOW = 115
+    WATER_YELLOW_DEEP = 116
+    PASTURE = 117
+    PASTURE_DEAD = 118
+    PASTURE_0 = 119
+    PASTURE_33 = 120
+    PASTURE_67 = 121

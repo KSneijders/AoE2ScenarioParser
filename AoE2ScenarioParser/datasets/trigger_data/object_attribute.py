@@ -257,11 +257,14 @@ class ObjectAttribute(_DataSetIntEnums):
     
     - Flags:
     
-        - 0: damage resources, nearby allied units and tress
-        - 1: damage trees, nearby allied units
-        - 2: damage nearby and allied units
-        - 3: damage targeted unit only
-        - 4: damage enemy units only
+        - 0: Damage resources, nearby allied units and trees
+        - 1: Damage trees, nearby allied units
+        - 2: Damage nearby and allied units
+        - 3: Damage targeted unit only
+        - 4: Damage enemy units only
+        - 8: Ignore friendly fire
+        - 16 Unused
+        - 32 Unused
         - 64: Attenuate damage as distance from the centre of attack increases (infantry only)
         - 128: Blast damage is dealt along the direction the unit is facing only. This area is a very narrow cone
     
@@ -298,11 +301,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     OBJECT_NAME_ID = 50
     """
-    The string ID to use for the name of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    The string ID to use for the name of an object. A string ID is used for referring to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
     """
     SHORT_DESCRIPTION_ID = 51
     """
-    The string ID for the Short Description of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    The string ID for the Short Description of an object. A string ID is used for referring to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an exercise for the reader
     """
     TERRAIN_RESTRICTION_ID = 53
     """
@@ -398,20 +401,31 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     This action depletes the unit's charge
     
-    - Flags:
-    
-        - 1: If charge type is set to `1`, `2` or `3`, depletes charge on attacking
+    - Flags or values (depends on Charge Type):
+        - 1 - Deplete charge, 0 - Keep charge: Charge Type one of `1`, `2`, or `3`
+        - Max range modifier - Charge Type one of 6, or 7
+        - 0 - Transform unit until one attack, -1 - perform attack ground on it's location: Charge Type is -1
+        - 0 - Transform unit until one attack: Charge Type is -2
+        - Aura task duration: Charge Type is -3
+        - Conversion range (maybe overridden by conversion tasks): Charge Type is -4
     """
     CHARGE_TYPE = 62
     """
     The type of charge that a unit holds
     
     - Flags:
-    
+        - -5: Spawn Building on top of the unit (Uses unit set in Trait Piece)
+        - -4: Conversion ability (Needs task 104). Charge Target defines the conversion percent chance
+        - -3: Active aura ability (Needs task 155 with unused flag 8 set)
+        - -2: Active targeted transform (Uses unit set in Trait Piece). If charge target = -1, use attack ground targeting
+        - -1: Active temporary transform (Uses unit set in Trait Piece)
         - 1: Attack charge
         - 2: ??? charge
         - 3: Area attack charge
         - 4: Agility charge
+        - 5: Ignore Melee Attack
+        - 6: Fire only Charge projectiles, sets Total Projectiles to the value of Max Total Projectiles (Lou Chuan)
+        - 7: Fires 1 Charge projectile and additional Secondary Projectiles, sets Total Projectiles to the value of Max Total Projectiles)
     """
     COMBAT_ABILITY = 63
     """
@@ -425,6 +439,8 @@ class ObjectAttribute(_DataSetIntEnums):
         - 8: Attack ground ability
         - 16: Bulk volley release (kipchak/siege weapons)
         - 32: Enable task 155 ability (Stronghold castle/Caravanserai/Centurion)
+        - 64: Invert aura ability (task 155) to boost self (Monaspa) - Auto Search = 1 needed for multiple tasks
+        - 128: Activate stingers ability (task 157)
     """
     ATTACK_DISPERSION = 64
     """
@@ -445,8 +461,8 @@ class ObjectAttribute(_DataSetIntEnums):
     - Flags:
     
         - 0: Collide only with the targeted unit
-        - 1: Collide with any damage-able units in the path to the targetted unit
-        - 2: Collide with any unit in the path to the targetted unit
+        - 1: Collide with any damage-able units in the path to the targeted unit
+        - 2: Collide with any unit in the path to the targeted unit
     """
     PROJECTILE_VANISH_MODE = 68
     """
@@ -456,6 +472,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         - 0: Disappear on first impact
         - 1: Pass through
+        - 2: Always spawn a dead unit
     """
     PROJECTILE_ARC = 69
     """
@@ -589,7 +606,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     GARRISON_HEAL_RATE = 108
     """
-    The rate measured in HP/s at which garissoned units are healed inside a given building
+    The rate measured in HP/s at which garrisoned units are healed inside a given building
     """
     REGENERATION_RATE = 109
     """
@@ -597,7 +614,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     POPULATION = 110
     """
-    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population heardroom provided by a unit
+    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population headroom provided by a unit
     """
     MINIMUM_CONVERSION_TIME_MODIFIER = 111
     """
@@ -641,4 +658,82 @@ class ObjectAttribute(_DataSetIntEnums):
     AREA_DAMAGE = 115
     """
     Blast damage multiplier to non directly targeted units. Blast damage to non directly targeted units is a fixed value if this is negative
+    """
+    DAMAGE_REFLECTION = 118
+    """
+    Damage percentage of the received damage to be reflected on the attacker (only for melee damage)
+    """
+    FRIENDLY_FIRE_DAMAGE = 119
+    """
+    Blast damage multiplier to non directly targeted units. Blast damage to non directly targeted units is a fixed value if this is negative
+    """
+    REGENERATION_HP_PERCENT = 120
+    """
+    Percentage of the unit’s max HP that is regenerated over a minute
+    """
+    ABILITY_BUTTON_ICON_ID = 121
+    """
+    Override for Transform/Active Ability Icon. Uses ID from ``Materials.json``
+    """
+    ABILITY_SHORT_TOOLTIP = 122
+    """
+    Override for Transform/Active Ability Short Tooltip
+    """
+    ABILITY_EXTENDED_TOOLTIP = 123
+    """
+    Override for Transform/Active Ability Long Tooltip
+    """
+    ABILITY_HOTKEY_ACTION = 124
+    """
+    ``button_action_list`` when pressing button/hotkey for the ability or transformation
+    """
+    CHARGE_PROJECTILE_UNIT = 125
+    """
+    Blast damage multiplier to non directly targeted units. Blast damage to non directly targeted units is a fixed value if this is negative
+    """
+    AVAILABLE_UNIT_FLAG = 126
+    """
+    When Disabled flag 2 or 4 is set, sets value for number of trainable unit. Will use units paired in ``LinkedUnits.json`` to count them together
+    """
+    DISABLE_UNIT_FLAG = 127
+    """
+    Enable/Disable a unit
+    
+    - Flags:
+    
+        - 1: Disabled
+        - 2: Limited training. Cannot be retrained after death
+        - 4: Limited training. Can be retrained after death
+    """
+    ATTACK_PRIORITY = 128
+    """
+    Defines what type of target the unit will prioritize
+    
+    - Flags:
+    
+        - 1: Units > Buildings
+        - 2: Buildings > Units 	
+        - 3: Buildings only
+    """
+    INVULNERABILITY_LEVEL = 129
+    """
+    Sets an HP threshold after which a unit no longer receives damage when attacked
+    
+    - Values:
+    
+        - >0: Multiplier of Base HP
+        - <0: Fixed value of HP	
+    """
+    GARRISON_FIREPOWER = 130
+    """
+    Adds to the damage of the unit to calculate the number of garrison arrows to fire
+
+    - Values:
+
+        - >0: Acts as multiplier
+        - <0: Flat dps value added to the unit's dps	
+    """
+    ATTACK_GRAPHIC_2 = 131
+    """
+    Second attack graphic of the unit; alternates with the first attack graphic when assigned
     """

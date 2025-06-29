@@ -225,5 +225,6 @@ venv/
 .idea/copyright/profiles_settings.xml
 AoE2ScenarioParser/differences.txt
 .secrets
+.DS_Store
 
 .idea/AoE2ScenarioParser.v1.iml

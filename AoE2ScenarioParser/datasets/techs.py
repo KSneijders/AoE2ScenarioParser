@@ -158,6 +158,11 @@ class TechInfo(Enum):
                     TechInfo.YASAMA,
                     TechInfo.YEOMEN,
                     TechInfo.BIMARISTAN,
+                    TechInfo.COILED_SERPENT_ARRAY,
+                    TechInfo.TUNTIAN,
+                    TechInfo.RED_CLIFFS_TACTICS,
+                    TechInfo.FORTIFIED_BASTIONS,
+                    TechInfo.LAMELLAR_ARMOR,
                 ],
                 "imp_age": [
                     TechInfo.ARQUEBUS,
@@ -205,6 +210,11 @@ class TechInfo(Enum):
                     TechInfo.TOWER_SHIELDS,
                     TechInfo.WARWOLF,
                     TechInfo.WOOTZ_STEEL,
+                    TechInfo.BOLT_MAGAZINE,
+                    TechInfo.MING_GUANG_ARMOR,
+                    TechInfo.SITTING_TIGER,
+                    TechInfo.THUNDERCLAP_BOMBS,
+                    TechInfo.ORDO_CAVALRY,
                 ],
             },
             "chronicles": {
@@ -305,6 +315,11 @@ class TechInfo(Enum):
                     TechInfo.ELITE_WAR_ELEPHANT,
                     TechInfo.ELITE_WAR_WAGON,
                     TechInfo.ELITE_WOAD_RAIDER,
+                    TechInfo.ELITE_WHITE_FEATHER_GUARD,
+                    TechInfo.ELITE_FIRE_ARCHER,
+                    TechInfo.ELITE_TIGER_CAVALRY,
+                    TechInfo.ELITE_IRON_PAGODA,
+                    TechInfo.ELITE_LIAO_DAO,
                 ],
                 "non_castle": [
                     TechInfo.ELITE_CARAVEL,
@@ -514,7 +529,7 @@ class TechInfo(Enum):
                 economic buildings (Mill, Mining Camp, Lumber Camp, Town Center and Market) are returned
 
         Returns:
-            A list of TechInfo objects which are the university upgrade techs for the given age
+            A list of TechInfo objects which are the eco upgrade techs for the given age
         """
         ages = list(Age) if ages is None else listify(ages)
 
@@ -538,21 +553,21 @@ class TechInfo(Enum):
                 BuildingInfo.MARKET.ID: [],
             },
             Age.FEUDAL_AGE: {
-                BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR],
+                BuildingInfo.MILL.ID: [TechInfo.HORSE_COLLAR, TechInfo.DOMESTICATION],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_MINING, TechInfo.STONE_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.DOUBLE_BIT_AXE],
                 BuildingInfo.TOWN_CENTER.ID: [TechInfo.WHEELBARROW, TechInfo.TOWN_WATCH],
                 BuildingInfo.MARKET.ID: [],
             },
             Age.CASTLE_AGE: {
-                BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW],
+                BuildingInfo.MILL.ID: [TechInfo.HEAVY_PLOW, TechInfo.PASTORALISM],
                 BuildingInfo.MINING_CAMP.ID: [TechInfo.GOLD_SHAFT_MINING, TechInfo.STONE_SHAFT_MINING],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.BOW_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [TechInfo.HAND_CART, TechInfo.TOWN_PATROL],
                 BuildingInfo.MARKET.ID: [TechInfo.COINAGE, TechInfo.CARAVAN]
             },
             Age.IMPERIAL_AGE: {
-                BuildingInfo.MILL.ID: [TechInfo.CROP_ROTATION],
+                BuildingInfo.MILL.ID: [TechInfo.CROP_ROTATION, TechInfo.TRANSHUMANCE],
                 BuildingInfo.MINING_CAMP.ID: [],
                 BuildingInfo.LUMBER_CAMP.ID: [TechInfo.TWO_MAN_SAW],
                 BuildingInfo.TOWN_CENTER.ID: [],
@@ -622,6 +637,11 @@ class TechInfo(Enum):
             TechInfo.TURKS,
             TechInfo.VIETNAMESE,
             TechInfo.VIKINGS,
+            TechInfo.SHU,
+            TechInfo.WU,
+            TechInfo.WEI,
+            TechInfo.JURCHENS,
+            TechInfo.KHITANS,
         ]
         chronicles_techs = [
             TechInfo.ACHAEMENIDS,
@@ -647,7 +667,7 @@ class TechInfo(Enum):
     BAGAINS = 686, 107
     BALLISTICS = 93, 25
     BANKING = 17, 3
-    BEARDED_AXE = 83, 107
+    BEARDED_AXE = 83, 33
     BERBERS = 583, -1
     BOGSVEIGAR = 49, 107
     BLAST_FURNACE = 75, 21
@@ -677,7 +697,7 @@ class TechInfo(Enum):
     CHATRAS = 628, 33
     CHEMISTRY = 47, 12
     CHINESE = 534, -1
-    CHIVALRY = 493, 33
+    CHIVALRY = 493, 107
     COINAGE = 23, 7
     CONSCRIPTION = 315, 91
     CORVINIAN_ARMY = 514, 33
@@ -710,7 +730,7 @@ class TechInfo(Enum):
     ELITE_CHU_KO_NU = 362, 105
     ELITE_CONQUISTADOR = 60, 105
     ELITE_EAGLE_WARRIOR = 434, 115
-    ELITE_ELEPHANT_ARCHER = 481, 105
+    ELITE_ELEPHANT_ARCHER = 481, 127
     ELITE_GBETO = 567, 105
     ELITE_GENITOUR = 599, 105
     ELITE_GENOESE_CROSSBOWMAN = 468, 105
@@ -787,7 +807,7 @@ class TechInfo(Enum):
     HILL_FORTS = 691, 33
     HOARDINGS = 379, 103
     HORSE_COLLAR = 14, 2
-    HOWDAH = 626, 33
+    HOWDAH = 626, 107
     HUNS = 545, -1
     HUSBANDRY = 39, 10
     HUSSAR = 428, 122
@@ -821,7 +841,7 @@ class TechInfo(Enum):
     MALAY = 651, -1
     MALIANS = 582, -1
     MAN_AT_ARMS = 222, 85
-    MANIPUR_CAVALRY = 627, 107
+    MANIPUR_CAVALRY = 627, 33
     MARAUDERS = 483, 33
     MASONRY = 50, 13
     MAYANS = 544, -1
@@ -863,7 +883,7 @@ class TechInfo(Enum):
     SIEGE_ONAGER = 320, 96
     SIEGE_RAM = 255, 86
     SILK_ARMOR = 687, 33
-    SILK_ROAD = 499, 107
+    SILK_ROAD = 499, 33
     SIPAHI = 491, 33
     SLAVS = 551, -1
     SPANISH = 542, -1
@@ -1093,7 +1113,7 @@ class TechInfo(Enum):
     DRUMS = 1162, 99
     HYPOZOMATA = 1165, 169
     SHIPWRIGHT_ANTIQUITY = 1167, 97
-    ELITE_WAR_CHARRIOT = 1171, 184
+    ELITE_WAR_CHARIOT = 1171, 184
     BATTLE_DRILLS = 1173, 168
     CHAMPION_ANTIQUITY = 1174, 44
     BLANK_TECHNOLOGY_0 = 1180, -1
@@ -1136,3 +1156,31 @@ class TechInfo(Enum):
     TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
     TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
     TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159
+    PIROTECHNIA = 902, 107
+    HEAVY_ROCKET_CART = 980, 133
+    ELITE_FIRE_LANCER = 982, 134
+    ELITE_IRON_PAGODA = 991, 105
+    FORTIFIED_BASTIONS = 996, 33
+    THUNDERCLAP_BOMBS = 997, 107
+    ELITE_LIAO_DAO = 1002, 105
+    LAMELLAR_ARMOR = 1006, 33
+    ORDO_CAVALRY = 1007, 107
+    DRAGON_SHIP = 1010, 135
+    TRANSHUMANCE = 1012, 136
+    PASTORALISM = 1013, 137
+    DOMESTICATION = 1014, 138
+    HEAVY_HEI_GUANG_CAVALRY = 1033, 132
+    ELITE_TIGER_CAVALRY = 1036, 105
+    TUNTIAN = 1061, 33
+    MING_GUANG_ARMOR = 1062, 107
+    ELITE_WHITE_FEATHER_GUARD = 1064, 105
+    BOLT_MAGAZINE = 1069, 107
+    COILED_SERPENT_ARRAY = 1070, 33
+    ELITE_FIRE_ARCHER = 1074, 105
+    RED_CLIFFS_TACTICS = 1080, 33
+    SITTING_TIGER = 1081, 107
+    SHU = 1028, -1
+    WU = 1030, -1
+    WEI = 1039, -1
+    JURCHENS = 986, -1
+    KHITANS = 988, -1

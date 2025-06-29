@@ -1462,7 +1462,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 3.9
+                "default": 4.1
             },
             "trigger_instruction_start": {
                 "type": "s8",
@@ -1569,16 +1569,7 @@
             "redacted": {
                 "type": "16",
                 "default": "00000000000000000000000000000000",
-                "comment": "ThxFE for accidentally pushing this...",
-                "is_list": false,
-
-                "dependencies": {
-                    "on_construct": {
-                        "action": "SET_REPEAT",
-                        "target": "self:trigger_version",
-                        "eval": "0 if trigger_version <= 3.9 else 1"
-                    }
-                }
+                "comment": "Present since Trigger Version 4.1"
             }
         },
         "structs": {
@@ -1969,19 +1960,25 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "redacted": {
-                                "type": "16",
-                                "is_list": false,
-                                "default": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                                "comment": "ThxFE for accidentally pushing this...",
-
-                                "dependencies": {
-                                    "on_construct": {
-                                        "action": "SET_REPEAT",
-                                        "target": "Triggers:trigger_version",
-                                        "eval": "0 if trigger_version <= 3.9 else 1"
-                                    }
-                                }
+                            "decision_id": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "string_id_option1": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "string_id_option2": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "variable2": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
                             },
                             "message": {
                                 "type": "str32",
@@ -2008,12 +2005,12 @@
                                     }
                                 }
                             },
-                            "unused_string_1": {
+                            "message_option1": {
                                 "type": "str32",
                                 "comment": "AoE2 Developer Quote: 'The 2 strings are unused'",
                                 "default": ""
                             },
-                            "unused_string_2": {
+                            "message_option2": {
                                 "type": "str32",
                                 "comment": "AoE2 Developer Quote: 'The 2 strings are unused'",
                                 "default": ""
@@ -2062,7 +2059,7 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "unknown": {
+                            "trigger_id": {
                                 "type": "s32",
                                 "default": -1
                             },
@@ -2138,19 +2135,20 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "redacted": {
-                                "type": "12",
-                                "is_list": false,
-                                "default": "FFFFFFFFFFFFFFFFFFFFFFFF",
-                                "comment": "ThxFE for accidentally pushing this...",
-
-                                "dependencies": {
-                                    "on_construct": {
-                                        "action": "SET_REPEAT",
-                                        "target": "Triggers:trigger_version",
-                                        "eval": "0 if trigger_version <= 3.9 else 1"
-                                    }
-                                }
+                            "decision_id": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "decision_option": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
+                            },
+                            "variable2": {
+                                "type": "s32",
+                                "comment": "Present since Trigger Version 4.1",
+                                "default": -1
                             },
                             "xs_function": {
                                 "type": "str32",

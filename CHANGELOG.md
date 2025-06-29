@@ -7,6 +7,107 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.4 - 2025-June-29
+
+### Added
+
+- New herder villagers to `UnitInfo` — Credits: by [@mardaravicius] in [#73]
+
+### Fixed
+
+- Incorrect `DisableUnitFlag` values — Credits: by [@mardaravicius] in [#73]
+
+[#73]: https://github.com/KSneijders/AoE2ScenarioParser/pull/73
+
+---
+
+##  0.4.3 - 2025-June-27
+
+### Added 
+
+- `AttackPriority` dataset — Credits: by [@mardaravicius] in [#71]
+  - Used in the 'Modify Attribute' effect with the 'Attack Priority' attributes
+- `DisableUnitFlag` dataset — Credits: by [@mardaravicius] in [#71]
+  - Used in the 'Modify Attribute' effect with the 'Disable Unit Flag' attributes
+- New attributes to many datasets — Credits: by [@mardaravicius] in [#71]
+  - `ObjectAttribute`
+  - `CombatAbility`
+  - `ChargeType`
+  - `BlastLevel`
+  - `ObjectClass`
+  - `ProjectileVanishMode`
+
+### Fixes
+
+- Incorrect values in datasets from release v0.4.2 — Credits: by [@mardaravicius] in [#71]
+
+### Updated
+
+- Some names in `TerrainId` to reflect the in-game names — Credits: by [@mardaravicius] in [#71]
+
+[#71]: https://github.com/KSneijders/AoE2ScenarioParser/pull/71
+
+---
+
+##  0.4.2 - 2025-June-23
+
+### Added 
+
+- `HeroInfo.trainable_heroes(...)` to retrieve heroes that can be trained in normal games (Shu, Wei & Wu) — Credits: by [@mardaravicius] in [#69](https://github.com/KSneijders/AoE2ScenarioParser/pull/69)
+
+### Updated
+
+There is a possibility that dataset entry names you're using have changed. If that's the case, look at [the diff](https://github.com/KSneijders/AoE2ScenarioParser/pull/70/files)
+to figure out what the new names are.
+
+- Updated many datasets to support the new units released since the 3K civs were introduced — Credits: by [@mardaravicius] in [#69](https://github.com/KSneijders/AoE2ScenarioParser/pull/69)
+  - `UnitInfo`
+  - `OtherInfo`
+  - `BuildingInfo`
+  - `HeroInfo`
+  - `ProjectileInfo`
+  - `TerrainId`
+
+---
+
+##  0.4.1 - 2025-June-19
+
+### Added
+
+- Support for the new Effects (and the corresponding new attributes) introduced in the last patch — Credits: by [@mardaravicius] in [#68](https://github.com/KSneijders/AoE2ScenarioParser/pull/68)
+  - `trigger.new_effect.create_decision(...)`
+  - `trigger.new_effect.disable_unit_attackable(...)`
+  - `trigger.new_effect.enable_unit_attackable(...)`
+  - `trigger.new_effect.modify_variable_by_variable(...)`
+  - `trigger.new_effect.count_units_into_variable(...)`
+
+---
+
+##  0.4.0 - 2025-June-18
+
+### Added
+
+- Support for the new Conditions (and the corresponding new attributes) introduced in the last patch:
+  - `trigger.new_condition.decision_triggered(...)`
+  - `trigger.new_condition.object_attacked(...)`
+  - `trigger.new_condition.hero_power_cast(...)`
+  - `trigger.new_condition.compare_variables(...)`
+  - `trigger.new_condition.trigger_active(...)`
+- A new small dataset: `DecisionOption`
+- 13 new `ColorMood` entries -- Credits: Goku2134 @ Discord
+- 3 new flags to the OtherInfo dataset
+
+### Dropped support
+
+Due to limitations within the `AoE2ScenarioParser`'s versioning system, scenarios with a `trigger version` older than the 
+latest `trigger version` for that `scenario version` will no longer be supported. 
+
+Solutions: Save the scenario in-game to upgrade the scenario, or downgrade `AoE2ScenarioParser`.
+
+**For more context, see [this Discord post](https://discord.com/channels/866955546182942740/877085102201536553/1372708645711777843)**. 
+
+---
+
 ##  0.3.6 - 2025-May-15
 
 ### Added
@@ -19,7 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Too many triggers being selected as Data Triggers  — Credits: by [@Alian713] in [#65](https://github.com/KSneijders/AoE2ScenarioParser/pull/65)
 - Incorrect usage of the `--ignores` argument for Xs-Check when using the `xs_check.ignores` set
 
-[@Alian713]: (https://github.com/Divy1211)
+[@Alian713]: https://github.com/Divy1211
 
 ---
 
@@ -52,7 +153,7 @@ Was: `0.3.4` but got yanked due to producing corrupt scenarios
 - Support for the Xs-Check `v0.2.3` — View the `v0.2.3` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.3
 - Updated many datasets to include objects from the Chronicles DLC! — Credits: by [@mardaravicius] in [#57](https://github.com/KSneijders/AoE2ScenarioParser/pull/57) 
 
-[@mardaravicius]: (https://github.com/mardaravicius)
+[@mardaravicius]: https://github.com/mardaravicius
 
 ### Fixed
 

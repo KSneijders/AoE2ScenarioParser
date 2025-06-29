@@ -10,8 +10,8 @@ class UnitTrait(_DataSetIntFlags):
 
     **Examples**
 
-    >>> UnitTrait.TRANSFORMABLE
-    <UnitTrait.TRANSFORMABLE: 8>
+    >>> UnitTrait.AUTO_SCOUT
+    <UnitTrait.AUTO_SCOUT: 16>
     """
     GARRISONABLE = 1
     SHIP = 2

@@ -590,8 +590,7 @@ class EffectId(IntEnum):
     """Attributes for the **change_color_mood** effect are: \n
     - quantity
     - color_mood
-    
-    **Version notice**: \n
+
     This effect was added in: 1.42
     """
     ENABLE_OBJECT_DELETION = 73
@@ -603,8 +602,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
-    
-    **Version notice**: \n
+
     This effect was added in: 1.46
     """
     DISABLE_OBJECT_DELETION = 74
@@ -616,8 +614,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
-    
-    **Version notice**: \n
+
     This effect was added in: 1.46
     """
     TRAIN_UNIT = 75
@@ -632,8 +629,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
-    
-    **Version notice**: \n
+
     This effect was added in: 1.51 & Trigger Version 3.5
     """
     INITIATE_RESEARCH = 76
@@ -641,8 +637,7 @@ class EffectId(IntEnum):
     - source_player
     - technology
     - selected_object_ids
-    
-    **Version notice**: \n
+
     This effect was added in: 1.51 & Trigger Version 3.5
     """
     CREATE_OBJECT_ATTACK = 77
@@ -659,8 +654,7 @@ class EffectId(IntEnum):
     - object_type
     - operation
     - selected_object_ids
-    
-    **Version notice**: \n
+
     This effect was added in: 1.51 & Trigger Version 3.5
     """
     CREATE_OBJECT_ARMOR = 78
@@ -677,8 +671,7 @@ class EffectId(IntEnum):
     - object_type
     - operation
     - selected_object_ids
-    
-    **Version notice**: \n
+
     This effect was added in: 1.51 & Trigger Version 3.5
     """
     MODIFY_ATTRIBUTE_BY_VARIABLE = 79
@@ -690,8 +683,7 @@ class EffectId(IntEnum):
     - variable
     - message
     - armour_attack_class
-    
-    **Version notice**: \n
+
     This effect was added in: 1.51 & Trigger Version 3.5
     """
     SET_OBJECT_COST = 80
@@ -701,7 +693,6 @@ class EffectId(IntEnum):
     - quantity
     - tribute_list
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     LOAD_KEY_VALUE = 81
@@ -710,7 +701,6 @@ class EffectId(IntEnum):
     - message
     - quantity
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     STORE_KEY_VALUE = 82
@@ -718,14 +708,12 @@ class EffectId(IntEnum):
     - variable
     - message
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     DELETE_KEY = 83
     """Attributes for the **delete_key** effect are: \n
     - message
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_TECHNOLOGY_ICON = 84
@@ -734,7 +722,6 @@ class EffectId(IntEnum):
     - source_player
     - quantity
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_TECHNOLOGY_HOTKEY = 85
@@ -743,7 +730,6 @@ class EffectId(IntEnum):
     - source_player
     - quantity
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     MODIFY_VARIABLE_BY_RESOURCE = 86
@@ -752,8 +738,7 @@ class EffectId(IntEnum):
     - source_player
     - operation
     - variable
-        
-    **Version notice**: \n
+    
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     MODIFY_VARIABLE_BY_ATTRIBUTE = 87
@@ -766,7 +751,6 @@ class EffectId(IntEnum):
     - message
     - armour_attack_class
 
-    **Version notice**: \n
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_OBJECT_CAPTION = 88
@@ -780,15 +764,72 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    **Version notice**: \n
+
     This effect was added in: 1.54 & Trigger Version 3.9
     """
     CHANGE_PLAYER_COLOR = 89
     """Attributes for the **change_player_color** effect are: \n
     - source_player
     - player_color
-    **Version notice**: \n
+
     This effect was added in: 1.54 & Trigger Version 3.9
+    """
+    CREATE_DECISION = 90
+    """Attributes for the **create_decision** effect are: \n
+    - string_id
+    - decision_id
+    - string_id_option1
+    - string_id_option2
+    - message
+    - message_option1
+    - message_option2
+
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
+    DISABLE_UNIT_ATTACKABLE = 98
+    """Attributes for the **disable_unit_attackable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - selected_object_ids
+
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
+    ENABLE_UNIT_ATTACKABLE = 99
+    """Attributes for the **enable_unit_attackable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - selected_object_ids
+
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
+    MODIFY_VARIABLE_BY_VARIABLE = 100
+    """Attributes for the **modify_variable_by_variable** effect are: \n
+    - operation
+    - variable
+    - variable2
+
+    This effect was added in: 1.54 & Trigger Version 4.1
+    """
+    COUNT_UNITS_INTO_VARIABLE = 101
+    """Attributes for the **count_units_into_variable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - object_group
+    - variable2  // Why FE?! Why the 2nd!?
+
+    This effect was added in: 1.54 & Trigger Version 4.1
     """
 
 
@@ -849,14 +890,18 @@ empty_attributes = {
     "resource_2_quantity": -1,
     "resource_3": -1,
     "resource_3_quantity": -1,
+    "decision_id": -1,
+    "string_id_option1": -1,
+    "string_id_option2": -1,
+    "variable2": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,
-    "unused_string_1": "",
-    "unused_string_2": "",
+    "message_option1": "",
+    "message_option2": "",
 }
 
-# Set using the version json files
+# Set using the version JSON files
 effect_names = {}
 default_attributes = {}
 attributes = {}

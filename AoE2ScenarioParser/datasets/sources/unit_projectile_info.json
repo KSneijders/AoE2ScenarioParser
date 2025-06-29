@@ -1,7 +1,8 @@
 {
     "4": {
         "primary": 363,
-        "primary_fire": 466
+        "primary_fire": 466,
+        "secondary": 1930
     },
     "5": {
         "primary": 380
@@ -28,16 +29,21 @@
     },
     "21": {
         "primary": 372,
-        "primary_fire": 470
+        "primary_fire": 470,
+        "secondary": 512,
+        "secondary_fire": 524
     },
     "24": {
         "primary": 364,
-        "primary_fire": 375
+        "primary_fire": 375,
+        "secondary": 1930
     },
     "33": {
         "primary": 746,
+        "primary_citadels_fire": 1830,
         "primary_fire": 747,
         "secondary": 746,
+        "secondary_citadels_fire": 1830,
         "secondary_fire": 747
     },
     "36": {
@@ -81,14 +87,18 @@
     },
     "79": {
         "primary": 504,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 517,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "82": {
         "primary": 746,
+        "primary_citadels_fire": 1830,
         "primary_fire": 747,
         "secondary": 746,
+        "secondary_citadels_fire": 1830,
         "secondary_fire": 747
     },
     "106": {
@@ -129,7 +139,8 @@
         "primary_fire": 475
     },
     "185": {
-        "primary": 187
+        "primary": 187,
+        "primary_fire": 538
     },
     "188": {
         "primary": 676,
@@ -153,18 +164,23 @@
     },
     "234": {
         "primary": 504,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 517,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "235": {
         "primary": 504,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 517,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "236": {
-        "primary": 506
+        "primary": 506,
+        "primary_greek_fire": 537
     },
     "250": {
         "primary": 512,
@@ -211,12 +227,16 @@
     },
     "442": {
         "primary": 373,
-        "primary_fire": 471
+        "primary_fire": 471,
+        "secondary": 512,
+        "secondary_fire": 524
     },
     "445": {
         "primary": 746,
+        "primary_citadels_fire": 1830,
         "primary_fire": 747,
         "secondary": 746,
+        "secondary_citadels_fire": 1830,
         "secondary_fire": 747
     },
     "474": {
@@ -229,7 +249,8 @@
     },
     "492": {
         "primary": 507,
-        "primary_fire": 519
+        "primary_fire": 519,
+        "secondary": 1930
     },
     "493": {
         "primary": 364,
@@ -258,7 +279,9 @@
     },
     "539": {
         "primary": 540,
-        "primary_fire": 541
+        "primary_fire": 541,
+        "secondary": 512,
+        "secondary_fire": 524
     },
     "542": {
         "primary": 627,
@@ -290,6 +313,7 @@
     },
     "566": {
         "primary": 504,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 517
     },
     "571": {
@@ -346,14 +370,18 @@
     },
     "684": {
         "primary": 505,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 518,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "685": {
         "primary": 505,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 518,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "686": {
@@ -396,8 +424,10 @@
     },
     "785": {
         "primary": 504,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 517,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "827": {
@@ -409,13 +439,16 @@
         "primary_fire": 471
     },
     "831": {
-        "primary": 767
+        "primary": 1906,
+        "charge": 767
     },
     "832": {
-        "primary": 767
+        "primary": 1906,
+        "charge": 767
     },
     "844": {
-        "primary": 767
+        "primary": 1906,
+        "charge": 767
     },
     "850": {
         "primary": 511,
@@ -536,7 +569,8 @@
         "secondary_fire": 522
     },
     "1075": {
-        "primary": 187
+        "primary": 187,
+        "primary_fire": 538
     },
     "1079": {
         "primary": 366,
@@ -544,8 +578,10 @@
     },
     "1102": {
         "primary": 505,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 518,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "1103": {
@@ -687,8 +723,10 @@
     },
     "1665": {
         "primary": 504,
+        "primary_svan_towers_fire": 1868,
         "primary_fire": 517,
         "secondary": 505,
+        "secondary_svan_towers_fire": 1868,
         "secondary_fire": 518
     },
     "1690": {
@@ -710,16 +748,38 @@
         "primary": 1756
     },
     "1743": {
-        "primary": 1756
+        "primary": 1783
     },
     "1750": {
-        "primary": 1779,
-        "primary_fire": 1780
+        "primary": 373,
+        "primary_fire": 471,
+        "secondary": 1779,
+        "secondary_fire": 1780
+    },
+    "1759": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "1761": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "1769": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "1771": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "1772": {
+        "primary": 477,
+        "primary_fire": 475
     },
     "1795": {
         "primary": 508,
-        "primary_fire": 520,
-        "primary_greek_fire": 1798
+        "primary_greek_fire": 1798,
+        "primary_fire": 520
     },
     "1800": {
         "primary": 503,
@@ -732,6 +792,94 @@
     "1806": {
         "secondary": 54,
         "secondary_fire": 328
+    },
+    "1901": {
+        "charge": 1925
+    },
+    "1903": {
+        "charge": 1925
+    },
+    "1904": {
+        "primary": 1906
+    },
+    "1907": {
+        "primary": 1906
+    },
+    "1911": {
+        "primary": 1913
+    },
+    "1923": {
+        "primary": 1926,
+        "primary_fire": 1927,
+        "secondary": 369,
+        "secondary_fire": 468
+    },
+    "1942": {
+        "primary": 1932,
+        "primary_fire": 1933,
+        "secondary": 1934,
+        "secondary_fire": 1935
+    },
+    "1948": {
+        "primary": 1938,
+        "primary_fire": 1939,
+        "secondary": 1934,
+        "secondary_fire": 1935,
+        "charge": 1936,
+        "charge_rocketry_fire": 1879,
+        "charge_fire": 1937
+    },
+    "1952": {
+        "primary": 477,
+        "primary_fire": 475,
+        "charge": 1982
+    },
+    "1962": {
+        "primary": 1964
+    },
+    "1968": {
+        "primary": 1971,
+        "primary_red_cliffs": 1972,
+        "charge": 1971,
+        "charge_red_cliffs": 1972
+    },
+    "1970": {
+        "primary": 1971,
+        "primary_red_cliffs": 1972,
+        "charge": 1971,
+        "charge_red_cliffs": 1972
+    },
+    "1980": {
+        "primary": 1957
+    },
+    "2042": {
+        "primary": 477,
+        "primary_fire": 475,
+        "secondary": 510,
+        "secondary_fire": 522
+    },
+    "2044": {
+        "primary": 1931,
+        "primary_red_cliffs": 1972,
+        "charge": 1931,
+        "charge_red_cliffs": 1972
+    },
+    "2046": {
+        "primary": 477,
+        "primary_fire": 475,
+        "charge": 1982
+    },
+    "2049": {
+        "primary": 1964
+    },
+    "2061": {
+        "primary": 2056
+    },
+    "2063": {
+        "primary": 2062
+    },
+    "2065": {
+        "primary": 2057
     },
     "2117": {
         "secondary": 512,
@@ -860,7 +1008,8 @@
         "primary": 2342
     },
     "2320": {
-        "primary": 187
+        "primary": 187,
+        "primary_fire": 538
     },
     "2324": {
         "primary": 507,

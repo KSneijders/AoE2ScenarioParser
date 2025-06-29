@@ -153,27 +153,29 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
-    def _add_effect(self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
-                    armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
-                    object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
-                    display_time=None, trigger_id=None, location_x=None, location_y=None,
-                    location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
-                    object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
-                    time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
-                    flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
-                    operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
-                    object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-                    player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
-                    object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
-                    resource_2_quantity=None, resource_3=None, resource_3_quantity=None, unused_string_1=None,
-                    unused_string_2=None, ) -> Effect:
+    def _add_effect(
+            self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
+            armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
+            object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
+            display_time=None, trigger_id=None, location_x=None, location_y=None,
+            location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
+            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
+            time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
+            flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
+            operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
+            object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
+            player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
+            object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
+            resource_2_quantity=None, resource_3=None, resource_3_quantity=None, decision_id=None,
+            string_id_option1=None, string_id_option2=None, variable2=None, message_option1=None, message_option2=None,
+    ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
             """Gets the default effect attributes based on a certain effect type, with exception handling"""
             sv = getters.get_scenario_version(self._uuid)
             try:
-                # Get None defaults and overwrite them with effect specific defaults
+                # Get None defaults and overwrite them with effect-specific defaults
                 none_default = effect_dataset.default_attributes[0]
                 effect_default = effect_dataset.default_attributes[eff_type]
 
@@ -193,12 +195,12 @@ class Trigger(AoE2Object, TriggerComponent):
         return new_effect
 
     def _add_condition(
-            self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None,
-            next_object=None, object_list=None, source_player=None, technology=None, timer=None, area_x1=None,
+            self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None, next_object=None,
+            object_list=None, source_player=None, technology=None, timer=None, trigger_id=None, area_x1=None,
             area_y1=None, area_x2=None, area_y2=None, object_group=None, object_type=None, ai_signal=None,
             inverted=None, variable=None, comparison=None, target_player=None, unit_ai_action=None, xs_function=None,
-            object_state=None, timer_id=None, victory_timer_type=None,
-            include_changeable_weapon_objects=None
+            object_state=None, timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
+            decision_id=None, decision_option=None, variable2=None
     ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
@@ -206,7 +208,7 @@ class Trigger(AoE2Object, TriggerComponent):
             """Gets the default condition attributes based on a certain condition type, with exception handling"""
             sv = getters.get_scenario_version(self._uuid)
             try:
-                # Get None defaults and overwrite them with condition specific defaults
+                # Get None defaults and overwrite them with condition-specific defaults
                 none_default = condition_dataset.default_attributes[0]
                 condition_default = condition_dataset.default_attributes[cond_type]
 

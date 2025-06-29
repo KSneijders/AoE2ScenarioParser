@@ -15,3 +15,4 @@ class ProjectileVanishMode(_DataSetIntEnums):
     """
     DISAPPEAR_ON_IMPACT = 0
     PASS_THROUGH = 1
+    ALWAYS_SPAWN_DEAD_UNIT = 2
