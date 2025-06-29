@@ -703,7 +703,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         - 1: Disabled
         - 2: Limited training. Cannot be retrained after death
-        - 3: Limited training. Can be retrained after death
+        - 4: Limited training. Can be retrained after death
     """
     ATTACK_PRIORITY = 128
     """
