@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever, Version
-from binary_file_parser.types import float32, int32, int8, uint8
+from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs.types.le import f32, i32, i8, u8
 
 
 class VictoryPoint(BaseStruct):
     # @formatter:off
-    type: int = Retriever(uint8, default = 0)
+    type: int = Retriever(u8, default = 0)
     """
     - 0 Capture,
     - 1 Create,
@@ -21,23 +21,23 @@ class VictoryPoint(BaseStruct):
     - 10 DestroyPlayer,
     - 11 Points,
     """
-    state: int = Retriever(uint8, default = 0)
+    state: int = Retriever(u8, default = 0)
     """
     - 0: Not achieved
     - 1: Failed
     - 2: Achieved
     - 3: Disabled
     """
-    attribute1: int                    = Retriever(int32,                             default = 0)
-    quantity: int                      = Retriever(int32,                             default = 0)
-    points: int                        = Retriever(int32,                             default = 0)
-    current_points: int                = Retriever(int32,                             default = 0)
-    id: int                            = Retriever(int8,                              default = 0)
-    group: int                         = Retriever(int8,                              default = 0)
-    current_attribute1_quantity: float = Retriever(float32,                           default = 0)
-    attribute2: int                    = Retriever(int32,   min_ver = Version((2, )), default = 0)
-    current_attribute2_quantity: float = Retriever(float32, min_ver = Version((2, )), default = 0)
+    attribute1: int                    = Retriever(i32,                          default = 0)
+    quantity: int                      = Retriever(i32,                          default = 0)
+    points: int                        = Retriever(i32,                          default = 0)
+    current_points: int                = Retriever(i32,                          default = 0)
+    id: int                            = Retriever(i8,                           default = 0)
+    group: int                         = Retriever(i8,                           default = 0)
+    current_attribute1_quantity: float = Retriever(f32,                          default = 0)
+    attribute2: int                    = Retriever(i32, min_ver = Version(2, 0), default = 0)
+    current_attribute2_quantity: float = Retriever(f32, min_ver = Version(2, 0), default = 0)
     # @formatter:on
 
-    def __init__(self, struct_ver: Version = Version((2, )), initialise_defaults = True, **retriever_inits):
-        super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = Version(2, 0), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, init_defaults, **retriever_inits)

@@ -1,50 +1,26 @@
 from __future__ import annotations
 
-from math import floor
-
-from binary_file_parser import BaseStruct, Retriever, Version
-from binary_file_parser.types import float32, int32, uint16, uint8
+from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs.types.le import f32, i32, u16, u8, str32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
-from objects.support import Tile
 
 
 class Unit(BaseStruct):
     # @formatter:off
-    x: float               = Retriever(float32, default = 0.5)
-    y: float               = Retriever(float32, default = 0.5)
-    z: float               = Retriever(float32, default = 0)
-    reference_id: int      = Retriever(int32,   default = -1)
-    """Default: -1 Is not actually a valid value, but multiple units at 0 is also invalid (single 0 can be valid)"""
-    type: int              = Retriever(uint16,  default = 4)
-    state: int             = Retriever(uint8,   default = 2)
-    rotation: float        = Retriever(float32, default = 0)
+    x: float                = Retriever(f32,                             default = 0.5)
+    y: float                = Retriever(f32,                             default = 0.5)
+    z: float                = Retriever(f32,                             default = 0)
+    reference_id: int       = Retriever(i32,                             default = 0)
+    type: int               = Retriever(u16,                             default = 4)
+    state: int              = Retriever(u8,                              default = 2)
+    rotation: float         = Retriever(f32,                             default = 0)
     """in radians"""
-    frame: int             = Retriever(uint16, min_ver = Version((1, 15)), default = 0)
-    garrisoned_in_ref: int = Retriever(int32,  min_ver = Version((1, 13)), default = -1)
-    """another object's reference_id. -1 (and 0 for v1.12+) mean None"""
-    caption_string_id: int = Retriever(int32,  min_ver = Version((1, 54)), default = -1)
+    frame: int              = Retriever(u16,   min_ver = Version(1, 15), default = 0)
+    garrisoned_in_ref: int  = Retriever(i32,   min_ver = Version(1, 13), default = -1)
+    """another object's reference_id. -1 (and 0 for v1.13 to 1.20) mean None"""
+    caption_string_id: int  = Retriever(i32,   min_ver = Version(1, 54), default = -1)
     # @formatter:on
 
-    _player: int | None = None
-
-    def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
-        super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
-
-    @property
-    def tile(self) -> Tile:
-        return Tile(floor(self.x), floor(self.y))
-
-    @tile.setter
-    def tile(self, tile: Tile) -> None:
-        self.x = tile.x + .5
-        self.y = tile.y + .5
-
-    @property
-    def has_reference_id(self):
-        return self.reference_id != -1
-
-    @property
-    def player(self):
-        """Read-only property for the owner player. Use the Unit Manager to change ownership"""
-        return self._player
+    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, init_defaults, **retriever_inits)
