@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
-from binary_file_parser import Manager, ret, RetrieverRef
+from bfp_rs import Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError

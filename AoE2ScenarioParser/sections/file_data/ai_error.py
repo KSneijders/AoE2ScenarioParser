@@ -1,16 +1,17 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever, Version
-from binary_file_parser.types import FixedLenNTStr, int32, uint32
+from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs.types.le import NtStr, i32, u32
+
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
 class AiError(BaseStruct):
     # @formatter:off
-    file_name: str   = Retriever(FixedLenNTStr[260], default = "")
-    line_number: int = Retriever(int32,              default = -1)
-    message: str     = Retriever(FixedLenNTStr[128], default = -1)
-    code: str        = Retriever(uint32,             default = 0)
+    file_name: str   = Retriever(NtStr[260], default = "")
+    line_number: int = Retriever(i32,        default = -1)
+    message: str     = Retriever(NtStr[128], default = "")
+    code: str        = Retriever(u32,        default = 0)
     """
     - 0: ConstantAlreadyDefined
     - 1: FileOpenFailed
@@ -42,5 +43,5 @@ class AiError(BaseStruct):
     """
     # @formatter:on
 
-    def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
-        super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, init_defaults, **retriever_inits)

@@ -1,17 +1,18 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever, RetrieverCombiner, RetrieverRef, Version
-from binary_file_parser.types import StrArray32
+from bfp_rs import BaseStruct, Retriever, Version, RetrieverRef, RetrieverCombiner
+from bfp_rs.types.le import str_array32
+
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
 class LegacyAiFile(BaseStruct):
     """This struct is useless"""
 
-    _strings1: list[str] = Retriever(StrArray32[2], max_ver = Version((1, 7)), default_factory = lambda _: [""] * 2)
-    _strings2: list[str] = Retriever(StrArray32[3], min_ver = Version((1, 8)), default_factory = lambda _: [""] * 3)
+    # the ._0 is a PyO3 thing that would need a lot of refactoring to fix. Something for future me to do
+    _strings1: list[str] = Retriever(str_array32._0[2], max_ver = Version(1, 7), default_factory = lambda _: [""] * 2)
+    _strings2: list[str] = Retriever(str_array32._0[3], min_ver = Version(1, 8), default_factory = lambda _: [""] * 3)
 
-    # refs
     _strings: list[str] = RetrieverCombiner(_strings2, _strings1)
 
     # @formatter:off
@@ -23,5 +24,5 @@ class LegacyAiFile(BaseStruct):
     """From the .per file of an AI"""
     # @formatter:on
 
-    def __init__(self, struct_ver: Version = DE_LATEST, initialise_defaults = True, **retriever_inits):
-        super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, init_defaults, **retriever_inits)

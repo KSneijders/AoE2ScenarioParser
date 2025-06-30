@@ -5,7 +5,7 @@ from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import TerrainTile
 
 if TYPE_CHECKING:
-    from managers import MapManager
+    from AoE2ScenarioParser.managers.map_manager import MapManager
 
 
 class TerrainDataSupport:

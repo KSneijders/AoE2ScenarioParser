@@ -1,18 +1,18 @@
 from __future__ import annotations
 
-from binary_file_parser import BaseStruct, Retriever, RetrieverRef, Version
-from binary_file_parser.types import Array32, int32, str32
-from AoE2ScenarioParser.sections.scx_versions import DE_LATEST, TRIGGER_LATEST
+from bfp_rs import BaseStruct, Retriever, Version, RetrieverRef
+from bfp_rs.types.le import Array32, i32, str32
+
+from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 
 
 class Condition(BaseStruct):
     # @formatter:off
-    type: int                              = Retriever(int32, default = 0)
-    _properties: list[int]                 = Retriever(Array32[int32], default_factory = lambda _: [-1]*27)
-    xs_function: str                       = Retriever(str32, default = "", min_ver = Version((2, 4)))
+    type: int                              = Retriever(i32,          default = 0)
+    _properties: list[int]                 = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*27)
+    xs_function: str                       = Retriever(str32,        default = "", min_ver = Version(2, 3))
 
-    # refs
-    # todo: move these into their own conditions in subclasses
+    # todo: subclassing?
     num_properties: int                    = RetrieverRef(_properties, 0)
     quantity: int                          = RetrieverRef(_properties, 1)
     resource: int                          = RetrieverRef(_properties, 2)
@@ -33,10 +33,6 @@ class Condition(BaseStruct):
     def area(self, value: tuple[tuple[int, int], tuple[int, int]]):
         (self._properties[10], self._properties[11]), (self._properties[12], self._properties[13]) = value
 
-    # area_x1: int                           = RetrieverRef(_properties, 10)
-    # area_y1: int                           = RetrieverRef(_properties, 11)
-    # area_x2: int                           = RetrieverRef(_properties, 12)
-    # area_y2: int                           = RetrieverRef(_properties, 13)
     object_group: int                      = RetrieverRef(_properties, 14)
     object_type: int                       = RetrieverRef(_properties, 15)
     ai_signal: int                         = RetrieverRef(_properties, 16)
@@ -55,5 +51,5 @@ class Condition(BaseStruct):
     include_changeable_weapon_objects: int = RetrieverRef(_properties, 27)
     # @formatter:on
 
-    def __init__(self, struct_ver: Version = TRIGGER_LATEST, initialise_defaults = True, **retriever_inits):
-        super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = TRIGGER_LATEST, init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, init_defaults, **retriever_inits)

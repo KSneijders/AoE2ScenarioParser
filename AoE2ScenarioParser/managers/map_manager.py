@@ -6,7 +6,7 @@ from collections import deque
 from collections.abc import Iterable
 from typing import Sequence
 
-from binary_file_parser import Manager, ret, RetrieverRef
+from bfp_rs import Manager, ret, RetrieverRef
 from ordered_set import OrderedSet
 from typing_extensions import Literal
 

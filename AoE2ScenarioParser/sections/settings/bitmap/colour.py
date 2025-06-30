@@ -1,18 +1,20 @@
-from binary_file_parser import BaseStruct, Retriever, Version
-from binary_file_parser.types import uint8
+from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs.types.le import u8
+
+from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
 class Colour(BaseStruct):
-    red: int   = Retriever(uint8, default = 0)
-    green: int = Retriever(uint8, default = 0)
-    blue: int  = Retriever(uint8, default = 0)
-    alpha: int = Retriever(uint8, default = 0)
+    blue: int     = Retriever(u8, default = 0)
+    green: int    = Retriever(u8, default = 0)
+    red: int      = Retriever(u8, default = 0)
+    reversed: int = Retriever(u8, default = 0)
     """unused"""
 
-    def __init__(
-        self,
-        struct_ver: Version = Version((1, 47)),
-        initialise_defaults = True,
+    def __new__(
+        cls,
+        ver: Version = DE_LATEST,
+        init_defaults = True,
         **retriever_inits
     ):
-        super().__init__(struct_ver, initialise_defaults = initialise_defaults, **retriever_inits)
+        return super().__new__(cls, ver, init_defaults, **retriever_inits)
