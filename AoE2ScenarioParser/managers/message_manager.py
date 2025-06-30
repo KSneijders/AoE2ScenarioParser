@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from binary_file_parser import Manager, ret, RetrieverRef
+from bfp_rs import Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.sections import Messages, ScenarioSections, Settings
 
