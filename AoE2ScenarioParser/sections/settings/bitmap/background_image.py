@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-
-from bfp_rs import BaseStruct, Retriever, Version, ret
+from bfp_rs import BaseStruct, ret, Retriever, Version
+from bfp_rs.combinators import get, if_, set_repeat
 from bfp_rs.types.le import Bytes, i16, i32, str16, u32
-from bfp_rs.combinators import if_, set_repeat, get
 
-from AoE2ScenarioParser.sections.settings.bitmap.bitmap_info_header import BitmapInfoHeader
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
+from AoE2ScenarioParser.sections.settings.bitmap.bitmap_info_header import BitmapInfoHeader
+
 
 def info_header_repeat_w():
     return [
@@ -15,6 +15,7 @@ def info_header_repeat_w():
         )
     ]
 
+
 def info_header_repeat_h():
     return [
         if_(ret(BackgroundImage.height)).eq(0).then(
@@ -22,12 +23,14 @@ def info_header_repeat_h():
         ),
     ]
 
+
 def pixel_repeat():
     return [
         set_repeat(ret(BackgroundImage.pixels)).by(
             get(BackgroundImage.height) * ((get(BackgroundImage.width) + 3) & ~3)
         )
     ]
+
 
 class BackgroundImage(BaseStruct):
     # @formatter:off

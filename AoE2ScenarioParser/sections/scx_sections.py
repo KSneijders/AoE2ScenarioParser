@@ -1,18 +1,18 @@
 from __future__ import annotations
 
-from zlib_ng import zlib_ng as zlib
 from contextlib import suppress
 
-from bfp_rs import BaseStruct, Retriever, ByteStream, Version
-
-from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
-from AoE2ScenarioParser.sections.file_header import FileHeader
-from AoE2ScenarioParser.sections.settings import Settings
-from AoE2ScenarioParser.sections.map_data import MapData
-from AoE2ScenarioParser.sections.unit_data import UnitData
-from AoE2ScenarioParser.sections.trigger_data import TriggerData
-from AoE2ScenarioParser.sections.file_data import FileData
+from bfp_rs import BaseStruct, ByteStream, Retriever, Version
 from bfp_rs.errors import VersionError
+from zlib_ng import zlib_ng as zlib
+
+from AoE2ScenarioParser.sections.file_data import FileData
+from AoE2ScenarioParser.sections.file_header import FileHeader
+from AoE2ScenarioParser.sections.map_data import MapData
+from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
+from AoE2ScenarioParser.sections.settings import Settings
+from AoE2ScenarioParser.sections.trigger_data import TriggerData
+from AoE2ScenarioParser.sections.unit_data import UnitData
 
 
 def sync_script_file_path(scx: ScenarioSections):
@@ -21,11 +21,13 @@ def sync_script_file_path(scx: ScenarioSections):
         if name:
             scx.file_data.script_file_path = f"{name}.xs"
 
+
 def sync_num_triggers(scx: ScenarioSections):
     with suppress(VersionError):
         scx.file_header.num_triggers = len(scx.trigger_data.triggers)
     with suppress(VersionError):
         scx.settings.options.num_triggers = len(scx.trigger_data.triggers)
+
 
 def sync_resources(scx: ScenarioSections):
     for i in range(8):
@@ -41,14 +43,15 @@ def sync_resources(scx: ScenarioSections):
         with suppress(VersionError):
             world_data.trade_goods = player_resources.trade_goods
 
+
 class ScenarioSections(BaseStruct):
     # @formatter:off
-    file_header: FileHeader   = Retriever(FileHeader,                                default_factory = lambda _ver: FileHeader())
-    settings: Settings        = Retriever(Settings,                                  default_factory = Settings,   remaining_compressed = True)
-    map_data: MapData         = Retriever(MapData,                                   default_factory = lambda _ver: MapData())
-    unit_data: UnitData       = Retriever(UnitData,                                  default_factory = UnitData)
-    trigger_data: TriggerData = Retriever(TriggerData,     min_ver = Version(1, 14), default_factory = TriggerData)
-    file_data: FileData       = Retriever(FileData,        min_ver = Version(1, 17), default_factory = FileData)
+    file_header: FileHeader   = Retriever(FileHeader,                            default_factory = lambda _ver: FileHeader())
+    settings: Settings        = Retriever(Settings,                              default_factory = Settings, remaining_compressed = True)
+    map_data: MapData         = Retriever(MapData,                               default_factory = lambda _ver: MapData())
+    unit_data: UnitData       = Retriever(UnitData,                              default_factory = UnitData)
+    trigger_data: TriggerData = Retriever(TriggerData, min_ver = Version(1, 14), default_factory = TriggerData)
+    file_data: FileData       = Retriever(FileData,    min_ver = Version(1, 17), default_factory = FileData)
     # @formatter:on
 
     @classmethod

@@ -1,7 +1,7 @@
 import pytest
 
 from AoE2ScenarioParser.managers import MapManager
-from objects.support import AreaState
+from AoE2ScenarioParser.objects.support import AreaState
 from tests.objects import MockScenarioSections
 
 

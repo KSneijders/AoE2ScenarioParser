@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Retriever, Version, RetrieverCombiner, ret
-from bfp_rs.types.le import Array, i32
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, Version
 from bfp_rs.combinators import set_
+from bfp_rs.types.le import Array, i32
+
 
 def sync_num_techs():
     return [
@@ -10,11 +11,13 @@ def sync_num_techs():
         for i in range(16)
     ]
 
+
 def sync_num_units():
     return [
         set_(ret(LegacyDisables._num_disabled_units), i).from_len(ret(LegacyDisables.disabled_unit_ids), i)
         for i in range(16)
     ]
+
 
 def sync_num_disabled_buildings_old():
     return [
@@ -23,12 +26,14 @@ def sync_num_disabled_buildings_old():
         for i in range(16)
     ]
 
+
 def sync_num_disabled_buildings():
     return [
         set_(ret(LegacyDisables._num_disabled_buildings), i)
         .from_len(ret(LegacyDisables._disabled_building_ids), i)
         for i in range(16)
     ]
+
 
 class LegacyDisables(BaseStruct):
     # @formatter:off
@@ -45,8 +50,8 @@ class LegacyDisables(BaseStruct):
     _disabled_building_ids: list[list[int]]     = Retriever(Array[16][Array[30][i32]], min_ver = Version(1, 25),                           default_factory = lambda _ver: [[-1]*30 for _ in range(16)])
 
     # references
-    disabled_tech_ids: list[list[int]]          = RetrieverCombiner(_disabled_tech_ids_old,     _disabled_tech_ids)
-    disabled_building_ids: list[list[int]]      = RetrieverCombiner(_disabled_building_ids_old, _disabled_building_ids)
+    disabled_tech_ids: list[list[int]]          = RetrieverCombiner(ret(_disabled_tech_ids_old),     ret(_disabled_tech_ids))
+    disabled_building_ids: list[list[int]]      = RetrieverCombiner(ret(_disabled_building_ids_old), ret(_disabled_building_ids))
     # @formatter:on
 
     def __new__(cls, ver: Version = Version(1, 27), init_defaults = True, **retriever_inits):

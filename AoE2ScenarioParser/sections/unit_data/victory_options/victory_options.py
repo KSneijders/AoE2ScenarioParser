@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ByteStream, Retriever, Version, ret
+from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
+from bfp_rs.combinators import set_, set_repeat
 from bfp_rs.types.le import f32, i32, u8
-from bfp_rs.combinators import set_repeat, set_
 
 from AoE2ScenarioParser.sections.unit_data.victory_options.victory_condition import VictoryCondition
 from AoE2ScenarioParser.sections.unit_data.victory_options.victory_point import VictoryPoint
@@ -13,15 +13,18 @@ def victory_conditions_repeat():
         set_repeat(ret(VictoryOptions.victory_conditions)).from_(ret(VictoryOptions._num_conditions))
     ]
 
+
 def sync_num_victory_conditions():
     return [
         set_(ret(VictoryOptions._num_conditions)).from_len(ret(VictoryOptions.victory_conditions))
     ]
 
+
 def victory_points_repeat():
     return [
         set_repeat(ret(VictoryOptions.victory_points)).from_(ret(VictoryOptions._num_points))
     ]
+
 
 def sync_num_victory_points():
     return [

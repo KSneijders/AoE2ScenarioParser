@@ -5,6 +5,7 @@ from bfp_rs.types.le import i16, i8, u8
 
 from AoE2ScenarioParser.sections.scx_versions import MAP_LATEST
 
+
 class TerrainTile(BaseStruct):
     # @formatter:off
     type: int       = Retriever(u8,                        default = 0)

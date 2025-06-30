@@ -26,10 +26,9 @@ class Settings(BaseStruct):
 
     @classmethod
     def _get_version(cls, stream: ByteStream, _ver: Version = Version(0)) -> Version:
-        # this should be identical to file version, but just in case its possible for it to be different... yES
+        # this should be identical to the file version, but just in case it's possible for it to be different... yES
         ver_str = f"{f32.from_bytes(stream.peek(8)[4:]):.2f}"
         return Version(*map(int, ver_str.split(".")))
-
 
     def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
         return super().__new__(cls, ver, init_defaults, **retriever_inits)

@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ByteStream, Retriever, Version, ret
+from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
+from bfp_rs.combinators import get, set_repeat
 from bfp_rs.types.le import bool8, u32
-from bfp_rs.combinators import set_repeat, get
 
 from AoE2ScenarioParser.sections.map_data.terrain_tile import TerrainTile
 from AoE2ScenarioParser.sections.scx_versions import MAP_LATEST
+
 
 def terrain_tiles_repeat():
     return [
@@ -26,7 +27,7 @@ class MapData(BaseStruct):
     @classmethod
     def _get_version(cls, stream: ByteStream, _ver: Version = Version(0)) -> Version:
         dead_food = u32.from_bytes(stream.peek(4))
-        if dead_food != 0xDEAD_F00D: # yES
+        if dead_food != 0xDEAD_F00D:  # yES
             return Version(0)
         ver = u32.from_bytes(stream.peek(8)[4:])
         return Version(ver)

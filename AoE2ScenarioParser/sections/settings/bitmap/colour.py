@@ -5,9 +5,9 @@ from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
 class Colour(BaseStruct):
-    blue: int     = Retriever(u8, default = 0)
-    green: int    = Retriever(u8, default = 0)
-    red: int      = Retriever(u8, default = 0)
+    blue: int = Retriever(u8, default = 0)
+    green: int = Retriever(u8, default = 0)
+    red: int = Retriever(u8, default = 0)
     reversed: int = Retriever(u8, default = 0)
     """unused"""
 
