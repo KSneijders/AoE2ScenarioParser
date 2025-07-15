@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.5 - 2025-June-29
+
+### Added 
+
+- Support for the Xs-Check `v0.2.6` — View the `v0.2.6` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.6
+
+### Fixes
+
+- "Active Trigger" Conditions' `trigger_id` not being updated when using TriggerManager functions for moving triggers around
+
+---
+
 ##  0.4.4 - 2025-June-29
 
 ### Added
