@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import copy
 from enum import IntEnum
-from typing import List, Dict
+from typing import List, Dict, Union
 
+from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.helper import helper
@@ -12,6 +13,7 @@ from AoE2ScenarioParser.helper.list_functions import hash_list, list_changed, up
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
@@ -272,11 +274,11 @@ class TriggerManager(AoE2Object):
                 trigger_index_swap.setdefault(index, {})[player] = trigger.trigger_id
                 new_triggers.setdefault(player, []).append(trigger)
 
-        # Set trigger_id's in activation effects to the new player copied trigger ID
+        # Set trigger_id's in trigger-referencing condition/effects to the new copied trigger ID
         for player, triggers in new_triggers.items():
             for trigger in triggers:
-                for effect in get_activation_effects(trigger):
-                    effect.trigger_id = trigger_index_swap[effect.trigger_id][player]
+                for ce in get_trigger_referencing_ce(trigger):
+                    ce.trigger_id = trigger_index_swap[ce.trigger_id][player]
 
         # -------------- Group by logic -------------- #
         new_trigger_ids = []
@@ -382,11 +384,11 @@ class TriggerManager(AoE2Object):
             new_triggers_list.append(trigger)
         self.triggers = new_triggers_list
 
-        # Find and update all (de)activation effect trigger references
+        # Find and update all trigger-referencing condition/effects
         for trigger in self.triggers:
-            for effect in get_activation_effects(trigger):
-                if effect.trigger_id in index_changes:
-                    effect.trigger_id = index_changes[effect.trigger_id]
+            for ce in get_trigger_referencing_ce(trigger):
+                if ce.trigger_id in index_changes:
+                    ce.trigger_id = index_changes[ce.trigger_id]
 
     def copy_trigger_tree(self, trigger_select: int | TriggerSelect) -> List[Trigger]:
         """
@@ -411,8 +413,8 @@ class TriggerManager(AoE2Object):
             id_swap[index] = trigger.trigger_id
 
         for trigger in new_triggers:
-            for effect in get_activation_effects(trigger):
-                effect.trigger_id = id_swap[effect.trigger_id]
+            for ce in get_trigger_referencing_ce(trigger):
+                ce.trigger_id = id_swap[ce.trigger_id]
 
         return new_triggers
 
@@ -545,13 +547,14 @@ class TriggerManager(AoE2Object):
             index_changes[trigger.trigger_id] = trigger.trigger_id = new_index
 
         for trigger in triggers:
-            for i, effect in enumerate(get_activation_effects(trigger)):
+            for i, ce in enumerate(get_trigger_referencing_ce(trigger)):
                 try:
-                    effect.trigger_id = index_changes[effect.trigger_id]
+                    ce.trigger_id = index_changes[ce.trigger_id]
                 except KeyError:
-                    warn(f"(De)Activation effect {i} in trigger '{trigger.name}' refers to a trigger that wasn't "
-                         f"included in the imported triggers. Effect will be reset")
-                    effect.trigger_id = -1
+                    cls_name = ce.__class__.__name__
+                    warn(f"{cls_name} {i} in trigger '{trigger.name}' refers to a trigger that wasn't "
+                         f"included in the imported triggers. {cls_name} will be reset")
+                    ce.trigger_id = -1
 
         self.triggers += triggers
         if index != -1:
@@ -603,11 +606,11 @@ class TriggerManager(AoE2Object):
                 index_changes[trigger.trigger_id] = new_index
                 trigger.trigger_id = new_index
 
-        # Find and update all (de)activation effect trigger references
+        # Find and update all trigger-referencing condition/effects
         for trigger in self.triggers:
-            for effect in get_activation_effects(trigger):
-                if effect.trigger_id in index_changes:
-                    effect.trigger_id = index_changes[effect.trigger_id]
+            for ce in get_trigger_referencing_ce(trigger):
+                if ce.trigger_id in index_changes:
+                    ce.trigger_id = index_changes[ce.trigger_id]
 
         self.trigger_display_order = new_display_order
 
@@ -787,16 +790,26 @@ class TriggerManager(AoE2Object):
         return new_display_order
 
 
-def get_activation_effects(trigger: Trigger) -> List[Effect]:
+def get_trigger_referencing_ce(trigger: Trigger) -> List[Union[Effect, Condition]]:
     """
-    Get all activation effects in a Trigger
+    Get all conditions and effects in a Trigger which reference a trigger.
 
     Args:
         trigger: The trigger object
 
     Returns:
-        A list with (de)activation effects
+        A list with trigger-referencing conditions and effects
     """
-    return [eff for eff in trigger.effects if eff.effect_type in [
-        EffectId.ACTIVATE_TRIGGER, EffectId.DEACTIVATE_TRIGGER
-    ]]
+    reference_effects = [
+        EffectId.ACTIVATE_TRIGGER,
+        EffectId.DEACTIVATE_TRIGGER
+    ]
+    reference_conditions = [
+        ConditionId.TRIGGER_ACTIVE,
+    ]
+
+    return [
+        *[eff for eff in trigger.effects if eff.effect_type in reference_effects],
+        *[cond for cond in trigger.conditions if cond.condition_type in reference_conditions],
+    ]
+
