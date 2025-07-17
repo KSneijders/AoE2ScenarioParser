@@ -611,6 +611,8 @@ class TriggerManager(AoE2Object):
             for ce in get_trigger_referencing_ce(trigger):
                 if ce.trigger_id in index_changes:
                     ce.trigger_id = index_changes[ce.trigger_id]
+                elif ce.trigger_id in removing_trigger_ids:
+                    ce.trigger_id = -1  # Reset trigger IDs that got removed
 
         self.trigger_display_order = new_display_order
 
