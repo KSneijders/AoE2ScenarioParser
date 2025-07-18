@@ -3,7 +3,7 @@ from unittest import TestCase
 from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
-_initialise_version_dependencies("DE", '1.47')
+_initialise_version_dependencies("DE", "1.54")
 
 
 # Todo: REWRITE BEFORE V1 RELEASE!
@@ -102,3 +102,15 @@ class Test(TestCase):
 
         self.tm.remove_triggers([1])
         self.assertEqual(self.tm.trigger_display_order, [1, 2, 0])
+
+    def test_remove_triggers_verify_target_reference(self):
+        t0 = self.tm.add_trigger("Trigger0")
+        t0.new_effect.activate_trigger(2)
+        self.tm.add_trigger("Trigger1")
+        t2 = self.tm.add_trigger("Trigger2")
+        t3 = self.tm.add_trigger("Trigger3")
+        t3.new_effect.activate_trigger(2)
+
+        self.tm.remove_triggers([2])
+        self.assertEqual(t0.effects[0].trigger_id, -1)
+        self.assertEqual(t3.effects[0].trigger_id, -1)
