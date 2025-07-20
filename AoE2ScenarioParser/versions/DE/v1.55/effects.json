@@ -796,7 +796,8 @@
             "location_x",
             "location_y",
             "item_id",
-            "facet"
+            "facet",
+            "disable_sound"
         ],
         "default_attributes": {
             "effect_type": 11,
@@ -851,7 +852,8 @@
             "action_type": -1,
             "message": "",
             "sound_name": "",
-            "selected_object_ids": []
+            "selected_object_ids": [],
+            "disable_sound": 0
         }
     },
     "12": {
@@ -870,7 +872,9 @@
             "object_group",
             "object_type",
             "action_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "disable_garrison_unload_sound",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 12,
@@ -925,7 +929,8 @@
             "action_type": 0,
             "message": "",
             "sound_name": "",
-            "selected_object_ids": []
+            "selected_object_ids": [],
+            "disable_garrison_unload_sound": 0
         }
     },
     "13": {
@@ -1003,7 +1008,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 14,
@@ -1074,7 +1080,8 @@
             "object_group",
             "object_type",
             "object_state",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 15,
@@ -1213,7 +1220,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 17,
@@ -1285,7 +1293,8 @@
             "object_group",
             "object_type",
             "flash_object",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 18,
@@ -1357,7 +1366,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 19,
@@ -1558,7 +1568,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 22,
@@ -1690,7 +1701,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 24,
@@ -1825,7 +1837,8 @@
             "area_x2",
             "area_y2",
             "message",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 26,
@@ -1897,7 +1910,8 @@
             "object_group",
             "object_type",
             "operation",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 27,
@@ -1970,7 +1984,8 @@
             "object_group",
             "object_type",
             "operation",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 28,
@@ -2040,7 +2055,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 29,
@@ -2113,7 +2129,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 30,
@@ -2186,7 +2203,8 @@
             "object_group",
             "object_type",
             "operation",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 31,
@@ -2258,7 +2276,8 @@
             "object_group",
             "object_type",
             "operation",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 32,
@@ -2329,7 +2348,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 33,
@@ -2400,7 +2420,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 34,
@@ -2472,7 +2493,8 @@
             "area_y2",
             "object_group",
             "object_type",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 35,
@@ -2543,7 +2565,8 @@
             "object_group",
             "object_type",
             "attack_stance",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 36,
@@ -2898,7 +2921,8 @@
             "object_group",
             "object_type",
             "object_list_unit_id_2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 42,
@@ -2970,7 +2994,8 @@
             "object_group",
             "object_type",
             "object_list_unit_id_2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 43,
@@ -3362,7 +3387,9 @@
             "area_x2",
             "area_y2",
             "object_list_unit_id_2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected",
+            "disable_sound"
         ],
         "default_attributes": {
             "effect_type": 49,
@@ -3417,7 +3444,8 @@
             "action_type": -1,
             "message": "",
             "sound_name": "",
-            "selected_object_ids": []
+            "selected_object_ids": [],
+            "disable_sound": 0
         }
     },
     "50": {
@@ -3695,7 +3723,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 54,
@@ -3952,7 +3981,8 @@
             "area_x2",
             "area_y2",
             "player_color",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 58,
@@ -4020,7 +4050,8 @@
             "area_x2",
             "area_y2",
             "message",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 59,
@@ -4089,7 +4120,8 @@
             "area_x2",
             "area_y2",
             "message",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 60,
@@ -4156,7 +4188,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 61,
@@ -4223,7 +4256,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 62,
@@ -4688,7 +4722,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 70,
@@ -4755,7 +4790,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 71,
@@ -4885,7 +4921,8 @@
             "area_x2",
             "area_y2",
             "item_id",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 73,
@@ -4953,7 +4990,8 @@
             "area_x2",
             "area_y2",
             "item_id",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 74,
@@ -5023,7 +5061,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 75,
@@ -5158,7 +5197,8 @@
             "object_group",
             "object_type",
             "operation",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 77,
@@ -5230,7 +5270,8 @@
             "object_group",
             "object_type",
             "operation",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 78,
@@ -5521,7 +5562,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 98,
@@ -5537,7 +5579,8 @@
             "area_y1",
             "area_x2",
             "area_y2",
-            "selected_object_ids"
+            "selected_object_ids",
+            "max_units_affected"
         ],
         "default_attributes": {
             "effect_type": 99,

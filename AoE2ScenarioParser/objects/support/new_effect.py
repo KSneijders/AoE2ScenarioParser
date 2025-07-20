@@ -145,6 +145,7 @@ class NewEffectSupport:
             location_x: int | None = None,
             location_y: int | None = None,
             facet: int | None = None,
+            disable_sound: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CREATE_OBJECT,
@@ -153,6 +154,7 @@ class NewEffectSupport:
             location_x=location_x,
             location_y=location_y,
             facet=facet,
+            disable_sound=disable_sound,
         )
 
     def task_object(
@@ -170,6 +172,8 @@ class NewEffectSupport:
             object_type: int | None = None,
             action_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            disable_garrison_unload_sound: int | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.TASK_OBJECT,
@@ -186,6 +190,8 @@ class NewEffectSupport:
             object_type=object_type,
             action_type=action_type,
             selected_object_ids=selected_object_ids,
+            disable_garrison_unload_sound=disable_garrison_unload_sound,
+            max_units_affected=max_units_affected,
         )
 
     def declare_victory(
@@ -210,6 +216,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.KILL_OBJECT,
@@ -222,6 +229,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def remove_object(
@@ -236,6 +244,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             object_state: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.REMOVE_OBJECT,
@@ -249,6 +258,7 @@ class NewEffectSupport:
             object_type=object_type,
             object_state=object_state,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_view(
@@ -282,6 +292,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.UNLOAD,
@@ -297,6 +308,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_ownership(
@@ -312,6 +324,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             flash_object: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OWNERSHIP,
@@ -326,6 +339,7 @@ class NewEffectSupport:
             object_type=object_type,
             flash_object=flash_object,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def patrol(
@@ -341,6 +355,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.PATROL,
@@ -355,6 +370,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def display_instructions(
@@ -400,6 +416,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.FREEZE_OBJECT,
@@ -412,6 +429,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def use_advanced_buttons(
@@ -433,6 +451,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.DAMAGE_OBJECT,
@@ -446,6 +465,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def place_foundation(
@@ -474,6 +494,7 @@ class NewEffectSupport:
             area_y2: int | None = None,
             message: str | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: str | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_NAME,
@@ -486,6 +507,7 @@ class NewEffectSupport:
             area_y2=area_y2,
             message=message,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_hp(
@@ -501,6 +523,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             operation: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_HP,
@@ -515,6 +538,7 @@ class NewEffectSupport:
             object_type=object_type,
             operation=operation,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_attack(
@@ -531,6 +555,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             operation: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_ATTACK,
@@ -546,6 +571,7 @@ class NewEffectSupport:
             object_type=object_type,
             operation=operation,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def stop_object(
@@ -559,6 +585,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.STOP_OBJECT,
@@ -571,6 +598,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def attack_move(
@@ -587,6 +615,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.ATTACK_MOVE,
@@ -602,6 +631,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_armor(
@@ -618,6 +648,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             operation: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_ARMOR,
@@ -633,6 +664,7 @@ class NewEffectSupport:
             object_type=object_type,
             operation=operation,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_range(
@@ -648,6 +680,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             operation: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_RANGE,
@@ -662,6 +695,7 @@ class NewEffectSupport:
             object_type=object_type,
             operation=operation,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_speed(
@@ -676,6 +710,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_SPEED,
@@ -689,6 +724,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def heal_object(
@@ -703,6 +739,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.HEAL_OBJECT,
@@ -716,6 +753,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def teleport_object(
@@ -731,6 +769,7 @@ class NewEffectSupport:
             object_group: int | None = None,
             object_type: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.TELEPORT_OBJECT,
@@ -745,6 +784,7 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_stance(
@@ -759,6 +799,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             attack_stance: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_STANCE,
@@ -772,6 +813,7 @@ class NewEffectSupport:
             object_type=object_type,
             attack_stance=attack_stance,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def display_timer(
@@ -867,6 +909,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             object_list_unit_id_2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_ICON,
@@ -880,6 +923,7 @@ class NewEffectSupport:
             object_type=object_type,
             object_list_unit_id_2=object_list_unit_id_2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def replace_object(
@@ -895,6 +939,8 @@ class NewEffectSupport:
             object_type: int | None = None,
             object_list_unit_id_2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            facet2: int | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.REPLACE_OBJECT,
@@ -909,6 +955,8 @@ class NewEffectSupport:
             object_type=object_type,
             object_list_unit_id_2=object_list_unit_id_2,
             selected_object_ids=selected_object_ids,
+            facet2=facet2,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_description(
@@ -1008,6 +1056,8 @@ class NewEffectSupport:
             area_y2: int | None = None,
             object_list_unit_id_2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
+            disable_sound: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CREATE_GARRISONED_OBJECT,
@@ -1019,6 +1069,8 @@ class NewEffectSupport:
             area_y2=area_y2,
             object_list_unit_id_2=object_list_unit_id_2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
+            disable_sound=disable_sound,
         )
 
     def acknowledge_ai_signal(
@@ -1101,6 +1153,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.SET_BUILDING_GATHER_POINT,
@@ -1113,6 +1166,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def script_call(
@@ -1160,6 +1214,7 @@ class NewEffectSupport:
             area_y2: int | None = None,
             player_color: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_PLAYER_COLOR,
@@ -1171,6 +1226,7 @@ class NewEffectSupport:
             area_y2=area_y2,
             player_color=player_color,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_civilization_name(
@@ -1183,6 +1239,7 @@ class NewEffectSupport:
             area_y2: int | None = None,
             message: str | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_CIVILIZATION_NAME,
@@ -1194,6 +1251,7 @@ class NewEffectSupport:
             area_y2=area_y2,
             message=message,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_object_player_name(
@@ -1207,6 +1265,7 @@ class NewEffectSupport:
             area_y2: int | None = None,
             message: str | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_OBJECT_PLAYER_NAME,
@@ -1219,6 +1278,7 @@ class NewEffectSupport:
             area_y2=area_y2,
             message=message,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def disable_unit_targeting(
@@ -1230,6 +1290,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.DISABLE_UNIT_TARGETING,
@@ -1240,6 +1301,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def enable_unit_targeting(
@@ -1251,6 +1313,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.ENABLE_UNIT_TARGETING,
@@ -1261,6 +1324,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_technology_cost(
@@ -1371,6 +1435,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.DISABLE_OBJECT_SELECTION,
@@ -1381,6 +1446,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def enable_object_selection(
@@ -1392,6 +1458,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.ENABLE_OBJECT_SELECTION,
@@ -1402,6 +1469,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def change_color_mood(
@@ -1423,6 +1491,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.ENABLE_OBJECT_DELETION,
@@ -1433,6 +1502,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def disable_object_deletion(
@@ -1444,6 +1514,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.DISABLE_OBJECT_DELETION,
@@ -1454,6 +1525,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def train_unit(
@@ -1468,6 +1540,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.TRAIN_UNIT,
@@ -1480,7 +1553,8 @@ class NewEffectSupport:
             area_y1=area_y1,
             area_x2=area_x2,
             area_y2=area_y2,
-            selected_object_ids=selected_object_ids
+            selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def initiate_research(
@@ -1510,6 +1584,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             operation: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.CREATE_OBJECT_ATTACK,
@@ -1524,7 +1599,8 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             operation=operation,
-            selected_object_ids=selected_object_ids
+            selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def create_object_armor(
@@ -1541,6 +1617,7 @@ class NewEffectSupport:
             object_type: int | None = None,
             operation: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ):
         return self._trigger_ref._add_effect(
             EffectId.CREATE_OBJECT_ARMOR,
@@ -1555,7 +1632,8 @@ class NewEffectSupport:
             object_group=object_group,
             object_type=object_type,
             operation=operation,
-            selected_object_ids=selected_object_ids
+            selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def modify_attribute_by_variable(
@@ -1761,6 +1839,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.DISABLE_UNIT_ATTACKABLE,
@@ -1771,6 +1850,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def enable_unit_attackable(
@@ -1782,6 +1862,7 @@ class NewEffectSupport:
             area_x2: int | None = None,
             area_y2: int | None = None,
             selected_object_ids: int | List[int] | None = None,
+            max_units_affected: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.ENABLE_UNIT_ATTACKABLE,
@@ -1792,6 +1873,7 @@ class NewEffectSupport:
             area_x2=area_x2,
             area_y2=area_y2,
             selected_object_ids=selected_object_ids,
+            max_units_affected=max_units_affected,
         )
 
     def modify_variable_by_variable(
@@ -1898,8 +1980,8 @@ class NewEffectSupport:
             armour_attack_quantity: int | None = None,
             armour_attack_class: int | None = None,
     ):
-        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
-            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+        if (armour_attack_quantity is not None or armour_attack_class is not None) and quantity is not None:
+            raise ValueError("Cannot use 'armour_attack' attributes together with the 'quantity' attribute.")
 
         return self._trigger_ref._add_effect(
             EffectId.MODIFY_ATTRIBUTE_FOR_CLASS,
@@ -1932,8 +2014,8 @@ class NewEffectSupport:
             armour_attack_quantity: int | None = None,
             armour_attack_class: int | None = None,
     ):
-        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
-            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+        if (armour_attack_quantity is not None or armour_attack_class is not None) and quantity is not None:
+            raise ValueError("Cannot use 'armour_attack' attributes together with the 'quantity' attribute.")
 
         return self._trigger_ref._add_effect(
             EffectId.MODIFY_OBJECT_ATTRIBUTE,
