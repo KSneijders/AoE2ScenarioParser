@@ -1,5 +1,7 @@
 from typing import List, Any
 
+from AoE2ScenarioParser.sections.retrievers.support import Support
+
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
 from AoE2ScenarioParser.datasets.conditions import ConditionId
@@ -35,6 +37,7 @@ class Trigger(AoE2Object, TriggerComponent):
             RetrieverObjectLink("description_order", link="objective_description_order"),
             RetrieverObjectLink("enabled"),
             RetrieverObjectLink("looping"),
+            RetrieverObjectLink("execute_on_load", support=Support(since=1.55)),
             RetrieverObjectLink("header", link="make_header"),
             RetrieverObjectLink("mute_objectives"),
             RetrieverObjectLink("conditions", link="condition_data", process_as_object=Condition),
@@ -57,6 +60,7 @@ class Trigger(AoE2Object, TriggerComponent):
             description_order: int = 0,
             enabled: int = 1,
             looping: int = 0,
+            execute_on_load: int = 0,
             header: int = 0,
             mute_objectives: int = 0,
             conditions: List[Condition] = None,
@@ -87,6 +91,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self.description_order: int = description_order
         self.enabled: int = enabled
         self.looping: int = looping
+        self.execute_on_load: int = execute_on_load
         self.header: int = header
         self.mute_objectives: int = mute_objectives
         self._condition_hash = hash_list(conditions)
@@ -166,7 +171,10 @@ class Trigger(AoE2Object, TriggerComponent):
             player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
             object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
             resource_2_quantity=None, resource_3=None, resource_3_quantity=None, decision_id=None,
-            string_id_option1=None, string_id_option2=None, variable2=None, message_option1=None, message_option2=None,
+            string_id_option1=None, string_id_option2=None, variable2=None, max_units_affected=None,
+            disable_garrison_unload_sound=None, hotkey=None, train_time=None, local_technology=None, disable_sound=None,
+            object_group2=None, object_type2=None, quantity_float=None, facet2=None, message_option1=None,
+            message_option2=None,
     ) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
@@ -199,7 +207,7 @@ class Trigger(AoE2Object, TriggerComponent):
             area_y1=None, area_x2=None, area_y2=None, object_group=None, object_type=None, ai_signal=None,
             inverted=None, variable=None, comparison=None, target_player=None, unit_ai_action=None, xs_function=None,
             object_state=None, timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
-            decision_id=None, decision_option=None, variable2=None
+            decision_id=None, decision_option=None, variable2=None, local_technology=None
     ) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
@@ -335,7 +343,8 @@ class Trigger(AoE2Object, TriggerComponent):
 
         data_tba = {
             'enabled': self.enabled != 0,
-            'looping': self.looping != 0
+            'looping': self.looping != 0,
+            'execute_on_load': self.execute_on_load != 0
         }
 
         if self.description != "":

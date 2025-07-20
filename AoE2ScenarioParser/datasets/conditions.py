@@ -332,6 +332,20 @@ class ConditionId(IntEnum):
 
     This condition was added in: 1.54 (Trigger version 4.1)
     """
+    LOCAL_TECH_RESEARCHED = 80
+    """
+    Attributes for the **local_tech_researched** condition are:\n
+    - local_technology
+    - source_player
+    - unit_object
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - inverted
+    - quantity
+    This condition was added in: 1.55 (Trigger version 4.5)
+    """
 
 
 empty_attributes = {
@@ -364,6 +378,7 @@ empty_attributes = {
     "decision_id": -1,
     "decision_option": -1,
     "variable2":  "",
+    "local_technology": -1,
     "xs_function": ""
 }
 

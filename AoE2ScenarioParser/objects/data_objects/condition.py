@@ -50,6 +50,7 @@ class Condition(AoE2Object, TriggerComponent):
             RetrieverObjectLink("decision_id", support=Support(since=1.54)),
             RetrieverObjectLink("decision_option", support=Support(since=1.54)),
             RetrieverObjectLink("variable2", support=Support(since=1.54)),
+            RetrieverObjectLink("local_technology", support=Support(since=1.55)),
             RetrieverObjectLink("xs_function", support=Support(since=1.40)),
         ])
     ]
@@ -85,6 +86,7 @@ class Condition(AoE2Object, TriggerComponent):
             decision_id: int = None,
             decision_option: int = None,
             variable2: int = None,
+            local_technology: int = None,
             xs_function: str = None,
             **kwargs
     ):
@@ -120,6 +122,7 @@ class Condition(AoE2Object, TriggerComponent):
         self.decision_id: int = decision_id
         self.decision_option: int = decision_option
         self.variable2: int = variable2
+        self.local_technology: int = local_technology
         self.xs_function: str = xs_function
 
         super().__init__(**kwargs)

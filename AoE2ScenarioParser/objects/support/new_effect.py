@@ -1842,3 +1842,148 @@ class NewEffectSupport:
             object_group=object_group,
             variable2=variable2,
         )
+
+    def add_train_location(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            object_list_unit_id_2: int | None = None,
+            button_location: int | None = None,
+            train_time: int | None = None,
+            hotkey: int | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.ADD_TRAIN_LOCATION,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            object_list_unit_id_2=object_list_unit_id_2,
+            button_location=button_location,
+            train_time=train_time,
+            hotkey=hotkey,
+        )
+
+    def research_local_technology(
+            self,
+            local_technology: int | None = None,
+            source_player: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            object_list_unit_id_2: int | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.RESEARCH_LOCAL_TECHNOLOGY,
+            local_technology=local_technology,
+            source_player=source_player,
+            selected_object_ids=selected_object_ids,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            object_list_unit_id_2=object_list_unit_id_2,
+        )
+
+    def modify_attribute_for_class(
+            self,
+            object_group2: int | None = None,
+            object_type2: int | None = None,
+            source_player: int | None = None,
+            object_attributes: int | None = None,
+            message: int | None = None,
+            operation: int | None = None,
+            quantity: int | None = None,
+            quantity_float: float | None = None,
+            armour_attack_quantity: int | None = None,
+            armour_attack_class: int | None = None,
+    ):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_ATTRIBUTE_FOR_CLASS,
+            object_group2=object_group2,
+            object_type2=object_type2,
+            source_player=source_player,
+            object_attributes=object_attributes,
+            message=message,
+            operation=operation,
+            quantity=quantity,
+            quantity_float=quantity_float,
+            armour_attack_quantity=armour_attack_quantity,
+            armour_attack_class=armour_attack_class,
+        )
+
+    def modify_object_attribute(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            object_attributes: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            operation: int | None = None,
+            message: str | None = None,
+            quantity: int | None = None,
+            quantity_float: float | None = None,
+            armour_attack_quantity: int | None = None,
+            armour_attack_class: int | None = None,
+    ):
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_OBJECT_ATTRIBUTE,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            object_attributes=object_attributes,
+            selected_object_ids=selected_object_ids,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            operation=operation,
+            message=message,
+            quantity=quantity,
+            quantity_float=quantity_float,
+            armour_attack_quantity=armour_attack_quantity,
+            armour_attack_class=armour_attack_class,
+        )
+
+    def modify_object_attribute_by_variable(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            object_attributes: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            operation: int | None = None,
+            message: str | None = None,
+            variable: int | None = None,
+            armour_attack_class: int | None = None,
+    ):
+
+        if armour_attack_class is not None and object_attributes not in (ObjectAttribute.ATTACK, ObjectAttribute.ARMOR):
+            raise ValueError("Cannot use 'armour_attack_class' for non attack/armor attributes.")
+
+        return self._trigger_ref._add_effect(
+            EffectId.MODIFY_OBJECT_ATTRIBUTE_BY_VARIABLE,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            object_attributes=object_attributes,
+            selected_object_ids=selected_object_ids,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            operation=operation,
+            message=message,
+            variable=variable,
+            armour_attack_class=armour_attack_class,
+        )

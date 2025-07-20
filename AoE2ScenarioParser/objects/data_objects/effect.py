@@ -93,6 +93,17 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("string_id_option1", support=Support(since=1.54)),
             RetrieverObjectLink("string_id_option2", support=Support(since=1.54)),
             RetrieverObjectLink("variable2", support=Support(since=1.54)),
+            RetrieverObjectLink("max_units_affected", support=Support(since=1.55)),
+            RetrieverObjectLink("disable_garrison_unload_sound", support=Support(since=1.55)),
+            RetrieverObjectLink("hotkey", support=Support(since=1.55)),
+            RetrieverObjectLink("train_time", support=Support(since=1.55)),
+            RetrieverObjectLink("local_technology", support=Support(since=1.55)),
+            RetrieverObjectLink("disable_sound", support=Support(since=1.55)),
+            RetrieverObjectLink("object_group2", support=Support(since=1.55)),
+            RetrieverObjectLink("object_type2", support=Support(since=1.55)),
+            RetrieverObjectLink("quantity_float", support=Support(since=1.55)),
+            RetrieverObjectLink("facet2", support=Support(since=1.55)),
+            RetrieverObjectLink("unknown_6", support=Support(since=1.55)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
@@ -164,6 +175,17 @@ class Effect(AoE2Object, TriggerComponent):
             string_id_option1: int = None,
             string_id_option2: int = None,
             variable2: int = None,
+            max_units_affected: int = None,
+            disable_garrison_unload_sound: int = None,
+            hotkey: int = None,
+            train_time: int = None,
+            local_technology: int = None,
+            disable_sound: int = None,
+            object_group2: int = None,
+            object_type2: int = None,
+            quantity_float: float = None,
+            facet2: int = None,
+            unknown_6: int = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
@@ -273,6 +295,17 @@ class Effect(AoE2Object, TriggerComponent):
         self.string_id_option1: int = string_id_option1
         self.string_id_option2: int = string_id_option2
         self.variable2: int = variable2
+        self.max_units_affected: int = max_units_affected
+        self.disable_garrison_unload_sound: int = disable_garrison_unload_sound
+        self.hotkey: int = hotkey
+        self.train_time: int = train_time
+        self.local_technology: int = local_technology
+        self.disable_sound: int = disable_sound
+        self.object_group2: int = object_group2
+        self.object_type2: int = object_type2
+        self.quantity_float: float = quantity_float
+        self.facet2: int = facet2
+        self.unknown_6: int = unknown_6
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
@@ -512,7 +545,11 @@ def _is_quantity_based_aa_effect(effect_type: int | EffectId, object_attributes:
         EffectId.CREATE_OBJECT_ATTACK,
         EffectId.CREATE_OBJECT_ARMOR,
     ]
-    partial_aa_attribute_effects = [EffectId.MODIFY_ATTRIBUTE]
+    partial_aa_attribute_effects = [
+        EffectId.MODIFY_ATTRIBUTE,
+        EffectId.MODIFY_ATTRIBUTE_FOR_CLASS,
+        EffectId.MODIFY_OBJECT_ATTRIBUTE,
+    ]
     partial_aa_attributes = [ObjectAttribute.ATTACK, ObjectAttribute.ARMOR]
 
     return (effect_type in aa_effects) or \
@@ -520,7 +557,11 @@ def _is_quantity_based_aa_effect(effect_type: int | EffectId, object_attributes:
 
 
 def _is_variable_based_aa_effect(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> bool:
-    partial_aa_attribute_effects = [EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE, EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE]
+    partial_aa_attribute_effects = [
+        EffectId.MODIFY_ATTRIBUTE_BY_VARIABLE,
+        EffectId.MODIFY_VARIABLE_BY_ATTRIBUTE,
+        EffectId.MODIFY_OBJECT_ATTRIBUTE_BY_VARIABLE,
+    ]
     partial_aa_attributes = [ObjectAttribute.ATTACK, ObjectAttribute.ARMOR]
 
     return effect_type in partial_aa_attribute_effects and object_attributes in partial_aa_attributes
