@@ -36,6 +36,7 @@ class EffectId(IntEnum):
     - location_x
     - location_y
     - location_object_reference
+    - global_sound
     - sound_name"""
     TRIBUTE = 5
     """Attributes for the **tribute** effect are: \n
@@ -942,6 +943,20 @@ class EffectId(IntEnum):
     - message
     - variable
     - armour_attack_class
+        
+    This effect was added in: 1.55 & Trigger Version 4.5
+    """
+    CHANGE_OBJECT_VISIBILITY = 107
+    """Attributes for the **modify_object_attribute_by_variable** effect are: \n
+    - source_player
+    - target_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - visibility_state
+    - max_units_affected
+    - selected_object_ids
         
     This effect was added in: 1.55 & Trigger Version 4.5
     """

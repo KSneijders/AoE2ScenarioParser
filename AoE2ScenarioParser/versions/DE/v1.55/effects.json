@@ -5735,5 +5735,25 @@
             "operation": 1,
             "variable": 0
         }
+    },
+    "107": {
+        "name": "change_object_visibility",
+        "attributes": [
+            "source_player",
+            "target_player",
+            "area_x1",
+            "area_y1",
+            "area_x2",
+            "area_y2",
+            "visibility_state",
+            "max_units_affected",
+            "selected_object_ids"
+        ],
+        "default_attributes": {
+            "effect_type": 107,
+            "source_player": 1,
+            "target_player": 2,
+            "visibility_state": 0
+        }
     }
 }
