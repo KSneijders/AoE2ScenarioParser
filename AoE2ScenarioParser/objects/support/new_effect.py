@@ -2069,3 +2069,28 @@ class NewEffectSupport:
             variable=variable,
             armour_attack_class=armour_attack_class,
         )
+
+    def change_object_visibility(
+            self,
+            source_player: int | None = None,
+            target_player: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            visibility_state: int | None = None,
+            max_units_affected: int | None = None,
+            selected_object_ids: int | None = None,
+    ):
+        return self._trigger_ref._add_effect(
+            EffectId.CHANGE_OBJECT_VISIBILITY,
+            source_player=source_player,
+            target_player=target_player,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            visibility_state=visibility_state,
+            max_units_affected=max_units_affected,
+            selected_object_ids=selected_object_ids,
+        )
