@@ -157,25 +157,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
-    def _add_effect(
-            self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
-            armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
-            object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
-            display_time=None, trigger_id=None, location_x=None, location_y=None,
-            location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
-            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
-            time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
-            flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
-            operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
-            object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-            player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
-            object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
-            resource_2_quantity=None, resource_3=None, resource_3_quantity=None, decision_id=None,
-            string_id_option1=None, string_id_option2=None, variable2=None, max_units_affected=None,
-            disable_garrison_unload_sound=None, hotkey=None, train_time=None, local_technology=None, disable_sound=None,
-            object_group2=None, object_type2=None, quantity_float=None, facet2=None, message_option1=None,
-            message_option2=None,
-    ) -> Effect:
+    def _add_effect(self, effect_type: EffectId, **kwargs) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
@@ -193,22 +175,18 @@ class Trigger(AoE2Object, TriggerComponent):
                     f"The effect {effect.name} is not supported in scenario version {sv}"
                 ) from None
 
+        # Add effect_type to attributes
+        kwargs['effect_type'] = effect_type
+
         effect_defaults = get_default_effect_attributes(effect_type)
         effect_attr = {}
         for key, value in effect_defaults.items():
-            effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
+            effect_attr[key] = (kwargs[key] if key in kwargs and kwargs[key] is not None else value)
         new_effect = Effect(**effect_attr, uuid=self._uuid)
         self.effects.append(new_effect)
         return new_effect
 
-    def _add_condition(
-            self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None, next_object=None,
-            object_list=None, source_player=None, technology=None, timer=None, trigger_id=None, area_x1=None,
-            area_y1=None, area_x2=None, area_y2=None, object_group=None, object_type=None, ai_signal=None,
-            inverted=None, variable=None, comparison=None, target_player=None, unit_ai_action=None, xs_function=None,
-            object_state=None, timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
-            decision_id=None, decision_option=None, variable2=None, local_technology=None
-    ) -> Condition:
+    def _add_condition(self, condition_type: ConditionId, **kwargs) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):
@@ -226,10 +204,13 @@ class Trigger(AoE2Object, TriggerComponent):
                     f"The condition {condition.name} is not supported in scenario version {sv}"
                 ) from None
 
+        # Add condition_type to attributes
+        kwargs['effect_type'] = condition_type
+
         condition_defaults = get_default_condition_attributes(condition_type)
         condition_attr = {}
         for key, value in condition_defaults.items():
-            condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
+            condition_attr[key] = (kwargs[key] if key in kwargs and kwargs[key] is not None else value)
         new_condition = Condition(**condition_attr, uuid=self._uuid)
         self.conditions.append(new_condition)
         return new_condition
