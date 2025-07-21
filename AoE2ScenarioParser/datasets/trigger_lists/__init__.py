@@ -41,3 +41,4 @@ from .selection_effect import SelectionEffect
 from .decision_option import DecisionOption
 from .disable_unit_flag import DisableUnitFlag
 from .attack_priority import AttackPriority
+from .local_technology import LocalTechnology
