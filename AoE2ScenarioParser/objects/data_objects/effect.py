@@ -103,7 +103,7 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("object_type2", support=Support(since=1.55)),
             RetrieverObjectLink("quantity_float", support=Support(since=1.55)),
             RetrieverObjectLink("facet2", support=Support(since=1.55)),
-            RetrieverObjectLink("unknown_6", support=Support(since=1.55)),
+            RetrieverObjectLink("global_sound", support=Support(since=1.55)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
@@ -185,7 +185,7 @@ class Effect(AoE2Object, TriggerComponent):
             object_type2: int = None,
             quantity_float: float = None,
             facet2: int = None,
-            unknown_6: int = None,
+            global_sound: int = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
@@ -305,7 +305,7 @@ class Effect(AoE2Object, TriggerComponent):
         self.object_type2: int = object_type2
         self.quantity_float: float = quantity_float
         self.facet2: int = facet2
-        self.unknown_6: int = unknown_6
+        self.global_sound: int = global_sound
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids

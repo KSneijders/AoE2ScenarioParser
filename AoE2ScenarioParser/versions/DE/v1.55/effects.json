@@ -72,7 +72,7 @@
             "object_type2": "ObjectType",
             "quantity_float": "",
             "facet2": "",
-            "unknown_6": "",
+            "global_sound": "",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]",
@@ -146,6 +146,17 @@
             "string_id_option1": -1,
             "string_id_option2": -1,
             "variable2": -1,
+            "max_units_affected": -1,
+            "disable_garrison_unload_sound": -1,
+            "hotkey":  -1,
+            "train_time": -1,
+            "local_technology":  -1,
+            "disable_sound": -1,
+            "object_group2":  -1,
+            "object_type2": -1,
+            "quantity_float":  -1,
+            "facet2": -1,
+            "global_sound":  -1,
             "message": "",
             "sound_name": "",
             "selected_object_ids": [],
@@ -354,6 +365,7 @@
             "location_x",
             "location_y",
             "location_object_reference",
+            "global_sound",
             "sound_name"
         ],
         "default_attributes": {
@@ -5718,7 +5730,7 @@
         ],
         "default_attributes": {
             "effect_type": 106,
-            "source_player":  1,
+            "source_player": 1,
             "object_attributes": 0,
             "operation": 1,
             "variable": 0

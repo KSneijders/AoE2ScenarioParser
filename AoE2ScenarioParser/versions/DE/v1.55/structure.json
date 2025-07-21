@@ -1452,9 +1452,9 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "unknown_int32": {
-                                "type": "u32",
-                                "default": 0
+                            "caption_string": {
+                                "type": "str32",
+                                "default": ""
                             }
                         }
                     }
@@ -1466,7 +1466,7 @@
         "retrievers": {
             "trigger_version": {
                 "type": "f64",
-                "default": 4.1
+                "default": 4.5
             },
             "trigger_instruction_start": {
                 "type": "s8",
@@ -1574,6 +1574,22 @@
                 "type": "16",
                 "default": "00000000000000000000000000000000",
                 "comment": "Present since Trigger Version 4.1"
+            },
+            "legacy_exec_order": {
+                "comment": "",
+                "type": "1",
+                "default": "00",
+
+                "dependencies": {
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    },
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:trigger_version",
+                        "eval": "1 if trigger_version >= 4.5 else 0"
+                    }
+                }
             }
         },
         "structs": {
@@ -1588,7 +1604,7 @@
                         "default": 0
                     },
                     "execute_on_load": {
-                        "type": "u8",
+                        "type": "s8",
                         "default": 0
                     },
                     "description_string_table_id": {
@@ -1725,9 +1741,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_62": {
+                            "static_value_73": {
                                 "type": "s32",
-                                "default": 62
+                                "default": 73
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -1990,57 +2006,46 @@
                             },
                             "max_units_affected": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "disable_garrison_unload_sound": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "hotkey": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "train_time": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "local_technology": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "disable_sound": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "object_group2": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "object_type2": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "quantity_float": {
                                 "type": "f32",
-                                "comment": "",
                                 "default": -1
                             },
                             "facet2": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
-                            "unknown_6": {
+                            "global_sound": {
                                 "type": "s32",
-                                "comment": "",
                                 "default": -1
                             },
                             "message": {
@@ -2086,9 +2091,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_30": {
+                            "static_value_33": {
                                 "type": "s32",
-                                "default": 30
+                                "default": 33
                             },
                             "quantity": {
                                 "type": "s32",
@@ -2217,11 +2222,11 @@
                                 "type": "s32",
                                 "default": -1
                             },
-                            "unknown_5": {
+                            "object_group2": {
                                 "type": "s32",
                                 "default": -1
                             },
-                            "unknown_6": {
+                            "object_type2": {
                                 "type": "s32",
                                 "default": -1
                             },
