@@ -1975,8 +1975,7 @@ class NewEffectSupport:
             object_attributes: int | None = None,
             message: int | None = None,
             operation: int | None = None,
-            quantity: int | None = None,
-            quantity_float: float | None = None,
+            quantity: int | float | None = None,
             armour_attack_quantity: int | None = None,
             armour_attack_class: int | None = None,
     ):
@@ -1992,7 +1991,6 @@ class NewEffectSupport:
             message=message,
             operation=operation,
             quantity=quantity,
-            quantity_float=quantity_float,
             armour_attack_quantity=armour_attack_quantity,
             armour_attack_class=armour_attack_class,
         )
@@ -2009,8 +2007,7 @@ class NewEffectSupport:
             area_y2: int | None = None,
             operation: int | None = None,
             message: str | None = None,
-            quantity: int | None = None,
-            quantity_float: float | None = None,
+            quantity: int | float | None = None,
             armour_attack_quantity: int | None = None,
             armour_attack_class: int | None = None,
     ):
@@ -2030,7 +2027,6 @@ class NewEffectSupport:
             operation=operation,
             message=message,
             quantity=quantity,
-            quantity_float=quantity_float,
             armour_attack_quantity=armour_attack_quantity,
             armour_attack_class=armour_attack_class,
         )
