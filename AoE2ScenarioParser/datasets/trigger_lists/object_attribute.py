@@ -1,9 +1,21 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
 
 class ObjectAttribute(_DataSetIntEnums):
+
+    @staticmethod
+    def _storage_type(value) -> Literal['uint32', 'int32', 'float']:
+        if value in [3, 4, 5, 6, 10, 12, 13, 20, 22, 24, 32, 47, 60, 64, 100, 101, 108, 111, 112, 113, 115, 118, 119, 129, 130]:
+            return 'float'
+        elif value in [93, 95, 97, 99, 133, 135, 137, 139]:
+            return 'uint32'
+        else:
+            return 'int32'
+
     """
     This enum class provides the integer values used to reference all the different object attributes in the game. Used
     in the 'Modify Attribute' effect to control which attribute of an object is modified.
@@ -737,3 +749,50 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     Second attack graphic of the unit; alternates with the first attack graphic when assigned
     """
+
+    SPECIAL_ABILITY = 81
+    IDLE_ATTACK_GRAPHIC = 82
+    HERO_GLOW_GRAPHIC = 83
+    GARRISON_GRAPHIC = 84
+    CONSTRUCTION_GRAPHIC = 85
+    SNOW_GRAPHIC = 86
+    DESTRUCTION_GRAPHIC = 87
+    DESTRUCTION_RUBBLE_GRAPHIC = 88
+    RESEARCHING_GRAPHIC = 89
+    RESEARCH_COMPLETED_GRAPHIC = 90
+    DAMAGE_GRAPHIC = 91
+    SELECTION_SOUND = 92
+    SELECTION_SOUND_EVENT = 93
+    DYING_SOUND = 94
+    DYING_SOUND_EVENT = 95
+    TRAIN_SOUND = 96
+    TRAIN_SOUND_EVENT = 97
+    DAMAGE_SOUND = 98
+    DAMAGE_SOUND_EVENT = 99
+
+    COMMAND_SOUND = 132
+    COMMAND_SOUND_EVENT = 133
+    MOVE_SOUND = 134
+    MOVE_SOUND_EVENT = 135
+    CONSTRUCTION_SOUND = 136
+    CONSTRUCTION_SOUND_EVENT = 137
+    TRANSFORM_SOUND = 138
+    TRANSFORM_SOUND_EVENT = 139
+    RUN_PATTERN = 140
+    INTERFACE_KIND = 141
+    COMBAT_LEVEL = 142
+    INTERACTION_MODE = 143
+    MINIMAP_MODE = 144
+    TRAILING_UNIT = 145
+    TRAIL_MODE = 146
+    TRAIL_DENSITY = 147
+    PROJECTILE_GRAPHIC_DISPLACEMENT_X = 148
+    PROJECTILE_GRAPHIC_DISPLACEMENT_Y = 149
+    PROJECTILE_GRAPHIC_DISPLACEMENT_Z = 150
+    PROJECTILE_SPAWNING_AREA_WIDTH = 151
+    PROJECTILE_SPAWNING_AREA_LENGTH = 152
+    PROJECTILE_SPAWNING_AREA_RANDOMNESS = 153
+    DAMAGE_GRAPHICS_ENTRY_MOD = 154
+    DAMAGE_GRAPHICS_TOTAL_NUM = 155
+    DAMAGE_GRAPHIC_PERCENT = 156
+    DAMAGE_GRAPHIC_APPLY_MODE = 157
