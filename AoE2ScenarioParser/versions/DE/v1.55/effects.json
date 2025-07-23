@@ -3534,7 +3534,8 @@
             "item_id",
             "operation",
             "object_attributes",
-            "message"
+            "message",
+            "quantity_float"
         ],
         "default_attributes": {
             "effect_type": 51,
