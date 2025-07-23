@@ -551,3 +551,28 @@ class NewConditionSupport:
             trigger_id=trigger_id,
             inverted=inverted,
         )
+
+    def local_tech_researched(
+            self,
+            local_technology: int | None = None,
+            source_player: int | None = None,
+            unit_object: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            inverted: int | None = None,
+            quantity: int | None = None,
+    ):
+        return self._trigger_ref._add_condition(
+            ConditionId.LOCAL_TECH_RESEARCHED,
+            local_technology=local_technology,
+            source_player=source_player,
+            unit_object=unit_object,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            inverted=inverted,
+            quantity=quantity,
+        )
