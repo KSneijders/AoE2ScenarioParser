@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Any
+import math
+from typing import List, Tuple, Any, Union
 
 from AoE2ScenarioParser.datasets import effects
 from AoE2ScenarioParser.datasets.effects import EffectId
@@ -36,7 +37,7 @@ class Effect(AoE2Object, TriggerComponent):
         RetrieverObjectLinkGroup("Triggers", "trigger_data[__index__].effect_data[__index__]", group=[
             RetrieverObjectLink("effect_type"),
             RetrieverObjectLink("ai_script_goal"),
-            RetrieverObjectLink("quantity"),
+            RetrieverObjectLink("_quantity_int", link="quantity"),
             RetrieverObjectLink("tribute_list"),
             RetrieverObjectLink("diplomacy"),
             RetrieverObjectLink("legacy_location_object_reference"),
@@ -101,7 +102,7 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("disable_sound", support=Support(since=1.55)),
             RetrieverObjectLink("object_group2", support=Support(since=1.55)),
             RetrieverObjectLink("object_type2", support=Support(since=1.55)),
-            RetrieverObjectLink("quantity_float", support=Support(since=1.55)),
+            RetrieverObjectLink("_quantity_float", link='quantity_float', support=Support(since=1.55)),
             RetrieverObjectLink("facet2", support=Support(since=1.55)),
             RetrieverObjectLink("global_sound", support=Support(since=1.55)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
@@ -118,7 +119,7 @@ class Effect(AoE2Object, TriggerComponent):
             ai_script_goal: int = None,
             armour_attack_quantity: int = None,
             armour_attack_class: int = None,
-            quantity: int = None,
+            _quantity_int: int = None,
             tribute_list: int = None,
             diplomacy: int = None,
             legacy_location_object_reference: int = None,
@@ -146,7 +147,6 @@ class Effect(AoE2Object, TriggerComponent):
             wood: int = None,
             stone: int = None,
             gold: int = None,
-            item_id: int = None,  # Unused (?)
             flash_object: int = None,
             force_research_technology: int = None,
             visibility_state: int = None,
@@ -183,7 +183,7 @@ class Effect(AoE2Object, TriggerComponent):
             disable_sound: int = None,
             object_group2: int = None,
             object_type2: int = None,
-            quantity_float: float = None,
+            _quantity_float: float = None,
             facet2: int = None,
             global_sound: int = None,
             message: str = None,
@@ -193,6 +193,8 @@ class Effect(AoE2Object, TriggerComponent):
             message_option2: str = None,
             # Used for variable retrieval in armour/attack effects (source=variable only)
             _variable_ref: int = None,
+            # Used only when created using ASP new_effect functions
+            quantity: int = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -201,6 +203,8 @@ class Effect(AoE2Object, TriggerComponent):
 
         if selected_object_ids is None:
             selected_object_ids = []
+
+        quantity = _quantity_int or quantity
 
         # Set armour/attack flags
         self._armour_attack_source = _get_armour_attack_source(effect_type, object_attributes)
@@ -214,8 +218,8 @@ class Effect(AoE2Object, TriggerComponent):
                 armour_attack_class = armour_attack_class or 0
         elif self._armour_attack_source == 'quantity':
             # If effect created through reading scenario file
-            if quantity is not None and armour_attack_class is None and armour_attack_quantity is None:
-                armour_attack_class, armour_attack_quantity = self._split_aa_value(quantity)
+            if _quantity_int is not None and armour_attack_class is None and armour_attack_quantity is None:
+                armour_attack_class, armour_attack_quantity = self._split_aa_value(_quantity_int)
                 quantity = None
             # If effect created through new_effect with aa values defined
             elif value_is_valid(armour_attack_class) or value_is_valid(armour_attack_quantity):
@@ -225,6 +229,11 @@ class Effect(AoE2Object, TriggerComponent):
                 pass
         else:
             armour_attack_class = armour_attack_quantity = None
+
+        if _is_float_quantity_effect(effect_type, object_attributes):
+            quantity = _quantity_float or quantity
+        else:
+            quantity = math.floor(quantity)
 
         if variable is None:
             variable = _variable_ref if _variable_ref is not None else -1
@@ -239,7 +248,7 @@ class Effect(AoE2Object, TriggerComponent):
         self.ai_script_goal: int = ai_script_goal
         self.armour_attack_quantity: int = armour_attack_quantity
         self.armour_attack_class: int = armour_attack_class
-        self.quantity: int = quantity
+        self.quantity: Union[int, float] = quantity
         self.tribute_list: int = tribute_list
         self.diplomacy: int = diplomacy
         self.object_list_unit_id: int = object_list_unit_id
@@ -266,7 +275,6 @@ class Effect(AoE2Object, TriggerComponent):
         self.wood: int = wood
         self.stone: int = stone
         self.gold: int = gold
-        # self.item_id: int = item_id  # Unused (?)
         self.flash_object: int = flash_object
         self.force_research_technology: int = force_research_technology
         self.visibility_state: int = visibility_state
@@ -303,7 +311,6 @@ class Effect(AoE2Object, TriggerComponent):
         self.disable_sound: int = disable_sound
         self.object_group2: int = object_group2
         self.object_type2: int = object_type2
-        self.quantity_float: float = quantity_float
         self.facet2: int = facet2
         self.global_sound: int = global_sound
         self.message: str = message
@@ -412,6 +419,18 @@ class Effect(AoE2Object, TriggerComponent):
         self._quantity = value
 
     @property
+    def _quantity_int(self) -> int:
+        if _is_float_quantity_effect(self.effect_type, self.object_attributes):
+            return -1
+        return self.quantity
+
+    @property
+    def _quantity_float(self):
+        if _is_float_quantity_effect(self.effect_type, self.object_attributes):
+            return self.quantity
+        return b'\xFF\xFF\xFF\xFF'
+
+    @property
     def _variable_ref(self) -> int | None:
         """Variable only used for byte retrieval of Effect"""
         if self._armour_attack_source == 'variable':
@@ -435,17 +454,18 @@ class Effect(AoE2Object, TriggerComponent):
             return False
         if not self._armour_attack_flag and (attr == "armour_attack_quantity" or attr == "armour_attack_class"):
             return False
-
+        if attr == "quantity_float":
+            return False
         return super()._should_be_displayed(attr, val)
 
     def get_content_as_string(self, include_effect_definition: bool = False) -> str:
         """
         Create a human-readable string showcasing all content of this effect.
 
-        This is also the function that is called when doing: `print(effect)`
+        This is also the function called when doing: `print(effect)`
 
         Args:
-            include_effect_definition: If the effect meta-data should be added by this function
+            include_effect_definition: If the effect meta-data should be added to the result
 
         Returns:
             The created string
@@ -457,7 +477,8 @@ class Effect(AoE2Object, TriggerComponent):
 
         return_string = ""
         for attribute in attributes_list:
-            val = getattr(self, attribute)
+            val = getattr(self, attribute, None)
+
             if not self._should_be_displayed(attribute, val):
                 continue
 
@@ -565,6 +586,10 @@ def _is_variable_based_aa_effect(effect_type: int | EffectId, object_attributes:
     partial_aa_attributes = [ObjectAttribute.ATTACK, ObjectAttribute.ARMOR]
 
     return effect_type in partial_aa_attribute_effects and object_attributes in partial_aa_attributes
+
+
+def _is_float_quantity_effect(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> bool:
+    return "quantity_float" in effects.attributes[effect_type] and ObjectAttribute._storage_type(object_attributes) == 'float'
 
 
 def _get_armour_attack_source(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> str | None:
