@@ -258,10 +258,16 @@ def parse_val_to_bytes(retriever: 'Retriever', val: int | float | str | bytes) -
     elif var_type == "data":  # bytes
         return val
     elif var_type == "f":  # float
-        if var_len == 4:
-            return float_to_bytes(val)
-        else:
-            return double_to_bytes(val)
+        try:
+            if var_len == 4:
+                return float_to_bytes(val)
+            else:
+                return double_to_bytes(val)
+        except struct.error as e:
+            if type(val) is bytes:
+                return val
+            else:
+                raise e from None
     else:
         raise ValueError(f"Unable to parse value to bytes with unknown type: ({var_type})")
 
