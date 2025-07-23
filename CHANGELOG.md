@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.5.0b1 - 2025-July-23
+
+### Added
+
+- Support for the Xs-Check `v0.2.8` — View the `v0.2.8` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.8
+
+---
+
 ##  0.4.6 - 2025-July-17
 
 ### Fixes
