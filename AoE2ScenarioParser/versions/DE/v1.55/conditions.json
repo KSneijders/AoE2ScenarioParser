@@ -1413,7 +1413,7 @@
         }
     },
     "80": {
-        "name":  "trigger_active",
+        "name":  "local_tech_researched",
         "attributes": [
             "local_technology",
             "source_player",
