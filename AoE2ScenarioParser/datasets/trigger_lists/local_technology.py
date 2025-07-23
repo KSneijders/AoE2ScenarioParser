@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
-from AoE2ScenarioParser.datasets.techs import TechInfo
 
 
 class LocalTechnology(_DataSetIntEnums):
@@ -17,6 +16,6 @@ class LocalTechnology(_DataSetIntEnums):
     >>> LocalTechnology.DEFENSIVE_TOWN_CENTER
     <LocalTechnology.DEFENSIVE_TOWN_CENTER: 1197>
     """
-    DEFENSIVE_TOWN_CENTER = TechInfo.DEFENSIVE_TOWN_CENTER.ID
-    ECONOMIC_TOWN_CENTER = TechInfo.ECONOMIC_TOWN_CENTER.ID
-    MILITARY_TOWN_CENTER = TechInfo.MILITARY_TOWN_CENTER.ID
+    DEFENSIVE_TOWN_CENTER = 1197
+    ECONOMIC_TOWN_CENTER = 1195
+    MILITARY_TOWN_CENTER = 1196
