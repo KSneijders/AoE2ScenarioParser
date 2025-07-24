@@ -29,9 +29,7 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
         for i in range(supposed_length, actual_length):
             order_array.remove(i)
     elif supposed_length > actual_length:
-        for i in range(supposed_length):
-            if i not in order_array:
-                order_array.append(i)
+        order_array += [i for i in range(actual_length, supposed_length)]
 
 
 # Written by: Ned Batchelder @ https://stackoverflow.com/a/312464/7230293
