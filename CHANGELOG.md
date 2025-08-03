@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.4.7 - 2025-August-03
+
+### Fixes
+
+- The value of `Effect.item_id` attribute being lost in specific circumstances
+
+---
+
 ##  0.4.6 - 2025-July-17
 
 ### Fixes
