@@ -376,7 +376,7 @@ class AoE2Scenario:
         Args:
             filename: The location to write the file to
         """
-        if settings.ALLOW_OVERWRITING_SOURCE and self.source_location == filename:
+        if settings.ALLOW_OVERWRITING_SOURCE is False and self.source_location == filename:
             raise ValueError("Overwriting the source scenario file is discouraged & disallowed. ")
 
         self._validate_scenario_variant()
