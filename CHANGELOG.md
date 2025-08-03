@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixes
 
 - The value of `Effect.item_id` attribute being lost in specific circumstances
+- Overwriting source scenario check being inverted and only triggering _when it was supposed to be disabled_.
+
+### Improves
+
+- Performance editing of `Trigger`/`Effect`/`Condition` lists in specific circumstances
 
 ---
 
