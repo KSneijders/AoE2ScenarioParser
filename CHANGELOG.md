@@ -25,10 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **45** new `ObjectAttribute` entries! ([See them here](https://github.com/KSneijders/AoE2ScenarioParser/commit/420341046a3b3b9b8336ae8f89d324726cdc2dec#diff-1abd345aacaedad23f368a6e2e743ee67587737d8c35eda0562b38fb1b8baac7R753-R798))
 - A new dataset `LocalTechnology` for the `local_tech_researched` condition and the `research_local_technology` effect
 
-### Fixes
-
-- Overwriting source scenario check being inverted and only triggering _when it was supposed to be disabled_.
-
 ---
 
 ##  0.4.6 - 2025-July-17
