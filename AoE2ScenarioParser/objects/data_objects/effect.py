@@ -147,6 +147,7 @@ class Effect(AoE2Object, TriggerComponent):
             wood: int = None,
             stone: int = None,
             gold: int = None,
+            item_id: int = None,
             flash_object: int = None,
             force_research_technology: int = None,
             visibility_state: int = None,
@@ -275,6 +276,7 @@ class Effect(AoE2Object, TriggerComponent):
         self.wood: int = wood
         self.stone: int = stone
         self.gold: int = gold
+        self._item_id: int = item_id
         self.flash_object: int = flash_object
         self.force_research_technology: int = force_research_technology
         self.visibility_state: int = visibility_state
@@ -344,12 +346,11 @@ class Effect(AoE2Object, TriggerComponent):
             return self.technology
         if value_is_valid(self.tribute_list):
             return self.tribute_list
-        return -1
+        return self._item_id
 
     @item_id.setter
     def item_id(self, value):
-        raise ValueError("The `item_id` attribute is always equal to its corresponding attribute."
-                         "Please use that attribute (i.e. 'object_list_unit_id' or 'technology' or 'tribute_list').")
+        self._item_id = value
 
     @property
     def effect_type(self):
