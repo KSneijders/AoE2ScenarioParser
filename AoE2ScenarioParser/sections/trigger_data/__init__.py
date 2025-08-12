@@ -1,5 +1,7 @@
 from .trigger_data import TriggerData
+from attacker import *
 from .condition import *
+from .decision import *
 from .effect import *
 from .trigger import *
 from .trigger_data import *
