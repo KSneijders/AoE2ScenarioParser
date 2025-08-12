@@ -25,6 +25,7 @@ class Trigger(BaseStruct):
     # @formatter:off
     enabled: bool                       = Retriever(bool32,                                      default = True)
     looping: bool                       = Retriever(bool8,                                       default = False)
+    execute_on_load: bool               = Retriever(bool8,              min_ver = Version(4, 3), default = False)
     description_str_id: int             = Retriever(i32,                                         default = 0)
     display_as_objective: bool          = Retriever(bool8,                                       default = False)
     objective_order: int                = Retriever(u32,                                         default = 0)

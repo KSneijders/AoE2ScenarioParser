@@ -20,6 +20,7 @@ class Unit(BaseStruct):
     garrisoned_in_ref: int  = Retriever(i32,   min_ver = Version(1, 13), default = -1)
     """another object's reference_id. -1 (and 0 for v1.13 to 1.20) mean None"""
     caption_string_id: int  = Retriever(i32,   min_ver = Version(1, 54), default = -1)
+    caption_string: str     = Retriever(str32, min_ver = Version(1, 55), default = "")
     # @formatter:on
 
     def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):

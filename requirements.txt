@@ -1,6 +1,6 @@
 deprecation==2.1.0
 typing_extensions==4.12.2
 ordered-set==4.1.0
-binary-file-parser>=0.3.8a3
+binary-file-parser>=0.3.0a9
 PyTest>=8.3.3
 zlib-ng
