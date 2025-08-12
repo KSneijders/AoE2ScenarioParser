@@ -19,18 +19,18 @@ def trigger_display_orders_repeat():
 
 class TriggerData(BaseStruct):
     # @formatter:off
-    version: float                    = Retriever(f64,                                       default = 3.6)
-    objectives_state: int             = Retriever(i8,               min_ver = Version(1, 5), default = 0)
-    triggers: list[Trigger]           = Retriever(Array32[Trigger],                          default_factory = lambda _: [], on_read = trigger_display_orders_repeat)
-    trigger_display_orders: list[int] = Retriever(u32,              min_ver = Version(1, 4), default = 0,                    repeat = 0)
-    variable_data: VariableData       = Retriever(VariableData,     min_ver = Version(1, 9), default_factory = VariableData)
-    unused1: int                      = Retriever(u32,              min_ver = Version(2, 4), default = 0)
-    unused2: int                      = Retriever(u32,              min_ver = Version(2, 7), default = 0)
-    unused3: int                      = Retriever(bool8,            min_ver = Version(2, 7), default = False)
-    unused4: bytes                    = Retriever(u64,              min_ver = Version(3, 5), default = 0)
-    decisions: Decision                = Retriever(Array64[Decision],         min_ver = Version(4, 0), default_factory = lambda _: [])
-    attackers: Attacker                = Retriever(Array64[Attacker],         min_ver = Version(4, 1), default_factory = lambda _: [])
-    is_legacy_execution_order: bool    = Retriever(bool8,                     min_ver = Version(4, 5), default = False)
+    version: float                    = Retriever(f64,                                        default = 3.6)
+    objectives_state: int             = Retriever(i8,                min_ver = Version(1, 5), default = 0)
+    triggers: list[Trigger]           = Retriever(Array32[Trigger],                           default_factory = lambda _: [], on_read = trigger_display_orders_repeat)
+    trigger_display_orders: list[int] = Retriever(u32,               min_ver = Version(1, 4), default = 0,                    repeat = 0)
+    variable_data: VariableData       = Retriever(VariableData,      min_ver = Version(1, 9), default_factory = VariableData)
+    unused1: int                      = Retriever(u32,               min_ver = Version(2, 4), default = 0)
+    unused2: int                      = Retriever(u32,               min_ver = Version(2, 7), default = 0)
+    unused3: int                      = Retriever(bool8,             min_ver = Version(2, 7), default = False)
+    unused4: bytes                    = Retriever(u64,               min_ver = Version(3, 5), default = 0)
+    decisions: Decision               = Retriever(Array64[Decision], min_ver = Version(4, 0), default_factory = lambda _: [])
+    attackers: Attacker               = Retriever(Array64[Attacker], min_ver = Version(4, 1), default_factory = lambda _: [])
+    is_legacy_execution_order: bool   = Retriever(bool8,             min_ver = Version(4, 5), default = False)
     # @formatter:on
 
     @classmethod
