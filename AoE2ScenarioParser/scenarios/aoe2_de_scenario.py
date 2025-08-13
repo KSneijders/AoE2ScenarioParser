@@ -18,7 +18,7 @@ class AoE2DEScenario(AoE2Scenario):
     Used to represent a scenario with version >= 1.36 (DE). It is the main class that is exposed to the user of the API.
     """
 
-    LATEST_VERSION: Tuple[int, int] = (1, 54)
+    LATEST_VERSION: Tuple[int, int] = (1, 55)
 
     @property
     def trigger_manager(self) -> TriggerManagerDE:
