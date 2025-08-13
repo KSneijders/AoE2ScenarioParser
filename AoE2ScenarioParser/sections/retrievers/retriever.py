@@ -124,7 +124,7 @@ class Retriever:
             raise ValueError(f"Unable to set bytes when bytes list isn't equal to repeat (repeat: {self.datatype.repeat} vs list: {len(bytes_list)})")
 
         result = [parse_bytes_to_val(self, entry_bytes) for entry_bytes in bytes_list]
-        self.data = bytes_parser.vorl(self, result)
+        self.set_data(bytes_parser.vorl(self, result), affect_dirty=False)
 
     def update_datatype_repeat(self) -> None:
         """Sets all the datatype repeat values to the lengths of their containing lists"""
@@ -175,7 +175,7 @@ class Retriever:
         else:
             data = self.default_value
 
-        self.data = data
+        self.set_data(data, affect_dirty=False)
 
     def duplicate(self) -> Retriever:
         """

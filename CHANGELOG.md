@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.5.0 - 2025-August-13
+
+Official support for the new 1.55 scenarios! 
+
+### Added
+
+- Allow for data trigger syntax to combine types using `+` — Credits: by [@Alian713] in [#83](https://github.com/KSneijders/AoE2ScenarioParser/pull/83)
+- Support for the Xs-Check `v0.2.12` — View the `v0.2.12` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.12
+
+### Fixes
+
+- Flooring `None` value in effects under specific circumstances 
+- Reading scenarios with triggers from previous versions
+- Writing scenarios multiple times causing issues with locked `Retrievers`
+
+---
+
+##  0.5.0b2 - 2025-August-03
+
+- Applied changes from [`v0.4.7`](#047---2025-august-03)
+
+---
+
+##  0.5.0b1 - 2025-July-23
+
+### Added
+
+- **Support for the new `1.55` scenario file version!**
+- Support for the new Effects (and the corresponding new attributes) introduced in the last patch — Credits: by [@mardaravicius] in [#80](https://github.com/KSneijders/AoE2ScenarioParser/pull/80)
+  - `trigger.new_effect.add_train_location(...)`
+  - `trigger.new_effect.research_local_technology(...)`
+  - `trigger.new_effect.modify_attribute_for_class(...)`
+  - `trigger.new_effect.modify_object_attribute(...)`
+  - `trigger.new_effect.modify_object_attribute_by_variable(...)`
+- Support for the new Conditions (and the corresponding new attributes) introduced in the last patch — Credits: by [@mardaravicius] in [#80](https://github.com/KSneijders/AoE2ScenarioParser/pull/80)
+  - `trigger.new_condition.local_tech_researched(...)`
+- Support for the Xs-Check `v0.2.8` — View the `v0.2.8` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.8
+- The new `Trigger.execute_on_load` — Credits: by [@mardaravicius] in [#80](https://github.com/KSneijders/AoE2ScenarioParser/pull/80)
+- **45** new `ObjectAttribute` entries! ([See them here](https://github.com/KSneijders/AoE2ScenarioParser/commit/420341046a3b3b9b8336ae8f89d324726cdc2dec#diff-1abd345aacaedad23f368a6e2e743ee67587737d8c35eda0562b38fb1b8baac7R753-R798))
+- A new dataset `LocalTechnology` for the `local_tech_researched` condition and the `research_local_technology` effect
+
+---
+
 ##  0.4.7 - 2025-August-03
 
 ### Fixes

@@ -1,10 +1,12 @@
 from unittest import TestCase
 
 from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.helper.pretty_format import pretty_format_dict
 from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
+from AoE2ScenarioParser.scenarios.scenario_store import store
 
-_initialise_version_dependencies("DE", "1.54")
+_initialise_version_dependencies("DE", "1.55")
 
 
 class Test(TestCase):
