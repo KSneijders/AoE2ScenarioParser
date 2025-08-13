@@ -234,7 +234,7 @@ class Effect(AoE2Object, TriggerComponent):
         if _is_float_quantity_effect(effect_type, object_attributes):
             quantity = _quantity_float or quantity
         else:
-            quantity = math.floor(quantity)
+            quantity = math.floor(quantity) if quantity is not None else quantity
 
         if variable is None:
             variable = _variable_ref if _variable_ref is not None else -1
