@@ -424,7 +424,7 @@ class AoE2Scenario:
 
     def _internal_on_write(self, filename: str):
         # Update the internal file name to match the output filename
-        self.sections['DataHeader'].filename = Path(filename).name
+        self.sections['DataHeader'].retriever_map['filename'].set_data(Path(filename).name, affect_dirty=False)
 
     def write_error_file(self, filename: str = "error_file.txt", trail_generator: IncrementalGenerator = None) -> None:
         """

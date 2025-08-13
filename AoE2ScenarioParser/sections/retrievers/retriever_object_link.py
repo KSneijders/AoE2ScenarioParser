@@ -208,10 +208,11 @@ class RetrieverObjectLink(RetrieverObjectLinkParent):
         if new_length < old_length:
             retriever.set_data(retriever.data[:new_length], affect_dirty=False)
         elif new_length > old_length:
-            retriever.data += [
+            new_list = retriever.data + [
                 AoE2FileSection.from_model(model, uuid, set_defaults=True)
                 for _ in range(new_length - old_length)
             ]
+            retriever.set_data(new_list, affect_dirty=False)
 
         if retriever.log_value:
             retriever.print_value_update(f"[{model.name}] * {old_length}", f"[{model.name}] * {new_length}")
