@@ -72,6 +72,7 @@
             "decision_id": -1,
             "decision_option": -1,
             "variable2":  -1,
+            "local_technology":  -1,
             "object_group2":  -1,
             "object_type2":  -1,
             "xs_function": ""
