@@ -16,7 +16,7 @@ from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
 from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
-from AoE2ScenarioParser.objects.support.uuid_list import UuidList
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList, NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
@@ -76,6 +76,9 @@ class Trigger(AoE2Object, TriggerComponent):
         super().__init__(**kwargs)
 
         def if_supported(attr: str, value: T) -> T | None:
+            # If there's no way to validate the scenario version, assume it's alright
+            if self._uuid == NO_UUID:
+                return value
             for link in self._link_list[0].group:
                 if link.name == attr:
                     if link.support and link.support.supports(self.get_scenario().scenario_version):
