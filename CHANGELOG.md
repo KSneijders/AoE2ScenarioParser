@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Support for the `caption_string` string in `Unit`s
+- Support for the `caption_string` in `Unit`s
 
 ### Fixes
 
