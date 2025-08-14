@@ -3006,6 +3006,7 @@
             "object_group",
             "object_type",
             "object_list_unit_id_2",
+            "facet2",
             "selected_object_ids",
             "max_units_affected"
         ],
