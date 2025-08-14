@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.5.1 - 2025-August-14
+
+### Added
+
+- Support for the `caption_string` string in `Unit`s
+
+### Fixes
+
+- Effect/Condition order now updates immediately upon removal
+- Issue when writing certain effects when quantity was equal to 0
+- Facet2 missing from replace object effect
+- Global sound attribute not being presented as bool
+
+---
+
 ##  0.5.0 - 2025-August-13
 
 Official support for the new 1.55 scenarios! 

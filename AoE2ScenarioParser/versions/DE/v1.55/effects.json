@@ -72,7 +72,7 @@
             "object_type2": "ObjectType",
             "quantity_float": "",
             "facet2": "",
-            "global_sound": "",
+            "global_sound": "bool",
             "message": "str",
             "sound_name": "str",
             "selected_object_ids": "Unit[]",
@@ -3006,6 +3006,7 @@
             "object_group",
             "object_type",
             "object_list_unit_id_2",
+            "facet2",
             "selected_object_ids",
             "max_units_affected"
         ],
