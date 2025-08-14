@@ -123,6 +123,7 @@ class UnitManager(AoE2Object):
             status: int = 2,
             reference_id: int = None,
             caption_string_id: int = -1,
+            caption_string: str = '',
             tile: Tile | Tuple[int, int] = None,
     ) -> Unit:
         """
@@ -140,7 +141,8 @@ class UnitManager(AoE2Object):
             status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             reference_id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
-            caption_string_id: A string ID for the caption of a unit
+            caption_string_id: A string ID for the caption of a unit (mut. exclusive to caption_string)
+            caption_string: A string for the caption of a unit (mut. exclusive to caption_string_id)
             tile: An object that represents a tile on the map. Replaces parameters x and y. Also, automatically adds
                 .5 to both ints to place the unit centered on the tile.
 
@@ -154,6 +156,10 @@ class UnitManager(AoE2Object):
         if not caption_string_id_retriever.support.supports(self.get_scenario().scenario_version):
             caption_string_id = None
 
+        caption_string_retriever = Unit._link_list[1].group[10]
+        if not caption_string_retriever.support.supports(self.get_scenario().scenario_version):
+            caption_string = None
+
         unit = Unit(
             player=player,
             x=x if tile is None else (tile[0] + .5),
@@ -166,6 +172,7 @@ class UnitManager(AoE2Object):
             initial_animation_frame=animation_frame,
             garrisoned_in_id=garrisoned_in_id,
             caption_string_id=caption_string_id,
+            caption_string=caption_string,
             uuid=self._uuid
         )
 
