@@ -291,12 +291,18 @@ class Trigger(AoE2Object, TriggerComponent):
         if not mutually_exclusive(effect_index is not None, display_index is not None, effect is not None):
             raise ValueError(f"Please identify an effect using either effect_index, display_index or effect.")
 
+        # Forces lazy-loading of effect order to update
+        _ = self.effect_order
+
         if effect is not None:
             effect_index = self.effects.index(effect)
         if effect_index is None:
             effect_index = self.effect_order[display_index]
 
         del self.effects[effect_index]
+
+        # Forces lazy-loading of effect order to update
+        _ = self.effect_order
 
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
@@ -314,6 +320,9 @@ class Trigger(AoE2Object, TriggerComponent):
         if not mutually_exclusive(condition_index is not None, display_index is not None, condition is not None):
             raise ValueError(f"Please identify a condition using either condition_index, display_index or condition.")
 
+        # Forces lazy-loading of effect order to update
+        _ = self.condition_order
+
         if condition is not None:
             condition_index = self.conditions.index(condition)
 
@@ -321,6 +330,9 @@ class Trigger(AoE2Object, TriggerComponent):
             condition_index = self.condition_order[display_index]
 
         del self.conditions[condition_index]
+
+        # Forces lazy-loading of effect order to update
+        _ = self.condition_order
 
     def get_content_as_string(self, include_trigger_definition: bool = False) -> str:
         """
