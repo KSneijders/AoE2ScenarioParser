@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.5.2 - 2025-August-15
+
+### Fixes
+
+- Issue when writing effects when quantity was equal to -1
+
+---
+
 ##  0.5.1 - 2025-August-14
 
 ### Added
