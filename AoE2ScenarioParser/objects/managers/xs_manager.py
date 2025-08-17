@@ -50,6 +50,7 @@ class XsManager(AoE2Object):
             description="Due to the lack of support for transferring XS files between systems in Age of Empires II:DE, "
                         "this trigger adds the entire script to an effect script call. This will add the script to"
                         "each system once the game starts in the default0.xs file. -- Created using AoE2ScenarioParser",
+            uuid=self._uuid,
         )
 
     @property

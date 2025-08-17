@@ -16,17 +16,17 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters, actions
 
 
 class DataTriggers:
-    _data_trigger_exp = re.compile(r"^(area|tile|object|trigger)s?\s*:\s*(.+)", re.I)
+    _data_trigger_exp = re.compile(r"^((?:(?:area|tile|object|trigger)s?\s*\+?\s*)+)\s*:\s*(.+)", re.I)
 
     def __init__(self, uuid: UUID) -> None:
         super().__init__()
 
         self._uuid = uuid
 
-        self.objects: AttrDict[str, List[Unit]] = AttrDict()
-        self.areas: AttrDict[str, List[AreaPattern]] = AttrDict()
-        self.tiles: AttrDict[str, List[Tile]] = AttrDict()
-        self.triggers: AttrDict[str, List[Trigger]] = AttrDict()
+        self.objects: AttrDict[str, list[Unit]] = AttrDict()
+        self.areas: AttrDict[str, list[Area]] = AttrDict()
+        self.tiles: AttrDict[str, list[Tile]] = AttrDict()
+        self.triggers: AttrDict[str, list[Trigger]] = AttrDict()
 
     def discover(self, remove_template_triggers: bool) -> None:
         data_triggers = getters.get_triggers_by_regex(self._uuid, self._data_trigger_exp)
@@ -34,22 +34,22 @@ class DataTriggers:
         for (trigger, type_, key) in data_triggers:
             object_ids = []
             for ce in loop_trigger_content(trigger):
-                if type_ == "area":
+                if "area" in type_:
                     if area := self._create_area(ce):
                         self.areas.setdefault(key, []).append(area)
 
-                elif type_ == "tile":
+                if "tile" in type_:
                     if tiles := self._create_tiles(ce):
                         self.tiles.setdefault(key, []).extend(tiles)
 
-                elif type_ == "object":
+                if "object" in type_:
                     object_ids.extend(self._get_unit_ids(ce))
                     if objects := self._get_objects_from_area(ce):
                         self.objects.setdefault(key, []).extend(objects)
                     if objects := self._get_objects_from_tile(ce):
                         self.objects.setdefault(key, []).extend(objects)
 
-                elif type_ == "trigger":
+                if "trigger" in type_:
                     if found_trigger := self._get_trigger(ce):
                         self.triggers.setdefault(key, []).append(found_trigger)
 

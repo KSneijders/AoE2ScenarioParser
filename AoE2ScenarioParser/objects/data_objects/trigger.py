@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Any
+from typing import List, Any, TypeVar
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
@@ -15,10 +15,13 @@ from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
 from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
-from AoE2ScenarioParser.objects.support.uuid_list import UuidList
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList, NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
+from AoE2ScenarioParser.sections.retrievers.support import Support
+
+T = TypeVar('T')
 
 
 class Trigger(AoE2Object, TriggerComponent):
@@ -36,6 +39,7 @@ class Trigger(AoE2Object, TriggerComponent):
             RetrieverObjectLink("description_order", link="objective_description_order"),
             RetrieverObjectLink("enabled"),
             RetrieverObjectLink("looping"),
+            RetrieverObjectLink("execute_on_load", support=Support(since=1.55)),
             RetrieverObjectLink("header", link="make_header"),
             RetrieverObjectLink("mute_objectives"),
             RetrieverObjectLink("conditions", link="condition_data", process_as_object=Condition),
@@ -58,6 +62,7 @@ class Trigger(AoE2Object, TriggerComponent):
             description_order: int = 0,
             enabled: int = 1,
             looping: int = 0,
+            execute_on_load: int = 0,
             header: int = 0,
             mute_objectives: int = 0,
             conditions: List[Condition] = None,
@@ -68,6 +73,18 @@ class Trigger(AoE2Object, TriggerComponent):
             **kwargs
     ):
         super().__init__(**kwargs)
+
+        def if_supported(attr: str, value: T) -> T | None:
+            # If there's no way to validate the scenario version, assume it's alright
+            if self._uuid == NO_UUID:
+                return value
+            for link in self._link_list[0].group:
+                if link.name == attr:
+                    if link.support and link.support.supports(self.get_scenario().scenario_version):
+                        return value
+                    else:
+                        return None
+            return None
 
         if conditions is None:
             conditions = []
@@ -88,6 +105,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self.description_order: int = description_order
         self.enabled: int = enabled
         self.looping: int = looping
+        self.execute_on_load: int = if_supported('execute_on_load', execute_on_load)
         self.header: int = header
         self.mute_objectives: int = mute_objectives
         self._condition_hash = hash_list(conditions)
@@ -153,22 +171,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self._effects = UuidList(self._uuid, val)
         self.effect_order = list(range(0, len(val)))
 
-    def _add_effect(
-            self, effect_type: EffectId, ai_script_goal=None, armour_attack_quantity=None,
-            armour_attack_class=None, quantity=None, tribute_list=None, diplomacy=None,
-            object_list_unit_id=None, source_player=None, target_player=None, technology=None, string_id=None,
-            display_time=None, trigger_id=None, location_x=None, location_y=None,
-            location_object_reference=None, area_x1=None, area_y1=None, area_x2=None, area_y2=None,
-            object_group=None, object_type=None, instruction_panel_position=None, attack_stance=None,
-            time_unit=None, enabled=None, food=None, wood=None, stone=None, gold=None, item_id=None,
-            flash_object=None, force_research_technology=None, visibility_state=None, scroll=None,
-            operation=None, object_list_unit_id_2=None, button_location=None, ai_signal_value=None,
-            object_attributes=None, variable=None, timer=None, facet=None, play_sound=None, message=None,
-            player_color=None, sound_name=None, selected_object_ids=None, color_mood=None, reset_timer=None,
-            object_state=None, action_type=None, resource_1=None, resource_1_quantity=None, resource_2=None,
-            resource_2_quantity=None, resource_3=None, resource_3_quantity=None, decision_id=None,
-            string_id_option1=None, string_id_option2=None, variable2=None, message_option1=None, message_option2=None,
-    ) -> Effect:
+    def _add_effect(self, effect_type: EffectId, **kwargs) -> Effect:
         """Used to add new effect to trigger. Please use trigger.new_effect.<effect_name> instead"""
 
         def get_default_effect_attributes(eff_type):
@@ -186,22 +189,18 @@ class Trigger(AoE2Object, TriggerComponent):
                     f"The effect {effect.name} is not supported in scenario version {sv}"
                 ) from None
 
+        # Add effect_type to attributes
+        kwargs['effect_type'] = effect_type
+
         effect_defaults = get_default_effect_attributes(effect_type)
         effect_attr = {}
         for key, value in effect_defaults.items():
-            effect_attr[key] = (locals()[key] if locals()[key] is not None else value)
+            effect_attr[key] = (kwargs[key] if key in kwargs and kwargs[key] is not None else value)
         new_effect = Effect(**effect_attr, uuid=self._uuid)
         self.effects.append(new_effect)
         return new_effect
 
-    def _add_condition(
-            self, condition_type: ConditionId, quantity=None, attribute=None, unit_object=None, next_object=None,
-            object_list=None, source_player=None, technology=None, timer=None, trigger_id=None, area_x1=None,
-            area_y1=None, area_x2=None, area_y2=None, object_group=None, object_type=None, ai_signal=None,
-            inverted=None, variable=None, comparison=None, target_player=None, unit_ai_action=None, xs_function=None,
-            object_state=None, timer_id=None, victory_timer_type=None, include_changeable_weapon_objects=None,
-            decision_id=None, decision_option=None, variable2=None
-    ) -> Condition:
+    def _add_condition(self, condition_type: ConditionId, **kwargs) -> Condition:
         """Used to add new condition to trigger. Please use trigger.new_condition.<condition_name> instead"""
 
         def get_default_condition_attributes(cond_type):
@@ -219,10 +218,13 @@ class Trigger(AoE2Object, TriggerComponent):
                     f"The condition {condition.name} is not supported in scenario version {sv}"
                 ) from None
 
+        # Add condition_type to attributes
+        kwargs['effect_type'] = condition_type
+
         condition_defaults = get_default_condition_attributes(condition_type)
         condition_attr = {}
         for key, value in condition_defaults.items():
-            condition_attr[key] = (locals()[key] if locals()[key] is not None else value)
+            condition_attr[key] = (kwargs[key] if key in kwargs and kwargs[key] is not None else value)
         new_condition = Condition(**condition_attr, uuid=self._uuid)
         self.conditions.append(new_condition)
         return new_condition
@@ -272,9 +274,21 @@ class Trigger(AoE2Object, TriggerComponent):
         if isinstance(effect, Effect):
             effect = effect.id
 
-        del self.effects[effect]
+        # Forces lazy-loading of effect order to update
+        _ = self.effect_order
 
-    def remove_condition(self, condition: int | Condition) -> None:
+        if effect is not None:
+            effect_index = self.effects.index(effect)
+        if effect_index is None:
+            effect_index = self.effect_order[display_index]
+
+        del self.effects[effect_index]
+
+        # Forces lazy-loading of effect order to update
+        _ = self.effect_order
+
+    def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
+            -> None:
         """
         Remove a condition from this trigger
 
@@ -287,7 +301,19 @@ class Trigger(AoE2Object, TriggerComponent):
         if isinstance(condition, Condition):
             condition = condition.id
 
-        del self.conditions[condition]
+        # Forces lazy-loading of effect order to update
+        _ = self.condition_order
+
+        if condition is not None:
+            condition_index = self.conditions.index(condition)
+
+        if condition_index is None:
+            condition_index = self.condition_order[display_index]
+
+        del self.conditions[condition_index]
+
+        # Forces lazy-loading of effect order to update
+        _ = self.condition_order
 
     def get_content_as_string(self, include_trigger_definition: bool = False) -> str:
         """
@@ -306,7 +332,8 @@ class Trigger(AoE2Object, TriggerComponent):
 
         data_tba = {
             'enabled': self.enabled != 0,
-            'looping': self.looping != 0
+            'looping': self.looping != 0,
+            'execute_on_load': self.execute_on_load != 0
         }
 
         if self.description != "":

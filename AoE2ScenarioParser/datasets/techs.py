@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List
 
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
-from AoE2ScenarioParser.datasets.trigger_data import Age
+from AoE2ScenarioParser.datasets.trigger_data import Age, LocalTechnology
 from AoE2ScenarioParser.helper.list_functions import listify
 
 
@@ -1126,9 +1126,9 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_7 = 1187, -1
     BLANK_TECHNOLOGY_8 = 1188, -1
     BLANK_TECHNOLOGY_9 = 1189, -1
-    ECONOMIC_TOWN_CENTER = 1195, 171
-    MILITARY_TOWN_CENTER = 1196, 170
-    DEFENSIVE_TOWN_CENTER = 1197, 172
+    ECONOMIC_TOWN_CENTER = LocalTechnology.ECONOMIC_TOWN_CENTER, 171
+    MILITARY_TOWN_CENTER = LocalTechnology.MILITARY_TOWN_CENTER, 170
+    DEFENSIVE_TOWN_CENTER = LocalTechnology.DEFENSIVE_TOWN_CENTER, 172
     FREE_LEMBOS_SPAWN = 1198, -1
     ECONOMIC_POLICY = 1202, 155
     NAVAL_POLICY = 1203, 156

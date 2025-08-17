@@ -36,6 +36,7 @@ class EffectId(IntEnum):
     - location_x
     - location_y
     - location_object_reference
+    - global_sound
     - sound_name"""
     TRIBUTE = 5
     """Attributes for the **tribute** effect are: \n
@@ -64,7 +65,8 @@ class EffectId(IntEnum):
     - source_player
     - location_x
     - location_y
-    - facet"""
+    - facet
+    - disable_sound"""
     TASK_OBJECT = 12
     """Attributes for the **task_object** effect are: \n
     - object_list_unit_id
@@ -79,7 +81,9 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - action_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - disable_garrison_unload_sound
+    - max_units_affected"""
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
     - source_player
@@ -94,7 +98,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     REMOVE_OBJECT = 15
     """Attributes for the **remove_object** effect are: \n
     - object_list_unit_id
@@ -106,7 +111,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - object_state
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_VIEW = 16
     """Attributes for the **change_view** effect are: \n
     - quantity
@@ -127,7 +133,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OWNERSHIP = 18
     """Attributes for the **change_ownership** effect are: \n
     - object_list_unit_id
@@ -140,7 +147,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - flash_object
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     PATROL = 19
     """Attributes for the **patrol** effect are: \n
     - object_list_unit_id
@@ -154,7 +162,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     DISPLAY_INSTRUCTIONS = 20
     """Attributes for the **display_instructions** effect are: \n
     - object_list_unit_id
@@ -178,7 +187,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     USE_ADVANCED_BUTTONS = 23
     """Attributes for the **use_advanced_buttons** effect are: \n
     None. \n
@@ -194,7 +204,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     PLACE_FOUNDATION = 25
     """Attributes for the **place_foundation** effect are: \n
     - object_list_unit_id
@@ -211,7 +222,8 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - message
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_HP = 27
     """Attributes for the **change_object_hp** effect are: \n
     - quantity
@@ -224,7 +236,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_ATTACK = 28
     """Attributes for the **change_object_attack** effect are: \n
     - armour_attack_quantity
@@ -238,7 +251,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     STOP_OBJECT = 29
     """Attributes for the **stop_object** effect are: \n
     - object_list_unit_id
@@ -249,7 +263,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     ATTACK_MOVE = 30
     """Attributes for the **attack_move** effect are: \n
     - object_list_unit_id
@@ -263,7 +278,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_ARMOR = 31
     """Attributes for the **change_object_armor** effect are: \n
     - armour_attack_quantity
@@ -277,7 +293,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_RANGE = 32
     """Attributes for the **change_object_range** effect are: \n
     - quantity
@@ -290,7 +307,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - operation
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_SPEED = 33
     """Attributes for the **change_object_speed** effect are: \n
     - quantity
@@ -302,7 +320,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     HEAL_OBJECT = 34
     """Attributes for the **heal_object** effect are: \n
     - quantity
@@ -314,7 +333,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     TELEPORT_OBJECT = 35
     """Attributes for the **teleport_object** effect are: \n
     - object_list_unit_id
@@ -327,7 +347,8 @@ class EffectId(IntEnum):
     - area_y2
     - object_group
     - object_type
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_STANCE = 36
     """Attributes for the **change_object_stance** effect are: \n
     - object_list_unit_id
@@ -339,7 +360,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - attack_stance
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     DISPLAY_TIMER = 37
     """Attributes for the **display_timer** effect are: \n
     - string_id
@@ -384,7 +406,8 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - object_list_unit_id_2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     REPLACE_OBJECT = 43
     """Attributes for the **replace_object** effect are: \n
     - object_list_unit_id
@@ -397,7 +420,9 @@ class EffectId(IntEnum):
     - object_group
     - object_type
     - object_list_unit_id_2
-    - selected_object_ids"""
+    - selected_object_ids
+    - facet2
+    - max_units_affected"""
     CHANGE_OBJECT_DESCRIPTION = 44
     """Attributes for the **change_object_description** effect are: \n
     - object_list_unit_id
@@ -435,13 +460,16 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - object_list_unit_id_2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected
+    - disable_sound"""
     ACKNOWLEDGE_AI_SIGNAL = 50
     """Attributes for the **acknowledge_ai_signal** effect are: \n
     - ai_signal_value"""
     MODIFY_ATTRIBUTE = 51
     """Attributes for the **modify_attribute** effect are: \n
     - quantity
+    - quantity_float
     - object_list_unit_id
     - source_player
     - operation
@@ -469,7 +497,8 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     SCRIPT_CALL = 55
     """Attributes for the **script_call** effect are: \n
     - string_id
@@ -492,7 +521,8 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - player_color
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_CIVILIZATION_NAME = 59
     """Attributes for the **change_object_civilization_name** effect are: \n
     - string_id
@@ -500,7 +530,8 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_OBJECT_PLAYER_NAME = 60
     """Attributes for the **change_object_player_name** effect are: \n
     - object_list_unit_id
@@ -510,6 +541,7 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
+    - max_units_affected
     - selected_object_ids"""
     DISABLE_UNIT_TARGETING = 61
     """Attributes for the **disable_unit_targeting** effect are: \n
@@ -519,7 +551,8 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     ENABLE_UNIT_TARGETING = 62
     """Attributes for the **enable_unit_targeting** effect are: \n
     - object_list_unit_id
@@ -528,7 +561,8 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_TECHNOLOGY_COST = 63
     """Attributes for the **change_technology_cost** effect are: \n
     - source_player
@@ -576,7 +610,8 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     ENABLE_OBJECT_SELECTION = 71
     """Attributes for the **enable_object_selection** effect are: \n
     - object_list_unit_id
@@ -585,7 +620,8 @@ class EffectId(IntEnum):
     - area_y1
     - area_x2
     - area_y2
-    - selected_object_ids"""
+    - selected_object_ids
+    - max_units_affected"""
     CHANGE_COLOR_MOOD = 72
     """Attributes for the **change_color_mood** effect are: \n
     - quantity
@@ -602,6 +638,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.46
     """
@@ -614,6 +651,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.46
     """
@@ -629,6 +667,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.51 & Trigger Version 3.5
     """
@@ -654,6 +693,7 @@ class EffectId(IntEnum):
     - object_type
     - operation
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.51 & Trigger Version 3.5
     """
@@ -671,6 +711,7 @@ class EffectId(IntEnum):
     - object_type
     - operation
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.51 & Trigger Version 3.5
     """
@@ -795,6 +836,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.54 & Trigger Version 4.1
     """
@@ -807,6 +849,7 @@ class EffectId(IntEnum):
     - area_x2
     - area_y2
     - selected_object_ids
+    - max_units_affected
 
     This effect was added in: 1.54 & Trigger Version 4.1
     """
@@ -830,6 +873,92 @@ class EffectId(IntEnum):
     - variable2  // Why FE?! Why the 2nd!?
 
     This effect was added in: 1.54 & Trigger Version 4.1
+    """
+    ADD_TRAIN_LOCATION = 102
+    """Attributes for the **add_train_location** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - object_list_unit_id_2
+    - button_location
+    - train_time
+    - hotkey
+    
+    This effect was added in: 1.55 & Trigger Version 4.5
+    """
+    RESEARCH_LOCAL_TECHNOLOGY = 103
+    """Attributes for the **research_local_technology** effect are: \n
+    - local_technology
+    - source_player
+    - selected_object_ids
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - object_list_unit_id_2
+        
+    This effect was added in: 1.55 & Trigger Version 4.5
+    """
+    MODIFY_ATTRIBUTE_FOR_CLASS = 104
+    """Attributes for the **modify_attribute_for_class** effect are: \n
+    - object_group2
+    - source_player
+    - object_attributes
+    - message
+    - operation
+    - quantity
+    - quantity_float
+    - armour_attack_class
+        
+    This effect was added in: 1.55 & Trigger Version 4.5
+    """
+    MODIFY_OBJECT_ATTRIBUTE = 105
+    """Attributes for the **modify_object_attribute** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - object_attributes
+    - selected_object_ids
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - operation
+    - message
+    - quantity
+    - quantity_float
+    - armour_attack_class
+        
+    This effect was added in: 1.55 & Trigger Version 4.5
+    """
+    MODIFY_OBJECT_ATTRIBUTE_BY_VARIABLE = 106
+    """Attributes for the **modify_object_attribute_by_variable** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - object_attributes
+    - selected_object_ids
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - operation
+    - message
+    - variable
+    - armour_attack_class
+        
+    This effect was added in: 1.55 & Trigger Version 4.5
+    """
+    CHANGE_OBJECT_VISIBILITY = 107
+    """Attributes for the **modify_object_attribute_by_variable** effect are: \n
+    - source_player
+    - target_player
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - visibility_state
+    - max_units_affected
+    - selected_object_ids
+        
+    This effect was added in: 1.55 & Trigger Version 4.5
     """
 
 
@@ -894,6 +1023,15 @@ empty_attributes = {
     "string_id_option1": -1,
     "string_id_option2": -1,
     "variable2": -1,
+    "max_units_affected": -1,
+    "disable_garrison_unload_sound": -1,
+    "hotkey": -1,
+    "train_time": -1,
+    "local_technology": -1,
+    "disable_sound": -1,
+    "object_group2": -1,
+    "quantity_float": -1,
+    "facet2": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,

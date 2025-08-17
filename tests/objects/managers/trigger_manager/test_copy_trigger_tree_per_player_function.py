@@ -5,7 +5,7 @@ from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
 from AoE2ScenarioParser.objects.support.enums.group_by import GroupBy
 from AoE2ScenarioParser.scenarios.aoe2_scenario import _initialise_version_dependencies
 
-_initialise_version_dependencies("DE", "1.54")
+_initialise_version_dependencies("DE", "1.55")
 
 
 # Todo: REWRITE BEFORE V1 RELEASE!

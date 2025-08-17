@@ -542,6 +542,7 @@ class TriggerManager(AoE2Object):
             description_order: int | None = None,
             enabled: bool | None = None,
             looping: bool | None = None,
+            execute_on_load: bool | None = None,
             header: bool | None = None,
             mute_objectives: bool | None = None,
             conditions: List | None = None,
@@ -561,6 +562,7 @@ class TriggerManager(AoE2Object):
             description_order: ?
             enabled: If the trigger is enabled from the start.
             looping: If the trigger loops.
+            execute_on_load: Run the trigger on map load.
             header: Turn objective into header
             mute_objectives: Mute objectives
             conditions: A list of condition managers
@@ -571,8 +573,8 @@ class TriggerManager(AoE2Object):
         """
         keys = [
             'description', 'description_stid', 'display_as_objective', 'short_description',
-            'short_description_stid', 'display_on_screen', 'description_order', 'enabled', 'looping', 'header',
-            'mute_objectives', 'conditions', 'effects'
+            'short_description_stid', 'display_on_screen', 'description_order', 'enabled', 'looping', 'execute_on_load',
+            'header', 'mute_objectives', 'conditions', 'effects'
         ]
         trigger_attr = {}
         for key in keys:
