@@ -14,7 +14,7 @@ class UnitManager(Manager):
     _struct: ScenarioSections
 
     # @formatter:off
-    _units: list[list[Unit]] = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
+    _units: list[list[Unit]]     = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
     _next_unit_reference_id: int = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.next_unit_ref))
     # @formatter:on
 
@@ -109,6 +109,13 @@ class UnitManager(Manager):
         Args:
             unit: The unit to remove
         """
+        if unit.player is None:
+            for units in self.units:
+                if unit in units:
+                    units.remove(unit)
+                    
+            return
+
         if unit in self.units[unit.player]:
             self.units[unit.player].remove(unit)
 
@@ -252,7 +259,8 @@ class UnitManager(Manager):
         self,
         x_offset: int,
         y_offset: int,
-        unit_overflow_action: Literal['remove', 'error']
+        map_size: int = -1,
+        unit_overflow_action: Literal['remove', 'error'] = 'error',
     ) -> None:
         """
         Globally applies an X,Y offset to all units in the scenario.
@@ -260,18 +268,20 @@ class UnitManager(Manager):
         Args:
             x_offset: The X offset to apply to all units in the scenario.
             y_offset: The Y offset to apply to all units in the scenario.
+            map_size: The value to use for checking
             unit_overflow_action: The action to perform when units become outside the map. Can be either 'remove'
                 to remove the units in question or 'error' to throw an error when it happens (so no units are removed
-                accidentally).
+                accidentally). Only checked when map_size is given
         """
-        map_size = self._struct.map_manager.map_size
-
         for player_units in self.units:
-            to_be_removed_units = []
+            units_to_be_removed = []
 
             for unit in player_units:
                 unit.x += x_offset
                 unit.y += y_offset
+
+                if map_size == -1:
+                    continue
 
                 if not (0 <= unit.x < map_size and 0 <= unit.y < map_size):
                     if unit_overflow_action == 'error':
@@ -280,6 +290,6 @@ class UnitManager(Manager):
                             f" of the map {unit.x, unit.y} after applying offset"
                         )
                     elif unit_overflow_action == 'remove':
-                        to_be_removed_units.append(unit)
+                        units_to_be_removed.append(unit)
 
-            self.remove_units(to_be_removed_units)
+            self.remove_units(units_to_be_removed)
