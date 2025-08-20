@@ -15,7 +15,7 @@ class Resources(BaseStruct):
     """unused"""
     trade_goods: int   = Retriever(i32, default = 0, min_ver = Version(1, 17))
     """unused"""
-    player_colour: int = Retriever(i32, default = 0, min_ver = Version(1, 24))
+    player_color: int  = Retriever(i32, default = 0, min_ver = Version(1, 24))
     # @formatter:on
 
     def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):

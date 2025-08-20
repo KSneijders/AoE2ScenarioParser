@@ -4,7 +4,7 @@ from bfp_rs.types.le import u8
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
-class Colour(BaseStruct):
+class Color(BaseStruct):
     blue: int = Retriever(u8, default = 0)
     green: int = Retriever(u8, default = 0)
     red: int = Retriever(u8, default = 0)

@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Retriever, Version, RetrieverRef, RetrieverCombiner, ret
-from bfp_rs.types.le import bool32, bool8, i32, StackedArray32, str16, u16, u32, u8, Array
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
+from bfp_rs.types.le import Array, bool32, bool8, i32, StackedArray32, str16, u16, u32, u8
 
-from AoE2ScenarioParser.sections.settings.options.view import View
-from AoE2ScenarioParser.sections.settings.options.legacy_disables import LegacyDisables
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
+from AoE2ScenarioParser.sections.settings.options.legacy_disables import LegacyDisables
+from AoE2ScenarioParser.sections.settings.options.view import View
 
 
 class Options(BaseStruct):
@@ -28,7 +28,7 @@ class Options(BaseStruct):
     str_sign1: int                          = Retriever(u16,                     min_ver = Version(1, 30),                           default = 2656)
     water_definition: str                   = Retriever(str16,                   min_ver = Version(1, 30),                           default = "")
     str_sign2: int                          = Retriever(u16,                     min_ver = Version(1, 32),                           default = 2656)
-    colour_mood: str                        = Retriever(str16,                   min_ver = Version(1, 32),                           default = "Empty")
+    color_mood: str                         = Retriever(str16,                   min_ver = Version(1, 32),                           default = "Empty")
     str_sign3: int                          = Retriever(u16,                     min_ver = Version(1, 38),                           default = 2656)
     script_name: str                        = Retriever(str16,                   min_ver = Version(1, 38),                           default = "")
     collide_and_correct: bool               = Retriever(bool8,                   min_ver = Version(1, 36),                           default = False)
