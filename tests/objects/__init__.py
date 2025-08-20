@@ -1,4 +1,4 @@
-from binary_file_parser import Retriever
+from bfp_rs import Retriever
 
 from AoE2ScenarioParser.sections import MapData, ScenarioSections
 
