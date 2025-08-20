@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
-from bfp_rs import Manager, ret, RetrieverRef
+from bfp_rs import BaseStruct, Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
@@ -18,8 +18,15 @@ class UnitManager(Manager):
     _next_unit_reference_id: int = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.next_unit_ref))
     # @formatter:on
 
+    def __init__(self, struct: BaseStruct):
+        super().__init__(struct)
+
+        # Todo: initialize units, or lazy load??
+
     @property
     def units(self) -> list[list[Unit]]:
+        if not self._initialized_units:
+            self.units = self._units
         return self._units
 
     @units.setter
@@ -37,6 +44,7 @@ class UnitManager(Manager):
 
         self._units = units
         self._next_unit_reference_id = highest_reference_id
+        self._initialized_units = True
 
     def get_all_units(self) -> Generator[Unit]:
         return (unit for player_units in self.units for unit in player_units)
@@ -113,7 +121,7 @@ class UnitManager(Manager):
             for units in self.units:
                 if unit in units:
                     units.remove(unit)
-                    
+
             return
 
         if unit in self.units[unit.player]:
