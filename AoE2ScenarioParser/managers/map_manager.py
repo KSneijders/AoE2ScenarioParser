@@ -220,7 +220,11 @@ class MapManager(Manager):
             self._update_elevation_around_tiles(outline_original_area)
 
         if x_offset != 0 and y_offset != 0:
-            self._struct.unit_manager.apply_global_offset(x_offset, y_offset, unit_overflow_action)
+            from managers import UnitManager
+            
+            um = UnitManager(self._struct)
+            um.apply_global_offset(x_offset, y_offset, map_size, unit_overflow_action)
+
             # self._struct.trigger_manager.apply_global_offset(x_offset, y_offset)
 
         # Shrinking changes the original area coordinates which results in a "difference" below whilst it
