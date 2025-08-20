@@ -1,19 +1,30 @@
 from __future__ import annotations
 
-from typing import Type
+from typing import Self
 
-from AoE2ScenarioParser.objects.support.typedefs import Scenario
+from AoE2ScenarioParser.managers import MapManager, UnitManager
 from AoE2ScenarioParser.sections import ScenarioSections
 
 
 class AoE2Scenario:
-    """All scenario objects are derived from this class"""
+
+    def __init__(self, sections: ScenarioSections):
+        super().__init__()
+
+        self.sections = sections
+
+        self.map_manager = MapManager(sections)
+        self.unit_manager = UnitManager(sections)
 
     @classmethod
-    def from_file_bfp(cls: Type[Scenario], path: str) -> ScenarioSections:
-        scenario = ScenarioSections.from_file(path, strict=True)
+    def from_file(cls, path: str) -> Self:
+        sections = ScenarioSections.from_file(path, strict = True)
 
-        return scenario
+        return cls(sections)
+
+    def to_file(self, path: str) -> None:
+        ScenarioSections.to_file(path, self.sections)
+
 
     # Todo: Scenario variant switching
     # Todo: Resetting internal name on write
