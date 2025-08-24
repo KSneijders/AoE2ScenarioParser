@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Retriever, Version
-from bfp_rs.types.le import NtStr, i32, str16, u8, Array
+from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs.types.le import Array, i32, NtStr, str16, u8
 
+from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 from AoE2ScenarioParser.sections.settings.data_header import PlayerBaseOptions, Resources
 from AoE2ScenarioParser.sections.settings.player_options.legacy_ai_file import LegacyAiFile
-from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
 class PlayerOptions(BaseStruct):
@@ -24,5 +24,5 @@ class PlayerOptions(BaseStruct):
     separator2: int                              = Retriever(i32,                          min_ver = Version(1,  3), default = -99)
     # @formatter:on
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

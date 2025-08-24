@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, Version
+from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, Version
 from bfp_rs.combinators import set_
 from bfp_rs.types.le import Array, i32
 
@@ -54,5 +54,5 @@ class LegacyDisables(BaseStruct):
     disabled_building_ids: list[list[int]]      = RetrieverCombiner(ret(_disabled_building_ids_old), ret(_disabled_building_ids))
     # @formatter:on
 
-    def __new__(cls, ver: Version = Version(1, 27), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = Version(1, 27), ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

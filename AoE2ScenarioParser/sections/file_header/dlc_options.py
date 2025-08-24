@@ -1,4 +1,4 @@
-from bfp_rs import BaseStruct, ByteStream, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Context, Retriever, Version
 from bfp_rs.types.le import Array32, u32
 
 
@@ -35,5 +35,5 @@ class DLCOptions(BaseStruct):
         ver = u32.from_bytes(stream.peek(4))
         return Version(ver)
 
-    def __new__(cls, ver: Version = Version(1000), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = Version(1000), ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

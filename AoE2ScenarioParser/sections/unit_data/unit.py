@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from math import floor
 
-from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs import BaseStruct, Context, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -26,8 +26,8 @@ class Unit(BaseStruct):
     caption_string: str     = Retriever(str32, min_ver = Version(1, 55), default = "")
     # @formatter:on
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     _player: int | None = None
 

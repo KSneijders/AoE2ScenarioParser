@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from contextlib import suppress
 
-from bfp_rs import BaseStruct, ByteStream, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Context, Retriever, Version
 from bfp_rs.errors import VersionError
 from zlib_ng import zlib_ng as zlib
 
@@ -46,13 +46,16 @@ def sync_resources(scx: ScenarioSections):
 
 class ScenarioSections(BaseStruct):
     # @formatter:off
-    file_header: FileHeader   = Retriever(FileHeader,                            default_factory = lambda _ver: FileHeader())
+    file_header: FileHeader   = Retriever(FileHeader,                            default_factory = FileHeader)
     settings: Settings        = Retriever(Settings,                              default_factory = Settings, remaining_compressed = True)
-    map_data: MapData         = Retriever(MapData,                               default_factory = lambda _ver: MapData())
+    map_data: MapData         = Retriever(MapData,                               default_factory = MapData)
     unit_data: UnitData       = Retriever(UnitData,                              default_factory = UnitData)
     trigger_data: TriggerData = Retriever(TriggerData, min_ver = Version(1, 14), default_factory = TriggerData)
     file_data: FileData       = Retriever(FileData,    min_ver = Version(1, 17), default_factory = FileData)
     # @formatter:on
+
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     @classmethod
     def _decompress(cls, bytes_: bytes) -> bytes:
@@ -65,20 +68,12 @@ class ScenarioSections(BaseStruct):
         return compressed
 
     @classmethod
-    def _get_version(
-        cls,
-        stream: ByteStream,
-        _ver: Version = Version(0),
-    ) -> Version:
+    def _get_version(cls, stream: ByteStream, _ver: Version = Version(0)) -> Version:
         ver_str = stream.peek(4).decode("ASCII")
         return Version(*map(int, ver_str.split(".")))
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
-
-    @classmethod
-    def to_bytes(cls, value: ScenarioSections):
-        sync_script_file_path(value)
-        sync_num_triggers(value)
-        sync_resources(value)
-        return super().to_bytes(value)
+    def to_bytes(self):
+        sync_script_file_path(self)
+        sync_num_triggers(self)
+        sync_resources(self)
+        return super().to_bytes()

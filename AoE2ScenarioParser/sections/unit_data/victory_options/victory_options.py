@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Context, ret, Retriever, Version
 from bfp_rs.combinators import set_, set_repeat
 from bfp_rs.types.le import f32, i32, u8
 
@@ -58,5 +58,5 @@ class VictoryOptions(BaseStruct):
             return Version(*map(int, ver_str.split(".")))
         return Version(0, 0)
 
-    def __new__(cls, ver: Version = Version(2, 0), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = Version(2, 0), ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

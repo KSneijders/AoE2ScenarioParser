@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Context, ret, Retriever, Version
 from bfp_rs.combinators import get, set_repeat
 from bfp_rs.types.le import bool8, u32
 
@@ -32,5 +32,5 @@ class MapData(BaseStruct):
         ver = u32.from_bytes(stream.peek(8)[4:])
         return Version(ver)
 
-    def __new__(cls, ver: Version = MAP_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = MAP_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

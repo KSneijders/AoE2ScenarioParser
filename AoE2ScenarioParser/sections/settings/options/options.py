@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
+from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
 from bfp_rs.types.le import Array, bool32, bool8, i32, StackedArray32, str16, u16, u32, u8
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -49,5 +49,5 @@ class Options(BaseStruct):
     disabled_building_ids: list[list[int]] = RetrieverCombiner(ret(_disabled_building_ids), ret(_legacy_disabled_building_ids))
     # @formatter:on
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs import BaseStruct, Context, Retriever, Version
 from bfp_rs.types.le import f32, i32, i8
 
 
@@ -42,5 +42,5 @@ class VictoryCondition(BaseStruct):
     """
     # @formatter:on
 
-    def __new__(cls, ver: Version = Version(2), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = Version(2), ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

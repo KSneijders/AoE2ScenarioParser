@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs import BaseStruct, Context, Retriever, Version
 from bfp_rs.types.le import Array, i32, u16, u32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -24,5 +24,5 @@ class BitmapInfoHeader(BaseStruct):
     colors: list[Color]       = Retriever(Array[256][Color], default_factory = lambda _ver: [Color() for _ in range(256)])
     # @formatter:on
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

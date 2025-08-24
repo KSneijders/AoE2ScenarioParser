@@ -1,8 +1,8 @@
-from bfp_rs import BaseStruct, Retriever, Version, RetrieverCombiner, ret
-from bfp_rs.types.le import bool32, bool8, Array, i32, i8, u32, Bytes
+from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, Version
+from bfp_rs.types.le import Array, bool32, bool8, i32, i8, u32
 
-from AoE2ScenarioParser.sections.settings.diplomacy.legacy_victory_info import LegacyVictoryInfo
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
+from AoE2ScenarioParser.sections.settings.diplomacy.legacy_victory_info import LegacyVictoryInfo
 
 
 class Diplomacy(BaseStruct):
@@ -22,5 +22,5 @@ class Diplomacy(BaseStruct):
 
     lock_teams_in_game: bool = RetrieverCombiner(ret(_lock_teams_in_game_old), ret(_lock_teams_in_game))
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

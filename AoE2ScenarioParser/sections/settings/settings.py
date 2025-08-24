@@ -1,4 +1,4 @@
-from bfp_rs import BaseStruct, ByteStream, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Context, Retriever, Version
 from bfp_rs.types.le import f32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -30,5 +30,5 @@ class Settings(BaseStruct):
         ver_str = f"{f32.from_bytes(stream.peek(8)[4:]):.2f}"
         return Version(*map(int, ver_str.split(".")))
 
-    def __new__(cls, ver: Version = DE_LATEST, init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, init_defaults, **retriever_inits)
+    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
+        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
