@@ -4,6 +4,7 @@ from typing import Self
 
 from AoE2ScenarioParser.managers import MapManager, UnitManager
 from AoE2ScenarioParser.sections import ScenarioSections
+from managers import MessageManager
 
 
 class AoE2Scenario:
@@ -14,7 +15,12 @@ class AoE2Scenario:
         self.sections = sections
 
         self.map_manager = MapManager(sections)
+        self.map_manager._initialize_properties()
+
         self.unit_manager = UnitManager(sections)
+        self.unit_manager._initialize_properties()
+        
+        self.message_manager = MessageManager(sections)
 
     @classmethod
     def from_file(cls, path: str) -> Self:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
-from bfp_rs import BaseStruct, Manager, ret, RetrieverRef
+from bfp_rs import Manager, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
@@ -18,15 +18,11 @@ class UnitManager(Manager):
     _next_unit_reference_id: int = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.next_unit_ref))
     # @formatter:on
 
-    def __init__(self, struct: BaseStruct):
-        super().__init__(struct)
-
-        # Todo: initialize units, or lazy load??
+    def _initialize_properties(self):
+        self._assign_unit_properties()
 
     @property
     def units(self) -> list[list[Unit]]:
-        if not self._initialized_units:
-            self.units = self._units
         return self._units
 
     @units.setter
@@ -34,17 +30,20 @@ class UnitManager(Manager):
         if len(units) != 0 and not isinstance(units[0], list):
             raise ValueError("List of units must be nested list")
 
-        units = [units[i] if i < len(units) else [] for i in range(9)]
+        self._units = [
+            units[i] if i < len(units) else [] for i in range(9)
+        ]
 
+        self._assign_unit_properties()
+
+    def _assign_unit_properties(self):
         highest_reference_id = self._next_unit_reference_id
+
         for player in Player:
-            for unit in units[player]:
+            for unit in self._units[player]:
                 highest_reference_id = max(highest_reference_id, unit.reference_id + 1)
                 unit._player = player
-
-        self._units = units
         self._next_unit_reference_id = highest_reference_id
-        self._initialized_units = True
 
     def get_all_units(self) -> Generator[Unit]:
         return (unit for player_units in self.units for unit in player_units)
@@ -91,9 +90,16 @@ class UnitManager(Manager):
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
 
+        print('')
+        print(f"Player: {player}")
+
         # Set read-only player attribute for unit
         unit._player = player
+
+        print(f"Player in unit: {unit._player}")
         self.units[player].append(unit)
+
+        print(f"Player after unit in list: {self.units[player][-1].player}")
 
         return unit
 
@@ -261,6 +267,8 @@ class UnitManager(Manager):
         if players is None:
             return (unit for unit in units if area.contains(unit.tile))
 
+        for unit in units:
+            print("player: " + str(unit.player))
         return (unit for unit in units if area.contains(unit.tile) and unit.player in players)
 
     def apply_global_offset(

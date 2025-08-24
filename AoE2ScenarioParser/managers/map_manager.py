@@ -34,10 +34,11 @@ class MapManager(Manager):
 
     _terrain_2d: TerrainData | None = None
 
+    def _initialize_properties(self):
+        self._assign_terrain_properties()
+
     @property
     def terrain(self) -> TerrainData:
-        if self._terrain_2d is None:
-            self.terrain = self._terrain
         return self._terrain_2d
 
     @terrain.setter
@@ -67,10 +68,18 @@ class MapManager(Manager):
 
             map_size = math.floor(math.sqrt(len(value)))
 
-            self._terrain_2d = tuple_chunks(value, map_size)
             self._terrain = list(value)
         else:
             raise ValueError("Invalid value given for terrain")
+
+        self._map_width = map_size
+        self._map_height = map_size
+
+        self._assign_terrain_properties()
+
+    def _assign_terrain_properties(self):
+        print(self._terrain)
+        self._terrain_2d = tuple_chunks(self._terrain, self.map_size)
 
         # Assign a Tile reference to all TerrainTiles for ease of access
         for y, row in enumerate(self._terrain_2d):
@@ -78,9 +87,6 @@ class MapManager(Manager):
                 if not isinstance(tile, TerrainTile):
                     raise TypeError(f"Invalid object in terrain sequence. Tile: ({x},{y}) & Type: `{type(tile)}`")
                 tile._tile = Tile(x, y)
-
-        self._map_width = map_size
-        self._map_height = map_size
 
     @property
     def map_width(self) -> int:
