@@ -1,13 +1,5 @@
-import pytest
-
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import Area, Tile
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def mm():
-    return MapManager(MockScenarioSections())
 
 
 def test_terrain_from_function_tile_args(mm: MapManager):

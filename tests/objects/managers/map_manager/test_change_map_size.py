@@ -6,12 +6,6 @@ from AoE2ScenarioParser.datasets.terrains import TerrainId
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import TerrainTile
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def mm():
-    return MapManager(MockScenarioSections())
 
 
 @pytest.fixture(autouse = True)

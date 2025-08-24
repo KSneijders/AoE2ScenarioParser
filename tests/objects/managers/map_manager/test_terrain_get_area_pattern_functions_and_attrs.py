@@ -1,13 +1,5 @@
-import pytest
-
 from AoE2ScenarioParser.managers import MapManager
 from AoE2ScenarioParser.objects.support import AreaState
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def mm():
-    return MapManager(MockScenarioSections())
 
 
 def test_terrain_getter_area(mm: MapManager):

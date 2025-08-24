@@ -1,14 +1,6 @@
-import pytest
-
 from AoE2ScenarioParser.managers import UnitManager
 from datasets.player_data import Player
 from sections import Unit
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def um():
-    return UnitManager(MockScenarioSections())
 
 
 def test_next_unit_reference_id(um: UnitManager):

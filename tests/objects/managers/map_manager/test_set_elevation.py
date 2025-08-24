@@ -1,12 +1,4 @@
-import pytest
-
 from AoE2ScenarioParser.managers import MapManager
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def mm():
-    return MapManager(MockScenarioSections())
 
 
 def test_terrain_set_elevation_simple(mm: MapManager):

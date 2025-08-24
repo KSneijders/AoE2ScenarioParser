@@ -1,13 +1,5 @@
-import pytest
-
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def um():
-    return UnitManager(MockScenarioSections())
 
 
 def test_remove_unit(um: UnitManager):

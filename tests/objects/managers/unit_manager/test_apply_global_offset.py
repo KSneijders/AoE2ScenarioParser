@@ -4,12 +4,6 @@ from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from tests.objects import MockScenarioSections
-
-
-@pytest.fixture
-def um():
-    return UnitManager(MockScenarioSections())
 
 
 def assert_units_inside_map(units: list[Unit], map_size: int, x_start_at: int, y_start_at: int) -> None:
