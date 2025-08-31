@@ -3,18 +3,19 @@ from __future__ import annotations
 from typing import Tuple, TYPE_CHECKING, TypeVar, Union
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.objects.support import AreaPattern, Tile
+    from AoE2ScenarioParser.objects.support import AreaPattern, Tile, Point
     from AoE2ScenarioParser.objects.support import Area
     from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
     from AoE2ScenarioParser.sections import TerrainTile
     from typing import TypeAlias
 
-    var = Trigger, TypeAlias, AreaPattern, Tile, Area, TerrainTile
+    var = Trigger, TypeAlias, AreaPattern, Tile, Point, Area, TerrainTile
     # These are functionally redundant, but they tell PyCharm to not remove the 2 imports above
     # It considers the imports unused even though they DO actually help PyCharm understand types in other files...
 
 TriggerIdentifier: 'TypeAlias' = Union[int, 'Trigger']
 TileT = Union[Tuple[int, int], 'Tile']
+PointT = Union[Tuple[float, float], 'Point']
 AreaT = Union['Area', Tuple[TileT, TileT], Tuple[TileT]]
 
 TerrainDataRow = tuple['TerrainTile', ...]

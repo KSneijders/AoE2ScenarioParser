@@ -692,7 +692,7 @@ def test_init_with_tuples():
 
 
 def test_init_with_negative_tiles():
-    with pytest.raises(ValueError, match = "Cannot use negative coordinates to make an area selection when map_size is not set"):
+    with pytest.raises(ValueError, match = "Cannot use negative coordinates when map_size is not set"):
         AreaPattern(corner1 = (-5, -5), corner2 = (-1, -1))
         AreaPattern(area = ((-1, -2), (-5, -4)))
 

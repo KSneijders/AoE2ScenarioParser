@@ -20,9 +20,6 @@ if TYPE_CHECKING:
 
 
 class AreaPattern(TileSequence):
-    _recursion_steps = [Tile(0, -1), Tile(1, 0), Tile(0, 1), Tile(-1, 0)]
-    """Values used for recursion steps"""
-
     def __init__(
         self,
         area: AreaT = None,
