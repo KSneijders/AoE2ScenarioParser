@@ -5,8 +5,8 @@ from math import floor
 from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
+from AoE2ScenarioParser.objects.support import Point, Tile
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
-from objects.support import Tile
 
 
 class Unit(BaseStruct):
@@ -38,6 +38,14 @@ class Unit(BaseStruct):
     def tile(self, tile: Tile) -> None:
         self.x = tile.x + .5
         self.y = tile.y + .5
+
+    @property
+    def point(self) -> Point:
+        return Point(self.x, self.y)
+
+    @point.setter
+    def point(self, point: Point) -> None:
+        self.x, self.y = point
 
     @property
     def has_reference_id(self):
