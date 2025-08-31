@@ -215,7 +215,7 @@ class Tile:
             return self.y < other_y \
                 or self.y == other_y and self.x < other_x
 
-        super().__lt__(other)
+        return super().__lt__(other)
 
     def __eq__(self, other):
         if isinstance(other, Tile):
