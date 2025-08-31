@@ -3,7 +3,7 @@ from __future__ import annotations
 from contextlib import suppress
 
 import pytest
-from bfp_rs import BaseStruct, ByteStream, Context, ret, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
 from bfp_rs.combinators import get, set_repeat
 from bfp_rs.errors import VersionError
 from bfp_rs.types.le import bool8, u32
@@ -27,6 +27,8 @@ def terrain_tiles_repeat():
 
 
 class MapData2(BaseStruct):
+    __default_ver__ = MAP_LATEST
+
     # @formatter:off
     dead_food: int                   = Retriever(u32,    min_ver = Version(1), default = 0xDEAD_F00D) # yES
     version                          = Retriever(u32,    min_ver = Version(1), default = 2)
@@ -43,9 +45,6 @@ class MapData2(BaseStruct):
             return Version(0)
         ver = u32.from_bytes(stream.peek(8)[4:])
         return Version(ver)
-
-    def __new__(cls, ver: Version = MAP_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
 
 def sync_script_file_path(scx: ScenarioSections2):
@@ -78,6 +77,8 @@ def sync_resources(scx: ScenarioSections2):
 
 
 class ScenarioSections2(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     file_header: FileHeader   = Retriever(FileHeader,                            default_factory = FileHeader)
     settings: Settings        = Retriever(Settings,                              default_factory = Settings, remaining_compressed = True)
@@ -86,9 +87,6 @@ class ScenarioSections2(BaseStruct):
     trigger_data: TriggerData = Retriever(TriggerData, min_ver = Version(1, 14), default_factory = TriggerData)
     file_data: FileData       = Retriever(FileData,    min_ver = Version(1, 17), default_factory = FileData)
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     @classmethod
     def _decompress(cls, bytes_: bytes) -> bytes:

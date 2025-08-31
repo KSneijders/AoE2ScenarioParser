@@ -1,6 +1,6 @@
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
-from datasets.player_data import Player
-from sections import Unit
+from AoE2ScenarioParser.sections import Unit
 
 
 def test_next_unit_reference_id(um: UnitManager):
