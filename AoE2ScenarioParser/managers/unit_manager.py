@@ -62,7 +62,6 @@ class UnitManager(Manager):
 
         return unit_reference_id
 
-    # Todo: Add tests
     def change_ownership(self, player: Player, units: Unit | Iterable[Unit]) -> list[Unit]:
         """
         Change the ownership of the given units
@@ -90,16 +89,10 @@ class UnitManager(Manager):
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
 
-        print('')
-        print(f"Player: {player}")
-
         # Set read-only player attribute for unit
         unit._player = player
 
-        print(f"Player in unit: {unit._player}")
         self.units[player].append(unit)
-
-        print(f"Player after unit in list: {self.units[player][-1].player}")
 
         return unit
 
@@ -262,13 +255,11 @@ class UnitManager(Manager):
             A generator of units in the given area
         """
         if units is None:
-            units = self.get_all_units()
+            units = list(self.get_all_units())
 
         if players is None:
             return (unit for unit in units if area.contains(unit.tile))
 
-        for unit in units:
-            print("player: " + str(unit.player))
         return (unit for unit in units if area.contains(unit.tile) and unit.player in players)
 
     def apply_global_offset(
