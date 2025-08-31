@@ -1,4 +1,4 @@
-from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, Version
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, Version
 from bfp_rs.types.le import Array, bool32, bool8, i32, i8, u32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -6,6 +6,8 @@ from AoE2ScenarioParser.sections.settings.diplomacy.legacy_victory_info import L
 
 
 class Diplomacy(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     player_stances: list[list[int]]                    = Retriever(Array[16][Array[16][u32]],                                    default_factory = lambda _ver: [[3]*16 for _ in range(16)])
     legacy_victory_info: list[list[LegacyVictoryInfo]] = Retriever(Array[16][Array[12][LegacyVictoryInfo]],                      default_factory = lambda ver: [[LegacyVictoryInfo(ver) for _ in range(12)] for _ in range(16)])
@@ -21,6 +23,3 @@ class Diplomacy(BaseStruct):
     # @formatter:on
 
     lock_teams_in_game: bool = RetrieverCombiner(ret(_lock_teams_in_game_old), ret(_lock_teams_in_game))
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

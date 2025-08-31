@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import i16, i8, u8
 
 from AoE2ScenarioParser.objects.support import Tile
@@ -8,6 +8,8 @@ from AoE2ScenarioParser.sections.scx_versions import MAP_LATEST
 
 
 class TerrainTile(BaseStruct):
+    __default_ver__ = MAP_LATEST
+
     _tile = None
 
     # @formatter:off
@@ -19,9 +21,6 @@ class TerrainTile(BaseStruct):
     """what does this do?"""
     layer_type: int = Retriever(i16, min_ver = Version(1), default = -1)
     # @formatter:on
-
-    def __new__(cls, ver: Version = MAP_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     @property
     def tile(self) -> Tile:

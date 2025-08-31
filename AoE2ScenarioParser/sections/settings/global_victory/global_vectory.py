@@ -1,10 +1,12 @@
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import bool32, u32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 
 class GlobalVictory(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     conquest: bool                       = Retriever(bool32, default = True)
     capture_min_monuments: int           = Retriever(u32,    default = 0)
@@ -21,6 +23,3 @@ class GlobalVictory(BaseStruct):
     time_limit: int                      = Retriever(u32,    default = 9000, min_ver = Version(1, 13))
     """in 10ths of a year"""
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

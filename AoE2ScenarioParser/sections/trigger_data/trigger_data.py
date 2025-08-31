@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ByteStream, Context, ret, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import (Array32, Array64, bool8, f64, i8, u32, u64)
 
@@ -18,6 +18,8 @@ def trigger_display_orders_repeat():
 
 
 class TriggerData(BaseStruct):
+    __default_ver__ = TRIGGER_LATEST
+
     # @formatter:off
     version: float                    = Retriever(f64,                                        default = 3.6)
     objectives_state: int             = Retriever(i8,                min_ver = Version(1, 5), default = 0)
@@ -41,6 +43,3 @@ class TriggerData(BaseStruct):
     ) -> Version:
         ver_str = str(f64.from_bytes(stream.peek(8)))
         return Version(*map(int, ver_str.split(".")))
-
-    def __new__(cls, ver: Version = TRIGGER_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

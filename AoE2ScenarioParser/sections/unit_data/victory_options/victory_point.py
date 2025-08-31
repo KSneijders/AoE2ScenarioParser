@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import f32, i32, i8, u8
 
 
 class VictoryPoint(BaseStruct):
+    __default_ver__ = Version(2)
+
     # @formatter:off
     type: int = Retriever(u8, default = 0)
     """
@@ -38,6 +40,3 @@ class VictoryPoint(BaseStruct):
     attribute2: int                    = Retriever(i32, min_ver = Version(2, 0), default = 0)
     current_attribute2_quantity: float = Retriever(f32, min_ver = Version(2, 0), default = 0)
     # @formatter:on
-
-    def __new__(cls, ver: Version = Version(2, 0), ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

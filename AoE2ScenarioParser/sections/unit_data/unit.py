@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from math import floor
 
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -10,11 +10,13 @@ from objects.support import Tile
 
 
 class Unit(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     x: float                = Retriever(f32,                             default = 0.5)
     y: float                = Retriever(f32,                             default = 0.5)
     z: float                = Retriever(f32,                             default = 0)
-    reference_id: int       = Retriever(i32,                             default = 0)
+    reference_id: int       = Retriever(i32,                             default = -1)
     type: int               = Retriever(u16,                             default = 4)
     state: int              = Retriever(u8,                              default = 2)
     rotation: float         = Retriever(f32,                             default = 0)
@@ -25,9 +27,6 @@ class Unit(BaseStruct):
     caption_string_id: int  = Retriever(i32,   min_ver = Version(1, 54), default = -1)
     caption_string: str     = Retriever(str32, min_ver = Version(1, 55), default = "")
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     _player: int | None = None
 

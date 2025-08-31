@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
 from bfp_rs.types.le import Array, bool32, bool8, i32, StackedArray32, str16, u16, u32, u8
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -9,6 +9,8 @@ from AoE2ScenarioParser.sections.settings.options.view import View
 
 
 class Options(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     _legacy_disables: LegacyDisables        = Retriever(LegacyDisables,          min_ver = Version(1,  3), max_ver = Version(1, 26), default_factory = LegacyDisables)
     _disabled_tech_ids: list[list[int]]     = Retriever(StackedArray32[16][u32], min_ver = Version(1, 27),                           default_factory = lambda _: [[] for _ in range(16)])
@@ -48,6 +50,3 @@ class Options(BaseStruct):
     disabled_unit_ids: list[list[int]]     = RetrieverCombiner(ret(_disabled_unit_ids), ret(_legacy_disabled_unit_ids))
     disabled_building_ids: list[list[int]] = RetrieverCombiner(ret(_disabled_building_ids), ret(_legacy_disabled_building_ids))
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

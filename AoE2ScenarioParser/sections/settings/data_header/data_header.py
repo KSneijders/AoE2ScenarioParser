@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import (Array, bool32, bool8, f32, i32, NtStr, str16, u16, u32)
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -8,6 +8,8 @@ from AoE2ScenarioParser.sections.settings.data_header.player_base_options import
 
 
 class DataHeader(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     next_unit_ref: int                           = Retriever(u32,                                                    default = 0)
     version: float                               = Retriever(f32,                                                    default = 1.54)
@@ -27,6 +29,3 @@ class DataHeader(BaseStruct):
     """unused"""
     file_name: str                               = Retriever(str16,                                        default = "MadeWithAoE2SP.aoe2scenario")
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

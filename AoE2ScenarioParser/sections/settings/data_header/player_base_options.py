@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import bool32, u32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -8,6 +8,8 @@ from AoE2ScenarioParser.sections.settings.data_header.resources import Resources
 
 
 class PlayerBaseOptions(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     active: bool             = Retriever(bool32,                              default = False)
     starting_resources: int  = Retriever(Resources, max_ver = Version(1, 13), default_factory = Resources)
@@ -30,6 +32,3 @@ class PlayerBaseOptions(BaseStruct):
     # architecture = RetrieverCombiner(_architecture_1_40, _architecture_1_41, _architecture_1_43, _architecture_1_46)
 
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

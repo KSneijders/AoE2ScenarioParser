@@ -1,8 +1,10 @@
-from bfp_rs import BaseStruct, ByteStream, Context, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Retriever, Version
 from bfp_rs.types.le import Array32, u32
 
 
 class DLCOptions(BaseStruct):
+    __default_ver__ = Version(1000)
+
     # @formatter:off
     version: int             = Retriever(u32, min_ver = Version(1000), default = 1000)
     game_dataset: int        = Retriever(u32,                          default = 1)
@@ -34,6 +36,3 @@ class DLCOptions(BaseStruct):
     def _get_version(cls, stream: ByteStream, _ver: Version = Version(0)) -> Version:
         ver = u32.from_bytes(stream.peek(4))
         return Version(ver)
-
-    def __new__(cls, ver: Version = Version(1000), ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

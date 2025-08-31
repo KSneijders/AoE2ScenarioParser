@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from time import time
 
-from bfp_rs import BaseStruct, ByteStream, Context, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Retriever, Version
 from bfp_rs.types.le import bool32, i32, nt_str32, Str, u32
 
 from AoE2ScenarioParser.sections.file_header.dlc_options import DLCOptions
 
 
 class FileHeader(BaseStruct):
+    __default_ver__ = Version(6)
+
     # @formatter:off
     file_version: str               = Retriever(Str[4],                           default = "1.54")
     """unused"""
@@ -28,6 +30,3 @@ class FileHeader(BaseStruct):
     def _get_version(cls, stream: ByteStream, _ver: Version = Version(0)) -> Version:
         ver = i32.from_bytes(stream.peek(12)[8:])
         return Version(ver)
-
-    def __new__(cls, ver: Version = Version(6), ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

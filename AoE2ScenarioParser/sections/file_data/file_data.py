@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, ret, Retriever, Version
+from bfp_rs import BaseStruct, ret, Retriever, Version
 from bfp_rs.combinators import if_not, set_, set_repeat
 from bfp_rs.types.le import Array32, bool32, Option32, str16, str32
 
@@ -22,6 +22,8 @@ def sync_has_ai_files():
 
 
 class FileData(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     script_file_path: str         = Retriever(str16, min_ver = Version(1, 40), default = "")
     script: str                   = Retriever(str32, min_ver = Version(1, 40), default = "")
@@ -29,6 +31,3 @@ class FileData(BaseStruct):
     ai_error: AiError | None      = Retriever(Option32[AiError],               default_factory = lambda _ver: None)
     ai_files: list[AiFile] | None = Retriever(Array32[AiFile],                 default_factory = lambda _ver: None)
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, ByteStream, Context, ret, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, ret, Retriever, Version
 from bfp_rs.combinators import get, set_repeat
 from bfp_rs.types.le import bool8, u32
 
@@ -15,6 +15,8 @@ def terrain_tiles_repeat():
 
 
 class MapData(BaseStruct):
+    __default_ver__ = MAP_LATEST
+
     # @formatter:off
     dead_food: int                   = Retriever(u32,    min_ver = Version(1), default = 0xDEAD_F00D) # yES
     version                          = Retriever(u32,    min_ver = Version(1), default = 2)
@@ -31,6 +33,3 @@ class MapData(BaseStruct):
             return Version(0)
         ver = u32.from_bytes(stream.peek(8)[4:])
         return Version(ver)
-
-    def __new__(cls, ver: Version = MAP_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

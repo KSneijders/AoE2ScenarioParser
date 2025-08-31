@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from contextlib import suppress
 
-from bfp_rs import BaseStruct, ByteStream, Context, Retriever, Version
+from bfp_rs import BaseStruct, ByteStream, Retriever, Version
 from bfp_rs.errors import VersionError
 from zlib_ng import zlib_ng as zlib
 
@@ -45,6 +45,8 @@ def sync_resources(scx: ScenarioSections):
 
 
 class ScenarioSections(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     file_header: FileHeader   = Retriever(FileHeader,                            default_factory = FileHeader)
     settings: Settings        = Retriever(Settings,                              default_factory = Settings, remaining_compressed = True)
@@ -53,9 +55,6 @@ class ScenarioSections(BaseStruct):
     trigger_data: TriggerData = Retriever(TriggerData, min_ver = Version(1, 14), default_factory = TriggerData)
     file_data: FileData       = Retriever(FileData,    min_ver = Version(1, 17), default_factory = FileData)
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     @classmethod
     def _decompress(cls, bytes_: bytes) -> bytes:

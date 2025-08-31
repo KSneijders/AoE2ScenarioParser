@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, Version
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, Version
 from bfp_rs.combinators import get, get_len, set_, set_repeat
 from bfp_rs.types.le import (
     Array32, u32,
@@ -37,6 +37,8 @@ def sync_num_scx_players():
 
 
 class UnitData(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     # these lists can't be Array32s because the length is -1 the num_value. yES
     _num_world_players: int                        = Retriever(u32,                                          default = 9,                                     on_read = world_player_data_repeat, on_write = sync_num_world_players)
@@ -50,5 +52,3 @@ class UnitData(BaseStruct):
     units: list[list[Unit]]                        = RetrieverCombiner(ret(_units_de), ret(_units_aoc))
     # @formatter:on
 
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

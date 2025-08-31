@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, com, Context, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
+from bfp_rs import BaseStruct, com, ret, Retriever, RetrieverCombiner, RetrieverRef, Version
 from bfp_rs.types.le import str_array32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -8,6 +8,8 @@ from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 class LegacyAiFile(BaseStruct):
     """This struct is useless"""
+
+    __default_ver__ = DE_LATEST
 
     # the ._0 is a PyO3 thing that would need a lot of refactoring to fix. Something for future me to do
     _strings1: list[str] = Retriever(str_array32._0[2], max_ver = Version(1, 7), default_factory = lambda _: [""] * 2)
@@ -23,6 +25,3 @@ class LegacyAiFile(BaseStruct):
     ai_rules: str   = RetrieverRef(com(_strings), 2)
     """From the .per file of an AI"""
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

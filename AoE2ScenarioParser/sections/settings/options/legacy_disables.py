@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverCombiner, Version
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, Version
 from bfp_rs.combinators import set_
 from bfp_rs.types.le import Array, i32
 
@@ -36,6 +36,8 @@ def sync_num_disabled_buildings():
 
 
 class LegacyDisables(BaseStruct):
+    __default_ver__ = Version(1, 27)
+
     # @formatter:off
     _disabled_tech_ids_old: list[list[int]]     = Retriever(Array[16][Array[20][i32]], min_ver = Version(1,  4), max_ver = Version(1, 17), default_factory = lambda _ver: [[-1]*20 for _ in range(16)])
     _num_disabled_techs: list[int]              = Retriever(Array[16][i32],            min_ver = Version(1, 18),                           default_factory = lambda _ver: [0]*16,                       on_write = sync_num_techs)
@@ -53,6 +55,3 @@ class LegacyDisables(BaseStruct):
     disabled_tech_ids: list[list[int]]          = RetrieverCombiner(ret(_disabled_tech_ids_old),     ret(_disabled_tech_ids))
     disabled_building_ids: list[list[int]]      = RetrieverCombiner(ret(_disabled_building_ids_old), ret(_disabled_building_ids))
     # @formatter:on
-
-    def __new__(cls, ver: Version = Version(1, 27), ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

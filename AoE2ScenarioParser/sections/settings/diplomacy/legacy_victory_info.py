@@ -1,4 +1,4 @@
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever
 from bfp_rs.types.le import bool32, i32, u32
 
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -6,6 +6,8 @@ from AoE2ScenarioParser.sections.settings.diplomacy.area_f import AreaF
 
 
 class LegacyVictoryInfo(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     unit_type: int                = Retriever(i32,    default = 0)
     all: bool                     = Retriever(bool32, default = False)
@@ -22,6 +24,3 @@ class LegacyVictoryInfo(BaseStruct):
     destination_object: int       = Retriever(u32,    default = 0)
     """unused"""
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

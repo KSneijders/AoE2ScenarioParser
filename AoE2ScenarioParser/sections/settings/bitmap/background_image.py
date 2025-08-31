@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, ret, Retriever, Version
+from bfp_rs import BaseStruct, ret, Retriever, Version
 from bfp_rs.combinators import get, if_, set_repeat
 from bfp_rs.types.le import Bytes, i16, i32, str16, u32
 
@@ -33,6 +33,8 @@ def pixel_repeat():
 
 
 class BackgroundImage(BaseStruct):
+    __default_ver__ = DE_LATEST
+
     # @formatter:off
     filename: str                        = Retriever(str16,            min_ver = Version(1,  9), default = "")
     version: int                         = Retriever(u32,              min_ver = Version(1, 10), default = 0)
@@ -43,6 +45,3 @@ class BackgroundImage(BaseStruct):
     info_header: BitmapInfoHeader | None = Retriever(BitmapInfoHeader, min_ver = Version(1, 10), default_factory = lambda _ver: None)
     pixels: list[bytes] | None           = Retriever(Bytes[1],         min_ver = Version(1, 10), default_factory = lambda _ver: None, repeat = -2)
     # @formatter:on
-
-    def __new__(cls, ver: Version = DE_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)

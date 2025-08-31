@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Context, ret, Retriever, RetrieverRef, Version
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
 from bfp_rs.types.le import Array32, i32, str32
 
 from AoE2ScenarioParser.objects.support import Area, AreaT
@@ -8,6 +8,8 @@ from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 
 
 class Condition(BaseStruct):
+    __default_ver__ = TRIGGER_LATEST
+
     # @formatter:off
     type: int                              = Retriever(i32,          default = 0)
     _properties: list[int]                 = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*30)
@@ -52,6 +54,3 @@ class Condition(BaseStruct):
     decision_option: int                   = RetrieverRef(ret(_properties), 28)
     variable2: int                         = RetrieverRef(ret(_properties), 29)
     # @formatter:on
-
-    def __new__(cls, ver: Version = TRIGGER_LATEST, ctx: Context = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
