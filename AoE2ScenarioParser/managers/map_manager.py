@@ -78,7 +78,6 @@ class MapManager(Manager):
         self._assign_terrain_properties()
 
     def _assign_terrain_properties(self):
-        print(self._terrain)
         self._terrain_2d = tuple_chunks(self._terrain, self.map_size)
 
         # Assign a Tile reference to all TerrainTiles for ease of access
