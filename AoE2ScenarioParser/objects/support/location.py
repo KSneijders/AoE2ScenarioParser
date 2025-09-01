@@ -24,7 +24,7 @@ class Location:
         return self.__class__(*args)
 
     @classmethod
-    def from_value(cls, val: Self | tuple[int] | tuple[int, int] | list | dict) -> Self:
+    def from_value(cls, val: Self | tuple[int | float] | tuple[int | float, int | float] | list | dict) -> Self:
         """
         Create an object based on a given value
 
