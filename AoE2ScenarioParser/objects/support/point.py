@@ -19,6 +19,22 @@ class Point(Location):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    @property
+    def x(self) -> float:
+        return self._x
+
+    @x.setter
+    def x(self, value: float):
+        self._x = value
+
+    @property
+    def y(self) -> float:
+        return self._y
+
+    @y.setter
+    def y(self, value: float):
+        self._y = value
+
     @overload
     def move(self, x_offset: float = 0, y_offset: float = 0) -> Self:
         ...

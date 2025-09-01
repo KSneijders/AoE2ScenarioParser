@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import overload, Self, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
@@ -20,8 +21,24 @@ class Tile(Location):
     def __init__(self, tile: tuple[int, int]):
         ...
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, x: int | tuple[int, int], y: int = None):
+        super().__init__(x, y)
+
+    @property
+    def x(self) -> int:
+        return self._x
+
+    @x.setter
+    def x(self, value: int):
+        self._x = math.floor(value)
+
+    @property
+    def y(self) -> int:
+        return self._y
+
+    @y.setter
+    def y(self, value: int):
+        self._y = math.floor(value)
 
     @overload
     def move(self, x_offset: int = 0, y_offset: int = 0) -> Self:

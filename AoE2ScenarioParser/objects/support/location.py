@@ -17,14 +17,14 @@ class Location:
                 raise ValueError("tuple must have exactly two coordinates")
             x, y = coords
 
-        self.x: int | float = x
-        self.y: int | float = y
+        self.x = x
+        self.y = y
 
     def _new(self, *args) -> Self:
         return self.__class__(*args)
 
     @classmethod
-    def from_value(cls, val: Self | list | dict) -> Self:
+    def from_value(cls, val: Self | tuple[int] | tuple[int, int] | list | dict) -> Self:
         """
         Create an object based on a given value
 
