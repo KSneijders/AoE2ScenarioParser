@@ -152,7 +152,6 @@ class UnitManager(Manager):
 
         return result
 
-    # Todo: Add tests
     def filter_units_by(
         self,
         attr: str,
@@ -189,7 +188,6 @@ class UnitManager(Manager):
             return (unit for unit in units if getattr(unit, attr) in attr_values)
         return (unit for unit in units if getattr(unit, attr) not in attr_values)
 
-    # Todo: Add tests
     def filter_units_by_type(
         self,
         unit_types: list[int],
@@ -212,7 +210,6 @@ class UnitManager(Manager):
         """
         return self.filter_units_by("type", unit_types, is_allowlist, players, units = units)
 
-    # Todo: Add tests
     def filter_units_by_id(
         self,
         unit_ids: list[int],
@@ -233,7 +230,7 @@ class UnitManager(Manager):
         Returns:
             A list of units
         """
-        return self.filter_units_by("id", unit_ids, is_allowlist, players, units = units)
+        return self.filter_units_by("reference_id", unit_ids, is_allowlist, players, units = units)
 
     def get_units_in_area(
         self,
@@ -270,7 +267,7 @@ class UnitManager(Manager):
         unit_overflow_action: Literal['remove', 'error'] = 'error',
     ) -> None:
         """
-        Globally applies an X,Y offset to all units in the scenario.
+        Globally applies an (x, y) offset to all units in the scenario.
 
         Args:
             x_offset: The X offset to apply to all units in the scenario.
