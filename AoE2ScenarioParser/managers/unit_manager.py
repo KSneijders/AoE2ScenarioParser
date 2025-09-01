@@ -109,6 +109,37 @@ class UnitManager(Manager):
         """
         return [self.add_unit(player, unit) for unit in units]
 
+    def clone_unit(self, unit: Unit, player: Player = None) -> Unit:
+        """
+        Creates and adds a clone of the given unit to the game world. The cloned unit will
+        inherit the properties of the original unit, including its position, type, state,
+        rotation, frame, and other relevant attributes. If no player is specified, the
+        clone will belong to the same player as the original unit.
+
+        Args:
+            unit: The unit to clone.
+            player: The player to which the cloned unit should belong. Defaults to the player of the original unit.
+
+        Returns:
+            Unit: The newly added cloned unit.
+        """
+        if unit.player is None and player is None:
+            raise ValueError("Either unit.player or player must be specified")
+
+        return self.add_unit(player or unit.player, Unit(
+            reference_id=-1,
+            x=unit.x,
+            y=unit.y,
+            z=unit.z,
+            type=unit.type,
+            state=unit.state,
+            rotation=unit.rotation,
+            frame=unit.frame,
+            garrisoned_in_ref=unit.garrisoned_in_ref,
+            caption_string_id=unit.caption_string_id,
+            caption_string=unit.caption_string,
+        ))
+
     def remove_unit(self, unit: Unit) -> None:
         """
         Removes a unit from the scenario.
