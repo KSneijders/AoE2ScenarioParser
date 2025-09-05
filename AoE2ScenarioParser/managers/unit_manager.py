@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
-from bfp_rs import Manager, ret, RetrieverRef
+from bfp_rs import RefStruct, ret, RetrieverRef
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
@@ -10,7 +10,7 @@ from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
 
-class UnitManager(Manager):
+class UnitManager(RefStruct):
     _struct: ScenarioSections
 
     # @formatter:off

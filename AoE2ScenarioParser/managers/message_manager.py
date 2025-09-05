@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from bfp_rs import Manager, ret, RetrieverRef
+from bfp_rs import RefStruct, ret, RetrieverRef
 
 from AoE2ScenarioParser.sections import Messages, ScenarioSections, Settings
 
 
-class MessageManager(Manager):
+class MessageManager(RefStruct):
     # @formatter:off
     instructions: str        = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.messages), ret(Messages.instructions))
     hints: str               = RetrieverRef(ret(ScenarioSections.settings), ret(Settings.messages), ret(Messages.hints))

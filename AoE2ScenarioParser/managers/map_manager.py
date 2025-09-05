@@ -6,7 +6,7 @@ from collections import deque
 from collections.abc import Iterable
 from typing import Sequence
 
-from bfp_rs import Manager, ret, RetrieverRef
+from bfp_rs import RefStruct, ret, RetrieverRef
 from ordered_set import OrderedSet
 from typing_extensions import Literal
 
@@ -22,7 +22,7 @@ from AoE2ScenarioParser.objects.support.enums.direction import Direction
 from AoE2ScenarioParser.sections import MapData, Options, ScenarioSections, Settings, TerrainTile
 
 
-class MapManager(Manager):
+class MapManager(RefStruct):
     _struct: ScenarioSections
 
     # @formatter:off
