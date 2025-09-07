@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from typing import Self
 
-from AoE2ScenarioParser.managers import MapManager, UnitManager
+from AoE2ScenarioParser.managers import MapManager, MessageManager, PlayerManager, UnitManager
 from AoE2ScenarioParser.sections import ScenarioSections
-from managers import MessageManager
 
 
 class AoE2Scenario:
@@ -14,13 +13,19 @@ class AoE2Scenario:
 
         self.sections = sections
 
+        self.message_manager = MessageManager(sections)
+
         self.map_manager = MapManager(sections)
+        # noinspection PyProtectedMember
         self.map_manager._initialize_properties()
 
         self.unit_manager = UnitManager(sections)
+        # noinspection PyProtectedMember
         self.unit_manager._initialize_properties()
-        
-        self.message_manager = MessageManager(sections)
+
+        self.player_manager = PlayerManager(sections)
+        # noinspection PyProtectedMember
+        self.player_manager._initialize_properties()
 
     @classmethod
     def from_file(cls, path: str) -> Self:
@@ -29,8 +34,7 @@ class AoE2Scenario:
         return cls(sections)
 
     def to_file(self, path: str) -> None:
-        ScenarioSections.to_file(path, self.sections)
-
+        self.sections.to_file(path)
 
     # Todo: Scenario variant switching
     # Todo: Resetting internal name on write
