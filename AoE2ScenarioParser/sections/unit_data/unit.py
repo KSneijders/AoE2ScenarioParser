@@ -57,11 +57,8 @@ class Unit(BaseStruct):
         """
         super().__init__()
 
-        location = Point.from_value(location)
-
         self.type = type
-        self.x = location.center_x
-        self.y = location.center_y
+        self.location = location
         self.z = z
         self.state = state
         self.rotation = rotation
@@ -76,6 +73,14 @@ class Unit(BaseStruct):
         return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     _player: int | None = None
+
+    @property
+    def location(self) -> Point:
+        return self.point
+
+    @location.setter
+    def location(self, location: Location | tuple) -> None:
+        self.point = Point.from_value(location)
 
     @property
     def tile(self) -> Tile:
