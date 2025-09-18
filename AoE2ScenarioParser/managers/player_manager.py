@@ -26,8 +26,8 @@ class PlayerManager(RefStruct):
 
     @number_of_players.setter
     def number_of_players(self, value: int) -> None:
-        for index, player in enumerate(self.players):
-            player._active = index <= value
+        for index, player in enumerate(self.players[1:]):
+            player._active = index < value
 
         self._number_of_players = value
 

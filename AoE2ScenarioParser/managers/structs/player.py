@@ -13,7 +13,7 @@ from AoE2ScenarioParser.sections import (
 GAIA_INDEX = 8  # get(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.gaia_player_idx)) + 1
 INDEX = get_attr('index')
 GAIA_LAST_INDEX = get_attr('index') - 1
-GAIA_AFTER_PLAYER_INDEX = (GAIA_LAST_INDEX % GAIA_INDEX + GAIA_INDEX) % GAIA_INDEX
+GAIA_AFTER_PLAYER_INDEX = (GAIA_LAST_INDEX % (GAIA_INDEX + 1))
 
 
 class Player(RefStruct):
@@ -25,10 +25,10 @@ class Player(RefStruct):
     # GAIA index after players:  GAIA_AFTER_PLAYER_INDEX
     # GAIA last:                 GAIA_LAST_INDEX
     # GAIA not present:          GAIA_LAST_INDEX + no_gaia_property
-    _active: bool                  = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   INDEX,                   ret(PlayerBaseOptions.active))
-    human: bool                    = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   INDEX,                   ret(PlayerBaseOptions.human))
-    _civilization: int             = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   INDEX,                   ret(PlayerBaseOptions.civilization))
-    _architecture: int             = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   INDEX,                   ret(PlayerBaseOptions.architecture))
+    _active: bool                  = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.active))
+    human: bool                    = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.human))
+    _civilization: int             = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.civilization))
+    _architecture: int             = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.architecture))
     _tribe_name: str               = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.tribe_names),           GAIA_LAST_INDEX)  # NO-GAIA
     _string_table_name_id: int     = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_name_str_ids),   GAIA_LAST_INDEX)  # NO-GAIA
     lock_civ: bool                 = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.lock_civilizations),    GAIA_AFTER_PLAYER_INDEX)
@@ -48,6 +48,11 @@ class Player(RefStruct):
     _allied_victory: bool          = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.diplomacy),            ret(Diplomacy.allied_victories),       GAIA_LAST_INDEX)  # NO-GAIA
     _editor_view: ViewF            = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.scenario_player_data), GAIA_LAST_INDEX,                       ret(ScenarioPlayerData.editor_view))  # NO-GAIA
     # @formatter:on
+
+    def __new__(cls, struct, index: int):
+        inst = super().__new__(cls, struct)
+        inst.index = index
+        return inst
 
     @property
     def id(self):
@@ -131,10 +136,3 @@ class Player(RefStruct):
             raise AttributeError(f"GAIA does not support the editor_view attribute")
         self._editor_view.x = value.x
         self._editor_view.y = value.y
-
-    # ----
-
-    def __new__(cls, struct: ScenarioSections, index: int):
-        self = super().__new__(cls, struct)
-        self.index = index
-        return self
