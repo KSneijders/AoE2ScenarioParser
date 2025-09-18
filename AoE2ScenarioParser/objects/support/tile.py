@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import math
-from typing import overload, Self, TYPE_CHECKING
+from typing import overload, TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.coordinates import i_to_xy, xy_to_i
 from AoE2ScenarioParser.objects.support.location import Location
 
 if TYPE_CHECKING:
-    pass
+    from typing import Self
 
 
 # Todo: Add immutability to class

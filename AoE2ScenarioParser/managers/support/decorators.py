@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import IntEnum
 from typing import TYPE_CHECKING
 
@@ -8,7 +10,7 @@ if TYPE_CHECKING:
 def no_gaia_property():
     """
     A decorator to create a property that enforces restrictions for GAIA.
-    Retrievisng the value will return None for GAIA, and setting the value will raise an AttributeError.
+    Retrieving the value will return None for GAIA, and setting the value will raise an AttributeError.
 
     Returns:
         Callable: The wrapped property function with enforced restrictions.

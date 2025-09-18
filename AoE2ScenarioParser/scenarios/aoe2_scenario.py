@@ -1,9 +1,12 @@
 from __future__ import annotations
 
-from typing import Self
+from typing import TYPE_CHECKING
 
 from AoE2ScenarioParser.managers import MapManager, MessageManager, PlayerManager, UnitManager
 from AoE2ScenarioParser.sections import ScenarioSections
+
+if TYPE_CHECKING:
+    from typing import Self
 
 
 class AoE2Scenario:
