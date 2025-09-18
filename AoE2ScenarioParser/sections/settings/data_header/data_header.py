@@ -14,7 +14,7 @@ class DataHeader(BaseStruct):
     next_unit_ref: int                           = Retriever(u32,                                                    default = 0)
     version: float                               = Retriever(f32,                                                    default = 1.54)
     num_max_players: int                         = Retriever(i32,                          min_ver = Version(1, 52), default = 0)
-    gaia_player_idx: int                         = Retriever(i32,                          min_ver = Version(1, 52), default = 0)
+    gaia_player_idx: int                         = Retriever(i32,                          min_ver = Version(1, 52), default = 8)
     tribe_names: list[str]                       = Retriever(Array[16][NtStr[256]],        min_ver = Version(1, 13), default_factory = lambda _ver: [""]*16)
     player_name_str_ids: list[int]               = Retriever(Array[16][i32],               min_ver = Version(1, 16), default_factory = lambda _ver: [-2]*16)
     player_base_options: list[PlayerBaseOptions] = Retriever(Array[16][PlayerBaseOptions], min_ver = Version(1, 14), default_factory = lambda ver: [PlayerBaseOptions(ver) for _ in range(16)])
