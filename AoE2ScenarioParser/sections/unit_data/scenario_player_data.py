@@ -14,7 +14,9 @@ class ScenarioPlayerData(BaseStruct):
     # @formatter:off
     name: str                                = Retriever(nt_str16,                                 default = "Scenario Editor Phantom")
     editor_view: ViewF                       = Retriever(ViewF,                                    default_factory = ViewF)
+    """The location the editor starts at when viewing this map"""
     initial_view: ViewI                      = Retriever(ViewI,                                    default_factory = ViewI)
+    """Written when clicking "Go to View" - Unused in editor & game"""
     aok_allied_victory: bool                 = Retriever(bool8,                                    default = False)
     diplomacy_stances_interaction: list[int] = Retriever(Array16[u8],                              default_factory = lambda _: [3, 0, 3, 3, 3, 3, 3, 3, 3])
     """aka relations"""

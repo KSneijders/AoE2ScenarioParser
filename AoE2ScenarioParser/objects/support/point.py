@@ -1,8 +1,11 @@
 from __future__ import annotations
 
-from typing import overload, Self
+from typing import overload, TYPE_CHECKING
 
 from AoE2ScenarioParser.objects.support.location import Location
+
+if TYPE_CHECKING:
+    from typing import Self
 
 
 # Todo: Add immutability to class

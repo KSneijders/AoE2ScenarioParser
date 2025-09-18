@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import math
-from typing import Iterable, Self, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from AoE2ScenarioParser.helper.helper import bound
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.support import Point
     from AoE2ScenarioParser.objects.support import Tile
+    from typing import Iterable, Self
 
 
 class Location:
