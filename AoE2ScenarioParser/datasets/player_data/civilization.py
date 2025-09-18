@@ -27,12 +27,12 @@ class Civilization(_DataSetIntEnums):
     CELTS = 13
     SPANISH = 14
     AZTECS = 15
-    MAYANS = 16
+    MAYA = 16
     HUNS = 17
     KOREANS = 18
     ITALIANS = 19
     HINDUSTANIS = 20
-    INCAS = 21
+    INCA = 21
     MAGYARS = 22
     SLAVS = 23
     PORTUGUESE = 24
