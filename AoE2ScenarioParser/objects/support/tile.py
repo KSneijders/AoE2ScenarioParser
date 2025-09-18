@@ -40,6 +40,14 @@ class Tile(Location):
     def y(self, value: int):
         self._y = math.floor(value)
 
+    @property
+    def center_x(self):
+        return self.x + .5
+
+    @property
+    def center_y(self):
+        return self.y + .5
+
     @overload
     def move(self, x_offset: int = 0, y_offset: int = 0) -> Self:
         ...

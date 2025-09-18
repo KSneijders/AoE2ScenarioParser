@@ -26,6 +26,14 @@ class Location:
     def _new(self, *args) -> Self:
         return self.__class__(*args)
 
+    @property
+    def center_x(self):
+        return self.x
+
+    @property
+    def center_y(self):
+        return self.y
+
     @classmethod
     def from_value(cls, val: Self | tuple[int | float] | tuple[int | float, int | float] | list | dict) -> Self:
         """

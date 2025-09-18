@@ -9,16 +9,16 @@ from AoE2ScenarioParser.sections import Unit
 def make_units_for_players(um: UnitManager):
     units = []
 
-    u1 = Unit(reference_id=101, type=4)
-    u2 = Unit(reference_id=102, type=5)
+    u1 = Unit(reference_id=101, type=4, location = (1, 2))
+    u2 = Unit(reference_id=102, type=5, location = (1, 2))
     units.extend(um.add_units(Player.ONE, [u1, u2]))
 
-    u3 = Unit(reference_id=201, type=5)
-    u4 = Unit(reference_id=202, type=6)
+    u3 = Unit(reference_id=201, type=5, location = (1, 2))
+    u4 = Unit(reference_id=202, type=6, location = (1, 2))
     units.extend(um.add_units(Player.TWO, [u3, u4]))
 
-    u5 = Unit(reference_id=301, type=4)
-    u6 = Unit(reference_id=302, type=7, state=3)
+    u5 = Unit(reference_id=301, type=4, location = (1, 2))
+    u6 = Unit(reference_id=302, type=7, state=3, location = (1, 2))
     units.extend(um.add_units(Player.THREE, [u5, u6]))
 
     return units

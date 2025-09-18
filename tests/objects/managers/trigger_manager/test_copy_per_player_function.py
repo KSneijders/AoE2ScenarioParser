@@ -1,4 +1,3 @@
-from unittest import TestCase
 #
 ##from AoE2ScenarioParser.datasets.player_data import Player
 ##from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager

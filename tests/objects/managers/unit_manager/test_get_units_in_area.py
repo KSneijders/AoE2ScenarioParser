@@ -6,12 +6,12 @@ from AoE2ScenarioParser.sections import Unit
 
 def test_get_units_in_area_general_selection(um: UnitManager):
     um.add_units(Player.ONE, [
-        Unit(x=0.5, y=0.5),
-        Unit(x=1.5, y=1.5),
-        Unit(x=1.5, y=2.5),
-        Unit(x=2.5, y=2.5),
-        Unit(x=3.5, y=3.5),
-        Unit(x=4.5, y=4.5),
+        Unit(type = 4, location = (0.5, 0.5)),
+        Unit(type = 4, location = (1.5, 1.5)),
+        Unit(type = 4, location = (1.5, 2.5)),
+        Unit(type = 4, location = (2.5, 2.5)),
+        Unit(type = 4, location = (3.5, 3.5)),
+        Unit(type = 4, location = (4.5, 4.5)),
     ])
     # Y ↓ / X →
     # .         #
@@ -34,20 +34,20 @@ def test_get_units_in_area_general_selection(um: UnitManager):
 
 
 def test_get_units_in_area_edge_selection(um: UnitManager):
-    um.add_unit(Player.ONE, Unit(x=1, y=0))
+    um.add_unit(Player.ONE, Unit(type = 4, location = (1, 0)))
 
     units = um.get_units_in_area(Area((0, 0), (0, 0)))
     assert len(list(units)) == 0
 
-    um.add_unit(Player.ONE, Unit(x=0.99, y=0))
+    um.add_unit(Player.ONE, Unit(type = 4, location = (0.99, 0)))
 
     units = um.get_units_in_area(Area((0, 0), (0, 0)))
     assert len(list(units)) == 1
 
 
 def test_get_units_in_area_multiple_players(um: UnitManager):
-    um.add_unit(Player.ONE, Unit(x=0, y=0))
-    um.add_unit(Player.TWO, Unit(x=1, y=1))
+    um.add_unit(Player.ONE, Unit(type = 4, location = (0, 0)))
+    um.add_unit(Player.TWO, Unit(type = 4, location = (1, 1)))
 
     units = um.get_units_in_area(Area((0, 0), (1, 1)))
     assert len(list(units)) == 2
@@ -57,9 +57,9 @@ def test_get_units_in_area_multiple_players(um: UnitManager):
 
 
 def test_get_units_in_area_player_filter(um: UnitManager):
-    um.add_unit(Player.ONE, Unit(x=0, y=0))
-    um.add_unit(Player.TWO, Unit(x=1, y=1))
-    um.add_unit(Player.TWO, Unit(x=1, y=1))
+    um.add_unit(Player.ONE, Unit(type = 4, location = (0, 0)))
+    um.add_unit(Player.TWO, Unit(type = 4, location = (1, 1)))
+    um.add_unit(Player.TWO, Unit(type = 4, location = (1, 1)))
 
     units = um.get_units_in_area(Area((0, 0), (1, 1)))  # No filter check
     assert len(list(units)) == 3
@@ -72,14 +72,14 @@ def test_get_units_in_area_player_filter(um: UnitManager):
 
 
 def test_get_units_in_area_given_units(um: UnitManager):
-    um.add_unit(Player.ONE, Unit(x=0, y=0))
-    um.add_unit(Player.TWO, Unit(x=1, y=0))
-    um.add_unit(Player.THREE, Unit(x=0, y=1))
-    um.add_unit(Player.FOUR, Unit(x=1, y=1))
-    um.add_unit(Player.FIVE, Unit(x=2, y=0))
-    um.add_unit(Player.SIX, Unit(x=0, y=2))
-    um.add_unit(Player.SEVEN, Unit(x=2, y=2))
-    um.add_unit(Player.EIGHT, Unit(x=1, y=2))
+    um.add_unit(Player.ONE, Unit(type = 4, location = (0, 0)))
+    um.add_unit(Player.TWO, Unit(type = 4, location = (1, 0)))
+    um.add_unit(Player.THREE, Unit(type = 4, location = (0, 1)))
+    um.add_unit(Player.FOUR, Unit(type = 4, location = (1, 1)))
+    um.add_unit(Player.FIVE, Unit(type = 4, location = (2, 0)))
+    um.add_unit(Player.SIX, Unit(type = 4, location = (0, 2)))
+    um.add_unit(Player.SEVEN, Unit(type = 4, location = (2, 2)))
+    um.add_unit(Player.EIGHT, Unit(type = 4, location = (1, 2)))
     # Y ↓ / X →
     # . . . #
     # . .   # → all_units
@@ -97,10 +97,10 @@ def test_get_units_in_area_given_units(um: UnitManager):
 
 def test_get_units_in_area_given_units_no_player(um: UnitManager):
     all_units = [
-        Unit(x=0, y=0),
-        Unit(x=1, y=0),
-        Unit(x=0, y=1),
-        Unit(x=1, y=1),
+        Unit(type = 4, location = (0, 0)),
+        Unit(type = 4, location = (1, 0)),
+        Unit(type = 4, location = (0, 1)),
+        Unit(type = 4, location = (1, 1)),
     ]
 
     units = um.get_units_in_area(Area((0, 1), (1, 1)), units = all_units)

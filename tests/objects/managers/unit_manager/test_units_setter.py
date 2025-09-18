@@ -3,16 +3,17 @@ import pytest
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
+from tests.objects.managers.functions import create_unit
 
 
 def test_units_setter(um: UnitManager):
     with pytest.raises(ValueError, match = r'List of units must be nested list'):
-        um.units = [Unit()]
+        um.units = [create_unit()]
 
     um.units = [
-        [Unit()],
-        [Unit(), Unit(), Unit()],
-        [Unit(), Unit()]
+        [create_unit()],
+        [create_unit(), create_unit(), create_unit()],
+        [create_unit(), create_unit()]
     ]
     assert len(um.units) == 9
     assert len(list(um.get_all_units())) == 6
@@ -36,14 +37,14 @@ def test_units_setter_updates_reference_id(um: UnitManager):
     assert um._next_unit_reference_id == 0
 
     um.units = [
-        [Unit(reference_id=9)],
-        [Unit(reference_id=11), Unit(reference_id=3)]
+        [Unit(4, (1, 2), reference_id=9)],
+        [Unit(4, (1, 2), reference_id=11), Unit(4, (1, 2), reference_id=3)]
     ]
     assert um._next_unit_reference_id == 12
 
     # Not impacted by lower numbers
-    um.units = [[Unit(reference_id=3)]]
+    um.units = [[Unit(4, (1, 2), reference_id=3)]]
     assert um._next_unit_reference_id == 12
 
-    um.units = [[], [Unit(reference_id=3)], [], [], [Unit(reference_id=14)], [Unit(reference_id=3)]]
+    um.units = [[], [Unit(4, (1, 2), reference_id=3)], [], [], [Unit(4, (1, 2), reference_id=14)], [Unit(4, (1, 2), reference_id=3)]]
     assert um._next_unit_reference_id == 15

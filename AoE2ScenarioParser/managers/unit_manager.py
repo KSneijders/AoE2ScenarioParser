@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
-from bfp_rs import RefStruct, ret, RetrieverRef
+from bfp_rs import borrow_mut, RefStruct, ret, RetrieverRef, set_mut
 
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
@@ -37,6 +37,10 @@ class UnitManager(RefStruct):
         self._assign_unit_properties()
 
     def _assign_unit_properties(self):
+        set_mut(self._units, False)
+        for player_units in self.units:
+            set_mut(player_units, False)
+
         highest_reference_id = self._next_unit_reference_id
 
         for player in Player:
@@ -92,7 +96,8 @@ class UnitManager(RefStruct):
         # Set read-only player attribute for unit
         unit._player = player
 
-        self.units[player].append(unit)
+        with borrow_mut(self.units[player]):
+            self.units[player].append(unit)
 
         return unit
 
@@ -126,19 +131,21 @@ class UnitManager(RefStruct):
         if unit.player is None and player is None:
             raise ValueError("Either unit.player or player must be specified")
 
-        return self.add_unit(player or unit.player, Unit(
-            reference_id=-1,
-            x=unit.x,
-            y=unit.y,
-            z=unit.z,
-            type=unit.type,
-            state=unit.state,
-            rotation=unit.rotation,
-            frame=unit.frame,
-            garrisoned_in_ref=unit.garrisoned_in_ref,
-            caption_string_id=unit.caption_string_id,
-            caption_string=unit.caption_string,
-        ))
+        return self.add_unit(
+            player or unit.player,
+            Unit(
+                reference_id = -1,
+                location = unit.point,
+                z = unit.z,
+                type = unit.type,
+                state = unit.state,
+                rotation = unit.rotation,
+                frame = unit.frame,
+                garrisoned_in_ref = unit.garrisoned_in_ref,
+                caption_string_id = unit.caption_string_id,
+                caption_string = unit.caption_string,
+            )
+        )
 
     def remove_unit(self, unit: Unit) -> None:
         """
@@ -154,8 +161,10 @@ class UnitManager(RefStruct):
 
             return
 
-        if unit in self.units[unit.player]:
-            self.units[unit.player].remove(unit)
+        player_units = self.units[unit.player]
+        if unit in player_units:
+            with borrow_mut(player_units):
+                player_units.remove(unit)
 
     def remove_units(self, units: Iterable[Unit]) -> None:
         """

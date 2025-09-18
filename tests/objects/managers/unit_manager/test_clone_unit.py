@@ -6,7 +6,7 @@ from AoE2ScenarioParser.sections import Unit
 
 
 def test_clone_unit_returns_unit(um: UnitManager):
-    original = um.add_unit(Player.ONE, Unit(x = 1, y = 2, z = 3.5))
+    original = um.add_unit(Player.ONE, Unit(type = 4, location = (1, 2), z = 3.5))
     clone = um.clone_unit(original)
 
     assert isinstance(clone, Unit)
@@ -27,7 +27,7 @@ def test_clone_unit_returns_unit(um: UnitManager):
 
 
 def test_clone_unit_with_diff_player(um: UnitManager):
-    original = um.add_unit(Player.ONE, Unit(x = 1, y = 2, z = 3.5))
+    original = um.add_unit(Player.ONE, Unit(type = 4, location = (1, 2), z = 3.5))
     clone = um.clone_unit(original, Player.TWO)
 
     assert original.player == Player.ONE
@@ -35,7 +35,7 @@ def test_clone_unit_with_diff_player(um: UnitManager):
 
 
 def test_clone_unit_with_no_player(um: UnitManager):
-    original = Unit(x = 1, y = 2, z = 3.5)
+    original = Unit(type = 4, location = (1, 2), z = 3.5)
     clone = um.clone_unit(original, Player.TWO)
 
     assert original.player is None
@@ -43,7 +43,7 @@ def test_clone_unit_with_no_player(um: UnitManager):
 
 
 def test_clone_unit_with_no_player_no_reassignment(um: UnitManager):
-    original = Unit(x = 1, y = 2, z = 3.5)
+    original = Unit(type = 4, location = (1, 2), z = 3.5)
 
     with pytest.raises(ValueError):
         um.clone_unit(original)
