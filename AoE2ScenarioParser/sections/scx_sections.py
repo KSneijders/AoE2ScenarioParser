@@ -44,7 +44,17 @@ def sync_resources(scx: ScenarioSections):
             world_data.trade_goods = player_resources.trade_goods
 
 
+def sync_num_players(scx: ScenarioSections):
+    _max_players = scx.NUM_PLAYERS
+
+    with suppress(VersionError):
+        scx.file_header.num_players = sum(
+            options.active for options in scx.settings.data_header.player_base_options[:_max_players]
+        )
+
+
 class ScenarioSections(BaseStruct):
+    NUM_PLAYERS = 9
     __default_ver__ = DE_LATEST
 
     # @formatter:off
@@ -75,4 +85,5 @@ class ScenarioSections(BaseStruct):
         sync_script_file_path(self)
         sync_num_triggers(self)
         sync_resources(self)
+        sync_num_players(self)
         return super().to_bytes()

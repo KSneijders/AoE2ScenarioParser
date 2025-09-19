@@ -17,7 +17,7 @@ class DataHeader(BaseStruct):
     gaia_player_idx: int                         = Retriever(i32,                          min_ver = Version(1, 52), default = 8)
     tribe_names: list[str]                       = Retriever(Array[16][NtStr[256]],        min_ver = Version(1, 13), default_factory = lambda _ver: [""]*16)
     player_name_str_ids: list[int]               = Retriever(Array[16][i32],               min_ver = Version(1, 16), default_factory = lambda _ver: [-2]*16)
-    player_base_options: list[PlayerBaseOptions] = Retriever(Array[16][PlayerBaseOptions], min_ver = Version(1, 14), default_factory = lambda ver: [PlayerBaseOptions(ver) for _ in range(16)])
+    player_base_options: list[PlayerBaseOptions] = Retriever(Array[16][PlayerBaseOptions], min_ver = Version(1, 14), default_factory = lambda ver: [PlayerBaseOptions(ver, active = i <= 2) for i in range(16)])
     lock_civilizations: list[bool]               = Retriever(Array[16][bool32],            min_ver = Version(1, 28), default_factory = lambda _ver: [False]*16)
     lock_ai_personality: list[bool]              = Retriever(Array[16][bool32],            min_ver = Version(1, 53), default_factory = lambda _ver: [False]*16)
     victory_conquest: bool                       = Retriever(bool8,                        min_ver = Version(1,  7), default = True)
