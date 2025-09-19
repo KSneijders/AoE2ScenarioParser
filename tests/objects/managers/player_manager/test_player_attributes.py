@@ -1,10 +1,9 @@
 import pytest
 
+from AoE2ScenarioParser.datasets.player_data import Civilization
+from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
 from AoE2ScenarioParser.managers import PlayerManager
-from AoE2ScenarioParser.objects.support import Tile
-from datasets.player_data import Civilization
-from datasets.trigger_data import DiplomacyStance
-from objects.support import Point
+from AoE2ScenarioParser.objects.support import Point, Tile
 
 
 def test_no_gaia_attributes(pm: PlayerManager):
@@ -36,7 +35,8 @@ def test_view_attributes(pm: PlayerManager):
     p1.view = Tile(4, 5)
     assert p1.view == Tile(4, 5)
 
-    p1.editor_view = (1.5, 1.2)
-    assert p1.editor_view == Point(1.5, 1.2)
-    p1.editor_view = Point(4.5, 5.1)
-    assert p1.editor_view == Point(4.5, 5.1)
+    # Choose floats which can accurately be represented in binary because the values go through the BFP (Rust) backend.
+    p1.editor_view = (1.5, 4.125)
+    assert p1.editor_view == Point(1.5, 4.125)
+    p1.editor_view = Point(4.5, 5.25)
+    assert p1.editor_view == Point(4.5, 5.25)
