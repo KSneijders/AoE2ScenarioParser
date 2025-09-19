@@ -12,7 +12,7 @@ class PlayerManager(RefStruct):
     _struct: ScenarioSections
 
     _number_of_players: int = RetrieverRef(ret(ScenarioSections.file_header), ret(FileHeader.num_players))
-    _players: tuple[Player]
+    _players: tuple[Player, ...]
 
     def _initialize_properties(self):
         self._setup_player_objects()
@@ -20,24 +20,31 @@ class PlayerManager(RefStruct):
     def _setup_player_objects(self):
         self.players = tuple(Player(self._struct, index = i) for i in range(9))
 
+        self._sync_active_players()
+
     @property
     def number_of_players(self) -> int:
         return self._number_of_players
 
     @number_of_players.setter
     def number_of_players(self, value: int) -> None:
-        for index, player in enumerate(self.players[1:]):
-            player._active = index < value
-
+        if not (1 <= value < self.NUM_PLAYERS):
+            raise ValueError("Number of players must be between 1 and 8")
         self._number_of_players = value
 
+        self._sync_active_players()
+
     @property
-    def players(self) -> tuple[Player]:
+    def players(self) -> tuple[Player, ...]:
         return self._players
 
     @players.setter
-    def players(self, value: tuple[Player]):
+    def players(self, value: tuple[Player, ...]):
         if len(value) != PlayerManager.NUM_PLAYERS:
             raise ValueError("List of players must contain 9 Player objects")
         
         self._players = value
+
+    def _sync_active_players(self):
+        for player in self.players:
+            player._active = player.index <= self.number_of_players

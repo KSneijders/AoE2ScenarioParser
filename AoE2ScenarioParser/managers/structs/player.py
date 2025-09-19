@@ -9,6 +9,7 @@ from AoE2ScenarioParser.sections import (
     DataHeader, Diplomacy, Options, PlayerBaseOptions, PlayerOptions, Resources,
     ScenarioPlayerData, ScenarioSections, Settings, UnitData, View, ViewF,
 )
+from objects.support import PointT, TileT
 
 GAIA_INDEX = 8  # get(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.gaia_player_idx)) + 1
 INDEX = get_attr('index')
@@ -118,9 +119,11 @@ class Player(RefStruct):
         return Tile(self._view.x, self._view.y)
 
     @view.setter
-    def view(self, value: Tile) -> None:
+    def view(self, value: TileT) -> None:
         if self.index == 0:
             raise AttributeError(f"GAIA does not support the view attribute")
+        value = Tile.from_value(value)
+
         self._view.x = value.x
         self._view.y = value.y
 
@@ -131,8 +134,10 @@ class Player(RefStruct):
         return Point(self._editor_view.x, self._editor_view.y)
 
     @editor_view.setter
-    def editor_view(self, value: Point) -> None:
+    def editor_view(self, value: PointT) -> None:
         if self.index == 0:
             raise AttributeError(f"GAIA does not support the editor_view attribute")
+        value = Point.from_value(value)
+
         self._editor_view.x = value.x
         self._editor_view.y = value.y

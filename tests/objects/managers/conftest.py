@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from AoE2ScenarioParser.managers import MapManager, UnitManager
+from AoE2ScenarioParser.managers import MapManager, UnitManager, PlayerManager
 from AoE2ScenarioParser.sections import ScenarioSections
 
 
@@ -27,3 +27,11 @@ def mm():
     return mm
 
 
+@pytest.fixture
+def pm():
+    sections = ScenarioSections()
+
+    pm = PlayerManager(sections)
+    pm._initialize_properties()
+
+    return pm

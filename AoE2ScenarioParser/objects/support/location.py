@@ -43,7 +43,7 @@ class Location:
             val: The value used to create the object with
 
         Returns:
-            A new instance if a tuple is given. If the same class is given it's directly returned
+            A new instance if a tuple is given. If the same class is given, it's directly returned
 
         Raises:
             ValueError: When a value is given that cannot be used to create the object
