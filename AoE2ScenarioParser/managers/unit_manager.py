@@ -34,6 +34,11 @@ class UnitManager(RefStruct):
             units[i] if i < len(units) else [] for i in range(9)
         ]
 
+        for index, player_units in enumerate(self.units):
+            for unit in player_units:
+                if unit.player != index:
+                    raise ValueError(f"Invalid unit.player attribute encountered [{unit.player}] in slot [{index}]")
+
         self._assign_unit_properties()
 
     def _assign_unit_properties(self):
@@ -77,14 +82,17 @@ class UnitManager(RefStruct):
         units = units if isinstance(units, Iterable) else [units]
 
         self.remove_units(units)
-        return self.add_units(player, units)
 
-    def add_unit(self, player: Player, unit: Unit) -> Unit:
+        for unit in units:
+            unit._player = player
+
+        return self.add_units(units)
+
+    def add_unit(self, unit: Unit) -> Unit:
         """
         Adds a unit for the corresponding player to the scenario
 
         Args:
-            player: The player to add the unit for
             unit: The unit to add
 
         Returns:
@@ -93,26 +101,23 @@ class UnitManager(RefStruct):
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
 
-        # Set read-only player attribute for unit
-        unit._player = player
-
-        with borrow_mut(self.units[player]):
-            self.units[player].append(unit)
+        lst = self.units[unit.player]
+        with borrow_mut(lst):
+            lst.append(unit)
 
         return unit
 
-    def add_units(self, player: Player, units: Iterable[Unit]) -> list[Unit]:
+    def add_units(self, units: Iterable[Unit]) -> list[Unit]:
         """
         Adds units for the corresponding player to the scenario
 
         Args:
-            player: The player to add the units for
             units: The units to add
 
         Returns:
             The added units
         """
-        return [self.add_unit(player, unit) for unit in units]
+        return [self.add_unit(unit) for unit in units]
 
     def clone_unit(self, unit: Unit, player: Player = None) -> Unit:
         """
@@ -128,14 +133,10 @@ class UnitManager(RefStruct):
         Returns:
             Unit: The newly added cloned unit.
         """
-        if unit.player is None and player is None:
-            raise ValueError("Either unit.player or player must be specified")
-
         return self.add_unit(
-            player or unit.player,
             Unit(
-                reference_id = -1,
-                location = unit.point,
+                player = player or unit.player,
+                location = unit.location,
                 z = unit.z,
                 type = unit.type,
                 state = unit.state,
@@ -144,6 +145,8 @@ class UnitManager(RefStruct):
                 garrisoned_in_ref = unit.garrisoned_in_ref,
                 caption_string_id = unit.caption_string_id,
                 caption_string = unit.caption_string,
+
+                reference_id = -1,
             )
         )
 
@@ -154,13 +157,6 @@ class UnitManager(RefStruct):
         Args:
             unit: The unit to remove
         """
-        if unit.player is None:
-            for units in self.units:
-                if unit in units:
-                    units.remove(unit)
-
-            return
-
         player_units = self.units[unit.player]
         if unit in player_units:
             with borrow_mut(player_units):

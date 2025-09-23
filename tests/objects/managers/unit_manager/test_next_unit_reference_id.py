@@ -12,7 +12,7 @@ def test_next_unit_reference_id(um: UnitManager):
     assert um.next_unit_reference_id == 3
     assert um._next_unit_reference_id == 4
 
-    um.add_unit(Player.ONE, create_unit())
+    um.add_unit(create_unit(Player.ONE))
 
     assert um.next_unit_reference_id == 5
     

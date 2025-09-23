@@ -5,6 +5,7 @@ from math import floor
 from bfp_rs import BaseStruct, Context, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.objects.support import Point, Tile
 from AoE2ScenarioParser.objects.support.location import Location
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
@@ -31,6 +32,7 @@ class Unit(BaseStruct):
 
     def __init__(
         self,
+        player: int | Player,
         type: int,
         location: Location | tuple,
         z: float = 0,
@@ -57,7 +59,8 @@ class Unit(BaseStruct):
         """
         super().__init__()
 
-        self.type = type
+        self._player: Player = player
+        self.type: int = type
         self.location = location
         self.z = z
         self.state = state
@@ -80,7 +83,10 @@ class Unit(BaseStruct):
 
     @location.setter
     def location(self, location: Location | tuple) -> None:
-        self.point = Point.from_value(location)
+        if isinstance(location, Location):
+            self.point = (location.center_x, location.center_y)
+        else:
+            self.point = Point.from_value(location)
 
     @property
     def tile(self) -> Tile:
@@ -104,6 +110,11 @@ class Unit(BaseStruct):
         return self.reference_id != -1
 
     @property
-    def player(self):
-        """Read-only property for the owner player. Use the Unit Manager to change ownership"""
+    def player(self) ->  Player:
         return self._player
+
+    @player.setter
+    def player(self, value: int | Player):
+        # Todo: CALL: UnitManager.change_ownership
+        #   UnitManager(self._struct).change_ownership(value, self)
+        self._player = value

@@ -18,7 +18,7 @@ def test_apply_global_offset(um: UnitManager):
     map_size = 5
     units = um.units[Player.ONE]
 
-    um.add_units(Player.ONE, [Unit(4, (i, i)) for i in range(5)])
+    um.add_units([Unit(Player.ONE, 4, (i, i)) for i in range(5)])
 
     um.apply_global_offset(x_offset = 1, y_offset = 0, map_size = map_size, unit_overflow_action = 'remove')
     assert len(units) == 4
@@ -35,7 +35,7 @@ def test_apply_global_offset(um: UnitManager):
 
 def test_apply_global_offset_throw_exception(um: UnitManager):
     map_size = 5
-    um.add_units(Player.ONE, [Unit(4, (i, i)) for i in range(5)])
+    um.add_units([Unit(Player.ONE, 4, (i, i)) for i in range(5)])
 
     pytest.raises(
         InvalidObjectPlacementError,

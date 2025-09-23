@@ -4,8 +4,8 @@ from tests.objects.managers.functions import create_unit
 
 
 def test_change_ownership(um: UnitManager):
-    unit = create_unit()
-    um.add_unit(Player.ONE, unit)
+    unit = create_unit(Player.ONE)
+    um.add_unit(unit)
 
     assert unit.player == Player.ONE
     assert len(um.units[Player.ONE]) == 1
@@ -19,8 +19,8 @@ def test_change_ownership(um: UnitManager):
 
 
 def test_change_ownership_to_self(um: UnitManager):
-    unit = create_unit()
-    um.add_unit(Player.ONE, unit)
+    unit = create_unit(Player.ONE)
+    um.add_unit(unit)
 
     assert unit.player == Player.ONE
     assert len(um.units[Player.ONE]) == 1
@@ -34,9 +34,9 @@ def test_change_ownership_to_self(um: UnitManager):
 
 
 def test_change_ownership_on_external_unit(um: UnitManager):
-    unit = create_unit()
+    unit = create_unit(Player.ONE)
 
-    assert unit.player is None
+    assert unit.player is Player.ONE
     assert len(um.units[Player.ONE]) == 0
     assert len(um.units[Player.TWO]) == 0
 

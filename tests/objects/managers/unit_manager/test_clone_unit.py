@@ -1,12 +1,10 @@
-import pytest
-
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
 
 
 def test_clone_unit_returns_unit(um: UnitManager):
-    original = um.add_unit(Player.ONE, Unit(type = 4, location = (1, 2), z = 3.5))
+    original = um.add_unit(Unit(Player.ONE, 4, (1, 2), 3.5, 4, 3.44, 11, -1, 4, 'caption', 12))
     clone = um.clone_unit(original)
 
     assert isinstance(clone, Unit)
@@ -27,7 +25,7 @@ def test_clone_unit_returns_unit(um: UnitManager):
 
 
 def test_clone_unit_with_diff_player(um: UnitManager):
-    original = um.add_unit(Player.ONE, Unit(type = 4, location = (1, 2), z = 3.5))
+    original = um.add_unit(Unit(Player.ONE, 4, (1, 2)))
     clone = um.clone_unit(original, Player.TWO)
 
     assert original.player == Player.ONE
@@ -35,15 +33,8 @@ def test_clone_unit_with_diff_player(um: UnitManager):
 
 
 def test_clone_unit_with_no_player(um: UnitManager):
-    original = Unit(type = 4, location = (1, 2), z = 3.5)
+    original = Unit(Player.ONE, 4, (1, 2))
     clone = um.clone_unit(original, Player.TWO)
 
-    assert original.player is None
+    assert original.player == Player.ONE
     assert clone.player == Player.TWO
-
-
-def test_clone_unit_with_no_player_no_reassignment(um: UnitManager):
-    original = Unit(type = 4, location = (1, 2), z = 3.5)
-
-    with pytest.raises(ValueError):
-        um.clone_unit(original)
