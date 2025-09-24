@@ -82,7 +82,7 @@ class ObjectAttribute(_DataSetIntEnums):
         1. The damage from a mangonel's shot is decreased over distance when moving outward from the centre of the blast (the targeted point). However, when the mangonel is deleted, this decrease over distance doesn't happen, and the projectile deals the full 100% damage to all the units in the blast radius!
         2. A shot that is fired from lower elevation would normally deal only 75% of its normal damage due to the elevation damage reduction. deleting a mangonel in this case also makes the damage the full 100% as if there was no elevation difference
     """
-    MAX_RANGE = 12
+    MAXIMUM_RANGE = 12
     """
     This is the maximum range of a unit. Note that to be able to shoot at a target, it must be visible to the unit via its own line of sight or from another unit's line of sight
     """
@@ -269,14 +269,14 @@ class ObjectAttribute(_DataSetIntEnums):
     
     - Flags:
     
-        - 0: Damage resources, nearby allied units and trees
+        - 0: Damage resources, nearby allied units and tress
         - 1: Damage trees, nearby allied units
         - 2: Damage nearby and allied units
         - 3: Damage targeted unit only
         - 4: Damage enemy units only
         - 8: Ignore friendly fire
-        - 16 Unused
-        - 32 Unused
+        - 16: Unused
+        - 32: Unused
         - 64: Attenuate damage as distance from the centre of attack increases (infantry only)
         - 128: Blast damage is dealt along the direction the unit is facing only. This area is a very narrow cone
     
@@ -313,11 +313,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     OBJECT_NAME_ID = 50
     """
-    The string ID to use for the name of an object. A string ID is used for referring to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
+    The string ID to use for the name of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set names by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
     """
     SHORT_DESCRIPTION_ID = 51
     """
-    The string ID for the Short Description of an object. A string ID is used for referring to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an exercise for the reader
+    The string ID for the Short Description of an object. A string ID is used for refering to strings that the game recognises by default. It can be used to automatically set a Short Description by using a value that the game recognises. Trying out the value 1 on a unit and seeing what happens is left as an excersise for the reader
     """
     TERRAIN_RESTRICTION_ID = 53
     """
@@ -365,7 +365,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         - 1: Garrison Unit
         - 2: Ship Unit
-        - 4: Build Another Building (Serjeants)
+        - 4: Build Another Building (Serjeants) [See Special Ability: Mode 7]
         - 8: Transform Into Another Unit (Ratha)
         - 16: Auto Scout Unit
     
@@ -413,23 +413,25 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     This action depletes the unit's charge
     
-    - Flags or values (depends on Charge Type):
-        - 1 - Deplete charge, 0 - Keep charge: Charge Type one of `1`, `2`, or `3`
-        - Max range modifier - Charge Type one of 6, or 7
-        - 0 - Transform unit until one attack, -1 - perform attack ground on it's location: Charge Type is -1
-        - 0 - Transform unit until one attack: Charge Type is -2
-        - Aura task duration: Charge Type is -3
-        - Conversion range (maybe overridden by conversion tasks): Charge Type is -4
+    - Flags:
+    
+        - Charge Type one of `1`, `2`, or `3`: 1 - Deplete charge, 0 - Keep charge
+        - Charge Type one of `6`, or `7`: Max range modifier
+        - Charge Type is `-1`: 0 - Transform unit until one attack, -1 - perform attack ground on it's location
+        - Charge Type is `-2`: 0 - Transform unit until one attack
+        - Charge Type is `-3`: Aura task duration
+        - Charge Type is `-4`: Conversion range (maybe overridden by conversion tasks)
     """
     CHARGE_TYPE = 62
     """
     The type of charge that a unit holds
     
     - Flags:
+    
         - -5: Spawn Building on top of the unit (Uses unit set in Trait Piece)
         - -4: Conversion ability (Needs task 104). Charge Target defines the conversion percent chance
         - -3: Active aura ability (Needs task 155 with unused flag 8 set)
-        - -2: Active targeted transform (Uses unit set in Trait Piece). If charge target = -1, use attack ground targeting
+        - -2: Active targetted transform (Uses unit set in Trait Piece). If charge target = -1, use attack ground targetting
         - -1: Active temporary transform (Uses unit set in Trait Piece)
         - 1: Attack charge
         - 2: ??? charge
@@ -437,7 +439,7 @@ class ObjectAttribute(_DataSetIntEnums):
         - 4: Agility charge
         - 5: Ignore Melee Attack
         - 6: Fire only Charge projectiles, sets Total Projectiles to the value of Max Total Projectiles (Lou Chuan)
-        - 7: Fires 1 Charge projectile and additional Secondary Projectiles, sets Total Projectiles to the value of Max Total Projectiles)
+        - 7: Fires 1 Charge projectile and additional Secondary Projectiles, sets Total Projectiles to the value of Max Total Projectiles
     """
     COMBAT_ABILITY = 63
     """
@@ -447,12 +449,12 @@ class ObjectAttribute(_DataSetIntEnums):
     
         - 1: Ignore melee and pierce armours of the targeted unit
         - 2: Resist armour-ignoring attacks
-        - 4: Damage the targeted unit's armor (Obuch)
+        - 4: Damage the targeted unit's melee and pierce armors by 1, for a minimum of 0 (Obuch)
         - 8: Attack ground ability
         - 16: Bulk volley release (kipchak/siege weapons)
-        - 32: Enable task 155 ability (Stronghold castle/Caravanserai/Centurion)
+        - 32: Enable aura ability (task 155) (Stronghold castle/Caravanserai/Centurion)
         - 64: Invert aura ability (task 155) to boost self (Monaspa) - Auto Search = 1 needed for multiple tasks
-        - 128: Activate stingers ability (task 157)
+        - 128: Activate stringer ability (task 157)
     """
     ATTACK_DISPERSION = 64
     """
@@ -473,8 +475,8 @@ class ObjectAttribute(_DataSetIntEnums):
     - Flags:
     
         - 0: Collide only with the targeted unit
-        - 1: Collide with any damage-able units in the path to the targeted unit
-        - 2: Collide with any unit in the path to the targeted unit
+        - 1: Collide with any damage-able units in the path to the targetted unit
+        - 2: Collide with any unit in the path to the targetted unit
     """
     PROJECTILE_VANISH_MODE = 68
     """
@@ -516,11 +518,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     UNDEAD_GRAPHIC = 74
     """
-    This graphic is shown after a unit's dying animation instead of replacing it with its dead unit if its "Undead Mode" is set to `1`
+    This graphic is shown after a unit's dying animation instead of replacing it with its dead unit if its "Undead Mode" is set to `1`. Used to assign decay graphic to units without "Undead Mode" set to 1. Overrides the standing graphic of the object's dead unit
     
     - Notes:
     
-        Requires "Undead Mode" to be set to `1`
+        Depends on Undead Mode flag
     """
     WALKING_GRAPHIC = 75
     """
@@ -547,7 +549,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     OBSTRUCTION_TYPE = 78
     """
-    Controls unit outline and collision. Use the ``ObstructionType`` dataset for auto completion
+    Controls unit outline and collision
     
     - Flags:
     
@@ -558,10 +560,13 @@ class ObjectAttribute(_DataSetIntEnums):
         - 4: No outline, and passable
         - 5: Round outline, and has collision box
         - 10: Same as 2, but designed for mountains
+        - 11: Consider the selection size of a radius entirely as opposed to the actual defined collision size
+        - 12: Ignore hard obstructions entirely and just consider the space occupied with no obstruction at all
+        - 13: Consider the selection radius when placing other objects, but use the original obstruction size for hard obstructions
     """
     BLOCKAGE_CLASS = 79
     """
-    Controls unit blockage class. Use the ``BlockageClass`` dataset for auto completion
+    Controls unit blockage class
     
     - Flags:
     
@@ -575,7 +580,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     SELECTION_EFFECT = 80
     """
-    Controls unit hit point bar and outline. Use the ``SelectionEffect`` dataset for auto completion
+    Controls unit hit point bar and outline
     
     - Flags:
     
@@ -583,6 +588,82 @@ class ObjectAttribute(_DataSetIntEnums):
         - 1: Has hit point bar, and outline
         - 2: No hit point bar, or outline
         - 3: No hit point bar, but has outline
+    """
+    SPECIAL_ABILITY = 81
+    """
+    TODO
+    """
+    IDLE_ATTACK_GRAPHIC = 82
+    """
+    TODO
+    """
+    HERO_GLOW_GRAPHIC = 83
+    """
+    TODO
+    """
+    GARRISON_GRAPHIC = 84
+    """
+    TODO
+    """
+    CONSTRUCTION_GRAPHIC = 85
+    """
+    TODO
+    """
+    SNOW_GRAPHIC = 86
+    """
+    TODO
+    """
+    DESTRUCTION_GRAPHIC = 87
+    """
+    TODO
+    """
+    DESTRUCTION_RUBBLE_GRAPHIC = 88
+    """
+    TODO
+    """
+    RESEARCHING_GRAPHIC = 89
+    """
+    TODO
+    """
+    RESEARCH_COMPLETED_GRAPHIC = 90
+    """
+    TODO
+    """
+    DAMAGE_GRAPHIC = 91
+    """
+    TODO
+    """
+    SELECTION_SOUND = 92
+    """
+    TODO
+    """
+    SELECTION_SOUND_EVENT = 93
+    """
+    TODO
+    """
+    DYING_SOUND = 94
+    """
+    TODO
+    """
+    DYING_SOUND_EVENT = 95
+    """
+    TODO
+    """
+    TRAIN_SOUND = 96
+    """
+    TODO
+    """
+    TRAIN_SOUND_EVENT = 97
+    """
+    TODO
+    """
+    DAMAGE_SOUND = 98
+    """
+    TODO
+    """
+    DAMAGE_SOUND_EVENT = 99
+    """
+    TODO
     """
     RESOURCE_COSTS = 100
     """
@@ -612,13 +693,13 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     The stone cost of a unit
     """
-    MAX_TOTAL_MISSILES = 107
+    MAXIMUM_TOTAL_MISSILES = 107
     """
     The maximum number of projectiles a unit can fire when other units are garrisoned inside of it. A castle fires 5 projectiles by default but can fire more if units are garrisoned inside it. This attribute controls the maximum number of those
     """
     GARRISON_HEAL_RATE = 108
     """
-    The rate measured in HP/s at which garrisoned units are healed inside a given building
+    The rate measured in HP/s at which garissoned units are healed inside a given building
     """
     REGENERATION_RATE = 109
     """
@@ -626,7 +707,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     POPULATION = 110
     """
-    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population headroom provided by a unit
+    Modifies the population headroom storage of a unit. Negative values = require population (units), positive values = give population (houses). This is not a real attribute that exists in A.G.E., just seems like a way to edit the population heardroom provided by a unit
     """
     MINIMUM_CONVERSION_TIME_MODIFIER = 111
     """
@@ -681,23 +762,23 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     REGENERATION_HP_PERCENT = 120
     """
-    Percentage of the unit’s max HP that is regenerated over a minute
+    Percentage of the unit�s max HP that is regenerated over a minute
     """
     ABILITY_BUTTON_ICON_ID = 121
     """
-    Override for Transform/Active Ability Icon. Uses ID from ``Materials.json``
+    Override for Transform/Active Ability Icon. Uses ID from `Materials.json`
     """
-    ABILITY_SHORT_TOOLTIP = 122
+    ABILITY_SHORT_TOOLTIP_ID = 122
     """
     Override for Transform/Active Ability Short Tooltip
     """
-    ABILITY_EXTENDED_TOOLTIP = 123
+    ABILITY_EXTENDED_TOOLTIP_ID = 123
     """
     Override for Transform/Active Ability Long Tooltip
     """
     ABILITY_HOTKEY_ACTION = 124
     """
-    ``button_action_list`` when pressing button/hotkey for the ability or transformation
+    `button_action_list` when pressing button/hotkey for the ability or transformation
     """
     CHARGE_PROJECTILE_UNIT = 125
     """
@@ -705,9 +786,9 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     AVAILABLE_UNIT_FLAG = 126
     """
-    When Disabled flag 2 or 4 is set, sets value for number of trainable unit. Will use units paired in ``LinkedUnits.json`` to count them together
+    When Disabled flag 2 or 4 is set, sets value for number of trainable unit. Will use units paired in `LinkedUnits.json` to count them together
     """
-    DISABLE_UNIT_FLAG = 127
+    DISABLED_UNIT_FLAG = 127
     """
     Enable/Disable a unit
     
@@ -724,75 +805,132 @@ class ObjectAttribute(_DataSetIntEnums):
     - Flags:
     
         - 1: Units > Buildings
-        - 2: Buildings > Units 	
+        - 2: Buildings > Units
         - 3: Buildings only
     """
     INVULNERABILITY_LEVEL = 129
     """
     Sets an HP threshold after which a unit no longer receives damage when attacked
     
-    - Values:
+    - Flags:
     
-        - >0: Multiplier of Base HP
-        - <0: Fixed value of HP	
+        - > 0: Multiplier of Base HP
+        - < 0: Fixed value of HP
     """
     GARRISON_FIREPOWER = 130
     """
     Adds to the damage of the unit to calculate the number of garrison arrows to fire
-
-    - Values:
-
-        - >0: Acts as multiplier
-        - <0: Flat dps value added to the unit's dps	
+    
+    - Flags:
+    
+        - > 0: Acts as multiplier
+        - < 0: Flat dps value added to the unit�s dps
     """
     ATTACK_GRAPHIC_2 = 131
     """
     Second attack graphic of the unit; alternates with the first attack graphic when assigned
     """
-
-    SPECIAL_ABILITY = 81
-    IDLE_ATTACK_GRAPHIC = 82
-    HERO_GLOW_GRAPHIC = 83
-    GARRISON_GRAPHIC = 84
-    CONSTRUCTION_GRAPHIC = 85
-    SNOW_GRAPHIC = 86
-    DESTRUCTION_GRAPHIC = 87
-    DESTRUCTION_RUBBLE_GRAPHIC = 88
-    RESEARCHING_GRAPHIC = 89
-    RESEARCH_COMPLETED_GRAPHIC = 90
-    DAMAGE_GRAPHIC = 91
-    SELECTION_SOUND = 92
-    SELECTION_SOUND_EVENT = 93
-    DYING_SOUND = 94
-    DYING_SOUND_EVENT = 95
-    TRAIN_SOUND = 96
-    TRAIN_SOUND_EVENT = 97
-    DAMAGE_SOUND = 98
-    DAMAGE_SOUND_EVENT = 99
-
     COMMAND_SOUND = 132
+    """
+    TODO
+    """
     COMMAND_SOUND_EVENT = 133
+    """
+    TODO
+    """
     MOVE_SOUND = 134
+    """
+    TODO
+    """
     MOVE_SOUND_EVENT = 135
+    """
+    TODO
+    """
     CONSTRUCTION_SOUND = 136
+    """
+    TODO
+    """
     CONSTRUCTION_SOUND_EVENT = 137
+    """
+    TODO
+    """
     TRANSFORM_SOUND = 138
+    """
+    TODO
+    """
     TRANSFORM_SOUND_EVENT = 139
+    """
+    TODO
+    """
     RUN_PATTERN = 140
+    """
+    TODO
+    """
     INTERFACE_KIND = 141
+    """
+    TODO
+    """
     COMBAT_LEVEL = 142
+    """
+    TODO
+    """
     INTERACTION_MODE = 143
+    """
+    TODO
+    """
     MINIMAP_MODE = 144
+    """
+    TODO
+    """
     TRAILING_UNIT = 145
+    """
+    TODO
+    """
     TRAIL_MODE = 146
+    """
+    TODO
+    """
     TRAIL_DENSITY = 147
+    """
+    TODO
+    """
     PROJECTILE_GRAPHIC_DISPLACEMENT_X = 148
+    """
+    TODO
+    """
     PROJECTILE_GRAPHIC_DISPLACEMENT_Y = 149
+    """
+    TODO
+    """
     PROJECTILE_GRAPHIC_DISPLACEMENT_Z = 150
+    """
+    TODO
+    """
     PROJECTILE_SPAWNING_AREA_WIDTH = 151
+    """
+    TODO
+    """
     PROJECTILE_SPAWNING_AREA_LENGTH = 152
+    """
+    TODO
+    """
     PROJECTILE_SPAWNING_AREA_RANDOMNESS = 153
+    """
+    TODO
+    """
     DAMAGE_GRAPHICS_ENTRY_MOD = 154
+    """
+    TODO
+    """
     DAMAGE_GRAPHICS_TOTAL_NUM = 155
+    """
+    TODO
+    """
     DAMAGE_GRAPHIC_PERCENT = 156
+    """
+    TODO
+    """
     DAMAGE_GRAPHIC_APPLY_MODE = 157
+    """
+    TODO
+    """
