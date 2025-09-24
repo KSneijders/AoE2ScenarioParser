@@ -64,6 +64,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixes
 
 - Data trigger combination syntax doesn't exclude area/tiles from contributing objects when area/tiles are themselves part of the data — Credits: by [@Alian713] in [#90](https://github.com/KSneijders/AoE2ScenarioParser/pull/90)
+- Corrupting scenarios instead of raising an exception when data is `None` but `Retriever.repeat > 0` — Credits: by [@ougidarkness] in [#89](https://github.com/KSneijders/AoE2ScenarioParser/pull/89)
+
+[@ougidarkness]: https://github.com/MegaDusknoir
 
 ---
 
