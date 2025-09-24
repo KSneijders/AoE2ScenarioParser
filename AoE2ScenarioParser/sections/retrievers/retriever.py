@@ -80,7 +80,10 @@ class Retriever:
         """
         self.update_datatype_repeat()
 
-        if self.data is not None and self.datatype.repeat != 0:
+        if self.datatype.repeat != 0:
+            if self.data is None:
+                raise ValueError(f"Unable to convert NoneType with non-zero repeat to bytes (Attribute: {self.name})")
+
             result = []
             if self.datatype.type == "struct":
                 if isinstance(self.data, list):
@@ -99,8 +102,6 @@ class Retriever:
                     raise e
 
             joined_result = b''.join(result)
-        elif self.data is None and self.datatype.repeat != 0:
-            raise ValueError(f"Unable to convert NoneType with non-zero repeat to bytes (Attribute: {self.name})")
         else:
             joined_result = b''
 
