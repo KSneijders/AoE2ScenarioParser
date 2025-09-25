@@ -5,13 +5,14 @@ from typing import Generator, Iterable, Literal
 from bfp_rs import borrow_mut, RefStruct, ret, RetrieverRef, set_mut
 
 from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
+from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError, ObjectAlreadyLinkedError
 from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
 
 class UnitManager(RefStruct):
     _struct: ScenarioSections
+    _unit_reference_mapping: dict[int, Unit]
 
     # @formatter:off
     _units: list[list[Unit]]     = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
@@ -19,6 +20,9 @@ class UnitManager(RefStruct):
     # @formatter:on
 
     def _initialize_properties(self):
+        self._unit_reference_mapping = {}
+
+        self._initialize_unit_parenting()
         self._assign_unit_properties()
 
     @property
@@ -41,6 +45,15 @@ class UnitManager(RefStruct):
 
         self._assign_unit_properties()
 
+    def _initialize_unit_parenting(self):
+        for player in Player:
+            for unit in self._units[player]:
+                self._unit_reference_mapping[unit.reference_id] = unit
+
+                # Set values due to __init__ being skipped by BFP
+                unit._garrisoned_in = None
+                unit._garrisoned_units = tuple()
+
     def _assign_unit_properties(self):
         set_mut(self._units, False)
         for player_units in self.units:
@@ -52,6 +65,13 @@ class UnitManager(RefStruct):
             for unit in self._units[player]:
                 highest_reference_id = max(highest_reference_id, unit.reference_id + 1)
                 unit._player = player
+
+                # noinspection PyProtectedMember
+                if unit._garrisoned_in_ref != -1:
+                    # noinspection PyProtectedMember
+                    parent = self._unit_reference_mapping[unit._garrisoned_in_ref]
+                    unit.garrisoned_in = parent
+
         self._next_unit_reference_id = highest_reference_id
 
     def get_all_units(self) -> Generator[Unit]:
@@ -98,12 +118,18 @@ class UnitManager(RefStruct):
         Returns:
             The added unit
         """
+        self._validate_unit_can_be_linked(unit)
+
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
 
-        lst = self.units[unit.player]
-        with borrow_mut(lst):
-            lst.append(unit)
+        for garrisoned in unit.garrisoned_units:
+            self.add_unit(garrisoned)
+
+        with borrow_mut(self.units[unit.player]):
+            self.units[unit.player].append(unit)
+
+        unit._struct = self._struct  # Link the unit to this scenario
 
         return unit
 
@@ -142,9 +168,9 @@ class UnitManager(RefStruct):
                 state = unit.state,
                 rotation = unit.rotation,
                 frame = unit.frame,
-                garrisoned_in_ref = unit.garrisoned_in_ref,
                 caption_string_id = unit.caption_string_id,
                 caption_string = unit.caption_string,
+                garrisoned_in = unit.garrisoned_in,
 
                 reference_id = -1,
             )
@@ -159,6 +185,12 @@ class UnitManager(RefStruct):
         """
         player_units = self.units[unit.player]
         if unit in player_units:
+            for garrisoned in unit.garrisoned_units:
+                self.remove_unit(garrisoned)
+
+            unit._struct = None  # Unlink
+            unit.reference_id = -1
+
             with borrow_mut(player_units):
                 player_units.remove(unit)
 
@@ -317,6 +349,10 @@ class UnitManager(RefStruct):
             units_to_be_removed = []
 
             for unit in player_units:
+                # Applying an offset does not affect garrisoned units
+                if unit.is_garrisoned:
+                    continue
+
                 unit.x += x_offset
                 unit.y += y_offset
 
@@ -333,3 +369,18 @@ class UnitManager(RefStruct):
                         units_to_be_removed.append(unit)
 
             self.remove_units(units_to_be_removed)
+
+    def _unit_is_linked(self, unit: Unit) -> bool:
+        # noinspection PyProtectedMember
+        return unit._struct is self._struct
+
+    def _validate_unit_can_be_linked(self, unit: Unit) -> None:
+        """
+        Validates if a unit can be linked to this scenario.
+
+        Args:
+            unit: The unit to validate
+        """
+        # noinspection PyProtectedMember
+        if unit._struct is not None:
+            raise ObjectAlreadyLinkedError('Unable to add unit that has already been linked to a scenario')

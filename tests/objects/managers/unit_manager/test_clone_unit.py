@@ -4,7 +4,9 @@ from AoE2ScenarioParser.sections import Unit
 
 
 def test_clone_unit_returns_unit(um: UnitManager):
-    original = um.add_unit(Unit(Player.ONE, 4, (1, 2), 3.5, 4, 3.44, 11, -1, 4, 'caption', 12))
+    original = um.add_unit(Unit(Player.ONE, 4, (1, 2), 3.5, 4, 3.44, 11, -1, 'caption', 12))
+    original.garrisoned_in = Unit(Player.ONE, 4, (1, 2), reference_id = 12)
+
     clone = um.clone_unit(original)
 
     assert isinstance(clone, Unit)
@@ -16,7 +18,7 @@ def test_clone_unit_returns_unit(um: UnitManager):
     assert clone.state == original.state
     assert clone.rotation == original.rotation
     assert clone.frame == original.frame
-    assert clone.garrisoned_in_ref == original.garrisoned_in_ref
+    assert clone._garrisoned_in_ref == original._garrisoned_in_ref
     assert clone.caption_string_id == original.caption_string_id
     assert clone.caption_string == original.caption_string
     assert clone.player == original.player
