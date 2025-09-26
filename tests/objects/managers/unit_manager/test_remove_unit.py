@@ -66,33 +66,33 @@ def test_remove_unit_with_garrisoned_units_should_not_remove_garrisoned_units(um
 
     assert len(um.units[Player.ONE]) == 11
     assert len(parent.garrisoned_units) == 10
-    assert parent._struct is not None
+    assert parent._is_linked()
     assert parent.reference_id != -1
 
     for unit in parent.garrisoned_units:
-        assert unit._struct is not None
+        assert unit._is_linked()
         assert unit.reference_id != -1
 
     um.remove_unit(parent)
 
     assert len(um.units[Player.ONE]) == 10
-    assert parent._struct is None
+    assert parent._is_unlinked()
     assert parent.reference_id == -1
 
     for unit in parent.garrisoned_units:
-        assert unit._struct is not None
+        assert unit._is_linked()
         assert unit.reference_id != -1
 
 
 def test_remove_unit_should_unlink_unit(um: UnitManager):
     unit = um.add_unit(create_unit(Player.ONE))
 
-    assert um._unit_is_linked(unit)
+    assert um._is_linked_to_same(unit)
     assert unit.reference_id != -1
 
     um.remove_unit(unit)
 
-    assert unit._struct is None
+    assert unit._is_unlinked()
     assert unit.reference_id == -1
 
 

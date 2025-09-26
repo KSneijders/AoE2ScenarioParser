@@ -23,9 +23,9 @@ def test_import_units_allows_linked_units():
     um1 = UnitManager(ScenarioSections())
     um1.add_units((unit1, unit2))
 
-    assert um1._unit_is_linked(unit1)
+    assert um1._is_linked_to_same(unit1)
 
     um2 = UnitManager(ScenarioSections())
     um2.import_units((unit1, unit2))
 
-    assert um2._unit_is_linked(unit1)
+    assert um2._is_linked_to_same(unit1)

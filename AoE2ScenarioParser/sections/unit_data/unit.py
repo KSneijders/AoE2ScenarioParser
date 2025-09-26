@@ -212,6 +212,11 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
         self._garrisoned_in = unit
         self._garrisoned_in_ref = unit.reference_id
 
+        if self._is_linked() and self._is_not_linked_to_same(unit):
+            from AoE2ScenarioParser.managers import UnitManager
+
+            UnitManager(self._struct).add_unit(unit)
+
         unit._add_unit_reference(self)
 
     @property
@@ -228,7 +233,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
             if unit.is_garrisoned and unit.garrisoned_in is not self:
                 raise ValueError(f"Unit {unit} is already garrisoned in another unit")
 
-            if self._is_linked() and not unit._is_linked():
+            if self._is_linked() and self._is_not_linked_to_same(unit):
                 from AoE2ScenarioParser.managers import UnitManager
 
                 UnitManager(self._struct).add_unit(unit)

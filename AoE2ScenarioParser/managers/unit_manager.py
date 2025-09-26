@@ -4,13 +4,14 @@ from typing import Generator, Iterable, Literal
 
 from bfp_rs import borrow_mut, RefStruct, ret, RetrieverRef, set_mut
 
+from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError, ObjectAlreadyLinkedError
 from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
 
-class UnitManager(RefStruct):
+class UnitManager(RefStruct, CanBeLinked):
     _struct: ScenarioSections
     _unit_reference_mapping: dict[int, Unit]
 
@@ -388,10 +389,6 @@ class UnitManager(RefStruct):
 
             self.remove_units(units_to_be_removed)
 
-    def _unit_is_linked(self, unit: Unit) -> bool:
-        # noinspection PyProtectedMember
-        return unit._struct is self._struct
-
     def _validate_unit_can_be_linked(self, unit: Unit) -> None:
         """
         Validates if a unit can be linked to this scenario.
@@ -400,5 +397,5 @@ class UnitManager(RefStruct):
             unit: The unit to validate
         """
         # noinspection PyProtectedMember
-        if unit._struct is not None:
+        if unit._is_linked():
             raise ObjectAlreadyLinkedError('Unable to add unit that has already been linked to a scenario')
