@@ -164,10 +164,10 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
         return self.garrisoned_units
 
     def _remove_unit_reference(self, unit: 'Unit', _: str = '') -> None:
-        self._garrisoned_units = tuple(unit for unit in self.garrisoned_units if unit != unit)
+        self._garrisoned_units = tuple(garrisoned for garrisoned in self.garrisoned_units if garrisoned is not unit)
 
     def _add_unit_reference(self, unit: 'Unit', _: str = '') -> None:
-        if id(unit) in (id(u) for u in self.garrisoned_units):
+        if any(unit is garrisoned for garrisoned in self.garrisoned_units):
             return
 
         self._garrisoned_units = (
@@ -220,11 +220,9 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
 
     @garrisoned_units.setter
     def garrisoned_units(self, units: Iterable[Unit]):
-        new_unit_ids = list(id(u) for u in units)
-
-        for unit in self.garrisoned_units:
-            if id(unit) not in new_unit_ids:
-                unit.garrisoned_in = None
+        for garrisoned in self.garrisoned_units:
+            if all(garrisoned is not u for u in units):
+                garrisoned.garrisoned_in = None
 
         for unit in units:
             if unit.is_garrisoned and unit.garrisoned_in is not self:

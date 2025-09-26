@@ -2,6 +2,7 @@ from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
 from datasets.buildings import BuildingInfo
 from datasets.player_data import Player
+from datasets.units import UnitInfo
 from tests.objects.managers.functions import create_unit
 
 
@@ -53,7 +54,7 @@ def test_remove_units(um: UnitManager):
         assert unit.x == .5
 
 
-def test_remove_unit_with_garrisoned_units_should_remove_garrisoned_units(um: UnitManager):
+def test_remove_unit_with_garrisoned_units_should_not_remove_garrisoned_units(um: UnitManager):
     parent = Unit(
         player = Player.ONE,
         type = BuildingInfo.CASTLE.ID,
@@ -74,23 +75,40 @@ def test_remove_unit_with_garrisoned_units_should_remove_garrisoned_units(um: Un
 
     um.remove_unit(parent)
 
-    assert len(um.units[Player.ONE]) == 0
+    assert len(um.units[Player.ONE]) == 10
     assert parent._struct is None
     assert parent.reference_id == -1
 
     for unit in parent.garrisoned_units:
-        assert unit._struct is None
-        assert unit.reference_id == -1
+        assert unit._struct is not None
+        assert unit.reference_id != -1
 
 
 def test_remove_unit_should_unlink_unit(um: UnitManager):
     unit = um.add_unit(create_unit(Player.ONE))
 
-    # Is linked
-    assert unit._struct is um._struct
+    assert um._unit_is_linked(unit)
     assert unit.reference_id != -1
 
     um.remove_unit(unit)
 
     assert unit._struct is None
     assert unit.reference_id == -1
+
+
+def test_remove_unit_should_remove_from_garrisoned_units(um: UnitManager):
+    unit1 = Unit.garrisoned(Player.ONE, type = 4)
+    unit2 = Unit.garrisoned(Player.ONE, type = 4)
+    parent = Unit(
+        player = Player.ONE,
+        type = UnitInfo.BATTERING_RAM.ID,
+        location = (1, 1),
+        garrisoned_units = [unit1, unit2]
+    )
+
+    um.add_unit(parent)
+    um.remove_unit(unit1)
+
+    assert len(parent.garrisoned_units) == 1
+
+    assert parent.garrisoned_units[0] is unit2

@@ -67,7 +67,7 @@ class UnitManager(RefStruct):
                 unit._player = player
 
                 # noinspection PyProtectedMember
-                if unit._garrisoned_in_ref != -1:
+                if unit.is_garrisoned:
                     # noinspection PyProtectedMember
                     parent = self._unit_reference_mapping[unit._garrisoned_in_ref]
                     unit.garrisoned_in = parent
@@ -184,15 +184,18 @@ class UnitManager(RefStruct):
             unit: The unit to remove
         """
         player_units = self.units[unit.player]
-        if unit in player_units:
-            for garrisoned in unit.garrisoned_units:
-                self.remove_unit(garrisoned)
+        if unit not in player_units:
+            return
 
-            unit._struct = None  # Unlink
-            unit.reference_id = -1
+        unit._struct = None  # Unlink
+        unit.reference_id = -1
 
-            with borrow_mut(player_units):
-                player_units.remove(unit)
+        if unit.garrisoned_in is not None:
+            # noinspection PyProtectedMember
+            unit.garrisoned_in._remove_unit_reference(unit)
+
+        with borrow_mut(player_units):
+            player_units.remove(unit)
 
     def remove_units(self, units: Iterable[Unit]) -> None:
         """
@@ -220,7 +223,25 @@ class UnitManager(RefStruct):
 
         return result
 
-    def filter_units_by(
+    def get_first_player_unit(self, player: Player, type: int) -> Unit | None:
+        """
+        Retrieves a unit of a specified type for a given player
+
+        Args:
+            player: The player for which the unit should be retrieved.
+            type: An integer representing the type of the unit to retrieve.
+
+        Returns:
+            Returns the retrieved unit if found, otherwise returns None.
+        """
+        player_units = self.units[player]
+        for unit in player_units:
+            if unit.type == type:
+                return unit
+
+        return None
+
+    def get_units_by(
         self,
         attr: str,
         attr_values: list[int],
@@ -256,7 +277,7 @@ class UnitManager(RefStruct):
             return (unit for unit in units if getattr(unit, attr) in attr_values)
         return (unit for unit in units if getattr(unit, attr) not in attr_values)
 
-    def filter_units_by_type(
+    def get_units_by_type(
         self,
         unit_types: list[int],
         is_allowlist: bool = True,
@@ -276,7 +297,7 @@ class UnitManager(RefStruct):
         Returns:
             A list of units
         """
-        return self.filter_units_by("type", unit_types, is_allowlist, players, units = units)
+        return self.get_units_by("type", unit_types, is_allowlist, players, units = units)
 
     def filter_units_by_id(
         self,
@@ -298,7 +319,7 @@ class UnitManager(RefStruct):
         Returns:
             A list of units
         """
-        return self.filter_units_by("reference_id", unit_ids, is_allowlist, players, units = units)
+        return self.get_units_by("reference_id", unit_ids, is_allowlist, players, units = units)
 
     def get_units_in_area(
         self,
