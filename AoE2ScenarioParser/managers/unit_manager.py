@@ -207,21 +207,18 @@ class UnitManager(RefStruct):
         for unit in units:
             self.remove_unit(unit)
 
-    # Todo: Add tests
-    def import_units(self, player: Player, units: Iterable[Unit]) -> list[Unit]:
+    def import_units(self, units: Iterable[Unit]) -> list[Unit]:
         """
         Imports units (resetting the reference_id) for the corresponding player to the scenario.
 
         Args:
-            player: The player to add the unit for
-            units: The units to add
+            units: The units to import
         """
-        result = []
         for unit in units:
-            unit.reference_id = -1
-            result.append(self.add_unit(player, unit))
+            unit._struct = None  # Unlink
+            unit.reference_id = -1  # Allow reference_id to be reassigned
 
-        return result
+        return self.add_units(units)
 
     def get_first_player_unit(self, player: Player, type: int) -> Unit | None:
         """
