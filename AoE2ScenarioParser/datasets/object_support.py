@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
+from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums, _DataSet
 
 
 class StartingAge(_DataSetIntEnums):
@@ -20,7 +20,7 @@ class StartingAge(_DataSetIntEnums):
     POST_IMPERIAL_AGE = 6
 
 
-class Civilization(_DataSetIntEnums):
+class CivilizationOld(_DataSetIntEnums):
     """
     This enum class provides the integer values used to reference the civilizations in the game.
     This can be used in research tech conditions to check civ or set a players civ in the player manager.
@@ -87,3 +87,77 @@ class Civilization(_DataSetIntEnums):
 
     RANDOM = 65537
     FULL_RANDOM = 65539
+
+
+class Civilization(_DataSet):
+    """
+    This enum class provides the integer values used to reference the civilizations in the game.
+    This can be used in research tech conditions to check civ or set a players civ in the player manager.
+
+    **Examples**
+
+    >>> Civilization.VIKINGS
+    <Civilization.VIKINGS: 11>
+    """
+    GAIA = "GAIA"
+    BRITONS = "BRITON-CIV"
+    FRANKS = "FRANKISH-CIV"
+    GOTHS = "GOTHIC-CIV"
+    TEUTONS = "TEUTONIC-CIV"
+    JAPANESE = "JAPANESE-CIV"
+    CHINESE = "CHINESE-CIV"
+    BYZANTINES = "BYZANTINE-CIV"
+    PERSIANS = "PERSIAN-CIV"
+    SARACENS = "SARACEN-CIV"
+    TURKS = "TURKISH-CIV"
+    VIKINGS = "VIKING-CIV"
+    MONGOLS = "MONGOL-CIV"
+    CELTS = "CELTIC-CIV"
+    SPANISH = "SPANISH-CIV"
+    AZTECS = "AZTEC-CIV"
+    MAYANS = "MAYAN-CIV"
+    HUNS = "HUN-CIV"
+    KOREANS = "KOREAN-CIV"
+    ITALIANS = "ITALIAN-CIV"
+    HINDUSTANIS = "INDIAN-CIV"
+    INCAS = "INCAN-CIV"
+    MAGYARS = "MAGYAR-CIV"
+    SLAVS = "SLAVIC-CIV"
+    PORTUGUESE = "PORTUGUESE-CIV"
+    ETHIOPIANS = "ETHIOPIAN-CIV"
+    MALIANS = "MALIAN-CIV"
+    BERBERS = "BERBERS-CIV"
+    KHMER = "KHMER-CIV"
+    MALAY = "MALAY-CIV"
+    BURMESE = "BURMESE-CIV"
+    VIETNAMESE = "VIETNAMESE-CIV"
+    BULGARIANS = "BULGARIANS-CIV"
+    TATARS = "TATARS-CIV"
+    CUMANS = "CUMANS-CIV"
+    LITHUANIANS = "LITHUANIANS-CIV"
+    BURGUNDIANS = "BURGUNDIANS-CIV"
+    SICILIANS = "SICILIANS-CIV"
+    POLES = "POLES-CIV"
+    BOHEMIANS = "BOHEMIANS-CIV"
+    DRAVIDIANS = "DRAVIDIANS-CIV"
+    BENGALIS = "BENGALIS-CIV"
+    GURJARAS = "GURJARAS-CIV"
+    ROMANS = "ROMANS-CIV"
+    ARMENIANS = "ARMENIANS-CIV"
+    GEORGIANS = "GEORGIANS-CIV"
+    ACHAEMENIDS = "ACHAEMENIDS-CIV"
+    ATHENIANS = "ATHENIANS-CIV"
+    SPARTANS = "SPARTANS-CIV"
+    SHU = "SHU-CIV"
+    WU = "WU-CIV"
+    WEI = "WEI-CIV"
+    JURCHENS = "JURCHENS-CIV"
+    KHITANS = "KHITANS-CIV"
+
+    RANDOM = "RANDOM-CIV"
+    MIRROR_RANDOM = "MIRROR-RANDOM-CIV"
+    FULL_RANDOM = "FULL-RANDOM-CIV"
+    CUSTOM_RANDOM = "CUSTOM-RANDOM-CIV"
+
+    def encode(self, c):
+        return self.value.encode(c)
