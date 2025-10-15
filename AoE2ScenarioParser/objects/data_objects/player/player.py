@@ -89,8 +89,8 @@ class Player(AoE2Object):
         self.stone: int = stone
         self.color: int = color
         self.human: bool = human
-        self.civilization: int | Civilization = dataset_or_value(Civilization, civilization)
-        self.architecture_set: int | Civilization = dataset_or_value(Civilization, architecture_set)
+        self.civilization: str | Civilization = dataset_or_value(Civilization, civilization)
+        self.architecture_set: str | Civilization = dataset_or_value(Civilization, architecture_set)
 
         # Optionals due to GAIA not having such value
         self.population_cap: Optional[int] = population_cap
