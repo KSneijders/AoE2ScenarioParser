@@ -44,9 +44,9 @@ class DataTriggers:
 
                 if "object" in type_:
                     object_ids.extend(self._get_unit_ids(ce))
-                    if objects := self._get_objects_from_area(ce) and "area" not in type_:
+                    if (objects := self._get_objects_from_area(ce)) and "area" not in type_:
                         self.objects.setdefault(key, []).extend(objects)
-                    if objects := self._get_objects_from_tile(ce) and "tile" not in type_:
+                    if (objects := self._get_objects_from_tile(ce)) and "tile" not in type_:
                         self.objects.setdefault(key, []).extend(objects)
 
                 if "trigger" in type_:
