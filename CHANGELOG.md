@@ -7,6 +7,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.5.3 - 2025-September-24
+
+### Updates
+
+- `ObjectAttribute` dataset (UGC Page: [Attributes](https://ugc.aoe2.rocks/general/attributes/attributes/))
+  - Improves descriptions
+  - **BREAKING CHANGES** — Updated Entry names 
+    - `MAX_RANGE` → `MAXIMUM_RANGE`
+    - `MAX_TOTAL_MISSILES` → `MAXIMUM_TOTAL_MISSILES`
+    - `ABILITY_SHORT_TOOLTIP` → `ABILITY_SHORT_TOOLTIP_ID`
+    - `ABILITY_EXTENDED_TOOLTIP` → `ABILITY_EXTENDED_TOOLTIP_ID`
+    - `DISABLE_UNIT_FLAG` → `DISABLED_UNIT_FLAG`
+- `Attribute` dataset (UGC Page: [Resources](https://ugc.aoe2.rocks/general/resources/resources/))
+  - Improves descriptions
+  - **BREAKING CHANGES** — Updated Entry names
+    - `UNUSED_RESOURCE_029` → `ENABLE_SIEGE_CONVERSION`
+    - `FOOD_MAINTENANCE` → `EFFECT_FUNCTION_NUMBER`
+    - `FAITH` → `UNUSED_RESOURCE_34`
+    - `FAITH_RECHARGING_RATE` → `UNUSED_RESOURCE_35`
+    - `UNUSED_RESOURCE_038` → `VILLAGER_POPULATION`
+    - `UNUSED_RESOURCE_69` → `FARM_FOOD_MULTIPLIER`
+    - `UNUSED_RESOURCE_70` → `SOURCE_MARKET_OR_DOCK_X_COORDINATE`
+    - `UNUSED_RESOURCE_71` → `SOURCE_MARKET_OR_DOCK_Y_COORDINATE`
+    - `CRENELLATIONS` → `UNUSED_RESOURCE_194`
+    - `UNUSED_RESOURCE_203` → `REVEAL_MAP`
+    - `UNUSED_RESOURCE_204` → `REVEAL_UNIT_ON_MAP`
+    - `MERCENARY_KIPCHAK_LIMIT` → `UNUSED_RESOURCE_215`
+    - `SPEED_UP_BUILDING_TYPE` → `UNUSED_RESOURCE_255`
+    - `SPEED_UP_BUILDING_RANGE` → `UNUSED_RESOURCE_256`
+    - `SPEED_UP_PERCENTAGE` → `UNUSED_RESOURCE_257`
+    - `SPEED_UP_OBJECT_TYPE` → `UNUSED_RESOURCE_258`
+    - `SPEED_UP_EFFECT_TYPE` → `UNUSED_RESOURCE_259`
+    - `SPEED_UP_SECONDARY_EFFECT_TYPE` → `UNUSED_RESOURCE_260`
+    - `SPEED_UP_SECONDARY_PERCENTAGE` → `UNUSED_RESOURCE_261`
+    - `UNUSED_RESOURCE_277` → `RED_CLIFFS_TACTICS_DAMAGE`
+    - `TRIGGER_SHARED_VISIBILITY` → `SHARED_VISIBILITY`
+    - `TRIGGER_SHARED_EXPLORATION` → `SHARED_EXPLORATION`
+    - `UNUSED_RESOURCE_287` → `MILITARY_FOOD_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_288` → `PASTURE_FOOD_AMOUNT`
+    - `UNUSED_RESOURCE_289` → `PASTURE_ANIMAL_COUNT`
+    - `UNUSED_RESOURCE_290` → `PASTURE_HERDER_COUNT`
+    - `UNUSED_RESOURCE_291` → `CHOPPING_FOOD_PRODUCTIVITY_UNUSED`
+    - `UNUSED_RESOURCE_292` → `ANIMAL_DECAY_PREVENTION`
+    - `UNUSED_RESOURCE_293` → `HERDER_FOOD_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_294` → `SHEPHERD_FOOD_PRODUCTIVITY`
+  - Introduces new resources:
+    - `MAXIMUM_POLEMARCHS = 501`
+    - `CHOPPING_FOOD_PRODUCTIVITY = 502`
+    - `TRADE_WOOD_PERCENTAGE = 503`
+    - `ACHAMENIDS_TOWN_CENTER_UPGRADES = 506`
+    - `BUILDING_LOOT_PRODUCTIVITY = 509`
+    - `CASTLE_GOLD_PRODUCTIVITY = 521`
+    - `UNKNOWN_RESOURCE_550 = 550`
+    - `UNIT_LOOT_PRODUCTIVITY = 551`
+### Fixes
+
+- Data trigger combination syntax doesn't exclude area/tiles from contributing objects when area/tiles are themselves part of the data — Credits: by [@Alian713] in [#90](https://github.com/KSneijders/AoE2ScenarioParser/pull/90)
+- Corrupting scenarios instead of raising an exception when data is `None` but `Retriever.repeat > 0` — Credits: by [@ougidarkness] in [#89](https://github.com/KSneijders/AoE2ScenarioParser/pull/89)
+
+[@ougidarkness]: https://github.com/MegaDusknoir
+
+---
+
 ##  0.5.2 - 2025-August-15
 
 ### Fixes
