@@ -83,7 +83,9 @@ class EffectId(IntEnum):
     - action_type
     - selected_object_ids
     - disable_garrison_unload_sound
-    - max_units_affected"""
+    - max_units_affected
+    - issue_group_command
+    - queue_action"""
     DECLARE_VICTORY = 13
     """Attributes for the **declare_victory** effect are: \n
     - source_player

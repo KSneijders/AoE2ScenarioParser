@@ -195,7 +195,7 @@ class NewEffectSupport:
             disable_garrison_unload_sound=disable_garrison_unload_sound,
             max_units_affected=max_units_affected,
             issue_group_command=issue_group_command,
-            queue_action = queue_action,
+            queue_action=queue_action,
         )
 
     def declare_victory(
