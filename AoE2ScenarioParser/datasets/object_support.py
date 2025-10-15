@@ -21,15 +21,7 @@ class StartingAge(_DataSetIntEnums):
 
 
 class CivilizationOld(_DataSetIntEnums):
-    """
-    This enum class provides the integer values used to reference the civilizations in the game.
-    This can be used in research tech conditions to check civ or set a players civ in the player manager.
-
-    **Examples**
-
-    >>> Civilization.VIKINGS
-    <Civilization.VIKINGS: 11>
-    """
+    """Legacy enum class used to reference the civilizations in the game."""
     GAIA = 0
     BRITONS = 1
     FRANKS = 2
@@ -108,12 +100,12 @@ class CivilizationOld(_DataSetIntEnums):
 class Civilization(_DataSet):
     """
     This enum class provides the integer values used to reference the civilizations in the game.
-    This can be used in research tech conditions to check civ or set a players civ in the player manager.
+    This can be used in research tech conditions to check civ or set a player's civ in the player manager.
 
     **Examples**
 
-    >>> Civilization.VIKINGS
-    <Civilization.VIKINGS: 11>
+    >>> Civilization.HUNS
+    <Civilization.HUNS: HUN-CIV>
     """
     GAIA = "GAIA"
     BRITONS = "BRITON-CIV"
