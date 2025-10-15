@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.6.0 - 2025-October-15
+
+Official support for the new 1.56 scenarios! — Credits: by [@Alian713] in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+
+### Added
+
+- Updated `Civilization` dataset — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+- Support for the Xs-Check `v0.2.14` — View the `v0.2.14` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.14
+- `JIAN_SWORDSMAN_TWO_HANDED` to `UnitInfo` — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+- The new `issue_group_command` and `queue_action` attributes (bools) to the `Task Object` effect — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+
+### Fixes
+
+- Data trigger syntax expression priority — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+
+---
+
 ##  0.5.3 - 2025-September-24
 
 ### Updates
