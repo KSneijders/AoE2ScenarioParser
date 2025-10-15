@@ -70,6 +70,8 @@ _no_string_trail = [
     "sound_name",           # in Trigger  [ADDED SO THEY'RE IGNORED - HANDLED IN EFFECT COMMIT CALLBACK]
     "script_file_path",     # in Files
     "script_file_content",  # in Files
+    "civilization",         # in PlayerDataOne
+    "architecture_set",     # in PlayerDataOne
 ]
 # @formatter:on
 
