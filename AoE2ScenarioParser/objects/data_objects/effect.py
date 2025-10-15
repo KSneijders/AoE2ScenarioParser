@@ -209,7 +209,7 @@ class Effect(AoE2Object, TriggerComponent):
         if selected_object_ids is None:
             selected_object_ids = []
 
-        quantity = _quantity_int or quantity
+        quantity = _quantity_int if _quantity_int is not None else quantity
 
         # Set armour/attack flags
         self._armour_attack_source = _get_armour_attack_source(effect_type, object_attributes)
