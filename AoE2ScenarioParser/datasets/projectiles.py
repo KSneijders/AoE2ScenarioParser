@@ -214,7 +214,7 @@ class ProjectileInfo(Enum):
     ORGAN_GUN = 1789, (1001, 1003)
     DROMON_GREEK_FIRE = 1798, (1795,)
     CITADELS = 1830, (33, 82, 445, 2418)
-    SVT = 1867, (79, 234, 235, 566, 684, 685, 785, 1102, 1665)
+    SVT = 1867, (79, 234, 235, 566, 684, 685, 785, 1102, 1665) #these 2 used by towers with Svan Towers upgrade
     SVT_FIRE = 1868, (79, 234, 235, 566, 684, 685, 785, 1102, 1665)
     LEVIATHAN = 2226, (2140, 2442, 2448)
     GASTRAPHETES = 2307, ()
