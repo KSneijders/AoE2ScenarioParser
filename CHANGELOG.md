@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.6.2 - 2025-October-31
+
+### Added
+
+- `OptionsManager.legacy_execution_order` (When `False`: Run triggers and effects in display order)
+
+### Fixes
+
+- `LATEST_VERSION` not being set to `(1, 56)`
+- Missing default scenario for scenario version `1.56`
+- Inability to read some campaigns with inconsistent structures
+- Reading scenarios with effects that are hidden in the editor
+
+---
+
 ##  0.6.1 - 2025-October-31
 
 ### Added

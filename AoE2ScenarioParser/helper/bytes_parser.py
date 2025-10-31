@@ -6,7 +6,7 @@ from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.helper.bytes_conversions import bytes_to_int
 from AoE2ScenarioParser.exceptions.asp_exceptions import EndOfFileError
 from AoE2ScenarioParser.helper.incremental_generator import IncrementalGenerator
-from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex
+from AoE2ScenarioParser.helper.string_manipulations import create_textual_hex, trunc_string
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.sections.retrievers.retriever import Retriever
@@ -71,7 +71,11 @@ def retrieve_bytes(igenerator: IncrementalGenerator, retriever: 'Retriever') -> 
         else:
             print(f"\n\nError while setting bytes on retriever: \n\t{retriever} [Iteration: {i + 1}/{retriever.datatype.repeat}]")
             print("Remaining bytes:")
-            print(create_textual_hex(igenerator.get_remaining_bytes().hex(), enter_distance=96))
+            bytes_ = igenerator.get_remaining_bytes()
+            complete_hex = create_textual_hex(bytes_.hex(), enter_distance=96)
+            hex_ = trunc_string(complete_hex, 2000, add_ellipsis=False)
+
+            print(hex_ + f"// (Truncated. {len(bytes_)} bytes remaining)")
 
             raise e
 
