@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.6.2 - 2025-October-31
+
+### Added
+
+- `OptionsManager.legacy_execution_order` (When `False`: Run triggers and effects in display order)
+
+---
+
 ##  0.6.1 - 2025-October-31
 
 ### Added
