@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `OptionsManager.legacy_execution_order` (When `False`: Run triggers and effects in display order)
 
+### Fixes
+
+- Missing default scenario for scenario version 1.56
+
 ---
 
 ##  0.6.1 - 2025-October-31
