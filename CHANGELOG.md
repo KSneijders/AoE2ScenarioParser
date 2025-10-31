@@ -15,8 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixes
 
-- `DE_LATEST` not being set to `1.56`
-- Missing default scenario for scenario version 1.56
+- `LATEST_VERSION` not being set to `(1, 56)`
+- Missing default scenario for scenario version `1.56`
+- Inability to read some campaigns with inconsistent structures
+- Reading scenarios with effects that are hidden in the editor
 
 ---
 
