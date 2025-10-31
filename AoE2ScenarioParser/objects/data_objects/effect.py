@@ -596,7 +596,10 @@ def _is_variable_based_aa_effect(effect_type: int | EffectId, object_attributes:
 
 
 def _is_float_quantity_effect(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> bool:
-    return "quantity_float" in effects.attributes[effect_type] and ObjectAttribute._storage_type(object_attributes) == 'float'
+    try:
+        return "quantity_float" in effects.attributes[effect_type] and ObjectAttribute._storage_type(object_attributes) == 'float'
+    except KeyError:
+        return False
 
 
 def _get_armour_attack_source(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> str | None:
