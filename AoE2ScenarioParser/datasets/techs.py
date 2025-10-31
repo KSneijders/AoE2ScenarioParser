@@ -74,7 +74,7 @@ class TechInfo(Enum):
         return self.value[1]
 
     @classmethod
-    def from_icon_id(cls, tech_icon_id) -> TechInfo:
+    def from_icon_id(cls, tech_icon_id: int) -> TechInfo:
         """
         Get the TechInfo object from its icon ID
 
