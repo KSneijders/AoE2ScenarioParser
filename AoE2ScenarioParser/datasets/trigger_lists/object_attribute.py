@@ -73,7 +73,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         This accuracy is the accuracy of a unit to fire at the exact centre of its target. If the shot fired is not aimed at the exact centre of the target, it may still hit the target if its not off by too much since it can still land within the hitbox of the target, just not at the exact centre
         Thus, bigger targets are actually easier to hit, which explains why buildings are an easier target to hit for trebuchets than small units
-        ![Visually Smaller](./imgs/visually_smaller.png "Targets that are farther away are visually smaller")
+        ![Visually Smaller](https://ugc.aoe2.rocks/general/attributes/imgs/visually_smaller.png "Targets that are farther away are visually smaller")
         In this image, you can see that shots that were fired in the red area in the 2nd scenario would've hit if the target had been closer like in the first scenario, but since the target is far away, they actually miss
         More technically, the visual angle of an object of the same size that is farther away is smaller, thus giving a smaller room for error for the shot in terms of the range of angles that will make the shot hit
         The chance of a unit getting converted by a monk is also determined by its accuracy

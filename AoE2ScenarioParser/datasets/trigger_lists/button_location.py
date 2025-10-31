@@ -44,7 +44,7 @@ class ButtonLocation(_DataSetIntEnums):
         return f"row_{row}_col_{col}"
 
     @property
-    def dock_page2(self):
+    def dock_page2(self) -> int:
         """
         Returns the button location for the second page.
         Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.dock_page2``

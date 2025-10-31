@@ -47,7 +47,7 @@ class HeroStatusFlag(_DataSetIntFlags):
             defensive_stance_by_default: Enabling this for a unit makes it be on defensive stance by default
             protected_formation: Enabling this for a unit makes it be in protected formation by default
             delete_confirmation: Enabling this for a unit will bring up a delete confirmation for the unit when trying
-            to delete it IF the player has them enabled
+                to delete it IF the player has them enabled
             hero_glow: Enabling this for a unit grants it the golden hero glow effect
             invert_all_flags: Enabling this for a unit will invert all the above flags except full_hero_status
 
