@@ -20,7 +20,7 @@ class TriggerComponent:
         Returns:
             A boolean if the attr, val combination should be printed
         """
-        if val in [[], [-1], [''], "", " ", -1]:
+        if val in [[], [-1], [''], "", " ", -1, None]:
             return False
         if attr == self.hidden_attribute:
             return False

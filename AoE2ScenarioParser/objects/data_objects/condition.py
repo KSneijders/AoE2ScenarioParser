@@ -159,7 +159,11 @@ class Condition(AoE2Object, TriggerComponent):
 
         return_string = ""
         for attribute in attributes_list:
-            val = getattr(self, attribute)
+            if self._is_attribute_supported(attribute):
+                val = getattr(self, attribute, None)
+            else:
+                val = None
+
             if not self._should_be_displayed(attribute, val):
                 continue
 

@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-##  0.6.2 - 2025-October-31
+##  0.6.3 - 2025-November-01
+
+### Fixes
+
+- Printing triggers causing errors on older scenarios
+
+---
+
+##  0.6.2 - 2025-November-01
 
 ### Added
 
