@@ -153,13 +153,17 @@ class Condition(AoE2Object, TriggerComponent):
             The created string
         """
         if self.condition_type not in conditions.attributes:
-            attributes_list = conditions.empty_attributes
+            attributes_list = list(conditions.empty_attributes.keys())
         else:
             attributes_list = conditions.attributes[self.condition_type]
 
         return_string = ""
         for attribute in attributes_list:
-            val = getattr(self, attribute)
+            if self._is_attribute_supported(attribute):
+                val = getattr(self, attribute, None)
+            else:
+                val = None
+
             if not self._should_be_displayed(attribute, val):
                 continue
 

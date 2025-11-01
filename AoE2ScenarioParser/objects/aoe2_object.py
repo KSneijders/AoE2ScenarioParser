@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
-from typing import List, Any, Dict, TYPE_CHECKING, Optional
+from typing import List, Any, Dict, TYPE_CHECKING, Optional, TypeVar
 from uuid import UUID
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
@@ -11,10 +11,13 @@ from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 from AoE2ScenarioParser.scenarios.scenario_store import store
 from AoE2ScenarioParser.sections.retrievers.construct_progress import ConstructProgress
+from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_parent import RetrieverObjectLinkParent
 
 if TYPE_CHECKING:
     from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
+
+T = TypeVar('T')
 
 
 class AoE2Object:
@@ -104,3 +107,25 @@ class AoE2Object:
                 self_dict[attr] = value
 
         return str(self.__class__.__name__) + ": " + add_tabs(pretty_format_dict(self_dict), 1)
+
+    def _attribute_or_none(self, attr: str, value: T) -> T | None:
+        if self._is_attribute_supported(attr):
+            return value
+        return None
+
+    def _is_attribute_supported(self, attr: str) -> bool:
+        # If there's no way to validate the scenario version, assume it's alright
+        if self._uuid == NO_UUID:
+            return True
+
+        # Todo: Support objects that don't have just one parent group
+        group: RetrieverObjectLinkGroup = self._link_list[0]
+
+        for link in group.group:
+            if link.name == attr:
+                if link.support:
+                    if link.support.supports(self.get_scenario().scenario_version):
+                        return True
+                else:
+                    return True
+        return False

@@ -478,13 +478,16 @@ class Effect(AoE2Object, TriggerComponent):
             The created string
         """
         if self.effect_type not in effects.attributes:  # Unknown effect
-            attributes_list = effects.empty_attributes
+            attributes_list = list(effects.empty_attributes.keys())
         else:
             attributes_list = effects.attributes[self.effect_type]
 
         return_string = ""
         for attribute in attributes_list:
-            val = getattr(self, attribute, None)
+            if self._is_attribute_supported(attribute):
+                val = getattr(self, attribute, None)
+            else:
+                val = None
 
             if not self._should_be_displayed(attribute, val):
                 continue
