@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.6.4 - 2025-November-03
+
+### Fixes
+
+- The known issue with the use of Civilization datasets in older scenarios
+
+---
+
 ##  0.6.3 - 2025-November-01
 
 ### Fixes
