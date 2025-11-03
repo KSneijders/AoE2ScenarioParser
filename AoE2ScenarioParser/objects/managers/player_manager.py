@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Dict, Any
 
-from AoE2ScenarioParser.datasets.object_support import Civilization
+from AoE2ScenarioParser.datasets.object_support import Civilization, CivilizationOld
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
@@ -119,8 +119,17 @@ class PlayerManager(AoE2Object):
             'architecture_set': [r.architecture_set for r in _metadata],
         }
 
-        param_sets = [(no_gaia_params, None), (gaia_first_params, True), (gaia_last_params, False)]
-        player_attributes: Dict[int, Dict] = {i: {'player_id': PlayerId(i)} for i in range(9)}
+        player_attributes: Dict[int, Dict] = {i: {
+            'player_id': PlayerId(i),
+            'uuid': self._uuid
+        } for i in range(9)}
+
+        param_sets = [
+            (no_gaia_params, None),
+            (gaia_first_params, True),
+            (gaia_last_params, False)
+        ]
+
         for param_set, gaia_first in param_sets:
             for key, lst in param_set.items():
                 # If a property is not supported, fill it with Nones and skip it
@@ -319,10 +328,13 @@ class PlayerManager(AoE2Object):
     @property
     def _metadata(self) -> List[PlayerMetaData]:
         """Returns the metadata objects for all players"""
+        civilization_dataset = CivilizationOld if Player.is_using_old_civilization_dataset(self._uuid) else Civilization
+        random_civ = civilization_dataset['RANDOM'].value
+
         active = self._player_attributes_to_list("active", False, default=0, fill_empty=7)
         human = self._player_attributes_to_list("human", False, default=1, fill_empty=7)
-        civilization = self._player_attributes_to_list("civilization", False, default=Civilization.RANDOM, fill_empty=7)
-        architecture_set = self._player_attributes_to_list("architecture_set", False, default=Civilization.RANDOM, fill_empty=7)
+        civilization = self._player_attributes_to_list("_civilization_for_writing", False, default=random_civ, fill_empty=7)
+        architecture_set = self._player_attributes_to_list("_architecture_set_for_writing", False, default=random_civ, fill_empty=7)
         return UuidList(self._uuid, [
             PlayerMetaData(active[i], human[i], civilization[i], architecture_set[i]) for i in range(len(active))
         ])
