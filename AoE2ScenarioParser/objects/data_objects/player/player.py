@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from typing import Optional, List
+from uuid import UUID
 
-from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
-from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization
+from AoE2ScenarioParser.scenarios.scenario_store import store
+
+from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value, _DataSet
+from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization, CivilizationOld
 from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
@@ -108,6 +111,30 @@ class Player(AoE2Object):
         self.initial_player_view_y: Optional[int] = initial_player_view_y
 
     @property
+    def civilization(self) -> Civilization | str | int:
+        return self._civilization
+
+    @civilization.setter
+    def civilization(self, value: int | str | Civilization | CivilizationOld):
+        self._civilization = self._to_civilization_dataset(value)
+
+    @property
+    def architecture_set(self) -> Civilization | str | int:
+        return self._architecture_set
+
+    @architecture_set.setter
+    def architecture_set(self, value: int | str | Civilization | CivilizationOld):
+        self._architecture_set = self._to_civilization_dataset(value)
+
+    @property
+    def _civilization_for_writing(self) -> int | str:
+        return self._get_civilization_value_for_writing(self.civilization)
+
+    @property
+    def _architecture_set_for_writing(self) -> int | str:
+        return self._get_civilization_value_for_writing(self.architecture_set)
+
+    @property
     def initial_camera_x(self):
         warn("Unused by scenario. Use: `initial_player_view_x` instead", DeprecationWarning)
         return self._initial_camera_x
@@ -128,12 +155,12 @@ class Player(AoE2Object):
         self._initial_camera_y = value
 
     @property
-    def player_id(self):
+    def player_id(self) -> int:
         """Read-only value of the player ID"""
         return self._player_id
 
     @property
-    def active(self):
+    def active(self) -> bool:
         """Read-only value if this player is active or not"""
         return self._active
 
@@ -156,8 +183,43 @@ class Player(AoE2Object):
         for player in players:
             self.diplomacy[player - 1] = diplomacy
 
-    def _get_object_attrs(self):
+    def _get_object_attrs(self) -> list:
         attrs = self._object_attributes
         if self.player_id != PlayerId.GAIA:
             attrs.extend(self._object_attributes_non_gaia)
         return super()._get_object_attrs() + attrs
+
+    def _get_civilization_value_for_writing(self, value: Civilization | CivilizationOld | str | int):
+        if isinstance(value, Civilization) or isinstance(value, CivilizationOld):
+            value = value.name
+        elif isinstance(value, int) or isinstance(value, str):
+            return value
+
+        if Player.is_using_old_civilization_dataset(self._uuid):
+            return CivilizationOld[value].value
+        else:
+            return Civilization[value].value
+
+    @staticmethod
+    def _to_civilization_dataset(value: int | str | Civilization | CivilizationOld) -> Civilization | int | str:
+        def to_civilization(val) -> Civilization:
+            if isinstance(val, Civilization):
+                return val
+            elif isinstance(val, CivilizationOld):
+                return Civilization[val.name]
+            elif isinstance(val, int):
+                return Civilization[CivilizationOld(val).name]
+            elif isinstance(val, str):
+                return Civilization[val]
+            else:
+                raise TypeError(f"Unexpected type {type(val)}")
+
+        # Try Except allows custom civ values
+        try:
+            return to_civilization(value)
+        except (ValueError,  KeyError):
+            return value
+
+    @staticmethod
+    def is_using_old_civilization_dataset(uuid: UUID):
+        return store.get_scenario(uuid).scenario_version_tuple <= (1, 55)
