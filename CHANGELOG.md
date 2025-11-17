@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.6.5 - 2025-November-14
+
+### Updates
+
+- Many datasets: by [@mardaravicius] in [#101](https://github.com/KSneijders/AoE2ScenarioParser/pull/101)
+  - 15 new entries to `BuildingInfo`
+  - 11 new entries to `HeroInfo`
+  - 11 new entries to `UnitInfo`
+  - Updates many `HOTKEY_ID` values in `OtherInfo`
+  - Updates many entries in `ProjectileInfo`
+  - Fixes some values in `TechInfo.unique_techs(...)`
+  - Renames the Maya~~ns~~ and Inca~~s~~ civilizations in `TechInfo`
+  - Adds new terrains to `TerrainId`
+  - Adds new techs to `LocalTechnology`
+  - Updates values in `UnitInfo.unique_units(...)`
+  - Updates many `HOTKEY_ID` values in `UnitInfo`
+  - And more!
+
+---
+
 ##  0.6.4 - 2025-November-03
 
 ### Fixes
