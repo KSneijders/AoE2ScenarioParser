@@ -342,6 +342,10 @@
         "secondary": 54,
         "secondary_fire": 328
     },
+    "598": {
+        "secondary": 363,
+        "secondary_fire": 466
+    },
     "617": {
         "secondary": 54,
         "secondary_fire": 328
@@ -832,6 +836,7 @@
     "1952": {
         "primary": 477,
         "primary_fire": 475,
+        "secondary": 1983,
         "charge": 1982
     },
     "1962": {
@@ -1034,5 +1039,95 @@
     "2339": {
         "primary": 373,
         "primary_fire": 471
+    },
+    "2388": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2389": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2415": {
+        "primary": 363,
+        "primary_fire": 466,
+        "secondary": 363,
+        "secondary_fire": 466
+    },
+    "2417": {
+        "primary": 363,
+        "primary_fire": 466,
+        "secondary": 363,
+        "secondary_fire": 466
+    },
+    "2418": {
+        "primary": 746,
+        "primary_citadels_fire": 1830,
+        "primary_fire": 747,
+        "secondary": 746,
+        "secondary_citadels_fire": 1830,
+        "secondary_fire": 747
+    },
+    "2419": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2420": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2442": {
+        "primary": 2226
+    },
+    "2443": {
+        "secondary": 363,
+        "secondary_fire": 466
+    },
+    "2444": {
+        "primary": 2445,
+        "secondary": 2445
+    },
+    "2448": {
+        "primary": 2226
+    },
+    "2460": {
+        "primary": 366,
+        "primary_fire": 377,
+        "secondary": 366,
+        "secondary_fire": 377
+    },
+    "2463": {
+        "primary": 187,
+        "primary_fire": 538
+    },
+    "2464": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2468": {
+        "primary": 364,
+        "primary_fire": 375
+    },
+    "2470": {
+        "primary": 366,
+        "primary_fire": 377,
+        "secondary": 366,
+        "secondary_fire": 377
+    },
+    "2473": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2474": {
+        "primary": 507,
+        "primary_fire": 519
+    },
+    "2485": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "2486": {
+        "primary": 478,
+        "primary_fire": 476
     }
 }
