@@ -165,13 +165,21 @@
                         "type": "u32",
                         "default": 0
                     },
+                    "str_sign1": {
+                        "type": "u16",
+                        "default": 2565
+                    },
                     "civilization": {
-                        "type": "u32",
-                        "default": 65537
+                        "type": "str16",
+                        "default": "RANDOM-CIV"
+                    },
+                    "str_sign2": {
+                        "type": "u16",
+                        "default": 2565
                     },
                     "architecture_set": {
-                        "type": "u32",
-                        "default": 65537
+                        "type": "str16",
+                        "default": "RANDOM-CIV"
                     },
                     "cty_mode": {
                         "type": "u32",
@@ -1741,9 +1749,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_73": {
+                            "static_value_75": {
                                 "type": "s32",
-                                "default": 73
+                                "default": 75
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2045,6 +2053,14 @@
                                 "default": -1
                             },
                             "global_sound": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "issue_group_command": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "queue_action": {
                                 "type": "s32",
                                 "default": -1
                             },

@@ -172,6 +172,8 @@ class NewEffectSupport:
             selected_object_ids: int | List[int] | None = None,
             disable_garrison_unload_sound: int | None = None,
             max_units_affected: int | None = None,
+            issue_group_command: int | None = None,
+            queue_action: int | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.TASK_OBJECT,
@@ -190,6 +192,8 @@ class NewEffectSupport:
             selected_object_ids=selected_object_ids,
             disable_garrison_unload_sound=disable_garrison_unload_sound,
             max_units_affected=max_units_affected,
+            issue_group_command=issue_group_command,
+            queue_action=queue_action,
         )
 
     def declare_victory(

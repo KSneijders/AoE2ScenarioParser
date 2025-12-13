@@ -106,6 +106,8 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("_quantity_float", link='quantity_float', support=Support(since=1.55)),
             RetrieverObjectLink("facet2", support=Support(since=1.55)),
             RetrieverObjectLink("global_sound", support=Support(since=1.55)),
+            RetrieverObjectLink("issue_group_command", support=Support(since=1.56)),
+            RetrieverObjectLink("queue_action", support=Support(since=1.56)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
@@ -188,6 +190,8 @@ class Effect(AoE2Object, TriggerComponent):
             _quantity_float: float = None,
             facet2: int = None,
             global_sound: int = None,
+            issue_group_command: int = None,
+            queue_action: int = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
@@ -238,8 +242,8 @@ class Effect(AoE2Object, TriggerComponent):
 
         if _is_float_quantity_effect(effect_type, object_attributes):
             quantity = _quantity_float or quantity
-        else:
-            quantity = math.floor(quantity) if quantity is not None else quantity
+        elif quantity is not None:
+            quantity = math.floor(quantity)
 
         if variable is None:
             variable = _variable_ref if _variable_ref is not None else -1
@@ -320,6 +324,8 @@ class Effect(AoE2Object, TriggerComponent):
         self.object_type2: int = object_type2
         self.facet2: int = facet2
         self.global_sound: int = global_sound
+        self.issue_group_command: int = issue_group_command
+        self.queue_action: int = queue_action
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
@@ -479,13 +485,16 @@ class Effect(AoE2Object, TriggerComponent):
             The created string
         """
         if self.effect_type not in effects.attributes:  # Unknown effect
-            attributes_list = effects.empty_attributes
+            attributes_list = list(effects.empty_attributes.keys())
         else:
             attributes_list = effects.attributes[self.effect_type]
 
         return_string = ""
         for attribute in attributes_list:
-            val = getattr(self, attribute, None)
+            if self._is_attribute_supported(attribute):
+                val = getattr(self, attribute, None)
+            else:
+                val = None
 
             if not self._should_be_displayed(attribute, val):
                 continue
@@ -597,7 +606,10 @@ def _is_variable_based_aa_effect(effect_type: int | EffectId, object_attributes:
 
 
 def _is_float_quantity_effect(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> bool:
-    return "quantity_float" in effects.attributes[effect_type] and ObjectAttribute._storage_type(object_attributes) == 'float'
+    try:
+        return "quantity_float" in effects.attributes[effect_type] and ObjectAttribute._storage_type(object_attributes) == 'float'
+    except KeyError:
+        return False
 
 
 def _get_armour_attack_source(effect_type: int | EffectId, object_attributes: int | ObjectAttribute) -> str | None:

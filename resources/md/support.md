@@ -20,7 +20,8 @@ The table includes all versions which have existed since release together with t
 |      `1.51`      |   ✔️    | Version since game update: [95810] (October 31th, 2023) <br> **Unchanged in**: <br> - Update [99311] (December 11th, 2023) <br> - Update [104954] (February 23th, 2024)                                                                                                                                                                                                                                                                                           |
 |      `1.53`      |   ✔️    | Version since game update: [107882] (March 13th, 2024) <br> **Unchanged in**: <br> - Update [108769] (March 26th, 2024) <br> - Update [111772] (April 30th, 2024) <br> - Hotfix [113358] (May 16th, 2024) <br> - Hotfix [114480] (June 6th, 2024) <br> - Update [117204] (July 2nd, 2024) <br> - Update [118476] (July 18th, 2024)                                                                                                                                |
 |      `1.54`      |   ✔️    | Version since game update: [125283] (October 14th, 2024)  <br> **Unchanged in**: <br> - Update [128442] (November 14th, 2024) <br> - Update [130746] (December 10th, 2024) <br> - Update [133431] (January 30th, 2025) <br> - Update [141935] (April 10th, 2025) <br> - Update [143421] (May 6th, 2025) <br> - Update [144358] (May 12th, 2025) <br> - Update [145651] (May 28th, 2025) <br> - Update [147949] (June 25th, 2025)                                  |
-|      `1.55`      |   ✔️    | Version since game update: [153015] (August 12th, 2025)                                                                                                                                                                                                                                                                                                                                                                                                           |
+|      `1.55`      |   ✔️    | Version since game update: [153015] (August 12th, 2025)  <br> **Unchanged in**: <br> - Update [153638] (August 20th, 2025) <br> - Update [155976] (September 16th, 2025) <br>                                                                                                                                                                                                                                                                                     |
+|      `1.56`      |   ✔️    | Version since game update: [158041] (October 14th, 2025)                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 [35584]: https://www.ageofempires.com/news/aoe2de-update-35584/
 [36202]: https://www.ageofempires.com/news/aoe2de-update-36202/
@@ -81,6 +82,9 @@ The table includes all versions which have existed since release together with t
 [145651]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-145651/
 [147949]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-147949/
 [153015]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-153015/
+[153638]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-minor-update-153638/
+[155976]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-minor-update-155976/
+[158041]: https://www.ageofempires.com/news/age-of-empires-ii-definitive-edition-update-158041/
 
 ---
 

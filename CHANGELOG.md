@@ -7,6 +7,145 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+##  0.6.5 - 2025-November-17
+
+### Updates
+
+- Many datasets: by [@mardaravicius] in [#101](https://github.com/KSneijders/AoE2ScenarioParser/pull/101)
+  - 15 new entries to `BuildingInfo`
+  - 11 new entries to `HeroInfo`
+  - 11 new entries to `UnitInfo`
+  - Updates many `HOTKEY_ID` values in `OtherInfo`
+  - Updates many entries in `ProjectileInfo`
+  - Fixes some values in `TechInfo.unique_techs(...)`
+  - Renames the Maya~~ns~~ and Inca~~s~~ civilizations in `TechInfo`
+  - Adds new terrains to `TerrainId`
+  - Adds new techs to `LocalTechnology`
+  - Updates values in `UnitInfo.unique_units(...)`
+  - Updates many `HOTKEY_ID` values in `UnitInfo`
+  - And more!
+
+---
+
+##  0.6.4 - 2025-November-03
+
+### Fixes
+
+- The known issue with the use of Civilization datasets in older scenarios
+
+---
+
+##  0.6.3 - 2025-November-01
+
+### Fixes
+
+- Printing triggers causing errors on older scenarios
+
+---
+
+##  0.6.2 - 2025-November-01
+
+### Added
+
+- `OptionsManager.legacy_execution_order` (When `False`: Run triggers and effects in display order)
+
+### Fixes
+
+- `LATEST_VERSION` not being set to `(1, 56)`
+- Missing default scenario for scenario version `1.56`
+- Inability to read some campaigns with inconsistent structures
+- Reading scenarios with effects that are hidden in the editor
+
+---
+
+##  0.6.1 - 2025-October-31
+
+### Added
+
+- Support for the Xs-Check `v0.2.15` — View the `v0.2.15` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.15
+
+---
+
+##  0.6.0 - 2025-October-15
+
+Official support for the new 1.56 scenarios! — Credits: by [@Alian713] in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+
+### Added
+
+- Updated `Civilization` dataset — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+- Support for the Xs-Check `v0.2.14` — View the `v0.2.14` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.14
+- `JIAN_SWORDSMAN_TWO_HANDED` to `UnitInfo` — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+- The new `issue_group_command` and `queue_action` attributes (bools) to the `Task Object` effect — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+
+### Fixes
+
+- Data trigger syntax expression priority — in [#98](https://github.com/KSneijders/AoE2ScenarioParser/pull/98)
+
+---
+
+##  0.5.3 - 2025-September-24
+
+### Updates
+
+- `ObjectAttribute` dataset (UGC Page: [Attributes](https://ugc.aoe2.rocks/general/attributes/attributes/))
+  - Improves descriptions
+  - **BREAKING CHANGES** — Updated Entry names 
+    - `MAX_RANGE` → `MAXIMUM_RANGE`
+    - `MAX_TOTAL_MISSILES` → `MAXIMUM_TOTAL_MISSILES`
+    - `ABILITY_SHORT_TOOLTIP` → `ABILITY_SHORT_TOOLTIP_ID`
+    - `ABILITY_EXTENDED_TOOLTIP` → `ABILITY_EXTENDED_TOOLTIP_ID`
+    - `DISABLE_UNIT_FLAG` → `DISABLED_UNIT_FLAG`
+- `Attribute` dataset (UGC Page: [Resources](https://ugc.aoe2.rocks/general/resources/resources/))
+  - Improves descriptions
+  - **BREAKING CHANGES** — Updated Entry names
+    - `UNUSED_RESOURCE_029` → `ENABLE_SIEGE_CONVERSION`
+    - `FOOD_MAINTENANCE` → `EFFECT_FUNCTION_NUMBER`
+    - `FAITH` → `UNUSED_RESOURCE_34`
+    - `FAITH_RECHARGING_RATE` → `UNUSED_RESOURCE_35`
+    - `UNUSED_RESOURCE_038` → `VILLAGER_POPULATION`
+    - `UNUSED_RESOURCE_69` → `FARM_FOOD_MULTIPLIER`
+    - `UNUSED_RESOURCE_70` → `SOURCE_MARKET_OR_DOCK_X_COORDINATE`
+    - `UNUSED_RESOURCE_71` → `SOURCE_MARKET_OR_DOCK_Y_COORDINATE`
+    - `CRENELLATIONS` → `UNUSED_RESOURCE_194`
+    - `UNUSED_RESOURCE_203` → `REVEAL_MAP`
+    - `UNUSED_RESOURCE_204` → `REVEAL_UNIT_ON_MAP`
+    - `MERCENARY_KIPCHAK_LIMIT` → `UNUSED_RESOURCE_215`
+    - `SPEED_UP_BUILDING_TYPE` → `UNUSED_RESOURCE_255`
+    - `SPEED_UP_BUILDING_RANGE` → `UNUSED_RESOURCE_256`
+    - `SPEED_UP_PERCENTAGE` → `UNUSED_RESOURCE_257`
+    - `SPEED_UP_OBJECT_TYPE` → `UNUSED_RESOURCE_258`
+    - `SPEED_UP_EFFECT_TYPE` → `UNUSED_RESOURCE_259`
+    - `SPEED_UP_SECONDARY_EFFECT_TYPE` → `UNUSED_RESOURCE_260`
+    - `SPEED_UP_SECONDARY_PERCENTAGE` → `UNUSED_RESOURCE_261`
+    - `UNUSED_RESOURCE_277` → `RED_CLIFFS_TACTICS_DAMAGE`
+    - `TRIGGER_SHARED_VISIBILITY` → `SHARED_VISIBILITY`
+    - `TRIGGER_SHARED_EXPLORATION` → `SHARED_EXPLORATION`
+    - `UNUSED_RESOURCE_287` → `MILITARY_FOOD_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_288` → `PASTURE_FOOD_AMOUNT`
+    - `UNUSED_RESOURCE_289` → `PASTURE_ANIMAL_COUNT`
+    - `UNUSED_RESOURCE_290` → `PASTURE_HERDER_COUNT`
+    - `UNUSED_RESOURCE_291` → `CHOPPING_FOOD_PRODUCTIVITY_UNUSED`
+    - `UNUSED_RESOURCE_292` → `ANIMAL_DECAY_PREVENTION`
+    - `UNUSED_RESOURCE_293` → `HERDER_FOOD_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_294` → `SHEPHERD_FOOD_PRODUCTIVITY`
+  - Introduces new resources:
+    - `MAXIMUM_POLEMARCHS = 501`
+    - `CHOPPING_FOOD_PRODUCTIVITY = 502`
+    - `TRADE_WOOD_PERCENTAGE = 503`
+    - `ACHAMENIDS_TOWN_CENTER_UPGRADES = 506`
+    - `BUILDING_LOOT_PRODUCTIVITY = 509`
+    - `CASTLE_GOLD_PRODUCTIVITY = 521`
+    - `UNKNOWN_RESOURCE_550 = 550`
+    - `UNIT_LOOT_PRODUCTIVITY = 551`
+### Fixes
+
+- Data trigger combination syntax doesn't exclude area/tiles from contributing objects when area/tiles are themselves part of the data — Credits: by [@Alian713] in [#90](https://github.com/KSneijders/AoE2ScenarioParser/pull/90)
+- Corrupting scenarios instead of raising an exception when data is `None` but `Retriever.repeat > 0` — Credits: by [@ougidarkness] in [#89](https://github.com/KSneijders/AoE2ScenarioParser/pull/89)
+
+[@ougidarkness]: https://github.com/MegaDusknoir
+
+---
+
 ##  0.5.2 - 2025-August-15
 
 ### Fixes

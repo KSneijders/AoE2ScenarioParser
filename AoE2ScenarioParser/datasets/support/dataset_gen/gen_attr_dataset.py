@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, List, Dict
 
 import requests
 
@@ -12,12 +12,12 @@ FlagDesc = str
 class AttrDesc(TypedDict):
     name: str
     desc: str
-    notes: list[UseDesc]
-    flags: dict[FlagValue, FlagDesc]
+    notes: List[UseDesc]
+    flags: Dict[FlagValue, FlagDesc]
 
 
 AttrId = int
-AttrDescs = dict[AttrId, AttrDesc]
+AttrDescs = Dict[AttrId, AttrDesc]
 
 
 def gen_docstr(desc: AttrDesc) -> str:

@@ -30,6 +30,8 @@ class OptionManager(AoE2Object):
             RetrieverObjectLink("lock_coop_alliances", support=Support(since=1.42)),
             RetrieverObjectLink("secondary_game_modes", support=Support(since=1.42)),
         ]),
+
+        RetrieverObjectLink("legacy_execution_order", "Triggers", "legacy_exec_order", support=Support(since=1.55)),
     ]
 
     def __init__(
@@ -45,6 +47,7 @@ class OptionManager(AoE2Object):
             collide_and_correct: bool,
             villager_force_drop: bool,
             lock_coop_alliances: bool,
+            legacy_execution_order: bool,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -66,6 +69,8 @@ class OptionManager(AoE2Object):
         self.collide_and_correct: bool = bool(collide_and_correct)
         self.villager_force_drop: bool = bool(villager_force_drop) if villager_force_drop is not None else None
         self.lock_coop_alliances: bool = bool(lock_coop_alliances) if lock_coop_alliances is not None else None
+
+        self.legacy_execution_order = bool(legacy_execution_order) if legacy_execution_order is not None else None
 
     @property
     def victory_years(self) -> float:

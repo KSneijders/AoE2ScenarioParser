@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Any, TypeVar
+from typing import List, Any
 
 import AoE2ScenarioParser.datasets.conditions as condition_dataset
 import AoE2ScenarioParser.datasets.effects as effect_dataset
@@ -15,13 +15,11 @@ from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.support.new_condition import NewConditionSupport
 from AoE2ScenarioParser.objects.support.new_effect import NewEffectSupport
 from AoE2ScenarioParser.objects.support.trigger_object import TriggerComponent
-from AoE2ScenarioParser.objects.support.uuid_list import UuidList, NO_UUID
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.scenarios.scenario_store import getters
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
-
-T = TypeVar('T')
 
 
 class Trigger(AoE2Object, TriggerComponent):
@@ -74,18 +72,6 @@ class Trigger(AoE2Object, TriggerComponent):
     ):
         super().__init__(**kwargs)
 
-        def if_supported(attr: str, value: T) -> T | None:
-            # If there's no way to validate the scenario version, assume it's alright
-            if self._uuid == NO_UUID:
-                return value
-            for link in self._link_list[0].group:
-                if link.name == attr:
-                    if link.support and link.support.supports(self.get_scenario().scenario_version):
-                        return value
-                    else:
-                        return None
-            return None
-
         if conditions is None:
             conditions = []
         if condition_order is None:
@@ -105,7 +91,7 @@ class Trigger(AoE2Object, TriggerComponent):
         self.description_order: int = description_order
         self.enabled: int = enabled
         self.looping: int = looping
-        self.execute_on_load: int = if_supported('execute_on_load', execute_on_load)
+        self.execute_on_load: int = self._attribute_or_none('execute_on_load', execute_on_load)
         self.header: int = header
         self.mute_objectives: int = mute_objectives
         self._condition_hash = hash_list(conditions)
@@ -333,9 +319,10 @@ class Trigger(AoE2Object, TriggerComponent):
         data_tba = {
             'enabled': self.enabled != 0,
             'looping': self.looping != 0,
-            'execute_on_load': self.execute_on_load != 0
         }
 
+        if self._is_attribute_supported('execute_on_load'):
+            data_tba['execute_on_load'] = self.execute_on_load != 0
         if self.description != "":
             data_tba['description'] = f"'{self.description}'"
         if self.description_stid != -1:

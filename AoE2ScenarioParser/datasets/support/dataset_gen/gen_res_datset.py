@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, Dict
 
 import requests
 import regex
@@ -12,12 +12,12 @@ UseDesc = str
 class ResDesc(TypedDict):
     name: str
     desc: str
-    defaults: dict[DefaultValue, UseDesc]
+    defaults: Dict[DefaultValue, UseDesc]
     note: str
 
 
 ResId = int
-ResDescs = dict[ResId, ResDesc]
+ResDescs = Dict[ResId, ResDesc]
 
 
 def gen_docstr(desc: ResDesc) -> str:
@@ -73,7 +73,7 @@ def main():
         r"https://raw.githubusercontent.com/Divy1211/AoE2DE_UGC_Guide/main/docs/general/resources/res_desc.json")
     resources = res.json()
 
-    with open("resources.py", "w") as file:
+    with open("../../trigger_lists/attribute.py", "w") as file:
         file.write(gen_res_class(resources))
 
 
