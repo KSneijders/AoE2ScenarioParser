@@ -14,7 +14,7 @@ class AoE2Scenario:
     def __init__(self, sections: ScenarioSections):
         super().__init__()
 
-        self.sections = sections
+        self.sections: ScenarioSections = sections
 
         self.message_manager = MessageManager(sections)
 

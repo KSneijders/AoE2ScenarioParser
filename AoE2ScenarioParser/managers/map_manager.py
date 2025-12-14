@@ -226,11 +226,13 @@ class MapManager(RefStruct):
 
         if x_offset != 0 and y_offset != 0:
             from managers import UnitManager
-            
+            # from managers import TriggerManager
+
             um = UnitManager(self._struct)
             um.apply_global_offset(x_offset, y_offset, map_size, unit_overflow_action)
 
-            # self._struct.trigger_manager.apply_global_offset(x_offset, y_offset)
+            # tm = TriggerManager(self._struct)
+            # tm.apply_global_offset(x_offset, y_offset, map_size, trigger_overflow_action)
 
         # Shrinking changes the original area coordinates which results in a "difference" below whilst it
         # should never return any tiles. This circumvents the "difference" problem and is also faster.
