@@ -39,7 +39,6 @@ class Options(BaseStruct):
     lock_coop_alliances: bool               = Retriever(bool8,                   min_ver = Version(1, 41),                           default = False)
     ai_map_type2: int                       = Retriever(u32,                     min_ver = Version(1, 42), max_ver = Version(1, 46), default = 0)
     population_caps: list[int]              = Retriever(Array[16][u32],          min_ver = Version(1, 44),                           default_factory = lambda _ver: [0]*16)
-    # todo: figure this out
     secondary_game_mode                     = Retriever(u32,                     min_ver = Version(1, 45),                           default = 0)
 
     _legacy_disabled_tech_ids: list[list[int]]     = RetrieverRef(ret(_legacy_disables), ret(LegacyDisables.disabled_tech_ids))
