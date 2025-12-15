@@ -9,3 +9,4 @@ class Direction(Enum):
     EAST = auto()
     SOUTH = auto()
     WEST = auto()
+    CENTER = auto()

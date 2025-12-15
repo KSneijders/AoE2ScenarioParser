@@ -105,7 +105,7 @@ class MapManager(RefStruct):
     @map_size.setter
     def map_size(self, value):
         self.change_map_size(map_size = value, direction = Direction.EAST)
-        
+
     def shrink_map_by(
         self,
         shrink_by: int,
@@ -169,8 +169,8 @@ class MapManager(RefStruct):
         self,
         map_size: int,
         direction: Direction = Direction.EAST,
-        *,
         terrain_template: TerrainTile = None,
+        *,
         unit_overflow_action: Literal['remove', 'error'] = 'error',
         trigger_overflow_action: Literal['remove', 'error'] = 'error',  # Todo: Implement
     ) -> OrderedSet[Tile]:
@@ -198,6 +198,20 @@ class MapManager(RefStruct):
             return OrderedSet()
 
         diff = map_size - self.map_size
+
+        if direction == Direction.CENTER:
+            # Add tiles WEST (left) first so coordinates of result tiles don't change after EAST (right addition)
+            result1 = self.change_map_size(
+                map_size = self.map_size + math.floor(diff / 2), direction = Direction.WEST, terrain_template = terrain_template,
+                unit_overflow_action = unit_overflow_action, trigger_overflow_action = trigger_overflow_action
+            )
+            result2 = self.change_map_size(
+                map_size = map_size, direction = Direction.EAST, terrain_template = terrain_template,
+                unit_overflow_action = unit_overflow_action, trigger_overflow_action = trigger_overflow_action
+            )
+
+            return result1.union(result2)
+
         is_expansion = diff > 0
 
         # Calculate the X/Y offset of area differences

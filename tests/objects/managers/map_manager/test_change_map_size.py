@@ -9,8 +9,7 @@ from AoE2ScenarioParser.sections import TerrainTile
 
 
 @pytest.fixture(autouse = True)
-def randomize_terrain(mm):
-    # Randomize the terrain types so __eq__ checks have something to validate
+def set_terrain(mm):
     for row in mm.terrain:
         for tile in row:
             tile.type = 1
@@ -67,6 +66,28 @@ def test_terrain_shrink_map_by(mm: MapManager):
     assert_elevation(mm._terrain, 1)
 
     assert len(result) == 0
+
+
+def test_terrain_change_map_size_using_center(mm: MapManager):
+    result = mm.change_map_size(7, Direction.CENTER)
+    assert len(result) == 24
+
+    assert_square_size(mm.terrain, 7)
+
+    result = mm.shrink_map_by(1, Direction.CENTER)
+    assert len(result) == 0
+
+    assert_square_size(mm.terrain, 6)
+
+    result = mm.expand_map_by(1, Direction.CENTER)
+    assert len(result) == 13
+
+    assert_square_size(mm.terrain, 7)
+
+    result = mm.expand_map_by(3, Direction.CENTER)
+    assert len(result) == 51
+
+    assert_square_size(mm.terrain, 10)
 
 
 def test_terrain_expand_map_by(mm: MapManager):
