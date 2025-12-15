@@ -67,7 +67,6 @@ class UnitManager(RefStruct, CanBeLinked):
                 highest_reference_id = max(highest_reference_id, unit.reference_id + 1)
                 unit._player = player
 
-                # noinspection PyProtectedMember
                 if unit.is_garrisoned:
                     # noinspection PyProtectedMember
                     parent = self._unit_reference_mapping[unit._garrisoned_in_ref]
