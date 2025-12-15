@@ -1,0 +1,70 @@
+[
+  {
+    "id": 0,
+    "name": "none",
+    "description": "This effect is empty. It doesn't even have 'splash' or evolve...",
+    "attributes": []
+  },
+  {
+    "id": 1,
+    "name": "change_diplomacy",
+    "description": [
+      "This effect can be used to change the diplomacy stance of the source players with the target player.",
+      "It does NOT change the stance both ways."
+    ],
+    "attributes": [
+      {
+        "name": "diplomacy",
+        "ref": null,
+        "type": "DiplomacyStance",
+        "description": "The new diplomacy state. (ALLY / NEUTRAL / ENEMY)",
+        "default": "DiplomacyStance.ALLY"
+      },
+      {
+        "name": "source_player",
+        "ref": null,
+        "type": "int",
+        "description": "The player who's stance to another player will be changed",
+        "default": 1
+      },
+      {
+        "name": "target_player",
+        "ref": null,
+        "type": "int",
+        "description": "The player who's stance to change for the source player",
+        "default": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "research_technology",
+    "description": "This effect can be used to automatically research a technology for the specified player",
+    "attributes": [
+      {
+        "name": "source_player",
+        "ref": null,
+        "type": "int",
+        "description": "The player to research the technology for",
+        "default": 1
+      },
+      {
+        "name": "technology",
+        "ref": null,
+        "type": "TechInfo",
+        "description": "The technology to research for the specified player",
+        "default": "TechInfo.ANARCHY"
+      },
+      {
+        "name": "force_research_technology",
+        "ref": "force",
+        "type": "bool",
+        "description": [
+          "If enabled, the technology is researched even if the player's civilization does not have access to it.",
+          "For example, it can be used to research Paladin for the Aztec civilization."
+        ],
+        "default": 1
+      }
+    ]
+  }
+]
