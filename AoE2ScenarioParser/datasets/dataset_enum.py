@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from enum import Enum, IntEnum, IntFlag, EnumMeta
-from typing import Type, Dict
+from enum import Enum, EnumMeta, IntEnum, IntFlag, StrEnum
+from typing import Dict, Type
 
 
 class _DataSetMeta(EnumMeta):
@@ -28,6 +28,18 @@ class _DataSet(Enum, metaclass=_DataSetMeta):
 
 
 class _DataSetIntEnums(_DataSet, IntEnum):
+    """IntEnum super class for all int based datasets."""
+    def attribute_presentation(self) -> str:
+        """
+        Get the string representation of an enum entry. Uses `.name` when not overridden.
+
+        Returns:
+            The string representation of an enum entry.
+        """
+        return super().name
+
+
+class _DataSetStrEnums(_DataSet, StrEnum):
     """IntEnum super class for all int based datasets."""
     def attribute_presentation(self) -> str:
         """

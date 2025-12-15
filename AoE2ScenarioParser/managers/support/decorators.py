@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from enum import IntEnum
+from enum import IntEnum, StrEnum
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -33,7 +33,7 @@ def no_gaia_property():
     return wrapper
 
 
-def dataset_property(dataset: Type[IntEnum]):
+def dataset_property(dataset: Type[IntEnum | StrEnum]):
     """
     Decorator to create a property that applies the conversion from and to an IntEnum type. Does not enforce that the
     value is present in the dataset. Only when it is present it is converted to and from the dataset.

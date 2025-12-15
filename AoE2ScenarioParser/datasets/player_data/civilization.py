@@ -1,4 +1,4 @@
-from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums, _DataSet
+from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums, _DataSetStrEnums
 
 
 class StartingAge(_DataSetIntEnums):
@@ -97,7 +97,7 @@ class CivilizationOld(_DataSetIntEnums):
     FULL_RANDOM = 65539
 
 
-class Civilization(_DataSet):
+class Civilization(_DataSetStrEnums):
     """
     This enum class provides the integer values used to reference the civilizations in the game.
     This can be used in research tech conditions to check civ or set a player's civ in the player manager.
