@@ -4,8 +4,7 @@ import subprocess
 import tempfile
 import time
 from pathlib import Path
-from typing import Optional, Union, Tuple, Set, List
-from uuid import UUID
+from typing import List, Optional, Set, Tuple, Union
 
 from AoE2ScenarioParser import settings
 from AoE2ScenarioParser.datasets.conditions import ConditionId
@@ -20,8 +19,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 class XsCheck:
     version: Tuple[int, int, int] = (0, 2, 15)
 
-    def __init__(self, uuid: UUID):
-        self._uuid: UUID = uuid
+    def __init__(self):
 
         self.enabled = True
         """If XS-Check is enabled or not"""

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from AoE2ScenarioParser.managers import MapManager, MessageManager, OptionManager, PlayerManager, UnitManager
+from AoE2ScenarioParser.managers import MapManager, MessageManager, OptionManager, PlayerManager, UnitManager, XsManager
 from AoE2ScenarioParser.sections import ScenarioSections
 
 if TYPE_CHECKING:
@@ -16,21 +16,25 @@ class AoE2Scenario:
 
         self.sections: ScenarioSections = sections
 
-        self.message_manager = MessageManager(sections)
+        self.message_manager: MessageManager = MessageManager(sections)
 
-        self.map_manager = MapManager(sections)
+        self.map_manager: MapManager = MapManager(sections)
         # noinspection PyProtectedMember
         self.map_manager._initialize_properties()
 
-        self.unit_manager = UnitManager(sections)
+        self.unit_manager: UnitManager = UnitManager(sections)
         # noinspection PyProtectedMember
         self.unit_manager._initialize_properties()
 
-        self.player_manager = PlayerManager(sections)
+        self.player_manager: PlayerManager = PlayerManager(sections)
         # noinspection PyProtectedMember
         self.player_manager._initialize_properties()
 
-        self.option_manager = OptionManager(sections)
+        self.option_manager: OptionManager = OptionManager(sections)
+
+        self.xs_manager: XsManager = XsManager(sections)
+        # noinspection PyProtectedMember
+        self.xs_manager._initialize_properties()
 
     @classmethod
     def from_file(cls, path: str) -> Self:
