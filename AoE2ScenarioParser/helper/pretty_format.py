@@ -17,6 +17,13 @@ def pretty_format_list(plist: List, inline_types: List[Tuple[Type, int]] = None)
     return_string = "[\r\n"
     line_items = []
     for index, entry in enumerate(plist):
+        if type(entry) is dict:
+            return_string += add_tabs(pretty_format_dict(entry), 1)
+            continue
+        if type(entry) is list:
+            return_string += add_tabs(pretty_format_list(entry), 1)
+            continue
+
         for type_, n in inline_types:
             if isinstance(entry, type_):
                 line_items.append(entry)
