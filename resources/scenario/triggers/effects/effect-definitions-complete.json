@@ -2,22 +2,19 @@
   {
     "id": 0,
     "name": "none",
-    "description": "This effect is empty. It doesn't even have 'splash' or evolve...",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": []
   },
   {
     "id": 1,
     "name": "change_diplomacy",
-    "description": [
-      "This effect can be used to change the diplomacy stance of the source players with the target player.",
-      "It does NOT change the stance both ways."
-    ],
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "diplomacy",
         "ref": null,
         "type": "DiplomacyState",
-        "description": "The diplomacy stance to set the stance to (ALLY / NEUTRAL / ENEMY)",
+        "description": "The diplomacy stance to set the stance to",
         "default": null
       },
       {
@@ -39,7 +36,7 @@
   {
     "id": 2,
     "name": "research_technology",
-    "description": "This effect can be used to automatically research a technology for the specified player",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "source_player",
@@ -79,7 +76,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -149,7 +146,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -240,7 +237,7 @@
       {
         "name": "ai_script_goal",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The AI Trigger ID to set",
         "default": null
       }
@@ -275,14 +272,14 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
       {
         "name": "facet",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The rotation of the created unit",
         "default": null
       },
@@ -373,7 +370,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       },
@@ -464,7 +461,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -527,7 +524,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -541,7 +538,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -632,7 +629,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -702,7 +699,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -765,7 +762,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -793,14 +790,14 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
       {
         "name": "display_time",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The number of seconds to display the instructions panel for",
         "default": null
       },
@@ -898,7 +895,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -918,7 +915,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -967,7 +964,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1023,7 +1020,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -1051,7 +1048,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1065,7 +1062,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1121,7 +1118,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1135,7 +1132,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -1198,7 +1195,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1254,7 +1251,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1324,7 +1321,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1338,7 +1335,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -1401,7 +1398,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1415,7 +1412,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1471,7 +1468,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1485,7 +1482,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1534,7 +1531,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1548,7 +1545,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1597,7 +1594,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1660,7 +1657,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1723,7 +1720,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -1737,14 +1734,14 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
       {
         "name": "display_time",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The number of seconds to display the instructions panel for",
         "default": null
       },
@@ -1758,7 +1755,7 @@
       {
         "name": "timer",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The timer to <ACTION>",
         "default": null
       },
@@ -1807,7 +1804,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       }
@@ -1842,7 +1839,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       }
@@ -1877,7 +1874,7 @@
       {
         "name": "resource_1_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -1891,7 +1888,7 @@
       {
         "name": "resource_2_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -1905,7 +1902,7 @@
       {
         "name": "resource_3_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       }
@@ -1996,7 +1993,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2059,7 +2056,7 @@
       {
         "name": "facet2",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The rotation of the replaced unit",
         "default": null
       },
@@ -2073,7 +2070,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2101,7 +2098,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2129,7 +2126,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2227,7 +2224,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2283,7 +2280,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       },
@@ -2304,7 +2301,7 @@
       {
         "name": "ai_signal_value",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The AI Signal ID to acknowledge",
         "default": null
       }
@@ -2318,14 +2315,14 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -2353,7 +2350,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -2381,7 +2378,7 @@
       {
         "name": "quantity_float",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "float",
         "description": "The (decimal) amount to <ACTION>",
         "default": null
       }
@@ -2395,7 +2392,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -2416,7 +2413,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -2451,7 +2448,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -2514,7 +2511,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2528,7 +2525,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2549,7 +2546,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -2584,7 +2581,7 @@
       {
         "name": "timer",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The timer to <ACTION>",
         "default": null
       }
@@ -2633,7 +2630,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2654,7 +2651,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2682,7 +2679,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2710,7 +2707,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2738,7 +2735,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2780,7 +2777,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2822,7 +2819,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -2857,7 +2854,7 @@
       {
         "name": "resource_1_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2871,7 +2868,7 @@
       {
         "name": "resource_2_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2885,7 +2882,7 @@
       {
         "name": "resource_3_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       }
@@ -2899,7 +2896,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -2941,7 +2938,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2976,7 +2973,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2997,7 +2994,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3046,7 +3043,7 @@
       {
         "name": "ai_signal_value",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The AI Signal ID to acknowledge",
         "default": null
       }
@@ -3088,7 +3085,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3130,7 +3127,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3144,7 +3141,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3186,7 +3183,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -3200,7 +3197,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3235,7 +3232,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -3249,7 +3246,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3263,7 +3260,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3305,7 +3302,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3347,7 +3344,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -3410,7 +3407,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3424,7 +3421,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -3487,7 +3484,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3571,7 +3568,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3606,7 +3603,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       }
@@ -3669,7 +3666,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       }
@@ -3697,7 +3694,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       }
@@ -3816,7 +3813,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -3872,14 +3869,14 @@
       {
         "name": "decision_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The decision ID to use",
         "default": null
       },
       {
         "name": "string_id",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -3893,28 +3890,28 @@
       {
         "name": "string_id_option1",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID to use for the first decision option",
         "default": null
       },
       {
         "name": "message_option1",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "str",
         "description": "The message to use for the first decision option. Ignored when the string ID is set.",
         "default": null
       },
       {
         "name": "string_id_option2",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The string ID to use for the second decision option",
         "default": null
       },
       {
         "name": "message_option2",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "str",
         "description": "The message to use for the second decision option. Ignored when the string ID is set.",
         "default": null
       }
@@ -3956,7 +3953,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -3998,7 +3995,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       }
@@ -4110,14 +4107,14 @@
       {
         "name": "train_time",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The train time used for the newly set train location",
         "default": null
       },
       {
         "name": "hotkey",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The hotkey ID to use for setting the train location",
         "default": null
       }
@@ -4215,21 +4212,21 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "float",
         "description": "The (decimal) amount to <ACTION>",
         "default": null
       },
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -4299,21 +4296,21 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "float",
         "description": "The (decimal) amount to <ACTION>",
         "default": null
       },
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -4432,7 +4429,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "int",
         "description": "The maximum number of units affected by this effect",
         "default": null
       },

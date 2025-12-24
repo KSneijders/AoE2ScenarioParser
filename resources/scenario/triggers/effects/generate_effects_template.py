@@ -23,6 +23,28 @@ with effects_json.open('r') as f:
         types: dict[str, str] = legacy_effect_definition['-1']['attribute_presentation']
         types['area'] = 'Area'
         types['location'] = 'Tile'
+        types['string_id'] = 'int'
+        types['quantity'] = 'int'
+        types['armour_attack_quantity'] = 'int'
+        types['ai_script_goal'] = 'int'
+        types['item_id'] = 'int'
+        types['facet'] = 'int'
+        types['facet2'] = 'int'
+        types['ai_signal_value'] = 'int'
+        types['display_time'] = 'int'
+        types['timer'] = 'int'
+        types['resource_1_quantity'] = 'int'
+        types['resource_2_quantity'] = 'int'
+        types['resource_3_quantity'] = 'int'
+        types['max_units_affected'] = 'int'
+        types['decision_id'] = 'int'
+        types['string_id_option1'] = 'int'
+        types['string_id_option2'] = 'int'
+        types['train_time'] = 'int'
+        types['hotkey'] = 'int'
+        types['quantity_float'] = 'float'
+        types['message_option1'] = 'str'
+        types['message_option2'] = 'str'
 
         for key, value in types.items():
             if value.endswith('[]'):
