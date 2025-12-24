@@ -79,7 +79,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -112,6 +112,13 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
         "name": "location_object_reference",
         "ref": null,
         "type": "Unit",
@@ -131,27 +138,6 @@
         "type": "str",
         "description": "The name of the sound to <PURPOSE>",
         "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
       }
     ]
   },
@@ -163,7 +149,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -196,10 +182,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       }
     ]
@@ -210,10 +196,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       }
     ]
@@ -254,7 +240,7 @@
       {
         "name": "ai_script_goal",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The AI Trigger ID to set",
         "default": null
       }
@@ -280,16 +266,23 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
       {
         "name": "facet",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The rotation of the created unit",
         "default": null
       },
@@ -298,27 +291,6 @@
         "ref": null,
         "type": "bool",
         "description": "When enabled, disable the sound during the creation of the object",
-        "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -343,10 +315,24 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
         "name": "location_object_reference",
         "ref": null,
         "type": "Unit",
         "description": "The target location referenced by a unit",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -371,10 +357,10 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
@@ -387,7 +373,7 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
         "default": null
       },
@@ -403,62 +389,6 @@
         "ref": null,
         "type": "bool",
         "description": "When enabled, the set task will be queued",
-        "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -504,6 +434,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -518,52 +455,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -588,6 +490,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -609,52 +518,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -667,7 +541,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -679,31 +553,17 @@
         "default": null
       },
       {
-        "name": "scroll",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, is used to animate the camera transition. When disabled, the camera snaps to the new position without any animation",
-        "default": null
-      },
-      {
         "name": "location",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Tile",
         "description": "The tile to <ACTION>",
         "default": null
       },
       {
-        "name": "_location_x",
+        "name": "scroll",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
+        "type": "bool",
+        "description": "When enabled, is used to animate the camera transition. When disabled, the camera snaps to the new position without any animation",
         "default": null
       }
     ]
@@ -728,10 +588,24 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
         "name": "location_object_reference",
         "ref": null,
         "type": "Unit",
         "description": "The target location referenced by a unit",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -749,73 +623,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -847,6 +665,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -868,52 +693,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -938,6 +728,20 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -952,73 +756,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1045,14 +793,14 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
       {
         "name": "display_time",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The number of seconds to display the instructions panel for",
         "default": null
       },
@@ -1120,6 +868,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -1134,52 +889,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1198,7 +918,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1217,6 +937,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -1231,52 +958,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1303,22 +995,8 @@
       {
         "name": "location",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Tile",
         "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1345,8 +1023,15 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -1357,52 +1042,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1415,7 +1065,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1431,6 +1081,13 @@
         "ref": null,
         "type": "PlayerId",
         "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -1455,52 +1112,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1513,7 +1135,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -1539,6 +1161,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -1560,52 +1189,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1630,6 +1224,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -1644,52 +1245,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1714,10 +1280,24 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
         "name": "location_object_reference",
         "ref": null,
         "type": "Unit",
         "description": "The target location referenced by a unit",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -1735,73 +1315,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1814,7 +1338,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -1840,6 +1364,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -1861,52 +1392,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -1919,7 +1415,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -1935,6 +1431,13 @@
         "ref": null,
         "type": "PlayerId",
         "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -1959,52 +1462,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2017,7 +1485,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -2036,6 +1504,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -2050,52 +1525,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2108,7 +1548,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -2127,6 +1567,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -2141,52 +1588,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2211,6 +1623,20 @@
         "default": null
       },
       {
+        "name": "location",
+        "ref": null,
+        "type": "Tile",
+        "description": "The tile to <ACTION>",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -2225,73 +1651,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "location",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2316,6 +1686,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -2337,52 +1714,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2395,14 +1737,14 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
       {
         "name": "display_time",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The number of seconds to display the instructions panel for",
         "default": null
       },
@@ -2416,7 +1758,7 @@
       {
         "name": "timer",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The timer to <ACTION>",
         "default": null
       },
@@ -2465,7 +1807,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       }
@@ -2500,7 +1842,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       }
@@ -2535,7 +1877,7 @@
       {
         "name": "resource_1_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2549,7 +1891,7 @@
       {
         "name": "resource_2_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2563,7 +1905,7 @@
       {
         "name": "resource_3_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       }
@@ -2617,6 +1959,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -2638,52 +1987,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2715,6 +2029,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -2738,57 +2059,22 @@
       {
         "name": "facet2",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The rotation of the replaced unit",
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -2815,7 +2101,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2843,7 +2129,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2941,7 +2227,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -2974,6 +2260,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_list_unit_id_2",
         "ref": null,
         "type": "UnitInfo",
@@ -2981,16 +2274,16 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
         "default": null
       },
@@ -2999,41 +2292,6 @@
         "ref": null,
         "type": "bool",
         "description": "When enabled, disable the sound during the creation of the object",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -3046,7 +2304,7 @@
       {
         "name": "ai_signal_value",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The AI Signal ID to acknowledge",
         "default": null
       }
@@ -3060,14 +2318,14 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -3095,7 +2353,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -3123,7 +2381,7 @@
       {
         "name": "quantity_float",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The (decimal) amount to <ACTION>",
         "default": null
       }
@@ -3137,7 +2395,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3158,7 +2416,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -3193,7 +2451,7 @@
       {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
@@ -3233,73 +2491,31 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
-        "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
-        "default": null
-      },
-      {
-        "name": "max_units_affected",
-        "ref": null,
-        "type": "",
-        "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
         "name": "location",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Tile",
         "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       },
       {
         "name": "area",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Area",
         "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
-        "name": "_area_x1",
+        "name": "selected_objects",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "list[Unit]",
         "description": null,
         "default": null
       },
       {
-        "name": "_area_y1",
+        "name": "max_units_affected",
         "ref": null,
         "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
+        "description": "The maximum number of units affected by this effect",
         "default": null
       }
     ]
@@ -3312,7 +2528,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -3333,7 +2549,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3368,7 +2584,7 @@
       {
         "name": "timer",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The timer to <ACTION>",
         "default": null
       }
@@ -3394,6 +2610,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "player_color",
         "ref": null,
         "type": "PlayerColorId",
@@ -3401,52 +2624,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -3466,8 +2654,15 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -3478,52 +2673,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -3550,8 +2710,15 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -3562,52 +2729,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -3632,52 +2764,24 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "area",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
+        "name": "selected_objects",
+        "ref": null,
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -3702,52 +2806,24 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "area",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
+        "name": "selected_objects",
+        "ref": null,
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -3781,7 +2857,7 @@
       {
         "name": "resource_1_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -3795,7 +2871,7 @@
       {
         "name": "resource_2_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -3809,7 +2885,7 @@
       {
         "name": "resource_3_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       }
@@ -3823,7 +2899,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3865,7 +2941,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -3900,7 +2976,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -3921,7 +2997,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -3970,7 +3046,7 @@
       {
         "name": "ai_signal_value",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The AI Signal ID to acknowledge",
         "default": null
       }
@@ -3996,52 +3072,24 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "area",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
+        "name": "selected_objects",
+        "ref": null,
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -4066,52 +3114,24 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "area",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
+        "name": "selected_objects",
+        "ref": null,
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -4124,7 +3144,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -4157,59 +3177,31 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -4234,59 +3226,31 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "item_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "A copy from either unit list type/technology or tribute list",
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -4299,7 +3263,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -4318,73 +3282,31 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
-        "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
-        "default": null
-      },
-      {
-        "name": "max_units_affected",
-        "ref": null,
-        "type": "",
-        "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
         "name": "location",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Tile",
         "description": "The tile to <ACTION>",
-        "default": null
-      },
-      {
-        "name": "_location_x",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_location_y",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       },
       {
         "name": "area",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Area",
         "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
-        "name": "_area_x1",
+        "name": "selected_objects",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "list[Unit]",
         "description": null,
         "default": null
       },
       {
-        "name": "_area_y1",
+        "name": "max_units_affected",
         "ref": null,
         "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
+        "description": "The maximum number of units affected by this effect",
         "default": null
       }
     ]
@@ -4409,10 +3331,10 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       }
     ]
@@ -4425,7 +3347,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -4451,6 +3373,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -4472,52 +3401,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -4530,7 +3424,7 @@
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -4556,6 +3450,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -4577,52 +3478,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -4705,7 +3571,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
@@ -4740,7 +3606,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       }
@@ -4803,7 +3669,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       }
@@ -4831,7 +3697,7 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       }
@@ -4950,7 +3816,7 @@
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -4962,44 +3828,16 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
-        "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
-        "default": null
-      },
-      {
         "name": "area",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "Area",
         "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
-        "name": "_area_x1",
+        "name": "selected_objects",
         "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "list[Unit]",
         "description": null,
         "default": null
       }
@@ -5034,14 +3872,14 @@
       {
         "name": "decision_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The decision ID to use",
         "default": null
       },
       {
         "name": "string_id",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID which will be used to <PURPOSE>",
         "default": null
       },
@@ -5055,28 +3893,28 @@
       {
         "name": "string_id_option1",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID to use for the first decision option",
         "default": null
       },
       {
         "name": "message_option1",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The message to use for the first decision option. Ignored when the string ID is set.",
         "default": null
       },
       {
         "name": "string_id_option2",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The string ID to use for the second decision option",
         "default": null
       },
       {
         "name": "message_option2",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The message to use for the second decision option. Ignored when the string ID is set.",
         "default": null
       }
@@ -5102,52 +3940,24 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "area",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
+        "name": "selected_objects",
+        "ref": null,
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -5172,52 +3982,24 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "area",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
+        "name": "selected_objects",
+        "ref": null,
+        "type": "list[Unit]",
+        "description": null,
         "default": null
       },
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -5270,6 +4052,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
@@ -5281,41 +4070,6 @@
         "ref": null,
         "type": "VariableId",
         "description": "The second variable to use for <PURPOSE>",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -5356,14 +4110,14 @@
       {
         "name": "train_time",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The train time used for the newly set train location",
         "default": null
       },
       {
         "name": "hotkey",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The hotkey ID to use for setting the train location",
         "default": null
       }
@@ -5389,10 +4143,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -5400,41 +4161,6 @@
         "ref": null,
         "type": "UnitInfo",
         "description": "The unit to use for <PURPOSE>",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -5489,21 +4215,21 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The (decimal) amount to <ACTION>",
         "default": null
       },
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -5543,10 +4269,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -5566,21 +4299,21 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount [of <UNIT>] to <ACTION>",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The (decimal) amount to <ACTION>",
         "default": null
       },
       {
         "name": "armour_attack_quantity",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The amount to modify the ARMOR|ATTACK by",
         "default": null
       },
@@ -5589,41 +4322,6 @@
         "ref": null,
         "type": "DamageClass",
         "description": "The ARMOR|ATTACK class to modify",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
         "default": null
       }
     ]
@@ -5655,10 +4353,17 @@
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "type": "list[Unit]",
+        "description": null,
+        "default": null
+      },
+      {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
         "default": null
       },
       {
@@ -5688,41 +4393,6 @@
         "type": "DamageClass",
         "description": "The ARMOR|ATTACK class to modify",
         "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
       }
     ]
   },
@@ -5746,6 +4416,13 @@
         "default": null
       },
       {
+        "name": "area",
+        "ref": null,
+        "type": "Area",
+        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "default": null
+      },
+      {
         "name": "visibility_state",
         "ref": null,
         "type": "VisibilityState",
@@ -5755,49 +4432,14 @@
       {
         "name": "max_units_affected",
         "ref": null,
-        "type": "",
+        "type": "------ UNKNOWN TYPE ------",
         "description": "The maximum number of units affected by this effect",
         "default": null
       },
       {
-        "name": "selected_object_ids",
+        "name": "selected_objects",
         "ref": null,
-        "type": "Unit[]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
-        "default": null
-      },
-      {
-        "name": "area",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
-        "default": null
-      },
-      {
-        "name": "_area_x1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y1",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_x2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "_area_y2",
-        "ref": null,
-        "type": "------ UNKNOWN TYPE ------",
+        "type": "list[Unit]",
         "description": null,
         "default": null
       }

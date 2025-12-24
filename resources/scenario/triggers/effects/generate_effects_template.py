@@ -21,40 +21,42 @@ with effects_json.open('r') as f:
 
         # noinspection PyTypedDict
         types: dict[str, str] = legacy_effect_definition['-1']['attribute_presentation']
+        types['area'] = 'Area'
+        types['location'] = 'Tile'
 
-        attributes = effect_definition['attributes']
-        if 'effect_type' in attributes:
-            attributes.remove('effect_type')
+        for key, value in types.items():
+            if value.endswith('[]'):
+                value = f"list[{value[:-2]}]"
+                types[key] = value
+
+        attributes_list = effect_definition['attributes']
+        if 'effect_type' in attributes_list:
+            attributes_list.remove('effect_type')
+
+        attributes: dict[str, str | None] = {attr: attr for attr in attributes_list}
 
         replacements = {
-            'location_x': '_location_x',
-            'location_y': '_location_y',
-            'area_x1':    '_area_x1',
-            'area_y1':    '_area_y1',
-            'area_x2':    '_area_x2',
-            'area_y2':    '_area_y2',
+            'location_x': 'location',
+            'location_y': None,
+            'area_x1': 'area',
+            'area_y1': None,
+            'area_x2': None,
+            'area_y2': None,
+            'selected_object_ids': 'selected_objects'
         }
-
-        # TODO: Maybe replace with something like "HIDDEN PROPS" per attribute (for location: location_x)
 
         for before, after in replacements.items():
             if before in attributes:
-                if before == "location_x":
-                    attributes.append("location")
-                if before == "area_x1":
-                    attributes.append("area")
+                attributes[before] = after
 
-                attributes.remove(before)
-                attributes.append(after)
-
-        attributes = [
+        attr_definitions = [
             AttributeDefinition(
-                name = attribute,
+                name = after,
                 ref = None,
-                type = types.get(attribute, '------ UNKNOWN TYPE ------'),
-                description = effect_attribute_descriptions.get(attribute, None),
+                type = types.get(before) or types.get(after) or '------ UNKNOWN TYPE ------',
+                description = effect_attribute_descriptions.get(after, None),
                 default = None,
-            ) for attribute in attributes
+            ) for before, after in attributes.items() if after is not None
         ]
 
         result.append(
@@ -62,11 +64,10 @@ with effects_json.open('r') as f:
                 id = int(effect_id),
                 name = effect_definition['name'],
                 description = '----- DESCRIPTION TO BE FILLED -----',
-                attributes = attributes
+                attributes = attr_definitions
             )
         )
 
-
 complete_file = Path(__file__).parent / 'effect-definitions-complete.json'
 with complete_file.open('w') as f:
-    f.write(json.dumps(result, indent=2))
+    f.write(json.dumps(result, indent = 2))
