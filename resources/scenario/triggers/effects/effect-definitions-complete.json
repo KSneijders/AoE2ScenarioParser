@@ -182,7 +182,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       }
     ]
@@ -196,7 +196,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       }
     ]
@@ -207,9 +207,9 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "trigger_id",
+        "name": "trigger",
         "ref": null,
-        "type": "TriggerId",
+        "type": "Trigger",
         "description": "The trigger to <ACTION>",
         "default": null
       }
@@ -221,9 +221,9 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "trigger_id",
+        "name": "trigger",
         "ref": null,
-        "type": "TriggerId",
+        "type": "Trigger",
         "description": "The trigger to <ACTION>",
         "default": null
       }
@@ -357,7 +357,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -455,7 +455,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -518,7 +518,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -623,7 +623,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -693,7 +693,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -756,7 +756,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -889,7 +889,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -958,7 +958,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1042,7 +1042,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1112,7 +1112,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1189,7 +1189,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1245,7 +1245,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1315,7 +1315,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1392,7 +1392,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1462,7 +1462,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1525,7 +1525,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1588,7 +1588,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1651,7 +1651,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1714,7 +1714,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -1987,7 +1987,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2064,7 +2064,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2274,7 +2274,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2505,7 +2505,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2624,7 +2624,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2673,7 +2673,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2729,7 +2729,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2771,7 +2771,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -2813,7 +2813,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3079,7 +3079,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3121,7 +3121,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3191,7 +3191,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3240,7 +3240,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3296,7 +3296,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3331,7 +3331,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       }
     ]
@@ -3401,7 +3401,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3478,7 +3478,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3835,7 +3835,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       }
     ]
@@ -3947,7 +3947,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -3989,7 +3989,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -4143,7 +4143,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -4269,7 +4269,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -4353,7 +4353,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       },
       {
@@ -4437,7 +4437,7 @@
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": null,
+        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
         "default": null
       }
     ]

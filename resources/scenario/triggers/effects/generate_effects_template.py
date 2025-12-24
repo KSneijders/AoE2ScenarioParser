@@ -45,6 +45,7 @@ with effects_json.open('r') as f:
         types['quantity_float'] = 'float'
         types['message_option1'] = 'str'
         types['message_option2'] = 'str'
+        types['trigger_id'] = 'Trigger'
 
         for key, value in types.items():
             if value.endswith('[]'):
@@ -64,7 +65,8 @@ with effects_json.open('r') as f:
             'area_y1': None,
             'area_x2': None,
             'area_y2': None,
-            'selected_object_ids': 'selected_objects'
+            'selected_object_ids': 'selected_objects',
+            'trigger_id': 'trigger',
         }
 
         for before, after in replacements.items():
@@ -76,7 +78,8 @@ with effects_json.open('r') as f:
                 name = after,
                 ref = None,
                 type = types.get(before) or types.get(after) or '------ UNKNOWN TYPE ------',
-                description = effect_attribute_descriptions.get(after, None),
+                description = effect_attribute_descriptions.get(before)
+                              or effect_attribute_descriptions.get(after),
                 default = None,
             ) for before, after in attributes.items() if after is not None
         ]
