@@ -116,10 +116,10 @@
         "default": null
       },
       {
-        "name": "location_object_reference",
+        "name": "location_object",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by a unit",
+        "description": "The target location referenced by an object",
         "default": null
       },
       {
@@ -319,10 +319,10 @@
         "default": null
       },
       {
-        "name": "location_object_reference",
+        "name": "location_object",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by a unit",
+        "description": "The target location referenced by an object",
         "default": null
       },
       {
@@ -592,10 +592,10 @@
         "default": null
       },
       {
-        "name": "location_object_reference",
+        "name": "location_object",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by a unit",
+        "description": "The target location referenced by an object",
         "default": null
       },
       {
@@ -1284,10 +1284,10 @@
         "default": null
       },
       {
-        "name": "location_object_reference",
+        "name": "location_object",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by a unit",
+        "description": "The target location referenced by an object",
         "default": null
       },
       {
