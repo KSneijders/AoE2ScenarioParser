@@ -1,7 +1,7 @@
+import math
 import sys
 import warnings
-
-from time import strftime, localtime
+from time import localtime, strftime
 from typing import Type
 
 from AoE2ScenarioParser import settings
@@ -86,3 +86,22 @@ def warn(message: str = "", category: Type[Warning] = None, stack: int = 0) -> N
 def current_time() -> str:
     """Get the current local machine time in a formatted string"""
     return strftime("%H:%M:%S", localtime())
+
+
+def print_columns(lst: list[str], cols: int = 4, spacing: str = '  '):
+    col_size = math.ceil(len(lst) / cols)
+    col_widths = [-1 for _ in range(cols)]
+
+    table = [[] for _ in range(cols)]
+    for i in range(cols):
+        for j in range(col_size):
+            index = i * col_size + j
+            if index >= len(lst):
+                break
+
+            val = lst[i * col_size + j]
+            col_widths[i] = max(len(str(val)), col_widths[i])
+            table[i].append(val)
+
+    for i in range(col_size):
+        print(spacing.join([str(table[j][i]).ljust(col_widths[j]) for j in range(cols) if j * col_size + i < len(lst)]))
