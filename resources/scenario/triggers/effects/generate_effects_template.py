@@ -68,6 +68,7 @@ with effects_json.open('r') as f:
             'selected_object_ids': 'selected_objects',
             'location_object_reference': 'location_object',
             'trigger_id': 'trigger',
+            'tribute_list': 'resource',
         }
 
         for before, after in replacements.items():

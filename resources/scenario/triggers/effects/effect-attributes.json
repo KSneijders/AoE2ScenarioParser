@@ -4,7 +4,7 @@
     "armour_attack_quantity": "The amount to modify the ARMOR|ATTACK by",
     "armour_attack_class": "The ARMOR|ATTACK class to modify",
     "quantity": "The amount [of <UNIT>] to <ACTION>",
-    "tribute_list": "The resource used for tribute",
+    "resource": "The resource to use for <ACTION>",
     "diplomacy": "The diplomacy stance to set the stance to",
     "object_list_unit_id": "The unit type to DO|CHANGE THE <ACTION>",
     "source_player": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",

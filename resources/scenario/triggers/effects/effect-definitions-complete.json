@@ -151,10 +151,10 @@
         "default": null
       },
       {
-        "name": "tribute_list",
+        "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource used for tribute",
+        "description": "The resource to use for <ACTION>",
         "default": null
       },
       {
@@ -2397,10 +2397,10 @@
         "default": null
       },
       {
-        "name": "tribute_list",
+        "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource used for tribute",
+        "description": "The resource to use for <ACTION>",
         "default": null
       },
       {
@@ -2432,10 +2432,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "tribute_list",
+        "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource used for tribute",
+        "description": "The resource to use for <ACTION>",
         "default": null
       },
       {
@@ -3573,10 +3573,10 @@
         "default": null
       },
       {
-        "name": "tribute_list",
+        "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource used for tribute",
+        "description": "The resource to use for <ACTION>",
         "default": null
       }
     ]
@@ -3706,10 +3706,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "tribute_list",
+        "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource used for tribute",
+        "description": "The resource to use for <ACTION>",
         "default": null
       },
       {

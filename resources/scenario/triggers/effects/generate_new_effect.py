@@ -10,7 +10,7 @@ from resources.scenario.triggers.effects.definitions import AttributeDefinition,
 # --------------------------------------------------------------------
 # When adding a new effect, execute this module to produce a single
 # new effect. After this, fill all empty attributes inside the
-# generated json file.
+# generated JSON file.
 
 if __name__ == '__main__':
     effect_attribute_descriptions_file = (Path(__file__).parent / 'effect-attributes.json')
