@@ -33,9 +33,9 @@ with effects_json.open('r') as f:
         types['ai_signal_value'] = 'int'
         types['display_time'] = 'int'
         types['timer'] = 'int'
-        types['resource_1_quantity'] = 'int'
-        types['resource_2_quantity'] = 'int'
-        types['resource_3_quantity'] = 'int'
+        types['resource1_quantity'] = 'int'
+        types['resource2_quantity'] = 'int'
+        types['resource3_quantity'] = 'int'
         types['max_units_affected'] = 'int'
         types['decision_id'] = 'int'
         types['string_id_option1'] = 'int'
@@ -69,6 +69,12 @@ with effects_json.open('r') as f:
             'location_object_reference': 'location_object',
             'trigger_id': 'trigger',
             'tribute_list': 'resource',
+            'resource_1': 'resource1',
+            'resource_1_quantity': 'resource1_quantity',
+            'resource_2': 'resource2',
+            'resource_2_quantity': 'resource2_quantity',
+            'resource_3': 'resource3',
+            'resource_3_quantity': 'resource3_quantity',
         }
 
         for before, after in replacements.items():

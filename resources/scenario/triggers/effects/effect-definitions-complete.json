@@ -1865,42 +1865,42 @@
         "default": null
       },
       {
-        "name": "resource_1",
+        "name": "resource1",
         "ref": null,
         "type": "Attribute",
         "description": "The new first resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_1_quantity",
+        "name": "resource1_quantity",
         "ref": null,
         "type": "int",
         "description": "The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_2",
+        "name": "resource2",
         "ref": null,
         "type": "Attribute",
         "description": "The new second resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_2_quantity",
+        "name": "resource2_quantity",
         "ref": null,
         "type": "int",
         "description": "The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_3",
+        "name": "resource3",
         "ref": null,
         "type": "Attribute",
         "description": "The new third resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_3_quantity",
+        "name": "resource3_quantity",
         "ref": null,
         "type": "int",
         "description": "The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY",
@@ -2845,42 +2845,42 @@
         "default": null
       },
       {
-        "name": "resource_1",
+        "name": "resource1",
         "ref": null,
         "type": "Attribute",
         "description": "The new first resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_1_quantity",
+        "name": "resource1_quantity",
         "ref": null,
         "type": "int",
         "description": "The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_2",
+        "name": "resource2",
         "ref": null,
         "type": "Attribute",
         "description": "The new second resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_2_quantity",
+        "name": "resource2_quantity",
         "ref": null,
         "type": "int",
         "description": "The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_3",
+        "name": "resource3",
         "ref": null,
         "type": "Attribute",
         "description": "The new third resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
       {
-        "name": "resource_3_quantity",
+        "name": "resource3_quantity",
         "ref": null,
         "type": "int",
         "description": "The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY",
