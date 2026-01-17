@@ -24,14 +24,14 @@
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose stance will be changed",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose <ACTION>",
+        "description": "The target player whose diplomacy stance will be changed for the source player",
         "default": null
       }
     ]
@@ -45,14 +45,14 @@
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology will be researched",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology which will be researched for the specified player.",
         "default": null
       },
       {
