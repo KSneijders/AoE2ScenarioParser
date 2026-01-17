@@ -66,7 +66,6 @@ with effects_json.open('r') as f:
             'area_x2': None,
             'area_y2': None,
             'selected_object_ids': 'selected_objects',
-            'location_object_reference': 'location_object',
             'trigger_id': 'trigger',
             'tribute_list': 'resource',
             'diplomacy': 'diplomacy_state',
