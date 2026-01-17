@@ -150,7 +150,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 
 ### 7. Changing the map
 
-1. And now as final change let's add a hill and change the size of the map. First add the `map_manager`:
+1. And now as a final change, let's add a hill and change the size of the map. First get the `map_manager`:
 
     ```py
     map_manager = scenario.map_manager
@@ -165,8 +165,12 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 
     The in-game max elevation is 7, that's equivelant to `elevation=6` in the parser.
     This is because `elevation=0` is elevation 1 in the editor.
-    Using the parser you can go as large as you want, although above ~20 
-    without UHD and ~15 with UHD the camera starts clipping into the hill. 
+    Using the parser you can go as large as you want, though the game can bug out if you go above 20.
+
+    Below is a graphic explaining how the map coordinates work:
+
+    ![](./images/map_coordinates_explained.png)
+    Thanks to [ScribbleGhost](https://github.com/ScribbleGhost) for the graphic! ❤️
 
 3. And finally let's shrink the map size to `40x40` tiles
 
