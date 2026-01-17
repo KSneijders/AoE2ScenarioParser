@@ -17,21 +17,21 @@
         "name": "diplomacy_state",
         "ref": null,
         "type": "DiplomacyState",
-        "description": "The diplomacy stance to set the stance to",
+        "description": "The diplomacy stance to set the stance to.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose stance will be changed",
+        "description": "The player whose stance will be changed.",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose diplomacy stance will be changed for the source player",
+        "description": "The target player whose diplomacy stance will be changed for the source player.",
         "default": null
       }
     ]
@@ -39,13 +39,13 @@
   {
     "id": 2,
     "name": "research_technology",
-    "description": "This effect can be used to automatically research a technology for the specified player",
+    "description": "This effect can be used to automatically research a technology for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player for whom the technology will be researched",
+        "description": "The player for whom the technology will be researched.",
         "default": null
       },
       {
@@ -59,7 +59,7 @@
         "name": "force_technology",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to force the selected technology to be researched, regardless if the civilization has access to it or not",
+        "description": "When enabled, is used to force the selected technology to be researched, regardless if the civilization has access to it or not.",
         "default": null
       }
     ]
@@ -67,34 +67,34 @@
   {
     "id": 3,
     "name": "send_chat",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to send a chat message to the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who will be receiving the message.",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID which will be used instead of the message.",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The message to be send to the player.",
         "default": null
       },
       {
         "name": "sound_name",
         "ref": null,
         "type": "str",
-        "description": "The name of the sound to <PURPOSE>",
+        "description": "The name of the sound to play when the message is sent.",
         "default": null
       }
     ]
@@ -102,27 +102,27 @@
   {
     "id": 4,
     "name": "play_sound",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to play a sound at a specific location or globally for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who will hear the sound effect.",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to play the sound at.",
         "default": null
       },
       {
         "name": "location_object_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by an object",
+        "description": "The unit whose position will be used to play the sound at.",
         "default": null
       },
       {
@@ -130,13 +130,13 @@
         "ref": null,
         "type": "bool",
         "description": "When enabled, the sound will be played regardless of if the target is on screen (targeted sound events only)",
-        "default": null
+        "default": false
       },
       {
         "name": "sound_name",
         "ref": null,
         "type": "str",
-        "description": "The name of the sound to <PURPOSE>",
+        "description": "The name of the sound to play",
         "default": null
       }
     ]
