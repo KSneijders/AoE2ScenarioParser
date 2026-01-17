@@ -160,7 +160,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 2. Now let's add the code for the hill:
 
     ```py
-    map_manager.set_elevation(elevation=3, x1=3, y1=6, x2=9, y2=12)
+    map_manager.set_elevation(elevation=1, x1=3, y1=6, x2=9, y2=12)
     ```
 
     The in-game max elevation is 7, that's equivelant to `elevation=6` in the parser.
@@ -227,7 +227,7 @@ unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID
 unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
 unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
 
-map_manager.set_elevation(elevation=3, x1=3, y1=6, x2=9, y2=12)
+map_manager.set_elevation(elevation=1, x1=3, y1=6, x2=9, y2=12)
 map_manager.map_size = 40
 
 scenario.write_to_file(input_folder + "hello world output.aoe2scenario")
