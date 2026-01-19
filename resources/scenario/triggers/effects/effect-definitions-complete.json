@@ -280,7 +280,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       },
       {
@@ -1812,7 +1812,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       }
     ]
@@ -1847,7 +1847,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       }
     ]
@@ -2358,7 +2358,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       },
       {
@@ -2421,7 +2421,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       },
       {
@@ -2456,7 +2456,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       },
       {
@@ -3191,7 +3191,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       },
       {
@@ -3240,7 +3240,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy from either unit list type/technology or tribute list",
+        "description": "A copy of the internal value from the selected unit/technology/resource",
         "default": null
       },
       {

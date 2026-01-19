@@ -26,7 +26,7 @@
     "legacy_wood": "Unused -- Legacy use for change technology/unit cost",
     "legacy_stone": "Unused -- Legacy use for change technology/unit cost",
     "legacy_gold": "Unused -- Legacy use for change technology/unit cost",
-    "item_id": "A copy from either unit list type/technology or tribute list",
+    "item_id": "A copy of the internal value from the selected unit/technology/resource",
     "flash_object": "When enabled, is used to flash the affected units when the source and target player are the same",
     "force_technology": "When enabled, is used to force the selected technology to be researched, regardless if the civilization has access to it or not",
     "visibility_state": "The visibility state to use",
