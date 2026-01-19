@@ -231,7 +231,7 @@
         "name": "trigger",
         "ref": null,
         "type": "Trigger",
-        "description": "The trigger to deactivated",
+        "description": "The trigger to be deactivated",
         "default": null
       }
     ]
@@ -239,13 +239,16 @@
   {
     "id": 10,
     "name": "ai_script_goal",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": [
+      "This effect can be used to communicate with an AI player by setting an AI Trigger number.",
+      "The AI Trigger number can be detected inside an AI script using: `event-detected trigger NUMBER`"
+    ],
     "attributes": [
       {
         "name": "ai_script_goal",
         "ref": null,
         "type": "int",
-        "description": "The AI Trigger ID to set",
+        "description": "The AI Trigger number to set",
         "default": null
       }
     ]
@@ -253,27 +256,27 @@
   {
     "id": 11,
     "name": "create_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to create a unit (including buildings, heroes etc.) for the specified player",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
-        "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "type": "UnitInfo|BuildingInfo|HeroInfo|OtherInfo|int",
+        "description": "The unit type to be created",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose unit will be created",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile where the unit will be created",
         "default": null
       },
       {
@@ -287,7 +290,7 @@
         "name": "facet",
         "ref": null,
         "type": "int",
-        "description": "The rotation of the created unit",
+        "description": "The rotation of the created unit in radians",
         "default": null
       },
       {
@@ -295,7 +298,7 @@
         "ref": null,
         "type": "bool",
         "description": "When enabled, disable the sound during the creation of the object",
-        "default": null
+        "default": false
       }
     ]
   },
