@@ -7,7 +7,7 @@ from resources.scenario.triggers.effects.definitions import AttributeDefinition
 effects_json = (Path(__file__).parent.parent.parent.parent.parent
                 / 'AoE2ScenarioParser' / 'versions' / 'DE' / 'v1.56' / 'effects.json')
 
-COMPLETE_PROGRESS = 4
+COMPLETE_PROGRESS = 9
 """Until which ID have the descriptions, refs and defaults been filled."""
 
 effect_attribute_descriptions_file = (Path(__file__).parent / 'effect-attributes.json')

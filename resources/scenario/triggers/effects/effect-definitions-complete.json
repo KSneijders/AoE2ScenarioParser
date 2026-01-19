@@ -115,21 +115,25 @@
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to play the sound at.",
+        "description": "The tile to play the sound at. When not set, the sound will be played globally.",
         "default": null
       },
       {
         "name": "location_object_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The unit whose position will be used to play the sound at.",
+        "description": "The unit whose position will be used to play the sound at. When not set, the sound will be played globally.",
         "default": null
       },
       {
         "name": "global_sound",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, the sound will be played regardless of if the target is on screen (targeted sound events only)",
+        "description": [
+          "When enabled, the sound will be played regardless of if the target is on screen.",
+          "This is useful for sounds existing game sound which are considered '3D'. ",
+          "'3D' sounds are game sounds based on coordinates. '2D' sounds are sounds like GUI, button click or notification sounds."
+        ],
         "default": false
       },
       {
@@ -144,34 +148,34 @@
   {
     "id": 5,
     "name": "tribute",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to send resources one player to another.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount of the specified resource to send.",
         "default": null
       },
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to use for <ACTION>",
+        "description": "The source that will be sent",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who will be sending the resource.",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose <ACTION>",
+        "description": "The player who will be receiving the resources",
         "default": null
       }
     ]
@@ -179,13 +183,13 @@
   {
     "id": 6,
     "name": "unlock_gate",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to unlock specific gates.",
     "attributes": [
       {
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "description": "The gates to be unlocked.",
         "default": null
       }
     ]
@@ -193,13 +197,13 @@
   {
     "id": 7,
     "name": "lock_gate",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to lock specific gates.",
     "attributes": [
       {
         "name": "selected_objects",
         "ref": null,
         "type": "list[Unit]",
-        "description": "The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc.",
+        "description": "The gates to be locked.",
         "default": null
       }
     ]
@@ -207,13 +211,13 @@
   {
     "id": 8,
     "name": "activate_trigger",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to activate a trigger.",
     "attributes": [
       {
         "name": "trigger",
         "ref": null,
         "type": "Trigger",
-        "description": "The trigger to <ACTION>",
+        "description": "The trigger to be activated.",
         "default": null
       }
     ]
@@ -221,13 +225,13 @@
   {
     "id": 9,
     "name": "deactivate_trigger",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to deactivate a trigger.",
     "attributes": [
       {
         "name": "trigger",
         "ref": null,
         "type": "Trigger",
-        "description": "The trigger to <ACTION>",
+        "description": "The trigger to deactivated",
         "default": null
       }
     ]
