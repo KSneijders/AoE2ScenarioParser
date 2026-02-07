@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.6.6 - 2026-February-07
+
+### Fixes
+
+- Missing `global_sound` parameter in the `trigger.new_effect.play_sound(...)` function
+- `xsc-ignore ...` being ignored themselves caused by added xs comments for ASP output 
+
+---
+
 ##  0.6.5 - 2025-November-17
 
 ### Updates

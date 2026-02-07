@@ -67,6 +67,7 @@ class NewEffectSupport:
             location_x: int | None = None,
             location_y: int | None = None,
             location_object_reference: int | None = None,
+            global_sound: int | None = None,
             sound_name: str | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
@@ -75,6 +76,7 @@ class NewEffectSupport:
             location_x=location_x,
             location_y=location_y,
             location_object_reference=location_object_reference,
+            global_sound=global_sound,
             sound_name=sound_name,
         )
 
