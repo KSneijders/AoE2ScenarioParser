@@ -191,7 +191,11 @@ class XsManagerDE(AoE2Object):
         if include_short_code:
             xs_snippets: List[str] = [
                 '\n'.join([
-                    f"/*{xs_snippet[0]}*/ {line}" for line in xs_snippet[1].splitlines()
+                    (
+                        f"{line} /*{xs_snippet[0]}*/"
+                        if not line.strip().startswith('// xsc-ignore')
+                        else line
+                    ) for line in xs_snippet[1].splitlines()
                 ])
                 for xs_snippet in xs_snippet_map
             ]
