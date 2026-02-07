@@ -90,7 +90,7 @@ which tiles are saved.
 
 ![Visualisation Map Tiles Explained](./../images/map_tiles_explained.png "map_tiles_explained")
 
-To get a tile based on it's XY coordinate (like `(5,8)`, as highlighted in the above image) you can use: 
+To get a tile based on it's XY coordinate (like `(5,8)`, as highlighted in the above image) you can use:
 
 ```py
 map_manager.get_tile(x=5, y=8)  # Get tile at x5,y8
@@ -123,14 +123,18 @@ This will turn the above map into:
 ## Elevation
 
 You can also add hills to the map by using the `set_elevation` function. 
+In the below graphic you can see the coordinates used in the function. 
+
+![](./../images/map_coordinates_explained.png)
+Thanks to [ScribbleGhost](https://github.com/ScribbleGhost) for the graphic! ❤️
 
 ```py
 map_manager.set_elevation(
-    elevation=2,
+    elevation=1,
     x1=3, 
-    y1=3, 
-    x2=5, 
-    y2=5,
+    y1=6, 
+    x2=9, 
+    y2=12,
 )
 ```
 
