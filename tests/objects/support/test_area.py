@@ -26,10 +26,10 @@ class TestArea(TestCase):
 
     def test_area_select_entire_map(self):
         self.area.select_entire_map()
-        self.assertEqual(0, self.area.x1)
-        self.assertEqual(0, self.area.y1)
-        self.assertEqual(self.area.maximum_coordinate, self.area.x2)
-        self.assertEqual(self.area.maximum_coordinate, self.area.y2)
+        self.assertEqual(0, self.area._x1)
+        self.assertEqual(0, self.area._y1)
+        self.assertEqual(self.area.maximum_coordinate, self.area._x2)
+        self.assertEqual(self.area.maximum_coordinate, self.area._y2)
 
     def test_area_select(self):
         self.area.select(10, 11, 20, 22)
@@ -212,12 +212,14 @@ class TestArea(TestCase):
         self.area.center(8, 8)
         self.area.width(6)
         self.assertEqual(((5, 8), (10, 8)), self.area.get_selection())
-        self.area.width(11)
+        self.area.width(11)  # increase 5
         self.assertEqual(((2, 8), (12, 8)), self.area.get_selection())
-        self.area.width(8)
+        self.area.width(8)  # decrease 3
         self.assertEqual(((4, 8), (11, 8)), self.area.get_selection())
-        self.area.width(3)
-        self.assertEqual(((7, 8), (9, 8)), self.area.get_selection())
+        self.area.width(2)  # decrease 6
+        self.assertEqual(((7, 8), (8, 8)), self.area.get_selection())
+        self.area.width(6)  # increase 4
+        self.assertEqual(((5, 8), (10, 8)), self.area.get_selection())
 
     def test_area_use_full(self):
         self.area.use_full()
