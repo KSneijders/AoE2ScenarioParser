@@ -280,7 +280,7 @@ class Area:
                 are returned as TerrainTiles.
 
         Returns:
-            A list of OrderedSets of Tiles ((x, y) named tuple) of the selection.
+            A list of OrderedSets with Tiles ((x, y) named tuple) of the selection.
         """
         tiles = self.to_coords()
 
@@ -613,7 +613,7 @@ class Area:
 
     def select_entire_map(self) -> Area:
         """Sets the selection to the entire map"""
-        self.x1, self.y1, self.x2, self.y2 = 0, 0, self._map_size, self._map_size
+        self.x1, self.y1, self.x2, self.y2 = 0, 0, self.map_size - 1, self.map_size - 1
         return self
 
     def select(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
@@ -775,7 +775,7 @@ class Area:
             if half > first_coord:
                 half1 = -first_coord
                 half2 += half - first_coord
-            if half > (dist := self._map_size_safe - second_coord):
+            if half > (dist := self.maximum_coordinate - second_coord):
                 half2 = dist
                 half1 += half - dist
             return math.floor(half1), math.floor(half2)
@@ -861,7 +861,7 @@ class Area:
         elif self.state == AreaState.GRID:
             if self.inverted:
                 return 0
-            per_row = math.ceil(self.get_height() / (self.block_size_x + self.gap_size_x))
+            per_row = math.ceil(self.get_width() / (self.block_size_x + self.gap_size_x))
             return (tile.x - self.x1) // (self.block_size_x + self.gap_size_x) + \
                 (tile.y - self.y1) // (self.block_size_y + self.gap_size_y) * per_row
 

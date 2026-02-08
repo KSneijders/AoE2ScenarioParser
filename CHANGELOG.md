@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.6.7 - 2026-February-08
+
+### Fixes
+
+- `Area.select_entire_map()` causing alignment issues in specific use-cases
+- `Area.to_chunks()` could incorrectly group multiple chunks together when the selection wasn't a square
+
+---
+
 ## 0.6.6 - 2026-February-07
 
 ### Fixes
