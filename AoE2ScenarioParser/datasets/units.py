@@ -65,7 +65,6 @@ class UnitInfo(InfoDatasetBase):
             "base": {
                 "male": [
                     UnitInfo.VILLAGER_MALE,
-                    UnitInfo.VILLAGER_MALE_MONASTERY,
                     UnitInfo.VILLAGER_MALE_BUILDER,
                     UnitInfo.VILLAGER_MALE_FARMER,
                     UnitInfo.VILLAGER_MALE_FISHERMAN,
@@ -78,6 +77,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_MALE_STONE_MINER,
                     UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
                     UnitInfo.VILLAGER_MALE_HERDER,
+                    UnitInfo.VILLAGER_MALE_MONASTERY,
                 ],
                 "female": [
                     UnitInfo.VILLAGER_FEMALE,

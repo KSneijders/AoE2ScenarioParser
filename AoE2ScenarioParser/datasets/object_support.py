@@ -93,6 +93,10 @@ class CivilizationOld(_DataSetIntEnums):
     THRACIANS = 55
     PURU = 56
 
+    MUISCA = 57
+    MAPUCHE = 58
+    TUPI = 59
+
     RANDOM = 65537
     FULL_RANDOM = 65539
 
@@ -177,6 +181,10 @@ class Civilization(_DataSet):
     MACEDONIANS = "MACEDONIANS-CIV"
     THRACIANS = "THRACIANS-CIV"
     PURU = "PURU-CIV"
+
+    MUISCA = "MUISCA-CIV"
+    MAPUCHE = "MAPUCHE-CIV"
+    TUPI = "TUPI-CIV"
 
     RANDOM = "RANDOM-CIV"
     MIRROR_RANDOM = "MIRROR-RANDOM-CIV"
