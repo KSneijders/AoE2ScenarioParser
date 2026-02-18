@@ -804,7 +804,7 @@ def _get_version_default_scenario_filepath(game_version: str, scenario_version: 
 
     if not default_scx_path.exists():
         v = f"{game_version}:{scenario_version}"
-        raise UnknownStructureError(f"The structure could not be found with: {v}")
+        raise UnknownStructureError(f"A default scenario file could not be found for version: {v} - please report this, as this is a bug")
 
     return str(default_scx_path.absolute())
 
