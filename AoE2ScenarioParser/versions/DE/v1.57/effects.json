@@ -186,7 +186,8 @@
             "effect_type",
             "diplomacy",
             "source_player",
-            "target_player"
+            "target_player",
+            "mutual_diplomacy"
         ],
         "default_attributes": {
             "effect_type": 1,
@@ -239,6 +240,7 @@
             "reset_timer": -1,
             "object_state": -1,
             "action_type": -1,
+            "mutual_diplomacy": 0,
             "message": "",
             "sound_name": "",
             "selected_object_ids": []
