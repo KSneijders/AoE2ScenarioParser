@@ -25,12 +25,14 @@ class NewEffectSupport:
             diplomacy: int | None = None,
             source_player: int | None = None,
             target_player: int | None = None,
+            mutual_diplomacy: bool | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.CHANGE_DIPLOMACY,
             diplomacy=diplomacy,
             source_player=source_player,
             target_player=target_player,
+            mutual_diplomacy=mutual_diplomacy,
         )
 
     def research_technology(
@@ -2095,4 +2097,53 @@ class NewEffectSupport:
             visibility_state=visibility_state,
             max_units_affected=max_units_affected,
             selected_object_ids=selected_object_ids,
+        )
+
+    def build_object(
+            self,
+            object_list_unit_id: int | None = None,
+            source_player: int | None = None,
+            location_x: int | None = None,
+            location_y: int | None = None,
+            location_object_reference: int | None = None,
+            area_x1: int | None = None,
+            area_y1: int | None = None,
+            area_x2: int | None = None,
+            area_y2: int | None = None,
+            wall_x1: int | None = None,
+            wall_y1: int | None = None,
+            wall_x2: int | None = None,
+            wall_y2: int | None = None,
+            object_group: int | None = None,
+            object_type: int | None = None,
+            building_list: int | None = None,
+            selected_object_ids: int | List[int] | None = None,
+            disable_garrison_unload_sound: int | None = None,
+            max_units_affected: int | None = None,
+            issue_group_command: int | None = None,
+            queue_action: int | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.BUILD_OBJECT,
+            object_list_unit_id=object_list_unit_id,
+            source_player=source_player,
+            location_x=location_x,
+            location_y=location_y,
+            location_object_reference=location_object_reference,
+            area_x1=area_x1,
+            area_y1=area_y1,
+            area_x2=area_x2,
+            area_y2=area_y2,
+            wall_x1=wall_x1,
+            wall_y1=wall_y1,
+            wall_x2=wall_x2,
+            wall_y2=wall_y2,
+            object_group=object_group,
+            object_type=object_type,
+            building_list=building_list,
+            selected_object_ids=selected_object_ids,
+            disable_garrison_unload_sound=disable_garrison_unload_sound,
+            max_units_affected=max_units_affected,
+            issue_group_command=issue_group_command,
+            queue_action=queue_action,
         )

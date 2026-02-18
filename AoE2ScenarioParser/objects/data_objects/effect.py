@@ -107,6 +107,12 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("global_sound", support=Support(since=1.55)),
             RetrieverObjectLink("issue_group_command", support=Support(since=1.56)),
             RetrieverObjectLink("queue_action", support=Support(since=1.56)),
+            RetrieverObjectLink("mutual_diplomacy", support=Support(since=1.57)),
+            RetrieverObjectLink("building_list", support=Support(since=1.57)),
+            RetrieverObjectLink("wall_x1", support=Support(since=1.57)),
+            RetrieverObjectLink("wall_y1", support=Support(since=1.57)),
+            RetrieverObjectLink("wall_x2", support=Support(since=1.57)),
+            RetrieverObjectLink("wall_y2", support=Support(since=1.57)),
             RetrieverObjectLink("message", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("sound_name", commit_callback=_add_trail_if_string_attr_is_used_in_effect),
             RetrieverObjectLink("selected_object_ids"),
@@ -191,6 +197,12 @@ class Effect(AoE2Object, TriggerComponent):
             global_sound: int = None,
             issue_group_command: int = None,
             queue_action: int = None,
+            mutual_diplomacy: int = None,
+            building_list: int = None,
+            wall_x1: int = None,
+            wall_y1: int = None,
+            wall_x2: int = None,
+            wall_y2: int = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
@@ -321,6 +333,12 @@ class Effect(AoE2Object, TriggerComponent):
         self.global_sound: int = global_sound
         self.issue_group_command: int = issue_group_command
         self.queue_action: int = queue_action
+        self.mutual_diplomacy: int = mutual_diplomacy
+        self.building_list: int = building_list
+        self.wall_x1: int = wall_x1
+        self.wall_y1: int = wall_y1
+        self.wall_x2: int = wall_x2
+        self.wall_y2: int = wall_y2
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids
