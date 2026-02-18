@@ -1584,9 +1584,9 @@
                 "comment": "Present since Trigger Version 4.1"
             },
             "legacy_exec_order": {
-                "comment": "",
-                "type": "1",
-                "default": "00",
+                "is_list": false,
+                "type": "u8",
+                "default": "0",
 
                 "dependencies": {
                     "on_construct": {
