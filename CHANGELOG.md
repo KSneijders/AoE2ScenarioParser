@@ -14,7 +14,7 @@ Official support for the new 1.57 scenarios! — Credits: by [@Alian713] in [#11
 ### Added
 
 - Support for the Xs-Check `v0.2.16` — View the `v0.2.16` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.16
-- New effect: `CreateObject`
+- New effect: `trigger.new_effect.build_object(...)`
 - New attribute in `ChangeDiplomacy` effect: `mutual_diplomacy: bool`
 - New attributes in `ActionType` dataset — Credits: by [@Alian713] in [#114](https://github.com/KSneijders/AoE2ScenarioParser/pull/114)
   - `TRANSFORM = 22`
