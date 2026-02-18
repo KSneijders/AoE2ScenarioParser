@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.7.0 - 2026-February-18
+
+Official support for the new 1.57 scenarios! — Credits: by [@Alian713] in [#114](https://github.com/KSneijders/AoE2ScenarioParser/pull/114)
+
+### Added
+
+- Support for the Xs-Check `v0.2.16` — View the `v0.2.16` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.16
+- New effect: `CreateObject`
+- New attribute in `ChangeDiplomacy` effect: `mutual_diplomacy: bool`
+- New attributes in `ActionType` dataset — Credits: by [@Alian713] in [#114](https://github.com/KSneijders/AoE2ScenarioParser/pull/114)
+  - `TRANSFORM = 22`
+  - `SELL_FOOD = 23`
+  - `SELL_WOOD = 24`
+  - `SELL_STONE = 25`
+  - `BUY_FOOD = 26`
+  - `BUY_WOOD = 27`
+  - `BUY_STONE = 28`
+  - `RING_TOWN_BELL = 29`
+  - `BACK_TO_WORK = 30`
+  - `ALL_BACK_TO_WORK = 31`
+  - `FORCE_DROP_OFF = 32`
+- New attributes in `Civilization` dataset — Credits: by [@Alian713] in [#114](https://github.com/KSneijders/AoE2ScenarioParser/pull/114)
+  - `MUISCA = "MUISCA-CIV"`
+  - `MAPUCHE = "MAPUCHE-CIV"`
+  - `TUPI = "TUPI-CIV"`
+
+---
+
 ## 0.6.7 - 2026-February-08
 
 ### Fixes
