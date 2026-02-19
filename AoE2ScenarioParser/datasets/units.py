@@ -264,7 +264,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.SAVAR,
                     UnitInfo.SERJEANT_DONJON,
                     UnitInfo.SHRIVAMSHA_RIDER,
-                    UnitInfo.SLINGER,
                     UnitInfo.TARKAN_STABLE,
                     UnitInfo.THIRISADAI,
                     UnitInfo.TURTLE_SHIP,
