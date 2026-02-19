@@ -182,6 +182,9 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.TIGER_CAVALRY,
                         UnitInfo.IRON_PAGODA,
                         UnitInfo.LIAO_DAO,
+                        UnitInfo.KONA,
+                        UnitInfo.GUECHA_WARRIOR,
+                        UnitInfo.BLACKWOOD_ARCHER,
                     ],
                     "elite": [
                         UnitInfo.ELITE_ARAMBAI,
@@ -235,6 +238,9 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.ELITE_TIGER_CAVALRY,
                         UnitInfo.ELITE_IRON_PAGODA,
                         UnitInfo.ELITE_LIAO_DAO,
+                        UnitInfo.ELITE_KONA,
+                        UnitInfo.ELITE_GUECHA_WARRIOR,
+                        UnitInfo.ELITE_BLACKWOOD_ARCHER,
                     ]
                 },
                 "non_elite": [
@@ -272,6 +278,9 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.WAR_CHARIOT_BARRAGE,
                     UnitInfo.WAR_CHARIOT_FOCUS_FIRE,
                     UnitInfo.GRENADIER,
+                    UnitInfo.BOLAS_RIDER,
+                    UnitInfo.TEMPLE_GUARD,
+                    UnitInfo.IBIRAPEMA_WARRIOR,
                 ],
                 "elite": [
                     UnitInfo.ELITE_CARAVEL,
@@ -285,6 +294,9 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_SHRIVAMSHA_RIDER,
                     UnitInfo.ELITE_TARKAN_STABLE,
                     UnitInfo.ELITE_TURTLE_SHIP,
+                    UnitInfo.ELITE_BOLAS_RIDER,
+                    UnitInfo.ELITE_TEMPLE_GUARD,
+                    UnitInfo.ELITE_IBIRAPEMA_WARRIOR,
                 ],
             },
             "chronicles": {
@@ -356,7 +368,7 @@ class UnitInfo(InfoDatasetBase):
     IBEX = 1239, 267, 1240, 16071, True
     IRON_BOAR = 810, 98, 356, 16710, True
     JAGUAR = 812, 111, 813, 16712, True
-    JAVELINA = 822, 98, 356, 16722, True
+    JAVELINA = 822, 588, 356, 16722, True
     KOMODO_DRAGON = 1135, 226, 1136, 16163, True
     LION = 1029, 194, 1030, 16059, True
     MACAW = 816, 284, -1, 16716, True
@@ -375,7 +387,7 @@ class UnitInfo(InfoDatasetBase):
     WILD_HORSE_A = 835, 112, 815, 16735, True
     GREY_WOLF = 126, 7, 237, 16075, True
     ZEBRA = 1019, 192, 1020, 16071, True
-    MOVEABLE_MAP_REVEALER = 0, -1, -1, 16000, False
+    MOVEABLE_MAP_REVEALER_A = 0, -1, -1, 16000, False
     ALFRED_THE_ALPACA = 1300, 177, 1331, 16469, False
     AMAZON_ARCHER = 850, 165, 1325, 16683, False
     AMAZON_WARRIOR = 825, 166, 1324, 16667, False
@@ -436,7 +448,7 @@ class UnitInfo(InfoDatasetBase):
     ELITE_GBETO = 1015, 500, 1014, 16101, False
     ELITE_GENITOUR = 1012, 499, 1011, 16417, False
     ELITE_GENOESE_CROSSBOWMAN = 868, 492, 867, 16101, False
-    ELITE_HUSKARL = 555, 478, 62, 16101, False
+    ELITE_HUSKARL = 555, 478, 62, 16104, False
     ELITE_JAGUAR_WARRIOR = 726, 486, 750, 16101, False
     ELITE_JANISSARY = 557, 480, 107, 16101, False
     ELITE_KAMAYUK = 881, 495, 880, 16101, False
@@ -458,7 +470,7 @@ class UnitInfo(InfoDatasetBase):
     ELITE_SHOTEL_WARRIOR = 1018, 501, 1017, 16101, False
     ELITE_SKIRMISHER = 6, 21, 100, 16087, False
     ELITE_STEPPE_LANCER = 1372, 274, 1373, 16746, False
-    ELITE_TARKAN = 757, 487, 756, 16101, False
+    ELITE_TARKAN = 757, 487, 756, 16675, False
     ELITE_TEUTONIC_KNIGHT = 554, 477, 181, 16101, False
     ELITE_THROWING_AXEMAN = 531, 473, 157, 16101, False
     ELITE_TURTLE_SHIP = 832, 491, -1, 16106, False
@@ -497,7 +509,7 @@ class UnitInfo(InfoDatasetBase):
     HUSSAR = 441, 103, 480, 16661, False
     IMPERIAL_CAMEL_RIDER = 207, 185, 300, 16416, False
     IMPERIAL_SKIRMISHER = 1155, 229, 1156, 16087, False
-    INVISIBLE_OBJECT = 1291, -1, -1, 16000, False
+    INVISIBLE_OBJECT_A = 1291, -1, -1, 16000, False
     IROQUOIS_WARRIOR = 1374, 297, 1375, 16113, False
     JAGUAR_WARRIOR = 725, 110, 750, 16667, False
     JANISSARY = 46, 39, 107, 16105, False
@@ -648,7 +660,7 @@ class UnitInfo(InfoDatasetBase):
     ELITE_CHAKRAM_THROWER = 1743, 517, 1742, 16101, False
     GHULAM = 1747, 385, 1748, 16101, False
     ELITE_GHULAM = 1749, 518, 1748, 16101, False
-    THIRISADAI = 1750, 387, -1, 16106, False
+    THIRISADAI = 1750, 387, -1, 16457, False
     SHRIVAMSHA_RIDER = 1751, 391, 1752, 16737, False
     ELITE_SHRIVAMSHA_RIDER = 1753, 519, 1752, 16737, False
     CAMEL_SCOUT = 1755, 392, 1668, 16416, False
@@ -799,3 +811,45 @@ class UnitInfo(InfoDatasetBase):
     SACRED_BAND = 2487, 719, 2503, 416013, False
     OWL = 2490, 283, -1, 16073, True
     PEACOCK = 2537, 756, 2538, 16733, True
+    MOVEABLE_MAP_REVEALER_B = 127, -1, -1, 16000, False
+    NESSIE = 1973, -1, -1, 16716, True
+    CHAMPI_SCOUT = 2550, 540, 2, 16079, False
+    INVISIBLE_OBJECT_B = 2551, -1, -1, 16000, False
+    CHAMPI_WARRIOR = 2552, 541, 2, 16079, False
+    INVISIBLE_OBJECT_C = 2553, -1, -1, 16000, False
+    ELITE_CHAMPI_WARRIOR = 2554, 542, 2, 16079, False
+    INVISIBLE_OBJECT_D = 2555, -1, -1, 16000, False
+    MISSIONARY_WITH_RELIC = 2557, 107, 776, 16380, False
+    GUECHA_WARRIOR = 2562, 543, 2, 16101, False
+    INVISIBLE_OBJECT_E = 2563, -1, -1, 16000, False
+    ELITE_GUECHA_WARRIOR = 2564, 544, 2, 16101, False
+    KONA = 2566, 545, 2, 16101, False
+    ELITE_KONA = 2568, 546, 2, 16101, False
+    BOLAS_RIDER = 2569, 547, 2, 16085, False
+    ELITE_BOLAS_RIDER = 2571, 548, 2, 16085, False
+    BLACKWOOD_ARCHER = 2579, 549, 2, 16107, False
+    ELITE_BLACKWOOD_ARCHER = 2581, 550, 2, 16107, False
+    IBIRAPEMA_WARRIOR = 2582, 551, 2, 16671, False
+    ELITE_IBIRAPEMA_WARRIOR = 2584, 552, 2, 16671, False
+    TEMPLE_GUARD = 2586, 553, 2, 16671, False
+    ELITE_TEMPLE_GUARD = 2587, 554, 2, 16671, False
+    CHAMPI_RUNNER = 2588, 555, 2, 16079, False
+    TAPIR = 2589, 557, 356, 16406, True
+    CAPYBARA = 2590, 558, 595, 16498, False
+    GUANACO = 2591, 559, 43, 16071, True
+    SNAKE = 2592, 560, 237, 16060, True
+    CONDOR = 2593, 568, -1, 16716, True
+    CAIMAN = 2594, 561, 237, 16060, True
+    BLACK_PANTHER = 2595, 562, 237, 16712, True
+    FLAMINGO = 2596, 563, -1, 16058, True
+    RHEA = 2597, 564, 43, 16071, True
+    WAR_DOG = 2612, 586, 237, 16671, False
+    ELITE_WAR_DOG = 2613, 587, 237, 16671, False
+    ALPACA = 2614, 589, 815, 16714, False
+    WILD_ALPACA = 2615, 589, 815, 16735, True
+    HULK = 2626, 566, -1, 16739, False
+    WAR_HULK = 2627, 565, -1, 16739, False
+    CARRACK = 2628, 567, -1, 16739, False
+    WHALING_SHIP = 2630, 24, -1, 16090, False
+    CATAPULT_GALLEON = 2633, 591, -1, 16287, False
+    TREASURE_CHEST = 2635, 295, 285, 16082, False
