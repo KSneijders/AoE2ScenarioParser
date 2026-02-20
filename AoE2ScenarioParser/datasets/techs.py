@@ -117,7 +117,7 @@ class TechInfo(Enum):
                     TechInfo.ATLATL,
                     TechInfo.BALLISTAS,
                     TechInfo.BEARDED_AXE,
-                    TechInfo.CARRACK,
+                    TechInfo.CIRCUMNAVIGATION,
                     TechInfo.CHATRAS,
                     TechInfo.CILICIAN_FLEET,
                     TechInfo.CHIEFTAINS,
