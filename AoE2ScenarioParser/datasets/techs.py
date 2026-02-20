@@ -185,7 +185,7 @@ class TechInfo(Enum):
                     TechInfo.DOUBLE_CROSSBOW,
                     TechInfo.DRILL,
                     TechInfo.DRUZHINA,
-                    TechInfo.EL_DORADO,
+                    TechInfo.HOLCANS,
                     TechInfo.FARIMBA,
                     TechInfo.FLEMISH_REVOLUTION,
                     TechInfo.FORCED_LEVY,
