@@ -97,6 +97,10 @@ class OtherInfo(InfoDatasetBase):
             OtherInfo.TREE_WILLOW,
             OtherInfo.TREE_ASIAN_MAPLE_GREEN,
             OtherInfo.TREE_ASIAN_MAPLE_AUTUMN,
+            OtherInfo.TREE_OAK_GREEN,
+            OtherInfo.TREE_MONKEY_PUZZLE,
+            OtherInfo.TREE_BRAZILWOOD,
+            OtherInfo.TREE_WAX_PALM,
         ]
 
     ANIMAL_SKELETON = 1091, -1, -1, -1, True
@@ -459,3 +463,21 @@ class OtherInfo(InfoDatasetBase):
     MEDITERRANEAN_STALL = 2534, -1, -1, -1, True
     MESOPOTAMIAN_STALL = 2535, -1, -1, -1, True
     WATER_LILY = 2536, -1, -1, -1, True
+    STONEHENGE = 1979, -1, -1, -1, True
+    TREE_OAK_GREEN = 2567, 32, 415, -1, True
+    TREE_MONKEY_PUZZLE = 2570, 32, 415, -1, True
+    TREE_BRAZILWOOD = 2580, 32, 415, -1, True
+    TREE_WAX_PALM = 2583, 32, 415, -1, True
+    HOWLER_MONKEY = 2585, -1, -1, -1, True
+    SMALL_WATERFALL = 2598, -1, -1, -1, True
+    PAPAYA_TREE = 2599, 593, -1, -1, True
+    FLAG_Q = 2601, -1, -1, -1, False
+    FLAG_R = 2602, -1, -1, -1, False
+    FLAG_S = 2603, -1, -1, -1, False
+    FLAG_T = 2604, -1, -1, -1, False
+    FLAG_U = 2605, -1, -1, -1, False
+    BURNED_BUILDING_C = 2606, -1, -1, -1, True
+    ANDEAN_RUINS = 2611, -1, -1, -1, True
+    WHALE = 2625, 569, -1, -1, True
+    SCAFFOLDING_WALKABLE = 2644, -1, -1, -1, True
+    PINEAPPLE_BUSH = 2650, 592, 415, -1, True
