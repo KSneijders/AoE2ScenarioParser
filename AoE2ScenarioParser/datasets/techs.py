@@ -163,6 +163,9 @@ class TechInfo(Enum):
                     TechInfo.RED_CLIFFS_TACTICS,
                     TechInfo.FORTIFIED_BASTIONS,
                     TechInfo.LAMELLAR_ARMOR,
+                    TechInfo.MALON,
+                    TechInfo.HERBALISM,
+                    TechInfo.CACIQUES,
                 ],
                 "imp_age": [
                     TechInfo.ARQUEBUS,
@@ -215,6 +218,9 @@ class TechInfo(Enum):
                     TechInfo.SITTING_TIGER,
                     TechInfo.THUNDERCLAP_BOMBS,
                     TechInfo.ORDO_CAVALRY,
+                    TechInfo.BUTALMAPU,
+                    TechInfo.HUARACAS,
+                    TechInfo.CURARE,
                 ],
             },
             "chronicles": {
@@ -332,6 +338,9 @@ class TechInfo(Enum):
                     TechInfo.ELITE_TIGER_CAVALRY,
                     TechInfo.ELITE_IRON_PAGODA,
                     TechInfo.ELITE_LIAO_DAO,
+                    TechInfo.ELITE_KONA,
+                    TechInfo.ELITE_GUECHA_WARRIOR,
+                    TechInfo.ELITE_BLACKWOOD_ARCHER,
                 ],
                 "non_castle": [
                     TechInfo.ELITE_CARAVEL,
@@ -345,6 +354,9 @@ class TechInfo(Enum):
                     TechInfo.WINGED_HUSSAR,
                     TechInfo.ELITE_QIZILBASH_WARRIOR,
                     TechInfo.SAVAR,
+                    TechInfo.ELITE_BOLAS_RIDER,
+                    TechInfo.ELITE_TEMPLE_GUARD,
+                    TechInfo.ELITE_IBIRAPEMA_WARRIOR,
                 ],
             },
             "chronicles": {
@@ -659,11 +671,17 @@ class TechInfo(Enum):
             TechInfo.WEI,
             TechInfo.JURCHENS,
             TechInfo.KHITANS,
+            TechInfo.MAPUCHE,
+            TechInfo.MUISCA,
+            TechInfo.TUPI,
         ]
         chronicles_techs = [
             TechInfo.ACHAEMENIDS,
             TechInfo.ATHENIANS,
             TechInfo.SPARTANS,
+            TechInfo.MACEDONIANS,
+            TechInfo.THRACIANS,
+            TechInfo.PURU,
         ]
         if include_chronicles:
             base_techs.extend(chronicles_techs)
@@ -1252,3 +1270,9 @@ class TechInfo(Enum):
     ELITE_TEMPLE_GUARD = 1401, 105
     CHAMPI_RUNNER = 1402, 146
     CIRCUMNAVIGATION = 1404, 33
+    MACEDONIANS = 1268, -1
+    THRACIANS = 1292, -1
+    PURU = 1302, -1
+    MAPUCHE = 1361, -1
+    MUISCA = 1360, -1
+    TUPI = 1362, -1
