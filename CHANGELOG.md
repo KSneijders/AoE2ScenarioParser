@@ -7,11 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.7.1 - 2026-February-21
+
+### Adds
+
+- `Area.to_chunk_areas()` which functions like `Area.to_chunks()` but returns an `Area` object instead of a set of tiles per chunk
+
+### Updates
+
+- Datasets for the **Last Chieftains DLC**: by [@mardaravicius] in [#117](https://github.com/KSneijders/AoE2ScenarioParser/pull/117)
+  - Updates `ProjectileInfo` dataset
+  - 7 new entries to `BuildingInfo`
+  - 6 new entries to `HeroInfo`
+  - 18 new entries to `OtherInfo` (Also includes updates to `OtherInfo.trees()`)
+  - 32 new entries to `TechInfo`
+    - **BREAKING CHANGES** — Updated Entry names 
+      - `REGULARS_RECRUITMENT_BARRACKS` → `CONSCRIPT_RECRUITMENT_BARRACKS`
+      - `REGULARS_RECRUITMENT_ARCHERY_RANGE` → `CONSCRIPT_RECRUITMENT_ARCHERY_RANGE`
+      - `REGULARS_RECRUITMENT_STABLE` → `CONSCRIPT_RECRUITMENT_STABLE`
+      - `EL_DORADO` → `HOLCANS`
+      - `GALLEON` → `HEAVY_WARSHIPS`
+      - `WAR_GALLEY` → `MEDIUM_WARSHIPS`
+      - `TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK` → `TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_TRADE_COG` 
+      - `TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK` → `TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_TRADE_COG` 
+      - `TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK` → `TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_TRADE_COG` 
+  - 2 new entries to `TerrainId` (Also includes updates to `TechInfo.unique_techs()`)
+  - 42 new entries to `UnitInfo` (Also includes updates to `UnitInfo.unique_units()`)
+    - **BREAKING CHANGES** — Updated Entry names 
+      - `MOVEABLE_MAP_REVEALER` → `MOVEABLE_MAP_REVEALER_A`
+      - `INVISIBLE_OBJECT` → `INVISIBLE_OBJECT_A`
+
+
+### Fixes
+
+- Inability to certain campaigns which used invalid color value `-1` — [#118](https://github.com/KSneijders/AoE2ScenarioParser/issues/118)
+- XS-Check failing on multi-line comments inside ASP scripts
+  - These can still cause issues, make sure to start each line with a `*` inside the multi-line comment
+
+---
+
 ## 0.7.0 - 2026-February-18
 
 Official support for the new 1.57 scenarios! — Credits: by [@Alian713] in [#114](https://github.com/KSneijders/AoE2ScenarioParser/pull/114)
 
-### Added
+### Adds
 
 - Support for the Xs-Check `v0.2.16` — View the `v0.2.16` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.16
 - New effect: `trigger.new_effect.build_object(...)`

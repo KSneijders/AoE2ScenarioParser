@@ -55,8 +55,9 @@ class PlayerColorId(IntEnum):
 class ColorId(IntEnum):
     """
     This enum represents the actual colors in the dropdown menu for players.
-    Do not confuse with the PlayerColorId which is used to reference a player number by it's color.
+    Do not confuse with the PlayerColorId which is used to reference a player number by its color.
     """
+    INVALID_NEGATIVE_1 = -1
     BLUE = 0
     RED = 1
     GREEN = 2

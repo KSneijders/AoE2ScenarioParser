@@ -117,7 +117,7 @@ class TechInfo(Enum):
                     TechInfo.ATLATL,
                     TechInfo.BALLISTAS,
                     TechInfo.BEARDED_AXE,
-                    TechInfo.CARRACK,
+                    TechInfo.CIRCUMNAVIGATION,
                     TechInfo.CHATRAS,
                     TechInfo.CILICIAN_FLEET,
                     TechInfo.CHIEFTAINS,
@@ -163,6 +163,9 @@ class TechInfo(Enum):
                     TechInfo.RED_CLIFFS_TACTICS,
                     TechInfo.FORTIFIED_BASTIONS,
                     TechInfo.LAMELLAR_ARMOR,
+                    TechInfo.MALON,
+                    TechInfo.HERBALISM,
+                    TechInfo.CACIQUES,
                 ],
                 "imp_age": [
                     TechInfo.ARQUEBUS,
@@ -182,7 +185,7 @@ class TechInfo(Enum):
                     TechInfo.DOUBLE_CROSSBOW,
                     TechInfo.DRILL,
                     TechInfo.DRUZHINA,
-                    TechInfo.EL_DORADO,
+                    TechInfo.HOLCANS,
                     TechInfo.FARIMBA,
                     TechInfo.FLEMISH_REVOLUTION,
                     TechInfo.FORCED_LEVY,
@@ -215,6 +218,9 @@ class TechInfo(Enum):
                     TechInfo.SITTING_TIGER,
                     TechInfo.THUNDERCLAP_BOMBS,
                     TechInfo.ORDO_CAVALRY,
+                    TechInfo.BUTALMAPU,
+                    TechInfo.HUARACAS,
+                    TechInfo.CURARE,
                 ],
             },
             "chronicles": {
@@ -332,6 +338,9 @@ class TechInfo(Enum):
                     TechInfo.ELITE_TIGER_CAVALRY,
                     TechInfo.ELITE_IRON_PAGODA,
                     TechInfo.ELITE_LIAO_DAO,
+                    TechInfo.ELITE_KONA,
+                    TechInfo.ELITE_GUECHA_WARRIOR,
+                    TechInfo.ELITE_BLACKWOOD_ARCHER,
                 ],
                 "non_castle": [
                     TechInfo.ELITE_CARAVEL,
@@ -345,6 +354,9 @@ class TechInfo(Enum):
                     TechInfo.WINGED_HUSSAR,
                     TechInfo.ELITE_QIZILBASH_WARRIOR,
                     TechInfo.SAVAR,
+                    TechInfo.ELITE_BOLAS_RIDER,
+                    TechInfo.ELITE_TEMPLE_GUARD,
+                    TechInfo.ELITE_IBIRAPEMA_WARRIOR,
                 ],
             },
             "chronicles": {
@@ -517,15 +529,22 @@ class TechInfo(Enum):
                 TechInfo.BALLISTICS,
                 TechInfo.GUARD_TOWER,
                 TechInfo.HEATED_SHOT,
+                TechInfo.CAREENING,
                 TechInfo.MURDER_HOLES,
+                TechInfo.CLINKER_CONSTRUCTION,
                 TechInfo.TREADMILL_CRANE,
+                TechInfo.SIPHONS,
             ],
             Age.IMPERIAL_AGE: [
                 TechInfo.ARCHITECTURE,
-                TechInfo.CHEMISTRY,
                 TechInfo.SIEGE_ENGINEERS,
                 TechInfo.KEEP,
                 TechInfo.ARROWSLITS,
+                TechInfo.DRY_DOCK,
+                TechInfo.SHIPWRIGHT,
+                TechInfo.CARVEL_HULL,
+                TechInfo.INCENDIARIES,
+                TechInfo.CHEMISTRY,
                 TechInfo.BOMBARD_TOWER,
             ],
         }
@@ -659,11 +678,17 @@ class TechInfo(Enum):
             TechInfo.WEI,
             TechInfo.JURCHENS,
             TechInfo.KHITANS,
+            TechInfo.MAPUCHE,
+            TechInfo.MUISCA,
+            TechInfo.TUPI,
         ]
         chronicles_techs = [
             TechInfo.ACHAEMENIDS,
             TechInfo.ATHENIANS,
             TechInfo.SPARTANS,
+            TechInfo.MACEDONIANS,
+            TechInfo.THRACIANS,
+            TechInfo.PURU,
         ]
         if include_chronicles:
             base_techs.extend(chronicles_techs)
@@ -731,7 +756,7 @@ class TechInfo(Enum):
     DRUZHINA = 513, 107
     DRY_DOCK = 375, 99
     EAGLE_WARRIOR = 384, 75
-    EL_DORADO = 4, 107
+    HOLCANS = 4, 107
     ELITE_ARAMBAI = 619, 105
     ELITE_BALLISTA_ELEPHANT = 615, 105
     ELITE_BATTLE_ELEPHANT = 631, 121
@@ -795,7 +820,7 @@ class TechInfo(Enum):
     FORTIFIED_WALL = 194, 46
     FRANKS = 530, -1
     FUROR_CELTICA = 5, 107
-    GALLEON = 35, 59
+    HEAVY_WARSHIPS = 35, 148
     GARLAND_WARS = 24, 107
     GILLNETS = 65, 41
     GOLD_MINING = 55, 15
@@ -930,7 +955,7 @@ class TechInfo(Enum):
     VIETNAMESE = 653, -1
     VIETNAMESE_VISION = 665, -1
     VIKINGS = 539, -1
-    WAR_GALLEY = 34, 8
+    MEDIUM_WARSHIPS = 34, 147
     WARWOLF = 461, 107
     WHEELBARROW = 213, 79
     YASAMA = 484, 33
@@ -1105,7 +1130,7 @@ class TechInfo(Enum):
     SHIPWRIGHT_ANTIQUITY = 1167, 97
     ELITE_WAR_CHARIOT = 1171, 184
     BATTLE_DRILLS = 1173, 168
-    CHAMPION_ANTIQUITY = 1174, 44
+    CHAMPION_ANTIQUITY = 1174, 183
     BLANK_TECHNOLOGY_0 = 1180, -1
     BLANK_TECHNOLOGY_1 = 1181, -1
     BLANK_TECHNOLOGY_2 = 1182, -1
@@ -1143,9 +1168,11 @@ class TechInfo(Enum):
     ACHAEMENIDS = 1024, -1
     ATHENIANS = 1027, -1
     SPARTANS = 1026, -1
-    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK = 1263, 158
-    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK = 1264, 157
-    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK = 1265, 159
+    TRADE_0_PERCENT_WOOD_100_PERCENT_GOLD_TRADE_COG = 1359, 94
+    TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_TRADE_COG = 1263, 158
+    TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_TRADE_COG = 1264, 157
+    TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_TRADE_COG = 1265, 159
+    TRADE_100_PERCENT_WOOD_0_PERCENT_GOLD_TRADE_COG = 1373, 95
     PIROTECHNIA = 902, 107
     HEAVY_ROCKET_CART = 980, 133
     ELITE_FIRE_LANCER = 982, 134
@@ -1155,7 +1182,7 @@ class TechInfo(Enum):
     ELITE_LIAO_DAO = 1002, 105
     LAMELLAR_ARMOR = 1006, 33
     ORDO_CAVALRY = 1007, 107
-    DRAGON_SHIP = 1010, 135
+    DRAGON_SHIP = 1010, 40
     TRANSHUMANCE = 1012, 136
     PASTORALISM = 1013, 137
     DOMESTICATION = 1014, 138
@@ -1175,13 +1202,13 @@ class TechInfo(Enum):
     JURCHENS = 986, -1
     KHITANS = 988, -1
     FORTIFIED_OUTPOST = LocalTechnology.FORTIFIED_OUTPOST, 309
-    REGULARS_RECRUITMENT_BARRACKS = 1275, 207
+    CONSCRIPT_RECRUITMENT_BARRACKS = 1275, 207
     MERCENARY_RECRUITMENT_BARRACKS = 1276, 209
     BALANCED_RECRUITMENT_BARRACKS = 1277, 208
-    REGULARS_RECRUITMENT_ARCHERY_RANGE = 1278, 207
+    CONSCRIPT_RECRUITMENT_ARCHERY_RANGE = 1278, 207
     MERCENARY_RECRUITMENT_ARCHERY_RANGE = 1279, 209
     BALANCED_RECRUITMENT_ARCHERY_RANGE = 1280, 208
-    REGULARS_RECRUITMENT_STABLE = 1281, 207
+    CONSCRIPT_RECRUITMENT_STABLE = 1281, 207
     MERCENARY_RECRUITMENT_STABLE = 1282, 209
     BALANCED_RECRUITMENT_STABLE = 1283, 208
     VETERAN_CHILIARCHS = 1284, 164
@@ -1226,3 +1253,33 @@ class TechInfo(Enum):
     BLANK_TECHNOLOGY_37 = 1507, -1
     BLANK_TECHNOLOGY_38 = 1508, -1
     BLANK_TECHNOLOGY_39 = 1509, -1
+    DEMOLITION_SHIP = 905, 139
+    FISHING_LINES = 906, 140
+    CARVEL_HULL = 907, 141
+    CLINKER_CONSTRUCTION = 908, 142
+    SIPHONS = 909, 40
+    INCENDIARIES = 910, 143
+    CHAMPI_SCOUT_MAKE_AVAILABLE = 1350, 75
+    CHAMPI_WARRIOR = 1351, 144
+    ELITE_CHAMPI_WARRIOR = 1352, 145
+    ELITE_GUECHA_WARRIOR = 1364, 105
+    HERBALISM = 1365, 33
+    HUARACAS = 1366, 107
+    ELITE_KONA = 1376, 105
+    ELITE_BOLAS_RIDER = 1378, 105
+    MALON = 1379, 33
+    BUTALMAPU = 1380, 107
+    ELITE_WAR_DOG = 1387, 149
+    ELITE_BLACKWOOD_ARCHER = 1389, 105
+    ELITE_IBIRAPEMA_WARRIOR = 1391, 105
+    CACIQUES = 1392, 33
+    CURARE = 1393, 107
+    ELITE_TEMPLE_GUARD = 1401, 105
+    CHAMPI_RUNNER = 1402, 146
+    CIRCUMNAVIGATION = 1404, 33
+    MACEDONIANS = 1268, -1
+    THRACIANS = 1292, -1
+    PURU = 1302, -1
+    MAPUCHE = 1361, -1
+    MUISCA = 1360, -1
+    TUPI = 1362, -1
