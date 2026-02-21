@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.7.1 - 2026-February-21
 
+### Adds
+
+- `Area.to_chunk_areas()` which functions like `Area.to_chunks()` but returns an `Area` object instead of a set of tiles per chunk
+
 ### Updates
 
 - Datasets for the **Last Chieftains DLC**: by [@mardaravicius] in [#117](https://github.com/KSneijders/AoE2ScenarioParser/pull/117)
