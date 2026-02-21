@@ -194,6 +194,8 @@ class XsManagerDE(AoE2Object):
                     (
                         f"{line} /*{xs_snippet[0]}*/"
                         if not line.strip().startswith('// xsc-ignore')
+                           and line.strip().startswith('*')
+                           and line.strip().startswith('/*')
                         else line
                     ) for line in xs_snippet[1].splitlines()
                 ])

@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixes
 
 - Inability to certain campaigns which used invalid color value `-1` — [#118](https://github.com/KSneijders/AoE2ScenarioParser/issues/118)
+- XS-Check failing on multi-line comments inside ASP scripts
+  - These can still cause issues, make sure to start each line with a `*` inside the multi-line comment
 
 ---
 
