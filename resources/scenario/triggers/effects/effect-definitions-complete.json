@@ -17,7 +17,7 @@
         "name": "diplomacy_state",
         "ref": null,
         "type": "DiplomacyState",
-        "description": "The diplomacy stance to set the stance to.",
+        "description": "The diplomacy stance to set.",
         "default": null
       },
       {
@@ -80,14 +80,14 @@
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used instead of the message.",
+        "description": "The string ID to use instead of the message.",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The message to be send to the player.",
+        "description": "The message to send to the player.",
         "default": null
       },
       {
@@ -131,7 +131,7 @@
         "type": "bool",
         "description": [
           "When enabled, the sound will be played regardless of if the target is on screen.",
-          "This is useful for sounds existing game sound which are considered '3D'. ",
+          "This is useful for existing game sounds that are considered '3D'.",
           "'3D' sounds are game sounds based on coordinates. '2D' sounds are sounds like GUI, button click or notification sounds."
         ],
         "default": false
@@ -140,7 +140,7 @@
         "name": "sound_name",
         "ref": null,
         "type": "str",
-        "description": "The name of the sound to play",
+        "description": "The name of the sound to play.",
         "default": null
       }
     ]
@@ -161,7 +161,7 @@
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The source that will be sent",
+        "description": "The resource that will be sent.",
         "default": null
       },
       {
@@ -175,7 +175,7 @@
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who will be receiving the resources",
+        "description": "The player who will receive the resources.",
         "default": null
       }
     ]
@@ -231,7 +231,7 @@
         "name": "trigger",
         "ref": null,
         "type": "Trigger",
-        "description": "The trigger to be deactivated",
+        "description": "The trigger to be deactivated.",
         "default": null
       }
     ]
@@ -262,7 +262,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo|BuildingInfo|HeroInfo|OtherInfo|int",
-        "description": "The unit type to be created",
+        "description": "The unit type to be created.",
         "default": null
       },
       {
@@ -914,7 +914,7 @@
   {
     "id": 23,
     "name": "use_advanced_buttons",
-    "description": "This effect enables the use of advanced buttons in the scenario editor button interface.",
+    "description": "This effect enables advanced buttons in the scenario editor interface.",
     "attributes": []
   },
   {
@@ -1115,7 +1115,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -1192,7 +1192,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -1395,7 +1395,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -1465,7 +1465,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -2368,7 +2368,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -2431,7 +2431,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       }
     ]
@@ -2466,7 +2466,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -2564,7 +2564,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the variable using the quantity.",
         "default": null
       },
       {
@@ -3404,7 +3404,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -3481,7 +3481,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -3523,7 +3523,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -3733,7 +3733,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the variable using the resource value.",
         "default": null
       },
       {
@@ -3768,7 +3768,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the variable using the attribute's value.",
         "default": null
       },
       {
@@ -4027,7 +4027,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the variable using the second variable's value.",
         "default": null
       },
       {
@@ -4216,7 +4216,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -4293,7 +4293,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
@@ -4377,7 +4377,7 @@
         "name": "operation",
         "ref": null,
         "type": "Operation",
-        "description": "The operator to apply to the target using the quantity",
+        "description": "The operation to apply to the attribute using the quantity.",
         "default": null
       },
       {
