@@ -305,27 +305,27 @@
   {
     "id": 12,
     "name": "task_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to order units to perform a specific action at a target location or on a target object.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be tasked",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be tasked",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to send the tasked units to",
         "default": null
       },
       {
@@ -339,7 +339,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be tasked. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -403,20 +403,20 @@
   {
     "id": 13,
     "name": "declare_victory",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to declare victory or defeat for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom victory or defeat will be declared",
         "default": null
       },
       {
         "name": "enabled",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to <ACTION>",
+        "description": "When enabled, victory is declared for the player. When disabled, defeat is declared",
         "default": null
       }
     ]
@@ -424,27 +424,27 @@
   {
     "id": 14,
     "name": "kill_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to kill units matching the specified criteria, triggering the death animation and leaving a corpse.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be killed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be killed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be killed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -480,27 +480,27 @@
   {
     "id": 15,
     "name": "remove_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to instantly remove units from the map without triggering a death animation.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be removed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be removed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be removed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -543,27 +543,27 @@
   {
     "id": 16,
     "name": "change_view",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to move the camera view for the specified player to a specific tile.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The time in seconds it takes to scroll to the new camera position",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose camera view will be moved",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to move the camera to",
         "default": null
       },
       {
@@ -578,27 +578,27 @@
   {
     "id": 17,
     "name": "unload",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to order transport or garrison units to unload their garrisoned units at a target location.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which transport or garrison units will be ordered to unload",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose transport or garrison units will be ordered to unload",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile where garrisoned units will be unloaded",
         "default": null
       },
       {
@@ -612,7 +612,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which transport or garrison units will be ordered to unload. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -648,34 +648,34 @@
   {
     "id": 18,
     "name": "change_ownership",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to transfer ownership of units from the source player to the target player.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their ownership transferred",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who currently owns the units",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose <ACTION>",
+        "description": "The player who will receive ownership of the units",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their ownership transferred. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -718,34 +718,34 @@
   {
     "id": 19,
     "name": "patrol",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to order units to patrol to a specific tile.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be ordered to patrol",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be ordered to patrol",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to patrol to",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be ordered to patrol. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -781,27 +781,27 @@
   {
     "id": 20,
     "name": "display_instructions",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to display a message panel with text instructions for the specified player.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type whose icon will be displayed in the instruction panel",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who will see the instruction panel",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the instruction message instead of the message field",
         "default": null
       },
       {
@@ -815,28 +815,28 @@
         "name": "instruction_panel_position",
         "ref": null,
         "type": "PanelLocation",
-        "description": "The panel position to be <ACTION>",
+        "description": "The position on the screen where the instruction panel will be displayed",
         "default": null
       },
       {
         "name": "play_sound",
         "ref": null,
         "type": "bool",
-        "description": "The sound to play",
+        "description": "When enabled, plays the notification sound associated with the panel position",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The instruction message to display in the panel",
         "default": null
       },
       {
         "name": "sound_name",
         "ref": null,
         "type": "str",
-        "description": "The name of the sound to <PURPOSE>",
+        "description": "The name of the sound to play when the instruction panel is shown",
         "default": null
       }
     ]
@@ -844,13 +844,13 @@
   {
     "id": 21,
     "name": "clear_instructions",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to clear and hide an instruction panel at the specified screen position.",
     "attributes": [
       {
         "name": "instruction_panel_position",
         "ref": null,
         "type": "PanelLocation",
-        "description": "The panel position to be <ACTION>",
+        "description": "The position of the instruction panel to clear",
         "default": null
       }
     ]
@@ -858,27 +858,27 @@
   {
     "id": 22,
     "name": "freeze_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to freeze units in place, preventing them from moving or taking any actions.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be frozen",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be frozen",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be frozen. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -914,40 +914,40 @@
   {
     "id": 23,
     "name": "use_advanced_buttons",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect enables the use of advanced buttons in the scenario editor button interface.",
     "attributes": []
   },
   {
     "id": 24,
     "name": "damage_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to deal a specified amount of damage to units matching the specified criteria.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount of damage to deal to each affected unit",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be damaged",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be damaged",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be damaged. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -983,27 +983,27 @@
   {
     "id": 25,
     "name": "place_foundation",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to place a building foundation for the specified player at the specified location.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The building type to place the foundation for",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the foundation will be placed",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile where the building foundation will be placed",
         "default": null
       }
     ]
@@ -1011,41 +1011,41 @@
   {
     "id": 26,
     "name": "change_object_name",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the display name of units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their name changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their name changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new name for the affected units",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their name changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new name to display for the affected units",
         "default": null
       },
       {
@@ -1067,34 +1067,34 @@
   {
     "id": 27,
     "name": "change_object_hp",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the current HP of units matching the specified criteria.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to change the HP by",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their HP changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their HP changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their HP changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1137,7 +1137,7 @@
   {
     "id": 28,
     "name": "change_object_attack",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the attack value of units for a specific attack class.",
     "attributes": [
       {
         "name": "armour_attack_quantity",
@@ -1157,21 +1157,21 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their attack changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their attack changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their attack changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1214,27 +1214,27 @@
   {
     "id": 29,
     "name": "stop_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to stop the current action of units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be stopped",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be stopped",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be stopped. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1270,27 +1270,27 @@
   {
     "id": 30,
     "name": "attack_move",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to order units to move to a location while attacking any enemies encountered along the way.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be ordered to attack-move",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be ordered to attack-move",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to attack-move to",
         "default": null
       },
       {
@@ -1304,7 +1304,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be ordered to attack-move. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1340,7 +1340,7 @@
   {
     "id": 31,
     "name": "change_object_armor",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the armor value of units for a specific armor class.",
     "attributes": [
       {
         "name": "armour_attack_quantity",
@@ -1360,21 +1360,21 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their armor changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their armor changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their armor changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1417,34 +1417,34 @@
   {
     "id": 32,
     "name": "change_object_range",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the attack range of units matching the specified criteria.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to change the attack range by",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their range changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their range changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their range changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1487,34 +1487,34 @@
   {
     "id": 33,
     "name": "change_object_speed",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the movement speed of units matching the specified criteria.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to change the movement speed by",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their speed changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their speed changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their speed changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1550,34 +1550,34 @@
   {
     "id": 34,
     "name": "heal_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to restore HP to units matching the specified criteria.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount of HP to restore to each affected unit",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be healed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be healed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be healed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1613,34 +1613,34 @@
   {
     "id": 35,
     "name": "teleport_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to instantly move units to the specified tile.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be teleported",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be teleported",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to teleport units to",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be teleported. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1676,27 +1676,27 @@
   {
     "id": 36,
     "name": "change_object_stance",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the attack stance of units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their stance changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their stance changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their stance changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1739,20 +1739,20 @@
   {
     "id": 37,
     "name": "display_timer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to display a countdown or count-up timer on the screen.",
     "attributes": [
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the timer label instead of the message field",
         "default": null
       },
       {
         "name": "display_time",
         "ref": null,
         "type": "int",
-        "description": "The number of seconds to display the instructions panel for",
+        "description": "The initial value of the timer",
         "default": null
       },
       {
@@ -1766,21 +1766,21 @@
         "name": "timer_id",
         "ref": null,
         "type": "int",
-        "description": "The timer to <ACTION>",
+        "description": "The ID of the timer to display (multiple timers can be shown simultaneously)",
         "default": null
       },
       {
         "name": "reset_timer",
         "ref": null,
         "type": "bool",
-        "description": "CURRENTLY UNKNOWN: BUGGED?",
+        "description": "Unknown — this field may be bugged or have no effect. If you know what it does, please open an issue on the AoE2ScenarioParser GitHub!",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The label text to display alongside the timer",
         "default": null
       }
     ]
@@ -1788,27 +1788,27 @@
   {
     "id": 38,
     "name": "enable/disable_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to enable or disable a specific unit type for the specified player, making it available or unavailable in the train or build menu.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to enable or disable",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the unit type will be enabled or disabled",
         "default": null
       },
       {
         "name": "enabled",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to <ACTION>",
+        "description": "When enabled, the unit type becomes available. When disabled, the unit type is hidden from the train or build menu",
         "default": null
       },
       {
@@ -1823,27 +1823,27 @@
   {
     "id": 39,
     "name": "enable/disable_technology",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to enable or disable a specific technology for the specified player, making it available or unavailable for research.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology will be enabled or disabled",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology to enable or disable",
         "default": null
       },
       {
         "name": "enabled",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to <ACTION>",
+        "description": "When enabled, the technology becomes available for research. When disabled, it is hidden from the research menu",
         "default": null
       },
       {
@@ -1858,20 +1858,20 @@
   {
     "id": 40,
     "name": "change_object_cost",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the resource cost for training or constructing a specific unit type.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type whose cost will be changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the cost will be changed",
         "default": null
       },
       {
@@ -1921,20 +1921,20 @@
   {
     "id": 41,
     "name": "set_player_visibility",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the visibility relationship between two players, controlling what the source player can see of the target player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose line of sight towards the target player will change",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose <ACTION>",
+        "description": "The player whose units and buildings will be made visible or invisible to the source player",
         "default": null
       },
       {
@@ -1949,27 +1949,27 @@
   {
     "id": 42,
     "name": "change_object_icon",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the icon displayed for units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their icon changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their icon changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their icon changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -1990,7 +1990,7 @@
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The unit type whose icon will be used for the affected units",
         "default": null
       },
       {
@@ -2012,34 +2012,34 @@
   {
     "id": 43,
     "name": "replace_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to replace units matching the specified criteria with a different unit type.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be replaced",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be replaced",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose <ACTION>",
+        "description": "The player to whom the replacement units will belong",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be replaced. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -2060,7 +2060,7 @@
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The unit type that the affected units will be replaced with",
         "default": null
       },
       {
@@ -2089,34 +2089,34 @@
   {
     "id": 44,
     "name": "change_object_description",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the description text of a specific unit type for the specified player.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type whose description will be changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the unit description will be changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new description for the unit type",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new description text for the unit type",
         "default": null
       }
     ]
@@ -2124,27 +2124,27 @@
   {
     "id": 45,
     "name": "change_player_name",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the name displayed for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose name will be changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new player name",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new name to display for the player",
         "default": null
       }
     ]
@@ -2152,27 +2152,27 @@
   {
     "id": 46,
     "name": "change_train_location",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the building type where a specific unit type can be trained.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to change the training location for",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the training location will be changed",
         "default": null
       },
       {
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The building type where the unit will now be trained",
         "default": null
       },
       {
@@ -2187,27 +2187,27 @@
   {
     "id": 47,
     "name": "change_research_location",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the building type where a specific technology can be researched.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the research location will be changed",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose research location will be changed",
         "default": null
       },
       {
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The building type where the technology will now be researched",
         "default": null
       },
       {
@@ -2222,27 +2222,27 @@
   {
     "id": 48,
     "name": "change_civilization_name",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the civilization name displayed for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose civilization name will be changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new civilization name",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new civilization name to display for the player",
         "default": null
       }
     ]
@@ -2250,34 +2250,34 @@
   {
     "id": 49,
     "name": "create_garrisoned_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to create a unit already garrisoned inside the specified units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which garrison or transport units will receive the new garrisoned unit",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the garrisoned unit will be created",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which garrison or transport units will receive the garrisoned unit. When not set, units across the entire map are affected",
         "default": null
       },
       {
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The unit type to create and garrison inside the affected units",
         "default": null
       },
       {
@@ -2306,7 +2306,7 @@
   {
     "id": 50,
     "name": "acknowledge_ai_signal",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to acknowledge a pending AI signal, typically used in combination with the 'AI Signal' condition.",
     "attributes": [
       {
         "name": "ai_signal_value",
@@ -2320,13 +2320,13 @@
   {
     "id": 51,
     "name": "modify_attribute",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a specific object attribute for all units of the specified type belonging to the specified player.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to modify the attribute by",
         "default": null
       },
       {
@@ -2347,14 +2347,14 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type whose attribute will be modified",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their attribute modified",
         "default": null
       },
       {
@@ -2375,21 +2375,21 @@
         "name": "object_attributes",
         "ref": null,
         "type": "ObjectAttribute",
-        "description": "The object attribute to <ACTION>",
+        "description": "The unit attribute to modify",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
         "type": "float",
-        "description": "The (decimal) amount to <ACTION>",
+        "description": "The (decimal) amount to modify the attribute by",
         "default": null
       }
     ]
@@ -2397,27 +2397,27 @@
   {
     "id": 52,
     "name": "modify_resource",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the amount of a specific resource for the specified player.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to modify the resource by",
         "default": null
       },
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to use for <ACTION>",
+        "description": "The resource to modify",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose resource will be modified",
         "default": null
       },
       {
@@ -2439,20 +2439,20 @@
   {
     "id": 53,
     "name": "modify_resource_by_variable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify the amount of a specific resource for the specified player using the value stored in a variable.",
     "attributes": [
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to use for <ACTION>",
+        "description": "The resource to modify",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose resource will be modified",
         "default": null
       },
       {
@@ -2473,7 +2473,7 @@
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable whose value will be used to modify the resource",
         "default": null
       }
     ]
@@ -2481,34 +2481,34 @@
   {
     "id": 54,
     "name": "set_building_gather_point",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to set the gather point (rally point) for buildings matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The building type to filter which buildings will have their gather point set",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose buildings will have their gather point set",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile to set as the gather point",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which buildings will have their gather point set. When not set, buildings across the entire map are affected",
         "default": null
       },
       {
@@ -2530,20 +2530,20 @@
   {
     "id": 55,
     "name": "script_call",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to call a function defined in an AI script by name.",
     "attributes": [
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID of the AI script function name to call",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The name of the AI script function to call",
         "default": null
       }
     ]
@@ -2551,13 +2551,13 @@
   {
     "id": 56,
     "name": "change_variable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the value of a trigger variable using a specified operation and quantity.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The value to use in the operation on the variable",
         "default": null
       },
       {
@@ -2571,14 +2571,14 @@
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable whose value will be changed",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The display name of the variable in the scenario editor. Setting this via ASP has no effect.",
         "default": null
       }
     ]
@@ -2586,13 +2586,13 @@
   {
     "id": 57,
     "name": "clear_timer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to clear and hide a previously displayed timer.",
     "attributes": [
       {
         "name": "timer_id",
         "ref": null,
         "type": "int",
-        "description": "The timer to <ACTION>",
+        "description": "The ID of the timer to clear and hide",
         "default": null
       }
     ]
@@ -2600,27 +2600,27 @@
   {
     "id": 58,
     "name": "change_object_player_color",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the player color used to tint units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their player color changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their player color changed",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their player color changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -2649,34 +2649,34 @@
   {
     "id": 59,
     "name": "change_object_civilization_name",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the civilization name displayed for units in the specified area.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their civilization name changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new civilization name for the affected units",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their civilization name changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new civilization name to display for the affected units",
         "default": null
       },
       {
@@ -2698,41 +2698,41 @@
   {
     "id": 60,
     "name": "change_object_player_name",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the player name displayed for units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their player name changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their player name changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new player name for the affected units",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their player name changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new player name to display for the affected units",
         "default": null
       },
       {
@@ -2754,27 +2754,27 @@
   {
     "id": 61,
     "name": "disable_unit_targeting",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to prevent units from being targeted or attacked by other units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have targeting disabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have targeting disabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have targeting disabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -2796,27 +2796,27 @@
   {
     "id": 62,
     "name": "enable_unit_targeting",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to re-enable targeting for units that were previously made untargetable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have targeting re-enabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have targeting re-enabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have targeting re-enabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -2838,20 +2838,20 @@
   {
     "id": 63,
     "name": "change_technology_cost",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the resource cost for researching a specific technology.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology cost will be changed",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose cost will be changed",
         "default": null
       },
       {
@@ -2901,27 +2901,27 @@
   {
     "id": 64,
     "name": "change_technology_research_time",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the time required to research a specific technology.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The new research time to set",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the research time will be changed",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose research time will be changed",
         "default": null
       }
     ]
@@ -2929,34 +2929,34 @@
   {
     "id": 65,
     "name": "change_technology_name",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the display name of a specific technology for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology name will be changed",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose name will be changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new technology name",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new name to display for the technology",
         "default": null
       }
     ]
@@ -2964,34 +2964,34 @@
   {
     "id": 66,
     "name": "change_technology_description",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the description text of a specific technology for the specified player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology description will be changed",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose description will be changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new technology description",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new description text for the technology",
         "default": null
       }
     ]
@@ -2999,27 +2999,27 @@
   {
     "id": 67,
     "name": "enable_technology_stacking",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to allow a technology to be researched multiple times, stacking its effects with each research.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The maximum number of times the technology can be researched",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom technology stacking will be enabled",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology to enable stacking for",
         "default": null
       }
     ]
@@ -3027,20 +3027,20 @@
   {
     "id": 68,
     "name": "disable_technology_stacking",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to disable stacking for a technology that was previously set to stack.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom technology stacking will be disabled",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology to disable stacking for",
         "default": null
       }
     ]
@@ -3048,7 +3048,7 @@
   {
     "id": 69,
     "name": "acknowledge_multiplayer_ai_signal",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to acknowledge a pending AI signal in a multiplayer scenario.",
     "attributes": [
       {
         "name": "ai_signal_value",
@@ -3062,27 +3062,27 @@
   {
     "id": 70,
     "name": "disable_object_selection",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to prevent the player from selecting units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have selection disabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have selection disabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have selection disabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3104,27 +3104,27 @@
   {
     "id": 71,
     "name": "enable_object_selection",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to re-enable selection for units that were previously made unselectable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have selection re-enabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have selection re-enabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have selection re-enabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3146,13 +3146,13 @@
   {
     "id": 72,
     "name": "change_color_mood",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the overall color atmosphere of the map.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The time in seconds to fade to the new color mood",
         "default": null
       },
       {
@@ -3167,27 +3167,27 @@
   {
     "id": 73,
     "name": "enable_object_deletion",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to allow the player to delete units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have deletion enabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have deletion enabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have deletion enabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3216,27 +3216,27 @@
   {
     "id": 74,
     "name": "disable_object_deletion",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to prevent the player from deleting units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have deletion disabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have deletion disabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have deletion disabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3265,41 +3265,41 @@
   {
     "id": 75,
     "name": "train_unit",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to queue a specific unit to be trained in a building at the specified location.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The number of units to queue for training",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to train",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who will train the unit",
         "default": null
       },
       {
         "name": "location",
         "ref": null,
         "type": "Tile",
-        "description": "The tile to <ACTION>",
+        "description": "The tile of the building where the unit will be queued for training",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which buildings will queue the unit for training. When not set, buildings across the entire map are affected",
         "default": null
       },
       {
@@ -3321,20 +3321,20 @@
   {
     "id": 76,
     "name": "initiate_research",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to start researching a technology in a specified building.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player who will research the technology",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology to begin researching",
         "default": null
       },
       {
@@ -3349,7 +3349,7 @@
   {
     "id": 77,
     "name": "create_object_attack",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to add a new attack entry to units matching the specified criteria for a specific damage class.",
     "attributes": [
       {
         "name": "armour_attack_quantity",
@@ -3369,21 +3369,21 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have the attack entry added",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have the attack entry added",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have the attack entry added. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3426,7 +3426,7 @@
   {
     "id": 78,
     "name": "create_object_armor",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to add a new armor entry to units matching the specified criteria for a specific damage class.",
     "attributes": [
       {
         "name": "armour_attack_quantity",
@@ -3446,21 +3446,21 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have the armor entry added",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have the armor entry added",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have the armor entry added. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3503,20 +3503,20 @@
   {
     "id": 79,
     "name": "modify_attribute_by_variable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a specific object attribute for all units of the specified type using the value stored in a variable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type whose attribute will be modified",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their attribute modified",
         "default": null
       },
       {
@@ -3530,21 +3530,21 @@
         "name": "object_attributes",
         "ref": null,
         "type": "ObjectAttribute",
-        "description": "The object attribute to <ACTION>",
+        "description": "The unit attribute to modify using the variable's value",
         "default": null
       },
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable whose value will be used to modify the attribute",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)",
         "default": null
       },
       {
@@ -3559,34 +3559,34 @@
   {
     "id": 80,
     "name": "set_object_cost",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to set the resource cost for a specific unit type.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type whose training cost will be set",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the training cost will be set",
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount of the resource to set as the cost",
         "default": null
       },
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to use for <ACTION>",
+        "description": "The resource type to use for the unit cost",
         "default": null
       }
     ]
@@ -3594,27 +3594,27 @@
   {
     "id": 81,
     "name": "load_key_value",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to load a value from the key-value store into a variable. The key-value store is persistent across scenarios in a campaign, but these effects only function when the scenario is played as part of a campaign.",
     "attributes": [
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable in which the loaded value will be stored",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The key name used to identify the value to load",
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "Unknown — if you know what this field does, please open an issue on the AoE2ScenarioParser GitHub!",
         "default": null
       }
     ]
@@ -3622,20 +3622,20 @@
   {
     "id": 82,
     "name": "store_key_value",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to store the value of a variable into the key-value store. The key-value store is persistent across scenarios in a campaign, but these effects only function when the scenario is played as part of a campaign.",
     "attributes": [
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable whose value will be stored",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The key name under which the value will be stored",
         "default": null
       }
     ]
@@ -3643,13 +3643,13 @@
   {
     "id": 83,
     "name": "delete_key",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to delete a key and its associated value from the key-value store. The key-value store is persistent across scenarios in a campaign, but these effects only function when the scenario is played as part of a campaign.",
     "attributes": [
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The key name to delete from the key-value store",
         "default": null
       }
     ]
@@ -3657,27 +3657,27 @@
   {
     "id": 84,
     "name": "change_technology_icon",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the icon displayed for a specific technology.",
     "attributes": [
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose icon will be changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology icon will be changed",
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The icon ID to set for the technology",
         "default": null
       }
     ]
@@ -3685,27 +3685,27 @@
   {
     "id": 85,
     "name": "change_technology_hotkey",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the hotkey assigned to a specific technology.",
     "attributes": [
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose hotkey will be changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the technology hotkey will be changed",
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The hotkey ID to assign to the technology",
         "default": null
       }
     ]
@@ -3713,20 +3713,20 @@
   {
     "id": 86,
     "name": "modify_variable_by_resource",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a variable using the current value of a player's resource.",
     "attributes": [
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to use for <ACTION>",
+        "description": "The resource whose current value will be used to modify the variable",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose resource value will be used",
         "default": null
       },
       {
@@ -3740,7 +3740,7 @@
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable that will be modified",
         "default": null
       }
     ]
@@ -3748,20 +3748,20 @@
   {
     "id": 87,
     "name": "modify_variable_by_attribute",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a variable using the value of a specific unit attribute.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to read the attribute value from",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose unit's attribute value will be used",
         "default": null
       },
       {
@@ -3775,21 +3775,21 @@
         "name": "object_attributes",
         "ref": null,
         "type": "ObjectAttribute",
-        "description": "The object attribute to <ACTION>",
+        "description": "The unit attribute whose value will be used to modify the variable",
         "default": null
       },
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable that will be modified",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)",
         "default": null
       },
       {
@@ -3804,41 +3804,41 @@
   {
     "id": 88,
     "name": "change_object_caption",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the caption text displayed above units matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their caption changed",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their caption changed",
         "default": null
       },
       {
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the new caption text for the affected units",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The new caption text to display for the affected units",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their caption changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3853,13 +3853,13 @@
   {
     "id": 89,
     "name": "change_player_color",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the color associated with the specified player, affecting all units and buildings.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose color will be changed",
         "default": null
       },
       {
@@ -3874,7 +3874,7 @@
   {
     "id": 90,
     "name": "create_decision",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to display a decision dialog that presents the player with two choices, recording the selected option via the decision ID.",
     "attributes": [
       {
         "name": "decision_id",
@@ -3887,14 +3887,14 @@
         "name": "str_id",
         "ref": null,
         "type": "int",
-        "description": "The string ID which will be used to <PURPOSE>",
+        "description": "The string ID to use as the main decision question text",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The main question text to display in the decision dialog",
         "default": null
       },
       {
@@ -3930,27 +3930,27 @@
   {
     "id": 98,
     "name": "disable_unit_attackable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to prevent units from being attacked, making them effectively invulnerable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be made unattackable",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be made unattackable",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be made unattackable. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -3972,27 +3972,27 @@
   {
     "id": 99,
     "name": "enable_unit_attackable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to re-enable attackability for units that were previously made unattackable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have attackability re-enabled",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have attackability re-enabled",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have attackability re-enabled. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -4014,13 +4014,13 @@
   {
     "id": 100,
     "name": "modify_variable_by_variable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a variable using the value of another variable.",
     "attributes": [
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable that will be modified",
         "default": null
       },
       {
@@ -4034,7 +4034,7 @@
         "name": "variable2",
         "ref": null,
         "type": "VariableId",
-        "description": "The second variable to use for <PURPOSE>",
+        "description": "The variable whose value will be used in the operation",
         "default": null
       }
     ]
@@ -4042,27 +4042,27 @@
   {
     "id": 101,
     "name": "counts_units_into_variable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to count units matching the specified criteria and store the result in a variable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will be counted",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will be counted",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will be counted. When not set, units across the entire map are counted",
         "default": null
       },
       {
@@ -4076,7 +4076,7 @@
         "name": "variable2",
         "ref": null,
         "type": "VariableId",
-        "description": "The second variable to use for <PURPOSE>",
+        "description": "The variable in which the unit count will be stored",
         "default": null
       }
     ]
@@ -4084,27 +4084,27 @@
   {
     "id": 102,
     "name": "add_train_location",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to add an additional building where a specific unit type can be trained.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to add an additional training location for",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the additional training location will be added",
         "default": null
       },
       {
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The building type where the unit can now additionally be trained",
         "default": null
       },
       {
@@ -4133,20 +4133,20 @@
   {
     "id": 103,
     "name": "research_local_technology",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to research a technology locally for specific units, typically used for building-specific upgrades.",
     "attributes": [
       {
         "name": "local_technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The local technology which <PURPOSE>",
+        "description": "The local technology to research for the specified units",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player for whom the local technology will be researched",
         "default": null
       },
       {
@@ -4160,14 +4160,14 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will research the local technology. When not set, units across the entire map are affected",
         "default": null
       },
       {
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit to use for <PURPOSE>",
+        "description": "The unit type to filter which units will research the local technology",
         "default": null
       }
     ]
@@ -4175,7 +4175,7 @@
   {
     "id": 104,
     "name": "modify_attribute_for_class",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a specific object attribute for all units matching the specified class and type, globally for the specified player.",
     "attributes": [
       {
         "name": "object_group2",
@@ -4195,21 +4195,21 @@
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their attribute modified",
         "default": null
       },
       {
         "name": "object_attributes",
         "ref": null,
         "type": "ObjectAttribute",
-        "description": "The object attribute to <ACTION>",
+        "description": "The object attribute to modify",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)",
         "default": null
       },
       {
@@ -4223,14 +4223,14 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to modify the attribute by",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
         "type": "float",
-        "description": "The (decimal) amount to <ACTION>",
+        "description": "The (decimal) amount to modify the attribute by",
         "default": null
       },
       {
@@ -4252,27 +4252,27 @@
   {
     "id": 105,
     "name": "modify_object_attribute",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a specific attribute on individual unit instances matching the specified criteria.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their attribute modified",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their attribute modified",
         "default": null
       },
       {
         "name": "object_attributes",
         "ref": null,
         "type": "ObjectAttribute",
-        "description": "The object attribute to <ACTION>",
+        "description": "The object attribute to modify",
         "default": null
       },
       {
@@ -4286,7 +4286,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their attribute modified. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -4300,21 +4300,21 @@
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)",
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <ACTION>",
+        "description": "The amount to modify the attribute by",
         "default": null
       },
       {
         "name": "quantity_float",
         "ref": null,
         "type": "float",
-        "description": "The (decimal) amount to <ACTION>",
+        "description": "The (decimal) amount to modify the attribute by",
         "default": null
       },
       {
@@ -4336,27 +4336,27 @@
   {
     "id": 106,
     "name": "modify_object_attribute_by_variable",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to modify a specific attribute on individual unit instances using the value stored in a variable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to DO|CHANGE THE <ACTION>",
+        "description": "The unit type to filter which units will have their attribute modified",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units will have their attribute modified",
         "default": null
       },
       {
         "name": "object_attributes",
         "ref": null,
         "type": "ObjectAttribute",
-        "description": "The object attribute to <ACTION>",
+        "description": "The object attribute to modify using the variable's value",
         "default": null
       },
       {
@@ -4370,7 +4370,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their attribute modified. When not set, units across the entire map are affected",
         "default": null
       },
       {
@@ -4384,14 +4384,14 @@
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The [NEW] <THING> TO|FOR <ACTION>",
+        "description": "The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)",
         "default": null
       },
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable whose value will be used to modify the attribute",
         "default": null
       },
       {
@@ -4406,27 +4406,27 @@
   {
     "id": 107,
     "name": "change_object_visibility",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This effect can be used to change the visibility state of units for a specific player.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose <ACTION> ((UNITS) ARE AFFECTED)",
+        "description": "The player whose units' visibility will be changed",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player whose <ACTION>",
+        "description": "The player for whom the unit visibility will change",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area where units will be <ACTION>. [VERIFY:] When not set, units on the entire map are affected",
+        "description": "The area in which units will have their visibility changed. When not set, units across the entire map are affected",
         "default": null
       },
       {
