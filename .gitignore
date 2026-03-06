@@ -228,3 +228,5 @@ AoE2ScenarioParser/differences.txt
 .DS_Store
 
 .idea/AoE2ScenarioParser.v1.iml
+
+.claude/settings.local.json
