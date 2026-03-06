@@ -124,21 +124,21 @@ Convert the flat `{name: description}` map to `{name: {description_template, eff
 | `selected_object_ids` | `"direct:selected_unit_ids"` |
 | `message_option1` | `"direct:message_option1"` |
 | `message_option2` | `"direct:message_option2"` |
-| `armour_attack_quantity` | `null` |
-| `armour_attack_class` | `null` |
-| `quantity_float` | `null` |
-| `object_group2` | `null` |
-| `object_type2` | `null` |
-| `global_sound` | `null` |
-| `issue_group_command` | `null` |
-| `queue_action` | `null` |
-| `max_units_affected` | `null` |
-| `disable_garrison_unload_sound` | `null` |
-| `hotkey` | `null` |
-| `train_time` | `null` |
-| `local_technology_id` | `null` |
-| `disable_sound` | `null` |
-| `facet2` | `null` |
+| `armour_attack_quantity` | `null` — not in EffectStruct retrievers |
+| `armour_attack_class` | `null` — not in EffectStruct retrievers |
+| `quantity_float` | `"properties:70"` — stored as raw float bits in the i32 array |
+| `object_group2` | `"properties:68"` |
+| `object_type2` | `"properties:69"` |
+| `facet2` | `"properties:71"` |
+| `global_sound` | `"properties:72"` |
+| `issue_group_command` | `"properties:73"` |
+| `queue_action` | `"properties:74"` |
+| `max_units_affected` | `"properties:62"` |
+| `disable_garrison_unload_sound` | `"properties:63"` |
+| `hotkey` | `"properties:64"` |
+| `train_time` | `"properties:65"` |
+| `local_technology_id` | `"properties:66"` — struct field name is `local_technology` |
+| `disable_sound` | `"properties:67"` |
 
 **Example entry:**
 ```json
