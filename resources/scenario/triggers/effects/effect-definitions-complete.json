@@ -59,7 +59,7 @@
         "name": "force_technology",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to force the selected technology to be researched, regardless if the civilization has access to it or not.",
+        "description": "When enabled, force the selected technology to be researched, regardless if the civilization has access to it or not.",
         "default": null
       }
     ]
@@ -122,7 +122,7 @@
         "name": "location_object_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The unit whose position will be used to play the sound at. When not set, the sound will be played globally.",
+        "description": "The unit whose position and rotation will be used to play the sound at. When not set, the sound will be played globally.",
         "default": null
       },
       {
@@ -130,7 +130,7 @@
         "ref": null,
         "type": "bool",
         "description": [
-          "When enabled, the sound will be played regardless of if the target is on screen.",
+          "When enabled, the sound will be played regardless if the target is on screen.",
           "This is useful for existing game sounds that are considered '3D'.",
           "'3D' sounds are game sounds based on coordinates. '2D' sounds are sounds like GUI, button click or notification sounds."
         ],
@@ -148,7 +148,7 @@
   {
     "id": 5,
     "name": "tribute",
-    "description": "This effect can be used to send resources one player to another.",
+    "description": "This effect can be used to send resources from one player to another.",
     "attributes": [
       {
         "name": "quantity",
@@ -168,7 +168,7 @@
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who will be sending the resource.",
+        "description": "The player who will be sending the resources.",
         "default": null
       },
       {
@@ -211,7 +211,7 @@
   {
     "id": 8,
     "name": "activate_trigger",
-    "description": "This effect can be used to activate a trigger.",
+    "description": "This effect can be used to activate a specific trigger.",
     "attributes": [
       {
         "name": "trigger",
@@ -225,7 +225,7 @@
   {
     "id": 9,
     "name": "deactivate_trigger",
-    "description": "This effect can be used to deactivate a trigger.",
+    "description": "This effect can be used to deactivate a specific trigger.",
     "attributes": [
       {
         "name": "trigger",
@@ -283,21 +283,24 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the unit that is selected in the dropdown",
         "default": null
       },
       {
         "name": "facet",
         "ref": null,
         "type": "int",
-        "description": "The rotation of the created unit in radians",
+        "description": [
+          "The rotation of the created unit. This can be any integer between 0 and 15, with 0 looking towards the right of the screen",
+          "and 8 looking towards the left of the screen. With increasing values moving counter clockwise."
+        ],
         "default": null
       },
       {
         "name": "disable_sound",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, disable the sound during the creation of the object",
+        "description": "When enabled, disable the creation sound of the object",
         "default": false
       }
     ]
@@ -311,7 +314,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be tasked",
+        "description": "The type of unit to task",
         "default": null
       },
       {
@@ -332,14 +335,14 @@
         "name": "location_object_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by an object",
+        "description": "The target unit (as if it was right clicked)",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be tasked. When not set, units across the entire map are affected",
+        "description": "The area in which units will be tasked. When not set, units across the entire map are tasked",
         "default": null
       },
       {
@@ -374,7 +377,7 @@
         "name": "disable_garrison_unload_sound",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, disables the sound that happens when unloading garrisoned units",
+        "description": "When enabled, disables the sound that plays when unloading garrisoned units",
         "default": null
       },
       {
@@ -395,7 +398,7 @@
         "name": "queue_action",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, the set task will be queued",
+        "description": "When enabled, the set task will be shift-queued",
         "default": null
       }
     ]
@@ -424,13 +427,13 @@
   {
     "id": 14,
     "name": "kill_object",
-    "description": "This effect can be used to kill units matching the specified criteria, triggering the death animation and leaving a corpse.",
+    "description": "This effect can be used to kill units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be killed",
+        "description": "The type of unit to kill",
         "default": null
       },
       {
@@ -444,7 +447,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be killed. When not set, units across the entire map are affected",
+        "description": "The area in which units will be killed. When not set, units across the entire map are killed",
         "default": null
       },
       {
@@ -486,7 +489,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be removed",
+        "description": "The type of unit to remove",
         "default": null
       },
       {
@@ -500,7 +503,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be removed. When not set, units across the entire map are affected",
+        "description": "The area in which units will be removed. When not set, units across the entire map are removed",
         "default": null
       },
       {
@@ -570,7 +573,7 @@
         "name": "scroll",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to animate the camera transition. When disabled, the camera snaps to the new position without any animation",
+        "description": "When enabled, animate the camera transition. When disabled, the camera snaps to the new position without any animation (ignoring the quantity)",
         "default": null
       }
     ]
@@ -578,20 +581,20 @@
   {
     "id": 17,
     "name": "unload",
-    "description": "This effect can be used to order transport or garrison units to unload their garrisoned units at a target location.",
+    "description": "This effect can be used to unload units at a target location.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which transport or garrison units will be ordered to unload",
+        "description": "The type of unit to unload",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose transport or garrison units will be ordered to unload",
+        "description": "The player whose garrisoned units will be ordered to unload",
         "default": null
       },
       {
@@ -605,14 +608,14 @@
         "name": "location_object_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by an object",
+        "description": "The target unit to unload at (as if it was right clicked)",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which transport or garrison units will be ordered to unload. When not set, units across the entire map are affected",
+        "description": "The area in which garrisoned units will be ordered to unload. When not set, units across the entire map are ordered to unload",
         "default": null
       },
       {
@@ -648,13 +651,13 @@
   {
     "id": 18,
     "name": "change_ownership",
-    "description": "This effect can be used to transfer ownership of units from the source player to the target player.",
+    "description": "This effect can be used to change ownership of units from the source player to the target player.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their ownership transferred",
+        "description": "The type of unit to change ownership",
         "default": null
       },
       {
@@ -675,7 +678,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their ownership transferred. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their ownership changed. When not set, units across the entire map have their ownership changed",
         "default": null
       },
       {
@@ -696,7 +699,7 @@
         "name": "flash_object",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, is used to flash the affected units when the source and target player are the same",
+        "description": "When enabled, flash the affected units when the source and target player are the same",
         "default": null
       },
       {
@@ -718,20 +721,20 @@
   {
     "id": 19,
     "name": "patrol",
-    "description": "This effect can be used to order units to patrol to a specific tile.",
+    "description": "This effect can be used to patrol units to a specific tile.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be ordered to patrol",
+        "description": "The type of unit to patrol",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose units will be ordered to patrol",
+        "description": "The player whose units to patrol",
         "default": null
       },
       {
@@ -745,7 +748,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be ordered to patrol. When not set, units across the entire map are affected",
+        "description": "The area in which units will be patrolled. When not set, units across the entire map are patrolled",
         "default": null
       },
       {
@@ -781,20 +784,20 @@
   {
     "id": 20,
     "name": "display_instructions",
-    "description": "This effect can be used to display a message panel with text instructions for the specified player.",
+    "description": "This effect can be used to display a message in a panel for all players",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type whose icon will be displayed in the instruction panel",
+        "description": "The unit whose icon to the display in the panel",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who will see the instruction panel",
+        "description": "The player whose color to use in the icon",
         "default": null
       },
       {
@@ -808,7 +811,7 @@
         "name": "display_time",
         "ref": null,
         "type": "int",
-        "description": "The number of seconds to display the instructions panel for",
+        "description": "The number of real-life seconds to display the instructions panel for",
         "default": null
       },
       {
@@ -822,7 +825,7 @@
         "name": "play_sound",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, plays the notification sound associated with the panel position",
+        "description": "When enabled, plays the message notification",
         "default": null
       },
       {
@@ -844,7 +847,7 @@
   {
     "id": 21,
     "name": "clear_instructions",
-    "description": "This effect can be used to clear and hide an instruction panel at the specified screen position.",
+    "description": "This effect can be used to clear the message from an instruction panel.",
     "attributes": [
       {
         "name": "instruction_panel_position",
@@ -864,7 +867,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be frozen",
+        "description": "The type of unit to freeze",
         "default": null
       },
       {
@@ -878,7 +881,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be frozen. When not set, units across the entire map are affected",
+        "description": "The area in which units will be frozen. When not set, units across the entire map are frozen",
         "default": null
       },
       {
@@ -914,13 +917,13 @@
   {
     "id": 23,
     "name": "use_advanced_buttons",
-    "description": "This effect enables advanced buttons in the scenario editor interface.",
+    "description": "This effect toggles advanced buttons in the minimap interface before Definitive Edition. It is now as useful as the None effect.",
     "attributes": []
   },
   {
     "id": 24,
     "name": "damage_object",
-    "description": "This effect can be used to deal a specified amount of damage to units matching the specified criteria.",
+    "description": "This effect can be used to deal a specified amount of damage to units.",
     "attributes": [
       {
         "name": "quantity",
@@ -933,7 +936,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be damaged",
+        "description": "The type of unit to damage",
         "default": null
       },
       {
@@ -947,7 +950,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be damaged. When not set, units across the entire map are affected",
+        "description": "The area in which units will be damaged. When not set, units across the entire map are damaged",
         "default": null
       },
       {
@@ -989,7 +992,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The building type to place the foundation for",
+        "description": "The building foundation to place",
         "default": null
       },
       {
@@ -1011,13 +1014,13 @@
   {
     "id": 26,
     "name": "change_object_name",
-    "description": "This effect can be used to change the display name of units matching the specified criteria.",
+    "description": "This effect can be used to change the display name of units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their name changed",
+        "description": "The type of unit to rename",
         "default": null
       },
       {
@@ -1038,7 +1041,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their name changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their name changed. When not set, units across the entire map have their name changed",
         "default": null
       },
       {
@@ -1067,7 +1070,7 @@
   {
     "id": 27,
     "name": "change_object_hp",
-    "description": "This effect can be used to modify the current HP of units matching the specified criteria.",
+    "description": "This effect can be used to modify the current HP of units.",
     "attributes": [
       {
         "name": "quantity",
@@ -1080,7 +1083,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their HP changed",
+        "description": "The type of unit to change HP",
         "default": null
       },
       {
@@ -1094,7 +1097,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their HP changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their HP changed. When not set, units across the entire map have their HP changed",
         "default": null
       },
       {
@@ -1143,21 +1146,21 @@
         "name": "armour_attack_quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount to modify the ARMOR|ATTACK by",
+        "description": "The amount to modify the attack by",
         "default": null
       },
       {
         "name": "armour_attack_class",
         "ref": null,
         "type": "DamageClass",
-        "description": "The ARMOR|ATTACK class to modify",
+        "description": "The attack class to modify",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their attack changed",
+        "description": "The type of unit to change attack",
         "default": null
       },
       {
@@ -1171,7 +1174,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their attack changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their attack changed. When not set, units across the entire map have their attack changed",
         "default": null
       },
       {
@@ -1214,13 +1217,13 @@
   {
     "id": 29,
     "name": "stop_object",
-    "description": "This effect can be used to stop the current action of units matching the specified criteria.",
+    "description": "This effect can be used to stop the current action of units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be stopped",
+        "description": "The type of unit to stop",
         "default": null
       },
       {
@@ -1234,7 +1237,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be stopped. When not set, units across the entire map are affected",
+        "description": "The area in which units will be stopped. When not set, units across the entire map are stopped",
         "default": null
       },
       {
@@ -1270,20 +1273,20 @@
   {
     "id": 30,
     "name": "attack_move",
-    "description": "This effect can be used to order units to move to a location while attacking any enemies encountered along the way.",
+    "description": "This effect can be used to attack-move units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be ordered to attack-move",
+        "description": "The type of unit to attack-move",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose units will be ordered to attack-move",
+        "description": "The player whose units will attack-move",
         "default": null
       },
       {
@@ -1297,14 +1300,14 @@
         "name": "location_object_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The target location referenced by an object",
+        "description": "The target unit (as if it was right clicked)",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be ordered to attack-move. When not set, units across the entire map are affected",
+        "description": "The area in which units will be attack-moved. When not set, units across the entire map are attack-moved",
         "default": null
       },
       {
@@ -1346,21 +1349,21 @@
         "name": "armour_attack_quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount to modify the ARMOR|ATTACK by",
+        "description": "The amount to modify the armor by",
         "default": null
       },
       {
         "name": "armour_attack_class",
         "ref": null,
         "type": "DamageClass",
-        "description": "The ARMOR|ATTACK class to modify",
+        "description": "The armor class to modify",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their armor changed",
+        "description": "The type of unit to change armor",
         "default": null
       },
       {
@@ -1374,7 +1377,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their armor changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their armor changed. When not set, units across the entire map have their armor changed",
         "default": null
       },
       {
@@ -1417,7 +1420,7 @@
   {
     "id": 32,
     "name": "change_object_range",
-    "description": "This effect can be used to modify the attack range of units matching the specified criteria.",
+    "description": "This effect can be used to modify the attack range of units.",
     "attributes": [
       {
         "name": "quantity",
@@ -1430,7 +1433,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their range changed",
+        "description": "The type of unit to change range",
         "default": null
       },
       {
@@ -1444,7 +1447,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their range changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their range changed. When not set, units across the entire map have their range changed",
         "default": null
       },
       {
@@ -1487,20 +1490,20 @@
   {
     "id": 33,
     "name": "change_object_speed",
-    "description": "This effect can be used to modify the movement speed of units matching the specified criteria.",
+    "description": "This effect can be used to modify the movement speed of units.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount to change the movement speed by",
+        "description": "The amount to change the movement speed to. For legacy reasons, this is capped at 4.5",
         "default": null
       },
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their speed changed",
+        "description": "The type of unit to change speed",
         "default": null
       },
       {
@@ -1514,7 +1517,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their speed changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their speed changed. When not set, units across the entire map have their speed changed",
         "default": null
       },
       {
@@ -1550,7 +1553,7 @@
   {
     "id": 34,
     "name": "heal_object",
-    "description": "This effect can be used to restore HP to units matching the specified criteria.",
+    "description": "This effect can be used to restore HP to units.",
     "attributes": [
       {
         "name": "quantity",
@@ -1563,7 +1566,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be healed",
+        "description": "The type of unit to heal",
         "default": null
       },
       {
@@ -1577,7 +1580,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be healed. When not set, units across the entire map are affected",
+        "description": "The area in which units will be healed. When not set, units across the entire map are healed",
         "default": null
       },
       {
@@ -1613,13 +1616,16 @@
   {
     "id": 35,
     "name": "teleport_object",
-    "description": "This effect can be used to instantly move units to the specified tile.",
+    "description": [
+      "This effect can be used to teleport units to the specified tile.",
+      "The game will check for collisions before teleporting, which means it will teleport only a single unit unless the units have no collision."
+    ],
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be teleported",
+        "description": "The type of unit to teleport",
         "default": null
       },
       {
@@ -1640,7 +1646,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be teleported. When not set, units across the entire map are affected",
+        "description": "The area in which units will be teleported. When not set, units across the entire map are teleported",
         "default": null
       },
       {
@@ -1676,13 +1682,13 @@
   {
     "id": 36,
     "name": "change_object_stance",
-    "description": "This effect can be used to change the attack stance of units matching the specified criteria.",
+    "description": "This effect can be used to change the attack stance of units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their stance changed",
+        "description": "The type of unit to change stance",
         "default": null
       },
       {
@@ -1696,7 +1702,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their stance changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their stance changed. When not set, units across the entire map have their stance changed",
         "default": null
       },
       {
@@ -1739,7 +1745,7 @@
   {
     "id": 37,
     "name": "display_timer",
-    "description": "This effect can be used to display a countdown or count-up timer on the screen.",
+    "description": "This effect can be used to display a countdown timer on the screen.",
     "attributes": [
       {
         "name": "str_id",
@@ -1759,7 +1765,7 @@
         "name": "time_unit",
         "ref": null,
         "type": "TimeUnit",
-        "description": "The unit of time to use (In game seconds, in game minutes or simulated years)",
+        "description": "The unit of time to use (In game seconds, minutes or years (One year being 5 seconds))",
         "default": null
       },
       {
@@ -1773,14 +1779,14 @@
         "name": "reset_timer",
         "ref": null,
         "type": "bool",
-        "description": "Unknown — this field may be bugged or have no effect. If you know what it does, please open an issue on the AoE2ScenarioParser GitHub!",
+        "description": "Removes the old timer if it exists, when disabled it will create multiple timers with the same ID, disable with caution",
         "default": null
       },
       {
         "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The label text to display alongside the timer",
+        "description": "The message to display for the timer. Use '<TIMER>' to show the timer in your message",
         "default": null
       }
     ]
@@ -1788,34 +1794,34 @@
   {
     "id": 38,
     "name": "enable/disable_object",
-    "description": "This effect can be used to enable or disable a specific unit type for the specified player, making it available or unavailable in the train or build menu.",
+    "description": "This effect can be used to enable or disable units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to enable or disable",
+        "description": "The unit to enable or disable",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player for whom the unit type will be enabled or disabled",
+        "description": "The player for whom the unit will be enabled or disabled",
         "default": null
       },
       {
         "name": "enabled",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, the unit type becomes available. When disabled, the unit type is hidden from the train or build menu",
+        "description": "When enabled, the unit is available. When disabled, the unit is not available",
         "default": null
       },
       {
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the unit that is selected in the dropdown",
         "default": null
       }
     ]
@@ -1823,7 +1829,7 @@
   {
     "id": 39,
     "name": "enable/disable_technology",
-    "description": "This effect can be used to enable or disable a specific technology for the specified player, making it available or unavailable for research.",
+    "description": "This effect can be used to enable or disable technologies.",
     "attributes": [
       {
         "name": "source_player",
@@ -1843,14 +1849,14 @@
         "name": "enabled",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, the technology becomes available for research. When disabled, it is hidden from the research menu",
+        "description": "When enabled, the technology is available. When disabled, the technology is not available",
         "default": null
       },
       {
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the technology that is selected in the dropdown",
         "default": null
       }
     ]
@@ -1858,7 +1864,7 @@
   {
     "id": 40,
     "name": "change_object_cost",
-    "description": "This effect can be used to change the resource cost for training or constructing a specific unit type.",
+    "description": "This effect can be used to change the resource cost for training a specific unit type.",
     "attributes": [
       {
         "name": "object_unit_id",
@@ -1949,13 +1955,13 @@
   {
     "id": 42,
     "name": "change_object_icon",
-    "description": "This effect can be used to change the icon displayed for units matching the specified criteria.",
+    "description": "This effect can be used to change the icon displayed for units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their icon changed",
+        "description": "The type of unit to change icon",
         "default": null
       },
       {
@@ -1969,7 +1975,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their icon changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their icon changed. When not set, units across the entire map have their icon changed",
         "default": null
       },
       {
@@ -2012,13 +2018,13 @@
   {
     "id": 43,
     "name": "replace_object",
-    "description": "This effect can be used to replace units matching the specified criteria with a different unit type.",
+    "description": "This effect can be used to replace units with a different unit type.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be replaced",
+        "description": "The type of unit to replace",
         "default": null
       },
       {
@@ -2039,7 +2045,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be replaced. When not set, units across the entire map are affected",
+        "description": "The area in which units will be replaced. When not set, units across the entire map are replaced",
         "default": null
       },
       {
@@ -2256,7 +2262,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which garrison or transport units will receive the new garrisoned unit",
+        "description": "The type of unit to receive the new garrisoned unit",
         "default": null
       },
       {
@@ -2270,7 +2276,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which garrison or transport units will receive the garrisoned unit. When not set, units across the entire map are affected",
+        "description": "The area in which garrison or transport units will receive the garrisoned unit. When not set, units across the entire map receive the garrisoned unit",
         "default": null
       },
       {
@@ -2361,7 +2367,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the unit that is selected in the dropdown",
         "default": null
       },
       {
@@ -2424,7 +2430,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the resource that is selected in the dropdown",
         "default": null
       },
       {
@@ -2459,7 +2465,7 @@
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the resource that is selected in the dropdown",
         "default": null
       },
       {
@@ -2481,7 +2487,7 @@
   {
     "id": 54,
     "name": "set_building_gather_point",
-    "description": "This effect can be used to set the gather point (rally point) for buildings matching the specified criteria.",
+    "description": "This effect can be used to set the gather point (rally point) for buildings.",
     "attributes": [
       {
         "name": "object_unit_id",
@@ -2600,13 +2606,13 @@
   {
     "id": 58,
     "name": "change_object_player_color",
-    "description": "This effect can be used to change the player color used to tint units matching the specified criteria.",
+    "description": "This effect can be used to change the player color used to tint units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their player color changed",
+        "description": "The type of unit to change player color",
         "default": null
       },
       {
@@ -2620,7 +2626,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their player color changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their player color changed. When not set, units across the entire map have their player color changed",
         "default": null
       },
       {
@@ -2669,7 +2675,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their civilization name changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their civilization name changed. When not set, units across the entire map have their civilization name changed",
         "default": null
       },
       {
@@ -2698,13 +2704,13 @@
   {
     "id": 60,
     "name": "change_object_player_name",
-    "description": "This effect can be used to change the player name displayed for units matching the specified criteria.",
+    "description": "This effect can be used to change the player name displayed for units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their player name changed",
+        "description": "The type of unit to change player name",
         "default": null
       },
       {
@@ -2725,7 +2731,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their player name changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their player name changed. When not set, units across the entire map have their player name changed",
         "default": null
       },
       {
@@ -2760,7 +2766,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have targeting disabled",
+        "description": "The type of unit to disable targeting",
         "default": null
       },
       {
@@ -2774,7 +2780,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have targeting disabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have targeting disabled. When not set, units across the entire map have targeting disabled",
         "default": null
       },
       {
@@ -2802,7 +2808,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have targeting re-enabled",
+        "description": "The type of unit to enable targeting",
         "default": null
       },
       {
@@ -2816,7 +2822,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have targeting re-enabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have targeting enabled. When not set, units across the entire map have targeting enabled",
         "default": null
       },
       {
@@ -3062,13 +3068,13 @@
   {
     "id": 70,
     "name": "disable_object_selection",
-    "description": "This effect can be used to prevent the player from selecting units matching the specified criteria.",
+    "description": "This effect can be used to prevent the player from selecting units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have selection disabled",
+        "description": "The type of unit to disable selection",
         "default": null
       },
       {
@@ -3082,7 +3088,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have selection disabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have selection disabled. When not set, units across the entire map have selection disabled",
         "default": null
       },
       {
@@ -3110,7 +3116,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have selection re-enabled",
+        "description": "The type of unit to enable selection",
         "default": null
       },
       {
@@ -3124,7 +3130,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have selection re-enabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have selection enabled. When not set, units across the entire map have selection enabled",
         "default": null
       },
       {
@@ -3167,13 +3173,13 @@
   {
     "id": 73,
     "name": "enable_object_deletion",
-    "description": "This effect can be used to allow the player to delete units matching the specified criteria.",
+    "description": "This effect can be used to allow the player to delete units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have deletion enabled",
+        "description": "The type of unit to enable deletion",
         "default": null
       },
       {
@@ -3187,14 +3193,14 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have deletion enabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have deletion enabled. When not set, units across the entire map have deletion enabled",
         "default": null
       },
       {
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the unit that is selected in the dropdown",
         "default": null
       },
       {
@@ -3216,13 +3222,13 @@
   {
     "id": 74,
     "name": "disable_object_deletion",
-    "description": "This effect can be used to prevent the player from deleting units matching the specified criteria.",
+    "description": "This effect can be used to prevent the player from deleting units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have deletion disabled",
+        "description": "The type of unit to disable deletion",
         "default": null
       },
       {
@@ -3236,14 +3242,14 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have deletion disabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have deletion disabled. When not set, units across the entire map have deletion disabled",
         "default": null
       },
       {
         "name": "item_id",
         "ref": null,
         "type": "int",
-        "description": "A copy of the internal value from the selected unit/technology/resource",
+        "description": "The type of the unit that is selected in the dropdown",
         "default": null
       },
       {
@@ -3349,7 +3355,7 @@
   {
     "id": 77,
     "name": "create_object_attack",
-    "description": "This effect can be used to add a new attack entry to units matching the specified criteria for a specific damage class.",
+    "description": "This effect can be used to add a new attack entry to units for a specific damage class.",
     "attributes": [
       {
         "name": "armour_attack_quantity",
@@ -3369,7 +3375,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have the attack entry added",
+        "description": "The type of unit to add the attack class to",
         "default": null
       },
       {
@@ -3383,7 +3389,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have the attack entry added. When not set, units across the entire map are affected",
+        "description": "The area in which units will have the attack entry added. When not set, units across the entire map have the attack entry added",
         "default": null
       },
       {
@@ -3426,7 +3432,7 @@
   {
     "id": 78,
     "name": "create_object_armor",
-    "description": "This effect can be used to add a new armor entry to units matching the specified criteria for a specific damage class.",
+    "description": "This effect can be used to add a new armor entry to units for a specific damage class.",
     "attributes": [
       {
         "name": "armour_attack_quantity",
@@ -3446,7 +3452,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have the armor entry added",
+        "description": "The type of unit to add the armor class to",
         "default": null
       },
       {
@@ -3460,7 +3466,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have the armor entry added. When not set, units across the entire map are affected",
+        "description": "The area in which units will have the armor entry added. When not set, units across the entire map have the armor entry added",
         "default": null
       },
       {
@@ -3804,13 +3810,13 @@
   {
     "id": 88,
     "name": "change_object_caption",
-    "description": "This effect can be used to change the caption text displayed above units matching the specified criteria.",
+    "description": "This effect can be used to change the caption text displayed above units.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their caption changed",
+        "description": "The type of unit to change caption",
         "default": null
       },
       {
@@ -3838,7 +3844,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their caption changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their caption changed. When not set, units across the entire map have their caption changed",
         "default": null
       },
       {
@@ -3936,7 +3942,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be made unattackable",
+        "description": "The type of unit to disable attackable",
         "default": null
       },
       {
@@ -3950,7 +3956,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will be made unattackable. When not set, units across the entire map are affected",
+        "description": "The area in which units will have attackability disabled. When not set, units across the entire map have attackability disabled",
         "default": null
       },
       {
@@ -3978,7 +3984,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have attackability re-enabled",
+        "description": "The type of unit to enable attackable",
         "default": null
       },
       {
@@ -3992,7 +3998,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have attackability re-enabled. When not set, units across the entire map are affected",
+        "description": "The area in which units will have attackability enabled. When not set, units across the entire map have attackability enabled",
         "default": null
       },
       {
@@ -4042,13 +4048,13 @@
   {
     "id": 101,
     "name": "counts_units_into_variable",
-    "description": "This effect can be used to count units matching the specified criteria and store the result in a variable.",
+    "description": "This effect can be used to count units and store the result in a variable.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will be counted",
+        "description": "The type of unit to count",
         "default": null
       },
       {
@@ -4160,14 +4166,14 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will research the local technology. When not set, units across the entire map are affected",
+        "description": "The area in which units will research the local technology. When not set, units across the entire map research the local technology",
         "default": null
       },
       {
         "name": "object_unit_id2",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will research the local technology",
+        "description": "The type of unit to research the local technology in",
         "default": null
       }
     ]
@@ -4252,13 +4258,13 @@
   {
     "id": 105,
     "name": "modify_object_attribute",
-    "description": "This effect can be used to modify a specific attribute on individual unit instances matching the specified criteria.",
+    "description": "This effect can be used to modify a specific attribute on individual unit instances.",
     "attributes": [
       {
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their attribute modified",
+        "description": "The type of unit to modify the attribute of",
         "default": null
       },
       {
@@ -4286,7 +4292,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their attribute modified. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their attribute modified. When not set, units across the entire map have their attribute modified",
         "default": null
       },
       {
@@ -4342,7 +4348,7 @@
         "name": "object_unit_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type to filter which units will have their attribute modified",
+        "description": "The type of unit to modify the attribute of",
         "default": null
       },
       {
@@ -4370,7 +4376,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their attribute modified. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their attribute modified. When not set, units across the entire map have their attribute modified",
         "default": null
       },
       {
@@ -4426,7 +4432,7 @@
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area in which units will have their visibility changed. When not set, units across the entire map are affected",
+        "description": "The area in which units will have their visibility changed. When not set, units across the entire map have their visibility changed",
         "default": null
       },
       {
