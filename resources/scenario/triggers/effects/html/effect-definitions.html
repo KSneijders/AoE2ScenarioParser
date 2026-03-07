@@ -1,0 +1,3563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Effect Definitions</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; font-size: 14px; background: #1a1a1a; color: #ccc; padding: 24px; }
+    h1 { margin-bottom: 16px; font-size: 20px; color: #eee; }
+
+    .effect-row {
+      background: #242424;
+      border: 1px solid #333;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .effect-header {
+      display: grid;
+      grid-template-columns: 36px 260px 1fr;
+      gap: 12px;
+      align-items: baseline;
+      padding: 8px 12px;
+      background: #2c2c2c;
+      border-bottom: 1px solid #333;
+    }
+
+    .effect-id {
+      font-weight: 600;
+      color: #666;
+      text-align: right;
+    }
+
+    .effect-name {
+      font-weight: 600;
+      font-family: monospace;
+      font-size: 13px;
+      color: #7aadff;
+    }
+
+    .effect-desc {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .attrs { padding: 4px 12px 6px 12px; }
+    .attrs.empty { color: #555; font-style: italic; padding: 6px 48px; }
+
+    .attr-row {
+      display: grid;
+      grid-template-columns: 220px 120px 1fr;
+      gap: 12px;
+      align-items: baseline;
+      padding: 3px 0;
+      border-bottom: 1px solid #2e2e2e;
+      font-size: 13px;
+    }
+    .attr-row:last-child { border-bottom: none; }
+
+    .attr-name {
+      font-family: monospace;
+      padding-left: 36px;
+      color: #888;
+    }
+
+    .attr-type {
+      color: #5a9a6e;
+      font-size: 12px;
+    }
+
+    .attr-desc { color: #bbb; }
+
+    .default {
+      color: #666;
+      font-size: 11px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Effect Definitions (101 effects)</h1>
+
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">0</span>
+      <span class="effect-name">none</span>
+      <span class="effect-desc">This effect is empty. It doesn't even have 'splash' or evolve...</span>
+    </div>
+    <div class="attrs empty">no attributes</div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">1</span>
+      <span class="effect-name">change_diplomacy</span>
+      <span class="effect-desc">This effect can be used to change the diplomacy stance of the source players with the target player. It does NOT change the stance both ways.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">diplomacy_state</span>
+          <span class="attr-type">DiplomacyState</span>
+          <span class="attr-desc">The diplomacy stance to set. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose stance will be changed. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">target_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The target player whose diplomacy stance will be changed for the source player. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">2</span>
+      <span class="effect-name">research_technology</span>
+      <span class="effect-desc">This effect can be used to automatically research a technology for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology will be researched. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology which will be researched for the specified player. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">force_technology</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, force the selected technology to be researched, regardless if the civilization has access to it or not. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">3</span>
+      <span class="effect-name">send_chat</span>
+      <span class="effect-desc">This effect can be used to send a chat message to the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will be receiving the message. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use instead of the message. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The message to send to the player. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">sound_name</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The name of the sound to play when the message is sent. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">4</span>
+      <span class="effect-name">play_sound</span>
+      <span class="effect-desc">This effect can be used to play a sound at a specific location or globally for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will hear the sound effect. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to play the sound at. When not set, the sound will be played globally. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location_object_ref</span>
+          <span class="attr-type">Unit</span>
+          <span class="attr-desc">The unit whose position and rotation will be used to play the sound at. When not set, the sound will be played globally. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">global_sound</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, the sound will be played regardless if the target is on screen. This is useful for existing game sounds that are considered '3D'. '3D' sounds are game sounds based on coordinates. '2D' sounds are sounds like GUI, button click or notification sounds. <span class="default">default: False</span></span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">sound_name</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The name of the sound to play. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">5</span>
+      <span class="effect-name">tribute</span>
+      <span class="effect-desc">This effect can be used to send resources from one player to another.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount of the specified resource to send. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The resource that will be sent. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will be sending the resources. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">target_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will receive the resources. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">6</span>
+      <span class="effect-name">unlock_gate</span>
+      <span class="effect-desc">This effect can be used to unlock specific gates.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The gates to be unlocked. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">7</span>
+      <span class="effect-name">lock_gate</span>
+      <span class="effect-desc">This effect can be used to lock specific gates.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The gates to be locked. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">8</span>
+      <span class="effect-name">activate_trigger</span>
+      <span class="effect-desc">This effect can be used to activate a specific trigger.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">trigger</span>
+          <span class="attr-type">Trigger</span>
+          <span class="attr-desc">The trigger to be activated. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">9</span>
+      <span class="effect-name">deactivate_trigger</span>
+      <span class="effect-desc">This effect can be used to deactivate a specific trigger.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">trigger</span>
+          <span class="attr-type">Trigger</span>
+          <span class="attr-desc">The trigger to be deactivated. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">10</span>
+      <span class="effect-name">ai_script_goal</span>
+      <span class="effect-desc">This effect can be used to communicate with an AI player by setting an AI Trigger number. The AI Trigger number can be detected inside an AI script using: `event-detected trigger NUMBER`</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">ai_script_goal</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The AI Trigger number to set </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">11</span>
+      <span class="effect-name">create_object</span>
+      <span class="effect-desc">This effect can be used to create a unit (including buildings, heroes etc.) for the specified player</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo|BuildingInfo|HeroInfo|OtherInfo|int</span>
+          <span class="attr-desc">The unit type to be created. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose unit will be created </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile where the unit will be created </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the unit that is selected in the dropdown </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">facet</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The rotation of the created unit. This can be any integer between 0 and 15, with 0 looking towards the right of the screen and 8 looking towards the left of the screen. With increasing values moving counter clockwise. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">disable_sound</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, disable the creation sound of the object <span class="default">default: False</span></span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">12</span>
+      <span class="effect-name">task_object</span>
+      <span class="effect-desc">This effect can be used to order units to perform a specific action at a target location or on a target object.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to task </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be tasked </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to send the tasked units to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location_object_ref</span>
+          <span class="attr-type">Unit</span>
+          <span class="attr-desc">The target unit (as if it was right clicked) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be tasked. When not set, units across the entire map are tasked </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">action_type</span>
+          <span class="attr-type">ActionType</span>
+          <span class="attr-desc">The type of action to perform on the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">disable_garrison_unload_sound</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, disables the sound that plays when unloading garrisoned units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">issue_group_command</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, will issue a task as a group formation task, instead of every unit individually </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">queue_action</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, the set task will be shift-queued </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">13</span>
+      <span class="effect-name">declare_victory</span>
+      <span class="effect-desc">This effect can be used to declare victory or defeat for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom victory or defeat will be declared </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">enabled</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, victory is declared for the player. When disabled, defeat is declared </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">14</span>
+      <span class="effect-name">kill_object</span>
+      <span class="effect-desc">This effect can be used to kill units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to kill </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be killed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be killed. When not set, units across the entire map are killed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">15</span>
+      <span class="effect-name">remove_object</span>
+      <span class="effect-desc">This effect can be used to instantly remove units from the map without triggering a death animation.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to remove </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be removed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be removed. When not set, units across the entire map are removed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_state</span>
+          <span class="attr-type">ObjectState</span>
+          <span class="attr-desc">The state units need to be in to be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">16</span>
+      <span class="effect-name">change_view</span>
+      <span class="effect-desc">This effect can be used to move the camera view for the specified player to a specific tile.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The time in seconds it takes to scroll to the new camera position </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose camera view will be moved </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to move the camera to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">scroll</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, animate the camera transition. When disabled, the camera snaps to the new position without any animation (ignoring the quantity) </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">17</span>
+      <span class="effect-name">unload</span>
+      <span class="effect-desc">This effect can be used to unload units at a target location.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to unload </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose garrisoned units will be ordered to unload </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile where garrisoned units will be unloaded </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location_object_ref</span>
+          <span class="attr-type">Unit</span>
+          <span class="attr-desc">The target unit to unload at (as if it was right clicked) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which garrisoned units will be ordered to unload. When not set, units across the entire map are ordered to unload </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">18</span>
+      <span class="effect-name">change_ownership</span>
+      <span class="effect-desc">This effect can be used to change ownership of units from the source player to the target player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change ownership </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who currently owns the units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">target_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will receive ownership of the units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their ownership changed. When not set, units across the entire map have their ownership changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">flash_object</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, flash the affected units when the source and target player are the same </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">19</span>
+      <span class="effect-name">patrol</span>
+      <span class="effect-desc">This effect can be used to patrol units to a specific tile.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to patrol </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units to patrol </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to patrol to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be patrolled. When not set, units across the entire map are patrolled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">20</span>
+      <span class="effect-name">display_instructions</span>
+      <span class="effect-desc">This effect can be used to display a message in a panel for all players</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit whose icon to the display in the panel </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose color to use in the icon </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the instruction message instead of the message field </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">display_time</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The number of real-life seconds to display the instructions panel for </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">instruction_panel_position</span>
+          <span class="attr-type">PanelLocation</span>
+          <span class="attr-desc">The position on the screen where the instruction panel will be displayed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">play_sound</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, plays the message notification </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The instruction message to display in the panel </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">sound_name</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The name of the sound to play when the instruction panel is shown </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">21</span>
+      <span class="effect-name">clear_instructions</span>
+      <span class="effect-desc">This effect can be used to clear the message from an instruction panel.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">instruction_panel_position</span>
+          <span class="attr-type">PanelLocation</span>
+          <span class="attr-desc">The position of the instruction panel to clear </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">22</span>
+      <span class="effect-name">freeze_object</span>
+      <span class="effect-desc">This effect can be used to freeze units in place, preventing them from moving or taking any actions.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to freeze </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be frozen </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be frozen. When not set, units across the entire map are frozen </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">23</span>
+      <span class="effect-name">use_advanced_buttons</span>
+      <span class="effect-desc">This effect toggles advanced buttons in the minimap interface before Definitive Edition. It is now as useful as the None effect.</span>
+    </div>
+    <div class="attrs empty">no attributes</div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">24</span>
+      <span class="effect-name">damage_object</span>
+      <span class="effect-desc">This effect can be used to deal a specified amount of damage to units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount of damage to deal to each affected unit </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to damage </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be damaged </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be damaged. When not set, units across the entire map are damaged </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">25</span>
+      <span class="effect-name">place_foundation</span>
+      <span class="effect-desc">This effect can be used to place a building foundation for the specified player at the specified location.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The building foundation to place </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the foundation will be placed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile where the building foundation will be placed </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">26</span>
+      <span class="effect-name">change_object_name</span>
+      <span class="effect-desc">This effect can be used to change the display name of units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to rename </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their name changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new name for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their name changed. When not set, units across the entire map have their name changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new name to display for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">27</span>
+      <span class="effect-name">change_object_hp</span>
+      <span class="effect-desc">This effect can be used to modify the current HP of units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to change the HP by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change HP </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their HP changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their HP changed. When not set, units across the entire map have their HP changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">28</span>
+      <span class="effect-name">change_object_attack</span>
+      <span class="effect-desc">This effect can be used to modify the attack value of units for a specific attack class.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the attack by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The attack class to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change attack </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their attack changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their attack changed. When not set, units across the entire map have their attack changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">29</span>
+      <span class="effect-name">stop_object</span>
+      <span class="effect-desc">This effect can be used to stop the current action of units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to stop </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be stopped </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be stopped. When not set, units across the entire map are stopped </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">30</span>
+      <span class="effect-name">attack_move</span>
+      <span class="effect-desc">This effect can be used to attack-move units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to attack-move </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will attack-move </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to attack-move to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location_object_ref</span>
+          <span class="attr-type">Unit</span>
+          <span class="attr-desc">The target unit (as if it was right clicked) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be attack-moved. When not set, units across the entire map are attack-moved </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">31</span>
+      <span class="effect-name">change_object_armor</span>
+      <span class="effect-desc">This effect can be used to modify the armor value of units for a specific armor class.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the armor by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The armor class to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change armor </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their armor changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their armor changed. When not set, units across the entire map have their armor changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">32</span>
+      <span class="effect-name">change_object_range</span>
+      <span class="effect-desc">This effect can be used to modify the attack range of units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to change the attack range by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change range </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their range changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their range changed. When not set, units across the entire map have their range changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">33</span>
+      <span class="effect-name">change_object_speed</span>
+      <span class="effect-desc">This effect can be used to modify the movement speed of units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to change the movement speed to. For legacy reasons, this is capped at 4.5 </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change speed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their speed changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their speed changed. When not set, units across the entire map have their speed changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">34</span>
+      <span class="effect-name">heal_object</span>
+      <span class="effect-desc">This effect can be used to restore HP to units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount of HP to restore to each affected unit </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to heal </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be healed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be healed. When not set, units across the entire map are healed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">35</span>
+      <span class="effect-name">teleport_object</span>
+      <span class="effect-desc">This effect can be used to teleport units to the specified tile. The game will check for collisions before teleporting, which means it will teleport only a single unit unless the units have no collision.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to teleport </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be teleported </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to teleport units to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be teleported. When not set, units across the entire map are teleported </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">36</span>
+      <span class="effect-name">change_object_stance</span>
+      <span class="effect-desc">This effect can be used to change the attack stance of units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change stance </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their stance changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their stance changed. When not set, units across the entire map have their stance changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">attack_stance</span>
+          <span class="attr-type">AttackStance</span>
+          <span class="attr-desc">The attack stance to set on the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">37</span>
+      <span class="effect-name">display_timer</span>
+      <span class="effect-desc">This effect can be used to display a countdown timer on the screen.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the timer label instead of the message field </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">display_time</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The initial value of the timer </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">time_unit</span>
+          <span class="attr-type">TimeUnit</span>
+          <span class="attr-desc">The unit of time to use (In game seconds, minutes or years (One year being 5 seconds)) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">timer_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The ID of the timer to display (multiple timers can be shown simultaneously) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">reset_timer</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">Removes the old timer if it exists, when disabled it will create multiple timers with the same ID, disable with caution </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The message to display for the timer. Use '<TIMER>' to show the timer in your message </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">38</span>
+      <span class="effect-name">enable/disable_object</span>
+      <span class="effect-desc">This effect can be used to enable or disable units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit to enable or disable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the unit will be enabled or disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">enabled</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, the unit is available. When disabled, the unit is not available </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the unit that is selected in the dropdown </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">39</span>
+      <span class="effect-name">enable/disable_technology</span>
+      <span class="effect-desc">This effect can be used to enable or disable technologies.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology will be enabled or disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology to enable or disable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">enabled</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, the technology is available. When disabled, the technology is not available </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the technology that is selected in the dropdown </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">40</span>
+      <span class="effect-name">change_object_cost</span>
+      <span class="effect-desc">This effect can be used to change the resource cost for training a specific unit type.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type whose cost will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the cost will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource1</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The new first resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource1_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource2</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The new second resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource2_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource3</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The new third resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource3_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">41</span>
+      <span class="effect-name">set_player_visibility</span>
+      <span class="effect-desc">This effect can be used to change the visibility relationship between two players, controlling what the source player can see of the target player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose line of sight towards the target player will change </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">target_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units and buildings will be made visible or invisible to the source player </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">visibility_state</span>
+          <span class="attr-type">VisibilityState</span>
+          <span class="attr-desc">The visibility state to use </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">42</span>
+      <span class="effect-name">change_object_icon</span>
+      <span class="effect-desc">This effect can be used to change the icon displayed for units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change icon </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their icon changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their icon changed. When not set, units across the entire map have their icon changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type whose icon will be used for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">43</span>
+      <span class="effect-name">replace_object</span>
+      <span class="effect-desc">This effect can be used to replace units with a different unit type.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to replace </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be replaced </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">target_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player to whom the replacement units will belong </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be replaced. When not set, units across the entire map are replaced </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type that the affected units will be replaced with </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">facet2</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The rotation of the replaced unit </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">44</span>
+      <span class="effect-name">change_object_description</span>
+      <span class="effect-desc">This effect can be used to change the description text of a specific unit type for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type whose description will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the unit description will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new description for the unit type </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new description text for the unit type </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">45</span>
+      <span class="effect-name">change_player_name</span>
+      <span class="effect-desc">This effect can be used to change the name displayed for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose name will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new player name </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new name to display for the player </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">46</span>
+      <span class="effect-name">change_train_location</span>
+      <span class="effect-desc">This effect can be used to change the building type where a specific unit type can be trained.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type to change the training location for </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the training location will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The building type where the unit will now be trained </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">button_location</span>
+          <span class="attr-type">ButtonLocation</span>
+          <span class="attr-desc">The location of the button to use. This number is given by the following formula: (row - 1) * 5 + column </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">47</span>
+      <span class="effect-name">change_research_location</span>
+      <span class="effect-desc">This effect can be used to change the building type where a specific technology can be researched.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the research location will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose research location will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The building type where the technology will now be researched </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">button_location</span>
+          <span class="attr-type">ButtonLocation</span>
+          <span class="attr-desc">The location of the button to use. This number is given by the following formula: (row - 1) * 5 + column </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">48</span>
+      <span class="effect-name">change_civilization_name</span>
+      <span class="effect-desc">This effect can be used to change the civilization name displayed for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose civilization name will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new civilization name </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new civilization name to display for the player </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">49</span>
+      <span class="effect-name">create_garrisoned_object</span>
+      <span class="effect-desc">This effect can be used to create a unit already garrisoned inside the specified units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to receive the new garrisoned unit </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the garrisoned unit will be created </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which garrison or transport units will receive the garrisoned unit. When not set, units across the entire map receive the garrisoned unit </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type to create and garrison inside the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">disable_sound</span>
+          <span class="attr-type">bool</span>
+          <span class="attr-desc">When enabled, disable the sound during the creation of the object </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">50</span>
+      <span class="effect-name">acknowledge_ai_signal</span>
+      <span class="effect-desc">This effect can be used to acknowledge a pending AI signal, typically used in combination with the 'AI Signal' condition.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">ai_signal_value</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The AI Signal ID to acknowledge </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">51</span>
+      <span class="effect-name">modify_attribute</span>
+      <span class="effect-desc">This effect can be used to modify a specific object attribute for all units of the specified type belonging to the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the attribute by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the ARMOR|ATTACK by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type whose attribute will be modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the unit that is selected in the dropdown </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_attributes</span>
+          <span class="attr-type">ObjectAttribute</span>
+          <span class="attr-desc">The unit attribute to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The string value to use when the selected object attribute accepts a string (e.g. Object Name ID) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity_float</span>
+          <span class="attr-type">float</span>
+          <span class="attr-desc">The (decimal) amount to modify the attribute by </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">52</span>
+      <span class="effect-name">modify_resource</span>
+      <span class="effect-desc">This effect can be used to modify the amount of a specific resource for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the resource by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The resource to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose resource will be modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the resource that is selected in the dropdown </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">53</span>
+      <span class="effect-name">modify_resource_by_variable</span>
+      <span class="effect-desc">This effect can be used to modify the amount of a specific resource for the specified player using the value stored in a variable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">resource</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The resource to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose resource will be modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the resource that is selected in the dropdown </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable whose value will be used to modify the resource </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">54</span>
+      <span class="effect-name">set_building_gather_point</span>
+      <span class="effect-desc">This effect can be used to set the gather point (rally point) for buildings.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The building type to filter which buildings will have their gather point set </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose buildings will have their gather point set </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile to set as the gather point </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which buildings will have their gather point set. When not set, buildings across the entire map are affected </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">55</span>
+      <span class="effect-name">script_call</span>
+      <span class="effect-desc">This effect can be used to call a function defined in an AI script by name.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID of the AI script function name to call </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The name of the AI script function to call </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">56</span>
+      <span class="effect-name">change_variable</span>
+      <span class="effect-desc">This effect can be used to change the value of a trigger variable using a specified operation and quantity.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The value to use in the operation on the variable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the variable using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable whose value will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The display name of the variable in the scenario editor. Setting this via ASP has no effect. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">57</span>
+      <span class="effect-name">clear_timer</span>
+      <span class="effect-desc">This effect can be used to clear and hide a previously displayed timer.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">timer_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The ID of the timer to clear and hide </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">58</span>
+      <span class="effect-name">change_object_player_color</span>
+      <span class="effect-desc">This effect can be used to change the player color used to tint units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change player color </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their player color changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their player color changed. When not set, units across the entire map have their player color changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">player_color</span>
+          <span class="attr-type">PlayerColorId</span>
+          <span class="attr-desc">The player color to use for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">59</span>
+      <span class="effect-name">change_object_civilization_name</span>
+      <span class="effect-desc">This effect can be used to change the civilization name displayed for units in the specified area.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their civilization name changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new civilization name for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their civilization name changed. When not set, units across the entire map have their civilization name changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new civilization name to display for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">60</span>
+      <span class="effect-name">change_object_player_name</span>
+      <span class="effect-desc">This effect can be used to change the player name displayed for units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change player name </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their player name changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new player name for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their player name changed. When not set, units across the entire map have their player name changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new player name to display for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">61</span>
+      <span class="effect-name">disable_unit_targeting</span>
+      <span class="effect-desc">This effect can be used to prevent units from being targeted or attacked by other units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to disable targeting </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have targeting disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have targeting disabled. When not set, units across the entire map have targeting disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">62</span>
+      <span class="effect-name">enable_unit_targeting</span>
+      <span class="effect-desc">This effect can be used to re-enable targeting for units that were previously made untargetable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to enable targeting </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have targeting re-enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have targeting enabled. When not set, units across the entire map have targeting enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">63</span>
+      <span class="effect-name">change_technology_cost</span>
+      <span class="effect-desc">This effect can be used to change the resource cost for researching a specific technology.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology cost will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose cost will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource1</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The new first resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource1_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The quantity of the first new resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource2</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The new second resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource2_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The quantity of the second new resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource3</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The new third resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource3_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The quantity of the third new resource cost for the chosen UNIT|TECHNOLOGY </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">64</span>
+      <span class="effect-name">change_technology_research_time</span>
+      <span class="effect-desc">This effect can be used to change the time required to research a specific technology.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The new research time to set </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the research time will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose research time will be changed </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">65</span>
+      <span class="effect-name">change_technology_name</span>
+      <span class="effect-desc">This effect can be used to change the display name of a specific technology for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology name will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose name will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new technology name </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new name to display for the technology </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">66</span>
+      <span class="effect-name">change_technology_description</span>
+      <span class="effect-desc">This effect can be used to change the description text of a specific technology for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology description will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose description will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new technology description </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new description text for the technology </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">67</span>
+      <span class="effect-name">enable_technology_stacking</span>
+      <span class="effect-desc">This effect can be used to allow a technology to be researched multiple times, stacking its effects with each research.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of times the technology can be researched </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom technology stacking will be enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology to enable stacking for </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">68</span>
+      <span class="effect-name">disable_technology_stacking</span>
+      <span class="effect-desc">This effect can be used to disable stacking for a technology that was previously set to stack.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom technology stacking will be disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology to disable stacking for </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">69</span>
+      <span class="effect-name">acknowledge_multiplayer_ai_signal</span>
+      <span class="effect-desc">This effect can be used to acknowledge a pending AI signal in a multiplayer scenario.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">ai_signal_value</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The AI Signal ID to acknowledge </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">70</span>
+      <span class="effect-name">disable_object_selection</span>
+      <span class="effect-desc">This effect can be used to prevent the player from selecting units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to disable selection </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have selection disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have selection disabled. When not set, units across the entire map have selection disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">71</span>
+      <span class="effect-name">enable_object_selection</span>
+      <span class="effect-desc">This effect can be used to re-enable selection for units that were previously made unselectable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to enable selection </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have selection re-enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have selection enabled. When not set, units across the entire map have selection enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">72</span>
+      <span class="effect-name">change_color_mood</span>
+      <span class="effect-desc">This effect can be used to change the overall color atmosphere of the map.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The time in seconds to fade to the new color mood </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">color_mood</span>
+          <span class="attr-type">ColorMood</span>
+          <span class="attr-desc">The color mood to set </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">73</span>
+      <span class="effect-name">enable_object_deletion</span>
+      <span class="effect-desc">This effect can be used to allow the player to delete units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to enable deletion </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have deletion enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have deletion enabled. When not set, units across the entire map have deletion enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the unit that is selected in the dropdown </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">74</span>
+      <span class="effect-name">disable_object_deletion</span>
+      <span class="effect-desc">This effect can be used to prevent the player from deleting units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to disable deletion </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have deletion disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have deletion disabled. When not set, units across the entire map have deletion disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">item_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The type of the unit that is selected in the dropdown </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">75</span>
+      <span class="effect-name">train_unit</span>
+      <span class="effect-desc">This effect can be used to queue a specific unit to be trained in a building at the specified location.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The number of units to queue for training </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type to train </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will train the unit </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">location</span>
+          <span class="attr-type">Tile</span>
+          <span class="attr-desc">The tile of the building where the unit will be queued for training </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which buildings will queue the unit for training. When not set, buildings across the entire map are affected </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">76</span>
+      <span class="effect-name">initiate_research</span>
+      <span class="effect-desc">This effect can be used to start researching a technology in a specified building.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player who will research the technology </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology to begin researching </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">77</span>
+      <span class="effect-name">create_object_attack</span>
+      <span class="effect-desc">This effect can be used to add a new attack entry to units for a specific damage class.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the ARMOR|ATTACK by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to add the attack class to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have the attack entry added </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have the attack entry added. When not set, units across the entire map have the attack entry added </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">78</span>
+      <span class="effect-name">create_object_armor</span>
+      <span class="effect-desc">This effect can be used to add a new armor entry to units for a specific damage class.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the ARMOR|ATTACK by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to add the armor class to </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have the armor entry added </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have the armor entry added. When not set, units across the entire map have the armor entry added </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The units of this type will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">79</span>
+      <span class="effect-name">modify_attribute_by_variable</span>
+      <span class="effect-desc">This effect can be used to modify a specific object attribute for all units of the specified type using the value stored in a variable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type whose attribute will be modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_attributes</span>
+          <span class="attr-type">ObjectAttribute</span>
+          <span class="attr-desc">The unit attribute to modify using the variable's value </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable whose value will be used to modify the attribute </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The string value to use when the selected object attribute accepts a string (e.g. Object Name ID) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">80</span>
+      <span class="effect-name">set_object_cost</span>
+      <span class="effect-desc">This effect can be used to set the resource cost for a specific unit type.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type whose training cost will be set </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the training cost will be set </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount of the resource to set as the cost </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">resource</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The resource type to use for the unit cost </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">81</span>
+      <span class="effect-name">load_key_value</span>
+      <span class="effect-desc">This effect can be used to load a value from the key-value store into a variable. The key-value store is persistent across scenarios in a campaign, but these effects only function when the scenario is played as part of a campaign.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable in which the loaded value will be stored </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The key name used to identify the value to load </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">Unknown — if you know what this field does, please open an issue on the AoE2ScenarioParser GitHub! </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">82</span>
+      <span class="effect-name">store_key_value</span>
+      <span class="effect-desc">This effect can be used to store the value of a variable into the key-value store. The key-value store is persistent across scenarios in a campaign, but these effects only function when the scenario is played as part of a campaign.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable whose value will be stored </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The key name under which the value will be stored </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">83</span>
+      <span class="effect-name">delete_key</span>
+      <span class="effect-desc">This effect can be used to delete a key and its associated value from the key-value store. The key-value store is persistent across scenarios in a campaign, but these effects only function when the scenario is played as part of a campaign.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The key name to delete from the key-value store </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">84</span>
+      <span class="effect-name">change_technology_icon</span>
+      <span class="effect-desc">This effect can be used to change the icon displayed for a specific technology.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose icon will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology icon will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The icon ID to set for the technology </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">85</span>
+      <span class="effect-name">change_technology_hotkey</span>
+      <span class="effect-desc">This effect can be used to change the hotkey assigned to a specific technology.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The technology whose hotkey will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the technology hotkey will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The hotkey ID to assign to the technology </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">86</span>
+      <span class="effect-name">modify_variable_by_resource</span>
+      <span class="effect-desc">This effect can be used to modify a variable using the current value of a player's resource.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">resource</span>
+          <span class="attr-type">Attribute</span>
+          <span class="attr-desc">The resource whose current value will be used to modify the variable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose resource value will be used </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the variable using the resource value. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable that will be modified </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">87</span>
+      <span class="effect-name">modify_variable_by_attribute</span>
+      <span class="effect-desc">This effect can be used to modify a variable using the value of a specific unit attribute.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type to read the attribute value from </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose unit's attribute value will be used </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the variable using the attribute's value. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_attributes</span>
+          <span class="attr-type">ObjectAttribute</span>
+          <span class="attr-desc">The unit attribute whose value will be used to modify the variable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable that will be modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The string value to use when the selected object attribute accepts a string (e.g. Object Name ID) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">88</span>
+      <span class="effect-name">change_object_caption</span>
+      <span class="effect-desc">This effect can be used to change the caption text displayed above units.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to change caption </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their caption changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the new caption text for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The new caption text to display for the affected units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their caption changed. When not set, units across the entire map have their caption changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">89</span>
+      <span class="effect-name">change_player_color</span>
+      <span class="effect-desc">This effect can be used to change the color associated with the specified player, affecting all units and buildings.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose color will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">player_color</span>
+          <span class="attr-type">PlayerColorId</span>
+          <span class="attr-desc">The player color to use for the affected units </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">90</span>
+      <span class="effect-name">create_decision</span>
+      <span class="effect-desc">This effect can be used to display a decision dialog that presents the player with two choices, recording the selected option via the decision ID.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">decision_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The decision ID to use </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use as the main decision question text </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The main question text to display in the decision dialog </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">decision_option1_str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use for the first decision option </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message_option1</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The message to use for the first decision option. Ignored when the string ID is set. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">decision_option2_str_id</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The string ID to use for the second decision option </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message_option2</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The message to use for the second decision option. Ignored when the string ID is set. </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">98</span>
+      <span class="effect-name">disable_unit_attackable</span>
+      <span class="effect-desc">This effect can be used to prevent units from being attacked, making them effectively invulnerable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to disable attackable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be made unattackable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have attackability disabled. When not set, units across the entire map have attackability disabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">99</span>
+      <span class="effect-name">enable_unit_attackable</span>
+      <span class="effect-desc">This effect can be used to re-enable attackability for units that were previously made unattackable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to enable attackable </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have attackability re-enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have attackability enabled. When not set, units across the entire map have attackability enabled </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">100</span>
+      <span class="effect-name">modify_variable_by_variable</span>
+      <span class="effect-desc">This effect can be used to modify a variable using the value of another variable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable that will be modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the variable using the second variable's value. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable2</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable whose value will be used in the operation </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">101</span>
+      <span class="effect-name">counts_units_into_variable</span>
+      <span class="effect-desc">This effect can be used to count units and store the result in a variable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to count </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will be counted </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will be counted. When not set, units across the entire map are counted </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_group</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The units with this class will be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable2</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable in which the unit count will be stored </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">102</span>
+      <span class="effect-name">add_train_location</span>
+      <span class="effect-desc">This effect can be used to add an additional building where a specific unit type can be trained.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The unit type to add an additional training location for </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the additional training location will be added </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The building type where the unit can now additionally be trained </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">button_location</span>
+          <span class="attr-type">ButtonLocation</span>
+          <span class="attr-desc">The location of the button to use. This number is given by the following formula: (row - 1) * 5 + column </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">train_time</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The train time used for the newly set train location </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">hotkey</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The hotkey ID to use for setting the train location </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">103</span>
+      <span class="effect-name">research_local_technology</span>
+      <span class="effect-desc">This effect can be used to research a technology locally for specific units, typically used for building-specific upgrades.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">local_technology_id</span>
+          <span class="attr-type">TechInfo</span>
+          <span class="attr-desc">The local technology to research for the specified units </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the local technology will be researched </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will research the local technology. When not set, units across the entire map research the local technology </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id2</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to research the local technology in </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">104</span>
+      <span class="effect-name">modify_attribute_for_class</span>
+      <span class="effect-desc">This effect can be used to modify a specific object attribute for all units matching the specified class and type, globally for the specified player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_group2</span>
+          <span class="attr-type">ObjectClass</span>
+          <span class="attr-desc">The unit class to be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_type2</span>
+          <span class="attr-type">ObjectType</span>
+          <span class="attr-desc">The unit type to be affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_attributes</span>
+          <span class="attr-type">ObjectAttribute</span>
+          <span class="attr-desc">The object attribute to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The string value to use when the selected object attribute accepts a string (e.g. Object Name ID) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the attribute by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity_float</span>
+          <span class="attr-type">float</span>
+          <span class="attr-desc">The (decimal) amount to modify the attribute by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the ARMOR|ATTACK by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">105</span>
+      <span class="effect-name">modify_object_attribute</span>
+      <span class="effect-desc">This effect can be used to modify a specific attribute on individual unit instances.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to modify the attribute of </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_attributes</span>
+          <span class="attr-type">ObjectAttribute</span>
+          <span class="attr-desc">The object attribute to modify </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their attribute modified. When not set, units across the entire map have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The string value to use when the selected object attribute accepts a string (e.g. Object Name ID) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the attribute by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">quantity_float</span>
+          <span class="attr-type">float</span>
+          <span class="attr-desc">The (decimal) amount to modify the attribute by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_quantity</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The amount to modify the ARMOR|ATTACK by </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">106</span>
+      <span class="effect-name">modify_object_attribute_by_variable</span>
+      <span class="effect-desc">This effect can be used to modify a specific attribute on individual unit instances using the value stored in a variable.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">object_unit_id</span>
+          <span class="attr-type">UnitInfo</span>
+          <span class="attr-desc">The type of unit to modify the attribute of </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units will have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">object_attributes</span>
+          <span class="attr-type">ObjectAttribute</span>
+          <span class="attr-desc">The object attribute to modify using the variable's value </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their attribute modified. When not set, units across the entire map have their attribute modified </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">operation</span>
+          <span class="attr-type">Operation</span>
+          <span class="attr-desc">The operation to apply to the attribute using the quantity. </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">message</span>
+          <span class="attr-type">str</span>
+          <span class="attr-desc">The string value to use when the selected object attribute accepts a string (e.g. Object Name ID) </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">variable</span>
+          <span class="attr-type">VariableId</span>
+          <span class="attr-desc">The variable whose value will be used to modify the attribute </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">armour_attack_class</span>
+          <span class="attr-type">DamageClass</span>
+          <span class="attr-desc">The ARMOR|ATTACK class to modify </span>
+        </div></div>
+  </div>
+  <div class="effect-row">
+    <div class="effect-header">
+      <span class="effect-id">107</span>
+      <span class="effect-name">change_object_visibility</span>
+      <span class="effect-desc">This effect can be used to change the visibility state of units for a specific player.</span>
+    </div>
+    <div class="attrs">
+        <div class="attr-row">
+          <span class="attr-name">source_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player whose units' visibility will be changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">target_player</span>
+          <span class="attr-type">PlayerId</span>
+          <span class="attr-desc">The player for whom the unit visibility will change </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">area</span>
+          <span class="attr-type">Area</span>
+          <span class="attr-desc">The area in which units will have their visibility changed. When not set, units across the entire map have their visibility changed </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">visibility_state</span>
+          <span class="attr-type">VisibilityState</span>
+          <span class="attr-desc">The visibility state to use </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">max_units_affected</span>
+          <span class="attr-type">int</span>
+          <span class="attr-desc">The maximum number of units affected by this effect </span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-name">selected_objects</span>
+          <span class="attr-type">list[Unit]</span>
+          <span class="attr-desc">The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, unit type, object type etc. </span>
+        </div></div>
+  </div>
+</body>
+</html>
