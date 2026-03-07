@@ -138,10 +138,11 @@ class AreaPattern(TileSequence):
         """
         Converts the selection to a list of OrderedSets with Tile NamedTuples with (x, y) coordinates.
         The separation between chunks is based on if they're connected to each other.
-        So the tiles must share an edge (i.e. they should be non-diagonal).
+        So the tiles must share an edge (i.e., they should be non-diagonal).
+        (With exceptions like grid state when using gap_size = 0)
 
         Returns:
-            A list of OrderedSets of Tile objects of the selection.
+            A list of OrderedSets with Tile objects of the selection.
 
         Raises:
             UnchunkableConfigurationError: When a pattern configuration makes the chunk segregation indeterminate
@@ -170,6 +171,19 @@ class AreaPattern(TileSequence):
             )
 
         return chunks_ordered
+
+    def to_chunk_areas(self) -> List[Area]:
+        """
+        Converts the selection to a list of Area objects.
+        Internally, this uses `to_chunks` to convert the selection to chunks.
+        The separation between chunks is based on if they're connected to each other.
+        So the tiles must share an edge (i.e., they should be non-diagonal).
+        (With exceptions like grid state when using gap_size = 0)
+
+        Returns:
+            A list with Area objects based on the selection.
+        """
+        return [Area(corner1=chunk[0], corner2=chunk[-1]) for chunk in self.to_chunks()]
 
     def map(self, callback: Callable[[Tile], T]) -> dict[Tile, T]:
         """

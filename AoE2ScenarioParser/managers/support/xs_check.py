@@ -17,7 +17,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 
 class XsCheck:
-    version: Tuple[int, int, int] = (0, 2, 15)
+    version: Tuple[int, int, int] = (0, 2, 18)
 
     def __init__(self):
 
@@ -163,7 +163,7 @@ class XsCheck:
 
         version_tuple = self.get_version()
 
-        if (0, 1, 2) <= version_tuple <= (0, 2, 15):
+        if (0, 1, 2) <= version_tuple <= (0, 2, 18):
             return True
 
         return False

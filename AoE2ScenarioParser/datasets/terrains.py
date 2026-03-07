@@ -41,6 +41,7 @@ class TerrainId(IntEnum):
             TerrainId.WATER_SHALLOW,
             TerrainId.WATER_YELLOW_SHALLOW,
             TerrainId.WATER_YELLOW_DEEP,
+            TerrainId.WATER_WEEDS,
         ]
 
     @staticmethod
@@ -90,6 +91,7 @@ class TerrainId(IntEnum):
             TerrainId.FOREST_REEDS_SHALLOWS,
             TerrainId.FOREST_PALM_GRASS,
             TerrainId.FOREST_LUSH_BAMBOO,
+            TerrainId.FOREST_DRY_SOUTH_AMERICAN,
         ]
 
     BEACH = 2
@@ -221,3 +223,5 @@ class TerrainId(IntEnum):
     SNOW_SOFT_STRONG = 126
     ICE_SOFT = 127
     BLACK_WALKABLE = 129
+    FOREST_DRY_SOUTH_AMERICAN = 128
+    WATER_WEEDS = 130

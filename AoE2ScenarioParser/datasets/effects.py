@@ -949,7 +949,7 @@ class EffectId(IntEnum):
     This effect was added in: 1.55 & Trigger Version 4.5
     """
     CHANGE_OBJECT_VISIBILITY = 107
-    """Attributes for the **modify_object_attribute_by_variable** effect are: \n
+    """Attributes for the **change_object_visibility** effect are: \n
     - source_player
     - target_player
     - area_x1
@@ -961,6 +961,33 @@ class EffectId(IntEnum):
     - selected_object_ids
         
     This effect was added in: 1.55 & Trigger Version 4.5
+    """
+
+    BUILD_OBJECT = 108
+    """Attributes for the **build_object** effect are: \n
+    - object_list_unit_id
+    - source_player
+    - location_x
+    - location_y
+    - location_object_reference
+    - area_x1
+    - area_y1
+    - area_x2
+    - area_y2
+    - wall_x1
+    - wall_y1
+    - wall_x2
+    - wall_y2
+    - object_group
+    - object_type
+    - building_list
+    - selected_object_ids
+    - disable_garrison_unload_sound
+    - max_units_affected
+    - issue_group_command
+    - queue_action
+
+    This effect was added in: 1.57 & Trigger Version 4.6
     """
 
 
@@ -1034,6 +1061,14 @@ empty_attributes = {
     "object_group2": -1,
     "quantity_float": -1,
     "facet2": -1,
+    "global_sound": -1,
+    "issue_group_command": -1,
+    "queue_action": -1,
+    "mutual_diplomacy": -1,
+    "wall_x1": -1,
+    "wall_y1": -1,
+    "wall_x2": -1,
+    "wall_y2": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,

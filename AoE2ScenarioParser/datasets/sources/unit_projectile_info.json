@@ -58,19 +58,19 @@
         "primary_fire": 469
     },
     "45": {
-        "secondary": 512,
-        "secondary_fire": 524
+        "secondary": 2631,
+        "secondary_fire": 2632
     },
     "46": {
         "primary": 380
     },
     "47": {
-        "secondary": 512,
-        "secondary_fire": 524
+        "secondary": 2631,
+        "secondary_fire": 2632
     },
     "51": {
-        "secondary": 512,
-        "secondary_fire": 524
+        "secondary": 2631,
+        "secondary_fire": 2632
     },
     "52": {
         "primary": 380
@@ -116,8 +116,8 @@
         "primary_fire": 521
     },
     "133": {
-        "secondary": 512,
-        "secondary_fire": 524
+        "secondary": 2631,
+        "secondary_fire": 2632
     },
     "141": {
         "secondary": 54,
@@ -184,9 +184,7 @@
     },
     "250": {
         "primary": 512,
-        "primary_fire": 524,
-        "secondary": 512,
-        "secondary_fire": 524
+        "primary_fire": 524
     },
     "279": {
         "primary": 367,
@@ -258,7 +256,8 @@
     },
     "529": {
         "primary": 676,
-        "secondary": 676
+        "secondary": 676,
+        "charge": 2629
     },
     "530": {
         "primary": 511,
@@ -269,17 +268,16 @@
     },
     "532": {
         "primary": 676,
-        "secondary": 676
+        "secondary": 676,
+        "charge": 2629
     },
     "533": {
         "primary": 512,
-        "primary_fire": 524,
-        "secondary": 512,
-        "secondary_fire": 524
+        "primary_fire": 524
     },
     "539": {
-        "primary": 540,
-        "primary_fire": 541,
+        "primary": 512,
+        "primary_fire": 524,
         "secondary": 512,
         "secondary_fire": 524
     },
@@ -496,7 +494,8 @@
     },
     "938": {
         "primary": 676,
-        "secondary": 676
+        "secondary": 676,
+        "charge": 2629
     },
     "943": {
         "primary": 478,
@@ -590,7 +589,8 @@
     },
     "1103": {
         "primary": 676,
-        "secondary": 676
+        "secondary": 676,
+        "charge": 2629
     },
     "1106": {
         "primary": 364,
@@ -639,10 +639,8 @@
         "primary_fire": 519
     },
     "1189": {
-        "primary": 512,
-        "primary_fire": 524,
-        "secondary": 512,
-        "secondary_fire": 524
+        "secondary": 2631,
+        "secondary_fire": 2632
     },
     "1222": {
         "primary": 1595
@@ -711,7 +709,8 @@
     },
     "1302": {
         "primary": 676,
-        "secondary": 676
+        "secondary": 676,
+        "charge": 2629
     },
     "1303": {
         "primary": 478,
@@ -794,8 +793,7 @@
         "primary_fire": 516
     },
     "1806": {
-        "secondary": 54,
-        "secondary_fire": 328
+        "secondary": 1548
     },
     "1901": {
         "charge": 1925
@@ -1129,5 +1127,55 @@
     "2486": {
         "primary": 478,
         "primary_fire": 476
+    },
+    "2562": {
+        "primary": 365,
+        "primary_fire": 376,
+        "secondary": 365,
+        "secondary_fire": 376
+    },
+    "2564": {
+        "primary": 365,
+        "primary_fire": 376,
+        "secondary": 365,
+        "secondary_fire": 376
+    },
+    "2569": {
+        "primary": 2572,
+        "charge": 2574
+    },
+    "2571": {
+        "primary": 2573,
+        "charge": 2575
+    },
+    "2579": {
+        "primary": 2608
+    },
+    "2581": {
+        "primary": 2609
+    },
+    "2600": {
+        "primary": 746,
+        "primary_citadels_fire": 1830,
+        "primary_fire": 747,
+        "secondary": 746,
+        "secondary_citadels_fire": 1830,
+        "secondary_fire": 747
+    },
+    "2626": {
+        "primary": 2636
+    },
+    "2627": {
+        "primary": 2636
+    },
+    "2628": {
+        "primary": 2636
+    },
+    "2633": {
+        "primary": 1932,
+        "primary_fire": 1933
+    },
+    "2642": {
+        "primary": 2609
     }
 }

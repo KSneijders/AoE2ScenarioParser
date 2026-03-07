@@ -151,7 +151,7 @@ from AoE2ScenarioParser.datasets.player_data import Player
 
 ### 7. Changing the map
 
-1. And now as final change let's add a hill and change the size of the map. First add the `map_manager`:
+1. And now as a final change, let's add a hill and change the size of the map. First get the `map_manager`:
 
     ```py
     map_manager = scenario.map_manager
@@ -161,13 +161,17 @@ from AoE2ScenarioParser.datasets.player_data import Player
 2. Now let's add the code for the hill:
 
     ```py
-    map_manager.set_elevation(elevation=3, x1=10, y1=10, x2=20, y2=20)
+    map_manager.set_elevation(elevation=1, x1=3, y1=6, x2=9, y2=12)
     ```
 
     The in-game max elevation is 7, that's equivelant to `elevation=6` in the parser.
     This is because `elevation=0` is elevation 1 in the editor.
-    Using the parser you can go as large as you want, although above ~20 
-    without UHD and ~15 with UHD the camera starts clipping into the hill. 
+    Using the parser you can go as large as you want, though the game can bug out if you go above 20.
+
+    Below is a graphic explaining how the map coordinates work:
+
+    ![](./images/map_coordinates_explained.png)
+    Thanks to [ScribbleGhost](https://github.com/ScribbleGhost) for the graphic! ❤️
 
 3. And finally let's shrink the map size to `40x40` tiles
 
@@ -225,7 +229,7 @@ unit_manager.add_unit(player=Player.ONE, type=UnitInfo.LONG_SWORDSMAN.ID, x=15, 
 unit_manager.add_unit(player=Player.ONE, type=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
 unit_manager.add_unit(player=Player.ONE, type=UnitInfo.CHAMPION.ID, x=15, y=16)
 
-map_manager.set_elevation(elevation=3, x1=10, y1=10, x2=20, y2=20)
+map_manager.set_elevation(elevation=1, x1=3, y1=6, x2=9, y2=12)
 map_manager.map_size = 40
 
 scenario.write_to_file(input_folder + "hello world output.aoe2scenario")
