@@ -16,21 +16,21 @@
       {
         "name": "diplomacy_state",
         "ref": null,
-        "type": "DiplomacyState",
+        "type": "DiplomacyStance",
         "description": "The diplomacy stance to set.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose stance will be changed.",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The target player whose diplomacy stance will be changed for the source player.",
         "default": null
       }
@@ -44,7 +44,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology will be researched.",
         "default": null
       },
@@ -72,7 +72,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will be receiving the message.",
         "default": null
       },
@@ -107,7 +107,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will hear the sound effect.",
         "default": null
       },
@@ -160,21 +160,21 @@
       {
         "name": "resource",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The resource that will be sent.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will be sending the resources.",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will receive the resources.",
         "default": null
       }
@@ -261,14 +261,14 @@
       {
         "name": "object_unit_id",
         "ref": null,
-        "type": "UnitInfo|BuildingInfo|HeroInfo|OtherInfo|int",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "The unit type to be created.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose unit will be created",
         "default": null
       },
@@ -320,7 +320,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be tasked",
         "default": null
       },
@@ -411,7 +411,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom victory or defeat will be declared",
         "default": null
       },
@@ -439,7 +439,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be killed",
         "default": null
       },
@@ -495,7 +495,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be removed",
         "default": null
       },
@@ -558,7 +558,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose camera view will be moved",
         "default": null
       },
@@ -593,7 +593,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose garrisoned units will be ordered to unload",
         "default": null
       },
@@ -663,14 +663,14 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who currently owns the units",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will receive ownership of the units",
         "default": null
       },
@@ -733,7 +733,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units to patrol",
         "default": null
       },
@@ -796,7 +796,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose color to use in the icon",
         "default": null
       },
@@ -873,7 +873,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be frozen",
         "default": null
       },
@@ -917,7 +917,7 @@
   {
     "id": 23,
     "name": "use_advanced_buttons",
-    "description": "This effect toggles advanced buttons in the minimap interface before Definitive Edition. It is now as useful as the None effect.",
+    "description": "This effect used to toggle the advanced buttons in the minimap interface before the Definitive Edition. It is currently as useful as the None effect.",
     "attributes": []
   },
   {
@@ -942,7 +942,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be damaged",
         "default": null
       },
@@ -998,7 +998,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the foundation will be placed",
         "default": null
       },
@@ -1026,7 +1026,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their name changed",
         "default": null
       },
@@ -1089,7 +1089,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their HP changed",
         "default": null
       },
@@ -1166,7 +1166,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their attack changed",
         "default": null
       },
@@ -1229,7 +1229,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be stopped",
         "default": null
       },
@@ -1285,7 +1285,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will attack-move",
         "default": null
       },
@@ -1369,7 +1369,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their armor changed",
         "default": null
       },
@@ -1439,7 +1439,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their range changed",
         "default": null
       },
@@ -1509,7 +1509,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their speed changed",
         "default": null
       },
@@ -1572,7 +1572,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be healed",
         "default": null
       },
@@ -1631,7 +1631,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be teleported",
         "default": null
       },
@@ -1694,7 +1694,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their stance changed",
         "default": null
       },
@@ -1806,7 +1806,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the unit will be enabled or disabled",
         "default": null
       },
@@ -1834,7 +1834,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology will be enabled or disabled",
         "default": null
       },
@@ -1876,14 +1876,14 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the cost will be changed",
         "default": null
       },
       {
         "name": "resource1",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The new first resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -1897,7 +1897,7 @@
       {
         "name": "resource2",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The new second resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -1911,7 +1911,7 @@
       {
         "name": "resource3",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The new third resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -1932,14 +1932,14 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose line of sight towards the target player will change",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units and buildings will be made visible or invisible to the source player",
         "default": null
       },
@@ -1967,7 +1967,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their icon changed",
         "default": null
       },
@@ -2030,14 +2030,14 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be replaced",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player to whom the replacement units will belong",
         "default": null
       },
@@ -2107,7 +2107,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the unit description will be changed",
         "default": null
       },
@@ -2135,7 +2135,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose name will be changed",
         "default": null
       },
@@ -2170,7 +2170,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the training location will be changed",
         "default": null
       },
@@ -2198,7 +2198,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the research location will be changed",
         "default": null
       },
@@ -2233,7 +2233,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose civilization name will be changed",
         "default": null
       },
@@ -2268,7 +2268,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the garrisoned unit will be created",
         "default": null
       },
@@ -2359,7 +2359,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their attribute modified",
         "default": null
       },
@@ -2415,14 +2415,14 @@
       {
         "name": "resource",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The resource to modify",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose resource will be modified",
         "default": null
       },
@@ -2450,14 +2450,14 @@
       {
         "name": "resource",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The resource to modify",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose resource will be modified",
         "default": null
       },
@@ -2478,7 +2478,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable whose value will be used to modify the resource",
         "default": null
       }
@@ -2499,7 +2499,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose buildings will have their gather point set",
         "default": null
       },
@@ -2576,7 +2576,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable whose value will be changed",
         "default": null
       },
@@ -2618,7 +2618,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their player color changed",
         "default": null
       },
@@ -2632,7 +2632,7 @@
       {
         "name": "player_color",
         "ref": null,
-        "type": "PlayerColorId",
+        "type": "PlayerColor",
         "description": "The player color to use for the affected units",
         "default": null
       },
@@ -2660,7 +2660,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their civilization name changed",
         "default": null
       },
@@ -2716,7 +2716,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their player name changed",
         "default": null
       },
@@ -2772,7 +2772,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have targeting disabled",
         "default": null
       },
@@ -2814,7 +2814,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have targeting re-enabled",
         "default": null
       },
@@ -2849,7 +2849,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology cost will be changed",
         "default": null
       },
@@ -2863,7 +2863,7 @@
       {
         "name": "resource1",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The new first resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2877,7 +2877,7 @@
       {
         "name": "resource2",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The new second resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2891,7 +2891,7 @@
       {
         "name": "resource3",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The new third resource cost for the chosen UNIT|TECHNOLOGY",
         "default": null
       },
@@ -2919,7 +2919,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the research time will be changed",
         "default": null
       },
@@ -2940,7 +2940,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology name will be changed",
         "default": null
       },
@@ -2975,7 +2975,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology description will be changed",
         "default": null
       },
@@ -3017,7 +3017,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom technology stacking will be enabled",
         "default": null
       },
@@ -3038,7 +3038,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom technology stacking will be disabled",
         "default": null
       },
@@ -3080,7 +3080,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have selection disabled",
         "default": null
       },
@@ -3122,7 +3122,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have selection re-enabled",
         "default": null
       },
@@ -3185,7 +3185,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have deletion enabled",
         "default": null
       },
@@ -3234,7 +3234,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have deletion disabled",
         "default": null
       },
@@ -3290,7 +3290,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will train the unit",
         "default": null
       },
@@ -3332,7 +3332,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player who will research the technology",
         "default": null
       },
@@ -3381,7 +3381,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have the attack entry added",
         "default": null
       },
@@ -3458,7 +3458,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have the armor entry added",
         "default": null
       },
@@ -3521,7 +3521,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their attribute modified",
         "default": null
       },
@@ -3542,7 +3542,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable whose value will be used to modify the attribute",
         "default": null
       },
@@ -3577,7 +3577,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the training cost will be set",
         "default": null
       },
@@ -3591,7 +3591,7 @@
       {
         "name": "resource",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The resource type to use for the unit cost",
         "default": null
       }
@@ -3605,7 +3605,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable in which the loaded value will be stored",
         "default": null
       },
@@ -3633,7 +3633,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable whose value will be stored",
         "default": null
       },
@@ -3675,7 +3675,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology icon will be changed",
         "default": null
       },
@@ -3703,7 +3703,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the technology hotkey will be changed",
         "default": null
       },
@@ -3724,14 +3724,14 @@
       {
         "name": "resource",
         "ref": null,
-        "type": "Attribute",
+        "type": "PlayerAttribute",
         "description": "The resource whose current value will be used to modify the variable",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose resource value will be used",
         "default": null
       },
@@ -3745,7 +3745,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable that will be modified",
         "default": null
       }
@@ -3766,7 +3766,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose unit's attribute value will be used",
         "default": null
       },
@@ -3787,7 +3787,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable that will be modified",
         "default": null
       },
@@ -3822,7 +3822,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their caption changed",
         "default": null
       },
@@ -3864,14 +3864,14 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose color will be changed",
         "default": null
       },
       {
         "name": "player_color",
         "ref": null,
-        "type": "PlayerColorId",
+        "type": "PlayerColor",
         "description": "The player color to use for the affected units",
         "default": null
       }
@@ -3948,7 +3948,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be made unattackable",
         "default": null
       },
@@ -3990,7 +3990,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have attackability re-enabled",
         "default": null
       },
@@ -4025,7 +4025,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable that will be modified",
         "default": null
       },
@@ -4039,7 +4039,7 @@
       {
         "name": "variable2",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable whose value will be used in the operation",
         "default": null
       }
@@ -4060,7 +4060,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will be counted",
         "default": null
       },
@@ -4081,7 +4081,7 @@
       {
         "name": "variable2",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable in which the unit count will be stored",
         "default": null
       }
@@ -4102,7 +4102,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the additional training location will be added",
         "default": null
       },
@@ -4151,7 +4151,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the local technology will be researched",
         "default": null
       },
@@ -4200,7 +4200,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their attribute modified",
         "default": null
       },
@@ -4270,7 +4270,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their attribute modified",
         "default": null
       },
@@ -4354,7 +4354,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units will have their attribute modified",
         "default": null
       },
@@ -4396,7 +4396,7 @@
       {
         "name": "variable",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable | int",
         "description": "The variable whose value will be used to modify the attribute",
         "default": null
       },
@@ -4417,14 +4417,14 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose units' visibility will be changed",
         "default": null
       },
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player for whom the unit visibility will change",
         "default": null
       },
