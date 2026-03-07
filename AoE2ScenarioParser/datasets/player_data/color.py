@@ -28,7 +28,7 @@ class Color(IntEnum):
     INVALID_15 = 15
 
     @staticmethod
-    def from_player_id(player_id: 'Player' | int):
+    def from_player_id(player_id: 'Player | int'):
         if not 0 <= player_id < 8:
             raise ValueError(f"Invalid player ID. Should be between 0 and 8 (excl), but got: {player_id}")
         if player_id == 0:
