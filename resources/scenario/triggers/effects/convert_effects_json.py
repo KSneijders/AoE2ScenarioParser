@@ -7,10 +7,6 @@ from resources.scenario.triggers.effects.definitions import EffectDefinition
 template_file = Path(__file__).parent / 'effect-definitions-template.json'
 complete_file = Path(__file__).parent / 'effect-definitions-complete.json'
 
-
-# Todo: locations and area into files which will be injected when necessary
-# Todo: All missing attribute mappings / resolvers for other attributes
-
 with complete_file.open('r') as f:
     complete_effects: dict[int, EffectDefinition] = {effect['id']: effect for effect in json.load(f)}
 
