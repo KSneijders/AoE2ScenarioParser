@@ -39,9 +39,6 @@ class Area(TileSequence):
         self.corner1 = Tile(x1, y1)
         self.corner2 = Tile(x2, y2)
 
-        self._apply_bounding = True
-        """If the area should automatically bound the EAST corner so the corner cannot go below (0, 0)"""
-
     @classmethod
     def from_value(cls, val: AreaT | TileT | tuple[int, int, int, int] | list | dict) -> Area:
         """
@@ -436,9 +433,7 @@ class Area(TileSequence):
         return (self.corner1, self.corner2)[item]
 
     def __str__(self) -> str:
-        bound_text = '' if self._apply_bounding else ', [No bounding]'
-
-        return f"Area({self.corner1}, {self.corner2}{bound_text})"
+        return f"Area({self.corner1}, {self.corner2})"
 
     def __repr__(self) -> str:
         return f"Area({self.corner1}, {self.corner2})"
