@@ -2,12 +2,12 @@
 
 ## Context
 `effect-definitions-complete.json` documents all ~108 effect types. The v1 `Effect` base class
-currently exposes every data slot as a named `RetrieverRef` property (e.g. `diplomacy`, `quantity`,
-…). The goal is to strip those named properties from `Effect` entirely, making it a plain binary
-struct. Each per-effect subclass then creates its own typed `RetrieverRef` properties pointing
-directly into `Effect._properties[N]` or the handful of direct `Retriever` fields. `effect-attributes.json`
-is restructured to serve as the authoritative lookup table for which index / field each attribute
-maps to, so the generator never needs a hard-coded mapping in Python.
+previously exposed every data slot as a named `RetrieverRef` property — those have been renamed
+with a leading underscore (e.g. `_diplomacy_state`, `_quantity`), making `Effect` a plain binary
+struct with private `_`-prefixed slots. Each per-effect subclass creates its own typed public
+`RetrieverRef` properties via `RetrieverRef(Effect._<attr_name>)`, where `<attr_name>` comes
+directly from the attribute `name` in `effect-definitions-complete.json` — no index/field mapping
+is required.
 
 ---
 
@@ -15,18 +15,18 @@ maps to, so the generator never needs a hard-coded mapping in Python.
 
 | File | Action | Done |
 |---|---|---|
-| `AoE2ScenarioParser/sections/trigger_data/effect.py` | Remove all named `RetrieverRef` properties | [ ] |
-| `resources/scenario/triggers/effects/effect-attributes.json` | Convert to `{name: {description_template, effect_reference}}` | [ ] |
-| `resources/scenario/triggers/effects/effect-definitions-complete.json` | `ref` field becomes optional per-effect override (same format as `effect_reference`) | [ ] |
+| `AoE2ScenarioParser/sections/trigger_data/effect.py` | Rename named `RetrieverRef` properties to `_`-prefixed | [x] |
+| `resources/scenario/triggers/effects/effect-attributes.json` | No structural changes needed — used as-is for descriptions | — |
+| `resources/scenario/triggers/effects/effect-definitions-complete.json` | `ref` field is optional override when attribute name ≠ Effect field name | [x] |
 | `resources/scenario/triggers/effects/generate_effect_classes.py` | New — generator script | [ ] |
 | `AoE2ScenarioParser/sections/trigger_data/effects/<name>.py` | Generated — ~108 files | [ ] |
 | `AoE2ScenarioParser/sections/trigger_data/effects/__init__.py` | Regenerated — re-exports all classes | [ ] |
 
 ---
 
-## Step 0 — Strip named properties from `Effect`
+## Step 0 — ~~Strip named properties from `Effect`~~ ✓ Done
 
-Remove every `RetrieverRef(ret(_properties), N)` line from `effect.py`. What remains:
+Named `RetrieverRef` properties have been renamed to `_`-prefixed (e.g. `diplomacy_state` → `_diplomacy_state`). What remains in `effect.py`:
 
 ```python
 class Effect(BaseStruct):
@@ -40,140 +40,39 @@ class Effect(BaseStruct):
     message_option1: str         = Retriever(nt_str32,     default = "", min_ver = ...)
     message_option2: str         = Retriever(nt_str32,     default = "", min_ver = ...)
 
-    @property
-    def location(self) -> Tile: ...    # unchanged — directly reads _properties[14:16]
-
-    @property
-    def area(self) -> Area: ...        # unchanged — directly reads _properties[16:20]
+    _location: ...   = RetrieverRef(...)   # _-prefixed, like all other attributes
+    _area: ...       = RetrieverRef(...)   # _-prefixed, like all other attributes
 ```
 
 ---
 
-## Step 1 — Restructure `effect-attributes.json`
+## Step 1 — ~~`effect-definitions-complete.json` `ref` field~~ ✓ Done
 
-Convert the flat `{name: description}` map to `{name: {description_template, effect_reference}}`.
+`effect-attributes.json` is used as-is (no structural changes). It remains the source of
+attribute descriptions for the generator.
 
-**`effect_reference` format:**
+The `ref` field on individual attributes in `effect-definitions-complete.json` is an **optional
+override** for when the attribute's JSON name differs from the corresponding `_`-prefixed field
+on `Effect`. When `null` (the common case), the generator emits:
 
-| Value | Generated RetrieverRef call |
-|---|---|
-| `"properties:N"` | `RetrieverRef(ret(Effect._properties), N)` |
-| `"direct:field_name"` | `RetrieverRef(Effect.field_name)` |
-| `"@inherited"` | skip (already an `@property` on `Effect`) |
-| `null` | `# TODO` comment in generated file |
-
-**Full mapping (all entries in current `effect-attributes.json`):**
-
-| Attribute key | `effect_reference` |
-|---|---|
-| `ai_script_goal` | `"properties:0"` |
-| `quantity` | `"properties:1"` |
-| `resource` | `"properties:2"` |
-| `diplomacy_state` | `"properties:3"` |
-| `object_unit_id` | `"properties:6"` |
-| `source_player` | `"properties:7"` |
-| `target_player` | `"properties:8"` |
-| `technology_id` | `"properties:9"` |
-| `str_id` | `"properties:10"` |
-| `display_time` | `"properties:12"` |
-| `trigger_id` | `"properties:13"` |
-| `location` | `"@inherited"` |
-| `location_object_ref` | `"properties:44"` |
-| `area` | `"@inherited"` |
-| `object_group` | `"properties:20"` |
-| `object_type` | `"properties:21"` |
-| `instruction_panel_position` | `"properties:22"` |
-| `attack_stance` | `"properties:23"` |
-| `time_unit` | `"properties:24"` |
-| `enabled` | `"properties:25"` |
-| `legacy_food` | `"properties:26"` |
-| `legacy_wood` | `"properties:27"` |
-| `legacy_stone` | `"properties:28"` |
-| `legacy_gold` | `"properties:29"` |
-| `item_id` | `"properties:30"` |
-| `flash_object` | `"properties:31"` |
-| `force_technology` | `"properties:32"` |
-| `visibility_state` | `"properties:33"` |
-| `scroll` | `"properties:34"` |
-| `operation` | `"properties:35"` |
-| `object_unit_id2` | `"properties:36"` |
-| `button_location` | `"properties:37"` |
-| `ai_signal_value` | `"properties:38"` |
-| `object_attributes` | `"properties:40"` |
-| `variable` | `"properties:41"` |
-| `timer_id` | `"properties:42"` |
-| `facet` | `"properties:43"` |
-| `play_sound` | `"properties:45"` |
-| `player_color` | `"properties:46"` |
-| `color_mood` | `"properties:48"` |
-| `reset_timer` | `"properties:49"` |
-| `object_state` | `"properties:50"` |
-| `action_type` | `"properties:51"` |
-| `resource1` | `"properties:52"` |
-| `resource1_quantity` | `"properties:53"` |
-| `resource2` | `"properties:54"` |
-| `resource2_quantity` | `"properties:55"` |
-| `resource3` | `"properties:56"` |
-| `resource3_quantity` | `"properties:57"` |
-| `decision_id` | `"properties:58"` |
-| `decision_option1_str_id` | `"properties:59"` |
-| `decision_option2_str_id` | `"properties:60"` |
-| `variable2` | `"properties:61"` |
-| `message` | `"direct:message"` |
-| `sound_name` | `"direct:sound_name"` |
-| `selected_object_ids` | `"direct:selected_unit_ids"` |
-| `message_option1` | `"direct:message_option1"` |
-| `message_option2` | `"direct:message_option2"` |
-| `armour_attack_quantity` | `null` — not in EffectStruct retrievers |
-| `armour_attack_class` | `null` — not in EffectStruct retrievers |
-| `quantity_float` | `"properties:70"` — stored as raw float bits in the i32 array |
-| `object_group2` | `"properties:68"` |
-| `object_type2` | `"properties:69"` |
-| `facet2` | `"properties:71"` |
-| `global_sound` | `"properties:72"` |
-| `issue_group_command` | `"properties:73"` |
-| `queue_action` | `"properties:74"` |
-| `max_units_affected` | `"properties:62"` |
-| `disable_garrison_unload_sound` | `"properties:63"` |
-| `hotkey` | `"properties:64"` |
-| `train_time` | `"properties:65"` |
-| `local_technology_id` | `"properties:66"` — struct field name is `local_technology` |
-| `disable_sound` | `"properties:67"` |
-
-**Example entry:**
-```json
-"diplomacy_state": {
-    "description_template": "The diplomacy stance to set",
-    "effect_reference": "properties:3"
-}
+```
+RetrieverRef(Effect._<attr_name>)
 ```
 
----
-
-## Step 2 — `effect-definitions-complete.json` `ref` field
-
-The `ref` field on individual attributes in this file is now an **optional per-effect override**
-for `effect_reference`. It uses the same format (`"properties:N"`, `"direct:field"`,
-`"@inherited"`). When `null`, the generator falls back to `effect-attributes.json`.
-
-Only `location` and `area` attributes across all effects need `"ref": "@inherited"` since they
-are `@property` on Effect — and this is already covered by `effect-attributes.json`, so the
-definitions file `ref` fields can all remain `null` unless a specific effect needs a deviation.
+where `<attr_name>` is the attribute's `name` field. The `ref` field only needs to be set for
+the handful of attributes where the JSON name and the Effect field name diverge.
 
 ---
 
-## Step 3 — Generator Script: `generate_effect_classes.py`
+## Step 2 — Generator Script: `generate_effect_classes.py`
 
 ### Reference resolution (per attribute)
 
 ```
-effect_ref = attr["ref"]                        # from effect-definitions-complete.json (override)
-          ?? effect_attributes[name]["effect_reference"]  # from effect-attributes.json (default)
+ref = attr["ref"]   # from effect-definitions-complete.json (optional override)
 
-if effect_ref == "@inherited"          → skip
-elif effect_ref starts with "properties:" → RetrieverRef(ret(Effect._properties), N)
-elif effect_ref starts with "direct:"     → RetrieverRef(Effect.<field_name>)
-elif effect_ref is None                   → # TODO: <name> (add effect_reference to effect-attributes.json)
+if ref is not None  → RetrieverRef(Effect.<ref>)          # use override verbatim
+else                → RetrieverRef(Effect._<attr_name>)   # default: prepend _
 ```
 
 All generated RetrieverRef lines carry `  # type: ignore`.
@@ -181,8 +80,6 @@ All generated RetrieverRef lines carry `  # type: ignore`.
 ### Logic flow
 
 ```
-load effect_attrs = effect-attributes.json
-
 for each effect in effect-definitions-complete.json:
     filename  = sanitize(effect.name) + ".py"
     classname = PascalCase(effect.name)          # "none" → "NoneEffect"
@@ -195,20 +92,20 @@ for each effect in effect-definitions-complete.json:
         preserved_custom_logic   = ""
 
     for each attribute in effect.attributes:
-        resolve effect_ref (override → default → None)
-        emit line using effect_ref format
+        resolve ref (override → default _<attr_name>)
+        emit RetrieverRef line
 
     write file
 ```
 
 ---
 
-## Step 4 — Generated File Structure
+## Step 3 — Generated File Structure
 
 ```python
 from __future__ import annotations
 
-from bfp_rs import RetrieverRef, ret
+from bfp_rs import RetrieverRef
 
 from AoE2ScenarioParser.sections.trigger_data.effect import Effect
 
@@ -222,19 +119,17 @@ class ChangeDiplomacy(Effect):
     with the target player. It does NOT change the stance both ways.
     """
 
-    diplomacy_state: int = RetrieverRef(ret(Effect._properties), 3)  # type: ignore
+    diplomacy_state: int = RetrieverRef(Effect._diplomacy_state)  # type: ignore
     """The diplomacy stance to set."""
 
-    source_player: int = RetrieverRef(ret(Effect._properties), 7)  # type: ignore
+    source_player: int = RetrieverRef(Effect._source_player)  # type: ignore
     """The player whose stance will be changed."""
 
-    target_player: int = RetrieverRef(ret(Effect._properties), 8)  # type: ignore
+    target_player: int = RetrieverRef(Effect._target_player)  # type: ignore
     """The target player whose diplomacy stance will be changed for the source player."""
 
-    message: str = RetrieverRef(Effect.message)  # type: ignore
+    message: str = RetrieverRef(Effect._message)  # type: ignore
     """The message to send to the player."""
-
-    # TODO: armour_attack_class — add effect_reference to effect-attributes.json
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======
@@ -250,7 +145,7 @@ class ChangeDiplomacy(Effect):
 
 ---
 
-## Step 5 — Regenerate `__init__.py`
+## Step 4 — Regenerate `__init__.py`
 
 ```python
 # Auto-generated — do not edit manually
@@ -265,9 +160,9 @@ Fully regenerated on every run.
 
 ## Verification
 
-1. Verify `effect.py` imports cleanly after removing named properties
+1. Verify `effect.py` imports cleanly
 2. Run `python resources/scenario/triggers/effects/generate_effect_classes.py`
 3. Confirm ~108 `.py` files appear in `AoE2ScenarioParser/sections/trigger_data/effects/`
 4. Run `python -c "from AoE2ScenarioParser.sections.trigger_data.effects import *"` — no errors
-5. Inspect a generated file (e.g. `change_diplomacy.py`) — confirm `RetrieverRef(ret(Effect._properties), N)` pattern
+5. Inspect a generated file (e.g. `change_diplomacy.py`) — confirm `RetrieverRef(Effect._<attr_name>)` pattern
 6. Add dummy content to CUSTOM IMPORTS / CUSTOM LOGIC, re-run, verify both survive
