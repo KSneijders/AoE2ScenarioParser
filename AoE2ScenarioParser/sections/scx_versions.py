@@ -1,5 +1,5 @@
 from bfp_rs import Version
 
-DE_LATEST = Version(1, 56)
+DE_LATEST = Version(1, 57)
 MAP_LATEST = Version(2)
-TRIGGER_LATEST = Version(4, 5)
+TRIGGER_LATEST = Version(4, 7)
