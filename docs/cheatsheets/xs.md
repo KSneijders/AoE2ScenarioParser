@@ -4,8 +4,8 @@ For an introduction to the XS scripting language itself, you can check out the [
 
 ## XS-Check
 
-For more information on the XS-Check utility, see the [XS-Check API Docs](./../api_docs/xs/xs_check.md) or 
-the [XS Check Cheatsheet](./xs_check.md).
+For more information on the XS-Check utility, see the [XS-Check API Docs](../../docs.old/api_docs/xs/xs_check.md) or 
+the [XS Check Cheatsheet](xs_check.md).
 
 ## Support
 

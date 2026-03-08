@@ -32,7 +32,7 @@ That's the problem this object is _trying_ (feature suggestions always welcome!)
 
 ## API Documentation
 
-For the API Documentation for the Area object, go here: [Area API Documentation](../api_docs/support/area.md).
+For the API Documentation for the Area object, go here: [Area API Documentation](../../docs.old/api_docs/support/area.md).
 
 ## Examples
 
@@ -141,7 +141,7 @@ for tile in area.center(castle.x, castle.y).size(4).expand(6).use_only_edge().to
 
 And that's it! The castle has walls around it. With such ease!
 
-![Caslte With Walls](./../images/area_castle_walls.png "area with castle walls")
+![Caslte With Walls](../images/area_castle_walls.png "area with castle walls")
 
 ---
 
@@ -186,7 +186,7 @@ area.use_pattern_grid()
 Now this would be default return a grid with gaps of 1 and blocks of 1x1. We want blocks of 3x3 and no gaps (gap of 0).
 Below you can see the steps and the difference these configurations have:
 
-![Area grid 1x1 example](./../images/area_grid_1x1_example.png "Area grid 1x1 example")
+![Area grid 1x1 example](../images/area_grid_1x1_example.png "Area grid 1x1 example")
 
 Now that we know what we want, we can add some configuration to the function, we can do this in four ways, choose 
 the one you like the most (We'll continue with the first option):
@@ -248,7 +248,7 @@ Another way to get around this is make sure the squares fit an odd amount of tim
 So using the earlier loop, without the row, with a map size of 117 (39 times) would result in the same pattern as the 
 code above.
 
-![area checkers example result](./../images/area_checkers_example_result.png "area checkers example result")
+![area checkers example result](../images/area_checkers_example_result.png "area checkers example result")
 
 The entire code block for this example:
 
@@ -266,4 +266,4 @@ for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
 
 The API Documentation has existed for some time, and the temporary docs here, have been removed.
 
-They've been moved here: [Area API Documentation](../api_docs/support/area.md).
+They've been moved here: [Area API Documentation](../../docs.old/api_docs/support/area.md).

@@ -88,7 +88,7 @@ after that is the tile to the top right of it.
 Below you can see a visualisation of a 10x10 map. The coords are `(X,Y)` coordinates and the blue line is the order in 
 which tiles are saved.
 
-![Visualisation Map Tiles Explained](./../images/map_tiles_explained.png "map_tiles_explained")
+![Visualisation Map Tiles Explained](../images/map_tiles_explained.png "map_tiles_explained")
 
 To get a tile based on it's XY coordinate (like `(5,8)`, as highlighted in the above image) you can use:
 
@@ -118,14 +118,14 @@ for tile_row in map_manager.get_square_2d(x1=4, y1=4, x2=8, y2=8):
 
 This will turn the above map into:
 
-![Visualisation Map Tiles With Road](./../images/map_tiles_with_road.png "map_tiles_with_road")
+![Visualisation Map Tiles With Road](../images/map_tiles_with_road.png "map_tiles_with_road")
 
 ## Elevation
 
 You can also add hills to the map by using the `set_elevation` function. 
 In the below graphic you can see the coordinates used in the function. 
 
-![](./../images/map_coordinates_explained.png)
+![](../images/map_coordinates_explained.png)
 Thanks to [ScribbleGhost](https://github.com/ScribbleGhost) for the graphic! ❤️
 
 ```py

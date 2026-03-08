@@ -1,13 +1,12 @@
 # Hello World Example
 
-## Introduction
+## Intro
 
-Now that you've installed `AoE2ScenarioParser`, let's do some simple editing!
-
-We'll read a scenario, add a trigger, some units and edit some terrain and write it back to a new scenario.
+With the information from the getting started page, we can make a "**Hello World**" example. We'll read a scenario, add
+a trigger, some units and edit some terrain and write it back to a new scenario.
 
 This "hello world" example assumes you've installed an editor.  
-A great editor (IDE) is PyCharm: [Download PyCharm]
+A great editor (IDE) is PyCharm ([Download Community Edition]))
 
 ## Step by step
 
@@ -15,23 +14,23 @@ A great editor (IDE) is PyCharm: [Download PyCharm]
 
 Create an empty scenario in the editor and save it as "hello world"
 
-### 2. Set up the project
+### 2. Setup the project
 
 Create a new project and file (in PyCharm). Name the file `hello_world.py`, and copy the code below into `hello_world.py`
 
 ```py
-from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
 # The path to your scenario folder
 input_folder = "C:/path/to/your/scenario/folder/"
 
 # The scenario object. 
-scenario = AoE2Scenario.from_file(input_folder + "hello world.aoe2scenario")
+scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
 ```
 
 ### 3. Getting the scenario path
 
-1. Go to the "Load Scenario" menu in-game (Single Player → Editors)
+1. Go to the "Load Scenario" menu in-game (Single Player :arrow_right: Editors)
 2. Copy the path that is opened when clicking the "Open Scenario Folder" button (Bottom right)
 3. Paste the folder path in the input_folder string
 
@@ -45,7 +44,8 @@ scenario = AoE2Scenario.from_file(input_folder + "hello world.aoe2scenario")
 
 Run the python code by pressing ++ctrl+shift+f10++
 
-> [!TIP] `CTRL` + `SHIFT` + `F10` executes the current file in PyCharm. [More info here](https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html#run).
+!!! tip "Executing python code in PyCharm"
+    ++ctrl+shift+f10++ executes the current file in PyCharm. [More info here](https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html#run).
 
 You should get a console output that looks like this:
 
@@ -116,11 +116,11 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 3. Now let's add the code to add some units to the end of the script:
 
     ```py
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
-    unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
+    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
+    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
+    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
+    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
+    unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
     ```
 
     Take a look at the code, maybe you can see what it does?
@@ -131,10 +131,10 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
         These units are placed using whole numbers (called: integers, `x=15, y=12`), if you want units to spawn in the middle of a tile, use
         `.5` after the integer, like so: `x=15.5, y=12.5`
 
-5. You can also see the above code uses `Player` and `UnitInfo` objects.
+5. You can also see the above code uses `PlayerId` and `UnitInfo` objects.
 
     ```
-    Player.ONE         # The number representing player one (1)
+    PlayerId.ONE         # The number representing player one (1)
     UnitInfo.MILITIA.ID  # The number representing a militia unit (74)
     ```
 
@@ -144,7 +144,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 6. Let's import the datasets using the code below. Add these lines to the top of your file.
 
     ```py
-    from AoE2ScenarioParser.datasets.player_data import Player
+    from AoE2ScenarioParser.datasets.players import PlayerId
     from AoE2ScenarioParser.datasets.units import UnitInfo
     ```
 
@@ -169,7 +169,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 
     Below is a graphic explaining how the map coordinates work:
 
-    ![](images/map_coordinates_explained.png)
+    ![](../docs/images/map_coordinates_explained.png)
     Thanks to [ScribbleGhost](https://github.com/ScribbleGhost) for the graphic! ❤️
 
 3. And finally let's shrink the map size to `40x40` tiles
@@ -198,15 +198,15 @@ Your code should look something like the below block. You can find more examples
 [examples](https://ksneijders.github.io/AoE2ScenarioParser/examples/triggers/) page.
 
 ```py
-from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.scenarios.aoe2_scenario import AoE2Scenario
+from AoE2ScenarioParser.scenarios.aoe2_de_scenario import AoE2DEScenario
 
 # The path to your scenario folder
 input_folder = "C:/path/to/your/scenario/folder/"
 
 # The scenario object.
-scenario = AoE2Scenario.from_file(input_folder + "hello world.aoe2scenario")
+scenario = AoE2DEScenario.from_file(input_folder + "hello world.aoe2scenario")
 
 # Save reference to the manager, so you don't have to do "scenario.trigger_manager..." each time
 trigger_manager = scenario.trigger_manager
@@ -221,16 +221,17 @@ hello_world_trigger.new_effect.display_instructions(
     message="Hello World"
 )
 
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MILITIA.ID, x=15, y=12)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID, x=15, y=13)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID, x=15, y=14)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
-unit_manager.add_unit(player=Player.ONE, unit_const=UnitInfo.CHAMPION.ID, x=15, y=16)
+unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MILITIA.ID,              x=15, y=12)
+unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.MAN_AT_ARMS.ID,          x=15, y=13)
+unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.LONG_SWORDSMAN.ID,       x=15, y=14)
+unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.TWO_HANDED_SWORDSMAN.ID, x=15, y=15)
+unit_manager.add_unit(player=PlayerId.ONE, unit_const=UnitInfo.CHAMPION.ID,             x=15, y=16)
 
 map_manager.set_elevation(elevation=1, x1=3, y1=6, x2=9, y2=12)
 map_manager.map_size = 40
 
 scenario.write_to_file(input_folder + "hello world output.aoe2scenario")
+
 ```
 
-[Download PyCharm]: https://www.jetbrains.com/pycharm/download/
+[Download Community Edition]: https://www.jetbrains.com/pycharm/download/#section=windows
