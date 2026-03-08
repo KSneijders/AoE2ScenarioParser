@@ -16,6 +16,7 @@ from .fog_visibility import FogVisibility
 from .garrison_type import GarrisonType
 from .hero_status_flag import HeroStatusFlag
 from .hotkey import Hotkey
+from .local_technology import LocalTechnology
 from .object_attribute import ObjectAttribute
 from .object_class import ObjectClass
 from .object_state import ObjectState
@@ -38,4 +39,3 @@ from .unit_trait import UnitTrait
 from .victory_condition import VictoryCondition
 from .victory_timer_type import VictoryTimerType
 from .visibility_state import VisibilityState
-

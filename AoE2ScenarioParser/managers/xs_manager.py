@@ -3,8 +3,7 @@ from __future__ import annotations
 from bfp_rs import RefStruct, ret, RetrieverRef
 
 from AoE2ScenarioParser.managers.support import XsCheck
-from AoE2ScenarioParser.sections import Options, ScenarioSections, Settings
-from sections import Trigger
+from AoE2ScenarioParser.sections import Options, ScenarioSections, Settings, Trigger
 
 
 class XsManager(RefStruct):

@@ -2,8 +2,7 @@ from __future__ import annotations
 
 from bfp_rs import RefStruct, ret, RetrieverRef
 
-from AoE2ScenarioParser.sections import ScenarioSections
-from sections import TriggerData
+from AoE2ScenarioParser.sections import ScenarioSections, TriggerData
 
 
 class TriggerManager(RefStruct):

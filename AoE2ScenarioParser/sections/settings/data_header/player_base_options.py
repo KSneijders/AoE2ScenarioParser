@@ -3,9 +3,9 @@ from __future__ import annotations
 from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import bool32, str16, u16, u32
 
+from AoE2ScenarioParser.datasets.player_data import Civilization
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 from AoE2ScenarioParser.sections.settings.data_header.resources import Resources
-from datasets.player_data import Civilization
 
 
 class PlayerBaseOptions(BaseStruct):
