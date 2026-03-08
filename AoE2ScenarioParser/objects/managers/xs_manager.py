@@ -19,8 +19,8 @@ if TYPE_CHECKING:
     pass
 
 
-class XsManagerDE(AoE2Object):
-    """Manager of everything XS related."""
+class XsManager(AoE2Object):
+    """Manager of everything XS-related."""
 
     _link_list = [
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),

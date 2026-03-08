@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.8.0 - Unreleased
+
+# Changes
+
+- Removes `DE` variants from managers.
+  - Unifies all managers and their DE subclasses. This was once for potentially allowing pre-DE scenario management,
+    which has basically always been out of scope, so this simplifies the code base.
+
+---
+
 ## 0.7.2 - 2026-March-07
 
 # Adds
