@@ -3,10 +3,10 @@ from __future__ import annotations
 from typing import Type, Union, Tuple, Optional
 
 from AoE2ScenarioParser.exceptions.asp_exceptions import XsCheckValidationError
-from AoE2ScenarioParser.objects.managers.de.map_manager_de import MapManagerDE
-from AoE2ScenarioParser.objects.managers.de.trigger_manager_de import TriggerManagerDE
-from AoE2ScenarioParser.objects.managers.de.unit_manager_de import UnitManagerDE
-from AoE2ScenarioParser.objects.managers.de.xs_manager_de import XsManagerDE
+from AoE2ScenarioParser.objects.managers.map_manager import MapManager
+from AoE2ScenarioParser.objects.managers.trigger_manager import TriggerManager
+from AoE2ScenarioParser.objects.managers.unit_manager import UnitManager
+from AoE2ScenarioParser.objects.managers.xs_manager import XsManager
 from AoE2ScenarioParser.objects.managers.message_manager import MessageManager
 from AoE2ScenarioParser.objects.managers.option_manager import OptionManager
 from AoE2ScenarioParser.objects.managers.player_manager import PlayerManager
@@ -21,22 +21,22 @@ class AoE2DEScenario(AoE2Scenario):
     LATEST_VERSION: Tuple[int, int] = (1, 57)
 
     @property
-    def trigger_manager(self) -> TriggerManagerDE:
+    def trigger_manager(self) -> TriggerManager:
         """The trigger manager of the scenario"""
         return self._object_manager.managers['Trigger']
 
     @property
-    def unit_manager(self) -> UnitManagerDE:
+    def unit_manager(self) -> UnitManager:
         """The unit manager of the scenario"""
         return self._object_manager.managers['Unit']
 
     @property
-    def map_manager(self) -> MapManagerDE:
+    def map_manager(self) -> MapManager:
         """The map manager of the scenario"""
         return self._object_manager.managers['Map']
 
     @property
-    def xs_manager(self) -> XsManagerDE:
+    def xs_manager(self) -> XsManager:
         """The XS manager of the scenario"""
         return self._object_manager.managers['Xs']
 

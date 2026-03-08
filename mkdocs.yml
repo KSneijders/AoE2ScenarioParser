@@ -63,7 +63,6 @@ nav:
     - Settings:             "api_docs/settings.md"
     - Map:
       - MapManager:         "api_docs/map/map_manager.md"
-      - MapManagerDE:       "api_docs/map/map_manager_de.md"
       - TerrainTile:        "api_docs/map/terrain_tile.md"
     - Messages:
       - MessageManager:     "api_docs/messages/message_manager.md"
@@ -74,7 +73,6 @@ nav:
       - PlayerData:         "api_docs/player/player.md"
     - Trigger:
       - TriggerManager:     "api_docs/trigger/trigger_manager.md"
-      - TriggerManagerDE:   "api_docs/trigger/trigger_manager_de.md"
       - Trigger:            "api_docs/trigger/trigger.md"
       - Effects:
         - Effect:           "api_docs/trigger/effects/effect.md"
@@ -87,10 +85,9 @@ nav:
       - TriggerCeLock:      "api_docs/trigger/trigger_ce_lock.md"
     - Units:
       - UnitManager:        "api_docs/units/unit_manager.md"
-      - UnitManagerDE:      "api_docs/units/unit_manager_de.md"
       - Unit:               "api_docs/units/unit.md"
     - XS:
-      - XsManager:          "api_docs/xs/xs_manager_de.md"
+      - XsManager:          "api_docs/xs/xs_manager.md"
       - XsCheck:            "api_docs/xs/xs_check.md"
     - Support:
       - Area:               "api_docs/support/area.md"
