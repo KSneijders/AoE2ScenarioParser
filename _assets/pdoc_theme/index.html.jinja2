@@ -1,0 +1,111 @@
+{% extends "default/index.html.jinja2" %}
+{% block nav %}
+<h2>API Reference</h2>
+<ul>
+  <li><strong>Scenario</strong>
+    <ul>
+      <li><a href="AoE2ScenarioParser/scenarios/aoe2_scenario.html">AoE2Scenario</a></li>
+      <li><a href="AoE2ScenarioParser/scenarios/aoe2_de_scenario.html">AoE2DEScenario</a></li>
+      <li><a href="AoE2ScenarioParser/settings.html">Settings</a></li>
+    </ul>
+  </li>
+  <li><strong>Managers</strong>
+    <ul>
+      <li><a href="AoE2ScenarioParser/objects/managers/trigger_manager.html">Trigger Manager</a></li>
+      <li><a href="AoE2ScenarioParser/objects/managers/unit_manager.html">Unit Manager</a></li>
+      <li><a href="AoE2ScenarioParser/objects/managers/map_manager.html">Map Manager</a></li>
+      <li><a href="AoE2ScenarioParser/objects/managers/player_manager.html">Player Manager</a></li>
+      <li><a href="AoE2ScenarioParser/objects/managers/option_manager.html">Option Manager</a></li>
+      <li><a href="AoE2ScenarioParser/objects/managers/xs_manager.html">XS Manager</a></li>
+      <li><a href="AoE2ScenarioParser/objects/managers/message_manager.html">Message Manager</a></li>
+    </ul>
+  </li>
+  <li><strong>Data Objects</strong>
+    <ul>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/trigger.html">Trigger</a></li>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/effect.html">Effect</a></li>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/condition.html">Condition</a></li>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/variable.html">Variable</a></li>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/unit.html">Unit</a></li>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/terrain_tile.html">Terrain Tile</a></li>
+      <li><a href="AoE2ScenarioParser/objects/data_objects/player/player.html">Player</a></li>
+    </ul>
+  </li>
+  <li><strong>Support</strong>
+    <ul>
+      <li><a href="AoE2ScenarioParser/objects/support/area.html">Area / AreaAttr / AreaState</a></li>
+      <li><a href="AoE2ScenarioParser/objects/support/trigger_select.html">TriggerSelect</a></li>
+      <li><a href="AoE2ScenarioParser/objects/support/trigger_ce_lock.html">TriggerCELock</a></li>
+      <li><a href="AoE2ScenarioParser/objects/support/new_effect.html">NewEffect</a></li>
+      <li><a href="AoE2ScenarioParser/objects/support/new_condition.html">NewCondition</a></li>
+      <li><a href="AoE2ScenarioParser/objects/support/xs_check.html">XsCheck</a></li>
+    </ul>
+  </li>
+  <li><strong>Datasets</strong>
+    <ul>
+      <li><a href="AoE2ScenarioParser/datasets/units.html">UnitInfo</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/buildings.html">BuildingInfo</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/heroes.html">HeroInfo</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/techs.html">TechInfo</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/terrains.html">TerrainId</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/projectiles.html">ProjectileInfo</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/players.html">PlayerId / PlayerColorId / ColorId</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/conditions.html">ConditionId</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/effects.html">EffectId</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/other.html">OtherInfo</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/scenario_variant.html">ScenarioVariant</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/object_support.html">Civilization / StartingAge</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/support/info_dataset_base.html">InfoDatasetBase</a></li>
+    </ul>
+  </li>
+  <li><strong>Datasets — Trigger Lists</strong>
+    <ul>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/action_type.html">ActionType</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/age.html">Age</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/attack_priority.html">AttackPriority</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/attack_stance.html">AttackStance</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/attribute.html">Attribute</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/blast_level.html">BlastLevel</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/blockage_class.html">BlockageClass</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/button_location.html">ButtonLocation</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/charge_event.html">ChargeEvent</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/charge_type.html">ChargeType</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/color_mood.html">ColorMood</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/combat_ability.html">CombatAbility</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/comparison.html">Comparison</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/damage_class.html">DamageClass</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/decision_option.html">DecisionOption</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/difficulty_level.html">DifficultyLevel</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/diplomacy_state.html">DiplomacyState</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/disable_unit_flag.html">DisableUnitFlag</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/fog_visibility.html">FogVisibility</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/garrison_type.html">GarrisonType</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/hero_status_flag.html">HeroStatusFlag</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/hotkey.html">Hotkey</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/local_technology.html">LocalTechnology</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/object_attribute.html">ObjectAttribute</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/object_class.html">ObjectClass</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/object_state.html">ObjectState</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/object_type.html">ObjectType</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/obstruction_type.html">ObstructionType</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/occlusion_mode.html">OcclusionMode</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/operation.html">Operation</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/panel_location.html">PanelLocation</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/projectile_hit_mode.html">ProjectileHitMode</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/projectile_smart_mode.html">ProjectileSmartMode</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/projectile_vanish_mode.html">ProjectileVanishMode</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/secondary_game_mode.html">SecondaryGameMode</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/selection_effect.html">SelectionEffect</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/technology_state.html">TechnologyState</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/terrain_restrictions.html">TerrainRestrictions</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/time_unit.html">TimeUnit</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/unit_ai_action.html">UnitAiAction</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/unit_trait.html">UnitTrait</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/victory_condition.html">VictoryCondition</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/victory_timer_type.html">VictoryTimerType</a></li>
+      <li><a href="AoE2ScenarioParser/datasets/trigger_lists/visibility_state.html">VisibilityState</a></li>
+    </ul>
+  </li>
+</ul>
+<footer><a href="../">← Back to Docs</a></footer>
+{% endblock %}
