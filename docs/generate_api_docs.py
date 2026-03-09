@@ -16,7 +16,7 @@ from typing import List, Tuple
 ROOT       = Path(__file__).parent.parent
 OUT_DIR    = ROOT / "docs" / "api"
 SIDEBAR    = ROOT / "docs" / "_sidebar.md"
-PDOC       = ROOT / ".venv1" / "Scripts" / "pdoc.exe"
+PDOC       = "pdoc"
 PDOC_THEME = ROOT / "docs" / "_assets" / "pdoc_theme"
 DOCS_URL   = "https://ksneijders.github.io/AoE2ScenarioParser/"
 

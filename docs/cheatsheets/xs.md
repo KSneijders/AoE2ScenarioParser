@@ -4,7 +4,7 @@ For an introduction to the XS scripting language itself, you can check out the [
 
 ## XS-Check
 
-For more information on the XS-Check utility, see the [XS-Check API Docs](../../docs.old/api_docs/xs/xs_check.md) or 
+For more information on the XS-Check utility, see the <a href="api/AoE2ScenarioParser/objects/support/xs_check.html" target="_blank">XS-Check API Docs</a> or 
 the [XS Check Cheatsheet](xs_check.md).
 
 ## Support

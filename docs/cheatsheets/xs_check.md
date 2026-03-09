@@ -19,7 +19,7 @@ By default, the writing process of AoE2ScenarioParser is **not** interrupted, ev
 ## Configurations
 
 There are some configuration options for XS Check in AoE2ScenarioParser. Below you can find the most useful ones.
-For more configuration options and more info, see the [XS-Check API docs](../../docs.old/api_docs/xs/xs_check.md).
+For more configuration options and more info, see the <a href="api/AoE2ScenarioParser/objects/support/xs_check.html" target="_blank">XS-Check API docs</a>.
 
 ### Enabling / Disabling
 

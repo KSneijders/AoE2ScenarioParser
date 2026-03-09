@@ -141,7 +141,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 
     > [!NOTE]
     > **Datasets**  
-    > These are datasets, A Dataset is an Enum Class that contains the constants used by the game like unit IDs, etc. These are essential to producing a scenario. Read more about them [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/datasets/).
+    > These are datasets, A Dataset is an Enum Class that contains the constants used by the game like unit IDs, etc. These are essential to producing a scenario. Read more about them [here](cheatsheets/datasets.md).
 
 6. Let's import the datasets using the code below. Add these lines to the top of your file.
 
@@ -197,8 +197,8 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 ## Complete code block
 
 Your code should look something like the below block. You can find more examples & explanation on the
-[cheatsheets](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/triggers/) and the
-[examples](https://ksneijders.github.io/AoE2ScenarioParser/examples/triggers/) page.
+[cheatsheets](cheatsheets/triggers.md) and the
+[examples](examples/triggers.md) page.
 
 ```py
 from AoE2ScenarioParser.datasets.player_data import Player

@@ -33,7 +33,7 @@ That's the problem this object is _trying_ (feature suggestions always welcome!)
 
 ## Area functions
 
-To view every function that exists on an Area object, view the <a href="/api/AoE2ScenarioParser/objects/support/area.html#Area" target="_blank" class="btn btn-primary">Area API Reference</a>.
+To view every function that exists on an Area object, view the <a href="api/AoE2ScenarioParser/objects/support/area.html#Area" target="_blank" class="btn btn-primary">Area API Reference</a>.
 
 ## Examples
 

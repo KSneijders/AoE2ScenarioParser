@@ -44,7 +44,7 @@ player_manager  = scenario.player_manager
 # etc.
 ```
 
-For a full overview of what each manager can do, see the [Cheatsheets](#).
+For a full overview of what each manager can do, see the Cheatsheets.
 
 ---
 
