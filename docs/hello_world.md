@@ -35,15 +35,16 @@ scenario = AoE2Scenario.from_file(input_folder + "hello world.aoe2scenario")
 2. Copy the path that is opened when clicking the "Open Scenario Folder" button (Bottom right)
 3. Paste the folder path in the input_folder string
 
-    !!! tip "Folder separators"
-        If you use `\` to separate folders, use 2 per folder (`c:\\folder\\folder\\`)  
-        If you use `/` to separate folders, 1 is enough (`c:/folder/folder/`) 
+    > [!TIP]
+    > **Folder separators**  
+    > If you use `\` to separate folders, use 2 per folder (`c:\\folder\\folder\\`)  
+    > If you use `/` to separate folders, 1 is enough (`c:/folder/folder/`)  
 
 4. Remember to add a `/` or `\\` at the end of the string too
 
 ### 4. Test if it works
 
-Run the python code by pressing ++ctrl+shift+f10++
+Run the python code by pressing `CTRL` + `SHIFT` + `F10`
 
 > [!TIP] `CTRL` + `SHIFT` + `F10` executes the current file in PyCharm. [More info here](https://www.jetbrains.com/help/pycharm/creating-and-running-your-first-python-project.html#run).
 
@@ -90,7 +91,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 
     This will save the changes made to the scenario to a new file specified at the given path. 
 
-3.  Run the python code by pressing ++shift+f10++ (rerun the last file)
+3.  Run the python code by pressing `SHIFT` + `F10` (rerun the last file)
 4.  You should see something like this at the end of your console:
 
     ```
@@ -127,9 +128,9 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
 
 4. We add one unit per unit from the militia line to the editor, one per tile.
 
-    !!! note
-        These units are placed using whole numbers (called: integers, `x=15, y=12`), if you want units to spawn in the middle of a tile, use
-        `.5` after the integer, like so: `x=15.5, y=12.5`
+    > [!NOTE]
+    > These units are placed using whole numbers (called: integers, `x=15, y=12`), if you want units to spawn in the middle of a tile, use
+    > `.5` after the integer, like so: `x=15.5, y=12.5`  
 
 5. You can also see the above code uses `Player` and `UnitInfo` objects.
 
@@ -138,8 +139,9 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
     UnitInfo.MILITIA.ID  # The number representing a militia unit (74)
     ```
 
-    !!! note "Datasets"
-        These are datasets, A Dataset is an Enum Class that contains the constants used by the game like unit IDs, etc. These are essential to producing a scenario. Read more about them [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/datasets/).
+    > [!NOTE]
+    > **Datasets**  
+    > These are datasets, A Dataset is an Enum Class that contains the constants used by the game like unit IDs, etc. These are essential to producing a scenario. Read more about them [here](https://ksneijders.github.io/AoE2ScenarioParser/cheatsheets/datasets/).
 
 6. Let's import the datasets using the code below. Add these lines to the top of your file.
 
@@ -178,9 +180,10 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
     map_manager.map_size = 40
     ```
 
-    !!! warning "Max map size limit"
-        The limit of a scenario is set to the size of a ludikrous map (`480x480`).
-        Going over this limit will cause the game to crash.
+    > [!WARNING]
+    > **Max map size limit**  
+    > The limit of a scenario is set to the size of a ludikrous map (`480x480`).  
+    > Going over this limit will cause the game to crash.
 
 4. Now let's add the writing to file back:
 
@@ -188,7 +191,7 @@ Now let's add a trigger with a `Display Instructions` effect that reads "Hello W
     scenario.write_to_file(input_folder + "hello world output.aoe2scenario")
     ```
 
-5. Run the python code by pressing ++shift+f10++ again and check out the scenario!
+5. Run the python code by pressing `SHIFT` + `F10` again and check out the scenario!
 
 
 ## Complete code block

@@ -25,3 +25,9 @@
   - [Players](examples/players.md)
 
 - [Community](community.md)
+
+<!-- API_START -->
+
+- <a href="api/index.html" target="_blank">API Reference</a>
+
+<!-- API_END -->

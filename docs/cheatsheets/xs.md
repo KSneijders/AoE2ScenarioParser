@@ -44,9 +44,10 @@ Because the `XS Manager` uses a trigger with a `Script Call` in the background, 
 You can call the function below to create the trigger. You can also give it an index to insert it somewhere in the 
 scenario. Not adding an index to the call just adds the trigger at the end of the list.
 
-!!! warning
-    Placing the trigger at the top of all triggers (`insert_index=0`) can take quite a lot of time if the map already 
-    has a lot of triggers (For example over 1000 triggers).
+> [!WARNING]
+> Placing the trigger at the top of all triggers (`insert_index=0`) can take quite a lot of time if the map already 
+> has a lot of triggers (For example over 1000 triggers).
+
 
 ```py
 xs_manager.initialise_xs_trigger()
@@ -54,10 +55,12 @@ xs_manager.initialise_xs_trigger()
 xs_manager.initialise_xs_trigger(insert_index=0)
 ```
 
-!!! tip "You don't have to initialise the trigger"
-    Whenever you call the `add_script()` function (more about this below), 
-    it will automatically initialise the trigger if it hasn't been already.
-    The use of the `initialise_xs_trigger()` function is **purely** to control where the trigger is placed.
+> [!TIP]
+> **You don't have to initialise the trigger**  
+> Whenever you call the `add_script()` function (more about this below), 
+> it will automatically initialise the trigger if it hasn't been already.
+> The use of the `initialise_xs_trigger()` function is **purely** to control where the trigger is placed.
+
 
 ## Adding XS
 

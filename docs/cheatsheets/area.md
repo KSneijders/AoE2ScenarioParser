@@ -24,15 +24,16 @@ This is perfect for a highly configurable and flexible objects like the `Area` o
 If you want to do anything with more than a single coordinate, it's quite the hassle sometimes.
 That's the problem this object is _trying_ (feature suggestions always welcome!) to solve.
 
-!!! Note
-    The `Area` object strength comes from selecting specific pattern/tiles. If you want to do a similar thing with 
-    every tile on the map this object won't help you much. 
+> [!NOTE]
+> The `Area` object strength comes from selecting specific pattern/tiles. If you want to do a similar thing with 
+> every tile on the map this object won't help you much. 
+
 
 ---
 
-## API Documentation
+## Area functions
 
-For the API Documentation for the Area object, go here: [Area API Documentation](../../docs.old/api_docs/support/area.md).
+To view every function that exists on an Area object, view the <a href="/api/AoE2ScenarioParser/objects/support/area.html#Area" target="_blank" class="btn btn-primary">Area API Reference</a>.
 
 ## Examples
 
@@ -75,9 +76,10 @@ for tile in area.select(10, 50, 13, 53).to_coords():
 Above we can see the creation of a new `Area` object through the new Object Factory inside a scenario.
 We use the `select` method to select our area. 
 
-!!! Note
-    Keep in mind that `Area.select` uses an inclusive selection. 
-    This means that doing: `area.select(1, 1, 3, 3)` will select a 3x3 area.
+> [!NOTE]
+> Keep in mind that `Area.select` uses an inclusive selection. 
+> This means that doing: `area.select(1, 1, 3, 3)` will select a 3x3 area.
+
 
 ---
 
@@ -207,9 +209,11 @@ area.use_pattern_grid().attr(AreaAttr.GAP_SIZE, 0)
 area.use_pattern_grid().attrs(block_size=3, gap_size=0)
 ```
 
-!!! Tip "You can differentiate the X and Y"
-    In many functions you can use the general option like `gap_size`. 
-    But there's also options for `gap_size_x` and `gap_size_y` if you want different selections.
+> [!TIP]
+> **You can differentiate the X and Y**  
+> In many functions you can use the general option like `gap_size`. 
+> But there's also options for `gap_size_x` and `gap_size_y` if you want different selections.
+
 
 Now that we have the grid, let's add the final piece where we change the terrain itself. 
 We can use the function `to_chunks()` to return our grid as 'chunks'.
@@ -266,4 +270,4 @@ for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
 
 The API Documentation has existed for some time, and the temporary docs here, have been removed.
 
-They've been moved here: [Area API Documentation](../../docs.old/api_docs/support/area.md).
+They've been moved here: <a href="/api/AoE2ScenarioParser/objects/support/area.html#Area" target="_blank" class="btn btn-primary">Area API Reference</a>.

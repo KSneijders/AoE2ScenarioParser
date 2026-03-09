@@ -1,7 +1,7 @@
 import re
 import tempfile
 from pathlib import Path
-from typing import Optional, Union, TYPE_CHECKING, List, Tuple
+from typing import Optional, Union, List, Tuple
 
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
@@ -14,9 +14,6 @@ from AoE2ScenarioParser.scenarios.scenario_store import actions
 from AoE2ScenarioParser.scenarios.scenario_store.getters import get_scenario_version
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
-
-if TYPE_CHECKING:
-    pass
 
 
 class XsManager(AoE2Object):

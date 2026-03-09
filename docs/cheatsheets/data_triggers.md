@@ -42,9 +42,11 @@ You can add more effects/conditions with areas to that trigger, and they'll be a
 You can also create another trigger with the same `area:<name>` name and add more effects or conditions to it to create 
 different selections.
 
-!!! Note "The data triggers are automatically removed"
-    The function `.load_data_triggers()` automatically removes all triggers it finds with the proper prefix. If you'd
-    like to keep these triggers you can use the `remove_template_triggers` parameter and set it to `False`.
+> [!NOTE]
+> **The data triggers are automatically removed**  
+> The function `.load_data_triggers()` automatically removes all triggers it finds with the proper prefix. If you'd
+> like to keep these triggers you can use the `remove_template_triggers` parameter and set it to `False`.
+
 
 ## Different data types
 
@@ -121,11 +123,13 @@ trigger_data.objects['TCs']
 trigger_data.objects.TCs
 ```
 
-!!! Note "Keys with spaces won't work with attribute access"
-    When your key has characters like spaces (or other special chars) you have to use: 
-    ```py
-    trigger_data.objects['name with space here']
-    ```
+> [!NOTE]
+> **Keys with spaces won't work with attribute access**  
+> When your key has characters like spaces (or other special chars) you have to use: 
+> ```py
+> trigger_data.objects['name with space here']
+> ```
+
 
 ## Examples
 
