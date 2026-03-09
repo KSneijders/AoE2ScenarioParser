@@ -152,10 +152,12 @@ unit_manager.change_ownership(unit, PlayerId.THREE)
 
 Two ways to delete a unit:
 
-!!! tip "Removing a unit using an object is faster"
-    Due to a unit object containing the player value it belongs to, 
-    the unit can be found a lot faster. Which, when removing a lot of units,
-    can save you some time.
+> [!TIP]
+> **Removing a unit using an object is faster**  
+> Due to a unit object containing the player value it belongs to, 
+> the unit can be found a lot faster. Which, when removing a lot of units,
+> can save you some time.
+
 
 ```py
 unit_manager.remove_unit(unit=unit)

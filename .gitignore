@@ -239,3 +239,6 @@ AoE2ScenarioParser/differences.txt
 
 .secrets
 .DS_Store
+
+# Generated API docs (built by CI during deploy)
+docs/api/

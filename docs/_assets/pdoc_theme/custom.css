@@ -1,0 +1,15 @@
+/* Index page: group header styling */
+nav.pdoc h2 {
+    padding-left: var(--pad);
+}
+
+nav.pdoc > div > ul > li > strong {
+    display: block;
+    padding-left: var(--pad);
+    padding-top: 0.75rem;
+    padding-bottom: 0.2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
