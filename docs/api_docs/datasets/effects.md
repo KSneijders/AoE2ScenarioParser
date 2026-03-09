@@ -1,1 +1,0 @@
-::: AoE2ScenarioParser.datasets.effects.EffectId

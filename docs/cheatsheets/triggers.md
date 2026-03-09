@@ -71,9 +71,11 @@ target_scenario.write_to_file(path_to_output_file)
 Selecting a trigger can be done using the `get_trigger` function. The
 function accepts 1 argument, a `TriggerSelect` (Alias: `TS`) object.  
 
-!!! Tip "For an index, just use an integer" 
-    Instead of `TS.index(4)` you can just use `4`. 
-    Integers are used in the same way as `TS.index(4)` for ease of use
+> [!TIP]
+> **For an index, just use an integer**  
+> Instead of `TS.index(4)` you can just use `4`. 
+> Integers are used in the same way as `TS.index(4)` for ease of use
+
 
 You can import `TS` (or `TriggerSelect`) like so:
 
