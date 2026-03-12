@@ -105,6 +105,25 @@ def generate_index_template():
     """Write a custom index.html.jinja2 to the theme folder with grouped module links."""
     lines = [
         '{% extends "default/index.html.jinja2" %}',
+        '{% block content %}',
+        '    {{ super() | safe }}',
+        '    <main class="pdoc">',
+        '        <h1>AoE2ScenarioParser — API Reference</h1>',
+        '        <p>',
+        '            This is the API reference documentation for',
+        '            <a href="https://github.com/KSneijders/AoE2ScenarioParser">AoE2ScenarioParser</a>,',
+        '            a Python library for reading and editing Age of Empires II scenario files.',
+        '        </p>',
+        '        <p>',
+        '            Use the sidebar to browse all available modules and classes.',
+        '            On mobile, tap the <strong>&#9776; menu icon</strong> (top-right) to open the sidebar.',
+        '        </p>',
+        '        <p>',
+        '            Looking for guides and tutorials instead? Visit the',
+        '            <a href="../">main documentation</a>.',
+        '        </p>',
+        '    </main>',
+        '{% endblock %}',
         '{% block nav %}',
         '<h2>API Reference</h2>',
         '<ul>',
@@ -121,7 +140,7 @@ def generate_index_template():
 
     lines += [
         '</ul>',
-        '<footer><a href="../">← Back to Docs</a></footer>',
+        '<footer><a href="../">← Back to AoE2ScenarioParser Docs</a></footer>',
         '{% endblock %}',
     ]
 
