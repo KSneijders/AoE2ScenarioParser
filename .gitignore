@@ -230,3 +230,5 @@ AoE2ScenarioParser/differences.txt
 .idea/AoE2ScenarioParser.v1.iml
 
 .claude/settings.local.json
+
+resources/scenario/triggers/effects/html/effect-definitions.html
