@@ -1,7 +1,7 @@
 {
     "effect_type": "The ID corresponding to this effect type",
     "ai_script_goal": "The AI Trigger ID to set",
-    "armour_attack_quantity": "The amount to modify the ARMOR|ATTACK by",
+    "armour_attack_quantity": "The amount to modify the ARMOR|ATTACK class by",
     "armour_attack_class": "The ARMOR|ATTACK class to modify",
     "quantity": "The amount [of <UNIT>] to <ACTION>",
     "resource": "The resource to use for <ACTION>",
@@ -33,7 +33,7 @@
     "scroll": "When enabled, animate the camera transition. When disabled, the camera snaps to the new position without any animation",
     "operation": "The operation to apply to the <ATTRIBUTE|VARIABLE> using the quantity",
     "object_unit_id2": "The unit to use for <PURPOSE>",
-    "button_location": "The location of the button to use. This number is given by the following formula: (row - 1) * 5 + column",
+    "button_location": "The location of the button to use. This number is given by the following formula: (row - 1) * 5 + column + 1",
     "ai_signal_value": "The AI Signal ID to acknowledge",
     "object_attributes": "The object attribute to <ACTION>",
     "variable": "The variable to <PURPOSE>",
