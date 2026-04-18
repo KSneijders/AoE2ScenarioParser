@@ -232,3 +232,4 @@ AoE2ScenarioParser/differences.txt
 .claude/settings.local.json
 
 resources/scenario/triggers/effects/html/effect-definitions.html
+resources/scenario/triggers/conditions/html/condition-definitions.html
