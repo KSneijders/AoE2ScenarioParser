@@ -2,608 +2,608 @@
   {
     "id": 0,
     "name": "none",
-    "description": "This condition is empty. It will always evaluate to true.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 0
+        "description": null,
+        "default": null
       }
     ]
   },
   {
     "id": 1,
     "name": "bring_object_to_area",
-    "description": "This condition can be used to check if a specific object has been brought into the specified area.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 1
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be brought into the area.",
+        "description": null,
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area the object must be brought to.",
+        "description": "The area to check. When not set, the entire map is checked",
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 2,
     "name": "bring_object_to_object",
-    "description": "This condition can be used to check if a specific object has been brought to the location of another object.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 2
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be brought to the target object.",
+        "description": null,
         "default": null
       },
       {
         "name": "next_object",
         "ref": null,
         "type": "Unit",
-        "description": "The target object the unit must be brought to.",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 3,
     "name": "own_objects",
-    "description": "This condition can be used to check if a player owns at least the specified quantity of objects matching the given filters.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 3
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The minimum number of matching objects the player must own.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "object_list",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The specific unit type to check for.",
+        "description": null,
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose object count is checked.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter. Only units of this class are counted.",
+        "description": "The unit class filter for this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter. Only units of this type are counted.",
+        "description": "The unit type filter for this condition",
         "default": null
       },
       {
         "name": "include_changeable_weapon_objects",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also counts changeable weapon objects.",
-        "default": 0
+        "description": "When enabled, also includes changeable weapon objects in the count",
+        "default": null
       }
     ]
   },
   {
     "id": 4,
     "name": "own_fewer_objects",
-    "description": "This condition can be used to check if a player owns fewer than the specified quantity of objects matching the given filters.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 4
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The exclusive upper bound on the number of matching objects the player may own.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "object_list",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The specific unit type to check for.",
+        "description": null,
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose object count is checked.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area to restrict the count to. When not set, the entire map is checked.",
+        "description": "The area to check. When not set, the entire map is checked",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter. Only units of this class are counted.",
+        "description": "The unit class filter for this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter. Only units of this type are counted.",
+        "description": "The unit type filter for this condition",
         "default": null
       },
       {
         "name": "include_changeable_weapon_objects",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also counts changeable weapon objects.",
-        "default": 0
+        "description": "When enabled, also includes changeable weapon objects in the count",
+        "default": null
       }
     ]
   },
   {
     "id": 5,
     "name": "objects_in_area",
-    "description": "This condition can be used to check if at least the specified number of objects matching the given filters are present in an area.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 5
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The minimum number of matching objects that must be present in the area.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "object_list",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The specific unit type to check for.",
+        "description": null,
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who must own the objects. When not set, objects from any player are counted.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area to check for objects.",
+        "description": "The area to check. When not set, the entire map is checked",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter. Only units of this class are counted.",
+        "description": "The unit class filter for this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter. Only units of this type are counted.",
+        "description": "The unit type filter for this condition",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       },
       {
         "name": "object_state",
         "ref": null,
         "type": "ObjectState",
-        "description": "The state units must be in to be counted.",
-        "default": 2
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "The state units need to be in for this condition to apply",
+        "default": null
       },
       {
         "name": "include_changeable_weapon_objects",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also counts changeable weapon objects.",
-        "default": 0
+        "description": "When enabled, also includes changeable weapon objects in the count",
+        "default": null
       }
     ]
   },
   {
     "id": 6,
     "name": "destroy_object",
-    "description": "This condition can be used to check if a specific object has been destroyed.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 6
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be destroyed.",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 7,
     "name": "capture_object",
-    "description": "This condition can be used to check if a specific player has captured a specific object.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 7
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must have been captured.",
+        "description": null,
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who must have captured the object.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 8,
     "name": "accumulate_attribute",
-    "description": "This condition can be used to check if a player has accumulated at least the specified amount of a player attribute (such as a resource).",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 8
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The minimum amount of the attribute the player must have accumulated.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "attribute",
         "ref": null,
         "type": "Attribute",
-        "description": "The player attribute to check (e.g. food, wood, gold, stone).",
-        "default": 0
+        "description": null,
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose attribute amount is checked.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 9,
     "name": "research_technology",
-    "description": "This condition can be used to check if a player has finished researching a specific technology.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 9
+        "description": null,
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who must have researched the technology.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "technology",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology that must have been researched.",
-        "default": 16
+        "description": "The technology which <PURPOSE>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 10,
     "name": "timer",
-    "description": "This condition can be used to trigger after a set number of seconds have elapsed since the scenario started.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 10
+        "description": null,
+        "default": null
       },
       {
         "name": "timer",
         "ref": null,
         "type": "int",
-        "description": "The number of in-game seconds that must have elapsed since the scenario started.",
-        "default": 10
+        "description": "The time in seconds before the condition triggers",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 11,
     "name": "object_selected",
-    "description": "This condition can be used to check if a specific object is currently selected by the (local) player.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 11
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be selected.",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 12,
     "name": "ai_signal",
-    "description": "This condition can be used to check if a specific AI signal has been sent.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 12
+        "description": null,
+        "default": null
       },
       {
         "name": "ai_signal",
         "ref": null,
         "type": "int",
-        "description": "The AI Signal ID that must have been sent.",
-        "default": 0
+        "description": "The AI Signal ID to check",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 13,
     "name": "player_defeated",
-    "description": "This condition can be used to check if a specific player has been defeated.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 13
+        "description": null,
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player that must have been defeated.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 14,
     "name": "object_has_target",
-    "description": "This condition can be used to check if a specific object is currently targeting another object matching the given filters.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 14
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be targeting the specified target.",
+        "description": null,
         "default": null
       },
       {
         "name": "next_object",
         "ref": null,
         "type": "Unit",
-        "description": "The specific target object the unit must be targeting. When not set, any target matching the other filters will satisfy the condition.",
+        "description": null,
         "default": null
       },
       {
         "name": "object_list",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit the target must be.",
+        "description": null,
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The class the target must belong to.",
+        "description": "The unit class filter for this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The type the target must be.",
+        "description": "The unit type filter for this condition",
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 15,
     "name": "object_visible",
-    "description": "This condition can be used to check if a specific object is currently visible to the (local) player.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 15
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be visible.",
+        "description": null,
         "default": null
       }
     ]
@@ -611,20 +611,20 @@
   {
     "id": 16,
     "name": "object_not_visible",
-    "description": "This condition can be used to check if a specific object is currently not visible to the (local) player.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 16
+        "description": null,
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must not be visible.",
+        "description": null,
         "default": null
       }
     ]
@@ -632,118 +632,118 @@
   {
     "id": 17,
     "name": "researching_tech",
-    "description": "This condition can be used to check if a player is currently in the process of researching a specific technology.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 17
+        "description": null,
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who must currently be researching the technology.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "technology",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology that must currently be in research.",
-        "default": 16
+        "description": "The technology which <PURPOSE>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 18,
     "name": "units_garrisoned",
-    "description": "This condition can be used to check if at least the specified number of units are garrisoned inside a specific object.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 18
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The minimum number of units that must be garrisoned inside the object.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object (e.g. building or transport) that must have units garrisoned inside it.",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 19,
     "name": "difficulty_level",
-    "description": "This condition can be used to check the current difficulty level of the scenario.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 19
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "DifficultyLevel",
-        "description": "The difficulty level to check against.",
-        "default": 3
+        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 20,
     "name": "chance",
-    "description": "This condition can be used to trigger with a specified percentage chance each time the trigger is evaluated.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 20
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The percentage chance (0\u2013100) that this condition evaluates to true.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       }
     ]
@@ -751,719 +751,614 @@
   {
     "id": 21,
     "name": "technology_state",
-    "description": "This condition can be used to check the state of a specific technology for a player (e.g. not available, available, being researched, or researched).",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 21
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "TechnologyState",
-        "description": "The technology state to check against.",
-        "default": 3
+        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose technology state is checked.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "technology",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology whose state is checked.",
-        "default": 16
+        "description": "The technology which <PURPOSE>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 22,
     "name": "variable_value",
-    "description": "This condition can be used to compare a variable's current value against a quantity using a comparison operator.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 22
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The value to compare the variable against.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       },
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The variable whose value is compared.",
-        "default": 0
+        "description": "The variable to <PURPOSE>",
+        "default": null
       },
       {
         "name": "comparison",
         "ref": null,
         "type": "Comparison",
-        "description": "The comparison operator to apply between the variable value and the quantity.",
-        "default": 0
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "The comparison operator to use",
+        "default": null
       }
     ]
   },
   {
     "id": 23,
     "name": "object_hp",
-    "description": "This condition can be used to compare the current hit points of a specific object against a value using a comparison operator.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 23
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The hit point value to compare the object's current HP against.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object whose current HP is checked.",
+        "description": null,
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       },
       {
         "name": "comparison",
         "ref": null,
         "type": "Comparison",
-        "description": "The comparison operator to apply between the object's HP and the quantity.",
-        "default": 0
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "The comparison operator to use",
+        "default": null
       }
     ]
   },
   {
     "id": 24,
     "name": "diplomacy_state",
-    "description": "This condition can be used to check the diplomacy stance of one player toward another.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "condition_type",
         "ref": null,
         "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 24
+        "description": null,
+        "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "DiplomacyState",
-        "description": "The diplomacy stance to check for.",
-        "default": 0
+        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose stance toward the target player is checked.",
-        "default": 1
-      },
-      {
-        "name": "target_player",
-        "ref": null,
-        "type": "PlayerId",
-        "description": "The player whose stance is being evaluated from the source player's perspective.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
+      },
+      {
+        "name": "target_player",
+        "ref": null,
+        "type": "PlayerId",
+        "description": "The target player to <CHECK>",
+        "default": null
       }
     ]
   },
   {
     "id": 25,
     "name": "script_call",
-    "description": [
-      "This condition can be used to call an XS script function that returns a boolean value.",
-      "The condition evaluates to true when the function returns true."
-    ],
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
         "name": "xs_function",
         "ref": null,
         "type": "str",
-        "description": "The name of the XS script function to call. The function must return a bool.",
-        "default": ""
+        "description": "The XS script function to call",
+        "default": null
       }
     ]
   },
   {
     "id": 26,
     "name": "object_selected_multiplayer",
-    "description": "This condition can be used to check if a specific object is currently selected by a specific player in a multiplayer game.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 26
-      },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be selected.",
+        "description": null,
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who must have the object selected.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 27,
     "name": "object_visible_multiplayer",
-    "description": "This condition can be used to check if a specific object is currently visible to a specific player in a multiplayer game.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 27
-      },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be visible.",
+        "description": null,
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player for whom the object must be visible.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 28,
     "name": "object_has_action",
-    "description": "This condition can be used to check if a specific object is currently performing a specific AI action, optionally targeting another object.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 28
-      },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The object that must be performing the action.",
+        "description": null,
         "default": null
       },
       {
         "name": "next_object",
         "ref": null,
         "type": "Unit",
-        "description": "The specific target object of the action. When not set, any target matching the other filters will satisfy the condition.",
+        "description": null,
         "default": null
       },
       {
         "name": "object_list",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The unit type the target of the action must be.",
+        "description": null,
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The class the target of the action must belong to.",
+        "description": "The unit class filter for this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The type the target of the action must be.",
+        "description": "The unit type filter for this condition",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       },
       {
         "name": "unit_ai_action",
         "ref": null,
         "type": "UnitAIAction",
-        "description": "The AI action the object must currently be performing.",
-        "default": 0
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": null,
+        "default": null
       }
     ]
   },
   {
     "id": 29,
     "name": "or",
-    "description": [
-      "This condition acts as an OR separator between groups of conditions.",
-      "All conditions before this OR (since the last OR/AND or the start of the list) are evaluated as a group.",
-      "The trigger fires if any group evaluates to true."
-    ],
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": []
   },
   {
     "id": 30,
     "name": "ai_signal_multiplayer",
-    "description": "This condition can be used to check if a specific AI signal has been sent in a multiplayer game.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 30
-      },
       {
         "name": "ai_signal",
         "ref": null,
         "type": "int",
-        "description": "The AI Signal ID that must have been sent.",
-        "default": 0
+        "description": "The AI Signal ID to check",
+        "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 54,
     "name": "building_is_trading",
-    "description": "This condition can be used to check if a specific building is currently trading (i.e. has an active trade route).",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 54
-      },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The building that must be trading.",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 55,
     "name": "display_timer_triggered",
-    "description": "This condition can be used to check if a display timer has been triggered (i.e. has reached zero).",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 55
-      },
       {
         "name": "timer_id",
         "ref": null,
         "type": "int",
-        "description": "The ID of the display timer that must have triggered.",
+        "description": "The display timer to check",
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 56,
-    "name": "victory_timer",
-    "description": "This condition can be used to compare the remaining time on a victory timer for a player against a value using a comparison operator.",
+    "name": "building_is_trading",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 56
-      },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The time value to compare the victory timer against.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player whose victory timer is checked.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
-        "name": "victory_timer_type",
+        "name": "inverted",
         "ref": null,
-        "type": "VictoryTimerType",
-        "description": "The type of victory timer to check.",
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       },
       {
         "name": "comparison",
         "ref": null,
         "type": "Comparison",
-        "description": "The comparison operator to apply between the victory timer value and the quantity.",
-        "default": 0
+        "description": "The comparison operator to use",
+        "default": null
       },
       {
-        "name": "inverted",
+        "name": "victory_timer_type",
         "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "type": "VictoryTimerType",
+        "description": "The type of victory timer to check",
+        "default": null
       }
     ]
   },
   {
     "id": 57,
     "name": "and",
-    "description": [
-      "This condition acts as an AND separator between groups of conditions.",
-      "All conditions before this AND (since the last OR/AND or the start of the list) must all evaluate to true for the group to pass.",
-      "The trigger fires only if all groups pass."
-    ],
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": []
   },
   {
     "id": 75,
     "name": "decision_triggered",
-    "description": "This condition can be used to check if a specific option was chosen for a decision prompt.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
+        "name": "inverted",
         "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 75
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       },
       {
         "name": "decision_id",
         "ref": null,
         "type": "int",
-        "description": "The ID of the decision whose chosen option is checked.",
+        "description": "The decision ID to check",
         "default": null
       },
       {
         "name": "decision_option",
         "ref": null,
         "type": "DecisionOption",
-        "description": "The decision option that must have been chosen.",
-        "default": 0
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "The decision option to check",
+        "default": null
       }
     ]
   },
   {
     "id": 76,
     "name": "object_attacked",
-    "description": "This condition can be used to check if any objects matching the given filters have been attacked.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
+        "name": "object_list",
         "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 76
-      },
-      {
-        "name": "unit_object",
-        "ref": null,
-        "type": "Unit",
-        "description": "A specific object that must have been attacked. When not set, any matching object is checked.",
+        "type": "UnitInfo",
+        "description": null,
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The minimum number of matching objects that must have been attacked.",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who owns the objects that must have been attacked.",
-        "default": 1
-      },
-      {
-        "name": "object_list",
-        "ref": null,
-        "type": "UnitInfo",
-        "description": "The specific unit type that must have been attacked.",
+        "description": "The player whose <CHECK>",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter. Only objects of this class are considered.",
+        "description": "The unit class filter for this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter. Only objects of this type are considered.",
+        "description": "The unit type filter for this condition",
+        "default": null
+      },
+      {
+        "name": "unit_object",
+        "ref": null,
+        "type": "Unit",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 77,
     "name": "hero_power_cast",
-    "description": "This condition can be used to check if a hero power was cast by a specific player.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 77
-      },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player who must have cast a hero power.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       }
     ]
   },
   {
     "id": 78,
     "name": "compare_variables",
-    "description": "This condition can be used to compare the values of two variables against each other using a comparison operator.",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
+        "name": "inverted",
         "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 78
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       },
       {
         "name": "variable",
         "ref": null,
         "type": "VariableId",
-        "description": "The first variable to compare.",
-        "default": 0
+        "description": "The variable to <PURPOSE>",
+        "default": null
       },
       {
         "name": "comparison",
         "ref": null,
         "type": "Comparison",
-        "description": "The comparison operator to apply between the two variable values.",
-        "default": 0
+        "description": "The comparison operator to use",
+        "default": null
       },
       {
         "name": "variable2",
         "ref": null,
         "type": "VariableId",
-        "description": "The second variable to compare against.",
-        "default": 0
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "The second variable to <PURPOSE>",
+        "default": null
       }
     ]
   },
   {
     "id": 79,
     "name": "trigger_active",
-    "description": "This condition can be used to check if a specific trigger is currently active (enabled).",
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 79
-      },
       {
         "name": "trigger_id",
         "ref": null,
         "type": "int",
-        "description": "The trigger that must be active.",
+        "description": null,
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 80,
     "name": "local_tech_researched",
-    "description": [
-      "This condition can be used to check if a local technology has been researched.",
-      "The research is looked up on a specific unit or in an area, for a given player."
-    ],
+    "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": "The ID corresponding to this condition type.",
-        "default": 80
-      },
       {
         "name": "local_technology",
         "ref": null,
         "type": "TechInfo",
-        "description": "The local technology that must have been researched.",
-        "default": 1197
+        "description": "The local technology which <PURPOSE>",
+        "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The player for whom the local technology must have been researched.",
-        "default": 1
+        "description": "The player whose <CHECK>",
+        "default": null
       },
       {
         "name": "unit_object",
         "ref": null,
         "type": "Unit",
-        "description": "The specific unit to check for the local technology. When not set, any unit in the area is checked.",
+        "description": null,
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area to search for units with the local technology researched. When not set, the entire map is checked.",
-        "default": null
-      },
-      {
-        "name": "quantity",
-        "ref": null,
-        "type": "int",
-        "description": "The minimum number of units with the local technology researched.",
+        "description": "The area to check. When not set, the entire map is checked",
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition.",
-        "default": 0
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
+      },
+      {
+        "name": "quantity",
+        "ref": null,
+        "type": "int",
+        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "default": null
       }
     ]
   }
