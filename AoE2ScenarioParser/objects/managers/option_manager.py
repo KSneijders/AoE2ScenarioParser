@@ -10,6 +10,8 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class OptionManager(AoE2Object):
+    """Manager of all general (global) options"""
+
     _link_list = [
         RetrieverObjectLinkGroup("GlobalVictory", group=[
             RetrieverObjectLink("victory_condition", link='mode'),

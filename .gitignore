@@ -235,3 +235,7 @@ resources/scenario/triggers/effects/html/effect-definitions.html
 resources/scenario/triggers/conditions/html/condition-definitions.html
 
 .idea/claudeCodeTabState.xml
+
+# Generated API docs (built by CI during deploy)
+docs/api/
+docs/_assets/pdoc_theme/index.html.jinja2

@@ -13,7 +13,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link import Retriev
 
 
 class UnitManager(AoE2Object):
-    """Manager of everything unit related."""
+    """Manager of everything unit-related."""
 
     _link_list = [
         RetrieverObjectLink("_player_units", "Units", "players_units", process_as_object=PlayerUnits),

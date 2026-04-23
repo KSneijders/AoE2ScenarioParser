@@ -6,11 +6,15 @@ You can use the map manager to adjust the terrain, elevation, map size and other
 
 You can adjust the map size using the parser. 
 
-!!! warning "Only rectangular maps"
-    The game only supports square maps. Changing the size to a rectangle that is not a square will cause the game to crash.
+> [!WARNING]
+> **Only rectangular maps**  
+> The game only supports square maps. Changing the size to a rectangle that is not a square will cause the game to crash.
 
-!!! warning "Maximum size is 480"
-    The game does not support maps over the size of 480. Beyond this size the game will crash when you test the scenario.
+
+> [!WARNING]
+> **Maximum size is 480**  
+> The game does not support maps over the size of 480. Beyond this size the game will crash when you test the scenario.
+
 
 You can adjust the map size like so:
 
@@ -88,7 +92,7 @@ after that is the tile to the top right of it.
 Below you can see a visualisation of a 10x10 map. The coords are `(X,Y)` coordinates and the blue line is the order in 
 which tiles are saved.
 
-![Visualisation Map Tiles Explained](./../images/map_tiles_explained.png "map_tiles_explained")
+![Visualisation Map Tiles Explained](../images/map_tiles_explained.png "map_tiles_explained")
 
 To get a tile based on it's XY coordinate (like `(5,8)`, as highlighted in the above image) you can use:
 
@@ -118,14 +122,14 @@ for tile_row in map_manager.get_square_2d(x1=4, y1=4, x2=8, y2=8):
 
 This will turn the above map into:
 
-![Visualisation Map Tiles With Road](./../images/map_tiles_with_road.png "map_tiles_with_road")
+![Visualisation Map Tiles With Road](../images/map_tiles_with_road.png "map_tiles_with_road")
 
 ## Elevation
 
 You can also add hills to the map by using the `set_elevation` function. 
 In the below graphic you can see the coordinates used in the function. 
 
-![](./../images/map_coordinates_explained.png)
+![](../images/map_coordinates_explained.png)
 Thanks to [ScribbleGhost](https://github.com/ScribbleGhost) for the graphic! ❤️
 
 ```py
@@ -138,13 +142,16 @@ map_manager.set_elevation(
 )
 ```
 
-!!! tip "Elevation is also zero based"
-    Elevation is zero based, 0 represents what Age2 calls elevation 1, 1 represents elevation 2 etc.
+> [!TIP]
+> **Elevation is also zero based**  
+> Elevation is zero based, 0 represents what Age2 calls elevation 1, 1 represents elevation 2 etc.
+
 
 This will create a hill of elevation **3** in the game. The top square of the hill will be 3x3 tiles. Because (3,3) to
 (5,5) shown in the function above represents the top of the hill. The entire hill, including the slopes, will start on:
 (1,1) to (7,7).
 
-!!! warning "Don't go too high!"
-    Using the parser you can basically go as high as you want, **BUT** above ~20 without UHD and ~15 with UHD the 
-    camera starts clipping into the hill. 
+> [!WARNING]
+> **Don't go too high!**  
+> Using the parser you can basically go as high as you want, **BUT** above ~20 without UHD and ~15 with UHD the 
+> camera starts clipping into the hill. 

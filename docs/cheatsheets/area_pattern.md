@@ -24,15 +24,16 @@ This is perfect for a highly configurable and flexible objects like the `AreaPat
 If you want to do anything with more than a single coordinate, it's quite the hassle sometimes.
 That's the problem this object is _trying_ (feature suggestions always welcome!) to solve.
 
-!!! Note
-    The `AreaPattern` object strength comes from selecting specific pattern/tiles. If you want to do a similar thing with 
-    every tile on the map this object won't help you much. 
+> [!NOTE]
+> The `Area` object strength comes from selecting specific pattern/tiles. If you want to do a similar thing with 
+> every tile on the map this object won't help you much. 
+
 
 ---
 
-## API Documentation
+## Area functions
 
-For the API Documentation for the Area object, go here: [Area API Documentation](../api_docs/support/area.md).
+To view every function that exists on an Area object, view the <a href="api/AoE2ScenarioParser/objects/support/area.html#Area" target="_blank" class="btn btn-primary">Area API Reference</a>.
 
 ## Examples
 
@@ -75,9 +76,10 @@ for tile in pattern.select(10, 50, 13, 53).to_coords():
 Above we can see the creation of a new `AreaPattern` object through the new Object Factory inside a scenario.
 We use the `select` method to select our area. 
 
-!!! Note
-    Keep in mind that `AreaPattern.select` uses an inclusive selection. 
-    This means that doing: `pattern.select(1, 1, 3, 3)` will select a 3x3 area.
+> [!NOTE]
+> Keep in mind that `Area.select` uses an inclusive selection. 
+> This means that doing: `area.select(1, 1, 3, 3)` will select a 3x3 area.
+
 
 ---
 
@@ -141,7 +143,7 @@ for tile in pattern.center(castle.x, castle.y).size(4).expand(6).use_only_edge()
 
 And that's it! The castle has walls around it. With such ease!
 
-![Caslte With Walls](./../images/area_castle_walls.png "area with castle walls")
+![Caslte With Walls](../images/area_castle_walls.png "area with castle walls")
 
 ---
 
@@ -186,7 +188,7 @@ pattern.use_pattern_grid()
 Now this would be default return a grid with gaps of 1 and blocks of 1x1. We want blocks of 3x3 and no gaps (gap of 0).
 Below you can see the steps and the difference these configurations have:
 
-![Area grid 1x1 example](./../images/area_grid_1x1_example.png "Area grid 1x1 example")
+![Area grid 1x1 example](../images/area_grid_1x1_example.png "Area grid 1x1 example")
 
 Now that we know what we want, we can add some configuration to the function, we can do this in four ways, choose 
 the one you like the most (We'll continue with the first option):
@@ -207,9 +209,11 @@ pattern.use_pattern_grid().attr(AreaAttr.GAP_SIZE, 0)
 pattern.use_pattern_grid().attrs(block_size=3, gap_size=0)
 ```
 
-!!! Tip "You can differentiate the X and Y"
-    In many functions you can use the general option like `gap_size`. 
-    But there's also options for `gap_size_x` and `gap_size_y` if you want different selections.
+> [!TIP]
+> **You can differentiate the X and Y**  
+> In many functions you can use the general option like `gap_size`. 
+> But there's also options for `gap_size_x` and `gap_size_y` if you want different selections.
+
 
 Now that we have the grid, let's add the final piece where we change the terrain itself. 
 We can use the function `to_chunks()` to return our grid as 'chunks'.
@@ -248,7 +252,7 @@ Another way to get around this is make sure the squares fit an odd amount of tim
 So using the earlier loop, without the row, with a map size of 117 (39 times) would result in the same pattern as the 
 code above.
 
-![area checkers example result](./../images/area_checkers_example_result.png "area checkers example result")
+![area checkers example result](../images/area_checkers_example_result.png "area checkers example result")
 
 The entire code block for this example:
 
@@ -266,4 +270,4 @@ for index, chunk in enumerate(area.to_chunks(as_terrain=True)):
 
 The API Documentation has existed for some time, and the temporary docs here, have been removed.
 
-They've been moved here: [Area API Documentation](../api_docs/support/area.md).
+They've been moved here: <a href="/api/AoE2ScenarioParser/objects/support/area.html#Area" target="_blank" class="btn btn-primary">Area API Reference</a>.

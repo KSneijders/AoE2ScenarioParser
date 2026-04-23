@@ -68,6 +68,8 @@ Attributes for the **change_diplomacy** effect are:
 Many conditions and effects have dropdown lists with options. These options are, like everything else, impossible to
 remember. That's why these datasets have been added:
 
+<a href="api/index.html" target="_blank">Also view the API docs for these datasets</a> (bottom of the list)
+
 | Names                | Explanation                                                                         | Example                                      |
 |----------------------|-------------------------------------------------------------------------------------|----------------------------------------------|
 | ActionType           | Used in the `Task Object` effect.                                                   | `ActionType.ATTACK_GROUND`                   |
@@ -164,12 +166,14 @@ These are the biggest and most powerful datasets:
 | `OtherInfo`    | Dataset for other units (like relics and gold piles) |
 | `TechInfo`     | Dataset for technologies                             |
 
-!!! hint "The use of the `.ID` suffix"
-    These datasets contain more info about the object than just the ID.  
-    To be able to access all this info from a single entry, suffix are needed to specifically request the right 
-    information.  
-    If you want the normal ID of a unit/building etc. you need to use: `.ID` after the dataset entry.  
-    This will look something like: `UnitInfo.PALADIN.ID`
+> [!TIP]
+> **The use of the `.ID` suffix**  
+> These datasets contain more info about the object than just the ID.  
+> To be able to access all this info from a single entry, suffix are needed to specifically request the right 
+> information.  
+> If you want the normal ID of a unit/building etc. you need to use: `.ID` after the dataset entry.  
+> This will look something like: `UnitInfo.PALADIN.ID`
+
     
 
 For adding units it'll look something like the following:

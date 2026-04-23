@@ -6,7 +6,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import R
 
 
 class MessageManager(AoE2Object):
-    """Manager of the everything message tab related."""
+    """Manager of everything related to the message tab"""
 
     _link_list = [
         RetrieverObjectLinkGroup("Messages", group=[

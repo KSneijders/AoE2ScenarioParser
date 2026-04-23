@@ -1,0 +1,123 @@
+/* ── Background & base ──────────────────────────────────────────────────── */
+body,
+.sidebar {
+    background-color: #1e1e1e;
+}
+
+.sidebar {
+    background-color: #181818;
+    border-right-color: #2e2e2e;
+}
+
+.sidebar-toggle {
+    background-color: rgba(24, 24, 24, 0.9) !important;
+}
+
+/* ── Headings & strong ──────────────────────────────────────────────────── */
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section strong {
+    color: #b8c0c8;
+}
+
+/* ── Tables ─────────────────────────────────────────────────────────────── */
+.markdown-section td,
+.markdown-section th {
+    border-color: #333333;
+}
+
+.markdown-section tr {
+    border-top-color: #333333;
+    background-color: #242424;
+}
+
+.markdown-section tr:nth-child(2n) {
+    background-color: #2a2a2a;
+}
+
+.markdown-section th {
+    background-color: #1e1e1e;
+}
+
+/* ── Code blocks ────────────────────────────────────────────────────────── */
+.markdown-section code,
+.markdown-section pre > code {
+    color: #abb2bf;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6d7a8a;
+}
+
+.token.punctuation {
+    color: #abb2bf;
+}
+
+.token.keyword {
+    color: #e5a04a;
+}
+
+.token.string {
+    color: #e06c75;
+}
+
+.token.number,
+.token.boolean {
+    color: #d19a66;
+}
+
+.token.function {
+    color: #61afef;
+}
+
+.token.class-name {
+    color: #e5c07b;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+    color: #56b6c2;
+}
+
+/* ── Horizontal rule ────────────────────────────────────────────────────── */
+.markdown-section hr {
+    border-bottom-color: #333333;
+}
+
+/* ── Sidebar active section ─────────────────────────────────────────────── */
+.sidebar-nav > ul > li > ul > li.active,
+.sidebar-nav > ul > li > ul > li:has(.active) {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+    border-left: 2px solid rgba(100, 160, 220, 0.45);
+    margin-left: -10px;
+    padding-left: 8px;
+}
+
+/* ── Alert override ─────────────────────────────────────────────────────── */
+div.alert.callout {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+}
+div.alert.callout.note {
+    background-color: #243540;
+}
+div.alert.callout.tip {
+    background-color: #243524;
+}
+div.alert.callout.warning {
+    background-color: #383824;
+}
+div.alert.callout.important {
+    background-color: #302440;
+}
+div.alert.callout.attention {
+    background-color: #402424;
+}

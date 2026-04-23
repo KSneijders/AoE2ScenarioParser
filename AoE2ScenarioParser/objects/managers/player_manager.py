@@ -21,10 +21,7 @@ from AoE2ScenarioParser.sections.retrievers.support import Support
 
 
 class PlayerManager(AoE2Object):
-    """Manager of everything player related."""
-
-    # Todo: Implement a DE version separate of this.
-    #  I'll be dealing with this IF support for other game versions will ever happen.
+    """Manager of everything player-related."""
 
     _link_list = [
         RetrieverObjectLink("_player_count", "FileHeader", "player_count"),

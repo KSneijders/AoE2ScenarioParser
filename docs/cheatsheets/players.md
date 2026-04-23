@@ -130,9 +130,11 @@ player_manager.set_diplomacy_teams(
 You can also set the diplomacy directly for a single player. 
 For example, below you can see that player one is set to enemy with player 5 and player 2, 3 and 4 are set to ally.
 
-!!! note "This is not mutual!"
-    These function calls will only set the diplomacy one-way.  
-    All 'target' players (2, 3, 4 and 5) are still on the default Enemy stance.
+> [!NOTE]
+> **This is not mutual!**  
+> These function calls will only set the diplomacy one-way.  
+> All 'target' players (2, 3, 4 and 5) are still on the default Enemy stance.
+
 
 ```py
 p1 = player_manager.players[Player.ONE]

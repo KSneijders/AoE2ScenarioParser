@@ -8,16 +8,18 @@ library. After XS-Check has completed its validation steps the output is analyze
 By default, the writing process of AoE2ScenarioParser is **not** interrupted, even if an error is found in the XS code.
 
 
-!!! warning "Only XS from Effects and Conditions is combined"
-    Due to the import logic of XS scripts from many different locations depending on the installation
-    location of AoE2:DE, the XS script file that is referenced by filename in the `XsManager` is NOT
-    added to the XS-Check library! Scripts added through `xs_manager.add_script(...)` and all other 
-    xs from effects and conditions is combined.
+> [!WARNING]
+> **Only XS from Effects and Conditions is combined**  
+> Due to the import logic of XS scripts from many different locations depending on the installation
+> location of AoE2:DE, the XS script file that is referenced by filename in the `XsManager` is NOT
+> added to the XS-Check library! Scripts added through `xs_manager.add_script(...)` and all other 
+> xs from effects and conditions is combined.
+
 
 ## Configurations
 
 There are some configuration options for XS Check in AoE2ScenarioParser. Below you can find the most useful ones.
-For more configuration options and more info, see the [XS-Check API docs](../api_docs/xs/xs_check.md).
+For more configuration options and more info, see the <a href="api/AoE2ScenarioParser/objects/support/xs_check.html" target="_blank">XS-Check API docs</a>.
 
 ### Enabling / Disabling
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 from enum import IntEnum
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Optional
 
 from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
@@ -26,7 +26,7 @@ from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import R
 
 
 class TriggerManager(AoE2Object):
-    """Manager of everything trigger related."""
+    """Manager of everything trigger-related."""
 
     _link_list = [
         RetrieverObjectLinkGroup("Triggers", group=[
@@ -40,7 +40,7 @@ class TriggerManager(AoE2Object):
             self,
             triggers: List[Trigger],
             trigger_display_order: List[int],
-            variables: List[Variable],
+            variables: List[Variable] = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -49,6 +49,7 @@ class TriggerManager(AoE2Object):
         self.trigger_display_order: List[int] = trigger_display_order
         self.variables: List[Variable] = variables
         self._trigger_hash = hash_list(triggers)
+        self.variables: List[Variable] = variables if variables is not None else []
 
     @property
     def triggers(self) -> UuidList[Trigger]:
@@ -90,52 +91,6 @@ class TriggerManager(AoE2Object):
     @variables.setter
     def variables(self, value: List[Variable]):
         self._variables = UuidList(self._uuid, value)
-
-    def add_variable(self, name: str, variable_id: int = -1) -> Variable:
-        """
-        Adds a variable.
-
-        Args:
-            name: The name for the variable
-            variable_id: The ID of the variable. If left empty lowest available value will be used
-
-        Returns:
-            The newly renamed Variable
-        """
-        list_of_var_ids = [var.variable_id for var in self.variables]
-        if variable_id == -1:
-            for i in range(256):
-                if i not in list_of_var_ids:
-                    variable_id = i
-                    break
-            if variable_id == -1:
-                raise IndexError(f"No variable ID available. All in use? In use: ({list_of_var_ids}/256)")
-        if not (0 <= variable_id <= 255):
-            raise ValueError("Variable ID has to fall between 0 and 255 (incl).")
-        if variable_id in list_of_var_ids:
-            raise ValueError("Variable ID already in use.")
-
-        new_variable = Variable(variable_id=variable_id, name=name, uuid=self._uuid)
-        self.variables.append(new_variable)
-        return new_variable
-
-    def get_variable(self, variable_id: int = None, variable_name: str = None) -> Optional[Variable]:
-        """
-        Get a specific variable
-
-        Args:
-            variable_id: The ID of the variable you want
-            variable_name: The name of the variable you want
-
-        Returns:
-            The `Variable` object or None if it couldn't be found
-        """
-        if not mutually_exclusive(variable_id is not None, variable_name is not None):
-            raise ValueError("Select a variable using either the variable_id or variable_name parameters.")
-        for variable in self.variables:
-            if variable.variable_id == variable_id or variable.name == variable_name:
-                return variable
-        return None
 
     def copy_trigger_per_player(
             self,
@@ -638,7 +593,53 @@ class TriggerManager(AoE2Object):
         _, trigger = self._validate_and_retrieve_trigger_info(trigger)
         return trigger
 
-    def get_display_index(self, trigger: TriggerIdentifier) -> int:
+    def add_variable(self, name: str, variable_id: int = -1) -> Variable:
+        """
+        Adds a variable.
+
+        Args:
+            name: The name for the variable
+            variable_id: The ID of the variable. If left empty lowest available value will be used
+
+        Returns:
+            The newly renamed Variable
+        """
+        list_of_var_ids = [var.variable_id for var in self.variables]
+        if variable_id == -1:
+            for i in range(256):
+                if i not in list_of_var_ids:
+                    variable_id = i
+                    break
+            if variable_id == -1:
+                raise IndexError(f"No variable ID available. All in use? In use: ({list_of_var_ids}/256)")
+        if not (0 <= variable_id <= 255):
+            raise ValueError("Variable ID has to fall between 0 and 255 (incl).")
+        if variable_id in list_of_var_ids:
+            raise ValueError("Variable ID already in use.")
+
+        new_variable = Variable(variable_id=variable_id, name=name, uuid=self._uuid)
+        self.variables.append(new_variable)
+        return new_variable
+
+    def get_variable(self, variable_id: int = None, variable_name: str = None) -> Optional[Variable]:
+        """
+        Get a specific variable
+
+        Args:
+            variable_id: The ID of the variable you want
+            variable_name: The name of the variable you want
+
+        Returns:
+            The `Variable` object or None if it couldn't be found
+        """
+        if not mutually_exclusive(variable_id is not None, variable_name is not None):
+            raise ValueError("Select a variable using either the variable_id or variable_name parameters.")
+        for variable in self.variables:
+            if variable.variable_id == variable_id or variable.name == variable_name:
+                return variable
+        return None
+
+    def remove_trigger(self, trigger_select: int | TriggerSelect) -> None:
         """
         Get the display index of a trigger. It is not recommended to actively use this attribute for trigger 
         identification or to change display indices in general. 
@@ -771,10 +772,8 @@ class TriggerManager(AoE2Object):
             return_string += self.get_trigger_as_string(trigger_index) + "\n"
 
         return_string += "Variables:\n"
-
         if len(self.variables) == 0:
             return_string += "\t<<No Variables>>\n"
-
         for variable in self.variables:
             return_string += f"\t'{variable.name}' [Index: {variable.variable_id}] ({variable._uuid})\n"
 

@@ -4,26 +4,25 @@ import itertools
 import math
 from typing import List, Set, Tuple
 
+from AoE2ScenarioParser.datasets.trigger_lists import ColorMood
+from AoE2ScenarioParser.helper.helper import xy_to_i
+from AoE2ScenarioParser.helper.list_functions import list_chuncks
+from AoE2ScenarioParser.helper.maffs import sign
+from AoE2ScenarioParser.helper.printers import warn
+from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
+from AoE2ScenarioParser.objects.support.uuid_list import UuidList
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link_group import RetrieverObjectLinkGroup
 from AoE2ScenarioParser.sections.retrievers.support import Support
 
-from AoE2ScenarioParser.helper.coordinates import xy_to_i
-from AoE2ScenarioParser.helper.list_functions import list_chunks
-from AoE2ScenarioParser.helper.maffs import sign
-from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
-from AoE2ScenarioParser.objects.data_objects.terrain_tile import TerrainTile
-from AoE2ScenarioParser.objects.support.uuid_list import UuidList
-
 
 class MapManager(AoE2Object):
-    """Manager of everything map related."""
+    """Manager of everything related to the map tab"""
 
     _link_list = [
         RetrieverObjectLinkGroup("Map", group=[
-            RetrieverObjectLink("map_color_mood"),
-            RetrieverObjectLink("collide_and_correct"),
-            RetrieverObjectLink("villager_force_drop", support=Support(since=1.37)),
+            RetrieverObjectLink("_map_color_mood", link="map_color_mood"),
             RetrieverObjectLink("map_width"),
             RetrieverObjectLink("map_height"),
             RetrieverObjectLink("terrain", link="terrain_data", process_as_object=TerrainTile),
@@ -32,20 +31,20 @@ class MapManager(AoE2Object):
 
     def __init__(
             self,
-            map_color_mood: str,
-            collide_and_correct: bool,
-            villager_force_drop: bool,
-            map_width: int,
-            map_height: int,
-            terrain: List[TerrainTile],
-            **kwargs,
+             _map_color_mood: str,
+             map_width: int,
+             map_height: int,
+             terrain: List[TerrainTile],
+            **kwargs
     ):
         super().__init__(**kwargs)
 
-        # Todo: Map Color Mood convert to Enum
-        self.map_color_mood: str = map_color_mood
-        self.collide_and_correct: bool = collide_and_correct  # Todo: Move to OptionsManager
-        self.villager_force_drop: bool = villager_force_drop  # Todo: Move to OptionsManager
+        if _map_color_mood.upper() in ColorMood.__members__:
+            map_color_mood = ColorMood[_map_color_mood.upper()]
+        else:
+            map_color_mood = _map_color_mood
+
+        self.map_color_mood: Union[str, ColorMood] = map_color_mood
         self.terrain: List[TerrainTile] = terrain
         self._map_width: int = map_width
         self._map_height: int = map_height
@@ -57,6 +56,13 @@ class MapManager(AoE2Object):
     @property
     def map_height(self) -> int:
         return self._map_height
+
+    @property
+    def _map_color_mood(self):
+        """Purely here to convert the Enum back to string"""
+        if isinstance(self.map_color_mood, ColorMood):
+            return self.map_color_mood.name.lower()
+        return self.map_color_mood
 
     @property
     def map_size(self) -> int:

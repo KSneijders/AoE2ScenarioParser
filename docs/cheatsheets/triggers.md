@@ -71,9 +71,13 @@ The function accepts 2 arguments. The first is a trigger identifier (named: `tri
 This can be an `int` representing the index of a trigger (the `trigger_id`).
 The first argument can also be a Trigger object itself.
 
-The second argument (named: `use_display_index`) is used to change the behaviour of the function.
-When this is set to `True` (`False` by default) the `int` given in the first argument will be used to identify
-the trigger using the **display** index instead of the normal index.
+> [!TIP]
+> **For an index, just use an integer**  
+> Instead of `TS.index(4)` you can just use `4`. 
+> Integers are used in the same way as `TS.index(4)` for ease of use
+
+
+You can import `TS` (or `TriggerSelect`) like so:
 
 ```py
 # Examples:

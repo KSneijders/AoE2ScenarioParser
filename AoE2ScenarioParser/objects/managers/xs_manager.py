@@ -1,7 +1,7 @@
 import re
 import tempfile
 from pathlib import Path
-from typing import List, Optional, Tuple, TYPE_CHECKING, Union
+from typing import Optional, Union, List, Tuple
 
 from AoE2ScenarioParser.sections.retrievers.retriever_object_link import RetrieverObjectLink
 from AoE2ScenarioParser.sections.retrievers.support import Support
@@ -18,12 +18,9 @@ from AoE2ScenarioParser.objects.support.xs_check import XsCheck
 from AoE2ScenarioParser.scenarios.scenario_store import actions
 from AoE2ScenarioParser.scenarios.scenario_store.getters import get_scenario_version
 
-if TYPE_CHECKING:
-    pass
-
 
 class XsManager(AoE2Object):
-    """Manager of everything XS related."""
+    """Manager of everything XS-related."""
 
     _link_list = [
         RetrieverObjectLink("script_name", "Map", "script_name", Support(since=1.40)),
