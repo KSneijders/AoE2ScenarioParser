@@ -98,20 +98,22 @@ For this you can use the `filter_units_by_const` function.
 
 ```py
 # Get TC object of all players
-unit_manager.filter_units_by_type(unit_types=[BuildingInfo.TOWN_CENTER.ID])
+unit_manager.filter_units_by_object_id(object_ids = [BuildingInfo.TOWN_CENTER.ID])
 # Get TC object of only player one and two
-unit_manager.filter_units_by_type(unit_types=[BuildingInfo.TOWN_CENTER.ID], player_list=[Player.ONE, Player.TWO])
+unit_manager.filter_units_by_object_id(
+    object_ids = [BuildingInfo.TOWN_CENTER.ID], player_list = [Player.ONE, Player.TWO]
+)
 # Get all objects of player one except for the villagers
-unit_manager.filter_units_by_type(
-    unit_types=[UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
-    blacklist=True,  # <-- When True, everything in the unit_types list will be excluded instead of included
-    player_list=[Player.ONE],
+unit_manager.filter_units_by_object_id(
+    object_ids = [UnitInfo.VILLAGER_MALE, UnitInfo.VILLAGER_FEMALE],
+    blacklist = True,  # <-- When True, everything in the object_ids list will be excluded instead of included
+    player_list = [Player.ONE],
 )
 # Exclude all unique units from a given list
-unit_manager.filter_units_by_type(
-    unit_types=UnitInfo.unique_units(),
-    blacklist=True,
-    unit_list=[some_list_with_Unit_objects]
+unit_manager.filter_units_by_object_id(
+    object_ids = UnitInfo.unique_units(),
+    blacklist = True,
+    unit_list = [some_list_with_Unit_objects]
 )
 ```
 

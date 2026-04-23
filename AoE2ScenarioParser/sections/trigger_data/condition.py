@@ -19,11 +19,11 @@ class Condition(BaseStruct):
     _resource: int                           = RetrieverRef(ret(_properties),  1)
     _primary_unit_ref: int                   = RetrieverRef(ret(_properties),  2)
     _secondary_unit_ref: int                 = RetrieverRef(ret(_properties),  3)
-    _unit_type: int                          = RetrieverRef(ret(_properties),  4)
+    _object_id: int                          = RetrieverRef(ret(_properties),  4)
     _source_player: int                      = RetrieverRef(ret(_properties),  5)
-    _technology: int                         = RetrieverRef(ret(_properties),  6)
+    _technology_id: int                      = RetrieverRef(ret(_properties),  6)
     _timer: int                              = RetrieverRef(ret(_properties),  7)
-    _trigger_idx: int                        = RetrieverRef(ret(_properties),  8)
+    _trigger_id: int                         = RetrieverRef(ret(_properties),  8)
 
     @property
     def _area(self) -> Area:

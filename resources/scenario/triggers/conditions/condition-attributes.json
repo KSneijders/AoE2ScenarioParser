@@ -4,7 +4,7 @@
     "resource": "The resource to check for <CONDITION>",
     "primary_unit_ref": "The primary unit referenced by this condition",
     "secondary_unit_ref": "The secondary unit referenced by this condition",
-    "unit_type": "The type of unit to <CHECK>",
+    "object_id": "The type of unit to <CHECK>",
     "source_player": "The player whose <CHECK>",
     "technology_id": "The technology which <PURPOSE>",
     "timer": "The time in seconds before the condition triggers",

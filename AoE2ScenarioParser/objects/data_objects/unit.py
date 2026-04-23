@@ -93,7 +93,7 @@ class Unit(AoE2Object):
     @property
     def name(self) -> str:
         """The name of the unit, nicely formatted"""
-        unit_enum = helper.get_enum_from_unit_type(self.type)
+        unit_enum = helper.get_enum_from_object_id(self.type)
         if unit_enum:
             return pretty_format_name(unit_enum.name)
         else:

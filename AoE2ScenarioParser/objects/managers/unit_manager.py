@@ -206,7 +206,7 @@ class UnitManager(AoE2Object):
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
-        Filter units based on a given attribute of units
+        Filters units based on a given unit attribute
 
         Args:
             attr: The attribute to filter by
@@ -240,18 +240,18 @@ class UnitManager(AoE2Object):
             return [unit for unit_attr in unit_attrs for unit in unit_list if getattr(unit, attr) == unit_attr]
         return [unit for unit_attr in unit_attrs for unit in unit_list if getattr(unit, attr) != unit_attr]
 
-    def filter_units_by_type(
+    def filter_units_by_object_id(
             self,
-            unit_types: List[int],
+            object_ids: List[int],
             blacklist: bool = False,
             player_list: List[Union[int, Player]] = None,
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
-        Filter unit on their type value.
+        Filters units on their object_id value.
 
         Args:
-            unit_types: The types to filter with
+            object_ids: The object IDs to filter with
             blacklist: Use the given type list as blacklist instead of whitelist
             player_list: A list of players to filter from. If not used, all players are used.
             unit_list: A set of units to filter from. If not used, all units are used.
@@ -259,7 +259,7 @@ class UnitManager(AoE2Object):
         Returns:
             A list of units
         """
-        return self.filter_units_by("type", unit_types, blacklist, player_list, unit_list)
+        return self.filter_units_by("object_id", object_ids, blacklist, player_list, unit_list)
 
     def filter_units_by_id(
             self,
@@ -269,7 +269,7 @@ class UnitManager(AoE2Object):
             unit_list: List[Unit] = None
     ) -> List[Unit]:
         """
-        Filter unit on their id value.
+        Filters units on their id value.
 
         Args:
             unit_ids: The unit ids to filter with

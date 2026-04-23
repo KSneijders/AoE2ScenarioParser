@@ -51,7 +51,7 @@ with conditions_json.open('r') as f:
             'attribute':      'resource',
             'unit_object':    'primary_unit_ref',
             'next_object':    'secondary_unit_ref',
-            'object_list':    'unit_type',
+            'object_list':    'object_id',
             'unit_ai_action': 'unit_action',
             'technology':     'technology_id',
             'area_x1':        'area',

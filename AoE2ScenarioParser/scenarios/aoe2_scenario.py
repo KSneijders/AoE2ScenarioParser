@@ -50,3 +50,4 @@ class AoE2Scenario:
     # Todo: On-write callbacks
     # Todo: Document from_default() scenario changes (difference between pre-v1 and BFP default)
     # Todo: Prevent source overwrite (unless configured otherwise)
+    # Todo: Add explanation to the docs about `object_id` and `reference_id` meaning in units & effects etc.

@@ -27,7 +27,7 @@ def make_units_for_players(um: UnitManager):
 def test_filter_units_by_allowlist_attr_values(um: UnitManager, make_units_for_players: list[Unit]):
     units = make_units_for_players
 
-    result = list(um.get_units_by_type([4, 5]))
+    result = list(um.get_units_by_object_id([4, 5]))
     assert list(u.type for u in result) == [4, 5, 5, 4]
 
     result2 = list(um.get_units_by("state", [2]))
@@ -38,19 +38,19 @@ def test_filter_units_by_allowlist_attr_values(um: UnitManager, make_units_for_p
 
 
 def test_filter_units_by_blocklist(um: UnitManager, make_units_for_players: list[Unit]):
-    result = list(um.get_units_by_type([5, 7], is_allowlist=False))
+    result = list(um.get_units_by_object_id([5, 7], is_allowlist=False))
     assert list(u.type for u in result) == [4, 6, 4]
 
 
 def test_filter_units_by_with_players_subset(um: UnitManager, make_units_for_players: list[Unit]):
-    result = list(um.get_units_by_type([4], players=[Player.ONE, Player.THREE]))
+    result = list(um.get_units_by_object_id([4], players=[Player.ONE, Player.THREE]))
     assert list(u.reference_id for u in result) == [101, 301]
 
 
 def test_filter_units_by_uses_custom_units_iterable(um: UnitManager, make_units_for_players: list[Unit]):
     player_two_units = [u for u in um.get_all_units() if u.player == Player.TWO]
 
-    result = list(um.get_units_by_type([5], is_allowlist=False, units=player_two_units))
+    result = list(um.get_units_by_object_id([5], is_allowlist=False, units=player_two_units))
     assert len(result) == 1
     assert result[0].reference_id == 202
 
