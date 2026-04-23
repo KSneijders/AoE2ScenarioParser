@@ -56,6 +56,7 @@ class UnitManager(RefStruct, CanBeLinked):
                 unit._garrisoned_units = tuple()
 
     def _assign_unit_properties(self):
+        # Disable mutability for unit arrays
         set_mut(self._units, False)
         for player_units in self.units:
             set_mut(player_units, False)
@@ -148,9 +149,9 @@ class UnitManager(RefStruct, CanBeLinked):
     def clone_unit(self, unit: Unit, player: Player = None) -> Unit:
         """
         Creates and adds a clone of the given unit to the game world. The cloned unit will
-        inherit the properties of the original unit, including its position, type, state,
-        rotation, frame, and other relevant attributes. If no player is specified, the
-        clone will belong to the same player as the original unit.
+        inherit the properties of the original unit, including its position, object_id, state,
+        rotation, frame, and other relevant attributes. If no player is specified, the clone
+        will belong to the same player as the original unit.
 
         Args:
             unit: The unit to clone.
@@ -164,7 +165,7 @@ class UnitManager(RefStruct, CanBeLinked):
                 player = player or unit.player,
                 location = unit.location,
                 z = unit.z,
-                type = unit.type,
+                object_id = unit.object_id,
                 state = unit.state,
                 rotation = unit.rotation,
                 frame = unit.frame,
@@ -220,20 +221,20 @@ class UnitManager(RefStruct, CanBeLinked):
 
         return self.add_units(units)
 
-    def get_first_player_unit(self, player: Player, type: int) -> Unit | None:
+    def get_first_player_unit(self, player: Player, object_id: int) -> Unit | None:
         """
-        Retrieves a unit of a specified type for a given player
+        Retrieves a unit of a specified object ID for a given player
 
         Args:
             player: The player for which the unit should be retrieved.
-            type: An integer representing the type of the unit to retrieve.
+            object_id: An integer representing the object ID of the unit to retrieve.
 
         Returns:
             Returns the retrieved unit if found, otherwise returns None.
         """
         player_units = self.units[player]
         for unit in player_units:
-            if unit.type == type:
+            if unit.object_id == object_id:
                 return unit
 
         return None
@@ -274,19 +275,19 @@ class UnitManager(RefStruct, CanBeLinked):
             return (unit for unit in units if getattr(unit, attr) in attr_values)
         return (unit for unit in units if getattr(unit, attr) not in attr_values)
 
-    def get_units_by_type(
+    def get_units_by_object_id(
         self,
-        unit_types: list[int],
+        object_ids: list[int],
         is_allowlist: bool = True,
         players: Iterable[Player] = None,
         *,
         units: Iterable[Unit] = None,
     ) -> Generator[Unit]:
         """
-        Filter unit on their type value.
+        Filter unit on their object_id value.
 
         Args:
-            unit_types: The types to filter with
+            object_ids: The object IDs to filter with
             is_allowlist: Use the given attrs list as allowlist instead of blocklist
             players: A list of players to filter from. If not used, all players are used.
             units: A set of units to filter from. If not used, all units are used.
@@ -294,9 +295,9 @@ class UnitManager(RefStruct, CanBeLinked):
         Returns:
             A list of units
         """
-        return self.get_units_by("type", unit_types, is_allowlist, players, units = units)
+        return self.get_units_by("object_id", object_ids, is_allowlist, players, units = units)
 
-    def filter_units_by_id(
+    def get_units_by_id(
         self,
         unit_ids: list[int],
         is_allowlist: bool = True,

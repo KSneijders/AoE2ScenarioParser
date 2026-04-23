@@ -19,7 +19,7 @@ from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 if TYPE_CHECKING:
     # noinspection PyUnusedImports
-    from sections import ScenarioSections
+    from AoE2ScenarioParser.sections import ScenarioSections
     from typing import Iterable
 
 
@@ -32,7 +32,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
     y: float                = Retriever(f32,                             default = 0.5)
     z: float                = Retriever(f32,                             default = 0)
     reference_id: int       = Retriever(i32,                             default = -1)
-    type: int               = Retriever(u16,                             default = 4)
+    object_id: int          = Retriever(u16,                             default = 4)
     state: int              = Retriever(u8,                              default = 2)
     rotation: float         = Retriever(f32,                             default = 0)
     """In radians"""
@@ -46,7 +46,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
     def __init__(
         self,
         player: int | Player,
-        type: int,
+        object_id: int,
         location: Location | tuple,
         z: float = 0,
         state: int = 2,
@@ -61,7 +61,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
     ):
         """
         Args:
-            type: Unit type (UnitInfo / BuildingInfo).
+            object_id: Unit object ID (UnitInfo / BuildingInfo).
             location: Location of the object (Point / Tile).
             z: Z-coordinate of the object. Defaults to 0.
             state: State identifier of the object. Defaults to 2.
@@ -79,7 +79,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
         self._garrisoned_units = tuple()
 
         self._player: Player = player
-        self.type: int = type
+        self.object_id: int = object_id
         self.location = location
         self.z = z
         self.state = state
@@ -102,14 +102,14 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
     def garrisoned(
         cls,
         player: int | Player,
-        type: int,
+        object_id: int,
         caption_string_id: int = -1,
         caption_string: str = '',
         reference_id: int = -1,
     ):
         return cls(
             player,
-            type,
+            object_id,
             Point(0, 0),
             caption_string_id = caption_string_id,
             caption_string = caption_string,
@@ -247,15 +247,15 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
 
         for ds in datasets:
             try:
-                type_ = ds.from_id(self.type).name
+                object_id = ds.from_id(self.object_id).name
                 break
             except KeyError:
                 pass
         else:
-            type_ = f"Unknown ({self.type})"
+            object_id = f"Unknown ({self.object_id})"
 
         attributes = {
-            "type":              type_,
+            "object_id":         object_id,
             "location":          self.location,
             "z":                 self.z,
             "state":             self.state,

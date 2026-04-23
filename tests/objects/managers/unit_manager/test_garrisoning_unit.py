@@ -9,12 +9,12 @@ from tests.objects.managers.functions import create_unit
 
 
 def test_add_unit_with_units_garrisoned(um: UnitManager):
-    unit1 = Unit.garrisoned(Player.ONE, type = 4)
-    unit2 = Unit.garrisoned(Player.ONE, type = 4)
+    unit1 = Unit.garrisoned(Player.ONE, object_id = 4)
+    unit2 = Unit.garrisoned(Player.ONE, object_id = 4)
 
     parent = Unit(
         player = Player.ONE,
-        type = UnitInfo.BATTERING_RAM.ID,
+        object_id = UnitInfo.BATTERING_RAM.ID,
         location = (1, 2),
         garrisoned_units = [unit1, unit2]
     )
@@ -31,11 +31,11 @@ def test_add_unit_with_units_garrisoned(um: UnitManager):
 
 
 def test_add_garrisoned_unit_to_linked_unit_from_parent(um: UnitManager):
-    unit1 = Unit.garrisoned(Player.ONE, type = 4)
-    unit2 = Unit.garrisoned(Player.ONE, type = 4)
+    unit1 = Unit.garrisoned(Player.ONE, object_id = 4)
+    unit2 = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
-        type = 4,
+        object_id = 4,
         location = (1, 2),
     )
 
@@ -53,10 +53,10 @@ def test_add_garrisoned_unit_to_linked_unit_from_parent(um: UnitManager):
 
 
 def test_add_already_linked_unit_through_parent_raises_exception():
-    unit = Unit.garrisoned(Player.ONE, type = 4)
+    unit = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
-        type = 4,
+        object_id = 4,
         location = (1, 2),
     )
 
@@ -73,10 +73,10 @@ def test_add_already_linked_unit_through_parent_raises_exception():
 
 
 def test_add_garrisoned_unit_to_linked_unit_from_child(um: UnitManager):
-    unit = Unit.garrisoned(Player.ONE, type = 4)
+    unit = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
-        type = 4,
+        object_id = 4,
         location = (1, 2),
     )
 
@@ -92,10 +92,10 @@ def test_add_garrisoned_unit_to_linked_unit_from_child(um: UnitManager):
 
 
 def test_add_already_linked_unit_through_child_raises_exception():
-    unit = Unit.garrisoned(Player.ONE, type = 4)
+    unit = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
-        type = 4,
+        object_id = 4,
         location = (1, 2),
     )
 

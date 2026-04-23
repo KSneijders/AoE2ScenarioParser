@@ -1,7 +1,7 @@
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from sections import ScenarioSections
+from AoE2ScenarioParser.sections import ScenarioSections
 
 
 def test_import_units_allows_unlinked_units(um: UnitManager):

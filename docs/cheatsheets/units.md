@@ -137,7 +137,7 @@ unit.y = 0.5
 Besides it's location you can also change the type of unit:
 
 ```py
-unit.type = UnitInfo.MAN_AT_ARMS.ID  # Units dataset
+unit.object_id = UnitInfo.MAN_AT_ARMS.ID  # Units dataset
 ```
 
 You also might want to change the ownership of a unit. You can do this by 

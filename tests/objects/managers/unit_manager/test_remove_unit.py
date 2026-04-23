@@ -7,7 +7,7 @@ from tests.objects.managers.functions import create_unit
 
 
 def test_remove_unit(um: UnitManager):
-    unit = Unit(Player.THREE, type = 4, location = (1, 1))
+    unit = Unit(Player.THREE, object_id = 4, location = (1, 1))
 
     um.add_units([
         *[create_unit(Player.GAIA) for _ in range(3)],
@@ -57,9 +57,9 @@ def test_remove_units(um: UnitManager):
 def test_remove_unit_with_garrisoned_units_should_not_remove_garrisoned_units(um: UnitManager):
     parent = Unit(
         player = Player.ONE,
-        type = BuildingInfo.CASTLE.ID,
+        object_id = BuildingInfo.CASTLE.ID,
         location = (1, 1),
-        garrisoned_units = [Unit.garrisoned(Player.ONE, type = 4) for _ in range(10)]
+        garrisoned_units = [Unit.garrisoned(Player.ONE, object_id = 4) for _ in range(10)]
     )
 
     um.add_unit(parent)
@@ -97,11 +97,11 @@ def test_remove_unit_should_unlink_unit(um: UnitManager):
 
 
 def test_remove_unit_should_remove_from_garrisoned_units(um: UnitManager):
-    unit1 = Unit.garrisoned(Player.ONE, type = 4)
-    unit2 = Unit.garrisoned(Player.ONE, type = 4)
+    unit1 = Unit.garrisoned(Player.ONE, object_id = 4)
+    unit2 = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
-        type = UnitInfo.BATTERING_RAM.ID,
+        object_id = UnitInfo.BATTERING_RAM.ID,
         location = (1, 1),
         garrisoned_units = [unit1, unit2]
     )

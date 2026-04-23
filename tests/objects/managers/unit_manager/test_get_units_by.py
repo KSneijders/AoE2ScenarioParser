@@ -28,18 +28,18 @@ def test_filter_units_by_allowlist_attr_values(um: UnitManager, make_units_for_p
     units = make_units_for_players
 
     result = list(um.get_units_by_object_id([4, 5]))
-    assert list(u.type for u in result) == [4, 5, 5, 4]
+    assert list(u.object_id for u in result) == [4, 5, 5, 4]
 
     result2 = list(um.get_units_by("state", [2]))
     assert len(result2) == (len(units) - 1)
 
-    result3 = list(um.filter_units_by_id([101, 202]))
+    result3 = list(um.get_units_by_id([101, 202]))
     assert list(u.reference_id for u in result3) == [101, 202]
 
 
 def test_filter_units_by_blocklist(um: UnitManager, make_units_for_players: list[Unit]):
     result = list(um.get_units_by_object_id([5, 7], is_allowlist=False))
-    assert list(u.type for u in result) == [4, 6, 4]
+    assert list(u.object_id for u in result) == [4, 6, 4]
 
 
 def test_filter_units_by_with_players_subset(um: UnitManager, make_units_for_players: list[Unit]):

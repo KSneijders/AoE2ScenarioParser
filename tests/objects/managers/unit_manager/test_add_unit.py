@@ -8,7 +8,7 @@ def test_add_unit_returns_unit(um: UnitManager):
     result = um.add_unit(Unit(Player.THREE, 4, (1, 2)))
 
     assert isinstance(result, Unit)
-    assert result.type == 4
+    assert result.object_id == 4
     assert result.x == 1
     assert result.y == 2
 

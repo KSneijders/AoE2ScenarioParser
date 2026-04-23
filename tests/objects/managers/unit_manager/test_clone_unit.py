@@ -14,7 +14,7 @@ def test_clone_unit_returns_unit(um: UnitManager):
     assert clone.x == original.x
     assert clone.y == original.y
     assert clone.z == original.z
-    assert clone.type == original.type
+    assert clone.object_id == original.object_id
     assert clone.state == original.state
     assert clone.rotation == original.rotation
     assert clone.frame == original.frame

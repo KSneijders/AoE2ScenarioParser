@@ -5,11 +5,11 @@ from AoE2ScenarioParser.sections import Unit
 def test_create_unit_with_identical_children():
     unit = Unit(
         player = Player.ONE,
-        type = 4,
+        object_id = 4,
         location = (1, 4),
         garrisoned_units = [
-            Unit.garrisoned(player = Player.ONE, type = 4),
-            Unit.garrisoned(player = Player.ONE, type = 4)
+            Unit.garrisoned(player = Player.ONE, object_id = 4),
+            Unit.garrisoned(player = Player.ONE, object_id = 4)
         ]
     )
 
@@ -19,12 +19,12 @@ def test_create_unit_with_identical_children():
 def test_create_unit_with_children():
     unit = Unit(
         player = Player.ONE,
-        type = 4,
+        object_id = 4,
         location = (1, 4),
         reference_id = 1,
         garrisoned_units = [
-            Unit.garrisoned(player = Player.ONE, type = 5, reference_id = 2),
-            Unit.garrisoned(player = Player.ONE, type = 6, reference_id = 3)
+            Unit.garrisoned(player = Player.ONE, object_id = 5, reference_id = 2),
+            Unit.garrisoned(player = Player.ONE, object_id = 6, reference_id = 3)
         ]
     )
 
@@ -40,10 +40,10 @@ def test_create_unit_with_children():
 
 
 def test_set_through_child():
-    unit = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
+    unit = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
     parent = Unit(
         player = Player.ONE,
-        type = 5,
+        object_id = 5,
         location = (3, 5),
         reference_id = 2,
     )
@@ -56,10 +56,10 @@ def test_set_through_child():
 
 
 def test_set_through_parent():
-    unit = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
+    unit = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
     parent = Unit(
         player = Player.ONE,
-        type = 8,
+        object_id = 8,
         location = (5, 6),
         reference_id = 2,
     )
@@ -72,11 +72,11 @@ def test_set_through_parent():
 
 
 def test_parent_add_garrisoned_unit():
-    unit1 = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
-    unit2 = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 2)
+    unit1 = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
+    unit2 = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 2)
     parent = Unit(
         player = Player.ONE,
-        type = 8,
+        object_id = 8,
         location = (5, 6),
         reference_id = 3,
     )
@@ -92,12 +92,12 @@ def test_parent_add_garrisoned_unit():
 
 
 def test_parent_remove_garrisoned_unit():
-    unit1 = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
-    unit2 = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 2)
+    unit1 = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
+    unit2 = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 2)
 
     parent = Unit(
         player = Player.ONE,
-        type = 8,
+        object_id = 8,
         location = (5, 6),
         reference_id = 3,
         garrisoned_units = [unit1, unit2],
@@ -120,10 +120,10 @@ def test_parent_remove_garrisoned_unit():
 
 
 def test_remove_from_child():
-    unit = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
+    unit = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
     parent = Unit(
         player = Player.ONE,
-        type = 8,
+        object_id = 8,
         location = (5, 6),
         reference_id = 3,
         garrisoned_units = [unit],
@@ -142,10 +142,10 @@ def test_remove_from_child():
 
 
 def test_cannot_garrison_more_than_once():
-    unit = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
+    unit = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
     parent = Unit(
         player = Player.ONE,
-        type = 8,
+        object_id = 8,
         location = (5, 6),
         reference_id = 3,
         garrisoned_units = [unit],
@@ -160,10 +160,10 @@ def test_cannot_garrison_more_than_once():
 
 
 def test_is_garrisoned():
-    unit = Unit.garrisoned(player = Player.ONE, type = 4, reference_id = 1)
+    unit = Unit.garrisoned(player = Player.ONE, object_id = 4, reference_id = 1)
     parent = Unit(
         player = Player.ONE,
-        type = 8,
+        object_id = 8,
         location = (5, 6),
         reference_id = 2,
     )
