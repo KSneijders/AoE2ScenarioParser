@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+from AoE2ScenarioParser.objects.support import Area, AreaT, Tile, TileT
 from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import Array32, i32, nt_str32
 
-from AoE2ScenarioParser.objects.support import Area, AreaT, Tile, TileT
 from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 
 
@@ -23,7 +23,7 @@ class Effect(BaseStruct):
     _message: str                    = Retriever(nt_str32,     default = "")
     _sound_name: str                 = Retriever(nt_str32,     default = "")
     # this list starts in 1.20, previous versions use the _properties[4] as the singular selected unit ID
-    _selected_objects: list[int]     = Retriever(i32,          default = -1, repeat = 0)
+    _selected_objects: list[int]     = Retriever(i32,          default = -1, repeat = 0)  # Todo: selected_unit_reference_ids (Internally)
     _message_option1: str            = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
     _message_option2: str            = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
 
