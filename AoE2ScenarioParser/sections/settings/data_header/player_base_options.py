@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from bfp_rs import BaseStruct, Retriever, Version
+from bfp_rs import BaseStruct, ret, Retriever, RetrieverCombiner, Version
 from bfp_rs.types.le import bool32, str16, u16, u32
 
 from AoE2ScenarioParser.datasets.player_data import Civilization
@@ -15,13 +15,17 @@ class PlayerBaseOptions(BaseStruct):
     active: bool             = Retriever(bool32,                                                        default = False)
     starting_resources: int  = Retriever(Resources,                           max_ver = Version(1, 13), default_factory = Resources)
     human: bool              = Retriever(bool32,                                                        default = False)
-    civilization_old: int    = Retriever(u32,                                 max_ver = Version(1, 55), default = 65537)
-    architecture_old: int    = Retriever(u32,       min_ver = Version(1, 40), max_ver = Version(1, 55), default = 65537)
+    civilization_int: int    = Retriever(u32,                                 max_ver = Version(1, 55), default = 65537)
+    architecture_int: int    = Retriever(u32,       min_ver = Version(1, 40), max_ver = Version(1, 55), default = 65537)
     str_sign1: int           = Retriever(u16,       min_ver = Version(1, 56),                           default = 2565)
-    civilization: str        = Retriever(str16,     min_ver = Version(1, 56),                           default = Civilization.RANDOM.value)
+    civilization_str: str    = Retriever(str16,     min_ver = Version(1, 56),                           default = Civilization.RANDOM.value)
     str_sign2: int           = Retriever(u16,       min_ver = Version(1, 56),                           default = 2565)
-    architecture: str        = Retriever(str16,     min_ver = Version(1, 56),                           default = Civilization.RANDOM.value)
+    architecture_str: str    = Retriever(str16,     min_ver = Version(1, 56),                           default = Civilization.RANDOM.value)
     posture: int             = Retriever(u32,                                                           default = 4)
+
+    civilization = RetrieverCombiner(ret(civilization_int), ret(civilization_str))
+    architecture = RetrieverCombiner(ret(architecture_int), ret(architecture_str))
+    # @formatter:on
 
     # _civilization_1_36: int = Retriever(u32, default = 36,                           max_ver = Version(1, 40))
     # _civilization_1_41: int = Retriever(u32, default = 38, min_ver = Version(1, 41), max_ver = Version(1, 42))
@@ -36,4 +40,3 @@ class PlayerBaseOptions(BaseStruct):
     # civilization = RetrieverCombiner(_civilization_1_36, _civilization_1_41, _civilization_1_43, _civilization_1_46)
     # architecture = RetrieverCombiner(_architecture_1_40, _architecture_1_41, _architecture_1_43, _architecture_1_46)
 
-    # @formatter:on

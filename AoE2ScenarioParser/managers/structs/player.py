@@ -1,14 +1,15 @@
+from AoE2ScenarioParser.objects.support import Point, PointT, Tile, TileT
 from bfp_rs import RefStruct, ret
-from bfp_rs.bfp_rs import RetrieverRef
+from bfp_rs.bfp_rs import RetrieverRef, Version
 from bfp_rs.combinators import get_attr
 
 from AoE2ScenarioParser.datasets.player_data import Civilization, StartingAge
 from AoE2ScenarioParser.managers.support.decorators import dataset_property, no_gaia_property
-from AoE2ScenarioParser.objects.support import Point, PointT, Tile, TileT
 from AoE2ScenarioParser.sections import (
     DataHeader, Diplomacy, Options, PlayerBaseOptions, PlayerOptions, Resources,
     ScenarioPlayerData, ScenarioSections, Settings, UnitData, View, ViewF,
 )
+from datasets.player_data.civilization import CivilizationOld
 
 GAIA_INDEX = 8  # get(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.gaia_player_idx)) + 1
 INDEX = get_attr('index')
@@ -27,7 +28,7 @@ class Player(RefStruct):
     # GAIA not present:          GAIA_LAST_INDEX + no_gaia_property
     _active: bool                  = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.active))
     human: bool                    = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.human))
-    _civilization: int             = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.civilization))
+    _civilization: Civilization    = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.civilization))
     _architecture: int             = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_base_options),   GAIA_LAST_INDEX,         ret(PlayerBaseOptions.architecture))
     _tribe_name: str               = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.tribe_names),           GAIA_LAST_INDEX)  # NO-GAIA
     _string_table_name_id: int     = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.data_header),          ret(DataHeader.player_name_str_ids),   GAIA_LAST_INDEX)  # NO-GAIA
@@ -42,7 +43,7 @@ class Player(RefStruct):
     _base_priority: int            = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.options),              ret(Options.base_priorities),          INDEX)  # NO-GAIA
     _view: View                    = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.options),              ret(Options.player_views),             GAIA_LAST_INDEX)  # NO-GAIA
     _disabled_techs: list[int]     = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.options),              ret(Options.disabled_tech_ids),        GAIA_LAST_INDEX)  # NO-GAIA
-    _disabled_units: list[int]     = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.options),              ret(Options.disabled_unit_ids),        GAIA_LAST_INDEX)  # NO-GAIA
+    _disabled_units: list[int]     = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.options),              ret(Options.disabled_object_ids),      GAIA_LAST_INDEX)  # NO-GAIA
     _disabled_buildings: list[int] = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.options),              ret(Options.disabled_building_ids),    GAIA_LAST_INDEX)  # NO-GAIA
     _diplomacy: list[int]          = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.diplomacy),            ret(Diplomacy.player_stances),         GAIA_LAST_INDEX)  # NO-GAIA
     _allied_victory: bool          = RetrieverRef(ret(ScenarioSections.settings),  ret(Settings.diplomacy),            ret(Diplomacy.allied_victories),       GAIA_LAST_INDEX)  # NO-GAIA
@@ -65,13 +66,45 @@ class Player(RefStruct):
 
     # ========== Dataset Casting ==========
 
-    @dataset_property(Civilization)
+    @property
     def civilization(self) -> Civilization:
-        return self._civilization  # type: ignore
+        if self._struct.ver >= Version(1, 56):
+            return Civilization(self._civilization)
+        return Civilization[CivilizationOld(self._civilization).name]  # type: ignore
 
-    @dataset_property(Civilization)
+    @civilization.setter
+    def civilization(self, value):
+        if isinstance(value, int):
+            name = CivilizationOld(value).name
+        elif isinstance(value, str):
+            name = Civilization(value).name
+        else:
+            raise ValueError(f"Invalid civilization value: {value}")
+
+        if self._struct.ver >= Version(1, 56):
+            self._civilization = Civilization[name]  # type: ignore
+        else:
+            self._civilization = CivilizationOld[name]  # type: ignore
+
+    @property
     def architecture(self) -> Civilization:
-        return self._architecture  # type: ignore
+        if self._struct.ver >= Version(1, 56):
+            return Civilization(self._architecture)
+        return Civilization[CivilizationOld(self._architecture).name]  # type: ignore
+
+    @architecture.setter
+    def architecture(self, value):
+        if isinstance(value, int):
+            name = CivilizationOld(value).name
+        elif isinstance(value, str):
+            name = Civilization(value).name
+        else:
+            raise ValueError(f"Invalid architecture value: {value}")
+
+        if self._struct.ver >= Version(1, 56):
+            self._architecture = Civilization[name]  # type: ignore
+        else:
+            self._architecture = CivilizationOld[name]  # type: ignore
 
     @dataset_property(StartingAge)
     def starting_age(self) -> StartingAge:
