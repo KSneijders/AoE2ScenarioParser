@@ -24,7 +24,7 @@ with conditions_json.open('r') as f:
     base_types: dict[str, str] = dict(legacy_condition_definitions['-1']['attribute_presentation'])
     base_types['area'] = 'Area'
     base_types['quantity'] = 'int'
-    base_types['timer'] = 'int'
+    base_types['timer'] = 'int'  # still used as 'before' key in replacements lookup
     base_types['trigger_id'] = 'int'
     base_types['ai_signal'] = 'int'
     base_types['timer_id'] = 'int'
@@ -48,16 +48,22 @@ with conditions_json.open('r') as f:
             attributes_list.remove('condition_type')
 
         replacements = {
-            'attribute':      'resource',
-            'unit_object':    'primary_unit_ref',
-            'next_object':    'secondary_unit_ref',
-            'object_list':    'object_id',
-            'unit_ai_action': 'unit_action',
-            'technology':     'technology_id',
-            'area_x1':        'area',
-            'area_y1':        None,
-            'area_x2':        None,
-            'area_y2':        None,
+            'attribute':                         'resource',
+            'unit_object':                       'primary_unit_ref',
+            'next_object':                       'secondary_unit_ref',
+            'object_list':                       'object_id',
+            'unit_ai_action':                    'unit_action',
+            'technology':                        'technology_id',
+            'area_x1':                           'area',
+            'area_y1':                           None,
+            'area_x2':                           None,
+            'area_y2':                           None,
+            'timer':                             'timer_seconds',
+            'variable':                          'variable1_id',
+            'object_state':                      'unit_state',
+            'include_changeable_weapon_objects': 'include_transformable_units',
+            'variable2':                         'variable2_id',
+            'local_technology':                  'local_technology_id',
         }
 
         attributes: dict[str, str | None] = {attr: attr for attr in attributes_list}

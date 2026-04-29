@@ -131,7 +131,7 @@
         "default": null
       },
       {
-        "name": "include_changeable_weapon_objects",
+        "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
         "description": "When enabled, also includes changeable weapon objects in the count",
@@ -194,7 +194,7 @@
         "default": null
       },
       {
-        "name": "include_changeable_weapon_objects",
+        "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
         "description": "When enabled, also includes changeable weapon objects in the count",
@@ -264,14 +264,14 @@
         "default": null
       },
       {
-        "name": "object_state",
+        "name": "unit_state",
         "ref": null,
         "type": "ObjectState",
         "description": "The state units need to be in for this condition to apply",
         "default": null
       },
       {
-        "name": "include_changeable_weapon_objects",
+        "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
         "description": "When enabled, also includes changeable weapon objects in the count",
@@ -432,7 +432,7 @@
         "default": null
       },
       {
-        "name": "timer",
+        "name": "timer_seconds",
         "ref": null,
         "type": "int",
         "description": "The time in seconds before the condition triggers",
@@ -817,7 +817,7 @@
         "default": null
       },
       {
-        "name": "variable",
+        "name": "variable1_id",
         "ref": null,
         "type": "VariableId",
         "description": "The variable to <PURPOSE>",
@@ -1270,7 +1270,7 @@
         "default": null
       },
       {
-        "name": "variable",
+        "name": "variable1_id",
         "ref": null,
         "type": "VariableId",
         "description": "The variable to <PURPOSE>",
@@ -1284,7 +1284,7 @@
         "default": null
       },
       {
-        "name": "variable2",
+        "name": "variable2_id",
         "ref": null,
         "type": "VariableId",
         "description": "The second variable to <PURPOSE>",
@@ -1319,7 +1319,7 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "local_technology",
+        "name": "local_technology_id",
         "ref": null,
         "type": "TechInfo",
         "description": "The local technology which <PURPOSE>",

@@ -55,7 +55,7 @@ def get_property_snippet(name: str, desc: str, get_type: str, set_type: str) -> 
 RETS = [
     'message',
     'sound_name',
-    'selected_objects',
+    'selected_unit_ref_ids',
     'message_option1',
     'message_option2',
 ]

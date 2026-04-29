@@ -40,7 +40,7 @@ with effects_json.open('r') as f:
         types['item_id'] = 'int'
         types['facet'] = 'int'
         types['facet2'] = 'int'
-        types['ai_signal_value'] = 'int'
+        types['ai_signal'] = 'int'
         types['display_time'] = 'int'
         types['timer'] = 'int'
         types['resource1_quantity'] = 'int'
@@ -75,12 +75,11 @@ with effects_json.open('r') as f:
             'area_y1':                   None,
             'area_x2':                   None,
             'area_y2':                   None,
-            'selected_object_ids':       'selected_objects',
-            'trigger_id':                'trigger',
+            'selected_object_ids':       'selected_unit_ref_ids',
             'tribute_list':              'resource',
             'diplomacy':                 'diplomacy_state',
             'number_of_units_selected':  'num_units_selected',
-            'object_list_unit_id':       'object_unit_id',
+            'object_list_unit_id':       'object_id',
             'technology':                'technology_id',
             'string_id':                 'str_id',
             'unknown_2':                 'timer',
@@ -89,10 +88,10 @@ with effects_json.open('r') as f:
             'stone':                     'legacy_stone',
             'gold':                      'legacy_gold',
             'force_research_technology': 'force_technology',
-            'object_list_unit_id_2':     'object_unit_id2',
+            'object_list_unit_id_2':     'object2_id',
             'unknown_3':                 'unused1',
             'timer':                     'timer_id',
-            'location_object_reference': 'location_object_ref',
+            'location_object_reference': 'location_unit_ref',
             'unknown_4':                 'unused2',
             'string_id_option1':         'decision_option1_str_id',
             'string_id_option2':         'decision_option2_str_id',
@@ -103,6 +102,14 @@ with effects_json.open('r') as f:
             'resource_2_quantity':       'resource2_quantity',
             'resource_3':                'resource3',
             'resource_3_quantity':       'resource3_quantity',
+            'ai_signal_value':           'ai_signal',
+            'object_attributes':         'object_attribute',
+            'variable':                  'variable1_id',
+            'object_state':              'unit_state',
+            'variable2':                 'variable2_id',
+            'object_group2':             'object2_group',
+            'object_type2':              'object2_type',
+            'flash_object':              'flash_unit',
         }
 
         for before, after in replacements.items():
