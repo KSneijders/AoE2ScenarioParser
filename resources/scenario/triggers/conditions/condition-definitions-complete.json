@@ -3,15 +3,7 @@
     "id": 0,
     "name": "none",
     "description": "----- DESCRIPTION TO BE FILLED -----",
-    "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      }
-    ]
+    "attributes": []
   },
   {
     "id": 1,
@@ -19,17 +11,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -54,24 +39,17 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
+        "name": "primary_unit_ref",
         "ref": null,
-        "type": "int",
-        "description": null,
+        "type": "Unit",
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
-        "name": "unit_object",
+        "name": "secondary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "next_object",
-        "ref": null,
-        "type": "Unit",
-        "description": null,
+        "description": "The secondary unit referenced by this condition",
         "default": null
       },
       {
@@ -89,13 +67,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -103,10 +74,10 @@
         "default": null
       },
       {
-        "name": "object_list",
+        "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": null,
+        "description": "The type of unit to <CHECK>",
         "default": null
       },
       {
@@ -145,13 +116,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -159,10 +123,10 @@
         "default": null
       },
       {
-        "name": "object_list",
+        "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": null,
+        "description": "The type of unit to <CHECK>",
         "default": null
       },
       {
@@ -208,13 +172,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -222,10 +179,10 @@
         "default": null
       },
       {
-        "name": "object_list",
+        "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": null,
+        "description": "The type of unit to <CHECK>",
         "default": null
       },
       {
@@ -285,17 +242,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -313,17 +263,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -348,13 +291,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -362,10 +298,10 @@
         "default": null
       },
       {
-        "name": "attribute",
+        "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": null,
+        "description": "The resource to check for <CONDITION>",
         "default": null
       },
       {
@@ -390,13 +326,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
@@ -404,7 +333,7 @@
         "default": null
       },
       {
-        "name": "technology",
+        "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
         "description": "The technology which <PURPOSE>",
@@ -424,13 +353,6 @@
     "name": "timer",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
       {
         "name": "timer_seconds",
         "ref": null,
@@ -453,17 +375,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -480,13 +395,6 @@
     "name": "ai_signal",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
       {
         "name": "ai_signal",
         "ref": null,
@@ -509,13 +417,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
@@ -537,31 +438,24 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
-        "name": "next_object",
+        "name": "secondary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The secondary unit referenced by this condition",
         "default": null
       },
       {
-        "name": "object_list",
+        "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": null,
+        "description": "The type of unit to <CHECK>",
         "default": null
       },
       {
@@ -593,17 +487,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       }
     ]
@@ -614,17 +501,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       }
     ]
@@ -635,13 +515,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "source_player",
         "ref": null,
         "type": "PlayerId",
@@ -649,7 +522,7 @@
         "default": null
       },
       {
-        "name": "technology",
+        "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
         "description": "The technology which <PURPOSE>",
@@ -670,13 +543,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -684,10 +550,10 @@
         "default": null
       },
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -704,13 +570,6 @@
     "name": "difficulty_level",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
       {
         "name": "quantity",
         "ref": null,
@@ -733,13 +592,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -753,13 +605,6 @@
     "name": "technology_state",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
       {
         "name": "quantity",
         "ref": null,
@@ -775,7 +620,7 @@
         "default": null
       },
       {
-        "name": "technology",
+        "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
         "description": "The technology which <PURPOSE>",
@@ -795,13 +640,6 @@
     "name": "variable_value",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
       {
         "name": "quantity",
         "ref": null,
@@ -838,13 +676,6 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
@@ -852,10 +683,10 @@
         "default": null
       },
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -879,13 +710,6 @@
     "name": "diplomacy_state",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
-      {
-        "name": "condition_type",
-        "ref": null,
-        "type": "int",
-        "description": null,
-        "default": null
-      },
       {
         "name": "quantity",
         "ref": null,
@@ -936,10 +760,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -964,10 +788,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -992,24 +816,24 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
-        "name": "next_object",
+        "name": "secondary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The secondary unit referenced by this condition",
         "default": null
       },
       {
-        "name": "object_list",
+        "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": null,
+        "description": "The type of unit to <CHECK>",
         "default": null
       },
       {
@@ -1034,10 +858,10 @@
         "default": null
       },
       {
-        "name": "unit_ai_action",
+        "name": "unit_action",
         "ref": null,
         "type": "UnitAIAction",
-        "description": null,
+        "description": "The unit AI action to check",
         "default": null
       }
     ]
@@ -1075,10 +899,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -1193,10 +1017,10 @@
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
-        "name": "object_list",
+        "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": null,
+        "description": "The type of unit to <CHECK>",
         "default": null
       },
       {
@@ -1228,10 +1052,10 @@
         "default": null
       },
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
@@ -1301,7 +1125,7 @@
         "name": "trigger_id",
         "ref": null,
         "type": "int",
-        "description": null,
+        "description": "The trigger to <CHECK>",
         "default": null
       },
       {
@@ -1333,10 +1157,10 @@
         "default": null
       },
       {
-        "name": "unit_object",
+        "name": "primary_unit_ref",
         "ref": null,
         "type": "Unit",
-        "description": null,
+        "description": "The primary unit referenced by this condition",
         "default": null
       },
       {
