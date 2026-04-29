@@ -175,7 +175,8 @@ class EffectId(IntEnum):
     - instruction_panel_position
     - play_sound
     - message
-    - sound_name"""
+    - sound_name
+    - use_tag_color_for_icon"""
     CLEAR_INSTRUCTIONS = 21
     """Attributes for the **clear_instructions** effect are: \n
     - instruction_panel_position"""
@@ -928,7 +929,8 @@ class EffectId(IntEnum):
     - quantity
     - quantity_float
     - armour_attack_class
-        
+    - object_filter
+
     This effect was added in: 1.55 & Trigger Version 4.5
     """
     MODIFY_OBJECT_ATTRIBUTE_BY_VARIABLE = 106
@@ -986,6 +988,14 @@ class EffectId(IntEnum):
     - max_units_affected
     - issue_group_command
     - queue_action
+
+    This effect was added in: 1.57 & Trigger Version 4.6
+    """
+    MIRROR_DIPLOMACY = 109
+    """Attributes for the **mirror_diplomacy** effect are: \n
+    - source_player
+    - target_player
+    - enabled
 
     This effect was added in: 1.57 & Trigger Version 4.6
     """
@@ -1069,6 +1079,8 @@ empty_attributes = {
     "wall_y1": -1,
     "wall_x2": -1,
     "wall_y2": -1,
+    "object_filter": -1,
+    "use_tag_color_for_icon": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,
