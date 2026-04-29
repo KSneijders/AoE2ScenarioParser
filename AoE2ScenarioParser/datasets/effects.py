@@ -1069,6 +1069,8 @@ empty_attributes = {
     "wall_y1": -1,
     "wall_x2": -1,
     "wall_y2": -1,
+    "object_filter": -1,
+    "use_tag_color_for_icon": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,
