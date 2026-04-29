@@ -81,7 +81,7 @@
             "wall_y1": "",
             "wall_x2": "",
             "wall_y2": "",
-            "object_filter": "int",
+            "object_filter": "ObjectModifyAttributeState",
             "use_tag_color_for_icon": "bool",
             "message": "str",
             "sound_name": "str",

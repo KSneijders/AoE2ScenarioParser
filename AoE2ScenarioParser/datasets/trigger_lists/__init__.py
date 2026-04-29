@@ -42,3 +42,4 @@ from .decision_option import DecisionOption
 from .disable_unit_flag import DisableUnitFlag
 from .attack_priority import AttackPriority
 from .local_technology import LocalTechnology
+from .object_modify_attribute_state import ObjectModifyAttributeState
