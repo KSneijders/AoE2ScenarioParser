@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from bfp_rs import Version
+
 from AoE2ScenarioParser.managers import MapManager, MessageManager, OptionManager, PlayerManager, UnitManager, XsManager
 from AoE2ScenarioParser.sections import ScenarioSections
+from sections import DE_LATEST
 
 if TYPE_CHECKING:
     from typing import Self
@@ -11,9 +14,12 @@ if TYPE_CHECKING:
 
 class AoE2Scenario:
 
-    def __init__(self, sections: ScenarioSections):
+    def __init__(self, ver: Version = None):
         super().__init__()
 
+        self._init(ScenarioSections(ver=ver or DE_LATEST))
+
+    def _init(self, sections: ScenarioSections):
         self.sections: ScenarioSections = sections
 
         self.message_manager: MessageManager = MessageManager(sections)
@@ -40,7 +46,10 @@ class AoE2Scenario:
     def from_file(cls, path: str) -> Self:
         sections = ScenarioSections.from_file(path, strict = True)
 
-        return cls(sections)
+        inst = cls.__new__(cls)
+        inst._init(sections)
+
+        return inst
 
     def to_file(self, path: str) -> None:
         self.sections.to_file(path)
