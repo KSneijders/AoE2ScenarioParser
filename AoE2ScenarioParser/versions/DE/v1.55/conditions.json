@@ -30,7 +30,7 @@
             "include_changeable_weapon_objects": "bool",
             "decision_id": "",
             "decision_option": "DecisionOption",
-            "variable2":  "VariableId",
+            "variable2": "VariableId",
             "local_technology": "TechInfo",
             "object_group2": "ObjectClass",
             "object_type2": "ObjectType",
@@ -71,10 +71,10 @@
             "include_changeable_weapon_objects": -1,
             "decision_id": -1,
             "decision_option": -1,
-            "variable2":  -1,
-            "local_technology":  -1,
-            "object_group2":  -1,
-            "object_type2":  -1,
+            "variable2": -1,
+            "local_technology": -1,
+            "object_group2": -1,
+            "object_type2": -1,
             "xs_function": ""
         }
     },
@@ -1277,7 +1277,7 @@
         }
     },
     "56": {
-        "name": "building_is_trading",
+        "name": "victory_timer",
         "attributes": [
             "quantity",
             "source_player",
@@ -1348,7 +1348,7 @@
     },
     "75": {
         "name": "decision_triggered",
-        "attributes":[
+        "attributes": [
             "inverted",
             "decision_id",
             "decision_option"
@@ -1360,7 +1360,7 @@
         }
     },
     "76": {
-        "name":  "object_attacked",
+        "name": "object_attacked",
         "attributes": [
             "object_list",
             "quantity",
@@ -1377,7 +1377,7 @@
         }
     },
     "77": {
-        "name":  "hero_power_cast",
+        "name": "hero_power_cast",
         "attributes": [
             "source_player"
         ],
@@ -1387,7 +1387,7 @@
         }
     },
     "78": {
-        "name":  "compare_variables",
+        "name": "compare_variables",
         "attributes": [
             "inverted",
             "variable",
@@ -1395,15 +1395,15 @@
             "variable2"
         ],
         "default_attributes": {
-           "condition_type": 78,
-           "inverted": 0,
-           "variable": 0,
-           "comparison": 0,
-           "variable2": 0
+            "condition_type": 78,
+            "inverted": 0,
+            "variable": 0,
+            "comparison": 0,
+            "variable2": 0
         }
     },
     "79": {
-        "name":  "trigger_active",
+        "name": "trigger_active",
         "attributes": [
             "trigger_id",
             "inverted"
@@ -1414,7 +1414,7 @@
         }
     },
     "80": {
-        "name":  "local_tech_researched",
+        "name": "local_tech_researched",
         "attributes": [
             "local_technology",
             "source_player",

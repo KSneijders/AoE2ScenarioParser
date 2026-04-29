@@ -937,7 +937,7 @@
   },
   {
     "id": 56,
-    "name": "building_is_trading",
+    "name": "victory_timer",
     "description": "----- DESCRIPTION TO BE FILLED -----",
     "attributes": [
       {
