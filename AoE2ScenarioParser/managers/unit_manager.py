@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
+from AoE2ScenarioParser.objects.support import Area
 from bfp_rs import borrow_mut, RefStruct, ret, RetrieverRef, set_mut
 
 from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError, ObjectAlreadyLinkedError
-from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
 
@@ -70,7 +70,7 @@ class UnitManager(RefStruct, CanBeLinked):
 
                 if unit.is_garrisoned:
                     # noinspection PyProtectedMember
-                    parent = self._unit_reference_mapping[unit._garrisoned_in_ref]
+                    parent = self._unit_reference_mapping[unit._garrisoned_in_unit_ref]
                     unit.garrisoned_in = parent
 
         self._next_unit_reference_id = highest_reference_id

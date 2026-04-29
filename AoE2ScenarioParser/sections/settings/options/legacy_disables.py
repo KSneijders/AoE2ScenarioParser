@@ -12,9 +12,9 @@ def sync_num_techs():
     ]
 
 
-def sync_num_units():
+def sync_num_objects():
     return [
-        set_(ret(LegacyDisables._num_disabled_units), i).from_len(ret(LegacyDisables.disabled_unit_ids), i)
+        set_(ret(LegacyDisables._num_disabled_objects), i).from_len(ret(LegacyDisables.disabled_object_ids), i)
         for i in range(16)
     ]
 
@@ -43,8 +43,8 @@ class LegacyDisables(BaseStruct):
     _num_disabled_techs: list[int]              = Retriever(Array[16][i32],            min_ver = Version(1, 18),                           default_factory = lambda _ver: [0]*16,                       on_write = sync_num_techs)
     _disabled_tech_ids: list[list[int]]         = Retriever(Array[16][Array[30][i32]], min_ver = Version(1, 18),                           default_factory = lambda _ver: [[-1]*30 for _ in range(16)])
 
-    _num_disabled_units: list[int]              = Retriever(Array[16][i32],            min_ver = Version(1, 18),                           default_factory = lambda _ver: [0]*16,                       on_write = sync_num_units)
-    disabled_unit_ids: list[list[int]]          = Retriever(Array[16][Array[30][i32]], min_ver = Version(1, 18),                           default_factory = lambda _ver: [[-1]*30 for _ in range(16)])
+    _num_disabled_objects: list[int]            = Retriever(Array[16][i32],            min_ver = Version(1, 18),                           default_factory = lambda _ver: [0]*16,                       on_write = sync_num_objects)
+    disabled_object_ids: list[list[int]]        = Retriever(Array[16][Array[30][i32]], min_ver = Version(1, 18),                           default_factory = lambda _ver: [[-1]*30 for _ in range(16)])
 
     _num_disabled_buildings_old: list[int]      = Retriever(Array[16][i32],            min_ver = Version(1, 18), max_ver = Version(1, 24), default_factory = lambda _ver: [0]*16,                       on_write = sync_num_disabled_buildings_old)
     _num_disabled_buildings: list[int]          = Retriever(Array[16][i32],            min_ver = Version(1, 25),                           default_factory = lambda _ver: [0]*16,                       on_write = sync_num_disabled_buildings)

@@ -33,10 +33,10 @@ def test_create_unit_with_children():
     assert unit.garrisoned_units[1].reference_id == 3
 
     assert unit.garrisoned_units[0].garrisoned_in is unit
-    assert unit.garrisoned_units[0]._garrisoned_in_ref == unit.reference_id
+    assert unit.garrisoned_units[0]._garrisoned_in_unit_ref == unit.reference_id
 
     assert unit.garrisoned_units[1].garrisoned_in is unit
-    assert unit.garrisoned_units[1]._garrisoned_in_ref == unit.reference_id
+    assert unit.garrisoned_units[1]._garrisoned_in_unit_ref == unit.reference_id
 
 
 def test_set_through_child():
@@ -50,7 +50,7 @@ def test_set_through_child():
     unit.garrisoned_in = parent
 
     assert unit.garrisoned_in is parent
-    assert unit._garrisoned_in_ref == parent.reference_id
+    assert unit._garrisoned_in_unit_ref == parent.reference_id
 
     assert parent.garrisoned_units[0] is unit
 
@@ -66,7 +66,7 @@ def test_set_through_parent():
     parent.garrisoned_units = tuple([unit])
 
     assert unit.garrisoned_in is parent
-    assert unit._garrisoned_in_ref == parent.reference_id
+    assert unit._garrisoned_in_unit_ref == parent.reference_id
 
     assert parent.garrisoned_units[0] is unit
 
@@ -83,9 +83,9 @@ def test_parent_add_garrisoned_unit():
     parent.add_garrisoned_units(unit1, unit2)
 
     assert unit1.garrisoned_in is parent
-    assert unit1._garrisoned_in_ref == parent.reference_id
+    assert unit1._garrisoned_in_unit_ref == parent.reference_id
     assert unit2.garrisoned_in is parent
-    assert unit2._garrisoned_in_ref == parent.reference_id
+    assert unit2._garrisoned_in_unit_ref == parent.reference_id
 
     assert parent.garrisoned_units[0] is unit1
     assert parent.garrisoned_units[1] is unit2
@@ -135,7 +135,7 @@ def test_remove_from_child():
     unit.garrisoned_in = None
 
     assert len(parent.garrisoned_units) == 0
-    assert unit._garrisoned_in_ref == -1
+    assert unit._garrisoned_in_unit_ref == -1
 
     # Allow setting to None when already no parent
     unit.garrisoned_in = None

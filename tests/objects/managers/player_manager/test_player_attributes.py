@@ -1,9 +1,9 @@
 import pytest
+from AoE2ScenarioParser.objects.support import Point, Tile
 
 from AoE2ScenarioParser.datasets.player_data import Civilization
 from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance
 from AoE2ScenarioParser.managers import PlayerManager
-from AoE2ScenarioParser.objects.support import Point, Tile
 
 
 def test_no_gaia_attributes(pm: PlayerManager):

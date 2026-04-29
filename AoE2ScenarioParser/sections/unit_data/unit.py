@@ -3,6 +3,8 @@ from __future__ import annotations
 from math import floor
 from typing import TYPE_CHECKING
 
+from AoE2ScenarioParser.objects.support import Point, Tile
+from AoE2ScenarioParser.objects.support.location import Location
 from bfp_rs import BaseStruct, Context, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
@@ -13,8 +15,6 @@ from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
-from AoE2ScenarioParser.objects.support import Point, Tile
-from AoE2ScenarioParser.objects.support.location import Location
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 if TYPE_CHECKING:
@@ -28,19 +28,19 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
     _struct: 'ScenarioSections | None' = None
 
     # @formatter:off
-    x: float                = Retriever(f32,                             default = 0.5)
-    y: float                = Retriever(f32,                             default = 0.5)
-    z: float                = Retriever(f32,                             default = 0)
-    reference_id: int       = Retriever(i32,                             default = -1)
-    object_id: int          = Retriever(u16,                             default = 4)
-    state: int              = Retriever(u8,                              default = 2)
-    rotation: float         = Retriever(f32,                             default = 0)
+    x: float                     = Retriever(f32,                             default = 0.5)
+    y: float                     = Retriever(f32,                             default = 0.5)
+    z: float                     = Retriever(f32,                             default = 0)
+    reference_id: int            = Retriever(i32,                             default = -1)
+    object_id: int               = Retriever(u16,                             default = 4)
+    state: int                   = Retriever(u8,                              default = 2)
+    rotation: float              = Retriever(f32,                             default = 0)
     """In radians"""
-    frame: int              = Retriever(u16,   min_ver = Version(1, 15), default = 0)
-    _garrisoned_in_ref: int = Retriever(i32,   min_ver = Version(1, 13), default = -1)
-    """Another object's reference_id. -1 (and 0 for v1.13 to 1.20) means None"""
-    caption_string_id: int  = Retriever(i32,   min_ver = Version(1, 54), default = -1)
-    caption_string: str     = Retriever(str32, min_ver = Version(1, 55), default = "")
+    frame: int                   = Retriever(u16,   min_ver = Version(1, 15), default = 0)
+    _garrisoned_in_unit_ref: int = Retriever(i32,   min_ver = Version(1, 13), default = -1)
+    """Another unit's reference_id. -1 (and 0 for v1.13 to 1.20) means None"""
+    caption_string_id: int       = Retriever(i32,   min_ver = Version(1, 54), default = -1)
+    caption_string: str          = Retriever(str32, min_ver = Version(1, 55), default = "")
     # @formatter:on
 
     def __init__(
@@ -186,7 +186,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
 
     @property
     def is_garrisoned(self):
-        return self._garrisoned_in_ref != -1
+        return self._garrisoned_in_unit_ref != -1
 
     @property
     def is_not_garrisoned(self):
@@ -205,12 +205,12 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
 
         if unit is None:
             self._garrisoned_in = None
-            self._garrisoned_in_ref = -1
+            self._garrisoned_in_unit_ref = -1
 
             return
 
         self._garrisoned_in = unit
-        self._garrisoned_in_ref = unit.reference_id
+        self._garrisoned_in_unit_ref = unit.reference_id
 
         if self._is_linked() and self._is_not_linked_to_same(unit):
             from AoE2ScenarioParser.managers import UnitManager

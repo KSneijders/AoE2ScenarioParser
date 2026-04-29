@@ -14,7 +14,7 @@ class Options(BaseStruct):
     # @formatter:off
     _legacy_disables: LegacyDisables        = Retriever(LegacyDisables,          min_ver = Version(1,  3), max_ver = Version(1, 26), default_factory = LegacyDisables)
     _disabled_tech_ids: list[list[int]]     = Retriever(StackedArray32[16][u32], min_ver = Version(1, 27),                           default_factory = lambda _: [[] for _ in range(16)])
-    _disabled_unit_ids: list[list[int]]     = Retriever(StackedArray32[16][u32], min_ver = Version(1, 27),                           default_factory = lambda _: [[] for _ in range(16)])
+    _disabled_object_ids: list[list[int]]   = Retriever(StackedArray32[16][u32], min_ver = Version(1, 27),                           default_factory = lambda _: [[] for _ in range(16)])
     _disabled_building_ids: list[list[int]] = Retriever(StackedArray32[16][u32], min_ver = Version(1, 27),                           default_factory = lambda _: [[] for _ in range(16)])
 
     combat_mode: bool                       = Retriever(bool32,                  min_ver = Version(1,  5),                           default = False)
@@ -42,10 +42,10 @@ class Options(BaseStruct):
     secondary_game_mode                     = Retriever(u32,                     min_ver = Version(1, 45),                           default = 0)
 
     _legacy_disabled_tech_ids: list[list[int]]     = RetrieverRef(ret(_legacy_disables), ret(LegacyDisables.disabled_tech_ids))
-    _legacy_disabled_unit_ids: list[list[int]]     = RetrieverRef(ret(_legacy_disables), ret(LegacyDisables.disabled_unit_ids))
+    _legacy_disabled_object_ids: list[list[int]]   = RetrieverRef(ret(_legacy_disables), ret(LegacyDisables.disabled_object_ids))
     _legacy_disabled_building_ids: list[list[int]] = RetrieverRef(ret(_legacy_disables), ret(LegacyDisables.disabled_building_ids))
 
-    disabled_tech_ids: list[list[int]]     = RetrieverCombiner(ret(_disabled_tech_ids), ret(_legacy_disabled_tech_ids))
-    disabled_unit_ids: list[list[int]]     = RetrieverCombiner(ret(_disabled_unit_ids), ret(_legacy_disabled_unit_ids))
-    disabled_building_ids: list[list[int]] = RetrieverCombiner(ret(_disabled_building_ids), ret(_legacy_disabled_building_ids))
+    disabled_tech_ids: list[list[int]]             = RetrieverCombiner(ret(_disabled_tech_ids), ret(_legacy_disabled_tech_ids))
+    disabled_object_ids: list[list[int]]           = RetrieverCombiner(ret(_disabled_object_ids), ret(_legacy_disabled_object_ids))
+    disabled_building_ids: list[list[int]]         = RetrieverCombiner(ret(_disabled_building_ids), ret(_legacy_disabled_building_ids))
     # @formatter:on

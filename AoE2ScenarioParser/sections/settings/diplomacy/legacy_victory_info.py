@@ -9,18 +9,18 @@ class LegacyVictoryInfo(BaseStruct):
     __default_ver__ = DE_LATEST
 
     # @formatter:off
-    unit_type: int                = Retriever(i32,    default = 0)
-    all: bool                     = Retriever(bool32, default = False)
-    player: int                   = Retriever(i32,    default = 0)
-    destination_object_ref: int   = Retriever(i32,    default = 0)
-    area: AreaF                   = Retriever(AreaF,  default_factory = AreaF)
-    victory_type: int             = Retriever(i32,    default = 0)
-    quantity: int                 = Retriever(i32,    default = 0)
-    resource: int                 = Retriever(i32,    default = 0)
-    object_ref: int               = Retriever(i32,    default = 0)
-    destination_object_ref2: int  = Retriever(i32,    default = 0)
-    object: int                   = Retriever(u32,    default = 0)
+    unit_object_id: int        = Retriever(i32,    default = 0)
+    all: bool                  = Retriever(bool32, default = False)
+    player: int                = Retriever(i32,    default = 0)
+    destination_unit_ref1: int = Retriever(i32,    default = 0)
+    area: AreaF                = Retriever(AreaF,  default_factory = AreaF)
+    victory_type: int          = Retriever(i32,    default = 0)
+    quantity: int              = Retriever(i32,    default = 0)
+    resource: int              = Retriever(i32,    default = 0)
+    unit_ref1: int             = Retriever(i32,    default = 0)
+    destination_unit_ref2: int = Retriever(i32,    default = 0)
+    unit_ref2: int             = Retriever(u32,    default = 0)
     """unused"""
-    destination_object: int       = Retriever(u32,    default = 0)
+    destination_unit_ref3: int = Retriever(u32,    default = 0)
     """unused"""
     # @formatter:on

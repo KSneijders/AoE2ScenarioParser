@@ -18,7 +18,7 @@ def test_clone_unit_returns_unit(um: UnitManager):
     assert clone.state == original.state
     assert clone.rotation == original.rotation
     assert clone.frame == original.frame
-    assert clone._garrisoned_in_ref == original._garrisoned_in_ref
+    assert clone._garrisoned_in_unit_ref == original._garrisoned_in_unit_ref
     assert clone.caption_string_id == original.caption_string_id
     assert clone.caption_string == original.caption_string
     assert clone.player == original.player
