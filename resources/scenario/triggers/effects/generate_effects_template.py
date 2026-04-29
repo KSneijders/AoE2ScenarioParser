@@ -56,6 +56,17 @@ with effects_json.open('r') as f:
         types['message_option1'] = 'str'
         types['message_option2'] = 'str'
         types['trigger_id'] = 'Trigger'
+        # Correct type names: legacy JSON uses class names that don't exist in the codebase
+        types['source_player'] = 'Player'
+        types['target_player'] = 'Player'
+        types['player_color'] = 'PlayerColor'
+        types['diplomacy'] = 'DiplomacyStance'
+        types['variable'] = 'Variable'
+        types['variable2'] = 'Variable'
+        types['tribute_list'] = 'PlayerAttribute'
+        types['resource_1'] = 'PlayerAttribute'
+        types['resource_2'] = 'PlayerAttribute'
+        types['resource_3'] = 'PlayerAttribute'
 
         for key, value in types.items():
             if value.endswith('[]'):
@@ -122,13 +133,17 @@ with effects_json.open('r') as f:
                 ref = next(
                     (attribute['ref'] for attribute in matched_effect['attributes'] if attribute['name'] == after), None
                 ) if is_completed_effect else None,
-                type = types.get(before) or types.get(after) or '------ UNKNOWN TYPE ------',
+                type = (
+                    next(
+                        (attribute['type'] for attribute in matched_effect['attributes'] if attribute['name'] == after), None
+                    ) if matched_effect else None
+                ) or types.get(before) or types.get(after) or '------ UNKNOWN TYPE ------',
 
-                description = next(
-                    (attribute['description'] for attribute in matched_effect['attributes'] if attribute['name'] == after), None
-                )
-                if is_completed_effect
-                else effect_attribute_descriptions.get(before) or effect_attribute_descriptions.get(after),
+                description = (
+                    next(
+                        (attribute['description'] for attribute in matched_effect['attributes'] if attribute['name'] == after), None
+                    ) if matched_effect else None
+                ) or effect_attribute_descriptions.get(before) or effect_attribute_descriptions.get(after),
 
                 default = next(
                     (attribute['default'] for attribute in matched_effect['attributes'] if attribute['name'] == after), None
@@ -138,19 +153,18 @@ with effects_json.open('r') as f:
             ) for before, after in attributes.items() if after is not None
         ]
 
-        if is_completed_effect:
+        if matched_effect and matched_effect.get('description'):
             effect_description = matched_effect['description']
         else:
             effect_description = '----- DESCRIPTION TO BE FILLED -----'
 
-        result.append(
-            EffectDefinition(
-                id = int(effect_id),
-                name = effect_definition['name'],
-                description = effect_description,
-                attributes = attr_definitions
-            )
-        )
+        entry: EffectDefinition = {'id': int(effect_id), 'name': effect_definition['name']}
+        if matched_effect and 'deprecated' in matched_effect:
+            entry['deprecated'] = matched_effect['deprecated']
+        entry['description'] = effect_description
+        entry['attributes'] = attr_definitions
+
+        result.append(entry)
 
 complete_file = Path(__file__).parent / 'effect-definitions-complete.json'
 with complete_file.open('w') as f:

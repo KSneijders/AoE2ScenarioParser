@@ -15,8 +15,14 @@ class AttributeDefinition(TypedDict):
     default: None | bool | str | int | list[int] | list[str]
 
 
-class EffectDefinition(TypedDict):
+class DeprecatedInfo(TypedDict):
+    version: str
+    reason: str
+
+
+class EffectDefinition(TypedDict, total=False):
     id: int
     name: str
+    deprecated: DeprecatedInfo
     description: list[str] | str
     attributes: list[AttributeDefinition]
