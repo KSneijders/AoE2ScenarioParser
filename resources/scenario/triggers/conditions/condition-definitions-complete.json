@@ -70,7 +70,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -91,21 +91,21 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter for this condition",
+        "description": "The units with this class will be checked by this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter for this condition",
+        "description": "The units of this type will be checked by this condition",
         "default": null
       },
       {
         "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also includes changeable weapon objects in the count",
+        "description": "When enabled, also includes transformable units in the count",
         "default": null
       }
     ]
@@ -119,7 +119,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -147,21 +147,21 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter for this condition",
+        "description": "The units with this class will be checked by this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter for this condition",
+        "description": "The units of this type will be checked by this condition",
         "default": null
       },
       {
         "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also includes changeable weapon objects in the count",
+        "description": "When enabled, also includes transformable units in the count",
         "default": null
       }
     ]
@@ -175,7 +175,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -203,14 +203,14 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter for this condition",
+        "description": "The units with this class will be checked by this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter for this condition",
+        "description": "The units of this type will be checked by this condition",
         "default": null
       },
       {
@@ -231,7 +231,7 @@
         "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also includes changeable weapon objects in the count",
+        "description": "When enabled, also includes transformable units in the count",
         "default": null
       }
     ]
@@ -294,14 +294,14 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to check for <CONDITION>",
+        "description": "The resource to check for <CHECK>",
         "default": null
       },
       {
@@ -462,14 +462,14 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter for this condition",
+        "description": "The units with this class will be checked by this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter for this condition",
+        "description": "The units of this type will be checked by this condition",
         "default": null
       },
       {
@@ -546,7 +546,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -574,7 +574,7 @@
         "name": "quantity",
         "ref": null,
         "type": "DifficultyLevel",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -595,7 +595,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       }
     ]
@@ -609,7 +609,7 @@
         "name": "quantity",
         "ref": null,
         "type": "TechnologyState",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -644,7 +644,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -679,7 +679,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -714,7 +714,7 @@
         "name": "quantity",
         "ref": null,
         "type": "DiplomacyState",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -735,7 +735,7 @@
         "name": "target_player",
         "ref": null,
         "type": "PlayerId",
-        "description": "The target player to <CHECK>",
+        "description": "The target player whose <CHECK>",
         "default": null
       }
     ]
@@ -840,14 +840,14 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter for this condition",
+        "description": "The units with this class will be checked by this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter for this condition",
+        "description": "The units of this type will be checked by this condition",
         "default": null
       },
       {
@@ -944,7 +944,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -1027,7 +1027,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
@@ -1041,14 +1041,14 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The unit class filter for this condition",
+        "description": "The units with this class will be checked by this condition",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The unit type filter for this condition",
+        "description": "The units of this type will be checked by this condition",
         "default": null
       },
       {
@@ -1181,7 +1181,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CONDITION>",
+        "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       }
     ]
