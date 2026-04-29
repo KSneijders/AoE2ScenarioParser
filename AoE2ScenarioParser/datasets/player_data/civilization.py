@@ -128,13 +128,13 @@ class Civilization(_DataSetStrEnums):
 
     SPANISH = "SPANISH-CIV"
     AZTECS = "AZTEC-CIV"
-    MAYANS = "MAYAN-CIV"
+    MAYA = "MAYAN-CIV"
     HUNS = "HUN-CIV"
     KOREANS = "KOREAN-CIV"
 
     ITALIANS = "ITALIAN-CIV"
     HINDUSTANIS = "INDIAN-CIV"
-    INCAS = "INCAN-CIV"
+    INCA = "INCAN-CIV"
     MAGYARS = "MAGYAR-CIV"
     SLAVS = "SLAVIC-CIV"
 
