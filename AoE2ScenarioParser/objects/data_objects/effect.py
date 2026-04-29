@@ -206,7 +206,7 @@ class Effect(AoE2Object, TriggerComponent):
             wall_x2: int = None,
             wall_y2: int = None,
             object_filter: int = None,
-            use_tag_color_for_icon: int = None,
+            use_tag_color_for_icon: bool = None,
             message: str = None,
             sound_name: str = None,
             selected_object_ids: List[int] = None,
@@ -344,7 +344,7 @@ class Effect(AoE2Object, TriggerComponent):
         self.wall_x2: int = wall_x2
         self.wall_y2: int = wall_y2
         self.object_filter: int = object_filter
-        self.use_tag_color_for_icon: int = use_tag_color_for_icon
+        self.use_tag_color_for_icon: bool = use_tag_color_for_icon
         self.message: str = message
         self.sound_name: str = sound_name
         self.selected_object_ids: List[int] = selected_object_ids

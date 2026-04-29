@@ -1424,7 +1424,8 @@
             "instruction_panel_position",
             "play_sound",
             "message",
-            "sound_name"
+            "sound_name",
+            "use_tag_color_for_icon"
         ],
         "default_attributes": {
             "effect_type": 20,
@@ -5681,7 +5682,8 @@
             "quantity",
             "quantity_float",
             "armour_attack_quantity",
-            "armour_attack_class"
+            "armour_attack_class",
+            "object_filter"
         ],
         "default_attributes": {
             "effect_type": 105,

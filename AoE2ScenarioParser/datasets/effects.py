@@ -175,7 +175,8 @@ class EffectId(IntEnum):
     - instruction_panel_position
     - play_sound
     - message
-    - sound_name"""
+    - sound_name
+    - use_tag_color_for_icon"""
     CLEAR_INSTRUCTIONS = 21
     """Attributes for the **clear_instructions** effect are: \n
     - instruction_panel_position"""
@@ -928,7 +929,8 @@ class EffectId(IntEnum):
     - quantity
     - quantity_float
     - armour_attack_class
-        
+    - object_filter
+
     This effect was added in: 1.55 & Trigger Version 4.5
     """
     MODIFY_OBJECT_ATTRIBUTE_BY_VARIABLE = 106
