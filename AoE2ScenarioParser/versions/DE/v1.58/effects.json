@@ -5765,5 +5765,19 @@
             "issue_group_command": 0,
             "queue_action": 0
         }
+    },
+    "109": {
+        "name": "mirror_diplomacy",
+        "attributes": [
+            "source_player",
+            "target_player",
+            "enabled"
+        ],
+        "default_attributes": {
+            "effect_type": 109,
+            "source_player": 1,
+            "target_player": 2,
+            "enabled": 1
+        }
     }
 }

@@ -2151,3 +2151,16 @@ class NewEffectSupport:
             issue_group_command=issue_group_command,
             queue_action=queue_action,
         )
+
+    def mirror_diplomacy(
+            self,
+            source_player: int | None = None,
+            target_player: int | None = None,
+            enabled: bool | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.MIRROR_DIPLOMACY,
+            source_player=source_player,
+            target_player=target_player,
+            enabled=enabled,
+        )

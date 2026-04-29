@@ -989,6 +989,14 @@ class EffectId(IntEnum):
 
     This effect was added in: 1.57 & Trigger Version 4.6
     """
+    MIRROR_DIPLOMACY = 109
+    """Attributes for the **mirror_diplomacy** effect are: \n
+    - source_player
+    - target_player
+    - enabled
+
+    This effect was added in: 1.57 & Trigger Version 4.6
+    """
 
 
 empty_attributes = {
