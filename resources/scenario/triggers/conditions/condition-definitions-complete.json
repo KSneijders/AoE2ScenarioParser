@@ -83,7 +83,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -132,7 +132,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -188,7 +188,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -272,7 +272,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -307,7 +307,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -328,7 +328,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -419,7 +419,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -517,7 +517,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -615,7 +615,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -657,7 +657,7 @@
       {
         "name": "variable1_id",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable",
         "description": "The variable to <PURPOSE>",
         "default": null
       },
@@ -713,14 +713,14 @@
       {
         "name": "quantity",
         "ref": null,
-        "type": "DiplomacyState",
+        "type": "DiplomacyStance",
         "description": "The amount [of <UNIT>] to <CHECK>",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -734,7 +734,7 @@
       {
         "name": "target_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The target player whose <CHECK>",
         "default": null
       }
@@ -769,7 +769,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -797,7 +797,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -950,7 +950,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -1033,7 +1033,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },
@@ -1075,7 +1075,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       }
@@ -1096,7 +1096,7 @@
       {
         "name": "variable1_id",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable",
         "description": "The variable to <PURPOSE>",
         "default": null
       },
@@ -1110,7 +1110,7 @@
       {
         "name": "variable2_id",
         "ref": null,
-        "type": "VariableId",
+        "type": "Variable",
         "description": "The second variable to <PURPOSE>",
         "default": null
       }
@@ -1152,7 +1152,7 @@
       {
         "name": "source_player",
         "ref": null,
-        "type": "PlayerId",
+        "type": "Player",
         "description": "The player whose <CHECK>",
         "default": null
       },

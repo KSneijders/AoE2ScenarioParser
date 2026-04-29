@@ -29,6 +29,11 @@ with conditions_json.open('r') as f:
     base_types['ai_signal'] = 'int'
     base_types['timer_id'] = 'int'
     base_types['decision_id'] = 'int'
+    # Fix invalid legacy class names
+    base_types['source_player'] = 'Player'
+    base_types['target_player'] = 'Player'
+    base_types['variable'] = 'Variable'
+    base_types['variable2'] = 'Variable'
 
     for condition_id, condition_definition in legacy_condition_definitions.items():
         if condition_id == '-1':
@@ -42,6 +47,9 @@ with conditions_json.open('r') as f:
         local_types = dict(base_types)
         if 'attribute_presentation' in condition_definition:
             local_types.update(condition_definition['attribute_presentation'])
+        # Fix invalid per-condition class names from legacy JSON
+        if local_types.get('quantity') == 'DiplomacyState':
+            local_types['quantity'] = 'DiplomacyStance'
 
         attributes_list: list[str] = list(condition_definition['attributes'])
         if 'condition_type' in attributes_list:
