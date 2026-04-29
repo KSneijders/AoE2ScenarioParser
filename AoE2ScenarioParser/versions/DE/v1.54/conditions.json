@@ -1271,7 +1271,7 @@
         }
     },
     "56": {
-        "name": "building_is_trading",
+        "name": "victory_timer",
         "attributes": [
             "quantity",
             "source_player",
