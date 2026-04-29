@@ -19,7 +19,7 @@ class Effect(BaseStruct):
 
     # @formatter:off
     _type: int                       = Retriever(i32,          default = -1)
-    _properties: list[int]           = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*81, on_read = selected_unit_ids)
+    _properties: list[int]           = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*83, on_read = selected_unit_ids)
     _message: str                    = Retriever(nt_str32,     default = "")
     _sound_name: str                 = Retriever(nt_str32,     default = "")
     # this list starts in 1.20, previous versions use the _properties[4] as the singular selected unit ID
@@ -122,4 +122,6 @@ class Effect(BaseStruct):
     _wall_y1: int                          = RetrieverRef(ret(_properties), 78)
     _wall_x2: int                          = RetrieverRef(ret(_properties), 79)
     _wall_y2: int                          = RetrieverRef(ret(_properties), 80)
+    object_filter: int                     = RetrieverRef(ret(_properties), 81)
+    use_tag_color_for_icon: int            = RetrieverRef(ret(_properties), 82)
     # @formatter:on
