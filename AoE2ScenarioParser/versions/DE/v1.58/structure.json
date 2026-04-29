@@ -1749,9 +1749,9 @@
                                 "type": "s32",
                                 "default": 0
                             },
-                            "static_value_81": {
+                            "static_value_83": {
                                 "type": "s32",
-                                "default": 81
+                                "default": 83
                             },
                             "ai_script_goal": {
                                 "type": "s32",
@@ -2085,6 +2085,14 @@
                                 "default": -1
                             },
                             "wall_y2": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "object_filter": {
+                                "type": "s32",
+                                "default": -1
+                            },
+                            "use_tag_color_for_icon": {
                                 "type": "s32",
                                 "default": -1
                             },

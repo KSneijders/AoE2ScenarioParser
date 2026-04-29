@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.8.0 - 2026-April-29
+
+Official support for the new 1.58 scenarios! — Credits: by [@Alian713] in [#125](https://github.com/KSneijders/AoE2ScenarioParser/pull/125)
+
+### Adds
+
+- New effect: `trigger.new_effect.mirror_diplomacy(...)` (Introduced in a previous patch, but never added to ASP)
+- New attribute in the `Modify Object Attribute` effect: `object_filter`
+  - New dataset: `ObjectModifyAttributeState`. 
+- New attribute in the `Display Instructions` effect: `use_tag_color_for_icon`
+
+---
+
 ## 0.7.3 - 2026-April-17
 
 ### Adds

@@ -114,6 +114,7 @@ class EffectId(IntEnum):
     MODIFY_OBJECT_ATTRIBUTE_BY_VARIABLE = 106
     CHANGE_OBJECT_VISIBILITY = 107
     BUILD_OBJECT = 108
+    MIRROR_DIPLOMACY = 109
 
 
 empty_attributes = {
@@ -194,6 +195,8 @@ empty_attributes = {
     "wall_y1": -1,
     "wall_x2": -1,
     "wall_y2": -1,
+    "object_filter": -1,
+    "use_tag_color_for_icon": -1,
     "message": "",
     "sound_name": "",
     "selected_object_ids": -1,

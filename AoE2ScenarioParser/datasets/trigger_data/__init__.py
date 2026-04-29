@@ -19,6 +19,7 @@ from .hotkey import Hotkey
 from .local_technology import LocalTechnology
 from .object_attribute import ObjectAttribute
 from .object_class import ObjectClass
+from .object_modify_attribute_state import ObjectModifyAttributeState
 from .object_state import ObjectState
 from .object_type import ObjectType
 from .obstruction_type import ObstructionType

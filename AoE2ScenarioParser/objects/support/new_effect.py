@@ -389,6 +389,7 @@ class NewEffectSupport:
             play_sound: int | None = None,
             message: str | None = None,
             sound_name: str | None = None,
+            use_tag_color_for_icon: bool | None = None,
     ) -> Effect:
         return self._trigger_ref._add_effect(
             EffectId.DISPLAY_INSTRUCTIONS,
@@ -400,6 +401,7 @@ class NewEffectSupport:
             play_sound=play_sound,
             message=message,
             sound_name=sound_name,
+            use_tag_color_for_icon=use_tag_color_for_icon,
         )
 
     def clear_instructions(
@@ -2000,6 +2002,7 @@ class NewEffectSupport:
             quantity: int | float | None = None,
             armour_attack_quantity: int | None = None,
             armour_attack_class: int | None = None,
+            object_filter: int | None = None,
     ):
         if (armour_attack_quantity is not None or armour_attack_class is not None) and quantity is not None:
             raise ValueError("Cannot use 'armour_attack' attributes together with the 'quantity' attribute.")
@@ -2019,6 +2022,7 @@ class NewEffectSupport:
             quantity=quantity,
             armour_attack_quantity=armour_attack_quantity,
             armour_attack_class=armour_attack_class,
+            object_filter=object_filter,
         )
 
     def modify_object_attribute_by_variable(
@@ -2128,4 +2132,17 @@ class NewEffectSupport:
             max_units_affected=max_units_affected,
             issue_group_command=issue_group_command,
             queue_action=queue_action,
+        )
+
+    def mirror_diplomacy(
+            self,
+            source_player: int | None = None,
+            target_player: int | None = None,
+            enabled: bool | None = None,
+    ) -> Effect:
+        return self._trigger_ref._add_effect(
+            EffectId.MIRROR_DIPLOMACY,
+            source_player=source_player,
+            target_player=target_player,
+            enabled=enabled,
         )

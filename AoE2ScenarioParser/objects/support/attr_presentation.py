@@ -12,8 +12,8 @@ from AoE2ScenarioParser.datasets.trigger_data import DiplomacyStance, Operation,
     ButtonLocation, PanelLocation, TimeUnit, VisibilityState, DifficultyLevel, TechnologyState, Comparison, \
     ObjectAttribute, ObjectType, ObjectClass, TerrainRestrictions, HeroStatusFlag, BlastLevel, \
     DamageClass, Hotkey, ColorMood, ObjectState, ActionType, VictoryTimerType, Attribute, ProjectileSmartMode, \
-    DecisionOption
-from AoE2ScenarioParser.helper.helper import get_enum_from_object_id, get_enum_from_unit_const
+    DecisionOption, ObjectModifyAttributeState
+from AoE2ScenarioParser.helper.helper import get_enum_from_unit_const
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
 from AoE2ScenarioParser.helper.string_manipulations import q_str, trunc_string
@@ -107,6 +107,7 @@ _datasets = {
     "ActionType": ActionType,
     "VictoryTimerType": VictoryTimerType,
     "DecisionOption": DecisionOption,
+    "ObjectModifyAttributeState": ObjectModifyAttributeState,
 }
 
 _other = {
