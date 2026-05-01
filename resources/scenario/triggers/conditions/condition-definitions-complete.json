@@ -2,26 +2,26 @@
   {
     "id": 0,
     "name": "none",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition is empty.",
     "attributes": []
   },
   {
     "id": 1,
     "name": "bring_object_to_area",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the unit has been brought to the specified area.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be present in the area.",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area to check. When not set, the entire map is checked",
+        "description": "The area the unit must be located in.",
         "default": null
       },
       {
@@ -36,20 +36,20 @@
   {
     "id": 2,
     "name": "bring_object_to_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the first unit has been brought to the second unit.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be brought near the second unit.",
         "default": null
       },
       {
-        "name": "secondary_unit_ref",
+        "name": "unit2_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The secondary unit referenced by this condition",
+        "description": "The unit to bring the first unit to.",
         "default": null
       },
       {
@@ -64,48 +64,48 @@
   {
     "id": 3,
     "name": "own_objects",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the source player owns at least the specified number of objects matching the given object id or type/class.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The minimum number of objects the player must own.",
         "default": null
       },
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit to <CHECK>",
+        "description": "Only the units with this object id will be counted. When defined, ignores all other filters.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose objects will be counted.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units with this class will be checked by this condition",
+        "description": "Filters the units to count by this class.",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The units of this type will be checked by this condition",
+        "description": "Filters the units to count by this type.",
         "default": null
       },
       {
         "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also includes transformable units in the count",
+        "description": "When enabled, also count units that can transform into this unit.",
         "default": null
       }
     ]
@@ -113,55 +113,55 @@
   {
     "id": 4,
     "name": "own_fewer_objects",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the source player owns at most the specified number of objects matching the given object id or type/class, optionally within the specified area.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The maximum number of objects the player must own.",
         "default": null
       },
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit to <CHECK>",
+        "description": "Only the units with this object id will be counted. When defined, ignores all other filters",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose objects will be counted.",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area to check. When not set, the entire map is checked",
+        "description": "When set, only count units in this area, otherwise, counts units on the entire map.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units with this class will be checked by this condition",
+        "description": "Filters the units to count by this class",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The units of this type will be checked by this condition",
+        "description": "Filters the units to count by this type",
         "default": null
       },
       {
         "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also includes transformable units in the count",
+        "description": "When enabled, also count units that can transform into this unit.",
         "default": null
       }
     ]
@@ -169,48 +169,48 @@
   {
     "id": 5,
     "name": "objects_in_area",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the source player owns at least the specified number of objects matching the given object id or type/class or state, within the specified area.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The minimum number of objects the player must have in the area.",
         "default": null
       },
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit to <CHECK>",
+        "description": "Only the units with this object id will be counted. When defined, ignores all other filters",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose objects will be counted.",
         "default": null
       },
       {
         "name": "area",
         "ref": null,
         "type": "Area",
-        "description": "The area to check. When not set, the entire map is checked",
+        "description": "The area to count the units in.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units with this class will be checked by this condition",
+        "description": "Filters the units to count by this class",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The units of this type will be checked by this condition",
+        "description": "Filters the units to count by this type",
         "default": null
       },
       {
@@ -224,14 +224,14 @@
         "name": "unit_state",
         "ref": null,
         "type": "ObjectState",
-        "description": "The state units need to be in for this condition to apply",
+        "description": "Filters the units to count by this state",
         "default": null
       },
       {
         "name": "include_transformable_units",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, also includes transformable units in the count",
+        "description": "When enabled, also count units that can transform into this unit",
         "default": null
       }
     ]
@@ -239,13 +239,13 @@
   {
     "id": 6,
     "name": "destroy_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified unit has been destroyed.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be destroyed.",
         "default": null
       },
       {
@@ -260,20 +260,20 @@
   {
     "id": 7,
     "name": "capture_object",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified unit has been captured by the source player.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be captured.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player who must own the unit.",
         "default": null
       },
       {
@@ -288,27 +288,27 @@
   {
     "id": 8,
     "name": "accumulate_attribute",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the source player has at least the specified amount of a given resource.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The minimum amount of the resource the player must have.",
         "default": null
       },
       {
         "name": "resource",
         "ref": null,
         "type": "Attribute",
-        "description": "The resource to check for <CHECK>",
+        "description": "The resource to check",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose resources to check.",
         "default": null
       },
       {
@@ -323,20 +323,20 @@
   {
     "id": 9,
     "name": "research_technology",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the source player has fully researched the specified technology.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose technology will be checked.",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology to check.",
         "default": null
       },
       {
@@ -351,20 +351,20 @@
   {
     "id": 10,
     "name": "timer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified amount of time has passed since the trigger became active.",
     "attributes": [
       {
         "name": "timer_seconds",
         "ref": null,
         "type": "int",
-        "description": "The time in seconds before the condition triggers",
+        "description": "The time in seconds that must have passed",
         "default": null
       },
       {
         "name": "inverted",
         "ref": null,
         "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
+        "description": "When enabled, the condition only succeeds before the specified time has passed",
         "default": null
       }
     ]
@@ -372,13 +372,17 @@
   {
     "id": 11,
     "name": "object_selected",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified unit is currently selected by the local player.",
+    "deprecated": {
+      "version": "1.36",
+      "reason": "This effect should no longer be used. It will cause desyncs in multiplayer games. Use Object Selected (Multiplayer) instead."
+    },
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be currently selected.",
         "default": null
       },
       {
@@ -393,7 +397,7 @@
   {
     "id": 12,
     "name": "ai_signal",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if an AI signal with the specified ID has been sent by an AI script using the `sn-trigger-signal` strategy number.",
     "attributes": [
       {
         "name": "ai_signal",
@@ -414,13 +418,13 @@
   {
     "id": 13,
     "name": "player_defeated",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified player has been defeated.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player who must have been defeated.",
         "default": null
       },
       {
@@ -435,41 +439,41 @@
   {
     "id": 14,
     "name": "object_has_target",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the first unit's target is the second unit, or a unit matching the given object id or type/class.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit whose target will be checked.",
         "default": null
       },
       {
-        "name": "secondary_unit_ref",
+        "name": "unit2_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The secondary unit referenced by this condition",
+        "description": "The unit that must be targeted by the first unit. When set, ignores all other filters (including object id).",
         "default": null
       },
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit to <CHECK>",
+        "description": "Only the units with this object id will be checked as targets. When defined, ignores type/class filters.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units with this class will be checked by this condition",
+        "description": "Filters the units to check as target by this class.",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The units of this type will be checked by this condition",
+        "description": "Filters the units to check as target by this type.",
         "default": null
       },
       {
@@ -484,13 +488,16 @@
   {
     "id": 15,
     "name": "object_visible",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": [
+      "This condition can be used to check if the specified object is currently visible to the local player (within their line of sight or a revealed area).",
+      "Note: this condition does not work in multiplayer — use Object Visible (Multiplayer) instead."
+    ],
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be currently visible.",
         "default": null
       }
     ]
@@ -498,13 +505,16 @@
   {
     "id": 16,
     "name": "object_not_visible",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": [
+      "This condition can be used to check if the specified object is currently NOT visible to the local player (outside their line of sight and any revealed areas).",
+      "Note: this condition does not work in multiplayer."
+    ],
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be currently not visible.",
         "default": null
       }
     ]
@@ -512,20 +522,20 @@
   {
     "id": 17,
     "name": "researching_tech",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the source player is currently in the process of researching (but has not yet completed) the specified technology.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose current research activity will be checked.",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology that must currently be in progress of being researched.",
         "default": null
       },
       {
@@ -540,20 +550,20 @@
   {
     "id": 18,
     "name": "units_garrisoned",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified building or unit has at least the specified number of units garrisoned inside it.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The minimum number of units that must be garrisoned.",
         "default": null
       },
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The building or unit that must have the required number of units garrisoned inside it.",
         "default": null
       },
       {
@@ -568,13 +578,13 @@
   {
     "id": 19,
     "name": "difficulty_level",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the current game difficulty matches the specified difficulty level.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "DifficultyLevel",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The difficulty level to check against.",
         "default": null
       },
       {
@@ -589,13 +599,13 @@
   {
     "id": 20,
     "name": "chance",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to apply a random probability to whether the trigger fires. Each time the condition is evaluated, it has a percentage chance equal to the quantity of evaluating to true.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The percentage chance (0–100) that this condition evaluates to true when checked.",
         "default": null
       }
     ]
@@ -603,27 +613,27 @@
   {
     "id": 21,
     "name": "technology_state",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified technology is in a particular state (e.g., available, being researched, or fully researched) for the source player.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "TechnologyState",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The technology state to check for.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose technology state will be checked.",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology which <PURPOSE>",
+        "description": "The technology whose current state will be checked.",
         "default": null
       },
       {
@@ -638,13 +648,13 @@
   {
     "id": 22,
     "name": "variable_value",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if a trigger variable's value satisfies the specified comparison against a given quantity.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The value to compare the variable against.",
         "default": null
       },
       {
@@ -658,7 +668,7 @@
         "name": "variable1_id",
         "ref": null,
         "type": "Variable",
-        "description": "The variable to <PURPOSE>",
+        "description": "The variable whose value will be compared against the quantity.",
         "default": null
       },
       {
@@ -673,20 +683,20 @@
   {
     "id": 23,
     "name": "object_hp",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified object's current HP satisfies the specified comparison against a given value.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The HP value to compare the object's current HP against.",
         "default": null
       },
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit whose current HP will be checked.",
         "default": null
       },
       {
@@ -708,20 +718,20 @@
   {
     "id": 24,
     "name": "diplomacy_state",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the diplomacy stance of the source player toward the target player matches the specified stance.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "DiplomacyStance",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The diplomacy stance to check for.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose diplomacy stance toward the target player will be checked.",
         "default": null
       },
       {
@@ -735,7 +745,7 @@
         "name": "target_player",
         "ref": null,
         "type": "Player",
-        "description": "The target player whose <CHECK>",
+        "description": "The player toward whom the source player's diplomacy stance will be checked.",
         "default": null
       }
     ]
@@ -743,7 +753,7 @@
   {
     "id": 25,
     "name": "script_call",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to evaluate an XS script function. The function must return a boolean, which is used directly as the result of this condition.",
     "attributes": [
       {
         "name": "xs_function",
@@ -757,20 +767,20 @@
   {
     "id": 26,
     "name": "object_selected_multiplayer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified object is currently selected by the specified player. This is the multiplayer-compatible version of Object Selected.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be currently selected.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player who must have the unit currently selected.",
         "default": null
       },
       {
@@ -785,20 +795,20 @@
   {
     "id": 27,
     "name": "object_visible_multiplayer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified object is currently visible to the specified player. This is the multiplayer-compatible version of Object Visible.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The unit that must be currently visible.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player for whom the unit's visibility will be checked.",
         "default": null
       },
       {
@@ -813,34 +823,34 @@
   {
     "id": 28,
     "name": "object_has_action",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if an object matching the specified criteria is currently performing the specified unit action, optionally targeting a specific unit.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The specific unit to check for the action. When not set, any unit matching the other criteria is checked.",
         "default": null
       },
       {
-        "name": "secondary_unit_ref",
+        "name": "unit2_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The secondary unit referenced by this condition",
+        "description": "The unit that must be the target of the action. When not set, any target is accepted.",
         "default": null
       },
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit to <CHECK>",
+        "description": "The unit type to check for the action. When not set, any unit type is accepted.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units with this class will be checked by this condition",
+        "description": "The units of this class will be checked by this condition",
         "default": null
       },
       {
@@ -861,7 +871,7 @@
         "name": "unit_action",
         "ref": null,
         "type": "UnitAIAction",
-        "description": "The unit AI action to check",
+        "description": "The unit action to check",
         "default": null
       }
     ]
@@ -869,13 +879,13 @@
   {
     "id": 29,
     "name": "or",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition acts as a logical OR between the two conditions immediately surrounding it (one directly above, one directly below). To OR groups of multiple conditions, use AND conditions to chain them together on either side of the OR.",
     "attributes": []
   },
   {
     "id": 30,
     "name": "ai_signal_multiplayer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if an AI signal with the specified ID has been sent. This is the multiplayer-compatible version of AI Signal.",
     "attributes": [
       {
         "name": "ai_signal",
@@ -896,13 +906,13 @@
   {
     "id": 54,
     "name": "building_is_trading",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified building (e.g., a Market) is currently being actively traded with — i.e., a trade unit is en route to or from it.",
     "attributes": [
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The building (e.g., Market) that must be actively trading.",
         "default": null
       },
       {
@@ -917,7 +927,7 @@
   {
     "id": 55,
     "name": "display_timer_triggered",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified display timer has expired (reached zero). Display timers are created and managed using the Display Timer effect.",
     "attributes": [
       {
         "name": "timer_id",
@@ -938,20 +948,20 @@
   {
     "id": 56,
     "name": "victory_timer",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified victory timer satisfies a comparison against a given time value. Victory timers are countdown timers associated with certain game modes such as King of the Hill or Wonder races.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The time value (in seconds) to compare the victory timer against.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose victory timer will be checked.",
         "default": null
       },
       {
@@ -980,13 +990,13 @@
   {
     "id": 57,
     "name": "and",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition acts as a logical AND link between the conditions immediately surrounding it, grouping them together. Chaining multiple AND conditions extends the group, so that the entire group must be true as a unit — typically used to build one side of an OR.",
     "attributes": []
   },
   {
     "id": 75,
     "name": "decision_triggered",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if a decision dialog (a pop-up choice presented to the player) has been triggered and a specific option was selected by the player.",
     "attributes": [
       {
         "name": "inverted",
@@ -1014,34 +1024,34 @@
   {
     "id": 76,
     "name": "object_attacked",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if objects matching the specified criteria have been attacked.",
     "attributes": [
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo",
-        "description": "The type of unit to <CHECK>",
+        "description": "The unit type that must have been attacked. When not set, any unit type is accepted.",
         "default": null
       },
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The minimum number of matching objects that must have been attacked.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player who owns the objects that must have been attacked.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units with this class will be checked by this condition",
+        "description": "The units of this class will be checked by this condition",
         "default": null
       },
       {
@@ -1052,10 +1062,10 @@
         "default": null
       },
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The specific unit that must have been attacked.",
         "default": null
       },
       {
@@ -1070,13 +1080,13 @@
   {
     "id": 77,
     "name": "hero_power_cast",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified player's hero unit has used (cast) a hero power.",
     "attributes": [
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player whose hero power usage will be checked.",
         "default": null
       }
     ]
@@ -1084,7 +1094,7 @@
   {
     "id": 78,
     "name": "compare_variables",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to compare the values of two trigger variables against each other using the specified comparison operator.",
     "attributes": [
       {
         "name": "inverted",
@@ -1097,7 +1107,7 @@
         "name": "variable1_id",
         "ref": null,
         "type": "Variable",
-        "description": "The variable to <PURPOSE>",
+        "description": "The first variable whose value will be compared.",
         "default": null
       },
       {
@@ -1111,7 +1121,7 @@
         "name": "variable2_id",
         "ref": null,
         "type": "Variable",
-        "description": "The second variable to <PURPOSE>",
+        "description": "The second variable whose value will be compared against the first.",
         "default": null
       }
     ]
@@ -1119,13 +1129,13 @@
   {
     "id": 79,
     "name": "trigger_active",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if the specified trigger is currently enabled (active).",
     "attributes": [
       {
         "name": "trigger_id",
         "ref": null,
         "type": "int",
-        "description": "The trigger to <CHECK>",
+        "description": "The ID of the trigger whose active state will be checked.",
         "default": null
       },
       {
@@ -1140,27 +1150,27 @@
   {
     "id": 80,
     "name": "local_tech_researched",
-    "description": "----- DESCRIPTION TO BE FILLED -----",
+    "description": "This condition can be used to check if a local technology (a civilization-specific upgrade tied to a specific building) has been researched by the source player, optionally scoped to a specific building instance or area.",
     "attributes": [
       {
         "name": "local_technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The local technology which <PURPOSE>",
+        "description": "The local technology that must have been researched.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose <CHECK>",
+        "description": "The player for whom the local technology research status will be checked.",
         "default": null
       },
       {
-        "name": "primary_unit_ref",
+        "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The primary unit referenced by this condition",
+        "description": "The specific building instance to check for the researched local technology.",
         "default": null
       },
       {
@@ -1181,7 +1191,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The amount [of <UNIT>] to <CHECK>",
+        "description": "The minimum number of buildings that must have researched the local technology.",
         "default": null
       }
     ]
