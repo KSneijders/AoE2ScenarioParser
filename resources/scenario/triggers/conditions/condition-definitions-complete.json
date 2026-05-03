@@ -605,7 +605,7 @@
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The percentage chance (0–100) that this condition evaluates to true when checked.",
+        "description": "The percentage chance (0 – 100) that this condition evaluates to true when checked.",
         "default": null
       }
     ]

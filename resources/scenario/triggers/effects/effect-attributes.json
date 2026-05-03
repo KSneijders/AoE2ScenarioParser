@@ -1,5 +1,5 @@
 {
-  "effect_type": "The ID corresponding to this effect type",
+  "type": "The ID corresponding to this effect type",
   "ai_script_goal": "The AI Trigger ID to set",
   "armour_attack_quantity": "The amount to modify the ARMOR|ATTACK class by",
   "armour_attack_class": "The ARMOR|ATTACK class to modify",
