@@ -110,7 +110,7 @@ def discover_dataset_classes() -> dict[str, str]:
 
 
 def extract_type_names(type_str: str) -> list[str]:
-    """Return all capitalised identifiers from a type annotation string."""
+    """Return all capitalised identifiers from a type annotation string. I.e., Unit from list[Unit]"""
     return re.findall(r"\b([A-Z][A-Za-z0-9_]*)\b", type_str)
 
 
