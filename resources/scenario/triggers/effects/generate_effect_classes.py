@@ -62,14 +62,13 @@ RETS = [
 
 PROPERTIES: dict[str, tuple[str, str]] = {
     'location': ('Tile', 'TileT'),
-    'area': ('Area', 'AreaT'),
+    'area':     ('Area', 'AreaT'),
 }
 
 ALTERNATE_TYPES: dict[str, str] = {
     "Tile": "Tile, TileT",
     "Area": "Area, AreaT",
 }
-
 
 ROOT_DATASET_CLASSES: dict[str, str] = {
     "BuildingInfo":    "AoE2ScenarioParser.datasets.buildings",
@@ -170,6 +169,15 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         '    """',
     ]
 
+    effect_class_init_definition: list[str] = [
+        "    def __init__(",
+        "        self,",
+    ]
+    effect_class_init_body: list[str] = [
+        "        super().__init__()",
+        "",
+    ]
+
     for attr in attrs:
         attr_name = attr["name"]
         attr_ref = attr.get("ref")
@@ -196,6 +204,15 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
             f"    {attr_name}: {attr_type} = {ref_expr}",
             f'    """{attr_desc}"""',
         ]
+
+        effect_class_init_definition.append(f"        {attr_name}: {attr_type} = None,")
+        effect_class_init_body.append(f"        self.{attr_name}: {attr_type} = {attr_name}")
+
+    effect_class_init_definition.append("    ):")
+
+    lines.append("")
+    lines.extend(effect_class_init_definition)
+    lines.extend(effect_class_init_body)
 
     lines += [
         "",
