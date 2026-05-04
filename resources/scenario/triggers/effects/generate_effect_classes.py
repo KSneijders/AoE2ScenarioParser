@@ -184,6 +184,9 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         attr_type = attr.get("type", "int")
         attr_desc = attr.get("description", "")
 
+        effect_class_init_definition.append(f"        {attr_name}: {attr_type} = None,")
+        effect_class_init_body.append(f"        self.{attr_name}: {attr_type} = {attr_name}")
+
         if attr_name in PROPERTIES:
             lines.append(get_property_snippet(attr_name, attr_desc, *PROPERTIES[attr_name]))
             continue
@@ -204,9 +207,6 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
             f"    {attr_name}: {attr_type} = {ref_expr}",
             f'    """{attr_desc}"""',
         ]
-
-        effect_class_init_definition.append(f"        {attr_name}: {attr_type} = None,")
-        effect_class_init_body.append(f"        self.{attr_name}: {attr_type} = {attr_name}")
 
     effect_class_init_definition.append("    ):")
 
