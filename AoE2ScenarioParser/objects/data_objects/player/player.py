@@ -25,6 +25,9 @@ class Player(AoE2Object):
         'wood',
         'gold',
         'stone',
+        'personality',
+        'ai_type',
+        'ai_script',
         'color',
         'active',
         'human',
@@ -57,6 +60,9 @@ class Player(AoE2Object):
             wood: int,
             gold: int,
             stone: int,
+            personality: str,
+            ai_type: int,
+            ai_script: str,
             color: int,
             active: bool,
             human: bool,
@@ -90,6 +96,9 @@ class Player(AoE2Object):
         self.wood: int = wood
         self.gold: int = gold
         self.stone: int = stone
+        self.personality: str = personality
+        self.ai_type: int = ai_type
+        self.ai_script: str = ai_script
         self.color: int = color
         self.human: bool = human
         self.civilization: str | Civilization = dataset_or_value(Civilization, civilization)
