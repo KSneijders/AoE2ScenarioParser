@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.8.1 - 2026-May-09
+
+### Adds
+
+- Support for the Xs-Check `v0.2.22` — View the `v0.2.22` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.22
+
 ## 0.8.0 - 2026-April-29
 
 Official support for the new 1.58 scenarios! — Credits: by [@Alian713] in [#125](https://github.com/KSneijders/AoE2ScenarioParser/pull/125)
