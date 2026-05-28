@@ -13,15 +13,18 @@ if TYPE_CHECKING:
 
 class Location:
 
-    def __init__(self, x: int | float | tuple[int | float, int | float], y: int | float = None):
+    def __init__(self, x: int | float | tuple[int | float, int | float], y: int | float | None = None):
         if isinstance(x, tuple):
             coords = x
             if len(coords) != 2:
                 raise ValueError("tuple must have exactly two coordinates")
             x, y = coords
 
-        self.x = x
-        self.y = y
+        if y is None:
+            raise ValueError("y coordinate cannot be None")
+
+        self.x: int | float = x
+        self.y: int | float = y
 
     def _new(self, *args) -> Self:
         return self.__class__(*args)

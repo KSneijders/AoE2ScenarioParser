@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import Generator, Iterable, Literal
 
-from AoE2ScenarioParser.objects.support import Area
 from bfp_rs import borrow_mut, RefStruct, ret, RetrieverRef, set_mut
 
 from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError, ObjectAlreadyLinkedError
+from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
 
@@ -277,7 +277,7 @@ class UnitManager(RefStruct, CanBeLinked):
 
     def get_units_by_object_id(
         self,
-        object_ids: list[int],
+        object_ids: list[int],  # Todo: list[int] should allow Info datasets (Potentially add an unwrap helper for this?)
         is_allowlist: bool = True,
         players: Iterable[Player] = None,
         *,

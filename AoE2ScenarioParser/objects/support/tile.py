@@ -21,7 +21,7 @@ class Tile(Location):
     def __init__(self, tile: tuple[int, int]):
         ...
 
-    def __init__(self, x: int | tuple[int, int], y: int = None):
+    def __init__(self, x: int | tuple[int, int], y: int | None = None):
         super().__init__(x, y)
 
     @property

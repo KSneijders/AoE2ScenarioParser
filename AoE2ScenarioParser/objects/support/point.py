@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class Point(Location):
 
     @overload
-    def __init__(self, x: float, y: float) -> None:
+    def __init__(self, x: float, y: float | None = None) -> None:
         ...
 
     @overload
