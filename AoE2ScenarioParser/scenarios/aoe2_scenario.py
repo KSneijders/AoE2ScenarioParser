@@ -4,7 +4,7 @@ import json
 import time
 import zlib
 from pathlib import Path
-from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Union, Tuple
+from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Union, Tuple, Callable
 from uuid import uuid4, UUID
 
 import AoE2ScenarioParser.datasets.conditions as conditions
@@ -34,17 +34,19 @@ from AoE2ScenarioParser.sections.aoe2_file_section import AoE2FileSection, Secti
 if TYPE_CHECKING:
     from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 
-S: TypeVar = TypeVar('S', bound='AoE2Scenario')
+S = TypeVar('S', bound='AoE2Scenario')
 """
 A type variable (generic) that represents an instance of the AoE2Scenario class or any of its 
 subclasses (e.g. `AoE2DEScenario`) 
 """
-Func: TypeVar = TypeVar('Func', bound='Callable[[Any], Any]')
+Func = TypeVar('Func', bound='Callable[[Any], Any]')
 """A type variable (generic) that represents a function"""
 
 
 class AoE2Scenario:
     """All scenario objects are derived from this class"""
+
+    LATEST_VERSION: Tuple[int, int] = (1,)
 
     @property
     def trigger_manager(self) -> TriggerManager:
