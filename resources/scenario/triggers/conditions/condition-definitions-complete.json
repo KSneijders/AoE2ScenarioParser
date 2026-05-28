@@ -76,7 +76,7 @@
       {
         "name": "object_id",
         "ref": null,
-        "type": "UnitInfo",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "Only the units with this object id will be counted. When defined, ignores all other filters.",
         "default": null
       },
@@ -125,7 +125,7 @@
       {
         "name": "object_id",
         "ref": null,
-        "type": "UnitInfo",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "Only the units with this object id will be counted. When defined, ignores all other filters",
         "default": null
       },
@@ -181,7 +181,7 @@
       {
         "name": "object_id",
         "ref": null,
-        "type": "UnitInfo",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "Only the units with this object id will be counted. When defined, ignores all other filters",
         "default": null
       },
@@ -458,7 +458,7 @@
       {
         "name": "object_id",
         "ref": null,
-        "type": "UnitInfo",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "Only the units with this object id will be checked as targets. When defined, ignores type/class filters.",
         "default": null
       },
@@ -842,7 +842,7 @@
       {
         "name": "object_id",
         "ref": null,
-        "type": "UnitInfo",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "The unit type to check for the action. When not set, any unit type is accepted.",
         "default": null
       },
@@ -1029,7 +1029,7 @@
       {
         "name": "object_id",
         "ref": null,
-        "type": "UnitInfo",
+        "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
         "description": "The unit type that must have been attacked. When not set, any unit type is accepted.",
         "default": null
       },
