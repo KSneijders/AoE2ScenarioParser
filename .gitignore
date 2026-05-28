@@ -243,3 +243,5 @@ AoE2ScenarioParser/differences.txt
 # Generated API docs (built by CI during deploy)
 docs/api/
 docs/_assets/pdoc_theme/index.html.jinja2
+
+.idea/pyProjectModel.xml
