@@ -146,19 +146,21 @@ class UnitManager(RefStruct, CanBeLinked):
         """
         return [self.add_unit(unit) for unit in units]
 
-    def clone_unit(self, unit: Unit, player: Player = None) -> Unit:
+    def clone_unit(self, unit: Unit, player: Player | None = None) -> Unit:
         """
         Creates and adds a clone of the given unit to the game world. The cloned unit will
         inherit the properties of the original unit, including its position, object_id, state,
         rotation, frame, and other relevant attributes. If no player is specified, the clone
-        will belong to the same player as the original unit.
+        will belong to the same player as the original unit. If the original unit is garrisoned,
+        the clone will also be garrisoned in the same parent unit. If the original unit has
+        garrisoned units inside it, the clone will not clone those.
 
         Args:
             unit: The unit to clone.
             player: The player to which the cloned unit should belong. Defaults to the player of the original unit.
 
         Returns:
-            Unit: The newly added cloned unit.
+            Unit: The newly cloned unit.
         """
         return self.add_unit(
             Unit(

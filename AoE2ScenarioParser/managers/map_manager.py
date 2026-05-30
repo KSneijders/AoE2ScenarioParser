@@ -32,7 +32,7 @@ class MapManager(RefStruct):
     _map_height: int            = RetrieverRef(ret(ScenarioSections.map_data), ret(MapData.height))
     # @formatter:on
 
-    _terrain_2d: TerrainData | None = None
+    _terrain_2d: TerrainData = ()
 
     def _initialize_properties(self):
         self._assign_terrain_properties()
@@ -220,9 +220,6 @@ class MapManager(RefStruct):
 
         original_area = self.new_area_pattern().move(x_offset, y_offset)
 
-        # Todo: !!!!!!! ADD TESTSS!!! NOT TESTED YET!!
-        # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
-
         terrain_support = TerrainDataSupport(self)
         self.terrain = terrain_support.compute_resized_terrain_data(
             new_map_size = map_size,
@@ -244,6 +241,8 @@ class MapManager(RefStruct):
 
             um = UnitManager(self._struct)
             um.apply_global_offset(x_offset, y_offset, map_size, unit_overflow_action)
+
+            # Todo: !Move trigger  using: ``self._struct.trigger_manager...``
 
             # tm = TriggerManager(self._struct)
             # tm.apply_global_offset(x_offset, y_offset, map_size, trigger_overflow_action)
@@ -299,7 +298,7 @@ class MapManager(RefStruct):
 
         return {tile: self.get_tile(tile) for tile in sorted(tiles)}
 
-    def get_tile(self, tile: TileT = None, i: int = None) -> TerrainTile:
+    def get_tile(self, tile: TileT | None = None, i: int | None = None) -> TerrainTile:
         """
         Get a TerrainTile on the map based on a tile or using its index
 
@@ -314,7 +313,7 @@ class MapManager(RefStruct):
         Returns:
             The requested TerrainTile
         """
-        if i and tile or not i and not tile:
+        if i is not None and tile is not None or i is None and tile is None:
             raise ValueError('The use of exactly one of the parameters [i] or [tile] is required')
 
         x = y = None
@@ -324,8 +323,8 @@ class MapManager(RefStruct):
             x, y = tile
 
         if i is not None:
-            if not 0 <= i < self.map_size:
-                raise ValueError('Parameter [i] needs to be [0 <= i < map_size]')
+            if not 0 <= i < self.map_size ** 2:
+                raise ValueError('Parameter [i] needs to be [0 <= i < map_size ** 2]')
             x, y = i_to_xy(i, self.map_size)
 
         if x is None or y is None:

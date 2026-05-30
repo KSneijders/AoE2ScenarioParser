@@ -30,6 +30,7 @@ def test_terrain_setter_set_tuple(mm: MapManager):
 
     with pytest.raises(ValueError, match = 'Encountered unexpected length for nested sequence'):
         mm.terrain = [[TerrainTile() for _ in range(3)] for _ in range(2)]
+    with pytest.raises(ValueError, match = 'Encountered unexpected length for nested sequence'):
         mm.terrain = [[TerrainTile() for _ in range(3)] for _ in range(4)]
 
     # Try types other than list

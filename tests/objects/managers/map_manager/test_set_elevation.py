@@ -2,7 +2,6 @@ from AoE2ScenarioParser.managers import MapManager
 
 
 def test_terrain_set_elevation_simple(mm: MapManager):
-    print('')
     mm.set_elevation(area = ((2, 2), (3, 3)), elevation = 1)
 
     elevations = [
