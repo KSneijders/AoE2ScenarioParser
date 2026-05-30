@@ -28,5 +28,5 @@
   "local_technology_id": "The local technology which <PURPOSE>",
   "object_group2": "The second unit class to be checked by this condition",
   "object_type2": "The second unit type to be checked by this condition",
-  "xs_function": "The XS script function to call"
+  "message": "The XS script function to call"
 }

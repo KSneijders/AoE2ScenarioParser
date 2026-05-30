@@ -375,7 +375,7 @@
     "description": "This condition can be used to check if the specified unit is currently selected by the local player.",
     "deprecated": {
       "version": "1.36",
-      "reason": "This effect should no longer be used. It will cause desyncs in multiplayer games. Use Object Selected (Multiplayer) instead."
+      "reason": "This condition should no longer be used. It will cause desyncs in multiplayer games. Use Object Selected (Multiplayer) instead."
     },
     "attributes": [
       {
@@ -488,10 +488,11 @@
   {
     "id": 15,
     "name": "object_visible",
-    "description": [
-      "This condition can be used to check if the specified object is currently visible to the local player (within their line of sight or a revealed area).",
-      "Note: this condition does not work in multiplayer — use Object Visible (Multiplayer) instead."
-    ],
+    "description": "This condition can be used to check if the specified object is currently visible to the local player (within their line of sight or a revealed area).",
+    "deprecated": {
+      "version": "1.36",
+      "reason": "This condition should no longer be used. It does not work consistently (Even in Single Player). Use Object Visible (Multiplayer) instead."
+    },
     "attributes": [
       {
         "name": "unit1_ref",
@@ -505,10 +506,11 @@
   {
     "id": 16,
     "name": "object_not_visible",
-    "description": [
-      "This condition can be used to check if the specified object is currently NOT visible to the local player (outside their line of sight and any revealed areas).",
-      "Note: this condition does not work in multiplayer."
-    ],
+    "description": "This condition can be used to check if the specified object is currently NOT visible to the local player (outside their line of sight and any revealed areas).",
+    "deprecated": {
+      "version": "1.36",
+      "reason": "This condition should no longer be used. It does not work consistently (Even in Single Player). Use Object Visible (Multiplayer) with inverted checked instead."
+    },
     "attributes": [
       {
         "name": "unit1_ref",
@@ -528,14 +530,14 @@
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose current research activity will be checked.",
+        "description": "The player whose research state will be checked.",
         "default": null
       },
       {
         "name": "technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The technology that must currently be in progress of being researched.",
+        "description": "The technology that must currently being researched.",
         "default": null
       },
       {
@@ -550,7 +552,7 @@
   {
     "id": 18,
     "name": "units_garrisoned",
-    "description": "This condition can be used to check if the specified building or unit has at least the specified number of units garrisoned inside it.",
+    "description": "This condition can be used to check if the specified unit or building has at least the specified number of units garrisoned inside it.",
     "attributes": [
       {
         "name": "quantity",
@@ -563,7 +565,7 @@
         "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The building or unit that must have the required number of units garrisoned inside it.",
+        "description": "The unit or building to count garrisoned units for.",
         "default": null
       },
       {
@@ -578,7 +580,7 @@
   {
     "id": 19,
     "name": "difficulty_level",
-    "description": "This condition can be used to check if the current game difficulty matches the specified difficulty level.",
+    "description": "This condition can be used to check the game difficulty.",
     "attributes": [
       {
         "name": "quantity",
@@ -599,7 +601,7 @@
   {
     "id": 20,
     "name": "chance",
-    "description": "This condition can be used to apply a random probability to whether the trigger fires. Each time the condition is evaluated, it has a percentage chance equal to the quantity of evaluating to true.",
+    "description": "This condition fires based on the specified percentage chance.",
     "attributes": [
       {
         "name": "quantity",
@@ -613,7 +615,7 @@
   {
     "id": 21,
     "name": "technology_state",
-    "description": "This condition can be used to check if the specified technology is in a particular state (e.g., available, being researched, or fully researched) for the source player.",
+    "description": "This condition can be used to check if the specified technology is in a particular state for the source player.",
     "attributes": [
       {
         "name": "quantity",
@@ -648,27 +650,20 @@
   {
     "id": 22,
     "name": "variable_value",
-    "description": "This condition can be used to check if a trigger variable's value satisfies the specified comparison against a given quantity.",
+    "description": "This condition can be used to check a trigger variable's value.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The value to compare the variable against.",
-        "default": null
-      },
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
+        "description": "The value to compare against.",
         "default": null
       },
       {
         "name": "variable1_id",
         "ref": null,
         "type": "Variable",
-        "description": "The variable whose value will be compared against the quantity.",
+        "description": "The variable to compare.",
         "default": null
       },
       {
@@ -677,19 +672,26 @@
         "type": "Comparison",
         "description": "The comparison operator to use",
         "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
   {
     "id": 23,
     "name": "object_hp",
-    "description": "This condition can be used to check if the specified object's current HP satisfies the specified comparison against a given value.",
+    "description": "This condition can be used to check a unit's current HP.",
     "attributes": [
       {
         "name": "quantity",
         "ref": null,
         "type": "int",
-        "description": "The HP value to compare the object's current HP against.",
+        "description": "The value to compare against.",
         "default": null
       },
       {
@@ -700,17 +702,17 @@
         "default": null
       },
       {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
-        "default": null
-      },
-      {
         "name": "comparison",
         "ref": null,
         "type": "Comparison",
         "description": "The comparison operator to use",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       }
     ]
@@ -718,7 +720,7 @@
   {
     "id": 24,
     "name": "diplomacy_state",
-    "description": "This condition can be used to check if the diplomacy stance of the source player toward the target player matches the specified stance.",
+    "description": "This condition can be used to check the diplomacy stance of the source player toward the target player.",
     "attributes": [
       {
         "name": "quantity",
@@ -731,7 +733,14 @@
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player whose diplomacy stance toward the target player will be checked.",
+        "description": "The player whose diplomacy stance will be checked.",
+        "default": null
+      },
+      {
+        "name": "target_player",
+        "ref": null,
+        "type": "Player",
+        "description": "The player towards whom the stance will be checked.",
         "default": null
       },
       {
@@ -740,26 +749,19 @@
         "type": "bool",
         "description": "When enabled, inverts the result of the condition",
         "default": null
-      },
-      {
-        "name": "target_player",
-        "ref": null,
-        "type": "Player",
-        "description": "The player toward whom the source player's diplomacy stance will be checked.",
-        "default": null
       }
     ]
   },
   {
     "id": 25,
     "name": "script_call",
-    "description": "This condition can be used to evaluate an XS script function. The function must return a boolean, which is used directly as the result of this condition.",
+    "description": "This condition can be used to evaluate an XS function. The function must return a boolean.",
     "attributes": [
       {
-        "name": "xs_function",
+        "name": "message",
         "ref": null,
         "type": "str",
-        "description": "The XS script function to call",
+        "description": "The XS function to call",
         "default": null
       }
     ]
@@ -767,7 +769,7 @@
   {
     "id": 26,
     "name": "object_selected_multiplayer",
-    "description": "This condition can be used to check if the specified object is currently selected by the specified player. This is the multiplayer-compatible version of Object Selected.",
+    "description": "This condition can be used to check if the specified unit is currently selected by the specified player.",
     "attributes": [
       {
         "name": "unit1_ref",
@@ -795,7 +797,7 @@
   {
     "id": 27,
     "name": "object_visible_multiplayer",
-    "description": "This condition can be used to check if the specified object is currently visible to the specified player. This is the multiplayer-compatible version of Object Visible.",
+    "description": "This condition can be used to check if the specified object is currently visible to the specified player (within their line of sight or a revealed area).",
     "attributes": [
       {
         "name": "unit1_ref",
@@ -808,7 +810,7 @@
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player for whom the unit's visibility will be checked.",
+        "description": "The player to check the visibility for.",
         "default": null
       },
       {
@@ -823,41 +825,51 @@
   {
     "id": 28,
     "name": "object_has_action",
-    "description": "This condition can be used to check if an object matching the specified criteria is currently performing the specified unit action, optionally targeting a specific unit.",
+    "description": [
+      "This condition can be used to check if an object matching the specified criteria is currently performing the specified unit action, optionally targeting a specific unit.",
+      "Note: This condition is not always consistent due to a bug."
+    ],
     "attributes": [
       {
         "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The specific unit to check for the action. When not set, any unit matching the other criteria is checked.",
+        "description": "The specific unit to check the action for. When defined, ignores all other filters.",
         "default": null
       },
       {
         "name": "unit2_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The unit that must be the target of the action. When not set, any target is accepted.",
+        "description": "The specific unit that must be the target of the action.",
         "default": null
       },
       {
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
-        "description": "The unit type to check for the action. When not set, any unit type is accepted.",
+        "description": "Only the units with this object id will be checked for the action. When defined, ignores type/class filters.",
         "default": null
       },
       {
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units of this class will be checked by this condition",
+        "description": "Filters the units to check as target by this class.",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The units of this type will be checked by this condition",
+        "description": "Filters the units to check as target by this type.",
+        "default": null
+      },
+      {
+        "name": "unit_action",
+        "ref": null,
+        "type": "UnitAIAction",
+        "description": "The action that the unit is performing.",
         "default": null
       },
       {
@@ -866,26 +878,22 @@
         "type": "bool",
         "description": "When enabled, inverts the result of the condition",
         "default": null
-      },
-      {
-        "name": "unit_action",
-        "ref": null,
-        "type": "UnitAIAction",
-        "description": "The unit action to check",
-        "default": null
       }
     ]
   },
   {
     "id": 29,
     "name": "or",
-    "description": "This condition acts as a logical OR between the two conditions immediately surrounding it (one directly above, one directly below). To OR groups of multiple conditions, use AND conditions to chain them together on either side of the OR.",
+    "description": [
+      "This condition acts as a logical OR between the condition directly above and directly below.",
+      "The operator precedence is AND > OR > no separator. For example, \"A B OR C D\" is interpreted as A and (B or C) and D. \"A AND B OR C D\" would be interpreted as ((A and B) or C) and D"
+    ],
     "attributes": []
   },
   {
     "id": 30,
     "name": "ai_signal_multiplayer",
-    "description": "This condition can be used to check if an AI signal with the specified ID has been sent. This is the multiplayer-compatible version of AI Signal.",
+    "description": "This condition can be used to check if an AI signal with the specified ID has been sent by an AI script using the `sn-trigger-signal` strategy number.",
     "attributes": [
       {
         "name": "ai_signal",
@@ -906,13 +914,13 @@
   {
     "id": 54,
     "name": "building_is_trading",
-    "description": "This condition can be used to check if the specified building (e.g., a Market) is currently being actively traded with — i.e., a trade unit is en route to or from it.",
+    "description": "This condition can be used to check if the specified building is currently being traded with.",
     "attributes": [
       {
         "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The building (e.g., Market) that must be actively trading.",
+        "description": "The building that must be trading.",
         "default": null
       },
       {
@@ -948,7 +956,7 @@
   {
     "id": 56,
     "name": "victory_timer",
-    "description": "This condition can be used to check if the specified victory timer satisfies a comparison against a given time value. Victory timers are countdown timers associated with certain game modes such as King of the Hill or Wonder races.",
+    "description": "This condition can be used to check a specified victory timer.",
     "attributes": [
       {
         "name": "quantity",
@@ -965,13 +973,6 @@
         "default": null
       },
       {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
-        "default": null
-      },
-      {
         "name": "comparison",
         "ref": null,
         "type": "Comparison",
@@ -982,7 +983,14 @@
         "name": "victory_timer_type",
         "ref": null,
         "type": "VictoryTimerType",
-        "description": "The type of victory timer to check",
+        "description": "The victory timer type to check",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       }
     ]
@@ -990,21 +998,17 @@
   {
     "id": 57,
     "name": "and",
-    "description": "This condition acts as a logical AND link between the conditions immediately surrounding it, grouping them together. Chaining multiple AND conditions extends the group, so that the entire group must be true as a unit — typically used to build one side of an OR.",
+    "description": [
+      "This condition acts as a logical AND combining the condition directly above and directly below.",
+      "The operator precedence is AND > OR > no separator. For example, \"A B OR C D\" is interpreted as A and (B or C) and D. \"A AND B OR C D\" would be interpreted as ((A and B) or C) and D"
+    ],
     "attributes": []
   },
   {
     "id": 75,
     "name": "decision_triggered",
-    "description": "This condition can be used to check if a decision dialog (a pop-up choice presented to the player) has been triggered and a specific option was selected by the player.",
+    "description": "This condition can be used to check if a decision dialog has been triggered and a specific option was selected by the player.",
     "attributes": [
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
-        "default": null
-      },
       {
         "name": "decision_id",
         "ref": null,
@@ -1018,6 +1022,13 @@
         "type": "DecisionOption",
         "description": "The decision option to check",
         "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
+        "default": null
       }
     ]
   },
@@ -1030,7 +1041,7 @@
         "name": "object_id",
         "ref": null,
         "type": "UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int",
-        "description": "The unit type that must have been attacked. When not set, any unit type is accepted.",
+        "description": "Only the units with this object id must have been attacked. When defined, ignores type/class filters.",
         "default": null
       },
       {
@@ -1051,14 +1062,14 @@
         "name": "object_group",
         "ref": null,
         "type": "ObjectClass",
-        "description": "The units of this class will be checked by this condition",
+        "description": "Filters the units to check as target by this class.",
         "default": null
       },
       {
         "name": "object_type",
         "ref": null,
         "type": "ObjectType",
-        "description": "The units of this type will be checked by this condition",
+        "description": "Filters the units to check as target by this type.",
         "default": null
       },
       {
@@ -1080,7 +1091,7 @@
   {
     "id": 77,
     "name": "hero_power_cast",
-    "description": "This condition can be used to check if the specified player's hero unit has used (cast) a hero power.",
+    "description": "This condition can be used to check if the specified player's hero unit has used a hero power.",
     "attributes": [
       {
         "name": "source_player",
@@ -1094,20 +1105,13 @@
   {
     "id": 78,
     "name": "compare_variables",
-    "description": "This condition can be used to compare the values of two trigger variables against each other using the specified comparison operator.",
+    "description": "This condition can be used to compare the values of two trigger variables.",
     "attributes": [
-      {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
-        "default": null
-      },
       {
         "name": "variable1_id",
         "ref": null,
         "type": "Variable",
-        "description": "The first variable whose value will be compared.",
+        "description": "The first variable to compare.",
         "default": null
       },
       {
@@ -1121,7 +1125,14 @@
         "name": "variable2_id",
         "ref": null,
         "type": "Variable",
-        "description": "The second variable whose value will be compared against the first.",
+        "description": "The second variable to compare.",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       }
     ]
@@ -1135,7 +1146,7 @@
         "name": "trigger_id",
         "ref": null,
         "type": "int",
-        "description": "The ID of the trigger whose active state will be checked.",
+        "description": "The ID of the trigger to check.",
         "default": null
       },
       {
@@ -1150,27 +1161,27 @@
   {
     "id": 80,
     "name": "local_tech_researched",
-    "description": "This condition can be used to check if a local technology (a civilization-specific upgrade tied to a specific building) has been researched by the source player, optionally scoped to a specific building instance or area.",
+    "description": "This condition can be used to check if the source player has fully researched the specified local technology.",
     "attributes": [
       {
         "name": "local_technology_id",
         "ref": null,
         "type": "TechInfo",
-        "description": "The local technology that must have been researched.",
+        "description": "The local technology to check.",
         "default": null
       },
       {
         "name": "source_player",
         "ref": null,
         "type": "Player",
-        "description": "The player for whom the local technology research status will be checked.",
+        "description": "The player whose local technology will be checked.",
         "default": null
       },
       {
         "name": "unit1_ref",
         "ref": null,
         "type": "Unit",
-        "description": "The specific building instance to check for the researched local technology.",
+        "description": "The specific building to check for the researched local technology.",
         "default": null
       },
       {
@@ -1181,17 +1192,17 @@
         "default": null
       },
       {
-        "name": "inverted",
-        "ref": null,
-        "type": "bool",
-        "description": "When enabled, inverts the result of the condition",
-        "default": null
-      },
-      {
         "name": "quantity",
         "ref": null,
         "type": "int",
         "description": "The minimum number of buildings that must have researched the local technology.",
+        "default": null
+      },
+      {
+        "name": "inverted",
+        "ref": null,
+        "type": "bool",
+        "description": "When enabled, inverts the result of the condition",
         "default": null
       }
     ]
