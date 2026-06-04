@@ -6,7 +6,7 @@ from bfp_rs import borrow_mut, RefStruct, ret, RetrieverRef, set_mut
 
 from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError, ObjectAlreadyLinkedError
+from AoE2ScenarioParser.exceptions.asp_exceptions import InvalidObjectPlacementError
 from AoE2ScenarioParser.objects.support import Area
 from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, Unit, UnitData
 
@@ -119,7 +119,7 @@ class UnitManager(RefStruct, CanBeLinked):
         Returns:
             The added unit
         """
-        self._validate_unit_can_be_linked(unit)
+        self._validate_linkable_can_be_linked(unit)
 
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
@@ -390,14 +390,3 @@ class UnitManager(RefStruct, CanBeLinked):
                         units_to_be_removed.append(unit)
 
             self.remove_units(units_to_be_removed)
-
-    def _validate_unit_can_be_linked(self, unit: Unit) -> None:
-        """
-        Validates if a unit can be linked to this scenario.
-
-        Args:
-            unit: The unit to validate
-        """
-        # noinspection PyProtectedMember
-        if unit._is_linked():
-            raise ObjectAlreadyLinkedError('Unable to add unit that has already been linked to a scenario')

@@ -130,6 +130,7 @@ def format_docstring_body(desc: str | list[str]) -> str:
 def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
     has_ret_ref = False
 
+    effect_id = effect["id"]
     name = effect["name"]
     cls = effect_class_name(name)
     desc = effect.get("description", "")
@@ -163,10 +164,11 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         CUSTOM_IMPORTS_END,
         "",
         "",
-        f"class {cls}(Effect):",
-        '    """',
-        f"    {format_docstring_body(desc)}",
-        '    """',
+        f'class {cls}(Effect):',
+        f'    """',
+        f'    {format_docstring_body(desc)}',
+        f'    """',
+        f'    EFFECT_ID: int = {effect_id}'
     ]
 
     effect_class_init_definition: list[str] = [

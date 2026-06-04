@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from AoE2ScenarioParser.managers import MapManager, UnitManager, PlayerManager
+from AoE2ScenarioParser.managers import MapManager, TriggerManager, UnitManager, PlayerManager
 from AoE2ScenarioParser.sections import ScenarioSections
 
 
@@ -25,6 +25,16 @@ def mm():
     mm.map_size = 5
 
     return mm
+
+
+@pytest.fixture
+def tm():
+    sections = ScenarioSections()
+
+    tm = TriggerManager(sections)
+    tm._initialize_properties()
+
+    return tm
 
 
 @pytest.fixture

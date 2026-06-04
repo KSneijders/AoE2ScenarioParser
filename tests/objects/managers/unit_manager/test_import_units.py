@@ -1,7 +1,6 @@
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
-from AoE2ScenarioParser.sections import Unit
-from AoE2ScenarioParser.sections import ScenarioSections
+from AoE2ScenarioParser.sections import ScenarioSections, Unit
 
 
 def test_import_units_allows_unlinked_units(um: UnitManager):
@@ -28,4 +27,5 @@ def test_import_units_allows_linked_units():
     um2 = UnitManager(ScenarioSections())
     um2.import_units((unit1, unit2))
 
+    assert um1._is_not_linked_to_same(unit1)
     assert um2._is_linked_to_same(unit1)

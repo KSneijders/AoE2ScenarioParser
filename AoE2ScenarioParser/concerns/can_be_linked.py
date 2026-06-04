@@ -2,6 +2,8 @@ import abc
 
 from bfp_rs import BaseStruct
 
+from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError
+
 
 class CanBeLinked(abc.ABC):
 
@@ -18,3 +20,14 @@ class CanBeLinked(abc.ABC):
 
     def _is_not_linked_to_same(self, other: 'CanBeLinked') -> bool:
         return not self._is_linked_to_same(other)
+
+    def _validate_linkable_can_be_linked(self, other: 'CanBeLinked') -> None:
+        """
+        Validates if an object can be linked to this scenario.
+
+        Args:
+            other: The object to validate
+        """
+        # noinspection PyProtectedMember
+        if other._is_linked():
+            raise ObjectAlreadyLinkedError('Unable to add object that has already been linked to a scenario. Use an import function instead.')

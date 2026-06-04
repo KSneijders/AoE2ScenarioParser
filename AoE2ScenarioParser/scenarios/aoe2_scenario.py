@@ -6,6 +6,7 @@ from bfp_rs import Version
 
 from AoE2ScenarioParser.managers import MapManager, MessageManager, OptionManager, PlayerManager, UnitManager, XsManager
 from AoE2ScenarioParser.sections import ScenarioSections
+from managers import TriggerManager
 from sections import DE_LATEST
 
 if TYPE_CHECKING:
@@ -41,6 +42,10 @@ class AoE2Scenario:
         self.xs_manager: XsManager = XsManager(sections)
         # noinspection PyProtectedMember
         self.xs_manager._initialize_properties()
+
+        self.trigger_manager: TriggerManager = TriggerManager(sections)
+        # noinspection PyProtectedMember
+        self.trigger_manager._initialize_properties()
 
     @classmethod
     def from_file(cls, path: str) -> Self:

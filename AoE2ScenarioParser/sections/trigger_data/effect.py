@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from AoE2ScenarioParser.objects.support import Area, AreaT, Tile, TileT
 from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import Array32, i32, nt_str32
 
+from AoE2ScenarioParser.objects.support import Area, AreaT, Tile, TileT
 from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 
 
@@ -16,6 +16,9 @@ def selected_unit_ids():
 
 class Effect(BaseStruct):
     __default_ver__ = TRIGGER_LATEST
+
+    EFFECT_ID: int = -1
+    """The static value on the class"""
 
     # @formatter:off
     _type: int                       = Retriever(i32,          default = -1)
