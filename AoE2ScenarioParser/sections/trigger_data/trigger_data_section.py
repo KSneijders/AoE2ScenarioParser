@@ -13,11 +13,11 @@ from AoE2ScenarioParser.sections.trigger_data.variable_data import VariableData
 
 def trigger_display_orders_repeat():
     return [
-        set_repeat(ret(TriggerData.trigger_display_orders)).from_len(ret(TriggerData.triggers))
+        set_repeat(ret(TriggerDataSection.trigger_display_orders)).from_len(ret(TriggerDataSection.triggers))
     ]
 
 
-class TriggerData(BaseStruct):
+class TriggerDataSection(BaseStruct):
     __default_ver__ = TRIGGER_LATEST
 
     # @formatter:off

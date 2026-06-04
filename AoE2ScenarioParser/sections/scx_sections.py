@@ -11,7 +11,7 @@ from AoE2ScenarioParser.sections.file_header import FileHeader
 from AoE2ScenarioParser.sections.map_data import MapData
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 from AoE2ScenarioParser.sections.settings import Settings
-from AoE2ScenarioParser.sections.trigger_data import TriggerData
+from AoE2ScenarioParser.sections.trigger_data import TriggerDataSection
 from AoE2ScenarioParser.sections.unit_data import UnitData
 
 
@@ -58,12 +58,12 @@ class ScenarioSections(BaseStruct):
     __default_ver__ = DE_LATEST
 
     # @formatter:off
-    file_header: FileHeader   = Retriever(FileHeader,                            default_factory = FileHeader)
-    settings: Settings        = Retriever(Settings,                              default_factory = Settings, remaining_compressed = True)
-    map_data: MapData         = Retriever(MapData,                               default_factory = MapData)
-    unit_data: UnitData       = Retriever(UnitData,                              default_factory = UnitData)
-    trigger_data: TriggerData = Retriever(TriggerData, min_ver = Version(1, 14), default_factory = TriggerData)
-    file_data: FileData       = Retriever(FileData,    min_ver = Version(1, 17), default_factory = FileData)
+    file_header: FileHeader          = Retriever(FileHeader,                                   default_factory = FileHeader)
+    settings: Settings               = Retriever(Settings,                                     default_factory = Settings, remaining_compressed = True)
+    map_data: MapData                = Retriever(MapData,                                      default_factory = MapData)
+    unit_data: UnitData              = Retriever(UnitData,                                     default_factory = UnitData)
+    trigger_data: TriggerDataSection = Retriever(TriggerDataSection, min_ver = Version(1, 14), default_factory = TriggerDataSection)
+    file_data: FileData              = Retriever(FileData,           min_ver = Version(1, 17), default_factory = FileData)
     # @formatter:on
 
     @classmethod
