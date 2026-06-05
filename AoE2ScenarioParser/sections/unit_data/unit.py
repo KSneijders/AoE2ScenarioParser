@@ -3,9 +3,7 @@ from __future__ import annotations
 from math import floor
 from typing import TYPE_CHECKING
 
-from AoE2ScenarioParser.objects.support import Point, Tile
-from AoE2ScenarioParser.objects.support.location import Location
-from bfp_rs import BaseStruct, Context, Retriever, Version
+from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
 from AoE2ScenarioParser.concerns import CanBeLinked, CanHoldUnits
@@ -15,6 +13,8 @@ from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
+from AoE2ScenarioParser.objects.support import Point, Tile
+from AoE2ScenarioParser.objects.support.location import Location
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 if TYPE_CHECKING:
@@ -91,10 +91,6 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
 
         self.garrisoned_in = garrisoned_in
         self.garrisoned_units: tuple[Unit, ...] = garrisoned_units or tuple()
-
-    # [BFP overwrite] - Adds "*args" to allow __init__ to be called without kwargs
-    def __new__(cls, *args, ver = Version(-1), ctx = Context(), init_defaults = True, **retriever_inits):
-        return super().__new__(cls, ver, ctx, init_defaults, **retriever_inits)
 
     _player: int | None = None
 
