@@ -43,9 +43,6 @@ class ModifyAttributeByVariable(Effect):
     message: str = RetrieverRef(ret(Effect._message))
     """The string value to use when the selected object attribute accepts a string (e.g. Object Name ID)"""
 
-    armour_attack_class: DamageClass = RetrieverRef(Effect._armour_attack_class)
-    """The armor or attack class to modify"""
-
     def __init__(
         self,
         object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
@@ -54,7 +51,6 @@ class ModifyAttributeByVariable(Effect):
         object_attribute: ObjectAttribute | None = None,
         variable1_id: Variable | int | None = None,
         message: str | None = None,
-        armour_attack_class: DamageClass | None = None,
     ):
         super().__init__()
 
@@ -64,7 +60,6 @@ class ModifyAttributeByVariable(Effect):
         self.object_attribute: ObjectAttribute | None = object_attribute
         self.variable1_id: Variable | int | None = variable1_id
         self.message: str | None = message
-        self.armour_attack_class: DamageClass | None = armour_attack_class
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

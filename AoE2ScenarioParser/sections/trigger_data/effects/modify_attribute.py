@@ -27,12 +27,6 @@ class ModifyAttribute(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount to modify the attribute by"""
 
-    armour_attack_quantity: int = RetrieverRef(Effect._armour_attack_quantity)
-    """The amount to modify the armor or attack by"""
-
-    armour_attack_class: DamageClass = RetrieverRef(Effect._armour_attack_class)
-    """The armor or attack class to modify"""
-
     object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit whose attribute will be modified"""
 
@@ -54,8 +48,6 @@ class ModifyAttribute(Effect):
     def __init__(
         self,
         quantity: int | None = None,
-        armour_attack_quantity: int | None = None,
-        armour_attack_class: DamageClass | None = None,
         object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
         source_player: Player | None = None,
         operation: Operation | None = None,
@@ -66,8 +58,6 @@ class ModifyAttribute(Effect):
         super().__init__()
 
         self.quantity: int | None = quantity
-        self.armour_attack_quantity: int | None = armour_attack_quantity
-        self.armour_attack_class: DamageClass | None = armour_attack_class
         self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
         self.source_player: Player | None = source_player
         self.operation: Operation | None = operation

@@ -46,12 +46,6 @@ class ModifyAttributeForClass(Effect):
     quantity_float: float = RetrieverRef(Effect._quantity_float)
     """The (decimal) amount to modify the attribute by"""
 
-    armour_attack_quantity: int = RetrieverRef(Effect._armour_attack_quantity)
-    """The amount to modify the damage class by"""
-
-    armour_attack_class: DamageClass = RetrieverRef(Effect._armour_attack_class)
-    """The damage class to modify"""
-
     def __init__(
         self,
         object2_group: ObjectClass | None = None,
@@ -62,8 +56,6 @@ class ModifyAttributeForClass(Effect):
         operation: Operation | None = None,
         quantity: int | None = None,
         quantity_float: float | None = None,
-        armour_attack_quantity: int | None = None,
-        armour_attack_class: DamageClass | None = None,
     ):
         super().__init__()
 
@@ -75,8 +67,6 @@ class ModifyAttributeForClass(Effect):
         self.operation: Operation | None = operation
         self.quantity: int | None = quantity
         self.quantity_float: float | None = quantity_float
-        self.armour_attack_quantity: int | None = armour_attack_quantity
-        self.armour_attack_class: DamageClass | None = armour_attack_class
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

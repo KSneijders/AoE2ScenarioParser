@@ -189,6 +189,10 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         if attr_name == 'item_id':
             continue
 
+        # Todo: Re-introduce later
+        if attr_name in ['armour_attack_quantity', 'armour_attack_class']:
+            continue
+
         effect_class_init_definition.append(f"        {attr_name}: {attr_type} | None = None,")
         effect_class_init_body.append(f"        self.{attr_name}: {attr_type} | None = {attr_name}")
 

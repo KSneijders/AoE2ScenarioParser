@@ -58,9 +58,6 @@ class ModifyObjectAttributeByVariable(Effect):
     variable1_id: Variable = RetrieverRef(Effect._variable1_id)
     """The variable whose value will be used to modify the attribute"""
 
-    armour_attack_class: DamageClass = RetrieverRef(Effect._armour_attack_class)
-    """The damage class to modify"""
-
     def __init__(
         self,
         object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
@@ -71,7 +68,6 @@ class ModifyObjectAttributeByVariable(Effect):
         operation: Operation | None = None,
         message: str | None = None,
         variable1_id: Variable | None = None,
-        armour_attack_class: DamageClass | None = None,
     ):
         super().__init__()
 
@@ -83,7 +79,6 @@ class ModifyObjectAttributeByVariable(Effect):
         self.operation: Operation | None = operation
         self.message: str | None = message
         self.variable1_id: Variable | None = variable1_id
-        self.armour_attack_class: DamageClass | None = armour_attack_class
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======
