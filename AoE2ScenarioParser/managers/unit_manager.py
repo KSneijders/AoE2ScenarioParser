@@ -212,16 +212,19 @@ class UnitManager(RefStruct, CanBeLinked):
 
     def import_units(self, units: Iterable[Unit]) -> list[Unit]:
         """
-        Imports units (resetting the reference_id) for the corresponding player to the scenario.
+        Imports units from another scenario into this one.
+
+        Currently, an alias for ``clone_units``, though the two may diverge in the future.
+        Prefer this name when the units originate from a different scenario instance;
+        prefer ``clone_units`` when duplicating units within the same scenario.
 
         Args:
             units: The units to import
-        """
-        for unit in units:
-            unit._struct = None  # Unlink
-            unit.reference_id = -1  # Allow reference_id to be reassigned
 
-        return self.add_units(units)
+        Returns:
+            The newly created units, linked to this scenario
+        """
+        return [self.clone_unit(unit) for unit in units]
 
     def get_first_player_unit(self, player: Player, object_id: int) -> Unit | None:
         """
@@ -246,9 +249,9 @@ class UnitManager(RefStruct, CanBeLinked):
         attr: str,
         attr_values: list[int],
         is_allowlist: bool = True,
-        players: Iterable[Player] = None,
+        players: Iterable[Player] | None = None,
         *,
-        units: Iterable[Unit] = None,
+        units: Iterable[Unit] | None = None,
     ) -> Generator[Unit]:
         """
         Filter units based on a given attribute of units
@@ -281,9 +284,9 @@ class UnitManager(RefStruct, CanBeLinked):
         self,
         object_ids: list[int],  # Todo: list[int] should allow Info datasets (Potentially add an unwrap helper for this?)
         is_allowlist: bool = True,
-        players: Iterable[Player] = None,
+        players: Iterable[Player] | None = None,
         *,
-        units: Iterable[Unit] = None,
+        units: Iterable[Unit] | None = None,
     ) -> Generator[Unit]:
         """
         Filter unit on their object_id value.
@@ -303,9 +306,9 @@ class UnitManager(RefStruct, CanBeLinked):
         self,
         unit_ids: list[int],
         is_allowlist: bool = True,
-        players: Iterable[Player] = None,
+        players: Iterable[Player] | None = None,
         *,
-        units: Iterable[Unit] = None,
+        units: Iterable[Unit] | None = None,
     ) -> Generator[Unit]:
         """
         Filter unit on their id value.
@@ -324,9 +327,9 @@ class UnitManager(RefStruct, CanBeLinked):
     def get_units_in_area(
         self,
         area: Area,
-        players: Iterable[Player] = None,
+        players: Iterable[Player] | None = None,
         *,
-        units: Iterable[Unit] = None,
+        units: Iterable[Unit] | None = None,
     ) -> Generator[Unit]:
         """
         Get all units in a given area. Optionally filter by given players.
