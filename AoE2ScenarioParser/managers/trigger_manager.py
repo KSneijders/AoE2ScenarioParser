@@ -30,7 +30,9 @@ class TriggerManager(RefStruct, CanBeLinked):
         effect_map: dict[int, type[Effect]] = self._get_effect_mapping()
         for trigger in self.triggers:
             for i in range(len(trigger.effects)):
+                # noinspection PyProtectedMember
                 if trigger.effects[i]._type in effect_map:
+                    # noinspection PyProtectedMember
                     trigger.effects[i].__class__ = effect_map[trigger.effects[i]._type]
 
             set_mut(trigger.effects, False)
@@ -80,7 +82,10 @@ class TriggerManager(RefStruct, CanBeLinked):
         return [self.add_trigger(trigger) for trigger in triggers]
 
     def import_triggers(self, triggers: Iterable[Trigger]) -> list[Trigger]:
+        # Todo: Update once effects and conditions have been implemented.
         for trigger in triggers:
             trigger._struct = None  # Unlink
 
         return self.add_triggers(triggers)
+
+        # Todo: Add clone_trigger (instead of copy)
