@@ -17,6 +17,10 @@ class ClearInstructions(Effect):
     """
     EFFECT_ID: int = 21
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     instruction_panel_position: PanelLocation = RetrieverRef(Effect._instruction_panel_position)
     """The position of the instruction panel to clear"""
 

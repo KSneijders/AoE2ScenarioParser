@@ -16,6 +16,10 @@ class AcknowledgeAiSignal(Effect):
     """
     EFFECT_ID: int = 50
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     ai_signal: int = RetrieverRef(Effect._ai_signal)
     """The AI Signal ID to acknowledge"""
 

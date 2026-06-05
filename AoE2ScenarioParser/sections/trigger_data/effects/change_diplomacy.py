@@ -19,6 +19,10 @@ class ChangeDiplomacy(Effect):
     """
     EFFECT_ID: int = 1
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     diplomacy_state: DiplomacyStance = RetrieverRef(Effect._diplomacy_state)
     """The diplomacy stance to set."""
 

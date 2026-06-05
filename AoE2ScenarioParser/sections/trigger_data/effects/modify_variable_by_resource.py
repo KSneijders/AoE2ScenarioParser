@@ -20,6 +20,10 @@ class ModifyVariableByResource(Effect):
     """
     EFFECT_ID: int = 86
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     resource: PlayerAttribute = RetrieverRef(Effect._resource)
     """The resource whose current value will be used to modify the variable"""
 

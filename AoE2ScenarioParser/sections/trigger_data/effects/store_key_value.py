@@ -17,6 +17,10 @@ class StoreKeyValue(Effect):
     """
     EFFECT_ID: int = 82
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     variable1_id: Variable = RetrieverRef(Effect._variable1_id)
     """The variable whose value will be stored"""
 

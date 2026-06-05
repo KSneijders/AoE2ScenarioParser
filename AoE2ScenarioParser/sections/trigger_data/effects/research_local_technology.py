@@ -21,6 +21,10 @@ class ResearchLocalTechnology(Effect):
     """
     EFFECT_ID: int = 103
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     local_technology_id: TechInfo = RetrieverRef(Effect._local_technology_id)
     """The local technology to research for the type of unit"""
 

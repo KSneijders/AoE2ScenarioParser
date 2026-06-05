@@ -25,6 +25,10 @@ class HealObject(Effect):
     """
     EFFECT_ID: int = 34
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount of HP to restore to each affected unit"""
 

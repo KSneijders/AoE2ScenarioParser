@@ -23,6 +23,10 @@ class EnableUnitTargeting(Effect):
     """
     EFFECT_ID: int = 62
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to enable targeting for"""
 

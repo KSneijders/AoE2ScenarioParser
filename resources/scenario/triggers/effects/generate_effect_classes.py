@@ -168,7 +168,11 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         f'    """',
         f'    {format_docstring_body(desc)}',
         f'    """',
-        f'    EFFECT_ID: int = {effect_id}'
+        f'    EFFECT_ID: int = {effect_id}',
+        f'',
+        f'    __slots__ = ()',
+        f'    # Keeps the memory layout identical to Effect, required for __class__ reassignment.',
+        f'    # Adding new instance attributes in a subclass will break this.',
     ]
 
     effect_class_init_definition: list[str] = [

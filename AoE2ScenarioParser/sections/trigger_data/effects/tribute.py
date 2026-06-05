@@ -18,6 +18,10 @@ class Tribute(Effect):
     """
     EFFECT_ID: int = 5
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount of the specified resource to send."""
 

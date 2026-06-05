@@ -17,6 +17,10 @@ class DisplayTimer(Effect):
     """
     EFFECT_ID: int = 37
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     str_id: int = RetrieverRef(Effect._str_id)
     """The string ID to use as the timer label instead of the message field"""
 

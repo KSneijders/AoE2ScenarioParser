@@ -22,6 +22,10 @@ class ModifyAttributeForClass(Effect):
     """
     EFFECT_ID: int = 104
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     object2_group: ObjectClass = RetrieverRef(Effect._object2_group)
     """The unit class to be affected by this effect"""
 

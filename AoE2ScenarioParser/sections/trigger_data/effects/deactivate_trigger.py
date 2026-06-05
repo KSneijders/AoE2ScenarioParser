@@ -17,6 +17,10 @@ class DeactivateTrigger(Effect):
     """
     EFFECT_ID: int = 9
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     trigger_id: Trigger = RetrieverRef(Effect._trigger_id)
     """The trigger to be deactivated."""
 

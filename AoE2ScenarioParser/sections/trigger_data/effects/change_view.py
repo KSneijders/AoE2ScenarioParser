@@ -18,6 +18,10 @@ class ChangeView(Effect):
     """
     EFFECT_ID: int = 16
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The time in seconds it takes to scroll to the new camera position"""
 

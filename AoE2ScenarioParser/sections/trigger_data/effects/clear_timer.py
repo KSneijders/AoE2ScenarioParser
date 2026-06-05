@@ -16,6 +16,10 @@ class ClearTimer(Effect):
     """
     EFFECT_ID: int = 57
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     timer_id: int = RetrieverRef(Effect._timer_id)
     """The ID of the timer to clear and hide"""
 

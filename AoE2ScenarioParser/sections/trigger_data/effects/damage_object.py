@@ -25,6 +25,10 @@ class DamageObject(Effect):
     """
     EFFECT_ID: int = 24
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount of damage to deal to each affected unit"""
 

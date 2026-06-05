@@ -18,6 +18,10 @@ class ChangeVariable(Effect):
     """
     EFFECT_ID: int = 56
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The value to use in the operation on the variable"""
 

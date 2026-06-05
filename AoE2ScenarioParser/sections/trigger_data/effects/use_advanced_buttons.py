@@ -16,6 +16,10 @@ class UseAdvancedButtons(Effect):
     """
     EFFECT_ID: int = 23
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     def __init__(
         self,
     ):

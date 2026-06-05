@@ -17,6 +17,10 @@ class AiScriptGoal(Effect):
     """
     EFFECT_ID: int = 10
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     ai_script_goal: int = RetrieverRef(Effect._ai_script_goal)
     """The AI Trigger number to set"""
 

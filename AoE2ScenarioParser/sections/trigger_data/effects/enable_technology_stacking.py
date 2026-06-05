@@ -18,6 +18,10 @@ class EnableTechnologyStacking(Effect):
     """
     EFFECT_ID: int = 67
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The maximum number of times the technology can be researched"""
 

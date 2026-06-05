@@ -16,6 +16,10 @@ class ScriptCall(Effect):
     """
     EFFECT_ID: int = 55
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     str_id: int = RetrieverRef(Effect._str_id)
     """The string ID of the XS script function name to call"""
 

@@ -17,6 +17,10 @@ class ChangeColorMood(Effect):
     """
     EFFECT_ID: int = 72
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The time in seconds to fade to the new color mood"""
 

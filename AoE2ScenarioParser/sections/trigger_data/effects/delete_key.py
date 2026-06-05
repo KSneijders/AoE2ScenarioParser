@@ -16,6 +16,10 @@ class DeleteKey(Effect):
     """
     EFFECT_ID: int = 83
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     message: str = RetrieverRef(ret(Effect._message))
     """The name of the key to delete"""
 

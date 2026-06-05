@@ -20,6 +20,10 @@ class ChangeResearchLocation(Effect):
     """
     EFFECT_ID: int = 47
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     source_player: Player = RetrieverRef(Effect._source_player)
     """The player for whom the research location will be changed"""
 

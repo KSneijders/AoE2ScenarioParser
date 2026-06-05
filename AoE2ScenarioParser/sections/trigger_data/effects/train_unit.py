@@ -25,6 +25,10 @@ class TrainUnit(Effect):
     """
     EFFECT_ID: int = 75
 
+    __slots__ = ()
+    # Keeps the memory layout identical to Effect, required for __class__ reassignment.
+    # Adding new instance attributes in a subclass will break this.
+
     quantity: int = RetrieverRef(Effect._quantity)
     """The number of units to queue for training"""
 
