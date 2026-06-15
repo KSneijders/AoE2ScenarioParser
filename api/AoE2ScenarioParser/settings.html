@@ -48,6 +48,9 @@
                     <a class="variable" href="#SHOW_VARIANT_WARNINGS">SHOW_VARIANT_WARNINGS</a>
             </li>
             <li>
+                    <a class="variable" href="#SHOW_SCENARIO_VERSION_WARNINGS">SHOW_SCENARIO_VERSION_WARNINGS</a>
+            </li>
+            <li>
                     <a class="variable" href="#MAIN_CHARSET">MAIN_CHARSET</a>
             </li>
             <li>
@@ -111,15 +114,17 @@ means the change wouldn't transfer to the <code>settings</code> module.</p>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">&quot;&quot;&quot;If it is allowed to overwrite a retriever that is dirty (it has been changed manually)&quot;&quot;&quot;</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="n">SHOW_VARIANT_WARNINGS</span> <span class="o">=</span> <span class="kc">True</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">&quot;&quot;&quot;If warnings about incorrect variants should be shown or not&quot;&quot;&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="c1"># Charset settings</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="n">MAIN_CHARSET</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">&quot;&quot;&quot;The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET&quot;&quot;&quot;</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="n">FALLBACK_CHARSET</span> <span class="o">=</span> <span class="s2">&quot;latin-1&quot;</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">&quot;&quot;&quot;The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails&quot;&quot;&quot;</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="n">ENABLE_XS_CHECK_INTEGRATION</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">&quot;&quot;&quot;If the xs-check integration should be active. If set to False, xs-check will not be used anywhere&quot;&quot;&quot;</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="n">SHOW_SCENARIO_VERSION_WARNINGS</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">&quot;&quot;&quot;If warnings about reading multiple scenario versions should be shown or not&quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="c1"># Charset settings</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="n">MAIN_CHARSET</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">&quot;&quot;&quot;The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET&quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="n">FALLBACK_CHARSET</span> <span class="o">=</span> <span class="s2">&quot;latin-1&quot;</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">&quot;&quot;&quot;The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails&quot;&quot;&quot;</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="n">ENABLE_XS_CHECK_INTEGRATION</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">&quot;&quot;&quot;If the xs-check integration should be active. If set to False, xs-check will not be used anywhere&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
@@ -190,6 +195,20 @@ means the change wouldn't transfer to the <code>settings</code> module.</p>
     <a class="headerlink" href="#SHOW_VARIANT_WARNINGS"></a>
     
             <div class="docstring"><p>If warnings about incorrect variants should be shown or not</p>
+</div>
+
+
+                </section>
+                <section id="SHOW_SCENARIO_VERSION_WARNINGS">
+                    <div class="attr variable">
+            <span class="name">SHOW_SCENARIO_VERSION_WARNINGS</span>        =
+<span class="default_value">True</span>
+
+        
+    </div>
+    <a class="headerlink" href="#SHOW_SCENARIO_VERSION_WARNINGS"></a>
+    
+            <div class="docstring"><p>If warnings about reading multiple scenario versions should be shown or not</p>
 </div>
 
 
