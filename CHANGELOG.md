@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.8.3 - 2026-June-15
+
+### Adds
+
+- A warning when reading multiple scenarios with different versions — Related: [#130](https://github.com/KSneijders/AoE2ScenarioParser/issues/130)
+  - A setting to disable the above warning: `SHOW_SCENARIO_VERSION_WARNINGS`
+
+---
+
 ## 0.8.2 - 2026-May-28
 
 ### Adds

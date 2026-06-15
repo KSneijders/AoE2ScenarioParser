@@ -22,6 +22,8 @@ ALLOW_DIRTY_RETRIEVER_OVERWRITE = False
 """If it is allowed to overwrite a retriever that is dirty (it has been changed manually)"""
 SHOW_VARIANT_WARNINGS = True
 """If warnings about incorrect variants should be shown or not"""
+SHOW_SCENARIO_VERSION_WARNINGS = True
+"""If warnings about reading multiple scenario versions should be shown or not"""
 
 # Charset settings
 MAIN_CHARSET = "utf-8"
