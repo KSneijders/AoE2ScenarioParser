@@ -861,7 +861,7 @@
   {
     "id": 22,
     "name": "freeze_object",
-    "description": "This effect can be used to freeze units in place, preventing them from moving or taking any actions.",
+    "description": "This effect can be used to 'freeze' units in place by stopping them and setting them to no attack stance.",
     "attributes": [
       {
         "name": "object_id",
