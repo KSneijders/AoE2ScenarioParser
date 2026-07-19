@@ -43,23 +43,23 @@ class CreateDecision(Effect):
 
     def __init__(
         self,
-        decision_id: int | None = None,
-        str_id: int | None = None,
-        message: str | None = None,
-        decision_option1_str_id: int | None = None,
-        message_option1: str | None = None,
-        decision_option2_str_id: int | None = None,
-        message_option2: str | None = None,
+        decision_id: int = -1,
+        str_id: int = -1,
+        message: str = '',
+        decision_option1_str_id: int = -1,
+        message_option1: str = '',
+        decision_option2_str_id: int = -1,
+        message_option2: str = '',
     ):
         super().__init__()
 
-        self.decision_id: int | None = decision_id
-        self.str_id: int | None = str_id
-        self.message: str | None = message
-        self.decision_option1_str_id: int | None = decision_option1_str_id
-        self.message_option1: str | None = message_option1
-        self.decision_option2_str_id: int | None = decision_option2_str_id
-        self.message_option2: str | None = message_option2
+        self.decision_id: int = decision_id
+        self.str_id: int = str_id
+        self.message: str = message
+        self.decision_option1_str_id: int = decision_option1_str_id
+        self.message_option1: str = message_option1
+        self.decision_option2_str_id: int = decision_option2_str_id
+        self.message_option2: str = message_option2
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

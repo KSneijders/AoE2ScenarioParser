@@ -26,25 +26,25 @@ class ChangeObjectCost(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to change cost"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the cost will be changed"""
 
-    resource1: PlayerAttribute = RetrieverRef(Effect._resource1)
+    resource1: PlayerAttribute | int = RetrieverRef(Effect._resource1)
     """The type of resource for the first cost"""
 
     resource1_quantity: int = RetrieverRef(Effect._resource1_quantity)
     """The quantity for the first cost"""
 
-    resource2: PlayerAttribute = RetrieverRef(Effect._resource2)
+    resource2: PlayerAttribute | int = RetrieverRef(Effect._resource2)
     """The type of resource for the second cost"""
 
     resource2_quantity: int = RetrieverRef(Effect._resource2_quantity)
     """The quantity for the second cost"""
 
-    resource3: PlayerAttribute = RetrieverRef(Effect._resource3)
+    resource3: PlayerAttribute | int = RetrieverRef(Effect._resource3)
     """The type of resource for the third cost"""
 
     resource3_quantity: int = RetrieverRef(Effect._resource3_quantity)
@@ -52,25 +52,25 @@ class ChangeObjectCost(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        resource1: PlayerAttribute | None = None,
-        resource1_quantity: int | None = None,
-        resource2: PlayerAttribute | None = None,
-        resource2_quantity: int | None = None,
-        resource3: PlayerAttribute | None = None,
-        resource3_quantity: int | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        resource1: PlayerAttribute | int = -1,
+        resource1_quantity: int = -1,
+        resource2: PlayerAttribute | int = -1,
+        resource2_quantity: int = -1,
+        resource3: PlayerAttribute | int = -1,
+        resource3_quantity: int = -1,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.resource1: PlayerAttribute | None = resource1
-        self.resource1_quantity: int | None = resource1_quantity
-        self.resource2: PlayerAttribute | None = resource2
-        self.resource2_quantity: int | None = resource2_quantity
-        self.resource3: PlayerAttribute | None = resource3
-        self.resource3_quantity: int | None = resource3_quantity
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.resource1: PlayerAttribute | int = resource1
+        self.resource1_quantity: int = resource1_quantity
+        self.resource2: PlayerAttribute | int = resource2
+        self.resource2_quantity: int = resource2_quantity
+        self.resource3: PlayerAttribute | int = resource3
+        self.resource3_quantity: int = resource3_quantity
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

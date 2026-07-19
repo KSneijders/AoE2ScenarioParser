@@ -24,10 +24,10 @@ class ChangeObjectVisibility(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units' visibility will be changed for the target player"""
 
-    target_player: Player = RetrieverRef(Effect._target_player)
+    target_player: Player | int = RetrieverRef(Effect._target_player)
     """The player for whom the unit visibility will change"""
 
     @property
@@ -40,32 +40,32 @@ class ChangeObjectVisibility(Effect):
         """The area in which units will have their visibility changed. When not set, units across the entire map have their visibility changed"""
         self._area = value
 
-    visibility_state: VisibilityState = RetrieverRef(Effect._visibility_state)
+    visibility_state: VisibilityState | int = RetrieverRef(Effect._visibility_state)
     """The visibility state to use"""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
     """The maximum number of units affected by this effect"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        target_player: Player | None = None,
+        source_player: Player | int = -1,
+        target_player: Player | int = -1,
         area: Area | None = None,
-        visibility_state: VisibilityState | None = None,
-        max_units_affected: int | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        visibility_state: VisibilityState | int = -1,
+        max_units_affected: int = -1,
+        selected_unit_ref_ids: None | list[Unit] = None,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.target_player: Player | None = target_player
-        self.area: Area | None = area
-        self.visibility_state: VisibilityState | None = visibility_state
-        self.max_units_affected: int | None = max_units_affected
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
+        self.source_player: Player | int = source_player
+        self.target_player: Player | int = target_player
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.visibility_state: VisibilityState | int = visibility_state
+        self.max_units_affected: int = max_units_affected
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -25,10 +25,10 @@ class ChangeVariable(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The value to use in the operation on the variable"""
 
-    operation: Operation = RetrieverRef(Effect._operation)
+    operation: Operation | int = RetrieverRef(Effect._operation)
     """The operation to apply to the variable using the quantity."""
 
-    variable1_id: Variable = RetrieverRef(Effect._variable1_id)
+    variable1_id: Variable | int = RetrieverRef(Effect._variable1_id)
     """The variable whose value will be changed"""
 
     message: str = RetrieverRef(ret(Effect._message))
@@ -36,17 +36,17 @@ class ChangeVariable(Effect):
 
     def __init__(
         self,
-        quantity: int | None = None,
-        operation: Operation | None = None,
-        variable1_id: Variable | None = None,
-        message: str | None = None,
+        quantity: int = -1,
+        operation: Operation | int = -1,
+        variable1_id: Variable | int = -1,
+        message: str = '',
     ):
         super().__init__()
 
-        self.quantity: int | None = quantity
-        self.operation: Operation | None = operation
-        self.variable1_id: Variable | None = variable1_id
-        self.message: str | None = message
+        self.quantity: int = quantity
+        self.operation: Operation | int = operation
+        self.variable1_id: Variable | int = variable1_id
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -25,7 +25,7 @@ class ChangeView(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The time in seconds it takes to scroll to the new camera position"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose camera view will be moved"""
 
     @property
@@ -43,17 +43,17 @@ class ChangeView(Effect):
 
     def __init__(
         self,
-        quantity: int | None = None,
-        source_player: Player | None = None,
-        location: Tile | None = None,
-        scroll: bool | None = None,
+        quantity: int = -1,
+        source_player: Player | int = -1,
+        location: None | Tile = None,
+        scroll: bool = False,
     ):
         super().__init__()
 
-        self.quantity: int | None = quantity
-        self.source_player: Player | None = source_player
-        self.location: Tile | None = location
-        self.scroll: bool | None = scroll
+        self.quantity: int = quantity
+        self.source_player: Player | int = source_player
+        self.location: Tile = location or (-1, -1)
+        self.scroll: bool = scroll
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

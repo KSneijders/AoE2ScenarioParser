@@ -26,11 +26,11 @@ class AiScriptGoal(Effect):
 
     def __init__(
         self,
-        ai_script_goal: int | None = None,
+        ai_script_goal: int = -1,
     ):
         super().__init__()
 
-        self.ai_script_goal: int | None = ai_script_goal
+        self.ai_script_goal: int = ai_script_goal
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

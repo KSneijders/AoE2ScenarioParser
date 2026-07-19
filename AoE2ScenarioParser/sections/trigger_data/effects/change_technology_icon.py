@@ -22,10 +22,10 @@ class ChangeTechnologyIcon(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    technology_id: TechInfo = RetrieverRef(Effect._technology_id)
+    technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology whose icon will be changed"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the technology icon will be changed"""
 
     quantity: int = RetrieverRef(Effect._quantity)
@@ -33,15 +33,15 @@ class ChangeTechnologyIcon(Effect):
 
     def __init__(
         self,
-        technology_id: TechInfo | None = None,
-        source_player: Player | None = None,
-        quantity: int | None = None,
+        technology_id: TechInfo | int = -1,
+        source_player: Player | int = -1,
+        quantity: int = -1,
     ):
         super().__init__()
 
-        self.technology_id: TechInfo | None = technology_id
-        self.source_player: Player | None = source_player
-        self.quantity: int | None = quantity
+        self.technology_id: TechInfo | int = technology_id
+        self.source_player: Player | int = source_player
+        self.quantity: int = quantity
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

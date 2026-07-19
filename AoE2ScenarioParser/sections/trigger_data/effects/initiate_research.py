@@ -24,26 +24,26 @@ class InitiateResearch(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player who will research the technology"""
 
-    technology_id: TechInfo = RetrieverRef(Effect._technology_id)
+    technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology to begin researching"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The building to be affected by this effect."""
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        technology_id: TechInfo | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        source_player: Player | int = -1,
+        technology_id: TechInfo | int = -1,
+        selected_unit_ref_ids: None | list[Unit] = None,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.technology_id: TechInfo | None = technology_id
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
+        self.source_player: Player | int = source_player
+        self.technology_id: TechInfo | int = technology_id
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

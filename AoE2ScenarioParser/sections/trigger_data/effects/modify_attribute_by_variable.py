@@ -29,16 +29,16 @@ class ModifyAttributeByVariable(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit whose attribute will be modified"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units will have their attribute modified"""
 
-    operation: Operation = RetrieverRef(Effect._operation)
+    operation: Operation | int = RetrieverRef(Effect._operation)
     """The operation to apply to the attribute using the variable."""
 
-    object_attribute: ObjectAttribute = RetrieverRef(Effect._object_attribute)
+    object_attribute: ObjectAttribute | int = RetrieverRef(Effect._object_attribute)
     """The unit attribute to modify using the variable"""
 
     variable1_id: Variable | int = RetrieverRef(Effect._variable1_id)
@@ -49,21 +49,21 @@ class ModifyAttributeByVariable(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        operation: Operation | None = None,
-        object_attribute: ObjectAttribute | None = None,
-        variable1_id: Variable | int | None = None,
-        message: str | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        operation: Operation | int = -1,
+        object_attribute: ObjectAttribute | int = -1,
+        variable1_id: Variable | int = -1,
+        message: str = '',
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.operation: Operation | None = operation
-        self.object_attribute: ObjectAttribute | None = object_attribute
-        self.variable1_id: Variable | int | None = variable1_id
-        self.message: str | None = message
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.operation: Operation | int = operation
+        self.object_attribute: ObjectAttribute | int = object_attribute
+        self.variable1_id: Variable | int = variable1_id
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

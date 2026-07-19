@@ -22,26 +22,26 @@ class SetPlayerVisibility(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the visibility will be changed."""
 
-    target_player: Player = RetrieverRef(Effect._target_player)
+    target_player: Player | int = RetrieverRef(Effect._target_player)
     """The target player whose visibility will be changed for the source player."""
 
-    visibility_state: VisibilityState = RetrieverRef(Effect._visibility_state)
+    visibility_state: VisibilityState | int = RetrieverRef(Effect._visibility_state)
     """The visibility state to use"""
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        target_player: Player | None = None,
-        visibility_state: VisibilityState | None = None,
+        source_player: Player | int = -1,
+        target_player: Player | int = -1,
+        visibility_state: VisibilityState | int = -1,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.target_player: Player | None = target_player
-        self.visibility_state: VisibilityState | None = visibility_state
+        self.source_player: Player | int = source_player
+        self.target_player: Player | int = target_player
+        self.visibility_state: VisibilityState | int = visibility_state
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

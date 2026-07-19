@@ -25,11 +25,11 @@ class DeleteKey(Effect):
 
     def __init__(
         self,
-        message: str | None = None,
+        message: str = '',
     ):
         super().__init__()
 
-        self.message: str | None = message
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

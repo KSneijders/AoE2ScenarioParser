@@ -26,10 +26,10 @@ class CreateObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to be created."""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose unit will be created"""
 
     @property
@@ -50,19 +50,19 @@ class CreateObject(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        location: Tile | None = None,
-        facet: int | None = None,
-        disable_sound: bool | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        location: None | Tile = None,
+        facet: int = -1,
+        disable_sound: bool = False,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.location: Tile | None = location
-        self.facet: int | None = facet
-        self.disable_sound: bool | None = disable_sound
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.location: Tile = location or (-1, -1)
+        self.facet: int = facet
+        self.disable_sound: bool = disable_sound
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

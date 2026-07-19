@@ -23,7 +23,7 @@ class ChangeObjectCivilizationName(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units will have their civilization name changed"""
 
     str_id: int = RetrieverRef(Effect._str_id)
@@ -42,7 +42,7 @@ class ChangeObjectCivilizationName(Effect):
     message: str = RetrieverRef(ret(Effect._message))
     """The civilization name to display for the affected units"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -50,21 +50,21 @@ class ChangeObjectCivilizationName(Effect):
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        str_id: int | None = None,
+        source_player: Player | int = -1,
+        str_id: int = -1,
         area: Area | None = None,
-        message: str | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
-        max_units_affected: int | None = None,
+        message: str = '',
+        selected_unit_ref_ids: None | list[Unit] = None,
+        max_units_affected: int = -1,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.str_id: int | None = str_id
-        self.area: Area | None = area
-        self.message: str | None = message
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
-        self.max_units_affected: int | None = max_units_affected
+        self.source_player: Player | int = source_player
+        self.str_id: int = str_id
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.message: str = message
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self.max_units_affected: int = max_units_affected
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

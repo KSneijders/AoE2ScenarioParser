@@ -25,10 +25,10 @@ class EnableDisableObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The unit to enable or disable"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the unit will be enabled or disabled"""
 
     enabled: bool = RetrieverRef(Effect._enabled)
@@ -36,15 +36,15 @@ class EnableDisableObject(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        enabled: bool | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        enabled: bool = False,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.enabled: bool | None = enabled
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.enabled: bool = enabled
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

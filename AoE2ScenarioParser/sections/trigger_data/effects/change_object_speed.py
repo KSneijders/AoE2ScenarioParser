@@ -32,10 +32,10 @@ class ChangeObjectSpeed(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount to change the movement speed to. For legacy reasons, this is capped at 4.5"""
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to change speed"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units will have their speed changed"""
 
     @property
@@ -48,13 +48,13 @@ class ChangeObjectSpeed(Effect):
         """The area in which units will have their speed changed. When not set, units across the entire map have their speed changed"""
         self._area = value
 
-    object_group: ObjectClass = RetrieverRef(Effect._object_group)
+    object_group: ObjectClass | int = RetrieverRef(Effect._object_group)
     """The units with this class will be affected by this effect"""
 
-    object_type: ObjectType = RetrieverRef(Effect._object_type)
+    object_type: ObjectType | int = RetrieverRef(Effect._object_type)
     """The units of this type will be affected by this effect"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -62,25 +62,25 @@ class ChangeObjectSpeed(Effect):
 
     def __init__(
         self,
-        quantity: int | None = None,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
+        quantity: int = -1,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
         area: Area | None = None,
-        object_group: ObjectClass | None = None,
-        object_type: ObjectType | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
-        max_units_affected: int | None = None,
+        object_group: ObjectClass | int = -1,
+        object_type: ObjectType | int = -1,
+        selected_unit_ref_ids: None | list[Unit] = None,
+        max_units_affected: int = -1,
     ):
         super().__init__()
 
-        self.quantity: int | None = quantity
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.area: Area | None = area
-        self.object_group: ObjectClass | None = object_group
-        self.object_type: ObjectType | None = object_type
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
-        self.max_units_affected: int | None = max_units_affected
+        self.quantity: int = quantity
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.object_group: ObjectClass | int = object_group
+        self.object_type: ObjectType | int = object_type
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self.max_units_affected: int = max_units_affected
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

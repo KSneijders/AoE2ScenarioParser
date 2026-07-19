@@ -21,7 +21,7 @@ class StoreKeyValue(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    variable1_id: Variable = RetrieverRef(Effect._variable1_id)
+    variable1_id: Variable | int = RetrieverRef(Effect._variable1_id)
     """The variable whose value will be stored"""
 
     message: str = RetrieverRef(ret(Effect._message))
@@ -29,13 +29,13 @@ class StoreKeyValue(Effect):
 
     def __init__(
         self,
-        variable1_id: Variable | None = None,
-        message: str | None = None,
+        variable1_id: Variable | int = -1,
+        message: str = '',
     ):
         super().__init__()
 
-        self.variable1_id: Variable | None = variable1_id
-        self.message: str | None = message
+        self.variable1_id: Variable | int = variable1_id
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

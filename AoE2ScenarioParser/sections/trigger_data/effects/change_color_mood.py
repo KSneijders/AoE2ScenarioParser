@@ -24,18 +24,18 @@ class ChangeColorMood(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The time in seconds to fade to the new color mood"""
 
-    color_mood: ColorMood = RetrieverRef(Effect._color_mood)
+    color_mood: ColorMood | int = RetrieverRef(Effect._color_mood)
     """The color mood to set"""
 
     def __init__(
         self,
-        quantity: int | None = None,
-        color_mood: ColorMood | None = None,
+        quantity: int = -1,
+        color_mood: ColorMood | int = -1,
     ):
         super().__init__()
 
-        self.quantity: int | None = quantity
-        self.color_mood: ColorMood | None = color_mood
+        self.quantity: int = quantity
+        self.color_mood: ColorMood | int = color_mood
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

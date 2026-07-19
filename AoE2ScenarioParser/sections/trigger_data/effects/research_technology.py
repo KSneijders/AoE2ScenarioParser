@@ -22,10 +22,10 @@ class ResearchTechnology(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the technology will be researched."""
 
-    technology_id: TechInfo = RetrieverRef(Effect._technology_id)
+    technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology which will be researched for the specified player."""
 
     force_technology: bool = RetrieverRef(Effect._force_technology)
@@ -33,15 +33,15 @@ class ResearchTechnology(Effect):
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        technology_id: TechInfo | None = None,
-        force_technology: bool | None = None,
+        source_player: Player | int = -1,
+        technology_id: TechInfo | int = -1,
+        force_technology: bool = False,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.technology_id: TechInfo | None = technology_id
-        self.force_technology: bool | None = force_technology
+        self.source_player: Player | int = source_player
+        self.technology_id: TechInfo | int = technology_id
+        self.force_technology: bool = force_technology
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -21,16 +21,16 @@ class LockGate(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The gates to be locked."""
 
     def __init__(
         self,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        selected_unit_ref_ids: None | list[Unit] = None,
     ):
         super().__init__()
 
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -25,28 +25,28 @@ class Tribute(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount of the specified resource to send."""
 
-    resource: PlayerAttribute = RetrieverRef(Effect._resource)
+    resource: PlayerAttribute | int = RetrieverRef(Effect._resource)
     """The resource that will be sent."""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player who will be sending the resources."""
 
-    target_player: Player = RetrieverRef(Effect._target_player)
+    target_player: Player | int = RetrieverRef(Effect._target_player)
     """The player who will receive the resources."""
 
     def __init__(
         self,
-        quantity: int | None = None,
-        resource: PlayerAttribute | None = None,
-        source_player: Player | None = None,
-        target_player: Player | None = None,
+        quantity: int = -1,
+        resource: PlayerAttribute | int = -1,
+        source_player: Player | int = -1,
+        target_player: Player | int = -1,
     ):
         super().__init__()
 
-        self.quantity: int | None = quantity
-        self.resource: PlayerAttribute | None = resource
-        self.source_player: Player | None = source_player
-        self.target_player: Player | None = target_player
+        self.quantity: int = quantity
+        self.resource: PlayerAttribute | int = resource
+        self.source_player: Player | int = source_player
+        self.target_player: Player | int = target_player
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

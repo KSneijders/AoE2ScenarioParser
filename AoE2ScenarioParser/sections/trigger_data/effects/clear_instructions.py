@@ -21,16 +21,16 @@ class ClearInstructions(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    instruction_panel_position: PanelLocation = RetrieverRef(Effect._instruction_panel_position)
+    instruction_panel_position: PanelLocation | int = RetrieverRef(Effect._instruction_panel_position)
     """The position of the instruction panel to clear"""
 
     def __init__(
         self,
-        instruction_panel_position: PanelLocation | None = None,
+        instruction_panel_position: PanelLocation | int = -1,
     ):
         super().__init__()
 
-        self.instruction_panel_position: PanelLocation | None = instruction_panel_position
+        self.instruction_panel_position: PanelLocation | int = instruction_panel_position
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

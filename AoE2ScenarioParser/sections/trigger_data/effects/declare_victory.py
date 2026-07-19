@@ -21,7 +21,7 @@ class DeclareVictory(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom victory or defeat will be declared"""
 
     enabled: bool = RetrieverRef(Effect._enabled)
@@ -29,13 +29,13 @@ class DeclareVictory(Effect):
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        enabled: bool | None = None,
+        source_player: Player | int = -1,
+        enabled: bool = False,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.enabled: bool | None = enabled
+        self.source_player: Player | int = source_player
+        self.enabled: bool = enabled
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

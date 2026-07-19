@@ -30,16 +30,16 @@ class ModifyObjectAttribute(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to modify the attribute for"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units will have their attribute modified"""
 
-    object_attribute: ObjectAttribute = RetrieverRef(Effect._object_attribute)
+    object_attribute: ObjectAttribute | int = RetrieverRef(Effect._object_attribute)
     """The object attribute to modify"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     @property
@@ -52,7 +52,7 @@ class ModifyObjectAttribute(Effect):
         """The area in which units will have their attribute modified. When not set, units across the entire map have their attribute modified"""
         self._area = value
 
-    operation: Operation = RetrieverRef(Effect._operation)
+    operation: Operation | int = RetrieverRef(Effect._operation)
     """The operation to apply to the attribute using the quantity."""
 
     message: str = RetrieverRef(ret(Effect._message))
@@ -66,27 +66,27 @@ class ModifyObjectAttribute(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        object_attribute: ObjectAttribute | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        object_attribute: ObjectAttribute | int = -1,
+        selected_unit_ref_ids: None | list[Unit] = None,
         area: Area | None = None,
-        operation: Operation | None = None,
-        message: str | None = None,
-        quantity: int | None = None,
-        quantity_float: float | None = None,
+        operation: Operation | int = -1,
+        message: str = '',
+        quantity: int = -1,
+        quantity_float: float = -1.0,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.object_attribute: ObjectAttribute | None = object_attribute
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
-        self.area: Area | None = area
-        self.operation: Operation | None = operation
-        self.message: str | None = message
-        self.quantity: int | None = quantity
-        self.quantity_float: float | None = quantity_float
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.object_attribute: ObjectAttribute | int = object_attribute
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.operation: Operation | int = operation
+        self.message: str = message
+        self.quantity: int = quantity
+        self.quantity_float: float = quantity_float
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

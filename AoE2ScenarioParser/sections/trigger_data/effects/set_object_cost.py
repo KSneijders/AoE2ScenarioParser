@@ -26,31 +26,31 @@ class SetObjectCost(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to set cost"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the cost will be set"""
 
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount to set as the cost"""
 
-    resource: PlayerAttribute = RetrieverRef(Effect._resource)
+    resource: PlayerAttribute | int = RetrieverRef(Effect._resource)
     """The type of resource for the cost"""
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        quantity: int | None = None,
-        resource: PlayerAttribute | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        quantity: int = -1,
+        resource: PlayerAttribute | int = -1,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.quantity: int | None = quantity
-        self.resource: PlayerAttribute | None = resource
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.quantity: int = quantity
+        self.resource: PlayerAttribute | int = resource
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

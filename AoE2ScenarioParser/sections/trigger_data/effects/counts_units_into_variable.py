@@ -28,10 +28,10 @@ class CountsUnitsIntoVariable(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to count"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units will be counted"""
 
     @property
@@ -44,27 +44,27 @@ class CountsUnitsIntoVariable(Effect):
         """The area in which units will be counted. When not set, units across the entire map are counted"""
         self._area = value
 
-    object_group: ObjectClass = RetrieverRef(Effect._object_group)
+    object_group: ObjectClass | int = RetrieverRef(Effect._object_group)
     """The units with this class will be affected by this effect"""
 
-    variable2_id: Variable = RetrieverRef(Effect._variable2_id)
+    variable2_id: Variable | int = RetrieverRef(Effect._variable2_id)
     """The variable in which the unit count will be stored"""
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
         area: Area | None = None,
-        object_group: ObjectClass | None = None,
-        variable2_id: Variable | None = None,
+        object_group: ObjectClass | int = -1,
+        variable2_id: Variable | int = -1,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.area: Area | None = area
-        self.object_group: ObjectClass | None = object_group
-        self.variable2_id: Variable | None = variable2_id
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.object_group: ObjectClass | int = object_group
+        self.variable2_id: Variable | int = variable2_id
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

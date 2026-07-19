@@ -25,23 +25,23 @@ class EnableTechnologyStacking(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The maximum number of times the technology can be researched"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom technology stacking will be enabled"""
 
-    technology_id: TechInfo = RetrieverRef(Effect._technology_id)
+    technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology to enable stacking for"""
 
     def __init__(
         self,
-        quantity: int | None = None,
-        source_player: Player | None = None,
-        technology_id: TechInfo | None = None,
+        quantity: int = -1,
+        source_player: Player | int = -1,
+        technology_id: TechInfo | int = -1,
     ):
         super().__init__()
 
-        self.quantity: int | None = quantity
-        self.source_player: Player | None = source_player
-        self.technology_id: TechInfo | None = technology_id
+        self.quantity: int = quantity
+        self.source_player: Player | int = source_player
+        self.technology_id: TechInfo | int = technology_id
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

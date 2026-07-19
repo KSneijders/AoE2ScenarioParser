@@ -21,7 +21,7 @@ class LoadKeyValue(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    variable1_id: Variable = RetrieverRef(Effect._variable1_id)
+    variable1_id: Variable | int = RetrieverRef(Effect._variable1_id)
     """The variable in which the loaded value will be stored"""
 
     message: str = RetrieverRef(ret(Effect._message))
@@ -32,15 +32,15 @@ class LoadKeyValue(Effect):
 
     def __init__(
         self,
-        variable1_id: Variable | None = None,
-        message: str | None = None,
-        quantity: int | None = None,
+        variable1_id: Variable | int = -1,
+        message: str = '',
+        quantity: int = -1,
     ):
         super().__init__()
 
-        self.variable1_id: Variable | None = variable1_id
-        self.message: str | None = message
-        self.quantity: int | None = quantity
+        self.variable1_id: Variable | int = variable1_id
+        self.message: str = message
+        self.quantity: int = quantity
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

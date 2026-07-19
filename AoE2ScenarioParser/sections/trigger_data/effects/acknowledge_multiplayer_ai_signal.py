@@ -25,11 +25,11 @@ class AcknowledgeMultiplayerAiSignal(Effect):
 
     def __init__(
         self,
-        ai_signal: int | None = None,
+        ai_signal: int = -1,
     ):
         super().__init__()
 
-        self.ai_signal: int | None = ai_signal
+        self.ai_signal: int = ai_signal
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

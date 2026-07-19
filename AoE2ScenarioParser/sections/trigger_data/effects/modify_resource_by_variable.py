@@ -24,31 +24,31 @@ class ModifyResourceByVariable(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    resource: PlayerAttribute = RetrieverRef(Effect._resource)
+    resource: PlayerAttribute | int = RetrieverRef(Effect._resource)
     """The resource to modify"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose resource will be modified"""
 
-    operation: Operation = RetrieverRef(Effect._operation)
+    operation: Operation | int = RetrieverRef(Effect._operation)
     """The operation to apply to the attribute using the variable."""
 
-    variable1_id: Variable = RetrieverRef(Effect._variable1_id)
+    variable1_id: Variable | int = RetrieverRef(Effect._variable1_id)
     """The variable whose value will be used to modify the resource"""
 
     def __init__(
         self,
-        resource: PlayerAttribute | None = None,
-        source_player: Player | None = None,
-        operation: Operation | None = None,
-        variable1_id: Variable | None = None,
+        resource: PlayerAttribute | int = -1,
+        source_player: Player | int = -1,
+        operation: Operation | int = -1,
+        variable1_id: Variable | int = -1,
     ):
         super().__init__()
 
-        self.resource: PlayerAttribute | None = resource
-        self.source_player: Player | None = source_player
-        self.operation: Operation | None = operation
-        self.variable1_id: Variable | None = variable1_id
+        self.resource: PlayerAttribute | int = resource
+        self.source_player: Player | int = source_player
+        self.operation: Operation | int = operation
+        self.variable1_id: Variable | int = variable1_id
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

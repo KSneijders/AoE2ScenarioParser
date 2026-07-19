@@ -25,11 +25,11 @@ class ClearTimer(Effect):
 
     def __init__(
         self,
-        timer_id: int | None = None,
+        timer_id: int = -1,
     ):
         super().__init__()
 
-        self.timer_id: int | None = timer_id
+        self.timer_id: int = timer_id
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

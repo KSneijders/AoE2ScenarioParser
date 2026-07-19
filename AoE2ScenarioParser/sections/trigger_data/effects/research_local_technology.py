@@ -25,13 +25,13 @@ class ResearchLocalTechnology(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    local_technology_id: TechInfo = RetrieverRef(Effect._local_technology_id)
+    local_technology_id: TechInfo | int = RetrieverRef(Effect._local_technology_id)
     """The local technology to research for the type of unit"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the local technology will be researched"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     @property
@@ -44,24 +44,24 @@ class ResearchLocalTechnology(Effect):
         """The area in which units will research the local technology. When not set, units across the entire map research the local technology"""
         self._area = value
 
-    object2_id: UnitInfo = RetrieverRef(Effect._object2_id)
+    object2_id: UnitInfo | int = RetrieverRef(Effect._object2_id)
     """The type of unit to research the local technology in"""
 
     def __init__(
         self,
-        local_technology_id: TechInfo | None = None,
-        source_player: Player | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        local_technology_id: TechInfo | int = -1,
+        source_player: Player | int = -1,
+        selected_unit_ref_ids: None | list[Unit] = None,
         area: Area | None = None,
-        object2_id: UnitInfo | None = None,
+        object2_id: UnitInfo | int = -1,
     ):
         super().__init__()
 
-        self.local_technology_id: TechInfo | None = local_technology_id
-        self.source_player: Player | None = source_player
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
-        self.area: Area | None = area
-        self.object2_id: UnitInfo | None = object2_id
+        self.local_technology_id: TechInfo | int = local_technology_id
+        self.source_player: Player | int = source_player
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.object2_id: UnitInfo | int = object2_id
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

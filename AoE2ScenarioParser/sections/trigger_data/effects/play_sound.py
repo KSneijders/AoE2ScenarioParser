@@ -23,7 +23,7 @@ class PlaySound(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player who will hear the sound effect."""
 
     @property
@@ -36,7 +36,7 @@ class PlaySound(Effect):
         """The tile to play the sound at. When not set, the sound will be played globally."""
         self._location = value
 
-    location_unit_ref: Unit = RetrieverRef(Effect._location_unit_ref)
+    location_unit_ref: Unit | int = RetrieverRef(Effect._location_unit_ref)
     """The unit whose position and rotation will be used to play the sound at. When not set, the sound will be played globally."""
 
     global_sound: bool = RetrieverRef(Effect._global_sound)
@@ -47,19 +47,19 @@ class PlaySound(Effect):
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        location: Tile | None = None,
-        location_unit_ref: Unit | None = None,
-        global_sound: bool | None = None,
-        sound_name: str | None = None,
+        source_player: Player | int = -1,
+        location: None | Tile = None,
+        location_unit_ref: Unit | int = -1,
+        global_sound: bool = False,
+        sound_name: str = '',
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.location: Tile | None = location
-        self.location_unit_ref: Unit | None = location_unit_ref
-        self.global_sound: bool | None = global_sound
-        self.sound_name: str | None = sound_name
+        self.source_player: Player | int = source_player
+        self.location: Tile = location or (-1, -1)
+        self.location_unit_ref: Unit | int = location_unit_ref
+        self.global_sound: bool = global_sound
+        self.sound_name: str = sound_name
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

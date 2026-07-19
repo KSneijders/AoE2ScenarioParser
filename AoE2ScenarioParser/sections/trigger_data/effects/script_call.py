@@ -28,13 +28,13 @@ class ScriptCall(Effect):
 
     def __init__(
         self,
-        str_id: int | None = None,
-        message: str | None = None,
+        str_id: int = -1,
+        message: str = '',
     ):
         super().__init__()
 
-        self.str_id: int | None = str_id
-        self.message: str | None = message
+        self.str_id: int = str_id
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -26,10 +26,10 @@ class DisplayInstructions(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The unit whose icon to the display in the panel"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose color to use in the icon"""
 
     str_id: int = RetrieverRef(Effect._str_id)
@@ -38,7 +38,7 @@ class DisplayInstructions(Effect):
     display_time: int = RetrieverRef(Effect._display_time)
     """The number of real-life seconds to display the instructions panel for"""
 
-    instruction_panel_position: PanelLocation = RetrieverRef(Effect._instruction_panel_position)
+    instruction_panel_position: PanelLocation | int = RetrieverRef(Effect._instruction_panel_position)
     """The position on the screen where the instruction panel will be displayed"""
 
     play_sound: bool = RetrieverRef(Effect._play_sound)
@@ -52,25 +52,25 @@ class DisplayInstructions(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        str_id: int | None = None,
-        display_time: int | None = None,
-        instruction_panel_position: PanelLocation | None = None,
-        play_sound: bool | None = None,
-        message: str | None = None,
-        sound_name: str | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        str_id: int = -1,
+        display_time: int = -1,
+        instruction_panel_position: PanelLocation | int = -1,
+        play_sound: bool = False,
+        message: str = '',
+        sound_name: str = '',
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.str_id: int | None = str_id
-        self.display_time: int | None = display_time
-        self.instruction_panel_position: PanelLocation | None = instruction_panel_position
-        self.play_sound: bool | None = play_sound
-        self.message: str | None = message
-        self.sound_name: str | None = sound_name
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.str_id: int = str_id
+        self.display_time: int = display_time
+        self.instruction_panel_position: PanelLocation | int = instruction_panel_position
+        self.play_sound: bool = play_sound
+        self.message: str = message
+        self.sound_name: str = sound_name
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

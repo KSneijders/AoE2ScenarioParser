@@ -22,21 +22,21 @@ class ChangePlayerColor(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose color will be changed"""
 
-    player_color: PlayerColor = RetrieverRef(Effect._player_color)
+    player_color: PlayerColor | int = RetrieverRef(Effect._player_color)
     """The player color to use"""
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        player_color: PlayerColor | None = None,
+        source_player: Player | int = -1,
+        player_color: PlayerColor | int = -1,
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.player_color: PlayerColor | None = player_color
+        self.source_player: Player | int = source_player
+        self.player_color: PlayerColor | int = player_color
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

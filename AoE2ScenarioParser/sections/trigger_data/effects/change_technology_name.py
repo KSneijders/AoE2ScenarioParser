@@ -22,10 +22,10 @@ class ChangeTechnologyName(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the technology name will be changed"""
 
-    technology_id: TechInfo = RetrieverRef(Effect._technology_id)
+    technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology whose name will be changed"""
 
     str_id: int = RetrieverRef(Effect._str_id)
@@ -36,17 +36,17 @@ class ChangeTechnologyName(Effect):
 
     def __init__(
         self,
-        source_player: Player | None = None,
-        technology_id: TechInfo | None = None,
-        str_id: int | None = None,
-        message: str | None = None,
+        source_player: Player | int = -1,
+        technology_id: TechInfo | int = -1,
+        str_id: int = -1,
+        message: str = '',
     ):
         super().__init__()
 
-        self.source_player: Player | None = source_player
-        self.technology_id: TechInfo | None = technology_id
-        self.str_id: int | None = str_id
-        self.message: str | None = message
+        self.source_player: Player | int = source_player
+        self.technology_id: TechInfo | int = technology_id
+        self.str_id: int = str_id
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -27,7 +27,7 @@ class DisplayTimer(Effect):
     display_time: int = RetrieverRef(Effect._display_time)
     """The initial value of the timer"""
 
-    time_unit: TimeUnit = RetrieverRef(Effect._time_unit)
+    time_unit: TimeUnit | int = RetrieverRef(Effect._time_unit)
     """The unit of time to use (In game seconds, minutes or years (One year being 5 seconds))"""
 
     timer_id: int = RetrieverRef(Effect._timer_id)
@@ -41,21 +41,21 @@ class DisplayTimer(Effect):
 
     def __init__(
         self,
-        str_id: int | None = None,
-        display_time: int | None = None,
-        time_unit: TimeUnit | None = None,
-        timer_id: int | None = None,
-        reset_timer: bool | None = None,
-        message: str | None = None,
+        str_id: int = -1,
+        display_time: int = -1,
+        time_unit: TimeUnit | int = -1,
+        timer_id: int = -1,
+        reset_timer: bool = False,
+        message: str = '',
     ):
         super().__init__()
 
-        self.str_id: int | None = str_id
-        self.display_time: int | None = display_time
-        self.time_unit: TimeUnit | None = time_unit
-        self.timer_id: int | None = timer_id
-        self.reset_timer: bool | None = reset_timer
-        self.message: str | None = message
+        self.str_id: int = str_id
+        self.display_time: int = display_time
+        self.time_unit: TimeUnit | int = time_unit
+        self.timer_id: int = timer_id
+        self.reset_timer: bool = reset_timer
+        self.message: str = message
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

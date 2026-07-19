@@ -21,16 +21,16 @@ class ActivateTrigger(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    trigger_id: Trigger = RetrieverRef(Effect._trigger_id)
+    trigger_id: Trigger | int = RetrieverRef(Effect._trigger_id)
     """The trigger to be activated."""
 
     def __init__(
         self,
-        trigger_id: Trigger | None = None,
+        trigger_id: Trigger | int = -1,
     ):
         super().__init__()
 
-        self.trigger_id: Trigger | None = trigger_id
+        self.trigger_id: Trigger | int = trigger_id
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

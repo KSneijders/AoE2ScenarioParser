@@ -28,10 +28,10 @@ class SetBuildingGatherPoint(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of building to set the gather point for"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose buildings will have their gather point set"""
 
     @property
@@ -54,7 +54,7 @@ class SetBuildingGatherPoint(Effect):
         """The area in which buildings will have their gather point set. When not set, buildings across the entire map are affected"""
         self._area = value
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -62,21 +62,21 @@ class SetBuildingGatherPoint(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        location: Tile | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        location: None | Tile = None,
         area: Area | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
-        max_units_affected: int | None = None,
+        selected_unit_ref_ids: None | list[Unit] = None,
+        max_units_affected: int = -1,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.location: Tile | None = location
-        self.area: Area | None = area
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
-        self.max_units_affected: int | None = max_units_affected
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.location: Tile = location or (-1, -1)
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self.max_units_affected: int = max_units_affected
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

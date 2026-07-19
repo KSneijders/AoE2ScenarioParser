@@ -31,10 +31,10 @@ class TaskObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
+    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to task"""
 
-    source_player: Player = RetrieverRef(Effect._source_player)
+    source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player whose units will be tasked"""
 
     @property
@@ -47,7 +47,7 @@ class TaskObject(Effect):
         """The tile to send the tasked units to"""
         self._location = value
 
-    location_unit_ref: Unit = RetrieverRef(Effect._location_unit_ref)
+    location_unit_ref: Unit | int = RetrieverRef(Effect._location_unit_ref)
     """The target unit (as if it was right clicked)"""
 
     @property
@@ -60,16 +60,16 @@ class TaskObject(Effect):
         """The area in which units will be tasked. When not set, units across the entire map are tasked"""
         self._area = value
 
-    object_group: ObjectClass = RetrieverRef(Effect._object_group)
+    object_group: ObjectClass | int = RetrieverRef(Effect._object_group)
     """The units with this class will be affected by this effect"""
 
-    object_type: ObjectType = RetrieverRef(Effect._object_type)
+    object_type: ObjectType | int = RetrieverRef(Effect._object_type)
     """The units of this type will be affected by this effect"""
 
-    action_type: ActionType = RetrieverRef(Effect._action_type)
+    action_type: ActionType | int = RetrieverRef(Effect._action_type)
     """The type of action to perform on the affected units"""
 
-    selected_unit_ref_ids: list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     disable_garrison_unload_sound: bool = RetrieverRef(Effect._disable_garrison_unload_sound)
@@ -86,35 +86,35 @@ class TaskObject(Effect):
 
     def __init__(
         self,
-        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = None,
-        source_player: Player | None = None,
-        location: Tile | None = None,
-        location_unit_ref: Unit | None = None,
+        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        source_player: Player | int = -1,
+        location: None | Tile = None,
+        location_unit_ref: Unit | int = -1,
         area: Area | None = None,
-        object_group: ObjectClass | None = None,
-        object_type: ObjectType | None = None,
-        action_type: ActionType | None = None,
-        selected_unit_ref_ids: list[Unit] | None = None,
-        disable_garrison_unload_sound: bool | None = None,
-        max_units_affected: int | None = None,
-        issue_group_command: bool | None = None,
-        queue_action: bool | None = None,
+        object_group: ObjectClass | int = -1,
+        object_type: ObjectType | int = -1,
+        action_type: ActionType | int = -1,
+        selected_unit_ref_ids: None | list[Unit] = None,
+        disable_garrison_unload_sound: bool = False,
+        max_units_affected: int = -1,
+        issue_group_command: bool = False,
+        queue_action: bool = False,
     ):
         super().__init__()
 
-        self.object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int | None = object_id
-        self.source_player: Player | None = source_player
-        self.location: Tile | None = location
-        self.location_unit_ref: Unit | None = location_unit_ref
-        self.area: Area | None = area
-        self.object_group: ObjectClass | None = object_group
-        self.object_type: ObjectType | None = object_type
-        self.action_type: ActionType | None = action_type
-        self.selected_unit_ref_ids: list[Unit] | None = selected_unit_ref_ids
-        self.disable_garrison_unload_sound: bool | None = disable_garrison_unload_sound
-        self.max_units_affected: int | None = max_units_affected
-        self.issue_group_command: bool | None = issue_group_command
-        self.queue_action: bool | None = queue_action
+        self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
+        self.source_player: Player | int = source_player
+        self.location: Tile = location or (-1, -1)
+        self.location_unit_ref: Unit | int = location_unit_ref
+        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.object_group: ObjectClass | int = object_group
+        self.object_type: ObjectType | int = object_type
+        self.action_type: ActionType | int = action_type
+        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self.disable_garrison_unload_sound: bool = disable_garrison_unload_sound
+        self.max_units_affected: int = max_units_affected
+        self.issue_group_command: bool = issue_group_command
+        self.queue_action: bool = queue_action
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======
