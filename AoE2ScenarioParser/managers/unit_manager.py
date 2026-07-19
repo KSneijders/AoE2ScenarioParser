@@ -13,7 +13,6 @@ from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, 
 
 class UnitManager(RefStruct, CanBeLinked):
     _struct: ScenarioSections
-    _unit_reference_mapping: dict[int, Unit]
 
     # @formatter:off
     _units: list[list[Unit]]     = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
@@ -21,7 +20,7 @@ class UnitManager(RefStruct, CanBeLinked):
     # @formatter:on
 
     def _initialize_properties(self):
-        self._unit_reference_mapping = {}
+        # self._unit_reference_mapping = {}
 
         self._initialize_unit_parenting()
         self._assign_unit_properties()
@@ -35,7 +34,7 @@ class UnitManager(RefStruct, CanBeLinked):
         if len(units) != 0 and not isinstance(units[0], list):
             raise ValueError("List of units must be nested list")
 
-        self._units = [
+        self._units: list[list[Unit]] = [
             units[i] if i < len(units) else [] for i in range(9)
         ]
 
@@ -47,9 +46,11 @@ class UnitManager(RefStruct, CanBeLinked):
         self._assign_unit_properties()
 
     def _initialize_unit_parenting(self):
+        mapping = self._struct.initialization_data._unit_reference_mapping = {}
+
         for player in Player:
             for unit in self._units[player]:
-                self._unit_reference_mapping[unit.reference_id] = unit
+                mapping[unit.reference_id] = unit
 
                 # Set values due to __init__ being skipped by BFP
                 unit._garrisoned_in = None
@@ -130,7 +131,7 @@ class UnitManager(RefStruct, CanBeLinked):
         with borrow_mut(self.units[unit.player]):
             self.units[unit.player].append(unit)
 
-        unit._struct = self._struct  # Link the unit to this scenario
+        self._link_other(unit)
 
         return unit
 
@@ -190,7 +191,7 @@ class UnitManager(RefStruct, CanBeLinked):
         if unit not in player_units:
             return
 
-        unit._struct = None  # Unlink
+        unit._unlink()
         unit.reference_id = -1
 
         if unit.garrisoned_in is not None:

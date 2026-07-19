@@ -1,18 +1,15 @@
 from __future__ import annotations
 
-from typing import Iterable, TYPE_CHECKING
+from typing import Iterable
 
 from bfp_rs import BaseStruct, borrow_mut, ret, Retriever, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import Array32, bool32, bool8, i32, nt_str32, u32, u8
 
-from AoE2ScenarioParser.concerns import CanBeLinked, CanHoldUnits
+from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 from AoE2ScenarioParser.sections.trigger_data.condition import Condition
 from AoE2ScenarioParser.sections.trigger_data.effect import Effect
-
-if TYPE_CHECKING:
-    from AoE2ScenarioParser.sections import Unit
 
 
 def effect_display_orders_repeat():
@@ -27,7 +24,7 @@ def condition_display_orders_repeat():
     ]
 
 
-class Trigger(BaseStruct, CanHoldUnits, CanBeLinked):
+class Trigger(BaseStruct, CanBeLinked):
 
     __default_ver__ = TRIGGER_LATEST
 
@@ -51,7 +48,7 @@ class Trigger(BaseStruct, CanHoldUnits, CanBeLinked):
     effect_display_orders: list[int]    = Retriever(u32,                                         default = 0, repeat = 0)
     conditions: list[Condition]         = Retriever(Array32[Condition],                          default_factory = lambda _: [], on_read = condition_display_orders_repeat)
     condition_display_orders: list[int] = Retriever(u32,                                         default = 0, repeat = 0)
-# @formatter:on
+    # @formatter:on
 
     def __init__(
         self,
@@ -125,11 +122,19 @@ class Trigger(BaseStruct, CanHoldUnits, CanBeLinked):
         """
         return [self.add_effect(effect) for effect in effects]
 
-    def _get_unit_references(self, key: str = '') -> tuple['Unit', ...]:
-        pass
+    def remove_effect(self, effect: Effect) -> bool:
+        """
+        Removes the effect from this trigger.
 
-    def _remove_unit_reference(self, unit: 'Unit', key: str = '') -> None:
-        pass
+        Args:
+            effect: The effect to remove
 
-    def _add_unit_reference(self, unit: 'Unit', key: str = '') -> None:
-        pass
+        Returns:
+            True if the effect was removed, False otherwise
+        """
+        try:
+            with borrow_mut(self.effects):
+                self.effects.remove(effect)
+            return True
+        except ValueError:
+            return False

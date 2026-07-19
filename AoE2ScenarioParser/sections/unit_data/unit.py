@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from bfp_rs import BaseStruct, Retriever, Version
 from bfp_rs.types.le import f32, i32, str32, u16, u8
 
-from AoE2ScenarioParser.concerns import CanBeLinked, CanHoldUnits
+from AoE2ScenarioParser.concerns import CanBeLinked, CanBeReferencedByTriggerArtifacts, CanHoldUnits
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
@@ -18,12 +18,13 @@ from AoE2ScenarioParser.objects.support.location import Location
 from AoE2ScenarioParser.sections.scx_versions import DE_LATEST
 
 if TYPE_CHECKING:
+    from typing import Iterable
     # noinspection PyUnusedImports
     from AoE2ScenarioParser.sections import ScenarioSections
-    from typing import Iterable
+    from AoE2ScenarioParser.concerns.can_be_referenced_by_trigger_artifacts import TriggerArtifacts
 
 
-class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
+class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifacts):
     __default_ver__ = DE_LATEST
     _struct: 'ScenarioSections | None' = None
 
@@ -91,6 +92,8 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
 
         self.garrisoned_in = garrisoned_in
         self.garrisoned_units: tuple[Unit, ...] = garrisoned_units or tuple()
+
+        self.trigger_artifact_references: tuple['TriggerArtifacts', ...] = tuple()
 
     _player: int | None = None
 
@@ -211,7 +214,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
         if self._is_linked() and self._is_not_linked_to_same(unit):
             from AoE2ScenarioParser.managers import UnitManager
 
-            UnitManager(self._struct).add_unit(unit)
+            UnitManager(self._struct).import_units((unit,))
 
         unit._add_unit_reference(self)
 
@@ -232,9 +235,26 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked):
             if self._is_linked() and self._is_not_linked_to_same(unit):
                 from AoE2ScenarioParser.managers import UnitManager
 
-                UnitManager(self._struct).add_unit(unit)
+                UnitManager(self._struct).import_units((unit, ))
 
             unit.garrisoned_in = self
+
+    # ----- TRIGGER ARTIFACT FUNCTIONS -----
+
+    def _get_trigger_artifact_references(self) -> tuple['TriggerArtifacts', ...]:
+        return self.trigger_artifact_references
+
+    def _remove_trigger_artifact_reference(self, trigger_artifact: 'TriggerArtifacts') -> None:
+        self.trigger_artifact_references = tuple(artifact for artifact in self.trigger_artifact_references if artifact is not trigger_artifact)
+
+    def _add_trigger_artifact_reference(self, trigger_artifact: 'TriggerArtifacts') -> None:
+        if any(trigger_artifact is artifact for artifact in self.trigger_artifact_references):
+            return
+
+        self.trigger_artifact_references = (
+            *self.trigger_artifact_references,
+            trigger_artifact,
+        )
 
     # ----- STRING FUNCTIONS -----
 

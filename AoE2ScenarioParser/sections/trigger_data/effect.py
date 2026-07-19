@@ -1,11 +1,18 @@
 from __future__ import annotations
 
+from typing import Iterable, TYPE_CHECKING
+
 from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import Array32, i32, nt_str32
 
 from AoE2ScenarioParser.objects.support import Area, AreaT, Tile, TileT
+
+from AoE2ScenarioParser.concerns import CanBeLinked, CanHoldUnits
 from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
+
+if TYPE_CHECKING:
+    from AoE2ScenarioParser.sections import Unit
 
 
 def selected_unit_ids():
@@ -14,7 +21,7 @@ def selected_unit_ids():
     ]
 
 
-class Effect(BaseStruct):
+class Effect(BaseStruct, CanBeLinked, CanHoldUnits):
     __default_ver__ = TRIGGER_LATEST
 
     EFFECT_ID: int = -1
@@ -128,3 +135,43 @@ class Effect(BaseStruct):
     _object_filter: int                    = RetrieverRef(ret(_properties), 81)
     _use_tag_color_for_icon: int           = RetrieverRef(ret(_properties), 82)
     # @formatter:on
+
+    def __init__(self):
+        self._selected_units: tuple[Unit, ...] = tuple()
+
+    @property
+    def selected_units(self) -> tuple[Unit, ...]:
+        return self._selected_units
+
+    @selected_units.setter
+    def selected_units(self, value: Iterable[Unit]):
+        for unit in self._selected_units:
+            unit._remove_trigger_artifact_reference(self)
+
+        self._selected_units: tuple[Unit, ...] = tuple(value)
+
+        for unit in self._selected_units:
+            unit._add_trigger_artifact_reference(self)
+
+        self._selected_unit_ref_ids = [
+            unit.reference_id for unit in self._selected_units
+        ]
+
+    def _get_unit_references(self, key: str = '') -> tuple['Unit', ...]:
+        return self.selected_units
+
+    def _remove_unit_reference(self, unit: 'Unit', _: str = '') -> None:
+        unit._remove_trigger_artifact_reference(self)
+
+        self._selected_units = tuple(existing for existing in self.selected_units if existing is not unit)
+
+    def _add_unit_reference(self, unit: 'Unit', _: str = '') -> None:
+        if any(unit is existing for existing in self.selected_units):
+            return
+
+        unit._add_trigger_artifact_reference(self)
+
+        self._selected_units = (
+            *self.selected_units,
+            unit,
+        )

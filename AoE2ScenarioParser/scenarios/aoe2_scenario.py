@@ -4,10 +4,9 @@ from typing import TYPE_CHECKING
 
 from bfp_rs import Version
 
-from AoE2ScenarioParser.managers import MapManager, MessageManager, OptionManager, PlayerManager, UnitManager, XsManager
+from AoE2ScenarioParser.managers import MapManager, MessageManager, OptionManager, PlayerManager, UnitManager, XsManager, TriggerManager
 from AoE2ScenarioParser.sections import ScenarioSections
-from managers import TriggerManager
-from sections import DE_LATEST
+from AoE2ScenarioParser.sections.scx_initialization_data import ScenarioInitializationData
 
 if TYPE_CHECKING:
     from typing import Self
@@ -51,8 +50,12 @@ class AoE2Scenario:
     def from_file(cls, path: str) -> Self:
         sections = ScenarioSections.from_file(path, strict = True)
 
+        sections.initialization_data = ScenarioInitializationData()
+
         inst = cls.__new__(cls)
         inst._init(sections)
+
+        sections.initialization_data = None
 
         return inst
 

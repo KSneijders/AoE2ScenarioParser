@@ -3,11 +3,12 @@ from __future__ import annotations
 from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
 from bfp_rs.types.le import Array32, i32, str32
 
+from AoE2ScenarioParser.concerns import CanBeLinked, CanHoldUnits
 from AoE2ScenarioParser.objects.support import Area, AreaT
 from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 
 
-class Condition(BaseStruct):
+class Condition(BaseStruct, CanBeLinked, CanHoldUnits):
     __default_ver__ = TRIGGER_LATEST
 
     # @formatter:off

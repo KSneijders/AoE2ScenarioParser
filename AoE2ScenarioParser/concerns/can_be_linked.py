@@ -21,6 +21,7 @@ class CanBeLinked(abc.ABC):
     def _is_not_linked_to_same(self, other: 'CanBeLinked') -> bool:
         return not self._is_linked_to_same(other)
 
+    # noinspection PyMethodMayBeStatic
     def _validate_linkable_can_be_linked(self, other: 'CanBeLinked') -> None:
         """
         Validates if an object can be linked to this scenario.
@@ -31,3 +32,11 @@ class CanBeLinked(abc.ABC):
         # noinspection PyProtectedMember
         if other._is_linked():
             raise ObjectAlreadyLinkedError('Unable to add object that has already been linked to a scenario. Use an import function instead.')
+
+    def _link_other(self, other: 'CanBeLinked') -> None:
+        self._validate_linkable_can_be_linked(other)
+
+        other._struct = self._struct
+
+    def _unlink(self) -> None:
+        self._struct = None

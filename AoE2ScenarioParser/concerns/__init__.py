@@ -1,2 +1,3 @@
 from .can_be_linked import CanBeLinked
 from .can_hold_units import CanHoldUnits
+from .can_be_referenced_by_trigger_artifacts import CanBeReferencedByTriggerArtifacts
