@@ -52,13 +52,13 @@ def get_property_snippet(name: str, desc: str, get_type: str, set_type: str) -> 
             .replace("<SET_ATTR_TYPE>", set_type))
 
 
-RETS = [
-    'message',
-    'sound_name',
-    'selected_unit_ref_ids',
-    'message_option1',
-    'message_option2',
-]
+RETS: dict[str, str] = {
+    'message':               "''",
+    'sound_name':            "''",
+    'selected_unit_ref_ids': "[]",
+    'message_option1':       "''",
+    'message_option2':       "''",
+}
 
 PROPERTIES: dict[str, tuple[str, str]] = {
     'location': ('Tile', 'TileT'),
@@ -185,10 +185,10 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
     ]
 
     for attr in attrs:
-        attr_name = attr["name"]
-        attr_ref = attr.get("ref")
-        attr_type = attr.get("type", "int")
-        attr_desc = attr.get("description", "")
+        attr_name: str = attr["name"]
+        attr_ref: str = attr.get("ref")
+        attr_type: str = attr.get("type", "int")
+        attr_desc: str = attr.get("description", "")
 
         if attr_name == 'item_id':
             continue
@@ -197,8 +197,50 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         if attr_name in ['armour_attack_quantity', 'armour_attack_class']:
             continue
 
-        effect_class_init_definition.append(f"        {attr_name}: {attr_type} | None = None,")
-        effect_class_init_body.append(f"        self.{attr_name}: {attr_type} | None = {attr_name}")
+        variable_assignment = attr_name
+
+        attr_types = set(attr_type.split(' | '))
+        if attr_name in RETS:
+            default = RETS[attr_name]
+            if default == "''":
+                attr_types.add('str')
+            elif default == "[]":
+                default = "None"
+                attr_types.add('None')
+                variable_assignment += ' or []'
+            else:
+                raise ValueError(f"Default type not implemented for RET default value: [{default}]")
+
+            ret_ref = f"ret(Effect._{attr_name})"
+            has_ret_ref = True
+        else:
+            if "int" in attr_type or attr_type in dataset_map:
+                default = '-1'
+                attr_types.add('int')
+            elif attr_type == "float":
+                default = '-1.0'
+                attr_types.add('float')
+            elif attr_type == "bool":
+                default = 'False'
+                attr_types.add('bool')
+            elif attr_type == "Tile":
+                default = 'None'
+                attr_types.add('None')
+                variable_assignment += ' or (-1, -1)'
+            elif attr_type == "Area":
+                default = 'None'
+                attr_types.add('None')
+                variable_assignment += ' or ((-1, -1), (-1, -1))'
+            else:
+                raise ValueError(f"Default value not implemented for type: [{attr_type}]")
+
+            ret_ref = f"Effect._{attr_name}"
+
+        attr_type_display = ' | '.join(sorted(attr_types))
+        self_attr_type_display = ' | '.join(sorted(t for t in attr_types if t != "None"))
+
+        effect_class_init_definition.append(f"        {attr_name}: {attr_type_display} = {default},")
+        effect_class_init_body.append(f"        self.{attr_name}: {self_attr_type_display} = {variable_assignment}")
 
         if attr_name in PROPERTIES:
             lines.append(get_property_snippet(attr_name, attr_desc, *PROPERTIES[attr_name]))
@@ -207,17 +249,11 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         if isinstance(attr_desc, list):
             attr_desc = " ".join(attr_desc)
 
-        if attr_name in RETS:
-            ret_ref = f"ret(Effect._{attr_name})"
-            has_ret_ref = True
-        else:
-            ret_ref = f"Effect._{attr_name}"
-
         ref_expr = f"RetrieverRef(Effect.{attr_ref})" if attr_ref else f"RetrieverRef({ret_ref})"
 
         lines += [
             "",
-            f"    {attr_name}: {attr_type} = {ref_expr}",
+            f"    {attr_name}: {attr_type_display} = {ref_expr}",
             f'    """{attr_desc}"""',
         ]
 
