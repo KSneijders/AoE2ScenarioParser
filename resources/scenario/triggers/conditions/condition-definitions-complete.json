@@ -797,7 +797,7 @@
   {
     "id": 27,
     "name": "object_visible_multiplayer",
-    "description": "This condition can be used to check if the specified object is currently visible to the specified player (within their line of sight or a revealed area).",
+    "description": "This condition can be used to check if the specified object is currently within the specified player's active line of sight, using their maximum view distance regardless of the current zoom level.",
     "attributes": [
       {
         "name": "unit1_ref",
