@@ -53,7 +53,7 @@ class Tile(Location):
         ...
 
     def move(self, *args, **kwargs):
-        super().move(*args, **kwargs)
+        return super().move(*args, **kwargs)
 
     @classmethod
     def from_i(cls, i: int, map_size: int) -> Tile:
