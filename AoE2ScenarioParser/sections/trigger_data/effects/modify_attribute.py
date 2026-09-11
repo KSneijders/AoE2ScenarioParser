@@ -31,7 +31,7 @@ class ModifyAttribute(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The amount to modify the attribute by"""
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit whose attribute will be modified"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -52,7 +52,7 @@ class ModifyAttribute(Effect):
     def __init__(
         self,
         quantity: int = -1,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
         operation: Operation | int = -1,
         object_attribute: ObjectAttribute | int = -1,

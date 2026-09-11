@@ -31,7 +31,7 @@ class TaskObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to task"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -45,7 +45,7 @@ class TaskObject(Effect):
     @location.setter
     def location(self, value: TileT) -> None:
         """The tile to send the tasked units to"""
-        self._location = value
+        self._location = Tile.from_value(value)
 
     location_unit_ref: Unit | int = RetrieverRef(Effect._location_unit_ref)
     """The target unit (as if it was right clicked)"""
@@ -58,7 +58,7 @@ class TaskObject(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will be tasked. When not set, units across the entire map are tasked"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     object_group: ObjectClass | int = RetrieverRef(Effect._object_group)
     """The units with this class will be affected by this effect"""
@@ -69,7 +69,7 @@ class TaskObject(Effect):
     action_type: ActionType | int = RetrieverRef(Effect._action_type)
     """The type of action to perform on the affected units"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     disable_garrison_unload_sound: bool = RetrieverRef(Effect._disable_garrison_unload_sound)
@@ -86,15 +86,15 @@ class TaskObject(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        location: None | Tile = None,
+        location: TileT | None = None,
         location_unit_ref: Unit | int = -1,
-        area: Area | None = None,
+        area: AreaT | None = None,
         object_group: ObjectClass | int = -1,
         object_type: ObjectType | int = -1,
         action_type: ActionType | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
         disable_garrison_unload_sound: bool = False,
         max_units_affected: int = -1,
         issue_group_command: bool = False,
@@ -104,9 +104,9 @@ class TaskObject(Effect):
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.location: Tile = location or (-1, -1)
+        self.location: TileT = location or Tile(-1, -1)
         self.location_unit_ref: Unit | int = location_unit_ref
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.object_group: ObjectClass | int = object_group
         self.object_type: ObjectType | int = object_type
         self.action_type: ActionType | int = action_type

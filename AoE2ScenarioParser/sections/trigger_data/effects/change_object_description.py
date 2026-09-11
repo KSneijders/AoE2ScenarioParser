@@ -25,7 +25,7 @@ class ChangeObjectDescription(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit whose description will be changed"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -39,7 +39,7 @@ class ChangeObjectDescription(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
         str_id: int = -1,
         message: str = '',

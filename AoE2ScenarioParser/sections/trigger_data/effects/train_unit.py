@@ -32,7 +32,7 @@ class TrainUnit(Effect):
     quantity: int = RetrieverRef(Effect._quantity)
     """The number of units to queue for training"""
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to train"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -46,7 +46,7 @@ class TrainUnit(Effect):
     @location.setter
     def location(self, value: TileT) -> None:
         """The tile to set the gather point at"""
-        self._location = value
+        self._location = Tile.from_value(value)
 
     @property
     def area(self) -> Area:
@@ -56,9 +56,9 @@ class TrainUnit(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which buildings will queue the unit. When not set, buildings across the entire map are affected"""
-        self._area = value
+        self._area = Area.from_value(value)
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -67,11 +67,11 @@ class TrainUnit(Effect):
     def __init__(
         self,
         quantity: int = -1,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        location: None | Tile = None,
-        area: Area | None = None,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        location: TileT | None = None,
+        area: AreaT | None = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
         max_units_affected: int = -1,
     ):
         super().__init__()
@@ -79,8 +79,8 @@ class TrainUnit(Effect):
         self.quantity: int = quantity
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.location: Tile = location or (-1, -1)
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.location: TileT = location or Tile(-1, -1)
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
         self.max_units_affected: int = max_units_affected
 

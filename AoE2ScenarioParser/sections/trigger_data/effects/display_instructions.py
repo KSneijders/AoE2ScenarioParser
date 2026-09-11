@@ -26,7 +26,7 @@ class DisplayInstructions(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The unit whose icon to the display in the panel"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -52,7 +52,7 @@ class DisplayInstructions(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
         str_id: int = -1,
         display_time: int = -1,

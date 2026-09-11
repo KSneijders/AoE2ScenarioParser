@@ -31,7 +31,7 @@ class ResearchLocalTechnology(Effect):
     source_player: Player | int = RetrieverRef(Effect._source_player)
     """The player for whom the local technology will be researched"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     @property
@@ -42,7 +42,7 @@ class ResearchLocalTechnology(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will research the local technology. When not set, units across the entire map research the local technology"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     object2_id: UnitInfo | int = RetrieverRef(Effect._object2_id)
     """The type of unit to research the local technology in"""
@@ -51,8 +51,8 @@ class ResearchLocalTechnology(Effect):
         self,
         local_technology_id: TechInfo | int = -1,
         source_player: Player | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
-        area: Area | None = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
+        area: AreaT | None = None,
         object2_id: UnitInfo | int = -1,
     ):
         super().__init__()
@@ -60,7 +60,7 @@ class ResearchLocalTechnology(Effect):
         self.local_technology_id: TechInfo | int = local_technology_id
         self.source_player: Player | int = source_player
         self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.object2_id: UnitInfo | int = object2_id
 
     # ====== CUSTOM LOGIC START ======

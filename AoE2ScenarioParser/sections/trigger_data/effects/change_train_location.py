@@ -26,7 +26,7 @@ class ChangeTrainLocation(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit whose change train location will be changed"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -40,7 +40,7 @@ class ChangeTrainLocation(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
         object2_id: UnitInfo | int = -1,
         button_location: ButtonLocation | int = -1,

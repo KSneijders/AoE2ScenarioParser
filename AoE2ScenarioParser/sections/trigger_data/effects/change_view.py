@@ -36,7 +36,7 @@ class ChangeView(Effect):
     @location.setter
     def location(self, value: TileT) -> None:
         """The tile to move the camera to"""
-        self._location = value
+        self._location = Tile.from_value(value)
 
     scroll: bool = RetrieverRef(Effect._scroll)
     """When enabled, animate the camera transition. When disabled, the camera snaps to the new position without any animation (ignoring the quantity)"""
@@ -45,14 +45,14 @@ class ChangeView(Effect):
         self,
         quantity: int = -1,
         source_player: Player | int = -1,
-        location: None | Tile = None,
+        location: TileT | None = None,
         scroll: bool = False,
     ):
         super().__init__()
 
         self.quantity: int = quantity
         self.source_player: Player | int = source_player
-        self.location: Tile = location or (-1, -1)
+        self.location: TileT = location or Tile(-1, -1)
         self.scroll: bool = scroll
 
     # ====== CUSTOM LOGIC START ======

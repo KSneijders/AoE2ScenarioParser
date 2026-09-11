@@ -30,7 +30,7 @@ class RemoveObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to remove"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -44,7 +44,7 @@ class RemoveObject(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will be removed. When not set, units across the entire map are removed"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     object_group: ObjectClass | int = RetrieverRef(Effect._object_group)
     """The units with this class will be affected by this effect"""
@@ -55,7 +55,7 @@ class RemoveObject(Effect):
     unit_state: ObjectState | int = RetrieverRef(Effect._unit_state)
     """The state units need to be in to be affected by this effect"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -63,20 +63,20 @@ class RemoveObject(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        area: Area | None = None,
+        area: AreaT | None = None,
         object_group: ObjectClass | int = -1,
         object_type: ObjectType | int = -1,
         unit_state: ObjectState | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
         max_units_affected: int = -1,
     ):
         super().__init__()
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.object_group: ObjectClass | int = object_group
         self.object_type: ObjectType | int = object_type
         self.unit_state: ObjectState | int = unit_state

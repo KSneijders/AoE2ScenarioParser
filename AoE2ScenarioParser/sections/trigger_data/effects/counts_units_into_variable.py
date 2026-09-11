@@ -28,7 +28,7 @@ class CountsUnitsIntoVariable(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to count"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -42,7 +42,7 @@ class CountsUnitsIntoVariable(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will be counted. When not set, units across the entire map are counted"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     object_group: ObjectClass | int = RetrieverRef(Effect._object_group)
     """The units with this class will be affected by this effect"""
@@ -52,9 +52,9 @@ class CountsUnitsIntoVariable(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        area: Area | None = None,
+        area: AreaT | None = None,
         object_group: ObjectClass | int = -1,
         variable2_id: Variable | int = -1,
     ):
@@ -62,7 +62,7 @@ class CountsUnitsIntoVariable(Effect):
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.object_group: ObjectClass | int = object_group
         self.variable2_id: Variable | int = variable2_id
 

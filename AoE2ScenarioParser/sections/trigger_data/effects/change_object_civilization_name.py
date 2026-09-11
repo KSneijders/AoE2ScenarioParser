@@ -37,12 +37,12 @@ class ChangeObjectCivilizationName(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will have their civilization name changed. When not set, units across the entire map have their civilization name changed"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     message: str = RetrieverRef(ret(Effect._message))
     """The civilization name to display for the affected units"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -52,16 +52,16 @@ class ChangeObjectCivilizationName(Effect):
         self,
         source_player: Player | int = -1,
         str_id: int = -1,
-        area: Area | None = None,
+        area: AreaT | None = None,
         message: str = '',
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
         max_units_affected: int = -1,
     ):
         super().__init__()
 
         self.source_player: Player | int = source_player
         self.str_id: int = str_id
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.message: str = message
         self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
         self.max_units_affected: int = max_units_affected

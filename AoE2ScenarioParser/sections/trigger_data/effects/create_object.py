@@ -26,7 +26,7 @@ class CreateObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to be created."""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -40,7 +40,7 @@ class CreateObject(Effect):
     @location.setter
     def location(self, value: TileT) -> None:
         """The tile where the unit will be created"""
-        self._location = value
+        self._location = Tile.from_value(value)
 
     facet: int = RetrieverRef(Effect._facet)
     """The rotation of the created unit. This can be any integer between 0 and 15, with 0 looking towards the right of the screen and 8 looking towards the left of the screen. With increasing values moving counter clockwise."""
@@ -50,9 +50,9 @@ class CreateObject(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        location: None | Tile = None,
+        location: TileT | None = None,
         facet: int = -1,
         disable_sound: bool = False,
     ):
@@ -60,7 +60,7 @@ class CreateObject(Effect):
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.location: Tile = location or (-1, -1)
+        self.location: TileT = location or Tile(-1, -1)
         self.facet: int = facet
         self.disable_sound: bool = disable_sound
 

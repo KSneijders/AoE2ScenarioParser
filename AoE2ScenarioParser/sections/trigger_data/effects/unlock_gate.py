@@ -21,12 +21,12 @@ class UnlockGate(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The gates to be unlocked."""
 
     def __init__(
         self,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
     ):
         super().__init__()
 

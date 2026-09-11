@@ -7,6 +7,8 @@ import keyword
 import re
 from pathlib import Path
 
+from ordered_set import OrderedSet
+
 EFFECTS_JSON = Path(__file__).parent / "effect-definitions-complete.json"
 _PKG_ROOT = Path(__file__).parent.parent.parent.parent.parent / "AoE2ScenarioParser"
 OUTPUT_DIR = _PKG_ROOT / "sections" / "trigger_data" / "effects"
@@ -29,7 +31,7 @@ PROPERTY_INHERIT_SNIPPET = f"""
     @<ATTR>.setter
     def <ATTR>(self, value: <SET_ATTR_TYPE>) -> None:
         \"\"\"<ATTR_DESC>\"\"\"
-        self._<ATTR> = value"""
+        self._<ATTR> = <ASSIGNMENT>"""
 
 
 def to_pascal_case(name: str) -> str:
@@ -44,12 +46,13 @@ def effect_class_name(effect_name: str) -> str:
     return pascal
 
 
-def get_property_snippet(name: str, desc: str, get_type: str, set_type: str) -> str:
+def get_property_snippet(name: str, desc: str, get_type: str, set_type: str, assignment: str = 'value') -> str:
     return (PROPERTY_INHERIT_SNIPPET
             .replace("<ATTR>", name)
             .replace("<ATTR_DESC>", desc)
             .replace("<GET_ATTR_TYPE>", get_type)
-            .replace("<SET_ATTR_TYPE>", set_type))
+            .replace("<SET_ATTR_TYPE>", set_type)
+            .replace("<ASSIGNMENT>", assignment))
 
 
 RETS: dict[str, str] = {
@@ -60,9 +63,10 @@ RETS: dict[str, str] = {
     'message_option2':       "''",
 }
 
-PROPERTIES: dict[str, tuple[str, str]] = {
-    'location': ('Tile', 'TileT'),
-    'area':     ('Area', 'AreaT'),
+# Tuple: (get_type, set_type, assignment statement)
+PROPERTIES: dict[str, tuple[str, str, str]] = {
+    'location': ('Tile', 'TileT', 'Tile.from_value(value)'),
+    'area':     ('Area', 'AreaT', 'Area.from_value(value)'),
 }
 
 ALTERNATE_TYPES: dict[str, str] = {
@@ -199,7 +203,7 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
 
         variable_assignment = attr_name
 
-        attr_types = set(attr_type.split(' | '))
+        attr_types: OrderedSet[str] = OrderedSet(attr_type.split(' | '))
         if attr_name in RETS:
             default = RETS[attr_name]
             if default == "''":
@@ -225,18 +229,18 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
                 attr_types.add('bool')
             elif attr_type == "Tile":
                 default = 'None'
-                attr_types.add('None')
-                variable_assignment += ' or (-1, -1)'
+                attr_types = OrderedSet(['TileT', 'None'])
+                variable_assignment += ' or Tile(-1, -1)'
             elif attr_type == "Area":
                 default = 'None'
-                attr_types.add('None')
-                variable_assignment += ' or ((-1, -1), (-1, -1))'
+                attr_types = OrderedSet(['AreaT', 'None'])
+                variable_assignment += ' or Area((-1, -1), (-1, -1))'
             else:
                 raise ValueError(f"Default value not implemented for type: [{attr_type}]")
 
             ret_ref = f"Effect._{attr_name}"
 
-        attr_type_display = ' | '.join(sorted(attr_types))
+        attr_type_display = ' | '.join(attr_types)
         self_attr_type_display = ' | '.join(sorted(t for t in attr_types if t != "None"))
 
         effect_class_init_definition.append(f"        {attr_name}: {attr_type_display} = {default},")

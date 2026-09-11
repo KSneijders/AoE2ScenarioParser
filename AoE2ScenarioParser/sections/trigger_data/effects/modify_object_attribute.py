@@ -30,7 +30,7 @@ class ModifyObjectAttribute(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to modify the attribute for"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -39,7 +39,7 @@ class ModifyObjectAttribute(Effect):
     object_attribute: ObjectAttribute | int = RetrieverRef(Effect._object_attribute)
     """The object attribute to modify"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     @property
@@ -50,7 +50,7 @@ class ModifyObjectAttribute(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will have their attribute modified. When not set, units across the entire map have their attribute modified"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     operation: Operation | int = RetrieverRef(Effect._operation)
     """The operation to apply to the attribute using the quantity."""
@@ -66,11 +66,11 @@ class ModifyObjectAttribute(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
         object_attribute: ObjectAttribute | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
-        area: Area | None = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
+        area: AreaT | None = None,
         operation: Operation | int = -1,
         message: str = '',
         quantity: int = -1,
@@ -82,7 +82,7 @@ class ModifyObjectAttribute(Effect):
         self.source_player: Player | int = source_player
         self.object_attribute: ObjectAttribute | int = object_attribute
         self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.operation: Operation | int = operation
         self.message: str = message
         self.quantity: int = quantity

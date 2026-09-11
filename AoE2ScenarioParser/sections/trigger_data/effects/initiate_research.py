@@ -30,14 +30,14 @@ class InitiateResearch(Effect):
     technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology to begin researching"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The building to be affected by this effect."""
 
     def __init__(
         self,
         source_player: Player | int = -1,
         technology_id: TechInfo | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
     ):
         super().__init__()
 

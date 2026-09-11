@@ -28,7 +28,7 @@ class ChangeObjectPlayerColor(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to change player color"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -42,12 +42,12 @@ class ChangeObjectPlayerColor(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which units will have their player color changed. When not set, units across the entire map have their player color changed"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     player_color: PlayerColor | int = RetrieverRef(Effect._player_color)
     """The player color to use for the affected units"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -55,18 +55,18 @@ class ChangeObjectPlayerColor(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        area: Area | None = None,
+        area: AreaT | None = None,
         player_color: PlayerColor | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
         max_units_affected: int = -1,
     ):
         super().__init__()
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.player_color: PlayerColor | int = player_color
         self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
         self.max_units_affected: int = max_units_affected

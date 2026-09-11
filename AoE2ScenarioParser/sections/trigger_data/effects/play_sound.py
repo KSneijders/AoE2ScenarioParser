@@ -34,7 +34,7 @@ class PlaySound(Effect):
     @location.setter
     def location(self, value: TileT) -> None:
         """The tile to play the sound at. When not set, the sound will be played globally."""
-        self._location = value
+        self._location = Tile.from_value(value)
 
     location_unit_ref: Unit | int = RetrieverRef(Effect._location_unit_ref)
     """The unit whose position and rotation will be used to play the sound at. When not set, the sound will be played globally."""
@@ -48,7 +48,7 @@ class PlaySound(Effect):
     def __init__(
         self,
         source_player: Player | int = -1,
-        location: None | Tile = None,
+        location: TileT | None = None,
         location_unit_ref: Unit | int = -1,
         global_sound: bool = False,
         sound_name: str = '',
@@ -56,7 +56,7 @@ class PlaySound(Effect):
         super().__init__()
 
         self.source_player: Player | int = source_player
-        self.location: Tile = location or (-1, -1)
+        self.location: TileT = location or Tile(-1, -1)
         self.location_unit_ref: Unit | int = location_unit_ref
         self.global_sound: bool = global_sound
         self.sound_name: str = sound_name

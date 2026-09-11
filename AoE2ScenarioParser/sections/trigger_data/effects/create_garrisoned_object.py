@@ -27,7 +27,7 @@ class CreateGarrisonedObject(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The type of unit to receive the new garrisoned unit"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -41,12 +41,12 @@ class CreateGarrisonedObject(Effect):
     @area.setter
     def area(self, value: AreaT) -> None:
         """The area in which to create the garrisoned unit. When not set, units across the entire map receive the garrisoned unit"""
-        self._area = value
+        self._area = Area.from_value(value)
 
     object2_id: UnitInfo | int = RetrieverRef(Effect._object2_id)
     """The type of unit to create and garrison inside the affected units"""
 
-    selected_unit_ref_ids: None | list[Unit] = RetrieverRef(ret(Effect._selected_unit_ref_ids))
+    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
     """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
@@ -57,11 +57,11 @@ class CreateGarrisonedObject(Effect):
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        area: Area | None = None,
+        area: AreaT | None = None,
         object2_id: UnitInfo | int = -1,
-        selected_unit_ref_ids: None | list[Unit] = None,
+        selected_unit_ref_ids: list[Unit] | None = None,
         max_units_affected: int = -1,
         disable_sound: bool = False,
     ):
@@ -69,7 +69,7 @@ class CreateGarrisonedObject(Effect):
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.area: Area = area or ((-1, -1), (-1, -1))
+        self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.object2_id: UnitInfo | int = object2_id
         self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
         self.max_units_affected: int = max_units_affected

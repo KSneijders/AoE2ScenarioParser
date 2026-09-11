@@ -26,7 +26,7 @@ class PlaceFoundation(Effect):
     # Keeps the memory layout identical to Effect, required for __class__ reassignment.
     # Adding new instance attributes in a subclass will break this.
 
-    object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = RetrieverRef(Effect._object_id)
+    object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = RetrieverRef(Effect._object_id)
     """The building foundation to place"""
 
     source_player: Player | int = RetrieverRef(Effect._source_player)
@@ -40,19 +40,19 @@ class PlaceFoundation(Effect):
     @location.setter
     def location(self, value: TileT) -> None:
         """The tile where the building foundation will be placed"""
-        self._location = value
+        self._location = Tile.from_value(value)
 
     def __init__(
         self,
-        object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = -1,
+        object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
-        location: None | Tile = None,
+        location: TileT | None = None,
     ):
         super().__init__()
 
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
-        self.location: Tile = location or (-1, -1)
+        self.location: TileT = location or Tile(-1, -1)
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======
