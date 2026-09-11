@@ -59,7 +59,7 @@ If the binary is of a version that is not technically supported by AoE2ScenarioP
 want to try the unsupported binary anyway, you can also add the following:
 
 ```py
-scenario.xs_manager.allow_unsupported_versions = True
+scenario.xs_manager.xs_check.allow_unsupported_versions = True
 ```
 
 ## Example
