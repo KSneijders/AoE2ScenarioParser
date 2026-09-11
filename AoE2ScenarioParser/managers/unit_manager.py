@@ -12,7 +12,7 @@ from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, 
 
 
 class UnitManager(RefStruct, CanBeLinked):
-    _struct: ScenarioSections
+    _linked_struct: ScenarioSections
 
     # @formatter:off
     _units: list[list[Unit]]     = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))

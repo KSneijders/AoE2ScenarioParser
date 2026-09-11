@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifacts):
     __default_ver__ = DE_LATEST
-    _struct: 'ScenarioSections | None' = None
+    _linked_struct: 'ScenarioSections | None' = None
 
     # @formatter:off
     x: float                     = Retriever(f32,                             default = 0.5)

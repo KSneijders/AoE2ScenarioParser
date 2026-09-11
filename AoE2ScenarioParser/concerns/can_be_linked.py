@@ -7,16 +7,16 @@ from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedErro
 
 class CanBeLinked(abc.ABC):
 
-    _struct: BaseStruct | None = None
+    _linked_struct: BaseStruct | None = None
 
     def _is_linked(self) -> bool:
-        return self._struct is not None
+        return self._linked_struct is not None
 
     def _is_unlinked(self) -> bool:
         return not self._is_linked()
 
     def _is_linked_to_same(self, other: 'CanBeLinked') -> bool:
-        return self._struct is other._struct
+        return self._linked_struct is other._linked_struct
 
     def _is_not_linked_to_same(self, other: 'CanBeLinked') -> bool:
         return not self._is_linked_to_same(other)
@@ -36,7 +36,7 @@ class CanBeLinked(abc.ABC):
     def _link_other(self, other: 'CanBeLinked') -> None:
         self._validate_linkable_can_be_linked(other)
 
-        other._struct = self._struct
+        other._linked_struct = self._linked_struct
 
     def _unlink(self) -> None:
-        self._struct = None
+        self._linked_struct = None
