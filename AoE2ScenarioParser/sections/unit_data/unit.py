@@ -12,6 +12,7 @@ from AoE2ScenarioParser.datasets.heroes import HeroInfo
 from AoE2ScenarioParser.datasets.other import OtherInfo
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
+from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.support import Point, Tile
 from AoE2ScenarioParser.objects.support.location import Location
@@ -26,13 +27,13 @@ if TYPE_CHECKING:
 
 class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifacts):
     __default_ver__ = DE_LATEST
-    _linked_struct: 'ScenarioSections | None' = None
+    _struct: 'ScenarioSections'
 
     # @formatter:off
     x: float                     = Retriever(f32,                             default = 0.5)
     y: float                     = Retriever(f32,                             default = 0.5)
     z: float                     = Retriever(f32,                             default = 0)
-    reference_id: int            = Retriever(i32,                             default = -1)
+    _reference_id: int           = Retriever(i32,                             default = -1)
     object_id: int               = Retriever(u16,                             default = 4)
     state: int                   = Retriever(u8,                              default = 2)
     rotation: float              = Retriever(f32,                             default = 0)
@@ -105,7 +106,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
         caption_string_id: int = -1,
         caption_string: str = '',
         reference_id: int = -1,
-    ):
+    ) -> Unit:
         return cls(
             player,
             object_id,
@@ -114,6 +115,17 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
             caption_string = caption_string,
             reference_id = reference_id,
         )
+
+    @property
+    def reference_id(self) -> int:
+        return self._reference_id
+
+    @reference_id.setter
+    def reference_id(self, value: int):
+        self._reference_id = value
+
+        for child in self.garrisoned_units:
+            child._garrisoned_in_unit_ref = self.reference_id
 
     @property
     def location(self) -> Point:
@@ -185,7 +197,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
 
     @property
     def is_garrisoned(self):
-        return self._garrisoned_in_unit_ref != -1
+        return self.garrisoned_in is not None
 
     @property
     def is_not_garrisoned(self):
@@ -193,7 +205,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
 
     @property
     def garrisoned_in(self) -> Unit | None:
-        return self._garrisoned_in
+        return getattr(self, '_garrisoned_in', None)
 
     @garrisoned_in.setter
     def garrisoned_in(self, unit: Unit | None):
@@ -208,13 +220,16 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
 
             return
 
-        self._garrisoned_in = unit
-        self._garrisoned_in_unit_ref = unit.reference_id
-
-        if self._is_linked() and self._is_not_linked_to_same(unit):
+        if self._is_linked() and not unit._is_linked():
             from AoE2ScenarioParser.managers import UnitManager
 
-            UnitManager(self._struct).import_units((unit,))
+            UnitManager(self._struct).add_unit(unit)
+
+        if self._is_linked() and unit._is_linked() and unit._is_not_linked_to_same(self):
+            raise ObjectAlreadyLinkedError(f"Unable to garrison into unit from different scenario")
+
+        self._garrisoned_in = unit
+        self._garrisoned_in_unit_ref = unit.reference_id
 
         unit._add_unit_reference(self)
 
@@ -225,17 +240,20 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
     @garrisoned_units.setter
     def garrisoned_units(self, units: Iterable[Unit]):
         for garrisoned in self.garrisoned_units:
-            if all(garrisoned is not u for u in units):
+            if garrisoned not in units:
                 garrisoned.garrisoned_in = None
 
         for unit in units:
             if unit.is_garrisoned and unit.garrisoned_in is not self:
                 raise ValueError(f"Unit {unit} is already garrisoned in another unit")
 
-            if self._is_linked() and self._is_not_linked_to_same(unit):
+            if unit._is_linked() and unit._is_not_linked_to_same(self):
+                raise ObjectAlreadyLinkedError(f"Unable to garrison unit from different scenario")
+
+            if self._is_linked() and not unit._is_linked():
                 from AoE2ScenarioParser.managers import UnitManager
 
-                UnitManager(self._struct).import_units((unit, ))
+                UnitManager(self._struct).add_unit(unit)
 
             unit.garrisoned_in = self
 
@@ -283,7 +301,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
             "garrisoned_units":  add_tabs(str(self.garrisoned_units), 1) if self.garrisoned_units else None,
         }
 
-        attributes = {key: value for key, value in attributes.items() if value and value != -1}
+        attributes = {key: value for key, value in attributes.items() if (value or key == 'reference_id') and value != -1}
 
         longest_key = max(len(key) for key in attributes.keys()) + 2
 

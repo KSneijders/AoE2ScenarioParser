@@ -1,27 +1,21 @@
 import abc
 
-from bfp_rs import BaseStruct
-
-from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError
+from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError, ObjectNotLinkedError
 
 
 class CanBeLinked(abc.ABC):
-
-    _linked_struct: BaseStruct | None = None
-
     def _is_linked(self) -> bool:
-        return self._linked_struct is not None
+        return hasattr(self, '_struct') and self._struct is not None
 
     def _is_unlinked(self) -> bool:
         return not self._is_linked()
 
     def _is_linked_to_same(self, other: 'CanBeLinked') -> bool:
-        return self._linked_struct is other._linked_struct
+        return self._is_linked() and other._is_linked() and self._struct is other._struct
 
     def _is_not_linked_to_same(self, other: 'CanBeLinked') -> bool:
         return not self._is_linked_to_same(other)
 
-    # noinspection PyMethodMayBeStatic
     def _validate_linkable_can_be_linked(self, other: 'CanBeLinked') -> None:
         """
         Validates if an object can be linked to this scenario.
@@ -29,14 +23,15 @@ class CanBeLinked(abc.ABC):
         Args:
             other: The object to validate
         """
-        # noinspection PyProtectedMember
         if other._is_linked():
             raise ObjectAlreadyLinkedError('Unable to add object that has already been linked to a scenario. Use an import function instead.')
 
     def _link_other(self, other: 'CanBeLinked') -> None:
         self._validate_linkable_can_be_linked(other)
+        if not self._is_linked():
+            raise ObjectNotLinkedError('Unable to link other object when not linked.')
 
-        other._linked_struct = self._linked_struct
+        other._struct = self._struct
 
     def _unlink(self) -> None:
-        self._linked_struct = None
+        self._struct = None

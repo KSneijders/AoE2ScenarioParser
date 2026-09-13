@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from bfp_rs import BaseStruct, borrow_mut, ret, Retriever, Version
+from bfp_rs import BaseStruct, borrow_mut, ret, Retriever, set_mut, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import Array32, bool32, bool8, i32, nt_str32, u32, u8
 
@@ -14,13 +14,13 @@ from AoE2ScenarioParser.sections.trigger_data.effect import Effect
 
 def effect_display_orders_repeat():
     return [
-        set_repeat(ret(Trigger.effect_display_orders)).from_len(ret(Trigger.effects))
+        set_repeat(ret(Trigger._effect_display_orders)).from_len(ret(Trigger.effects))
     ]
 
 
 def condition_display_orders_repeat():
     return [
-        set_repeat(ret(Trigger.condition_display_orders)).from_len(ret(Trigger.conditions))
+        set_repeat(ret(Trigger._condition_display_orders)).from_len(ret(Trigger.conditions))
     ]
 
 
@@ -45,9 +45,9 @@ class Trigger(BaseStruct, CanBeLinked):
     name: str                           = Retriever(nt_str32,                                    default = "Trigger 0")
     short_description: str              = Retriever(nt_str32,           min_ver = Version(1, 8), default = "")
     effects: list[Effect]               = Retriever(Array32[Effect],                             default_factory = lambda _: [], on_read = effect_display_orders_repeat)
-    effect_display_orders: list[int]    = Retriever(u32,                                         default = 0, repeat = 0)
+    _effect_display_orders: list[int]    = Retriever(u32,                                         default = 0, repeat = 0)
     conditions: list[Condition]         = Retriever(Array32[Condition],                          default_factory = lambda _: [], on_read = condition_display_orders_repeat)
-    condition_display_orders: list[int] = Retriever(u32,                                         default = 0, repeat = 0)
+    _condition_display_orders: list[int] = Retriever(u32,                                         default = 0, repeat = 0)
     # @formatter:on
 
     def __init__(
@@ -68,9 +68,9 @@ class Trigger(BaseStruct, CanBeLinked):
         description: str = '',
         short_description: str = '',
         effects: list[Effect] | None = None,
-        effect_display_orders: list[int] | None = None,  # Todo: Remove?
+        _effect_display_orders: list[int] | None = None,  # Todo: Remove?
         conditions: list[Condition] | None = None,
-        condition_display_orders: list[int] | None = None,  # Todo: Remove?
+        _condition_display_orders: list[int] | None = None,  # Todo: Remove?
     ):
         super().__init__()
 
@@ -90,9 +90,12 @@ class Trigger(BaseStruct, CanBeLinked):
         self.description: str = description
         self.short_description: str = short_description
         self.effects: list[Effect] = effects if effects is not None else []
-        self.effect_display_orders: list[int] = effect_display_orders if effect_display_orders is not None else []
+        self._effect_display_orders: list[int] = _effect_display_orders if _effect_display_orders is not None else []
         self.conditions: list[Condition] = conditions if conditions is not None else []
-        self.condition_display_orders: list[int] = condition_display_orders if condition_display_orders is not None else []
+        self._condition_display_orders: list[int] = _condition_display_orders if _condition_display_orders is not None else []
+
+        set_mut(self.effects, False)
+        set_mut(self.conditions, False)
 
     def add_effect(self, effect: Effect) -> Effect:
         """
@@ -107,7 +110,7 @@ class Trigger(BaseStruct, CanBeLinked):
         with borrow_mut(self.effects):
             self.effects.append(effect)
 
-        self.effect_display_orders.append(len(self.effects) - 1)
+        self._effect_display_orders.append(len(self.effects) - 1)
         return effect
 
     def add_effects(self, effects: Iterable[Effect]) -> list[Effect]:
@@ -135,6 +138,9 @@ class Trigger(BaseStruct, CanBeLinked):
         try:
             with borrow_mut(self.effects):
                 self.effects.remove(effect)
+                self._effect_display_orders.remove(len(self.effects))  # todo: Add tests
             return True
         except ValueError:
             return False
+
+

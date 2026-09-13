@@ -1,15 +1,15 @@
-from AoE2ScenarioParser.objects.support import Point, PointT, Tile, TileT
 from bfp_rs import RefStruct, ret
 from bfp_rs.bfp_rs import RetrieverRef, Version
 from bfp_rs.combinators import get_attr
 
 from AoE2ScenarioParser.datasets.player_data import Civilization, StartingAge
+from AoE2ScenarioParser.datasets.player_data.civilization import CivilizationOld
 from AoE2ScenarioParser.managers.support.decorators import dataset_property, no_gaia_property
+from AoE2ScenarioParser.objects.support import Point, PointT, Tile, TileT
 from AoE2ScenarioParser.sections import (
     DataHeader, Diplomacy, Options, PlayerBaseOptions, PlayerOptions, Resources,
     ScenarioPlayerData, ScenarioSections, Settings, UnitData, View, ViewF,
 )
-from datasets.player_data.civilization import CivilizationOld
 
 GAIA_INDEX = 8  # get(ret(ScenarioSections.settings), ret(Settings.data_header), ret(DataHeader.gaia_player_idx)) + 1
 INDEX = get_attr('index')

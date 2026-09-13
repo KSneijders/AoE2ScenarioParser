@@ -12,7 +12,7 @@ from AoE2ScenarioParser.sections import DataHeader, ScenarioSections, Settings, 
 
 
 class UnitManager(RefStruct, CanBeLinked):
-    _linked_struct: ScenarioSections
+    _struct: ScenarioSections
 
     # @formatter:off
     _units: list[list[Unit]]     = RetrieverRef(ret(ScenarioSections.unit_data), ret(UnitData.units))
@@ -57,6 +57,8 @@ class UnitManager(RefStruct, CanBeLinked):
                 unit._garrisoned_units = tuple()
 
     def _assign_unit_properties(self):
+        mapping = self._struct.initialization_data._unit_reference_mapping = {}
+
         # Disable mutability for unit arrays
         set_mut(self._units, False)
         for player_units in self.units:
@@ -71,7 +73,7 @@ class UnitManager(RefStruct, CanBeLinked):
 
                 if unit.is_garrisoned:
                     # noinspection PyProtectedMember
-                    parent = self._unit_reference_mapping[unit._garrisoned_in_unit_ref]
+                    parent = mapping[unit._garrisoned_in_unit_ref]
                     unit.garrisoned_in = parent
 
         self._next_unit_reference_id = highest_reference_id
@@ -125,13 +127,17 @@ class UnitManager(RefStruct, CanBeLinked):
         if not unit.has_reference_id:
             unit.reference_id = self.next_unit_reference_id
 
+        self._link_other(unit)
+
         for garrisoned in unit.garrisoned_units:
-            self.add_unit(garrisoned)
+            if not garrisoned._is_linked():
+                self.add_unit(garrisoned)
+
+        if unit.is_garrisoned and not unit.garrisoned_in._is_linked():
+            self.add_unit(unit.garrisoned_in)
 
         with borrow_mut(self.units[unit.player]):
             self.units[unit.player].append(unit)
-
-        self._link_other(unit)
 
         return unit
 

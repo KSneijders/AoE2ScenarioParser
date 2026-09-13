@@ -236,7 +236,7 @@ class MapManager(RefStruct):
             self._update_elevation_around_tiles(outline_original_area)
 
         if x_offset != 0 and y_offset != 0:
-            from managers import UnitManager
+            from AoE2ScenarioParser.managers import UnitManager
             # from managers import TriggerManager
 
             um = UnitManager(self._struct)

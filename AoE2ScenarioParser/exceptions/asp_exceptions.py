@@ -63,7 +63,15 @@ class XsValidationError(AoE2ScenarioParserError):
     pass
 
 
-class ObjectAlreadyLinkedError(AoE2ScenarioParserError):
+class ObjectLinkingError(AoE2ScenarioParserError):
+    pass
+
+
+class ObjectAlreadyLinkedError(ObjectLinkingError):
+    pass
+
+
+class ObjectNotLinkedError(ObjectLinkingError):
     pass
 
 
