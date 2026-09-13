@@ -17,4 +17,12 @@ def test_terrain_getter_area_pattern(mm: MapManager):
     assert area_pattern.area == ((0, 0), (mm.map_size - 1, mm.map_size - 1))
     assert area_pattern.area.width == mm.map_size
     assert area_pattern.area.height == mm.map_size
-    
+
+
+def test_terrain_getter_area_pattern_with_selection(mm: MapManager):
+    area_pattern = mm.new_area_pattern(((1, 1), (3, 3)))
+
+    assert area_pattern.state == AreaState.RECT
+    assert area_pattern.area == ((1, 1), (3, 3))
+    assert area_pattern.area.width == 3
+    assert area_pattern.area.height == 3

@@ -332,7 +332,7 @@ class MapManager(RefStruct):
 
         return self.terrain[y][x]
 
-    def get_tile_safe(self, tile: TileT = None, i: int = None) -> TerrainTile | None:
+    def get_tile_safe(self, tile: TileT | None = None, i: int | None = None) -> TerrainTile | None:
         """
         Get a TerrainTile on the map based on the location or using the index.
         If the index is outside the map, `None` is returned instead of throwing an error
@@ -386,7 +386,7 @@ class MapManager(RefStruct):
         """
         return Area((0, 0), (self.map_size - 1, self.map_size - 1))
 
-    def new_area_pattern(self, selection: AreaT | TileT = None) -> AreaPattern:
+    def new_area_pattern(self, selection: AreaT | TileT | None = None) -> AreaPattern:
         """
         Get an area pattern object spanning the given area or the entire map if default
 
