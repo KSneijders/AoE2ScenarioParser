@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.managers import TriggerManager
 from AoE2ScenarioParser.sections import Trigger
-from tests.objects.managers.functions import create_trigger
+from tests.managers.functions import create_trigger
 
 
 def test_add_triggers_returns_triggers(tm: TriggerManager):

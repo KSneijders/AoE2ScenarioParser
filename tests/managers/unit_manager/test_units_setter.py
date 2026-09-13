@@ -3,7 +3,7 @@ import pytest
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from tests.objects.managers.functions import create_unit
+from tests.managers.functions import create_unit
 
 
 def test_units_setter(um: UnitManager):

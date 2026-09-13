@@ -3,7 +3,7 @@ import pytest
 from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError
 from AoE2ScenarioParser.managers import TriggerManager
 from AoE2ScenarioParser.sections import Trigger
-from tests.objects.managers.functions import create_trigger
+from tests.managers.functions import create_trigger
 
 
 def test_add_trigger_returns_trigger(tm: TriggerManager):

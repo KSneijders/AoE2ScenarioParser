@@ -1,5 +1,5 @@
 from AoE2ScenarioParser.managers import TriggerManager
-from tests.objects.managers.functions import create_trigger
+from tests.managers.functions import create_trigger
 
 
 def test_import_triggers_allows_unlinked_triggers(tm: TriggerManager):

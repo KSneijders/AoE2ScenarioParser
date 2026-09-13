@@ -1,6 +1,6 @@
 from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
-from tests.objects.managers.functions import create_unit
+from tests.managers.functions import create_unit
 
 
 def test_change_ownership(um: UnitManager):
