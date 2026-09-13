@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from bfp_rs import ret, RetrieverRef
+from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.datasets.player_data.player import Player
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.sections import Unit
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.sections.trigger_data.concerns import HasSelectedUnitsAttribute
+from AoE2ScenarioParser.concerns import CanHoldUnits
 
 if True:
     # ====== CUSTOM IMPORTS START ======
@@ -13,7 +15,7 @@ if True:
     # ====== CUSTOM IMPORTS END ======
 
 
-class InitiateResearch(Effect):
+class InitiateResearch(Effect, HasSelectedUnitsAttribute, CanHoldUnits):
     """
     This effect can be used to queue a technology in a building.
     This effect requires the technology to be available and will deduct the cost of the technology from the player's resources
@@ -30,20 +32,19 @@ class InitiateResearch(Effect):
     technology_id: TechInfo | int = RetrieverRef(Effect._technology_id)
     """The technology to begin researching"""
 
-    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
-    """The building to be affected by this effect."""
-
     def __init__(
         self,
         source_player: Player | int = -1,
         technology_id: TechInfo | int = -1,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        selected_units: list[Unit] | None = None,
     ):
         super().__init__()
 
         self.source_player: Player | int = source_player
         self.technology_id: TechInfo | int = technology_id
-        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self._selected_unit_ref_ids: list[int] = []
+        self._selected_units: tuple[Unit, ...] = ()
+        self.selected_units: list[Unit] = selected_units or []
 
     # ====== CUSTOM LOGIC START ======
     # ====== CUSTOM LOGIC END ======

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.datasets.trigger_data.panel_location import PanelLocation
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.trigger_data import PanelLocation
 
 if True:
     # ====== CUSTOM IMPORTS START ======

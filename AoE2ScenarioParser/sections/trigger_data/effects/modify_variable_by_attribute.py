@@ -2,16 +2,14 @@ from __future__ import annotations
 
 from bfp_rs import ret, RetrieverRef
 
-from AoE2ScenarioParser.datasets.buildings import BuildingInfo
-from AoE2ScenarioParser.datasets.trigger_data.damage_class import DamageClass
-from AoE2ScenarioParser.datasets.heroes import HeroInfo
-from AoE2ScenarioParser.datasets.trigger_data.object_attribute import ObjectAttribute
-from AoE2ScenarioParser.datasets.trigger_data.operation import Operation
-from AoE2ScenarioParser.datasets.other import OtherInfo
-from AoE2ScenarioParser.datasets.player_data.player import Player
+from AoE2ScenarioParser.sections.trigger_data import Effect
 from AoE2ScenarioParser.datasets.units import UnitInfo
+from AoE2ScenarioParser.datasets.buildings import BuildingInfo
+from AoE2ScenarioParser.datasets.heroes import HeroInfo
+from AoE2ScenarioParser.datasets.other import OtherInfo
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.trigger_data import Operation, ObjectAttribute, DamageClass
 from AoE2ScenarioParser.sections import Variable
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
 
 if True:
     # ====== CUSTOM IMPORTS START ======

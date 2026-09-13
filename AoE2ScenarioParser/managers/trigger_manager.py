@@ -8,6 +8,7 @@ from bfp_rs.bfp_rs import borrow_mut
 import AoE2ScenarioParser.sections.trigger_data.effects as effects_module
 from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.sections import Condition, ScenarioSections, Trigger, TriggerDataSection
+from AoE2ScenarioParser.sections.scx_initialization_data import ScenarioInitializationData
 from AoE2ScenarioParser.sections.trigger_data.effect import Effect
 
 
@@ -26,8 +27,10 @@ class TriggerManager(RefStruct, CanBeLinked):
 
         self._do_ce_conversions()
 
+    # noinspection PyProtectedMember
     def _do_ce_conversions(self):
-        struct: ScenarioSections = self._struct
+        struct: ScenarioSections = self._struct  # type:ignore
+        init_data: ScenarioInitializationData = struct.initialization_data  # type:ignore
 
         effect_map: dict[int, type[Effect]] = self._get_effect_mapping()
         for trigger in self.triggers:
@@ -36,7 +39,7 @@ class TriggerManager(RefStruct, CanBeLinked):
                     effect.__class__ = effect_map[effect._type]
 
                     if hasattr(effect, 'selected_units'):
-                        unit_mapping = struct.initialization_data._unit_reference_mapping
+                        unit_mapping = init_data._unit_reference_mapping
 
                         selected_units = []
                         for ref_id in effect._selected_unit_ref_ids:

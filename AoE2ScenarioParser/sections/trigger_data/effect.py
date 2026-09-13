@@ -1,18 +1,17 @@
 from __future__ import annotations
 
-from typing import Iterable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
 from bfp_rs.combinators import set_repeat
 from bfp_rs.types.le import Array32, i32, nt_str32
 
+from AoE2ScenarioParser.concerns import CanBeLinked
 from AoE2ScenarioParser.objects.support import Area, AreaT, Tile, TileT
-
-from AoE2ScenarioParser.concerns import CanBeLinked, CanHoldUnits
 from AoE2ScenarioParser.sections.scx_versions import TRIGGER_LATEST
 
 if TYPE_CHECKING:
-    from AoE2ScenarioParser.sections import Unit
+    pass
 
 
 def selected_unit_ids():
@@ -21,36 +20,36 @@ def selected_unit_ids():
     ]
 
 
-class Effect(BaseStruct, CanBeLinked, CanHoldUnits):
+class Effect(BaseStruct, CanBeLinked):
     __default_ver__ = TRIGGER_LATEST
 
     EFFECT_ID: int = -1
     """The static value on the class"""
 
     # @formatter:off
-    _type: int                       = Retriever(i32,          default = -1)
-    _properties: list[int]           = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*83, on_read = selected_unit_ids)
-    _message: str                    = Retriever(nt_str32,     default = "")
-    _sound_name: str                 = Retriever(nt_str32,     default = "")
+    _type: int                        = Retriever(i32,          default = -1)
+    _properties: list[int]            = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*83, on_read = selected_unit_ids)
+    _message: str                     = Retriever(nt_str32,     default = "")
+    _sound_name: str                  = Retriever(nt_str32,     default = "")
     # this list starts in 1.20, previous versions use the _properties[4] as the singular selected unit ID
-    _selected_unit_ref_ids: list[int] = Retriever(i32,         default = -1, repeat = 0)
-    _message_option1: str            = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
-    _message_option2: str            = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
+    _selected_unit_ref_ids: list[int] = Retriever(Array32[i32], default = -1, repeat = 0)
+    _message_option1: str             = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
+    _message_option2: str             = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
 
-    _ai_script_goal: int             = RetrieverRef(ret(_properties),  0)
-    _quantity: int                   = RetrieverRef(ret(_properties),  1)
-    _resource: int                   = RetrieverRef(ret(_properties),  2)
-    _diplomacy_state: int            = RetrieverRef(ret(_properties),  3)
-    _num_objects_selected: int       = RetrieverRef(ret(_properties),  4)
-    _legacy_location_object_ref: int = RetrieverRef(ret(_properties),  5)
-    _object_id: int                  = RetrieverRef(ret(_properties),  6)
-    _source_player: int              = RetrieverRef(ret(_properties),  7)
-    _target_player: int              = RetrieverRef(ret(_properties),  8)
-    _technology_id: int              = RetrieverRef(ret(_properties),  9)
-    _str_id: int                     = RetrieverRef(ret(_properties), 10)
-    _sound_id: int                   = RetrieverRef(ret(_properties), 11)
-    _display_time: int               = RetrieverRef(ret(_properties), 12)
-    _trigger_id: int                 = RetrieverRef(ret(_properties), 13)
+    _ai_script_goal: int              = RetrieverRef(ret(_properties),  0)
+    _quantity: int                    = RetrieverRef(ret(_properties),  1)
+    _resource: int                    = RetrieverRef(ret(_properties),  2)
+    _diplomacy_state: int             = RetrieverRef(ret(_properties),  3)
+    _num_objects_selected: int        = RetrieverRef(ret(_properties),  4)
+    _legacy_location_object_ref: int  = RetrieverRef(ret(_properties),  5)
+    _object_id: int                   = RetrieverRef(ret(_properties),  6)
+    _source_player: int               = RetrieverRef(ret(_properties),  7)
+    _target_player: int               = RetrieverRef(ret(_properties),  8)
+    _technology_id: int               = RetrieverRef(ret(_properties),  9)
+    _str_id: int                      = RetrieverRef(ret(_properties), 10)
+    _sound_id: int                    = RetrieverRef(ret(_properties), 11)
+    _display_time: int                = RetrieverRef(ret(_properties), 12)
+    _trigger_id: int                  = RetrieverRef(ret(_properties), 13)
 
     @property
     def _location(self) -> Tile:
@@ -135,43 +134,3 @@ class Effect(BaseStruct, CanBeLinked, CanHoldUnits):
     _object_filter: int                    = RetrieverRef(ret(_properties), 81)
     _use_tag_color_for_icon: int           = RetrieverRef(ret(_properties), 82)
     # @formatter:on
-
-    def __init__(self):
-        self._selected_units: tuple[Unit, ...] = tuple()
-
-    @property
-    def selected_units(self) -> tuple[Unit, ...]:
-        return self._selected_units
-
-    @selected_units.setter
-    def selected_units(self, value: Iterable[Unit]):
-        for unit in self._selected_units:
-            unit._remove_trigger_artifact_reference(self)
-
-        self._selected_units: tuple[Unit, ...] = tuple(value)
-
-        for unit in self._selected_units:
-            unit._add_trigger_artifact_reference(self)
-
-        self._selected_unit_ref_ids = [
-            unit.reference_id for unit in self._selected_units
-        ]
-
-    def _get_unit_references(self, key: str = '') -> tuple['Unit', ...]:
-        return self.selected_units
-
-    def _remove_unit_reference(self, unit: 'Unit', _: str = '') -> None:
-        unit._remove_trigger_artifact_reference(self)
-
-        self._selected_units = tuple(existing for existing in self.selected_units if existing is not unit)
-
-    def _add_unit_reference(self, unit: 'Unit', _: str = '') -> None:
-        if any(unit is existing for existing in self.selected_units):
-            return
-
-        unit._add_trigger_artifact_reference(self)
-
-        self._selected_units = (
-            *self.selected_units,
-            unit,
-        )

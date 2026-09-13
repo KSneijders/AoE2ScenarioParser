@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.datasets.trigger_data.button_location import ButtonLocation
-from AoE2ScenarioParser.datasets.player_data.player import Player
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.techs import TechInfo
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.datasets.trigger_data import ButtonLocation
 
 if True:
     # ====== CUSTOM IMPORTS START ======

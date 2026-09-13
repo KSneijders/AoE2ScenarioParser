@@ -15,11 +15,11 @@ OUTPUT_DIR = _PKG_ROOT / "sections" / "trigger_data" / "effects"
 DATASETS_ROOT = _PKG_ROOT / "datasets"
 
 # @formatter:off
-CUSTOM_IMPORTS_START = "    # ====== CUSTOM IMPORTS START ======"
-CUSTOM_IMPORTS_PASS =  "    pass"
-CUSTOM_IMPORTS_END =   "    # ====== CUSTOM IMPORTS END ======"
-CUSTOM_LOGIC_START =   "    # ====== CUSTOM LOGIC START ======"
-CUSTOM_LOGIC_END =     "    # ====== CUSTOM LOGIC END ======"
+CUSTOM_IMPORTS_START =     "    # ====== CUSTOM IMPORTS START ======"
+CUSTOM_IMPORTS_PASS =      "    pass"
+CUSTOM_IMPORTS_END =       "    # ====== CUSTOM IMPORTS END ======"
+CUSTOM_LOGIC_START =       "    # ====== CUSTOM LOGIC START ======"
+CUSTOM_LOGIC_END =         "    # ====== CUSTOM LOGIC END ======"
 # @formatter:on
 
 PROPERTY_INHERIT_SNIPPET = f"""
@@ -55,15 +55,23 @@ def get_property_snippet(name: str, desc: str, get_type: str, set_type: str, ass
             .replace("<ASSIGNMENT>", assignment))
 
 
-RETS: dict[str, str] = {
-    'message':               "''",
-    'sound_name':            "''",
-    'selected_unit_ref_ids': "[]",
-    'message_option1':       "''",
-    'message_option2':       "''",
+# Attr: default value
+RETS: dict[str, tuple[str, bool]] = {
+    'message':               ("''", True),
+    'sound_name':            ("''", True),
+    'selected_unit_ref_ids': ("[]", False),
+    'message_option1':       ("''", True),
+    'message_option2':       ("''", True),
 }
 
-# Tuple: (get_type, set_type, assignment statement)
+# Attr: alternate name
+RET_ALTS: dict[str, str] = {
+    'selected_unit_ref_ids': 'selected_units',
+}
+
+PRIVATE: set[str] = {"selected_unit_ref_ids"}
+
+# Attr: (get_type, set_type, assignment statement)
 PROPERTIES: dict[str, tuple[str, str, str]] = {
     'location': ('Tile', 'TileT', 'Tile.from_value(value)'),
     'area':     ('Area', 'AreaT', 'Area.from_value(value)'),
@@ -74,22 +82,30 @@ ALTERNATE_TYPES: dict[str, str] = {
     "Area": "Area, AreaT",
 }
 
+# Attr: (old_type, new_type)
+ALTERNATE_RET_TYPES: dict[str, tuple[str, str]] = {
+    "selected_unit_ref_ids": ("list[int]", "list[Unit]"),
+}
+
 ROOT_DATASET_CLASSES: dict[str, str] = {
-    "BuildingInfo":    "AoE2ScenarioParser.datasets.buildings",
-    "ConditionId":     "AoE2ScenarioParser.datasets.conditions",
-    "EffectId":        "AoE2ScenarioParser.datasets.effects",
-    "HeroInfo":        "AoE2ScenarioParser.datasets.heroes",
-    "OtherInfo":       "AoE2ScenarioParser.datasets.other",
-    "ProjectileInfo":  "AoE2ScenarioParser.datasets.projectiles",
-    "ScenarioVariant": "AoE2ScenarioParser.datasets.scenario_variant",
-    "TechInfo":        "AoE2ScenarioParser.datasets.techs",
-    "TerrainId":       "AoE2ScenarioParser.datasets.terrains",
-    "UnitInfo":        "AoE2ScenarioParser.datasets.units",
-    "Tile, TileT":     "AoE2ScenarioParser.objects.support",
-    "Area, AreaT":     "AoE2ScenarioParser.objects.support",
-    "Unit":            "AoE2ScenarioParser.sections",
-    "Trigger":         "AoE2ScenarioParser.sections",
-    "Variable":        "AoE2ScenarioParser.sections",
+    "BuildingInfo":              "AoE2ScenarioParser.datasets.buildings",
+    "ConditionId":               "AoE2ScenarioParser.datasets.conditions",
+    "EffectId":                  "AoE2ScenarioParser.datasets.effects",
+    "HeroInfo":                  "AoE2ScenarioParser.datasets.heroes",
+    "OtherInfo":                 "AoE2ScenarioParser.datasets.other",
+    "ProjectileInfo":            "AoE2ScenarioParser.datasets.projectiles",
+    "ScenarioVariant":           "AoE2ScenarioParser.datasets.scenario_variant",
+    "TechInfo":                  "AoE2ScenarioParser.datasets.techs",
+    "TerrainId":                 "AoE2ScenarioParser.datasets.terrains",
+    "UnitInfo":                  "AoE2ScenarioParser.datasets.units",
+    "Tile, TileT":               "AoE2ScenarioParser.objects.support",
+    "Area, AreaT":               "AoE2ScenarioParser.objects.support",
+    "Unit":                      "AoE2ScenarioParser.sections",
+    "Trigger":                   "AoE2ScenarioParser.sections",
+    "Variable":                  "AoE2ScenarioParser.sections",
+    "HasSelectedUnitsAttribute": "AoE2ScenarioParser.sections.trigger_data.concerns",
+    "Effect":                    "AoE2ScenarioParser.sections.trigger_data",
+    "CanHoldUnits":              "AoE2ScenarioParser.concerns",
 }
 
 
@@ -108,7 +124,7 @@ def discover_dataset_classes() -> dict[str, str]:
             if filepath.name == "__init__.py":
                 continue
             cls_name = to_pascal_case(filepath.stem)
-            class_map[cls_name] = f"AoE2ScenarioParser.datasets.{pkg}.{filepath.stem}"
+            class_map[cls_name] = f"AoE2ScenarioParser.datasets.{pkg}"
     return class_map
 
 
@@ -132,6 +148,7 @@ def format_docstring_body(desc: str | list[str]) -> str:
 
 
 def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
+    super_classes = ['Effect']
     has_ret_ref = False
 
     effect_id = effect["id"]
@@ -141,13 +158,23 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
     attrs = effect.get("attributes", [])
 
     # Collect dataset imports needed by this effect's attribute types
-    dataset_imports: dict[str, str] = {}
+    dataset_imports: dict[str, str] = {
+        'Effect': dataset_map['Effect']
+    }
+
     for attr in attrs:
         for type_name in extract_type_names(attr.get("type", "")):
             if type_name in ALTERNATE_TYPES:
                 type_name = ALTERNATE_TYPES[type_name]
             if type_name in dataset_map:
                 dataset_imports[type_name] = dataset_map[type_name]
+
+        if attr.get("name", "") == "selected_unit_ref_ids":
+            dataset_imports['Unit'] = dataset_map['Unit']
+
+            for parent_cls in ("HasSelectedUnitsAttribute", "CanHoldUnits"):
+                super_classes.append(parent_cls)
+                dataset_imports[parent_cls] = dataset_map[parent_cls]
 
     lines: list[str] = [
         "from __future__ import annotations",
@@ -156,11 +183,16 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         "",
     ]
 
-    for cls_name in sorted(dataset_imports):
-        lines.append(f"from {dataset_imports[cls_name]} import {cls_name}")
+    import_groups = {}
+    for cls_name, path in dataset_imports.items():
+        import_groups.setdefault(path, []).append(cls_name)
+
+    for path, cls_names in import_groups.items():
+        lines.append(f"from {path} import {', '.join(cls_names)}")
+
+    super_class_string = ", ".join(super_classes)
 
     lines += [
-        "from AoE2ScenarioParser.sections.trigger_data.effect import Effect",
         "",
         "if True:",
         CUSTOM_IMPORTS_START,
@@ -168,7 +200,7 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         CUSTOM_IMPORTS_END,
         "",
         "",
-        f'class {cls}(Effect):',
+        f'class {cls}({super_class_string}):',
         f'    """',
         f'    {format_docstring_body(desc)}',
         f'    """',
@@ -201,11 +233,16 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
         if attr_name in ['armour_attack_quantity', 'armour_attack_class']:
             continue
 
-        variable_assignment = attr_name
+        variable_name = RET_ALTS.get(attr_name, attr_name)
+        variable_assignment = variable_name
+
+        original_attr_type = attr_type
+        if attr_name in ALTERNATE_RET_TYPES:
+            attr_type = attr_type.replace(*ALTERNATE_RET_TYPES[attr_name])
 
         attr_types: OrderedSet[str] = OrderedSet(attr_type.split(' | '))
         if attr_name in RETS:
-            default = RETS[attr_name]
+            (default, should_have_ret_ref) = RETS[attr_name]
             if default == "''":
                 attr_types.add('str')
             elif default == "[]":
@@ -216,7 +253,7 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
                 raise ValueError(f"Default type not implemented for RET default value: [{default}]")
 
             ret_ref = f"ret(Effect._{attr_name})"
-            has_ret_ref = True
+            has_ret_ref |= should_have_ret_ref
         else:
             if "int" in attr_type or attr_type in dataset_map:
                 default = '-1'
@@ -240,11 +277,18 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
 
             ret_ref = f"Effect._{attr_name}"
 
-        attr_type_display = ' | '.join(attr_types)
+        ret_type = attr_type_display = ' | '.join(attr_types)
         self_attr_type_display = ' | '.join(sorted(t for t in attr_types if t != "None"))
 
-        effect_class_init_definition.append(f"        {attr_name}: {attr_type_display} = {default},")
-        effect_class_init_body.append(f"        self.{attr_name}: {self_attr_type_display} = {variable_assignment}")
+        if attr_name == "selected_unit_ref_ids":
+            effect_class_init_body.extend([
+                f"        self._selected_unit_ref_ids: list[int] = []",
+                f"        self._selected_units: tuple[Unit, ...] = ()"
+            ])
+            ret_type = original_attr_type
+
+        effect_class_init_definition.append(f"        {variable_name}: {attr_type_display} = {default},")
+        effect_class_init_body.append(f"        self.{variable_name}: {self_attr_type_display} = {variable_assignment}")
 
         if attr_name in PROPERTIES:
             lines.append(get_property_snippet(attr_name, attr_desc, *PROPERTIES[attr_name]))
@@ -255,9 +299,13 @@ def generate_file(effect: dict, dataset_map: dict[str, str]) -> str:
 
         ref_expr = f"RetrieverRef(Effect.{attr_ref})" if attr_ref else f"RetrieverRef({ret_ref})"
 
+        # Privates are already defined inside Effect super class
+        if attr_name in PRIVATE:
+            continue
+
         lines += [
             "",
-            f"    {attr_name}: {attr_type_display} = {ref_expr}",
+            f"    {attr_name}: {ret_type} = {ref_expr}",
             f'    """{attr_desc}"""',
         ]
 

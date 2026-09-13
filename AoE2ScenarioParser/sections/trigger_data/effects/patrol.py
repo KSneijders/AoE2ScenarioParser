@@ -1,18 +1,18 @@
 from __future__ import annotations
 
-from bfp_rs import ret, RetrieverRef
+from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.objects.support import Area, AreaT
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
-from AoE2ScenarioParser.datasets.trigger_data.object_class import ObjectClass
-from AoE2ScenarioParser.datasets.trigger_data.object_type import ObjectType
 from AoE2ScenarioParser.datasets.other import OtherInfo
-from AoE2ScenarioParser.datasets.player_data.player import Player
-from AoE2ScenarioParser.objects.support import Tile, TileT
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.objects.support import Tile, TileT, Area, AreaT
+from AoE2ScenarioParser.datasets.trigger_data import ObjectClass, ObjectType
 from AoE2ScenarioParser.sections import Unit
-from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.sections.trigger_data.concerns import HasSelectedUnitsAttribute
+from AoE2ScenarioParser.concerns import CanHoldUnits
 
 if True:
     # ====== CUSTOM IMPORTS START ======
@@ -20,7 +20,7 @@ if True:
     # ====== CUSTOM IMPORTS END ======
 
 
-class Patrol(Effect):
+class Patrol(Effect, HasSelectedUnitsAttribute, CanHoldUnits):
     """
     This effect can be used to patrol units to a specific tile.
     """
@@ -62,9 +62,6 @@ class Patrol(Effect):
     object_type: ObjectType | int = RetrieverRef(Effect._object_type)
     """The units of this type will be affected by this effect"""
 
-    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
-    """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
-
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
     """The maximum number of units affected by this effect"""
 
@@ -76,7 +73,7 @@ class Patrol(Effect):
         area: AreaT | None = None,
         object_group: ObjectClass | int = -1,
         object_type: ObjectType | int = -1,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        selected_units: list[Unit] | None = None,
         max_units_affected: int = -1,
     ):
         super().__init__()
@@ -87,7 +84,9 @@ class Patrol(Effect):
         self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.object_group: ObjectClass | int = object_group
         self.object_type: ObjectType | int = object_type
-        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self._selected_unit_ref_ids: list[int] = []
+        self._selected_units: tuple[Unit, ...] = ()
+        self.selected_units: list[Unit] = selected_units or []
         self.max_units_affected: int = max_units_affected
 
     # ====== CUSTOM LOGIC START ======

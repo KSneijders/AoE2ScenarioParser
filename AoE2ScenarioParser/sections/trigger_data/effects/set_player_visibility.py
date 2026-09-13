@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.datasets.player_data.player import Player
-from AoE2ScenarioParser.datasets.trigger_data.visibility_state import VisibilityState
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.trigger_data import VisibilityState
 
 if True:
     # ====== CUSTOM IMPORTS START ======

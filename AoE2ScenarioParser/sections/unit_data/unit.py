@@ -94,7 +94,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
         self.garrisoned_in = garrisoned_in
         self.garrisoned_units: tuple[Unit, ...] = garrisoned_units or tuple()
 
-        self.trigger_artifact_references: tuple['TriggerArtifacts', ...] = tuple()
+        self._trigger_artifact_references: tuple['TriggerArtifacts', ...] = tuple()
 
     _player: int | None = None
 
@@ -260,17 +260,17 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
     # ----- TRIGGER ARTIFACT FUNCTIONS -----
 
     def _get_trigger_artifact_references(self) -> tuple['TriggerArtifacts', ...]:
-        return self.trigger_artifact_references
+        return self._trigger_artifact_references
 
     def _remove_trigger_artifact_reference(self, trigger_artifact: 'TriggerArtifacts') -> None:
-        self.trigger_artifact_references = tuple(artifact for artifact in self.trigger_artifact_references if artifact is not trigger_artifact)
+        self._trigger_artifact_references = tuple(artifact for artifact in self._trigger_artifact_references if artifact is not trigger_artifact)
 
     def _add_trigger_artifact_reference(self, trigger_artifact: 'TriggerArtifacts') -> None:
-        if any(trigger_artifact is artifact for artifact in self.trigger_artifact_references):
+        if any(trigger_artifact is artifact for artifact in self._trigger_artifact_references):
             return
 
-        self.trigger_artifact_references = (
-            *self.trigger_artifact_references,
+        self._trigger_artifact_references = (
+            *self._trigger_artifact_references,
             trigger_artifact,
         )
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from bfp_rs import ret, RetrieverRef
 
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.sections.trigger_data import Effect
 
 if True:
     # ====== CUSTOM IMPORTS START ======

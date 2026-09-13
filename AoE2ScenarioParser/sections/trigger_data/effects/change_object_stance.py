@@ -1,18 +1,18 @@
 from __future__ import annotations
 
-from bfp_rs import ret, RetrieverRef
+from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.objects.support import Area, AreaT
-from AoE2ScenarioParser.datasets.trigger_data.attack_stance import AttackStance
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
-from AoE2ScenarioParser.datasets.trigger_data.object_class import ObjectClass
-from AoE2ScenarioParser.datasets.trigger_data.object_type import ObjectType
 from AoE2ScenarioParser.datasets.other import OtherInfo
-from AoE2ScenarioParser.datasets.player_data.player import Player
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.objects.support import Area, AreaT
+from AoE2ScenarioParser.datasets.trigger_data import ObjectClass, ObjectType, AttackStance
 from AoE2ScenarioParser.sections import Unit
-from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.sections.trigger_data.concerns import HasSelectedUnitsAttribute
+from AoE2ScenarioParser.concerns import CanHoldUnits
 
 if True:
     # ====== CUSTOM IMPORTS START ======
@@ -20,7 +20,7 @@ if True:
     # ====== CUSTOM IMPORTS END ======
 
 
-class ChangeObjectStance(Effect):
+class ChangeObjectStance(Effect, HasSelectedUnitsAttribute, CanHoldUnits):
     """
     This effect can be used to change the attack stance of units.
     """
@@ -55,9 +55,6 @@ class ChangeObjectStance(Effect):
     attack_stance: AttackStance | int = RetrieverRef(Effect._attack_stance)
     """The attack stance to set on the affected units"""
 
-    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
-    """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
-
     max_units_affected: int = RetrieverRef(Effect._max_units_affected)
     """The maximum number of units affected by this effect"""
 
@@ -69,7 +66,7 @@ class ChangeObjectStance(Effect):
         object_group: ObjectClass | int = -1,
         object_type: ObjectType | int = -1,
         attack_stance: AttackStance | int = -1,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        selected_units: list[Unit] | None = None,
         max_units_affected: int = -1,
     ):
         super().__init__()
@@ -80,7 +77,9 @@ class ChangeObjectStance(Effect):
         self.object_group: ObjectClass | int = object_group
         self.object_type: ObjectType | int = object_type
         self.attack_stance: AttackStance | int = attack_stance
-        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self._selected_unit_ref_ids: list[int] = []
+        self._selected_units: tuple[Unit, ...] = ()
+        self.selected_units: list[Unit] = selected_units or []
         self.max_units_affected: int = max_units_affected
 
     # ====== CUSTOM LOGIC START ======

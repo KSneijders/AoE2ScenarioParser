@@ -1,19 +1,18 @@
 from __future__ import annotations
 
-from bfp_rs import ret, RetrieverRef
+from bfp_rs import RetrieverRef
 
-from AoE2ScenarioParser.datasets.trigger_data.action_type import ActionType
-from AoE2ScenarioParser.objects.support import Area, AreaT
+from AoE2ScenarioParser.sections.trigger_data import Effect
+from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
 from AoE2ScenarioParser.datasets.heroes import HeroInfo
-from AoE2ScenarioParser.datasets.trigger_data.object_class import ObjectClass
-from AoE2ScenarioParser.datasets.trigger_data.object_type import ObjectType
 from AoE2ScenarioParser.datasets.other import OtherInfo
-from AoE2ScenarioParser.datasets.player_data.player import Player
-from AoE2ScenarioParser.objects.support import Tile, TileT
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.objects.support import Tile, TileT, Area, AreaT
 from AoE2ScenarioParser.sections import Unit
-from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.datasets.trigger_data import ObjectClass, ObjectType, ActionType
+from AoE2ScenarioParser.sections.trigger_data.concerns import HasSelectedUnitsAttribute
+from AoE2ScenarioParser.concerns import CanHoldUnits
 
 if True:
     # ====== CUSTOM IMPORTS START ======
@@ -21,7 +20,7 @@ if True:
     # ====== CUSTOM IMPORTS END ======
 
 
-class TaskObject(Effect):
+class TaskObject(Effect, HasSelectedUnitsAttribute, CanHoldUnits):
     """
     This effect can be used to order units to perform a specific action at a target location or on a target object.
     """
@@ -69,9 +68,6 @@ class TaskObject(Effect):
     action_type: ActionType | int = RetrieverRef(Effect._action_type)
     """The type of action to perform on the affected units"""
 
-    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
-    """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
-
     disable_garrison_unload_sound: bool = RetrieverRef(Effect._disable_garrison_unload_sound)
     """When enabled, disables the sound that plays when unloading garrisoned units"""
 
@@ -94,7 +90,7 @@ class TaskObject(Effect):
         object_group: ObjectClass | int = -1,
         object_type: ObjectType | int = -1,
         action_type: ActionType | int = -1,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        selected_units: list[Unit] | None = None,
         disable_garrison_unload_sound: bool = False,
         max_units_affected: int = -1,
         issue_group_command: bool = False,
@@ -110,7 +106,9 @@ class TaskObject(Effect):
         self.object_group: ObjectClass | int = object_group
         self.object_type: ObjectType | int = object_type
         self.action_type: ActionType | int = action_type
-        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self._selected_unit_ref_ids: list[int] = []
+        self._selected_units: tuple[Unit, ...] = ()
+        self.selected_units: list[Unit] = selected_units or []
         self.disable_garrison_unload_sound: bool = disable_garrison_unload_sound
         self.max_units_affected: int = max_units_affected
         self.issue_group_command: bool = issue_group_command

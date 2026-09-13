@@ -2,18 +2,17 @@ from __future__ import annotations
 
 from bfp_rs import ret, RetrieverRef
 
-from AoE2ScenarioParser.objects.support import Area, AreaT
-from AoE2ScenarioParser.datasets.buildings import BuildingInfo
-from AoE2ScenarioParser.datasets.trigger_data.damage_class import DamageClass
-from AoE2ScenarioParser.datasets.heroes import HeroInfo
-from AoE2ScenarioParser.datasets.trigger_data.object_attribute import ObjectAttribute
-from AoE2ScenarioParser.datasets.trigger_data.operation import Operation
-from AoE2ScenarioParser.datasets.other import OtherInfo
-from AoE2ScenarioParser.datasets.player_data.player import Player
-from AoE2ScenarioParser.sections import Unit
+from AoE2ScenarioParser.sections.trigger_data import Effect
 from AoE2ScenarioParser.datasets.units import UnitInfo
-from AoE2ScenarioParser.sections import Variable
-from AoE2ScenarioParser.sections.trigger_data.effect import Effect
+from AoE2ScenarioParser.datasets.buildings import BuildingInfo
+from AoE2ScenarioParser.datasets.heroes import HeroInfo
+from AoE2ScenarioParser.datasets.other import OtherInfo
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.trigger_data import ObjectAttribute, Operation, DamageClass
+from AoE2ScenarioParser.sections import Unit, Variable
+from AoE2ScenarioParser.sections.trigger_data.concerns import HasSelectedUnitsAttribute
+from AoE2ScenarioParser.concerns import CanHoldUnits
+from AoE2ScenarioParser.objects.support import Area, AreaT
 
 if True:
     # ====== CUSTOM IMPORTS START ======
@@ -21,7 +20,7 @@ if True:
     # ====== CUSTOM IMPORTS END ======
 
 
-class ModifyObjectAttributeByVariable(Effect):
+class ModifyObjectAttributeByVariable(Effect, HasSelectedUnitsAttribute, CanHoldUnits):
     """
     This effect can be used to modify a specific attribute of units using a variable.
     """
@@ -39,9 +38,6 @@ class ModifyObjectAttributeByVariable(Effect):
 
     object_attribute: ObjectAttribute | int = RetrieverRef(Effect._object_attribute)
     """The object attribute to modify using the variable"""
-
-    selected_unit_ref_ids: list[Unit] | None = RetrieverRef(ret(Effect._selected_unit_ref_ids))
-    """The units to be affected by this effect. When defined, overwrites all other unit filters, like area selection, type of unit, object type etc."""
 
     @property
     def area(self) -> Area:
@@ -67,7 +63,7 @@ class ModifyObjectAttributeByVariable(Effect):
         object_id: UnitInfo | BuildingInfo | HeroInfo | OtherInfo | int = -1,
         source_player: Player | int = -1,
         object_attribute: ObjectAttribute | int = -1,
-        selected_unit_ref_ids: list[Unit] | None = None,
+        selected_units: list[Unit] | None = None,
         area: AreaT | None = None,
         operation: Operation | int = -1,
         message: str = '',
@@ -78,7 +74,9 @@ class ModifyObjectAttributeByVariable(Effect):
         self.object_id: BuildingInfo | HeroInfo | OtherInfo | UnitInfo | int = object_id
         self.source_player: Player | int = source_player
         self.object_attribute: ObjectAttribute | int = object_attribute
-        self.selected_unit_ref_ids: list[Unit] = selected_unit_ref_ids or []
+        self._selected_unit_ref_ids: list[int] = []
+        self._selected_units: tuple[Unit, ...] = ()
+        self.selected_units: list[Unit] = selected_units or []
         self.area: AreaT = area or Area((-1, -1), (-1, -1))
         self.operation: Operation | int = operation
         self.message: str = message
