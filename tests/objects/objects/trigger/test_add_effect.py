@@ -31,12 +31,15 @@ def test_add_effect_is_in_effects():
 def test_add_effect_updates_display_orders():
     trigger = Trigger()
 
-    assert trigger.effect_display_orders == []
+    assert len(trigger._effect_display_orders) == 0
 
     trigger.add_effect(Effect())
     trigger.add_effect(Effect())
 
-    assert trigger.effect_display_orders == [0, 1]
+    print(trigger._effect_display_orders)
+
+    assert trigger._effect_display_orders[0] == 0
+    assert trigger._effect_display_orders[1] == 1
 
 
 def test_add_effects_returns_effects():

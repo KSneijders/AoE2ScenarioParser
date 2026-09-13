@@ -1,6 +1,6 @@
+from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from datasets.player_data import Player
 from tests.objects.managers.functions import create_unit
 
 

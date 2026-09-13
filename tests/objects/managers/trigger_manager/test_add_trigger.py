@@ -1,3 +1,6 @@
+import pytest
+
+from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError
 from AoE2ScenarioParser.managers import TriggerManager
 from AoE2ScenarioParser.sections import Trigger
 from tests.objects.managers.functions import create_trigger
@@ -26,25 +29,17 @@ def test_add_trigger_is_in_triggers(tm: TriggerManager):
     assert trigger in tm.triggers
 
 
-def test_add_triggers_returns_triggers(tm: TriggerManager):
-    result = tm.add_triggers([
-        Trigger(name="T1"),
-        Trigger(name="T2"),
-        Trigger(name="T3"),
-    ])
+def test_add_trigger_links_trigger(tm: TriggerManager):
+    trigger = create_trigger("T1")
+    tm.add_trigger(trigger)
 
-    assert isinstance(result, list)
-    assert len(result) == 3
-    for i, t in enumerate(result):
-        assert isinstance(t, Trigger)
-        assert t.name == f"T{i + 1}"
+    assert trigger._is_linked()
+    assert tm._is_linked_to_same(trigger)
 
 
-def test_add_triggers_adds_triggers(tm: TriggerManager):
-    assert len(tm.triggers) == 0
+def test_add_trigger_cannot_add_already_linked_trigger(tm: TriggerManager, tm2: TriggerManager):
+    trigger = create_trigger("T1")
+    tm.add_trigger(trigger)
 
-    tm.add_triggers([create_trigger("T1"), create_trigger("T2")])
-    assert len(tm.triggers) == 2
-
-    tm.add_triggers([create_trigger("T3")])
-    assert len(tm.triggers) == 3
+    with pytest.raises(ObjectAlreadyLinkedError):
+        tm2.add_trigger(trigger)

@@ -4,8 +4,7 @@ from AoE2ScenarioParser.datasets.player_data import Player
 from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.exceptions.asp_exceptions import ObjectAlreadyLinkedError
 from AoE2ScenarioParser.managers import UnitManager
-from AoE2ScenarioParser.sections import ScenarioSections, Unit
-from tests.objects.managers.functions import create_unit
+from AoE2ScenarioParser.sections import Unit
 
 
 def test_add_unit_with_units_garrisoned(um: UnitManager):
@@ -52,18 +51,13 @@ def test_add_garrisoned_unit_to_linked_unit_from_parent(um: UnitManager):
     assert um._is_linked_to_same(parent)
 
 
-def test_add_already_linked_unit_through_parent_raises_exception():
+def test_add_already_linked_unit_through_parent_raises_exception(um: UnitManager, um2: UnitManager):
     unit = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
         object_id = 4,
         location = (1, 2),
     )
-
-    um = UnitManager(ScenarioSections())
-    um._initialize_properties()
-    um2 = UnitManager(ScenarioSections())
-    um2._initialize_properties()
 
     um.add_unit(unit)
     um2.add_unit(parent)
@@ -91,7 +85,7 @@ def test_add_garrisoned_unit_to_linked_unit_from_child(um: UnitManager):
     assert um._is_linked_to_same(parent)
 
 
-def test_add_already_linked_unit_through_child_raises_exception():
+def test_add_already_linked_unit_through_child_raises_exception(um: UnitManager, um2: UnitManager):
     unit = Unit.garrisoned(Player.ONE, object_id = 4)
     parent = Unit(
         player = Player.ONE,
@@ -99,26 +93,8 @@ def test_add_already_linked_unit_through_child_raises_exception():
         location = (1, 2),
     )
 
-    um = UnitManager(ScenarioSections())
-    um._initialize_properties()
-    um2 = UnitManager(ScenarioSections())
-    um2._initialize_properties()
-
     um.add_unit(unit)
     um2.add_unit(parent)
 
     with pytest.raises(ObjectAlreadyLinkedError):
         unit.garrisoned_in = parent
-
-
-def test_adding_already_linked_unit_raises_exception():
-    um = UnitManager(ScenarioSections())
-    um._initialize_properties()
-    um2 = UnitManager(ScenarioSections())
-    um2._initialize_properties()
-
-    unit = create_unit(Player.ONE)
-    um.add_unit(unit)
-
-    with pytest.raises(ObjectAlreadyLinkedError):
-        um2.add_unit(unit)

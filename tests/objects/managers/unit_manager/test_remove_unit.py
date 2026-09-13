@@ -1,8 +1,8 @@
+from AoE2ScenarioParser.datasets.buildings import BuildingInfo
+from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.units import UnitInfo
 from AoE2ScenarioParser.managers import UnitManager
 from AoE2ScenarioParser.sections import Unit
-from datasets.buildings import BuildingInfo
-from datasets.player_data import Player
-from datasets.units import UnitInfo
 from tests.objects.managers.functions import create_unit
 
 
