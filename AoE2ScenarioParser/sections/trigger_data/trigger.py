@@ -68,9 +68,9 @@ class Trigger(BaseStruct, CanBeLinked):
         description: str = '',
         short_description: str = '',
         effects: list[Effect] | None = None,
-        _effect_display_orders: list[int] | None = None,  # Todo: Remove?
+        _effect_display_orders: list[int] | None = None,
         conditions: list[Condition] | None = None,
-        _condition_display_orders: list[int] | None = None,  # Todo: Remove?
+        _condition_display_orders: list[int] | None = None,
     ):
         super().__init__()
 
