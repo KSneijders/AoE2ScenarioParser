@@ -6,6 +6,15 @@ from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
 
 class ObjectAttribute(_DataSetIntEnums):
+    """
+        This enum class provides the integer values used to reference all the different object attributes in the game. Used
+        in the 'Modify Attribute' effect to control which attribute of an object is modified.
+
+        **Examples**
+
+        >>> ObjectAttribute.LINE_OF_SIGHT
+        <ObjectAttribute.LINE_OF_SIGHT: 1>
+        """
 
     @staticmethod
     def _storage_type(value) -> Literal['uint32', 'int32', 'float']:
@@ -16,15 +25,6 @@ class ObjectAttribute(_DataSetIntEnums):
         else:
             return 'int32'
 
-    """
-    This enum class provides the integer values used to reference all the different object attributes in the game. Used
-    in the 'Modify Attribute' effect to control which attribute of an object is modified.
-
-    **Examples**
-
-    >>> ObjectAttribute.LINE_OF_SIGHT
-    <ObjectAttribute.LINE_OF_SIGHT: 1>
-    """
     HIT_POINTS = 0
     """
     This attribute refers to the health of the units
@@ -55,11 +55,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     ARMOR = 8
     """
-    This is the quantity of armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](../damage_calculation "Jump to: Game Mechanics > Damage Calculation") section of this guide. Note that changing the armour through this option will show it as being added to the base armour amount. (for example: 4+4)
+    This is the quantity of armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](https://ugc.aoe2.rocks/general/damage_calculation/) section of this guide. Note that changing the armour through this option will show it as being added to the base armour amount. (for example: 4+4)
     """
     ATTACK = 9
     """
-    This is the quantity of attack a unit has on any of its `Attack Classes`. If you do not know what an `Attack Class` is, refer to the [Damage Calculation](../damage_calculation "Jump to: Game Mechanics > Damage Calculation") section of this guide. Note that changing the attack through this option will show it as being added to the base attack amount. (for example: 6+2)
+    This is the quantity of attack a unit has on any of its `Attack Classes`. If you do not know what an `Attack Class` is, refer to the [Damage Calculation](https://ugc.aoe2.rocks/general/damage_calculation/) section of this guide. Note that changing the attack through this option will show it as being added to the base attack amount. (for example: 6+2)
     """
     ATTACK_RELOAD_TIME = 10
     """
@@ -96,7 +96,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BASE_ARMOR = 15
     """
-    This is the quantity of base armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](../damage_calculation "Jump to: Game Mechanics > Damage Calculation") section of this guide. Note that changing the armour through this option will show it as the base armour itself, and it will not be added to the regular amount
+    This is the quantity of base armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](https://ugc.aoe2.rocks/general/damage_calculation/) section of this guide. Note that changing the armour through this option will show it as the base armour itself, and it will not be added to the regular amount
     """
     PROJECTILE_UNIT = 16
     """
@@ -265,7 +265,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BLAST_ATTACK_LEVEL = 44
     """
-    A unit deals blast damage to ***other*** units with ***equal or higher*** [Blast Defense Level](./#45-blast-defense-level "Jump to: Blast Defense Level") that are in its blast radius. For example, while mangonels (blast attack: 2) can damage your own units (blast defense of all player owned units is always 2), scorpions (blast attack: 3) cannot do the same
+    A unit deals blast damage to ***other*** units with ***equal or higher*** [Blast Defense Level](https://ugc.aoe2.rocks/general/attributes/attributes/#45-blast-defense-level) that are in its blast radius. For example, while mangonels (blast attack: 2) can damage your own units (blast defense of all player owned units is always 2), scorpions (blast attack: 3) cannot do the same
     
     - Flags:
     
@@ -286,7 +286,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BLAST_DEFENSE_LEVEL = 45
     """
-    A unit feels the blast damage from ***other*** units with ***equal or lower*** [Blast Attack Level](./#44-blast-attack-level "Jump to: Blast Attack Level") and if it is inside the attacker's blast radius. For example, while onagers (blast attack: 1) can cut trees (blast defense 1), mangonels (blast attack: 2) cannot do the same
+    A unit feels the blast damage from ***other*** units with ***equal or lower*** [Blast Attack Level](https://ugc.aoe2.rocks/general/attributes/attributes/#44-blast-attack-level) and if it is inside the attacker's blast radius. For example, while onagers (blast attack: 1) can cut trees (blast defense 1), mangonels (blast attack: 2) cannot do the same
     
     - Flags:
     
@@ -373,7 +373,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         See Also:
 
-    [Trait Piece](./#56-trait-piece)
+    [Trait Piece](https://ugc.aoe2.rocks/general/attributes/attributes/#56-trait-piece)
     """
     TRAIT_PIECE = 56
     """
@@ -391,7 +391,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         See Also:
 
-    [Unit Trait](./#54-unit-trait)
+    [Unit Trait](https://ugc.aoe2.rocks/general/attributes/attributes/#54-unit-trait)
     """
     DEAD_UNIT_ID = 57
     """
@@ -591,7 +591,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     SPECIAL_ABILITY = 81
     """
-    TODO
+    Enables certain special abilities
+    
+    - Flags:
+    
+        - 3: Enable charge attack ability (task 133)
     """
     IDLE_ATTACK_GRAPHIC = 82
     """
@@ -703,7 +707,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     REGENERATION_RATE = 109
     """
-    The rate measured in HP/minute at which units heal themselves. This value is overridden to 30 HP/minute if the flag for Self Regeneration is set in the [Hero Status](./#40-hero-status "Jump to: 26. Hero Status") of a unit
+    The rate measured in HP/minute at which units heal themselves. This value is overridden to 30 HP/minute if the flag for Self Regeneration is set in the [Hero Status](https://ugc.aoe2.rocks/general/attributes/attributes/#40-hero-status) of a unit
     """
     POPULATION = 110
     """
@@ -716,7 +720,7 @@ class ObjectAttribute(_DataSetIntEnums):
     - Notes:
     
         By default, units have a 4 monk second minimum conversion time
-        The overall minimum conversion time for all units is also affected by [Convert Resist Min Adjustment](../../resources/resources/#178-convert-resist-min-adjustment)
+        The overall minimum conversion time for all units is also affected by [Convert Resist Min Adjustment](https://ugc.aoe2.rocks/general/resources/resources/#178-convert-resist-min-adjustment)
     """
     MAXIMUM_CONVERSION_TIME_MODIFIER = 112
     """
@@ -725,7 +729,7 @@ class ObjectAttribute(_DataSetIntEnums):
     - Notes:
     
         By default, units have a 10 monk second maximum conversion time
-        The overall maximum conversion time for all units is also affected by [Convert Resist Max Adjustment](../../resources/resources/#179-convert-resist-max-adjustment)
+        The overall maximum conversion time for all units is also affected by [Convert Resist Max Adjustment](https://ugc.aoe2.rocks/general/resources/resources/#179-convert-resist-max-adjustment)
     """
     CONVERSION_CHANCE_MODIFIER = 113
     """
@@ -733,7 +737,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
     - Notes:
     
-        The overall conversion probability for all units is also affected by [Conversion Resistance](../../resources/resources/#77-conversion-resistance)
+        The overall conversion probability for all units is also affected by [Conversion Resistance](https://ugc.aoe2.rocks/general/resources/resources/#77-conversion-resistance)
     """
     FORMATION_CATEGORY = 114
     """
@@ -762,7 +766,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     REGENERATION_HP_PERCENT = 120
     """
-    Percentage of the unit�s max HP that is regenerated over a minute
+    Percentage of the unit’s max HP that is regenerated over a minute
     """
     ABILITY_BUTTON_ICON_ID = 121
     """
@@ -824,7 +828,7 @@ class ObjectAttribute(_DataSetIntEnums):
     - Flags:
     
         - > 0: Acts as multiplier
-        - < 0: Flat dps value added to the unit�s dps
+        - < 0: Flat dps value added to the unit’s dps
     """
     ATTACK_GRAPHIC_2 = 131
     """
@@ -864,7 +868,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     RUN_PATTERN = 140
     """
-    TODO
+    Double-click selection will select all units which have the same value for this
+    
+    - Flags:
+    
+        - 255: Special value that defaults double-click selection to select by unit ID.
     """
     INTERFACE_KIND = 141
     """
@@ -920,17 +928,346 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     DAMAGE_GRAPHICS_ENTRY_MOD = 154
     """
-    TODO
+    Determines the index at which damage graphic/damage graphic percent/damage graphic apply mode values are changed via effects in XS.
+    
+    - Notes:
+    
+        - Multiply by N to insert a new entry at index N, and then set entry mod to N
+        - Multiply by -(N+1) to delete index N, and then set entry mod to N
+        - Multiply with 255 (32767 also works) to append an entry at the end, and set the entry mod to the last index
+        - Multiply with -255 (-32768 also works) to delete the index at the end, and set entry mod to the new last index
+        - Note that inserting a new entry copies the existing last entry in the list as the default
     """
     DAMAGE_GRAPHICS_TOTAL_NUM = 155
     """
-    TODO
+    The length of the damage sprites list. Can be set to shrink/extend the list (duplicates the last entry when extending).
     """
     DAMAGE_GRAPHIC_PERCENT = 156
     """
-    TODO
+    The damage percent at which this sprite starts to be applied. This sprite remains active until the damage percent of the next damage sprite entry
     """
     DAMAGE_GRAPHIC_APPLY_MODE = 157
     """
+    The apply mode for this damage sprite.
+    
+    - Notes:
+    
+        - 0: Overlay flames on building
+        - 1: Overlay randomly
+        - 2: Replace (walls)
+    """
+    TRAIN_LOCATIONS_ENTRY_MOD = 158
+    """
+    Determines the index at which train location/train button/train time/hotkey values are modified via effects in XS.
+    
+    - Notes:
+    
+        - Multiply by N to insert a new entry at index N, and then set entry mod to N
+        - Multiply by -(N+1) to delete index N, and then set entry mod to N
+        - Multiply with 32767 to append an entry at the end, and set the entry mod to the last index
+        - Multiply with -32768 to delete the index at the end, and set entry mod to the new last index
+        - Note that inserting a new entry copies the existing last entry in the list as the default
+    """
+    TRAIN_LOCATIONS_TOTAL_NUM = 159
+    """
+    The length of the train locations list. Can be set to shrink/extend the list (duplicates the last entry when extending).
+    """
+    ADD_ARMOR_TYPE = 160
+    """
+    Setting this creates a new armor class in the targeted object/unit
+    
+    - Notes:
+    
+        Note: You still need to set the value of the class using the regular damage class modification effect.
+    """
+    ADD_ATTACK_TYPE = 161
+    """
+    Setting this creates a new attack class in the targeted object/unit
+    
+    - Notes:
+    
+        Note: You still need to set the value of the class using the regular damage class modification effect.
+    """
+    CHARGE_TARGET = 162
+    """
     TODO
+    """
+    SIZE_CLASS = 163
+    """
+    Controls garrison type properties
+    
+    - Notes:
+    
+        - 0: Legacy object_group dependent behaviour
+        - 1: Civilian
+        - 2: Infantry
+        - 3: Cavalry
+        - 4: Religious
+        - 5: Livestock
+        - 6: Siege
+        - 7: Ships
+        - 8: Unused
+    """
+    REMOVE_ARMOR_TYPE = 164
+    """
+    Setting this removes an existing armor class in the targeted object/unit
+    """
+    REMOVE_ATTACK_TYPE = 165
+    """
+    Setting this removes an existing attack class in the targeted object/unit
+    """
+    UNDEAD_FLAG = 166
+    """
+    Changes behaviour related to death of an object
+    
+    - Flags:
+    
+        - 0: Default
+        - 1: Show Undead Graphic
+        - 2: Ignore In Kill Stats
+        - 4: Garrison Invincibility
+    """
+    BUILD_AND_GO_AWAY = 167
+    """
+    When set, removes this building after it is built
+    """
+    TYPE_FIRST_STORAGE = 168
+    """
+    The resource ID of the first attribute storage
+    """
+    TYPE_SECOND_STORAGE = 169
+    """
+    The resource ID of the second attribute storage
+    """
+    TYPE_THIRD_STORAGE = 170
+    """
+    The resource ID of the third attribute storage
+    """
+    STORE_FLAG_FIRST_STORAGE = 171
+    """
+    The store flag of the first attribute storage
+    """
+    STORE_FLAG_SECOND_STORAGE = 172
+    """
+    The store flag of the second attribute storage
+    """
+    STORE_FLAG_THIRD_STORAGE = 173
+    """
+    The store flag of the third attribute storage
+    """
+    AMOUNT_FIRST_COST = 174
+    """
+    The amount for the first cost
+    """
+    AMOUNT_SECOND_COST = 175
+    """
+    The amount for the second cost
+    """
+    AMOUNT_THIRD_COST = 176
+    """
+    The amount for the third cost
+    """
+    TYPE_FIRST_COST = 177
+    """
+    The type of first cost
+    """
+    TYPE_SECOND_COST = 178
+    """
+    The type of second cost
+    """
+    TYPE_THIRD_COST = 179
+    """
+    The type of third cost
+    """
+    DEDUCT_FLAG_FIRST_COST = 180
+    """
+    The deduct flag for the first cost
+    """
+    DEDUCT_FLAG_SECOND_COST = 181
+    """
+    The deduct flag for the second cost
+    """
+    DEDUCT_FLAG_THIRD_COST = 182
+    """
+    The deduct flag for the third cost
+    """
+    SPAWNING_GRAPHIC = 183
+    """
+    The graphic shown when a unit spawns
+    """
+    UPGRADE_GRAPHIC = 184
+    """
+    The graphic shown when a unit upgrades
+    """
+    FLY_MODE = 185
+    """
+    Unknown
+    
+    - Flags:
+    
+        - 0: All units
+        - 1: All projectiles
+    """
+    CAN_BE_GATHERED = 186
+    """
+    For tracking gatherable resources. Unknown
+    
+    - Flags:
+    
+        - 0: All units
+        - 1: Resources like gold/stone etc.
+    """
+    HILL_MODE = 187
+    """
+    Building placement restrictions around hills
+    
+    - Flags:
+    
+        - 0: No Restriction (Farms)
+        - 1: No Corners of Hills (Unused)
+        - 2: Flat Only (TCs)
+        - 3: Allows One Elevation Difference (Most Buildings)
+    """
+    DOPPELGANGER = 188
+    """
+    Unknown
+    """
+    GATHER_GROUP = 189
+    """
+    Unknown
+    """
+    TASK_SWAP_GROUP = 190
+    """
+    Controls which units can swap with each other when attempting to find a valid task from all their task lists
+    
+    - Flags:
+    
+        - 0: None
+        - 1: Male Villagers
+        - 2: Female Villagers
+        - 3: Fishing Ships
+    """
+    PLACEMENT_TERRAIN1 = 191
+    """
+    Restricts placement on one of these two terrains
+    """
+    PLACEMENT_TERRAIN2 = 192
+    """
+    Restricts placement on one of these two terrains
+    """
+    PLACEMENT_CENTER_TERRAIN_1 = 193
+    """
+    Restricts placement such that the anchor tile of the unit must be on one of these two terrains
+    """
+    PLACEMENT_CENTER_TERRAIN_2 = 194
+    """
+    Restricts placement such that the anchor tile of the unit must be on one of these two terrains
+    """
+    INITIATED_TECH_ID = 195
+    """
+    Initiates this technology on being built
+    """
+    MIN_SIZE_MULTIPLIER = 196
+    """
+    Unknown
+    """
+    SELECTION_OUTLINE_SIZE_X = 197
+    """
+    The size of the selection outline along X
+    """
+    SELECTION_OUTLINE_SIZE_Y = 198
+    """
+    The size of the selection outline along Y
+    """
+    SELECTION_OUTLINE_SIZE_Z = 199
+    """
+    The size of the selection outline along Z.
+    """
+    CLEARANCE_SIZE_X = 200
+    """
+    Unknown
+    """
+    CLEARANCE_SIZE_Y = 201
+    """
+    Unknown
+    """
+    STACK_UNIT = 202
+    """
+    Additional unit placed directly on top of this unit
+    """
+    HEAD_UNIT = 203
+    """
+    The unit that annexes get attached to
+    """
+    TRANSFORM_UNIT = 204
+    """
+    Unpacks into this unit
+    """
+    PILE_UNIT = 205
+    """
+    Additional blood unit that only appears when a building is destroyed but not when deleted
+    """
+    ANNEX_UNIT_1 = 206
+    """
+    First annex unit
+    """
+    ANNEX_UNIT_2 = 207
+    """
+    Second annex unit
+    """
+    ANNEX_UNIT_3 = 208
+    """
+    Third annex unit
+    """
+    ANNEX_UNIT_4 = 209
+    """
+    Fourth annex unit
+    """
+    ANNEX_UNIT_1_OFFSET_X = 210
+    """
+    Offset for the first annex unit from the main unit along the X direction
+    """
+    ANNEX_UNIT_1_OFFSET_Y = 211
+    """
+    Offset for the first annex unit from the main unit along the Y direction
+    """
+    ANNEX_UNIT_2_OFFSET_X = 212
+    """
+    Offset for the second annex unit from the main unit along the X direction
+    """
+    ANNEX_UNIT_2_OFFSET_Y = 213
+    """
+    Offset for the second annex unit from the main unit along the Y direction
+    """
+    ANNEX_UNIT_3_OFFSET_X = 214
+    """
+    Offset for the third annex unit from the main unit along the X direction
+    """
+    ANNEX_UNIT_3_OFFSET_Y = 215
+    """
+    Offset for the third annex unit from the main unit along the Y direction
+    """
+    ANNEX_UNIT_4_OFFSET_X = 216
+    """
+    Offset for the fourth annex unit from the main unit along the X direction
+    """
+    ANNEX_UNIT_4_OFFSET_Y = 217
+    """
+    Offset for the fourth annex unit from the main unit along the Y direction
+    """
+    MOVE_ALGORITHM = 218
+    """
+    Unknown
+    """
+    SPACING_MODIFIER = 219
+    """
+    Unknown
+    """
+    CAN_BURN = 220
+    """
+    Gives flames to buildings when set to 1 when damaged. Unknown
+    """
+    GATHER_FLAG = 221
+    """
+    For resources, similar to Can Be Gathered. Unknown
     """
