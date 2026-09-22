@@ -16,8 +16,9 @@ class ObjectState(_DataSetIntEnums):
     FOUNDATION = 0
     ALMOST_ALIVE = 1
     ALIVE = 2
-    RESOURCE = 3
-    DYING = 4
-    DEAD = 5
+    DEAD = 3
+    ALMOST_DEAD = 4
+    REALLY_DEAD = 5
     UNDEAD = 6
     REMOVE = 7
+    GOING = 8
