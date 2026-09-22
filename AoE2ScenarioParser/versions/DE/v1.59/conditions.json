@@ -1070,6 +1070,7 @@
         "attributes": [
             "unit_object",
             "source_player",
+            "allow_in_fog",
             "inverted"
         ],
         "default_attributes": {

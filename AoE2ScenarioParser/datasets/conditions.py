@@ -225,6 +225,7 @@ class ConditionId(IntEnum):
     - unit_object
     - source_player
     - inverted
+    - allow_in_fog
 
     This condition was added in: 1.40
     """
@@ -379,6 +380,7 @@ empty_attributes = {
     "decision_option": -1,
     "variable2":  "",
     "local_technology": -1,
+    "allow_in_fog": -1,
     "xs_function": ""
 }
 
