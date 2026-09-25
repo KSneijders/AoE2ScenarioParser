@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import time
 from typing import TYPE_CHECKING, Dict, Optional
 from uuid import UUID
 from weakref import WeakValueDictionary
 
+from AoE2ScenarioParser import settings
+from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.uuid_list import NO_UUID
 
 if TYPE_CHECKING:
@@ -59,6 +62,28 @@ def register_scenario(scenario: 'AoE2Scenario') -> None:
     """
     if scenario.uuid in _scenarios:
         raise ValueError("Scenario with that UUID already present")
+
+    if settings.SHOW_SCENARIO_VERSION_WARNINGS:
+        for other in _scenarios.values():
+            if other.scenario_version == scenario.scenario_version:
+                continue
+
+            other_display = f"'{other.name}' [{other.scenario_version}]"
+            display = f"'{scenario.name}' [{scenario.scenario_version}]"
+
+            print('\n\n')
+            time.sleep(.1)  # Prevent stacking the error inside other logs
+            warn(
+                message=f"Reading multiple scenarios with different versions ({other_display} vs {display}) can cause "
+                        f"issues on assignment of values.\nWhen experiencing issues, please update scenarios to the "
+                        f"same version.\nYou can do this by opening the scenarios in the editor and saving them (this "
+                        f"updates them to the latest version).\nYou can disable this warnings using:\n"
+                        f"settings.SHOW_SCENARIO_VERSION_WARNINGS = False",
+                stack=3
+            )
+            time.sleep(.1)  # Prevent stacking the error inside other logs
+            print('\n\n')
+
     _scenarios[scenario.uuid] = scenario
     _scenarios_by_name[scenario.name] = scenario
 

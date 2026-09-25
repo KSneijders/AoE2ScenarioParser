@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.8.4 - 2026-August-14
+
+### Adds 
+
+- Support for the Xs-Check `v0.2.29` — View the `v0.2.29` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.29
+
+### Fixes
+
+- Writing new effects or conditions to v1.54 scenarios
+
+---
+
+## 0.8.3 - 2026-June-15
+
+### Adds
+
+- A warning when reading multiple scenarios with different versions — Related: [#130](https://github.com/KSneijders/AoE2ScenarioParser/issues/130)
+  - A setting to disable the above warning: `SHOW_SCENARIO_VERSION_WARNINGS`
+
+---
+
+## 0.8.2 - 2026-May-28
+
+### Adds
+
+- Support for the Xs-Check `v0.2.26` — View the `v0.2.26` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.26
+
+### Fixes
+
+- Incorrect type inference on some occasions 
+
+---
+
+## 0.8.1 - 2026-May-09
+
+### Adds
+
+- Support for the Xs-Check `v0.2.22` — View the `v0.2.22` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.22
+
 ## 0.8.0 - 2026-April-29
 
 Official support for the new 1.58 scenarios! — Credits: by [@Alian713] in [#125](https://github.com/KSneijders/AoE2ScenarioParser/pull/125)

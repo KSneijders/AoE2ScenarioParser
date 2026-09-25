@@ -55,6 +55,7 @@ class Condition(AoE2Object, TriggerComponent):
             RetrieverObjectLink("object_type2", support=Support(since=1.55)),
             RetrieverObjectLink("allow_in_fog", support=Support(since=1.59)),
             RetrieverObjectLink("xs_function", support=Support(since=1.40)),
+            RetrieverObjectLink("_cond_filler_0", support=Support(since=1.54, until=1.54)),
         ])
     ]
 
@@ -135,6 +136,10 @@ class Condition(AoE2Object, TriggerComponent):
         self.xs_function: str = xs_function
 
         super().__init__(**kwargs)
+
+    @property
+    def _cond_filler_0(self) -> None:
+        return None
 
     def _should_be_displayed(self, attr: str, val: Any) -> bool:
         # Include the only exception to the -1 == invalid rule

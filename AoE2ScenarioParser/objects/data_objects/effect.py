@@ -120,6 +120,8 @@ class Effect(AoE2Object, TriggerComponent):
             RetrieverObjectLink("selected_object_ids"),
             RetrieverObjectLink("message_option1", support=Support(since=1.54)),
             RetrieverObjectLink("message_option2", support=Support(since=1.54)),
+            RetrieverObjectLink("_eff_filler_0", support=Support(since=1.54, until=1.54)),
+            RetrieverObjectLink("_eff_filler_1", support=Support(since=1.54, until=1.54)),
         ])
     ]
 
@@ -478,6 +480,14 @@ class Effect(AoE2Object, TriggerComponent):
         if type(val) is int:
             val = [val]
         self._selected_object_ids = val
+
+    @property
+    def _eff_filler_0(self) -> None:
+        return None
+
+    @property
+    def _eff_filler_1(self) -> None:
+        return None
 
     def _should_be_displayed(self, attr: str, val: Any) -> bool:
         # Ignore the quantity value in the print statement when flag is True.

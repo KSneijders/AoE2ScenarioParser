@@ -24,7 +24,7 @@ The library is organized around **managers**, each one handles a different aspec
 
 ## Scenario support
 
-Every scenario version from **1.36** _(November 2019)_ through **1.57** _(February 2026)_ is supported.  
+Every scenario version from **1.36** _(November 2019)_ through **1.58** _(June 2026)_ is supported.  
 If a new game update is just released, it may take a short time for the library to catch up — check the [Discord server] for the latest status.
 
 [Discord server]: https://discord.gg/DRUtmugXT3

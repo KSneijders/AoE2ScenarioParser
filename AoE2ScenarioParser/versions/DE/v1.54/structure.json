@@ -1980,7 +1980,7 @@
                                 "comment": "Present since Trigger Version 4.1",
                                 "default": -1
                             },
-                            "_filler_0": {
+                            "_eff_filler_0": {
                                 "is_list": false,
                                 "type": "s32",
                                 "comment": "In some scenarios? But not others with trigger version 4.1...",
@@ -1988,19 +1988,31 @@
 
                                 "dependencies": {
                                     "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
                                         "action": "SET_REPEAT",
                                         "target": "self:static_value_62",
                                         "eval": "1 if static_value_62 >= 63 else 0"
                                     }
                                 }
                             },
-                            "_filler_1": {
+                            "_eff_filler_1": {
                                 "is_list": false,
                                 "type": "s32",
                                 "comment": "In some scenarios? But not others with trigger version 4.1...",
                                 "default": -1,
                                 "dependencies": {
                                     "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
                                         "action": "SET_REPEAT",
                                         "target": "self:static_value_62",
                                         "eval": "1 if static_value_62 >= 64 else 0"
@@ -2177,7 +2189,7 @@
                                 "comment": "Present since Trigger Version 4.1",
                                 "default": -1
                             },
-                            "_filler_0": {
+                            "_cond_filler_0": {
                                 "is_list": false,
                                 "type": "s32",
                                 "comment": "In some scenarios? But not others with trigger version 4.1...",
@@ -2185,6 +2197,12 @@
 
                                 "dependencies": {
                                     "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
                                         "action": "SET_REPEAT",
                                         "target": "self:static_value_30",
                                         "eval": "1 if static_value_30 >= 31 else 0"
