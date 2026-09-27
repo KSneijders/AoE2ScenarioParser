@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, TYPE_CHECKING, TypeVar, Type, Any, Union, Tuple, Callable
 from uuid import uuid4, UUID
 
+import AoE2ScenarioParser
 import AoE2ScenarioParser.datasets.conditions as conditions
 import AoE2ScenarioParser.datasets.effects as effects
 from AoE2ScenarioParser import settings
@@ -186,6 +187,7 @@ class AoE2Scenario:
         s_print(f">>> Game version: '{scenario.game_version}'", final=True, color="blue")
         s_print(f">>> Scenario version: {scenario.scenario_version}", final=True, color="blue")
         s_print(f">>> Scenario variant: '{variant}'", final=True, color="blue")
+        s_print(f">>> ASP Version: {AoE2ScenarioParser.__version__}", final=True, color="blue")
         s_print("##########################################", final=True, color="blue")
 
         s_print(f"Loading scenario structure...", time=True, newline=True)
