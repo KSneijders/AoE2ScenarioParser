@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="pdoc 14.7.0"/>
-    <title>AoE2ScenarioParser.datasets.trigger_lists.comparison API documentation</title>
+    <title>AoE2ScenarioParser.datasets.trigger_lists.capture_flag API documentation</title>
 
     <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
     <style>/*! syntax-highlighting.css */pre{line-height:125%;}span.linenos{color:inherit; background-color:transparent; padding-left:5px; padding-right:20px;}.pdoc-code .hll{background-color:#49483e}.pdoc-code{background:#272822; color:#f8f8f2}.pdoc-code .c{color:#75715e}.pdoc-code .err{color:#960050; background-color:#1e0010}.pdoc-code .esc{color:#f8f8f2}.pdoc-code .g{color:#f8f8f2}.pdoc-code .k{color:#66d9ef}.pdoc-code .l{color:#ae81ff}.pdoc-code .n{color:#f8f8f2}.pdoc-code .o{color:#f92672}.pdoc-code .x{color:#f8f8f2}.pdoc-code .p{color:#f8f8f2}.pdoc-code .ch{color:#75715e}.pdoc-code .cm{color:#75715e}.pdoc-code .cp{color:#75715e}.pdoc-code .cpf{color:#75715e}.pdoc-code .c1{color:#75715e}.pdoc-code .cs{color:#75715e}.pdoc-code .gd{color:#f92672}.pdoc-code .ge{color:#f8f8f2; font-style:italic}.pdoc-code .gr{color:#f8f8f2}.pdoc-code .gh{color:#f8f8f2}.pdoc-code .gi{color:#a6e22e}.pdoc-code .go{color:#66d9ef}.pdoc-code .gp{color:#f92672; font-weight:bold}.pdoc-code .gs{color:#f8f8f2; font-weight:bold}.pdoc-code .gu{color:#75715e}.pdoc-code .gt{color:#f8f8f2}.pdoc-code .kc{color:#66d9ef}.pdoc-code .kd{color:#66d9ef}.pdoc-code .kn{color:#f92672}.pdoc-code .kp{color:#66d9ef}.pdoc-code .kr{color:#66d9ef}.pdoc-code .kt{color:#66d9ef}.pdoc-code .ld{color:#e6db74}.pdoc-code .m{color:#ae81ff}.pdoc-code .s{color:#e6db74}.pdoc-code .na{color:#a6e22e}.pdoc-code .nb{color:#f8f8f2}.pdoc-code .nc{color:#a6e22e}.pdoc-code .no{color:#66d9ef}.pdoc-code .nd{color:#a6e22e}.pdoc-code .ni{color:#f8f8f2}.pdoc-code .ne{color:#a6e22e}.pdoc-code .nf{color:#a6e22e}.pdoc-code .nl{color:#f8f8f2}.pdoc-code .nn{color:#f8f8f2}.pdoc-code .nx{color:#a6e22e}.pdoc-code .py{color:#f8f8f2}.pdoc-code .nt{color:#f92672}.pdoc-code .nv{color:#f8f8f2}.pdoc-code .ow{color:#f92672}.pdoc-code .w{color:#f8f8f2}.pdoc-code .mb{color:#ae81ff}.pdoc-code .mf{color:#ae81ff}.pdoc-code .mh{color:#ae81ff}.pdoc-code .mi{color:#ae81ff}.pdoc-code .mo{color:#ae81ff}.pdoc-code .sa{color:#e6db74}.pdoc-code .sb{color:#e6db74}.pdoc-code .sc{color:#e6db74}.pdoc-code .dl{color:#e6db74}.pdoc-code .sd{color:#e6db74}.pdoc-code .s2{color:#e6db74}.pdoc-code .se{color:#ae81ff}.pdoc-code .sh{color:#e6db74}.pdoc-code .si{color:#e6db74}.pdoc-code .sx{color:#e6db74}.pdoc-code .sr{color:#e6db74}.pdoc-code .s1{color:#e6db74}.pdoc-code .ss{color:#e6db74}.pdoc-code .bp{color:#f8f8f2}.pdoc-code .fm{color:#a6e22e}.pdoc-code .vc{color:#f8f8f2}.pdoc-code .vg{color:#f8f8f2}.pdoc-code .vi{color:#f8f8f2}.pdoc-code .vm{color:#f8f8f2}</style>
@@ -33,37 +33,22 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
-                    <a class="class" href="#Comparison">Comparison</a>
+                    <a class="class" href="#CaptureFlag">CaptureFlag</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="variable" href="#Comparison.EQUAL">EQUAL</a>
+                                <a class="variable" href="#CaptureFlag.DEFAULT">DEFAULT</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Comparison.LESS">LESS</a>
+                                <a class="variable" href="#CaptureFlag.NEVER">NEVER</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Comparison.LARGER">LARGER</a>
+                                <a class="variable" href="#CaptureFlag.ONCE">ONCE</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Comparison.LESS_OR_EQUAL">LESS_OR_EQUAL</a>
+                                <a class="variable" href="#CaptureFlag.MULTIPLE_TIMES">MULTIPLE_TIMES</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Comparison.LARGER_OR_EQUAL">LARGER_OR_EQUAL</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Comparison.EQ">EQ</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Comparison.LT">LT</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Comparison.GT">GT</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Comparison.LEQ">LEQ</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Comparison.GEQ">GEQ</a>
+                                <a class="variable" href="#CaptureFlag.NEVER_GAIA_AGGRESSIVE">NEVER_GAIA_AGGRESSIVE</a>
                         </li>
                 </ul>
 
@@ -84,207 +69,135 @@
     <main class="pdoc">
             <section class="module-info">
                     <h1 class="modulename">
-AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.comparison    </h1>
+AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.capture_flag    </h1>
 
                 
-                        <input id="mod-comparison-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                        <input id="mod-capture_flag-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
-                        <label class="view-source-button" for="mod-comparison-view-source"><span>View Source</span></label>
+                        <label class="view-source-button" for="mod-capture_flag-view-source"><span>View Source</span></label>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">AoE2ScenarioParser.datasets.dataset_enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">_DataSetIntEnums</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Comparison</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">CaptureFlag</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values used to reference the comparisons in the game. Used in a lot of</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    conditions like &#39;Accumulate Attribute&#39; to perform logical operations on the attribute values</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values used to reference the capture flag values used in the game for units.</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Used when placing new objects</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    **Examples**</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &gt;&gt;&gt; Comparison.EQUAL</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &lt;Comparison.EQUAL: 0&gt;</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &gt;&gt;&gt; CaptureFlag.DEFAULT</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &lt;CaptureFlag.DEFAULT: -1&gt;</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">EQUAL</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">LESS</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">LARGER</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">LESS_OR_EQUAL</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">LARGER_OR_EQUAL</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">EQ</span> <span class="o">=</span> <span class="n">EQUAL</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">LT</span> <span class="o">=</span> <span class="n">LESS</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">GT</span> <span class="o">=</span> <span class="n">LARGER</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">LEQ</span> <span class="o">=</span> <span class="n">LESS_OR_EQUAL</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">GEQ</span> <span class="o">=</span> <span class="n">LARGER_OR_EQUAL</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">DEFAULT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">NEVER</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ONCE</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">MULTIPLE_TIMES</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">NEVER_GAIA_AGGRESSIVE</span> <span class="o">=</span> <span class="mi">3</span>
 </span></pre></div>
 
 
             </section>
-                <section id="Comparison">
-                            <input id="Comparison-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="CaptureFlag">
+                            <input id="CaptureFlag-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Comparison</span><wbr>(<span class="base">AoE2ScenarioParser.datasets.dataset_enum._DataSetIntEnums</span>):
+    <span class="name">CaptureFlag</span><wbr>(<span class="base">AoE2ScenarioParser.datasets.dataset_enum._DataSetIntEnums</span>):
 
-                <label class="view-source-button" for="Comparison-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="CaptureFlag-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Comparison"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Comparison-7"><a href="#Comparison-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Comparison</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="Comparison-8"><a href="#Comparison-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Comparison-9"><a href="#Comparison-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference the comparisons in the game. Used in a lot of</span>
-</span><span id="Comparison-10"><a href="#Comparison-10"><span class="linenos">10</span></a><span class="sd">    conditions like &#39;Accumulate Attribute&#39; to perform logical operations on the attribute values</span>
-</span><span id="Comparison-11"><a href="#Comparison-11"><span class="linenos">11</span></a>
-</span><span id="Comparison-12"><a href="#Comparison-12"><span class="linenos">12</span></a><span class="sd">    **Examples**</span>
-</span><span id="Comparison-13"><a href="#Comparison-13"><span class="linenos">13</span></a>
-</span><span id="Comparison-14"><a href="#Comparison-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; Comparison.EQUAL</span>
-</span><span id="Comparison-15"><a href="#Comparison-15"><span class="linenos">15</span></a><span class="sd">    &lt;Comparison.EQUAL: 0&gt;</span>
-</span><span id="Comparison-16"><a href="#Comparison-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Comparison-17"><a href="#Comparison-17"><span class="linenos">17</span></a>    <span class="n">EQUAL</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="Comparison-18"><a href="#Comparison-18"><span class="linenos">18</span></a>    <span class="n">LESS</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="Comparison-19"><a href="#Comparison-19"><span class="linenos">19</span></a>    <span class="n">LARGER</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="Comparison-20"><a href="#Comparison-20"><span class="linenos">20</span></a>    <span class="n">LESS_OR_EQUAL</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="Comparison-21"><a href="#Comparison-21"><span class="linenos">21</span></a>    <span class="n">LARGER_OR_EQUAL</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="Comparison-22"><a href="#Comparison-22"><span class="linenos">22</span></a>
-</span><span id="Comparison-23"><a href="#Comparison-23"><span class="linenos">23</span></a>    <span class="n">EQ</span> <span class="o">=</span> <span class="n">EQUAL</span>
-</span><span id="Comparison-24"><a href="#Comparison-24"><span class="linenos">24</span></a>    <span class="n">LT</span> <span class="o">=</span> <span class="n">LESS</span>
-</span><span id="Comparison-25"><a href="#Comparison-25"><span class="linenos">25</span></a>    <span class="n">GT</span> <span class="o">=</span> <span class="n">LARGER</span>
-</span><span id="Comparison-26"><a href="#Comparison-26"><span class="linenos">26</span></a>    <span class="n">LEQ</span> <span class="o">=</span> <span class="n">LESS_OR_EQUAL</span>
-</span><span id="Comparison-27"><a href="#Comparison-27"><span class="linenos">27</span></a>    <span class="n">GEQ</span> <span class="o">=</span> <span class="n">LARGER_OR_EQUAL</span>
+    <a class="headerlink" href="#CaptureFlag"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="CaptureFlag-7"><a href="#CaptureFlag-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">CaptureFlag</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
+</span><span id="CaptureFlag-8"><a href="#CaptureFlag-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="CaptureFlag-9"><a href="#CaptureFlag-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference the capture flag values used in the game for units.</span>
+</span><span id="CaptureFlag-10"><a href="#CaptureFlag-10"><span class="linenos">10</span></a><span class="sd">    Used when placing new objects</span>
+</span><span id="CaptureFlag-11"><a href="#CaptureFlag-11"><span class="linenos">11</span></a>
+</span><span id="CaptureFlag-12"><a href="#CaptureFlag-12"><span class="linenos">12</span></a><span class="sd">    **Examples**</span>
+</span><span id="CaptureFlag-13"><a href="#CaptureFlag-13"><span class="linenos">13</span></a>
+</span><span id="CaptureFlag-14"><a href="#CaptureFlag-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; CaptureFlag.DEFAULT</span>
+</span><span id="CaptureFlag-15"><a href="#CaptureFlag-15"><span class="linenos">15</span></a><span class="sd">    &lt;CaptureFlag.DEFAULT: -1&gt;</span>
+</span><span id="CaptureFlag-16"><a href="#CaptureFlag-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="CaptureFlag-17"><a href="#CaptureFlag-17"><span class="linenos">17</span></a>    <span class="n">DEFAULT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="CaptureFlag-18"><a href="#CaptureFlag-18"><span class="linenos">18</span></a>    <span class="n">NEVER</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="CaptureFlag-19"><a href="#CaptureFlag-19"><span class="linenos">19</span></a>    <span class="n">ONCE</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="CaptureFlag-20"><a href="#CaptureFlag-20"><span class="linenos">20</span></a>    <span class="n">MULTIPLE_TIMES</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="CaptureFlag-21"><a href="#CaptureFlag-21"><span class="linenos">21</span></a>    <span class="n">NEVER_GAIA_AGGRESSIVE</span> <span class="o">=</span> <span class="mi">3</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>This enum class provides the integer values used to reference the comparisons in the game. Used in a lot of
-conditions like 'Accumulate Attribute' to perform logical operations on the attribute values</p>
+            <div class="docstring"><p>This enum class provides the integer values used to reference the capture flag values used in the game for units.
+Used when placing new objects</p>
 
 <p><strong>Examples</strong></p>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n"><a href="#Comparison.EQUAL">Comparison.EQUAL</a></span>
-<span class="go">&lt;<a href="#Comparison.EQUAL">Comparison.EQUAL</a>: 0&gt;</span>
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n"><a href="#CaptureFlag.DEFAULT">CaptureFlag.DEFAULT</a></span>
+<span class="go">&lt;<a href="#CaptureFlag.DEFAULT">CaptureFlag.DEFAULT</a>: -1&gt;</span>
 </code></pre>
 </div>
 </div>
 
 
-                            <div id="Comparison.EQUAL" class="classattr">
+                            <div id="CaptureFlag.DEFAULT" class="classattr">
                                 <div class="attr variable">
-            <span class="name">EQUAL</span>        =
-<span class="default_value">&lt;<a href="#Comparison.EQUAL">Comparison.EQUAL</a>: 0&gt;</span>
+            <span class="name">DEFAULT</span>        =
+<span class="default_value">&lt;<a href="#CaptureFlag.DEFAULT">CaptureFlag.DEFAULT</a>: -1&gt;</span>
 
         
     </div>
-    <a class="headerlink" href="#Comparison.EQUAL"></a>
+    <a class="headerlink" href="#CaptureFlag.DEFAULT"></a>
     
     
 
                             </div>
-                            <div id="Comparison.LESS" class="classattr">
+                            <div id="CaptureFlag.NEVER" class="classattr">
                                 <div class="attr variable">
-            <span class="name">LESS</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LESS">Comparison.LESS</a>: 1&gt;</span>
+            <span class="name">NEVER</span>        =
+<span class="default_value">&lt;<a href="#CaptureFlag.NEVER">CaptureFlag.NEVER</a>: 0&gt;</span>
 
         
     </div>
-    <a class="headerlink" href="#Comparison.LESS"></a>
+    <a class="headerlink" href="#CaptureFlag.NEVER"></a>
     
     
 
                             </div>
-                            <div id="Comparison.LARGER" class="classattr">
+                            <div id="CaptureFlag.ONCE" class="classattr">
                                 <div class="attr variable">
-            <span class="name">LARGER</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LARGER">Comparison.LARGER</a>: 2&gt;</span>
+            <span class="name">ONCE</span>        =
+<span class="default_value">&lt;<a href="#CaptureFlag.ONCE">CaptureFlag.ONCE</a>: 1&gt;</span>
 
         
     </div>
-    <a class="headerlink" href="#Comparison.LARGER"></a>
+    <a class="headerlink" href="#CaptureFlag.ONCE"></a>
     
     
 
                             </div>
-                            <div id="Comparison.LESS_OR_EQUAL" class="classattr">
+                            <div id="CaptureFlag.MULTIPLE_TIMES" class="classattr">
                                 <div class="attr variable">
-            <span class="name">LESS_OR_EQUAL</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LESS_OR_EQUAL">Comparison.LESS_OR_EQUAL</a>: 3&gt;</span>
+            <span class="name">MULTIPLE_TIMES</span>        =
+<span class="default_value">&lt;<a href="#CaptureFlag.MULTIPLE_TIMES">CaptureFlag.MULTIPLE_TIMES</a>: 2&gt;</span>
 
         
     </div>
-    <a class="headerlink" href="#Comparison.LESS_OR_EQUAL"></a>
+    <a class="headerlink" href="#CaptureFlag.MULTIPLE_TIMES"></a>
     
     
 
                             </div>
-                            <div id="Comparison.LARGER_OR_EQUAL" class="classattr">
+                            <div id="CaptureFlag.NEVER_GAIA_AGGRESSIVE" class="classattr">
                                 <div class="attr variable">
-            <span class="name">LARGER_OR_EQUAL</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LARGER_OR_EQUAL">Comparison.LARGER_OR_EQUAL</a>: 4&gt;</span>
+            <span class="name">NEVER_GAIA_AGGRESSIVE</span>        =
+<span class="default_value">&lt;<a href="#CaptureFlag.NEVER_GAIA_AGGRESSIVE">CaptureFlag.NEVER_GAIA_AGGRESSIVE</a>: 3&gt;</span>
 
         
     </div>
-    <a class="headerlink" href="#Comparison.LARGER_OR_EQUAL"></a>
-    
-    
-
-                            </div>
-                            <div id="Comparison.EQ" class="classattr">
-                                <div class="attr variable">
-            <span class="name">EQ</span>        =
-<span class="default_value">&lt;<a href="#Comparison.EQUAL">Comparison.EQUAL</a>: 0&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Comparison.EQ"></a>
-    
-    
-
-                            </div>
-                            <div id="Comparison.LT" class="classattr">
-                                <div class="attr variable">
-            <span class="name">LT</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LESS">Comparison.LESS</a>: 1&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Comparison.LT"></a>
-    
-    
-
-                            </div>
-                            <div id="Comparison.GT" class="classattr">
-                                <div class="attr variable">
-            <span class="name">GT</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LARGER">Comparison.LARGER</a>: 2&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Comparison.GT"></a>
-    
-    
-
-                            </div>
-                            <div id="Comparison.LEQ" class="classattr">
-                                <div class="attr variable">
-            <span class="name">LEQ</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LESS_OR_EQUAL">Comparison.LESS_OR_EQUAL</a>: 3&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Comparison.LEQ"></a>
-    
-    
-
-                            </div>
-                            <div id="Comparison.GEQ" class="classattr">
-                                <div class="attr variable">
-            <span class="name">GEQ</span>        =
-<span class="default_value">&lt;<a href="#Comparison.LARGER_OR_EQUAL">Comparison.LARGER_OR_EQUAL</a>: 4&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Comparison.GEQ"></a>
+    <a class="headerlink" href="#CaptureFlag.NEVER_GAIA_AGGRESSIVE"></a>
     
     
 
@@ -293,24 +206,24 @@ conditions like 'Accumulate Attribute' to perform logical operations on the attr
                                 <h5>Inherited Members</h5>
                                 <dl>
                                     <div><dt>AoE2ScenarioParser.datasets.dataset_enum._DataSetIntEnums</dt>
-                                <dd id="Comparison.attribute_presentation" class="function">attribute_presentation</dd>
+                                <dd id="CaptureFlag.attribute_presentation" class="function">attribute_presentation</dd>
 
             </div>
             <div><dt>enum.Enum</dt>
-                                <dd id="Comparison.name" class="variable">name</dd>
-                <dd id="Comparison.value" class="variable">value</dd>
+                                <dd id="CaptureFlag.name" class="variable">name</dd>
+                <dd id="CaptureFlag.value" class="variable">value</dd>
 
             </div>
             <div><dt>builtins.int</dt>
-                                <dd id="Comparison.conjugate" class="function">conjugate</dd>
-                <dd id="Comparison.bit_length" class="function">bit_length</dd>
-                <dd id="Comparison.to_bytes" class="function">to_bytes</dd>
-                <dd id="Comparison.from_bytes" class="function">from_bytes</dd>
-                <dd id="Comparison.as_integer_ratio" class="function">as_integer_ratio</dd>
-                <dd id="Comparison.real" class="variable">real</dd>
-                <dd id="Comparison.imag" class="variable">imag</dd>
-                <dd id="Comparison.numerator" class="variable">numerator</dd>
-                <dd id="Comparison.denominator" class="variable">denominator</dd>
+                                <dd id="CaptureFlag.conjugate" class="function">conjugate</dd>
+                <dd id="CaptureFlag.bit_length" class="function">bit_length</dd>
+                <dd id="CaptureFlag.to_bytes" class="function">to_bytes</dd>
+                <dd id="CaptureFlag.from_bytes" class="function">from_bytes</dd>
+                <dd id="CaptureFlag.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="CaptureFlag.real" class="variable">real</dd>
+                <dd id="CaptureFlag.imag" class="variable">imag</dd>
+                <dd id="CaptureFlag.numerator" class="variable">numerator</dd>
+                <dd id="CaptureFlag.denominator" class="variable">denominator</dd>
 
             </div>
                                 </dl>

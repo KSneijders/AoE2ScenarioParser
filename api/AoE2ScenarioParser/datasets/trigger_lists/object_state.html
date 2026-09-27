@@ -45,19 +45,22 @@
                                 <a class="variable" href="#ObjectState.ALIVE">ALIVE</a>
                         </li>
                         <li>
-                                <a class="variable" href="#ObjectState.RESOURCE">RESOURCE</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ObjectState.DYING">DYING</a>
-                        </li>
-                        <li>
                                 <a class="variable" href="#ObjectState.DEAD">DEAD</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ObjectState.ALMOST_DEAD">ALMOST_DEAD</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ObjectState.REALLY_DEAD">REALLY_DEAD</a>
                         </li>
                         <li>
                                 <a class="variable" href="#ObjectState.UNDEAD">UNDEAD</a>
                         </li>
                         <li>
                                 <a class="variable" href="#ObjectState.REMOVE">REMOVE</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ObjectState.GOING">GOING</a>
                         </li>
                 </ul>
 
@@ -93,7 +96,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.object_state    </h1>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ObjectState</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values used to reference the object state values used in the game. Used in the</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    &#39;Object in Area&#39; condition</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    &#39;Object in Area&#39; condition, &#39;Remove Object&#39; effect, and unit creation.</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    **Examples**</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
@@ -103,11 +106,12 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.object_state    </h1>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">FOUNDATION</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ALMOST_ALIVE</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ALIVE</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">RESOURCE</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">DYING</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">DEAD</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">DEAD</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ALMOST_DEAD</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">REALLY_DEAD</span> <span class="o">=</span> <span class="mi">5</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">UNDEAD</span> <span class="o">=</span> <span class="mi">6</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">REMOVE</span> <span class="o">=</span> <span class="mi">7</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">GOING</span> <span class="o">=</span> <span class="mi">8</span>
 </span></pre></div>
 
 
@@ -126,7 +130,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.object_state    </h1>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ObjectState-7"><a href="#ObjectState-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ObjectState</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
 </span><span id="ObjectState-8"><a href="#ObjectState-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="ObjectState-9"><a href="#ObjectState-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference the object state values used in the game. Used in the</span>
-</span><span id="ObjectState-10"><a href="#ObjectState-10"><span class="linenos">10</span></a><span class="sd">    &#39;Object in Area&#39; condition</span>
+</span><span id="ObjectState-10"><a href="#ObjectState-10"><span class="linenos">10</span></a><span class="sd">    &#39;Object in Area&#39; condition, &#39;Remove Object&#39; effect, and unit creation.</span>
 </span><span id="ObjectState-11"><a href="#ObjectState-11"><span class="linenos">11</span></a>
 </span><span id="ObjectState-12"><a href="#ObjectState-12"><span class="linenos">12</span></a><span class="sd">    **Examples**</span>
 </span><span id="ObjectState-13"><a href="#ObjectState-13"><span class="linenos">13</span></a>
@@ -136,16 +140,17 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.object_state    </h1>
 </span><span id="ObjectState-17"><a href="#ObjectState-17"><span class="linenos">17</span></a>    <span class="n">FOUNDATION</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="ObjectState-18"><a href="#ObjectState-18"><span class="linenos">18</span></a>    <span class="n">ALMOST_ALIVE</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="ObjectState-19"><a href="#ObjectState-19"><span class="linenos">19</span></a>    <span class="n">ALIVE</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="ObjectState-20"><a href="#ObjectState-20"><span class="linenos">20</span></a>    <span class="n">RESOURCE</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="ObjectState-21"><a href="#ObjectState-21"><span class="linenos">21</span></a>    <span class="n">DYING</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="ObjectState-22"><a href="#ObjectState-22"><span class="linenos">22</span></a>    <span class="n">DEAD</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span id="ObjectState-20"><a href="#ObjectState-20"><span class="linenos">20</span></a>    <span class="n">DEAD</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span id="ObjectState-21"><a href="#ObjectState-21"><span class="linenos">21</span></a>    <span class="n">ALMOST_DEAD</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span id="ObjectState-22"><a href="#ObjectState-22"><span class="linenos">22</span></a>    <span class="n">REALLY_DEAD</span> <span class="o">=</span> <span class="mi">5</span>
 </span><span id="ObjectState-23"><a href="#ObjectState-23"><span class="linenos">23</span></a>    <span class="n">UNDEAD</span> <span class="o">=</span> <span class="mi">6</span>
 </span><span id="ObjectState-24"><a href="#ObjectState-24"><span class="linenos">24</span></a>    <span class="n">REMOVE</span> <span class="o">=</span> <span class="mi">7</span>
+</span><span id="ObjectState-25"><a href="#ObjectState-25"><span class="linenos">25</span></a>    <span class="n">GOING</span> <span class="o">=</span> <span class="mi">8</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>This enum class provides the integer values used to reference the object state values used in the game. Used in the
-'Object in Area' condition</p>
+'Object in Area' condition, 'Remove Object' effect, and unit creation.</p>
 
 <p><strong>Examples</strong></p>
 
@@ -193,38 +198,38 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.object_state    </h1>
     
 
                             </div>
-                            <div id="ObjectState.RESOURCE" class="classattr">
-                                <div class="attr variable">
-            <span class="name">RESOURCE</span>        =
-<span class="default_value">&lt;<a href="#ObjectState.RESOURCE">ObjectState.RESOURCE</a>: 3&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#ObjectState.RESOURCE"></a>
-    
-    
-
-                            </div>
-                            <div id="ObjectState.DYING" class="classattr">
-                                <div class="attr variable">
-            <span class="name">DYING</span>        =
-<span class="default_value">&lt;<a href="#ObjectState.DYING">ObjectState.DYING</a>: 4&gt;</span>
-
-        
-    </div>
-    <a class="headerlink" href="#ObjectState.DYING"></a>
-    
-    
-
-                            </div>
                             <div id="ObjectState.DEAD" class="classattr">
                                 <div class="attr variable">
             <span class="name">DEAD</span>        =
-<span class="default_value">&lt;<a href="#ObjectState.DEAD">ObjectState.DEAD</a>: 5&gt;</span>
+<span class="default_value">&lt;<a href="#ObjectState.DEAD">ObjectState.DEAD</a>: 3&gt;</span>
 
         
     </div>
     <a class="headerlink" href="#ObjectState.DEAD"></a>
+    
+    
+
+                            </div>
+                            <div id="ObjectState.ALMOST_DEAD" class="classattr">
+                                <div class="attr variable">
+            <span class="name">ALMOST_DEAD</span>        =
+<span class="default_value">&lt;<a href="#ObjectState.ALMOST_DEAD">ObjectState.ALMOST_DEAD</a>: 4&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ObjectState.ALMOST_DEAD"></a>
+    
+    
+
+                            </div>
+                            <div id="ObjectState.REALLY_DEAD" class="classattr">
+                                <div class="attr variable">
+            <span class="name">REALLY_DEAD</span>        =
+<span class="default_value">&lt;<a href="#ObjectState.REALLY_DEAD">ObjectState.REALLY_DEAD</a>: 5&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ObjectState.REALLY_DEAD"></a>
     
     
 
@@ -249,6 +254,18 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.object_state    </h1>
         
     </div>
     <a class="headerlink" href="#ObjectState.REMOVE"></a>
+    
+    
+
+                            </div>
+                            <div id="ObjectState.GOING" class="classattr">
+                                <div class="attr variable">
+            <span class="name">GOING</span>        =
+<span class="default_value">&lt;<a href="#ObjectState.GOING">ObjectState.GOING</a>: 8&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ObjectState.GOING"></a>
     
     
 

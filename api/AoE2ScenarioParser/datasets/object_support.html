@@ -429,6 +429,15 @@
                                 <a class="variable" href="#Civilization.TUPI">TUPI</a>
                         </li>
                         <li>
+                                <a class="variable" href="#Civilization.SAXONS">SAXONS</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Civilization.VARANGIANS">VARANGIANS</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Civilization.DANES">DANES</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#Civilization.RANDOM">RANDOM</a>
                         </li>
                         <li>
@@ -657,13 +666,17 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
 </span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="n">MAPUCHE</span> <span class="o">=</span> <span class="s2">&quot;MAPUCHE-CIV&quot;</span>
 </span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="n">TUPI</span> <span class="o">=</span> <span class="s2">&quot;TUPI-CIV&quot;</span>
 </span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>
-</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">&quot;RANDOM-CIV&quot;</span>
-</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;MIRROR-RANDOM-CIV&quot;</span>
-</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;FULL-RANDOM-CIV&quot;</span>
-</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;CUSTOM-RANDOM-CIV&quot;</span>
-</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>
-</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="n">SAXONS</span> <span class="o">=</span> <span class="s2">&quot;SAXONS-CIV&quot;</span>
+</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="n">VARANGIANS</span> <span class="o">=</span> <span class="s2">&quot;VARANGIANS-CIV&quot;</span>
+</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="n">DANES</span> <span class="o">=</span> <span class="s2">&quot;DANES-CIV&quot;</span>
+</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>
+</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">&quot;RANDOM-CIV&quot;</span>
+</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;MIRROR-RANDOM-CIV&quot;</span>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;FULL-RANDOM-CIV&quot;</span>
+</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;CUSTOM-RANDOM-CIV&quot;</span>
+</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>
+</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1765,13 +1778,17 @@ This is used in the player objects to set a starting age.</p>
 </span><span id="Civilization-187"><a href="#Civilization-187"><span class="linenos">187</span></a>    <span class="n">MAPUCHE</span> <span class="o">=</span> <span class="s2">&quot;MAPUCHE-CIV&quot;</span>
 </span><span id="Civilization-188"><a href="#Civilization-188"><span class="linenos">188</span></a>    <span class="n">TUPI</span> <span class="o">=</span> <span class="s2">&quot;TUPI-CIV&quot;</span>
 </span><span id="Civilization-189"><a href="#Civilization-189"><span class="linenos">189</span></a>
-</span><span id="Civilization-190"><a href="#Civilization-190"><span class="linenos">190</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">&quot;RANDOM-CIV&quot;</span>
-</span><span id="Civilization-191"><a href="#Civilization-191"><span class="linenos">191</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;MIRROR-RANDOM-CIV&quot;</span>
-</span><span id="Civilization-192"><a href="#Civilization-192"><span class="linenos">192</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;FULL-RANDOM-CIV&quot;</span>
-</span><span id="Civilization-193"><a href="#Civilization-193"><span class="linenos">193</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;CUSTOM-RANDOM-CIV&quot;</span>
-</span><span id="Civilization-194"><a href="#Civilization-194"><span class="linenos">194</span></a>
-</span><span id="Civilization-195"><a href="#Civilization-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-</span><span id="Civilization-196"><a href="#Civilization-196"><span class="linenos">196</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span id="Civilization-190"><a href="#Civilization-190"><span class="linenos">190</span></a>    <span class="n">SAXONS</span> <span class="o">=</span> <span class="s2">&quot;SAXONS-CIV&quot;</span>
+</span><span id="Civilization-191"><a href="#Civilization-191"><span class="linenos">191</span></a>    <span class="n">VARANGIANS</span> <span class="o">=</span> <span class="s2">&quot;VARANGIANS-CIV&quot;</span>
+</span><span id="Civilization-192"><a href="#Civilization-192"><span class="linenos">192</span></a>    <span class="n">DANES</span> <span class="o">=</span> <span class="s2">&quot;DANES-CIV&quot;</span>
+</span><span id="Civilization-193"><a href="#Civilization-193"><span class="linenos">193</span></a>
+</span><span id="Civilization-194"><a href="#Civilization-194"><span class="linenos">194</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">&quot;RANDOM-CIV&quot;</span>
+</span><span id="Civilization-195"><a href="#Civilization-195"><span class="linenos">195</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;MIRROR-RANDOM-CIV&quot;</span>
+</span><span id="Civilization-196"><a href="#Civilization-196"><span class="linenos">196</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;FULL-RANDOM-CIV&quot;</span>
+</span><span id="Civilization-197"><a href="#Civilization-197"><span class="linenos">197</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;CUSTOM-RANDOM-CIV&quot;</span>
+</span><span id="Civilization-198"><a href="#Civilization-198"><span class="linenos">198</span></a>
+</span><span id="Civilization-199"><a href="#Civilization-199"><span class="linenos">199</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+</span><span id="Civilization-200"><a href="#Civilization-200"><span class="linenos">200</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -2508,6 +2525,42 @@ This can be used in research tech conditions to check civ or set a player's civ 
     
 
                             </div>
+                            <div id="Civilization.SAXONS" class="classattr">
+                                <div class="attr variable">
+            <span class="name">SAXONS</span>        =
+<span class="default_value">&lt;<a href="#Civilization.SAXONS">Civilization.SAXONS</a>: &#39;SAXONS-CIV&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Civilization.SAXONS"></a>
+    
+    
+
+                            </div>
+                            <div id="Civilization.VARANGIANS" class="classattr">
+                                <div class="attr variable">
+            <span class="name">VARANGIANS</span>        =
+<span class="default_value">&lt;<a href="#Civilization.VARANGIANS">Civilization.VARANGIANS</a>: &#39;VARANGIANS-CIV&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Civilization.VARANGIANS"></a>
+    
+    
+
+                            </div>
+                            <div id="Civilization.DANES" class="classattr">
+                                <div class="attr variable">
+            <span class="name">DANES</span>        =
+<span class="default_value">&lt;<a href="#Civilization.DANES">Civilization.DANES</a>: &#39;DANES-CIV&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Civilization.DANES"></a>
+    
+    
+
+                            </div>
                             <div id="Civilization.RANDOM" class="classattr">
                                 <div class="attr variable">
             <span class="name">RANDOM</span>        =
@@ -2567,8 +2620,8 @@ This can be used in research tech conditions to check civ or set a player's civ 
 
     </div>
     <a class="headerlink" href="#Civilization.encode"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Civilization.encode-195"><a href="#Civilization.encode-195"><span class="linenos">195</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-</span><span id="Civilization.encode-196"><a href="#Civilization.encode-196"><span class="linenos">196</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Civilization.encode-199"><a href="#Civilization.encode-199"><span class="linenos">199</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+</span><span id="Civilization.encode-200"><a href="#Civilization.encode-200"><span class="linenos">200</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </span></pre></div>
 
 
