@@ -3,8 +3,7 @@ from __future__ import annotations
 from typing import List, Tuple, Generator, Union
 
 from AoE2ScenarioParser.datasets.players import PlayerId
-from AoE2ScenarioParser.datasets.trigger_lists import ObjectState
-from AoE2ScenarioParser.datasets.trigger_lists.capture_flag import CaptureFlag
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectState, CaptureFlag
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits
@@ -68,7 +67,7 @@ class UnitManager(AoE2Object):
             z: float = None,
             rotation: float = None,
             garrisoned_in_id: int = None,
-            capture_flag: int = None,
+            capture_flag: int | CaptureFlag = None,
             animation_frame: int = None,
             status: int | ObjectState = None,
             reference_id: int = None,
@@ -127,7 +126,7 @@ class UnitManager(AoE2Object):
             animation_frame: int = 0,
             status: int | ObjectState = 2,
             reference_id: int = None,
-            capture_flag: int = CaptureFlag.DEFAULT,
+            capture_flag: int | CaptureFlag = CaptureFlag.DEFAULT,
             caption_string_id: int = -1,
             caption_string: str = '',
             tile: Tile | Tuple[int, int] = None,

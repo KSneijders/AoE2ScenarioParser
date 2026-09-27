@@ -7,14 +7,14 @@ from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 
 class ObjectAttribute(_DataSetIntEnums):
     """
-        This enum class provides the integer values used to reference all the different object attributes in the game. Used
-        in the 'Modify Attribute' effect to control which attribute of an object is modified.
+    This enum class provides the integer values used to reference all the different object attributes in the game. Used
+    in the 'Modify Attribute' effect to control which attribute of an object is modified.
 
-        **Examples**
+    **Examples**
 
-        >>> ObjectAttribute.LINE_OF_SIGHT
-        <ObjectAttribute.LINE_OF_SIGHT: 1>
-        """
+    >>> ObjectAttribute.LINE_OF_SIGHT
+    <ObjectAttribute.LINE_OF_SIGHT: 1>
+    """
 
     @staticmethod
     def _storage_type(value) -> Literal['uint32', 'int32', 'float']:

@@ -51,7 +51,7 @@ class Unit(AoE2Object):
             rotation: float,
             initial_animation_frame: int,
             garrisoned_in_id: int = -1,
-            capture_flag: int = -1,
+            capture_flag: int | CaptureFlag = -1,
             caption_string_id: int = -1,
             caption_string: str = '',
             **kwargs
@@ -70,7 +70,7 @@ class Unit(AoE2Object):
         self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
-        self.capture_flag: int = capture_flag
+        self.capture_flag: int | CaptureFlag = capture_flag
         self.caption_string_id: int = caption_string_id
         self.caption_string: str = caption_string
 

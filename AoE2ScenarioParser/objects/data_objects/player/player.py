@@ -196,7 +196,10 @@ class Player(AoE2Object):
             return value
 
         if Player.is_using_old_civilization_dataset(self._uuid):
-            return CivilizationOld[value].value
+            try:
+                return CivilizationOld[value].value
+            except KeyError:
+                raise ValueError(f"Invalid Civilization value for this scenario version: {value}") from None
         else:
             return Civilization[value].value
 
