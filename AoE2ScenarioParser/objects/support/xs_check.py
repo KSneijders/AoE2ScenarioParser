@@ -224,7 +224,7 @@ class XsCheck:
             error = Path(stderr_path).read_text(encoding=self.xs_encoding)
 
             raise ValueError(f"Error code [{exitcode}] was returned by xs-check. Invalid Usage: '{error}'")
-        elif 0 > exitcode > 2:
+        elif exitcode < 0 or exitcode > 2:
             error = Path(stderr_path).read_text(encoding=self.xs_encoding)
 
             raise ValueError(f"An unknown non-zero exit code ({exitcode}) was returned by xs-check: '{error}'")
