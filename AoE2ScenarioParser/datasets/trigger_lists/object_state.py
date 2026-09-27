@@ -6,7 +6,7 @@ from AoE2ScenarioParser.datasets.dataset_enum import _DataSetIntEnums
 class ObjectState(_DataSetIntEnums):
     """
     This enum class provides the integer values used to reference the object state values used in the game. Used in the
-    'Object in Area' condition
+    'Object in Area' condition, 'Remove Object' effect, and unit creation.
 
     **Examples**
 

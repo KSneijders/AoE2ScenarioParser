@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 
 from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectState
 from AoE2ScenarioParser.datasets.trigger_lists.capture_flag import CaptureFlag
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
@@ -46,7 +47,7 @@ class Unit(AoE2Object):
             z: float,
             reference_id: int,
             unit_const: int,
-            status: int,
+            status: int | ObjectState,
             rotation: float,
             initial_animation_frame: int,
             garrisoned_in_id: int = -1,
@@ -65,7 +66,7 @@ class Unit(AoE2Object):
         self.z: float = z
         self.reference_id: int = reference_id
         self.unit_const: int = unit_const
-        self.status: int = status
+        self.status: int | ObjectState = status
         self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
