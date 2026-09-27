@@ -1,3 +1,4 @@
+import json
 from typing import TypedDict, Dict
 
 import requests
@@ -68,6 +69,21 @@ def gen_res_class(resources: ResDescs) -> str:
     return "\n".join(klass)
 
 
+def read_langs(path: str) -> dict[int, str]:
+    langs = {}
+    with open(path, "r", encoding = "utf-8") as file:
+        while line := file.readline():
+            match = regex.match(r'(\d+)\s+"(.*?)"', line)
+            if not match:
+                continue
+
+            number = int(match.group(1))
+            quoted_string = match.group(2)
+
+            langs[number] = quoted_string
+
+    return langs
+
 def main():
     res = requests.get(
         r"https://raw.githubusercontent.com/Divy1211/AoE2DE_UGC_Guide/main/docs/general/resources/res_desc.json")
@@ -75,6 +91,13 @@ def main():
 
     with open("../../trigger_lists/attribute.py", "w") as file:
         file.write(gen_res_class(resources))
+
+    DE_PATH = r""
+    langs = read_langs(rf"{DE_PATH}\resources\en\strings\key-value\key-value-strings-utf8.txt")
+
+    names = [langs.get(15_000 + i, None) for i in range(601)]
+    with open("../../sources/resource_editor_names.json", "w") as file:
+        json.dump(names, file, indent = 4)
 
 
 if __name__ == "__main__":

@@ -376,12 +376,14 @@ class NewConditionSupport:
             self,
             unit_object: int | None = None,
             source_player: int | None = None,
+            allow_in_fog: int | None = None,
             inverted: int | None = None,
     ) -> Condition:
         return self._trigger_ref._add_condition(
             ConditionId.OBJECT_VISIBLE_MULTIPLAYER,
             unit_object=unit_object,
             source_player=source_player,
+            allow_in_fog=allow_in_fog,
             inverted=inverted,
         )
 

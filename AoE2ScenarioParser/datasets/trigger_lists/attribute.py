@@ -26,7 +26,7 @@ class Attribute(_DataSetIntEnums):
     """
 
     @property
-    def editor_name(self):
+    def editor_name(self) -> str | None:
         """
         The exact name of this resource in the editor. To be used in <...> notation in trigger displays
         """
@@ -36,6 +36,7 @@ class Attribute(_DataSetIntEnums):
             with (Path(__file__).parent.parent / 'sources' / 'resource_editor_names.json').open() as file:
                 _attribute_dataset_editor_names = json.load(file)
 
+        # None when a name is not assigned to a resource
         return _attribute_dataset_editor_names[self]
 
     FOOD_STORAGE = 0
@@ -81,7 +82,15 @@ class Attribute(_DataSetIntEnums):
     """
     UNUSED_RESOURCE_008 = 8
     """
-    - Purpose: Unused
+    - Purpose: Enables `Sun Ce` to convert buildings
+    
+    - Defaults:
+    
+        - 0: No (default)
+        - 1: Yes
+        - >=2: Sun Ce can convert buildings from range
+    
+    - Note: The editor name of the resource is incorrect
     """
     TRADE_GOODS = 9
     """
@@ -119,9 +128,9 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unknown... What does this resource do?
     """
-    UNUSED_RESOURCE_018 = 18
+    CIVILIZATION_VOICE_OVERRIDE = 18
     """
-    - Purpose: Unused
+    - Purpose: Allows overriding a civilization's voice lines with another civ
     """
     TOTAL_UNITS_OWNED = 19
     """
@@ -194,11 +203,11 @@ class Attribute(_DataSetIntEnums):
     """
     UNUSED_RESOURCE_030 = 30
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     UNUSED_RESOURCE_031 = 31
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     BONUS_POPULATION_CAP = 32
     """
@@ -212,11 +221,11 @@ class Attribute(_DataSetIntEnums):
     """
     UNUSED_RESOURCE_34 = 34
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     UNUSED_RESOURCE_35 = 35
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     FARM_FOOD_AMOUNT = 36
     """
@@ -368,11 +377,11 @@ class Attribute(_DataSetIntEnums):
     """
     UNUSED_RESOURCE_059 = 59
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     UNUSED_RESOURCE_060 = 60
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     UNUSED_RESOURCE_061 = 61
     """
@@ -396,7 +405,7 @@ class Attribute(_DataSetIntEnums):
     """
     UNUSED_RESOURCE_066 = 66
     """
-    - Purpose: Unused
+    - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
     CAN_CONVERT = 67
     """
@@ -431,9 +440,9 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unused
     """
-    UNUSED_RESOURCE_73 = 73
+    WAYPOINT_SPRITE_GRAPHIC_ID = 73
     """
-    - Purpose: Unused
+    - Purpose: Per-civ waypoint flag graphic ID
     """
     UNUSED_RESOURCE_74 = 74
     """
@@ -633,9 +642,9 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Total trade gold generated
     """
-    UNUSED_RESOURCE_102 = 102
+    NAVAL_TRADE_WOOD = 102
     """
-    - Purpose: Unused
+    - Purpose: Unknown
     """
     UNUSED_RESOURCE_103 = 103
     """
@@ -1066,16 +1075,16 @@ class Attribute(_DataSetIntEnums):
     
     - Note: The actual work rate for builders is given by `construction_rate_mod * builder.default_work_rate`
     """
-    HUN_WONDER_DISCOUNT = 196
+    WONDER_TIME_MODIFIER = 196
     """
-    - Purpose: Additional time required for relic/wonder victories in one tenth of a year
+    - Purpose: Additional time required for wonder victories in one tenth of a year
     
     - Defaults:
     
         - 0: default
-        - 1000: (100 years) for the Hun player, after researching atheism. The value of this resource of each player is added to determine the total extra time for relic/wonder victories, i.e. it adds up if multiple hun players get the tech
+        - 1000: (100 years) for all neutral/enemies of the Hun player, after researching atheism. The value of this resource of each player is added to determine the total extra time for wonder victories, i.e. it adds up if multiple hun players get the tech
     
-    - Note: Internally, relic and wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame
+    - Note: Internally, wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame
     """
     SPIES_DISCOUNT = 197
     """
@@ -1085,9 +1094,16 @@ class Attribute(_DataSetIntEnums):
     
         - 0: Default
     """
-    UNUSED_RESOURCE_198 = 198
+    RELIC_TIME_MODIFIER = 198
     """
-    - Purpose: Unused
+    - Purpose: Additional time required for relic victories in one tenth of a year
+    
+    - Defaults:
+    
+        - 0: default
+        - 1000: (100 years) for all neutral/enemies of the Hun player, after researching atheism. The value of this resource of each player is added to determine the total extra time for relic victories, i.e. it adds up if multiple hun players get the tech
+    
+    - Note: Internally, wonder victory countdowns are measured in one tenths of an year, the fractional part is just not shown ingame
     """
     UNUSED_RESOURCE_199 = 199
     """
@@ -1219,11 +1235,18 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Total number of mercenary kipchak creatable
     
-    - Note: Researching Cuman Mercenaries sets this to 10. Making mercenary Kipchaks costs one unit of this resource
+    - Note: Researching Cuman Mercenaries gives 5 of this resource per castle. Making mercenary Kipchaks costs one unit of this resource. Each newly constructed castle gives +5
     """
-    UNUSED_RESOURCE_215 = 215
+    BONUS_FORAGER_FOOD = 215
     """
-    - Purpose: Unused
+    - Purpose: Bonus forager food gathering percent of main work rate
+    
+    - Defaults:
+    
+        - 0: Default
+        - 25: Mapuche
+    
+    - Note: `EffectFunction29` must be called in order for this resource to work
     """
     SHEPHERD_PRODUCTIVITY = 216
     """
@@ -1263,7 +1286,14 @@ class Attribute(_DataSetIntEnums):
     """
     UNUSED_RESOURCE_220 = 220
     """
-    - Purpose: Unused
+    - Purpose: Enables leveling up when killing units for `Richard the Lionheart`, `Sieur de Metz`, `Kushluk`, `Zawisza the Black`
+    
+    - Defaults:
+    
+        - 0: Default
+    
+    - Note: - This enabled `Loot` task which makes these heroes gain stats instead of resources.
+- The editor name of the resource is incorrect
     """
     MONUMENT_FOOD_PRODUCTIVITY = 221
     """
@@ -1359,14 +1389,14 @@ class Attribute(_DataSetIntEnums):
     """
     FARMING_GOLD_PRODUCTIVITY = 236
     """
-    - Purpose: Farming gold generation rate per 100 seconds
+    - Purpose: Farmer gold generation percent of main work rate
     
     - Defaults:
     
         - 0: Default
-        - 2: (0.02 g/s per farmer) after Burgundian Vineyards
+        - 2: Burgundian Vineyards
     
-    - Note: Only generates gold while collecting food from farms, and not when walking on them down
+    - Note: `EffectFunction14` must be called for this resource to work. Only generates gold while collecting food from farms, and not when walking on them down
     """
     FOLWARK_COLLECTION_AMOUNT = 237
     """
@@ -1408,14 +1438,14 @@ class Attribute(_DataSetIntEnums):
     """
     STONE_MINING_GOLD_PRODUCTIVITY = 241
     """
-    - Purpose: Stone mining gold generation rate per 100 seconds
+    - Purpose: Bonus stone miner gold gathering percent of main work rate
     
     - Defaults:
     
         - 0: Default
-        - 18: Poles
-        - 20.7: Poles with Stone Mining
-        - 23.805: Poles with Stone Shaft Mining
+        - 33.33: Poles
+    
+    - Note: `EffectFunction13` must be called for this resource to work
     """
     TRADE_WORKSHOP_FOOD_PRODUCTIVITY = 242
     """
@@ -1585,26 +1615,25 @@ class Attribute(_DataSetIntEnums):
     """
     CHOPPING_GOLD_PRODUCTIVITY = 266
     """
-    - Purpose: Lumberjack chopping gold generation rate per 100 seconds
+    - Purpose: Lumberjack chopping gold gathering percent of main work rate
     
     - Defaults:
     
         - 0: Default
-        - 1.5: (0.015 g/s per lumberjack) Vietnamese with paper money
-        - 1.8: (0.018 g/s per lumberjack) Vietnamese with paper money & Double Bit Axe
-        - 2.16: (0.0216 g/s per lumberjack) Vietnamese with paper money & Double Bit Axe & Bow Saw
-        - 2.376: (0.02376 g/s per lumberjack) Vietnamese with paper money & Double Bit Axe & Bow Saw & Two-Man Saw
+        - 1.5: Paper Money
     
-    - Note: Only generates gold while collecting wood from trees, and not when cutting them down
+    - Note: `EffectFunction15` must be called for this resource to work. Only generates gold while collecting wood from trees, and not when cutting them down
     """
     FORAGING_WOOD_PRODUCTIVITY = 267
     """
-    - Purpose: Forager foraging wood generation rate per 100 seconds
+    - Purpose: Bonus forager wood gathering percent of main work rate
     
     - Defaults:
     
         - 0: Default
-        - 10.4753: (0.104753 w/s per forager) Portuguese
+        - 33.33: Portuguese
+    
+    - Note: `EffectFunction12` must be called for this resource to work
     """
     HUNTER_PRODUCTIVITY = 268
     """
@@ -1626,13 +1655,13 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Damage modifier for own units when attacked from higher elevation
     
-    - Note: This is applied after the calculations from [Elevation Higher Bonus](./#211-elevation-higher-bonus) and [Elevation Lower Bonus](./#212-elevation-lower-bonus)
+    - Note: This is applied after the calculations from [Elevation Higher Bonus](https://ugc.aoe2.rocks/general/resources/resources/#211-elevation-higher-bonus) and [Elevation Lower Bonus](https://ugc.aoe2.rocks/general/resources/resources/#212-elevation-lower-bonus)
     """
     ELEVATION_LOWER_DAMAGE = 273
     """
     - Purpose: Damage modifier for own units when attacked from lower elevation
     
-    - Note: This is applied after the calculations from [Elevation Higher Bonus](./#211-elevation-higher-bonus) and [Elevation Lower Bonus](./#212-elevation-lower-bonus)
+    - Note: This is applied after the calculations from [Elevation Higher Bonus](https://ugc.aoe2.rocks/general/resources/resources/#211-elevation-higher-bonus) and [Elevation Lower Bonus](https://ugc.aoe2.rocks/general/resources/resources/#212-elevation-lower-bonus)
     """
     INFANTRY_KILL_REWARD = 274
     """
@@ -1645,13 +1674,22 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Technically, this resource is used as a multiplier for the resource generated by task 154 currently on infantry units. Task 154 can change which resource does this, and it is what really controls which resource is generated (Resource Out) and the rate of generation (Work Value 1) which is set to the different rates for different types of targets for infantry
     """
-    UNUSED_RESOURCE_275 = 275
+    FYRD_DISCOUNT_LEVEL = 275
     """
-    - Purpose: Unused
+    - Purpose: The number of standing castles + TCs
+    
+    - Note: This value only changes when a player is playing as the Saxons.
     """
-    UNUSED_RESOURCE_276 = 276
+    BONUS_GOLD_PRODUCTIVITY = 276
     """
-    - Purpose: Unused
+    - Purpose: Bonus gold miner gold gathering percent of main work rate
+    
+    - Defaults:
+    
+        - 0: Default
+        - 10: Malians
+    
+    - Note: `EffectFunction11` must be called in order for this resource to work
     """
     RED_CLIFFS_TACTICS_DAMAGE = 277
     """
@@ -1664,9 +1702,9 @@ class Attribute(_DataSetIntEnums):
     
     - Note: This implies that converted units that are affected by the tech won't do fire damage after being converted
     """
-    UNUSED_RESOURCE_278 = 278
+    RAZING_BOUNTY = 278
     """
-    - Purpose: Unused
+    - Purpose: Currently Unused
     """
     MILITARY_CAN_CONVERT = 279
     """
@@ -1707,15 +1745,15 @@ class Attribute(_DataSetIntEnums):
     """
     SHARED_VISIBILITY = 285
     """
-    - Purpose: Lower bits 1 to 9 control LoS with players 0 to 8 with 0 being gaia.
+    - Purpose: This is a bitfield where the lowest 9 bits toggle sharing LoS with a specific player. The lowest bit represents gaia (player 0), and each higher bit represents the next player, so the bit for a given player is `1 \<\< player` (`pow(2, player)`).
     
-    - Note: This does not change LoS for allies if the shared exploration setting in the lobby is enabled
+    - Note: This does not change LoS for allies if the shared exploration setting in the lobby is enabled. Since this resource is a bitfield, when reading it with [xsPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#78-xsplayerattribute) or setting it with [xsSetPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#79-xssetplayerattribute), the value requires to be converted using [bitCastToInt](https://ugc.aoe2.rocks/general/xs/functions/functions/#416-bitcasttoint) and [bitCastToFloat](https://ugc.aoe2.rocks/general/xs/functions/functions/#415-bitcasttofloat) respectively, so that the individual bits can be read and set correctly.
     """
     SHARED_EXPLORATION = 286
     """
-    - Purpose: Lower bits 1 to 9 control map exploration with players 0 to 8 with 0 being gaia.
+    - Purpose: This is a bitfield where the lowest 9 bits toggle sharing map exploration with a specific player. The lowest bit represents gaia (player 0), and each higher bit represents the next player, so the bit for a given player is `1 \<\< player` (`pow(2, player)`).
     
-    - Note: This does not change exploration for allies if the shared exploration setting in the lobby is enabled
+    - Note: This does not change exploration for allies if the shared exploration setting in the lobby is enabled. Since this resource is a bitfield, when reading it with [xsPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#78-xsplayerattribute) or setting it with [xsSetPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#79-xssetplayerattribute), the value requires to be converted using [bitCastToInt](https://ugc.aoe2.rocks/general/xs/functions/functions/#416-bitcasttoint) and [bitCastToFloat](https://ugc.aoe2.rocks/general/xs/functions/functions/#415-bitcasttofloat) respectively, so that the individual bits can be read and set correctly.
     """
     MILITARY_FOOD_PRODUCTIVITY = 287
     """
@@ -1733,9 +1771,16 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Determines the maximum amount of villagers that can work at once on a pasture
     """
-    CHOPPING_FOOD_PRODUCTIVITY_UNUSED = 291
+    RAZING_PILLAGE = 291
     """
-    - Purpose: Unused - duplicate name, actually controlled by resource 502
+    - Purpose: The percent * 10 of the cost that should be looted when destroying buildings.
+    
+    - Defaults:
+    
+        - 0: Default
+        - 250: Danes
+    
+    - Note: `EffectFunction36` must be called for all players in the game for this resource to work.
     """
     ANIMAL_DECAY_PREVENTION = 292
     """
@@ -1749,25 +1794,55 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Percent extra food generated by herders and shepherds
     """
-    UNUSED_RESOURCE_295 = 295
+    UNIT_REFUND = 295
     """
-    - Purpose: Unused
+    - Purpose: Fraction of the cost to refund for lost units for the player
+    
+    - Defaults:
+    
+        - 0: Default
+        - 0.15: Tupi
+    
+    - Note: `EffectFunction27` must be called for this resource to work.
     """
-    UNUSED_RESOURCE_296 = 296
+    FORAGER_PRODUCTIVITY = 296
     """
-    - Purpose: Unused
+    - Purpose: Multiplier for food collected by foragers
+    
+    - Defaults:
+    
+        - 1: Default
     """
-    UNUSED_RESOURCE_297 = 297
+    VARANGIAN_GOLD_GENERATION = 297
     """
-    - Purpose: Unused
+    - Purpose: Varangian Guard gold generation multiplier
+    
+    - Defaults:
+    
+        - 1: Default
+        - 1.33: Varangians
     """
-    UNUSED_RESOURCE_298 = 298
+    BUTCHER_GOLD_PRODUCTIVITY = 298
     """
-    - Purpose: Unused
+    - Purpose: Varangians Shepherd/Hunter/Fisher/Fishing Ship additional gold gathering percent of main work rate
+    
+    - Defaults:
+    
+        - 0: Default
+        - 10.01: Varangians
+    
+    - Note: `EffectFunction34` must be called for this resource to work.
     """
-    UNUSED_RESOURCE_299 = 299
+    BONUS_FOOD_PRODUCTIVITY = 299
     """
-    - Purpose: Unused
+    - Purpose: All food gatherers additional food gathering percent of main work rate
+    
+    - Defaults:
+    
+        - 0: Default
+        - 5.01: Danes
+    
+    - Note: `EffectFunction35` must be called for this resource to work.
     """
     KILLED_GAIA = 300
     """
@@ -2697,13 +2772,13 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_500 = 500
+    UNUSED_RESOURCE_500 = 500
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
     MAXIMUM_POLEMARCHS = 501
     """
-    - Purpose: Hidden resource that is part of the cost of Polemarch. Incremented when the Polemarch dies, decremented when a Polemarch is trained. Increment this value to allow training of more Polemarchs.
+    - Purpose: Hidden resource that is part of the cost of Polemarch. Incremented when the Polemarch dies, decremented when a Polemarch is trained. Increment this value to allow training of more Polemarchs
     
     - Defaults:
     
@@ -2711,14 +2786,17 @@ class Attribute(_DataSetIntEnums):
     """
     CHOPPING_FOOD_PRODUCTIVITY = 502
     """
-    - Purpose: Chopping food generation rate per 100 seconds.
+    - Purpose: Chopping food gathering percent of main work rate
     
     - Defaults:
     
         - 0: Default
         - 4: Athenians
+        - 7: Shu
+    
+    - Note: `EffectFunction16` must be called for this resource to work. While the name only contains Athenians, this resource is also used for Shu.
     """
-    TRADE_WOOD_PERCENTAGE = 503
+    WOOD_TRADE_RATIO = 503
     """
     - Purpose: Amount of trade will be returned as wood instead of gold.
     
@@ -2729,13 +2807,17 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Changed in the Battle of Greece civs Port by a toggle to 0.25, 0.5, and 0.75 or by researching equivalent tech in the editor. Setting it to 0.5 will return half the amount in gold and half in wood. Works for trade cogs only. Setting it to a value >= 1 will make it so no trade resources are returned.
     """
-    UNKNOWN_RESOURCE_504 = 504
+    UNUSED_RESOURCE_504 = 504
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused but civs start with 1 at the start of the game. Also unused `Spanish team bonus` effect multiplies its value by 0.8
+    
+    - Defaults:
+    
+        - 1: At the start of the game. Does not seem to do anything
     """
-    UNKNOWN_RESOURCE_505 = 505
+    UNUSED_RESOURCE_505 = 505
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused, but Achaemenids, Athenians and Spartans have it set to 1
     
     - Defaults:
     
@@ -2751,11 +2833,11 @@ class Attribute(_DataSetIntEnums):
         - 0: Default
         - 1: Achaemenids, Athenians and Spartans
     
-    - Note: Local Town Center resource is changed when its tech is researched. As a side effect its global player value will be decremented every time a Town Center is destroyed.
+    - Note: Achamenids Town Center Local Upgrade resource is changed when its tech is researched. As a side effect its global player value will be decremented every time a Town Center is destroyed.
     """
-    UNKNOWN_RESOURCE_507 = 507
+    UNUSED_RESOURCE_507 = 507
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused, but `Athenians Static Bonuses` effect sets it to 1
     
     - Defaults:
     
@@ -2764,77 +2846,87 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Athenians start with it set to 1 by initial Economic Policy.
     """
-    UNKNOWN_RESOURCE_508 = 508
+    FORTIFIED_OUTPOST_LOCAL_UPGRADE = 508
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Used as a local resource in `Outposts`
+    
+    - Note: Fortified Outpost Local Upgrade resource is changed when its tech is researched. As a side effect its global player value will be decremented every time an Outpost is destroyed.
     """
-    BUILDING_LOOT_PRODUCTIVITY = 509
+    MERCENARY_HOPLITE_PRODUCTIVITY = 509
     """
-    - Purpose: Gain gold when attacking buildings.
+    - Purpose: It is named in the editor but seems to no longer affect `Mercenary Hoplite` and therefore unused
+    """
+    ODOMANTIAN_RAIDERS_PRODUCTIVITY = 510
+    """
+    - Purpose: Modifies how much gold units gain affected by `Odomantian Raiders` tech
     
     - Defaults:
     
         - 0: Default
-    
-    - Note: Formula is unknown, but the higher the resource the faster the gold gain is.
+        - 1: Spartans or after Odomantian Raiders is researched
     """
-    UNKNOWN_RESOURCE_510 = 510
+    DII_PLUNDERERS_PRODUCTIVITY = 511
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Modifies how much resources units gain affected by `Dii Plunderers` tech
     
     - Defaults:
     
-        - 1: Spartans
+        - 0: Default
+        - 1: After Dii Plunderers is researched
+    """
+    STONE_MINING_FOOD_PRODUCTIVITY = 512
+    """
+    - Purpose: Stone mining food generation rate
     
-    - Note: Spartans start with it set to 1.
+    - Defaults:
+    
+        - 0: Default
+        - 1: Puru
     """
-    UNKNOWN_RESOURCE_511 = 511
+    EMPLACEMENT_LOCAL_UPGRADE = 513
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Used as a local cost to upgrade `Fort` to an emplacement
     """
-    UNKNOWN_RESOURCE_512 = 512
+    HELEPOLIS_LIMIT = 514
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Limit the amount of `Helepolis` that can be built. Only works if `Helepolis` are built as buildings
     """
-    UNKNOWN_RESOURCE_513 = 513
+    SCYTHIAN_HORSE_ARCHER_PRODUCTIVITY = 515
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Modifies how much gold `Scythian Horse Archer` and `Elite Scythian Horse Archer` gain when killing units
+    
+    - Defaults:
+    
+        - 1: Default
+        - 0: Shu, Wu, Wei, Jurchens, Khitans
     """
-    UNKNOWN_RESOURCE_514 = 514
+    UNUSED_RESOURCE_516 = 516
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_515 = 515
+    UNUSED_RESOURCE_517 = 517
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_516 = 516
+    UNUSED_RESOURCE_518 = 518
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_517 = 517
+    UNUSED_RESOURCE_519 = 519
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_518 = 518
+    LYSANDERS_RAIDER_PRODUCTIVITY = 520
     """
-    - Purpose: Unknown... What does this resource do?
-    """
-    UNKNOWN_RESOURCE_519 = 519
-    """
-    - Purpose: Unknown... What does this resource do?
-    """
-    UNKNOWN_RESOURCE_520 = 520
-    """
-    - Purpose: Gives gold generation on kills to certain `Lysander's Raider` and probably other units. Similar to resource 550 and 551.
+    - Purpose: Modifies how much gold `Lysanders Raider` gains when killing units
     
     - Defaults:
     
         - 1: Default
     """
-    CASTLE_GOLD_PRODUCTIVITY = 521
+    PELOPONNESIAN_LEAGUE_PRODUCTIVITY = 521
     """
-    - Purpose: Castle gold production rate multiplier.
+    - Purpose: Castle gold production rate multiplier
     
     - Defaults:
     
@@ -2843,129 +2935,164 @@ class Attribute(_DataSetIntEnums):
     
     - Note: The amount of gold obtained from owning `n` number of Castles is given by `n * castle_gold_productivity * 0.33333`.
     """
-    UNKNOWN_RESOURCE_522 = 522
+    BASE_HOPLITE_AURA_ENABLED = 522
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on base `Hoplite` aura
+    
+    - Defaults:
+    
+        - 1: Default
+        - 0: Macedonians, Thracians, Puru or after Agoge is researched
     """
-    UNKNOWN_RESOURCE_523 = 523
+    AGOGE_HOPLITE_AURA_ENABLED = 523
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on aura gained via `Agoge` tech for `Hoplites`
+    
+    - Defaults:
+    
+        - 1: After Agoge is researched
+        - 0: Default
     """
-    UNKNOWN_RESOURCE_524 = 524
+    XYPHOS_HOPLITE_AURA_ENABLED = 524
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on aura gained via `Xyphos` tech for `Hoplites`
+    
+    - Defaults:
+    
+        - 1: After Xyphos is researched
+        - 0: Default
     """
-    UNKNOWN_RESOURCE_525 = 525
+    BASE_STRATEGOS_AURA_ENABLED = 525
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on base `Strategos` aura
+    
+    - Defaults:
+    
+        - 1: Default
+        - 0: Macedonians, Thracians, Puru or after Taxiarchs is researched
     """
-    UNKNOWN_RESOURCE_526 = 526
+    TAXIARCHS_STRATEGOS_AURA_ENABLED = 526
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on aura gained via `Taxiarchs` tech for `Strategos`
+    
+    - Defaults:
+    
+        - 1: After Taxiarchs is researched
+        - 0: Default
     """
-    UNKNOWN_RESOURCE_527 = 527
+    HIPPEUS_AURA_NO_TECH = 527
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on base `Hippeus` aura
+    
+    - Defaults:
+    
+        - 1: Default
+        - 0: Macedonians, Thracians, Puru or after Morai is researched
     """
-    UNKNOWN_RESOURCE_528 = 528
+    HIPPEUS_AURA_WITH_TECHS = 528
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on aura gained via `Morai` tech for `Hippeus`
+    
+    - Defaults:
+    
+        - 1: After Morai is researched
+        - 0: Default
     """
-    UNKNOWN_RESOURCE_529 = 529
+    UNUSED_RESOURCE_529 = 529
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_530 = 530
+    UNUSED_RESOURCE_530 = 530
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_531 = 531
+    SCENARIO_RESOURCE_01 = 531
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_532 = 532
+    SCENARIO_RESOURCE_02 = 532
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_533 = 533
+    SCENARIO_RESOURCE_03 = 533
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_534 = 534
+    SCENARIO_RESOURCE_04 = 534
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_535 = 535
+    SCENARIO_RESOURCE_05 = 535
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_536 = 536
+    SCENARIO_RESOURCE_06 = 536
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_537 = 537
+    SCENARIO_RESOURCE_07 = 537
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_538 = 538
+    SCENARIO_RESOURCE_08 = 538
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_539 = 539
+    SCENARIO_RESOURCE_09 = 539
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_540 = 540
+    SCENARIO_RESOURCE_10 = 540
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_541 = 541
+    SCENARIO_RESOURCE_11 = 541
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_542 = 542
+    SCENARIO_RESOURCE_12 = 542
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_543 = 543
+    SCENARIO_RESOURCE_13 = 543
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_544 = 544
+    SCENARIO_RESOURCE_14 = 544
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_545 = 545
+    SCENARIO_RESOURCE_15 = 545
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_546 = 546
+    SCENARIO_RESOURCE_16 = 546
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_547 = 547
+    SCENARIO_RESOURCE_17 = 547
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_548 = 548
+    UNUSED_RESOURCE_548 = 548
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_549 = 549
+    UNUSED_RESOURCE_549 = 549
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_550 = 550
+    CAMEL_RAIDER_PRODUCTIVITY = 550
     """
-    - Purpose: Gives gold generation on kills to certain `Lysander's Raider`, `Camel Raider` and probably other units. Similar to resource 520 and 551.
+    - Purpose: Modifies how much gold `Lysander's Raider` and `Camel Raider` gain when killing units
     
     - Defaults:
     
         - 1: Default
     """
-    UNIT_LOOT_PRODUCTIVITY = 551
+    TYRANNY_PRODUCTIVITY = 551
     """
-    - Purpose: Gain gold per unit killed.
+    - Purpose: Gain gold per unit killed
     
     - Defaults:
     
@@ -2974,199 +3101,214 @@ class Attribute(_DataSetIntEnums):
     
     - Note: The amount of gold obtained from killing number of units `u` is `u * unit_loot_productivity * 3`. Unlike resources 520 and 550 works on most units. Look at A.G.E. for units with 154 loot class task.
     """
-    UNKNOWN_RESOURCE_552 = 552
+    UNUSED_RESOURCE_552 = 552
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_553 = 553
+    UNUSED_RESOURCE_553 = 553
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_554 = 554
+    UNUSED_RESOURCE_554 = 554
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_555 = 555
+    UNUSED_RESOURCE_555 = 555
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_556 = 556
+    UNUSED_RESOURCE_556 = 556
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_557 = 557
+    UNUSED_RESOURCE_557 = 557
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_558 = 558
+    UNUSED_RESOURCE_558 = 558
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_559 = 559
+    UNUSED_RESOURCE_559 = 559
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_560 = 560
+    ENDS_OF_THE_WORLD_PRODUCTIVITY = 560
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on aura gained via `Ends of the World` tech for `Fortified Outpost`
     """
-    UNKNOWN_RESOURCE_561 = 561
+    PATTIYODHA_LONGBOWMAN_DEFAULT = 561
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on base `Pattiyodha Longbowman` aura
+    
+    - Defaults:
+    
+        - 1: Default
+        - 0: Macedonians, Thracians, Puru or after Leaf-Headed Shafts is researched
     """
-    UNKNOWN_RESOURCE_562 = 562
+    PATTIYODHA_LONGBOWMAN_UPGRADED = 562
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Turns on aura gained via `Leaf-Headed Shafts` tech for `Pattiyodha Longbowman`
+    
+    - Defaults:
+    
+        - 1: After Leaf-Headed Shafts is researched
+        - 0: Default
     """
-    UNKNOWN_RESOURCE_563 = 563
+    SHEPHERD_GOLD_PRODUCTIVITY = 563
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Sheep herding and hunting gold generation rate
+    
+    - Defaults:
+    
+        - 0: Default
+        - 1: Thracians
     """
-    UNKNOWN_RESOURCE_564 = 564
+    UNUSED_RESOURCE_564 = 564
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_565 = 565
+    UNUSED_RESOURCE_565 = 565
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_566 = 566
+    UNUSED_RESOURCE_566 = 566
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_567 = 567
+    UNUSED_RESOURCE_567 = 567
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_568 = 568
+    UNUSED_RESOURCE_568 = 568
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_569 = 569
+    UNUSED_RESOURCE_569 = 569
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_570 = 570
+    UNUSED_RESOURCE_570 = 570
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_571 = 571
+    UNUSED_RESOURCE_571 = 571
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_572 = 572
+    UNUSED_RESOURCE_572 = 572
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_573 = 573
+    UNUSED_RESOURCE_573 = 573
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_574 = 574
+    UNUSED_RESOURCE_574 = 574
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_575 = 575
+    UNUSED_RESOURCE_575 = 575
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_576 = 576
+    UNUSED_RESOURCE_576 = 576
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_577 = 577
+    UNUSED_RESOURCE_577 = 577
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_578 = 578
+    UNUSED_RESOURCE_578 = 578
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_579 = 579
+    UNUSED_RESOURCE_579 = 579
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_580 = 580
+    UNUSED_RESOURCE_580 = 580
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_581 = 581
+    UNUSED_RESOURCE_581 = 581
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_582 = 582
+    UNUSED_RESOURCE_582 = 582
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_583 = 583
+    UNUSED_RESOURCE_583 = 583
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_584 = 584
+    UNUSED_RESOURCE_584 = 584
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_585 = 585
+    UNUSED_RESOURCE_585 = 585
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_586 = 586
+    UNUSED_RESOURCE_586 = 586
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_587 = 587
+    UNUSED_RESOURCE_587 = 587
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_588 = 588
+    UNUSED_RESOURCE_588 = 588
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_589 = 589
+    UNUSED_RESOURCE_589 = 589
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_590 = 590
+    UNUSED_RESOURCE_590 = 590
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_591 = 591
+    UNUSED_RESOURCE_591 = 591
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_592 = 592
+    UNUSED_RESOURCE_592 = 592
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_593 = 593
+    UNUSED_RESOURCE_593 = 593
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_594 = 594
+    UNUSED_RESOURCE_594 = 594
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_595 = 595
+    UNUSED_RESOURCE_595 = 595
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_596 = 596
+    UNUSED_RESOURCE_596 = 596
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_597 = 597
+    UNUSED_RESOURCE_597 = 597
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_598 = 598
+    UNUSED_RESOURCE_598 = 598
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_599 = 599
+    UNUSED_RESOURCE_599 = 599
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """
-    UNKNOWN_RESOURCE_600 = 600
+    UNUSED_RESOURCE_600 = 600
     """
-    - Purpose: Unknown... What does this resource do?
+    - Purpose: Unused
     """

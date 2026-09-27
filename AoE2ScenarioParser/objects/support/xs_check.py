@@ -18,7 +18,7 @@ from AoE2ScenarioParser.scenarios.scenario_store import getters
 
 
 class XsCheck:
-    version: Tuple[int, int, int] = (0, 2, 29)
+    version: Tuple[int, int, int] = (0, 2, 30)
 
     def __init__(self, uuid: UUID):
         self._uuid: UUID = uuid
@@ -165,7 +165,7 @@ class XsCheck:
 
         version_tuple = self.get_version()
 
-        if (0, 1, 2) <= version_tuple <= (0, 2, 29):
+        if (0, 1, 2) <= version_tuple <= (0, 2, 30):
             return True
 
         return False
@@ -220,10 +220,14 @@ class XsCheck:
         command = [self.path, *args]
         exitcode = subprocess.call(command, timeout=self.timeout_seconds, stdout=stdout_file, stderr=stderr_file)
 
-        if exitcode != 0:
+        if exitcode == 1:
             error = Path(stderr_path).read_text(encoding=self.xs_encoding)
 
-            raise ValueError(f"A non-zero exit code ({exitcode}) was returned by xs-check: '{error}'")
+            raise ValueError(f"Error code [{exitcode}] was returned by xs-check. Invalid Usage: '{error}'")
+        elif 0 > exitcode > 2:
+            error = Path(stderr_path).read_text(encoding=self.xs_encoding)
+
+            raise ValueError(f"An unknown non-zero exit code ({exitcode}) was returned by xs-check: '{error}'")
 
         return Path(stdout_path).read_text(encoding=self.xs_encoding)
 
