@@ -11,8 +11,8 @@ class ObjectModifyAttributeState(_DataSetIntEnums):
     **Examples**
 
     >>> ObjectModifyAttributeState.NOT_MODIFIED
-    <ObjectModifyAttributeState.NOT_MODIFIED: 1>
+    <ObjectModifyAttributeState.NOT_MODIFIED: 2>
     """
     ALL = 0
-    NOT_MODIFIED = 1
-    MODIFIED = 2
+    MODIFIED = 1
+    NOT_MODIFIED = 2

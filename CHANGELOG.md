@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.2 - 2026-September-29
+
+### Fixes
+
+- The `ObjectModifyAttributeState` dataset values `MODIFIED` and `NOT_MODIFIED` being the wrong way around
+
+## 0.9.1 - 2026-September-27
+
+### Fixes
+
+- `LATEST_VERSION` not being increased to 1.59
+
+---
+
 ## 0.9.0 - 2026-September-27
 
 Official support for the new 1.59 scenarios! — Credits: by [@Alian713] in [#134](https://github.com/KSneijders/AoE2ScenarioParser/pull/134)
@@ -22,6 +36,7 @@ Official support for the new 1.59 scenarios! — Credits: by [@Alian713] in [#13
 - **64** new `ObjectAttribute` entries
 - New shorthand aliases in the `Comparison` dataset: `EQ`, `LT`, `GT`, `LEQ`, `GEQ` — Makes Alian happy!
 - Support for the Xs-Check `v0.2.30` — View the `v0.2.30` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.30
+- A log entry showing the ASP version when reading a scenario
 
 ### Updates
 
