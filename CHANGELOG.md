@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.3 - 2026-October-02
+
+### Fixes
+
+- Disabled techs, units and buildings only supporting the first 8 players instead of all 16
+
+---
+
 ## 0.9.2 - 2026-September-29
 
 ### Fixes
