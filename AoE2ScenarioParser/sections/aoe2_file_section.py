@@ -350,7 +350,10 @@ class AoE2FileSection:
                 byte_structure += f"{'#' * 27} End of: {key} ({retriever.datatype.to_simple_string()})\n"
                 continue
 
-            retriever_data_bytes = retriever.get_data_as_bytes().hex()
+            try:
+                retriever_data_bytes = retriever.get_data_as_bytes().hex()
+            except ValueError:
+                retriever_data_bytes = ''
             retriever_hex = create_textual_hex(retriever_data_bytes, space_distance=2, enter_distance=24)
 
             split_hex = retriever_hex.split("\n")

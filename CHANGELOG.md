@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.4 - 2026-October-02
+
+### Fixes
+
+- Some official co-op campaign scenarios failing to parse — Reported in [#133](https://github.com/KSneijders/AoE2ScenarioParser/issues/133)
+
+---
+
 ## 0.9.3 - 2026-October-02
 
 ### Fixes
