@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The `ObjectModifyAttributeState` dataset values `MODIFIED` and `NOT_MODIFIED` being the wrong way around
 
+---
+
 ## 0.9.1 - 2026-September-27
 
 ### Fixes
