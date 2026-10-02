@@ -12,6 +12,7 @@ from AoE2ScenarioParser.objects.data_objects.player.player_data_four import Play
 from AoE2ScenarioParser.objects.data_objects.player.player_data_three import PlayerDataThree
 from AoE2ScenarioParser.objects.data_objects.player.player_diplomacy import PlayerDiplomacy
 from AoE2ScenarioParser.objects.data_objects.player.player_initial_view import PlayerInitialView
+from AoE2ScenarioParser.objects.data_objects.player.player_ai_file import PlayerAiFile
 from AoE2ScenarioParser.objects.data_objects.player.player_meta_data import PlayerMetaData
 from AoE2ScenarioParser.objects.data_objects.player.player_resources import PlayerResources
 from AoE2ScenarioParser.objects.support.uuid_list import UuidList
@@ -35,6 +36,10 @@ class PlayerManager(AoE2Object):
         ]),
 
         RetrieverObjectLink("_resources", "PlayerDataTwo", "resources", process_as_object=PlayerResources),
+
+        RetrieverObjectLink("_ai_names", "PlayerDataTwo", "ai_names"),
+        RetrieverObjectLink("_ai_types", "PlayerDataTwo", "ai_type"),
+        RetrieverObjectLink("_ai_files", "PlayerDataTwo", "ai_files", process_as_object=PlayerAiFile),
 
         RetrieverObjectLinkGroup("Diplomacy", group=[
             RetrieverObjectLink("_diplomacy", link="per_player_diplomacy", process_as_object=PlayerDiplomacy),
@@ -68,6 +73,9 @@ class PlayerManager(AoE2Object):
             _lock_civilizations: List[int],
             _lock_personalities: List[int],
             _resources: List[PlayerResources],
+            _ai_names: List[str],
+            _ai_types: List[int],
+            _ai_files: List[PlayerAiFile],
             _diplomacy: List[PlayerDiplomacy],
             _allied_victories: List[int],
             _starting_ages: List[int],
@@ -109,6 +117,9 @@ class PlayerManager(AoE2Object):
             'wood': [r.wood for r in _resources],
             'gold': [r.gold for r in _resources],
             'stone': [r.stone for r in _resources],
+            'personality': _ai_names,
+            'ai_type': _ai_types,
+            'ai_script': [f.ai_per_file_text for f in _ai_files],
             'color': [r.color for r in _resources],
             'active': [r.active for r in _metadata],
             'human': [r.human for r in _metadata],
@@ -306,6 +317,21 @@ class PlayerManager(AoE2Object):
                 other_diplomacies['diplomacy_for_ai_system'][i],
                 color[i],
             ) for i in range(len(initial_camera_x))
+        ])
+
+    @property
+    def _ai_names(self) -> List[str]:
+        return self._player_attributes_to_list("personality", False, default="", fill_empty=7)
+
+    @property
+    def _ai_types(self) -> List[int]:
+        return self._player_attributes_to_list("ai_type", False, default=1, fill_empty=7)
+
+    @property
+    def _ai_files(self) -> List[PlayerAiFile]:
+        scripts = self._player_attributes_to_list("ai_script", False, default="", fill_empty=7)
+        return UuidList(self._uuid, [
+            PlayerAiFile(ai_per_file_text=scripts[i]) for i in range(len(scripts))
         ])
 
     @property

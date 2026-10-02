@@ -284,4 +284,20 @@ No changes except for default civilization changed to 38 (from 36) because of th
 
 ## Scenario v1.36
 
-> First DE scenario file version.
+### Added
+
+- Map:
+
+    - Between `map_color_mood` and `player_1_camera_y`
+      ```json
+      "collide_and_correct": {
+          "type": "u8",
+          "default": 0
+      },
+      ```
+
+---
+
+## Scenario v1.35
+
+> Early DE scenario format (e.g. E3 demo). Same overall layout as v1.36 except **no** `collide_and_correct` byte after `map_color_mood` (that field appears from v1.36 onward).
