@@ -2381,6 +2381,63 @@
                                 "type": "s32",
                                 "default": -1
                             },
+                            "_eff_filler_0": {
+                                "is_list": false,
+                                "type": "s32",
+                                "comment": "Present in some intermediate dev builds (e.g. coop campaign scenarios) tagged 1.43 whose effect struct actually uses the larger 1.44 layout. static_value_46 is the int32 array size indicator (49 in 1.43, 52 in 1.44).",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:static_value_46",
+                                        "eval": "1 if static_value_46 >= 50 else 0"
+                                    }
+                                }
+                            },
+                            "_eff_filler_1": {
+                                "is_list": false,
+                                "type": "s32",
+                                "comment": "Present in some intermediate dev builds (e.g. coop campaign scenarios) tagged 1.43 whose effect struct actually uses the larger 1.44 layout. static_value_46 is the int32 array size indicator (49 in 1.43, 52 in 1.44).",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:static_value_46",
+                                        "eval": "1 if static_value_46 >= 51 else 0"
+                                    }
+                                }
+                            },
+                            "_eff_filler_2": {
+                                "is_list": false,
+                                "type": "s32",
+                                "comment": "Present in some intermediate dev builds (e.g. coop campaign scenarios) tagged 1.43 whose effect struct actually uses the larger 1.44 layout. static_value_46 is the int32 array size indicator (49 in 1.43, 52 in 1.44).",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:static_value_46",
+                                        "eval": "1 if static_value_46 >= 52 else 0"
+                                    }
+                                }
+                            },
                             "message": {
                                 "type": "str32",
                                 "default": ""

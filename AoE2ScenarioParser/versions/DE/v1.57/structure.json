@@ -2424,6 +2424,44 @@
                                 "type": "s32",
                                 "default": -1
                             },
+                            "_eff_filler_0": {
+                                "is_list": false,
+                                "type": "s32",
+                                "comment": "Present in some intermediate dev builds (e.g. coop campaign scenarios) whose effect struct grew past the 1.57 baseline without a version bump. static_value_81 is the int32 array size indicator.",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:static_value_81",
+                                        "eval": "1 if static_value_81 >= 82 else 0"
+                                    }
+                                }
+                            },
+                            "_eff_filler_1": {
+                                "is_list": false,
+                                "type": "s32",
+                                "comment": "Present in some intermediate dev builds (e.g. coop campaign scenarios) whose effect struct grew past the 1.57 baseline without a version bump. static_value_81 is the int32 array size indicator.",
+                                "default": -1,
+                                "dependencies": {
+                                    "on_construct": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_commit": {
+                                        "action": "REFRESH_SELF"
+                                    },
+                                    "on_refresh": {
+                                        "action": "SET_REPEAT",
+                                        "target": "self:static_value_81",
+                                        "eval": "1 if static_value_81 >= 83 else 0"
+                                    }
+                                }
+                            },
                             "message": {
                                 "type": "str32",
                                 "default": ""
