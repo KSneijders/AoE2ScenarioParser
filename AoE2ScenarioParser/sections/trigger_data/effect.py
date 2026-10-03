@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from bfp_rs import BaseStruct, ret, Retriever, RetrieverRef, Version
-from bfp_rs.combinators import set_repeat
+from bfp_rs.combinators import if_, set_, set_repeat
 from bfp_rs.types.le import Array32, i32, nt_str32
 
 from AoE2ScenarioParser.concerns import CanBeLinked
@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
 def selected_unit_ids():
     return [
+        if_(ret(Effect._properties), 4).eq(-1).then(set_(ret(Effect._properties), 4).to(0)),
         set_repeat(ret(Effect._selected_unit_ref_ids)).from_(ret(Effect._properties), 4)
     ]
 
@@ -32,7 +33,7 @@ class Effect(BaseStruct, CanBeLinked):
     _message: str                     = Retriever(nt_str32,     default = "")
     _sound_name: str                  = Retriever(nt_str32,     default = "")
     # this list starts in 1.20, previous versions use the _properties[4] as the singular selected unit ID
-    _selected_unit_ref_ids: list[int] = Retriever(Array32[i32], default = -1, repeat = 0)
+    _selected_unit_ref_ids: list[int] = Retriever(i32,          default = -1, repeat = 0)
     _message_option1: str             = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
     _message_option2: str             = Retriever(nt_str32,     default = "", min_ver = Version(3, 9))
 

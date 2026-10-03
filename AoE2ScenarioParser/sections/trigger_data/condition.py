@@ -13,7 +13,7 @@ class Condition(BaseStruct, CanBeLinked, CanHoldUnits):
 
     # @formatter:off
     _type: int                               = Retriever(i32,          default = 0)
-    _properties: list[int]                   = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*33)
+    _properties: list[int]                   = Retriever(Array32[i32], default_factory = lambda _ver: [-1]*34)
     _message: str                            = Retriever(str32,        default = "", min_ver = Version(2, 3))
 
     _quantity: int                           = RetrieverRef(ret(_properties),  0)
@@ -57,4 +57,5 @@ class Condition(BaseStruct, CanBeLinked, CanHoldUnits):
     _local_technology_id: int               = RetrieverRef(ret(_properties), 30)
     _object_group2: int                     = RetrieverRef(ret(_properties), 31)
     _object_type2: int                      = RetrieverRef(ret(_properties), 32)
+    _allow_in_fog: int                      = RetrieverRef(ret(_properties), 33)
     # @formatter:on

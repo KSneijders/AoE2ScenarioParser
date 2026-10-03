@@ -28,9 +28,7 @@ class HasSelectedUnitsAttribute:
         for unit in new_units:
             unit._add_trigger_artifact_reference(self)
 
-        self._selected_unit_ref_ids.clear()
-        for unit in self._selected_units:
-            self._selected_unit_ref_ids.append(unit.reference_id)
+        self._selected_unit_ref_ids = [unit.reference_id for unit in self._selected_units]
 
     def add_selected_unit(self, value: Unit):
         self.selected_units = (*self.selected_units, value)

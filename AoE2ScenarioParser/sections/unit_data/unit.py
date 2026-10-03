@@ -4,7 +4,7 @@ from math import floor
 from typing import TYPE_CHECKING
 
 from bfp_rs import BaseStruct, Retriever, Version
-from bfp_rs.types.le import f32, i32, str32, u16, u8
+from bfp_rs.types.le import f32, i32, i8, str32, u16, u8
 
 from AoE2ScenarioParser.concerns import CanBeLinked, CanBeReferencedByTriggerArtifacts, CanHoldUnits
 from AoE2ScenarioParser.datasets.buildings import BuildingInfo
@@ -41,6 +41,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
     frame: int                   = Retriever(u16,   min_ver = Version(1, 15), default = 0)
     _garrisoned_in_unit_ref: int = Retriever(i32,   min_ver = Version(1, 13), default = -1)
     """Another unit's reference_id. -1 (and 0 for v1.13 to 1.20) means None"""
+    capture_flag: int            = Retriever(i8,    min_ver = Version(1, 59), default = -1)
     caption_string_id: int       = Retriever(i32,   min_ver = Version(1, 54), default = -1)
     caption_string: str          = Retriever(str32, min_ver = Version(1, 55), default = "")
     # @formatter:on
@@ -54,6 +55,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
         state: int = 2,
         rotation: float = 0,
         frame: int = 0,
+        capture_flag: int = -1,
         caption_string_id: int = -1,
         caption_string: str = '',
         reference_id: int = -1,
@@ -69,6 +71,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
             state: State identifier of the object. Defaults to 2.
             rotation: Rotation angle of the object. Defaults to 0.
             frame: Frame identifier for animation or state. Defaults to 0.
+            capture_flag: Capture flag identifier for the object. Defaults to -1.
             caption_string_id: Identifier for the caption string. Defaults to -1.
             caption_string: Caption string associated with the object. Defaults to an empty string.
             reference_id: General reference ID associated with the object. Defaults to -1.
@@ -87,6 +90,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
         self.state = state
         self.rotation = rotation
         self.frame = frame
+        self.capture_flag = capture_flag
         self.caption_string_id = caption_string_id
         self.caption_string = caption_string
         self.reference_id = reference_id
@@ -295,6 +299,7 @@ class Unit(BaseStruct, CanHoldUnits, CanBeLinked, CanBeReferencedByTriggerArtifa
             "state":             self.state,
             "rotation":          self.rotation,
             "frame":             self.frame,
+            "capture_flag":      self.capture_flag,
             "caption_string_id": self.caption_string_id,
             "caption_string":    self.caption_string,
             "reference_id":      self.reference_id,
