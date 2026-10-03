@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import math
 
-from AoE2ScenarioParser.datasets.player_data import Player
+from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectState
+from AoE2ScenarioParser.datasets.trigger_lists.capture_flag import CaptureFlag
 from AoE2ScenarioParser.helper import helper
 from AoE2ScenarioParser.helper.helper import raise_if_not_int_subclass
 from AoE2ScenarioParser.helper.pretty_format import pretty_format_name
@@ -31,6 +33,7 @@ class Unit(AoE2Object):
             RetrieverObjectLink("rotation"),
             RetrieverObjectLink("initial_animation_frame"),
             RetrieverObjectLink("garrisoned_in_id"),
+            RetrieverObjectLink("capture_flag", support=Support(since=1.59)),
             RetrieverObjectLink("caption_string_id", support=Support(since=1.54)),
             RetrieverObjectLink("caption_string", support=Support(since=1.55)),
         ])
@@ -42,12 +45,13 @@ class Unit(AoE2Object):
             x: float,
             y: float,
             z: float,
-            id: int,
-            type: int,
-            status: int,
+            reference_id: int,
+            unit_const: int,
+            status: int | ObjectState,
             rotation: float,
             initial_animation_frame: int,
             garrisoned_in_id: int = -1,
+            capture_flag: int | CaptureFlag = -1,
             caption_string_id: int = -1,
             caption_string: str = '',
             **kwargs
@@ -60,12 +64,13 @@ class Unit(AoE2Object):
         self.x: float = x
         self.y: float = y
         self.z: float = z
-        self.id: int = id
-        self.type: int = type
-        self.status: int = status
+        self.reference_id: int = reference_id
+        self.unit_const: int = unit_const
+        self.status: int | ObjectState = status
         self.rotation: float = rotation
         self.initial_animation_frame: int = initial_animation_frame
         self.garrisoned_in_id: int = garrisoned_in_id
+        self.capture_flag: int | CaptureFlag = capture_flag
         self.caption_string_id: int = caption_string_id
         self.caption_string: str = caption_string
 
@@ -111,6 +116,7 @@ class Unit(AoE2Object):
             'rotation=' + str(self.rotation),
             'initial_animation_frame=' + str(self.initial_animation_frame),
             ('garrisoned_in_id=' + str(self.garrisoned_in_id)) if self.garrisoned_in_id != -1 else None,
+            ('capture_flag=' + str(self.capture_flag)) if self.capture_flag != -1 else None,
             ('caption_string_id=' + str(self.caption_string_id)) if self.caption_string_id != -1 else None,
             ('caption_string=' + self.caption_string) if self.caption_string != '' else None,
         ]

@@ -54,6 +54,7 @@ class Condition(AoE2Object, TriggerComponent):
             RetrieverObjectLink("local_technology", support=Support(since=1.55)),
             RetrieverObjectLink("object_group2", support=Support(since=1.55)),
             RetrieverObjectLink("object_type2", support=Support(since=1.55)),
+            RetrieverObjectLink("allow_in_fog", support=Support(since=1.59)),
             RetrieverObjectLink("xs_function", support=Support(since=1.40)),
             RetrieverObjectLink("_cond_filler_0", support=Support(since=1.54, until=1.54)),
         ])
@@ -93,6 +94,7 @@ class Condition(AoE2Object, TriggerComponent):
             local_technology: int = None,
             object_group2: int = None,
             object_type2: int = None,
+            allow_in_fog: int = None,
             xs_function: str = None,
             id: int = -1,
             **kwargs
@@ -132,6 +134,7 @@ class Condition(AoE2Object, TriggerComponent):
         self.local_technology: int = local_technology
         self.object_group2: int = object_group2
         self.object_type2: int = object_type2
+        self.allow_in_fog: int = allow_in_fog
         self.xs_function: str = xs_function
         self.id: int = id
 

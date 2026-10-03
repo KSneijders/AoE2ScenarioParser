@@ -7,6 +7,115 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.4 - 2026-October-02
+
+### Fixes
+
+- Some official co-op campaign scenarios failing to parse — Reported in [#133](https://github.com/KSneijders/AoE2ScenarioParser/issues/133)
+
+---
+
+## 0.9.3 - 2026-October-02
+
+### Fixes
+
+- Disabled techs, units and buildings only supporting the first 8 players instead of all 16
+
+---
+
+## 0.9.2 - 2026-September-29
+
+### Fixes
+
+- The `ObjectModifyAttributeState` dataset values `MODIFIED` and `NOT_MODIFIED` being the wrong way around
+
+---
+
+## 0.9.1 - 2026-September-27
+
+### Fixes
+
+- `LATEST_VERSION` not being increased to 1.59
+
+---
+
+## 0.9.0 - 2026-September-27
+
+Official support for the new 1.59 scenarios! — Credits: by [@Alian713] in [#134](https://github.com/KSneijders/AoE2ScenarioParser/pull/134)
+
+### Adds
+
+- A new dataset `CaptureFlag` — used when creating/cloning units
+- New attribute in the `Object Visible (Multiplayer)` condition: `allow_in_fog`
+- New civilizations to the `Civilization` dataset:
+  - `SAXONS = "SAXONS-CIV"`
+  - `VARANGIANS = "VARANGIANS-CIV"`
+  - `DANES = "DANES-CIV"`
+- **64** new `ObjectAttribute` entries
+- New shorthand aliases in the `Comparison` dataset: `EQ`, `LT`, `GT`, `LEQ`, `GEQ` — Makes Alian happy!
+- Support for the Xs-Check `v0.2.30` — View the `v0.2.30` release here: https://github.com/Divy1211/xs-check/releases/tag/v0.2.30
+- A log entry showing the ASP version when reading a scenario
+
+### Updates
+
+- `ObjectState` dataset (UGC Page: [Attributes](https://ugc.aoe2.rocks/general/attributes/attributes/))
+  - Now also used in the `Remove Object` effect and unit creation (previously only the `Object in Area` condition)
+  - **BREAKING CHANGES** — Reworked entries to match the in-game values
+    - `RESOURCE` (`3`) → `DEAD` (`3`)
+    - `DYING` (`4`) → `ALMOST_DEAD` (`4`)
+    - `DEAD` (`5`) → `REALLY_DEAD` (`5`)
+    - Introduces `GOING = 8`
+- `ObjectAttribute` dataset (UGC Page: [Attributes](https://ugc.aoe2.rocks/general/attributes/attributes/))
+  - Improves descriptions
+- `Attribute` dataset (UGC Page: [Resources](https://ugc.aoe2.rocks/general/resources/resources/))
+  - Improves descriptions
+  - **BREAKING CHANGES** — Updated Entry names
+    - `UNUSED_RESOURCE_018` → `CIVILIZATION_VOICE_OVERRIDE`
+    - `UNUSED_RESOURCE_73` → `WAYPOINT_SPRITE_GRAPHIC_ID`
+    - `UNUSED_RESOURCE_102` → `NAVAL_TRADE_WOOD`
+    - `HUN_WONDER_DISCOUNT` → `WONDER_TIME_MODIFIER`
+    - `UNUSED_RESOURCE_198` → `RELIC_TIME_MODIFIER`
+    - `UNUSED_RESOURCE_215` → `BONUS_FORAGER_FOOD`
+    - `UNUSED_RESOURCE_275` → `FYRD_DISCOUNT_LEVEL`
+    - `UNUSED_RESOURCE_276` → `BONUS_GOLD_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_278` → `RAZING_BOUNTY`
+    - `CHOPPING_FOOD_PRODUCTIVITY_UNUSED` → `RAZING_PILLAGE`
+    - `UNUSED_RESOURCE_295` → `UNIT_REFUND`
+    - `UNUSED_RESOURCE_296` → `FORAGER_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_297` → `VARANGIAN_GOLD_GENERATION`
+    - `UNUSED_RESOURCE_298` → `BUTCHER_GOLD_PRODUCTIVITY`
+    - `UNUSED_RESOURCE_299` → `BONUS_FOOD_PRODUCTIVITY`
+    - `TRADE_WOOD_PERCENTAGE` → `WOOD_TRADE_RATIO`
+    - `UNKNOWN_RESOURCE_508` → `FORTIFIED_OUTPOST_LOCAL_UPGRADE`
+    - `BUILDING_LOOT_PRODUCTIVITY` → `MERCENARY_HOPLITE_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_510` → `ODOMANTIAN_RAIDERS_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_511` → `DII_PLUNDERERS_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_512` → `STONE_MINING_FOOD_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_513` → `EMPLACEMENT_LOCAL_UPGRADE`
+    - `UNKNOWN_RESOURCE_514` → `HELEPOLIS_LIMIT`
+    - `UNKNOWN_RESOURCE_515` → `SCYTHIAN_HORSE_ARCHER_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_520` → `LYSANDERS_RAIDER_PRODUCTIVITY`
+    - `CASTLE_GOLD_PRODUCTIVITY` → `PELOPONNESIAN_LEAGUE_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_522` → `BASE_HOPLITE_AURA_ENABLED`
+    - `UNKNOWN_RESOURCE_523` → `AGOGE_HOPLITE_AURA_ENABLED`
+    - `UNKNOWN_RESOURCE_524` → `XYPHOS_HOPLITE_AURA_ENABLED`
+    - `UNKNOWN_RESOURCE_525` → `BASE_STRATEGOS_AURA_ENABLED`
+    - `UNKNOWN_RESOURCE_526` → `TAXIARCHS_STRATEGOS_AURA_ENABLED`
+    - `UNKNOWN_RESOURCE_527` → `HIPPEUS_AURA_NO_TECH`
+    - `UNKNOWN_RESOURCE_528` → `HIPPEUS_AURA_WITH_TECHS`
+    - `UNKNOWN_RESOURCE_550` → `CAMEL_RAIDER_PRODUCTIVITY`
+    - `UNIT_LOOT_PRODUCTIVITY` → `TYRANNY_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_560` → `ENDS_OF_THE_WORLD_PRODUCTIVITY`
+    - `UNKNOWN_RESOURCE_561` → `PATTIYODHA_LONGBOWMAN_DEFAULT`
+    - `UNKNOWN_RESOURCE_562` → `PATTIYODHA_LONGBOWMAN_UPGRADED`
+    - `UNKNOWN_RESOURCE_563` → `SHEPHERD_GOLD_PRODUCTIVITY`
+
+### Fixes
+
+- Setting a civilization value that is unsupported by the scenario version now raises a clear `ValueError` instead of a `KeyError`
+
+---
+
 ## 0.8.4 - 2026-August-14
 
 ### Adds 

@@ -737,9 +737,17 @@
                             "self:disabled_tech_ids_player_5",
                             "self:disabled_tech_ids_player_6",
                             "self:disabled_tech_ids_player_7",
-                            "self:disabled_tech_ids_player_8"
+                            "self:disabled_tech_ids_player_8",
+                            "self:disabled_tech_ids_player_9",
+                            "self:disabled_tech_ids_player_10",
+                            "self:disabled_tech_ids_player_11",
+                            "self:disabled_tech_ids_player_12",
+                            "self:disabled_tech_ids_player_13",
+                            "self:disabled_tech_ids_player_14",
+                            "self:disabled_tech_ids_player_15",
+                            "self:disabled_tech_ids_player_16"
                         ],
-                        "eval": "[len(x) for x in [disabled_tech_ids_player_1, disabled_tech_ids_player_2, disabled_tech_ids_player_3, disabled_tech_ids_player_4, disabled_tech_ids_player_5, disabled_tech_ids_player_6, disabled_tech_ids_player_7, disabled_tech_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
+                        "eval": "[len(x) for x in [disabled_tech_ids_player_1, disabled_tech_ids_player_2, disabled_tech_ids_player_3, disabled_tech_ids_player_4, disabled_tech_ids_player_5, disabled_tech_ids_player_6, disabled_tech_ids_player_7, disabled_tech_ids_player_8, disabled_tech_ids_player_9, disabled_tech_ids_player_10, disabled_tech_ids_player_11, disabled_tech_ids_player_12, disabled_tech_ids_player_13, disabled_tech_ids_player_14, disabled_tech_ids_player_15, disabled_tech_ids_player_16]]"
                     }
                 }
             },
@@ -851,6 +859,110 @@
                     }
                 }
             },
+            "disabled_tech_ids_player_9": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[8]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_10": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[9]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_11": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[10]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_12": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[11]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_13": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[12]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_14": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[13]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_15": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[14]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_tech_ids_player_16": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_techs",
+                        "eval": "per_player_number_of_disabled_techs[15]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
             "per_player_number_of_disabled_units": {
                 "type": "u32",
                 "repeat": 16,
@@ -865,9 +977,17 @@
                             "self:disabled_unit_ids_player_5",
                             "self:disabled_unit_ids_player_6",
                             "self:disabled_unit_ids_player_7",
-                            "self:disabled_unit_ids_player_8"
+                            "self:disabled_unit_ids_player_8",
+                            "self:disabled_unit_ids_player_9",
+                            "self:disabled_unit_ids_player_10",
+                            "self:disabled_unit_ids_player_11",
+                            "self:disabled_unit_ids_player_12",
+                            "self:disabled_unit_ids_player_13",
+                            "self:disabled_unit_ids_player_14",
+                            "self:disabled_unit_ids_player_15",
+                            "self:disabled_unit_ids_player_16"
                         ],
-                        "eval": "[len(x) for x in [disabled_unit_ids_player_1, disabled_unit_ids_player_2, disabled_unit_ids_player_3, disabled_unit_ids_player_4, disabled_unit_ids_player_5, disabled_unit_ids_player_6, disabled_unit_ids_player_7, disabled_unit_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
+                        "eval": "[len(x) for x in [disabled_unit_ids_player_1, disabled_unit_ids_player_2, disabled_unit_ids_player_3, disabled_unit_ids_player_4, disabled_unit_ids_player_5, disabled_unit_ids_player_6, disabled_unit_ids_player_7, disabled_unit_ids_player_8, disabled_unit_ids_player_9, disabled_unit_ids_player_10, disabled_unit_ids_player_11, disabled_unit_ids_player_12, disabled_unit_ids_player_13, disabled_unit_ids_player_14, disabled_unit_ids_player_15, disabled_unit_ids_player_16]]"
                     }
                 }
             },
@@ -979,6 +1099,110 @@
                     }
                 }
             },
+            "disabled_unit_ids_player_9": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[8]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_10": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[9]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_11": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[10]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_12": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[11]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_13": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[12]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_14": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[13]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_15": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[14]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_unit_ids_player_16": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_units",
+                        "eval": "per_player_number_of_disabled_units[15]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
             "per_player_number_of_disabled_buildings": {
                 "type": "u32",
                 "repeat": 16,
@@ -993,9 +1217,17 @@
                             "self:disabled_building_ids_player_5",
                             "self:disabled_building_ids_player_6",
                             "self:disabled_building_ids_player_7",
-                            "self:disabled_building_ids_player_8"
+                            "self:disabled_building_ids_player_8",
+                            "self:disabled_building_ids_player_9",
+                            "self:disabled_building_ids_player_10",
+                            "self:disabled_building_ids_player_11",
+                            "self:disabled_building_ids_player_12",
+                            "self:disabled_building_ids_player_13",
+                            "self:disabled_building_ids_player_14",
+                            "self:disabled_building_ids_player_15",
+                            "self:disabled_building_ids_player_16"
                         ],
-                        "eval": "[len(x) for x in [disabled_building_ids_player_1, disabled_building_ids_player_2, disabled_building_ids_player_3, disabled_building_ids_player_4, disabled_building_ids_player_5, disabled_building_ids_player_6, disabled_building_ids_player_7, disabled_building_ids_player_8]] + [0, 0, 0, 0, 0, 0, 0, 0]"
+                        "eval": "[len(x) for x in [disabled_building_ids_player_1, disabled_building_ids_player_2, disabled_building_ids_player_3, disabled_building_ids_player_4, disabled_building_ids_player_5, disabled_building_ids_player_6, disabled_building_ids_player_7, disabled_building_ids_player_8, disabled_building_ids_player_9, disabled_building_ids_player_10, disabled_building_ids_player_11, disabled_building_ids_player_12, disabled_building_ids_player_13, disabled_building_ids_player_14, disabled_building_ids_player_15, disabled_building_ids_player_16]]"
                     }
                 }
             },
@@ -1101,6 +1333,110 @@
                         "action": "SET_REPEAT",
                         "target": "self:per_player_number_of_disabled_buildings",
                         "eval": "per_player_number_of_disabled_buildings[7]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_9": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[8]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_10": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[9]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_11": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[10]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_12": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[11]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_13": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[12]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_14": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[13]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_15": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[14]"
+                    },
+                    "on_construct": {
+                        "action": "REFRESH_SELF"
+                    }
+                }
+            },
+            "disabled_building_ids_player_16": {
+                "type": "u32",
+                "dependencies": {
+                    "on_refresh": {
+                        "action": "SET_REPEAT",
+                        "target": "self:per_player_number_of_disabled_buildings",
+                        "eval": "per_player_number_of_disabled_buildings[15]"
                     },
                     "on_construct": {
                         "action": "REFRESH_SELF"

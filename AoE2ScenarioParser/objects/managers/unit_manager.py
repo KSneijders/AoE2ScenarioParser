@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import List, Tuple,  Union, Iterator
 
-from AoE2ScenarioParser.datasets.player_data import Player
-from AoE2ScenarioParser.helper.list_functions import listify
+from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.trigger_lists import ObjectState, CaptureFlag
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.unit import Unit
 from AoE2ScenarioParser.objects.data_objects.units.player_units import PlayerUnits
@@ -67,8 +67,9 @@ class UnitManager(AoE2Object):
             z: float = None,
             rotation: float = None,
             garrisoned_in_id: int = None,
+            capture_flag: int | CaptureFlag = None,
             animation_frame: int = None,
-            status: int = None,
+            status: int | ObjectState = None,
             reference_id: int = None,
             tile: Tile | Tuple[int, int] = None,
     ) -> Unit:
@@ -85,6 +86,7 @@ class UnitManager(AoE2Object):
             z: The Z coordinate of the cloned unit (If not provided, the original z coordinate will be used)
             rotation: The rotation of the cloned unit (If not provided, the original rotation will be used)
             garrisoned_in_id: The id of the garrisoned unit (If not provided, the original garrisoned id will be used)
+            capture_flag: The capture flag of the unit unit (If not provided, the original garrisoned id will be used)
             animation_frame: The animation frame of the cloned unit (If not provided, the original animation frame will be used)
             status: The status of the cloned unit (If not provided, the original status will be used)
             reference_id: Reference id of the cloned unit (If not provided, a new reference id will be generated)
@@ -105,6 +107,7 @@ class UnitManager(AoE2Object):
             z=z or unit.z,
             rotation=rotation or unit.rotation,
             garrisoned_in_id=garrisoned_in_id or unit.garrisoned_in_id,
+            capture_flag=capture_flag or unit.capture_flag,
             animation_frame=animation_frame or unit.initial_animation_frame,
             status=status or unit.status,
             reference_id=reference_id,
@@ -121,8 +124,9 @@ class UnitManager(AoE2Object):
             rotation: float = 0,
             garrisoned_in_id: int = -1,
             animation_frame: int = 0,
-            status: int = 2,
-            id: int = None,
+            status: int | ObjectState = 2,
+            reference_id: int = None,
+            capture_flag: int | CaptureFlag = CaptureFlag.DEFAULT,
             caption_string_id: int = -1,
             caption_string: str = '',
             tile: Tile | Tuple[int, int] = None,
@@ -142,8 +146,9 @@ class UnitManager(AoE2Object):
             status: Unknown - Always 2. 0-6 no difference (?) | 7-255 makes it disappear. (Except from the mini-map)
             id: The reference ID of this unit. Normally added automatically. Used for garrisoning or reference
                 in triggers
+            capture_flag: Capture flag
             caption_string_id: A string ID for the caption of a unit (mut. exclusive to caption_string)
-            caption_string: A string for the caption of a unit (mut. exclusive to caption_string_id)
+            caption_string: A string for the caption of a unit (overrides, mut. exclusive to caption_string_id)
             tile: An object that represents a tile on the map. Replaces parameters x and y. Also, automatically adds
                 .5 to both ints to place the unit centered on the tile.
 
@@ -153,11 +158,15 @@ class UnitManager(AoE2Object):
         if id is None:
             id = self.get_new_unit_id()
 
-        caption_string_id_retriever = Unit._link_list[1].group[9]
+        capture_flag_retriever = Unit._link_list[1].group[9]
+        if not capture_flag_retriever.support.supports(self.get_scenario().scenario_version):
+            capture_flag = None
+
+        caption_string_id_retriever = Unit._link_list[1].group[10]
         if not caption_string_id_retriever.support.supports(self.get_scenario().scenario_version):
             caption_string_id = None
 
-        caption_string_retriever = Unit._link_list[1].group[10]
+        caption_string_retriever = Unit._link_list[1].group[11]
         if not caption_string_retriever.support.supports(self.get_scenario().scenario_version):
             caption_string = None
 
@@ -172,6 +181,7 @@ class UnitManager(AoE2Object):
             rotation=rotation,
             initial_animation_frame=animation_frame,
             garrisoned_in_id=garrisoned_in_id,
+            capture_flag=capture_flag,
             caption_string_id=caption_string_id,
             caption_string=caption_string,
             uuid=self._uuid
