@@ -221,6 +221,51 @@ class TestArea(TestCase):
         self.area.width(6)  # increase 4
         self.assertEqual(((5, 8), (10, 8)), self.area.get_selection())
 
+    def test_area_width_anchored(self):
+        self.area.select(5, 5, 9, 9)
+        self.area.width(3, anchor='x1')
+        self.assertEqual(((5, 5), (7, 9)), self.area.get_selection())
+        self.area.width(8, anchor='x2')
+        self.assertEqual(((0, 5), (7, 9)), self.area.get_selection())
+
+        self.assertRaises(ValueError, lambda: self.area.width(3, anchor='y1'))
+
+    def test_area_width_anchored_clamped(self):
+        max_ = self.area.maximum_coordinate
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (max_, 9)), self.area.copy().width(300, anchor='x1').get_selection())
+        self.assertEqual(((0, 5), (9, 9)), self.area.copy().width(300, anchor='x2').get_selection())
+
+    def test_area_height_anchored(self):
+        self.area.select(5, 5, 9, 9)
+        self.area.height(2, anchor='y2')
+        self.assertEqual(((5, 8), (9, 9)), self.area.get_selection())
+        self.area.height(4, anchor='y1')
+        self.assertEqual(((5, 8), (9, 11)), self.area.get_selection())
+
+    def test_area_height_anchored_clamped(self):
+        max_ = self.area.maximum_coordinate
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (9, max_)), self.area.copy().height(300, anchor='y1').get_selection())
+        self.assertEqual(((5, 0), (9, 9)), self.area.copy().height(300, anchor='y2').get_selection())
+
+    def test_area_size_anchored(self):
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (7, 7)), self.area.copy().size(3, anchor='west').get_selection())
+        self.assertEqual(((7, 5), (9, 7)), self.area.copy().size(3, anchor='north').get_selection())
+        self.assertEqual(((7, 7), (9, 9)), self.area.copy().size(3, anchor='east').get_selection())
+        self.assertEqual(((5, 7), (7, 9)), self.area.copy().size(3, anchor='south').get_selection())
+
+        self.assertRaises(ValueError, lambda: self.area.size(3, anchor='x1'))
+
+    def test_area_size_anchored_clamped(self):
+        max_ = self.area.maximum_coordinate
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (max_, max_)), self.area.copy().size(300, anchor='west').get_selection())
+        self.assertEqual(((0, 5), (9, max_)), self.area.copy().size(300, anchor='north').get_selection())
+        self.assertEqual(((0, 0), (9, 9)), self.area.copy().size(300, anchor='east').get_selection())
+        self.assertEqual(((5, 0), (max_, 9)), self.area.copy().size(300, anchor='south').get_selection())
+
     def test_area_use_full(self):
         self.area.use_full()
         self.assertEqual(AreaState.FULL, self.area.state)
