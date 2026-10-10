@@ -8,7 +8,7 @@ from AoE2ScenarioParser.datasets.conditions import ConditionId
 from AoE2ScenarioParser.datasets.effects import EffectId
 from AoE2ScenarioParser.exceptions.asp_exceptions import UnsupportedAttributeError
 from AoE2ScenarioParser.helper.helper import mutually_exclusive
-from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list
+from AoE2ScenarioParser.helper.list_functions import list_changed, update_order_array, hash_list, remove_from_order_array
 from AoE2ScenarioParser.helper.string_manipulations import add_tabs
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
@@ -287,8 +287,8 @@ class Trigger(AoE2Object, TriggerComponent):
 
         del self.effects[effect_index]
 
-        # Forces lazy-loading of effect order to update
-        _ = self.effect_order
+        remove_from_order_array(self._effect_order, effect_index)
+        self._effect_hash = hash_list(self.effects)
 
     def remove_condition(self, condition_index: int = None, display_index: int = None, condition: Condition = None) \
             -> None:
@@ -317,8 +317,8 @@ class Trigger(AoE2Object, TriggerComponent):
 
         del self.conditions[condition_index]
 
-        # Forces lazy-loading of effect order to update
-        _ = self.condition_order
+        remove_from_order_array(self._condition_order, condition_index)
+        self._condition_hash = hash_list(self.conditions)
 
     def get_content_as_string(self, include_trigger_definition: bool = False) -> str:
         """
