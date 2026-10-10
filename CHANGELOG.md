@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.5 - 2026-October-10
+
+### Adds
+
+- `anchor` parameter to `Area.width()`, `Area.height()` and `Area.size()`
+- `Area.select_raw()` which does not resolve negative coordinates
+
+### Updates
+
+- `Area.select()` now also resolves negative `x1` and `y1` (Technically: **BREAKING CHANGE**) 
+
+---
+
 ## 0.9.4 - 2026-October-02
 
 ### Fixes
