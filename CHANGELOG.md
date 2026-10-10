@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.5 - 2026-October-10
+
+### Adds
+
+- `anchor` parameter to `Area.width()`, `Area.height()` and `Area.size()`
+- `Area.select_raw()` which does not resolve negative coordinates
+- `personality`, `ai_type` and `ai_script` attributes to `Player` — Credits: by [@UnluckyForSome] in [#127](https://github.com/KSneijders/AoE2ScenarioParser/pull/127)
+- `Player.set_custom_ai()` and `Player.set_none_ai()`
+- A new dataset `AiType`
+
+### Updates
+
+- `Area.select()` now also resolves negative `x1` and `y1` (Technically: **BREAKING CHANGE**) 
+
+[@UnluckyForSome]: https://github.com/UnluckyForSome
+
+---
+
 ## 0.9.4 - 2026-October-02
 
 ### Fixes

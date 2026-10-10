@@ -73,7 +73,7 @@ class DataTriggers:
 
     def _create_area(self, ce: 'Condition' | 'Effect') -> Optional[Area]:
         if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
-            return actions.new_area_object(self._uuid).select(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
+            return actions.new_area_object(self._uuid).select_raw(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
 
     def _create_tiles(self, ce: 'Condition' | 'Effect') -> Optional[List[Tile]]:
         tiles = []

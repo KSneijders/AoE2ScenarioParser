@@ -10,6 +10,7 @@ from ordered_set import OrderedSet
 
 from AoE2ScenarioParser.exceptions.asp_warnings import UuidForcedUnlinkWarning
 from AoE2ScenarioParser.helper.helper import xy_to_i, validate_coords, values_are_valid, value_is_valid
+from AoE2ScenarioParser.helper.maffs import clamp
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.support.tile import Tile
 from AoE2ScenarioParser.scenarios.scenario_store import getters
@@ -550,39 +551,91 @@ class Area:
 
         return self
 
-    def size(self, n: int) -> Area:
+    def size(self, n: int, anchor: Literal['west', 'north', 'east', 'south'] | None = None) -> Area:
         """
-        Sets the selection to a size around the center. If center is (4,4) with a size of 3 the selection will become
-        ``((3,3), (5,5))``
+        Sets the selection to a size of ``n`` by ``n``.
+
+        Without an anchor, the selection is sized around the center. If center is (4,4) with a size of 3 the selection
+        will become ``((3,3), (5,5))``
+
+        With an anchor, that corner stays in place and only the opposite sides move. If the expansion hits the edge of
+        the map, it's clamped, so the resulting size can be smaller than ``n``.
+
+        Args:
+            n: The new width and height
+            anchor: The corner which should stay in place (``'west'``, ``'north'``, ``'east'`` or ``'south'``)
         """
-        center_x, center_y = self.get_center_int()
-        n -= 1  # Ignore center tile
-        self.x1 = center_x - math.ceil(n / 2)
-        self.y1 = center_y - math.ceil(n / 2)
-        self.x2 = center_x + math.floor(n / 2)
-        self.y2 = center_y + math.floor(n / 2)
+        if anchor is None:
+            center_x, center_y = self.get_center_int()
+            n -= 1  # Ignore center tile
+            self.x1 = center_x - math.ceil(n / 2)
+            self.y1 = center_y - math.ceil(n / 2)
+            self.x2 = center_x + math.floor(n / 2)
+            self.y2 = center_y + math.floor(n / 2)
+            return self
+
+        corner_anchors = {
+            'west': ('x1', 'y1'),
+            'north': ('x2', 'y1'),
+            'east': ('x2', 'y2'),
+            'south': ('x1', 'y2'),
+        }
+        if anchor not in corner_anchors:
+            raise ValueError(f"Invalid anchor '{anchor}', expected 'west', 'north', 'east', 'south' or None")
+
+        anchor_x, anchor_y = corner_anchors[anchor]
+        return self.width(n, anchor=anchor_x).height(n, anchor=anchor_y)
+
+    def height(self, n: int, anchor: Literal['y1', 'y2'] | None = None) -> Area:
+        """
+        Sets the height (y-axis) of the selection.
+
+        Without an anchor, both sides shrink/expand equally. If the expansion hits the edge of the map, it'll expand
+        on the other side.
+
+        With an anchor, that side stays in place and only the other side moves. If the expansion hits the edge of
+        the map, it's clamped, so the resulting height can be smaller than ``n``.
+
+        Args:
+            n: The new height
+            anchor: The side which should stay in place (``'y1'`` or ``'y2'``)
+        """
+        if anchor == 'y1':
+            self.y2 = clamp(self.y1 + n - 1, 0, self.maximum_coordinate)
+        elif anchor == 'y2':
+            self.y1 = clamp(self.y2 - n + 1, 0, self.maximum_coordinate)
+        elif anchor is None:
+            c1, c2 = self._get_length_change(n, self.get_height(), self.y1, self.y2)
+            self.y1 = self._y1 + c1
+            self.y2 = self._y2 + c2
+        else:
+            raise ValueError(f"Invalid anchor '{anchor}', expected 'y1', 'y2' or None")
         return self
 
-    def height(self, n: int) -> Area:
+    def width(self, n: int, anchor: Literal['x1', 'x2'] | None = None) -> Area:
         """
-        Sets the height (y-axis) of the selection. Shrinks/Expands both sides equally.
-        If the expansion hits the edge of the map, it'll expand on the other side.
-        """
-        c1, c2 = self._get_length_change(n, self.get_height(), self.y1, self.y2)
+        Sets the width (x-axis) of the selection.
 
-        self.y1 = self._y1 + c1
-        self.y2 = self._y2 + c2
-        return self
+        Without an anchor, both sides shrink/expand equally. If the expansion hits the edge of the map, it'll expand
+        on the other side.
 
-    def width(self, n: int) -> Area:
-        """
-        Sets the width (x-axis) of the selection. Shrinks/Expands both sides equally.
-        If the expansion hits the edge of the map, it'll expand on the other side.
-        """
-        c1, c2 = self._get_length_change(n, self.get_width(), self.x1, self.x2)
+        With an anchor, that side stays in place and only the other side moves. If the expansion hits the edge of
+        the map, it's clamped, so the resulting width can be smaller than ``n``.
 
-        self.x1 = self._x1 + c1
-        self.x2 = self._x2 + c2
+        Args:
+            n: The new width
+            anchor: The side which should stay in place (``'x1'`` or ``'x2'``)
+        """
+        if anchor == 'x1':
+            self.x2 = clamp(self.x1 + n - 1, 0, self.maximum_coordinate)
+        elif anchor == 'x2':
+            self.x1 = clamp(self.x2 - n + 1, 0, self.maximum_coordinate)
+        elif anchor is None:
+            c1, c2 = self._get_length_change(n, self.get_width(), self.x1, self.x2)
+            self.x1 = self._x1 + c1
+            self.x2 = self._x2 + c2
+        else:
+            raise ValueError(f"Invalid anchor '{anchor}', expected 'x1', 'x2' or None")
         return self
 
     def center(self, x: int, y: int) -> Area:
@@ -631,23 +684,31 @@ class Area:
         return self
 
     def select(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
-        """Sets the selection to the given coordinates"""
-        x2, y2 = self._negative_coord(x2, y2)
+        """
+        Sets the selection to the given coordinates.
+        Negative coordinates are resolved from the end of the map, so ``-1`` is the last tile on that axis.
+        """
+        x1, y1, x2, y2 = self._negative_coord(x1, y1, x2, y2)
+        return self.select_raw(x1, y1, x2, y2)
 
+    def select_raw(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
+        """
+        Sets the selection to the given coordinates without resolving negative coordinates.
+        A value of ``-1`` is considered unset (like in effects and conditions), so an unset ``x2``/``y2`` falls back to
+        ``x1``/``y1``. Other negative coordinates are kept and considered off-map.
+        """
         self.x1, self.y1, self.x2, self.y2 = validate_coords(x1, y1, x2, y2)
-
         return self
 
     def select_centered(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
         """Sets the selection to the given coordinates"""
         half_x, half_y = (dx - 1) / 2, (dy - 1) / 2
-        self.select(
+        return self.select_raw(
             x1=x - math.ceil(half_x),
             y1=y - math.ceil(half_y),
             x2=x + math.floor(half_x),
             y2=y + math.floor(half_y),
         )
-        return self
 
     def shrink(self, n: int) -> Area:
         """Shrinks the selection from all sides"""

@@ -56,6 +56,25 @@ class TestArea(TestCase):
         self.assertEqual(142, self.area.x2)
         self.assertEqual(2, self.area.y2)
 
+        self.area.select(-5, -5, -1, -1)
+        self.assertEqual(((139, 139), (143, 143)), self.area.get_selection())
+
+        self.area.select(-5, -6)
+        self.assertEqual(((139, 138), (139, 138)), self.area.get_selection())
+
+    def test_area_select_raw(self):
+        self.area.select_raw(10, 11, 20, 22)
+        self.assertEqual(((10, 11), (20, 22)), self.area.get_raw_selection())
+
+        # Negative values are kept as off-map
+        self.area.select_raw(-2, -3, 2, 3)
+        self.assertEqual(((-2, -3), (2, 3)), self.area.get_raw_selection())
+        self.assertEqual(((0, 0), (2, 3)), self.area.get_selection())
+
+        # -1 is considered unset, so x2/y2 fall back to x1/y1
+        self.area.select_raw(5, 6, -1, -1)
+        self.assertEqual(((5, 6), (5, 6)), self.area.get_raw_selection())
+
         self.area.select(1, 2, y2=-2)
         self.assertEqual(1, self.area.x1)
         self.assertEqual(2, self.area.y1)
@@ -85,6 +104,11 @@ class TestArea(TestCase):
         self.assertEqual(3, self.area.y1)
         self.assertEqual(5, self.area.x2)
         self.assertEqual(7, self.area.y2)
+
+        # Off-map tiles near the edge should not wrap around to the end of the map
+        self.area.select_centered(0, 0, 5, 5)
+        self.assertEqual(((-2, -2), (2, 2)), self.area.get_raw_selection())
+        self.assertEqual(((0, 0), (2, 2)), self.area.get_selection())
 
     def test_area_shrink(self):
         self.area.select(10, 11, 20, 22).shrink_x1(5)  # ====== X1 ======
@@ -220,6 +244,51 @@ class TestArea(TestCase):
         self.assertEqual(((7, 8), (8, 8)), self.area.get_selection())
         self.area.width(6)  # increase 4
         self.assertEqual(((5, 8), (10, 8)), self.area.get_selection())
+
+    def test_area_width_anchored(self):
+        self.area.select(5, 5, 9, 9)
+        self.area.width(3, anchor='x1')
+        self.assertEqual(((5, 5), (7, 9)), self.area.get_selection())
+        self.area.width(8, anchor='x2')
+        self.assertEqual(((0, 5), (7, 9)), self.area.get_selection())
+
+        self.assertRaises(ValueError, lambda: self.area.width(3, anchor='y1'))
+
+    def test_area_width_anchored_clamped(self):
+        max_ = self.area.maximum_coordinate
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (max_, 9)), self.area.copy().width(300, anchor='x1').get_selection())
+        self.assertEqual(((0, 5), (9, 9)), self.area.copy().width(300, anchor='x2').get_selection())
+
+    def test_area_height_anchored(self):
+        self.area.select(5, 5, 9, 9)
+        self.area.height(2, anchor='y2')
+        self.assertEqual(((5, 8), (9, 9)), self.area.get_selection())
+        self.area.height(4, anchor='y1')
+        self.assertEqual(((5, 8), (9, 11)), self.area.get_selection())
+
+    def test_area_height_anchored_clamped(self):
+        max_ = self.area.maximum_coordinate
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (9, max_)), self.area.copy().height(300, anchor='y1').get_selection())
+        self.assertEqual(((5, 0), (9, 9)), self.area.copy().height(300, anchor='y2').get_selection())
+
+    def test_area_size_anchored(self):
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (7, 7)), self.area.copy().size(3, anchor='west').get_selection())
+        self.assertEqual(((7, 5), (9, 7)), self.area.copy().size(3, anchor='north').get_selection())
+        self.assertEqual(((7, 7), (9, 9)), self.area.copy().size(3, anchor='east').get_selection())
+        self.assertEqual(((5, 7), (7, 9)), self.area.copy().size(3, anchor='south').get_selection())
+
+        self.assertRaises(ValueError, lambda: self.area.size(3, anchor='x1'))
+
+    def test_area_size_anchored_clamped(self):
+        max_ = self.area.maximum_coordinate
+        self.area.select(5, 5, 9, 9)
+        self.assertEqual(((5, 5), (max_, max_)), self.area.copy().size(300, anchor='west').get_selection())
+        self.assertEqual(((0, 5), (9, max_)), self.area.copy().size(300, anchor='north').get_selection())
+        self.assertEqual(((0, 0), (9, 9)), self.area.copy().size(300, anchor='east').get_selection())
+        self.assertEqual(((5, 0), (max_, 9)), self.area.copy().size(300, anchor='south').get_selection())
 
     def test_area_use_full(self):
         self.area.use_full()

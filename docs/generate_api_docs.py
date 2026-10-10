@@ -71,6 +71,7 @@ GROUPS = [
     ]),
     ("Support", [
         ("AoE2ScenarioParser.objects.support.area",                                 "Area / AreaAttr / AreaState"),
+        ("AoE2ScenarioParser.objects.support.tile",                                 "Tile"),
         ("AoE2ScenarioParser.objects.support.trigger_select",                       "TriggerSelect"),
         ("AoE2ScenarioParser.objects.support.trigger_ce_lock",                      "TriggerCELock"),
         ("AoE2ScenarioParser.objects.support.new_effect",                           "NewEffect"),
@@ -84,7 +85,7 @@ GROUPS = [
         ("AoE2ScenarioParser.datasets.techs",                                       "TechInfo"),
         ("AoE2ScenarioParser.datasets.terrains",                                    "TerrainId"),
         ("AoE2ScenarioParser.datasets.projectiles",                                 "ProjectileInfo"),
-        ("AoE2ScenarioParser.datasets.players",                                     "PlayerId / PlayerColorId / ColorId"),
+        ("AoE2ScenarioParser.datasets.players",                                     "PlayerId / PlayerColorId / ColorId / AiType"),
         ("AoE2ScenarioParser.datasets.conditions",                                  "ConditionId"),
         ("AoE2ScenarioParser.datasets.effects",                                     "EffectId"),
         ("AoE2ScenarioParser.datasets.other",                                       "OtherInfo"),
