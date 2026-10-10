@@ -110,8 +110,7 @@ class XsManager(AoE2Object):
 
         if xs_file_path:
             path = Path(xs_file_path)
-            with path.open() as xs_file:
-                strings[path.name] = xs_file.read()
+            strings[path.name] = path.read_text()
 
         if xs_string:
             strings['XS string'] = xs_string
