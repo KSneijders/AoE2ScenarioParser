@@ -5,7 +5,7 @@ from typing import List, Optional, Iterator, Dict
 from uuid import UUID
 
 from AoE2ScenarioParser.helper.attr_dict import AttrDict
-from AoE2ScenarioParser.helper.helper import values_are_valid, value_is_valid
+from AoE2ScenarioParser.helper.helper import values_are_valid, value_is_valid, validate_coords
 from AoE2ScenarioParser.objects.data_objects.condition import Condition
 from AoE2ScenarioParser.objects.data_objects.effect import Effect
 from AoE2ScenarioParser.objects.data_objects.trigger import Trigger
@@ -73,7 +73,10 @@ class DataTriggers:
 
     def _create_area(self, ce: 'Condition' | 'Effect') -> Optional[Area]:
         if values_are_valid(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2):
-            return actions.new_area_object(self._uuid).select(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
+            # Not using select() as -1 here means an empty field, not 'from the end of the map'
+            area = actions.new_area_object(self._uuid)
+            area.x1, area.y1, area.x2, area.y2 = validate_coords(ce.area_x1, ce.area_y1, ce.area_x2, ce.area_y2)
+            return area
 
     def _create_tiles(self, ce: 'Condition' | 'Effect') -> Optional[List[Tile]]:
         tiles = []

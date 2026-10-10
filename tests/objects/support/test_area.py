@@ -56,6 +56,12 @@ class TestArea(TestCase):
         self.assertEqual(142, self.area.x2)
         self.assertEqual(2, self.area.y2)
 
+        self.area.select(-5, -5, -1, -1)
+        self.assertEqual(((139, 139), (143, 143)), self.area.get_selection())
+
+        self.area.select(-5, -6)
+        self.assertEqual(((139, 138), (139, 138)), self.area.get_selection())
+
         self.area.select(1, 2, y2=-2)
         self.assertEqual(1, self.area.x1)
         self.assertEqual(2, self.area.y1)
@@ -85,6 +91,11 @@ class TestArea(TestCase):
         self.assertEqual(3, self.area.y1)
         self.assertEqual(5, self.area.x2)
         self.assertEqual(7, self.area.y2)
+
+        # Off-map tiles near the edge should not wrap around to the end of the map
+        self.area.select_centered(0, 0, 5, 5)
+        self.assertEqual(((-2, -2), (2, 2)), self.area.get_raw_selection())
+        self.assertEqual(((0, 0), (2, 2)), self.area.get_selection())
 
     def test_area_shrink(self):
         self.area.select(10, 11, 20, 22).shrink_x1(5)  # ====== X1 ======

@@ -684,8 +684,11 @@ class Area:
         return self
 
     def select(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
-        """Sets the selection to the given coordinates"""
-        x2, y2 = self._negative_coord(x2, y2)
+        """
+        Sets the selection to the given coordinates.
+        Negative coordinates are resolved from the end of the map, so ``-1`` is the last tile on that axis.
+        """
+        x1, y1, x2, y2 = self._negative_coord(x1, y1, x2, y2)
 
         self.x1, self.y1, self.x2, self.y2 = validate_coords(x1, y1, x2, y2)
 
@@ -694,7 +697,8 @@ class Area:
     def select_centered(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
         """Sets the selection to the given coordinates"""
         half_x, half_y = (dx - 1) / 2, (dy - 1) / 2
-        self.select(
+        # Not using select() as negative values here mean off-map, not 'from the end of the map'
+        self.x1, self.y1, self.x2, self.y2 = validate_coords(
             x1=x - math.ceil(half_x),
             y1=y - math.ceil(half_y),
             x2=x + math.floor(half_x),
