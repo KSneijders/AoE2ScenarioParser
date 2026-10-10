@@ -1,17 +1,17 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Optional, List
 from uuid import UUID
 
-from AoE2ScenarioParser.scenarios.scenario_store import store
-
-from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value, _DataSet
+from AoE2ScenarioParser.datasets.dataset_enum import dataset_or_value
 from AoE2ScenarioParser.datasets.object_support import StartingAge, Civilization, CivilizationOld
-from AoE2ScenarioParser.datasets.players import PlayerId
+from AoE2ScenarioParser.datasets.players import PlayerId, AiType
 from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
 class Player(AoE2Object):
@@ -97,7 +97,7 @@ class Player(AoE2Object):
         self.gold: int = gold
         self.stone: int = stone
         self.personality: str = personality
-        self.ai_type: int = ai_type
+        self.ai_type: int | AiType = dataset_or_value(AiType, ai_type)
         self.ai_script: str = ai_script
         self.color: int = color
         self.human: bool = human
@@ -173,6 +173,23 @@ class Player(AoE2Object):
         """Read-only value if this player is active or not"""
         return self._active
 
+    def set_none_ai(self):
+        """Sets the personality of this player to None AI"""
+        self.ai_type = AiType.NONE
+        self.personality = "NoneAi"
+        self.ai_script = """(defconst the-maze 0)\n(defrule(true)=>(disable-self))"""
+
+    def set_custom_ai(self, name: str, ai_script: str | None = None, per_file_path: str | None = None):
+        """Sets the personality of this player to your custom AI"""
+        if per_file_path:
+            ai_script = Path(per_file_path).read_text()
+        if ai_script is None:
+            raise ValueError("AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead")
+
+        self.ai_type = AiType.CUSTOM
+        self.personality = name
+        self.ai_script = ai_script
+
     def set_player_diplomacy(self, players: PlayerId | int | List[PlayerId | int], diplomacy: DiplomacyState):
         """
         Set the diplomacy of this player to other players.
@@ -229,7 +246,7 @@ class Player(AoE2Object):
         # Try Except allows custom civ values
         try:
             return to_civilization(value)
-        except (ValueError,  KeyError):
+        except (ValueError, KeyError):
             return value
 
     @staticmethod
