@@ -71,6 +71,7 @@ GROUPS = [
     ]),
     ("Support", [
         ("AoE2ScenarioParser.objects.support.area",                                 "Area / AreaAttr / AreaState"),
+        ("AoE2ScenarioParser.objects.support.tile",                                 "Tile"),
         ("AoE2ScenarioParser.objects.support.trigger_select",                       "TriggerSelect"),
         ("AoE2ScenarioParser.objects.support.trigger_ce_lock",                      "TriggerCELock"),
         ("AoE2ScenarioParser.objects.support.new_effect",                           "NewEffect"),
