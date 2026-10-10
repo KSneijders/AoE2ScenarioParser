@@ -689,22 +689,26 @@ class Area:
         Negative coordinates are resolved from the end of the map, so ``-1`` is the last tile on that axis.
         """
         x1, y1, x2, y2 = self._negative_coord(x1, y1, x2, y2)
+        return self.select_raw(x1, y1, x2, y2)
 
+    def select_raw(self, x1: int, y1: int, x2: int = None, y2: int = None) -> Area:
+        """
+        Sets the selection to the given coordinates without resolving negative coordinates.
+        A value of ``-1`` is considered unset (like in effects and conditions), so an unset ``x2``/``y2`` falls back to
+        ``x1``/``y1``. Other negative coordinates are kept and considered off-map.
+        """
         self.x1, self.y1, self.x2, self.y2 = validate_coords(x1, y1, x2, y2)
-
         return self
 
     def select_centered(self, x: int, y: int, dx: int = 1, dy: int = 1) -> Area:
         """Sets the selection to the given coordinates"""
         half_x, half_y = (dx - 1) / 2, (dy - 1) / 2
-        # Not using select() as negative values here mean off-map, not 'from the end of the map'
-        self.x1, self.y1, self.x2, self.y2 = validate_coords(
+        return self.select_raw(
             x1=x - math.ceil(half_x),
             y1=y - math.ceil(half_y),
             x2=x + math.floor(half_x),
             y2=y + math.floor(half_y),
         )
-        return self
 
     def shrink(self, n: int) -> Area:
         """Shrinks the selection from all sides"""
