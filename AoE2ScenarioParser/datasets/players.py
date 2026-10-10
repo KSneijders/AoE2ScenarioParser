@@ -82,3 +82,12 @@ class ColorId(IntEnum):
         if player_id == 0:
             return ColorId.GRAY
         return ColorId(player_id - 1)
+
+class AiType(IntEnum):
+    """
+    This enum represents the AI personality dropdown options
+    """
+    CUSTOM = 0
+    STANDARD = 1
+    NONE = 2
+    AI_CD_VERSION = 3
