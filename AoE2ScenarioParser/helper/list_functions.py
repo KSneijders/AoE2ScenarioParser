@@ -31,6 +31,17 @@ def update_order_array(order_array: List[int], supposed_length: int) -> None:
         order_array.extend(i for i in range(actual_length, supposed_length))
 
 
+def remove_from_order_array(order_array: List[int], index: int) -> None:
+    """
+    Remove an index from an order array and shift all higher indices down by one, keeping the order intact.
+
+    Args:
+        order_array: The order array like trigger.condition_order
+        index: The index of the removed element in its list (not its position in the order array)
+    """
+    order_array[:] = [i - 1 if i > index else i for i in order_array if i != index]
+
+
 # Written by: Ned Batchelder @ https://stackoverflow.com/a/312464/7230293
 def list_chuncks(lst, n):
     """Yield successive n-sized chunks from lst."""
