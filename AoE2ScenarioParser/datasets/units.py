@@ -78,7 +78,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
                     UnitInfo.VILLAGER_MALE_HERDER,
                     UnitInfo.VILLAGER_MALE_MONASTERY,
-                    UnitInfo.VILLAGER_MALE_REPAIRER_2,
                 ],
                 "female": [
                     UnitInfo.VILLAGER_FEMALE,
@@ -94,7 +93,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_FEMALE_STONE_MINER,
                     UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
                     UnitInfo.VILLAGER_FEMALE_HERDER,
-                    UnitInfo.VILLAGER_FEMALE_REPAIRER_2,
                 ],
             },
         }
@@ -960,8 +958,8 @@ class UnitInfo(InfoDatasetBase):
     ELITE_JARL = 2709, 907, 1628, 16101, False
     JOMSVIKING = 2711, 908, 2, 16101, False
     ELITE_JOMSVIKING = 2712, 909, 2, 16101, False
-    VILLAGER_MALE_REPAIRER_2 = 2714, 330, 225, 16127, False
-    VILLAGER_FEMALE_REPAIRER_2 = 2715, 329, 225, 16127, False
+    REPAIRER_MALE = 2714, 330, 225, 16127, False
+    REPAIRER_FEMALE = 2715, 329, 225, 16127, False
     WHEELED_SHIP = 2730, 40, 435, 16301, False
     SEAL = 2735, 935, 43, 16071, True
     LYNX = 2736, 932, 237, 16075, True
