@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.7 - 2026-October-12
+
+- Datasets for the **Viking Sagas DLC**: by [@mardaravicius] in [#138](https://github.com/KSneijders/AoE2ScenarioParser/pull/138)
+  - Updates `ProjectileInfo` dataset
+  - 8 new entries to `BuildingInfo` (`WOODEN_BRIDGE...`, `LONGHOUSE_...` & `ARMY_TENT_F`)
+  - 8 new entries to `HeroInfo`
+    - **BREAKING CHANGES** — Updated Entry names 
+      - `JARL` → `NORSE_CHIEFTAIN`
+  - 19 new entries to `OtherInfo` (Also includes updates to `OtherInfo.trees()`)
+    - **BREAKING CHANGES** — Updated Entry names 
+      - `WEAPON_STACKS` → `WEAPON_STACKS_A`
+      - `ROCK_1_CAVE_ROOF` → `CAVE_ROCK_1`
+      - `ROCK_2_CAVE_ROOF` → `CAVE_ROCK_2`
+      - `ROCK_FORMATION_1_CAVE_ROOF` → `CAVE_ROCK_FORMATION_1`
+      - `ROCK_JUNGLE_CAVE_ROOF` → `CAVE_ROCK_JUNGLE`
+      - `ROCK_LIMESTONE_CAVE_ROOF` → `CAVE_ROCK_LIMESTONE`
+      - `ROCK_3_CAVE_ROOF` → `CAVE_ROCK_3`
+  - 16 new entries to `TechInfo` (Also includes updates to `TechInfo.unique_techs()`)
+    - Removed `ELITE_LONGBOAT` from `unique_techs`
+    - **BREAKING CHANGES** — Updated Entry names 
+      - `ELITE_LONGBOAT` → `ELITE_LONGSHIP`
+      - `FTT_MOVE_LANCERS` → `FTT_DISABLE_PAPHOS_REGIONALS`
+      - `MULE_CART_GEORGIANS` / `MULE_CART_ARMENIANS` → `MULE_CART_MAKE_AVAILABLE`
+      - `WARRIOR_PRIEST` → `WARRIOR_PRIEST_MAKE_AVAILABLE`
+    - **BREAKING CHANGES** — Removed Entries 
+      - `STONE_MINING_GOLD_GENERATION_INCREASE`
+      - `STONE_SHAFT_MINING_GOLD_GENERATION_INCREASE`
+      - `FORTIFIED_CHURCH_ALL`
+  - 3 new entries to `TerrainId` (Also includes updates to `TerrainId.tree_terrains()`)
+  - 20 new entries to `UnitInfo` (Also includes updates to `UnitInfo.unique_units()`)
+    - Removed `LONGBOAT` & `ELITE_LONGBOAT` from `unique_units` → Now in `regional_units`
+    - Added `UnitInfo.regional_units(...)`
+    - **BREAKING CHANGES** — Updated Entry names 
+      - `LONGBOAT ` → `LONGSHIP `
+      - `ELITE_LONGBOAT ` → `ELITE_LONGSHIP `
+
+---
+
 ## 0.9.6 - 2026-October-10
 
 ### Fixes
@@ -240,7 +278,7 @@ Official support for the new 1.58 scenarios! — Credits: by [@Alian713] in [#12
       - `TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_DOCK` → `TRADE_25_PERCENT_WOOD_75_PERCENT_GOLD_TRADE_COG` 
       - `TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_DOCK` → `TRADE_50_PERCENT_WOOD_50_PERCENT_GOLD_TRADE_COG` 
       - `TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_DOCK` → `TRADE_75_PERCENT_WOOD_25_PERCENT_GOLD_TRADE_COG` 
-  - 2 new entries to `TerrainId` (Also includes updates to `TechInfo.unique_techs()`)
+  - 2 new entries to `TerrainId` (Also includes updates to `TerrainId.tree_terrains()`)
   - 42 new entries to `UnitInfo` (Also includes updates to `UnitInfo.unique_units()`)
     - **BREAKING CHANGES** — Updated Entry names 
       - `MOVEABLE_MAP_REVEALER` → `MOVEABLE_MAP_REVEALER_A`
