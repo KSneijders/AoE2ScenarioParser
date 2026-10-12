@@ -78,6 +78,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_MALE_OYSTER_GATHERER,
                     UnitInfo.VILLAGER_MALE_HERDER,
                     UnitInfo.VILLAGER_MALE_MONASTERY,
+                    UnitInfo.VILLAGER_MALE_REPAIRER_2,
                 ],
                 "female": [
                     UnitInfo.VILLAGER_FEMALE,
@@ -93,6 +94,7 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.VILLAGER_FEMALE_STONE_MINER,
                     UnitInfo.VILLAGER_FEMALE_OYSTER_GATHERER,
                     UnitInfo.VILLAGER_FEMALE_HERDER,
+                    UnitInfo.VILLAGER_FEMALE_REPAIRER_2,
                 ],
             },
         }
@@ -134,7 +136,6 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.BERSERK,
                         UnitInfo.BOYAR,
                         UnitInfo.CAMEL_ARCHER,
-                        UnitInfo.CAMEL_SCOUT,
                         UnitInfo.CATAPHRACT,
                         UnitInfo.CENTURION,
                         UnitInfo.CHAKRAM_THROWER,
@@ -185,6 +186,9 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.KONA,
                         UnitInfo.GUECHA_WARRIOR,
                         UnitInfo.BLACKWOOD_ARCHER,
+                        UnitInfo.HEARTH_TROOP,
+                        UnitInfo.JARL,
+                        UnitInfo.JOMSVIKING,
                     ],
                     "elite": [
                         UnitInfo.ELITE_ARAMBAI,
@@ -241,6 +245,9 @@ class UnitInfo(InfoDatasetBase):
                         UnitInfo.ELITE_KONA,
                         UnitInfo.ELITE_GUECHA_WARRIOR,
                         UnitInfo.ELITE_BLACKWOOD_ARCHER,
+                        UnitInfo.ELITE_HEARTH_TROOP,
+                        UnitInfo.ELITE_JARL,
+                        UnitInfo.ELITE_JOMSVIKING,
                     ]
                 },
                 "non_elite": [
@@ -259,7 +266,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.KONNIK_DISMOUNTED,
                     UnitInfo.KONNIK_KREPOST,
                     UnitInfo.LEGIONARY,
-                    UnitInfo.LONGBOAT,
                     UnitInfo.MISSIONARY,
                     UnitInfo.SAVAR,
                     UnitInfo.SERJEANT_DONJON,
@@ -288,7 +294,6 @@ class UnitInfo(InfoDatasetBase):
                     UnitInfo.ELITE_KIPCHAK_CUMAN_MERCENARIES,
                     UnitInfo.ELITE_KONNIK_DISMOUNTED,
                     UnitInfo.ELITE_KONNIK_KREPOST,
-                    UnitInfo.ELITE_LONGBOAT,
                     UnitInfo.ELITE_SERJEANT_DONJON,
                     UnitInfo.ELITE_SHRIVAMSHA_RIDER,
                     UnitInfo.ELITE_TARKAN_STABLE,
@@ -351,6 +356,97 @@ class UnitInfo(InfoDatasetBase):
                     units_to_return.extend(unique_units[addon]["elite"])
                 if not exclude_castle_units:
                     units_to_return.extend(unique_units[addon]["castle"]["elite"])
+
+        return units_to_return
+
+    @staticmethod
+    def regional_units(
+            exclude_scouts: bool = False,
+            exclude_elite_units: bool = False,
+            exclude_non_elite_units: bool = False,
+            include_chronicles: bool = False,
+    ) -> List[UnitInfo]:
+        """
+        Args:
+            exclude_scouts: if set to `False`, exclude the scout regional units
+            exclude_elite_units: if set to `False`, exclude the elite regional units
+            exclude_non_elite_units: if set to `False`, exclude the non elite regional units
+            include_chronicles: if set to `True`, will include all regional units added in the chronicles dlc
+        Returns:
+            A list of regional unit UniInfo objects
+        """
+        regional_units = {
+            "base": {
+                "scout": [
+                    UnitInfo.CAMEL_SCOUT,
+                    UnitInfo.EAGLE_SCOUT,
+                    UnitInfo.CHAMPI_SCOUT,
+                ],
+                "non_elite": [
+                    UnitInfo.CAMEL_RIDER,
+                    UnitInfo.EAGLE_WARRIOR,
+                    UnitInfo.BATTLE_ELEPHANT,
+                    UnitInfo.STEPPE_LANCER,
+                    UnitInfo.XOLOTL_WARRIOR,
+                    UnitInfo.ARMORED_ELEPHANT,
+                    UnitInfo.ELEPHANT_ARCHER,
+                    UnitInfo.DROMON,
+                    UnitInfo.FIRE_LANCER,
+                    UnitInfo.ROCKET_CART,
+                    UnitInfo.LOU_CHUAN,
+                    UnitInfo.HEI_GUANG_CAVALRY,
+                    UnitInfo.TRACTION_TREBUCHET,
+                    UnitInfo.CHAMPI_WARRIOR,
+                    UnitInfo.SLINGER,
+                    UnitInfo.CATAPULT_GALLEON,
+                    UnitInfo.LONGSHIP,
+                    UnitInfo.VARANGIAN_GUARD,
+                    UnitInfo.MOUNTED_CROSSBOWMAN,
+                ],
+                "elite": [
+                    UnitInfo.HEAVY_CAMEL_RIDER,
+                    UnitInfo.ELITE_EAGLE_WARRIOR,
+                    UnitInfo.ELITE_BATTLE_ELEPHANT,
+                    UnitInfo.ELITE_STEPPE_LANCER,
+                    UnitInfo.SIEGE_ELEPHANT,
+                    UnitInfo.ELITE_ELEPHANT_ARCHER,
+                    UnitInfo.ELITE_FIRE_LANCER,
+                    UnitInfo.HEAVY_ROCKET_CART,
+                    UnitInfo.HEAVY_HEI_GUANG_CAVALRY,
+                    UnitInfo.ELITE_CHAMPI_WARRIOR,
+                    UnitInfo.ELITE_LONGSHIP,
+                    UnitInfo.ELITE_VARANGIAN_GUARD,
+                    UnitInfo.HEAVY_MOUNTED_CROSSBOWMAN,
+                ],
+            },
+            "chronicles": {
+                "scout": [],
+                "non_elite": [
+                    UnitInfo.HOPLITE,
+                    UnitInfo.WAR_CHARIOT_ANTIQUITY,
+                    UnitInfo.ARMORED_ELEPHANT,
+                ],
+                "elite": [
+                    UnitInfo.ELITE_HOPLITE,
+                    UnitInfo.ELITE_WAR_CHARIOT_ANTIQUITY,
+                    UnitInfo.SIEGE_ELEPHANT,
+                ],
+            },
+        }
+
+        units_to_return = []
+
+        addons = ["base"]
+        if include_chronicles:
+            addons.append("chronicles")
+
+        for addon in addons:
+            if not exclude_scouts:
+                units_to_return.extend(regional_units[addon]["scouts"])
+            if not exclude_non_elite_units:
+                units_to_return.extend(regional_units[addon]["non_elite"])
+            if not exclude_elite_units:
+                units_to_return.extend(regional_units[addon]["elite"])
 
         return units_to_return
 
@@ -457,7 +553,7 @@ class UnitInfo(InfoDatasetBase):
     ELITE_KONNIK = 1227, 506, 1226, 16101, False
     ELITE_KONNIK_DISMOUNTED = 1253, 510, 1257, 16411, False
     ELITE_LEITIS = 1236, 509, 1235, 16101, False
-    ELITE_LONGBOAT = 533, 474, -1, 16457, False
+    ELITE_LONGSHIP = 533, 474, -1, 16106, False
     ELITE_LONGBOWMAN = 530, 472, 115, 16101, False
     ELITE_MAGYAR_HUSZAR = 871, 493, 870, 16101, False
     ELITE_MAMELUKE = 556, 479, 44, 16101, False
@@ -527,7 +623,7 @@ class UnitInfo(InfoDatasetBase):
     LIGHT_CAVALRY = 546, 91, 547, 16444, False
     LLAMA_A = 305, 156, 780, 16498, False
     LONG_SWORDSMAN = 77, 13, 180, 16081, False
-    LONGBOAT = 250, 40, -1, 16106, False
+    LONGSHIP = 250, 40, -1, 16106, False
     LONGBOWMAN = 8, 41, 115, 16107, False
     MAGYAR_HUSZAR = 869, 99, 870, 16101, False
     MAMELUKE = 282, 37, 44, 16103, False
@@ -852,3 +948,23 @@ class UnitInfo(InfoDatasetBase):
     WHALING_SHIP = 2630, 24, -1, 16090, False
     CATAPULT_GALLEON = 2633, 591, -1, 16287, False
     TREASURE_CHEST = 2635, 295, 285, 16082, False
+    WALRUS = 1924, 936, 356, 16406, True
+    RAVEN = 2578, 934, -1, 16716, True
+    MOUNTED_CROSSBOWMAN = 2700, 900, 34, 16085, False
+    HEAVY_MOUNTED_CROSSBOWMAN = 2701, 901, 34, 16412, False
+    VARANGIAN_GUARD = 2703, 902, 1116, 16671, False
+    ELITE_VARANGIAN_GUARD = 2704, 903, 1116, 16671, False
+    HEARTH_TROOP = 2705, 904, 2, 16101, False
+    ELITE_HEARTH_TROOP = 2706, 905, 2, 16101, False
+    JARL = 2708, 906, 1628, 16101, False
+    ELITE_JARL = 2709, 907, 1628, 16101, False
+    JOMSVIKING = 2711, 908, 2, 16101, False
+    ELITE_JOMSVIKING = 2712, 909, 2, 16101, False
+    VILLAGER_MALE_REPAIRER_2 = 2714, 330, 225, 16127, False
+    VILLAGER_FEMALE_REPAIRER_2 = 2715, 329, 225, 16127, False
+    WHEELED_SHIP = 2730, 40, 435, 16301, False
+    SEAL = 2735, 935, 43, 16071, True
+    LYNX = 2736, 932, 237, 16075, True
+    ELK = 2737, 931, 356, 16406, True
+    PHEASANT = 2739, 933, 43, 16071, True
+    FLAMING_BIRD = 2742, 283, -1, 16058, True
