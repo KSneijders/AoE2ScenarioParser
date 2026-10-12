@@ -214,7 +214,7 @@
         "primary": 380
     },
     "426": {
-        "primary": 515
+        "primary": 2719
     },
     "427": {
         "primary": 380
@@ -1177,5 +1177,42 @@
     },
     "2642": {
         "primary": 2609
+    },
+    "2700": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "2701": {
+        "primary": 477,
+        "primary_fire": 475
+    },
+    "2705": {
+        "charge": 2702
+    },
+    "2706": {
+        "charge": 2707
+    },
+    "2708": {
+        "primary": 2719
+    },
+    "2709": {
+        "primary": 2720
+    },
+    "2711": {
+        "charge": 2713
+    },
+    "2712": {
+        "charge": 2713
+    },
+    "2721": {
+        "primary": 2623
+    },
+    "2727": {
+        "primary": 511,
+        "primary_fire": 523
+    },
+    "2728": {
+        "primary": 512,
+        "primary_fire": 524
     }
 }

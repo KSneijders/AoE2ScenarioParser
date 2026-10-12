@@ -92,6 +92,9 @@ class TerrainId(IntEnum):
             TerrainId.FOREST_PALM_GRASS,
             TerrainId.FOREST_LUSH_BAMBOO,
             TerrainId.FOREST_DRY_SOUTH_AMERICAN,
+            TerrainId.FOREST_SPRUCE,
+            TerrainId.FOREST_SPRUCE_SNOW,
+            TerrainId.FOREST_OAK_GREEN,
         ]
 
     BEACH = 2
@@ -225,3 +228,6 @@ class TerrainId(IntEnum):
     BLACK_WALKABLE = 129
     FOREST_DRY_SOUTH_AMERICAN = 128
     WATER_WEEDS = 130
+    FOREST_SPRUCE = 131
+    FOREST_SPRUCE_SNOW = 132
+    FOREST_OAK_GREEN = 133
