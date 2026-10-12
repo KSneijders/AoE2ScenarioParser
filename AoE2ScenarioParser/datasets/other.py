@@ -101,6 +101,8 @@ class OtherInfo(InfoDatasetBase):
             OtherInfo.TREE_MONKEY_PUZZLE,
             OtherInfo.TREE_BRAZILWOOD,
             OtherInfo.TREE_WAX_PALM,
+            OtherInfo.TREE_SPRUCE,
+            OtherInfo.TREE_SPRUCE_SNOW,
         ]
 
     ANIMAL_SKELETON = 1091, -1, -1, -1, True
@@ -404,7 +406,7 @@ class OtherInfo(InfoDatasetBase):
     TREE_ASIAN_PINE = 2016, 32, 415, -1, True
     TREE_PEACH_BLOSSOM = 2017, 32, 415, -1, True
     ASIAN_CARTS = 2018, -1, -1, -1, True
-    WEAPON_STACKS = 2019, -1, -1, -1, True
+    WEAPON_STACKS_A = 2019, -1, -1, -1, True
     GARDEN_BRIDGE = 2020, -1, -1, -1, True
     SIEGE_PROPS = 2021, -1, -1, -1, True
     ASIAN_LANTERNS = 2022, -1, -1, -1, True
@@ -419,11 +421,11 @@ class OtherInfo(InfoDatasetBase):
     HUABIAO_TOTEM = 2058, -1, -1, -1, True
     QUE_TOWER = 2059, -1, -1, -1, True
     PANDA_ROCK = 2082, -1, -1, -1, True
-    ROCK_1_CAVE_ROOF = 2407, -1, -1, -1, True
-    ROCK_2_CAVE_ROOF = 2408, -1, -1, -1, True
-    ROCK_FORMATION_1_CAVE_ROOF = 2409, -1, -1, -1, True
-    ROCK_JUNGLE_CAVE_ROOF = 2410, -1, -1, -1, True
-    ROCK_LIMESTONE_CAVE_ROOF = 2411, -1, -1, -1, True
+    CAVE_ROCK_1 = 2407, -1, -1, -1, True
+    CAVE_ROCK_2 = 2408, -1, -1, -1, True
+    CAVE_ROCK_FORMATION_1 = 2409, -1, -1, -1, True
+    CAVE_ROCK_JUNGLE = 2410, -1, -1, -1, True
+    CAVE_ROCK_LIMESTONE = 2411, -1, -1, -1, True
     BLOCKER_1X3 = 2423, -1, -1, -1, True
     BLOCKER_3X1 = 2424, -1, -1, -1, True
     IMPALED_CORPSE_ANTIQUITY = 2456, -1, -1, -1, False
@@ -446,7 +448,7 @@ class OtherInfo(InfoDatasetBase):
     CIV_FLAG_BOEOTIAN = 2513, -1, -1, -1, False
     PURU_RUINS = 2514, -1, -1, -1, True
     ROCK_3 = 2515, -1, -1, -1, True
-    ROCK_3_CAVE_ROOF = 2516, -1, -1, -1, True
+    CAVE_ROCK_3 = 2516, -1, -1, -1, True
     SKELETON_ANTIQUITY_CIVILIAN = 2517, -1, -1, -1, True
     SKELETON_ANTIQUITY_SOLDIER = 2518, -1, -1, -1, True
     AMPHORAE = 2519, -1, -1, -1, True
@@ -481,3 +483,22 @@ class OtherInfo(InfoDatasetBase):
     WHALE = 2625, 569, -1, -1, True
     SCAFFOLDING_WALKABLE = 2644, -1, -1, -1, True
     PINEAPPLE_BUSH = 2650, 592, 415, -1, True
+    WEAPON_STACKS_B = 1943, -1, -1, -1, False
+    ROCK_MOSSY = 1967, -1, -1, -1, True
+    KELP_SEAWEEDS = 1981, -1, -1, -1, True
+    BURNED_BUILDING_E = 2035, -1, -1, -1, True
+    TORCH_C = 2576, -1, -1, -1, False
+    FLOTSAM = 2577, -1, -1, -1, True
+    TREE_SPRUCE = 2731, 32, 415, -1, True
+    TREE_SPRUCE_SNOW = 2732, 32, 415, -1, True
+    BUSH_D = 2733, 32, 415, -1, True
+    ROCK_SNOW = 2734, -1, -1, -1, True
+    RUNESTONES = 2738, -1, -1, -1, True
+    DRIFTWOOD_GROUND = 2740, -1, -1, -1, True
+    DRIFTWOOD_WATER = 2741, -1, -1, -1, True
+    PLANT_HEATHER = 2743, -1, -1, -1, True
+    BURNED_BUILDING_D = 2744, -1, -1, -1, True
+    SHIPWRECK_C = 2746, -1, -1, -1, True
+    NORSE_COLUMN = 2747, -1, -1, -1, True
+    WOODEN_ROAD = 2748, -1, -1, -1, True
+    NORSE_BANNER = 2749, -1, -1, -1, False

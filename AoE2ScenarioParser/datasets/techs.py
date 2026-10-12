@@ -166,6 +166,9 @@ class TechInfo(Enum):
                     TechInfo.MALON,
                     TechInfo.HERBALISM,
                     TechInfo.CACIQUES,
+                    TechInfo.CLERICAL_RECRUITMENT,
+                    TechInfo.VENDEL_LEGACY,
+                    TechInfo.HAMASK,
                 ],
                 "imp_age": [
                     TechInfo.ARQUEBUS,
@@ -221,6 +224,9 @@ class TechInfo(Enum):
                     TechInfo.BUTALMAPU,
                     TechInfo.HUARACAS,
                     TechInfo.CURARE,
+                    TechInfo.SHIELD_WALL,
+                    TechInfo.GOTHIKON,
+                    TechInfo.NORTHMENS_FURY,
                 ],
             },
             "chronicles": {
@@ -341,11 +347,13 @@ class TechInfo(Enum):
                     TechInfo.ELITE_KONA,
                     TechInfo.ELITE_GUECHA_WARRIOR,
                     TechInfo.ELITE_BLACKWOOD_ARCHER,
+                    TechInfo.ELITE_HEARTH_TROOP,
+                    TechInfo.ELITE_JARL,
+                    TechInfo.ELITE_JOMSVIKING,
                 ],
                 "non_castle": [
                     TechInfo.ELITE_CARAVEL,
                     TechInfo.ELITE_GENITOUR,
-                    TechInfo.ELITE_LONGBOAT,
                     TechInfo.ELITE_TURTLE_SHIP,
                     TechInfo.HOUFNICE,
                     TechInfo.IMPERIAL_CAMEL_RIDER,
@@ -784,7 +792,7 @@ class TechInfo(Enum):
     CHIEFTAINS = 463, 33
     ELITE_KONNIK = 678, 105
     ELITE_LEITIS = 684, 105
-    ELITE_LONGBOAT = 372, 105
+    ELITE_LONGSHIP = 372, 68
     ELITE_LONGBOWMAN = 360, 105
     ELITE_MAGYAR_HUSZAR = 472, 105
     ELITE_MAMELUKE = 368, 105
@@ -975,8 +983,6 @@ class TechInfo(Enum):
     FOLWARK_CASTLE = 795, -1
     FOLWARK_IMPERIAL = 796, -1
     FLEMISH_MILITIA_IMPERIAL = 797, -1
-    STONE_MINING_GOLD_GENERATION_INCREASE = 806, -1
-    STONE_SHAFT_MINING_GOLD_GENERATION_INCREASE = 807, -1
     BOHEMIANS = 777, -1
     WAGENBURG_TACTICS = 784, 33
     HUSSITE_REFORMS = 785, 107
@@ -1011,7 +1017,7 @@ class TechInfo(Enum):
     THALASSOCRACY_AND_BODKIN = 670, -1
     THALASSOCRACY_AND_BRACER = 671, -1
     RENAME_UNITS = 713, -1
-    FTT_MOVE_LANCERS = 717, 0
+    FTT_DISABLE_PAPHOS_REGIONALS = 717, 0
     FTT_MOVE_TARKANS = 718, 0
     FTT_MOVE_HUSKARLS = 719, 0
     FTT_MOVE_SLINGERS = 720, 0
@@ -1073,19 +1079,17 @@ class TechInfo(Enum):
     CILICIAN_FLEET = 922, 33
     SVAN_TOWERS = 923, 33
     AZNAURI_CAVALRY = 924, 107
-    FORTIFIED_CHURCH_ALL = 929, -1
     FORTIFIED_CHURCH_GEORGIANS = 930, -1
     FORTIFIED_CHURCH_ARMENIANS = 941, -1
     FORTIFIED_CHURCH_AND_SVAN_TOWERS = 931, -1
-    MULE_CART_GEORGIANS = 932, -1
-    MULE_CART_ARMENIANS = 932, -1
+    MULE_CART_MAKE_AVAILABLE = 932, -1
     SVAN_TOWERS_AND_CHEMISTRY = 936, -1
     FORTIFIED_CHURCH_AND_FLETCHING = 943, -1
     FORTIFIED_CHURCH_AND_BODKIN = 944, -1
     FORTIFIED_CHURCH_AND_BRACER = 945, -1
     FORTIFIED_CHURCH_AND_CHEMISTRY = 946, -1
     FORTIFIED_CHURCH_AND_MURDER_HOLES = 947, -1
-    WARRIOR_PRIEST = 948, -1
+    WARRIOR_PRIEST_MAKE_AVAILABLE = 948, -1
     ELITE_QIZILBASH_WARRIOR = 967, 105
     SAVAR = 526, 130
     TECHNOLOGY_PLACEHOLDER_01 = 968, 107
@@ -1283,3 +1287,19 @@ class TechInfo(Enum):
     MAPUCHE = 1361, -1
     MUISCA = 1360, -1
     TUPI = 1362, -1
+    HEAVY_MOUNTED_CROSSBOWMAN = 1451, 77
+    CRANEQUINS = 1452, 56
+    ELITE_VARANGIAN_GUARD = 1454, 72
+    SAXONS = 1458, -1
+    VARANGIANS = 1459, -1
+    DANES = 1460, -1
+    ELITE_HEARTH_TROOP = 1462, 105
+    SHIELD_WALL = 1464, 107
+    ELITE_JARL = 1472, 105
+    VENDEL_LEGACY = 1473, 33
+    GOTHIKON = 1474, 107
+    ELITE_JOMSVIKING = 1482, 105
+    NORTHMENS_FURY = 1483, 107
+    HAMASK = 1484, 33
+    CLERICAL_RECRUITMENT = 1491, 33
+    ORDONNANCE_COMPANIES = 1496, 33
