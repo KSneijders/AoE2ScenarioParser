@@ -11,6 +11,7 @@ from AoE2ScenarioParser.datasets.trigger_lists import DiplomacyState
 from AoE2ScenarioParser.helper.list_functions import listify
 from AoE2ScenarioParser.helper.printers import warn
 from AoE2ScenarioParser.objects.aoe2_object import AoE2Object
+from AoE2ScenarioParser.objects.data_objects.player import ai_scripts
 from AoE2ScenarioParser.scenarios.scenario_store import store
 
 
@@ -177,7 +178,13 @@ class Player(AoE2Object):
         """Sets the personality of this player to None AI"""
         self.ai_type = AiType.NONE
         self.personality = "NoneAi"
-        self.ai_script = """(defconst the-maze 0)\n(defrule(true)=>(disable-self))"""
+        self.ai_script = ai_scripts.none
+
+    def set_immobile_ai(self):
+        """Sets the personality of this player to an immobile AI"""
+        self.ai_type = AiType.CUSTOM
+        self.personality = "Immobile AI"
+        self.ai_script = ai_scripts.immobile
 
     def set_custom_ai(self, name: str, ai_script: str | None = None, per_file_path: str | None = None):
         """Sets the personality of this player to your custom AI"""
