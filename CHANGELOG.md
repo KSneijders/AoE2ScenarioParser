@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## 0.9.8 - 2026-October-16
+
+### Adds
+
+- `Player.set_immobile_ai()` Sets the AI to an immobile AI
+
+---
+
 ## 0.9.7 - 2026-October-12
 
 - Datasets for the **Viking Sagas DLC**: by [@mardaravicius] in [#138](https://github.com/KSneijders/AoE2ScenarioParser/pull/138)
