@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from typing import TypedDict, Dict
 
@@ -54,7 +56,7 @@ def gen_docstr(desc: ResDesc) -> str:
         ])
 
     docstr.append('"' * 3)
-    return "\n    ".join(docstr)
+    return "\n    ".join(docstr).replace("\\<", '<')
 
 
 def gen_res_class(resources: ResDescs) -> str:
@@ -89,7 +91,7 @@ def main():
         r"https://raw.githubusercontent.com/Divy1211/AoE2DE_UGC_Guide/main/docs/general/resources/res_desc.json")
     resources = res.json()
 
-    with open("../../trigger_lists/attribute.py", "w") as file:
+    with open("../../trigger_lists/attribute.py", "w", encoding="utf-8") as file:
         file.write(gen_res_class(resources))
 
     DE_PATH = r""

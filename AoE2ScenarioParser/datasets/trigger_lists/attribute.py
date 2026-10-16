@@ -80,7 +80,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Number of relics held
     """
-    UNUSED_RESOURCE_008 = 8
+    ENABLE_SUN_CE_BUILDING_CONVERSION_UNUSED_RESOURCE_08 = 8
     """
     - Purpose: Enables `Sun Ce` to convert buildings
     
@@ -96,7 +96,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unused
     """
-    UNUSED_RESOURCE_010 = 10
+    UNUSED_RESOURCE_10 = 10
     """
     - Purpose: Unused
     """
@@ -219,11 +219,11 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Used to invoke functions in XS from data. When set to a non zero value `N`, it will automatically call a function named `EffectFunctionN` from the `Effects.xs` file.
     """
-    UNUSED_RESOURCE_34 = 34
+    UNUSED_RESOURCE_034 = 34
     """
     - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
-    UNUSED_RESOURCE_35 = 35
+    UNUSED_RESOURCE_035 = 35
     """
     - Purpose: This resource is unused but is known to sometimes have some values. Use with caution
     """
@@ -444,15 +444,15 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Per-civ waypoint flag graphic ID
     """
-    UNUSED_RESOURCE_74 = 74
+    UNUSED_RESOURCE_074 = 74
     """
     - Purpose: Unused
     """
-    UNUSED_RESOURCE_75 = 75
+    UNUSED_RESOURCE_075 = 75
     """
     - Purpose: Unused
     """
-    UNUSED_RESOURCE_76 = 76
+    UNUSED_RESOURCE_076 = 76
     """
     - Purpose: Unused
     """
@@ -505,7 +505,7 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Setting this to 1 in an RMS allows for starting with PTWC. Manually changing this in the editor does nothing
     """
-    UNUSED_RESOURCE_83 = 83
+    UNUSED_RESOURCE_083 = 83
     """
     - Purpose: Unused
     """
@@ -1121,7 +1121,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unused
     """
-    REVEAL_MAP = 203
+    MAP_REVEAL = 203
     """
     - Purpose: Controls the map visibility for a player.
     
@@ -1131,7 +1131,7 @@ class Attribute(_DataSetIntEnums):
         - 1: Explored
         - 2: All Visible
     """
-    REVEAL_UNIT_ON_MAP = 204
+    UNIT_REVEAL = 204
     """
     - Purpose: Controls the visibility of other players' units for a player
     
@@ -1284,7 +1284,7 @@ class Attribute(_DataSetIntEnums):
     
     - Note: Since this works by multiplying the amount of resources gathered by a fishing ship, it has a side effect of increasing the gather rate
     """
-    UNUSED_RESOURCE_220 = 220
+    ENABLE_CERTAIN_HERO_LEVEL_UP_UNUSED_RESOURCE_220 = 220
     """
     - Purpose: Enables leveling up when killing units for `Richard the Lionheart`, `Sieur de Metz`, `Kushluk`, `Zawisza the Black`
     
@@ -1655,13 +1655,13 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Damage modifier for own units when attacked from higher elevation
     
-    - Note: This is applied after the calculations from [Elevation Higher Bonus](https://ugc.aoe2.rocks/general/resources/resources/#211-elevation-higher-bonus) and [Elevation Lower Bonus](https://ugc.aoe2.rocks/general/resources/resources/#212-elevation-lower-bonus)
+    - Note: This is applied after the calculations from [Elevation Higher Bonus](./#211-elevation-higher-bonus) and [Elevation Lower Bonus](./#212-elevation-lower-bonus)
     """
     ELEVATION_LOWER_DAMAGE = 273
     """
     - Purpose: Damage modifier for own units when attacked from lower elevation
     
-    - Note: This is applied after the calculations from [Elevation Higher Bonus](https://ugc.aoe2.rocks/general/resources/resources/#211-elevation-higher-bonus) and [Elevation Lower Bonus](https://ugc.aoe2.rocks/general/resources/resources/#212-elevation-lower-bonus)
+    - Note: This is applied after the calculations from [Elevation Higher Bonus](./#211-elevation-higher-bonus) and [Elevation Lower Bonus](./#212-elevation-lower-bonus)
     """
     INFANTRY_KILL_REWARD = 274
     """
@@ -1745,15 +1745,15 @@ class Attribute(_DataSetIntEnums):
     """
     SHARED_VISIBILITY = 285
     """
-    - Purpose: This is a bitfield where the lowest 9 bits toggle sharing LoS with a specific player. The lowest bit represents gaia (player 0), and each higher bit represents the next player, so the bit for a given player is `1 \<\< player` (`pow(2, player)`).
+    - Purpose: This is a bitfield where the lowest 9 bits toggle sharing LoS with a specific player. The lowest bit represents gaia (player 0), and each higher bit represents the next player, so the bit for a given player is `1 << player` (`pow(2, player)`).
     
-    - Note: This does not change LoS for allies if the shared exploration setting in the lobby is enabled. Since this resource is a bitfield, when reading it with [xsPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#78-xsplayerattribute) or setting it with [xsSetPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#79-xssetplayerattribute), the value requires to be converted using [bitCastToInt](https://ugc.aoe2.rocks/general/xs/functions/functions/#416-bitcasttoint) and [bitCastToFloat](https://ugc.aoe2.rocks/general/xs/functions/functions/#415-bitcasttofloat) respectively, so that the individual bits can be read and set correctly.
+    - Note: This does not change LoS for allies if the shared exploration setting in the lobby is enabled. Since this resource is a bitfield, when reading it with [xsPlayerAttribute](../../xs/functions/functions/#78-xsplayerattribute) or setting it with [xsSetPlayerAttribute](../../xs/functions/functions/#79-xssetplayerattribute), the value requires to be converted using [bitCastToInt](../../xs/functions/functions/#416-bitcasttoint) and [bitCastToFloat](../../xs/functions/functions/#415-bitcasttofloat) respectively, so that the individual bits can be read and set correctly.
     """
     SHARED_EXPLORATION = 286
     """
-    - Purpose: This is a bitfield where the lowest 9 bits toggle sharing map exploration with a specific player. The lowest bit represents gaia (player 0), and each higher bit represents the next player, so the bit for a given player is `1 \<\< player` (`pow(2, player)`).
+    - Purpose: This is a bitfield where the lowest 9 bits toggle sharing map exploration with a specific player. The lowest bit represents gaia (player 0), and each higher bit represents the next player, so the bit for a given player is `1 << player` (`pow(2, player)`).
     
-    - Note: This does not change exploration for allies if the shared exploration setting in the lobby is enabled. Since this resource is a bitfield, when reading it with [xsPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#78-xsplayerattribute) or setting it with [xsSetPlayerAttribute](https://ugc.aoe2.rocks/general/xs/functions/functions/#79-xssetplayerattribute), the value requires to be converted using [bitCastToInt](https://ugc.aoe2.rocks/general/xs/functions/functions/#416-bitcasttoint) and [bitCastToFloat](https://ugc.aoe2.rocks/general/xs/functions/functions/#415-bitcasttofloat) respectively, so that the individual bits can be read and set correctly.
+    - Note: This does not change exploration for allies if the shared exploration setting in the lobby is enabled. Since this resource is a bitfield, when reading it with [xsPlayerAttribute](../../xs/functions/functions/#78-xsplayerattribute) or setting it with [xsSetPlayerAttribute](../../xs/functions/functions/#79-xssetplayerattribute), the value requires to be converted using [bitCastToInt](../../xs/functions/functions/#416-bitcasttoint) and [bitCastToFloat](../../xs/functions/functions/#415-bitcasttofloat) respectively, so that the individual bits can be read and set correctly.
     """
     MILITARY_FOOD_PRODUCTIVITY = 287
     """
@@ -2776,7 +2776,7 @@ class Attribute(_DataSetIntEnums):
     """
     - Purpose: Unused
     """
-    MAXIMUM_POLEMARCHS = 501
+    POLEMARCH_BUILD_LIMIT = 501
     """
     - Purpose: Hidden resource that is part of the cost of Polemarch. Incremented when the Polemarch dies, decremented when a Polemarch is trained. Increment this value to allow training of more Polemarchs
     
@@ -2784,7 +2784,7 @@ class Attribute(_DataSetIntEnums):
     
         - 0: Default
     """
-    CHOPPING_FOOD_PRODUCTIVITY = 502
+    ATHENIAN_CHOPPING_FOOD_PRODUCTIVITY = 502
     """
     - Purpose: Chopping food gathering percent of main work rate
     
@@ -2824,7 +2824,7 @@ class Attribute(_DataSetIntEnums):
         - 0: Default
         - 1: Achaemenids, Athenians and Spartans
     """
-    ACHAMENIDS_TOWN_CENTER_UPGRADES = 506
+    ACHAEMENID_TOWN_CENTER_LOCAL_UPGRADE = 506
     """
     - Purpose: Used as a local resource in Town Centers to know which of them have the Achamenids Town Center upgrade researched
     

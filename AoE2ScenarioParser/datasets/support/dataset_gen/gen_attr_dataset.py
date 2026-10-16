@@ -47,7 +47,7 @@ def gen_docstr(desc: AttrDesc) -> str:
         ])
 
     docstr.append('"' * 3)
-    return "\n    ".join(docstr)
+    return "\n    ".join(docstr).replace("\\<", '<')
 
 
 def gen_attr_class(attrs: AttrDescs) -> str:
@@ -83,7 +83,7 @@ def main():
     res = requests.get(url)
     attrs = res.json()
 
-    with open("../../trigger_lists/object_attribute.py", "w") as file:
+    with open("../../trigger_lists/object_attribute.py", "w", encoding="utf-8") as file:
         file.write(gen_attr_class(attrs))
 
 
