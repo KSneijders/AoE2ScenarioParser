@@ -482,8 +482,8 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
 </span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">StartingAge</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="sd">    **This is not the same as the &quot;Age&quot; dataset and should !!NOT!! be used in effects/conditions etc.**</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="sd">    **This is not the same as the "Age" dataset and should !!NOT!! be used in effects/conditions etc.**</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="sd">    This enum class provides the integer values used to reference the starting ages in the game.</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">    This is used in the player objects to set a starting age.</span>
@@ -492,7 +492,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">    &gt;&gt;&gt; StartingAge.POST_IMPERIAL_AGE</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="sd">    &lt;StartingAge.POST_IMPERIAL_AGE: 6&gt;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">    """</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>    <span class="n">DARK_AGE</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a>    <span class="n">FEUDAL_AGE</span> <span class="o">=</span> <span class="mi">3</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>    <span class="n">CASTLE_AGE</span> <span class="o">=</span> <span class="mi">4</span>
@@ -501,7 +501,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="k">class</span><span class="w"> </span><span class="nc">CivilizationOld</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Legacy enum class used to reference the civilizations in the game.&quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="w">    </span><span class="sd">"""Legacy enum class used to reference the civilizations in the game."""</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>    <span class="n">GAIA</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>    <span class="n">BRITONS</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>    <span class="n">FRANKS</span> <span class="o">=</span> <span class="mi">2</span>
@@ -582,98 +582,98 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
 </span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
 </span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>
 </span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Civilization</span><span class="p">(</span><span class="n">_DataSet</span><span class="p">):</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">    This enum class provides the integer values used to reference the civilizations in the game.</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">    This can be used in research tech conditions to check civ or set a player&#39;s civ in the player manager.</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">    This can be used in research tech conditions to check civ or set a player's civ in the player manager.</span>
 </span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
 </span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">    **Examples**</span>
 </span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
 </span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">    &gt;&gt;&gt; Civilization.HUNS</span>
 </span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">    &lt;Civilization.HUNS: HUN-CIV&gt;</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="n">GAIA</span> <span class="o">=</span> <span class="s2">&quot;GAIA&quot;</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="n">BRITONS</span> <span class="o">=</span> <span class="s2">&quot;BRITON-CIV&quot;</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="n">FRANKS</span> <span class="o">=</span> <span class="s2">&quot;FRANKISH-CIV&quot;</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="n">GOTHS</span> <span class="o">=</span> <span class="s2">&quot;GOTHIC-CIV&quot;</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="n">TEUTONS</span> <span class="o">=</span> <span class="s2">&quot;TEUTONIC-CIV&quot;</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="n">JAPANESE</span> <span class="o">=</span> <span class="s2">&quot;JAPANESE-CIV&quot;</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="n">CHINESE</span> <span class="o">=</span> <span class="s2">&quot;CHINESE-CIV&quot;</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="n">BYZANTINES</span> <span class="o">=</span> <span class="s2">&quot;BYZANTINE-CIV&quot;</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="n">PERSIANS</span> <span class="o">=</span> <span class="s2">&quot;PERSIAN-CIV&quot;</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="n">SARACENS</span> <span class="o">=</span> <span class="s2">&quot;SARACEN-CIV&quot;</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="n">TURKS</span> <span class="o">=</span> <span class="s2">&quot;TURKISH-CIV&quot;</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>    <span class="n">VIKINGS</span> <span class="o">=</span> <span class="s2">&quot;VIKING-CIV&quot;</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>    <span class="n">MONGOLS</span> <span class="o">=</span> <span class="s2">&quot;MONGOL-CIV&quot;</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="n">CELTS</span> <span class="o">=</span> <span class="s2">&quot;CELTIC-CIV&quot;</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">    """</span>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="n">GAIA</span> <span class="o">=</span> <span class="s2">"GAIA"</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="n">BRITONS</span> <span class="o">=</span> <span class="s2">"BRITON-CIV"</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="n">FRANKS</span> <span class="o">=</span> <span class="s2">"FRANKISH-CIV"</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="n">GOTHS</span> <span class="o">=</span> <span class="s2">"GOTHIC-CIV"</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="n">TEUTONS</span> <span class="o">=</span> <span class="s2">"TEUTONIC-CIV"</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="n">JAPANESE</span> <span class="o">=</span> <span class="s2">"JAPANESE-CIV"</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="n">CHINESE</span> <span class="o">=</span> <span class="s2">"CHINESE-CIV"</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="n">BYZANTINES</span> <span class="o">=</span> <span class="s2">"BYZANTINE-CIV"</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="n">PERSIANS</span> <span class="o">=</span> <span class="s2">"PERSIAN-CIV"</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="n">SARACENS</span> <span class="o">=</span> <span class="s2">"SARACEN-CIV"</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="n">TURKS</span> <span class="o">=</span> <span class="s2">"TURKISH-CIV"</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>    <span class="n">VIKINGS</span> <span class="o">=</span> <span class="s2">"VIKING-CIV"</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>    <span class="n">MONGOLS</span> <span class="o">=</span> <span class="s2">"MONGOL-CIV"</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="n">CELTS</span> <span class="o">=</span> <span class="s2">"CELTIC-CIV"</span>
 </span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="n">SPANISH</span> <span class="o">=</span> <span class="s2">&quot;SPANISH-CIV&quot;</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="n">AZTECS</span> <span class="o">=</span> <span class="s2">&quot;AZTEC-CIV&quot;</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="n">MAYANS</span> <span class="o">=</span> <span class="s2">&quot;MAYAN-CIV&quot;</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="n">HUNS</span> <span class="o">=</span> <span class="s2">&quot;HUN-CIV&quot;</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="n">KOREANS</span> <span class="o">=</span> <span class="s2">&quot;KOREAN-CIV&quot;</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="n">SPANISH</span> <span class="o">=</span> <span class="s2">"SPANISH-CIV"</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="n">AZTECS</span> <span class="o">=</span> <span class="s2">"AZTEC-CIV"</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="n">MAYANS</span> <span class="o">=</span> <span class="s2">"MAYAN-CIV"</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="n">HUNS</span> <span class="o">=</span> <span class="s2">"HUN-CIV"</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="n">KOREANS</span> <span class="o">=</span> <span class="s2">"KOREAN-CIV"</span>
 </span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="n">ITALIANS</span> <span class="o">=</span> <span class="s2">&quot;ITALIAN-CIV&quot;</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="n">HINDUSTANIS</span> <span class="o">=</span> <span class="s2">&quot;INDIAN-CIV&quot;</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="n">INCAS</span> <span class="o">=</span> <span class="s2">&quot;INCAN-CIV&quot;</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="n">MAGYARS</span> <span class="o">=</span> <span class="s2">&quot;MAGYAR-CIV&quot;</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="n">SLAVS</span> <span class="o">=</span> <span class="s2">&quot;SLAVIC-CIV&quot;</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="n">ITALIANS</span> <span class="o">=</span> <span class="s2">"ITALIAN-CIV"</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="n">HINDUSTANIS</span> <span class="o">=</span> <span class="s2">"INDIAN-CIV"</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="n">INCAS</span> <span class="o">=</span> <span class="s2">"INCAN-CIV"</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="n">MAGYARS</span> <span class="o">=</span> <span class="s2">"MAGYAR-CIV"</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="n">SLAVS</span> <span class="o">=</span> <span class="s2">"SLAVIC-CIV"</span>
 </span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="n">PORTUGUESE</span> <span class="o">=</span> <span class="s2">&quot;PORTUGUESE-CIV&quot;</span>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="n">ETHIOPIANS</span> <span class="o">=</span> <span class="s2">&quot;ETHIOPIAN-CIV&quot;</span>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="n">MALIANS</span> <span class="o">=</span> <span class="s2">&quot;MALIAN-CIV&quot;</span>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="n">BERBERS</span> <span class="o">=</span> <span class="s2">&quot;BERBERS-CIV&quot;</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="n">PORTUGUESE</span> <span class="o">=</span> <span class="s2">"PORTUGUESE-CIV"</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="n">ETHIOPIANS</span> <span class="o">=</span> <span class="s2">"ETHIOPIAN-CIV"</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="n">MALIANS</span> <span class="o">=</span> <span class="s2">"MALIAN-CIV"</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="n">BERBERS</span> <span class="o">=</span> <span class="s2">"BERBERS-CIV"</span>
 </span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="n">KHMER</span> <span class="o">=</span> <span class="s2">&quot;KHMER-CIV&quot;</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="n">MALAY</span> <span class="o">=</span> <span class="s2">&quot;MALAY-CIV&quot;</span>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="n">BURMESE</span> <span class="o">=</span> <span class="s2">&quot;BURMESE-CIV&quot;</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="n">VIETNAMESE</span> <span class="o">=</span> <span class="s2">&quot;VIETNAMESE-CIV&quot;</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="n">KHMER</span> <span class="o">=</span> <span class="s2">"KHMER-CIV"</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="n">MALAY</span> <span class="o">=</span> <span class="s2">"MALAY-CIV"</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="n">BURMESE</span> <span class="o">=</span> <span class="s2">"BURMESE-CIV"</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="n">VIETNAMESE</span> <span class="o">=</span> <span class="s2">"VIETNAMESE-CIV"</span>
 </span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="n">BULGARIANS</span> <span class="o">=</span> <span class="s2">&quot;BULGARIANS-CIV&quot;</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="n">TATARS</span> <span class="o">=</span> <span class="s2">&quot;TATARS-CIV&quot;</span>
-</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="n">CUMANS</span> <span class="o">=</span> <span class="s2">&quot;CUMANS-CIV&quot;</span>
-</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>    <span class="n">LITHUANIANS</span> <span class="o">=</span> <span class="s2">&quot;LITHUANIANS-CIV&quot;</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="n">BULGARIANS</span> <span class="o">=</span> <span class="s2">"BULGARIANS-CIV"</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="n">TATARS</span> <span class="o">=</span> <span class="s2">"TATARS-CIV"</span>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="n">CUMANS</span> <span class="o">=</span> <span class="s2">"CUMANS-CIV"</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>    <span class="n">LITHUANIANS</span> <span class="o">=</span> <span class="s2">"LITHUANIANS-CIV"</span>
 </span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>
-</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>    <span class="n">BURGUNDIANS</span> <span class="o">=</span> <span class="s2">&quot;BURGUNDIANS-CIV&quot;</span>
-</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>    <span class="n">SICILIANS</span> <span class="o">=</span> <span class="s2">&quot;SICILIANS-CIV&quot;</span>
+</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>    <span class="n">BURGUNDIANS</span> <span class="o">=</span> <span class="s2">"BURGUNDIANS-CIV"</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>    <span class="n">SICILIANS</span> <span class="o">=</span> <span class="s2">"SICILIANS-CIV"</span>
 </span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>    <span class="n">POLES</span> <span class="o">=</span> <span class="s2">&quot;POLES-CIV&quot;</span>
-</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>    <span class="n">BOHEMIANS</span> <span class="o">=</span> <span class="s2">&quot;BOHEMIANS-CIV&quot;</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>    <span class="n">POLES</span> <span class="o">=</span> <span class="s2">"POLES-CIV"</span>
+</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>    <span class="n">BOHEMIANS</span> <span class="o">=</span> <span class="s2">"BOHEMIANS-CIV"</span>
 </span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>
-</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>    <span class="n">DRAVIDIANS</span> <span class="o">=</span> <span class="s2">&quot;DRAVIDIANS-CIV&quot;</span>
-</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>    <span class="n">BENGALIS</span> <span class="o">=</span> <span class="s2">&quot;BENGALIS-CIV&quot;</span>
-</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>    <span class="n">GURJARAS</span> <span class="o">=</span> <span class="s2">&quot;GURJARAS-CIV&quot;</span>
+</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>    <span class="n">DRAVIDIANS</span> <span class="o">=</span> <span class="s2">"DRAVIDIANS-CIV"</span>
+</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>    <span class="n">BENGALIS</span> <span class="o">=</span> <span class="s2">"BENGALIS-CIV"</span>
+</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>    <span class="n">GURJARAS</span> <span class="o">=</span> <span class="s2">"GURJARAS-CIV"</span>
 </span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>
-</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>    <span class="n">ROMANS</span> <span class="o">=</span> <span class="s2">&quot;ROMANS-CIV&quot;</span>
+</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>    <span class="n">ROMANS</span> <span class="o">=</span> <span class="s2">"ROMANS-CIV"</span>
 </span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>
-</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a>    <span class="n">ARMENIANS</span> <span class="o">=</span> <span class="s2">&quot;ARMENIANS-CIV&quot;</span>
-</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>    <span class="n">GEORGIANS</span> <span class="o">=</span> <span class="s2">&quot;GEORGIANS-CIV&quot;</span>
+</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a>    <span class="n">ARMENIANS</span> <span class="o">=</span> <span class="s2">"ARMENIANS-CIV"</span>
+</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>    <span class="n">GEORGIANS</span> <span class="o">=</span> <span class="s2">"GEORGIANS-CIV"</span>
 </span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a>
-</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a>    <span class="n">ACHAEMENIDS</span> <span class="o">=</span> <span class="s2">&quot;ACHAEMENIDS-CIV&quot;</span>
-</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a>    <span class="n">ATHENIANS</span> <span class="o">=</span> <span class="s2">&quot;ATHENIANS-CIV&quot;</span>
-</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>    <span class="n">SPARTANS</span> <span class="o">=</span> <span class="s2">&quot;SPARTANS-CIV&quot;</span>
+</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a>    <span class="n">ACHAEMENIDS</span> <span class="o">=</span> <span class="s2">"ACHAEMENIDS-CIV"</span>
+</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a>    <span class="n">ATHENIANS</span> <span class="o">=</span> <span class="s2">"ATHENIANS-CIV"</span>
+</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>    <span class="n">SPARTANS</span> <span class="o">=</span> <span class="s2">"SPARTANS-CIV"</span>
 </span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>
-</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a>    <span class="n">SHU</span> <span class="o">=</span> <span class="s2">&quot;SHU-CIV&quot;</span>
-</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>    <span class="n">WU</span> <span class="o">=</span> <span class="s2">&quot;WU-CIV&quot;</span>
-</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a>    <span class="n">WEI</span> <span class="o">=</span> <span class="s2">&quot;WEI-CIV&quot;</span>
-</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>    <span class="n">JURCHENS</span> <span class="o">=</span> <span class="s2">&quot;JURCHENS-CIV&quot;</span>
-</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>    <span class="n">KHITANS</span> <span class="o">=</span> <span class="s2">&quot;KHITANS-CIV&quot;</span>
+</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a>    <span class="n">SHU</span> <span class="o">=</span> <span class="s2">"SHU-CIV"</span>
+</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>    <span class="n">WU</span> <span class="o">=</span> <span class="s2">"WU-CIV"</span>
+</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a>    <span class="n">WEI</span> <span class="o">=</span> <span class="s2">"WEI-CIV"</span>
+</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>    <span class="n">JURCHENS</span> <span class="o">=</span> <span class="s2">"JURCHENS-CIV"</span>
+</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>    <span class="n">KHITANS</span> <span class="o">=</span> <span class="s2">"KHITANS-CIV"</span>
 </span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>
-</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="n">MACEDONIANS</span> <span class="o">=</span> <span class="s2">&quot;MACEDONIANS-CIV&quot;</span>
-</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>    <span class="n">THRACIANS</span> <span class="o">=</span> <span class="s2">&quot;THRACIANS-CIV&quot;</span>
-</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>    <span class="n">PURU</span> <span class="o">=</span> <span class="s2">&quot;PURU-CIV&quot;</span>
+</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="n">MACEDONIANS</span> <span class="o">=</span> <span class="s2">"MACEDONIANS-CIV"</span>
+</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>    <span class="n">THRACIANS</span> <span class="o">=</span> <span class="s2">"THRACIANS-CIV"</span>
+</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>    <span class="n">PURU</span> <span class="o">=</span> <span class="s2">"PURU-CIV"</span>
 </span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>
-</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>    <span class="n">MUISCA</span> <span class="o">=</span> <span class="s2">&quot;MUISCA-CIV&quot;</span>
-</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="n">MAPUCHE</span> <span class="o">=</span> <span class="s2">&quot;MAPUCHE-CIV&quot;</span>
-</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="n">TUPI</span> <span class="o">=</span> <span class="s2">&quot;TUPI-CIV&quot;</span>
+</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>    <span class="n">MUISCA</span> <span class="o">=</span> <span class="s2">"MUISCA-CIV"</span>
+</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="n">MAPUCHE</span> <span class="o">=</span> <span class="s2">"MAPUCHE-CIV"</span>
+</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="n">TUPI</span> <span class="o">=</span> <span class="s2">"TUPI-CIV"</span>
 </span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>
-</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="n">SAXONS</span> <span class="o">=</span> <span class="s2">&quot;SAXONS-CIV&quot;</span>
-</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="n">VARANGIANS</span> <span class="o">=</span> <span class="s2">&quot;VARANGIANS-CIV&quot;</span>
-</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="n">DANES</span> <span class="o">=</span> <span class="s2">&quot;DANES-CIV&quot;</span>
+</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="n">SAXONS</span> <span class="o">=</span> <span class="s2">"SAXONS-CIV"</span>
+</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="n">VARANGIANS</span> <span class="o">=</span> <span class="s2">"VARANGIANS-CIV"</span>
+</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="n">DANES</span> <span class="o">=</span> <span class="s2">"DANES-CIV"</span>
 </span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>
-</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">&quot;RANDOM-CIV&quot;</span>
-</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;MIRROR-RANDOM-CIV&quot;</span>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;FULL-RANDOM-CIV&quot;</span>
-</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;CUSTOM-RANDOM-CIV&quot;</span>
+</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">"RANDOM-CIV"</span>
+</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">"MIRROR-RANDOM-CIV"</span>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">"FULL-RANDOM-CIV"</span>
+</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">"CUSTOM-RANDOM-CIV"</span>
 </span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>
 </span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
 </span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
@@ -693,8 +693,8 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
     </div>
     <a class="headerlink" href="#StartingAge"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="StartingAge-5"><a href="#StartingAge-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">StartingAge</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="StartingAge-6"><a href="#StartingAge-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="StartingAge-7"><a href="#StartingAge-7"><span class="linenos"> 7</span></a><span class="sd">    **This is not the same as the &quot;Age&quot; dataset and should !!NOT!! be used in effects/conditions etc.**</span>
+</span><span id="StartingAge-6"><a href="#StartingAge-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="StartingAge-7"><a href="#StartingAge-7"><span class="linenos"> 7</span></a><span class="sd">    **This is not the same as the "Age" dataset and should !!NOT!! be used in effects/conditions etc.**</span>
 </span><span id="StartingAge-8"><a href="#StartingAge-8"><span class="linenos"> 8</span></a>
 </span><span id="StartingAge-9"><a href="#StartingAge-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference the starting ages in the game.</span>
 </span><span id="StartingAge-10"><a href="#StartingAge-10"><span class="linenos">10</span></a><span class="sd">    This is used in the player objects to set a starting age.</span>
@@ -703,7 +703,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.object_support    </h1>
 </span><span id="StartingAge-13"><a href="#StartingAge-13"><span class="linenos">13</span></a>
 </span><span id="StartingAge-14"><a href="#StartingAge-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; StartingAge.POST_IMPERIAL_AGE</span>
 </span><span id="StartingAge-15"><a href="#StartingAge-15"><span class="linenos">15</span></a><span class="sd">    &lt;StartingAge.POST_IMPERIAL_AGE: 6&gt;</span>
-</span><span id="StartingAge-16"><a href="#StartingAge-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="StartingAge-16"><a href="#StartingAge-16"><span class="linenos">16</span></a><span class="sd">    """</span>
 </span><span id="StartingAge-17"><a href="#StartingAge-17"><span class="linenos">17</span></a>    <span class="n">DARK_AGE</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="StartingAge-18"><a href="#StartingAge-18"><span class="linenos">18</span></a>    <span class="n">FEUDAL_AGE</span> <span class="o">=</span> <span class="mi">3</span>
 </span><span id="StartingAge-19"><a href="#StartingAge-19"><span class="linenos">19</span></a>    <span class="n">CASTLE_AGE</span> <span class="o">=</span> <span class="mi">4</span>
@@ -802,9 +802,11 @@ This is used in the player objects to set a starting age.</p>
             <div><dt>builtins.int</dt>
                                 <dd id="StartingAge.conjugate" class="function">conjugate</dd>
                 <dd id="StartingAge.bit_length" class="function">bit_length</dd>
+                <dd id="StartingAge.bit_count" class="function">bit_count</dd>
                 <dd id="StartingAge.to_bytes" class="function">to_bytes</dd>
                 <dd id="StartingAge.from_bytes" class="function">from_bytes</dd>
                 <dd id="StartingAge.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="StartingAge.is_integer" class="function">is_integer</dd>
                 <dd id="StartingAge.real" class="variable">real</dd>
                 <dd id="StartingAge.imag" class="variable">imag</dd>
                 <dd id="StartingAge.numerator" class="variable">numerator</dd>
@@ -826,7 +828,7 @@ This is used in the player objects to set a starting age.</p>
     </div>
     <a class="headerlink" href="#CivilizationOld"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="CivilizationOld-24"><a href="#CivilizationOld-24"><span class="linenos"> 24</span></a><span class="k">class</span><span class="w"> </span><span class="nc">CivilizationOld</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="CivilizationOld-25"><a href="#CivilizationOld-25"><span class="linenos"> 25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Legacy enum class used to reference the civilizations in the game.&quot;&quot;&quot;</span>
+</span><span id="CivilizationOld-25"><a href="#CivilizationOld-25"><span class="linenos"> 25</span></a><span class="w">    </span><span class="sd">"""Legacy enum class used to reference the civilizations in the game."""</span>
 </span><span id="CivilizationOld-26"><a href="#CivilizationOld-26"><span class="linenos"> 26</span></a>    <span class="n">GAIA</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="CivilizationOld-27"><a href="#CivilizationOld-27"><span class="linenos"> 27</span></a>    <span class="n">BRITONS</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="CivilizationOld-28"><a href="#CivilizationOld-28"><span class="linenos"> 28</span></a>    <span class="n">FRANKS</span> <span class="o">=</span> <span class="mi">2</span>
@@ -1670,9 +1672,11 @@ This is used in the player objects to set a starting age.</p>
             <div><dt>builtins.int</dt>
                                 <dd id="CivilizationOld.conjugate" class="function">conjugate</dd>
                 <dd id="CivilizationOld.bit_length" class="function">bit_length</dd>
+                <dd id="CivilizationOld.bit_count" class="function">bit_count</dd>
                 <dd id="CivilizationOld.to_bytes" class="function">to_bytes</dd>
                 <dd id="CivilizationOld.from_bytes" class="function">from_bytes</dd>
                 <dd id="CivilizationOld.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="CivilizationOld.is_integer" class="function">is_integer</dd>
                 <dd id="CivilizationOld.real" class="variable">real</dd>
                 <dd id="CivilizationOld.imag" class="variable">imag</dd>
                 <dd id="CivilizationOld.numerator" class="variable">numerator</dd>
@@ -1694,98 +1698,98 @@ This is used in the player objects to set a starting age.</p>
     </div>
     <a class="headerlink" href="#Civilization"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Civilization-105"><a href="#Civilization-105"><span class="linenos">105</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Civilization</span><span class="p">(</span><span class="n">_DataSet</span><span class="p">):</span>
-</span><span id="Civilization-106"><a href="#Civilization-106"><span class="linenos">106</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Civilization-106"><a href="#Civilization-106"><span class="linenos">106</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="Civilization-107"><a href="#Civilization-107"><span class="linenos">107</span></a><span class="sd">    This enum class provides the integer values used to reference the civilizations in the game.</span>
-</span><span id="Civilization-108"><a href="#Civilization-108"><span class="linenos">108</span></a><span class="sd">    This can be used in research tech conditions to check civ or set a player&#39;s civ in the player manager.</span>
+</span><span id="Civilization-108"><a href="#Civilization-108"><span class="linenos">108</span></a><span class="sd">    This can be used in research tech conditions to check civ or set a player's civ in the player manager.</span>
 </span><span id="Civilization-109"><a href="#Civilization-109"><span class="linenos">109</span></a>
 </span><span id="Civilization-110"><a href="#Civilization-110"><span class="linenos">110</span></a><span class="sd">    **Examples**</span>
 </span><span id="Civilization-111"><a href="#Civilization-111"><span class="linenos">111</span></a>
 </span><span id="Civilization-112"><a href="#Civilization-112"><span class="linenos">112</span></a><span class="sd">    &gt;&gt;&gt; Civilization.HUNS</span>
 </span><span id="Civilization-113"><a href="#Civilization-113"><span class="linenos">113</span></a><span class="sd">    &lt;Civilization.HUNS: HUN-CIV&gt;</span>
-</span><span id="Civilization-114"><a href="#Civilization-114"><span class="linenos">114</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Civilization-115"><a href="#Civilization-115"><span class="linenos">115</span></a>    <span class="n">GAIA</span> <span class="o">=</span> <span class="s2">&quot;GAIA&quot;</span>
-</span><span id="Civilization-116"><a href="#Civilization-116"><span class="linenos">116</span></a>    <span class="n">BRITONS</span> <span class="o">=</span> <span class="s2">&quot;BRITON-CIV&quot;</span>
-</span><span id="Civilization-117"><a href="#Civilization-117"><span class="linenos">117</span></a>    <span class="n">FRANKS</span> <span class="o">=</span> <span class="s2">&quot;FRANKISH-CIV&quot;</span>
-</span><span id="Civilization-118"><a href="#Civilization-118"><span class="linenos">118</span></a>    <span class="n">GOTHS</span> <span class="o">=</span> <span class="s2">&quot;GOTHIC-CIV&quot;</span>
-</span><span id="Civilization-119"><a href="#Civilization-119"><span class="linenos">119</span></a>    <span class="n">TEUTONS</span> <span class="o">=</span> <span class="s2">&quot;TEUTONIC-CIV&quot;</span>
-</span><span id="Civilization-120"><a href="#Civilization-120"><span class="linenos">120</span></a>    <span class="n">JAPANESE</span> <span class="o">=</span> <span class="s2">&quot;JAPANESE-CIV&quot;</span>
-</span><span id="Civilization-121"><a href="#Civilization-121"><span class="linenos">121</span></a>    <span class="n">CHINESE</span> <span class="o">=</span> <span class="s2">&quot;CHINESE-CIV&quot;</span>
-</span><span id="Civilization-122"><a href="#Civilization-122"><span class="linenos">122</span></a>    <span class="n">BYZANTINES</span> <span class="o">=</span> <span class="s2">&quot;BYZANTINE-CIV&quot;</span>
-</span><span id="Civilization-123"><a href="#Civilization-123"><span class="linenos">123</span></a>    <span class="n">PERSIANS</span> <span class="o">=</span> <span class="s2">&quot;PERSIAN-CIV&quot;</span>
-</span><span id="Civilization-124"><a href="#Civilization-124"><span class="linenos">124</span></a>    <span class="n">SARACENS</span> <span class="o">=</span> <span class="s2">&quot;SARACEN-CIV&quot;</span>
-</span><span id="Civilization-125"><a href="#Civilization-125"><span class="linenos">125</span></a>    <span class="n">TURKS</span> <span class="o">=</span> <span class="s2">&quot;TURKISH-CIV&quot;</span>
-</span><span id="Civilization-126"><a href="#Civilization-126"><span class="linenos">126</span></a>    <span class="n">VIKINGS</span> <span class="o">=</span> <span class="s2">&quot;VIKING-CIV&quot;</span>
-</span><span id="Civilization-127"><a href="#Civilization-127"><span class="linenos">127</span></a>    <span class="n">MONGOLS</span> <span class="o">=</span> <span class="s2">&quot;MONGOL-CIV&quot;</span>
-</span><span id="Civilization-128"><a href="#Civilization-128"><span class="linenos">128</span></a>    <span class="n">CELTS</span> <span class="o">=</span> <span class="s2">&quot;CELTIC-CIV&quot;</span>
+</span><span id="Civilization-114"><a href="#Civilization-114"><span class="linenos">114</span></a><span class="sd">    """</span>
+</span><span id="Civilization-115"><a href="#Civilization-115"><span class="linenos">115</span></a>    <span class="n">GAIA</span> <span class="o">=</span> <span class="s2">"GAIA"</span>
+</span><span id="Civilization-116"><a href="#Civilization-116"><span class="linenos">116</span></a>    <span class="n">BRITONS</span> <span class="o">=</span> <span class="s2">"BRITON-CIV"</span>
+</span><span id="Civilization-117"><a href="#Civilization-117"><span class="linenos">117</span></a>    <span class="n">FRANKS</span> <span class="o">=</span> <span class="s2">"FRANKISH-CIV"</span>
+</span><span id="Civilization-118"><a href="#Civilization-118"><span class="linenos">118</span></a>    <span class="n">GOTHS</span> <span class="o">=</span> <span class="s2">"GOTHIC-CIV"</span>
+</span><span id="Civilization-119"><a href="#Civilization-119"><span class="linenos">119</span></a>    <span class="n">TEUTONS</span> <span class="o">=</span> <span class="s2">"TEUTONIC-CIV"</span>
+</span><span id="Civilization-120"><a href="#Civilization-120"><span class="linenos">120</span></a>    <span class="n">JAPANESE</span> <span class="o">=</span> <span class="s2">"JAPANESE-CIV"</span>
+</span><span id="Civilization-121"><a href="#Civilization-121"><span class="linenos">121</span></a>    <span class="n">CHINESE</span> <span class="o">=</span> <span class="s2">"CHINESE-CIV"</span>
+</span><span id="Civilization-122"><a href="#Civilization-122"><span class="linenos">122</span></a>    <span class="n">BYZANTINES</span> <span class="o">=</span> <span class="s2">"BYZANTINE-CIV"</span>
+</span><span id="Civilization-123"><a href="#Civilization-123"><span class="linenos">123</span></a>    <span class="n">PERSIANS</span> <span class="o">=</span> <span class="s2">"PERSIAN-CIV"</span>
+</span><span id="Civilization-124"><a href="#Civilization-124"><span class="linenos">124</span></a>    <span class="n">SARACENS</span> <span class="o">=</span> <span class="s2">"SARACEN-CIV"</span>
+</span><span id="Civilization-125"><a href="#Civilization-125"><span class="linenos">125</span></a>    <span class="n">TURKS</span> <span class="o">=</span> <span class="s2">"TURKISH-CIV"</span>
+</span><span id="Civilization-126"><a href="#Civilization-126"><span class="linenos">126</span></a>    <span class="n">VIKINGS</span> <span class="o">=</span> <span class="s2">"VIKING-CIV"</span>
+</span><span id="Civilization-127"><a href="#Civilization-127"><span class="linenos">127</span></a>    <span class="n">MONGOLS</span> <span class="o">=</span> <span class="s2">"MONGOL-CIV"</span>
+</span><span id="Civilization-128"><a href="#Civilization-128"><span class="linenos">128</span></a>    <span class="n">CELTS</span> <span class="o">=</span> <span class="s2">"CELTIC-CIV"</span>
 </span><span id="Civilization-129"><a href="#Civilization-129"><span class="linenos">129</span></a>
-</span><span id="Civilization-130"><a href="#Civilization-130"><span class="linenos">130</span></a>    <span class="n">SPANISH</span> <span class="o">=</span> <span class="s2">&quot;SPANISH-CIV&quot;</span>
-</span><span id="Civilization-131"><a href="#Civilization-131"><span class="linenos">131</span></a>    <span class="n">AZTECS</span> <span class="o">=</span> <span class="s2">&quot;AZTEC-CIV&quot;</span>
-</span><span id="Civilization-132"><a href="#Civilization-132"><span class="linenos">132</span></a>    <span class="n">MAYANS</span> <span class="o">=</span> <span class="s2">&quot;MAYAN-CIV&quot;</span>
-</span><span id="Civilization-133"><a href="#Civilization-133"><span class="linenos">133</span></a>    <span class="n">HUNS</span> <span class="o">=</span> <span class="s2">&quot;HUN-CIV&quot;</span>
-</span><span id="Civilization-134"><a href="#Civilization-134"><span class="linenos">134</span></a>    <span class="n">KOREANS</span> <span class="o">=</span> <span class="s2">&quot;KOREAN-CIV&quot;</span>
+</span><span id="Civilization-130"><a href="#Civilization-130"><span class="linenos">130</span></a>    <span class="n">SPANISH</span> <span class="o">=</span> <span class="s2">"SPANISH-CIV"</span>
+</span><span id="Civilization-131"><a href="#Civilization-131"><span class="linenos">131</span></a>    <span class="n">AZTECS</span> <span class="o">=</span> <span class="s2">"AZTEC-CIV"</span>
+</span><span id="Civilization-132"><a href="#Civilization-132"><span class="linenos">132</span></a>    <span class="n">MAYANS</span> <span class="o">=</span> <span class="s2">"MAYAN-CIV"</span>
+</span><span id="Civilization-133"><a href="#Civilization-133"><span class="linenos">133</span></a>    <span class="n">HUNS</span> <span class="o">=</span> <span class="s2">"HUN-CIV"</span>
+</span><span id="Civilization-134"><a href="#Civilization-134"><span class="linenos">134</span></a>    <span class="n">KOREANS</span> <span class="o">=</span> <span class="s2">"KOREAN-CIV"</span>
 </span><span id="Civilization-135"><a href="#Civilization-135"><span class="linenos">135</span></a>
-</span><span id="Civilization-136"><a href="#Civilization-136"><span class="linenos">136</span></a>    <span class="n">ITALIANS</span> <span class="o">=</span> <span class="s2">&quot;ITALIAN-CIV&quot;</span>
-</span><span id="Civilization-137"><a href="#Civilization-137"><span class="linenos">137</span></a>    <span class="n">HINDUSTANIS</span> <span class="o">=</span> <span class="s2">&quot;INDIAN-CIV&quot;</span>
-</span><span id="Civilization-138"><a href="#Civilization-138"><span class="linenos">138</span></a>    <span class="n">INCAS</span> <span class="o">=</span> <span class="s2">&quot;INCAN-CIV&quot;</span>
-</span><span id="Civilization-139"><a href="#Civilization-139"><span class="linenos">139</span></a>    <span class="n">MAGYARS</span> <span class="o">=</span> <span class="s2">&quot;MAGYAR-CIV&quot;</span>
-</span><span id="Civilization-140"><a href="#Civilization-140"><span class="linenos">140</span></a>    <span class="n">SLAVS</span> <span class="o">=</span> <span class="s2">&quot;SLAVIC-CIV&quot;</span>
+</span><span id="Civilization-136"><a href="#Civilization-136"><span class="linenos">136</span></a>    <span class="n">ITALIANS</span> <span class="o">=</span> <span class="s2">"ITALIAN-CIV"</span>
+</span><span id="Civilization-137"><a href="#Civilization-137"><span class="linenos">137</span></a>    <span class="n">HINDUSTANIS</span> <span class="o">=</span> <span class="s2">"INDIAN-CIV"</span>
+</span><span id="Civilization-138"><a href="#Civilization-138"><span class="linenos">138</span></a>    <span class="n">INCAS</span> <span class="o">=</span> <span class="s2">"INCAN-CIV"</span>
+</span><span id="Civilization-139"><a href="#Civilization-139"><span class="linenos">139</span></a>    <span class="n">MAGYARS</span> <span class="o">=</span> <span class="s2">"MAGYAR-CIV"</span>
+</span><span id="Civilization-140"><a href="#Civilization-140"><span class="linenos">140</span></a>    <span class="n">SLAVS</span> <span class="o">=</span> <span class="s2">"SLAVIC-CIV"</span>
 </span><span id="Civilization-141"><a href="#Civilization-141"><span class="linenos">141</span></a>
-</span><span id="Civilization-142"><a href="#Civilization-142"><span class="linenos">142</span></a>    <span class="n">PORTUGUESE</span> <span class="o">=</span> <span class="s2">&quot;PORTUGUESE-CIV&quot;</span>
-</span><span id="Civilization-143"><a href="#Civilization-143"><span class="linenos">143</span></a>    <span class="n">ETHIOPIANS</span> <span class="o">=</span> <span class="s2">&quot;ETHIOPIAN-CIV&quot;</span>
-</span><span id="Civilization-144"><a href="#Civilization-144"><span class="linenos">144</span></a>    <span class="n">MALIANS</span> <span class="o">=</span> <span class="s2">&quot;MALIAN-CIV&quot;</span>
-</span><span id="Civilization-145"><a href="#Civilization-145"><span class="linenos">145</span></a>    <span class="n">BERBERS</span> <span class="o">=</span> <span class="s2">&quot;BERBERS-CIV&quot;</span>
+</span><span id="Civilization-142"><a href="#Civilization-142"><span class="linenos">142</span></a>    <span class="n">PORTUGUESE</span> <span class="o">=</span> <span class="s2">"PORTUGUESE-CIV"</span>
+</span><span id="Civilization-143"><a href="#Civilization-143"><span class="linenos">143</span></a>    <span class="n">ETHIOPIANS</span> <span class="o">=</span> <span class="s2">"ETHIOPIAN-CIV"</span>
+</span><span id="Civilization-144"><a href="#Civilization-144"><span class="linenos">144</span></a>    <span class="n">MALIANS</span> <span class="o">=</span> <span class="s2">"MALIAN-CIV"</span>
+</span><span id="Civilization-145"><a href="#Civilization-145"><span class="linenos">145</span></a>    <span class="n">BERBERS</span> <span class="o">=</span> <span class="s2">"BERBERS-CIV"</span>
 </span><span id="Civilization-146"><a href="#Civilization-146"><span class="linenos">146</span></a>
-</span><span id="Civilization-147"><a href="#Civilization-147"><span class="linenos">147</span></a>    <span class="n">KHMER</span> <span class="o">=</span> <span class="s2">&quot;KHMER-CIV&quot;</span>
-</span><span id="Civilization-148"><a href="#Civilization-148"><span class="linenos">148</span></a>    <span class="n">MALAY</span> <span class="o">=</span> <span class="s2">&quot;MALAY-CIV&quot;</span>
-</span><span id="Civilization-149"><a href="#Civilization-149"><span class="linenos">149</span></a>    <span class="n">BURMESE</span> <span class="o">=</span> <span class="s2">&quot;BURMESE-CIV&quot;</span>
-</span><span id="Civilization-150"><a href="#Civilization-150"><span class="linenos">150</span></a>    <span class="n">VIETNAMESE</span> <span class="o">=</span> <span class="s2">&quot;VIETNAMESE-CIV&quot;</span>
+</span><span id="Civilization-147"><a href="#Civilization-147"><span class="linenos">147</span></a>    <span class="n">KHMER</span> <span class="o">=</span> <span class="s2">"KHMER-CIV"</span>
+</span><span id="Civilization-148"><a href="#Civilization-148"><span class="linenos">148</span></a>    <span class="n">MALAY</span> <span class="o">=</span> <span class="s2">"MALAY-CIV"</span>
+</span><span id="Civilization-149"><a href="#Civilization-149"><span class="linenos">149</span></a>    <span class="n">BURMESE</span> <span class="o">=</span> <span class="s2">"BURMESE-CIV"</span>
+</span><span id="Civilization-150"><a href="#Civilization-150"><span class="linenos">150</span></a>    <span class="n">VIETNAMESE</span> <span class="o">=</span> <span class="s2">"VIETNAMESE-CIV"</span>
 </span><span id="Civilization-151"><a href="#Civilization-151"><span class="linenos">151</span></a>
-</span><span id="Civilization-152"><a href="#Civilization-152"><span class="linenos">152</span></a>    <span class="n">BULGARIANS</span> <span class="o">=</span> <span class="s2">&quot;BULGARIANS-CIV&quot;</span>
-</span><span id="Civilization-153"><a href="#Civilization-153"><span class="linenos">153</span></a>    <span class="n">TATARS</span> <span class="o">=</span> <span class="s2">&quot;TATARS-CIV&quot;</span>
-</span><span id="Civilization-154"><a href="#Civilization-154"><span class="linenos">154</span></a>    <span class="n">CUMANS</span> <span class="o">=</span> <span class="s2">&quot;CUMANS-CIV&quot;</span>
-</span><span id="Civilization-155"><a href="#Civilization-155"><span class="linenos">155</span></a>    <span class="n">LITHUANIANS</span> <span class="o">=</span> <span class="s2">&quot;LITHUANIANS-CIV&quot;</span>
+</span><span id="Civilization-152"><a href="#Civilization-152"><span class="linenos">152</span></a>    <span class="n">BULGARIANS</span> <span class="o">=</span> <span class="s2">"BULGARIANS-CIV"</span>
+</span><span id="Civilization-153"><a href="#Civilization-153"><span class="linenos">153</span></a>    <span class="n">TATARS</span> <span class="o">=</span> <span class="s2">"TATARS-CIV"</span>
+</span><span id="Civilization-154"><a href="#Civilization-154"><span class="linenos">154</span></a>    <span class="n">CUMANS</span> <span class="o">=</span> <span class="s2">"CUMANS-CIV"</span>
+</span><span id="Civilization-155"><a href="#Civilization-155"><span class="linenos">155</span></a>    <span class="n">LITHUANIANS</span> <span class="o">=</span> <span class="s2">"LITHUANIANS-CIV"</span>
 </span><span id="Civilization-156"><a href="#Civilization-156"><span class="linenos">156</span></a>
-</span><span id="Civilization-157"><a href="#Civilization-157"><span class="linenos">157</span></a>    <span class="n">BURGUNDIANS</span> <span class="o">=</span> <span class="s2">&quot;BURGUNDIANS-CIV&quot;</span>
-</span><span id="Civilization-158"><a href="#Civilization-158"><span class="linenos">158</span></a>    <span class="n">SICILIANS</span> <span class="o">=</span> <span class="s2">&quot;SICILIANS-CIV&quot;</span>
+</span><span id="Civilization-157"><a href="#Civilization-157"><span class="linenos">157</span></a>    <span class="n">BURGUNDIANS</span> <span class="o">=</span> <span class="s2">"BURGUNDIANS-CIV"</span>
+</span><span id="Civilization-158"><a href="#Civilization-158"><span class="linenos">158</span></a>    <span class="n">SICILIANS</span> <span class="o">=</span> <span class="s2">"SICILIANS-CIV"</span>
 </span><span id="Civilization-159"><a href="#Civilization-159"><span class="linenos">159</span></a>
-</span><span id="Civilization-160"><a href="#Civilization-160"><span class="linenos">160</span></a>    <span class="n">POLES</span> <span class="o">=</span> <span class="s2">&quot;POLES-CIV&quot;</span>
-</span><span id="Civilization-161"><a href="#Civilization-161"><span class="linenos">161</span></a>    <span class="n">BOHEMIANS</span> <span class="o">=</span> <span class="s2">&quot;BOHEMIANS-CIV&quot;</span>
+</span><span id="Civilization-160"><a href="#Civilization-160"><span class="linenos">160</span></a>    <span class="n">POLES</span> <span class="o">=</span> <span class="s2">"POLES-CIV"</span>
+</span><span id="Civilization-161"><a href="#Civilization-161"><span class="linenos">161</span></a>    <span class="n">BOHEMIANS</span> <span class="o">=</span> <span class="s2">"BOHEMIANS-CIV"</span>
 </span><span id="Civilization-162"><a href="#Civilization-162"><span class="linenos">162</span></a>
-</span><span id="Civilization-163"><a href="#Civilization-163"><span class="linenos">163</span></a>    <span class="n">DRAVIDIANS</span> <span class="o">=</span> <span class="s2">&quot;DRAVIDIANS-CIV&quot;</span>
-</span><span id="Civilization-164"><a href="#Civilization-164"><span class="linenos">164</span></a>    <span class="n">BENGALIS</span> <span class="o">=</span> <span class="s2">&quot;BENGALIS-CIV&quot;</span>
-</span><span id="Civilization-165"><a href="#Civilization-165"><span class="linenos">165</span></a>    <span class="n">GURJARAS</span> <span class="o">=</span> <span class="s2">&quot;GURJARAS-CIV&quot;</span>
+</span><span id="Civilization-163"><a href="#Civilization-163"><span class="linenos">163</span></a>    <span class="n">DRAVIDIANS</span> <span class="o">=</span> <span class="s2">"DRAVIDIANS-CIV"</span>
+</span><span id="Civilization-164"><a href="#Civilization-164"><span class="linenos">164</span></a>    <span class="n">BENGALIS</span> <span class="o">=</span> <span class="s2">"BENGALIS-CIV"</span>
+</span><span id="Civilization-165"><a href="#Civilization-165"><span class="linenos">165</span></a>    <span class="n">GURJARAS</span> <span class="o">=</span> <span class="s2">"GURJARAS-CIV"</span>
 </span><span id="Civilization-166"><a href="#Civilization-166"><span class="linenos">166</span></a>
-</span><span id="Civilization-167"><a href="#Civilization-167"><span class="linenos">167</span></a>    <span class="n">ROMANS</span> <span class="o">=</span> <span class="s2">&quot;ROMANS-CIV&quot;</span>
+</span><span id="Civilization-167"><a href="#Civilization-167"><span class="linenos">167</span></a>    <span class="n">ROMANS</span> <span class="o">=</span> <span class="s2">"ROMANS-CIV"</span>
 </span><span id="Civilization-168"><a href="#Civilization-168"><span class="linenos">168</span></a>
-</span><span id="Civilization-169"><a href="#Civilization-169"><span class="linenos">169</span></a>    <span class="n">ARMENIANS</span> <span class="o">=</span> <span class="s2">&quot;ARMENIANS-CIV&quot;</span>
-</span><span id="Civilization-170"><a href="#Civilization-170"><span class="linenos">170</span></a>    <span class="n">GEORGIANS</span> <span class="o">=</span> <span class="s2">&quot;GEORGIANS-CIV&quot;</span>
+</span><span id="Civilization-169"><a href="#Civilization-169"><span class="linenos">169</span></a>    <span class="n">ARMENIANS</span> <span class="o">=</span> <span class="s2">"ARMENIANS-CIV"</span>
+</span><span id="Civilization-170"><a href="#Civilization-170"><span class="linenos">170</span></a>    <span class="n">GEORGIANS</span> <span class="o">=</span> <span class="s2">"GEORGIANS-CIV"</span>
 </span><span id="Civilization-171"><a href="#Civilization-171"><span class="linenos">171</span></a>
-</span><span id="Civilization-172"><a href="#Civilization-172"><span class="linenos">172</span></a>    <span class="n">ACHAEMENIDS</span> <span class="o">=</span> <span class="s2">&quot;ACHAEMENIDS-CIV&quot;</span>
-</span><span id="Civilization-173"><a href="#Civilization-173"><span class="linenos">173</span></a>    <span class="n">ATHENIANS</span> <span class="o">=</span> <span class="s2">&quot;ATHENIANS-CIV&quot;</span>
-</span><span id="Civilization-174"><a href="#Civilization-174"><span class="linenos">174</span></a>    <span class="n">SPARTANS</span> <span class="o">=</span> <span class="s2">&quot;SPARTANS-CIV&quot;</span>
+</span><span id="Civilization-172"><a href="#Civilization-172"><span class="linenos">172</span></a>    <span class="n">ACHAEMENIDS</span> <span class="o">=</span> <span class="s2">"ACHAEMENIDS-CIV"</span>
+</span><span id="Civilization-173"><a href="#Civilization-173"><span class="linenos">173</span></a>    <span class="n">ATHENIANS</span> <span class="o">=</span> <span class="s2">"ATHENIANS-CIV"</span>
+</span><span id="Civilization-174"><a href="#Civilization-174"><span class="linenos">174</span></a>    <span class="n">SPARTANS</span> <span class="o">=</span> <span class="s2">"SPARTANS-CIV"</span>
 </span><span id="Civilization-175"><a href="#Civilization-175"><span class="linenos">175</span></a>
-</span><span id="Civilization-176"><a href="#Civilization-176"><span class="linenos">176</span></a>    <span class="n">SHU</span> <span class="o">=</span> <span class="s2">&quot;SHU-CIV&quot;</span>
-</span><span id="Civilization-177"><a href="#Civilization-177"><span class="linenos">177</span></a>    <span class="n">WU</span> <span class="o">=</span> <span class="s2">&quot;WU-CIV&quot;</span>
-</span><span id="Civilization-178"><a href="#Civilization-178"><span class="linenos">178</span></a>    <span class="n">WEI</span> <span class="o">=</span> <span class="s2">&quot;WEI-CIV&quot;</span>
-</span><span id="Civilization-179"><a href="#Civilization-179"><span class="linenos">179</span></a>    <span class="n">JURCHENS</span> <span class="o">=</span> <span class="s2">&quot;JURCHENS-CIV&quot;</span>
-</span><span id="Civilization-180"><a href="#Civilization-180"><span class="linenos">180</span></a>    <span class="n">KHITANS</span> <span class="o">=</span> <span class="s2">&quot;KHITANS-CIV&quot;</span>
+</span><span id="Civilization-176"><a href="#Civilization-176"><span class="linenos">176</span></a>    <span class="n">SHU</span> <span class="o">=</span> <span class="s2">"SHU-CIV"</span>
+</span><span id="Civilization-177"><a href="#Civilization-177"><span class="linenos">177</span></a>    <span class="n">WU</span> <span class="o">=</span> <span class="s2">"WU-CIV"</span>
+</span><span id="Civilization-178"><a href="#Civilization-178"><span class="linenos">178</span></a>    <span class="n">WEI</span> <span class="o">=</span> <span class="s2">"WEI-CIV"</span>
+</span><span id="Civilization-179"><a href="#Civilization-179"><span class="linenos">179</span></a>    <span class="n">JURCHENS</span> <span class="o">=</span> <span class="s2">"JURCHENS-CIV"</span>
+</span><span id="Civilization-180"><a href="#Civilization-180"><span class="linenos">180</span></a>    <span class="n">KHITANS</span> <span class="o">=</span> <span class="s2">"KHITANS-CIV"</span>
 </span><span id="Civilization-181"><a href="#Civilization-181"><span class="linenos">181</span></a>
-</span><span id="Civilization-182"><a href="#Civilization-182"><span class="linenos">182</span></a>    <span class="n">MACEDONIANS</span> <span class="o">=</span> <span class="s2">&quot;MACEDONIANS-CIV&quot;</span>
-</span><span id="Civilization-183"><a href="#Civilization-183"><span class="linenos">183</span></a>    <span class="n">THRACIANS</span> <span class="o">=</span> <span class="s2">&quot;THRACIANS-CIV&quot;</span>
-</span><span id="Civilization-184"><a href="#Civilization-184"><span class="linenos">184</span></a>    <span class="n">PURU</span> <span class="o">=</span> <span class="s2">&quot;PURU-CIV&quot;</span>
+</span><span id="Civilization-182"><a href="#Civilization-182"><span class="linenos">182</span></a>    <span class="n">MACEDONIANS</span> <span class="o">=</span> <span class="s2">"MACEDONIANS-CIV"</span>
+</span><span id="Civilization-183"><a href="#Civilization-183"><span class="linenos">183</span></a>    <span class="n">THRACIANS</span> <span class="o">=</span> <span class="s2">"THRACIANS-CIV"</span>
+</span><span id="Civilization-184"><a href="#Civilization-184"><span class="linenos">184</span></a>    <span class="n">PURU</span> <span class="o">=</span> <span class="s2">"PURU-CIV"</span>
 </span><span id="Civilization-185"><a href="#Civilization-185"><span class="linenos">185</span></a>
-</span><span id="Civilization-186"><a href="#Civilization-186"><span class="linenos">186</span></a>    <span class="n">MUISCA</span> <span class="o">=</span> <span class="s2">&quot;MUISCA-CIV&quot;</span>
-</span><span id="Civilization-187"><a href="#Civilization-187"><span class="linenos">187</span></a>    <span class="n">MAPUCHE</span> <span class="o">=</span> <span class="s2">&quot;MAPUCHE-CIV&quot;</span>
-</span><span id="Civilization-188"><a href="#Civilization-188"><span class="linenos">188</span></a>    <span class="n">TUPI</span> <span class="o">=</span> <span class="s2">&quot;TUPI-CIV&quot;</span>
+</span><span id="Civilization-186"><a href="#Civilization-186"><span class="linenos">186</span></a>    <span class="n">MUISCA</span> <span class="o">=</span> <span class="s2">"MUISCA-CIV"</span>
+</span><span id="Civilization-187"><a href="#Civilization-187"><span class="linenos">187</span></a>    <span class="n">MAPUCHE</span> <span class="o">=</span> <span class="s2">"MAPUCHE-CIV"</span>
+</span><span id="Civilization-188"><a href="#Civilization-188"><span class="linenos">188</span></a>    <span class="n">TUPI</span> <span class="o">=</span> <span class="s2">"TUPI-CIV"</span>
 </span><span id="Civilization-189"><a href="#Civilization-189"><span class="linenos">189</span></a>
-</span><span id="Civilization-190"><a href="#Civilization-190"><span class="linenos">190</span></a>    <span class="n">SAXONS</span> <span class="o">=</span> <span class="s2">&quot;SAXONS-CIV&quot;</span>
-</span><span id="Civilization-191"><a href="#Civilization-191"><span class="linenos">191</span></a>    <span class="n">VARANGIANS</span> <span class="o">=</span> <span class="s2">&quot;VARANGIANS-CIV&quot;</span>
-</span><span id="Civilization-192"><a href="#Civilization-192"><span class="linenos">192</span></a>    <span class="n">DANES</span> <span class="o">=</span> <span class="s2">&quot;DANES-CIV&quot;</span>
+</span><span id="Civilization-190"><a href="#Civilization-190"><span class="linenos">190</span></a>    <span class="n">SAXONS</span> <span class="o">=</span> <span class="s2">"SAXONS-CIV"</span>
+</span><span id="Civilization-191"><a href="#Civilization-191"><span class="linenos">191</span></a>    <span class="n">VARANGIANS</span> <span class="o">=</span> <span class="s2">"VARANGIANS-CIV"</span>
+</span><span id="Civilization-192"><a href="#Civilization-192"><span class="linenos">192</span></a>    <span class="n">DANES</span> <span class="o">=</span> <span class="s2">"DANES-CIV"</span>
 </span><span id="Civilization-193"><a href="#Civilization-193"><span class="linenos">193</span></a>
-</span><span id="Civilization-194"><a href="#Civilization-194"><span class="linenos">194</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">&quot;RANDOM-CIV&quot;</span>
-</span><span id="Civilization-195"><a href="#Civilization-195"><span class="linenos">195</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;MIRROR-RANDOM-CIV&quot;</span>
-</span><span id="Civilization-196"><a href="#Civilization-196"><span class="linenos">196</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;FULL-RANDOM-CIV&quot;</span>
-</span><span id="Civilization-197"><a href="#Civilization-197"><span class="linenos">197</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">&quot;CUSTOM-RANDOM-CIV&quot;</span>
+</span><span id="Civilization-194"><a href="#Civilization-194"><span class="linenos">194</span></a>    <span class="n">RANDOM</span> <span class="o">=</span> <span class="s2">"RANDOM-CIV"</span>
+</span><span id="Civilization-195"><a href="#Civilization-195"><span class="linenos">195</span></a>    <span class="n">MIRROR_RANDOM</span> <span class="o">=</span> <span class="s2">"MIRROR-RANDOM-CIV"</span>
+</span><span id="Civilization-196"><a href="#Civilization-196"><span class="linenos">196</span></a>    <span class="n">FULL_RANDOM</span> <span class="o">=</span> <span class="s2">"FULL-RANDOM-CIV"</span>
+</span><span id="Civilization-197"><a href="#Civilization-197"><span class="linenos">197</span></a>    <span class="n">CUSTOM_RANDOM</span> <span class="o">=</span> <span class="s2">"CUSTOM-RANDOM-CIV"</span>
 </span><span id="Civilization-198"><a href="#Civilization-198"><span class="linenos">198</span></a>
 </span><span id="Civilization-199"><a href="#Civilization-199"><span class="linenos">199</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
 </span><span id="Civilization-200"><a href="#Civilization-200"><span class="linenos">200</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>

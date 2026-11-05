@@ -85,26 +85,26 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.technology_state    </h
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TechnologyState</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values used to reference technology state of a technology in the game. Used in</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    the &#39;Technology State&#39; condition.</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    the 'Technology State' condition.</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    **Examples**</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &gt;&gt;&gt; TechnologyState.NOT_READY</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &lt;TechnologyState.NOT_READY: 0&gt;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    """</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">DISABLED</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">NOT_READY</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is not available to be researched (Bombard Tower is not ready before chemistry is researched)&quot;&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">"""A tech that is not available to be researched (Bombard Tower is not ready before chemistry is researched)"""</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">READY</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is available to be researched (Bombard Tower is ready after chemistry is researched)&quot;&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">"""A tech that is available to be researched (Bombard Tower is ready after chemistry is researched)"""</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">RESEARCHING</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is currently being researched&quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">"""A tech that is currently being researched"""</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">DONE</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A Tech that has already been researched&quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">"""A Tech that has already been researched"""</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">QUEUED</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is waiting in queue to be researched&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">"""A tech that is waiting in queue to be researched"""</span>
 </span></pre></div>
 
 
@@ -121,26 +121,26 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.technology_state    </h
     </div>
     <a class="headerlink" href="#TechnologyState"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="TechnologyState-7"><a href="#TechnologyState-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TechnologyState</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="TechnologyState-8"><a href="#TechnologyState-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TechnologyState-8"><a href="#TechnologyState-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="TechnologyState-9"><a href="#TechnologyState-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference technology state of a technology in the game. Used in</span>
-</span><span id="TechnologyState-10"><a href="#TechnologyState-10"><span class="linenos">10</span></a><span class="sd">    the &#39;Technology State&#39; condition.</span>
+</span><span id="TechnologyState-10"><a href="#TechnologyState-10"><span class="linenos">10</span></a><span class="sd">    the 'Technology State' condition.</span>
 </span><span id="TechnologyState-11"><a href="#TechnologyState-11"><span class="linenos">11</span></a>
 </span><span id="TechnologyState-12"><a href="#TechnologyState-12"><span class="linenos">12</span></a><span class="sd">    **Examples**</span>
 </span><span id="TechnologyState-13"><a href="#TechnologyState-13"><span class="linenos">13</span></a>
 </span><span id="TechnologyState-14"><a href="#TechnologyState-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; TechnologyState.NOT_READY</span>
 </span><span id="TechnologyState-15"><a href="#TechnologyState-15"><span class="linenos">15</span></a><span class="sd">    &lt;TechnologyState.NOT_READY: 0&gt;</span>
-</span><span id="TechnologyState-16"><a href="#TechnologyState-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="TechnologyState-16"><a href="#TechnologyState-16"><span class="linenos">16</span></a><span class="sd">    """</span>
 </span><span id="TechnologyState-17"><a href="#TechnologyState-17"><span class="linenos">17</span></a>    <span class="n">DISABLED</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 </span><span id="TechnologyState-18"><a href="#TechnologyState-18"><span class="linenos">18</span></a>    <span class="n">NOT_READY</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="TechnologyState-19"><a href="#TechnologyState-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is not available to be researched (Bombard Tower is not ready before chemistry is researched)&quot;&quot;&quot;</span>
+</span><span id="TechnologyState-19"><a href="#TechnologyState-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">"""A tech that is not available to be researched (Bombard Tower is not ready before chemistry is researched)"""</span>
 </span><span id="TechnologyState-20"><a href="#TechnologyState-20"><span class="linenos">20</span></a>    <span class="n">READY</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="TechnologyState-21"><a href="#TechnologyState-21"><span class="linenos">21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is available to be researched (Bombard Tower is ready after chemistry is researched)&quot;&quot;&quot;</span>
+</span><span id="TechnologyState-21"><a href="#TechnologyState-21"><span class="linenos">21</span></a><span class="w">    </span><span class="sd">"""A tech that is available to be researched (Bombard Tower is ready after chemistry is researched)"""</span>
 </span><span id="TechnologyState-22"><a href="#TechnologyState-22"><span class="linenos">22</span></a>    <span class="n">RESEARCHING</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="TechnologyState-23"><a href="#TechnologyState-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is currently being researched&quot;&quot;&quot;</span>
+</span><span id="TechnologyState-23"><a href="#TechnologyState-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">"""A tech that is currently being researched"""</span>
 </span><span id="TechnologyState-24"><a href="#TechnologyState-24"><span class="linenos">24</span></a>    <span class="n">DONE</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="TechnologyState-25"><a href="#TechnologyState-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A Tech that has already been researched&quot;&quot;&quot;</span>
+</span><span id="TechnologyState-25"><a href="#TechnologyState-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">"""A Tech that has already been researched"""</span>
 </span><span id="TechnologyState-26"><a href="#TechnologyState-26"><span class="linenos">26</span></a>    <span class="n">QUEUED</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="TechnologyState-27"><a href="#TechnologyState-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A tech that is waiting in queue to be researched&quot;&quot;&quot;</span>
+</span><span id="TechnologyState-27"><a href="#TechnologyState-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">"""A tech that is waiting in queue to be researched"""</span>
 </span></pre></div>
 
 
@@ -254,9 +254,11 @@ the 'Technology State' condition.</p>
             <div><dt>builtins.int</dt>
                                 <dd id="TechnologyState.conjugate" class="function">conjugate</dd>
                 <dd id="TechnologyState.bit_length" class="function">bit_length</dd>
+                <dd id="TechnologyState.bit_count" class="function">bit_count</dd>
                 <dd id="TechnologyState.to_bytes" class="function">to_bytes</dd>
                 <dd id="TechnologyState.from_bytes" class="function">from_bytes</dd>
                 <dd id="TechnologyState.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="TechnologyState.is_integer" class="function">is_integer</dd>
                 <dd id="TechnologyState.real" class="variable">real</dd>
                 <dd id="TechnologyState.imag" class="variable">imag</dd>
                 <dd id="TechnologyState.numerator" class="variable">numerator</dd>

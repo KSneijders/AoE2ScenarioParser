@@ -85,7 +85,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">SecondaryGameMode</span><span class="p">(</span><span class="n">_DataSetIntFlags</span><span class="p">):</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values for the different secondary game modes.</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    **Examples**</span>
@@ -94,7 +94,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &lt;SecondaryGameMode.EMPIRE_WARS: 1&gt;</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; SecondaryGameMode.SUDDEN_DEATH | SecondaryGameMode.REGICIDE</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &lt;HeroStatusFlag.SUDDEN_DEATH|REGICIDE: 6&gt;</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    """</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="c1"># todo: we can probably add this to the base dataset int flags class, I have an idea on how to generic-ify this</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="c1">#  method although idk if its actually good - Alian</span>
@@ -105,7 +105,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>            <span class="n">regicide</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>            <span class="n">king_of_the_hill</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SecondaryGameMode</span><span class="p">:</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">        This method combines the given hero status flags into an integer value</span>
 </span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
 </span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">        Args:</span>
@@ -116,7 +116,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
 </span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">        Returns:</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">            An integer combining all the different hero status flags into one value</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">        """</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="n">total</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">empire_wars</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">sudden_death</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">regicide</span> <span class="k">else</span> <span class="mi">0</span>
@@ -144,7 +144,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
     </div>
     <a class="headerlink" href="#SecondaryGameMode"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="SecondaryGameMode-7"><a href="#SecondaryGameMode-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">SecondaryGameMode</span><span class="p">(</span><span class="n">_DataSetIntFlags</span><span class="p">):</span>
-</span><span id="SecondaryGameMode-8"><a href="#SecondaryGameMode-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="SecondaryGameMode-8"><a href="#SecondaryGameMode-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="SecondaryGameMode-9"><a href="#SecondaryGameMode-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values for the different secondary game modes.</span>
 </span><span id="SecondaryGameMode-10"><a href="#SecondaryGameMode-10"><span class="linenos">10</span></a>
 </span><span id="SecondaryGameMode-11"><a href="#SecondaryGameMode-11"><span class="linenos">11</span></a><span class="sd">    **Examples**</span>
@@ -153,7 +153,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="SecondaryGameMode-14"><a href="#SecondaryGameMode-14"><span class="linenos">14</span></a><span class="sd">    &lt;SecondaryGameMode.EMPIRE_WARS: 1&gt;</span>
 </span><span id="SecondaryGameMode-15"><a href="#SecondaryGameMode-15"><span class="linenos">15</span></a><span class="sd">    &gt;&gt;&gt; SecondaryGameMode.SUDDEN_DEATH | SecondaryGameMode.REGICIDE</span>
 </span><span id="SecondaryGameMode-16"><a href="#SecondaryGameMode-16"><span class="linenos">16</span></a><span class="sd">    &lt;HeroStatusFlag.SUDDEN_DEATH|REGICIDE: 6&gt;</span>
-</span><span id="SecondaryGameMode-17"><a href="#SecondaryGameMode-17"><span class="linenos">17</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="SecondaryGameMode-17"><a href="#SecondaryGameMode-17"><span class="linenos">17</span></a><span class="sd">    """</span>
 </span><span id="SecondaryGameMode-18"><a href="#SecondaryGameMode-18"><span class="linenos">18</span></a>
 </span><span id="SecondaryGameMode-19"><a href="#SecondaryGameMode-19"><span class="linenos">19</span></a>    <span class="c1"># todo: we can probably add this to the base dataset int flags class, I have an idea on how to generic-ify this</span>
 </span><span id="SecondaryGameMode-20"><a href="#SecondaryGameMode-20"><span class="linenos">20</span></a>    <span class="c1">#  method although idk if its actually good - Alian</span>
@@ -164,7 +164,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="SecondaryGameMode-25"><a href="#SecondaryGameMode-25"><span class="linenos">25</span></a>            <span class="n">regicide</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="SecondaryGameMode-26"><a href="#SecondaryGameMode-26"><span class="linenos">26</span></a>            <span class="n">king_of_the_hill</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="SecondaryGameMode-27"><a href="#SecondaryGameMode-27"><span class="linenos">27</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SecondaryGameMode</span><span class="p">:</span>
-</span><span id="SecondaryGameMode-28"><a href="#SecondaryGameMode-28"><span class="linenos">28</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="SecondaryGameMode-28"><a href="#SecondaryGameMode-28"><span class="linenos">28</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="SecondaryGameMode-29"><a href="#SecondaryGameMode-29"><span class="linenos">29</span></a><span class="sd">        This method combines the given hero status flags into an integer value</span>
 </span><span id="SecondaryGameMode-30"><a href="#SecondaryGameMode-30"><span class="linenos">30</span></a>
 </span><span id="SecondaryGameMode-31"><a href="#SecondaryGameMode-31"><span class="linenos">31</span></a><span class="sd">        Args:</span>
@@ -175,7 +175,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="SecondaryGameMode-36"><a href="#SecondaryGameMode-36"><span class="linenos">36</span></a>
 </span><span id="SecondaryGameMode-37"><a href="#SecondaryGameMode-37"><span class="linenos">37</span></a><span class="sd">        Returns:</span>
 </span><span id="SecondaryGameMode-38"><a href="#SecondaryGameMode-38"><span class="linenos">38</span></a><span class="sd">            An integer combining all the different hero status flags into one value</span>
-</span><span id="SecondaryGameMode-39"><a href="#SecondaryGameMode-39"><span class="linenos">39</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="SecondaryGameMode-39"><a href="#SecondaryGameMode-39"><span class="linenos">39</span></a><span class="sd">        """</span>
 </span><span id="SecondaryGameMode-40"><a href="#SecondaryGameMode-40"><span class="linenos">40</span></a>        <span class="n">total</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">empire_wars</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="SecondaryGameMode-41"><a href="#SecondaryGameMode-41"><span class="linenos">41</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">sudden_death</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="SecondaryGameMode-42"><a href="#SecondaryGameMode-42"><span class="linenos">42</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">regicide</span> <span class="k">else</span> <span class="mi">0</span>
@@ -223,7 +223,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="SecondaryGameMode.combine-25"><a href="#SecondaryGameMode.combine-25"><span class="linenos">25</span></a>            <span class="n">regicide</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="SecondaryGameMode.combine-26"><a href="#SecondaryGameMode.combine-26"><span class="linenos">26</span></a>            <span class="n">king_of_the_hill</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="SecondaryGameMode.combine-27"><a href="#SecondaryGameMode.combine-27"><span class="linenos">27</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SecondaryGameMode</span><span class="p">:</span>
-</span><span id="SecondaryGameMode.combine-28"><a href="#SecondaryGameMode.combine-28"><span class="linenos">28</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="SecondaryGameMode.combine-28"><a href="#SecondaryGameMode.combine-28"><span class="linenos">28</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="SecondaryGameMode.combine-29"><a href="#SecondaryGameMode.combine-29"><span class="linenos">29</span></a><span class="sd">        This method combines the given hero status flags into an integer value</span>
 </span><span id="SecondaryGameMode.combine-30"><a href="#SecondaryGameMode.combine-30"><span class="linenos">30</span></a>
 </span><span id="SecondaryGameMode.combine-31"><a href="#SecondaryGameMode.combine-31"><span class="linenos">31</span></a><span class="sd">        Args:</span>
@@ -234,7 +234,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
 </span><span id="SecondaryGameMode.combine-36"><a href="#SecondaryGameMode.combine-36"><span class="linenos">36</span></a>
 </span><span id="SecondaryGameMode.combine-37"><a href="#SecondaryGameMode.combine-37"><span class="linenos">37</span></a><span class="sd">        Returns:</span>
 </span><span id="SecondaryGameMode.combine-38"><a href="#SecondaryGameMode.combine-38"><span class="linenos">38</span></a><span class="sd">            An integer combining all the different hero status flags into one value</span>
-</span><span id="SecondaryGameMode.combine-39"><a href="#SecondaryGameMode.combine-39"><span class="linenos">39</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="SecondaryGameMode.combine-39"><a href="#SecondaryGameMode.combine-39"><span class="linenos">39</span></a><span class="sd">        """</span>
 </span><span id="SecondaryGameMode.combine-40"><a href="#SecondaryGameMode.combine-40"><span class="linenos">40</span></a>        <span class="n">total</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">empire_wars</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="SecondaryGameMode.combine-41"><a href="#SecondaryGameMode.combine-41"><span class="linenos">41</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">sudden_death</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="SecondaryGameMode.combine-42"><a href="#SecondaryGameMode.combine-42"><span class="linenos">42</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">regicide</span> <span class="k">else</span> <span class="mi">0</span>
@@ -327,9 +327,11 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.secondary_game_mode    
             <div><dt>builtins.int</dt>
                                 <dd id="SecondaryGameMode.conjugate" class="function">conjugate</dd>
                 <dd id="SecondaryGameMode.bit_length" class="function">bit_length</dd>
+                <dd id="SecondaryGameMode.bit_count" class="function">bit_count</dd>
                 <dd id="SecondaryGameMode.to_bytes" class="function">to_bytes</dd>
                 <dd id="SecondaryGameMode.from_bytes" class="function">from_bytes</dd>
                 <dd id="SecondaryGameMode.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="SecondaryGameMode.is_integer" class="function">is_integer</dd>
                 <dd id="SecondaryGameMode.real" class="variable">real</dd>
                 <dd id="SecondaryGameMode.imag" class="variable">imag</dd>
                 <dd id="SecondaryGameMode.numerator" class="variable">numerator</dd>

@@ -90,41 +90,41 @@ means the change wouldn't transfer to the <code>settings</code> module.</p>
 
                         <label class="view-source-button" for="mod-settings-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">"""</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">Warning: IMPORT THE MODULE, NOT THE VALUES!</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">    To change these settings, import the module: `from AoE2ScenarioParser import settings`.</span>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">    Then you can change the settings like: `settings.RAISE_ERROR_ON_WARNING = True`</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">If you import the values directly like: `from ... import RAISE_ERROR_ON_WARNING`</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">_(not written out because it wouldn&#39;t work)_, change the value would overwrite the reference and not the value which</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">means the change wouldn&#39;t transfer to the `settings` module.</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">_(not written out because it wouldn't work)_, change the value would overwrite the reference and not the value which</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">means the change wouldn't transfer to the `settings` module.</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">"""</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="n">NOTIFY_UNKNOWN_BYTES</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">&quot;&quot;&quot;Show a notification of extra bytes being available at the end of the file, so you can notify the maintainer&quot;&quot;&quot;</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">"""Show a notification of extra bytes being available at the end of the file, so you can notify the maintainer"""</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="c1"># Reading / Writing settings</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="n">PRINT_STATUS_UPDATES</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">&quot;&quot;&quot;If status updates of what is being read and written should be printed to console&quot;&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">"""If status updates of what is being read and written should be printed to console"""</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="n">ALLOW_OVERWRITING_SOURCE</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">&quot;&quot;&quot;Disable the error being raised when overwriting source scenario&quot;&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">"""Disable the error being raised when overwriting source scenario"""</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="n">ALLOW_DIRTY_RETRIEVER_OVERWRITE</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">&quot;&quot;&quot;If it is allowed to overwrite a retriever that is dirty (it has been changed manually)&quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">"""If it is allowed to overwrite a retriever that is dirty (it has been changed manually)"""</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="n">SHOW_VARIANT_WARNINGS</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">&quot;&quot;&quot;If warnings about incorrect variants should be shown or not&quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">"""If warnings about incorrect variants should be shown or not"""</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="n">SHOW_SCENARIO_VERSION_WARNINGS</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">&quot;&quot;&quot;If warnings about reading multiple scenario versions should be shown or not&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">"""If warnings about reading multiple scenario versions should be shown or not"""</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="c1"># Charset settings</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="n">MAIN_CHARSET</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">&quot;&quot;&quot;The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET&quot;&quot;&quot;</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="n">FALLBACK_CHARSET</span> <span class="o">=</span> <span class="s2">&quot;latin-1&quot;</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">&quot;&quot;&quot;The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails&quot;&quot;&quot;</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="n">MAIN_CHARSET</span> <span class="o">=</span> <span class="s2">"utf-8"</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">"""The charset used to decode the text in the scenario. If it fails, will try the settings.FALLBACK_CHARSET"""</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="n">FALLBACK_CHARSET</span> <span class="o">=</span> <span class="s2">"latin-1"</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">"""The charset used to decode the text in the scenario when the settings.MAIN_CHARSET fails"""</span>
 </span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
 </span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="n">ENABLE_XS_CHECK_INTEGRATION</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">&quot;&quot;&quot;If the xs-check integration should be active. If set to False, xs-check will not be used anywhere&quot;&quot;&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">"""If the xs-check integration should be active. If set to False, xs-check will not be used anywhere"""</span>
 </span></pre></div>
 
 

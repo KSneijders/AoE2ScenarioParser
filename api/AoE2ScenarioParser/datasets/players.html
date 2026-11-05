@@ -206,14 +206,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PlayerId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference each player in the game. Use these over specifying</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    player number directly to improve code readability</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    """</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all</span><span class="p">(</span><span class="n">exclude_gaia</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span><span class="p">]:</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">        Return a list of all players</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">        Args:</span>
@@ -221,7 +221,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">        Returns:</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">            The list of playerIds</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">        """</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="k">return</span> <span class="p">([]</span> <span class="k">if</span> <span class="n">exclude_gaia</span> <span class="k">else</span> <span class="p">[</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">GAIA</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>            <span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">TWO</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">THREE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">FOUR</span><span class="p">,</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>            <span class="n">PlayerId</span><span class="o">.</span><span class="n">FIVE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">SIX</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">SEVEN</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">EIGHT</span>
@@ -239,10 +239,10 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
 </span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>
 </span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PlayerColorId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    This enum class provides the integer values used to reference the colors in-game.</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    These are used in the &#39;Change Object Color&#39;, etc. effects</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    These are used in the 'Change Object Color', etc. effects</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    """</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">3</span>
@@ -254,10 +254,10 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
 </span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
 </span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ColorId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    This enum represents the actual colors in the dropdown menu for players.</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    Do not confuse with the PlayerColorId which is used to reference a player number by its color.</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    """</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="n">INVALID_NEGATIVE_1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 </span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
@@ -279,15 +279,15 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
 </span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_player_id</span><span class="p">(</span><span class="n">player_id</span><span class="p">:</span> <span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">player_id</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid player ID. Should be between 0 and 8 (both incl), but got: </span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid player ID. Should be between 0 and 8 (both incl), but got: </span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>        <span class="k">if</span> <span class="n">player_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>            <span class="k">return</span> <span class="n">ColorId</span><span class="o">.</span><span class="n">GRAY</span>
 </span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a>        <span class="k">return</span> <span class="n">ColorId</span><span class="p">(</span><span class="n">player_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a>
 </span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AiType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a><span class="sd">    This enum represents the AI personality dropdown options</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a><span class="sd">    """</span>
 </span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>    <span class="n">CUSTOM</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="L-91"><a href="#L-91"><span class="linenos">91</span></a>    <span class="n">STANDARD</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-92"><a href="#L-92"><span class="linenos">92</span></a>    <span class="n">NONE</span> <span class="o">=</span> <span class="mi">2</span>
@@ -308,14 +308,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
     </div>
     <a class="headerlink" href="#PlayerId"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PlayerId-8"><a href="#PlayerId-8"><span class="linenos"> 8</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PlayerId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="PlayerId-9"><a href="#PlayerId-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PlayerId-9"><a href="#PlayerId-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="PlayerId-10"><a href="#PlayerId-10"><span class="linenos">10</span></a><span class="sd">    This enum class provides the integer values used to reference each player in the game. Use these over specifying</span>
 </span><span id="PlayerId-11"><a href="#PlayerId-11"><span class="linenos">11</span></a><span class="sd">    player number directly to improve code readability</span>
-</span><span id="PlayerId-12"><a href="#PlayerId-12"><span class="linenos">12</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="PlayerId-12"><a href="#PlayerId-12"><span class="linenos">12</span></a><span class="sd">    """</span>
 </span><span id="PlayerId-13"><a href="#PlayerId-13"><span class="linenos">13</span></a>
 </span><span id="PlayerId-14"><a href="#PlayerId-14"><span class="linenos">14</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="PlayerId-15"><a href="#PlayerId-15"><span class="linenos">15</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all</span><span class="p">(</span><span class="n">exclude_gaia</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span><span class="p">]:</span>
-</span><span id="PlayerId-16"><a href="#PlayerId-16"><span class="linenos">16</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PlayerId-16"><a href="#PlayerId-16"><span class="linenos">16</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="PlayerId-17"><a href="#PlayerId-17"><span class="linenos">17</span></a><span class="sd">        Return a list of all players</span>
 </span><span id="PlayerId-18"><a href="#PlayerId-18"><span class="linenos">18</span></a>
 </span><span id="PlayerId-19"><a href="#PlayerId-19"><span class="linenos">19</span></a><span class="sd">        Args:</span>
@@ -323,7 +323,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.players    </h1>
 </span><span id="PlayerId-21"><a href="#PlayerId-21"><span class="linenos">21</span></a>
 </span><span id="PlayerId-22"><a href="#PlayerId-22"><span class="linenos">22</span></a><span class="sd">        Returns:</span>
 </span><span id="PlayerId-23"><a href="#PlayerId-23"><span class="linenos">23</span></a><span class="sd">            The list of playerIds</span>
-</span><span id="PlayerId-24"><a href="#PlayerId-24"><span class="linenos">24</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PlayerId-24"><a href="#PlayerId-24"><span class="linenos">24</span></a><span class="sd">        """</span>
 </span><span id="PlayerId-25"><a href="#PlayerId-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="p">([]</span> <span class="k">if</span> <span class="n">exclude_gaia</span> <span class="k">else</span> <span class="p">[</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">GAIA</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span>
 </span><span id="PlayerId-26"><a href="#PlayerId-26"><span class="linenos">26</span></a>            <span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">TWO</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">THREE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">FOUR</span><span class="p">,</span>
 </span><span id="PlayerId-27"><a href="#PlayerId-27"><span class="linenos">27</span></a>            <span class="n">PlayerId</span><span class="o">.</span><span class="n">FIVE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">SIX</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">SEVEN</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">EIGHT</span>
@@ -360,7 +360,7 @@ player number directly to improve code readability</p>
     <a class="headerlink" href="#PlayerId.all"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PlayerId.all-14"><a href="#PlayerId.all-14"><span class="linenos">14</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="PlayerId.all-15"><a href="#PlayerId.all-15"><span class="linenos">15</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">all</span><span class="p">(</span><span class="n">exclude_gaia</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span><span class="p">]:</span>
-</span><span id="PlayerId.all-16"><a href="#PlayerId.all-16"><span class="linenos">16</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PlayerId.all-16"><a href="#PlayerId.all-16"><span class="linenos">16</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="PlayerId.all-17"><a href="#PlayerId.all-17"><span class="linenos">17</span></a><span class="sd">        Return a list of all players</span>
 </span><span id="PlayerId.all-18"><a href="#PlayerId.all-18"><span class="linenos">18</span></a>
 </span><span id="PlayerId.all-19"><a href="#PlayerId.all-19"><span class="linenos">19</span></a><span class="sd">        Args:</span>
@@ -368,7 +368,7 @@ player number directly to improve code readability</p>
 </span><span id="PlayerId.all-21"><a href="#PlayerId.all-21"><span class="linenos">21</span></a>
 </span><span id="PlayerId.all-22"><a href="#PlayerId.all-22"><span class="linenos">22</span></a><span class="sd">        Returns:</span>
 </span><span id="PlayerId.all-23"><a href="#PlayerId.all-23"><span class="linenos">23</span></a><span class="sd">            The list of playerIds</span>
-</span><span id="PlayerId.all-24"><a href="#PlayerId.all-24"><span class="linenos">24</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PlayerId.all-24"><a href="#PlayerId.all-24"><span class="linenos">24</span></a><span class="sd">        """</span>
 </span><span id="PlayerId.all-25"><a href="#PlayerId.all-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="p">([]</span> <span class="k">if</span> <span class="n">exclude_gaia</span> <span class="k">else</span> <span class="p">[</span><span class="n">PlayerId</span><span class="o">.</span><span class="n">GAIA</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span>
 </span><span id="PlayerId.all-26"><a href="#PlayerId.all-26"><span class="linenos">26</span></a>            <span class="n">PlayerId</span><span class="o">.</span><span class="n">ONE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">TWO</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">THREE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">FOUR</span><span class="p">,</span>
 </span><span id="PlayerId.all-27"><a href="#PlayerId.all-27"><span class="linenos">27</span></a>            <span class="n">PlayerId</span><span class="o">.</span><span class="n">FIVE</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">SIX</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">SEVEN</span><span class="p">,</span> <span class="n">PlayerId</span><span class="o">.</span><span class="n">EIGHT</span>
@@ -506,9 +506,11 @@ player number directly to improve code readability</p>
             <div><dt>builtins.int</dt>
                                 <dd id="PlayerId.conjugate" class="function">conjugate</dd>
                 <dd id="PlayerId.bit_length" class="function">bit_length</dd>
+                <dd id="PlayerId.bit_count" class="function">bit_count</dd>
                 <dd id="PlayerId.to_bytes" class="function">to_bytes</dd>
                 <dd id="PlayerId.from_bytes" class="function">from_bytes</dd>
                 <dd id="PlayerId.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="PlayerId.is_integer" class="function">is_integer</dd>
                 <dd id="PlayerId.real" class="variable">real</dd>
                 <dd id="PlayerId.imag" class="variable">imag</dd>
                 <dd id="PlayerId.numerator" class="variable">numerator</dd>
@@ -530,10 +532,10 @@ player number directly to improve code readability</p>
     </div>
     <a class="headerlink" href="#PlayerColorId"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PlayerColorId-41"><a href="#PlayerColorId-41"><span class="linenos">41</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PlayerColorId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="PlayerColorId-42"><a href="#PlayerColorId-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="PlayerColorId-42"><a href="#PlayerColorId-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="PlayerColorId-43"><a href="#PlayerColorId-43"><span class="linenos">43</span></a><span class="sd">    This enum class provides the integer values used to reference the colors in-game.</span>
-</span><span id="PlayerColorId-44"><a href="#PlayerColorId-44"><span class="linenos">44</span></a><span class="sd">    These are used in the &#39;Change Object Color&#39;, etc. effects</span>
-</span><span id="PlayerColorId-45"><a href="#PlayerColorId-45"><span class="linenos">45</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="PlayerColorId-44"><a href="#PlayerColorId-44"><span class="linenos">44</span></a><span class="sd">    These are used in the 'Change Object Color', etc. effects</span>
+</span><span id="PlayerColorId-45"><a href="#PlayerColorId-45"><span class="linenos">45</span></a><span class="sd">    """</span>
 </span><span id="PlayerColorId-46"><a href="#PlayerColorId-46"><span class="linenos">46</span></a>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="PlayerColorId-47"><a href="#PlayerColorId-47"><span class="linenos">47</span></a>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="PlayerColorId-48"><a href="#PlayerColorId-48"><span class="linenos">48</span></a>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">3</span>
@@ -657,9 +659,11 @@ These are used in the 'Change Object Color', etc. effects</p>
             <div><dt>builtins.int</dt>
                                 <dd id="PlayerColorId.conjugate" class="function">conjugate</dd>
                 <dd id="PlayerColorId.bit_length" class="function">bit_length</dd>
+                <dd id="PlayerColorId.bit_count" class="function">bit_count</dd>
                 <dd id="PlayerColorId.to_bytes" class="function">to_bytes</dd>
                 <dd id="PlayerColorId.from_bytes" class="function">from_bytes</dd>
                 <dd id="PlayerColorId.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="PlayerColorId.is_integer" class="function">is_integer</dd>
                 <dd id="PlayerColorId.real" class="variable">real</dd>
                 <dd id="PlayerColorId.imag" class="variable">imag</dd>
                 <dd id="PlayerColorId.numerator" class="variable">numerator</dd>
@@ -681,10 +685,10 @@ These are used in the 'Change Object Color', etc. effects</p>
     </div>
     <a class="headerlink" href="#ColorId"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ColorId-56"><a href="#ColorId-56"><span class="linenos">56</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ColorId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="ColorId-57"><a href="#ColorId-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ColorId-57"><a href="#ColorId-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="ColorId-58"><a href="#ColorId-58"><span class="linenos">58</span></a><span class="sd">    This enum represents the actual colors in the dropdown menu for players.</span>
 </span><span id="ColorId-59"><a href="#ColorId-59"><span class="linenos">59</span></a><span class="sd">    Do not confuse with the PlayerColorId which is used to reference a player number by its color.</span>
-</span><span id="ColorId-60"><a href="#ColorId-60"><span class="linenos">60</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="ColorId-60"><a href="#ColorId-60"><span class="linenos">60</span></a><span class="sd">    """</span>
 </span><span id="ColorId-61"><a href="#ColorId-61"><span class="linenos">61</span></a>    <span class="n">INVALID_NEGATIVE_1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 </span><span id="ColorId-62"><a href="#ColorId-62"><span class="linenos">62</span></a>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="ColorId-63"><a href="#ColorId-63"><span class="linenos">63</span></a>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
@@ -706,7 +710,7 @@ These are used in the 'Change Object Color', etc. effects</p>
 </span><span id="ColorId-79"><a href="#ColorId-79"><span class="linenos">79</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="ColorId-80"><a href="#ColorId-80"><span class="linenos">80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_player_id</span><span class="p">(</span><span class="n">player_id</span><span class="p">:</span> <span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="ColorId-81"><a href="#ColorId-81"><span class="linenos">81</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">player_id</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
-</span><span id="ColorId-82"><a href="#ColorId-82"><span class="linenos">82</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid player ID. Should be between 0 and 8 (both incl), but got: </span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="ColorId-82"><a href="#ColorId-82"><span class="linenos">82</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid player ID. Should be between 0 and 8 (both incl), but got: </span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="ColorId-83"><a href="#ColorId-83"><span class="linenos">83</span></a>        <span class="k">if</span> <span class="n">player_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="ColorId-84"><a href="#ColorId-84"><span class="linenos">84</span></a>            <span class="k">return</span> <span class="n">ColorId</span><span class="o">.</span><span class="n">GRAY</span>
 </span><span id="ColorId-85"><a href="#ColorId-85"><span class="linenos">85</span></a>        <span class="k">return</span> <span class="n">ColorId</span><span class="p">(</span><span class="n">player_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -928,7 +932,7 @@ Do not confuse with the PlayerColorId which is used to reference a player number
                     <div class="decorator">@staticmethod</div>
 
         <span class="def">def</span>
-        <span class="name">from_player_id</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">player_id</span><span class="p">:</span> <span class="s1">&#39;PlayerId | int&#39;</span></span><span class="return-annotation">):</span></span>
+        <span class="name">from_player_id</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">player_id</span><span class="p">:</span> <span class="n"><a href="#PlayerId">PlayerId</a></span> <span class="o">|</span> <span class="nb">int</span></span><span class="return-annotation">):</span></span>
 
                 <label class="view-source-button" for="ColorId.from_player_id-view-source"><span>View Source</span></label>
 
@@ -937,7 +941,7 @@ Do not confuse with the PlayerColorId which is used to reference a player number
             <div class="pdoc-code codehilite"><pre><span></span><span id="ColorId.from_player_id-79"><a href="#ColorId.from_player_id-79"><span class="linenos">79</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="ColorId.from_player_id-80"><a href="#ColorId.from_player_id-80"><span class="linenos">80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_player_id</span><span class="p">(</span><span class="n">player_id</span><span class="p">:</span> <span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="ColorId.from_player_id-81"><a href="#ColorId.from_player_id-81"><span class="linenos">81</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">player_id</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
-</span><span id="ColorId.from_player_id-82"><a href="#ColorId.from_player_id-82"><span class="linenos">82</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid player ID. Should be between 0 and 8 (both incl), but got: </span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="ColorId.from_player_id-82"><a href="#ColorId.from_player_id-82"><span class="linenos">82</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid player ID. Should be between 0 and 8 (both incl), but got: </span><span class="si">{</span><span class="n">player_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="ColorId.from_player_id-83"><a href="#ColorId.from_player_id-83"><span class="linenos">83</span></a>        <span class="k">if</span> <span class="n">player_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 </span><span id="ColorId.from_player_id-84"><a href="#ColorId.from_player_id-84"><span class="linenos">84</span></a>            <span class="k">return</span> <span class="n">ColorId</span><span class="o">.</span><span class="n">GRAY</span>
 </span><span id="ColorId.from_player_id-85"><a href="#ColorId.from_player_id-85"><span class="linenos">85</span></a>        <span class="k">return</span> <span class="n">ColorId</span><span class="p">(</span><span class="n">player_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -958,9 +962,11 @@ Do not confuse with the PlayerColorId which is used to reference a player number
             <div><dt>builtins.int</dt>
                                 <dd id="ColorId.conjugate" class="function">conjugate</dd>
                 <dd id="ColorId.bit_length" class="function">bit_length</dd>
+                <dd id="ColorId.bit_count" class="function">bit_count</dd>
                 <dd id="ColorId.to_bytes" class="function">to_bytes</dd>
                 <dd id="ColorId.from_bytes" class="function">from_bytes</dd>
                 <dd id="ColorId.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="ColorId.is_integer" class="function">is_integer</dd>
                 <dd id="ColorId.real" class="variable">real</dd>
                 <dd id="ColorId.imag" class="variable">imag</dd>
                 <dd id="ColorId.numerator" class="variable">numerator</dd>
@@ -982,9 +988,9 @@ Do not confuse with the PlayerColorId which is used to reference a player number
     </div>
     <a class="headerlink" href="#AiType"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="AiType-87"><a href="#AiType-87"><span class="linenos">87</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AiType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="AiType-88"><a href="#AiType-88"><span class="linenos">88</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="AiType-88"><a href="#AiType-88"><span class="linenos">88</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="AiType-89"><a href="#AiType-89"><span class="linenos">89</span></a><span class="sd">    This enum represents the AI personality dropdown options</span>
-</span><span id="AiType-90"><a href="#AiType-90"><span class="linenos">90</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="AiType-90"><a href="#AiType-90"><span class="linenos">90</span></a><span class="sd">    """</span>
 </span><span id="AiType-91"><a href="#AiType-91"><span class="linenos">91</span></a>    <span class="n">CUSTOM</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="AiType-92"><a href="#AiType-92"><span class="linenos">92</span></a>    <span class="n">STANDARD</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="AiType-93"><a href="#AiType-93"><span class="linenos">93</span></a>    <span class="n">NONE</span> <span class="o">=</span> <span class="mi">2</span>
@@ -1055,9 +1061,11 @@ Do not confuse with the PlayerColorId which is used to reference a player number
             <div><dt>builtins.int</dt>
                                 <dd id="AiType.conjugate" class="function">conjugate</dd>
                 <dd id="AiType.bit_length" class="function">bit_length</dd>
+                <dd id="AiType.bit_count" class="function">bit_count</dd>
                 <dd id="AiType.to_bytes" class="function">to_bytes</dd>
                 <dd id="AiType.from_bytes" class="function">from_bytes</dd>
                 <dd id="AiType.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="AiType.is_integer" class="function">is_integer</dd>
                 <dd id="AiType.real" class="variable">real</dd>
                 <dd id="AiType.imag" class="variable">imag</dd>
                 <dd id="AiType.numerator" class="variable">numerator</dd>

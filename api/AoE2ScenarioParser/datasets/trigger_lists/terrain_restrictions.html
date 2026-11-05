@@ -160,67 +160,67 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.terrain_restrictions   
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TerrainRestrictions</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values used to reference the terrain restriction IDs in the game. Used in the</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    &#39;Modify Attribute&#39; effects</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    'Modify Attribute' effects</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    **Examples**</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &gt;&gt;&gt; TerrainRestrictions.LAND_AND_SHALLOWS</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &lt;TerrainRestrictions.LAND_AND_SHALLOWS: 1&gt;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    """</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">ALL</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by terrain eyecandy and sundries&quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">"""Used by terrain eyecandy and sundries"""</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">LAND_AND_SHALLOWS</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by part of animals&quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">"""Used by part of animals"""</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">BEACH</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">WATER_SMALL_TRAIL</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by most ships and sea gate&quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">"""Used by most ships and sea gate"""</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">LAND</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by most land buildings&quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">"""Used by most land buildings"""</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">NOTHING</span> <span class="o">=</span> <span class="mi">5</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">WATER_NO_TRAIL</span> <span class="o">=</span> <span class="mi">6</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by docks&quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">"""Used by docks"""</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">ALL_EXCEPT_WATER</span> <span class="o">=</span> <span class="mi">7</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by land troops&quot;&quot;&quot;</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">"""Used by land troops"""</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">LAND_EXCEPT_FARM</span> <span class="o">=</span> <span class="mi">8</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by land resources&quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">"""Used by land resources"""</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">NOTHING_2</span> <span class="o">=</span> <span class="mi">9</span>
 </span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">LAND_AND_BEACH</span> <span class="o">=</span> <span class="mi">10</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by land walls and gates&quot;&quot;&quot;</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">"""Used by land walls and gates"""</span>
 </span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">LAND_EXCEPT_FARM_2</span> <span class="o">=</span> <span class="mi">11</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by trees and mountains&quot;&quot;&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">"""Used by trees and mountains"""</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">ALL_EXCEPT_WATER_BRIDGE_CANNON</span> <span class="o">=</span> <span class="mi">12</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">WATER_MEDIUM_TRAIL</span> <span class="o">=</span> <span class="mi">13</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by big fish and fishing ship&quot;&quot;&quot;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="w">    </span><span class="sd">"""Used by big fish and fishing ship"""</span>
 </span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="n">ALL_EXCEPT_WATER_BRIDGE_ARROW</span> <span class="o">=</span> <span class="mi">14</span>
 </span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="n">WATER_LARGE_TRAIL</span> <span class="o">=</span> <span class="mi">15</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by transport ship&quot;&quot;&quot;</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">"""Only used by transport ship"""</span>
 </span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="n">GRASS_AND_BEACH</span> <span class="o">=</span> <span class="mi">16</span>
 </span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="n">WATER_AND_BRIDGE_EXCEPT_BEACH</span> <span class="o">=</span> <span class="mi">17</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="n">ALL_EXCEPT_WATER_BRIDGE_SPEAR</span> <span class="o">=</span> <span class="mi">18</span>
 </span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="n">ONLY_WATER_AND_ICE</span> <span class="o">=</span> <span class="mi">19</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by fish&quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">"""Used by fish"""</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="n">ALL_EXCEPT_WATER_WHEEL</span> <span class="o">=</span> <span class="mi">20</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by units with wheels, such as Rams and Scorpions&quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="w">    </span><span class="sd">"""Used by units with wheels, such as Rams and Scorpions"""</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="n">SHALLOW_WATER</span> <span class="o">=</span> <span class="mi">21</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">ALL_DART</span> <span class="o">=</span> <span class="mi">22</span>
 </span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="n">ALL_ARROW_FIRE</span> <span class="o">=</span> <span class="mi">23</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Arrows with fire (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="w">    </span><span class="sd">"""Only used by Arrows with fire (After chemistry)"""</span>
 </span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>    <span class="n">ALL_CANNON_FIRE</span> <span class="o">=</span> <span class="mi">24</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Cannon balls (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">"""Only used by Cannon balls (After chemistry)"""</span>
 </span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>    <span class="n">ALL_SPEAR_FIRE</span> <span class="o">=</span> <span class="mi">25</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Spears with fire (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">"""Only used by Spears with fire (After chemistry)"""</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="n">ALL_DART_FIRE</span> <span class="o">=</span> <span class="mi">26</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Darts with fire (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="w">    </span><span class="sd">"""Only used by Darts with fire (After chemistry)"""</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="n">ALL_LASER</span> <span class="o">=</span> <span class="mi">27</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Projectile Laser with id 1595&quot;&quot;&quot;</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="w">    </span><span class="sd">"""Only used by Projectile Laser with id 1595"""</span>
 </span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="n">ALL_EXCEPT_WATER_CAVALRY</span> <span class="o">=</span> <span class="mi">28</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel&quot;&quot;&quot;</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="w">    </span><span class="sd">"""Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel"""</span>
 </span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="n">ALL_EXCEPT_WATER_PACKET_TREBUCHET</span> <span class="o">=</span> <span class="mi">29</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;All types of Trebuchet(Packed)&quot;&quot;&quot;</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="w">    </span><span class="sd">"""All types of Trebuchet(Packed)"""</span>
 </span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>    <span class="n">WATER_SMALLEST_TRAIL</span> <span class="o">=</span> <span class="mi">30</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by medium ships, such as Trade Cog, Fire Galley and Longboat&quot;&quot;&quot;</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="w">    </span><span class="sd">"""Used by medium ships, such as Trade Cog, Fire Galley and Longboat"""</span>
 </span></pre></div>
 
 
@@ -237,67 +237,67 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.terrain_restrictions   
     </div>
     <a class="headerlink" href="#TerrainRestrictions"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="TerrainRestrictions-7"><a href="#TerrainRestrictions-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TerrainRestrictions</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="TerrainRestrictions-8"><a href="#TerrainRestrictions-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-8"><a href="#TerrainRestrictions-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="TerrainRestrictions-9"><a href="#TerrainRestrictions-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values used to reference the terrain restriction IDs in the game. Used in the</span>
-</span><span id="TerrainRestrictions-10"><a href="#TerrainRestrictions-10"><span class="linenos">10</span></a><span class="sd">    &#39;Modify Attribute&#39; effects</span>
+</span><span id="TerrainRestrictions-10"><a href="#TerrainRestrictions-10"><span class="linenos">10</span></a><span class="sd">    'Modify Attribute' effects</span>
 </span><span id="TerrainRestrictions-11"><a href="#TerrainRestrictions-11"><span class="linenos">11</span></a>
 </span><span id="TerrainRestrictions-12"><a href="#TerrainRestrictions-12"><span class="linenos">12</span></a><span class="sd">    **Examples**</span>
 </span><span id="TerrainRestrictions-13"><a href="#TerrainRestrictions-13"><span class="linenos">13</span></a>
 </span><span id="TerrainRestrictions-14"><a href="#TerrainRestrictions-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; TerrainRestrictions.LAND_AND_SHALLOWS</span>
 </span><span id="TerrainRestrictions-15"><a href="#TerrainRestrictions-15"><span class="linenos">15</span></a><span class="sd">    &lt;TerrainRestrictions.LAND_AND_SHALLOWS: 1&gt;</span>
-</span><span id="TerrainRestrictions-16"><a href="#TerrainRestrictions-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-16"><a href="#TerrainRestrictions-16"><span class="linenos">16</span></a><span class="sd">    """</span>
 </span><span id="TerrainRestrictions-17"><a href="#TerrainRestrictions-17"><span class="linenos">17</span></a>    <span class="n">ALL</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="TerrainRestrictions-18"><a href="#TerrainRestrictions-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by terrain eyecandy and sundries&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-18"><a href="#TerrainRestrictions-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">"""Used by terrain eyecandy and sundries"""</span>
 </span><span id="TerrainRestrictions-19"><a href="#TerrainRestrictions-19"><span class="linenos">19</span></a>    <span class="n">LAND_AND_SHALLOWS</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="TerrainRestrictions-20"><a href="#TerrainRestrictions-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by part of animals&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-20"><a href="#TerrainRestrictions-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">"""Used by part of animals"""</span>
 </span><span id="TerrainRestrictions-21"><a href="#TerrainRestrictions-21"><span class="linenos">21</span></a>    <span class="n">BEACH</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="TerrainRestrictions-22"><a href="#TerrainRestrictions-22"><span class="linenos">22</span></a>    <span class="n">WATER_SMALL_TRAIL</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="TerrainRestrictions-23"><a href="#TerrainRestrictions-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by most ships and sea gate&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-23"><a href="#TerrainRestrictions-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">"""Used by most ships and sea gate"""</span>
 </span><span id="TerrainRestrictions-24"><a href="#TerrainRestrictions-24"><span class="linenos">24</span></a>    <span class="n">LAND</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="TerrainRestrictions-25"><a href="#TerrainRestrictions-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by most land buildings&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-25"><a href="#TerrainRestrictions-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">"""Used by most land buildings"""</span>
 </span><span id="TerrainRestrictions-26"><a href="#TerrainRestrictions-26"><span class="linenos">26</span></a>    <span class="n">NOTHING</span> <span class="o">=</span> <span class="mi">5</span>
 </span><span id="TerrainRestrictions-27"><a href="#TerrainRestrictions-27"><span class="linenos">27</span></a>    <span class="n">WATER_NO_TRAIL</span> <span class="o">=</span> <span class="mi">6</span>
-</span><span id="TerrainRestrictions-28"><a href="#TerrainRestrictions-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by docks&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-28"><a href="#TerrainRestrictions-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">"""Used by docks"""</span>
 </span><span id="TerrainRestrictions-29"><a href="#TerrainRestrictions-29"><span class="linenos">29</span></a>    <span class="n">ALL_EXCEPT_WATER</span> <span class="o">=</span> <span class="mi">7</span>
-</span><span id="TerrainRestrictions-30"><a href="#TerrainRestrictions-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by land troops&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-30"><a href="#TerrainRestrictions-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">"""Used by land troops"""</span>
 </span><span id="TerrainRestrictions-31"><a href="#TerrainRestrictions-31"><span class="linenos">31</span></a>    <span class="n">LAND_EXCEPT_FARM</span> <span class="o">=</span> <span class="mi">8</span>
-</span><span id="TerrainRestrictions-32"><a href="#TerrainRestrictions-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by land resources&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-32"><a href="#TerrainRestrictions-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">"""Used by land resources"""</span>
 </span><span id="TerrainRestrictions-33"><a href="#TerrainRestrictions-33"><span class="linenos">33</span></a>    <span class="n">NOTHING_2</span> <span class="o">=</span> <span class="mi">9</span>
 </span><span id="TerrainRestrictions-34"><a href="#TerrainRestrictions-34"><span class="linenos">34</span></a>    <span class="n">LAND_AND_BEACH</span> <span class="o">=</span> <span class="mi">10</span>
-</span><span id="TerrainRestrictions-35"><a href="#TerrainRestrictions-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by land walls and gates&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-35"><a href="#TerrainRestrictions-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">"""Used by land walls and gates"""</span>
 </span><span id="TerrainRestrictions-36"><a href="#TerrainRestrictions-36"><span class="linenos">36</span></a>    <span class="n">LAND_EXCEPT_FARM_2</span> <span class="o">=</span> <span class="mi">11</span>
-</span><span id="TerrainRestrictions-37"><a href="#TerrainRestrictions-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by trees and mountains&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-37"><a href="#TerrainRestrictions-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">"""Used by trees and mountains"""</span>
 </span><span id="TerrainRestrictions-38"><a href="#TerrainRestrictions-38"><span class="linenos">38</span></a>    <span class="n">ALL_EXCEPT_WATER_BRIDGE_CANNON</span> <span class="o">=</span> <span class="mi">12</span>
 </span><span id="TerrainRestrictions-39"><a href="#TerrainRestrictions-39"><span class="linenos">39</span></a>    <span class="n">WATER_MEDIUM_TRAIL</span> <span class="o">=</span> <span class="mi">13</span>
-</span><span id="TerrainRestrictions-40"><a href="#TerrainRestrictions-40"><span class="linenos">40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by big fish and fishing ship&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-40"><a href="#TerrainRestrictions-40"><span class="linenos">40</span></a><span class="w">    </span><span class="sd">"""Used by big fish and fishing ship"""</span>
 </span><span id="TerrainRestrictions-41"><a href="#TerrainRestrictions-41"><span class="linenos">41</span></a>    <span class="n">ALL_EXCEPT_WATER_BRIDGE_ARROW</span> <span class="o">=</span> <span class="mi">14</span>
 </span><span id="TerrainRestrictions-42"><a href="#TerrainRestrictions-42"><span class="linenos">42</span></a>    <span class="n">WATER_LARGE_TRAIL</span> <span class="o">=</span> <span class="mi">15</span>
-</span><span id="TerrainRestrictions-43"><a href="#TerrainRestrictions-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by transport ship&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-43"><a href="#TerrainRestrictions-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">"""Only used by transport ship"""</span>
 </span><span id="TerrainRestrictions-44"><a href="#TerrainRestrictions-44"><span class="linenos">44</span></a>    <span class="n">GRASS_AND_BEACH</span> <span class="o">=</span> <span class="mi">16</span>
 </span><span id="TerrainRestrictions-45"><a href="#TerrainRestrictions-45"><span class="linenos">45</span></a>    <span class="n">WATER_AND_BRIDGE_EXCEPT_BEACH</span> <span class="o">=</span> <span class="mi">17</span>
 </span><span id="TerrainRestrictions-46"><a href="#TerrainRestrictions-46"><span class="linenos">46</span></a>    <span class="n">ALL_EXCEPT_WATER_BRIDGE_SPEAR</span> <span class="o">=</span> <span class="mi">18</span>
 </span><span id="TerrainRestrictions-47"><a href="#TerrainRestrictions-47"><span class="linenos">47</span></a>    <span class="n">ONLY_WATER_AND_ICE</span> <span class="o">=</span> <span class="mi">19</span>
-</span><span id="TerrainRestrictions-48"><a href="#TerrainRestrictions-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by fish&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-48"><a href="#TerrainRestrictions-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">"""Used by fish"""</span>
 </span><span id="TerrainRestrictions-49"><a href="#TerrainRestrictions-49"><span class="linenos">49</span></a>    <span class="n">ALL_EXCEPT_WATER_WHEEL</span> <span class="o">=</span> <span class="mi">20</span>
-</span><span id="TerrainRestrictions-50"><a href="#TerrainRestrictions-50"><span class="linenos">50</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by units with wheels, such as Rams and Scorpions&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-50"><a href="#TerrainRestrictions-50"><span class="linenos">50</span></a><span class="w">    </span><span class="sd">"""Used by units with wheels, such as Rams and Scorpions"""</span>
 </span><span id="TerrainRestrictions-51"><a href="#TerrainRestrictions-51"><span class="linenos">51</span></a>    <span class="n">SHALLOW_WATER</span> <span class="o">=</span> <span class="mi">21</span>
 </span><span id="TerrainRestrictions-52"><a href="#TerrainRestrictions-52"><span class="linenos">52</span></a>    <span class="n">ALL_DART</span> <span class="o">=</span> <span class="mi">22</span>
 </span><span id="TerrainRestrictions-53"><a href="#TerrainRestrictions-53"><span class="linenos">53</span></a>    <span class="n">ALL_ARROW_FIRE</span> <span class="o">=</span> <span class="mi">23</span>
-</span><span id="TerrainRestrictions-54"><a href="#TerrainRestrictions-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Arrows with fire (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-54"><a href="#TerrainRestrictions-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">"""Only used by Arrows with fire (After chemistry)"""</span>
 </span><span id="TerrainRestrictions-55"><a href="#TerrainRestrictions-55"><span class="linenos">55</span></a>    <span class="n">ALL_CANNON_FIRE</span> <span class="o">=</span> <span class="mi">24</span>
-</span><span id="TerrainRestrictions-56"><a href="#TerrainRestrictions-56"><span class="linenos">56</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Cannon balls (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-56"><a href="#TerrainRestrictions-56"><span class="linenos">56</span></a><span class="w">    </span><span class="sd">"""Only used by Cannon balls (After chemistry)"""</span>
 </span><span id="TerrainRestrictions-57"><a href="#TerrainRestrictions-57"><span class="linenos">57</span></a>    <span class="n">ALL_SPEAR_FIRE</span> <span class="o">=</span> <span class="mi">25</span>
-</span><span id="TerrainRestrictions-58"><a href="#TerrainRestrictions-58"><span class="linenos">58</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Spears with fire (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-58"><a href="#TerrainRestrictions-58"><span class="linenos">58</span></a><span class="w">    </span><span class="sd">"""Only used by Spears with fire (After chemistry)"""</span>
 </span><span id="TerrainRestrictions-59"><a href="#TerrainRestrictions-59"><span class="linenos">59</span></a>    <span class="n">ALL_DART_FIRE</span> <span class="o">=</span> <span class="mi">26</span>
-</span><span id="TerrainRestrictions-60"><a href="#TerrainRestrictions-60"><span class="linenos">60</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Darts with fire (After chemistry)&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-60"><a href="#TerrainRestrictions-60"><span class="linenos">60</span></a><span class="w">    </span><span class="sd">"""Only used by Darts with fire (After chemistry)"""</span>
 </span><span id="TerrainRestrictions-61"><a href="#TerrainRestrictions-61"><span class="linenos">61</span></a>    <span class="n">ALL_LASER</span> <span class="o">=</span> <span class="mi">27</span>
-</span><span id="TerrainRestrictions-62"><a href="#TerrainRestrictions-62"><span class="linenos">62</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Only used by Projectile Laser with id 1595&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-62"><a href="#TerrainRestrictions-62"><span class="linenos">62</span></a><span class="w">    </span><span class="sd">"""Only used by Projectile Laser with id 1595"""</span>
 </span><span id="TerrainRestrictions-63"><a href="#TerrainRestrictions-63"><span class="linenos">63</span></a>    <span class="n">ALL_EXCEPT_WATER_CAVALRY</span> <span class="o">=</span> <span class="mi">28</span>
-</span><span id="TerrainRestrictions-64"><a href="#TerrainRestrictions-64"><span class="linenos">64</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-64"><a href="#TerrainRestrictions-64"><span class="linenos">64</span></a><span class="w">    </span><span class="sd">"""Such as Cavalry Archer, Cavalry, Conquistador, Missionary and Flaming Camel"""</span>
 </span><span id="TerrainRestrictions-65"><a href="#TerrainRestrictions-65"><span class="linenos">65</span></a>    <span class="n">ALL_EXCEPT_WATER_PACKET_TREBUCHET</span> <span class="o">=</span> <span class="mi">29</span>
-</span><span id="TerrainRestrictions-66"><a href="#TerrainRestrictions-66"><span class="linenos">66</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;All types of Trebuchet(Packed)&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-66"><a href="#TerrainRestrictions-66"><span class="linenos">66</span></a><span class="w">    </span><span class="sd">"""All types of Trebuchet(Packed)"""</span>
 </span><span id="TerrainRestrictions-67"><a href="#TerrainRestrictions-67"><span class="linenos">67</span></a>    <span class="n">WATER_SMALLEST_TRAIL</span> <span class="o">=</span> <span class="mi">30</span>
-</span><span id="TerrainRestrictions-68"><a href="#TerrainRestrictions-68"><span class="linenos">68</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Used by medium ships, such as Trade Cog, Fire Galley and Longboat&quot;&quot;&quot;</span>
+</span><span id="TerrainRestrictions-68"><a href="#TerrainRestrictions-68"><span class="linenos">68</span></a><span class="w">    </span><span class="sd">"""Used by medium ships, such as Trade Cog, Fire Galley and Longboat"""</span>
 </span></pre></div>
 
 
@@ -743,9 +743,11 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.terrain_restrictions   
             <div><dt>builtins.int</dt>
                                 <dd id="TerrainRestrictions.conjugate" class="function">conjugate</dd>
                 <dd id="TerrainRestrictions.bit_length" class="function">bit_length</dd>
+                <dd id="TerrainRestrictions.bit_count" class="function">bit_count</dd>
                 <dd id="TerrainRestrictions.to_bytes" class="function">to_bytes</dd>
                 <dd id="TerrainRestrictions.from_bytes" class="function">from_bytes</dd>
                 <dd id="TerrainRestrictions.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="TerrainRestrictions.is_integer" class="function">is_integer</dd>
                 <dd id="TerrainRestrictions.real" class="variable">real</dd>
                 <dd id="TerrainRestrictions.imag" class="variable">imag</dd>
                 <dd id="TerrainRestrictions.numerator" class="variable">numerator</dd>

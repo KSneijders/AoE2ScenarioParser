@@ -217,17 +217,17 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DamageClass</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values that represent the damage classes in the game. Used in the &#39;Chnage</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Object Attack/Armour&#39; and &#39;Modify Attribute&#39; with the &#39;Attack/Armour&#39; attibutes</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values that represent the damage classes in the game. Used in the 'Chnage</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Object Attack/Armour' and 'Modify Attribute' with the 'Attack/Armour' attibutes</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    **Examples**</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &gt;&gt;&gt; DamageClass.INFANTRY</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &lt;DamageClass.INFANTRY: 1&gt;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    """</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">WONDER</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Since HD. Only wonders has this armour class. However there is no unit that has this attack class.&quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">"""Since HD. Only wonders has this armour class. However there is no unit that has this attack class."""</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">INFANTRY</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">TURTLE_SHIPS</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">BASE_PIERCE</span> <span class="o">=</span> <span class="mi">3</span>
@@ -239,14 +239,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">UNUSED_ID9</span> <span class="o">=</span> <span class="mi">9</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">UNUSED_ID10</span> <span class="o">=</span> <span class="mi">10</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">ALL_BUILDINGS_EXCEPT_PORT</span> <span class="o">=</span> <span class="mi">11</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Port is the building with id 446&quot;&quot;&quot;</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">"""Port is the building with id 446"""</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">UNUSED_ID12</span> <span class="o">=</span> <span class="mi">12</span>
 </span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="n">STONE_DEFENSE</span> <span class="o">=</span> <span class="mi">13</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">PREDATOR_ANIMALS_FE</span> <span class="o">=</span> <span class="mi">14</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Wolf, Bear, Jaguar, Tiger, etc. have this armour class&quot;&quot;&quot;</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="w">    </span><span class="sd">"""Wolf, Bear, Jaguar, Tiger, etc. have this armour class"""</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="n">ARCHERS</span> <span class="o">=</span> <span class="mi">15</span>
 </span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">BATTLE_SHIPS_AND_SABOTEUR</span> <span class="o">=</span> <span class="mi">16</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Camels also had this armour class before AK&quot;&quot;&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">"""Camels also had this armour class before AK"""</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">RAMS_TREBUCHETS_SIEGE_TOWERS</span> <span class="o">=</span> <span class="mi">17</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">TREES</span> <span class="o">=</span> <span class="mi">18</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="n">UNIQUE_UNITS</span> <span class="o">=</span> <span class="mi">19</span>
@@ -257,14 +257,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="n">BOARS</span> <span class="o">=</span> <span class="mi">24</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="n">MONKS</span> <span class="o">=</span> <span class="mi">25</span>
 </span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="n">CASTLES</span> <span class="o">=</span> <span class="mi">26</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Castles, Kreposts, Fortresses, Poenari Castles&quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">"""Castles, Kreposts, Fortresses, Poenari Castles"""</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="n">SPEARMEN</span> <span class="o">=</span> <span class="mi">27</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="n">CAVALRY_ARCHERS</span> <span class="o">=</span> <span class="mi">28</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="n">EAGLE_WARRIORS</span> <span class="o">=</span> <span class="mi">29</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">CAMELS</span> <span class="o">=</span> <span class="mi">30</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Camels use this armour class since and after AK&quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="w">    </span><span class="sd">"""Camels use this armour class since and after AK"""</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="n">LEITIS_ATTACK</span> <span class="o">=</span> <span class="mi">31</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Armor class remains on units but leitis no longer uses it for attacks&quot;&quot;&quot;</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">"""Armor class remains on units but leitis no longer uses it for attacks"""</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>    <span class="n">CONDOTTIERI</span> <span class="o">=</span> <span class="mi">32</span>
 </span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>    <span class="n">PROJECTILE_GUNPOWDER_SECONDARY</span> <span class="o">=</span> <span class="mi">33</span>
 </span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    <span class="n">FISHING_SHIPS</span> <span class="o">=</span> <span class="mi">34</span>
@@ -272,9 +272,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="n">HEROES_AND_KINGS</span> <span class="o">=</span> <span class="mi">36</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="n">HUSSITE_WAGONS</span> <span class="o">=</span> <span class="mi">37</span>
 </span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>    <span class="n">UNUSED_ID38</span> <span class="o">=</span> <span class="mi">38</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Skirmishers has this armor class&quot;&quot;&quot;</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="w">    </span><span class="sd">"""Skirmishers has this armor class"""</span>
 </span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="n">UNUSED_ID39</span> <span class="o">=</span> <span class="mi">39</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Camels and shotel warriors has this armor class&quot;&quot;&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="w">    </span><span class="sd">"""Camels and shotel warriors has this armor class"""</span>
 </span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="n">UNUSED_ID40</span> <span class="o">=</span> <span class="mi">40</span>
 </span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>    <span class="n">UNUSED_ID41</span> <span class="o">=</span> <span class="mi">41</span>
 </span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="n">UNUSED_ID42</span> <span class="o">=</span> <span class="mi">42</span>
@@ -301,17 +301,17 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
     </div>
     <a class="headerlink" href="#DamageClass"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="DamageClass-7"><a href="#DamageClass-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DamageClass</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="DamageClass-8"><a href="#DamageClass-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DamageClass-9"><a href="#DamageClass-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values that represent the damage classes in the game. Used in the &#39;Chnage</span>
-</span><span id="DamageClass-10"><a href="#DamageClass-10"><span class="linenos">10</span></a><span class="sd">    Object Attack/Armour&#39; and &#39;Modify Attribute&#39; with the &#39;Attack/Armour&#39; attibutes</span>
+</span><span id="DamageClass-8"><a href="#DamageClass-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="DamageClass-9"><a href="#DamageClass-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values that represent the damage classes in the game. Used in the 'Chnage</span>
+</span><span id="DamageClass-10"><a href="#DamageClass-10"><span class="linenos">10</span></a><span class="sd">    Object Attack/Armour' and 'Modify Attribute' with the 'Attack/Armour' attibutes</span>
 </span><span id="DamageClass-11"><a href="#DamageClass-11"><span class="linenos">11</span></a>
 </span><span id="DamageClass-12"><a href="#DamageClass-12"><span class="linenos">12</span></a><span class="sd">    **Examples**</span>
 </span><span id="DamageClass-13"><a href="#DamageClass-13"><span class="linenos">13</span></a>
 </span><span id="DamageClass-14"><a href="#DamageClass-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; DamageClass.INFANTRY</span>
 </span><span id="DamageClass-15"><a href="#DamageClass-15"><span class="linenos">15</span></a><span class="sd">    &lt;DamageClass.INFANTRY: 1&gt;</span>
-</span><span id="DamageClass-16"><a href="#DamageClass-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="DamageClass-16"><a href="#DamageClass-16"><span class="linenos">16</span></a><span class="sd">    """</span>
 </span><span id="DamageClass-17"><a href="#DamageClass-17"><span class="linenos">17</span></a>    <span class="n">WONDER</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="DamageClass-18"><a href="#DamageClass-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Since HD. Only wonders has this armour class. However there is no unit that has this attack class.&quot;&quot;&quot;</span>
+</span><span id="DamageClass-18"><a href="#DamageClass-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">"""Since HD. Only wonders has this armour class. However there is no unit that has this attack class."""</span>
 </span><span id="DamageClass-19"><a href="#DamageClass-19"><span class="linenos">19</span></a>    <span class="n">INFANTRY</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="DamageClass-20"><a href="#DamageClass-20"><span class="linenos">20</span></a>    <span class="n">TURTLE_SHIPS</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="DamageClass-21"><a href="#DamageClass-21"><span class="linenos">21</span></a>    <span class="n">BASE_PIERCE</span> <span class="o">=</span> <span class="mi">3</span>
@@ -323,14 +323,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="DamageClass-27"><a href="#DamageClass-27"><span class="linenos">27</span></a>    <span class="n">UNUSED_ID9</span> <span class="o">=</span> <span class="mi">9</span>
 </span><span id="DamageClass-28"><a href="#DamageClass-28"><span class="linenos">28</span></a>    <span class="n">UNUSED_ID10</span> <span class="o">=</span> <span class="mi">10</span>
 </span><span id="DamageClass-29"><a href="#DamageClass-29"><span class="linenos">29</span></a>    <span class="n">ALL_BUILDINGS_EXCEPT_PORT</span> <span class="o">=</span> <span class="mi">11</span>
-</span><span id="DamageClass-30"><a href="#DamageClass-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Port is the building with id 446&quot;&quot;&quot;</span>
+</span><span id="DamageClass-30"><a href="#DamageClass-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">"""Port is the building with id 446"""</span>
 </span><span id="DamageClass-31"><a href="#DamageClass-31"><span class="linenos">31</span></a>    <span class="n">UNUSED_ID12</span> <span class="o">=</span> <span class="mi">12</span>
 </span><span id="DamageClass-32"><a href="#DamageClass-32"><span class="linenos">32</span></a>    <span class="n">STONE_DEFENSE</span> <span class="o">=</span> <span class="mi">13</span>
 </span><span id="DamageClass-33"><a href="#DamageClass-33"><span class="linenos">33</span></a>    <span class="n">PREDATOR_ANIMALS_FE</span> <span class="o">=</span> <span class="mi">14</span>
-</span><span id="DamageClass-34"><a href="#DamageClass-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Wolf, Bear, Jaguar, Tiger, etc. have this armour class&quot;&quot;&quot;</span>
+</span><span id="DamageClass-34"><a href="#DamageClass-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">"""Wolf, Bear, Jaguar, Tiger, etc. have this armour class"""</span>
 </span><span id="DamageClass-35"><a href="#DamageClass-35"><span class="linenos">35</span></a>    <span class="n">ARCHERS</span> <span class="o">=</span> <span class="mi">15</span>
 </span><span id="DamageClass-36"><a href="#DamageClass-36"><span class="linenos">36</span></a>    <span class="n">BATTLE_SHIPS_AND_SABOTEUR</span> <span class="o">=</span> <span class="mi">16</span>
-</span><span id="DamageClass-37"><a href="#DamageClass-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Camels also had this armour class before AK&quot;&quot;&quot;</span>
+</span><span id="DamageClass-37"><a href="#DamageClass-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">"""Camels also had this armour class before AK"""</span>
 </span><span id="DamageClass-38"><a href="#DamageClass-38"><span class="linenos">38</span></a>    <span class="n">RAMS_TREBUCHETS_SIEGE_TOWERS</span> <span class="o">=</span> <span class="mi">17</span>
 </span><span id="DamageClass-39"><a href="#DamageClass-39"><span class="linenos">39</span></a>    <span class="n">TREES</span> <span class="o">=</span> <span class="mi">18</span>
 </span><span id="DamageClass-40"><a href="#DamageClass-40"><span class="linenos">40</span></a>    <span class="n">UNIQUE_UNITS</span> <span class="o">=</span> <span class="mi">19</span>
@@ -341,14 +341,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="DamageClass-45"><a href="#DamageClass-45"><span class="linenos">45</span></a>    <span class="n">BOARS</span> <span class="o">=</span> <span class="mi">24</span>
 </span><span id="DamageClass-46"><a href="#DamageClass-46"><span class="linenos">46</span></a>    <span class="n">MONKS</span> <span class="o">=</span> <span class="mi">25</span>
 </span><span id="DamageClass-47"><a href="#DamageClass-47"><span class="linenos">47</span></a>    <span class="n">CASTLES</span> <span class="o">=</span> <span class="mi">26</span>
-</span><span id="DamageClass-48"><a href="#DamageClass-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Castles, Kreposts, Fortresses, Poenari Castles&quot;&quot;&quot;</span>
+</span><span id="DamageClass-48"><a href="#DamageClass-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">"""Castles, Kreposts, Fortresses, Poenari Castles"""</span>
 </span><span id="DamageClass-49"><a href="#DamageClass-49"><span class="linenos">49</span></a>    <span class="n">SPEARMEN</span> <span class="o">=</span> <span class="mi">27</span>
 </span><span id="DamageClass-50"><a href="#DamageClass-50"><span class="linenos">50</span></a>    <span class="n">CAVALRY_ARCHERS</span> <span class="o">=</span> <span class="mi">28</span>
 </span><span id="DamageClass-51"><a href="#DamageClass-51"><span class="linenos">51</span></a>    <span class="n">EAGLE_WARRIORS</span> <span class="o">=</span> <span class="mi">29</span>
 </span><span id="DamageClass-52"><a href="#DamageClass-52"><span class="linenos">52</span></a>    <span class="n">CAMELS</span> <span class="o">=</span> <span class="mi">30</span>
-</span><span id="DamageClass-53"><a href="#DamageClass-53"><span class="linenos">53</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Camels use this armour class since and after AK&quot;&quot;&quot;</span>
+</span><span id="DamageClass-53"><a href="#DamageClass-53"><span class="linenos">53</span></a><span class="w">    </span><span class="sd">"""Camels use this armour class since and after AK"""</span>
 </span><span id="DamageClass-54"><a href="#DamageClass-54"><span class="linenos">54</span></a>    <span class="n">LEITIS_ATTACK</span> <span class="o">=</span> <span class="mi">31</span>
-</span><span id="DamageClass-55"><a href="#DamageClass-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Armor class remains on units but leitis no longer uses it for attacks&quot;&quot;&quot;</span>
+</span><span id="DamageClass-55"><a href="#DamageClass-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">"""Armor class remains on units but leitis no longer uses it for attacks"""</span>
 </span><span id="DamageClass-56"><a href="#DamageClass-56"><span class="linenos">56</span></a>    <span class="n">CONDOTTIERI</span> <span class="o">=</span> <span class="mi">32</span>
 </span><span id="DamageClass-57"><a href="#DamageClass-57"><span class="linenos">57</span></a>    <span class="n">PROJECTILE_GUNPOWDER_SECONDARY</span> <span class="o">=</span> <span class="mi">33</span>
 </span><span id="DamageClass-58"><a href="#DamageClass-58"><span class="linenos">58</span></a>    <span class="n">FISHING_SHIPS</span> <span class="o">=</span> <span class="mi">34</span>
@@ -356,9 +356,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.damage_class    </h1>
 </span><span id="DamageClass-60"><a href="#DamageClass-60"><span class="linenos">60</span></a>    <span class="n">HEROES_AND_KINGS</span> <span class="o">=</span> <span class="mi">36</span>
 </span><span id="DamageClass-61"><a href="#DamageClass-61"><span class="linenos">61</span></a>    <span class="n">HUSSITE_WAGONS</span> <span class="o">=</span> <span class="mi">37</span>
 </span><span id="DamageClass-62"><a href="#DamageClass-62"><span class="linenos">62</span></a>    <span class="n">UNUSED_ID38</span> <span class="o">=</span> <span class="mi">38</span>
-</span><span id="DamageClass-63"><a href="#DamageClass-63"><span class="linenos">63</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Skirmishers has this armor class&quot;&quot;&quot;</span>
+</span><span id="DamageClass-63"><a href="#DamageClass-63"><span class="linenos">63</span></a><span class="w">    </span><span class="sd">"""Skirmishers has this armor class"""</span>
 </span><span id="DamageClass-64"><a href="#DamageClass-64"><span class="linenos">64</span></a>    <span class="n">UNUSED_ID39</span> <span class="o">=</span> <span class="mi">39</span>
-</span><span id="DamageClass-65"><a href="#DamageClass-65"><span class="linenos">65</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Camels and shotel warriors has this armor class&quot;&quot;&quot;</span>
+</span><span id="DamageClass-65"><a href="#DamageClass-65"><span class="linenos">65</span></a><span class="w">    </span><span class="sd">"""Camels and shotel warriors has this armor class"""</span>
 </span><span id="DamageClass-66"><a href="#DamageClass-66"><span class="linenos">66</span></a>    <span class="n">UNUSED_ID40</span> <span class="o">=</span> <span class="mi">40</span>
 </span><span id="DamageClass-67"><a href="#DamageClass-67"><span class="linenos">67</span></a>    <span class="n">UNUSED_ID41</span> <span class="o">=</span> <span class="mi">41</span>
 </span><span id="DamageClass-68"><a href="#DamageClass-68"><span class="linenos">68</span></a>    <span class="n">UNUSED_ID42</span> <span class="o">=</span> <span class="mi">42</span>
@@ -1018,9 +1018,11 @@ Object Attack/Armour' and 'Modify Attribute' with the 'Attack/Armour' attibutes<
             <div><dt>builtins.int</dt>
                                 <dd id="DamageClass.conjugate" class="function">conjugate</dd>
                 <dd id="DamageClass.bit_length" class="function">bit_length</dd>
+                <dd id="DamageClass.bit_count" class="function">bit_count</dd>
                 <dd id="DamageClass.to_bytes" class="function">to_bytes</dd>
                 <dd id="DamageClass.from_bytes" class="function">from_bytes</dd>
                 <dd id="DamageClass.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="DamageClass.is_integer" class="function">is_integer</dd>
                 <dd id="DamageClass.real" class="variable">real</dd>
                 <dd id="DamageClass.imag" class="variable">imag</dd>
                 <dd id="DamageClass.numerator" class="variable">numerator</dd>

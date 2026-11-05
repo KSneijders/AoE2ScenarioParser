@@ -184,39 +184,39 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
 </span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="p">(</span><span class="n">AoE2Object</span><span class="p">):</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A class for handling all player information.&quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">"""A class for handling all player information."""</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>    <span class="n">_object_attributes</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>        <span class="s1">&#39;player_id&#39;</span><span class="p">,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>        <span class="s1">&#39;starting_age&#39;</span><span class="p">,</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>        <span class="s1">&#39;lock_civ&#39;</span><span class="p">,</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>        <span class="s1">&#39;food&#39;</span><span class="p">,</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>        <span class="s1">&#39;wood&#39;</span><span class="p">,</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>        <span class="s1">&#39;gold&#39;</span><span class="p">,</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>        <span class="s1">&#39;stone&#39;</span><span class="p">,</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>        <span class="s1">&#39;personality&#39;</span><span class="p">,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>        <span class="s1">&#39;ai_type&#39;</span><span class="p">,</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>        <span class="s1">&#39;ai_script&#39;</span><span class="p">,</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>        <span class="s1">&#39;color&#39;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>        <span class="s1">&#39;active&#39;</span><span class="p">,</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>        <span class="s1">&#39;human&#39;</span><span class="p">,</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>        <span class="s1">&#39;civilization&#39;</span><span class="p">,</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>        <span class="s1">&#39;architecture_set&#39;</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>        <span class="s1">'player_id'</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>        <span class="s1">'starting_age'</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>        <span class="s1">'lock_civ'</span><span class="p">,</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>        <span class="s1">'food'</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>        <span class="s1">'wood'</span><span class="p">,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>        <span class="s1">'gold'</span><span class="p">,</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>        <span class="s1">'stone'</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>        <span class="s1">'personality'</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>        <span class="s1">'ai_type'</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>        <span class="s1">'ai_script'</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>        <span class="s1">'color'</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>        <span class="s1">'active'</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>        <span class="s1">'human'</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>        <span class="s1">'civilization'</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>        <span class="s1">'architecture_set'</span><span class="p">,</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>    <span class="p">]</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>    <span class="n">_object_attributes_non_gaia</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>        <span class="s1">&#39;population_cap&#39;</span><span class="p">,</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>        <span class="s1">&#39;diplomacy&#39;</span><span class="p">,</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>        <span class="s1">&#39;initial_camera_x&#39;</span><span class="p">,</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>        <span class="s1">&#39;initial_camera_y&#39;</span><span class="p">,</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>        <span class="s1">&#39;allied_victory&#39;</span><span class="p">,</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>        <span class="s1">&#39;disabled_techs&#39;</span><span class="p">,</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="s1">&#39;disabled_buildings&#39;</span><span class="p">,</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>        <span class="s1">&#39;disabled_units&#39;</span><span class="p">,</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>        <span class="s1">&#39;base_priority&#39;</span><span class="p">,</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="s1">&#39;tribe_name&#39;</span><span class="p">,</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>        <span class="s1">&#39;string_table_name_id&#39;</span><span class="p">,</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>        <span class="s1">&#39;initial_player_view_x&#39;</span><span class="p">,</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>        <span class="s1">&#39;initial_player_view_y&#39;</span><span class="p">,</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>        <span class="s1">'population_cap'</span><span class="p">,</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>        <span class="s1">'diplomacy'</span><span class="p">,</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>        <span class="s1">'initial_camera_x'</span><span class="p">,</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>        <span class="s1">'initial_camera_y'</span><span class="p">,</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>        <span class="s1">'allied_victory'</span><span class="p">,</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>        <span class="s1">'disabled_techs'</span><span class="p">,</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="s1">'disabled_buildings'</span><span class="p">,</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>        <span class="s1">'disabled_units'</span><span class="p">,</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>        <span class="s1">'base_priority'</span><span class="p">,</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="s1">'tribe_name'</span><span class="p">,</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>        <span class="s1">'string_table_name_id'</span><span class="p">,</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>        <span class="s1">'initial_player_view_x'</span><span class="p">,</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>        <span class="s1">'initial_player_view_y'</span><span class="p">,</span>
 </span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>    <span class="p">]</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>
 </span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -314,72 +314,72 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>
 </span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="nd">@property</span>
 </span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_x` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_x` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_x</span>
 </span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>
 </span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="nd">@initial_camera_x</span><span class="o">.</span><span class="n">setter</span>
 </span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_x` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_x` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_x</span> <span class="o">=</span> <span class="n">value</span>
 </span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>
 </span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>    <span class="nd">@property</span>
 </span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_y` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_y` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_y</span>
 </span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>
 </span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>    <span class="nd">@initial_camera_y</span><span class="o">.</span><span class="n">setter</span>
 </span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_y` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_y` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_y</span> <span class="o">=</span> <span class="n">value</span>
 </span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>
 </span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>    <span class="nd">@property</span>
 </span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">player_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only value of the player ID&quot;&quot;&quot;</span>
+</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a><span class="w">        </span><span class="sd">"""Read-only value of the player ID"""</span>
 </span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_player_id</span>
 </span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a>
 </span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a>    <span class="nd">@property</span>
 </span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only value if this player is active or not&quot;&quot;&quot;</span>
+</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a><span class="w">        </span><span class="sd">"""Read-only value if this player is active or not"""</span>
 </span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active</span>
 </span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>
 </span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_none_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to None AI&quot;&quot;&quot;</span>
+</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to None AI"""</span>
 </span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">NONE</span>
-</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">&quot;NoneAi&quot;</span>
+</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">"NoneAi"</span>
 </span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_scripts</span><span class="o">.</span><span class="n">none</span>
 </span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>
 </span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_immobile_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to an immobile AI&quot;&quot;&quot;</span>
+</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to an immobile AI"""</span>
 </span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">CUSTOM</span>
-</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">&quot;Immobile AI&quot;</span>
+</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">"Immobile AI"</span>
 </span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_scripts</span><span class="o">.</span><span class="n">immobile</span>
 </span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>
 </span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_custom_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ai_script</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">per_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to your custom AI&quot;&quot;&quot;</span>
+</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to your custom AI"""</span>
 </span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>        <span class="k">if</span> <span class="n">per_file_path</span><span class="p">:</span>
 </span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>            <span class="n">ai_script</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">per_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
 </span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>        <span class="k">if</span> <span class="n">ai_script</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead&quot;</span><span class="p">)</span>
+</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead"</span><span class="p">)</span>
 </span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>
 </span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">CUSTOM</span>
 </span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="n">name</span>
 </span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_script</span>
 </span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a>
 </span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_player_diplomacy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">players</span><span class="p">:</span> <span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">],</span> <span class="n">diplomacy</span><span class="p">:</span> <span class="n">DiplomacyState</span><span class="p">):</span>
-</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a><span class="sd">        Set the diplomacy of this player to other players.</span>
 </span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a>
 </span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a><span class="sd">        Note: This sets the player diplomacy ONE WAY!</span>
-</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="sd">            This does NOT set the other player&#39;s diplomacy to this player to the same diplomacy</span>
+</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="sd">            This does NOT set the other player's diplomacy to this player to the same diplomacy</span>
 </span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a>
 </span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a><span class="sd">        Args:</span>
 </span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a><span class="sd">            players: The player(s) to change</span>
 </span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a><span class="sd">            diplomacy: The diplomacy setting to set the player to</span>
-</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a><span class="sd">        """</span>
 </span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>        <span class="n">players</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">players</span><span class="p">)</span>
 </span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a>
 </span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_id</span> <span class="ow">in</span> <span class="n">players</span><span class="p">:</span>
-</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set diplomacy from and to the same player&quot;</span><span class="p">)</span>
+</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot set diplomacy from and to the same player"</span><span class="p">)</span>
 </span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a>
 </span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a>        <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">players</span><span class="p">:</span>
 </span><span id="L-217"><a href="#L-217"><span class="linenos">217</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">diplomacy</span><span class="p">[</span><span class="n">player</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">diplomacy</span>
@@ -400,7 +400,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="L-232"><a href="#L-232"><span class="linenos">232</span></a>            <span class="k">try</span><span class="p">:</span>
 </span><span id="L-233"><a href="#L-233"><span class="linenos">233</span></a>                <span class="k">return</span> <span class="n">CivilizationOld</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 </span><span id="L-234"><a href="#L-234"><span class="linenos">234</span></a>            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-</span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid Civilization value for this scenario version: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+</span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid Civilization value for this scenario version: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
 </span><span id="L-236"><a href="#L-236"><span class="linenos">236</span></a>        <span class="k">else</span><span class="p">:</span>
 </span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a>            <span class="k">return</span> <span class="n">Civilization</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 </span><span id="L-238"><a href="#L-238"><span class="linenos">238</span></a>
@@ -416,7 +416,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="L-248"><a href="#L-248"><span class="linenos">248</span></a>            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 </span><span id="L-249"><a href="#L-249"><span class="linenos">249</span></a>                <span class="k">return</span> <span class="n">Civilization</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
 </span><span id="L-250"><a href="#L-250"><span class="linenos">250</span></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="L-251"><a href="#L-251"><span class="linenos">251</span></a>                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-251"><a href="#L-251"><span class="linenos">251</span></a>                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unexpected type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="L-252"><a href="#L-252"><span class="linenos">252</span></a>
 </span><span id="L-253"><a href="#L-253"><span class="linenos">253</span></a>        <span class="c1"># Try Except allows custom civ values</span>
 </span><span id="L-254"><a href="#L-254"><span class="linenos">254</span></a>        <span class="k">try</span><span class="p">:</span>
@@ -443,39 +443,39 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     </div>
     <a class="headerlink" href="#Player"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player-19"><a href="#Player-19"><span class="linenos"> 19</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="p">(</span><span class="n">AoE2Object</span><span class="p">):</span>
-</span><span id="Player-20"><a href="#Player-20"><span class="linenos"> 20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A class for handling all player information.&quot;&quot;&quot;</span>
+</span><span id="Player-20"><a href="#Player-20"><span class="linenos"> 20</span></a><span class="w">    </span><span class="sd">"""A class for handling all player information."""</span>
 </span><span id="Player-21"><a href="#Player-21"><span class="linenos"> 21</span></a>
 </span><span id="Player-22"><a href="#Player-22"><span class="linenos"> 22</span></a>    <span class="n">_object_attributes</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="Player-23"><a href="#Player-23"><span class="linenos"> 23</span></a>        <span class="s1">&#39;player_id&#39;</span><span class="p">,</span>
-</span><span id="Player-24"><a href="#Player-24"><span class="linenos"> 24</span></a>        <span class="s1">&#39;starting_age&#39;</span><span class="p">,</span>
-</span><span id="Player-25"><a href="#Player-25"><span class="linenos"> 25</span></a>        <span class="s1">&#39;lock_civ&#39;</span><span class="p">,</span>
-</span><span id="Player-26"><a href="#Player-26"><span class="linenos"> 26</span></a>        <span class="s1">&#39;food&#39;</span><span class="p">,</span>
-</span><span id="Player-27"><a href="#Player-27"><span class="linenos"> 27</span></a>        <span class="s1">&#39;wood&#39;</span><span class="p">,</span>
-</span><span id="Player-28"><a href="#Player-28"><span class="linenos"> 28</span></a>        <span class="s1">&#39;gold&#39;</span><span class="p">,</span>
-</span><span id="Player-29"><a href="#Player-29"><span class="linenos"> 29</span></a>        <span class="s1">&#39;stone&#39;</span><span class="p">,</span>
-</span><span id="Player-30"><a href="#Player-30"><span class="linenos"> 30</span></a>        <span class="s1">&#39;personality&#39;</span><span class="p">,</span>
-</span><span id="Player-31"><a href="#Player-31"><span class="linenos"> 31</span></a>        <span class="s1">&#39;ai_type&#39;</span><span class="p">,</span>
-</span><span id="Player-32"><a href="#Player-32"><span class="linenos"> 32</span></a>        <span class="s1">&#39;ai_script&#39;</span><span class="p">,</span>
-</span><span id="Player-33"><a href="#Player-33"><span class="linenos"> 33</span></a>        <span class="s1">&#39;color&#39;</span><span class="p">,</span>
-</span><span id="Player-34"><a href="#Player-34"><span class="linenos"> 34</span></a>        <span class="s1">&#39;active&#39;</span><span class="p">,</span>
-</span><span id="Player-35"><a href="#Player-35"><span class="linenos"> 35</span></a>        <span class="s1">&#39;human&#39;</span><span class="p">,</span>
-</span><span id="Player-36"><a href="#Player-36"><span class="linenos"> 36</span></a>        <span class="s1">&#39;civilization&#39;</span><span class="p">,</span>
-</span><span id="Player-37"><a href="#Player-37"><span class="linenos"> 37</span></a>        <span class="s1">&#39;architecture_set&#39;</span><span class="p">,</span>
+</span><span id="Player-23"><a href="#Player-23"><span class="linenos"> 23</span></a>        <span class="s1">'player_id'</span><span class="p">,</span>
+</span><span id="Player-24"><a href="#Player-24"><span class="linenos"> 24</span></a>        <span class="s1">'starting_age'</span><span class="p">,</span>
+</span><span id="Player-25"><a href="#Player-25"><span class="linenos"> 25</span></a>        <span class="s1">'lock_civ'</span><span class="p">,</span>
+</span><span id="Player-26"><a href="#Player-26"><span class="linenos"> 26</span></a>        <span class="s1">'food'</span><span class="p">,</span>
+</span><span id="Player-27"><a href="#Player-27"><span class="linenos"> 27</span></a>        <span class="s1">'wood'</span><span class="p">,</span>
+</span><span id="Player-28"><a href="#Player-28"><span class="linenos"> 28</span></a>        <span class="s1">'gold'</span><span class="p">,</span>
+</span><span id="Player-29"><a href="#Player-29"><span class="linenos"> 29</span></a>        <span class="s1">'stone'</span><span class="p">,</span>
+</span><span id="Player-30"><a href="#Player-30"><span class="linenos"> 30</span></a>        <span class="s1">'personality'</span><span class="p">,</span>
+</span><span id="Player-31"><a href="#Player-31"><span class="linenos"> 31</span></a>        <span class="s1">'ai_type'</span><span class="p">,</span>
+</span><span id="Player-32"><a href="#Player-32"><span class="linenos"> 32</span></a>        <span class="s1">'ai_script'</span><span class="p">,</span>
+</span><span id="Player-33"><a href="#Player-33"><span class="linenos"> 33</span></a>        <span class="s1">'color'</span><span class="p">,</span>
+</span><span id="Player-34"><a href="#Player-34"><span class="linenos"> 34</span></a>        <span class="s1">'active'</span><span class="p">,</span>
+</span><span id="Player-35"><a href="#Player-35"><span class="linenos"> 35</span></a>        <span class="s1">'human'</span><span class="p">,</span>
+</span><span id="Player-36"><a href="#Player-36"><span class="linenos"> 36</span></a>        <span class="s1">'civilization'</span><span class="p">,</span>
+</span><span id="Player-37"><a href="#Player-37"><span class="linenos"> 37</span></a>        <span class="s1">'architecture_set'</span><span class="p">,</span>
 </span><span id="Player-38"><a href="#Player-38"><span class="linenos"> 38</span></a>    <span class="p">]</span>
 </span><span id="Player-39"><a href="#Player-39"><span class="linenos"> 39</span></a>    <span class="n">_object_attributes_non_gaia</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="Player-40"><a href="#Player-40"><span class="linenos"> 40</span></a>        <span class="s1">&#39;population_cap&#39;</span><span class="p">,</span>
-</span><span id="Player-41"><a href="#Player-41"><span class="linenos"> 41</span></a>        <span class="s1">&#39;diplomacy&#39;</span><span class="p">,</span>
-</span><span id="Player-42"><a href="#Player-42"><span class="linenos"> 42</span></a>        <span class="s1">&#39;initial_camera_x&#39;</span><span class="p">,</span>
-</span><span id="Player-43"><a href="#Player-43"><span class="linenos"> 43</span></a>        <span class="s1">&#39;initial_camera_y&#39;</span><span class="p">,</span>
-</span><span id="Player-44"><a href="#Player-44"><span class="linenos"> 44</span></a>        <span class="s1">&#39;allied_victory&#39;</span><span class="p">,</span>
-</span><span id="Player-45"><a href="#Player-45"><span class="linenos"> 45</span></a>        <span class="s1">&#39;disabled_techs&#39;</span><span class="p">,</span>
-</span><span id="Player-46"><a href="#Player-46"><span class="linenos"> 46</span></a>        <span class="s1">&#39;disabled_buildings&#39;</span><span class="p">,</span>
-</span><span id="Player-47"><a href="#Player-47"><span class="linenos"> 47</span></a>        <span class="s1">&#39;disabled_units&#39;</span><span class="p">,</span>
-</span><span id="Player-48"><a href="#Player-48"><span class="linenos"> 48</span></a>        <span class="s1">&#39;base_priority&#39;</span><span class="p">,</span>
-</span><span id="Player-49"><a href="#Player-49"><span class="linenos"> 49</span></a>        <span class="s1">&#39;tribe_name&#39;</span><span class="p">,</span>
-</span><span id="Player-50"><a href="#Player-50"><span class="linenos"> 50</span></a>        <span class="s1">&#39;string_table_name_id&#39;</span><span class="p">,</span>
-</span><span id="Player-51"><a href="#Player-51"><span class="linenos"> 51</span></a>        <span class="s1">&#39;initial_player_view_x&#39;</span><span class="p">,</span>
-</span><span id="Player-52"><a href="#Player-52"><span class="linenos"> 52</span></a>        <span class="s1">&#39;initial_player_view_y&#39;</span><span class="p">,</span>
+</span><span id="Player-40"><a href="#Player-40"><span class="linenos"> 40</span></a>        <span class="s1">'population_cap'</span><span class="p">,</span>
+</span><span id="Player-41"><a href="#Player-41"><span class="linenos"> 41</span></a>        <span class="s1">'diplomacy'</span><span class="p">,</span>
+</span><span id="Player-42"><a href="#Player-42"><span class="linenos"> 42</span></a>        <span class="s1">'initial_camera_x'</span><span class="p">,</span>
+</span><span id="Player-43"><a href="#Player-43"><span class="linenos"> 43</span></a>        <span class="s1">'initial_camera_y'</span><span class="p">,</span>
+</span><span id="Player-44"><a href="#Player-44"><span class="linenos"> 44</span></a>        <span class="s1">'allied_victory'</span><span class="p">,</span>
+</span><span id="Player-45"><a href="#Player-45"><span class="linenos"> 45</span></a>        <span class="s1">'disabled_techs'</span><span class="p">,</span>
+</span><span id="Player-46"><a href="#Player-46"><span class="linenos"> 46</span></a>        <span class="s1">'disabled_buildings'</span><span class="p">,</span>
+</span><span id="Player-47"><a href="#Player-47"><span class="linenos"> 47</span></a>        <span class="s1">'disabled_units'</span><span class="p">,</span>
+</span><span id="Player-48"><a href="#Player-48"><span class="linenos"> 48</span></a>        <span class="s1">'base_priority'</span><span class="p">,</span>
+</span><span id="Player-49"><a href="#Player-49"><span class="linenos"> 49</span></a>        <span class="s1">'tribe_name'</span><span class="p">,</span>
+</span><span id="Player-50"><a href="#Player-50"><span class="linenos"> 50</span></a>        <span class="s1">'string_table_name_id'</span><span class="p">,</span>
+</span><span id="Player-51"><a href="#Player-51"><span class="linenos"> 51</span></a>        <span class="s1">'initial_player_view_x'</span><span class="p">,</span>
+</span><span id="Player-52"><a href="#Player-52"><span class="linenos"> 52</span></a>        <span class="s1">'initial_player_view_y'</span><span class="p">,</span>
 </span><span id="Player-53"><a href="#Player-53"><span class="linenos"> 53</span></a>    <span class="p">]</span>
 </span><span id="Player-54"><a href="#Player-54"><span class="linenos"> 54</span></a>
 </span><span id="Player-55"><a href="#Player-55"><span class="linenos"> 55</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -573,72 +573,72 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="Player-147"><a href="#Player-147"><span class="linenos">147</span></a>
 </span><span id="Player-148"><a href="#Player-148"><span class="linenos">148</span></a>    <span class="nd">@property</span>
 </span><span id="Player-149"><a href="#Player-149"><span class="linenos">149</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player-150"><a href="#Player-150"><span class="linenos">150</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_x` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="Player-150"><a href="#Player-150"><span class="linenos">150</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_x` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="Player-151"><a href="#Player-151"><span class="linenos">151</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_x</span>
 </span><span id="Player-152"><a href="#Player-152"><span class="linenos">152</span></a>
 </span><span id="Player-153"><a href="#Player-153"><span class="linenos">153</span></a>    <span class="nd">@initial_camera_x</span><span class="o">.</span><span class="n">setter</span>
 </span><span id="Player-154"><a href="#Player-154"><span class="linenos">154</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-</span><span id="Player-155"><a href="#Player-155"><span class="linenos">155</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_x` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="Player-155"><a href="#Player-155"><span class="linenos">155</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_x` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="Player-156"><a href="#Player-156"><span class="linenos">156</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_x</span> <span class="o">=</span> <span class="n">value</span>
 </span><span id="Player-157"><a href="#Player-157"><span class="linenos">157</span></a>
 </span><span id="Player-158"><a href="#Player-158"><span class="linenos">158</span></a>    <span class="nd">@property</span>
 </span><span id="Player-159"><a href="#Player-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player-160"><a href="#Player-160"><span class="linenos">160</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_y` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="Player-160"><a href="#Player-160"><span class="linenos">160</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_y` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="Player-161"><a href="#Player-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_y</span>
 </span><span id="Player-162"><a href="#Player-162"><span class="linenos">162</span></a>
 </span><span id="Player-163"><a href="#Player-163"><span class="linenos">163</span></a>    <span class="nd">@initial_camera_y</span><span class="o">.</span><span class="n">setter</span>
 </span><span id="Player-164"><a href="#Player-164"><span class="linenos">164</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-</span><span id="Player-165"><a href="#Player-165"><span class="linenos">165</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_y` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="Player-165"><a href="#Player-165"><span class="linenos">165</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_y` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="Player-166"><a href="#Player-166"><span class="linenos">166</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_y</span> <span class="o">=</span> <span class="n">value</span>
 </span><span id="Player-167"><a href="#Player-167"><span class="linenos">167</span></a>
 </span><span id="Player-168"><a href="#Player-168"><span class="linenos">168</span></a>    <span class="nd">@property</span>
 </span><span id="Player-169"><a href="#Player-169"><span class="linenos">169</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">player_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="Player-170"><a href="#Player-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only value of the player ID&quot;&quot;&quot;</span>
+</span><span id="Player-170"><a href="#Player-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">"""Read-only value of the player ID"""</span>
 </span><span id="Player-171"><a href="#Player-171"><span class="linenos">171</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_player_id</span>
 </span><span id="Player-172"><a href="#Player-172"><span class="linenos">172</span></a>
 </span><span id="Player-173"><a href="#Player-173"><span class="linenos">173</span></a>    <span class="nd">@property</span>
 </span><span id="Player-174"><a href="#Player-174"><span class="linenos">174</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Player-175"><a href="#Player-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only value if this player is active or not&quot;&quot;&quot;</span>
+</span><span id="Player-175"><a href="#Player-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">"""Read-only value if this player is active or not"""</span>
 </span><span id="Player-176"><a href="#Player-176"><span class="linenos">176</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active</span>
 </span><span id="Player-177"><a href="#Player-177"><span class="linenos">177</span></a>
 </span><span id="Player-178"><a href="#Player-178"><span class="linenos">178</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_none_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player-179"><a href="#Player-179"><span class="linenos">179</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to None AI&quot;&quot;&quot;</span>
+</span><span id="Player-179"><a href="#Player-179"><span class="linenos">179</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to None AI"""</span>
 </span><span id="Player-180"><a href="#Player-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">NONE</span>
-</span><span id="Player-181"><a href="#Player-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">&quot;NoneAi&quot;</span>
+</span><span id="Player-181"><a href="#Player-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">"NoneAi"</span>
 </span><span id="Player-182"><a href="#Player-182"><span class="linenos">182</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_scripts</span><span class="o">.</span><span class="n">none</span>
 </span><span id="Player-183"><a href="#Player-183"><span class="linenos">183</span></a>
 </span><span id="Player-184"><a href="#Player-184"><span class="linenos">184</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_immobile_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player-185"><a href="#Player-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to an immobile AI&quot;&quot;&quot;</span>
+</span><span id="Player-185"><a href="#Player-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to an immobile AI"""</span>
 </span><span id="Player-186"><a href="#Player-186"><span class="linenos">186</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">CUSTOM</span>
-</span><span id="Player-187"><a href="#Player-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">&quot;Immobile AI&quot;</span>
+</span><span id="Player-187"><a href="#Player-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">"Immobile AI"</span>
 </span><span id="Player-188"><a href="#Player-188"><span class="linenos">188</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_scripts</span><span class="o">.</span><span class="n">immobile</span>
 </span><span id="Player-189"><a href="#Player-189"><span class="linenos">189</span></a>
 </span><span id="Player-190"><a href="#Player-190"><span class="linenos">190</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_custom_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ai_script</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">per_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Player-191"><a href="#Player-191"><span class="linenos">191</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to your custom AI&quot;&quot;&quot;</span>
+</span><span id="Player-191"><a href="#Player-191"><span class="linenos">191</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to your custom AI"""</span>
 </span><span id="Player-192"><a href="#Player-192"><span class="linenos">192</span></a>        <span class="k">if</span> <span class="n">per_file_path</span><span class="p">:</span>
 </span><span id="Player-193"><a href="#Player-193"><span class="linenos">193</span></a>            <span class="n">ai_script</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">per_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
 </span><span id="Player-194"><a href="#Player-194"><span class="linenos">194</span></a>        <span class="k">if</span> <span class="n">ai_script</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player-195"><a href="#Player-195"><span class="linenos">195</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead&quot;</span><span class="p">)</span>
+</span><span id="Player-195"><a href="#Player-195"><span class="linenos">195</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead"</span><span class="p">)</span>
 </span><span id="Player-196"><a href="#Player-196"><span class="linenos">196</span></a>
 </span><span id="Player-197"><a href="#Player-197"><span class="linenos">197</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">CUSTOM</span>
 </span><span id="Player-198"><a href="#Player-198"><span class="linenos">198</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="n">name</span>
 </span><span id="Player-199"><a href="#Player-199"><span class="linenos">199</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_script</span>
 </span><span id="Player-200"><a href="#Player-200"><span class="linenos">200</span></a>
 </span><span id="Player-201"><a href="#Player-201"><span class="linenos">201</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_player_diplomacy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">players</span><span class="p">:</span> <span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">],</span> <span class="n">diplomacy</span><span class="p">:</span> <span class="n">DiplomacyState</span><span class="p">):</span>
-</span><span id="Player-202"><a href="#Player-202"><span class="linenos">202</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player-202"><a href="#Player-202"><span class="linenos">202</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="Player-203"><a href="#Player-203"><span class="linenos">203</span></a><span class="sd">        Set the diplomacy of this player to other players.</span>
 </span><span id="Player-204"><a href="#Player-204"><span class="linenos">204</span></a>
 </span><span id="Player-205"><a href="#Player-205"><span class="linenos">205</span></a><span class="sd">        Note: This sets the player diplomacy ONE WAY!</span>
-</span><span id="Player-206"><a href="#Player-206"><span class="linenos">206</span></a><span class="sd">            This does NOT set the other player&#39;s diplomacy to this player to the same diplomacy</span>
+</span><span id="Player-206"><a href="#Player-206"><span class="linenos">206</span></a><span class="sd">            This does NOT set the other player's diplomacy to this player to the same diplomacy</span>
 </span><span id="Player-207"><a href="#Player-207"><span class="linenos">207</span></a>
 </span><span id="Player-208"><a href="#Player-208"><span class="linenos">208</span></a><span class="sd">        Args:</span>
 </span><span id="Player-209"><a href="#Player-209"><span class="linenos">209</span></a><span class="sd">            players: The player(s) to change</span>
 </span><span id="Player-210"><a href="#Player-210"><span class="linenos">210</span></a><span class="sd">            diplomacy: The diplomacy setting to set the player to</span>
-</span><span id="Player-211"><a href="#Player-211"><span class="linenos">211</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player-211"><a href="#Player-211"><span class="linenos">211</span></a><span class="sd">        """</span>
 </span><span id="Player-212"><a href="#Player-212"><span class="linenos">212</span></a>        <span class="n">players</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">players</span><span class="p">)</span>
 </span><span id="Player-213"><a href="#Player-213"><span class="linenos">213</span></a>
 </span><span id="Player-214"><a href="#Player-214"><span class="linenos">214</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_id</span> <span class="ow">in</span> <span class="n">players</span><span class="p">:</span>
-</span><span id="Player-215"><a href="#Player-215"><span class="linenos">215</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set diplomacy from and to the same player&quot;</span><span class="p">)</span>
+</span><span id="Player-215"><a href="#Player-215"><span class="linenos">215</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot set diplomacy from and to the same player"</span><span class="p">)</span>
 </span><span id="Player-216"><a href="#Player-216"><span class="linenos">216</span></a>
 </span><span id="Player-217"><a href="#Player-217"><span class="linenos">217</span></a>        <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">players</span><span class="p">:</span>
 </span><span id="Player-218"><a href="#Player-218"><span class="linenos">218</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">diplomacy</span><span class="p">[</span><span class="n">player</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">diplomacy</span>
@@ -659,7 +659,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="Player-233"><a href="#Player-233"><span class="linenos">233</span></a>            <span class="k">try</span><span class="p">:</span>
 </span><span id="Player-234"><a href="#Player-234"><span class="linenos">234</span></a>                <span class="k">return</span> <span class="n">CivilizationOld</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 </span><span id="Player-235"><a href="#Player-235"><span class="linenos">235</span></a>            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-</span><span id="Player-236"><a href="#Player-236"><span class="linenos">236</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid Civilization value for this scenario version: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+</span><span id="Player-236"><a href="#Player-236"><span class="linenos">236</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid Civilization value for this scenario version: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
 </span><span id="Player-237"><a href="#Player-237"><span class="linenos">237</span></a>        <span class="k">else</span><span class="p">:</span>
 </span><span id="Player-238"><a href="#Player-238"><span class="linenos">238</span></a>            <span class="k">return</span> <span class="n">Civilization</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 </span><span id="Player-239"><a href="#Player-239"><span class="linenos">239</span></a>
@@ -675,7 +675,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 </span><span id="Player-249"><a href="#Player-249"><span class="linenos">249</span></a>            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 </span><span id="Player-250"><a href="#Player-250"><span class="linenos">250</span></a>                <span class="k">return</span> <span class="n">Civilization</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
 </span><span id="Player-251"><a href="#Player-251"><span class="linenos">251</span></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="Player-252"><a href="#Player-252"><span class="linenos">252</span></a>                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="Player-252"><a href="#Player-252"><span class="linenos">252</span></a>                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unexpected type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="Player-253"><a href="#Player-253"><span class="linenos">253</span></a>
 </span><span id="Player-254"><a href="#Player-254"><span class="linenos">254</span></a>        <span class="c1"># Try Except allows custom civ values</span>
 </span><span id="Player-255"><a href="#Player-255"><span class="linenos">255</span></a>        <span class="k">try</span><span class="p">:</span>
@@ -697,7 +697,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                                         <input id="Player.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Player</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">player_id</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">starting_age</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">lock_civ</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">lock_personality</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">food</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">wood</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">gold</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">stone</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">personality</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">ai_type</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">ai_script</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">color</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">active</span><span class="p">:</span> <span class="nb">bool</span>,</span><span class="param">	<span class="n">human</span><span class="p">:</span> <span class="nb">bool</span>,</span><span class="param">	<span class="n">civilization</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">architecture_set</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">population_cap</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">diplomacy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_camera_x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_camera_y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">allied_victory</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">disabled_techs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">disabled_buildings</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">disabled_units</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">tribe_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">base_priority</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">string_table_name_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_player_view_x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_player_view_y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span>)</span>
+        <span class="name">Player</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">player_id</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">starting_age</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">lock_civ</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">lock_personality</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">food</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">wood</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">gold</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">stone</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">personality</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">ai_type</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">ai_script</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">color</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">active</span><span class="p">:</span> <span class="nb">bool</span>,</span><span class="param">	<span class="n">human</span><span class="p">:</span> <span class="nb">bool</span>,</span><span class="param">	<span class="n">civilization</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">architecture_set</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">population_cap</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">diplomacy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_camera_x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_camera_y</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">allied_victory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">disabled_techs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">disabled_buildings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">disabled_units</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">tribe_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">base_priority</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">string_table_name_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_player_view_x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">initial_player_view_y</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span>)</span>
 
                 <label class="view-source-button" for="Player.__init__-view-source"><span>View Source</span></label>
 
@@ -867,7 +867,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.ai_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">ai_type</span><span class="annotation">: &#39;(int | AiType)&#39;</span>
+            <span class="name">ai_type</span><span class="annotation">: int | <a href="../../../datasets/players.html#AiType">AoE2ScenarioParser.datasets.players.AiType</a></span>
 
         
     </div>
@@ -912,7 +912,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             <div id="Player.civilization" class="classattr">
                                         <input id="Player.civilization-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">civilization</span><span class="annotation">: &#39;Civilization | str | int&#39;</span>
+            <span class="name">civilization</span><span class="annotation">: <a href="../../../datasets/object_support.html#Civilization">AoE2ScenarioParser.datasets.object_support.Civilization</a> | str | int</span>
 
                 <label class="view-source-button" for="Player.civilization-view-source"><span>View Source</span></label>
 
@@ -930,7 +930,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             <div id="Player.architecture_set" class="classattr">
                                         <input id="Player.architecture_set-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">architecture_set</span><span class="annotation">: &#39;Civilization | str | int&#39;</span>
+            <span class="name">architecture_set</span><span class="annotation">: <a href="../../../datasets/object_support.html#Civilization">AoE2ScenarioParser.datasets.object_support.Civilization</a> | str | int</span>
 
                 <label class="view-source-button" for="Player.architecture_set-view-source"><span>View Source</span></label>
 
@@ -947,7 +947,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.population_cap" class="classattr">
                                 <div class="attr variable">
-            <span class="name">population_cap</span><span class="annotation">: Union[int, NoneType]</span>
+            <span class="name">population_cap</span><span class="annotation">: Optional[int]</span>
 
         
     </div>
@@ -958,7 +958,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.diplomacy" class="classattr">
                                 <div class="attr variable">
-            <span class="name">diplomacy</span><span class="annotation">: Union[List[int], NoneType]</span>
+            <span class="name">diplomacy</span><span class="annotation">: Optional[List[int]]</span>
 
         
     </div>
@@ -969,7 +969,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.allied_victory" class="classattr">
                                 <div class="attr variable">
-            <span class="name">allied_victory</span><span class="annotation">: Union[bool, NoneType]</span>
+            <span class="name">allied_victory</span><span class="annotation">: Optional[bool]</span>
 
         
     </div>
@@ -980,7 +980,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.disabled_techs" class="classattr">
                                 <div class="attr variable">
-            <span class="name">disabled_techs</span><span class="annotation">: Union[List[int], NoneType]</span>
+            <span class="name">disabled_techs</span><span class="annotation">: Optional[List[int]]</span>
 
         
     </div>
@@ -991,7 +991,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.disabled_buildings" class="classattr">
                                 <div class="attr variable">
-            <span class="name">disabled_buildings</span><span class="annotation">: Union[List[int], NoneType]</span>
+            <span class="name">disabled_buildings</span><span class="annotation">: Optional[List[int]]</span>
 
         
     </div>
@@ -1002,7 +1002,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.disabled_units" class="classattr">
                                 <div class="attr variable">
-            <span class="name">disabled_units</span><span class="annotation">: Union[List[int], NoneType]</span>
+            <span class="name">disabled_units</span><span class="annotation">: Optional[List[int]]</span>
 
         
     </div>
@@ -1013,7 +1013,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.tribe_name" class="classattr">
                                 <div class="attr variable">
-            <span class="name">tribe_name</span><span class="annotation">: Union[str, NoneType]</span>
+            <span class="name">tribe_name</span><span class="annotation">: Optional[str]</span>
 
         
     </div>
@@ -1024,7 +1024,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.base_priority" class="classattr">
                                 <div class="attr variable">
-            <span class="name">base_priority</span><span class="annotation">: Union[int, NoneType]</span>
+            <span class="name">base_priority</span><span class="annotation">: Optional[int]</span>
 
         
     </div>
@@ -1035,7 +1035,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.string_table_name_id" class="classattr">
                                 <div class="attr variable">
-            <span class="name">string_table_name_id</span><span class="annotation">: Union[int, NoneType]</span>
+            <span class="name">string_table_name_id</span><span class="annotation">: Optional[int]</span>
 
         
     </div>
@@ -1046,7 +1046,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.initial_player_view_x" class="classattr">
                                 <div class="attr variable">
-            <span class="name">initial_player_view_x</span><span class="annotation">: Union[int, NoneType]</span>
+            <span class="name">initial_player_view_x</span><span class="annotation">: Optional[int]</span>
 
         
     </div>
@@ -1057,7 +1057,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
                             </div>
                             <div id="Player.initial_player_view_y" class="classattr">
                                 <div class="attr variable">
-            <span class="name">initial_player_view_y</span><span class="annotation">: Union[int, NoneType]</span>
+            <span class="name">initial_player_view_y</span><span class="annotation">: Optional[int]</span>
 
         
     </div>
@@ -1077,7 +1077,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     <a class="headerlink" href="#Player.initial_camera_x"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.initial_camera_x-148"><a href="#Player.initial_camera_x-148"><span class="linenos">148</span></a>    <span class="nd">@property</span>
 </span><span id="Player.initial_camera_x-149"><a href="#Player.initial_camera_x-149"><span class="linenos">149</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player.initial_camera_x-150"><a href="#Player.initial_camera_x-150"><span class="linenos">150</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_x` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="Player.initial_camera_x-150"><a href="#Player.initial_camera_x-150"><span class="linenos">150</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_x` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="Player.initial_camera_x-151"><a href="#Player.initial_camera_x-151"><span class="linenos">151</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_x</span>
 </span></pre></div>
 
@@ -1096,7 +1096,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     <a class="headerlink" href="#Player.initial_camera_y"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.initial_camera_y-158"><a href="#Player.initial_camera_y-158"><span class="linenos">158</span></a>    <span class="nd">@property</span>
 </span><span id="Player.initial_camera_y-159"><a href="#Player.initial_camera_y-159"><span class="linenos">159</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initial_camera_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player.initial_camera_y-160"><a href="#Player.initial_camera_y-160"><span class="linenos">160</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unused by scenario. Use: `initial_player_view_y` instead&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span id="Player.initial_camera_y-160"><a href="#Player.initial_camera_y-160"><span class="linenos">160</span></a>        <span class="n">warn</span><span class="p">(</span><span class="s2">"Unused by scenario. Use: `initial_player_view_y` instead"</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 </span><span id="Player.initial_camera_y-161"><a href="#Player.initial_camera_y-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_camera_y</span>
 </span></pre></div>
 
@@ -1115,7 +1115,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     <a class="headerlink" href="#Player.player_id"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.player_id-168"><a href="#Player.player_id-168"><span class="linenos">168</span></a>    <span class="nd">@property</span>
 </span><span id="Player.player_id-169"><a href="#Player.player_id-169"><span class="linenos">169</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">player_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="Player.player_id-170"><a href="#Player.player_id-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only value of the player ID&quot;&quot;&quot;</span>
+</span><span id="Player.player_id-170"><a href="#Player.player_id-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">"""Read-only value of the player ID"""</span>
 </span><span id="Player.player_id-171"><a href="#Player.player_id-171"><span class="linenos">171</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_player_id</span>
 </span></pre></div>
 
@@ -1136,7 +1136,7 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     <a class="headerlink" href="#Player.active"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.active-173"><a href="#Player.active-173"><span class="linenos">173</span></a>    <span class="nd">@property</span>
 </span><span id="Player.active-174"><a href="#Player.active-174"><span class="linenos">174</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">active</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Player.active-175"><a href="#Player.active-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only value if this player is active or not&quot;&quot;&quot;</span>
+</span><span id="Player.active-175"><a href="#Player.active-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">"""Read-only value if this player is active or not"""</span>
 </span><span id="Player.active-176"><a href="#Player.active-176"><span class="linenos">176</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active</span>
 </span></pre></div>
 
@@ -1158,9 +1158,9 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     </div>
     <a class="headerlink" href="#Player.set_none_ai"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.set_none_ai-178"><a href="#Player.set_none_ai-178"><span class="linenos">178</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_none_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player.set_none_ai-179"><a href="#Player.set_none_ai-179"><span class="linenos">179</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to None AI&quot;&quot;&quot;</span>
+</span><span id="Player.set_none_ai-179"><a href="#Player.set_none_ai-179"><span class="linenos">179</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to None AI"""</span>
 </span><span id="Player.set_none_ai-180"><a href="#Player.set_none_ai-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">NONE</span>
-</span><span id="Player.set_none_ai-181"><a href="#Player.set_none_ai-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">&quot;NoneAi&quot;</span>
+</span><span id="Player.set_none_ai-181"><a href="#Player.set_none_ai-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">"NoneAi"</span>
 </span><span id="Player.set_none_ai-182"><a href="#Player.set_none_ai-182"><span class="linenos">182</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_scripts</span><span class="o">.</span><span class="n">none</span>
 </span></pre></div>
 
@@ -1182,9 +1182,9 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
     </div>
     <a class="headerlink" href="#Player.set_immobile_ai"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.set_immobile_ai-184"><a href="#Player.set_immobile_ai-184"><span class="linenos">184</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_immobile_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Player.set_immobile_ai-185"><a href="#Player.set_immobile_ai-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to an immobile AI&quot;&quot;&quot;</span>
+</span><span id="Player.set_immobile_ai-185"><a href="#Player.set_immobile_ai-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to an immobile AI"""</span>
 </span><span id="Player.set_immobile_ai-186"><a href="#Player.set_immobile_ai-186"><span class="linenos">186</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">CUSTOM</span>
-</span><span id="Player.set_immobile_ai-187"><a href="#Player.set_immobile_ai-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">&quot;Immobile AI&quot;</span>
+</span><span id="Player.set_immobile_ai-187"><a href="#Player.set_immobile_ai-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="s2">"Immobile AI"</span>
 </span><span id="Player.set_immobile_ai-188"><a href="#Player.set_immobile_ai-188"><span class="linenos">188</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_script</span> <span class="o">=</span> <span class="n">ai_scripts</span><span class="o">.</span><span class="n">immobile</span>
 </span></pre></div>
 
@@ -1199,18 +1199,18 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">set_custom_ai</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">ai_script</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">per_file_path</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+        <span class="name">set_custom_ai</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">ai_script</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">per_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
                 <label class="view-source-button" for="Player.set_custom_ai-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Player.set_custom_ai"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.set_custom_ai-190"><a href="#Player.set_custom_ai-190"><span class="linenos">190</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_custom_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ai_script</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">per_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Player.set_custom_ai-191"><a href="#Player.set_custom_ai-191"><span class="linenos">191</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the personality of this player to your custom AI&quot;&quot;&quot;</span>
+</span><span id="Player.set_custom_ai-191"><a href="#Player.set_custom_ai-191"><span class="linenos">191</span></a><span class="w">        </span><span class="sd">"""Sets the personality of this player to your custom AI"""</span>
 </span><span id="Player.set_custom_ai-192"><a href="#Player.set_custom_ai-192"><span class="linenos">192</span></a>        <span class="k">if</span> <span class="n">per_file_path</span><span class="p">:</span>
 </span><span id="Player.set_custom_ai-193"><a href="#Player.set_custom_ai-193"><span class="linenos">193</span></a>            <span class="n">ai_script</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">per_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
 </span><span id="Player.set_custom_ai-194"><a href="#Player.set_custom_ai-194"><span class="linenos">194</span></a>        <span class="k">if</span> <span class="n">ai_script</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Player.set_custom_ai-195"><a href="#Player.set_custom_ai-195"><span class="linenos">195</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead&quot;</span><span class="p">)</span>
+</span><span id="Player.set_custom_ai-195"><a href="#Player.set_custom_ai-195"><span class="linenos">195</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"AI Script (or .per path) cannot be empty. Use: player.set_none_ai() instead"</span><span class="p">)</span>
 </span><span id="Player.set_custom_ai-196"><a href="#Player.set_custom_ai-196"><span class="linenos">196</span></a>
 </span><span id="Player.set_custom_ai-197"><a href="#Player.set_custom_ai-197"><span class="linenos">197</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ai_type</span> <span class="o">=</span> <span class="n">AiType</span><span class="o">.</span><span class="n">CUSTOM</span>
 </span><span id="Player.set_custom_ai-198"><a href="#Player.set_custom_ai-198"><span class="linenos">198</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">personality</span> <span class="o">=</span> <span class="n">name</span>
@@ -1228,27 +1228,27 @@ AoE2ScenarioParser<wbr>.objects<wbr>.data_objects<wbr>.player<wbr>.player    </h
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">set_player_diplomacy</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">players</span><span class="p">:</span> <span class="s1">&#39;PlayerId | int | List[PlayerId | int]&#39;</span>,</span><span class="param">	<span class="n">diplomacy</span><span class="p">:</span> <span class="n"><a href="../../../datasets/trigger_lists/diplomacy_state.html#DiplomacyState">AoE2ScenarioParser.datasets.trigger_lists.diplomacy_state.DiplomacyState</a></span></span><span class="return-annotation">):</span></span>
+        <span class="name">set_player_diplomacy</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">players</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n"><a href="../../../datasets/players.html#PlayerId">AoE2ScenarioParser.datasets.players.PlayerId</a></span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n"><a href="../../../datasets/players.html#PlayerId">AoE2ScenarioParser.datasets.players.PlayerId</a></span><span class="p">]]]</span>,</span><span class="param">	<span class="n">diplomacy</span><span class="p">:</span> <span class="n"><a href="../../../datasets/trigger_lists/diplomacy_state.html#DiplomacyState">AoE2ScenarioParser.datasets.trigger_lists.diplomacy_state.DiplomacyState</a></span></span><span class="return-annotation">):</span></span>
 
                 <label class="view-source-button" for="Player.set_player_diplomacy-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Player.set_player_diplomacy"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Player.set_player_diplomacy-201"><a href="#Player.set_player_diplomacy-201"><span class="linenos">201</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_player_diplomacy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">players</span><span class="p">:</span> <span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">],</span> <span class="n">diplomacy</span><span class="p">:</span> <span class="n">DiplomacyState</span><span class="p">):</span>
-</span><span id="Player.set_player_diplomacy-202"><a href="#Player.set_player_diplomacy-202"><span class="linenos">202</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Player.set_player_diplomacy-202"><a href="#Player.set_player_diplomacy-202"><span class="linenos">202</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="Player.set_player_diplomacy-203"><a href="#Player.set_player_diplomacy-203"><span class="linenos">203</span></a><span class="sd">        Set the diplomacy of this player to other players.</span>
 </span><span id="Player.set_player_diplomacy-204"><a href="#Player.set_player_diplomacy-204"><span class="linenos">204</span></a>
 </span><span id="Player.set_player_diplomacy-205"><a href="#Player.set_player_diplomacy-205"><span class="linenos">205</span></a><span class="sd">        Note: This sets the player diplomacy ONE WAY!</span>
-</span><span id="Player.set_player_diplomacy-206"><a href="#Player.set_player_diplomacy-206"><span class="linenos">206</span></a><span class="sd">            This does NOT set the other player&#39;s diplomacy to this player to the same diplomacy</span>
+</span><span id="Player.set_player_diplomacy-206"><a href="#Player.set_player_diplomacy-206"><span class="linenos">206</span></a><span class="sd">            This does NOT set the other player's diplomacy to this player to the same diplomacy</span>
 </span><span id="Player.set_player_diplomacy-207"><a href="#Player.set_player_diplomacy-207"><span class="linenos">207</span></a>
 </span><span id="Player.set_player_diplomacy-208"><a href="#Player.set_player_diplomacy-208"><span class="linenos">208</span></a><span class="sd">        Args:</span>
 </span><span id="Player.set_player_diplomacy-209"><a href="#Player.set_player_diplomacy-209"><span class="linenos">209</span></a><span class="sd">            players: The player(s) to change</span>
 </span><span id="Player.set_player_diplomacy-210"><a href="#Player.set_player_diplomacy-210"><span class="linenos">210</span></a><span class="sd">            diplomacy: The diplomacy setting to set the player to</span>
-</span><span id="Player.set_player_diplomacy-211"><a href="#Player.set_player_diplomacy-211"><span class="linenos">211</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Player.set_player_diplomacy-211"><a href="#Player.set_player_diplomacy-211"><span class="linenos">211</span></a><span class="sd">        """</span>
 </span><span id="Player.set_player_diplomacy-212"><a href="#Player.set_player_diplomacy-212"><span class="linenos">212</span></a>        <span class="n">players</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PlayerId</span> <span class="o">|</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">players</span><span class="p">)</span>
 </span><span id="Player.set_player_diplomacy-213"><a href="#Player.set_player_diplomacy-213"><span class="linenos">213</span></a>
 </span><span id="Player.set_player_diplomacy-214"><a href="#Player.set_player_diplomacy-214"><span class="linenos">214</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_id</span> <span class="ow">in</span> <span class="n">players</span><span class="p">:</span>
-</span><span id="Player.set_player_diplomacy-215"><a href="#Player.set_player_diplomacy-215"><span class="linenos">215</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set diplomacy from and to the same player&quot;</span><span class="p">)</span>
+</span><span id="Player.set_player_diplomacy-215"><a href="#Player.set_player_diplomacy-215"><span class="linenos">215</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot set diplomacy from and to the same player"</span><span class="p">)</span>
 </span><span id="Player.set_player_diplomacy-216"><a href="#Player.set_player_diplomacy-216"><span class="linenos">216</span></a>
 </span><span id="Player.set_player_diplomacy-217"><a href="#Player.set_player_diplomacy-217"><span class="linenos">217</span></a>        <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">players</span><span class="p">:</span>
 </span><span id="Player.set_player_diplomacy-218"><a href="#Player.set_player_diplomacy-218"><span class="linenos">218</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">diplomacy</span><span class="p">[</span><span class="n">player</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">diplomacy</span>

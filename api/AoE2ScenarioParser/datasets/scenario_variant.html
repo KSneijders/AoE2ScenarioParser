@@ -80,25 +80,25 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.scenario_variant    </h1>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ScenarioVariant</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    This enum class provides the integer values used to reference the different variants of scenarios (and the game).</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    """</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="n">LEGACY</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">AOE2</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">ROR</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">&#39;Legacy&#39;</span><span class="p">,</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">&#39;Age of Empires 2&#39;</span><span class="p">,</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">&#39;Return of Rome&#39;</span><span class="p">,</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">'Legacy'</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">'Age of Empires 2'</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">'Return of Rome'</span><span class="p">,</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">applicants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">&#39;AoC &amp; Bare HD&#39;</span><span class="p">,</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">&#39;HD with expansions &amp; DE&#39;</span><span class="p">,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">&#39;Return of Rome&#39;</span><span class="p">,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">'AoC &amp; Bare HD'</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">'HD with expansions &amp; DE'</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">'Return of Rome'</span><span class="p">,</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 </span></pre></div>
 
@@ -116,25 +116,25 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.scenario_variant    </h1>
     </div>
     <a class="headerlink" href="#ScenarioVariant"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ScenarioVariant-5"><a href="#ScenarioVariant-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ScenarioVariant</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="ScenarioVariant-6"><a href="#ScenarioVariant-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ScenarioVariant-6"><a href="#ScenarioVariant-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="ScenarioVariant-7"><a href="#ScenarioVariant-7"><span class="linenos"> 7</span></a><span class="sd">    This enum class provides the integer values used to reference the different variants of scenarios (and the game).</span>
-</span><span id="ScenarioVariant-8"><a href="#ScenarioVariant-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="ScenarioVariant-8"><a href="#ScenarioVariant-8"><span class="linenos"> 8</span></a><span class="sd">    """</span>
 </span><span id="ScenarioVariant-9"><a href="#ScenarioVariant-9"><span class="linenos"> 9</span></a>    <span class="n">LEGACY</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="ScenarioVariant-10"><a href="#ScenarioVariant-10"><span class="linenos">10</span></a>    <span class="n">AOE2</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="ScenarioVariant-11"><a href="#ScenarioVariant-11"><span class="linenos">11</span></a>    <span class="n">ROR</span> <span class="o">=</span> <span class="mi">2</span>
 </span><span id="ScenarioVariant-12"><a href="#ScenarioVariant-12"><span class="linenos">12</span></a>
 </span><span id="ScenarioVariant-13"><a href="#ScenarioVariant-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="ScenarioVariant-14"><a href="#ScenarioVariant-14"><span class="linenos">14</span></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="ScenarioVariant-15"><a href="#ScenarioVariant-15"><span class="linenos">15</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">&#39;Legacy&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant-16"><a href="#ScenarioVariant-16"><span class="linenos">16</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">&#39;Age of Empires 2&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant-17"><a href="#ScenarioVariant-17"><span class="linenos">17</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">&#39;Return of Rome&#39;</span><span class="p">,</span>
+</span><span id="ScenarioVariant-15"><a href="#ScenarioVariant-15"><span class="linenos">15</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">'Legacy'</span><span class="p">,</span>
+</span><span id="ScenarioVariant-16"><a href="#ScenarioVariant-16"><span class="linenos">16</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">'Age of Empires 2'</span><span class="p">,</span>
+</span><span id="ScenarioVariant-17"><a href="#ScenarioVariant-17"><span class="linenos">17</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">'Return of Rome'</span><span class="p">,</span>
 </span><span id="ScenarioVariant-18"><a href="#ScenarioVariant-18"><span class="linenos">18</span></a>        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 </span><span id="ScenarioVariant-19"><a href="#ScenarioVariant-19"><span class="linenos">19</span></a>
 </span><span id="ScenarioVariant-20"><a href="#ScenarioVariant-20"><span class="linenos">20</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">applicants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="ScenarioVariant-21"><a href="#ScenarioVariant-21"><span class="linenos">21</span></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="ScenarioVariant-22"><a href="#ScenarioVariant-22"><span class="linenos">22</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">&#39;AoC &amp; Bare HD&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant-23"><a href="#ScenarioVariant-23"><span class="linenos">23</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">&#39;HD with expansions &amp; DE&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant-24"><a href="#ScenarioVariant-24"><span class="linenos">24</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">&#39;Return of Rome&#39;</span><span class="p">,</span>
+</span><span id="ScenarioVariant-22"><a href="#ScenarioVariant-22"><span class="linenos">22</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">'AoC &amp; Bare HD'</span><span class="p">,</span>
+</span><span id="ScenarioVariant-23"><a href="#ScenarioVariant-23"><span class="linenos">23</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">'HD with expansions &amp; DE'</span><span class="p">,</span>
+</span><span id="ScenarioVariant-24"><a href="#ScenarioVariant-24"><span class="linenos">24</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">'Return of Rome'</span><span class="p">,</span>
 </span><span id="ScenarioVariant-25"><a href="#ScenarioVariant-25"><span class="linenos">25</span></a>        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 </span></pre></div>
 
@@ -192,9 +192,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.scenario_variant    </h1>
     <a class="headerlink" href="#ScenarioVariant.to_display_name"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ScenarioVariant.to_display_name-13"><a href="#ScenarioVariant.to_display_name-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="ScenarioVariant.to_display_name-14"><a href="#ScenarioVariant.to_display_name-14"><span class="linenos">14</span></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="ScenarioVariant.to_display_name-15"><a href="#ScenarioVariant.to_display_name-15"><span class="linenos">15</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">&#39;Legacy&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant.to_display_name-16"><a href="#ScenarioVariant.to_display_name-16"><span class="linenos">16</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">&#39;Age of Empires 2&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant.to_display_name-17"><a href="#ScenarioVariant.to_display_name-17"><span class="linenos">17</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">&#39;Return of Rome&#39;</span><span class="p">,</span>
+</span><span id="ScenarioVariant.to_display_name-15"><a href="#ScenarioVariant.to_display_name-15"><span class="linenos">15</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">'Legacy'</span><span class="p">,</span>
+</span><span id="ScenarioVariant.to_display_name-16"><a href="#ScenarioVariant.to_display_name-16"><span class="linenos">16</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">'Age of Empires 2'</span><span class="p">,</span>
+</span><span id="ScenarioVariant.to_display_name-17"><a href="#ScenarioVariant.to_display_name-17"><span class="linenos">17</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">'Return of Rome'</span><span class="p">,</span>
 </span><span id="ScenarioVariant.to_display_name-18"><a href="#ScenarioVariant.to_display_name-18"><span class="linenos">18</span></a>        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 </span></pre></div>
 
@@ -215,9 +215,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.scenario_variant    </h1>
     <a class="headerlink" href="#ScenarioVariant.applicants"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ScenarioVariant.applicants-20"><a href="#ScenarioVariant.applicants-20"><span class="linenos">20</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">applicants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="ScenarioVariant.applicants-21"><a href="#ScenarioVariant.applicants-21"><span class="linenos">21</span></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="ScenarioVariant.applicants-22"><a href="#ScenarioVariant.applicants-22"><span class="linenos">22</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">&#39;AoC &amp; Bare HD&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant.applicants-23"><a href="#ScenarioVariant.applicants-23"><span class="linenos">23</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">&#39;HD with expansions &amp; DE&#39;</span><span class="p">,</span>
-</span><span id="ScenarioVariant.applicants-24"><a href="#ScenarioVariant.applicants-24"><span class="linenos">24</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">&#39;Return of Rome&#39;</span><span class="p">,</span>
+</span><span id="ScenarioVariant.applicants-22"><a href="#ScenarioVariant.applicants-22"><span class="linenos">22</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">LEGACY</span><span class="p">:</span> <span class="s1">'AoC &amp; Bare HD'</span><span class="p">,</span>
+</span><span id="ScenarioVariant.applicants-23"><a href="#ScenarioVariant.applicants-23"><span class="linenos">23</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">AOE2</span><span class="p">:</span> <span class="s1">'HD with expansions &amp; DE'</span><span class="p">,</span>
+</span><span id="ScenarioVariant.applicants-24"><a href="#ScenarioVariant.applicants-24"><span class="linenos">24</span></a>            <span class="n">ScenarioVariant</span><span class="o">.</span><span class="n">ROR</span><span class="p">:</span>  <span class="s1">'Return of Rome'</span><span class="p">,</span>
 </span><span id="ScenarioVariant.applicants-25"><a href="#ScenarioVariant.applicants-25"><span class="linenos">25</span></a>        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 </span></pre></div>
 
@@ -236,9 +236,11 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.scenario_variant    </h1>
             <div><dt>builtins.int</dt>
                                 <dd id="ScenarioVariant.conjugate" class="function">conjugate</dd>
                 <dd id="ScenarioVariant.bit_length" class="function">bit_length</dd>
+                <dd id="ScenarioVariant.bit_count" class="function">bit_count</dd>
                 <dd id="ScenarioVariant.to_bytes" class="function">to_bytes</dd>
                 <dd id="ScenarioVariant.from_bytes" class="function">from_bytes</dd>
                 <dd id="ScenarioVariant.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="ScenarioVariant.is_integer" class="function">is_integer</dd>
                 <dd id="ScenarioVariant.real" class="variable">real</dd>
                 <dd id="ScenarioVariant.imag" class="variable">imag</dd>
                 <dd id="ScenarioVariant.numerator" class="variable">numerator</dd>

@@ -77,27 +77,27 @@ AoE2ScenarioParser<wbr>.objects<wbr>.support<wbr>.tile    </h1>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Tile</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;NamedTuple for tiles. use tile.x or tile.y for coord access&quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">"""NamedTuple for tiles. use tile.x or tile.y for coord access"""</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;location_&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"location_"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">        Converts the coordinates of the tile to keys for use in effects etc.</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">        This can be used by adding double stars (**) before this function.</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">        Usage:</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">            The coordinate: ``(4, 6)`` would result in a dict that looks like:</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">                ``{&#39;location_x&#39;: 4, &#39;location_y&#39;: 6}``</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">                ``{'location_x': 4, 'location_y': 6}``</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">            Then do: ``**tile.to_dict()`` in a function that accepts tiles</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">        Args:</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">            prefix: The prefix of the string before &#39;x&#39; (e.g. prefix=&quot;coord_&quot; will result in: &quot;coord_x&quot; as key)</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">            prefix: The prefix of the string before 'x' (e.g. prefix="coord_" will result in: "coord_x" as key)</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">        Returns:</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">            A dict with ``location_x``, ``location_y`` as keys and their respective values (if prefix is unchanged).</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]}</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">        """</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">]}</span>
 </span></pre></div>
 
 
@@ -107,34 +107,34 @@ AoE2ScenarioParser<wbr>.objects<wbr>.support<wbr>.tile    </h1>
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Tile</span><wbr>(<span class="base">builtins.tuple</span>):
+    <span class="name">Tile</span><wbr>(<span class="base">typing.NamedTuple</span>):
 
                 <label class="view-source-button" for="Tile-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Tile"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Tile-5"><a href="#Tile-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Tile</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-</span><span id="Tile-6"><a href="#Tile-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;NamedTuple for tiles. use tile.x or tile.y for coord access&quot;&quot;&quot;</span>
+</span><span id="Tile-6"><a href="#Tile-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">"""NamedTuple for tiles. use tile.x or tile.y for coord access"""</span>
 </span><span id="Tile-7"><a href="#Tile-7"><span class="linenos"> 7</span></a>    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
 </span><span id="Tile-8"><a href="#Tile-8"><span class="linenos"> 8</span></a>    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
 </span><span id="Tile-9"><a href="#Tile-9"><span class="linenos"> 9</span></a>
-</span><span id="Tile-10"><a href="#Tile-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;location_&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-</span><span id="Tile-11"><a href="#Tile-11"><span class="linenos">11</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Tile-10"><a href="#Tile-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"location_"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+</span><span id="Tile-11"><a href="#Tile-11"><span class="linenos">11</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="Tile-12"><a href="#Tile-12"><span class="linenos">12</span></a><span class="sd">        Converts the coordinates of the tile to keys for use in effects etc.</span>
 </span><span id="Tile-13"><a href="#Tile-13"><span class="linenos">13</span></a><span class="sd">        This can be used by adding double stars (**) before this function.</span>
 </span><span id="Tile-14"><a href="#Tile-14"><span class="linenos">14</span></a>
 </span><span id="Tile-15"><a href="#Tile-15"><span class="linenos">15</span></a><span class="sd">        Usage:</span>
 </span><span id="Tile-16"><a href="#Tile-16"><span class="linenos">16</span></a><span class="sd">            The coordinate: ``(4, 6)`` would result in a dict that looks like:</span>
-</span><span id="Tile-17"><a href="#Tile-17"><span class="linenos">17</span></a><span class="sd">                ``{&#39;location_x&#39;: 4, &#39;location_y&#39;: 6}``</span>
+</span><span id="Tile-17"><a href="#Tile-17"><span class="linenos">17</span></a><span class="sd">                ``{'location_x': 4, 'location_y': 6}``</span>
 </span><span id="Tile-18"><a href="#Tile-18"><span class="linenos">18</span></a><span class="sd">            Then do: ``**tile.to_dict()`` in a function that accepts tiles</span>
 </span><span id="Tile-19"><a href="#Tile-19"><span class="linenos">19</span></a>
 </span><span id="Tile-20"><a href="#Tile-20"><span class="linenos">20</span></a><span class="sd">        Args:</span>
-</span><span id="Tile-21"><a href="#Tile-21"><span class="linenos">21</span></a><span class="sd">            prefix: The prefix of the string before &#39;x&#39; (e.g. prefix=&quot;coord_&quot; will result in: &quot;coord_x&quot; as key)</span>
+</span><span id="Tile-21"><a href="#Tile-21"><span class="linenos">21</span></a><span class="sd">            prefix: The prefix of the string before 'x' (e.g. prefix="coord_" will result in: "coord_x" as key)</span>
 </span><span id="Tile-22"><a href="#Tile-22"><span class="linenos">22</span></a>
 </span><span id="Tile-23"><a href="#Tile-23"><span class="linenos">23</span></a><span class="sd">        Returns:</span>
 </span><span id="Tile-24"><a href="#Tile-24"><span class="linenos">24</span></a><span class="sd">            A dict with ``location_x``, ``location_y`` as keys and their respective values (if prefix is unchanged).</span>
-</span><span id="Tile-25"><a href="#Tile-25"><span class="linenos">25</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Tile-26"><a href="#Tile-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]}</span>
+</span><span id="Tile-25"><a href="#Tile-25"><span class="linenos">25</span></a><span class="sd">        """</span>
+</span><span id="Tile-26"><a href="#Tile-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">]}</span>
 </span></pre></div>
 
 
@@ -187,29 +187,29 @@ AoE2ScenarioParser<wbr>.objects<wbr>.support<wbr>.tile    </h1>
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;location_&#39;</span></span><span class="return-annotation">) -> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>:</span></span>
+        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'location_'</span></span><span class="return-annotation">) -> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="Tile.to_dict-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Tile.to_dict"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Tile.to_dict-10"><a href="#Tile.to_dict-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;location_&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-</span><span id="Tile.to_dict-11"><a href="#Tile.to_dict-11"><span class="linenos">11</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Tile.to_dict-10"><a href="#Tile.to_dict-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"location_"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+</span><span id="Tile.to_dict-11"><a href="#Tile.to_dict-11"><span class="linenos">11</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="Tile.to_dict-12"><a href="#Tile.to_dict-12"><span class="linenos">12</span></a><span class="sd">        Converts the coordinates of the tile to keys for use in effects etc.</span>
 </span><span id="Tile.to_dict-13"><a href="#Tile.to_dict-13"><span class="linenos">13</span></a><span class="sd">        This can be used by adding double stars (**) before this function.</span>
 </span><span id="Tile.to_dict-14"><a href="#Tile.to_dict-14"><span class="linenos">14</span></a>
 </span><span id="Tile.to_dict-15"><a href="#Tile.to_dict-15"><span class="linenos">15</span></a><span class="sd">        Usage:</span>
 </span><span id="Tile.to_dict-16"><a href="#Tile.to_dict-16"><span class="linenos">16</span></a><span class="sd">            The coordinate: ``(4, 6)`` would result in a dict that looks like:</span>
-</span><span id="Tile.to_dict-17"><a href="#Tile.to_dict-17"><span class="linenos">17</span></a><span class="sd">                ``{&#39;location_x&#39;: 4, &#39;location_y&#39;: 6}``</span>
+</span><span id="Tile.to_dict-17"><a href="#Tile.to_dict-17"><span class="linenos">17</span></a><span class="sd">                ``{'location_x': 4, 'location_y': 6}``</span>
 </span><span id="Tile.to_dict-18"><a href="#Tile.to_dict-18"><span class="linenos">18</span></a><span class="sd">            Then do: ``**tile.to_dict()`` in a function that accepts tiles</span>
 </span><span id="Tile.to_dict-19"><a href="#Tile.to_dict-19"><span class="linenos">19</span></a>
 </span><span id="Tile.to_dict-20"><a href="#Tile.to_dict-20"><span class="linenos">20</span></a><span class="sd">        Args:</span>
-</span><span id="Tile.to_dict-21"><a href="#Tile.to_dict-21"><span class="linenos">21</span></a><span class="sd">            prefix: The prefix of the string before &#39;x&#39; (e.g. prefix=&quot;coord_&quot; will result in: &quot;coord_x&quot; as key)</span>
+</span><span id="Tile.to_dict-21"><a href="#Tile.to_dict-21"><span class="linenos">21</span></a><span class="sd">            prefix: The prefix of the string before 'x' (e.g. prefix="coord_" will result in: "coord_x" as key)</span>
 </span><span id="Tile.to_dict-22"><a href="#Tile.to_dict-22"><span class="linenos">22</span></a>
 </span><span id="Tile.to_dict-23"><a href="#Tile.to_dict-23"><span class="linenos">23</span></a><span class="sd">        Returns:</span>
 </span><span id="Tile.to_dict-24"><a href="#Tile.to_dict-24"><span class="linenos">24</span></a><span class="sd">            A dict with ``location_x``, ``location_y`` as keys and their respective values (if prefix is unchanged).</span>
-</span><span id="Tile.to_dict-25"><a href="#Tile.to_dict-25"><span class="linenos">25</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Tile.to_dict-26"><a href="#Tile.to_dict-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]}</span>
+</span><span id="Tile.to_dict-25"><a href="#Tile.to_dict-25"><span class="linenos">25</span></a><span class="sd">        """</span>
+</span><span id="Tile.to_dict-26"><a href="#Tile.to_dict-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">]}</span>
 </span></pre></div>
 
 

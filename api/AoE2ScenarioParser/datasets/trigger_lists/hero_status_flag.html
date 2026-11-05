@@ -102,9 +102,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="k">class</span><span class="w"> </span><span class="nc">HeroStatusFlag</span><span class="p">(</span><span class="n">_DataSetIntFlags</span><span class="p">):</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    This enum class provides the integer values for the different hero status flags that can be used in the &#39;Modify</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    Attribute&#39; effect with the &#39;Hero Status&#39; attribute. This is a combinable bit field</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    This enum class provides the integer values for the different hero status flags that can be used in the 'Modify</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    Attribute' effect with the 'Hero Status' attribute. This is a combinable bit field</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    **Methods**</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
@@ -120,7 +120,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    &lt;HeroStatusFlag.HERO_GLOW|HERO_REGENERATION: 68&gt;</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    &gt;&gt;&gt; HeroStatusFlag.combine(hero_regeneration=True, hero_glow=True)</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    &lt;HeroStatusFlag.HERO_GLOW|HERO_REGENERATION: 68&gt;</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    """</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
 </span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">combine</span><span class="p">(</span>
@@ -133,7 +133,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>            <span class="n">hero_glow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>            <span class="n">invert_all_flags</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HeroStatusFlag</span><span class="p">:</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">        This method combines the given hero status flags into an integer value</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>
 </span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">        Args:</span>
@@ -149,7 +149,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
 </span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">        Returns:</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">            An integer combining all the different hero status flags into one value</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">        """</span>
 </span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="n">total</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">full_hero_status</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">cannot_be_converted</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">hero_regeneration</span> <span class="k">else</span> <span class="mi">0</span>
@@ -162,7 +162,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>
 </span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">split_flags</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">HeroStatusFlag</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="sd">        Split the Hero Status flags into boolean variables related to their effects</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>
 </span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="sd">        Args:</span>
@@ -170,7 +170,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>
 </span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">        Returns:</span>
 </span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a><span class="sd">            A dict with all the flags values as keys and a bool as their value</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="sd">        """</span>
 </span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>        <span class="n">flags</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">HeroStatusFlag</span><span class="p">:</span>
 </span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>            <span class="n">flags</span><span class="p">[</span><span class="n">flag</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">flag</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
@@ -202,9 +202,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
     </div>
     <a class="headerlink" href="#HeroStatusFlag"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="HeroStatusFlag-9"><a href="#HeroStatusFlag-9"><span class="linenos"> 9</span></a><span class="k">class</span><span class="w"> </span><span class="nc">HeroStatusFlag</span><span class="p">(</span><span class="n">_DataSetIntFlags</span><span class="p">):</span>
-</span><span id="HeroStatusFlag-10"><a href="#HeroStatusFlag-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="HeroStatusFlag-11"><a href="#HeroStatusFlag-11"><span class="linenos">11</span></a><span class="sd">    This enum class provides the integer values for the different hero status flags that can be used in the &#39;Modify</span>
-</span><span id="HeroStatusFlag-12"><a href="#HeroStatusFlag-12"><span class="linenos">12</span></a><span class="sd">    Attribute&#39; effect with the &#39;Hero Status&#39; attribute. This is a combinable bit field</span>
+</span><span id="HeroStatusFlag-10"><a href="#HeroStatusFlag-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="HeroStatusFlag-11"><a href="#HeroStatusFlag-11"><span class="linenos">11</span></a><span class="sd">    This enum class provides the integer values for the different hero status flags that can be used in the 'Modify</span>
+</span><span id="HeroStatusFlag-12"><a href="#HeroStatusFlag-12"><span class="linenos">12</span></a><span class="sd">    Attribute' effect with the 'Hero Status' attribute. This is a combinable bit field</span>
 </span><span id="HeroStatusFlag-13"><a href="#HeroStatusFlag-13"><span class="linenos">13</span></a>
 </span><span id="HeroStatusFlag-14"><a href="#HeroStatusFlag-14"><span class="linenos">14</span></a><span class="sd">    **Methods**</span>
 </span><span id="HeroStatusFlag-15"><a href="#HeroStatusFlag-15"><span class="linenos">15</span></a>
@@ -220,7 +220,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="HeroStatusFlag-25"><a href="#HeroStatusFlag-25"><span class="linenos">25</span></a><span class="sd">    &lt;HeroStatusFlag.HERO_GLOW|HERO_REGENERATION: 68&gt;</span>
 </span><span id="HeroStatusFlag-26"><a href="#HeroStatusFlag-26"><span class="linenos">26</span></a><span class="sd">    &gt;&gt;&gt; HeroStatusFlag.combine(hero_regeneration=True, hero_glow=True)</span>
 </span><span id="HeroStatusFlag-27"><a href="#HeroStatusFlag-27"><span class="linenos">27</span></a><span class="sd">    &lt;HeroStatusFlag.HERO_GLOW|HERO_REGENERATION: 68&gt;</span>
-</span><span id="HeroStatusFlag-28"><a href="#HeroStatusFlag-28"><span class="linenos">28</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag-28"><a href="#HeroStatusFlag-28"><span class="linenos">28</span></a><span class="sd">    """</span>
 </span><span id="HeroStatusFlag-29"><a href="#HeroStatusFlag-29"><span class="linenos">29</span></a>
 </span><span id="HeroStatusFlag-30"><a href="#HeroStatusFlag-30"><span class="linenos">30</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="HeroStatusFlag-31"><a href="#HeroStatusFlag-31"><span class="linenos">31</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">combine</span><span class="p">(</span>
@@ -233,7 +233,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="HeroStatusFlag-38"><a href="#HeroStatusFlag-38"><span class="linenos">38</span></a>            <span class="n">hero_glow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="HeroStatusFlag-39"><a href="#HeroStatusFlag-39"><span class="linenos">39</span></a>            <span class="n">invert_all_flags</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="HeroStatusFlag-40"><a href="#HeroStatusFlag-40"><span class="linenos">40</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HeroStatusFlag</span><span class="p">:</span>
-</span><span id="HeroStatusFlag-41"><a href="#HeroStatusFlag-41"><span class="linenos">41</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag-41"><a href="#HeroStatusFlag-41"><span class="linenos">41</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="HeroStatusFlag-42"><a href="#HeroStatusFlag-42"><span class="linenos">42</span></a><span class="sd">        This method combines the given hero status flags into an integer value</span>
 </span><span id="HeroStatusFlag-43"><a href="#HeroStatusFlag-43"><span class="linenos">43</span></a>
 </span><span id="HeroStatusFlag-44"><a href="#HeroStatusFlag-44"><span class="linenos">44</span></a><span class="sd">        Args:</span>
@@ -249,7 +249,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="HeroStatusFlag-54"><a href="#HeroStatusFlag-54"><span class="linenos">54</span></a>
 </span><span id="HeroStatusFlag-55"><a href="#HeroStatusFlag-55"><span class="linenos">55</span></a><span class="sd">        Returns:</span>
 </span><span id="HeroStatusFlag-56"><a href="#HeroStatusFlag-56"><span class="linenos">56</span></a><span class="sd">            An integer combining all the different hero status flags into one value</span>
-</span><span id="HeroStatusFlag-57"><a href="#HeroStatusFlag-57"><span class="linenos">57</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag-57"><a href="#HeroStatusFlag-57"><span class="linenos">57</span></a><span class="sd">        """</span>
 </span><span id="HeroStatusFlag-58"><a href="#HeroStatusFlag-58"><span class="linenos">58</span></a>        <span class="n">total</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">full_hero_status</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="HeroStatusFlag-59"><a href="#HeroStatusFlag-59"><span class="linenos">59</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">cannot_be_converted</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="HeroStatusFlag-60"><a href="#HeroStatusFlag-60"><span class="linenos">60</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">hero_regeneration</span> <span class="k">else</span> <span class="mi">0</span>
@@ -262,7 +262,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="HeroStatusFlag-67"><a href="#HeroStatusFlag-67"><span class="linenos">67</span></a>
 </span><span id="HeroStatusFlag-68"><a href="#HeroStatusFlag-68"><span class="linenos">68</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="HeroStatusFlag-69"><a href="#HeroStatusFlag-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">split_flags</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">HeroStatusFlag</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
-</span><span id="HeroStatusFlag-70"><a href="#HeroStatusFlag-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag-70"><a href="#HeroStatusFlag-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="HeroStatusFlag-71"><a href="#HeroStatusFlag-71"><span class="linenos">71</span></a><span class="sd">        Split the Hero Status flags into boolean variables related to their effects</span>
 </span><span id="HeroStatusFlag-72"><a href="#HeroStatusFlag-72"><span class="linenos">72</span></a>
 </span><span id="HeroStatusFlag-73"><a href="#HeroStatusFlag-73"><span class="linenos">73</span></a><span class="sd">        Args:</span>
@@ -270,7 +270,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.hero_status_flag    </h
 </span><span id="HeroStatusFlag-75"><a href="#HeroStatusFlag-75"><span class="linenos">75</span></a>
 </span><span id="HeroStatusFlag-76"><a href="#HeroStatusFlag-76"><span class="linenos">76</span></a><span class="sd">        Returns:</span>
 </span><span id="HeroStatusFlag-77"><a href="#HeroStatusFlag-77"><span class="linenos">77</span></a><span class="sd">            A dict with all the flags values as keys and a bool as their value</span>
-</span><span id="HeroStatusFlag-78"><a href="#HeroStatusFlag-78"><span class="linenos">78</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag-78"><a href="#HeroStatusFlag-78"><span class="linenos">78</span></a><span class="sd">        """</span>
 </span><span id="HeroStatusFlag-79"><a href="#HeroStatusFlag-79"><span class="linenos">79</span></a>        <span class="n">flags</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span id="HeroStatusFlag-80"><a href="#HeroStatusFlag-80"><span class="linenos">80</span></a>        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">HeroStatusFlag</span><span class="p">:</span>
 </span><span id="HeroStatusFlag-81"><a href="#HeroStatusFlag-81"><span class="linenos">81</span></a>            <span class="n">flags</span><span class="p">[</span><span class="n">flag</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">flag</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
@@ -336,7 +336,7 @@ Attribute' effect with the 'Hero Status' attribute. This is a combinable bit fie
 </span><span id="HeroStatusFlag.combine-38"><a href="#HeroStatusFlag.combine-38"><span class="linenos">38</span></a>            <span class="n">hero_glow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="HeroStatusFlag.combine-39"><a href="#HeroStatusFlag.combine-39"><span class="linenos">39</span></a>            <span class="n">invert_all_flags</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="HeroStatusFlag.combine-40"><a href="#HeroStatusFlag.combine-40"><span class="linenos">40</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HeroStatusFlag</span><span class="p">:</span>
-</span><span id="HeroStatusFlag.combine-41"><a href="#HeroStatusFlag.combine-41"><span class="linenos">41</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag.combine-41"><a href="#HeroStatusFlag.combine-41"><span class="linenos">41</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="HeroStatusFlag.combine-42"><a href="#HeroStatusFlag.combine-42"><span class="linenos">42</span></a><span class="sd">        This method combines the given hero status flags into an integer value</span>
 </span><span id="HeroStatusFlag.combine-43"><a href="#HeroStatusFlag.combine-43"><span class="linenos">43</span></a>
 </span><span id="HeroStatusFlag.combine-44"><a href="#HeroStatusFlag.combine-44"><span class="linenos">44</span></a><span class="sd">        Args:</span>
@@ -352,7 +352,7 @@ Attribute' effect with the 'Hero Status' attribute. This is a combinable bit fie
 </span><span id="HeroStatusFlag.combine-54"><a href="#HeroStatusFlag.combine-54"><span class="linenos">54</span></a>
 </span><span id="HeroStatusFlag.combine-55"><a href="#HeroStatusFlag.combine-55"><span class="linenos">55</span></a><span class="sd">        Returns:</span>
 </span><span id="HeroStatusFlag.combine-56"><a href="#HeroStatusFlag.combine-56"><span class="linenos">56</span></a><span class="sd">            An integer combining all the different hero status flags into one value</span>
-</span><span id="HeroStatusFlag.combine-57"><a href="#HeroStatusFlag.combine-57"><span class="linenos">57</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag.combine-57"><a href="#HeroStatusFlag.combine-57"><span class="linenos">57</span></a><span class="sd">        """</span>
 </span><span id="HeroStatusFlag.combine-58"><a href="#HeroStatusFlag.combine-58"><span class="linenos">58</span></a>        <span class="n">total</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">full_hero_status</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="HeroStatusFlag.combine-59"><a href="#HeroStatusFlag.combine-59"><span class="linenos">59</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">cannot_be_converted</span> <span class="k">else</span> <span class="mi">0</span>
 </span><span id="HeroStatusFlag.combine-60"><a href="#HeroStatusFlag.combine-60"><span class="linenos">60</span></a>        <span class="n">total</span> <span class="o">+=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">hero_regeneration</span> <span class="k">else</span> <span class="mi">0</span>
@@ -398,7 +398,7 @@ Attribute' effect with the 'Hero Status' attribute. This is a combinable bit fie
     <a class="headerlink" href="#HeroStatusFlag.split_flags"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="HeroStatusFlag.split_flags-68"><a href="#HeroStatusFlag.split_flags-68"><span class="linenos">68</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="HeroStatusFlag.split_flags-69"><a href="#HeroStatusFlag.split_flags-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">split_flags</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">HeroStatusFlag</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
-</span><span id="HeroStatusFlag.split_flags-70"><a href="#HeroStatusFlag.split_flags-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag.split_flags-70"><a href="#HeroStatusFlag.split_flags-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="HeroStatusFlag.split_flags-71"><a href="#HeroStatusFlag.split_flags-71"><span class="linenos">71</span></a><span class="sd">        Split the Hero Status flags into boolean variables related to their effects</span>
 </span><span id="HeroStatusFlag.split_flags-72"><a href="#HeroStatusFlag.split_flags-72"><span class="linenos">72</span></a>
 </span><span id="HeroStatusFlag.split_flags-73"><a href="#HeroStatusFlag.split_flags-73"><span class="linenos">73</span></a><span class="sd">        Args:</span>
@@ -406,7 +406,7 @@ Attribute' effect with the 'Hero Status' attribute. This is a combinable bit fie
 </span><span id="HeroStatusFlag.split_flags-75"><a href="#HeroStatusFlag.split_flags-75"><span class="linenos">75</span></a>
 </span><span id="HeroStatusFlag.split_flags-76"><a href="#HeroStatusFlag.split_flags-76"><span class="linenos">76</span></a><span class="sd">        Returns:</span>
 </span><span id="HeroStatusFlag.split_flags-77"><a href="#HeroStatusFlag.split_flags-77"><span class="linenos">77</span></a><span class="sd">            A dict with all the flags values as keys and a bool as their value</span>
-</span><span id="HeroStatusFlag.split_flags-78"><a href="#HeroStatusFlag.split_flags-78"><span class="linenos">78</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HeroStatusFlag.split_flags-78"><a href="#HeroStatusFlag.split_flags-78"><span class="linenos">78</span></a><span class="sd">        """</span>
 </span><span id="HeroStatusFlag.split_flags-79"><a href="#HeroStatusFlag.split_flags-79"><span class="linenos">79</span></a>        <span class="n">flags</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span id="HeroStatusFlag.split_flags-80"><a href="#HeroStatusFlag.split_flags-80"><span class="linenos">80</span></a>        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">HeroStatusFlag</span><span class="p">:</span>
 </span><span id="HeroStatusFlag.split_flags-81"><a href="#HeroStatusFlag.split_flags-81"><span class="linenos">81</span></a>            <span class="n">flags</span><span class="p">[</span><span class="n">flag</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">flag</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
@@ -544,9 +544,11 @@ Attribute' effect with the 'Hero Status' attribute. This is a combinable bit fie
             <div><dt>builtins.int</dt>
                                 <dd id="HeroStatusFlag.conjugate" class="function">conjugate</dd>
                 <dd id="HeroStatusFlag.bit_length" class="function">bit_length</dd>
+                <dd id="HeroStatusFlag.bit_count" class="function">bit_count</dd>
                 <dd id="HeroStatusFlag.to_bytes" class="function">to_bytes</dd>
                 <dd id="HeroStatusFlag.from_bytes" class="function">from_bytes</dd>
                 <dd id="HeroStatusFlag.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="HeroStatusFlag.is_integer" class="function">is_integer</dd>
                 <dd id="HeroStatusFlag.real" class="variable">real</dd>
                 <dd id="HeroStatusFlag.imag" class="variable">imag</dd>
                 <dd id="HeroStatusFlag.numerator" class="variable">numerator</dd>

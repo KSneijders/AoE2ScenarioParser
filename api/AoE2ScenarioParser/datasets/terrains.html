@@ -479,7 +479,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a>
 </span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TerrainId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">    This enum class provides information about most of the terrains in the game. Information about the</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="sd">    following properties of a terrain is found in this class:</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
@@ -495,14 +495,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">    &gt;&gt;&gt; TerrainId.FARM</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">    &gt;&gt;&gt; 7</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    """</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">water_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">        Returns:</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">            A list of all Water terrains</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">        """</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">WATER_DEEP</span><span class="p">,</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">WATER_AZURE</span><span class="p">,</span>
@@ -520,10 +520,10 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>
 </span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">beach_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="sd">        Returns:</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="sd">            A list of all Beach terrains</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">        """</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">BEACH</span><span class="p">,</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">BEACH_ICE</span><span class="p">,</span>
@@ -537,10 +537,10 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>
 </span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tree_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">        Returns:</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="sd">            A list of all Tree terrains</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">        """</span>
 </span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">FOREST_ACACIA</span><span class="p">,</span>
 </span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">FOREST_AUTUMN</span><span class="p">,</span>
@@ -721,7 +721,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
     </div>
     <a class="headerlink" href="#TerrainId"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="TerrainId-8"><a href="#TerrainId-8"><span class="linenos">  8</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TerrainId</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-</span><span id="TerrainId-9"><a href="#TerrainId-9"><span class="linenos">  9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId-9"><a href="#TerrainId-9"><span class="linenos">  9</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="TerrainId-10"><a href="#TerrainId-10"><span class="linenos"> 10</span></a><span class="sd">    This enum class provides information about most of the terrains in the game. Information about the</span>
 </span><span id="TerrainId-11"><a href="#TerrainId-11"><span class="linenos"> 11</span></a><span class="sd">    following properties of a terrain is found in this class:</span>
 </span><span id="TerrainId-12"><a href="#TerrainId-12"><span class="linenos"> 12</span></a>
@@ -737,14 +737,14 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="TerrainId-22"><a href="#TerrainId-22"><span class="linenos"> 22</span></a>
 </span><span id="TerrainId-23"><a href="#TerrainId-23"><span class="linenos"> 23</span></a><span class="sd">    &gt;&gt;&gt; TerrainId.FARM</span>
 </span><span id="TerrainId-24"><a href="#TerrainId-24"><span class="linenos"> 24</span></a><span class="sd">    &gt;&gt;&gt; 7</span>
-</span><span id="TerrainId-25"><a href="#TerrainId-25"><span class="linenos"> 25</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="TerrainId-25"><a href="#TerrainId-25"><span class="linenos"> 25</span></a><span class="sd">    """</span>
 </span><span id="TerrainId-26"><a href="#TerrainId-26"><span class="linenos"> 26</span></a>
 </span><span id="TerrainId-27"><a href="#TerrainId-27"><span class="linenos"> 27</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="TerrainId-28"><a href="#TerrainId-28"><span class="linenos"> 28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">water_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="TerrainId-29"><a href="#TerrainId-29"><span class="linenos"> 29</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId-29"><a href="#TerrainId-29"><span class="linenos"> 29</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="TerrainId-30"><a href="#TerrainId-30"><span class="linenos"> 30</span></a><span class="sd">        Returns:</span>
 </span><span id="TerrainId-31"><a href="#TerrainId-31"><span class="linenos"> 31</span></a><span class="sd">            A list of all Water terrains</span>
-</span><span id="TerrainId-32"><a href="#TerrainId-32"><span class="linenos"> 32</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="TerrainId-32"><a href="#TerrainId-32"><span class="linenos"> 32</span></a><span class="sd">        """</span>
 </span><span id="TerrainId-33"><a href="#TerrainId-33"><span class="linenos"> 33</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="TerrainId-34"><a href="#TerrainId-34"><span class="linenos"> 34</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">WATER_DEEP</span><span class="p">,</span>
 </span><span id="TerrainId-35"><a href="#TerrainId-35"><span class="linenos"> 35</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">WATER_AZURE</span><span class="p">,</span>
@@ -762,10 +762,10 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="TerrainId-47"><a href="#TerrainId-47"><span class="linenos"> 47</span></a>
 </span><span id="TerrainId-48"><a href="#TerrainId-48"><span class="linenos"> 48</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="TerrainId-49"><a href="#TerrainId-49"><span class="linenos"> 49</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">beach_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="TerrainId-50"><a href="#TerrainId-50"><span class="linenos"> 50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId-50"><a href="#TerrainId-50"><span class="linenos"> 50</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="TerrainId-51"><a href="#TerrainId-51"><span class="linenos"> 51</span></a><span class="sd">        Returns:</span>
 </span><span id="TerrainId-52"><a href="#TerrainId-52"><span class="linenos"> 52</span></a><span class="sd">            A list of all Beach terrains</span>
-</span><span id="TerrainId-53"><a href="#TerrainId-53"><span class="linenos"> 53</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="TerrainId-53"><a href="#TerrainId-53"><span class="linenos"> 53</span></a><span class="sd">        """</span>
 </span><span id="TerrainId-54"><a href="#TerrainId-54"><span class="linenos"> 54</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="TerrainId-55"><a href="#TerrainId-55"><span class="linenos"> 55</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">BEACH</span><span class="p">,</span>
 </span><span id="TerrainId-56"><a href="#TerrainId-56"><span class="linenos"> 56</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">BEACH_ICE</span><span class="p">,</span>
@@ -779,10 +779,10 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.terrains    </h1>
 </span><span id="TerrainId-64"><a href="#TerrainId-64"><span class="linenos"> 64</span></a>
 </span><span id="TerrainId-65"><a href="#TerrainId-65"><span class="linenos"> 65</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="TerrainId-66"><a href="#TerrainId-66"><span class="linenos"> 66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tree_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="TerrainId-67"><a href="#TerrainId-67"><span class="linenos"> 67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId-67"><a href="#TerrainId-67"><span class="linenos"> 67</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="TerrainId-68"><a href="#TerrainId-68"><span class="linenos"> 68</span></a><span class="sd">        Returns:</span>
 </span><span id="TerrainId-69"><a href="#TerrainId-69"><span class="linenos"> 69</span></a><span class="sd">            A list of all Tree terrains</span>
-</span><span id="TerrainId-70"><a href="#TerrainId-70"><span class="linenos"> 70</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="TerrainId-70"><a href="#TerrainId-70"><span class="linenos"> 70</span></a><span class="sd">        """</span>
 </span><span id="TerrainId-71"><a href="#TerrainId-71"><span class="linenos"> 71</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="TerrainId-72"><a href="#TerrainId-72"><span class="linenos"> 72</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">FOREST_ACACIA</span><span class="p">,</span>
 </span><span id="TerrainId-73"><a href="#TerrainId-73"><span class="linenos"> 73</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">FOREST_AUTUMN</span><span class="p">,</span>
@@ -990,10 +990,10 @@ following properties of a terrain is found in this class:</p>
     <a class="headerlink" href="#TerrainId.water_terrains"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="TerrainId.water_terrains-27"><a href="#TerrainId.water_terrains-27"><span class="linenos">27</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="TerrainId.water_terrains-28"><a href="#TerrainId.water_terrains-28"><span class="linenos">28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">water_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="TerrainId.water_terrains-29"><a href="#TerrainId.water_terrains-29"><span class="linenos">29</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId.water_terrains-29"><a href="#TerrainId.water_terrains-29"><span class="linenos">29</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="TerrainId.water_terrains-30"><a href="#TerrainId.water_terrains-30"><span class="linenos">30</span></a><span class="sd">        Returns:</span>
 </span><span id="TerrainId.water_terrains-31"><a href="#TerrainId.water_terrains-31"><span class="linenos">31</span></a><span class="sd">            A list of all Water terrains</span>
-</span><span id="TerrainId.water_terrains-32"><a href="#TerrainId.water_terrains-32"><span class="linenos">32</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="TerrainId.water_terrains-32"><a href="#TerrainId.water_terrains-32"><span class="linenos">32</span></a><span class="sd">        """</span>
 </span><span id="TerrainId.water_terrains-33"><a href="#TerrainId.water_terrains-33"><span class="linenos">33</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="TerrainId.water_terrains-34"><a href="#TerrainId.water_terrains-34"><span class="linenos">34</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">WATER_DEEP</span><span class="p">,</span>
 </span><span id="TerrainId.water_terrains-35"><a href="#TerrainId.water_terrains-35"><span class="linenos">35</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">WATER_AZURE</span><span class="p">,</span>
@@ -1031,10 +1031,10 @@ following properties of a terrain is found in this class:</p>
     <a class="headerlink" href="#TerrainId.beach_terrains"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="TerrainId.beach_terrains-48"><a href="#TerrainId.beach_terrains-48"><span class="linenos">48</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="TerrainId.beach_terrains-49"><a href="#TerrainId.beach_terrains-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">beach_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="TerrainId.beach_terrains-50"><a href="#TerrainId.beach_terrains-50"><span class="linenos">50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId.beach_terrains-50"><a href="#TerrainId.beach_terrains-50"><span class="linenos">50</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="TerrainId.beach_terrains-51"><a href="#TerrainId.beach_terrains-51"><span class="linenos">51</span></a><span class="sd">        Returns:</span>
 </span><span id="TerrainId.beach_terrains-52"><a href="#TerrainId.beach_terrains-52"><span class="linenos">52</span></a><span class="sd">            A list of all Beach terrains</span>
-</span><span id="TerrainId.beach_terrains-53"><a href="#TerrainId.beach_terrains-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="TerrainId.beach_terrains-53"><a href="#TerrainId.beach_terrains-53"><span class="linenos">53</span></a><span class="sd">        """</span>
 </span><span id="TerrainId.beach_terrains-54"><a href="#TerrainId.beach_terrains-54"><span class="linenos">54</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="TerrainId.beach_terrains-55"><a href="#TerrainId.beach_terrains-55"><span class="linenos">55</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">BEACH</span><span class="p">,</span>
 </span><span id="TerrainId.beach_terrains-56"><a href="#TerrainId.beach_terrains-56"><span class="linenos">56</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">BEACH_ICE</span><span class="p">,</span>
@@ -1068,10 +1068,10 @@ following properties of a terrain is found in this class:</p>
     <a class="headerlink" href="#TerrainId.tree_terrains"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="TerrainId.tree_terrains-65"><a href="#TerrainId.tree_terrains-65"><span class="linenos">65</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="TerrainId.tree_terrains-66"><a href="#TerrainId.tree_terrains-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tree_terrains</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TerrainId</span><span class="p">]:</span>
-</span><span id="TerrainId.tree_terrains-67"><a href="#TerrainId.tree_terrains-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="TerrainId.tree_terrains-67"><a href="#TerrainId.tree_terrains-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="TerrainId.tree_terrains-68"><a href="#TerrainId.tree_terrains-68"><span class="linenos">68</span></a><span class="sd">        Returns:</span>
 </span><span id="TerrainId.tree_terrains-69"><a href="#TerrainId.tree_terrains-69"><span class="linenos">69</span></a><span class="sd">            A list of all Tree terrains</span>
-</span><span id="TerrainId.tree_terrains-70"><a href="#TerrainId.tree_terrains-70"><span class="linenos">70</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="TerrainId.tree_terrains-70"><a href="#TerrainId.tree_terrains-70"><span class="linenos">70</span></a><span class="sd">        """</span>
 </span><span id="TerrainId.tree_terrains-71"><a href="#TerrainId.tree_terrains-71"><span class="linenos">71</span></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="TerrainId.tree_terrains-72"><a href="#TerrainId.tree_terrains-72"><span class="linenos">72</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">FOREST_ACACIA</span><span class="p">,</span>
 </span><span id="TerrainId.tree_terrains-73"><a href="#TerrainId.tree_terrains-73"><span class="linenos">73</span></a>            <span class="n">TerrainId</span><span class="o">.</span><span class="n">FOREST_AUTUMN</span><span class="p">,</span>
@@ -2729,9 +2729,11 @@ following properties of a terrain is found in this class:</p>
             <div><dt>builtins.int</dt>
                                 <dd id="TerrainId.conjugate" class="function">conjugate</dd>
                 <dd id="TerrainId.bit_length" class="function">bit_length</dd>
+                <dd id="TerrainId.bit_count" class="function">bit_count</dd>
                 <dd id="TerrainId.to_bytes" class="function">to_bytes</dd>
                 <dd id="TerrainId.from_bytes" class="function">from_bytes</dd>
                 <dd id="TerrainId.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="TerrainId.is_integer" class="function">is_integer</dd>
                 <dd id="TerrainId.real" class="variable">real</dd>
                 <dd id="TerrainId.imag" class="variable">imag</dd>
                 <dd id="TerrainId.numerator" class="variable">numerator</dd>

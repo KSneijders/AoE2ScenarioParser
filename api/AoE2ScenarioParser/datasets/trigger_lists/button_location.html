@@ -123,9 +123,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ButtonLocation</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    This enum class provides the integer values used to reference the button locations in the game. These button</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    locations are what determines where a unit&#39;s train button or a research&#39;s research button appears in a building&#39;s</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    locations are what determines where a unit's train button or a research's research button appears in a building's</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    UI</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    **Examples**</span>
@@ -135,8 +135,8 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    &gt;&gt;&gt; ButtonLocation.r1c5.dock_page2</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    25</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    &gt;&gt;&gt; ButtonLocation.r3c1.attribute_presentation()</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    &#39;row_3_col_1&#39;</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    'row_3_col_1'</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    """</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">_r1c1</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">r1c1</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">r1c2</span> <span class="o">=</span> <span class="mi">2</span>
@@ -158,22 +158,22 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="mi">1</span>  <span class="c1"># Change VAL 0 to 1</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="n">row</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">val</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
 </span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="n">col</span> <span class="o">=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;row_</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">_col_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"row_</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">_col_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">"</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>
 </span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="nd">@property</span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dock_page2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">        Returns the button location for the second page.</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">        Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.dock_page2``</span>
 </span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>
 </span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">        Returns:</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">            The value representing the button location for the second page</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">        """</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">20</span>
 </span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
 </span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    <span class="nd">@classmethod</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">row_col</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">        Get the button location ID of the row, column specified</span>
 </span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>
 </span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">        Args:</span>
@@ -182,7 +182,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>
 </span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="sd">        Returns:</span>
 </span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="sd">            The button location ID of the (row, column) location specified</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="sd">        """</span>
 </span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">((</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">col</span><span class="p">)</span>
 </span></pre></div>
 
@@ -200,9 +200,9 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
     </div>
     <a class="headerlink" href="#ButtonLocation"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ButtonLocation-9"><a href="#ButtonLocation-9"><span class="linenos"> 9</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ButtonLocation</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="ButtonLocation-10"><a href="#ButtonLocation-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ButtonLocation-10"><a href="#ButtonLocation-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="ButtonLocation-11"><a href="#ButtonLocation-11"><span class="linenos">11</span></a><span class="sd">    This enum class provides the integer values used to reference the button locations in the game. These button</span>
-</span><span id="ButtonLocation-12"><a href="#ButtonLocation-12"><span class="linenos">12</span></a><span class="sd">    locations are what determines where a unit&#39;s train button or a research&#39;s research button appears in a building&#39;s</span>
+</span><span id="ButtonLocation-12"><a href="#ButtonLocation-12"><span class="linenos">12</span></a><span class="sd">    locations are what determines where a unit's train button or a research's research button appears in a building's</span>
 </span><span id="ButtonLocation-13"><a href="#ButtonLocation-13"><span class="linenos">13</span></a><span class="sd">    UI</span>
 </span><span id="ButtonLocation-14"><a href="#ButtonLocation-14"><span class="linenos">14</span></a>
 </span><span id="ButtonLocation-15"><a href="#ButtonLocation-15"><span class="linenos">15</span></a><span class="sd">    **Examples**</span>
@@ -212,8 +212,8 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="ButtonLocation-19"><a href="#ButtonLocation-19"><span class="linenos">19</span></a><span class="sd">    &gt;&gt;&gt; ButtonLocation.r1c5.dock_page2</span>
 </span><span id="ButtonLocation-20"><a href="#ButtonLocation-20"><span class="linenos">20</span></a><span class="sd">    25</span>
 </span><span id="ButtonLocation-21"><a href="#ButtonLocation-21"><span class="linenos">21</span></a><span class="sd">    &gt;&gt;&gt; ButtonLocation.r3c1.attribute_presentation()</span>
-</span><span id="ButtonLocation-22"><a href="#ButtonLocation-22"><span class="linenos">22</span></a><span class="sd">    &#39;row_3_col_1&#39;</span>
-</span><span id="ButtonLocation-23"><a href="#ButtonLocation-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="ButtonLocation-22"><a href="#ButtonLocation-22"><span class="linenos">22</span></a><span class="sd">    'row_3_col_1'</span>
+</span><span id="ButtonLocation-23"><a href="#ButtonLocation-23"><span class="linenos">23</span></a><span class="sd">    """</span>
 </span><span id="ButtonLocation-24"><a href="#ButtonLocation-24"><span class="linenos">24</span></a>    <span class="n">_r1c1</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="ButtonLocation-25"><a href="#ButtonLocation-25"><span class="linenos">25</span></a>    <span class="n">r1c1</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="ButtonLocation-26"><a href="#ButtonLocation-26"><span class="linenos">26</span></a>    <span class="n">r1c2</span> <span class="o">=</span> <span class="mi">2</span>
@@ -235,22 +235,22 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="ButtonLocation-42"><a href="#ButtonLocation-42"><span class="linenos">42</span></a>        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="mi">1</span>  <span class="c1"># Change VAL 0 to 1</span>
 </span><span id="ButtonLocation-43"><a href="#ButtonLocation-43"><span class="linenos">43</span></a>        <span class="n">row</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">val</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
 </span><span id="ButtonLocation-44"><a href="#ButtonLocation-44"><span class="linenos">44</span></a>        <span class="n">col</span> <span class="o">=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span>
-</span><span id="ButtonLocation-45"><a href="#ButtonLocation-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;row_</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">_col_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="ButtonLocation-45"><a href="#ButtonLocation-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"row_</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">_col_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">"</span>
 </span><span id="ButtonLocation-46"><a href="#ButtonLocation-46"><span class="linenos">46</span></a>
 </span><span id="ButtonLocation-47"><a href="#ButtonLocation-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
 </span><span id="ButtonLocation-48"><a href="#ButtonLocation-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dock_page2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="ButtonLocation-49"><a href="#ButtonLocation-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ButtonLocation-49"><a href="#ButtonLocation-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="ButtonLocation-50"><a href="#ButtonLocation-50"><span class="linenos">50</span></a><span class="sd">        Returns the button location for the second page.</span>
 </span><span id="ButtonLocation-51"><a href="#ButtonLocation-51"><span class="linenos">51</span></a><span class="sd">        Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.dock_page2``</span>
 </span><span id="ButtonLocation-52"><a href="#ButtonLocation-52"><span class="linenos">52</span></a>
 </span><span id="ButtonLocation-53"><a href="#ButtonLocation-53"><span class="linenos">53</span></a><span class="sd">        Returns:</span>
 </span><span id="ButtonLocation-54"><a href="#ButtonLocation-54"><span class="linenos">54</span></a><span class="sd">            The value representing the button location for the second page</span>
-</span><span id="ButtonLocation-55"><a href="#ButtonLocation-55"><span class="linenos">55</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ButtonLocation-55"><a href="#ButtonLocation-55"><span class="linenos">55</span></a><span class="sd">        """</span>
 </span><span id="ButtonLocation-56"><a href="#ButtonLocation-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">20</span>
 </span><span id="ButtonLocation-57"><a href="#ButtonLocation-57"><span class="linenos">57</span></a>
 </span><span id="ButtonLocation-58"><a href="#ButtonLocation-58"><span class="linenos">58</span></a>    <span class="nd">@classmethod</span>
 </span><span id="ButtonLocation-59"><a href="#ButtonLocation-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">row_col</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="ButtonLocation-60"><a href="#ButtonLocation-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ButtonLocation-60"><a href="#ButtonLocation-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="ButtonLocation-61"><a href="#ButtonLocation-61"><span class="linenos">61</span></a><span class="sd">        Get the button location ID of the row, column specified</span>
 </span><span id="ButtonLocation-62"><a href="#ButtonLocation-62"><span class="linenos">62</span></a>
 </span><span id="ButtonLocation-63"><a href="#ButtonLocation-63"><span class="linenos">63</span></a><span class="sd">        Args:</span>
@@ -259,7 +259,7 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.button_location    </h1
 </span><span id="ButtonLocation-66"><a href="#ButtonLocation-66"><span class="linenos">66</span></a>
 </span><span id="ButtonLocation-67"><a href="#ButtonLocation-67"><span class="linenos">67</span></a><span class="sd">        Returns:</span>
 </span><span id="ButtonLocation-68"><a href="#ButtonLocation-68"><span class="linenos">68</span></a><span class="sd">            The button location ID of the (row, column) location specified</span>
-</span><span id="ButtonLocation-69"><a href="#ButtonLocation-69"><span class="linenos">69</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ButtonLocation-69"><a href="#ButtonLocation-69"><span class="linenos">69</span></a><span class="sd">        """</span>
 </span><span id="ButtonLocation-70"><a href="#ButtonLocation-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">((</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">col</span><span class="p">)</span>
 </span></pre></div>
 
@@ -276,7 +276,7 @@ UI</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ButtonLocation</span><span class="o">.</span><span class="n">r1c5</span><span class="o">.</span><span class="n">dock_page2</span>
 <span class="go">25</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ButtonLocation</span><span class="o">.</span><span class="n">r3c1</span><span class="o">.</span><span class="n">attribute_presentation</span><span class="p">()</span>
-<span class="go">&#39;row_3_col_1&#39;</span>
+<span class="go">'row_3_col_1'</span>
 </code></pre>
 </div>
 </div>
@@ -477,7 +477,7 @@ UI</p>
 </span><span id="ButtonLocation.attribute_presentation-42"><a href="#ButtonLocation.attribute_presentation-42"><span class="linenos">42</span></a>        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="mi">1</span>  <span class="c1"># Change VAL 0 to 1</span>
 </span><span id="ButtonLocation.attribute_presentation-43"><a href="#ButtonLocation.attribute_presentation-43"><span class="linenos">43</span></a>        <span class="n">row</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">val</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
 </span><span id="ButtonLocation.attribute_presentation-44"><a href="#ButtonLocation.attribute_presentation-44"><span class="linenos">44</span></a>        <span class="n">col</span> <span class="o">=</span> <span class="n">val</span> <span class="o">-</span> <span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span>
-</span><span id="ButtonLocation.attribute_presentation-45"><a href="#ButtonLocation.attribute_presentation-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;row_</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">_col_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="ButtonLocation.attribute_presentation-45"><a href="#ButtonLocation.attribute_presentation-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"row_</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">_col_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">"</span>
 </span></pre></div>
 
 
@@ -500,13 +500,13 @@ UI</p>
     <a class="headerlink" href="#ButtonLocation.dock_page2"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ButtonLocation.dock_page2-47"><a href="#ButtonLocation.dock_page2-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
 </span><span id="ButtonLocation.dock_page2-48"><a href="#ButtonLocation.dock_page2-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dock_page2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="ButtonLocation.dock_page2-49"><a href="#ButtonLocation.dock_page2-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ButtonLocation.dock_page2-49"><a href="#ButtonLocation.dock_page2-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="ButtonLocation.dock_page2-50"><a href="#ButtonLocation.dock_page2-50"><span class="linenos">50</span></a><span class="sd">        Returns the button location for the second page.</span>
 </span><span id="ButtonLocation.dock_page2-51"><a href="#ButtonLocation.dock_page2-51"><span class="linenos">51</span></a><span class="sd">        Used as a suffix to the usual button selection: ``ButtonLocation.r1c1.dock_page2``</span>
 </span><span id="ButtonLocation.dock_page2-52"><a href="#ButtonLocation.dock_page2-52"><span class="linenos">52</span></a>
 </span><span id="ButtonLocation.dock_page2-53"><a href="#ButtonLocation.dock_page2-53"><span class="linenos">53</span></a><span class="sd">        Returns:</span>
 </span><span id="ButtonLocation.dock_page2-54"><a href="#ButtonLocation.dock_page2-54"><span class="linenos">54</span></a><span class="sd">            The value representing the button location for the second page</span>
-</span><span id="ButtonLocation.dock_page2-55"><a href="#ButtonLocation.dock_page2-55"><span class="linenos">55</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ButtonLocation.dock_page2-55"><a href="#ButtonLocation.dock_page2-55"><span class="linenos">55</span></a><span class="sd">        """</span>
 </span><span id="ButtonLocation.dock_page2-56"><a href="#ButtonLocation.dock_page2-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">20</span>
 </span></pre></div>
 
@@ -534,7 +534,7 @@ Used as a suffix to the usual button selection: <code>ButtonLocation.r1c1.dock_p
     <a class="headerlink" href="#ButtonLocation.row_col"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ButtonLocation.row_col-58"><a href="#ButtonLocation.row_col-58"><span class="linenos">58</span></a>    <span class="nd">@classmethod</span>
 </span><span id="ButtonLocation.row_col-59"><a href="#ButtonLocation.row_col-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">row_col</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="ButtonLocation.row_col-60"><a href="#ButtonLocation.row_col-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ButtonLocation.row_col-60"><a href="#ButtonLocation.row_col-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">"""</span>
 </span><span id="ButtonLocation.row_col-61"><a href="#ButtonLocation.row_col-61"><span class="linenos">61</span></a><span class="sd">        Get the button location ID of the row, column specified</span>
 </span><span id="ButtonLocation.row_col-62"><a href="#ButtonLocation.row_col-62"><span class="linenos">62</span></a>
 </span><span id="ButtonLocation.row_col-63"><a href="#ButtonLocation.row_col-63"><span class="linenos">63</span></a><span class="sd">        Args:</span>
@@ -543,7 +543,7 @@ Used as a suffix to the usual button selection: <code>ButtonLocation.r1c1.dock_p
 </span><span id="ButtonLocation.row_col-66"><a href="#ButtonLocation.row_col-66"><span class="linenos">66</span></a>
 </span><span id="ButtonLocation.row_col-67"><a href="#ButtonLocation.row_col-67"><span class="linenos">67</span></a><span class="sd">        Returns:</span>
 </span><span id="ButtonLocation.row_col-68"><a href="#ButtonLocation.row_col-68"><span class="linenos">68</span></a><span class="sd">            The button location ID of the (row, column) location specified</span>
-</span><span id="ButtonLocation.row_col-69"><a href="#ButtonLocation.row_col-69"><span class="linenos">69</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ButtonLocation.row_col-69"><a href="#ButtonLocation.row_col-69"><span class="linenos">69</span></a><span class="sd">        """</span>
 </span><span id="ButtonLocation.row_col-70"><a href="#ButtonLocation.row_col-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">((</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">col</span><span class="p">)</span>
 </span></pre></div>
 
@@ -571,9 +571,11 @@ Used as a suffix to the usual button selection: <code>ButtonLocation.r1c1.dock_p
             <div><dt>builtins.int</dt>
                                 <dd id="ButtonLocation.conjugate" class="function">conjugate</dd>
                 <dd id="ButtonLocation.bit_length" class="function">bit_length</dd>
+                <dd id="ButtonLocation.bit_count" class="function">bit_count</dd>
                 <dd id="ButtonLocation.to_bytes" class="function">to_bytes</dd>
                 <dd id="ButtonLocation.from_bytes" class="function">from_bytes</dd>
                 <dd id="ButtonLocation.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="ButtonLocation.is_integer" class="function">is_integer</dd>
                 <dd id="ButtonLocation.real" class="variable">real</dd>
                 <dd id="ButtonLocation.imag" class="variable">imag</dd>
                 <dd id="ButtonLocation.numerator" class="variable">numerator</dd>

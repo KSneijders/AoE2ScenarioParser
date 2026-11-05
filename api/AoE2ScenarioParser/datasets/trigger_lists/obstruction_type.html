@@ -85,29 +85,29 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.obstruction_type    </h
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ObstructionType</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values for the different obstruction types that can be used in the &#39;Modify</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Attribute&#39; effect with the &#39;ObstructionType&#39; attribute.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    This enum class provides the integer values for the different obstruction types that can be used in the 'Modify</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Attribute' effect with the 'ObstructionType' attribute.</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    **Examples**:</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    &gt;&gt;&gt; ObstructionType.SQUARE_OUTLINE_PASSABLE</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    &lt;ObstructionType.SQUARE_OUTLINE_PASSABLE: 0&gt;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    """</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">SQUARE_OUTLINE_PASSABLE</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Square outline and passable&quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">"""Square outline and passable"""</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">_SQUARE_OUTLINE_PASSABLE</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Use ``&lt;ObstructionType.SQUARE_OUTLINE_PASSABLE: 0&gt;`` instead&quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">"""Use ``&lt;ObstructionType.SQUARE_OUTLINE_PASSABLE: 0&gt;`` instead"""</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">SOLID_SQUARE_OUTLINE_COLLISION</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Solid square outline, and has collision box&quot;&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="w">    </span><span class="sd">"""Solid square outline, and has collision box"""</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">SQUARE_OUTLINE_COLLISION</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Square outline, and has collision box&quot;&quot;&quot;</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">"""Square outline, and has collision box"""</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">NO_OUTLINE_PASSABLE</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;No outline, and passable&quot;&quot;&quot;</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">"""No outline, and passable"""</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">ROUND_OUTLINE_COLLISION</span> <span class="o">=</span> <span class="mi">5</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Round outline, and has collision box&quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">"""Round outline, and has collision box"""</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">SOLID_SQUARE_OUTLINE_COLLISION_MOUNTAINS</span> <span class="o">=</span> <span class="mi">10</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Same as ``&lt;ObstructionType.SOLID_SQUARE_OUTLINE_COLLISION: 2&gt;`` but designed for mountains&quot;&quot;&quot;</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">    </span><span class="sd">"""Same as ``&lt;ObstructionType.SOLID_SQUARE_OUTLINE_COLLISION: 2&gt;`` but designed for mountains"""</span>
 </span></pre></div>
 
 
@@ -124,29 +124,29 @@ AoE2ScenarioParser<wbr>.datasets<wbr>.trigger_lists<wbr>.obstruction_type    </h
     </div>
     <a class="headerlink" href="#ObstructionType"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ObstructionType-7"><a href="#ObstructionType-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ObstructionType</span><span class="p">(</span><span class="n">_DataSetIntEnums</span><span class="p">):</span>
-</span><span id="ObstructionType-8"><a href="#ObstructionType-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="ObstructionType-9"><a href="#ObstructionType-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values for the different obstruction types that can be used in the &#39;Modify</span>
-</span><span id="ObstructionType-10"><a href="#ObstructionType-10"><span class="linenos">10</span></a><span class="sd">    Attribute&#39; effect with the &#39;ObstructionType&#39; attribute.</span>
+</span><span id="ObstructionType-8"><a href="#ObstructionType-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">"""</span>
+</span><span id="ObstructionType-9"><a href="#ObstructionType-9"><span class="linenos"> 9</span></a><span class="sd">    This enum class provides the integer values for the different obstruction types that can be used in the 'Modify</span>
+</span><span id="ObstructionType-10"><a href="#ObstructionType-10"><span class="linenos">10</span></a><span class="sd">    Attribute' effect with the 'ObstructionType' attribute.</span>
 </span><span id="ObstructionType-11"><a href="#ObstructionType-11"><span class="linenos">11</span></a>
 </span><span id="ObstructionType-12"><a href="#ObstructionType-12"><span class="linenos">12</span></a><span class="sd">    **Examples**:</span>
 </span><span id="ObstructionType-13"><a href="#ObstructionType-13"><span class="linenos">13</span></a>
 </span><span id="ObstructionType-14"><a href="#ObstructionType-14"><span class="linenos">14</span></a><span class="sd">    &gt;&gt;&gt; ObstructionType.SQUARE_OUTLINE_PASSABLE</span>
 </span><span id="ObstructionType-15"><a href="#ObstructionType-15"><span class="linenos">15</span></a><span class="sd">    &lt;ObstructionType.SQUARE_OUTLINE_PASSABLE: 0&gt;</span>
-</span><span id="ObstructionType-16"><a href="#ObstructionType-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="ObstructionType-16"><a href="#ObstructionType-16"><span class="linenos">16</span></a><span class="sd">    """</span>
 </span><span id="ObstructionType-17"><a href="#ObstructionType-17"><span class="linenos">17</span></a>    <span class="n">SQUARE_OUTLINE_PASSABLE</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="ObstructionType-18"><a href="#ObstructionType-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Square outline and passable&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-18"><a href="#ObstructionType-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">"""Square outline and passable"""</span>
 </span><span id="ObstructionType-19"><a href="#ObstructionType-19"><span class="linenos">19</span></a>    <span class="n">_SQUARE_OUTLINE_PASSABLE</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="ObstructionType-20"><a href="#ObstructionType-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Use ``&lt;ObstructionType.SQUARE_OUTLINE_PASSABLE: 0&gt;`` instead&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-20"><a href="#ObstructionType-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">"""Use ``&lt;ObstructionType.SQUARE_OUTLINE_PASSABLE: 0&gt;`` instead"""</span>
 </span><span id="ObstructionType-21"><a href="#ObstructionType-21"><span class="linenos">21</span></a>    <span class="n">SOLID_SQUARE_OUTLINE_COLLISION</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="ObstructionType-22"><a href="#ObstructionType-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Solid square outline, and has collision box&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-22"><a href="#ObstructionType-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">"""Solid square outline, and has collision box"""</span>
 </span><span id="ObstructionType-23"><a href="#ObstructionType-23"><span class="linenos">23</span></a>    <span class="n">SQUARE_OUTLINE_COLLISION</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span id="ObstructionType-24"><a href="#ObstructionType-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Square outline, and has collision box&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-24"><a href="#ObstructionType-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">"""Square outline, and has collision box"""</span>
 </span><span id="ObstructionType-25"><a href="#ObstructionType-25"><span class="linenos">25</span></a>    <span class="n">NO_OUTLINE_PASSABLE</span> <span class="o">=</span> <span class="mi">4</span>
-</span><span id="ObstructionType-26"><a href="#ObstructionType-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;No outline, and passable&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-26"><a href="#ObstructionType-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">"""No outline, and passable"""</span>
 </span><span id="ObstructionType-27"><a href="#ObstructionType-27"><span class="linenos">27</span></a>    <span class="n">ROUND_OUTLINE_COLLISION</span> <span class="o">=</span> <span class="mi">5</span>
-</span><span id="ObstructionType-28"><a href="#ObstructionType-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Round outline, and has collision box&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-28"><a href="#ObstructionType-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">"""Round outline, and has collision box"""</span>
 </span><span id="ObstructionType-29"><a href="#ObstructionType-29"><span class="linenos">29</span></a>    <span class="n">SOLID_SQUARE_OUTLINE_COLLISION_MOUNTAINS</span> <span class="o">=</span> <span class="mi">10</span>
-</span><span id="ObstructionType-30"><a href="#ObstructionType-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Same as ``&lt;ObstructionType.SOLID_SQUARE_OUTLINE_COLLISION: 2&gt;`` but designed for mountains&quot;&quot;&quot;</span>
+</span><span id="ObstructionType-30"><a href="#ObstructionType-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">"""Same as ``&lt;ObstructionType.SOLID_SQUARE_OUTLINE_COLLISION: 2&gt;`` but designed for mountains"""</span>
 </span></pre></div>
 
 
@@ -262,9 +262,11 @@ Attribute' effect with the 'ObstructionType' attribute.</p>
             <div><dt>builtins.int</dt>
                                 <dd id="ObstructionType.conjugate" class="function">conjugate</dd>
                 <dd id="ObstructionType.bit_length" class="function">bit_length</dd>
+                <dd id="ObstructionType.bit_count" class="function">bit_count</dd>
                 <dd id="ObstructionType.to_bytes" class="function">to_bytes</dd>
                 <dd id="ObstructionType.from_bytes" class="function">from_bytes</dd>
                 <dd id="ObstructionType.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="ObstructionType.is_integer" class="function">is_integer</dd>
                 <dd id="ObstructionType.real" class="variable">real</dd>
                 <dd id="ObstructionType.imag" class="variable">imag</dd>
                 <dd id="ObstructionType.numerator" class="variable">numerator</dd>
