@@ -55,11 +55,11 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     ARMOR = 8
     """
-    This is the quantity of armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](https://ugc.aoe2.rocks/general/damage_calculation/) section of this guide. Note that changing the armour through this option will show it as being added to the base armour amount. (for example: 4+4)
+    This is the quantity of armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](../damage_calculation.md "Jump to: Game Mechanics > Damage Calculation") section of this guide. Note that changing the armour through this option will show it as being added to the base armour amount. (for example: 4+4)
     """
     ATTACK = 9
     """
-    This is the quantity of attack a unit has on any of its `Attack Classes`. If you do not know what an `Attack Class` is, refer to the [Damage Calculation](https://ugc.aoe2.rocks/general/damage_calculation/) section of this guide. Note that changing the attack through this option will show it as being added to the base attack amount. (for example: 6+2)
+    This is the quantity of attack a unit has on any of its `Attack Classes`. If you do not know what an `Attack Class` is, refer to the [Damage Calculation](../damage_calculation.md "Jump to: Game Mechanics > Damage Calculation") section of this guide. Note that changing the attack through this option will show it as being added to the base attack amount. (for example: 6+2)
     """
     ATTACK_RELOAD_TIME = 10
     """
@@ -73,7 +73,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         This accuracy is the accuracy of a unit to fire at the exact centre of its target. If the shot fired is not aimed at the exact centre of the target, it may still hit the target if its not off by too much since it can still land within the hitbox of the target, just not at the exact centre
         Thus, bigger targets are actually easier to hit, which explains why buildings are an easier target to hit for trebuchets than small units
-        ![Visually Smaller](https://ugc.aoe2.rocks/general/attributes/imgs/visually_smaller.png "Targets that are farther away are visually smaller")
+        ![Visually Smaller](./imgs/visually_smaller.png "Targets that are farther away are visually smaller")
         In this image, you can see that shots that were fired in the red area in the 2nd scenario would've hit if the target had been closer like in the first scenario, but since the target is far away, they actually miss
         More technically, the visual angle of an object of the same size that is farther away is smaller, thus giving a smaller room for error for the shot in terms of the range of angles that will make the shot hit
         The chance of a unit getting converted by a monk is also determined by its accuracy
@@ -96,7 +96,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BASE_ARMOR = 15
     """
-    This is the quantity of base armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](https://ugc.aoe2.rocks/general/damage_calculation/) section of this guide. Note that changing the armour through this option will show it as the base armour itself, and it will not be added to the regular amount
+    This is the quantity of base armour a unit has on any of its `Armour Classes`. If you do not know what an `Armour Class` is, refer to the [Damage Calculation](../damage_calculation.md "Jump to: Game Mechanics > Damage Calculation") section of this guide. Note that changing the armour through this option will show it as the base armour itself, and it will not be added to the regular amount
     """
     PROJECTILE_UNIT = 16
     """
@@ -265,7 +265,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BLAST_ATTACK_LEVEL = 44
     """
-    A unit deals blast damage to ***other*** units with ***equal or higher*** [Blast Defense Level](https://ugc.aoe2.rocks/general/attributes/attributes/#45-blast-defense-level) that are in its blast radius. For example, while mangonels (blast attack: 2) can damage your own units (blast defense of all player owned units is always 2), scorpions (blast attack: 3) cannot do the same
+    A unit deals blast damage to ***other*** units with ***equal or higher*** [Blast Defense Level](./#45-blast-defense-level "Jump to: Blast Defense Level") that are in its blast radius. For example, while mangonels (blast attack: 2) can damage your own units (blast defense of all player owned units is always 2), scorpions (blast attack: 3) cannot do the same
     
     - Flags:
     
@@ -286,7 +286,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     BLAST_DEFENSE_LEVEL = 45
     """
-    A unit feels the blast damage from ***other*** units with ***equal or lower*** [Blast Attack Level](https://ugc.aoe2.rocks/general/attributes/attributes/#44-blast-attack-level) and if it is inside the attacker's blast radius. For example, while onagers (blast attack: 1) can cut trees (blast defense 1), mangonels (blast attack: 2) cannot do the same
+    A unit feels the blast damage from ***other*** units with ***equal or lower*** [Blast Attack Level](./#44-blast-attack-level "Jump to: Blast Attack Level") and if it is inside the attacker's blast radius. For example, while onagers (blast attack: 1) can cut trees (blast defense 1), mangonels (blast attack: 2) cannot do the same
     
     - Flags:
     
@@ -373,7 +373,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         See Also:
 
-    [Trait Piece](https://ugc.aoe2.rocks/general/attributes/attributes/#56-trait-piece)
+    [Trait Piece](./#56-trait-piece)
     """
     TRAIT_PIECE = 56
     """
@@ -391,7 +391,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
         See Also:
 
-    [Unit Trait](https://ugc.aoe2.rocks/general/attributes/attributes/#54-unit-trait)
+    [Unit Trait](./#54-unit-trait)
     """
     DEAD_UNIT_ID = 57
     """
@@ -707,7 +707,7 @@ class ObjectAttribute(_DataSetIntEnums):
     """
     REGENERATION_RATE = 109
     """
-    The rate measured in HP/minute at which units heal themselves. This value is overridden to 30 HP/minute if the flag for Self Regeneration is set in the [Hero Status](https://ugc.aoe2.rocks/general/attributes/attributes/#40-hero-status) of a unit
+    The rate measured in HP/minute at which units heal themselves. This value is overridden to 30 HP/minute if the flag for Self Regeneration is set in the [Hero Status](./#40-hero-status "Jump to: 26. Hero Status") of a unit
     """
     POPULATION = 110
     """
@@ -720,7 +720,7 @@ class ObjectAttribute(_DataSetIntEnums):
     - Notes:
     
         By default, units have a 4 monk second minimum conversion time
-        The overall minimum conversion time for all units is also affected by [Convert Resist Min Adjustment](https://ugc.aoe2.rocks/general/resources/resources/#178-convert-resist-min-adjustment)
+        The overall minimum conversion time for all units is also affected by [Convert Resist Min Adjustment](../../resources/resources/#178-convert-resist-min-adjustment)
     """
     MAXIMUM_CONVERSION_TIME_MODIFIER = 112
     """
@@ -729,7 +729,7 @@ class ObjectAttribute(_DataSetIntEnums):
     - Notes:
     
         By default, units have a 10 monk second maximum conversion time
-        The overall maximum conversion time for all units is also affected by [Convert Resist Max Adjustment](https://ugc.aoe2.rocks/general/resources/resources/#179-convert-resist-max-adjustment)
+        The overall maximum conversion time for all units is also affected by [Convert Resist Max Adjustment](../../resources/resources/#179-convert-resist-max-adjustment)
     """
     CONVERSION_CHANCE_MODIFIER = 113
     """
@@ -737,7 +737,7 @@ class ObjectAttribute(_DataSetIntEnums):
     
     - Notes:
     
-        The overall conversion probability for all units is also affected by [Conversion Resistance](https://ugc.aoe2.rocks/general/resources/resources/#77-conversion-resistance)
+        The overall conversion probability for all units is also affected by [Conversion Resistance](../../resources/resources/#77-conversion-resistance)
     """
     FORMATION_CATEGORY = 114
     """

@@ -245,3 +245,5 @@ docs/api/
 docs/_assets/pdoc_theme/index.html.jinja2
 
 .idea/pyProjectModel.xml
+
+.idea/doNotAskNotifications.xml
